@@ -14,6 +14,15 @@ class StartScreen : AbstractScreen() {
         table.defaults().width(300f).height(50f).space(10f)
         stage.addActor(table)
 
+        val playButton = TextButton("Play", skin)
+        playButton.addListener(object: ClickListener() {
+            override fun clicked(event: InputEvent, x: Float, y: Float) {
+                printc("play")
+            }
+        })
+        table.add(playButton)
+        table.row()
+
         val languageButton = TextButton("Language", skin)
         languageButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {

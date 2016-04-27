@@ -17,7 +17,7 @@ class StartScreen : AbstractScreen() {
         val playButton = TextButton("Play", skin)
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                printc("play")
+                printc("Play")
             }
         })
         table.add(playButton)

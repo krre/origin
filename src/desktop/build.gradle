@@ -1,5 +1,4 @@
 apply plugin: "java"
-apply plugin: "kotlin"
 sourceCompatibility = 1.6
 sourceSets.main.java.srcDirs = ["src/"]
 project.ext.mainClassName = "org.gagarin.desktop.DesktopLauncherKt"

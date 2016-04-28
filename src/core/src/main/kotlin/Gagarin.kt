@@ -1,7 +1,6 @@
 package org.gagarin
 
 import com.badlogic.gdx.Game
-import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Screen
 import org.gagarin.screen.StartScreen
 import kotlin.properties.Delegates
@@ -19,8 +18,4 @@ class Gagarin() : Game() {
             instance.setScreen(screen)
         }
     }
-}
-
-fun printc(message: Any) {
-    Gdx.app.log("Gagarin", message.toString())
 }

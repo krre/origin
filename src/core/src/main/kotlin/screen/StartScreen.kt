@@ -5,7 +5,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import org.gagarin.printc
 
 class StartScreen : AbstractScreen() {
     init {
@@ -17,7 +16,7 @@ class StartScreen : AbstractScreen() {
         val playButton = TextButton("Play", skin)
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                printc("Play")
+                println("Play")
             }
         })
         table.add(playButton)
@@ -26,7 +25,7 @@ class StartScreen : AbstractScreen() {
         val languageButton = TextButton("Language", skin)
         languageButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                printc("Language")
+                println("Language")
             }
         })
         table.add(languageButton)

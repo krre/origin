@@ -32,7 +32,7 @@ class StartScreen : AbstractScreen() {
         table.add(languageButton)
         table.row()
 
-        val exitButton = TextButton("Exit", skin)
+        val exitButton = TextButton("Выход", skin)
         exitButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 Gdx.app.exit()

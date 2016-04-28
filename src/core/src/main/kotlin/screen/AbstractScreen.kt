@@ -26,17 +26,8 @@ open class AbstractScreen : ScreenAdapter() {
 
         val generator = FreeTypeFontGenerator(Gdx.files.internal("fonts/arial.ttf"))
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
-//        parameter.size = 18
 
-        var chars = ""
-//        for(i in 32..126) chars += i as Char // цифры и весь английский
-//        for(i in 1024..1103) chars += i // русские
-
-        chars = "абвгдежзийклмнопрстуфхцчшщъыьэюяabcdefghijklmnopqrstuvwxyzАБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789][_!$%#@|\\/?-+=()*&.;:,{}\"´`'<>"
-
-//        printc(chars)
-
-        parameter.characters = chars
+        parameter.characters = FreeTypeFontGenerator.DEFAULT_CHARS + "абвгдеёжзийклмнопрстуфхцчшщъыьэюяAБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"
         russianFont = generator.generateFont(parameter)
         generator.dispose()
 

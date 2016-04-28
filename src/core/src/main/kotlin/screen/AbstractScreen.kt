@@ -22,7 +22,7 @@ open class AbstractScreen : ScreenAdapter() {
         Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
         camera.setToOrtho(false, Constants.virtualWidth, Constants.virtualHeight)
         camera.update()
-        Gdx.input.setInputProcessor(stage)
+        Gdx.input.inputProcessor = stage
 
         val generator = FreeTypeFontGenerator(Gdx.files.internal("fonts/arial.ttf"))
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
@@ -51,7 +51,7 @@ open class AbstractScreen : ScreenAdapter() {
     }
 
     override fun resize(width: Int, height: Int) {
-        stage.getViewport().update(width, height, false)
+        stage.viewport.update(width, height, false)
     }
 
     override fun dispose() {

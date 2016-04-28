@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import org.gagarin.Gagarin
 
 class StartScreen : AbstractScreen() {
     init {
@@ -13,7 +14,7 @@ class StartScreen : AbstractScreen() {
         table.defaults().width(300f).height(50f).space(10f)
         stage.addActor(table)
 
-        val playButton = TextButton("Play", skin)
+        val playButton = TextButton(Gagarin.guiBundle.format("play"), skin)
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 println("Play")
@@ -22,7 +23,7 @@ class StartScreen : AbstractScreen() {
         table.add(playButton)
         table.row()
 
-        val languageButton = TextButton("Language", skin)
+        val languageButton = TextButton(Gagarin.guiBundle.format("language"), skin)
         languageButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 println("Language")
@@ -31,7 +32,7 @@ class StartScreen : AbstractScreen() {
         table.add(languageButton)
         table.row()
 
-        val exitButton = TextButton("Выход", skin)
+        val exitButton = TextButton(Gagarin.guiBundle.format("exit"), skin)
         exitButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 Gdx.app.exit()

@@ -1,14 +1,10 @@
 package org.gagarin.screen
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.graphics.Pixmap
-import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
-import com.badlogic.gdx.utils.BufferUtils
-import com.badlogic.gdx.utils.ScreenUtils
 import org.gagarin.Gagarin
 
 class StartScreen : AbstractScreen() {
@@ -22,11 +18,6 @@ class StartScreen : AbstractScreen() {
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 println("Play")
-                val pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), true)
-                val pixmap = Pixmap(Gdx.graphics.getBackBufferWidth(), Gdx.graphics.getBackBufferHeight(), Pixmap.Format.RGBA8888);
-                BufferUtils.copy(pixels, 0, pixmap.getPixels(), pixels.size)
-                PixmapIO.writePNG(Gdx.files.external("gagarin.png"), pixmap)
-                pixmap.dispose()
             }
         })
         table.add(playButton)

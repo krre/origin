@@ -1,6 +1,7 @@
 package org.gagarin.screen
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
@@ -11,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
 import com.badlogic.gdx.utils.viewport.FitViewport
 import org.gagarin.utils.Constants
+import org.gagarin.utils.GameInputProcessor
 
 open class AbstractScreen : ScreenAdapter() {
     val camera = OrthographicCamera()
@@ -22,7 +24,12 @@ open class AbstractScreen : ScreenAdapter() {
         Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
         camera.setToOrtho(false, Constants.virtualWidth, Constants.virtualHeight)
         camera.update()
-        Gdx.input.inputProcessor = stage
+
+
+        val multiplexer = InputMultiplexer()
+        multiplexer.addProcessor(GameInputProcessor())
+        multiplexer.addProcessor(stage)
+        Gdx.input.inputProcessor = multiplexer
 
         val generator = FreeTypeFontGenerator(Gdx.files.internal("fonts/arial.ttf"))
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()

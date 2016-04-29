@@ -21,7 +21,7 @@ open class AbstractScreen : ScreenAdapter() {
     var russianFont: BitmapFont
 
     init {
-        Gdx.gl.glClearColor(1f, 1f, 1f, 1f)
+        Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1f)
         camera.setToOrtho(false, Constants.virtualWidth, Constants.virtualHeight)
         camera.update()
 

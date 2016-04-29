@@ -11,12 +11,8 @@ import kotlin.properties.Delegates
 class Gagarin() : Game() {
 
     override fun create() {
-        val bfh = Gdx.files.internal("i18n/gui")
-        val locale = Locale.getDefault()
-//        val locale = Locale("en", "EN")
-        guiBundle = I18NBundle.createBundle(bfh, locale)
-
         instance = this
+        setLocale("Default")
         setScreen(StartScreen())
     }
 
@@ -26,6 +22,15 @@ class Gagarin() : Game() {
 
         fun setScreen(screen: Screen) {
             instance.setScreen(screen)
+        }
+
+        fun setLocale(lang: String) {
+            val bfh = Gdx.files.internal("i18n/gui")
+            when (lang) {
+                "Default" -> guiBundle = I18NBundle.createBundle(bfh, Locale.getDefault())
+                "English" -> guiBundle = I18NBundle.createBundle(bfh, Locale("en", "EN"))
+                "Russian" -> guiBundle = I18NBundle.createBundle(bfh, Locale("ru", "RU"))
+            }
         }
     }
 }

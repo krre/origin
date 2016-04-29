@@ -17,7 +17,7 @@ class StartScreen : AbstractScreen() {
         val playButton = TextButton(Gagarin.guiBundle.format("play"), skin)
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                println("Play")
+                Gagarin.setScreen(GameScreen())
             }
         })
         table.add(playButton)

@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
+import org.cyberhive.screen.SettingsScreen
 import org.gagarin.Gagarin
 
 class StartScreen : AbstractScreen() {
@@ -23,10 +24,10 @@ class StartScreen : AbstractScreen() {
         table.add(playButton)
         table.row()
 
-        val languageButton = TextButton(Gagarin.guiBundle.format("language"), skin)
+        val languageButton = TextButton(Gagarin.guiBundle.format("settings"), skin)
         languageButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                println("Language")
+                Gagarin.setScreen(SettingsScreen())
             }
         })
         table.add(languageButton)

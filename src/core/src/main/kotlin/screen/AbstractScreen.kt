@@ -48,13 +48,13 @@ open class AbstractScreen : ScreenAdapter() {
         if (atlasFile.exists()) {
             skin.addRegions(TextureAtlas(atlasFile))
         }
-        skin.load(fileHandle);
+        skin.load(fileHandle)
     }
 
     override fun render(delta: Float) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        stage.act();
-        stage.draw();
+        stage.act()
+        stage.draw()
     }
 
     override fun resize(width: Int, height: Int) {

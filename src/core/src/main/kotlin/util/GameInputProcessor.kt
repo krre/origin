@@ -42,12 +42,12 @@ class GameInputProcessor : InputProcessor {
     }
 
     override fun scrolled (amount: Int): Boolean {
-        return false;
+        return false
     }
 
     fun makeScreenshot() {
         val pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight, true)
-        val pixmap = Pixmap(Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight, Pixmap.Format.RGBA8888);
+        val pixmap = Pixmap(Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight, Pixmap.Format.RGBA8888)
         BufferUtils.copy(pixels, 0, pixmap.pixels, pixels.size)
         PixmapIO.writePNG(Gdx.files.external("gagarin.png"), pixmap)
         pixmap.dispose()

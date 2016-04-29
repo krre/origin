@@ -1,12 +1,10 @@
-package org.cyberhive.screen
+package org.gagarin.screen
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import org.gagarin.Gagarin
-import org.gagarin.screen.AbstractScreen
-import org.gagarin.screen.StartScreen
 
 class SettingsScreen : AbstractScreen() {
     init {

@@ -25,8 +25,11 @@ class SettingsScreen : AbstractScreen() {
         languageSelectBox.addListener(object: ChangeListener() {
             override fun changed(event: ChangeEvent, actor: Actor) {
                 Gagarin.setLocale(languageSelectBox.selected)
+                Gagarin.prefs.putString("lang", languageSelectBox.selected)
+                Gagarin.prefs.flush()
             }
         })
+        languageSelectBox.selected = Gagarin.prefs.getString("lang", "System")
 
         table.add(languageSelectBox)
 

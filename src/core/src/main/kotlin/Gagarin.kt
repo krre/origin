@@ -2,6 +2,7 @@ package org.gagarin
 
 import com.badlogic.gdx.Game
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Preferences
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.utils.I18NBundle
 import org.gagarin.screen.StartScreen
@@ -12,13 +13,16 @@ class Gagarin() : Game() {
 
     override fun create() {
         instance = this
-        setLocale("Default")
+        prefs = Gdx.app.getPreferences("Gagarin")
+        val lang = prefs.getString("lang", "System")
+        setLocale(lang)
         setScreen(StartScreen())
     }
 
     companion object {
         var instance: Gagarin by Delegates.notNull()
         var guiBundle: I18NBundle by Delegates.notNull()
+        var prefs: Preferences by Delegates.notNull()
 
         fun setScreen(screen: Screen) {
             instance.setScreen(screen)
@@ -27,7 +31,7 @@ class Gagarin() : Game() {
         fun setLocale(lang: String) {
             val bfh = Gdx.files.internal("i18n/gui")
             when (lang) {
-                "Default" -> guiBundle = I18NBundle.createBundle(bfh, Locale.getDefault())
+                "System" -> guiBundle = I18NBundle.createBundle(bfh, Locale.getDefault())
                 "English" -> guiBundle = I18NBundle.createBundle(bfh, Locale("en", "EN"))
                 "Russian" -> guiBundle = I18NBundle.createBundle(bfh, Locale("ru", "RU"))
             }

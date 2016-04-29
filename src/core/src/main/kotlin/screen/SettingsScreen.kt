@@ -41,6 +41,6 @@ class SettingsScreen : AbstractScreen() {
                 Gagarin.setScreen(StartScreen())
             }
         })
-        table.add(backButton)
+        table.add(backButton).colspan(2)
     }
 }

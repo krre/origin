@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import org.gagarin.Gagarin
+import org.gagarin.voxel.VoxelTest
 
 class StartScreen : AbstractScreen() {
     init {
@@ -17,7 +18,8 @@ class StartScreen : AbstractScreen() {
         val playButton = TextButton(Gagarin.guiBundle.format("play"), skin)
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                Gagarin.setScreen(GameScreen())
+//                Gagarin.setScreen(GameScreen())
+                Gagarin.setScreen(VoxelTest())
             }
         })
         table.add(playButton)

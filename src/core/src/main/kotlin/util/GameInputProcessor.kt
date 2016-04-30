@@ -9,10 +9,12 @@ import com.badlogic.gdx.utils.BufferUtils
 import com.badlogic.gdx.utils.ScreenUtils
 
 class GameInputProcessor : InputProcessor {
+
     override fun keyDown (keycode: Int): Boolean {
         when (keycode) {
             Input.Keys.F1 -> println("Help")
             Input.Keys.F12 -> makeScreenshot()
+            Input.Keys.ESCAPE -> escPressed()
         }
         return true
     }
@@ -52,5 +54,9 @@ class GameInputProcessor : InputProcessor {
         PixmapIO.writePNG(Gdx.files.external("gagarin.png"), pixmap)
         pixmap.dispose()
         println("Save screenshot")
+    }
+
+    fun escPressed() {
+        println("esc")
     }
 }

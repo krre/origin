@@ -1,20 +1,26 @@
 package org.gagarin.screen
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.ScreenAdapter
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.Pixmap
+import com.badlogic.gdx.graphics.PixmapIO
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.scenes.scene2d.Stage
 import com.badlogic.gdx.scenes.scene2d.ui.Skin
+import com.badlogic.gdx.utils.BufferUtils
+import com.badlogic.gdx.utils.ScreenUtils
 import com.badlogic.gdx.utils.viewport.FitViewport
+import org.gagarin.event.KeyEvent
 import org.gagarin.utils.Constants
 import org.gagarin.utils.GameInputProcessor
 
-open class AbstractScreen : ScreenAdapter() {
+open class AbstractScreen : ScreenAdapter(), KeyEvent {
     val camera = OrthographicCamera()
     val stage = Stage(FitViewport(Constants.virtualWidth, Constants.virtualHeight))
     val skin = Skin()
@@ -27,7 +33,7 @@ open class AbstractScreen : ScreenAdapter() {
 
 
         val multiplexer = InputMultiplexer()
-        multiplexer.addProcessor(GameInputProcessor())
+        multiplexer.addProcessor(GameInputProcessor(this))
         multiplexer.addProcessor(stage)
         Gdx.input.inputProcessor = multiplexer
 
@@ -63,5 +69,26 @@ open class AbstractScreen : ScreenAdapter() {
 
     override fun dispose() {
         stage.dispose()
+    }
+
+    override fun keyPressed(key: Int): Boolean {
+        when (key) {
+            Input.Keys.F1 -> println("Help")
+            Input.Keys.F12 -> makeScreenshot()
+            Input.Keys.ESCAPE -> escPressed()
+            else -> return false
+        }
+        return true
+    }
+
+    open fun escPressed() {}
+
+    fun makeScreenshot() {
+        val pixels = ScreenUtils.getFrameBufferPixels(0, 0, Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight, true)
+        val pixmap = Pixmap(Gdx.graphics.backBufferWidth, Gdx.graphics.backBufferHeight, Pixmap.Format.RGBA8888)
+        BufferUtils.copy(pixels, 0, pixmap.pixels, pixels.size)
+        PixmapIO.writePNG(Gdx.files.external("gagarin.png"), pixmap)
+        pixmap.dispose()
+        println("Save screenshot")
     }
 }

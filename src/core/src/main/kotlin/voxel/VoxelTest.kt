@@ -48,8 +48,7 @@ class VoxelTest : AbstractScreen() {
         val tiles = TextureRegion.split(texture, 32, 32)
 
         MathUtils.random.setSeed(0)
-        var xx: Array<TextureRegion> = tiles[0]
-        voxelWorld = VoxelWorld(xx, 20, 4, 20)
+        voxelWorld = VoxelWorld(tiles[0], 20, 4, 20)
         PerlinNoiseGenerator.generateVoxels(voxelWorld, 0, 63, 10)
         val camX = voxelWorld.voxelsX / 2f
         val camZ = voxelWorld.voxelsZ / 2f

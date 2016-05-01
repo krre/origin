@@ -1,7 +1,6 @@
 package org.gagarin.voxel
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.GL20
 import com.badlogic.gdx.graphics.PerspectiveCamera
 import com.badlogic.gdx.graphics.Texture
@@ -17,7 +16,6 @@ import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController
 import com.badlogic.gdx.math.MathUtils
 import org.gagarin.Gagarin
 import org.gagarin.screen.AbstractScreen
-import org.gagarin.utils.GameInputProcessor
 
 class VoxelTest : AbstractScreen() {
     internal val spriteBatch = SpriteBatch()

@@ -17,7 +17,6 @@ import com.badlogic.gdx.graphics.g3d.utils.FirstPersonCameraController
 import com.badlogic.gdx.math.MathUtils
 import org.gagarin.Gagarin
 import org.gagarin.screen.AbstractScreen
-import org.gagarin.screen.StartScreen
 import org.gagarin.utils.GameInputProcessor
 
 class VoxelTest : AbstractScreen() {
@@ -35,11 +34,7 @@ class VoxelTest : AbstractScreen() {
         cameraPersp.near = 0.5f
         cameraPersp.far = 1000f
         controller = FirstPersonCameraController(cameraPersp)
-
-        val multiplexer = InputMultiplexer()
-        multiplexer.addProcessor(GameInputProcessor(this))
         multiplexer.addProcessor(controller)
-        Gdx.input.inputProcessor = multiplexer
 
         lights.set(ColorAttribute(ColorAttribute.AmbientLight, 0.4f, 0.4f, 0.4f, 1.0f))
         lights.add(DirectionalLight().set(1f, 1f, 1f, 0f, -1f, 0f))
@@ -79,7 +74,7 @@ class VoxelTest : AbstractScreen() {
 
     override fun escPressed() {
 //        stage.dispose()
-        modelBatch.dispose()
-        Gagarin.setScreen(StartScreen())
+//        modelBatch.dispose()
+        Gagarin.instance.screen = Gagarin.startScreen
     }
 }

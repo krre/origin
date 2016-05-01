@@ -25,17 +25,15 @@ open class AbstractScreen : ScreenAdapter(), KeyEvent {
     val stage = Stage(FitViewport(Constants.virtualWidth, Constants.virtualHeight))
     val skin = Skin()
     var russianFont: BitmapFont
+    val multiplexer = InputMultiplexer()
 
     init {
         Gdx.gl.glClearColor(0.4f, 0.4f, 0.4f, 1f)
         camera.setToOrtho(false, Constants.virtualWidth, Constants.virtualHeight)
         camera.update()
 
-
-        val multiplexer = InputMultiplexer()
         multiplexer.addProcessor(GameInputProcessor(this))
         multiplexer.addProcessor(stage)
-        Gdx.input.inputProcessor = multiplexer
 
         val generator = FreeTypeFontGenerator(Gdx.files.internal("fonts/arial.ttf"))
         val parameter = FreeTypeFontGenerator.FreeTypeFontParameter()
@@ -69,6 +67,10 @@ open class AbstractScreen : ScreenAdapter(), KeyEvent {
 
     override fun dispose() {
         stage.dispose()
+    }
+
+    override fun show() {
+        Gdx.input.inputProcessor = multiplexer
     }
 
     override fun keyPressed(key: Int): Boolean {

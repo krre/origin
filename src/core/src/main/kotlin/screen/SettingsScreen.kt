@@ -38,7 +38,7 @@ class SettingsScreen : AbstractScreen() {
         val backButton = TextButton(Gagarin.guiBundle.format("back"), skin)
         backButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                Gagarin.setScreen(StartScreen())
+                Gagarin.instance.screen = Gagarin.startScreen
             }
         })
         table.add(backButton).colspan(2)

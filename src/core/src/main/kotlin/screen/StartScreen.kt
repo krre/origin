@@ -18,8 +18,11 @@ class StartScreen : AbstractScreen() {
         val playButton = TextButton(Gagarin.guiBundle.format("play"), skin)
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-//                Gagarin.setScreen(GameScreen())
-                Gagarin.setScreen(VoxelTest())
+                if (Gagarin.gameScreen == null) {
+                    Gagarin.gameScreen = VoxelTest()
+                }
+                Gagarin.instance.screen = Gagarin.gameScreen
+//                Gagarin.setScreen(VoxelTest())
             }
         })
         table.add(playButton)
@@ -28,7 +31,10 @@ class StartScreen : AbstractScreen() {
         val languageButton = TextButton(Gagarin.guiBundle.format("settings"), skin)
         languageButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
-                Gagarin.setScreen(SettingsScreen())
+                if (Gagarin.settingsScreen == null) {
+                    Gagarin.settingsScreen = SettingsScreen()
+                }
+                Gagarin.instance.screen = Gagarin.settingsScreen
             }
         })
         table.add(languageButton)

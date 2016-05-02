@@ -57,7 +57,6 @@ open class AbstractScreen : ScreenAdapter(), KeyEvent {
 
     override fun render(delta: Float) {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT)
-        stage.act()
         stage.draw()
     }
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.Screen
 import com.badlogic.gdx.utils.I18NBundle
 import org.gagarin.screen.GameScreen
 import org.gagarin.screen.SettingsScreen
-import org.gagarin.screen.StartScreen
+import org.gagarin.screen.MainScreen
 import org.gagarin.voxel.VoxelTest
 import java.util.*
 import kotlin.properties.Delegates
@@ -20,7 +20,7 @@ class Gagarin() : Game() {
         val lang = prefs.getString("lang", "System")
         setLocale(lang)
 
-        startScreen = StartScreen()
+        startScreen = MainScreen()
         setScreen(startScreen)
     }
 
@@ -29,7 +29,7 @@ class Gagarin() : Game() {
         var guiBundle: I18NBundle by Delegates.notNull()
         var prefs: Preferences by Delegates.notNull()
 
-        var startScreen: StartScreen? = null
+        var startScreen: MainScreen? = null
         var settingsScreen: SettingsScreen? = null
         //    var gameScreen: GameScreen? = null
         var gameScreen: VoxelTest? = null

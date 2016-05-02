@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener
 import org.gagarin.Gagarin
 import org.gagarin.voxel.VoxelTest
 
-class StartScreen : AbstractScreen() {
+class MainScreen : AbstractScreen() {
     init {
         val table = Table()
         table.setFillParent(true)

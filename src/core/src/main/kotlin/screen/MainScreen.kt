@@ -19,10 +19,9 @@ class MainScreen : AbstractScreen() {
         playButton.addListener(object: ClickListener() {
             override fun clicked(event: InputEvent, x: Float, y: Float) {
                 if (Gagarin.gameScreen == null) {
-                    Gagarin.gameScreen = VoxelTest()
+                    Gagarin.gameScreen = GameScreen()
                 }
                 Gagarin.instance.screen = Gagarin.gameScreen
-//                Gagarin.setScreen(VoxelTest())
             }
         })
         table.add(playButton)

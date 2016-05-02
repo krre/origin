@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.I18NBundle
 import org.gagarin.debug.Common
 import org.gagarin.debug.Gui
 import org.gagarin.debug.Mode
+import org.gagarin.screen.GameScreen
 import org.gagarin.screen.MainScreen
 import org.gagarin.screen.SettingsScreen
 import org.gagarin.voxel.VoxelTest
@@ -37,8 +38,7 @@ class Gagarin() : Game() {
 
         var startScreen: MainScreen? = null
         var settingsScreen: SettingsScreen? = null
-        //    var gameScreen: GameScreen? = null
-        var gameScreen: VoxelTest? = null
+        var gameScreen: GameScreen? = null
 
         fun setScreen(screen: Screen) {
             instance.setScreen(screen)

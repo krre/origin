@@ -71,8 +71,6 @@ class VoxelTest : AbstractScreen() {
     }
 
     override fun escPressed() {
-//        stage.dispose()
-//        modelBatch.dispose()
         Gagarin.instance.screen = Gagarin.startScreen
     }
 }

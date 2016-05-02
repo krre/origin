@@ -21,7 +21,7 @@ import org.gagarin.utils.Constants
 import org.gagarin.utils.GameInputProcessor
 
 open class AbstractScreen : ScreenAdapter(), KeyEvent {
-    val camera = OrthographicCamera()
+    private val camera = OrthographicCamera()
     val stage = Stage(FitViewport(Constants.virtualWidth, Constants.virtualHeight))
     val skin = Skin()
     var russianFont: BitmapFont

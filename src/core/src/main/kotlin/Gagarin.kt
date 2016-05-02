@@ -5,9 +5,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Preferences
 import com.badlogic.gdx.Screen
 import com.badlogic.gdx.utils.I18NBundle
-import org.gagarin.screen.GameScreen
-import org.gagarin.screen.SettingsScreen
+import org.gagarin.debug.Common
+import org.gagarin.debug.Gui
+import org.gagarin.debug.Mode
 import org.gagarin.screen.MainScreen
+import org.gagarin.screen.SettingsScreen
 import org.gagarin.voxel.VoxelTest
 import java.util.*
 import kotlin.properties.Delegates
@@ -21,7 +23,11 @@ class Gagarin() : Game() {
         setLocale(lang)
 
         startScreen = MainScreen()
-        setScreen(startScreen)
+        if (Common.mode == Mode.RELEASE) {
+            setScreen(startScreen)
+        } else {
+            setScreen(Gui.startScreen())
+        }
     }
 
     companion object {

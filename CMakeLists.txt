@@ -8,4 +8,6 @@ set(VERSION_PATCH 0)
 
 set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-add_executable(gagarin src/main.cpp)
+add_subdirectory(src)
+
+add_executable(gagarin ${MAIN_SOURCES})

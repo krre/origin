@@ -4,3 +4,6 @@
     ${CMAKE_CURRENT_SOURCE_DIR}/Game.cpp
     PARENT_SCOPE
 )
+
+SET(VIDEO_OPENGLES OFF CACHE BOOL "Include OpenGL ES support" FORCE)
+add_subdirectory(SDL)

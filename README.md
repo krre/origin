@@ -1,5 +1,5 @@
 # Gagarin
-Игра про строительство
+Procedural world game
 
-## Зависимости
+## Dependencies
 LibGDX 1.9.2

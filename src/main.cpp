@@ -1,15 +1,11 @@
 ﻿#include "Game.h"
 #include <stdlib.h>
-#undef main
+#undef main // fix error: undefined reference to `WinMain@16'
 
 int main() {
     Game game;
     game.init();
-    while (game.running()) {
-        game.handleEvents();
-        game.update();
-        game.render();
-    }
+    game.run();
     game.clean();
     return EXIT_SUCCESS;
 }

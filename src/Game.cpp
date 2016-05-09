@@ -27,7 +27,7 @@ void Game::init() {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         } else {
             surface = SDL_GetWindowSurface(window);
-            m_running = true;
+            running = true;
         }
     }
 }
@@ -46,7 +46,7 @@ void Game::handleEvents() {
     if(SDL_PollEvent(&event)) {
         switch (event.type) {
         case SDL_QUIT:
-            m_running = false;
+            running = false;
             break;
         default:
             break;
@@ -57,4 +57,12 @@ void Game::handleEvents() {
 void Game::clean() {
     SDL_DestroyWindow(window);
     SDL_Quit();
+}
+
+int Game::run() {
+    while (running) {
+        handleEvents();
+        update();
+        render();
+    }
 }

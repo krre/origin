@@ -11,10 +11,9 @@ public:
     void handleEvents();
     void clean();
     int run();
-    bool running() { return m_running; }
 
 private:
-    bool m_running = false;
+    bool running = false;
     SDL_Window* window = nullptr;
     SDL_Surface* surface = nullptr;
 };

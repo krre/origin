@@ -1,6 +1,15 @@
 ﻿#include "Game.h"
+#include <stdlib.h>
+#undef main
 
 int main() {
     Game game;
-    return game.run();
+    game.init();
+    while (game.running()) {
+        game.handleEvents();
+        game.update();
+        game.render();
+    }
+    game.clean();
+    return EXIT_SUCCESS;
 }

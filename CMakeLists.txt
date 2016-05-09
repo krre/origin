@@ -13,4 +13,4 @@ add_subdirectory(src)
 add_executable(gagarin ${MAIN_SOURCES})
 target_compile_features(gagarin PRIVATE cxx_range_for)
 
-target_link_libraries (gagarin SDL2)
+target_link_libraries (gagarin SDL2main SDL2)

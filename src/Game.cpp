@@ -3,6 +3,7 @@
 #include "SDL/include/SDL_version.h"
 #include "SDL/include/SDL_events.h"
 
+using namespace std;
 
 // Default screen dimension
 const int SCREEN_WIDTH = 800;
@@ -16,7 +17,12 @@ void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
     } else {
-        window = SDL_CreateWindow("Gagarin", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE);
+        window = SDL_CreateWindow("Gagarin",
+            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
+            SCREEN_WIDTH,
+            SCREEN_HEIGHT,
+            SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
         if (window == nullptr) {
             printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
         } else {

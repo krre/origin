@@ -1,21 +1,23 @@
 #include "Game.h"
 #include <iostream>
+#include <string>
 #include "SDL/include/SDL_version.h"
 #include "SDL/include/SDL_events.h"
 
 using namespace std;
 
 // Default screen dimension
-const int SCREEN_WIDTH = 800;
-const int SCREEN_HEIGHT = 480;
+constexpr int SCREEN_WIDTH = 800;
+constexpr int SCREEN_HEIGHT = 480;
 
 void Game::init() {
     SDL_version compiled;
     SDL_VERSION(&compiled);
-    printf("SDL %d.%d.%d\n", compiled.major, compiled.minor, compiled.patch);
+    string sdlVersion = "SDL " + to_string(compiled.major) + "." + to_string(compiled.minor) + "." + to_string(compiled.patch);
+    cout << sdlVersion << endl;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        printf("SDL could not initialize! SDL_Error: %s\n", SDL_GetError());
+        cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
     } else {
         window = SDL_CreateWindow("Gagarin",
             SDL_WINDOWPOS_CENTERED,
@@ -24,7 +26,7 @@ void Game::init() {
             SCREEN_HEIGHT,
             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
         if (window == nullptr) {
-            printf("Window could not be created! SDL_Error: %s\n", SDL_GetError());
+            cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
         } else {
             surface = SDL_GetWindowSurface(window);
             running = true;

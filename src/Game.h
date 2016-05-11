@@ -1,5 +1,5 @@
 #pragma once
-#include "SDL/include/SDL.h"
+#include "3rdparty/SDL/include/SDL.h"
 
 class Game {
 

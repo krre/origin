@@ -1,8 +1,8 @@
 #include "Game.h"
 #include <iostream>
 #include <string>
-#include "SDL/include/SDL_version.h"
-#include "SDL/include/SDL_events.h"
+#include "3rdparty/SDL/include/SDL_version.h"
+#include "3rdparty/SDL/include/SDL_events.h"
 
 using namespace std;
 

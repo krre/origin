@@ -6,4 +6,4 @@
 )
 
 SET(VIDEO_OPENGLES OFF CACHE BOOL "Include OpenGL ES support" FORCE)
-add_subdirectory(SDL)
+add_subdirectory(3rdparty/SDL)

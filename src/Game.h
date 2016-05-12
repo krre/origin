@@ -16,4 +16,6 @@ private:
     bool running = false;
     SDL_Window* window = nullptr;
     SDL_Surface* surface = nullptr;
+
+    void onWindowResize(int width, int height);
 };

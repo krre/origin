@@ -45,10 +45,19 @@ void Game::update() {
 
 void Game::handleEvents() {
     SDL_Event event;
-    if(SDL_PollEvent(&event)) {
+    if (SDL_PollEvent(&event)) {
         switch (event.type) {
         case SDL_QUIT:
             running = false;
+            break;
+        case SDL_WINDOWEVENT:
+            switch (event.window.event) {
+            case SDL_WINDOWEVENT_RESIZED:
+                onWindowResize(event.window.data1, event.window.data2);
+                break;
+            default:
+                break;
+            }
             break;
         default:
             break;
@@ -67,4 +76,8 @@ int Game::run() {
         update();
         render();
     }
+}
+
+void Game::onWindowResize(int width, int height) {
+    cout << width << " " << height << endl;
 }

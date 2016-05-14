@@ -10,7 +10,14 @@ set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 add_subdirectory(src)
 
-add_executable(gagarin ${MAIN_SOURCES})
-target_compile_features(gagarin PRIVATE cxx_range_for)
+set(EXECUTABLE_NAME "gagarin")
+add_executable(${EXECUTABLE_NAME} ${MAIN_SOURCES})
+target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
 
-target_link_libraries (gagarin SDL2main SDL2)
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules" ${CMAKE_MODULE_PATH})
+find_package(SFML REQUIRED COMPONENTS system window graphics network audio)
+
+if(SFML_FOUND)
+  include_directories(${SFML_INCLUDE_DIR})
+  target_link_libraries(${EXECUTABLE_NAME} ${SFML_LIBRARIES})
+endif()

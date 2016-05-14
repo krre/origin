@@ -1,16 +1,21 @@
 #pragma once
-#include <SFML/Graphics.hpp>
+#include <SDL.h>
 
 class Game {
 
 public:
-    Game();
-    void run();
+    Game() {}
+    void init();
+    void render();
+    void update();
+    void handleEvents();
+    void clean();
+    int run();
 
 private:
-    void processEvents();
-    void update();
-    void render();
+    bool running = false;
+    SDL_Window* window = nullptr;
+    SDL_Surface* surface = nullptr;
 
-    sf::RenderWindow window;
+    void onWindowResize(int width, int height);
 };

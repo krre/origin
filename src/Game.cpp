@@ -1,26 +1,63 @@
 #include "Game.h"
+#include <iostream>
+#include <string>
+#include <SDL_version.h>
+#include <SDL_events.h>
 
-constexpr int DEFAULT_WIDTH = 800;
-constexpr int DEFAULT_HEIGHT = 480;
+using namespace std;
 
-Game::Game() : window(sf::VideoMode(DEFAULT_WIDTH, DEFAULT_HEIGHT), "Gagarin") {
+// Default screen dimension
+constexpr int SCREEN_WIDTH = 800;
+constexpr int SCREEN_HEIGHT = 480;
 
-}
+void Game::init() {
+    SDL_version compiled;
+    SDL_VERSION(&compiled);
+    string sdlVersion = "SDL " + to_string(compiled.major) + "." + to_string(compiled.minor) + "." + to_string(compiled.patch);
+    cout << sdlVersion << endl;
 
-void Game::run() {
-    while (window.isOpen()) {
-        processEvents();
-        update();
-        render();
+    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+        cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
+    } else {
+        window = SDL_CreateWindow("Gagarin",
+            SDL_WINDOWPOS_CENTERED,
+            SDL_WINDOWPOS_CENTERED,
+            SCREEN_WIDTH,
+            SCREEN_HEIGHT,
+            SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+        if (window == nullptr) {
+            cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
+        } else {
+            surface = SDL_GetWindowSurface(window);
+            running = true;
+        }
     }
 }
 
-void Game::processEvents() {
-    sf::Event event;
-    while(window.pollEvent(event)) {
+void Game::render() {
+    SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 40, 40, 40));
+    SDL_UpdateWindowSurface(window);
+}
+
+void Game::update() {
+
+}
+
+void Game::handleEvents() {
+    SDL_Event event;
+    if (SDL_PollEvent(&event)) {
         switch (event.type) {
-        case sf::Event::Closed:
-            window.close();
+        case SDL_QUIT:
+            running = false;
+            break;
+        case SDL_WINDOWEVENT:
+            switch (event.window.event) {
+            case SDL_WINDOWEVENT_RESIZED:
+                onWindowResize(event.window.data1, event.window.data2);
+                break;
+            default:
+                break;
+            }
             break;
         default:
             break;
@@ -28,10 +65,19 @@ void Game::processEvents() {
     }
 }
 
-void Game::update() {
+void Game::clean() {
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
-void Game::render() {
-    window.clear(sf::Color(40, 40, 40));
-    window.display();
+int Game::run() {
+    while (running) {
+        handleEvents();
+        update();
+        render();
+    }
+}
+
+void Game::onWindowResize(int width, int height) {
+    cout << width << " " << height << endl;
 }

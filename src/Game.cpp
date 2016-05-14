@@ -1,12 +1,10 @@
 #include "Game.h"
 #include <iostream>
 #include <string>
-#include <SDL_version.h>
-#include <SDL_events.h>
+#include <SDL_opengl.h>
 
 using namespace std;
 
-// Default screen dimension
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 480;
 
@@ -19,6 +17,10 @@ void Game::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
     } else {
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+
         window = SDL_CreateWindow("Gagarin",
             SDL_WINDOWPOS_CENTERED,
             SDL_WINDOWPOS_CENTERED,
@@ -28,15 +30,20 @@ void Game::init() {
         if (window == nullptr) {
             cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
         } else {
-            surface = SDL_GetWindowSurface(window);
-            running = true;
+            context = SDL_GL_CreateContext(window);
+            if (context == nullptr) {
+                cout << "OpenGL context could not be created! SDL_Error: " << SDL_GetError() << endl;
+            } else {
+                glClearColor(0.2, 0.2, 0.2, 1.0);
+                running = true;
+            }
         }
     }
 }
 
 void Game::render() {
-    SDL_FillRect(surface, NULL, SDL_MapRGB(surface->format, 40, 40, 40));
-    SDL_UpdateWindowSurface(window);
+    glClear(GL_COLOR_BUFFER_BIT);
+    SDL_GL_SwapWindow(window);
 }
 
 void Game::update() {

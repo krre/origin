@@ -15,9 +15,10 @@ add_executable(${EXECUTABLE_NAME} ${MAIN_SOURCES})
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
-# If find failure, set SDL_PATH variable to SDL install root
+# If find SDL2 failure, set SDL_PATH variable to SDL install root
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
-message("${SDL2_LIBRARY}")
 
-target_link_libraries(${EXECUTABLE_NAME} ${SDL2_LIBRARY})
+find_package(OpenGL)
+
+target_link_libraries(${EXECUTABLE_NAME} ${SDL2_LIBRARY} ${OPENGL_LIBRARIES})

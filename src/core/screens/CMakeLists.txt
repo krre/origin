@@ -1,0 +1,9 @@
+﻿set(SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Screen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Screen.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MainScreen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/MainScreen.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/GameScreen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/GameScreen.cpp
+    PARENT_SCOPE
+)

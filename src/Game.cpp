@@ -1,7 +1,6 @@
 #include "Game.h"
 #include <iostream>
 #include <string>
-#include <SDL_opengl.h>
 
 using namespace std;
 
@@ -38,7 +37,6 @@ void Game::init() {
             if (context == nullptr) {
                 cout << "OpenGL context could not be created! SDL_Error: " << SDL_GetError() << endl;
             } else {
-                glClearColor(0.2, 0.2, 0.2, 1.0);
                 running = true;
             }
         }
@@ -46,7 +44,6 @@ void Game::init() {
 }
 
 void Game::render() {
-    glClear(GL_COLOR_BUFFER_BIT);
     currentScreen->render();
     SDL_GL_SwapWindow(window);
 }

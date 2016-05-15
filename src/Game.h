@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
-#include "core/Screen.h"
+#include "core/screens/MainScreen.h"
+#include "core/screens/GameScreen.h"
 
 class Game {
 
@@ -20,8 +21,8 @@ private:
     SDL_GLContext context;
 
     Screen* currentScreen;
-    Screen mainScreen;
-    Screen gameScreen;
+    MainScreen mainScreen;
+    GameScreen gameScreen;
 
     void onWindowResize(int width, int height);
 };

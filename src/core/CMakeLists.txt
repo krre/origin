@@ -1,5 +1,6 @@
-﻿set(SOURCES
-    ${CMAKE_CURRENT_SOURCE_DIR}/Screen.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Screen.cpp
+﻿add_subdirectory(screens)
+
+set(SOURCES
+    ${SOURCES}
     PARENT_SCOPE
 )

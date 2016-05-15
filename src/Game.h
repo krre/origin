@@ -1,10 +1,11 @@
 #pragma once
 #include <SDL.h>
+#include "core/Screen.h"
 
 class Game {
 
 public:
-    Game() {}
+    Game();
     void init();
     void render();
     void update();
@@ -17,6 +18,10 @@ private:
     SDL_Window* window = nullptr;
     SDL_Surface* surface = nullptr;
     SDL_GLContext context;
+
+    Screen* currentScreen;
+    Screen mainScreen;
+    Screen gameScreen;
 
     void onWindowResize(int width, int height);
 };

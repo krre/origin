@@ -8,6 +8,10 @@ using namespace std;
 constexpr int SCREEN_WIDTH = 800;
 constexpr int SCREEN_HEIGHT = 480;
 
+Game::Game() {
+    currentScreen = &gameScreen;
+}
+
 void Game::init() {
     SDL_version compiled;
     SDL_VERSION(&compiled);
@@ -43,6 +47,7 @@ void Game::init() {
 
 void Game::render() {
     glClear(GL_COLOR_BUFFER_BIT);
+    currentScreen->render();
     SDL_GL_SwapWindow(window);
 }
 

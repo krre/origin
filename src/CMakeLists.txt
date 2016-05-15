@@ -1,4 +1,7 @@
-﻿set(MAIN_SOURCES
+﻿add_subdirectory(core)
+
+set(SOURCES
+    ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Game.cpp

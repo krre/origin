@@ -1,0 +1,5 @@
+﻿set(SOURCES
+    ${CMAKE_CURRENT_SOURCE_DIR}/Screen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Screen.cpp
+    PARENT_SCOPE
+)

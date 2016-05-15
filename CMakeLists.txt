@@ -9,9 +9,8 @@ set(VERSION_PATCH 0)
 set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 add_subdirectory(src)
-
 set(EXECUTABLE_NAME "gagarin")
-add_executable(${EXECUTABLE_NAME} ${MAIN_SOURCES})
+add_executable(${EXECUTABLE_NAME} ${SOURCES})
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")

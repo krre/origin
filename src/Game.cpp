@@ -4,8 +4,8 @@
 
 using namespace std;
 
-constexpr int SCREEN_WIDTH = 800;
-constexpr int SCREEN_HEIGHT = 480;
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 480;
 
 Game::Game() {
     currentScreen = &gameScreen;
@@ -24,11 +24,27 @@ void Game::init() {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
+        int screenWidth;
+        int screenHeight;
+        SDL_DisplayMode mode;
+        if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
+            SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
+        } else {
+            // Sometime (e.g. on Ubuntu 16.04) on system with two displays SDL_GetNumVideoDrivers() != SDL_GetNumVideoDisplays()
+            // and screen width detected as sum of two screens.
+            // In this case we need dived it on 2, i.e. on SDL_GetNumVideoDrivers() / SDL_GetNumVideoDisplays()
+            screenWidth = mode.w / SDL_GetNumVideoDrivers() / SDL_GetNumVideoDisplays();
+            screenHeight = mode.h;
+        }
+
+        int x = (screenWidth - WINDOW_WIDTH) / 2;
+        int y = (screenHeight - WINDOW_HEIGHT) / 2;
+
         window = SDL_CreateWindow("Gagarin",
-            SDL_WINDOWPOS_CENTERED,
-            SDL_WINDOWPOS_CENTERED,
-            SCREEN_WIDTH,
-            SCREEN_HEIGHT,
+            x,
+            y,
+            WINDOW_WIDTH,
+            WINDOW_HEIGHT,
             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
         if (window == nullptr) {
             cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;

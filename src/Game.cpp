@@ -26,15 +26,22 @@ void Game::init() {
 
         int screenWidth;
         int screenHeight;
+
         SDL_DisplayMode mode;
         if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
             SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
         } else {
-            // Sometime (e.g. on Ubuntu 16.04) on system with two displays SDL_GetNumVideoDrivers() != SDL_GetNumVideoDisplays()
-            // and screen width detected as sum of two screens.
-            // In this case we need dived it on 2, i.e. on SDL_GetNumVideoDrivers() / SDL_GetNumVideoDisplays()
-            screenWidth = mode.w / SDL_GetNumVideoDrivers() / SDL_GetNumVideoDisplays();
+            screenWidth = mode.w;
             screenHeight = mode.h;
+            // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
+            // then divide it on 2
+            if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
+                SDL_Log("SDL_GetDisplayMode failed: %s", SDL_GetError());
+            } else {
+                if (screenWidth > mode.w) {
+                    screenWidth /= 2;
+                }
+            }
         }
 
         int x = (screenWidth - WINDOW_WIDTH) / 2;

@@ -72,7 +72,7 @@ void Game::render() {
 }
 
 void Game::update() {
-
+    currentScreen->update();
 }
 
 void Game::handleEvents() {

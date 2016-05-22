@@ -8,5 +8,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GameObject.h
     ${CMAKE_CURRENT_SOURCE_DIR}/GameObject.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Camera.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Camera.cpp
     PARENT_SCOPE
 )

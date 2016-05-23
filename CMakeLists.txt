@@ -18,6 +18,8 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
+include_directories(src/3rdparty)
+
 find_package(OpenGL)
 
 target_link_libraries(${EXECUTABLE_NAME} ${SDL2_LIBRARY} ${OPENGL_LIBRARIES})

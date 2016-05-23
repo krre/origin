@@ -1,6 +1,7 @@
 #pragma once
+#include "Node.h"
 
-class Camera {
+class Camera : public Node {
 
 public:
     Camera();

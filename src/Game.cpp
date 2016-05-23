@@ -85,7 +85,7 @@ void Game::handleEvents() {
         case SDL_WINDOWEVENT:
             switch (event.window.event) {
             case SDL_WINDOWEVENT_RESIZED:
-                onWindowResize(event.window.data1, event.window.data2);
+                windowResize(event.window.data1, event.window.data2);
                 break;
             default:
                 break;
@@ -110,6 +110,6 @@ int Game::run() {
     }
 }
 
-void Game::onWindowResize(int width, int height) {
+void Game::windowResize(int width, int height) {
     cout << width << " " << height << endl;
 }

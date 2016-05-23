@@ -24,5 +24,5 @@ private:
     MainScreen mainScreen;
     GameScreen gameScreen;
 
-    void onWindowResize(int width, int height);
+    void windowResize(int width, int height);
 };

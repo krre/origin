@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/View.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/View.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PlayerView.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PlayerView.cpp
     PARENT_SCOPE

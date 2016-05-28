@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/View.h"
+#include "View.h"
 
 class PlayerView : public View {
 

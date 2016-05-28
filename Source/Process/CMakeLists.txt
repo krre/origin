@@ -1,0 +1,6 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Process.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Process.cpp
+    PARENT_SCOPE
+)

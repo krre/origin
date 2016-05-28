@@ -1,7 +1,7 @@
 #pragma once
 #include <SDL.h>
-#include "core/screens/MainScreen.h"
-#include "core/screens/GameScreen.h"
+#include "Core/screens/MainScreen.h"
+#include "Core/screens/GameScreen.h"
 
 class Game {
 

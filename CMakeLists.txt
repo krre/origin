@@ -13,7 +13,7 @@ set(EXECUTABLE_NAME "gagarin")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/Cmake")
 # If find SDL2 failure, set SDL_PATH variable to SDL install root
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})

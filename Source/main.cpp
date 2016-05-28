@@ -1,5 +1,5 @@
 ﻿#include <stdlib.h>
-#include "Game.h"
+#include "Core/Game.h"
 #undef main // fix error: undefined reference to `WinMain@16'
 
 int main() {

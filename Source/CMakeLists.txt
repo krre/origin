@@ -3,7 +3,5 @@
 set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Game.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Game.cpp
     PARENT_SCOPE
 )

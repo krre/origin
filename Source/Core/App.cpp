@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "App.h"
 #include <iostream>
 #include <string>
 #include <SDL_opengl.h>
@@ -8,10 +8,10 @@ using namespace std;
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
-Game::Game() {
+App::App() {
 }
 
-void Game::init() {
+void App::init() {
     SDL_version compiled;
     SDL_VERSION(&compiled);
     string sdlVersion = "SDL " + to_string(compiled.major) + "." + to_string(compiled.minor) + "." + to_string(compiled.patch);
@@ -66,16 +66,16 @@ void Game::init() {
     }
 }
 
-void Game::render() {
+void App::render() {
     glClearColor(0.25, 0.2, 0.2, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     SDL_GL_SwapWindow(window);
 }
 
-void Game::update() {
+void App::update() {
 }
 
-void Game::handleEvents() {
+void App::handleEvents() {
     SDL_Event event;
     if (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -97,12 +97,12 @@ void Game::handleEvents() {
     }
 }
 
-void Game::clean() {
+void App::clean() {
     SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
-int Game::run() {
+int App::run() {
     while (running) {
         handleEvents();
         update();
@@ -110,6 +110,6 @@ int Game::run() {
     }
 }
 
-void Game::windowResize(int width, int height) {
+void App::windowResize(int width, int height) {
     cout << width << " " << height << endl;
 }

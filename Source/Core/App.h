@@ -5,10 +5,10 @@
 #include "../Graphics3D/Renderer.h"
 #include "Logic.h"
 
-class Game {
+class App {
 
 public:
-    Game();
+    App();
     void init();
     void render();
     void update();

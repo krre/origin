@@ -1,4 +1,5 @@
 ﻿add_subdirectory(Core)
+add_subdirectory(UI)
 
 set(SOURCES
     ${SOURCES}

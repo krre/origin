@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "../UI/PlayerView.h"
+#include "../EventManager/EventManager.h"
 #include "Logic.h"
 #include "screens/MainScreen.h"
 #include "screens/GameScreen.h"
@@ -19,6 +20,7 @@ public:
 private:
     PlayerView* playerView;
     Logic* logic;
+    EventManager* eventManager;
 
     bool running = false;
     SDL_Window* window = nullptr;

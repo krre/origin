@@ -10,9 +10,6 @@ class App {
 public:
     App();
     void init();
-    void render();
-    void update();
-    void handleEvents();
     void clean();
     int run();
 
@@ -28,4 +25,7 @@ private:
     SDL_GLContext context;
 
     void windowResize(int width, int height);
+    void render();
+    void update();
+    void handleEvents();
 };

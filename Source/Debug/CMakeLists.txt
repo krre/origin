@@ -1,0 +1,6 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Logger.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Logger.cpp
+    PARENT_SCOPE
+)

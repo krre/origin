@@ -1,5 +1,7 @@
 #pragma once
 #include <SDL.h>
+#include "../UI/PlayerView.h"
+#include "Logic.h"
 #include "screens/MainScreen.h"
 #include "screens/GameScreen.h"
 
@@ -15,6 +17,9 @@ public:
     int run();
 
 private:
+    PlayerView* playerView;
+    Logic* logic;
+
     bool running = false;
     SDL_Window* window = nullptr;
     SDL_Surface* surface = nullptr;

@@ -1,6 +1,7 @@
 ﻿add_subdirectory(Core)
 add_subdirectory(UI)
 add_subdirectory(EventManager)
+add_subdirectory(Graphics3D)
 
 set(SOURCES
     ${SOURCES}

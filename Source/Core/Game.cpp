@@ -1,6 +1,7 @@
 #include "Game.h"
 #include <iostream>
 #include <string>
+#include <SDL_opengl.h>
 
 using namespace std;
 
@@ -8,7 +9,6 @@ constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
 Game::Game() {
-    currentScreen = &gameScreen;
 }
 
 void Game::init() {
@@ -67,12 +67,12 @@ void Game::init() {
 }
 
 void Game::render() {
-    currentScreen->render();
+    glClearColor(0.25, 0.2, 0.2, 1.0);
+    glClear(GL_COLOR_BUFFER_BIT);
     SDL_GL_SwapWindow(window);
 }
 
 void Game::update() {
-    currentScreen->update();
 }
 
 void Game::handleEvents() {

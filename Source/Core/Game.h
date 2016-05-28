@@ -2,6 +2,7 @@
 #include <SDL.h>
 #include "../UI/PlayerView.h"
 #include "../EventManager/EventManager.h"
+#include "../Graphics3D/Renderer.h"
 #include "Logic.h"
 
 class Game {
@@ -19,6 +20,7 @@ private:
     PlayerView* playerView;
     Logic* logic;
     EventManager* eventManager;
+    Renderer renderer;
 
     bool running = false;
     SDL_Window* window = nullptr;

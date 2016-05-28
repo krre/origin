@@ -3,7 +3,7 @@
 #include "../UI/PlayerView.h"
 #include "../EventManager/EventManager.h"
 #include "../Graphics3D/Renderer.h"
-#include "Logic.h"
+#include "Game.h"
 
 class App {
 
@@ -18,7 +18,7 @@ public:
 
 private:
     PlayerView* playerView;
-    Logic* logic;
+    Game* game;
     EventManager* eventManager;
     Renderer renderer;
 

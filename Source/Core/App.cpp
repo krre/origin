@@ -1,7 +1,7 @@
 #include "App.h"
 #include <iostream>
 #include <string>
-#include <SDL_opengl.h>
+#include <chrono>
 
 using namespace std;
 
@@ -66,12 +66,6 @@ void App::init() {
     }
 }
 
-void App::render() {
-    glClearColor(0.25, 0.2, 0.2, 1.0);
-    glClear(GL_COLOR_BUFFER_BIT);
-    SDL_GL_SwapWindow(window);
-}
-
 void App::update() {
 }
 
@@ -103,10 +97,17 @@ void App::clean() {
 }
 
 int App::run() {
+    std::chrono::time_point<std::chrono::system_clock> start, end;
+    start = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = start - end;
+    cout << elapsed_seconds.count() << endl;
+
     while (running) {
         handleEvents();
         update();
-        render();
+
+        renderer.render();
+        SDL_GL_SwapWindow(window);
     }
 }
 

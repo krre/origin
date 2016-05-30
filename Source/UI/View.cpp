@@ -8,5 +8,4 @@ View::View() {
 }
 
 void View::update(double dt) {
-    cout << "View update: " << dt << endl;
 }

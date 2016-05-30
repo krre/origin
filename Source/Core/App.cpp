@@ -121,7 +121,6 @@ int App::run() {
 
         renderer.render();
         SDL_GL_SwapWindow(window);
-        cout << "render" << endl;
     }
 }
 

@@ -9,6 +9,7 @@ class App {
 
 public:
     App();
+    ~App();
     void init();
     void clean();
     int run();
@@ -25,6 +26,5 @@ private:
     SDL_GLContext context;
 
     void windowResize(int width, int height);
-    void update(double dt);
     void handleEvents();
 };

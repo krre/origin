@@ -9,6 +9,12 @@ constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
 App::App() {
+    game = new Game();
+    game->addView(std::shared_ptr<PlayerView>(new PlayerView));
+}
+
+App::~App() {
+    delete game;
 }
 
 void App::init() {
@@ -66,10 +72,6 @@ void App::init() {
     }
 }
 
-void App::update(double dt) {
-    cout << "update" << endl;
-}
-
 void App::handleEvents() {
     SDL_Event event;
     if (SDL_PollEvent(&event)) {
@@ -113,7 +115,7 @@ int App::run() {
         accumulator += frameTime;
 
         while (accumulator >= dt) {
-            update(dt);
+            game->update(dt);
             accumulator -= dt;
         }
 

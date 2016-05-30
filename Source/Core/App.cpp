@@ -66,7 +66,8 @@ void App::init() {
     }
 }
 
-void App::update() {
+void App::update(double dt) {
+    cout << "update" << endl;
 }
 
 void App::handleEvents() {
@@ -97,18 +98,29 @@ void App::clean() {
 }
 
 int App::run() {
-    Uint64 last = SDL_GetPerformanceCounter();
+    // Game loop is based on article http://gafferongames.com/game-physics/fix-your-timestep/
+    const double dt = 0.01;
     double frequency = (double)SDL_GetPerformanceFrequency();
-    double delta;
+    double currentTime = (double)(SDL_GetPerformanceCounter() / frequency);
+    double accumulator = 0.0;
 
     while (running) {
         handleEvents();
-        update();
-        delta = double(SDL_GetPerformanceCounter() - last) / frequency;
-        last = SDL_GetPerformanceCounter();
-        cout << delta << endl;
+        update(dt);
+        double newTime = SDL_GetPerformanceCounter() / frequency;
+        double frameTime = double(newTime - currentTime);
+        currentTime = newTime;
+
+        accumulator += frameTime;
+
+        while (accumulator >= dt) {
+            update(dt);
+            accumulator -= dt;
+        }
+
         renderer.render();
         SDL_GL_SwapWindow(window);
+        cout << "render" << endl;
     }
 }
 

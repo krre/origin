@@ -25,6 +25,6 @@ private:
     SDL_GLContext context;
 
     void windowResize(int width, int height);
-    void update();
+    void update(double dt);
     void handleEvents();
 };

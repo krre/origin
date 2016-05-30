@@ -19,7 +19,7 @@ private:
     EventManager* eventManager;
     Renderer renderer;
 
-    bool running = false;
+    bool isRunning = false;
     SDL_Window* window = nullptr;
     SDL_Surface* surface = nullptr;
     SDL_GLContext context;

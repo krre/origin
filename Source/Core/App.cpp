@@ -60,7 +60,7 @@ void App::init() {
             if (context == nullptr) {
                 cout << "OpenGL context could not be created! SDL_Error: " << SDL_GetError() << endl;
             } else {
-                running = true;
+                isRunning = true;
             }
         }
     }
@@ -75,7 +75,7 @@ void App::handleEvents() {
     if (SDL_PollEvent(&event)) {
         switch (event.type) {
         case SDL_QUIT:
-            running = false;
+            isRunning = false;
             break;
         case SDL_WINDOWEVENT:
             switch (event.window.event) {
@@ -104,7 +104,7 @@ int App::run() {
     Uint64 currentTime = SDL_GetPerformanceCounter();
     double accumulator = 0.0;
 
-    while (running) {
+    while (isRunning) {
         handleEvents();
 
         Uint64 newTime = SDL_GetPerformanceCounter();

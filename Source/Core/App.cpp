@@ -100,17 +100,16 @@ void App::clean() {
 int App::run() {
     // Game loop is based on article http://gafferongames.com/game-physics/fix-your-timestep/
     const double dt = 0.01;
-    double frequency = (double)SDL_GetPerformanceFrequency();
-    double currentTime = (double)(SDL_GetPerformanceCounter() / frequency);
+    Uint64 frequency = SDL_GetPerformanceFrequency();
+    Uint64 currentTime = SDL_GetPerformanceCounter();
     double accumulator = 0.0;
 
     while (running) {
         handleEvents();
-        update(dt);
-        double newTime = SDL_GetPerformanceCounter() / frequency;
-        double frameTime = double(newTime - currentTime);
-        currentTime = newTime;
 
+        Uint64 newTime = SDL_GetPerformanceCounter();
+        double frameTime = double(newTime - currentTime) / frequency;
+        currentTime = newTime;
         accumulator += frameTime;
 
         while (accumulator >= dt) {

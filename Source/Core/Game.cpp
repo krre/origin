@@ -20,3 +20,9 @@ void Game::update(double dt) {
         it->update(dt);
     }
 }
+
+void Game::render() {
+    for (auto it: views) {
+        it->render();
+    }
+}

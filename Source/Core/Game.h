@@ -12,6 +12,7 @@ public:
     void addView(std::shared_ptr<View> view);
     void removeView(std::shared_ptr<View> view);
     void update(double dt);
+    void render();
 
 private:
     ViewList views;

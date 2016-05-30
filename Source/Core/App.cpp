@@ -119,7 +119,7 @@ int App::run() {
             accumulator -= dt;
         }
 
-        renderer.render();
+        game->render();
         SDL_GL_SwapWindow(window);
     }
 }

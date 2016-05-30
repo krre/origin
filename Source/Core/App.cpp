@@ -1,7 +1,7 @@
 #include "App.h"
 #include <iostream>
 #include <string>
-#include <chrono>
+#include <SDL_timer.h>
 
 using namespace std;
 
@@ -97,15 +97,16 @@ void App::clean() {
 }
 
 int App::run() {
-    std::chrono::time_point<std::chrono::system_clock> start, end;
-    start = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = start - end;
-    cout << elapsed_seconds.count() << endl;
+    Uint64 last = SDL_GetPerformanceCounter();
+    double frequency = (double)SDL_GetPerformanceFrequency();
+    double delta;
 
     while (running) {
         handleEvents();
         update();
-
+        delta = double(SDL_GetPerformanceCounter() - last) / frequency;
+        last = SDL_GetPerformanceCounter();
+        cout << delta << endl;
         renderer.render();
         SDL_GL_SwapWindow(window);
     }

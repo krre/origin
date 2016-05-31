@@ -1,6 +1,7 @@
 #pragma once
+#include "../Core/Object.h"
 
-class Renderer {
+class Renderer : public Object {
 
 public:
     Renderer();

@@ -1,11 +1,12 @@
 #pragma once
 #include "../UI/View.h"
+#include "Object.h"
 #include <memory>
 #include <list>
 
 typedef std::list<std::shared_ptr<View>> ViewList;
 
-class Game {
+class Game : public Object {
 
 public:
     Game();

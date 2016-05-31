@@ -4,8 +4,9 @@
 #include "../EventManager/EventManager.h"
 #include "../Graphics3D/Renderer.h"
 #include "Game.h"
+#include "Object.h"
 
-class App {
+class App : public Object {
 
 public:
     App();

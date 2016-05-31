@@ -1,6 +1,7 @@
 #pragma once
+#include "../Core/Object.h"
 
-class Logger {
+class Logger : public Object {
 
 public:
     Logger();

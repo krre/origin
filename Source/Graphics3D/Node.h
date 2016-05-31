@@ -1,8 +1,9 @@
 #pragma once
+#include "../Core/Object.h"
 #include <memory>
 #include <list>
 
-class Node {
+class Node : public Object {
 
 public:
     Node();

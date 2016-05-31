@@ -1,6 +1,7 @@
 #pragma once
+#include "Object.h"
 
-class GameState {
+class GameState : public Object {
 
 public:
     GameState();

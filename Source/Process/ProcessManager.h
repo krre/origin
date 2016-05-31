@@ -1,6 +1,7 @@
 #pragma once
+#include "../Core/Object.h"
 
-class ProcessManager {
+class ProcessManager : public Object {
 
 public:
     ProcessManager();

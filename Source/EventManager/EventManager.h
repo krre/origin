@@ -1,6 +1,7 @@
 #pragma once
+#include "../Core/Object.h"
 
-class EventManager {
+class EventManager : public Object {
 
 public:
     EventManager();

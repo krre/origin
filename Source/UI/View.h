@@ -1,6 +1,7 @@
 #pragma once
+#include "../Core/Object.h"
 
-class View {
+class View : public Object {
 
 public:
     View();

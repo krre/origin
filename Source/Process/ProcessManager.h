@@ -1,11 +1,7 @@
-#ifndef PROCESSMANAGER_H
-#define PROCESSMANAGER_H
+#pragma once
 
+class ProcessManager {
 
-class ProcessManager
-{
 public:
     ProcessManager();
 };
-
-#endif // PROCESSMANAGER_H

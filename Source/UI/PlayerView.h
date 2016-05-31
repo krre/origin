@@ -11,7 +11,7 @@ public:
     PlayerView();
 
 private:
-    std::shared_ptr<Camera> camera;
-    std::shared_ptr<Scene> scene;
+    shared_ptr<Camera> camera;
+    shared_ptr<Scene> scene;
     ProcessManager processManager;
 };

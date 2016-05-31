@@ -1,8 +1,5 @@
 #include "View.h"
-#include <iostream>
 #include <SDL_opengl.h>
-
-using namespace std;
 
 View::View() {
 

@@ -4,14 +4,14 @@
 #include <memory>
 #include <list>
 
-typedef std::list<std::shared_ptr<View>> ViewList;
+typedef list<shared_ptr<View>> ViewList;
 
 class Game : public Object {
 
 public:
     Game();
-    void addView(std::shared_ptr<View> view);
-    void removeView(std::shared_ptr<View> view);
+    void addView(shared_ptr<View> view);
+    void removeView(shared_ptr<View> view);
     void update(double dt);
     void render();
 

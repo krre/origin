@@ -1,16 +1,13 @@
 #include "App.h"
-#include <iostream>
 #include <string>
 #include <SDL_timer.h>
-
-using namespace std;
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
 App::App() {
     game = new Game();
-    game->addView(std::shared_ptr<PlayerView>(new PlayerView));
+    game->addView(shared_ptr<PlayerView>(new PlayerView));
 }
 
 App::~App() {
@@ -125,5 +122,5 @@ int App::run() {
 }
 
 void App::windowResize(int width, int height) {
-    cout << width << " " << height << endl;
+    print(width << " " << height)
 }

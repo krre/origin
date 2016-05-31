@@ -1,6 +1,6 @@
 ﻿#include <stdlib.h>
 #include "Core/App.h"
-#undef main // fix error: undefined reference to `WinMain@16'
+#undef main // fix SDL error: undefined reference to `WinMain@16'
 
 int main() {
     App app;

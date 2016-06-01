@@ -1,8 +1,11 @@
 #include "View.h"
+#include "../Core/App.h"
 #include <SDL_opengl.h>
 
-View::View() {
+App* app;
 
+View::View() {
+    ::app->render.connectMember(&View::render, this);
 }
 
 void View::update(double dt) {

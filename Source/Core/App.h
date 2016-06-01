@@ -15,6 +15,8 @@ public:
     void clean();
     int run();
 
+    Signal<> render;
+
 private:
     PlayerView* playerView;
     Game* game;

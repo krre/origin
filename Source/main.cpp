@@ -2,10 +2,12 @@
 #include "Core/App.h"
 #undef main // fix SDL error: undefined reference to `WinMain@16'
 
+extern App* app;
+
 int main() {
-    App app;
-    app.init();
-    app.run();
-    app.clean();
+    ::app = new App();
+    app->init();
+    app->run();
+    app->clean();
     return EXIT_SUCCESS;
 }

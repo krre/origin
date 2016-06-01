@@ -6,8 +6,7 @@ constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
 App::App() {
-    game = new Game();
-    game->addView(shared_ptr<PlayerView>(new PlayerView));
+
 }
 
 App::~App() {
@@ -66,6 +65,9 @@ void App::init() {
                 isRunning = true;
             }
         }
+
+        game = new Game();
+        game->addView(shared_ptr<PlayerView>(new PlayerView));
     }
 }
 
@@ -116,7 +118,7 @@ int App::run() {
             accumulator -= dt;
         }
 
-        game->render();
+        render.emit();
         SDL_GL_SwapWindow(window);
     }
 }

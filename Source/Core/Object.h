@@ -1,9 +1,8 @@
 #pragma once
+#include "Defines.h"
 #include "Signal.h"
 #include <iostream>
 #include <memory>
-
-#define print(x) cout << x << endl;
 
 using namespace std;
 

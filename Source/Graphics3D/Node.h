@@ -6,8 +6,8 @@ class Node : public Object {
 
 public:
     Node();
-    virtual void addChild(shared_ptr<Node> child) = 0;
-    virtual void removeChild(int id) = 0;
+    void addChild(shared_ptr<Node> child);
+    void removeChild(shared_ptr<Node> child);
 
 private:
     list<shared_ptr<Node>> nodes;

@@ -16,6 +16,7 @@ public:
     int run();
 
     Signal<> render;
+    Signal<double> update;
 
 private:
     PlayerView* playerView;

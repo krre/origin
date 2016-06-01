@@ -6,10 +6,11 @@ App* app;
 
 View::View() {
     ::app->render.connectMember(&View::render, this);
+    ::app->update.connectMember(&View::update, this, std::placeholders::_1);
 }
 
 void View::update(double dt) {
-
+    print("update: " << dt);
 }
 
 void View::render() {

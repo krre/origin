@@ -8,6 +8,7 @@ class Signal {
 
 public:
     Signal() {}
+    Signal(Signal const& other) {}
 
     int connect(std::function<void(Args...)> const& slot) const {
         slots.insert(std::make_pair(++currentId, slot));

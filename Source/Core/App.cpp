@@ -114,7 +114,7 @@ int App::run() {
         accumulator += frameTime;
 
         while (accumulator >= dt) {
-            game->update(dt);
+            update.emit(dt);
             accumulator -= dt;
         }
 

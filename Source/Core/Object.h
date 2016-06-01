@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <memory>
 #define print(x) cout << x << endl;
 
 using namespace std;

@@ -1,7 +1,6 @@
 #pragma once
 #include "../UI/View.h"
 #include "Object.h"
-#include <memory>
 #include <list>
 
 typedef list<shared_ptr<View>> ViewList;

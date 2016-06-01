@@ -3,7 +3,6 @@
 #include "../Graphics3D/Camera.h"
 #include "../Graphics3D/Scene.h"
 #include "../Process/ProcessManager.h"
-#include <memory>
 
 class PlayerView : public View {
 

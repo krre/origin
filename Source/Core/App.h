@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include "../UI/PlayerView.h"
 #include "../EventManager/EventManager.h"
-#include "../Graphics3D/Renderer.h"
+#include "../Graphics/Renderer.h"
 #include "Game.h"
 #include "Object.h"
 

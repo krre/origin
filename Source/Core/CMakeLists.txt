@@ -8,5 +8,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Signal.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Signal.cpp
     PARENT_SCOPE
 )

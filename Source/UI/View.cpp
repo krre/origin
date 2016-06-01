@@ -10,7 +10,7 @@ View::View() {
 }
 
 void View::update(double dt) {
-    print("update: " << dt);
+//    print("update: " << dt);
 }
 
 void View::render() {

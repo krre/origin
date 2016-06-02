@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Actor.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Actor.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Component.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Component.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Node.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Node.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp

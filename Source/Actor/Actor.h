@@ -1,6 +1,7 @@
 #pragma once
+#include "../Graphics/Node.h"
 
-class Actor {
+class Actor : Node {
 
 public:
     Actor();

@@ -11,8 +11,6 @@ public:
     Game();
     void addView(shared_ptr<View> view);
     void removeView(shared_ptr<View> view);
-    void update(double dt);
-    void render();
 
 private:
     ViewList views;

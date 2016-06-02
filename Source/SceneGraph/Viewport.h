@@ -8,7 +8,7 @@ public:
     Viewport();
 
     void setScene(Scene* const scene) { this->scene = scene; }
-    Scene* getScene() { return scene; }
+    Scene* getScene() const { return scene; }
 
 private:
     Scene* scene;

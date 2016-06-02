@@ -5,6 +5,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Camera.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Camera.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Geometry.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Geometry.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp

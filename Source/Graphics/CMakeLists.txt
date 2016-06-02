@@ -1,4 +1,5 @@
 add_subdirectory(Model)
+add_subdirectory(OpenGL)
 
 set(SOURCES
     ${SOURCES}

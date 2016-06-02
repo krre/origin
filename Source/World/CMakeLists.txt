@@ -1,0 +1,6 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/World.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/World.cpp
+    PARENT_SCOPE
+)

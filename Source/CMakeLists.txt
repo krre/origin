@@ -1,10 +1,11 @@
+add_subdirectory(Actor)
 add_subdirectory(Core)
-add_subdirectory(UI)
+add_subdirectory(Debug)
 add_subdirectory(EventManager)
 add_subdirectory(Graphics)
 add_subdirectory(Process)
-add_subdirectory(Debug)
-add_subdirectory(Actor)
+add_subdirectory(UI)
+add_subdirectory(World)
 
 set(SOURCES
     ${SOURCES}

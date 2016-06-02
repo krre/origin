@@ -1,5 +1,5 @@
 #pragma once
-#include "../Graphics/Node.h"
+#include "Node.h"
 
 class Actor : Node {
 

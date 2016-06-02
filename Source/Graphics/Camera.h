@@ -1,5 +1,5 @@
 #pragma once
-#include "Node.h"
+#include "../SceneGraph/Node.h"
 
 class Camera : public Node {
 

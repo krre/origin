@@ -5,6 +5,7 @@
 #include "../Graphics/Renderer.h"
 #include "Game.h"
 #include "Object.h"
+#include "../SceneGraph/Viewport.h"
 
 class App : public Object {
 
@@ -23,6 +24,7 @@ private:
     Game* game;
     EventManager* eventManager;
     Renderer renderer;
+    Viewport viewport;
 
     bool isRunning = false;
     SDL_Window* window = nullptr;

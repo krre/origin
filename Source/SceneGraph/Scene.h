@@ -1,7 +1,7 @@
 #pragma once
 #include "Node.h"
 
-class Scene {
+class Scene : public Node {
 
 public:
     Scene();

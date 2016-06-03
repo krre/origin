@@ -68,7 +68,6 @@ void App::init() {
 
         game = new Game();
         game->create();
-        game->addView(shared_ptr<PlayerView>(new PlayerView));
     }
 }
 

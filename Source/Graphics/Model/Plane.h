@@ -5,4 +5,5 @@ class Plane : public Node {
 
 public:
     Plane();
+    void draw() override;
 };

@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Core/Object.h"
+#include "../../SceneGraph/Node.h"
 
-class Plane : public Object {
+class Plane : public Node {
 
 public:
     Plane();

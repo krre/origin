@@ -8,10 +8,10 @@ class Viewport : public Object {
 public:
     Viewport();
 
-    void setScene(Scene* const scene) { this->scene = scene; }
-    Scene* getScene() const { return scene; }
+    void setScene(shared_ptr<Scene> const scene) { this->scene = scene; }
+    shared_ptr<Scene> getScene() const { return scene; }
 
 private:
-    Scene* scene;
+    shared_ptr<Scene> scene;
     shared_ptr<Camera> camera;
 };

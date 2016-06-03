@@ -8,6 +8,7 @@ public:
     Node();
     void addChild(shared_ptr<Node> child);
     void removeChild(shared_ptr<Node> child);
+    void removeChildren() { nodes.clear(); }
 
 private:
     list<shared_ptr<Node>> nodes;

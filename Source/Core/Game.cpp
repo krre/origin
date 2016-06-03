@@ -10,9 +10,10 @@ Game::Game() {
 }
 
 void Game::create() {
+    shared_ptr<View> playerView = shared_ptr<View>(new View());
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
     shared_ptr<Plane> plane;
     scene->setRoot(plane);
-    ::app->getViewport()->setScene(scene);
-    ::app->getViewport()->addView(shared_ptr<PlayerView>(new PlayerView));
+    playerView->setScene(scene);
+    ::app->getViewport()->addView(playerView);
 }

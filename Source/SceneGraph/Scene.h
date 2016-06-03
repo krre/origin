@@ -5,7 +5,8 @@ class Scene : public Node {
 
 public:
     Scene();
+    void setRoot(shared_ptr<Node> root) { this->root = root; }
 
 private:
-    Node* root;
+    shared_ptr<Node> root;
 };

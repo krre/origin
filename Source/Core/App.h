@@ -15,6 +15,7 @@ public:
     void init();
     void clean();
     int run();
+    Viewport* getViewport() { return &viewport; }
 
     Signal<> render;
     Signal<double> update;

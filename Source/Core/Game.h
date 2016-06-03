@@ -11,6 +11,7 @@ public:
     Game();
     void addView(shared_ptr<View> view);
     void removeView(shared_ptr<View> view);
+    void create();
 
 private:
     ViewList views;

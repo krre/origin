@@ -2,7 +2,7 @@
 #include "../Core/App.h"
 #include <SDL_opengl.h>
 
-App* app;
+extern App* app;
 
 View::View() {
     ::app->render.connectMember(&View::render, this);

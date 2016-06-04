@@ -9,5 +9,6 @@ int main(int argc, char* argv[]) {
     ::app->init();
     ::app->run();
     ::app->clean();
+    delete ::app;
     return EXIT_SUCCESS;
 }

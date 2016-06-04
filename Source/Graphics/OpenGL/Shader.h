@@ -7,7 +7,7 @@ class Shader : public Object {
 
 public:
     Shader();
-    void load(const string& path);
+    bool load(const string& path);
 private:
     string source;
 };

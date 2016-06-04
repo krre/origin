@@ -5,12 +5,25 @@
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
-App::App() {
+App::App(int argc, char* argv[]) {
+    for (int i = 0; i < argc; i++) {
+        this->argv.push_back(argv[i]);
+    }
 
+    absoluteFilePath = this->argv[0];
+    absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
 }
 
 App::~App() {
     delete game;
+}
+
+string App::getPathSeparator() {
+#ifdef __WINDOWS__
+    return "\\";
+#else
+    return "/";
+#endif
 }
 
 void App::init() {

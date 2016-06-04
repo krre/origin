@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <vector>
 #include "../UI/PlayerView.h"
 #include "../EventManager/EventManager.h"
 #include "../Graphics/Renderer.h"
@@ -10,8 +11,13 @@
 class App : public Object {
 
 public:
-    App();
+    App(int argc, char* argv[]);
     ~App();
+    // Full path to application
+    string getAbsoluteFilePath() { return absoluteFilePath; }
+    // Path to application directory
+    string getAbsolutePath() { return absolutePath; }
+    string getPathSeparator();
     void init();
     void clean();
     int run();
@@ -21,6 +27,10 @@ public:
     Signal<double> update;
 
 private:
+    vector<string> argv;
+    string absoluteFilePath;
+    string absolutePath;
+
     PlayerView* playerView;
     Game* game;
     EventManager* eventManager;

@@ -4,8 +4,8 @@
 
 App* app;
 
-int main() {
-    ::app = new App();
+int main(int argc, char* argv[]) {
+    ::app = new App(argc, argv);
     ::app->init();
     ::app->run();
     ::app->clean();

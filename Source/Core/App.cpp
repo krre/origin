@@ -76,9 +76,11 @@ void App::init() {
             if (context == nullptr) {
                 cout << "OpenGL context could not be created! SDL_Error: " << SDL_GetError() << endl;
             } else {
+                SDL_GL_MakeCurrent(window, context);
+
                 SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
                 SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 2);
+                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
                 SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
                 glewExperimental = GL_TRUE;
@@ -115,6 +117,7 @@ void App::handleEvents() {
 }
 
 void App::clean() {
+    SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();
 }

@@ -32,6 +32,7 @@ bool Shader::load(const string& path, GLenum type) {
         glGetShaderInfoLog(id, len, &len, log);
         cerr << "Shader compilation failed " << log << endl;
         delete[] log;
+        glDeleteShader(id);
         return false;
     }
 

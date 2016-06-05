@@ -12,4 +12,5 @@ private:
     Shader vertexShader;
     Shader fragmentShader;
     Program programShader;
+    GLuint vao;
 };

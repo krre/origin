@@ -7,8 +7,13 @@ Plane::Plane() {
     programShader.addShader(fragmentShader);
     programShader.link();
     programShader.use(true);
+
+    glCreateVertexArrays(1, &vao);
+    glBindVertexArray(vao);
 }
 
 void Plane::draw() {
 //    print("draw plane");
+    glPointSize(200);
+    glDrawArrays(GL_POINTS, 0, 1);
 }

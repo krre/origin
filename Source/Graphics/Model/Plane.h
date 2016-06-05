@@ -1,6 +1,7 @@
 #pragma once
 #include "../../SceneGraph/Node.h"
 #include "../OpenGL/Shader.h"
+#include "../OpenGL/Program.h"
 
 class Plane : public Node {
 
@@ -10,4 +11,5 @@ public:
 private:
     Shader vertexShader;
     Shader fragmentShader;
+    Program programShader;
 };

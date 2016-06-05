@@ -148,5 +148,6 @@ int App::run() {
 }
 
 void App::windowResize(int width, int height) {
-    print(width << " " << height)
+    print(width << " " << height);
+    glViewport(0, 0, width, height);
 }

@@ -6,7 +6,9 @@ class Buffer : public Object {
 
 public:
     Buffer(GLenum type);
+    GLuint getId() const { return id; }
 
 private:
     GLenum type;
+    GLuint id;
 };

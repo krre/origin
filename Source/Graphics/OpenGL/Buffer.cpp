@@ -1,5 +1,5 @@
 #include "Buffer.h"
 
-Buffer::Buffer() {
+Buffer::Buffer(GLenum type) : type(type) {
 
 }

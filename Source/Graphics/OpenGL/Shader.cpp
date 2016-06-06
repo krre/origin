@@ -9,6 +9,7 @@ Shader::Shader() {
 }
 
 bool Shader::load(const string& path, GLenum type) {
+    this->type = type;
     string shaderPath = app->getAbsolutePath() + "/" + folder + "/" + path;
     ifstream file(shaderPath);
     if (!file.is_open()) {

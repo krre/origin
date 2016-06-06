@@ -10,7 +10,9 @@ public:
     Shader();
     bool load(const string& path, GLenum type);
     GLuint getId() const { return id; }
+    GLenum getType() const { return type; }
 private:
     string source;
     GLuint id;
+    GLenum type;
 };

@@ -6,7 +6,7 @@ Plane::Plane() : vertexShader(GL_VERTEX_SHADER), fragmentShader(GL_FRAGMENT_SHAD
     programShader.addShader(vertexShader);
     programShader.addShader(fragmentShader);
     programShader.link();
-    programShader.use(true);
+    programShader.use();
 
     glCreateVertexArrays(1, &vao);
     glBindVertexArray(vao);

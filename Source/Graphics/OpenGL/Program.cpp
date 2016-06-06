@@ -30,9 +30,5 @@ bool Program::link() {
 }
 
 void Program::use(bool value) {
-    if (value) {
-        glUseProgram(id);
-    } else {
-        glDeleteProgram(id);
-    }
+    glUseProgram(value ? id : 0);
 }

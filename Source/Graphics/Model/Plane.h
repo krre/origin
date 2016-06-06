@@ -6,9 +6,11 @@
 class Plane : public Node {
 
 public:
-    Plane();
+    Plane(int width, int height);
     void draw() override;
 private:
+    int width;
+    int height;
     Shader vertexShader;
     Shader fragmentShader;
     Program programShader;

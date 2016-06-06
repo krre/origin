@@ -4,11 +4,11 @@
 
 extern App* app;
 
-Shader::Shader() {
+Shader::Shader(GLenum type) : type(type) {
 
 }
 
-bool Shader::load(const string& path, GLenum type) {
+bool Shader::load(const string& path) {
     this->type = type;
     string shaderPath = app->getAbsolutePath() + "/" + folder + "/" + path;
     ifstream file(shaderPath);

@@ -1,8 +1,8 @@
 #include "Plane.h"
 
-Plane::Plane() {
-    vertexShader.load("Base.vs", GL_VERTEX_SHADER);
-    fragmentShader.load("Base.fs", GL_FRAGMENT_SHADER);
+Plane::Plane() : vertexShader(GL_VERTEX_SHADER), fragmentShader(GL_FRAGMENT_SHADER) {
+    vertexShader.load("Base.vs");
+    fragmentShader.load("Base.fs");
     programShader.addShader(vertexShader);
     programShader.addShader(fragmentShader);
     programShader.link();

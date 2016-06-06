@@ -7,8 +7,8 @@ const string folder = "Data/Shader";
 class Shader : public Object {
 
 public:
-    Shader();
-    bool load(const string& path, GLenum type);
+    Shader(GLenum type);
+    bool load(const string& path);
     GLuint getId() const { return id; }
     GLenum getType() const { return type; }
 private:

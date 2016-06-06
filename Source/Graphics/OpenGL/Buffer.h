@@ -1,8 +1,8 @@
 #pragma once
 #include "../../Core/Object.h"
 
-class IndexBuffer : public Object {
+class Buffer : public Object {
 
 public:
-    IndexBuffer();
+    Buffer();
 };

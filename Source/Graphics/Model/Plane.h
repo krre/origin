@@ -2,6 +2,7 @@
 #include "../../SceneGraph/Node.h"
 #include "../OpenGL/Shader.h"
 #include "../OpenGL/Program.h"
+#include "../OpenGL/VertexArrayObject.h"
 
 class Plane : public Node {
 
@@ -14,5 +15,5 @@ private:
     Shader vertexShader;
     Shader fragmentShader;
     Program programShader;
-    GLuint vao;
+    VertexArrayObject vao;
 };

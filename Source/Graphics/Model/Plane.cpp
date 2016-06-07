@@ -9,9 +9,6 @@ Plane::Plane(int width, int height) : width(width), height(height),
     programShader.addShader(fragmentShader);
     programShader.link();
     programShader.use();
-
-    glCreateVertexArrays(1, &vao);
-    glBindVertexArray(vao);
 }
 
 void Plane::draw() {

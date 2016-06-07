@@ -1,7 +1,7 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/VertexBuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/VertexBuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Program.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Program.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Shader.cpp

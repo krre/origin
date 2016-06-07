@@ -27,8 +27,6 @@ Plane::Plane(int width, int height) : width(width), height(height),
 
     glm::mat4 model = glm::mat4(1.0f);
     MVP = projection * view * model;
-
-
 }
 
 void Plane::draw() {

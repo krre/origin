@@ -8,6 +8,7 @@ public:
     Buffer(GLenum type);
     GLuint getId() const { return id; }
     GLenum getType() const { return type; }
+    void setData(const void* data, int count);
 
 private:
     GLenum type;

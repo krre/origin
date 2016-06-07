@@ -4,6 +4,8 @@
 #include "../OpenGL/Program.h"
 #include "../OpenGL/VertexArray.h"
 #include "../OpenGL/Buffer.h"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 class Plane : public Node {
 
@@ -18,4 +20,6 @@ private:
     Program programShader;
     VertexArray vao;
     Buffer buffer;
+    GLuint matrix;
+    glm::mat4 MVP;
 };

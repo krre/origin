@@ -2,10 +2,10 @@
 #include "../../Core/Object.h"
 #include <GL/glew.h>
 
-class VertexArrayObject : public Object {
+class VertexArray : public Object {
 
 public:
-    VertexArrayObject();
+    VertexArray();
     GLuint getId() const { return id; }
     GLuint id;
 };

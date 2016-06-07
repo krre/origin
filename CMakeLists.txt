@@ -22,7 +22,7 @@ include_directories(${SDL2_INCLUDE_DIR})
 find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIRS})
 
-include_directories(Source/3rdparty)
+include_directories(Source/ThirdParty)
 
 find_package(OpenGL)
 

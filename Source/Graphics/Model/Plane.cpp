@@ -1,7 +1,9 @@
 #include "Plane.h"
 
 Plane::Plane(int width, int height) : width(width), height(height),
-        vertexShader(GL_VERTEX_SHADER), fragmentShader(GL_FRAGMENT_SHADER) {
+        vertexShader(GL_VERTEX_SHADER),
+        fragmentShader(GL_FRAGMENT_SHADER),
+        buffer(GL_ARRAY_BUFFER) {
     vertexShader.load("Base.vs");
     fragmentShader.load("Base.fs");
 
@@ -9,6 +11,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
     programShader.addShader(fragmentShader);
     programShader.link();
     programShader.use();
+
 }
 
 void Plane::draw() {

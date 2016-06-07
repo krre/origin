@@ -3,6 +3,7 @@
 #include "../OpenGL/Shader.h"
 #include "../OpenGL/Program.h"
 #include "../OpenGL/VertexArray.h"
+#include "../OpenGL/Buffer.h"
 
 class Plane : public Node {
 
@@ -16,4 +17,5 @@ private:
     Shader fragmentShader;
     Program programShader;
     VertexArray vao;
+    Buffer buffer;
 };

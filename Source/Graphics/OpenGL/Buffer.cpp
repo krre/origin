@@ -2,7 +2,6 @@
 
 Buffer::Buffer(GLenum type) : type(type) {
     glGenBuffers(1, &id);
-    bind();
 }
 
 void Buffer::setData(const void* data, int count) {

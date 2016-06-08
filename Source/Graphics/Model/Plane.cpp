@@ -12,21 +12,21 @@ Plane::Plane(int width, int height) : width(width), height(height),
     programShader.link();
     programShader.use();
 
-    const GLfloat data[] = { -1.0f, -1.0f, 0.0f,
-                            1.0f, -1.0f, 0.0f,
-                            1.0f,  1.0f, 0.0f,
+    const GLfloat data[] = { -1.0f, 0.0f, -1.0f,
+                              1.0f, 0.0f, 1.0f,
+                              1.0f, 0.0f, -1.0f,
 
-                            -1.0f,  1.0f, 0.0f,
-                            -1.0f,  -1.0f, 0.0f,
-                            1.0f,  1.0f, 0.0f,
+                             -1.0f,  0.0f, -1.0f,
+                             -1.0f,  0.0f, 1.0f,
+                              1.0f,  0.0f, 1.0f,
                            };
     buffer.setData(data, sizeof(data));
 
     matrix = glGetUniformLocation(programShader.getId(), "mvp");
-    glm::mat4 projection = glm::perspective(glm::radians(70.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(50.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 
     glm::mat4 view = glm::lookAt(
-                                glm::vec3(0, 0, 2), // Camera is at (4,3,3), in World Space
+                                glm::vec3(0, 2, 2), // Camera is at (4,3,3), in World Space
                                 glm::vec3(0, 0, 0), // and looks at the origin
                                 glm::vec3(0, 1, 0));  // Head is up (set to 0,-1,0 to look upside-down)
 

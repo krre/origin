@@ -3,7 +3,7 @@
 #include "../OpenGL/Shader.h"
 #include "../OpenGL/Program.h"
 #include "../OpenGL/VertexArray.h"
-#include "../OpenGL/VertexBuffer.h"
+#include "../OpenGL/Buffer.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -19,7 +19,7 @@ private:
     Shader fragmentShader;
     Program programShader;
     VertexArray vao;
-    VertexBuffer buffer;
+    Buffer buffer;
     GLuint matrix;
     glm::mat4 mvp; // model-view-projection
 };

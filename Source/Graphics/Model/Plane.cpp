@@ -14,16 +14,21 @@ Plane::Plane(int width, int height) : width(width), height(height),
 
     const GLfloat data[] = { -1.0f, -1.0f, 0.0f,
                             1.0f, -1.0f, 0.0f,
-                            0.0f,  1.0f, 0.0f, };
+                            1.0f,  1.0f, 0.0f,
+
+                            -1.0f,  1.0f, 0.0f,
+                            -1.0f,  -1.0f, 0.0f,
+                            1.0f,  1.0f, 0.0f,
+                           };
     buffer.setData(data, sizeof(data));
 
     matrix = glGetUniformLocation(programShader.getId(), "mvp");
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+    glm::mat4 projection = glm::perspective(glm::radians(70.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 
     glm::mat4 view = glm::lookAt(
-                                glm::vec3(4,3,3), // Camera is at (4,3,3), in World Space
-                                glm::vec3(0,0,0), // and looks at the origin
-                                glm::vec3(0,1,0));  // Head is up (set to 0,-1,0 to look upside-down)
+                                glm::vec3(0, 0, 2), // Camera is at (4,3,3), in World Space
+                                glm::vec3(0, 0, 0), // and looks at the origin
+                                glm::vec3(0, 1, 0));  // Head is up (set to 0,-1,0 to look upside-down)
 
     glm::mat4 model = glm::mat4(1.0f);
     mvp = projection * view * model;
@@ -44,6 +49,6 @@ void Plane::draw() {
        (void*)0            // array buffer offset
     );
 
-    glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
+    glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
     glDisableVertexAttribArray(0);
 }

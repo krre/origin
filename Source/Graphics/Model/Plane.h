@@ -20,6 +20,7 @@ private:
     Program programShader;
     VertexArray vao;
     Buffer vertexBuffer;
+    Buffer colorBuffer;
     GLuint matrix;
     glm::mat4 mvp; // model-view-projection
 };

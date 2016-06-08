@@ -20,6 +20,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
                              -1.0f,  0.0f, 1.0f,
                               1.0f,  0.0f, 1.0f,
                            };
+    vertexBuffer.bind();
     vertexBuffer.setData(data, sizeof(data));
 
     matrix = glGetUniformLocation(programShader.getId(), "mvp");
@@ -39,7 +40,6 @@ void Plane::draw() {
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
 
     glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexBuffer.getId());
     glVertexAttribPointer(
        0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
        3,                  // size

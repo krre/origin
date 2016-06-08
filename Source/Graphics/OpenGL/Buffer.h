@@ -9,6 +9,7 @@ public:
     GLuint getId() const { return id; }
     GLenum getType() const { return type; }
     void setData(const void* data, int count);
+    void bind();
 
 private:
     GLenum type;

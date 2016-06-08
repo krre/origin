@@ -17,7 +17,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
                             0.0f,  1.0f, 0.0f, };
     buffer.setData(data, sizeof(data));
 
-    matrix = glGetUniformLocation(programShader.getId(), "MVP");
+    matrix = glGetUniformLocation(programShader.getId(), "mvp");
     glm::mat4 projection = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
 
     glm::mat4 view = glm::lookAt(
@@ -26,12 +26,12 @@ Plane::Plane(int width, int height) : width(width), height(height),
                                 glm::vec3(0,1,0));  // Head is up (set to 0,-1,0 to look upside-down)
 
     glm::mat4 model = glm::mat4(1.0f);
-    MVP = projection * view * model;
+    mvp = projection * view * model;
 }
 
 void Plane::draw() {
 //    print("draw plane");
-    glUniformMatrix4fv(matrix, 1, GL_FALSE, &MVP[0][0]);
+    glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
 
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, buffer.getId());

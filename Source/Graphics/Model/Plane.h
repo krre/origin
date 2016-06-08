@@ -21,5 +21,5 @@ private:
     VertexArray vao;
     VertexBuffer buffer;
     GLuint matrix;
-    glm::mat4 MVP;
+    glm::mat4 mvp; // model-view-projection
 };

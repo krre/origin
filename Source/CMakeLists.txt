@@ -1,6 +1,6 @@
 add_subdirectory(Core)
 add_subdirectory(Debug)
-add_subdirectory(EventManager)
+add_subdirectory(Event)
 add_subdirectory(Graphics)
 add_subdirectory(Process)
 add_subdirectory(SceneGraph)

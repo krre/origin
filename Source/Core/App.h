@@ -2,7 +2,7 @@
 #include <SDL.h>
 #include <vector>
 #include "../UI/PlayerView.h"
-#include "../EventManager/EventManager.h"
+#include "../Event/Event.h"
 #include "../Graphics/Renderer.h"
 #include "Game.h"
 #include "Object.h"
@@ -33,7 +33,7 @@ private:
 
     PlayerView* playerView;
     Game* game;
-    EventManager* eventManager;
+    Event* event;
     Renderer renderer;
     Viewport viewport;
 

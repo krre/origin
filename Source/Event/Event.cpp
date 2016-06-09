@@ -25,6 +25,7 @@ void Event::handleEvents() {
             break;
 
         case SDL_MOUSEMOTION:
+            mouseMove.emit(event.motion.x, event.motion.y);
             print("mouse move: " << event.motion.x << " " << event.motion.y);
             break;
 

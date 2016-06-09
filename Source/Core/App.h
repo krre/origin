@@ -6,7 +6,7 @@
 #include "../Graphics/Renderer.h"
 #include "Game.h"
 #include "Object.h"
-#include "../SceneGraph/Viewport.h"
+#include "../Scene/Viewport.h"
 
 class App : public Object {
 

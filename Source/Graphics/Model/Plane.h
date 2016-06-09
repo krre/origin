@@ -1,5 +1,5 @@
 #pragma once
-#include "../../SceneGraph/Node.h"
+#include "../../Scene/Node.h"
 #include "../OpenGL/Shader.h"
 #include "../OpenGL/Program.h"
 #include "../OpenGL/VertexArray.h"

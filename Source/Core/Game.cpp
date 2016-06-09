@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "../SceneGraph/Scene.h"
+#include "../Scene/Scene.h"
 #include "App.h"
 #include "../Graphics/Model/Plane.h"
 

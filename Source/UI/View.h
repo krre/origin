@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Object.h"
 #include "../Graphics/Camera.h"
-#include "../SceneGraph/Scene.h"
+#include "../Scene/Scene.h"
 
 class View : public Object {
 

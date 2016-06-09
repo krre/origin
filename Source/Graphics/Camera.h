@@ -1,5 +1,5 @@
 #pragma once
-#include "../SceneGraph/Node.h"
+#include "../Scene/Node.h"
 #include <glm/glm.hpp>
 
 class Camera : public Node {

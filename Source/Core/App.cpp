@@ -3,6 +3,8 @@
 #include <SDL_timer.h>
 #include <GL/glew.h>
 
+extern Event* event;
+
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
@@ -13,6 +15,9 @@ App::App(int argc, char* argv[]) {
 
     absoluteFilePath = this->argv[0];
     absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
+
+    ::event->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
+    ::event->quit.connectMember(&App::quit, this);
 }
 
 App::~App() {
@@ -94,46 +99,6 @@ void App::init() {
     }
 }
 
-void App::handleEvents() {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        switch (event.type) {
-
-        case SDL_QUIT:
-            isRunning = false;
-            break;
-
-        case SDL_WINDOWEVENT:
-            switch (event.window.event) {
-            case SDL_WINDOWEVENT_RESIZED:
-                windowResize(event.window.data1, event.window.data2);
-                break;
-            default:
-                break;
-            }
-            break;
-
-        case SDL_MOUSEMOTION:
-            print("mouse move: " << event.motion.x << " " << event.motion.y);
-            break;
-
-        case SDL_MOUSEBUTTONDOWN:
-            print("mouse button down: " << event.button.button << " " << event.button.x << " " << event.button.y);
-            break;
-
-        case SDL_MOUSEBUTTONUP:
-            print("mouse button up: " << event.button.button << " " << event.button.x << " " << event.button.y);
-            break;
-
-        case SDL_MOUSEWHEEL:
-            print("mouse wheel: " << event.wheel.x << " " << event.wheel.y);
-
-        default:
-            break;
-        }
-    }
-}
-
 void App::clean() {
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
@@ -148,7 +113,7 @@ int App::run() {
     double accumulator = 0.0;
 
     while (isRunning) {
-        handleEvents();
+        ::event->handleEvents();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
@@ -156,16 +121,19 @@ int App::run() {
         accumulator += frameTime;
 
         while (accumulator >= dt) {
-            update.emit(dt);
+            ::event->update.emit(dt);
             accumulator -= dt;
         }
 
-        render.emit();
+        ::event->render.emit();
         SDL_GL_SwapWindow(window);
     }
 }
 
 void App::windowResize(int width, int height) {
-    print(width << " " << height);
     glViewport(0, 0, width, height);
+}
+
+void App::quit() {
+    isRunning = false;
 }

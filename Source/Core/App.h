@@ -23,9 +23,6 @@ public:
     int run();
     Viewport* getViewport() { return &viewport; }
 
-    Signal<> render;
-    Signal<double> update;
-
 private:
     vector<string> argv;
     string absoluteFilePath;
@@ -33,7 +30,6 @@ private:
 
     PlayerView* playerView;
     Game* game;
-    Event* event;
     Renderer renderer;
     Viewport viewport;
 
@@ -43,5 +39,5 @@ private:
     SDL_GLContext context;
 
     void windowResize(int width, int height);
-    void handleEvents();
+    void quit();
 };

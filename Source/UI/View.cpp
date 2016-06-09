@@ -1,12 +1,12 @@
 #include "View.h"
-#include "../Core/App.h"
+#include "../Event/Event.h"
 #include <SDL_opengl.h>
 
-extern App* app;
+extern Event* event;
 
 View::View() {
-    ::app->render.connectMember(&View::render, this);
-    ::app->update.connectMember(&View::update, this, std::placeholders::_1);
+    ::event->render.connectMember(&View::render, this);
+    ::event->update.connectMember(&View::update, this, std::placeholders::_1);
 }
 
 void View::update(double dt) {

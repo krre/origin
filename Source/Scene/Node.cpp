@@ -11,3 +11,15 @@ void Node::addChild(shared_ptr<Node> child) {
 void Node::removeChild(shared_ptr<Node> child) {
     nodes.remove(child);
 }
+
+void Node::setPosition(float x, float y, float z) {
+
+}
+
+void Node::setRotation(float angle) {
+
+}
+
+void Node::setScale(float scale) {
+
+}

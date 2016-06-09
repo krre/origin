@@ -26,5 +26,5 @@ void Node::setScale(float scale) {
 }
 
 void Node::translate(const glm::vec3& vector) {
-    glm::translate(matrix, vector);
+    matrix = glm::translate(matrix, vector);
 }

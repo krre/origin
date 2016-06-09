@@ -14,9 +14,11 @@ public:
 
     virtual void draw() {}
 
-    void setPosition(float x, float y, float z);
+    void setPosition(const glm::vec3& position);
     void setRotation(float angle);
     void setScale(float scale);
+
+    void translate(const glm::vec3& vector);
 
 private:
     list<shared_ptr<Node>> nodes;

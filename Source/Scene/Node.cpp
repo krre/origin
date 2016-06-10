@@ -21,7 +21,7 @@ void Node::setPosition(const glm::vec3& position) {
 
 }
 
-void Node::setRotation(float angle) {
+void Node::setRotation(float angle, const glm::vec3& axis) {
 
 }
 
@@ -31,5 +31,15 @@ void Node::setScale(float scale) {
 
 void Node::translate(const glm::vec3& vector) {
     translationMatrix = glm::translate(translationMatrix, vector);
+    modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+}
+
+void Node::rotate(float angle, const glm::vec3 &axis) {
+    rotationMatrix = glm::rotate(rotationMatrix, angle, axis);
+    modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+}
+
+void Node::scale(const glm::vec3 &scale) {
+    scaleMatrix = glm::scale(scaleMatrix, scale);
     modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 }

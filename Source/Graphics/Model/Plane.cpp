@@ -34,8 +34,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
         glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
     );
 
-    glm::mat4 model = glm::mat4(1.0f);
-    mvp = projection * view * model;
+    mvp = projection * view * modelMatrix;
 
     static const GLfloat colorData[] = {
         0.000f,  1.000f,  0.000f,

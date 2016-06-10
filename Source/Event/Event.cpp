@@ -39,6 +39,16 @@ void Event::handleEvents() {
 
         case SDL_MOUSEWHEEL:
 //            print("mouse wheel: " << event.wheel.x << " " << event.wheel.y);
+            break;
+
+        case SDL_KEYDOWN:
+            keyPress.emit(event.key);
+//            print("key down: " << event.key.keysym.sym);
+            break;
+
+        case SDL_KEYUP:
+//            print("key up: " << event.key.keysym.sym);
+            keyRelease.emit(event.key);
 
         default:
             break;

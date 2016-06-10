@@ -13,6 +13,8 @@ public:
     Signal<double> update;
     Signal<int, int> windowResize;
     Signal<int, int> mouseMove;
+    Signal<SDL_KeyboardEvent> keyPress;
+    Signal<SDL_KeyboardEvent> keyRelease;
 
 private:
 

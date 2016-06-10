@@ -1,7 +1,11 @@
 #include "Node.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-Node::Node() : matrix(1.0f) {
+Node::Node() :
+    translationMatrix(1.0f),
+    rotationMatrix(1.0f),
+    scaleMatrix(1.0f),
+    modelMatrix(1.0f) {
 
 }
 
@@ -26,5 +30,6 @@ void Node::setScale(float scale) {
 }
 
 void Node::translate(const glm::vec3& vector) {
-    matrix = glm::translate(matrix, vector);
+    translationMatrix = glm::translate(translationMatrix, vector);
+    modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 }

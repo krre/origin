@@ -22,5 +22,8 @@ public:
 
 private:
     list<shared_ptr<Node>> nodes;
-    glm::mat4 matrix;
+    glm::mat4 translationMatrix;
+    glm::mat4 rotationMatrix;
+    glm::mat4 scaleMatrix;
+    glm::mat4 modelMatrix;
 };

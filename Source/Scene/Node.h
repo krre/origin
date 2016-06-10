@@ -15,11 +15,11 @@ public:
     virtual void draw() {}
 
     void setPosition(const glm::vec3& position);
-    void setRotation(float angle, const glm::vec3 &axis);
-    void setScale(float scale);
+    void setRotation(float angle, const glm::vec3& axis);
+    void setScale(const glm::vec3& scale);
 
     void translate(const glm::vec3& vector);
-    void rotate(float angle, const glm::vec3 &axis);
+    void rotate(float angle, const glm::vec3& axis);
     void scale(const glm::vec3& scale);
 
     const glm::mat4& getModelMatrix() const { return modelMatrix; }

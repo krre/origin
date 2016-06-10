@@ -3,6 +3,8 @@
 #include <list>
 #include <glm/glm.hpp>
 
+using namespace glm;
+
 class Node : public Object {
 
 public:
@@ -14,22 +16,22 @@ public:
 
     virtual void draw() {}
 
-    void setPosition(const glm::vec3& position);
-    void setRotation(float angle, const glm::vec3& axis);
-    void setScale(const glm::vec3& scale);
+    void setPosition(const vec3& position);
+    void setRotation(float angle, const vec3& axis);
+    void setScale(const vec3& scale);
 
-    void translate(const glm::vec3& vector);
-    void rotate(float angle, const glm::vec3& axis);
-    void scale(const glm::vec3& scale);
+    void translate(const vec3& vector);
+    void rotate(float angle, const vec3& axis);
+    void scale(const vec3& scale);
 
-    const glm::mat4& getModelMatrix() const { return modelMatrix; }
+    const mat4& getModelMatrix() const { return modelMatrix; }
 
 protected:
-    glm::mat4 modelMatrix;
+    mat4 modelMatrix;
 
 private:
     list<shared_ptr<Node>> nodes;
-    glm::mat4 translationMatrix;
-    glm::mat4 rotationMatrix;
-    glm::mat4 scaleMatrix;
+    mat4 translationMatrix;
+    mat4 rotationMatrix;
+    mat4 scaleMatrix;
 };

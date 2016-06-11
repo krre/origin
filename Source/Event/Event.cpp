@@ -1,4 +1,7 @@
 #include "Event.h"
+#include "Input.h"
+
+extern Input* input;
 
 Event::Event() {
 
@@ -42,11 +45,13 @@ void Event::handleEvents() {
             break;
 
         case SDL_KEYDOWN:
+            ::input->addKey(event.key.keysym.sym);
             keyPress.emit(event.key);
 //            print("key down: " << event.key.keysym.sym);
             break;
 
         case SDL_KEYUP:
+            ::input->removeKey(event.key.keysym.sym);
 //            print("key up: " << event.key.keysym.sym);
             keyRelease.emit(event.key);
 

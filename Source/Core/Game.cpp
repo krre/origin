@@ -5,6 +5,7 @@
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include <SDL_keycode.h>
+#include <glm/ext.hpp>
 
 extern App* app;
 extern Event* event;
@@ -25,23 +26,27 @@ void Game::create() {
 
     camera = ::app->getViewport()->getView(0)->getCamera();
     camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
-//    camera->setRotation(glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+    pitch = -35.0f;
 
     ::event->update.connectMember(&Game::update, this, std::placeholders::_1);
 }
 
 void Game::cameraMove(float dt) {
     const float MOVE_SPEED = 1.0f;
-    const float ROTATE_SPEED = 1.0f;
+    const float ROTATE_SPEED = 0.2f;
 
     glm::ivec2 mousePos = ::input->getMousePos();
     if (prevMousePos.x != -1) {
         glm::ivec2 mouseDelta = mousePos - prevMousePos;
+
         yaw += ROTATE_SPEED * mouseDelta.x;
+        yaw = fmod(yaw, 360.0f);
+
         pitch += ROTATE_SPEED * mouseDelta.y;
         pitch = glm::clamp(pitch, -80.0f, 80.0f);
-        camera->setRotation(glm::radians(yaw), glm::vec3(0.0f, 1.0f, 0.0f));
-        camera->setRotation(glm::radians(pitch), glm::vec3(1.0f, 0.0f, 0.0f));
+
+        glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(yaw), glm::radians(pitch)));
+        camera->setRotation(rotation);
     }
 
     prevMousePos = mousePos;

@@ -1,5 +1,6 @@
 #include "Node.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/ext.hpp>
 
 Node::Node() :
     translationMatrix(1.0f),
@@ -27,7 +28,8 @@ void Node::setRotation(float angle, const vec3& axis) {
 }
 
 void Node::setRotation(const quat& rotation) {
-
+    rotationMatrix = glm::toMat4(rotation);
+    modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 }
 
 void Node::setScale(const vec3& scale) {

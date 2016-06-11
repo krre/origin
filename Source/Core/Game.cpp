@@ -37,7 +37,7 @@ void Game::cameraMove(float dt) {
 
     glm::ivec2 mousePos = ::input->getMousePos();
     if (prevMousePos.x != -1) {
-        glm::ivec2 mouseDelta = mousePos - prevMousePos;
+        glm::ivec2 mouseDelta = prevMousePos - mousePos;
 
         yaw += ROTATE_SPEED * mouseDelta.x;
         yaw = fmod(yaw, 360.0f);

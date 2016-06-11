@@ -2,6 +2,7 @@
 #include "../Core/Object.h"
 #include <list>
 #include <glm/glm.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 using namespace glm;
 
@@ -37,4 +38,5 @@ private:
     mat4 translationMatrix;
     mat4 rotationMatrix;
     mat4 scaleMatrix;
+    quat rotation;
 };

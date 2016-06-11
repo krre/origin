@@ -28,6 +28,7 @@ void Node::setRotation(float angle, const vec3& axis) {
 }
 
 void Node::setRotation(const quat& rotation) {
+    this->rotation = rotation;
     rotationMatrix = glm::toMat4(rotation);
     modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 }

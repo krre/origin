@@ -32,13 +32,14 @@ void Game::create() {
 
 void Game::cameraMove(float dt) {
     const float MOVE_SPEED = 1.0f;
-    const float ROTATE_SPEED = 0.2f;
+    const float ROTATE_SPEED = 1.0f;
 
     glm::ivec2 mousePos = ::input->getMousePos();
     if (prevMousePos.x != -1) {
         glm::ivec2 mouseDelta = mousePos - prevMousePos;
         yaw += ROTATE_SPEED * mouseDelta.x;
         pitch += ROTATE_SPEED * mouseDelta.y;
+        pitch = glm::clamp(pitch, -80.0f, 80.0f);
         camera->setRotation(glm::radians(yaw), glm::vec3(0.0f, 1.0f, 0.0f));
         camera->setRotation(glm::radians(pitch), glm::vec3(1.0f, 0.0f, 0.0f));
     }

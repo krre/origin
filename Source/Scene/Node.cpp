@@ -30,7 +30,7 @@ void Node::setRotation(float angle, const vec3& axis) {
 void Node::setRotation(const quat& rotation) {
     this->rotation = rotation;
     rotationMatrix = glm::toMat4(rotation);
-    modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+    modelMatrix = rotationMatrix * translationMatrix * scaleMatrix;
 }
 
 void Node::setScale(const vec3& scale) {
@@ -40,7 +40,7 @@ void Node::setScale(const vec3& scale) {
 
 void Node::translate(const vec3& vector) {
     translationMatrix = glm::translate(translationMatrix, vector);
-    modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+    modelMatrix = rotationMatrix * translationMatrix * scaleMatrix;
 }
 
 void Node::rotate(float angle, const vec3& axis) {

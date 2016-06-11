@@ -25,7 +25,7 @@ void Game::create() {
     scene->setRoot(plane);
 
     camera = ::app->getViewport()->getView(0)->getCamera();
-    camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+    camera->setPosition(vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 
     ::event->update.connectMember(&Game::update, this, std::placeholders::_1);
@@ -35,30 +35,30 @@ void Game::cameraMove(float dt) {
     const float MOVE_SPEED = 1.0f;
     const float ROTATE_SPEED = 0.2f;
 
-    glm::ivec2 mousePos = ::input->getMousePos();
+    ivec2 mousePos = ::input->getMousePos();
     if (prevMousePos.x != -1) {
-        glm::ivec2 mouseDelta = prevMousePos - mousePos;
+        ivec2 mouseDelta = prevMousePos - mousePos;
 
         yaw += ROTATE_SPEED * mouseDelta.x;
         yaw = fmod(yaw, 360.0f);
 
         pitch += ROTATE_SPEED * mouseDelta.y;
-        pitch = glm::clamp(pitch, -80.0f, 80.0f);
+        pitch = clamp(pitch, -80.0f, 80.0f);
 
-        glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(yaw), glm::radians(pitch)));
+        quat rotation = toQuat(eulerAngleYX(radians(yaw), radians(pitch)));
         camera->setRotation(rotation);
     }
 
     prevMousePos = mousePos;
 
     if (::input->isKeyPressed(SDLK_w)) {
-        camera->translate(glm::vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
+        camera->translate(vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
     } else if (::input->isKeyPressed(SDLK_s)) {
-        camera->translate(glm::vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
+        camera->translate(vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
     } else if (::input->isKeyPressed(SDLK_a)) {
-        camera->translate(glm::vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
+        camera->translate(vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     } else if (::input->isKeyPressed(SDLK_d)) {
-        camera->translate(glm::vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
+        camera->translate(vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     }
 }
 

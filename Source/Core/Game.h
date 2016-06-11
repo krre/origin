@@ -4,6 +4,8 @@
 #include <list>
 #include <glm/glm.hpp>
 
+using namespace glm;
+
 class Game : public Object {
 
 public:
@@ -12,7 +14,7 @@ public:
 private:
     void cameraMove(float dt);
     void update(float dt);
-    glm::ivec2 prevMousePos;
+    ivec2 prevMousePos;
     float yaw = 0;
     float pitch = 0;
     shared_ptr<Camera> camera;

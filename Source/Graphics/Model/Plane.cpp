@@ -18,13 +18,13 @@ Plane::Plane(int width, int height) : width(width), height(height),
     programShader.use();
 
     static const GLfloat vertexData[] = {
-        -1.0f, 0.0f, -1.0f,
-        1.0f, 0.0f, 1.0f,
-        1.0f, 0.0f, -1.0f,
+        -1.0f * width, 0.0f, -1.0f * height,
+        1.0f * width, 0.0f, 1.0f * height,
+        1.0f * width, 0.0f, -1.0f * height,
 
-        -1.0f,  0.0f, -1.0f,
-        -1.0f,  0.0f, 1.0f,
-        1.0f,  0.0f, 1.0f,
+        -1.0f * width,  0.0f, -1.0f * height,
+        -1.0f * width,  0.0f, 1.0f * height,
+        1.0f * width,  0.0f, 1.0f * height,
     };
     vertexBuffer.bind();
     vertexBuffer.setData(vertexData, sizeof(vertexData));

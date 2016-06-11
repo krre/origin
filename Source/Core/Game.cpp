@@ -21,7 +21,7 @@ void Game::create() {
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
     playerView->setScene(scene);
 
-    shared_ptr<Plane> plane = shared_ptr<Plane>(new Plane(100, 100));
+    shared_ptr<Plane> plane = shared_ptr<Plane>(new Plane(1, 1));
     scene->setRoot(plane);
 
     camera = ::app->getViewport()->getView(0)->getCamera();

@@ -19,4 +19,6 @@ private:
     float fov = glm::radians(50.0f);
     float aspect = 800.0f / 480.0f;
     glm::mat4 projection;
+
+    void windowResize(int width, int height);
 };

@@ -18,11 +18,14 @@ public:
 
     void setPosition(const vec3& position);
     void setRotation(float angle, const vec3& axis);
+    void setRotation(const quat& rotation);
     void setScale(const vec3& scale);
 
     void translate(const vec3& vector);
     void rotate(float angle, const vec3& axis);
     void scale(const vec3& scale);
+
+    void lookAt(const vec3& center);
 
     const mat4& getModelMatrix() const { return modelMatrix; }
 

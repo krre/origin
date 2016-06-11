@@ -26,6 +26,10 @@ void Node::setRotation(float angle, const vec3& axis) {
     modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
 }
 
+void Node::setRotation(const quat& rotation) {
+
+}
+
 void Node::setScale(const vec3& scale) {
     scaleMatrix = glm::scale(mat4(1.0f), scale);
     modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
@@ -44,4 +48,12 @@ void Node::rotate(float angle, const vec3& axis) {
 void Node::scale(const vec3& scale) {
     scaleMatrix = glm::scale(scaleMatrix, scale);
     modelMatrix = translationMatrix * rotationMatrix * scaleMatrix;
+}
+
+void Node::lookAt(const vec3& center) {
+    modelMatrix = glm::lookAt(
+        glm::vec3(0, 1, 2), // Camera position in World Space
+        center, // looks at center
+        glm::vec3(0, 1, 0)  // Head is up (set to 0, -1, 0 to look upside-down)
+    );
 }

@@ -10,6 +10,7 @@ public:
     Viewport();
     void addView(shared_ptr<View> view);
     void removeView(shared_ptr<View> view);
+    shared_ptr<View> getView(int index) const { return views.back(); }
 
 private:
     ViewList views;

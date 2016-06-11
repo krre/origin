@@ -7,6 +7,7 @@ extern Event* event;
 View::View() {
     ::event->render.connectMember(&View::render, this);
     ::event->update.connectMember(&View::update, this, std::placeholders::_1);
+    camera = shared_ptr<Camera>(new Camera());
 }
 
 void View::update(double dt) {

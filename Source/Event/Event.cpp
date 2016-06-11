@@ -28,6 +28,7 @@ void Event::handleEvents() {
             break;
 
         case SDL_MOUSEMOTION:
+            ::input->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
             mouseMove.emit(event.motion.x, event.motion.y);
 //            print("mouse move: " << event.motion.x << " " << event.motion.y);
             break;

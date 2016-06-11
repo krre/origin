@@ -1,7 +1,8 @@
 #include "Camera.h"
+#include <glm/ext.hpp>
 
 Camera::Camera() {
-
+    projection = glm::perspective(fov, aspect, near, far);
 }
 
 void Camera::setNear(float near) {

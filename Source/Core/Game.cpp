@@ -10,30 +10,49 @@ extern App* app;
 extern Event* event;
 extern Input* input;
 
-Game::Game() {
+Game::Game() : prevMousePos(-1) {
 
 }
 
 void Game::create() {
-    shared_ptr<Plane> plane = shared_ptr<Plane>(new Plane(100, 100));
-    shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
-    scene->setRoot(plane);
     shared_ptr<View> playerView = shared_ptr<View>(new View());
-    playerView->setScene(scene);
     ::app->getViewport()->addView(playerView);
+    shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
+    playerView->setScene(scene);
+
+    shared_ptr<Plane> plane = shared_ptr<Plane>(new Plane(100, 100));
+    scene->setRoot(plane);
+
+    camera = ::app->getViewport()->getView(0)->getCamera();
+    camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
+//    camera->setRotation(glm::radians(-45.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+
     ::event->update.connectMember(&Game::update, this, std::placeholders::_1);
 }
 
 void Game::cameraMove(float dt) {
-//    print(dt);
+    const float MOVE_SPEED = 1.0f;
+    const float ROTATE_SPEED = 0.2f;
+
+    glm::ivec2 mousePos = ::input->getMousePos();
+    if (prevMousePos.x != -1) {
+        glm::ivec2 mouseDelta = mousePos - prevMousePos;
+        yaw += ROTATE_SPEED * mouseDelta.x;
+        pitch += ROTATE_SPEED * mouseDelta.y;
+        camera->setRotation(glm::radians(yaw), glm::vec3(0.0f, 1.0f, 0.0f));
+        camera->setRotation(glm::radians(pitch), glm::vec3(1.0f, 0.0f, 0.0f));
+    }
+
+    prevMousePos = mousePos;
+
     if (::input->isKeyPressed(SDLK_w)) {
-        print("forward")
+        camera->translate(glm::vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
     } else if (::input->isKeyPressed(SDLK_s)) {
-        print("back");
+        camera->translate(glm::vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
     } else if (::input->isKeyPressed(SDLK_a)) {
-        print("left");
+        camera->translate(glm::vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     } else if (::input->isKeyPressed(SDLK_d)) {
-        print("right");
+        camera->translate(glm::vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     }
 }
 

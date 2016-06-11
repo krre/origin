@@ -1,4 +1,8 @@
 #include "Plane.h"
+#include "../Core/App.h"
+#include <glm/ext.hpp>
+
+extern App* app;
 
 Plane::Plane(int width, int height) : width(width), height(height),
         vertexShader(GL_VERTEX_SHADER),
@@ -26,15 +30,6 @@ Plane::Plane(int width, int height) : width(width), height(height),
     vertexBuffer.setData(vertexData, sizeof(vertexData));
 
     matrix = glGetUniformLocation(programShader.getId(), "mvp");
-    glm::mat4 projection = glm::perspective(glm::radians(50.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-
-    glm::mat4 view = glm::lookAt(
-        glm::vec3(0, 2, 2), // Camera is at (4,3,3), in World Space
-        glm::vec3(0, 0, 0), // and looks at the origin
-        glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
-    );
-
-    mvp = projection * view * modelMatrix;
 
     static const GLfloat colorData[] = {
         0.000f,  1.000f,  0.000f,
@@ -47,11 +42,16 @@ Plane::Plane(int width, int height) : width(width), height(height),
 
     colorBuffer.bind();
     colorBuffer.setData(colorData, sizeof(colorData));
-
 }
 
 void Plane::draw() {
-//    print("draw plane");
+    glm::mat4 projection = ::app->getViewport()->getView(0)->getCamera()->getProjection();
+    glm::mat4 view = ::app->getViewport()->getView(0)->getCamera()->getView();
+    mvp = projection * view * modelMatrix;
+
+//    vec4 pos = mvp * vec4(-1.0f, 0.0f, -1.0f, 1.0f);
+//    print(glm::to_string(pos));
+
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
 
     glEnableVertexAttribArray(0);

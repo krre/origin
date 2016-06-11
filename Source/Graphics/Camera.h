@@ -11,11 +11,12 @@ public:
     void setFov(float fov);
     void setAspect(float aspect);
     const glm::mat4& getProjection() const { return projection; }
+    const glm::mat4& getView() const { glm::inverse(modelMatrix); }
 
 private:
-    float near;
-    float far;
-    float fov;
-    float aspect;
+    float near = 0.1f;
+    float far = 100.0f;
+    float fov = glm::radians(50.0f);
+    float aspect = 800.0f / 480.0f;
     glm::mat4 projection;
 };

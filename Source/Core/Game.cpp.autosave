@@ -70,7 +70,6 @@ void Game::update(float dt) {
 void Game::keyPress(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_F10:
-        print("F10");
         toggleFullScreen();
         break;
     default:

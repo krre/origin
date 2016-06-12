@@ -22,6 +22,7 @@ public:
     void clean();
     int run();
     Viewport* getViewport() { return &viewport; }
+    SDL_Window* getWindow() const { return window; }
 
 private:
     vector<string> argv;

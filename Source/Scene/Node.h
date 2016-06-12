@@ -44,5 +44,5 @@ private:
     mat4 scaleMatrix;
     quat rotation;
     vec3 position;
-    bool isDirty = false;
+    bool dirty = false;
 };

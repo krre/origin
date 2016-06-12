@@ -19,22 +19,22 @@ void Node::removeChild(shared_ptr<Node> child) {
 
 void Node::setPosition(const vec3& position) {
     this->position = position;
-    isDirty = true;
+    dirty = true;
 }
 
 void Node::setRotation(float angle, const vec3& axis) {
     rotation = toQuat(glm::rotate(mat4(1.0f), angle, axis));
-    isDirty = true;
+    dirty = true;
 }
 
 void Node::setRotation(const quat& rotation) {
     this->rotation = rotation;
-    isDirty = true;
+    dirty = true;
 }
 
 void Node::setScale(const vec3& scale) {
     scaleMatrix = glm::scale(mat4(1.0f), scale);
-    isDirty = true;
+    dirty = true;
 }
 
 void Node::translate(const vec3& delta, bool local) {
@@ -44,17 +44,17 @@ void Node::translate(const vec3& delta, bool local) {
         position += delta;
 //    }
 
-    isDirty = true;
+    dirty = true;
 }
 
 void Node::rotate(const quat& delta) {
     rotation *= delta;
-    isDirty = true;
+    dirty = true;
 }
 
 void Node::scale(const vec3& scale) {
     scaleMatrix = glm::scale(scaleMatrix, scale);
-    isDirty = true;
+    dirty = true;
 }
 
 void Node::lookAt(const vec3& center) {
@@ -71,10 +71,10 @@ const mat4&Node::getModelMatrix() {
 }
 
 void Node::updateModelMatrix() {
-    if (isDirty) {
+    if (dirty) {
         translationMatrix = glm::translate(position);
         rotationMatrix = glm::toMat4(rotation);
         modelMatrix = rotationMatrix * translationMatrix * scaleMatrix;
-        isDirty = false;
+        dirty = false;
     }
 }

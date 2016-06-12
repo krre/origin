@@ -17,6 +17,7 @@ private:
     void update(float dt);
     void keyPress(const SDL_KeyboardEvent& event);
     void toggleFullScreen();
+    void saveScreenshot();
 
     ivec2 prevMousePos;
     float yaw = 0;

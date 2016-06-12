@@ -69,8 +69,11 @@ void Game::update(float dt) {
 
 void Game::keyPress(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
+    case SDLK_F3:
+        saveScreenshot();
+        break;
+
     case SDLK_F10:
-        print("F10");
         toggleFullScreen();
         break;
     default:
@@ -82,4 +85,8 @@ void Game::toggleFullScreen() {
     bool isFullscreen = SDL_GetWindowFlags(::app->getWindow()) & SDL_WINDOW_FULLSCREEN;
     SDL_SetWindowFullscreen(::app->getWindow(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
     SDL_ShowCursor(isFullscreen);
+}
+
+void Game::saveScreenshot() {
+    print("Screenshot saved to " << ::app->getAbsolutePath() + "/Screenshot");
 }

@@ -38,11 +38,11 @@ void Node::setScale(const vec3& scale) {
 }
 
 void Node::translate(const vec3& delta, bool local) {
-//    if (local) {
-//        position += rotation * delta;
-//    } else {
+    if (local) {
+        position += rotation * delta;
+    } else {
         position += delta;
-//    }
+    }
 
     dirty = true;
 }

@@ -21,6 +21,7 @@ public:
     void init();
     void clean();
     int run();
+    void quit();
     Viewport* getViewport() { return &viewport; }
     SDL_Window* getWindow() const { return window; }
 
@@ -40,5 +41,4 @@ private:
     SDL_GLContext context;
 
     void windowResize(int width, int height);
-    void quit();
 };

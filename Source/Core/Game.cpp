@@ -69,6 +69,10 @@ void Game::update(float dt) {
 
 void Game::keyPress(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
+    case SDLK_ESCAPE:
+        ::app->quit();
+        break;
+
     case SDLK_F3:
         saveScreenshot();
         break;

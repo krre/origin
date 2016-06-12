@@ -42,7 +42,7 @@ void Game::cameraMove(float dt) {
     yaw += ROTATE_SPEED * relMousePos.x;
     yaw = fmod(yaw, 360.0f);
 
-    pitch += ROTATE_SPEED * relMousePos.y;
+    pitch -= ROTATE_SPEED * relMousePos.y;
     pitch = clamp(pitch, -80.0f, 80.0f);
 
     quat rotation = toQuat(eulerAngleYX(radians(yaw), radians(pitch)));

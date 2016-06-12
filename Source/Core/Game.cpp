@@ -11,11 +11,13 @@ extern App* app;
 extern Event* event;
 extern Input* input;
 
-Game::Game() : prevMousePos(-1) {
+Game::Game() {
 
 }
 
 void Game::create() {
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+
     shared_ptr<View> playerView = shared_ptr<View>(new View());
     ::app->getViewport()->addView(playerView);
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
@@ -34,23 +36,17 @@ void Game::create() {
 
 void Game::cameraMove(float dt) {
     const float MOVE_SPEED = 1.0f;
-    const float ROTATE_SPEED = 0.2f;
+    const float ROTATE_SPEED = 0.1f;
 
-    ivec2 mousePos = ::input->getMousePos();
-    if (prevMousePos.x != -1) {
-        ivec2 mouseDelta = prevMousePos - mousePos;
+    ivec2 relMousePos = ::input->getRelMousePos();
+    yaw += ROTATE_SPEED * relMousePos.x;
+    yaw = fmod(yaw, 360.0f);
 
-        yaw += ROTATE_SPEED * mouseDelta.x;
-        yaw = fmod(yaw, 360.0f);
+    pitch += ROTATE_SPEED * relMousePos.y;
+    pitch = clamp(pitch, -80.0f, 80.0f);
 
-        pitch += ROTATE_SPEED * mouseDelta.y;
-        pitch = clamp(pitch, -80.0f, 80.0f);
-
-        quat rotation = toQuat(eulerAngleYX(radians(yaw), radians(pitch)));
-        camera->setRotation(rotation);
-    }
-
-    prevMousePos = mousePos;
+    quat rotation = toQuat(eulerAngleYX(radians(yaw), radians(pitch)));
+    camera->setRotation(rotation);
 
     if (::input->isKeyPressed(SDLK_w)) {
         camera->translate(vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);

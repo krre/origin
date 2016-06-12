@@ -8,6 +8,7 @@ Event::Event() {
 }
 
 void Event::handleEvents() {
+    ::input->mouseReset();
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -29,6 +30,7 @@ void Event::handleEvents() {
 
         case SDL_MOUSEMOTION:
             ::input->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
+            ::input->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
             mouseMove.emit(event.motion.x, event.motion.y);
 //            print("mouse move: " << event.motion.x << " " << event.motion.y);
             break;

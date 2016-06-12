@@ -19,7 +19,6 @@ private:
     void toggleFullScreen();
     void saveScreenshot();
 
-    ivec2 prevMousePos;
     float yaw = 0;
     float pitch = 0;
     shared_ptr<Camera> camera;

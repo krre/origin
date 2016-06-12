@@ -19,3 +19,11 @@ bool Input::isKeyPressed(SDL_Keycode key) {
 void Input::setMousePos(const glm::ivec2& pos) {
     mousePos = pos;
 }
+
+void Input::setRelMousePos(const glm::ivec2& relPos) {
+        relMousePos += relPos;
+}
+
+void Input::mouseReset() {
+    relMousePos = glm::ivec2(0, 0);
+}

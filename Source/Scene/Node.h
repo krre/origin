@@ -18,25 +18,31 @@ public:
     virtual void draw() {}
 
     void setPosition(const vec3& position);
+    const vec3 getPostition() const { return position; }
+
     void setRotation(float angle, const vec3& axis);
     void setRotation(const quat& rotation);
+    const quat getRotation() const { return rotation; }
+
     void setScale(const vec3& scale);
 
-    void translate(const vec3& vector);
+    void translate(const vec3& delta, bool local = true);
     void rotate(float angle, const vec3& axis);
+    void rotate(const quat& delta);
     void scale(const vec3& scale);
 
     void lookAt(const vec3& center);
 
-    const mat4& getModelMatrix() const { return modelMatrix; }
-
-protected:
-    mat4 modelMatrix;
+    const mat4& getModelMatrix();
 
 private:
+    void updateModelMatrix();
     list<shared_ptr<Node>> nodes;
+    mat4 modelMatrix;
     mat4 translationMatrix;
     mat4 rotationMatrix;
     mat4 scaleMatrix;
     quat rotation;
+    vec3 position;
+    bool isDirty = false;
 };

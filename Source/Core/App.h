@@ -37,7 +37,6 @@ private:
 
     bool isRunning = false;
     SDL_Window* window = nullptr;
-    SDL_Surface* surface = nullptr;
     SDL_GLContext context;
 
     void windowResize(int width, int height);

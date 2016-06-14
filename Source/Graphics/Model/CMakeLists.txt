@@ -2,5 +2,7 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Sphere.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Sphere.cpp
     PARENT_SCOPE
 )

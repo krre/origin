@@ -1,7 +1,6 @@
 #pragma once
 #include <SDL.h>
 #include <vector>
-#include "../UI/PlayerView.h"
 #include "../Event/Event.h"
 #include "../Graphics/Renderer.h"
 #include "Game.h"
@@ -30,7 +29,6 @@ private:
     string absoluteFilePath;
     string absolutePath;
 
-    PlayerView* playerView;
     Game* game;
     Renderer renderer;
     Viewport viewport;

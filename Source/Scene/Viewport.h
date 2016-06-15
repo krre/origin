@@ -1,17 +1,22 @@
 #pragma once
 #include "../Core/Object.h"
-#include "../UI/View.h"
-
-typedef list<shared_ptr<View>> ViewList;
+#include "../Graphics/Camera.h"
+#include "../Scene/Scene.h"
 
 class Viewport : public Object {
 
 public:
     Viewport();
-    void addView(shared_ptr<View> view);
-    void removeView(shared_ptr<View> view);
-    shared_ptr<View> getView(int index) const { return views.back(); }
+    void update(double dt);
+    void render();
+
+    void setScene(shared_ptr<Scene> const scene) { this->scene = scene; }
+    shared_ptr<Scene> getScene() const { return scene; }
+
+    shared_ptr<Camera> getCamera() const { return camera; }
 
 private:
-    ViewList views;
+    shared_ptr<Scene> scene;
+    shared_ptr<Camera> camera;
+
 };

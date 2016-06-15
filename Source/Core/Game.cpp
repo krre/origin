@@ -18,15 +18,13 @@ Game::Game() {
 void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
-    shared_ptr<View> playerView = shared_ptr<View>(new View());
-    ::app->getViewport()->addView(playerView);
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
-    playerView->setScene(scene);
+    ::app->getViewport()->setScene(scene);
 
     shared_ptr<Plane> plane = shared_ptr<Plane>(new Plane(1, 1));
     scene->setRoot(plane);
 
-    camera = ::app->getViewport()->getView(0)->getCamera();
+    camera = ::app->getViewport()->getCamera();
     camera->setPosition(vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 

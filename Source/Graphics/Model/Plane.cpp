@@ -45,8 +45,8 @@ Plane::Plane(int width, int height) : width(width), height(height),
 }
 
 void Plane::draw() {
-    glm::mat4 projection = ::app->getViewport()->getView(0)->getCamera()->getProjection();
-    glm::mat4 view = ::app->getViewport()->getView(0)->getCamera()->getView();
+    glm::mat4 projection = ::app->getViewport()->getCamera()->getProjection();
+    glm::mat4 view = ::app->getViewport()->getCamera()->getView();
     mvp = projection * view * getModelMatrix();
 
 //    vec4 pos = mvp * vec4(-1.0f, 0.0f, -1.0f, 1.0f);

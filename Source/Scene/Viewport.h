@@ -10,6 +10,8 @@ public:
     void update(double dt);
     void render();
 
+    void setBackgroundColor(const glm::vec4& backgroundColor) { this->backgroundColor = backgroundColor; }
+
     void setScene(shared_ptr<Scene> const scene) { this->scene = scene; }
     shared_ptr<Scene> getScene() const { return scene; }
 
@@ -18,5 +20,6 @@ public:
 private:
     shared_ptr<Scene> scene;
     shared_ptr<Camera> camera;
+    glm::vec4 backgroundColor;
 
 };

@@ -8,4 +8,5 @@ public:
     VertexArray();
     GLuint getId() const { return id; }
     GLuint id;
+    void bind();
 };

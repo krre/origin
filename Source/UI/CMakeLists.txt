@@ -2,5 +2,7 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Text.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Text.h
     PARENT_SCOPE
 )

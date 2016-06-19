@@ -1,8 +1,8 @@
 #pragma once
 #include "Node.h"
 
-class Actor : Node {
+class Entity : Node {
 
 public:
-    Actor();
+    Entity();
 };

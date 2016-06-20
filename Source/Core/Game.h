@@ -28,5 +28,5 @@ private:
     float yaw = 0;
     float pitch = 0;
     shared_ptr<Camera> camera;
-    State state = PAUSE;
+    State state = PLAY;
 };

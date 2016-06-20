@@ -15,6 +15,7 @@ public:
     Signal<int, int> mouseMove;
     Signal<SDL_KeyboardEvent> keyPress;
     Signal<SDL_KeyboardEvent> keyRelease;
+    Signal<SDL_MouseButtonEvent> mouseButtonAction;
 
 private:
 

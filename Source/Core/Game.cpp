@@ -31,9 +31,12 @@ void Game::create() {
 
     ::event->update.connectMember(&Game::update, this, std::placeholders::_1);
     ::event->keyPress.connectMember(&Game::keyPress, this, std::placeholders::_1);
+    ::event->mouseButtonAction.connectMember(&Game::mouseButtonAction, this, std::placeholders::_1);
 }
 
 void Game::cameraMove(float dt) {
+    if (state == PAUSE) return;
+
     const float MOVE_SPEED = 1.0f;
     const float ROTATE_SPEED = 0.1f;
 
@@ -65,7 +68,9 @@ void Game::update(float dt) {
 void Game::keyPress(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-        ::app->quit();
+//        ::app->quit();
+        state = PAUSE;
+        SDL_SetRelativeMouseMode(SDL_FALSE);
         break;
 
     case SDLK_F3:
@@ -77,6 +82,13 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
         break;
     default:
         break;
+    }
+}
+
+void Game::mouseButtonAction(const SDL_MouseButtonEvent& event) {
+    if (state == PAUSE) {
+        state = PLAY;
+        SDL_SetRelativeMouseMode(SDL_TRUE);
     }
 }
 

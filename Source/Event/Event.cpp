@@ -36,10 +36,12 @@ void Event::handleEvents() {
             break;
 
         case SDL_MOUSEBUTTONDOWN:
+            mouseButtonAction.emit(event.button);
 //            print("mouse button down: " << event.button.button << " " << event.button.x << " " << event.button.y);
             break;
 
         case SDL_MOUSEBUTTONUP:
+            mouseButtonAction.emit(event.button);
 //            print("mouse button up: " << event.button.button << " " << event.button.x << " " << event.button.y);
             break;
 

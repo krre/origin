@@ -1,3 +1,4 @@
+add_subdirectory(Component)
 add_subdirectory(Core)
 add_subdirectory(Debug)
 add_subdirectory(Event)

@@ -6,6 +6,7 @@ add_subdirectory(Entity)
 add_subdirectory(Graphics)
 add_subdirectory(Process)
 add_subdirectory(Scene)
+add_subdirectory(System)
 add_subdirectory(UI)
 add_subdirectory(World)
 

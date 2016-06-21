@@ -1,7 +1,7 @@
 #pragma once
-#include "Node.h"
+#include "../Core/Object.h"
 
-class Entity : Node {
+class Entity : Object {
 
 public:
     Entity();

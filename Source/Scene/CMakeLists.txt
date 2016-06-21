@@ -1,7 +1,5 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Entity.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Entity.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Node.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Node.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp

@@ -1,8 +1,11 @@
 #pragma once
 #include "../Core/Object.h"
 
-class System : public Object {
+namespace System {
 
-public:
-    System();
-};
+    class System : public Object {
+
+    public:
+        System();
+    };
+}

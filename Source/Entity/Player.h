@@ -1,5 +1,5 @@
 #pragma once
-#include "Entity.h"
+#include "../Core/Entity.h"
 
 class Player : public Entity {
 

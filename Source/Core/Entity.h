@@ -1,6 +1,6 @@
 #pragma once
 #include "../Core/Object.h"
-#include "../Component/Component.h"
+#include "Component.h"
 #include <map>
 
 class Entity : Object {

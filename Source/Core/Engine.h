@@ -6,7 +6,10 @@ class Engine : public Object {
 
 public:
     Engine();
+    void addSystem(const System* system);
+    void removeSystem(const System* system);
+    void clearSystems();
 
 private:
-    list<System*> systems;
+    list<const System*> systems;
 };

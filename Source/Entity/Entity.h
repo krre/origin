@@ -1,11 +1,17 @@
 #pragma once
 #include "../Core/Object.h"
+#include "../Component/Component.h"
+#include <map>
 
-namespace Entity {
+class Entity : Object {
 
-    class Entity : Object {
+public:
+    Entity();
+    void addComponent(const Component& component);
+    void removeComponent(const Component::Type& type);
+    const Component& getComponent(const Component::Type& type);
+    void clear();
 
-    public:
-        Entity();
-    };
-}
+private:
+    map<Component::Type, Component> components;
+};

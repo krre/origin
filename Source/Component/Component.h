@@ -1,12 +1,18 @@
 #pragma once
 #include "../Core/Object.h"
 
-namespace Component {
+class Component : public Object {
 
-    class Component : public Object {
+public:
 
-    public:
-        Component();
+    enum Type {
+        Empty,
+        Transform
     };
 
-}
+    Component();
+    Type getType() const { return type; }
+
+private:
+    Type type = Empty;
+};

@@ -1,8 +1,11 @@
 #pragma once
 #include "../Core/Object.h"
 
-class Entity : Object {
+namespace Entity {
 
-public:
-    Entity();
-};
+    class Entity : Object {
+
+    public:
+        Entity();
+    };
+}

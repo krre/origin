@@ -1,8 +1,12 @@
 #pragma once
 #include "../Core/Object.h"
 
-class Component : public Object {
+namespace Component {
 
-public:
-    Component();
-};
+    class Component : public Object {
+
+    public:
+        Component();
+    };
+
+}

@@ -3,6 +3,8 @@
 #include "Component.h"
 #include <map>
 
+typedef unsigned int EntityId;
+
 class Entity : Object {
 
 public:
@@ -13,9 +15,9 @@ public:
     const Component& getComponent(const Component::Type& type);
     void clear();
 
-    unsigned int getId() { return id; }
+    EntityId getId() { return id; }
 
 private:
     map<Component::Type, Component> components;
-    unsigned int id;
+    EntityId id;
 };

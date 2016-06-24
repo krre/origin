@@ -12,6 +12,6 @@ public:
     void clearEntities();
     virtual void update(float dt) = 0;
 
-private:
+protected:
     list<Entity*> entities;
 };

@@ -1,6 +1,7 @@
 #pragma once
 #include "Object.h"
 #include "../Graphics/Camera.h"
+#include "Engine.h"
 #include <list>
 #include <glm/glm.hpp>
 #include <SDL.h>
@@ -25,6 +26,7 @@ private:
     void toggleFullScreen();
     void saveScreenshot();
 
+    Engine engine;
     float yaw = 0;
     float pitch = 0;
     shared_ptr<Camera> camera;

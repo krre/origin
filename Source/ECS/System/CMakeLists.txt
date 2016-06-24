@@ -1,4 +1,6 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/InputSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/InputSystem.h
     PARENT_SCOPE
 )

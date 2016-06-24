@@ -9,6 +9,7 @@ public:
     void addSystem(const System* system);
     void removeSystem(const System* system);
     void clearSystems();
+    void update(float dt);
 
 private:
     list<const System*> systems;

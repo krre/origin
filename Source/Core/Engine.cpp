@@ -15,3 +15,6 @@ void Engine::removeSystem(const System* system) {
 void Engine::clearSystems() {
     systems.clear();
 }
+
+void Engine::update(float dt) {
+}

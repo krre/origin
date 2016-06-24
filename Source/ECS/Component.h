@@ -8,7 +8,8 @@ public:
     enum Type {
         Empty,
         Transform,
-        Camera
+        Camera,
+        Node
     };
 
     Component();

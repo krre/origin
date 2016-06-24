@@ -1,6 +1,6 @@
 add_subdirectory(Components)
 add_subdirectory(Entities)
-add_subdirectory(System)
+add_subdirectory(Systems)
 
 set(SOURCES
     ${SOURCES}

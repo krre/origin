@@ -9,7 +9,8 @@ public:
         Empty,
         Transform,
         Camera,
-        Node
+        Node,
+        Render
     };
 
     Component();

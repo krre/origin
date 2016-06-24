@@ -3,12 +3,12 @@
 #include "Component.h"
 #include <map>
 
-typedef unsigned int EntityId;
+typedef uint64_t EntityId;
 
 class Entity : Object {
 
 public:
-    Entity();
+    Entity(EntityId id = 0);
 
     void addComponent(const Component& component);
     void removeComponent(const Component::Type& type);

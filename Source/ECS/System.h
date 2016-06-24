@@ -5,4 +5,5 @@ class System : public Object {
 
 public:
     System();
+    virtual void update(float dt) {}
 };

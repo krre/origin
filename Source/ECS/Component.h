@@ -13,6 +13,6 @@ public:
     Component();
     Type getType() const { return type; }
 
-private:
+protected:
     Type type = Empty;
 };

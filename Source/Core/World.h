@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Object.h"
+#include "Object.h"
 
 class World : public Object {
 

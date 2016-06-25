@@ -6,7 +6,6 @@ add_subdirectory(Graphics)
 add_subdirectory(Process)
 add_subdirectory(Scene)
 add_subdirectory(UI)
-add_subdirectory(World)
 
 set(SOURCES
     ${SOURCES}

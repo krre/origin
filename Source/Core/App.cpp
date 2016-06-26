@@ -3,8 +3,6 @@
 #include <SDL_timer.h>
 #include <GL/glew.h>
 
-extern Event* event;
-
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
@@ -19,8 +17,8 @@ App::App(int argc, char* argv[]) {
     absoluteFilePath = this->argv[0];
     absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
 
-    ::event->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
-    ::event->quit.connectMember(&App::quit, this);
+    Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
+    Event::getInstance()->quit.connectMember(&App::quit, this);
 }
 
 App::~App() {
@@ -116,7 +114,7 @@ int App::run() {
     double accumulator = 0.0;
 
     while (isRunning) {
-        ::event->handleEvents();
+        Event::getInstance()->handleEvents();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
@@ -124,11 +122,11 @@ int App::run() {
         accumulator += frameTime;
 
         while (accumulator >= dt) {
-            ::event->update.emit(dt);
+            Event::getInstance()->update.emit(dt);
             accumulator -= dt;
         }
 
-        ::event->render.emit();
+        Event::getInstance()->render.emit();
         SDL_GL_SwapWindow(window);
     }
 }

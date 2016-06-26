@@ -8,7 +8,6 @@
 #include <glm/ext.hpp>
 
 extern App* app;
-extern Event* event;
 extern Input* input;
 
 Game::Game() {
@@ -29,9 +28,9 @@ void Game::create() {
     camera->setPosition(vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 
-    ::event->update.connectMember(&Game::update, this, std::placeholders::_1);
-    ::event->keyPress.connectMember(&Game::keyPress, this, std::placeholders::_1);
-    ::event->mouseButtonAction.connectMember(&Game::mouseButtonAction, this, std::placeholders::_1);
+    Event::getInstance()->update.connectMember(&Game::update, this, std::placeholders::_1);
+    Event::getInstance()->keyPress.connectMember(&Game::keyPress, this, std::placeholders::_1);
+    Event::getInstance()->mouseButtonAction.connectMember(&Game::mouseButtonAction, this, std::placeholders::_1);
 }
 
 void Game::cameraMove(float dt) {

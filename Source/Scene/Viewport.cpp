@@ -3,11 +3,9 @@
 #include "../Event/Event.h"
 #include <SDL_opengl.h>
 
-extern Event* event;
-
 Viewport::Viewport() {
-    ::event->render.connectMember(&Viewport::render, this);
-    ::event->update.connectMember(&Viewport::update, this, std::placeholders::_1);
+    Event::getInstance()->render.connectMember(&Viewport::render, this);
+    Event::getInstance()->update.connectMember(&Viewport::update, this, std::placeholders::_1);
     camera = shared_ptr<Camera>(new Camera());
 }
 

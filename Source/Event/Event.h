@@ -1,8 +1,8 @@
 #pragma once
-#include "../Core/Object.h"
+#include "../Core/Singleton.h"
 #include <SDL.h>
 
-class Event : public Object {
+class Event : public Singleton<Event> {
 
 public:
     Event();

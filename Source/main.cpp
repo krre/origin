@@ -4,18 +4,16 @@
 #undef main // fix SDL error: undefined reference to `WinMain@16'
 
 App* app;
-Event* event;
 Input* input;
 
 int main(int argc, char* argv[]) {
-    ::event = new Event();
+    new Event();
     ::input = new Input();
     ::app = new App(argc, argv);
     ::app->init();
     ::app->run();
     ::app->clean();
-    delete ::event;
-    delete ::input;
+    Event::getInstance()->release();
     delete ::app;
     return EXIT_SUCCESS;
 }

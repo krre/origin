@@ -2,11 +2,9 @@
 #include "../Event/Event.h"
 #include <glm/ext.hpp>
 
-extern Event* event;
-
 Camera::Camera() {
     projection = glm::perspective(fov, aspect, near, far);
-    ::event->windowResize.connectMember(&Camera::windowResize, this, placeholders::_1, placeholders::_2);
+    Event::getInstance()->windowResize.connectMember(&Camera::windowResize, this, placeholders::_1, placeholders::_2);
 }
 
 void Camera::setNear(float near) {

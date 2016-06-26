@@ -11,13 +11,13 @@ public:
     Entity(EntityId id = 0);
 
     void addComponent(const Component& component);
-    void removeComponent(const Component::Type& type);
-    const Component& getComponent(const Component::Type& type);
+    void removeComponent(const ComponentType& type);
+    const Component& getComponent(const ComponentType& type);
     void clear();
 
     EntityId getId() { return id; }
 
 private:
-    map<Component::Type, Component> components;
+    map<ComponentType, Component> components;
     EntityId id;
 };

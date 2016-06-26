@@ -16,11 +16,11 @@ void Entity::addComponent(const Component& component) {
     components[component.getType()] = component;
 }
 
-void Entity::removeComponent(const Component::Type &type) {
+void Entity::removeComponent(const ComponentType &type) {
     components.erase(type);
 }
 
-const Component &Entity::getComponent(const Component::Type &type) {
+const Component &Entity::getComponent(const ComponentType& type) {
     return components.at(type);
 }
 

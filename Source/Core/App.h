@@ -13,10 +13,10 @@ public:
     App(int argc, char* argv[]);
     ~App();
     // Full path to application
-    string getAbsoluteFilePath() { return absoluteFilePath; }
+    static string getAbsoluteFilePath() { return absoluteFilePath; }
     // Path to application directory
-    string getAbsolutePath() { return absolutePath; }
-    string getPathSeparator();
+    static string getAbsolutePath() { return absolutePath; }
+    static string getPathSeparator();
     void init();
     void clean();
     int run();
@@ -26,8 +26,8 @@ public:
 
 private:
     vector<string> argv;
-    string absoluteFilePath;
-    string absolutePath;
+    static string absoluteFilePath;
+    static string absolutePath;
 
     Game* game;
     Renderer renderer;

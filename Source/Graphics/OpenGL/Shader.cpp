@@ -2,15 +2,13 @@
 #include "../../Core/App.h"
 #include <fstream>
 
-extern App* app;
-
 Shader::Shader(GLenum type) : type(type) {
 
 }
 
 bool Shader::load(const string& path) {
     this->type = type;
-    string shaderPath = app->getAbsolutePath() + "/" + folder + "/" + path;
+    string shaderPath = App::getAbsolutePath() + "/" + folder + "/" + path;
     ifstream file(shaderPath);
     if (!file.is_open()) {
         cerr << "Failed open file: " << shaderPath << endl;

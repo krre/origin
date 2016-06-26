@@ -100,5 +100,5 @@ void Game::toggleFullScreen() {
 }
 
 void Game::saveScreenshot() {
-    print("Screenshot saved to " << ::app->getAbsolutePath() + "/Screenshot");
+    print("Screenshot saved to " << App::getAbsolutePath() + "/Screenshot");
 }

@@ -8,6 +8,9 @@ extern Event* event;
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
+string App::absoluteFilePath;
+string App::absolutePath;
+
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);

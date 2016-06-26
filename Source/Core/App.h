@@ -4,10 +4,10 @@
 #include "../Event/Event.h"
 #include "../Graphics/Renderer.h"
 #include "Game.h"
-#include "Object.h"
+#include "Singleton.h"
 #include "../Scene/Viewport.h"
 
-class App : public Object {
+class App : public Singleton<App> {
 
 public:
     App(int argc, char* argv[]);

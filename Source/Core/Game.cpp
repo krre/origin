@@ -7,8 +7,6 @@
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 
-extern App* app;
-
 Game::Game() {
 
 }
@@ -17,13 +15,13 @@ void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
-    ::app->getViewport()->setScene(scene);
-    ::app->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
+    App::getInstance()->getViewport()->setScene(scene);
+    App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
 
     shared_ptr<Plane> plane = shared_ptr<Plane>(new Plane(1, 1));
     scene->setRoot(plane);
 
-    camera = ::app->getViewport()->getCamera();
+    camera = App::getInstance()->getViewport()->getCamera();
     camera->setPosition(vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 
@@ -67,7 +65,7 @@ void Game::update(float dt) {
 void Game::keyPress(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-//        ::app->quit();
+//        App::getInstance()->quit();
         state = PAUSE;
         SDL_SetRelativeMouseMode(SDL_FALSE);
         break;
@@ -92,8 +90,8 @@ void Game::mouseButtonAction(const SDL_MouseButtonEvent& event) {
 }
 
 void Game::toggleFullScreen() {
-    bool isFullscreen = SDL_GetWindowFlags(::app->getWindow()) & SDL_WINDOW_FULLSCREEN;
-    SDL_SetWindowFullscreen(::app->getWindow(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+    bool isFullscreen = SDL_GetWindowFlags(App::getInstance()->getWindow()) & SDL_WINDOW_FULLSCREEN;
+    SDL_SetWindowFullscreen(App::getInstance()->getWindow(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
     SDL_ShowCursor(isFullscreen);
 }
 

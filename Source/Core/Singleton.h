@@ -5,7 +5,6 @@ template <typename T> class Singleton : public Object {
 
 public:
     Singleton() {
-        print(instance);
         if (instance == 0) {
             instance = static_cast<T*>(this);
         }

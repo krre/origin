@@ -1,4 +1,6 @@
 #include "App.h"
+#include "../Event/Event.h"
+#include "../Event/Input.h"
 #include <string>
 #include <SDL_timer.h>
 #include <GL/glew.h>
@@ -14,6 +16,11 @@ App::App(int argc, char* argv[]) {
         this->argv.push_back(argv[i]);
     }
 
+    new Event();
+    new Input();
+
+    viewport = new Viewport();
+
     absoluteFilePath = this->argv[0];
     absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
 
@@ -22,7 +29,10 @@ App::App(int argc, char* argv[]) {
 }
 
 App::~App() {
+    Event::getInstance()->release();
+    Input::getInstance()->release();
     delete game;
+    delete viewport;
 }
 
 string App::getPathSeparator() {

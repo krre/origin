@@ -21,7 +21,7 @@ public:
     void clean();
     int run();
     void quit();
-    Viewport* getViewport() { return &viewport; }
+    Viewport* getViewport() { return viewport; }
     SDL_Window* getWindow() const { return window; }
 
 private:
@@ -31,7 +31,7 @@ private:
 
     Game* game;
     Renderer renderer;
-    Viewport viewport;
+    Viewport* viewport;
 
     bool isRunning = false;
     SDL_Window* window = nullptr;

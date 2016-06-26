@@ -1,7 +1,7 @@
 #pragma once
-#include "../Core/Object.h"
+#include "../Core/Singleton.h"
 
-class Logger : public Object {
+class Logger : public Singleton<Logger> {
 
 public:
     Logger();

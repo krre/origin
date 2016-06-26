@@ -1,10 +1,10 @@
 #pragma once
-#include "../Core/Object.h"
+#include "../Core/Singleton.h"
 #include <unordered_set>
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 
-class Input : public Object {
+class Input : public Singleton<Input> {
 
 public:
     Input();

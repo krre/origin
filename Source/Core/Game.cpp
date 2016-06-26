@@ -8,7 +8,6 @@
 #include <glm/ext.hpp>
 
 extern App* app;
-extern Input* input;
 
 Game::Game() {
 
@@ -39,7 +38,7 @@ void Game::cameraMove(float dt) {
     const float MOVE_SPEED = 1.0f;
     const float ROTATE_SPEED = 0.1f;
 
-    ivec2 relMousePos = ::input->getRelMousePos();
+    ivec2 relMousePos = Input::getInstance()->getRelMousePos();
     yaw += ROTATE_SPEED * relMousePos.x;
     yaw = fmod(yaw, 360.0f);
 
@@ -49,13 +48,13 @@ void Game::cameraMove(float dt) {
     quat rotation = toQuat(eulerAngleYX(radians(yaw), radians(pitch)));
     camera->setRotation(rotation);
 
-    if (::input->isKeyPressed(SDLK_w)) {
+    if (Input::getInstance()->isKeyPressed(SDLK_w)) {
         camera->translate(vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
-    } else if (::input->isKeyPressed(SDLK_s)) {
+    } else if (Input::getInstance()->isKeyPressed(SDLK_s)) {
         camera->translate(vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
-    } else if (::input->isKeyPressed(SDLK_a)) {
+    } else if (Input::getInstance()->isKeyPressed(SDLK_a)) {
         camera->translate(vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
-    } else if (::input->isKeyPressed(SDLK_d)) {
+    } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
         camera->translate(vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     }
 }

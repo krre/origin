@@ -1,14 +1,12 @@
 #include "Event.h"
 #include "Input.h"
 
-extern Input* input;
-
 Event::Event() {
 
 }
 
 void Event::handleEvents() {
-    ::input->mouseReset();
+    Input::getInstance()->mouseReset();
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -29,8 +27,8 @@ void Event::handleEvents() {
             break;
 
         case SDL_MOUSEMOTION:
-            ::input->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
-            ::input->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
+            Input::getInstance()->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
+            Input::getInstance()->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
             mouseMove.emit(event.motion.x, event.motion.y);
 //            print("mouse move: " << event.motion.x << " " << event.motion.y);
             break;
@@ -50,13 +48,13 @@ void Event::handleEvents() {
             break;
 
         case SDL_KEYDOWN:
-            ::input->addKey(event.key.keysym.sym);
+            Input::getInstance()->addKey(event.key.keysym.sym);
             keyPress.emit(event.key);
 //            print("key down: " << event.key.keysym.sym);
             break;
 
         case SDL_KEYUP:
-            ::input->removeKey(event.key.keysym.sym);
+            Input::getInstance()->removeKey(event.key.keysym.sym);
 //            print("key up: " << event.key.keysym.sym);
             keyRelease.emit(event.key);
 

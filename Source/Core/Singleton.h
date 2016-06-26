@@ -1,13 +1,13 @@
 #pragma once
 #include "Object.h"
+#include <assert.h>
 
 template <typename T> class Singleton : public Object {
 
 public:
     Singleton() {
-        if (instance == 0) {
-            instance = static_cast<T*>(this);
-        }
+        assert(instance == 0 && "Singleton object should be initialized only once");
+        instance = static_cast<T*>(this);
     }
 
     virtual ~Singleton() {

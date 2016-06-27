@@ -66,7 +66,7 @@ void Game::cameraMove(float dt) {
 
 void Game::update(float dt) {
     cameraMove(dt);
-    Engine::getInstance()->update(dt);
+    Engine::getInstance()->process(dt);
 }
 
 void Game::keyPress(const SDL_KeyboardEvent& event) {

@@ -16,7 +16,7 @@ public:
     Entity* getEntity(EntityId id);
     void clearEntities();
 
-    void update(float dt);
+    void process(float dt);
 
 private:
     list<System*> systems;

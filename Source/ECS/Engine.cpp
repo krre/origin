@@ -38,7 +38,7 @@ void Engine::clearEntities() {
     entities.clear();
 }
 
-void Engine::update(float dt) {
+void Engine::process(float dt) {
     for (auto it: systems) {
         it->process(dt);
     }

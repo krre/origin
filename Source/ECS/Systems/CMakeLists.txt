@@ -4,5 +4,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/InputSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderSystem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/TransformSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/TransformSystem.h
     PARENT_SCOPE
 )

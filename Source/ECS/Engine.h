@@ -13,6 +13,7 @@ public:
 
     void addEntity(Entity* entity);
     void removeEntity(Entity* entity);
+    Entity* getEntity(EntityId id);
     void clearEntities();
 
     void update(float dt);

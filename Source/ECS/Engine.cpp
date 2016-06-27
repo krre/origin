@@ -24,6 +24,16 @@ void Engine::removeEntity(Entity* entity) {
     entities.remove(entity);
 }
 
+Entity* Engine::getEntity(EntityId id) {
+    for (auto it: entities) {
+        if (it->getId() == id) {
+            return it;
+        }
+    }
+
+    return nullptr;
+}
+
 void Engine::clearEntities() {
     entities.clear();
 }

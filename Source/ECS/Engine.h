@@ -7,8 +7,9 @@ class Engine : public Singleton<Engine> {
 
 public:
     Engine();
-    void addSystem(System* system);
-    void removeSystem(System* system);
+    void addSystem(SystemType type);
+    void removeSystem(SystemType type);
+    const System* getSystem(SystemType type);
     void clearSystems();
 
     void addEntity(Entity* entity);
@@ -19,6 +20,6 @@ public:
     void process(float dt);
 
 private:
-    list<System*> systems;
+    map<SystemType, System*> systems;
     list<Entity*> entities;
 };

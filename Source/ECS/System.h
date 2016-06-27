@@ -3,6 +3,12 @@
 #include "Entity.h"
 #include <list>
 
+enum class SystemType {
+    Input,
+    Render,
+    Transform
+};
+
 class System : public Object {
 
 public:

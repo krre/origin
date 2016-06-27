@@ -5,4 +5,5 @@ class TransformSystem : public System {
 
 public:
     TransformSystem();
+    void process(float dt) override;
 };

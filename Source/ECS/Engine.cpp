@@ -1,18 +1,41 @@
 #include "Engine.h"
+#include "../ECS/Systems/InputSystem.h"
+#include "../ECS/Systems/RenderSystem.h"
+#include "../ECS/Systems/TransformSystem.h"
 
 Engine::Engine() {
 
 }
 
-void Engine::addSystem(System* system) {
-    systems.push_back(system);
+void Engine::addSystem(SystemType type) {
+    switch (type) {
+    case SystemType::Input:
+        systems[type] = new InputSystem();
+        break;
+    case SystemType::Render:
+        systems[type] = new RenderSystem();
+        break;
+    case SystemType::Transform:
+        systems[type] = new TransformSystem();
+        break;
+    default:
+        break;
+    }
 }
 
-void Engine::removeSystem(System* system) {
-    systems.remove(system);
+void Engine::removeSystem(SystemType type) {
+    delete systems.at(type);
+    systems.erase(type);
+}
+
+const System* Engine::getSystem(SystemType type) {
+    return systems.at(type);
 }
 
 void Engine::clearSystems() {
+    for (auto it: systems) {
+        delete it.second;
+    }
     systems.clear();
 }
 
@@ -40,6 +63,6 @@ void Engine::clearEntities() {
 
 void Engine::process(float dt) {
     for (auto it: systems) {
-        it->process(dt);
+        it.second->process(dt);
     }
 }

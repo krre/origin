@@ -3,3 +3,7 @@
 TransformSystem::TransformSystem() {
 
 }
+
+void TransformSystem::process(float dt) {
+
+}

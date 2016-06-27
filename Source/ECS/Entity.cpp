@@ -17,7 +17,7 @@ Entity::Entity(EntityId id) {
 }
 
 Entity::~Entity() {
-    clear();
+    clearComponents();
 }
 
 void Entity::addComponent(const ComponentType &type) {
@@ -48,7 +48,7 @@ const Component* Entity::getComponent(const ComponentType& type) {
     return components.at(type);
 }
 
-void Entity::clear() {
+void Entity::clearComponents() {
     for (auto it: components) {
         delete it.second;
     }

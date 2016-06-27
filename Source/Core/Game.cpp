@@ -4,6 +4,7 @@
 #include "../Graphics/Model/Plane.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
+#include "../ECS/Engine.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 
@@ -11,8 +12,14 @@ Game::Game() {
 
 }
 
+Game::~Game() {
+    Engine::getInstance()->release();
+}
+
 void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
+
+    new Engine();
 
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
     App::getInstance()->getViewport()->setScene(scene);
@@ -59,7 +66,7 @@ void Game::cameraMove(float dt) {
 
 void Game::update(float dt) {
     cameraMove(dt);
-    engine.update(dt);
+    Engine::getInstance()->update(dt);
 }
 
 void Game::keyPress(const SDL_KeyboardEvent& event) {

@@ -1,9 +1,9 @@
-#include "../Core/Object.h"
+#include "../Core/Singleton.h"
 #include "System.h"
 #include "Entity.h"
 #include <list>
 
-class Engine : public Object {
+class Engine : public Singleton<Engine> {
 
 public:
     Engine();

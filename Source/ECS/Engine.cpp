@@ -8,12 +8,24 @@ void Engine::addSystem(System* system) {
     systems.push_back(system);
 }
 
-void Engine::removeSystem(System *system) {
+void Engine::removeSystem(System* system) {
     systems.remove(system);
 }
 
 void Engine::clearSystems() {
     systems.clear();
+}
+
+void Engine::addEntity(Entity* entity) {
+    entities.push_back(entity);
+}
+
+void Engine::removeEntity(Entity* entity) {
+    entities.remove(entity);
+}
+
+void Engine::clearEntities() {
+    entities.clear();
 }
 
 void Engine::update(float dt) {

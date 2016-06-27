@@ -4,6 +4,6 @@ InputSystem::InputSystem() {
 
 }
 
-void InputSystem::update(float dt) {
+void InputSystem::process(float dt) {
 
 }

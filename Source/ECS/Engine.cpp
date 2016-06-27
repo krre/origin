@@ -40,6 +40,6 @@ void Engine::clearEntities() {
 
 void Engine::update(float dt) {
     for (auto it: systems) {
-        it->update(dt);
+        it->process(dt);
     }
 }

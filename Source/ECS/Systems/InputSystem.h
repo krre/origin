@@ -5,5 +5,5 @@ class InputSystem : public System {
 
 public:
     InputSystem();
-    void update(float dt) override;
+    void process(float dt) override;
 };

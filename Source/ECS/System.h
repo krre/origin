@@ -10,7 +10,7 @@ public:
     void addEntity(Entity* entity);
     void removeEntity(Entity* entity);
     void clearEntities();
-    virtual void update(float dt) = 0;
+    virtual void process(float dt) = 0;
 
 protected:
     list<Entity*> entities;

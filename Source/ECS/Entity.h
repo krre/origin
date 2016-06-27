@@ -9,15 +9,16 @@ class Entity : Object {
 
 public:
     Entity(EntityId id = 0);
+    virtual ~Entity();
 
-    void addComponent(const Component& component);
+    void addComponent(const ComponentType& type);
     void removeComponent(const ComponentType& type);
-    const Component& getComponent(const ComponentType& type);
+    const Component* getComponent(const ComponentType& type);
     void clear();
 
     EntityId getId() { return id; }
 
 private:
-    map<ComponentType, Component> components;
+    map<ComponentType, Component*> components;
     EntityId id;
 };

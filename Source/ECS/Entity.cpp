@@ -1,4 +1,8 @@
 #include "Entity.h"
+#include "Components/TransformComponent.h"
+#include "Components/RenderComponent.h"
+#include "Components/NodeComponent.h"
+#include "Components/CameraComponent.h"
 #include <chrono>
 
 Entity::Entity(EntityId id) {
@@ -12,18 +16,41 @@ Entity::Entity(EntityId id) {
     }
 }
 
-void Entity::addComponent(const Component& component) {
-    components[component.getType()] = component;
+Entity::~Entity() {
+    clear();
+}
+
+void Entity::addComponent(const ComponentType &type) {
+    switch (type) {
+    case ComponentType::Transform:
+        components[type] = new TransformComponent();
+        break;
+    case ComponentType::Render:
+        components[type] = new RenderComponent();
+        break;
+    case ComponentType::Node:
+        components[type] = new NodeComponent();
+        break;
+    case ComponentType::Camera:
+        components[type] = new CameraComponent();
+        break;
+    default:
+        break;
+    }
 }
 
 void Entity::removeComponent(const ComponentType &type) {
+    delete components.at(type);
     components.erase(type);
 }
 
-const Component &Entity::getComponent(const ComponentType& type) {
+const Component* Entity::getComponent(const ComponentType& type) {
     return components.at(type);
 }
 
 void Entity::clear() {
+    for (auto it: components) {
+        delete it.second;
+    }
     components.clear();
 }

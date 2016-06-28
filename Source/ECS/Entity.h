@@ -11,9 +11,9 @@ public:
     Entity(EntityId id = 0);
     virtual ~Entity();
 
-    void addComponent(const ComponentType& type);
-    void removeComponent(const ComponentType& type);
-    const Component* getComponent(const ComponentType& type);
+    void addComponent(ComponentType type);
+    void removeComponent(ComponentType type);
+    const Component* getComponent(ComponentType type);
     void clearComponents();
 
     EntityId getId() { return id; }

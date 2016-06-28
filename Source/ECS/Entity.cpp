@@ -20,7 +20,7 @@ Entity::~Entity() {
     clearComponents();
 }
 
-void Entity::addComponent(const ComponentType &type) {
+void Entity::addComponent(ComponentType type) {
     switch (type) {
     case ComponentType::Transform:
         components[type] = new TransformComponent();
@@ -39,12 +39,12 @@ void Entity::addComponent(const ComponentType &type) {
     }
 }
 
-void Entity::removeComponent(const ComponentType &type) {
+void Entity::removeComponent(ComponentType type) {
     delete components.at(type);
     components.erase(type);
 }
 
-const Component* Entity::getComponent(const ComponentType& type) {
+const Component* Entity::getComponent(ComponentType type) {
     return components.at(type);
 }
 

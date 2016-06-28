@@ -2,11 +2,12 @@
 #include "../Core/Object.h"
 
 enum class ComponentType {
-    Empty,
-    Transform,
     Camera,
+    Empty,
+    Input,
     Node,
-    Render
+    Render,
+    Transform
 };
 
 class Component : public Object {

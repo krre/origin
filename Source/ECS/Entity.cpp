@@ -3,6 +3,7 @@
 #include "Components/RenderComponent.h"
 #include "Components/NodeComponent.h"
 #include "Components/CameraComponent.h"
+#include "Components/InputComponent.h"
 #include <chrono>
 
 Entity::Entity(EntityId id) {
@@ -33,6 +34,9 @@ Component* Entity::addComponent(ComponentType type) {
         break;
     case ComponentType::Camera:
         components[type] = new CameraComponent();
+        break;
+    case ComponentType::Input:
+        components[type] = new InputComponent();
         break;
     default:
         return nullptr;

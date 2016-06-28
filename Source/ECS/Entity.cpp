@@ -20,7 +20,7 @@ Entity::~Entity() {
     clearComponents();
 }
 
-void Entity::addComponent(ComponentType type) {
+Component* Entity::addComponent(ComponentType type) {
     switch (type) {
     case ComponentType::Transform:
         components[type] = new TransformComponent();
@@ -35,8 +35,10 @@ void Entity::addComponent(ComponentType type) {
         components[type] = new CameraComponent();
         break;
     default:
-        break;
+        return nullptr;
     }
+
+    return components[type];
 }
 
 void Entity::removeComponent(ComponentType type) {

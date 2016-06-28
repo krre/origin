@@ -6,6 +6,8 @@
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"
 #include "../ECS/System.h"
+#include "../ECS/Entities/Player.h"
+#include "../Universe/Ground.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 
@@ -24,6 +26,9 @@ void Game::create() {
     Engine::getInstance()->addSystem(SystemType::Input);
     Engine::getInstance()->addSystem(SystemType::Render);
     Engine::getInstance()->addSystem(SystemType::Transform);
+
+    Engine::getInstance()->addEntity(new Player());
+    Engine::getInstance()->addEntity(new Ground());
 
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
     App::getInstance()->getViewport()->setScene(scene);

@@ -5,6 +5,7 @@
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"
+#include "../ECS/System.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 
@@ -20,6 +21,9 @@ void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
     new Engine();
+    Engine::getInstance()->addSystem(SystemType::Input);
+    Engine::getInstance()->addSystem(SystemType::Render);
+    Engine::getInstance()->addSystem(SystemType::Transform);
 
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
     App::getInstance()->getViewport()->setScene(scene);

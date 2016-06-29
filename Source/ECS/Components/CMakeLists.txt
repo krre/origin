@@ -1,5 +1,6 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Components.h
     ${CMAKE_CURRENT_SOURCE_DIR}/CameraComponent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CameraComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/InputComponent.cpp
@@ -10,6 +11,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/TransformComponent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/TransformComponent.h
-
     PARENT_SCOPE
 )

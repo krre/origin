@@ -6,11 +6,7 @@
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"
 #include "../ECS/System.h"
-#include "../ECS/Components/CameraComponent.h"
-#include "../ECS/Components/NodeComponent.h"
-#include "../ECS/Components/TransformComponent.h"
-#include "../ECS/Components/InputComponent.h"
-#include "../ECS/Components/RenderComponent.h"
+#include "../ECS/Components/Components.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 

@@ -21,29 +21,7 @@ Entity::~Entity() {
     clearComponents();
 }
 
-Component* Entity::addComponent(ComponentType type) {
-    switch (type) {
-    case ComponentType::Transform:
-        components[type] = new TransformComponent();
-        break;
-    case ComponentType::Render:
-        components[type] = new RenderComponent();
-        break;
-    case ComponentType::Node:
-        components[type] = new NodeComponent();
-        break;
-    case ComponentType::Camera:
-        components[type] = new CameraComponent();
-        break;
-    case ComponentType::Input:
-        components[type] = new InputComponent();
-        break;
-    default:
-        return nullptr;
-    }
 
-    return components[type];
-}
 
 void Entity::removeComponent(ComponentType type) {
     delete components.at(type);

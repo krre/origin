@@ -11,7 +11,12 @@ public:
     Entity(EntityId id = 0);
     virtual ~Entity();
 
-    Component* addComponent(ComponentType type);
+    template <typename T> T* addComponent() {
+        T* component = new T;
+        components[component->getType()] = component;
+        return component;
+    }
+
     void removeComponent(ComponentType type);
     const Component* getComponent(ComponentType type);
     void clearComponents();

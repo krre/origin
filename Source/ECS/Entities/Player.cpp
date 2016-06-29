@@ -1,12 +1,15 @@
 #include "Player.h"
 #include "../ECS/Components/CameraComponent.h"
+#include "../ECS/Components/NodeComponent.h"
+#include "../ECS/Components/TransformComponent.h"
+#include "../ECS/Components/InputComponent.h"
 #include "../Graphics/Camera.h"
 
 Player::Player() {
-    addComponent(ComponentType::Node);
-    addComponent(ComponentType::Transform);
-    addComponent(ComponentType::Input);
+    addComponent<NodeComponent>();
+    addComponent<TransformComponent>();
+    addComponent<InputComponent>();
 
-    CameraComponent* cameraComponent = static_cast<CameraComponent*>(addComponent(ComponentType::Camera));
+    CameraComponent* cameraComponent = addComponent<CameraComponent>();
     cameraComponent->camera = shared_ptr<Camera>(new Camera());
 }

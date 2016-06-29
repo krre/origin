@@ -24,4 +24,6 @@ public:
 private:
     map<SystemType, System*> systems;
     list<Entity*> entities;
+
+    void initSystems();
 };

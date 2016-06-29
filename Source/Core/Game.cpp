@@ -23,9 +23,6 @@ void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
     new Engine();
-    Engine::getInstance()->addSystem(SystemType::Input);
-    Engine::getInstance()->addSystem(SystemType::Render);
-    Engine::getInstance()->addSystem(SystemType::Transform);
 
     Engine::getInstance()->addEntity(new Player());
     Engine::getInstance()->addEntity(new Ground());

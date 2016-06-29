@@ -4,7 +4,7 @@
 #include "../ECS/Systems/TransformSystem.h"
 
 Engine::Engine() {
-
+    initSystems();
 }
 
 void Engine::addSystem(SystemType type) {
@@ -65,4 +65,10 @@ void Engine::process(float dt) {
     for (auto it: systems) {
         it.second->process(dt);
     }
+}
+
+void Engine::initSystems() {
+    addSystem(SystemType::Input);
+    addSystem(SystemType::Render);
+    addSystem(SystemType::Transform);
 }

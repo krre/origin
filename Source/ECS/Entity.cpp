@@ -51,7 +51,14 @@ void Entity::removeComponent(ComponentType type) {
 }
 
 const Component* Entity::getComponent(ComponentType type) {
-    return components.at(type);
+    Component* component = nullptr;
+    try {
+        component = components.at(type);
+    } catch (...) {
+
+    }
+
+    return component;
 }
 
 void Entity::clearComponents() {

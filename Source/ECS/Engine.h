@@ -17,6 +17,8 @@ public:
     Entity* getEntity(EntityId id);
     void clearEntities();
 
+    list<Entity*> getEntities() { return entities; }
+
     void process(float dt);
 
 private:

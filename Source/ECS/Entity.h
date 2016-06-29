@@ -17,6 +17,7 @@ public:
     void clearComponents();
 
     EntityId getId() { return id; }
+    map<ComponentType, Component*> getComponents() { return components; }
 
 private:
     map<ComponentType, Component*> components;

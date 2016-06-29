@@ -24,7 +24,7 @@ void Camera::setAspect(float aspect) {
 }
 
 const mat4& Camera::getView() {
-    glm::mat4 translate = glm::translate(-getPostition());
+    glm::mat4 translate = glm::translate(-getPosition());
     glm::mat4 rotate = glm::transpose(glm::toMat4(getRotation()));
     view = rotate * translate;
     return view;

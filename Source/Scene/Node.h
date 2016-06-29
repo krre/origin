@@ -18,7 +18,7 @@ public:
     virtual void draw() {}
 
     void setPosition(const vec3& position);
-    const vec3 getPostition() const { return position; }
+    const vec3 getPosition() const { return position; }
 
     void setRotation(float angle, const vec3& axis);
     void setRotation(const quat& rotation);

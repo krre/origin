@@ -1,7 +1,5 @@
 #include "Engine.h"
-#include "../ECS/Systems/InputSystem.h"
-#include "../ECS/Systems/RenderSystem.h"
-#include "../ECS/Systems/TransformSystem.h"
+#include "../ECS/Systems/Systems.h"
 
 Engine::Engine() {
     initSystems();

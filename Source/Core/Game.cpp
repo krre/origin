@@ -46,6 +46,14 @@ void Game::create() {
     Event::getInstance()->mouseButtonAction.connectMember(&Game::mouseButtonAction, this, std::placeholders::_1);
 }
 
+void Game::load() {
+
+}
+
+void Game::save() {
+
+}
+
 void Game::cameraMove(float dt) {
     if (state == PAUSE) return;
 

@@ -18,6 +18,8 @@ public:
     Game();
     ~Game();
     void create();
+    void load();
+    void save();
 private:
     void cameraMove(float dt);
     void update(float dt);

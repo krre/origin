@@ -24,8 +24,8 @@ void Game::create() {
 
     new Engine();
 
-    // Player
-    Engine::getInstance()->addEntity(EntityBuilder::player());
+    // Avatar
+    Engine::getInstance()->addEntity(EntityBuilder::avatar());
 
     // Ground
     Engine::getInstance()->addEntity(EntityBuilder::ground());

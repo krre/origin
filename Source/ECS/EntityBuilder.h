@@ -6,5 +6,5 @@ class EntityBuilder {
 public:
     EntityBuilder() {}
     static Entity* ground();
-    static Entity* player();
+    static Entity* avatar();
 };

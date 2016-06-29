@@ -10,7 +10,7 @@ Entity* EntityBuilder::ground() {
     return entity;
 }
 
-Entity* EntityBuilder::player() {
+Entity* EntityBuilder::avatar() {
     Entity* entity = new Entity;
     entity->addComponent<NodeComponent>();
     entity->addComponent<TransformComponent>();

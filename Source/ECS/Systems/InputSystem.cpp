@@ -2,7 +2,7 @@
 #include "../ECS/Engine.h"
 
 InputSystem::InputSystem() {
-
+    type = SystemType::Input;
 }
 
 void InputSystem::process(float dt) {

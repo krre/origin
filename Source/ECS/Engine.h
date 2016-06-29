@@ -7,7 +7,12 @@ class Engine : public Singleton<Engine> {
 
 public:
     Engine();
-    void addSystem(SystemType type);
+
+    template <typename T> void addSystem() {
+        T* system = new T;
+        systems[system->getType()] = system;
+    }
+
     void removeSystem(SystemType type);
     const System* getSystem(SystemType type);
     void clearSystems();

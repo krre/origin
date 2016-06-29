@@ -7,22 +7,6 @@ Engine::Engine() {
     initSystems();
 }
 
-void Engine::addSystem(SystemType type) {
-    switch (type) {
-    case SystemType::Input:
-        systems[type] = new InputSystem();
-        break;
-    case SystemType::Render:
-        systems[type] = new RenderSystem();
-        break;
-    case SystemType::Transform:
-        systems[type] = new TransformSystem();
-        break;
-    default:
-        break;
-    }
-}
-
 void Engine::removeSystem(SystemType type) {
     delete systems.at(type);
     systems.erase(type);
@@ -68,7 +52,7 @@ void Engine::process(float dt) {
 }
 
 void Engine::initSystems() {
-    addSystem(SystemType::Input);
-    addSystem(SystemType::Render);
-    addSystem(SystemType::Transform);
+    addSystem<InputSystem>();
+    addSystem<RenderSystem>();
+    addSystem<TransformSystem>();
 }

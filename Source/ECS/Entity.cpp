@@ -1,9 +1,4 @@
 #include "Entity.h"
-#include "Components/TransformComponent.h"
-#include "Components/RenderComponent.h"
-#include "Components/NodeComponent.h"
-#include "Components/CameraComponent.h"
-#include "Components/InputComponent.h"
 #include <chrono>
 
 Entity::Entity(EntityId id) {

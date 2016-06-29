@@ -8,5 +8,5 @@ Player::Player() {
     addComponent(ComponentType::Input);
 
     CameraComponent* cameraComponent = static_cast<CameraComponent*>(addComponent(ComponentType::Camera));
-    cameraComponent->camera = new Camera();
+    cameraComponent->camera = shared_ptr<Camera>(new Camera());
 }

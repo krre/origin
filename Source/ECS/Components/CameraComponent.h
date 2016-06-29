@@ -6,5 +6,5 @@ class CameraComponent : public Component {
 
 public:
     CameraComponent();
-    Camera* camera;
+    shared_ptr<Camera> camera;
 };

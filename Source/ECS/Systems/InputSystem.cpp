@@ -5,5 +5,5 @@ InputSystem::InputSystem() {
 }
 
 void InputSystem::process(float dt) {
-
+//    print(dt);
 }

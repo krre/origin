@@ -6,6 +6,7 @@
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"
 #include "../ECS/System.h"
+#include "../ECS/EntityBuilder.h"
 #include "../ECS/Components/Components.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
@@ -24,23 +25,10 @@ void Game::create() {
     new Engine();
 
     // Player
-    Entity* playerEntity = new Entity;
-    playerEntity->addComponent<NodeComponent>();
-    playerEntity->addComponent<TransformComponent>();
-    playerEntity->addComponent<InputComponent>();
-
-    CameraComponent* cameraComponent = playerEntity->addComponent<CameraComponent>();
-    cameraComponent->camera = shared_ptr<Camera>(new Camera());
-
-    Engine::getInstance()->addEntity(playerEntity);
+    Engine::getInstance()->addEntity(EntityBuilder::player());
 
     // Ground
-    Entity* groundEntity = new Entity;
-    groundEntity->addComponent<NodeComponent>();
-    groundEntity->addComponent<RenderComponent>();
-    groundEntity->addComponent<TransformComponent>();
-
-    Engine::getInstance()->addEntity(groundEntity);
+    Engine::getInstance()->addEntity(EntityBuilder::ground());
 
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
     App::getInstance()->getViewport()->setScene(scene);

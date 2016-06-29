@@ -9,6 +9,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Engine.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Entity.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Entity.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/EntityBuilder.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/EntityBuilder.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Family.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Family.h
     ${CMAKE_CURRENT_SOURCE_DIR}/System.cpp

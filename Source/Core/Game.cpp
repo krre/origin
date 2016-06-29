@@ -6,8 +6,11 @@
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"
 #include "../ECS/System.h"
-#include "../ECS/Entities/Player.h"
-#include "../Universe/Ground.h"
+#include "../ECS/Components/CameraComponent.h"
+#include "../ECS/Components/NodeComponent.h"
+#include "../ECS/Components/TransformComponent.h"
+#include "../ECS/Components/InputComponent.h"
+#include "../ECS/Components/RenderComponent.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 
@@ -24,8 +27,24 @@ void Game::create() {
 
     new Engine();
 
-    Engine::getInstance()->addEntity(new Player());
-    Engine::getInstance()->addEntity(new Ground());
+    // Player
+    Entity* playerEntity = new Entity;
+    playerEntity->addComponent<NodeComponent>();
+    playerEntity->addComponent<TransformComponent>();
+    playerEntity->addComponent<InputComponent>();
+
+    CameraComponent* cameraComponent = playerEntity->addComponent<CameraComponent>();
+    cameraComponent->camera = shared_ptr<Camera>(new Camera());
+
+    Engine::getInstance()->addEntity(playerEntity);
+
+    // Ground
+    Entity* groundEntity = new Entity;
+    groundEntity->addComponent<NodeComponent>();
+    groundEntity->addComponent<RenderComponent>();
+    groundEntity->addComponent<TransformComponent>();
+
+    Engine::getInstance()->addEntity(groundEntity);
 
     shared_ptr<Scene> scene = shared_ptr<Scene>(new Scene());
     App::getInstance()->getViewport()->setScene(scene);

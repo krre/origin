@@ -12,3 +12,7 @@ void InputSystem::process(float dt) {
         }
     }
 }
+
+void InputSystem::setActiveEntity(Entity* activeEntity) {
+    this->activeEntity = activeEntity;
+}

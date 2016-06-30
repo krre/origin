@@ -12,7 +12,7 @@ public:
     mat4 worldMatrix;
     vec3 position;
     quat rotation;
-    float scale = 1.0;
+    vec3 scale = vec3(1.0);
     float yaw = 0;
     float pitch = 0;
     bool dirty = false;

@@ -18,7 +18,7 @@ public:
     }
 
     void removeComponent(ComponentType type);
-    const Component* getComponent(ComponentType type);
+    Component *getComponent(ComponentType type);
     void clearComponents();
 
     EntityId getId() { return id; }

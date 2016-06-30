@@ -23,7 +23,7 @@ void Entity::removeComponent(ComponentType type) {
     components.erase(type);
 }
 
-const Component* Entity::getComponent(ComponentType type) {
+Component* Entity::getComponent(ComponentType type) {
     Component* component = nullptr;
     try {
         component = components.at(type);

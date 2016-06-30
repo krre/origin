@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "Singleton.h"
 #include "../Graphics/Camera.h"
 #include <list>
 #include <glm/glm.hpp>
@@ -7,7 +7,7 @@
 
 using namespace glm;
 
-class Game : public Object {
+class Game : public Singleton<Game> {
 
     enum State {
         PLAY,

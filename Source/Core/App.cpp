@@ -1,6 +1,7 @@
 #include "App.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
+#include "Game.h"
 #include <string>
 #include <SDL_timer.h>
 #include <GL/glew.h>
@@ -31,7 +32,6 @@ App::App(int argc, char* argv[]) {
 App::~App() {
     Event::getInstance()->release();
     Input::getInstance()->release();
-    delete game;
     delete viewport;
 }
 
@@ -105,8 +105,8 @@ void App::init() {
             }
         }
 
-        game = new Game();
-        game->create();
+        new Game();
+        Game::getInstance()->create();
     }
 }
 

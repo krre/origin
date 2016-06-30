@@ -3,7 +3,6 @@
 #include <vector>
 #include "../Event/Event.h"
 #include "../Graphics/Renderer.h"
-#include "Game.h"
 #include "Singleton.h"
 #include "../Scene/Viewport.h"
 
@@ -29,7 +28,6 @@ private:
     static string absoluteFilePath;
     static string absolutePath;
 
-    Game* game;
     Renderer renderer;
     Viewport* viewport;
 

@@ -8,7 +8,7 @@
 #include "../ECS/System.h"
 #include "../ECS/EntityBuilder.h"
 #include "../ECS/Components/Components.h"
-#include "../ECS/Systems/InputSystem.h"
+#include "../ECS/Systems/Systems.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 
@@ -30,6 +30,12 @@ void Game::create() {
     Engine::getInstance()->addEntity(avatar);
     InputSystem* inputSystem = static_cast<InputSystem*>(Engine::getInstance()->getSystem(SystemType::Input));\
     inputSystem->setActiveEntity(avatar);
+
+    Entity* avatarCamera = EntityBuilder::camera();
+    TransformSystem* avatarCameraTransformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(SystemType::Transform));
+    avatarCameraTransformSystem->translate(avatarCamera, vec3(0.0f, 0.5f, 0.0f));
+    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node));
+    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
     // Ground
     Engine::getInstance()->addEntity(EntityBuilder::ground());

@@ -14,3 +14,45 @@ void NodeSystem::process(float dt) {
         }
     }
 }
+
+void NodeSystem::addChild(EntityId parent, EntityId child) {
+    for (auto parentEntity: Engine::getInstance()->getEntities()) {
+        if (parentEntity->getId() == parent) {
+            NodeComponent* ncParent = static_cast<NodeComponent*>(parentEntity->getComponent(ComponentType::Node));
+            ncParent->children.push_back(child);
+            for (auto childEntity: Engine::getInstance()->getEntities()) {
+                NodeComponent* ncChild = static_cast<NodeComponent*>(childEntity->getComponent(ComponentType::Node));
+                ncChild->parent = parent;
+                break;
+            }
+            break;
+        }
+    }
+}
+
+void NodeSystem::removeChild(EntityId parent, EntityId child) {
+    for (auto parentEntity: Engine::getInstance()->getEntities()) {
+        if (parentEntity->getId() == parent) {
+            NodeComponent* ncParent = static_cast<NodeComponent*>(parentEntity->getComponent(ComponentType::Node));
+            ncParent->children.remove(child);
+            for (auto childEntity: Engine::getInstance()->getEntities()) {
+                NodeComponent* ncChild = static_cast<NodeComponent*>(childEntity->getComponent(ComponentType::Node));
+                ncChild->parent = 0;
+                break;
+            }
+            break;
+        }
+    }
+}
+
+void NodeSystem::removeChildren(EntityId parent) {
+    for (auto parentEntity: Engine::getInstance()->getEntities()) {
+        if (parentEntity->getId() == parent) {
+            NodeComponent* ncParent = static_cast<NodeComponent*>(parentEntity->getComponent(ComponentType::Node));
+            for (auto child: ncParent->children) {
+                removeChild(parent, child);
+            }
+            break;
+        }
+    }
+}

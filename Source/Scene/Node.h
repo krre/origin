@@ -27,7 +27,6 @@ public:
     void setScale(const vec3& scale);
 
     void translate(const vec3& delta, bool local = true);
-    void rotate(float angle, const vec3& axis);
     void rotate(const quat& delta);
     void scale(const vec3& scale);
 

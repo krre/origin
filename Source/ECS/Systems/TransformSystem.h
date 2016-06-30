@@ -17,5 +17,5 @@ public:
 
     void translate(Entity* entity, vec3& delta, bool local = true);
     void rotate(Entity* entity, quat& delta);
-    void scale(Entity* entity, vec3& scale);
+    void scale(Entity* entity, vec3& delta);
 };

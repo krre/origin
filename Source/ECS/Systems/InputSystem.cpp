@@ -4,6 +4,7 @@
 #include "../Core/Game.h"
 #include "../Event/Input.h"
 #include "../Components/TransformComponent.h"
+#include "../Components/MovementComponent.h"
 
 InputSystem::InputSystem() {
     type = SystemType::Input;
@@ -21,16 +22,14 @@ void InputSystem::setActiveEntity(Entity* activeEntity) {
 }
 
 void InputSystem::moveActiveEntity(float dt) {
-    const float MOVE_SPEED = 1.0f;
-    const float ROTATE_SPEED = 0.1f;
-
+    MovementComponent* mc = static_cast<MovementComponent*>(activeEntity->getComponent(ComponentType::Movement));
     TransformComponent* tc = static_cast<TransformComponent*>(activeEntity->getComponent(ComponentType::Transform));
 
     ivec2 relMousePos = Input::getInstance()->getRelMousePos();
-    tc->yaw += ROTATE_SPEED * relMousePos.x;
+    tc->yaw += mc->rotateSpeed * relMousePos.x;
     tc->yaw = fmod(tc->yaw, 360.0f);
 
-    tc->pitch -= ROTATE_SPEED * relMousePos.y;
+    tc->pitch -= mc->rotateSpeed * relMousePos.y;
     tc->pitch = clamp(tc->pitch, -80.0f, 80.0f);
 
     quat rotation = toQuat(eulerAngleYX(radians(tc->yaw), radians(tc->pitch)));
@@ -38,12 +37,12 @@ void InputSystem::moveActiveEntity(float dt) {
     transformSystem->setRotation(activeEntity, rotation);
 
     if (Input::getInstance()->isKeyPressed(SDLK_w)) {
-        transformSystem->translate(activeEntity, vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
+        transformSystem->translate(activeEntity, vec3(0.0f, 0.0f, -1.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_s)) {
-        transformSystem->translate(activeEntity, vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
+        transformSystem->translate(activeEntity, vec3(0.0f, 0.0f, 1.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_a)) {
-        transformSystem->translate(activeEntity, vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
+        transformSystem->translate(activeEntity, vec3(-1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
-        transformSystem->translate(activeEntity, vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
+        transformSystem->translate(activeEntity, vec3(1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
     }
 }

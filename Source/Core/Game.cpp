@@ -58,6 +58,10 @@ void Game::save() {
 
 }
 
+void Game::setState(Game::State state) {
+    this->state = state;
+}
+
 void Game::cameraMove(float dt) {
     if (state == PAUSE) return;
 

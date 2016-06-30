@@ -20,6 +20,9 @@ public:
     void create();
     void load();
     void save();
+    State getState() { return state; }
+    void setState(State state);
+
 private:
     void cameraMove(float dt);
     void update(float dt);

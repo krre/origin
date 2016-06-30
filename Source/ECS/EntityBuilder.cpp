@@ -3,7 +3,6 @@
 
 Entity* EntityBuilder::ground() {
     Entity* entity = new Entity;
-    entity->addComponent<NodeComponent>();
     entity->addComponent<RenderComponent>();
     entity->addComponent<TransformComponent>();
 
@@ -15,6 +14,7 @@ Entity* EntityBuilder::avatar() {
     entity->addComponent<NodeComponent>();
     entity->addComponent<TransformComponent>();
     entity->addComponent<InputComponent>();
+    entity->addComponent<MovementComponent>();
 
     CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
     cameraComponent->camera = shared_ptr<Camera>(new Camera());

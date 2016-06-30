@@ -7,7 +7,8 @@ enum class ComponentType {
     Input,
     Node,
     Render,
-    Transform
+    Transform,
+    Movement
 };
 
 class Component : public Object {

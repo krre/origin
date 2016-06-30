@@ -7,4 +7,5 @@ public:
     EntityBuilder() {}
     static Entity* ground();
     static Entity* avatar();
+    static Entity* camera();
 };

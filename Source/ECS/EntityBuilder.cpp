@@ -21,3 +21,14 @@ Entity* EntityBuilder::avatar() {
 
     return entity;
 }
+
+Entity* EntityBuilder::camera() {
+    Entity* entity = new Entity;
+    entity->addComponent<NodeComponent>();
+    entity->addComponent<TransformComponent>();
+
+    CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
+    cameraComponent->camera = shared_ptr<Camera>(new Camera());
+
+    return entity;
+}

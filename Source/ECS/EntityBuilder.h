@@ -8,4 +8,5 @@ public:
     static Entity* ground();
     static Entity* avatar();
     static Entity* camera();
+    static Entity* freeCamera();
 };

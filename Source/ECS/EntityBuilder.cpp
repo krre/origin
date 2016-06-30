@@ -32,3 +32,14 @@ Entity* EntityBuilder::camera() {
 
     return entity;
 }
+
+Entity* EntityBuilder::freeCamera() {
+    Entity* entity = new Entity;
+    entity->addComponent<TransformComponent>();
+    entity->addComponent<MovementComponent>();
+
+    CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
+    cameraComponent->camera = shared_ptr<Camera>(new Camera());
+
+    return entity;
+}

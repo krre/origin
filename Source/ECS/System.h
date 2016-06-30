@@ -7,7 +7,8 @@ enum class SystemType {
     None,
     Input,
     Render,
-    Transform
+    Transform,
+    Node
 };
 
 class System : public Object {

@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/InputSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/InputSystem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/NodeSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NodeSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/TransformSystem.cpp

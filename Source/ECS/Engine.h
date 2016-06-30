@@ -14,7 +14,7 @@ public:
     }
 
     void removeSystem(SystemType type);
-    const System* getSystem(SystemType type);
+    System* getSystem(SystemType type);
     void clearSystems();
 
     void addEntity(Entity* entity);

@@ -10,7 +10,7 @@ void Engine::removeSystem(SystemType type) {
     systems.erase(type);
 }
 
-const System* Engine::getSystem(SystemType type) {
+System* Engine::getSystem(SystemType type) {
     return systems.at(type);
 }
 

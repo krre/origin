@@ -8,6 +8,7 @@
 #include "../ECS/System.h"
 #include "../ECS/EntityBuilder.h"
 #include "../ECS/Components/Components.h"
+#include "../ECS/Systems/InputSystem.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 
@@ -25,7 +26,10 @@ void Game::create() {
     new Engine();
 
     // Avatar
-    Engine::getInstance()->addEntity(EntityBuilder::avatar());
+    Entity* avatar = EntityBuilder::avatar();
+    Engine::getInstance()->addEntity(avatar);
+    InputSystem* inputSystem = static_cast<InputSystem*>(Engine::getInstance()->getSystem(SystemType::Input));\
+    inputSystem->setActiveEntity(avatar);
 
     // Ground
     Engine::getInstance()->addEntity(EntityBuilder::ground());

@@ -9,12 +9,13 @@ using namespace glm;
 
 class Game : public Singleton<Game> {
 
+public:
+
     enum State {
         PLAY,
         PAUSE
     };
 
-public:
     Game();
     ~Game();
     void create();

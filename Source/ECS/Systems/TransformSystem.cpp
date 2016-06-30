@@ -43,7 +43,7 @@ void TransformSystem::setScale(Entity* entity, vec3& scale) {
     tc->dirty = true;
 }
 
-void TransformSystem::translate(Entity* entity, vec3& delta, bool local) {
+void TransformSystem::translate(Entity* entity, const vec3& delta, bool local) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->getComponent(ComponentType::Transform));
     if (local) {
         tc->position += tc->rotation * delta;

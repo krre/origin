@@ -10,5 +10,7 @@ public:
     Entity* getActiveEntity() const { return activeEntity; }
 
 private:
+    void moveActiveEntity(float dt);
+
     Entity* activeEntity = nullptr;
 };

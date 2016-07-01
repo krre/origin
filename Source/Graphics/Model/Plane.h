@@ -19,7 +19,7 @@ private:
     Shader fragmentShader;
     Program programShader;
     VertexArray vao;
-    Buffer vertexBuffer;
+    Buffer vbo;
     Buffer colorBuffer;
     GLuint matrix;
     glm::mat4 mvp; // model-view-projection

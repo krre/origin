@@ -5,7 +5,7 @@
 Plane::Plane(int width, int height) : width(width), height(height),
         vertexShader(GL_VERTEX_SHADER),
         fragmentShader(GL_FRAGMENT_SHADER),
-        vertexBuffer(GL_ARRAY_BUFFER),
+        vbo(GL_ARRAY_BUFFER),
         colorBuffer(GL_ARRAY_BUFFER) {
     vertexShader.load("Base.vs");
     fragmentShader.load("Base.fs");
@@ -24,8 +24,8 @@ Plane::Plane(int width, int height) : width(width), height(height),
         -1.0f * width,  0.0f, 1.0f * height,
         1.0f * width,  0.0f, 1.0f * height,
     };
-    vertexBuffer.bind();
-    vertexBuffer.setData(vertexData, sizeof(vertexData));
+    vbo.bind();
+    vbo.setData(vertexData, sizeof(vertexData));
 
     matrix = glGetUniformLocation(programShader.getId(), "mvp");
 
@@ -53,7 +53,7 @@ void Plane::draw() {
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
 
     glEnableVertexAttribArray(0);
-    vertexBuffer.bind();
+    vbo.bind();
     glVertexAttribPointer(
        0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
        3,                  // size

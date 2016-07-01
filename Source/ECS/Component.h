@@ -9,7 +9,8 @@ enum class ComponentType {
     Render,
     Transform,
     Movement,
-    Mesh
+    Mesh,
+    Material
 };
 
 class Component : public Object {

@@ -10,7 +10,7 @@ public:
     TransformComponent();
     mat4 localMatrix;
     mat4 worldMatrix;
-    vec3 position;
+    vec3 translation;
     quat rotation;
     vec3 scale = vec3(1.0);
     float yaw = 0;

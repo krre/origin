@@ -1,7 +1,7 @@
 #include "Game.h"
 #include "../Scene/Scene.h"
 #include "App.h"
-#include "../Graphics/Model/Plane.h"
+#include "../Graphics/Mesh/Plane.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"

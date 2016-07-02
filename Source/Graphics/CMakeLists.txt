@@ -1,4 +1,4 @@
-add_subdirectory(Model)
+add_subdirectory(Mesh)
 add_subdirectory(OpenGL)
 
 set(SOURCES

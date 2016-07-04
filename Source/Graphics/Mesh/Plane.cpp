@@ -7,8 +7,8 @@ Plane::Plane(int width, int height) : width(width), height(height),
         fragmentShader(GL_FRAGMENT_SHADER),
         vbo(GL_ARRAY_BUFFER),
         colorBuffer(GL_ARRAY_BUFFER) {
-    vertexShader.load("Base.vs");
-    fragmentShader.load("Base.fs");
+    vertexShader.load("Base.vert");
+    fragmentShader.load("Base.frag");
 
     programShader.addShader(vertexShader);
     programShader.addShader(fragmentShader);

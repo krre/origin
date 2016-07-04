@@ -5,7 +5,7 @@
 
 Viewport::Viewport() {
     Event::getInstance()->render.connectMember(&Viewport::render, this);
-    Event::getInstance()->update.connectMember(&Viewport::update, this, std::placeholders::_1);
+    Event::getInstance()->update.connectMember(&Viewport::update, this, placeholders::_1);
     camera = shared_ptr<Camera>(new Camera());
 }
 

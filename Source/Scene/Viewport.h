@@ -11,7 +11,7 @@ public:
     void render();
 
     void setBackgroundColor(const vec4& backgroundColor) { this->backgroundColor = backgroundColor; }
-
+    void setRectangle(vec4& rectangle);
     void setScene(shared_ptr<Scene> const scene) { this->scene = scene; }
     shared_ptr<Scene> getScene() const { return scene; }
 
@@ -21,6 +21,7 @@ private:
     shared_ptr<Scene> scene;
     shared_ptr<Camera> camera;
     vec4 backgroundColor;
+    vec4 rectangle;
 
 
 };

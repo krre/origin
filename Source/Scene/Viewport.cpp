@@ -19,3 +19,7 @@ void Viewport::render() {
     Node* rootNode = scene->getRoot();
     rootNode->draw();
 }
+
+void Viewport::setRectangle(vec4& rectangle) {
+    this->rectangle = rectangle;
+}

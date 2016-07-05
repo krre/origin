@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Scene/Node.h"
+#include "../Mesh.h"
 
-class Sphere : Node {
+class Sphere : Mesh {
 
 public:
     Sphere();

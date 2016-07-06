@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Scene/Node.h"
+#include "../Mesh.h"
 
-class Cone : Node {
+class Cone : Mesh {
 
 public:
     Cone();

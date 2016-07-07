@@ -22,8 +22,15 @@ include_directories(${SDL2_INCLUDE_DIR})
 find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIRS})
 
+find_package(Freetype REQUIRED)
+include_directories(${FREETYPE_INCLUDE_DIRS})
+
 include_directories(Source/ThirdParty)
 
 find_package(OpenGL)
 
-target_link_libraries(${EXECUTABLE_NAME} ${SDL2_LIBRARY} ${OPENGL_LIBRARIES} ${GLEW_LIBRARIES})
+target_link_libraries(${EXECUTABLE_NAME}
+    ${SDL2_LIBRARY}
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
+    ${FREETYPE_LIBRARIES})

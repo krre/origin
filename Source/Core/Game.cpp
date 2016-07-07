@@ -103,9 +103,12 @@ void Game::update(float dt) {
 void Game::keyPress(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-//        App::getInstance()->quit();
-        state = PAUSE;
-        SDL_SetRelativeMouseMode(SDL_FALSE);
+        if (state == PLAY) {
+            state = PAUSE;
+            SDL_SetRelativeMouseMode(SDL_FALSE);
+        } else if (state == CONSOLE) {
+            state = PLAY;
+        }
         break;
 
     case SDLK_F3:
@@ -115,6 +118,13 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
     case SDLK_F10:
         toggleFullScreen();
         break;
+
+    case SDLK_SLASH:
+        if (state == PLAY) {
+            state = CONSOLE;
+        }
+        break;
+
     default:
         break;
     }

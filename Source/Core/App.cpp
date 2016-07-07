@@ -17,15 +17,14 @@ App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);
     }
+    absoluteFilePath = this->argv[0];
+    absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
 
     new Event();
     new Input();
     new Console();
 
     viewport = new Viewport();
-
-    absoluteFilePath = this->argv[0];
-    absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
 
     Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
     Event::getInstance()->quit.connectMember(&App::quit, this);

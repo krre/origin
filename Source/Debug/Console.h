@@ -1,6 +1,7 @@
 #pragma once
 #include "../Core/Singleton.h"
 #include "../UI/Text.h"
+#include <SDL.h>
 
 class Console : public Singleton<Console> {
 
@@ -11,6 +12,9 @@ public:
     bool getVisible() { return visible; }
 
 private:
+    void keyPress(const SDL_KeyboardEvent& event);
+
     bool visible = false;
     Text cmdLine;
+    int keyPressId;
 };

@@ -2,7 +2,7 @@
 #include "../Core/App.h"
 #include "../Graphics/OpenGL/Shader.h"
 #include <GL/glew.h>
-#include <freetype2/ft2build.h>
+#include <ft2build.h>
 #include FT_FREETYPE_H
 
 Text::Text() {

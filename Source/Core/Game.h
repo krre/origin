@@ -13,7 +13,8 @@ public:
 
     enum State {
         PLAY,
-        PAUSE
+        PAUSE,
+        CONSOLE
     };
 
     Game();

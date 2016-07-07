@@ -19,15 +19,6 @@ App::App(int argc, char* argv[]) {
     }
     absoluteFilePath = this->argv[0];
     absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
-
-    new Event();
-    new Input();
-    new Console();
-
-    viewport = new Viewport();
-
-    Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
-    Event::getInstance()->quit.connectMember(&App::quit, this);
 }
 
 App::~App() {
@@ -106,6 +97,15 @@ void App::init() {
                 isRunning = true;
             }
         }
+
+        new Event();
+        new Input();
+        new Console();
+
+        viewport = new Viewport();
+
+        Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
+        Event::getInstance()->quit.connectMember(&App::quit, this);
 
         new Game();
         Game::getInstance()->create();

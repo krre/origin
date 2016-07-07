@@ -13,7 +13,6 @@ Plane::Plane(int width, int height) : width(width), height(height),
     programShader.addShader(vertexShader);
     programShader.addShader(fragmentShader);
     programShader.link();
-    programShader.use();
 
     static const GLfloat vertexData[] = {
         -1.0f * width, 0.0f, -1.0f * height,
@@ -43,6 +42,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
 }
 
 void Plane::draw() {
+    programShader.use();
     glm::mat4 projection = App::getInstance()->getViewport()->getCamera()->getProjection();
     glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();
     mvp = projection * view * getModelMatrix();

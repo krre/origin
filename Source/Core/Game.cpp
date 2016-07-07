@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "../Scene/Scene.h"
 #include "App.h"
+#include "../Debug/Console.h"
 #include "../Graphics/Mesh/Plane.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
@@ -96,7 +97,9 @@ void Game::cameraMove(float dt) {
 }
 
 void Game::update(float dt) {
-    cameraMove(dt);
+    if (state == PLAY) {
+        cameraMove(dt);
+    }
     Engine::getInstance()->process(dt);
 }
 
@@ -107,6 +110,7 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
             state = PAUSE;
             SDL_SetRelativeMouseMode(SDL_FALSE);
         } else if (state == CONSOLE) {
+            Console::getInstance()->setVisible(false);
             state = PLAY;
         }
         break;
@@ -121,6 +125,7 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
 
     case SDLK_SLASH:
         if (state == PLAY) {
+            Console::getInstance()->setVisible(true);
             state = CONSOLE;
         }
         break;

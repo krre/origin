@@ -1,5 +1,6 @@
 #pragma once
 #include "../Core/Singleton.h"
+#include "../UI/Text.h"
 
 class Console : public Singleton<Console> {
 
@@ -11,4 +12,5 @@ public:
 
 private:
     bool visible = false;
+    Text cmdLine;
 };

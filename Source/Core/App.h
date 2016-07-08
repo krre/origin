@@ -22,6 +22,8 @@ public:
     void quit();
     Viewport* getViewport() { return viewport; }
     SDL_Window* getWindow() const { return window; }
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
 
 private:
     vector<string> argv;
@@ -34,6 +36,9 @@ private:
     bool isRunning = false;
     SDL_Window* window = nullptr;
     SDL_GLContext context;
+
+    int width;
+    int height;
 
     void windowResize(int width, int height);
 };

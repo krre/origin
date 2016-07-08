@@ -4,6 +4,7 @@
 #include "../Event/Input.h"
 #include "../Resource/Resource.h"
 #include "../Debug/Console.h"
+#include "../Debug/Logger.h"
 #include <string>
 #include <SDL_timer.h>
 #include <GL/glew.h>
@@ -27,6 +28,7 @@ App::~App() {
     Input::getInstance()->release();
     Resource::getInstance()->release();
     Console::getInstance()->release();
+    Logger::getInstance()->release();
     delete viewport;
 }
 
@@ -104,6 +106,7 @@ void App::init() {
         new Input();
         new Resource();
         new Console();
+        new Logger();
 
         viewport = new Viewport();
 

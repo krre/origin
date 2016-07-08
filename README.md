@@ -6,3 +6,6 @@ Procedural world game
 - GLEW
 - SDL 2.0
 - FreeType 2.6.3
+
+## Status
+Now under initial development stage

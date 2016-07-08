@@ -1,13 +1,16 @@
 #include "Plane.h"
+#include "../OpenGL/Shader.h"
 #include "../Core/App.h"
 #include <glm/ext.hpp>
 
 Plane::Plane(int width, int height) : width(width), height(height),
-        vertexShader(GL_VERTEX_SHADER),
-        fragmentShader(GL_FRAGMENT_SHADER),
         vbo(GL_ARRAY_BUFFER),
         colorBuffer(GL_ARRAY_BUFFER) {
+
+    Shader vertexShader(GL_VERTEX_SHADER);
     vertexShader.load("Base.vert");
+
+    Shader fragmentShader(GL_FRAGMENT_SHADER);
     fragmentShader.load("Base.frag");
 
     programShader.addShader(vertexShader);

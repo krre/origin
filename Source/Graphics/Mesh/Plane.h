@@ -1,6 +1,5 @@
 #pragma once
 #include "../../Scene/Node.h"
-#include "../OpenGL/Shader.h"
 #include "../OpenGL/Program.h"
 #include "../OpenGL/VertexArray.h"
 #include "../OpenGL/Buffer.h"
@@ -15,8 +14,6 @@ public:
 private:
     int width;
     int height;
-    Shader vertexShader;
-    Shader fragmentShader;
     Program programShader;
     VertexArray vao;
     Buffer vbo;

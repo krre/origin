@@ -6,6 +6,8 @@
 #include FT_FREETYPE_H
 
 Text::Text() {
+    color = glm::vec4(1.0, 1.0, 1.0, 1.0);
+
     FT_Library ft;
 
     if (FT_Init_FreeType(&ft)) {
@@ -40,6 +42,10 @@ Text::Text() {
 
 void Text::setText(const string& text) {
     this->text = text;
+}
+
+void Text::setColor(const glm::vec4& color) {
+    this->color = color;
 }
 
 void Text::render(float dt) {

@@ -1,7 +1,8 @@
 #include "App.h"
+#include "Game.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
-#include "Game.h"
+#include "../Resource/Resource.h"
 #include "../Debug/Console.h"
 #include <string>
 #include <SDL_timer.h>
@@ -24,6 +25,7 @@ App::App(int argc, char* argv[]) {
 App::~App() {
     Event::getInstance()->release();
     Input::getInstance()->release();
+    Resource::getInstance()->release();
     Console::getInstance()->release();
     delete viewport;
 }
@@ -100,6 +102,7 @@ void App::init() {
 
         new Event();
         new Input();
+        new Resource();
         new Console();
 
         viewport = new Viewport();

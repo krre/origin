@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 Console::Console() {
-    cmdLine.setPosition(glm::vec2(10, 10));
+    cmdLine.setPosition(glm::vec2(100, 100));
     cmdLine.setText("test");
 }
 

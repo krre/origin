@@ -10,6 +10,6 @@ public:
     glm::vec2 getPostion() const { return position; }
     virtual void render(float dt);
 
-private:
+protected:
     glm::vec2 position;
 };

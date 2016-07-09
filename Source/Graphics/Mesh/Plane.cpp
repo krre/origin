@@ -52,6 +52,7 @@ void Plane::draw() {
 
 //    vec4 pos = mvp * vec4(-1.0f, 0.0f, -1.0f, 1.0f);
 //    print(glm::to_string(pos));
+    vao.bind();
 
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
 
@@ -78,7 +79,7 @@ void Plane::draw() {
     );
 
     glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-
+    glBindVertexArray(0);
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
 }

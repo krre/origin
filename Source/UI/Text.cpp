@@ -94,8 +94,6 @@ Text::Text() {
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-
-    fontProgram.use(false);
 }
 
 void Text::setText(const string& text) {
@@ -111,9 +109,8 @@ void Text::setScale(float scale) {
 }
 
 void Text::render(float dt) {
-//    glEnable(GL_BLEND);
-//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     fontProgram.use();
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight()));
@@ -164,8 +161,5 @@ void Text::render(float dt) {
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
-
     glDisable(GL_BLEND);
-
-    fontProgram.use(false);
 }

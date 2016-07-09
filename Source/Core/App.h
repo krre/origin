@@ -41,4 +41,5 @@ private:
     int height;
 
     void windowResize(int width, int height);
+    void initSingletons();
 };

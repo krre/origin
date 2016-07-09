@@ -17,14 +17,8 @@ Game::Game() {
 
 }
 
-Game::~Game() {
-    Engine::getInstance()->release();
-}
-
 void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
-
-    new Engine();
 
     // Avatar
     Entity* avatar = EntityBuilder::avatar();

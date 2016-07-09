@@ -18,7 +18,6 @@ public:
     };
 
     Game();
-    ~Game();
     void create();
     void load();
     void save();

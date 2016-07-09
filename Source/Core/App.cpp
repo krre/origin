@@ -5,6 +5,7 @@
 #include "../Resource/Resource.h"
 #include "../Debug/Console.h"
 #include "../Debug/Logger.h"
+#include "../ECS/Engine.h"
 #include <string>
 #include <SDL_timer.h>
 #include <GL/glew.h>
@@ -24,6 +25,7 @@ App::App(int argc, char* argv[]) {
 }
 
 App::~App() {
+    Engine::getInstance()->release();
     Event::getInstance()->release();
     Input::getInstance()->release();
     Resource::getInstance()->release();
@@ -102,19 +104,7 @@ void App::init() {
             }
         }
 
-        new Event();
-        new Input();
-        new Resource();
-        new Console();
-        new Logger();
-
-        viewport = new Viewport();
-
-        Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
-        Event::getInstance()->quit.connectMember(&App::quit, this);
-
-        new Game();
-        Game::getInstance()->create();
+        initSingletons();
     }
 }
 
@@ -153,6 +143,23 @@ void App::windowResize(int width, int height) {
     this->width = width;
     this->height = height;
     glViewport(0, 0, width, height);
+}
+
+void App::initSingletons() {
+    new Engine();
+    new Event();
+    new Input();
+    new Resource();
+    new Console();
+    new Logger();
+
+    viewport = new Viewport();
+
+    Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
+    Event::getInstance()->quit.connectMember(&App::quit, this);
+
+    new Game();
+    Game::getInstance()->create();
 }
 
 void App::quit() {

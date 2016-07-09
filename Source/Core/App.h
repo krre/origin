@@ -6,6 +6,9 @@
 #include "Singleton.h"
 #include "../Scene/Viewport.h"
 
+constexpr int WINDOW_WIDTH = 800;
+constexpr int WINDOW_HEIGHT = 480;
+
 class App : public Singleton<App> {
 
 public:
@@ -37,8 +40,8 @@ private:
     SDL_Window* window = nullptr;
     SDL_GLContext context;
 
-    int width;
-    int height;
+    int width = WINDOW_WIDTH;
+    int height = WINDOW_HEIGHT;
 
     void windowResize(int width, int height);
     void initSingletons();

@@ -10,9 +10,6 @@
 #include <SDL_timer.h>
 #include <GL/glew.h>
 
-constexpr int WINDOW_WIDTH = 800;
-constexpr int WINDOW_HEIGHT = 480;
-
 string App::absoluteFilePath;
 string App::absolutePath;
 

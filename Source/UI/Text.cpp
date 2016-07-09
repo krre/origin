@@ -35,11 +35,6 @@ Text::Text() {
     fontProgram.addShader(fontFragmentShader);
     fontProgram.link();
     fontProgram.use();
-
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight()));
-
-    glUniformMatrix4fv(glGetUniformLocation(fontProgram.getId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -99,6 +94,8 @@ Text::Text() {
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+
+    fontProgram.use(false);
 }
 
 void Text::setText(const string& text) {
@@ -114,10 +111,13 @@ void Text::setScale(float scale) {
 }
 
 void Text::render(float dt) {
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     fontProgram.use();
+
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight()));
+    glUniformMatrix4fv(glGetUniformLocation(fontProgram.getId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     glUniform3f(glGetUniformLocation(fontProgram.getId(), "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
@@ -125,11 +125,12 @@ void Text::render(float dt) {
     glBindVertexArray(vao);
 
     // Iterate through all characters
+    GLfloat startX = position.x;
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++) {
         Character ch = characters[*c];
 
-        GLfloat xpos = position.x + ch.bearing.x * scale;
+        GLfloat xpos = startX + ch.bearing.x * scale;
         GLfloat ypos = position.y - (ch.size.y - ch.bearing.y) * scale;
 
         GLfloat w = ch.size.x * scale;
@@ -158,11 +159,13 @@ void Text::render(float dt) {
         // Render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
         // Now advance cursors for next glyph (note that advance is number of 1/64 pixels)
-        position.x += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
+        startX += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
 
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 
     glDisable(GL_BLEND);
+
+    fontProgram.use(false);
 }

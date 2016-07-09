@@ -21,12 +21,13 @@ public:
     void create();
     void load();
     void save();
+
     State getState() { return state; }
     void setState(State state);
 
-private:
     void cameraMove(float dt);
-    void update(float dt);
+
+private:
     void keyPress(const SDL_KeyboardEvent& event);
     void mouseButtonAction(const SDL_MouseButtonEvent& event);
     void toggleFullScreen();

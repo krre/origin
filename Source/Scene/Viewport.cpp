@@ -4,8 +4,6 @@
 #include <SDL_opengl.h>
 
 Viewport::Viewport() {
-    Event::getInstance()->render.connectMember(&Viewport::render, this);
-    Event::getInstance()->update.connectMember(&Viewport::update, this, placeholders::_1);
     camera = shared_ptr<Camera>(new Camera());
 }
 
@@ -14,10 +12,14 @@ void Viewport::update(double dt) {
 }
 
 void Viewport::render() {
-    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Node* rootNode = scene->getRoot();
     rootNode->draw();
+}
+
+void Viewport::setBackgroundColor(const vec4& backgroundColor) {
+    this->backgroundColor = backgroundColor;
+    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 }
 
 void Viewport::setRectangle(vec4& rectangle) {

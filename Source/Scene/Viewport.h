@@ -10,7 +10,7 @@ public:
     void update(double dt);
     void render();
 
-    void setBackgroundColor(const vec4& backgroundColor) { this->backgroundColor = backgroundColor; }
+    void setBackgroundColor(const vec4& backgroundColor);
     void setRectangle(vec4& rectangle);
     void setScene(shared_ptr<Scene> const scene) { this->scene = scene; }
     shared_ptr<Scene> getScene() const { return scene; }

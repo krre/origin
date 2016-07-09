@@ -46,7 +46,6 @@ void Game::create() {
     camera->setPosition(vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 
-    Event::getInstance()->update.connectMember(&Game::update, this, std::placeholders::_1);
     Event::getInstance()->keyPress.connectMember(&Game::keyPress, this, std::placeholders::_1);
     Event::getInstance()->mouseButtonAction.connectMember(&Game::mouseButtonAction, this, std::placeholders::_1);
 }
@@ -64,7 +63,7 @@ void Game::setState(Game::State state) {
 }
 
 void Game::cameraMove(float dt) {
-    if (state == PAUSE) return;
+    if (state != PLAY) return;
 
     const float MOVE_SPEED = 1.0f;
     const float ROTATE_SPEED = 0.1f;
@@ -88,13 +87,6 @@ void Game::cameraMove(float dt) {
     } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
         camera->translate(vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     }
-}
-
-void Game::update(float dt) {
-    if (state == PLAY) {
-        cameraMove(dt);
-    }
-    Engine::getInstance()->process(dt);
 }
 
 void Game::keyPress(const SDL_KeyboardEvent& event) {

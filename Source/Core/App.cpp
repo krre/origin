@@ -115,6 +115,23 @@ void App::clean() {
 }
 
 int App::run() {
+    Uint64 frequency = SDL_GetPerformanceFrequency();
+    Uint64 currentTime = SDL_GetPerformanceCounter();
+
+    while (isRunning) {
+        Event::getInstance()->handleEvents();
+
+        Uint64 newTime = SDL_GetPerformanceCounter();
+        double frameTime = double(newTime - currentTime) / frequency;
+        currentTime = newTime;
+        Engine::getInstance()->process(frameTime);
+
+        SDL_GL_SwapWindow(window);
+    }
+}
+
+/*
+int App::run() {
     // Game loop is based on article http://gafferongames.com/game-physics/fix-your-timestep/
     const double dt = 0.01;
     Uint64 frequency = SDL_GetPerformanceFrequency();
@@ -130,14 +147,16 @@ int App::run() {
         accumulator += frameTime;
 
         while (accumulator >= dt) {
-            Event::getInstance()->update.emit(dt);
+            Engine::getInstance()->process(dt, Engine::UPDATE);
             accumulator -= dt;
         }
 
-        Event::getInstance()->render.emit();
+        print("render");
+        Engine::getInstance()->process(dt, Engine::RENDER);
         SDL_GL_SwapWindow(window);
     }
 }
+*/
 
 void App::windowResize(int width, int height) {
     this->width = width;
@@ -155,11 +174,11 @@ void App::initSingletons() {
 
     viewport = new Viewport();
 
-    Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
-    Event::getInstance()->quit.connectMember(&App::quit, this);
-
     new Game();
     Game::getInstance()->create();
+
+    Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
+    Event::getInstance()->quit.connectMember(&App::quit, this);
 }
 
 void App::quit() {

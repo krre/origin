@@ -50,7 +50,7 @@ void Engine::process(float dt) {
 }
 
 void Engine::initSystems() {
-    // Order is important!
+    // Order important!
     // This is also order of processing
     addSystem<InputSystem>();
     addSystem<TransformSystem>();

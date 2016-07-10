@@ -23,7 +23,7 @@ Text::Text() {
         fprintf(stderr, "Could not open font\n");
     }
 
-    FT_Set_Pixel_Sizes(face, 0, 48);
+    FT_Set_Pixel_Sizes(face, 0, fontSize);
 
     Shader fontVertexShader(GL_VERTEX_SHADER);
     fontVertexShader.load("Font.vert");
@@ -106,6 +106,10 @@ void Text::setColor(const glm::vec4& color) {
 
 void Text::setScale(float scale) {
     this->scale = scale;
+}
+
+void Text::setFontSize(int fontSize) {
+    this->fontSize = fontSize;
 }
 
 void Text::render(float dt) {

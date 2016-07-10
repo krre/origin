@@ -23,6 +23,8 @@ public:
     void setScale(float scale);
     float getScale() const { return scale; }
 
+    void setFontSize(int fontSize);
+
     void render(float dt) override;
 
 private:
@@ -32,4 +34,5 @@ private:
     Program fontProgram;
     std::map<GLchar, Character> characters;
     GLuint vao, vbo;
+    int fontSize = 14;
 };

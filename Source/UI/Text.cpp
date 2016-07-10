@@ -18,7 +18,8 @@ Text::Text() {
 
     FT_Face face;
 
-    string fontPath = App::getAbsolutePath() + "/Data/Fonts/arial.ttf";
+//    string fontPath = App::getAbsolutePath() + "/Data/Fonts/arial.ttf";
+    string fontPath = App::getAbsolutePath() + "/Data/Fonts/inconsolatalgc.ttf";
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
         fprintf(stderr, "Could not open font\n");
     }

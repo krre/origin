@@ -34,5 +34,5 @@ private:
     Program fontProgram;
     std::map<GLchar, Character> characters;
     GLuint vao, vbo;
-    int fontSize = 14;
+    int fontSize = 16;
 };

@@ -13,6 +13,7 @@ public:
 
 private:
     void keyPress(const SDL_KeyboardEvent& event);
+    void execute();
 
     bool visible = false;
     Text cmdLine;

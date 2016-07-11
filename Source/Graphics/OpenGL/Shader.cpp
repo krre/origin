@@ -8,10 +8,9 @@ Shader::Shader(GLenum type) : type(type) {
 
 bool Shader::load(const std::string& path) {
     this->type = type;
-    std::string shaderPath = App::getAbsolutePath() + "/" + folder + "/" + path;
-    std::ifstream file(shaderPath);
+    std::ifstream file(path);
     if (!file.is_open()) {
-        error("Failed open file: " << shaderPath);
+        error("Failed open file: " << path);
         return false;
     }
 

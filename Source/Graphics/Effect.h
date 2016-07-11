@@ -11,6 +11,7 @@ public:
     void setFragShaderPath(const std::string& path);
     void load() override;
     void use();
+    GLuint getProgram() { return program.getId(); }
 
 private:
     Shader vertShader;

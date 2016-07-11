@@ -1,21 +1,13 @@
 #include "Plane.h"
-#include "../OpenGL/Shader.h"
 #include "../Core/App.h"
+#include "../Resource/ResourceManager.h"
 #include <glm/ext.hpp>
 
 Plane::Plane(int width, int height) : width(width), height(height),
         vbo(GL_ARRAY_BUFFER),
         colorBuffer(GL_ARRAY_BUFFER) {
 
-    Shader vertexShader(GL_VERTEX_SHADER);
-    vertexShader.load("Base.vert");
-
-    Shader fragmentShader(GL_FRAGMENT_SHADER);
-    fragmentShader.load("Base.frag");
-
-    programShader.addShader(vertexShader);
-    programShader.addShader(fragmentShader);
-    programShader.link();
+    baseEffect = ResourceManager::getInstance()->getEffect("BaseEffect");
 
     static const GLfloat vertexData[] = {
         -1.0f * width, 0.0f, -1.0f * height,
@@ -29,7 +21,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
     vbo.bind();
     vbo.setData(vertexData, sizeof(vertexData));
 
-    matrix = glGetUniformLocation(programShader.getId(), "mvp");
+    matrix = glGetUniformLocation(baseEffect->getProgram(), "mvp");
 
     static const GLfloat colorData[] = {
         0.000f,  1.000f,  0.000f,
@@ -45,7 +37,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
 }
 
 void Plane::draw() {
-    programShader.use();
+    baseEffect->use();
     glm::mat4 projection = App::getInstance()->getViewport()->getCamera()->getProjection();
     glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();
     mvp = projection * view * getModelMatrix();

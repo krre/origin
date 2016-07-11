@@ -17,4 +17,7 @@ public:
 
 private:
     std::map<std::string, Resource*> resources;
+    std::string dataPath;
+    std::string shaderPath;
+    std::string fontPath;
 };

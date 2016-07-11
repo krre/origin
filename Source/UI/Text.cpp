@@ -1,6 +1,7 @@
 #include "Text.h"
 #include "../Core/App.h"
 #include "../Graphics/OpenGL/Shader.h"
+#include "../Resource/ResourceManager.h"
 #include <GL/glew.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -13,29 +14,20 @@ Text::Text() {
     FT_Library ft;
 
     if (FT_Init_FreeType(&ft)) {
-        fprintf(stderr, "Could not init freetype library\n");
+        error("Could not init freetype library");
     }
 
     FT_Face face;
 
-//    std::string fontPath = App::getAbsolutePath() + "/Data/Fonts/arial.ttf";
     std::string fontPath = App::getAbsolutePath() + "/Data/Fonts/inconsolatalgc.ttf";
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
-        fprintf(stderr, "Could not open font\n");
+        error("Could not open font " << fontPath);
     }
 
     FT_Set_Pixel_Sizes(face, 0, fontSize);
 
-    Shader fontVertexShader(GL_VERTEX_SHADER);
-    fontVertexShader.load("Font.vert");
-
-    Shader fontFragmentShader(GL_FRAGMENT_SHADER);
-    fontFragmentShader.load("Font.frag");
-
-    fontProgram.addShader(fontVertexShader);
-    fontProgram.addShader(fontFragmentShader);
-    fontProgram.link();
-    fontProgram.use();
+    fontEffect = ResourceManager::getInstance()->getEffect("FontEffect");
+    fontEffect->use();
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -43,7 +35,7 @@ Text::Text() {
     for (GLubyte i = 0; i < 128; i++) {
         // Load character glyph
         if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
-            std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
+            error("ERROR::FREETYTPE: Failed to load Glyph");
             continue;
         }
 
@@ -120,12 +112,12 @@ void Text::setFontSize(int fontSize) {
 void Text::render(float dt) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    fontProgram.use();
+    fontEffect->use();
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight()));
-    glUniformMatrix4fv(glGetUniformLocation(fontProgram.getId(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(fontEffect->getProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-    glUniform3f(glGetUniformLocation(fontProgram.getId(), "textColor"), color.x, color.y, color.z);
+    glUniform3f(glGetUniformLocation(fontEffect->getProgram(), "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
 
     glBindVertexArray(vao);

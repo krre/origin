@@ -1,7 +1,7 @@
 #pragma once
 #include "Control.h"
 #include "Font.h"
-#include "../Graphics/OpenGL/Program.h"
+#include "../Graphics/Effect.h"
 #include <glm/glm.hpp>
 
 class Text : public Control {
@@ -36,8 +36,8 @@ private:
     Font* font;
     glm::vec4 color;
     float scale = 1.0;
-    Program fontProgram;
     std::map<GLchar, Character> characters;
     GLuint vao, vbo;
     int fontSize = 16;
+    Effect* fontEffect;
 };

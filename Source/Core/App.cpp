@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
-#include "../Resource/Resource.h"
+#include "../Resource/ResourceManager.h"
 #include "../Debug/Console.h"
 #include "../Debug/Logger.h"
 #include "../ECS/Engine.h"
@@ -25,7 +25,7 @@ App::~App() {
     Engine::getInstance()->release();
     Event::getInstance()->release();
     Input::getInstance()->release();
-    Resource::getInstance()->release();
+    ResourceManager::getInstance()->release();
     Console::getInstance()->release();
     Logger::getInstance()->release();
     delete viewport;
@@ -165,7 +165,7 @@ void App::initSingletons() {
     new Engine();
     new Event();
     new Input();
-    new Resource();
+    new ResourceManager();
     new Console();
     new Logger();
 

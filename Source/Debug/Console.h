@@ -9,7 +9,7 @@ public:
     Console();
     void render(float dt);
     void setVisible(bool visible);
-    bool getVisible() { return visible; }
+    bool getVisible() const { return visible; }
 
 private:
     void keyPress(const SDL_KeyboardEvent& event);

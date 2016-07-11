@@ -17,5 +17,5 @@ private:
 
     bool visible = false;
     Text cmdLine;
-    int keyPressId;
+    int keyPressId = 0;
 };

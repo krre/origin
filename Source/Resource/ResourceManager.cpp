@@ -14,6 +14,10 @@ void ResourceManager::releaseAll() {
     }
 }
 
-Font* ResourceManager::getFont(std::string name) {
+Font* ResourceManager::getFont(const std::string& name) {
     return static_cast<Font*>(resources[name]);
+}
+
+Effect* ResourceManager::getEffect(const std::string& name) {
+    return static_cast<Effect*>(resources[name]);
 }

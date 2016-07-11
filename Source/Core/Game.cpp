@@ -2,6 +2,7 @@
 #include "../Scene/Scene.h"
 #include "App.h"
 #include "../Debug/Console.h"
+#include "../Debug/DebugHUD.h"
 #include "../Graphics/Mesh/Plane.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
@@ -103,6 +104,10 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
 
     case SDLK_F3:
         saveScreenshot();
+        break;
+
+    case SDLK_F5:
+        DebugHUD::getInstance()->trigger();
         break;
 
     case SDLK_F10:

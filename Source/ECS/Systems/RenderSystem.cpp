@@ -1,5 +1,6 @@
 #include "RenderSystem.h"
 #include "../../Debug/Console.h"
+#include "../../Debug/DebugHUD.h"
 #include "../Core/App.h"
 
 RenderSystem::RenderSystem() {
@@ -11,5 +12,9 @@ void RenderSystem::process(float dt) {
 
     if (Console::getInstance()->getVisible()) {
         Console::getInstance()->render(dt);
+    }
+
+    if (DebugHUD::getInstance()->getVisible()) {
+        DebugHUD::getInstance()->render(dt);
     }
 }

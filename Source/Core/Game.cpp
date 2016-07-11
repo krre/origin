@@ -3,6 +3,7 @@
 #include "App.h"
 #include "../Debug/Console.h"
 #include "../Debug/DebugHUD.h"
+#include "../UI/Toast.h"
 #include "../Graphics/Mesh/Plane.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
@@ -152,5 +153,5 @@ void Game::saveScreenshot() {
             std::to_string(now->tm_hour) + "-" +
             std::to_string(now->tm_min) + "-" +
             std::to_string(now->tm_sec) + ".png";
-    print(path);
+    Toast::getInstance()->showToast(path);
 }

@@ -6,6 +6,7 @@
 #include "../Debug/Console.h"
 #include "../Debug/Logger.h"
 #include "../Debug/DebugHUD.h"
+#include "../UI/Toast.h"
 #include "../ECS/Engine.h"
 #include <string>
 #include <SDL_timer.h>
@@ -29,6 +30,7 @@ App::~App() {
     ResourceManager::getInstance()->release();
     Console::getInstance()->release();
     DebugHUD::getInstance()->release();
+    Toast::getInstance()->release();
     Logger::getInstance()->release();
     delete viewport;
 }
@@ -171,6 +173,7 @@ void App::initSingletons() {
     ResourceManager::getInstance()->loadAll();
     new Console();
     new DebugHUD();
+    new Toast();
 
     viewport = new Viewport();
 

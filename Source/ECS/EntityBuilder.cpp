@@ -17,7 +17,7 @@ Entity* EntityBuilder::avatar() {
     entity->addComponent<MovementComponent>();
 
     CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
-    cameraComponent->camera = shared_ptr<Camera>(new Camera());
+    cameraComponent->camera = std::shared_ptr<Camera>(new Camera());
 
     return entity;
 }
@@ -28,7 +28,7 @@ Entity* EntityBuilder::camera() {
     entity->addComponent<TransformComponent>();
 
     CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
-    cameraComponent->camera = shared_ptr<Camera>(new Camera());
+    cameraComponent->camera = std::shared_ptr<Camera>(new Camera());
 
     return entity;
 }
@@ -39,7 +39,7 @@ Entity* EntityBuilder::freeCamera() {
     entity->addComponent<MovementComponent>();
 
     CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
-    cameraComponent->camera = shared_ptr<Camera>(new Camera());
+    cameraComponent->camera = std::shared_ptr<Camera>(new Camera());
 
     return entity;
 }

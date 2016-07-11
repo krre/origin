@@ -24,6 +24,6 @@ public:
     SystemType getType() { return type; }
 
 protected:
-    list<Entity*> entities;
+    std::list<Entity*> entities;
     SystemType type = SystemType::None;
 };

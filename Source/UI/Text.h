@@ -14,8 +14,8 @@ class Text : public Control {
 
 public:
     Text();
-    void setText(const string& text);
-    string getText() const { return text; }
+    void setText(const std::string& text);
+    std::string getText() const { return text; }
 
     void setColor(const glm::vec4& color);
     glm::vec4 getColor() const { return color; }
@@ -28,7 +28,7 @@ public:
     void render(float dt) override;
 
 private:
-    string text;
+    std::string text;
     glm::vec4 color;
     float scale = 1.0;
     Program fontProgram;

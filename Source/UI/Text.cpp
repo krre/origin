@@ -18,8 +18,8 @@ Text::Text() {
 
     FT_Face face;
 
-//    string fontPath = App::getAbsolutePath() + "/Data/Fonts/arial.ttf";
-    string fontPath = App::getAbsolutePath() + "/Data/Fonts/inconsolatalgc.ttf";
+//    std::string fontPath = App::getAbsolutePath() + "/Data/Fonts/arial.ttf";
+    std::string fontPath = App::getAbsolutePath() + "/Data/Fonts/inconsolatalgc.ttf";
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
         fprintf(stderr, "Could not open font\n");
     }
@@ -97,7 +97,7 @@ Text::Text() {
     glBindVertexArray(0);
 }
 
-void Text::setText(const string& text) {
+void Text::setText(const std::string& text) {
     this->text = text;
 }
 

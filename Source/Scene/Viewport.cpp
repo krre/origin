@@ -4,7 +4,7 @@
 #include <SDL_opengl.h>
 
 Viewport::Viewport() {
-    camera = shared_ptr<Camera>(new Camera());
+    camera = std::shared_ptr<Camera>(new Camera());
 }
 
 void Viewport::update(double dt) {

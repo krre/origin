@@ -8,5 +8,5 @@ class NodeComponent : public Component {
 public:
     NodeComponent();
     EntityId parent = 0;
-    list<EntityId> children;
+    std::list<EntityId> children;
 };

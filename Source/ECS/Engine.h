@@ -22,13 +22,13 @@ public:
     Entity* getEntity(EntityId id);
     void clearEntities();
 
-    list<Entity*> getEntities() { return entities; }
+    std::list<Entity*> getEntities() { return entities; }
 
     void process(float dt);
 
 private:
-    map<SystemType, System*> systems;
-    list<Entity*> entities;
+    std::map<SystemType, System*> systems;
+    std::list<Entity*> entities;
 
     void initSystems();
 };

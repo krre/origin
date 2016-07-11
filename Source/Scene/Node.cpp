@@ -9,11 +9,11 @@ Node::Node() :
     modelMatrix(1.0f) {
 }
 
-void Node::addChild(shared_ptr<Node> child) {
+void Node::addChild(std::shared_ptr<Node> child) {
     nodes.push_back(child);
 }
 
-void Node::removeChild(shared_ptr<Node> child) {
+void Node::removeChild(std::shared_ptr<Node> child) {
     nodes.remove(child);
 }
 

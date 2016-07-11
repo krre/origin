@@ -10,8 +10,8 @@
 #include <SDL_timer.h>
 #include <GL/glew.h>
 
-string App::absoluteFilePath;
-string App::absolutePath;
+std::string App::absoluteFilePath;
+std::string App::absolutePath;
 
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
@@ -31,7 +31,7 @@ App::~App() {
     delete viewport;
 }
 
-string App::getPathSeparator() {
+std::string App::getPathSeparator() {
 #ifdef __WINDOWS__
     return "\\";
 #else
@@ -42,11 +42,11 @@ string App::getPathSeparator() {
 void App::init() {
     SDL_version compiled;
     SDL_VERSION(&compiled);
-    string sdlVersion = "SDL " + to_string(compiled.major) + "." + to_string(compiled.minor) + "." + to_string(compiled.patch);
-    cout << sdlVersion << endl;
+    std::string sdlVersion = "SDL " + std::to_string(compiled.major) + "." + std::to_string(compiled.minor) + "." + std::to_string(compiled.patch);
+    print(sdlVersion);
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        cout << "SDL could not initialize! SDL_Error: " << SDL_GetError() << endl;
+        print("SDL could not initialize! SDL_Error: " << SDL_GetError());
     } else {
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
         SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -82,11 +82,11 @@ void App::init() {
             WINDOW_HEIGHT,
             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
         if (window == nullptr) {
-            cout << "Window could not be created! SDL_Error: " << SDL_GetError() << endl;
+            print("Window could not be created! SDL_Error: " << SDL_GetError());
         } else {
             context = SDL_GL_CreateContext(window);
             if (context == nullptr) {
-                cout << "OpenGL context could not be created! SDL_Error: " << SDL_GetError() << endl;
+                print("OpenGL context could not be created! SDL_Error: " << SDL_GetError());
             } else {
                 SDL_GL_MakeCurrent(window, context);
 

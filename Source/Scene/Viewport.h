@@ -12,14 +12,14 @@ public:
 
     void setBackgroundColor(const vec4& backgroundColor);
     void setRectangle(vec4& rectangle);
-    void setScene(shared_ptr<Scene> const scene) { this->scene = scene; }
-    shared_ptr<Scene> getScene() const { return scene; }
+    void setScene(std::shared_ptr<Scene> const scene) { this->scene = scene; }
+    std::shared_ptr<Scene> getScene() const { return scene; }
 
-    shared_ptr<Camera> getCamera() const { return camera; }
+    std::shared_ptr<Camera> getCamera() const { return camera; }
 
 private:
-    shared_ptr<Scene> scene;
-    shared_ptr<Camera> camera;
+    std::shared_ptr<Scene> scene;
+    std::shared_ptr<Camera> camera;
     vec4 backgroundColor;
     vec4 rectangle;
 

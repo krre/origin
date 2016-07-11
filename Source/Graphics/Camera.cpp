@@ -4,7 +4,7 @@
 
 Camera::Camera() {
     projection = glm::perspective(fov, aspect, near, far);
-    Event::getInstance()->windowResize.connectMember(&Camera::windowResize, this, placeholders::_1, placeholders::_2);
+    Event::getInstance()->windowResize.connectMember(&Camera::windowResize, this, std::placeholders::_1, std::placeholders::_2);
 }
 
 void Camera::setNear(float near) {

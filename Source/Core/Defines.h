@@ -1,3 +1,3 @@
 #pragma once
 
-#define print(x) cout << x << endl;
+#define print(x) std::cout << x << std::endl;

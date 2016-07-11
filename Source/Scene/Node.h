@@ -11,8 +11,8 @@ class Node : public Object {
 public:
     Node();
 
-    void addChild(shared_ptr<Node> child);
-    void removeChild(shared_ptr<Node> child);
+    void addChild(std::shared_ptr<Node> child);
+    void removeChild(std::shared_ptr<Node> child);
     void removeChildren() { nodes.clear(); }
 
     virtual void draw() {}
@@ -36,7 +36,7 @@ public:
 
 private:
     void updateModelMatrix();
-    list<shared_ptr<Node>> nodes;
+    std::list<std::shared_ptr<Node>> nodes;
     mat4 modelMatrix;
     mat4 translationMatrix;
     mat4 rotationMatrix;

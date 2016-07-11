@@ -15,10 +15,10 @@ public:
     App(int argc, char* argv[]);
     ~App();
     // Full path to application
-    static string getAbsoluteFilePath() { return absoluteFilePath; }
+    static std::string getAbsoluteFilePath() { return absoluteFilePath; }
     // Path to application directory
-    static string getAbsolutePath() { return absolutePath; }
-    static string getPathSeparator();
+    static std::string getAbsolutePath() { return absolutePath; }
+    static std::string getPathSeparator();
     void init();
     void clean();
     int run();
@@ -29,9 +29,9 @@ public:
     int getHeight() const { return height; }
 
 private:
-    vector<string> argv;
-    static string absoluteFilePath;
-    static string absolutePath;
+    std::vector<std::string> argv;
+    static std::string absoluteFilePath;
+    static std::string absolutePath;
 
     Renderer renderer;
     Viewport* viewport;

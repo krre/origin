@@ -15,5 +15,5 @@ public:
 
 private:
     GLuint id;
-    list<GLuint> shaders;
+    std::list<GLuint> shaders;
 };

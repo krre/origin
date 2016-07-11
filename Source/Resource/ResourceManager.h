@@ -12,8 +12,8 @@ public:
     void loadAll();
     void releaseAll();
 
-    Font* getFont(string name);
+    Font* getFont(std::string name);
 
 private:
-    map<string, Resource*> resources;
+    std::map<std::string, Resource*> resources;
 };

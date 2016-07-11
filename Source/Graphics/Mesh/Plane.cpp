@@ -51,7 +51,7 @@ void Plane::draw() {
     mvp = projection * view * getModelMatrix();
 
 //    vec4 pos = mvp * vec4(-1.0f, 0.0f, -1.0f, 1.0f);
-//    print(glm::to_string(pos));
+//    print(glm::to_std::string(pos));
     vao.bind();
 
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);

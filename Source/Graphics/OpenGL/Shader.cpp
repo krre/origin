@@ -6,16 +6,16 @@ Shader::Shader(GLenum type) : type(type) {
 
 }
 
-bool Shader::load(const string& path) {
+bool Shader::load(const std::string& path) {
     this->type = type;
-    string shaderPath = App::getAbsolutePath() + "/" + folder + "/" + path;
-    ifstream file(shaderPath);
+    std::string shaderPath = App::getAbsolutePath() + "/" + folder + "/" + path;
+    std::ifstream file(shaderPath);
     if (!file.is_open()) {
-        cerr << "Failed open file: " << shaderPath << endl;
+        std::cerr << "Failed open file: " << shaderPath << std::endl;
         return false;
     }
 
-    source = string((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
+    source = std::string((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
     id = glCreateShader(type);
 
     const char *c_str = source.c_str();
@@ -29,7 +29,7 @@ bool Shader::load(const string& path) {
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
         GLchar* log = new GLchar[len + 1];
         glGetShaderInfoLog(id, len, &len, log);
-        cerr << "Shader compilation failed " << log << endl;
+        std::cerr << "Shader compilation failed " << log << std::endl;
         delete[] log;
         glDeleteShader(id);
         return false;

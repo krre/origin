@@ -4,15 +4,13 @@
 #include <iostream>
 #include <memory>
 
-using namespace std;
-
 class Object {
 
 public:
     Object();
-    void setName(const string& name) { this->name = name; }
-    string getName() const { return name; }
+    void setName(const std::string& name) { this->name = name; }
+    std::string getName() const { return name; }
 
 private:
-    string name;
+    std::string name;
 };

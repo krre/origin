@@ -27,7 +27,7 @@ void Console::setVisible(bool visible) {
 void Console::keyPress(const SDL_KeyboardEvent& event) {
     if (!visible) return;
 
-    string newText;
+    std::string newText;
     switch (event.keysym.sym) {
     case SDLK_BACKSPACE:
         newText = cmdLine.getText().substr(0, cmdLine.getText().length() - 1);
@@ -44,7 +44,7 @@ void Console::keyPress(const SDL_KeyboardEvent& event) {
 }
 
 void Console::execute() {
-    string command = cmdLine.getText();
+    std::string command = cmdLine.getText();
     if (command.length() > 0 && command.substr(0, 1) == "/") {
         command = command.substr(1, command.length() - 1);
         if (command == "exit") {

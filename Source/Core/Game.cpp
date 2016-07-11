@@ -13,6 +13,7 @@
 #include "../ECS/Systems/Systems.h"
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
+#include <ctime>
 
 Game::Game() {
 
@@ -140,5 +141,16 @@ void Game::toggleFullScreen() {
 }
 
 void Game::saveScreenshot() {
-    print("Screenshot saved to " << App::getAbsolutePath() + "/Screenshot");
+    time_t t = std::time(0);   // get time now
+    struct tm * now = std::localtime(&t);
+    std::string path = "Screenshot saved to " +
+            App::getAbsolutePath() +
+            App::getPathSeparator() + "Screenshot" + App::getPathSeparator() +
+            std::to_string(now->tm_year + 1900) + "-" +
+            std::to_string(now->tm_mon + 1) + "-" +
+            std::to_string(now->tm_mday) + "_" +
+            std::to_string(now->tm_hour) + "-" +
+            std::to_string(now->tm_min) + "-" +
+            std::to_string(now->tm_sec) + ".png";
+    print(path);
 }

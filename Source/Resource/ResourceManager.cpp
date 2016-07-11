@@ -7,6 +7,10 @@ ResourceManager::ResourceManager() {
     fontPath = dataPath + "/Font";
 }
 
+ResourceManager::~ResourceManager() {
+    releaseAll();
+}
+
 void ResourceManager::loadAll() {
     // Effects
     Effect* baseEffect = new Effect();
@@ -30,7 +34,9 @@ void ResourceManager::loadAll() {
 void ResourceManager::releaseAll() {
     for (auto resource : resources) {
         resource.second->release();
+        delete resource.second;
     }
+    resources.clear();
 }
 
 Font* ResourceManager::getFont(const std::string& name) {

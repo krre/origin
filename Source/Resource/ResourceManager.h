@@ -9,6 +9,7 @@ class ResourceManager : public Singleton<ResourceManager> {
 
 public:
     ResourceManager();
+    ~ResourceManager();
     void loadAll();
     void releaseAll();
 

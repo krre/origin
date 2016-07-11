@@ -5,8 +5,6 @@
 #include <glm/glm.hpp>
 #include <SDL.h>
 
-using namespace glm;
-
 class Game : public Singleton<Game> {
 
 public:

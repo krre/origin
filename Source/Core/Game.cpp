@@ -28,7 +28,7 @@ void Game::create() {
 
     Entity* avatarCamera = EntityBuilder::camera();
     TransformSystem* avatarCameraTransformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(SystemType::Transform));
-    avatarCameraTransformSystem->translate(avatarCamera, vec3(0.0f, 0.5f, 0.0f));
+    avatarCameraTransformSystem->translate(avatarCamera, glm::vec3(0.0f, 0.5f, 0.0f));
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node));
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
@@ -43,7 +43,7 @@ void Game::create() {
     scene->setRoot(plane);
 
     camera = App::getInstance()->getViewport()->getCamera();
-    camera->setPosition(vec3(0.0f, 0.5f, 0.0f));
+    camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 
     Event::getInstance()->keyPress.connectMember(&Game::keyPress, this, std::placeholders::_1);
@@ -68,24 +68,24 @@ void Game::cameraMove(float dt) {
     const float MOVE_SPEED = 1.0f;
     const float ROTATE_SPEED = 0.1f;
 
-    ivec2 relMousePos = Input::getInstance()->getRelMousePos();
+    glm::ivec2 relMousePos = Input::getInstance()->getRelMousePos();
     yaw += ROTATE_SPEED * relMousePos.x;
     yaw = fmod(yaw, 360.0f);
 
     pitch -= ROTATE_SPEED * relMousePos.y;
-    pitch = clamp(pitch, -80.0f, 80.0f);
+    pitch = glm::clamp(pitch, -80.0f, 80.0f);
 
-    quat rotation = toQuat(eulerAngleYX(radians(yaw), radians(pitch)));
+    glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(yaw), glm::radians(pitch)));
     camera->setRotation(rotation);
 
     if (Input::getInstance()->isKeyPressed(SDLK_w)) {
-        camera->translate(vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
+        camera->translate(glm::vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_s)) {
-        camera->translate(vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
+        camera->translate(glm::vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_a)) {
-        camera->translate(vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
+        camera->translate(glm::vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
-        camera->translate(vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
+        camera->translate(glm::vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
     }
 }
 

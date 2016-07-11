@@ -50,7 +50,7 @@ void Plane::draw() {
     glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();
     mvp = projection * view * getModelMatrix();
 
-//    vec4 pos = mvp * vec4(-1.0f, 0.0f, -1.0f, 1.0f);
+//    glm::vec4 pos = mvp * glm::vec4(-1.0f, 0.0f, -1.0f, 1.0f);
 //    print(glm::to_std::string(pos));
     vao.bind();
 

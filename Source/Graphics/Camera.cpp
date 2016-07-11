@@ -23,7 +23,7 @@ void Camera::setAspect(float aspect) {
     this->aspect = aspect;
 }
 
-const mat4& Camera::getView() {
+const glm::mat4& Camera::getView() {
     glm::mat4 translate = glm::translate(-getPosition());
     glm::mat4 rotate = glm::transpose(glm::toMat4(getRotation()));
     view = rotate * translate;

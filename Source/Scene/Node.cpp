@@ -17,27 +17,27 @@ void Node::removeChild(std::shared_ptr<Node> child) {
     nodes.remove(child);
 }
 
-void Node::setPosition(const vec3& position) {
+void Node::setPosition(const glm::vec3& position) {
     this->position = position;
     dirty = true;
 }
 
-void Node::setRotation(float angle, const vec3& axis) {
-    rotation = toQuat(glm::rotate(mat4(1.0f), angle, axis));
+void Node::setRotation(float angle, const glm::vec3& axis) {
+    rotation = toQuat(glm::rotate(glm::mat4(1.0f), angle, axis));
     dirty = true;
 }
 
-void Node::setRotation(const quat& rotation) {
+void Node::setRotation(const glm::quat& rotation) {
     this->rotation = rotation;
     dirty = true;
 }
 
-void Node::setScale(const vec3& scale) {
-    scaleMatrix = glm::scale(mat4(1.0f), scale);
+void Node::setScale(const glm::vec3& scale) {
+    scaleMatrix = glm::scale(glm::mat4(1.0f), scale);
     dirty = true;
 }
 
-void Node::translate(const vec3& delta, bool local) {
+void Node::translate(const glm::vec3& delta, bool local) {
     if (local) {
         position += rotation * delta;
     } else {
@@ -47,17 +47,17 @@ void Node::translate(const vec3& delta, bool local) {
     dirty = true;
 }
 
-void Node::rotate(const quat& delta) {
+void Node::rotate(const glm::quat& delta) {
     rotation *= delta;
     dirty = true;
 }
 
-void Node::scale(const vec3& scale) {
+void Node::scale(const glm::vec3& scale) {
     scaleMatrix = glm::scale(scaleMatrix, scale);
     dirty = true;
 }
 
-void Node::lookAt(const vec3& center) {
+void Node::lookAt(const glm::vec3& center) {
     modelMatrix = glm::lookAt(
         glm::vec3(0, 1, 2), // Camera position in World Space
         center, // looks at center
@@ -65,7 +65,7 @@ void Node::lookAt(const vec3& center) {
                 );
 }
 
-const mat4&Node::getModelMatrix() {
+const glm::mat4&Node::getModelMatrix() {
     updateModelMatrix();
     return modelMatrix;
 }

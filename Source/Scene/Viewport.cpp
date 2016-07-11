@@ -17,11 +17,11 @@ void Viewport::render() {
     rootNode->draw();
 }
 
-void Viewport::setBackgroundColor(const vec4& backgroundColor) {
+void Viewport::setBackgroundColor(const glm::vec4& backgroundColor) {
     this->backgroundColor = backgroundColor;
     glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 }
 
-void Viewport::setRectangle(vec4& rectangle) {
+void Viewport::setRectangle(glm::vec4& rectangle) {
     this->rectangle = rectangle;
 }

@@ -26,24 +26,24 @@ void InputSystem::moveActiveEntity(float dt) {
     MovementComponent* mc = static_cast<MovementComponent*>(activeEntity->getComponent(ComponentType::Movement));
     TransformComponent* tc = static_cast<TransformComponent*>(activeEntity->getComponent(ComponentType::Transform));
 
-    ivec2 relMousePos = Input::getInstance()->getRelMousePos();
+    glm::ivec2 relMousePos = Input::getInstance()->getRelMousePos();
     tc->yaw += mc->rotateSpeed * relMousePos.x;
     tc->yaw = fmod(tc->yaw, 360.0f);
 
     tc->pitch -= mc->rotateSpeed * relMousePos.y;
-    tc->pitch = clamp(tc->pitch, -80.0f, 80.0f);
+    tc->pitch = glm::clamp(tc->pitch, -80.0f, 80.0f);
 
-    quat rotation = toQuat(eulerAngleYX(radians(tc->yaw), radians(tc->pitch)));
+    glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(tc->yaw), glm::radians(tc->pitch)));
     TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(SystemType::Transform));
     transformSystem->setRotation(activeEntity, rotation);
 
     if (Input::getInstance()->isKeyPressed(SDLK_w)) {
-        transformSystem->translate(activeEntity, vec3(0.0f, 0.0f, -1.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity, glm::vec3(0.0f, 0.0f, -1.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_s)) {
-        transformSystem->translate(activeEntity, vec3(0.0f, 0.0f, 1.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity, glm::vec3(0.0f, 0.0f, 1.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_a)) {
-        transformSystem->translate(activeEntity, vec3(-1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity, glm::vec3(-1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
-        transformSystem->translate(activeEntity, vec3(1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity, glm::vec3(1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
     }
 }

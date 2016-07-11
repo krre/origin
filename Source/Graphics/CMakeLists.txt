@@ -9,6 +9,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Color.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Effect.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Effect.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Geometry.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Geometry.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Material.cpp

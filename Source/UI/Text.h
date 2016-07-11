@@ -1,5 +1,6 @@
 #pragma once
 #include "Control.h"
+#include "Font.h"
 #include "../Graphics/OpenGL/Program.h"
 #include <glm/glm.hpp>
 
@@ -17,6 +18,9 @@ public:
     void setText(const std::string& text);
     std::string getText() const { return text; }
 
+    void setFont(Font* font);
+    Font* getFont() const { return font; }
+
     void setColor(const glm::vec4& color);
     glm::vec4 getColor() const { return color; }
 
@@ -29,6 +33,7 @@ public:
 
 private:
     std::string text;
+    Font* font;
     glm::vec4 color;
     float scale = 1.0;
     Program fontProgram;

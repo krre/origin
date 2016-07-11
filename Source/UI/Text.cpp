@@ -101,6 +101,10 @@ void Text::setText(const std::string& text) {
     this->text = text;
 }
 
+void Text::setFont(Font* font) {
+    this->font = font;
+}
+
 void Text::setColor(const glm::vec4& color) {
     this->color = color;
 }

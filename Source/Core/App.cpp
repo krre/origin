@@ -5,6 +5,7 @@
 #include "../Resource/ResourceManager.h"
 #include "../Debug/Console.h"
 #include "../Debug/Logger.h"
+#include "../Debug/DebugHUD.h"
 #include "../ECS/Engine.h"
 #include <string>
 #include <SDL_timer.h>
@@ -27,6 +28,7 @@ App::~App() {
     Input::getInstance()->release();
     ResourceManager::getInstance()->release();
     Console::getInstance()->release();
+    DebugHUD::getInstance()->release();
     Logger::getInstance()->release();
     delete viewport;
 }
@@ -168,6 +170,7 @@ void App::initSingletons() {
     new ResourceManager();
     ResourceManager::getInstance()->loadAll();
     new Console();
+    new DebugHUD();
 
     viewport = new Viewport();
 

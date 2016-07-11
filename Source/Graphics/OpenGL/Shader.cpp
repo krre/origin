@@ -11,7 +11,7 @@ bool Shader::load(const std::string& path) {
     std::string shaderPath = App::getAbsolutePath() + "/" + folder + "/" + path;
     std::ifstream file(shaderPath);
     if (!file.is_open()) {
-        std::cerr << "Failed open file: " << shaderPath << std::endl;
+        error("Failed open file: " << shaderPath);
         return false;
     }
 
@@ -29,7 +29,7 @@ bool Shader::load(const std::string& path) {
         glGetShaderiv(id, GL_INFO_LOG_LENGTH, &len);
         GLchar* log = new GLchar[len + 1];
         glGetShaderInfoLog(id, len, &len, log);
-        std::cerr << "Shader compilation failed " << log << std::endl;
+        error("Shader compilation failed " << log);
         delete[] log;
         glDeleteShader(id);
         return false;

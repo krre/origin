@@ -8,7 +8,7 @@ Viewport::Viewport() {
 }
 
 void Viewport::update(double dt) {
-//    print("update: " << dt);
+
 }
 
 void Viewport::render() {

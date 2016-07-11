@@ -18,7 +18,7 @@ bool Program::link() {
         glGetProgramiv(id, GL_INFO_LOG_LENGTH, &len);
         GLchar* log = new GLchar[len + 1];
         glGetProgramInfoLog(id, len, &len, log);
-        std::cerr << "Shader linking failed " << log << std::endl;
+        error("Shader linking failed " << log);
         delete[] log;
         for (auto it: shaders) {
             glDeleteShader(it);

@@ -1,5 +1,6 @@
 #pragma once
 #include "../Core/Singleton.h"
+#include "../UI/Text.h"
 
 class DebugHUD : public Singleton<DebugHUD> {
 
@@ -14,4 +15,5 @@ public:
 
 private:
     bool visible = false;
+    Text fpsText;
 };

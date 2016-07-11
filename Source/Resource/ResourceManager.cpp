@@ -13,3 +13,7 @@ void ResourceManager::releaseAll() {
         resource.second->release();
     }
 }
+
+Font* ResourceManager::getFont(string name) {
+    return static_cast<Font*>(resources[name]);
+}

@@ -162,12 +162,13 @@ void App::windowResize(int width, int height) {
 }
 
 void App::initSingletons() {
+    new Logger();
     new Engine();
     new Event();
     new Input();
     new ResourceManager();
+    ResourceManager::getInstance()->loadAll();
     new Console();
-    new Logger();
 
     viewport = new Viewport();
 

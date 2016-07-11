@@ -34,3 +34,7 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${OPENGL_LIBRARIES}
     ${GLEW_LIBRARIES}
     ${FREETYPE_LIBRARIES})
+
+# Show in QtCreator project tree
+FILE(GLOB_RECURSE Data "Data/*.*")
+add_custom_target(data SOURCES ${Data})

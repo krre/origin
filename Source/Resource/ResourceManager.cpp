@@ -20,6 +20,11 @@ void ResourceManager::loadAll() {
     fontEffect->setFragShaderPath(shaderPath + "/Font.frag");
     fontEffect->load();
     resources["FontEffect"] = fontEffect;
+
+    // Fonts
+    Font* iconsolataFont = new Font();
+    iconsolataFont->load(fontPath + "/inconsolatalgc.ttf");
+    resources["IconsolataFont"] = iconsolataFont;
 }
 
 void ResourceManager::releaseAll() {

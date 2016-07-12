@@ -29,7 +29,7 @@ public:
 
     void setFontSize(int fontSize);
 
-    void render(float dt) override;
+    void draw(float dt) override;
 
 private:
     std::string text;

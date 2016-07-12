@@ -7,7 +7,7 @@ class Console : public Singleton<Console> {
 
 public:
     Console();
-    void render(float dt);
+    void draw(float dt);
     void setVisible(bool visible);
     bool getVisible() const { return visible; }
 

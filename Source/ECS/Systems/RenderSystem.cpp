@@ -12,14 +12,14 @@ void RenderSystem::process(float dt) {
     App::getInstance()->getViewport()->render();
 
     if (Console::getInstance()->getVisible()) {
-        Console::getInstance()->render(dt);
+        Console::getInstance()->draw(dt);
     }
 
     if (DebugHUD::getInstance()->getVisible()) {
-        DebugHUD::getInstance()->render(dt);
+        DebugHUD::getInstance()->draw(dt);
     }
 
     if (Toast::getInstance()->getVisible()) {
-        Toast::getInstance()->render(dt);
+        Toast::getInstance()->draw(dt);
     }
 }

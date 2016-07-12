@@ -109,7 +109,7 @@ void Text::setFontSize(int fontSize) {
     this->fontSize = fontSize;
 }
 
-void Text::render(float dt) {
+void Text::draw(float dt) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     fontEffect->use();

@@ -6,7 +6,7 @@ class DebugHUD : public Singleton<DebugHUD> {
 
 public:
     DebugHUD();
-    void render(float dt);
+    void draw(float dt);
 
     void trigger();
 

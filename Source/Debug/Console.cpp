@@ -8,8 +8,8 @@ Console::Console() {
     cmdLine.setPosition(glm::vec2(5, 5));
 }
 
-void Console::render(float dt) {
-    cmdLine.render(dt);
+void Console::draw(float dt) {
+    cmdLine.draw(dt);
 }
 
 void Console::setVisible(bool visible) {

@@ -6,10 +6,10 @@ DebugHUD::DebugHUD() {
 
 }
 
-void DebugHUD::render(float dt) {
+void DebugHUD::draw(float dt) {
     fpsText.setPosition(glm::vec2(10, App::getInstance()->getHeight() - 20));
     fpsText.setText("FPS: " + std::to_string(1.0 / dt));
-    fpsText.render(dt);
+    fpsText.draw(dt);
 }
 
 void DebugHUD::trigger() {

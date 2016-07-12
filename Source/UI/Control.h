@@ -8,7 +8,7 @@ public:
     Control();
     void setPosition(const glm::vec2& position);
     glm::vec2 getPostion() const { return position; }
-    virtual void render(float dt);
+    virtual void draw(float dt) {}
 
 protected:
     glm::vec2 position;

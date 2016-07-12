@@ -8,7 +8,7 @@ class Toast : public Singleton<Toast> {
 public:
     Toast();
 
-    void render(float dt);
+    void draw(float dt);
     void setVisible(bool visible);
     bool getVisible() const { return visible; }
 

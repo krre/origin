@@ -6,9 +6,9 @@ Toast::Toast() {
     timer.timeout.connectMember(&Toast::onTimeout, this);
 }
 
-void Toast::render(float dt) {
+void Toast::draw(float dt) {
     text.setPosition(glm::vec2(10, App::getInstance()->getHeight() / 2.0));
-    text.render(dt);
+    text.draw(dt);
 }
 
 void Toast::setVisible(bool visible) {

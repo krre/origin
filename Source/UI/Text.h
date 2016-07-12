@@ -38,6 +38,6 @@ private:
     float scale = 1.0;
     std::map<GLchar, Character> characters;
     GLuint vao, vbo;
-    int fontSize = 16;
+    int fontSize = 14;
     Effect* fontEffect;
 };

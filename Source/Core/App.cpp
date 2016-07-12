@@ -11,6 +11,7 @@
 #include <string>
 #include <SDL_timer.h>
 #include <GL/glew.h>
+#include <Gagarin.h>
 
 std::string App::absoluteFilePath;
 std::string App::absolutePath;
@@ -47,6 +48,7 @@ void App::init() {
     SDL_version compiled;
     SDL_VERSION(&compiled);
     std::string sdlVersion = "SDL " + std::to_string(compiled.major) + "." + std::to_string(compiled.minor) + "." + std::to_string(compiled.patch);
+    print("Gagarin " << VERSION_STRING);
     print(sdlVersion);
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {

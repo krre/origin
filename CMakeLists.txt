@@ -8,6 +8,9 @@ set(VERSION_PATCH 0)
 
 set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
+configure_file(Gagarin.h.in Gagarin.h @ONLY)
+include_directories(${CMAKE_CURRENT_BINARY_DIR})
+
 add_subdirectory(Source)
 set(EXECUTABLE_NAME "gagarin")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})

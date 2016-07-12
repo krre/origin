@@ -11,10 +11,6 @@ void Toast::draw(float dt) {
     text.draw(dt);
 }
 
-void Toast::setVisible(bool visible) {
-    this->visible = visible;
-}
-
 void Toast::showToast(const std::string& toastText) {
     text.setText(toastText);
     setVisible(true);

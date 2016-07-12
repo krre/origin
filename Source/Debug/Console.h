@@ -1,21 +1,19 @@
 #pragma once
 #include "../Core/Singleton.h"
+#include "../Graphics/Drawable.h"
 #include "../UI/Text.h"
 #include <SDL.h>
 
-class Console : public Singleton<Console> {
+class Console : public Singleton<Console>, public Drawable {
 
 public:
     Console();
-    void draw(float dt);
-    void setVisible(bool visible);
-    bool getVisible() const { return visible; }
+    void draw(float dt) override;
+    void setVisible(bool visible) override;
 
 private:
     void keyPress(const SDL_KeyboardEvent& event);
     void execute();
-
-    bool visible = false;
     Text cmdLine;
     int keyPressId = 0;
 };

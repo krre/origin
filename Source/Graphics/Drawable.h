@@ -7,9 +7,9 @@ public:
     Drawable();
     virtual void draw(float dt) = 0;
 
-    void setVisible(bool visible);
+    virtual void setVisible(bool visible);
     bool getVisible() const { return visible; }
 
-private:
+protected:
     bool visible = true;
 };

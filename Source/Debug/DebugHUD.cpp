@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 DebugHUD::DebugHUD() {
-
+    visible = false;
 }
 
 void DebugHUD::draw(float dt) {
@@ -14,8 +14,4 @@ void DebugHUD::draw(float dt) {
 
 void DebugHUD::trigger() {
     visible = !visible;
-}
-
-void DebugHUD::setVisible(bool visible) {
-    this->visible = true;
 }

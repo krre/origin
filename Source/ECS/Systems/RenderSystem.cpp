@@ -6,20 +6,18 @@
 
 RenderSystem::RenderSystem() {
     type = SystemType::Render;
+    // Order important!
+    // From bottom layer to top
+    drawables.push_back(Console::getInstance());
+    drawables.push_back(DebugHUD::getInstance());
+    drawables.push_back(Toast::getInstance());
 }
 
 void RenderSystem::process(float dt) {
     App::getInstance()->getViewport()->render();
-
-    if (Console::getInstance()->getVisible()) {
-        Console::getInstance()->draw(dt);
-    }
-
-    if (DebugHUD::getInstance()->getVisible()) {
-        DebugHUD::getInstance()->draw(dt);
-    }
-
-    if (Toast::getInstance()->getVisible()) {
-        Toast::getInstance()->draw(dt);
+    for (auto drawable : drawables) {
+        if (drawable->getVisible()) {
+            drawable->draw(dt);
+        }
     }
 }

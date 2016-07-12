@@ -6,6 +6,7 @@
 
 Console::Console() {
     cmdLine.setPosition(glm::vec2(5, 5));
+    visible = false;
 }
 
 void Console::draw(float dt) {

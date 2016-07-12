@@ -1,19 +1,15 @@
 #pragma once
 #include "../Core/Singleton.h"
+#include "../Graphics/Drawable.h"
 #include "../UI/Text.h"
 
-class DebugHUD : public Singleton<DebugHUD> {
+class DebugHUD : public Singleton<DebugHUD>, public Drawable {
 
 public:
     DebugHUD();
-    void draw(float dt);
-
+    void draw(float dt) override;
     void trigger();
 
-    void setVisible(bool visible);
-    bool getVisible() const { return visible; }
-
 private:
-    bool visible = false;
     Text fpsText;
 };

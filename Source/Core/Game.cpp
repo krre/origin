@@ -104,16 +104,16 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
         }
         break;
 
-    case SDLK_F3:
-        saveScreenshot();
-        break;
-
     case SDLK_F5:
         DebugHUD::getInstance()->trigger();
         break;
 
     case SDLK_F10:
         toggleFullScreen();
+        break;
+
+    case SDLK_F12:
+        saveScreenshot();
         break;
 
     case SDLK_SLASH:

@@ -39,11 +39,11 @@ void Game::create() {
     // Ground
     Engine::getInstance()->addEntity(EntityBuilder::ground());
 
-    std::shared_ptr<Scene> scene = std::shared_ptr<Scene>(new Scene());
+    auto scene = std::make_shared<Scene>();
     App::getInstance()->getViewport()->setScene(scene);
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
 
-    std::shared_ptr<Plane> plane = std::shared_ptr<Plane>(new Plane(1, 1));
+    auto plane = std::make_shared<Plane>(1, 1);
     scene->setRoot(plane);
 
     camera = App::getInstance()->getViewport()->getCamera();

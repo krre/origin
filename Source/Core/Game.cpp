@@ -15,6 +15,7 @@
 #include <SDL_keycode.h>
 #include <glm/ext.hpp>
 #include <ctime>
+#include <lodepng/lodepng.h>
 
 Game::Game() {
 
@@ -144,8 +145,7 @@ void Game::toggleFullScreen() {
 void Game::saveScreenshot() {
     time_t t = std::time(0);   // get time now
     struct tm * now = std::localtime(&t);
-    std::string path = "Screenshot saved to " +
-            App::getAbsolutePath() +
+    std::string path = App::getAbsolutePath() +
             App::getPathSeparator() + "Screenshot" + App::getPathSeparator() +
             std::to_string(now->tm_year + 1900) + "-" +
             std::to_string(now->tm_mon + 1) + "-" +
@@ -153,5 +153,42 @@ void Game::saveScreenshot() {
             std::to_string(now->tm_hour) + "-" +
             std::to_string(now->tm_min) + "-" +
             std::to_string(now->tm_sec) + ".png";
-    Toast::getInstance()->showToast(path);
+
+    int width = App::getInstance()->getWidth();
+    int height = App::getInstance()->getHeight();
+
+    unsigned char* image = new unsigned char[width * height * 4];
+    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
+
+    // Vertically flip
+    for (unsigned y = 0; y < height / 2; y++) {
+        unsigned swapY = height - y - 1;
+        for(unsigned x = 0; x < width; x++) {
+            unsigned offset = 4 * (x + y * width);
+            unsigned swapOffset = 4 * (x + swapY * width);
+
+            unsigned char temp = image[offset + 0];
+            image[offset + 0] = image[swapOffset + 0];
+            image[swapOffset + 0] = temp;
+
+            temp = image[offset + 1];
+            image[offset + 1] = image[swapOffset + 1];
+            image[swapOffset + 1] = temp;
+
+            temp = image[offset + 2];
+            image[offset + 2] = image[swapOffset + 2];
+            image[swapOffset + 2] = temp;
+
+            temp = image[offset + 3];
+            image[offset + 3] = image[swapOffset + 3];
+            image[swapOffset + 3] = temp;
+        }
+    }
+
+    lodepng::encode(path, image, width, height);
+
+    delete[] image;
+
+    std::string message = "Screenshot saved to " + path;
+    Toast::getInstance()->showToast(message);
 }

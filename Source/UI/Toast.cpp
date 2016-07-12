@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 
 Toast::Toast() {
-
+    timer.timeout.connectMember(&Toast::onTimeout, this);
 }
 
 void Toast::render(float dt) {
@@ -18,13 +18,9 @@ void Toast::setVisible(bool visible) {
 void Toast::showToast(const std::string& toastText) {
     text.setText(toastText);
     setVisible(true);
-
-    Uint32 delay = 4000;
-    timerId = SDL_AddTimer(delay, &Toast::onTimeElaplsed, this);
+    timer.start(4000);
 }
 
-Uint32 Toast::onTimeElaplsed(Uint32 interval, void* param) {
-    Toast *self = reinterpret_cast<Toast*>(param);
-    self->setVisible(false);
-    return 0;
+void Toast::onTimeout() {
+    setVisible(false);
 }

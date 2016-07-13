@@ -1,9 +1,9 @@
-#include "Plane.h"
+#include "PlaneOld.h"
 #include "../Core/App.h"
 #include "../Resource/ResourceManager.h"
 #include <glm/ext.hpp>
 
-Plane::Plane(int width, int height) : width(width), height(height),
+PlaneOld::PlaneOld(int width, int height) : width(width), height(height),
         vbo(GL_ARRAY_BUFFER),
         colorBuffer(GL_ARRAY_BUFFER) {
 
@@ -36,7 +36,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
     colorBuffer.setData(colorData, sizeof(colorData));
 }
 
-void Plane::draw() {
+void PlaneOld::draw() {
     baseShaderGroup->use();
     glm::mat4 projection = App::getInstance()->getViewport()->getCamera()->getProjection();
     glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();

@@ -4,7 +4,7 @@
 #include "../Debug/Console.h"
 #include "../Debug/DebugHUD.h"
 #include "../UI/Toast.h"
-#include "../Graphics/Mesh/Plane.h"
+#include "../Graphics/Mesh/PlaneOld.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"
@@ -43,7 +43,7 @@ void Game::create() {
     App::getInstance()->getViewport()->setScene(scene);
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
 
-    auto plane = std::make_shared<Plane>(1, 1);
+    auto plane = std::make_shared<PlaneOld>(1, 1);
     scene->setRoot(plane);
 
     camera = App::getInstance()->getViewport()->getCamera();

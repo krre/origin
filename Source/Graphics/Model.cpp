@@ -3,3 +3,7 @@
 Model::Model() {
 
 }
+
+void Model::draw(float dt) {
+
+}

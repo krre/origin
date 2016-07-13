@@ -1,8 +1,9 @@
 #pragma once
 #include "Drawable.h"
 
-class Model : Drawable {
+class Model : public Drawable {
 
 public:
     Model();
+    void draw(float dt) override;
 };

@@ -1,7 +1,7 @@
 #include "../Core/Singleton.h"
 #include "System.h"
 #include "Entity.h"
-#include <list>
+#include <vector>
 
 class Engine : public Singleton<Engine> {
 
@@ -22,13 +22,13 @@ public:
     Entity* getEntity(EntityId id);
     void clearEntities();
 
-    std::list<Entity*> getEntities() { return entities; }
+    std::vector<Entity*> getEntities() { return entities; }
 
     void process(float dt);
 
 private:
     std::map<SystemType, System*> systems;
-    std::list<Entity*> entities;
+    std::vector<Entity*> entities;
 
     void initSystems();
 };

@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "../ECS/Systems/Systems.h"
+#include <algorithm>
 
 Engine::Engine() {
     initSystems();
@@ -26,7 +27,7 @@ void Engine::addEntity(Entity* entity) {
 }
 
 void Engine::removeEntity(Entity* entity) {
-    entities.remove(entity);
+    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 }
 
 Entity* Engine::getEntity(EntityId id) {

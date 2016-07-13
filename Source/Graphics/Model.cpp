@@ -8,10 +8,10 @@ void Model::draw(float dt) {
 
 }
 
-void Model::setMaterial(Material* material) {
+void Model::setMaterial(std::shared_ptr<Material> material) {
     this->material = material;
 }
 
-void Model::setMesh(Mesh* mesh) {
+void Model::setMesh(std::shared_ptr<Mesh> mesh) {
     this->mesh = mesh;
 }

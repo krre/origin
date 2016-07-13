@@ -9,13 +9,13 @@ public:
     Model();
     void draw(float dt) override;
 
-    Material* getMaterial() const { return material; }
-    void setMaterial(Material* material);
+    std::shared_ptr<Material> getMaterial() const { return material; }
+    void setMaterial(std::shared_ptr<Material> material);
 
-    Mesh* getMesh() const { return mesh; }
-    void setMesh(Mesh* mesh);
+    std::shared_ptr<Mesh> getMesh() const { return mesh; }
+    void setMesh(std::shared_ptr<Mesh> mesh);
 
 private:
-    Mesh* mesh;
-    Material* material;
+    std::shared_ptr<Mesh> mesh;
+    std::shared_ptr<Material> material;
 };

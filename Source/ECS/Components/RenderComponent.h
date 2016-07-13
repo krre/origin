@@ -6,5 +6,5 @@ class RenderComponent : public Component {
 
 public:
     RenderComponent();
-    Drawable* drawable;
+    std::shared_ptr<Drawable> drawable;
 };

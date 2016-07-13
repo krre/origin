@@ -5,5 +5,5 @@ class Renderer : public Object {
 
 public:
     Renderer();
-    void render();
+    void render(float dt);
 };

@@ -5,6 +5,6 @@ Renderer::Renderer() {
 
 }
 
-void Renderer::render() {
+void Renderer::render(float dt) {
 
 }

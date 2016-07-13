@@ -14,6 +14,8 @@ RenderSystem::RenderSystem() {
 }
 
 void RenderSystem::process(float dt) {
+    renderer.render(dt);
+
     App::getInstance()->getViewport()->render();
     for (auto drawable : drawables) {
         if (drawable->getVisible()) {

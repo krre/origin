@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Object.h"
 #include "Entity.h"
-#include <list>
+#include <vector>
 
 enum class SystemType {
     None,
@@ -24,6 +24,6 @@ public:
     SystemType getType() { return type; }
 
 protected:
-    std::list<Entity*> entities;
+    std::vector<Entity*> entities;
     SystemType type = SystemType::None;
 };

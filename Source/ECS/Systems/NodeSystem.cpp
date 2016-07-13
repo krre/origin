@@ -35,7 +35,6 @@ void NodeSystem::removeChild(EntityId parent, EntityId child) {
     for (auto parentEntity: Engine::getInstance()->getEntities()) {
         if (parentEntity->getId() == parent) {
             NodeComponent* ncParent = static_cast<NodeComponent*>(parentEntity->getComponent(ComponentType::Node));
-//            ncParent->children.remove(child);
             ncParent->children.erase(std::remove(ncParent->children.begin(), ncParent->children.end(), child), ncParent->children.end());
             for (auto childEntity: Engine::getInstance()->getEntities()) {
                 NodeComponent* ncChild = static_cast<NodeComponent*>(childEntity->getComponent(ComponentType::Node));

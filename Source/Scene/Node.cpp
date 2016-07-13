@@ -1,6 +1,7 @@
 #include "Node.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/ext.hpp>
+#include <algorithm>
 
 Node::Node() :
     translationMatrix(1.0f),
@@ -14,7 +15,7 @@ void Node::addChild(std::shared_ptr<Node> child) {
 }
 
 void Node::removeChild(std::shared_ptr<Node> child) {
-    nodes.remove(child);
+    nodes.erase(std::remove(nodes.begin(), nodes.end(), child), nodes.end());
 }
 
 void Node::setPosition(const glm::vec3& position) {

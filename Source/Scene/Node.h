@@ -1,6 +1,6 @@
 #pragma once
 #include "../Core/Object.h"
-#include <list>
+#include <vector>
 #include <glm/glm.hpp>
 #include <glm/gtx/quaternion.hpp>
 
@@ -34,7 +34,7 @@ public:
 
 private:
     void updateModelMatrix();
-    std::list<std::shared_ptr<Node>> nodes;
+    std::vector<std::shared_ptr<Node>> nodes;
     glm::mat4 modelMatrix;
     glm::mat4 translationMatrix;
     glm::mat4 rotationMatrix;

@@ -26,8 +26,8 @@ Text::Text() {
 
     FT_Set_Pixel_Sizes(face, 0, fontSize);
 
-    fontEffect = ResourceManager::getInstance()->getEffect("FontEffect");
-    fontEffect->use();
+    fontShaderGroup = ResourceManager::getInstance()->getShaderGroup("FontShaderGroup");
+    fontShaderGroup->use();
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -112,12 +112,12 @@ void Text::setFontSize(int fontSize) {
 void Text::draw(float dt) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    fontEffect->use();
+    fontShaderGroup->use();
 
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight()));
-    glUniformMatrix4fv(glGetUniformLocation(fontEffect->getProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(fontShaderGroup->getProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
-    glUniform3f(glGetUniformLocation(fontEffect->getProgram(), "textColor"), color.x, color.y, color.z);
+    glUniform3f(glGetUniformLocation(fontShaderGroup->getProgram(), "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
 
     glBindVertexArray(vao);

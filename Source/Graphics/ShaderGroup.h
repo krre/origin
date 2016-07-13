@@ -3,10 +3,10 @@
 #include "OpenGL/Shader.h"
 #include "OpenGL/Program.h"
 
-class Effect : public Resource {
+class ShaderGroup : public Resource {
 
 public:
-    Effect();
+    ShaderGroup();
     void setVertShaderPath(const std::string& path);
     void setFragShaderPath(const std::string& path);
     void load() override;

@@ -1,7 +1,7 @@
 #pragma once
 #include "Control.h"
 #include "Font.h"
-#include "../Graphics/Effect.h"
+#include "../Graphics/ShaderGroup.h"
 #include <glm/glm.hpp>
 
 class Text : public Control {
@@ -39,5 +39,5 @@ private:
     std::map<GLchar, Character> characters;
     GLuint vao, vbo;
     int fontSize = 14;
-    Effect* fontEffect;
+    ShaderGroup* fontShaderGroup;
 };

@@ -7,7 +7,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
         vbo(GL_ARRAY_BUFFER),
         colorBuffer(GL_ARRAY_BUFFER) {
 
-    baseEffect = ResourceManager::getInstance()->getEffect("BaseEffect");
+    baseShaderGroup = ResourceManager::getInstance()->getShaderGroup("BaseShaderGroup");
 
     static const GLfloat vertexData[] = {
         -1.0f * width, 0.0f, -1.0f * height,
@@ -21,7 +21,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
     vbo.bind();
     vbo.setData(vertexData, sizeof(vertexData));
 
-    matrix = glGetUniformLocation(baseEffect->getProgram(), "mvp");
+    matrix = glGetUniformLocation(baseShaderGroup->getProgram(), "mvp");
 
     static const GLfloat colorData[] = {
         0.000f,  1.000f,  0.000f,
@@ -37,7 +37,7 @@ Plane::Plane(int width, int height) : width(width), height(height),
 }
 
 void Plane::draw() {
-    baseEffect->use();
+    baseShaderGroup->use();
     glm::mat4 projection = App::getInstance()->getViewport()->getCamera()->getProjection();
     glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();
     mvp = projection * view * getModelMatrix();

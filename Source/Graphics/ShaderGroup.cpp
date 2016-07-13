@@ -1,20 +1,20 @@
-#include "Effect.h"
+#include "ShaderGroup.h"
 
-Effect::Effect() :
+ShaderGroup::ShaderGroup() :
     vertShader(GL_VERTEX_SHADER),
     fragShader(GL_FRAGMENT_SHADER) {
 }
 
-void Effect::setVertShaderPath(const std::string& path) {
+void ShaderGroup::setVertShaderPath(const std::string& path) {
     vertShaderPath = path;
 }
 
-void Effect::setFragShaderPath(const std::string& path) {
+void ShaderGroup::setFragShaderPath(const std::string& path) {
     fragShaderPath = path;
 }
 
 
-void Effect::load() {
+void ShaderGroup::load() {
     vertShader.load(vertShaderPath);
     fragShader.load(fragShaderPath);
 
@@ -23,6 +23,6 @@ void Effect::load() {
     program.link();
 }
 
-void Effect::use() {
+void ShaderGroup::use() {
     program.use();
 }

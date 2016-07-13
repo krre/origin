@@ -2,7 +2,7 @@
 #include "../Core/Singleton.h"
 #include "../Resource/Resource.h"
 #include "../UI/Font.h"
-#include "../Graphics/Effect.h"
+#include "../Graphics/ShaderGroup.h"
 #include <map>
 
 class ResourceManager : public Singleton<ResourceManager> {
@@ -14,7 +14,7 @@ public:
     void releaseAll();
 
     Font* getFont(const std::string& name);
-    Effect* getEffect(const std::string& name);
+    ShaderGroup* getShaderGroup(const std::string& name);
 
 private:
     std::map<std::string, Resource*> resources;

@@ -12,18 +12,18 @@ ResourceManager::~ResourceManager() {
 }
 
 void ResourceManager::loadAll() {
-    // Effects
-    Effect* baseEffect = new Effect();
-    baseEffect->setVertShaderPath(shaderPath + "/Base.vert");
-    baseEffect->setFragShaderPath(shaderPath + "/Base.frag");
-    baseEffect->load();
-    resources["BaseEffect"] = baseEffect;
+    // ShaderGroups
+    ShaderGroup* baseShaderGroup = new ShaderGroup();
+    baseShaderGroup->setVertShaderPath(shaderPath + "/Base.vert");
+    baseShaderGroup->setFragShaderPath(shaderPath + "/Base.frag");
+    baseShaderGroup->load();
+    resources["BaseShaderGroup"] = baseShaderGroup;
 
-    Effect* fontEffect = new Effect();
-    fontEffect->setVertShaderPath(shaderPath + "/Font.vert");
-    fontEffect->setFragShaderPath(shaderPath + "/Font.frag");
-    fontEffect->load();
-    resources["FontEffect"] = fontEffect;
+    ShaderGroup* fontShaderGroup = new ShaderGroup();
+    fontShaderGroup->setVertShaderPath(shaderPath + "/Font.vert");
+    fontShaderGroup->setFragShaderPath(shaderPath + "/Font.frag");
+    fontShaderGroup->load();
+    resources["FontShaderGroup"] = fontShaderGroup;
 
     // Fonts
     Font* iconsolataFont = new Font();
@@ -43,6 +43,6 @@ Font* ResourceManager::getFont(const std::string& name) {
     return static_cast<Font*>(resources[name]);
 }
 
-Effect* ResourceManager::getEffect(const std::string& name) {
-    return static_cast<Effect*>(resources[name]);
+ShaderGroup* ResourceManager::getShaderGroup(const std::string& name) {
+    return static_cast<ShaderGroup*>(resources[name]);
 }

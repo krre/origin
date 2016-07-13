@@ -2,7 +2,7 @@
 #include "../../Scene/Node.h"
 #include "../OpenGL/VertexArray.h"
 #include "../OpenGL/Buffer.h"
-#include "../Effect.h"
+#include "../ShaderGroup.h"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -19,5 +19,5 @@ private:
     Buffer colorBuffer;
     GLuint matrix;
     glm::mat4 mvp; // model-view-projection
-    Effect* baseEffect;
+    ShaderGroup* baseShaderGroup;
 };

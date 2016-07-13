@@ -9,7 +9,7 @@ Entity* EntityBuilder::ground() {
     entity->addComponent<RenderComponent>();
     RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(ComponentType::Render));
     std::shared_ptr<Model> planeModel = std::make_shared<Model>();
-    std::shared_ptr<Plane> planeMesh = std::make_shared<Plane>();
+    std::shared_ptr<Plane> planeMesh = std::make_shared<Plane>(1, 1);
     planeModel->setMesh(planeMesh);
     renderComp->drawable = planeModel;
     entity->addComponent<TransformComponent>();

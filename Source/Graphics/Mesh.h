@@ -10,11 +10,11 @@ public:
     Mesh();
     VertexArray* getVao() { return &vao; }
     Buffer* getVbo() { return &vbo; }
-    const std::vector<float>& getVerticles() const { return verticles; }
+    const std::vector<GLfloat>& getVerticles() const { return verticles; }
     const std::vector<int>& getIndices() const { return indices; }
 
 protected:
-    std::vector<float> verticles;
+    std::vector<GLfloat> verticles;
     std::vector<int> indices;
 
 private:

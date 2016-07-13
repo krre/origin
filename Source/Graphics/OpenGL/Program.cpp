@@ -20,8 +20,8 @@ bool Program::link() {
         glGetProgramInfoLog(id, len, &len, log);
         error("Shader linking failed " << log);
         delete[] log;
-        for (auto it: shaders) {
-            glDeleteShader(it);
+        for (auto shader: shaders) {
+            glDeleteShader(shader);
         }
         shaders.clear();
         return false;

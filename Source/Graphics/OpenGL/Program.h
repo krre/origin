@@ -2,7 +2,7 @@
 #include "../../Core/Object.h"
 #include "Shader.h"
 #include <GL/glew.h>
-#include <list>
+#include <vector>
 
 class Program : public Object {
 
@@ -15,5 +15,5 @@ public:
 
 private:
     GLuint id;
-    std::list<GLuint> shaders;
+    std::vector<GLuint> shaders;
 };

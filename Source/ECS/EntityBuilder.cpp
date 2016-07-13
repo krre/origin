@@ -1,12 +1,16 @@
 #include "EntityBuilder.h"
 #include "Components/Components.h"
 #include "../Graphics/Model.h"
+#include "../Graphics/Mesh/Plane.h"
+
 
 Entity* EntityBuilder::ground() {
     Entity* entity = new Entity;
     entity->addComponent<RenderComponent>();
     RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(ComponentType::Render));
-    renderComp->drawable = new Model;
+    Model* planeModel = new Model();
+    planeModel->setMesh(new Plane);
+    renderComp->drawable = planeModel;
     entity->addComponent<TransformComponent>();
 
     return entity;

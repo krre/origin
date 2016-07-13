@@ -1,12 +1,12 @@
 #pragma once
 #include "../Component.h"
 #include "../Entity.h"
-#include <list>
+#include <vector>
 
 class NodeComponent : public Component {
 
 public:
     NodeComponent();
     EntityId parent = 0;
-    std::list<EntityId> children;
+    std::vector<EntityId> children;
 };

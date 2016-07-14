@@ -11,3 +11,7 @@ void Buffer::setData(const void* data, int count) {
 void Buffer::bind() {
     glBindBuffer(type, id);
 }
+
+void Buffer::unbind() {
+    glBindBuffer(type, 0);
+}

@@ -10,6 +10,7 @@ public:
     GLenum getType() const { return type; }
     void setData(const void* data, int count);
     void bind();
+    void unbind();
 
 private:
     GLenum type;

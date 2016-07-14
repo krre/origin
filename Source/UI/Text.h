@@ -1,6 +1,8 @@
 #pragma once
 #include "Control.h"
 #include "Font.h"
+#include "../Graphics/OpenGL/VertexArray.h"
+#include "../Graphics/OpenGL/Buffer.h"
 #include "../Graphics/ShaderGroup.h"
 #include <glm/glm.hpp>
 
@@ -37,7 +39,8 @@ private:
     glm::vec4 color;
     float scale = 1.0;
     std::map<GLchar, Character> characters;
-    GLuint vao, vbo;
+    VertexArray VAO;
+    Buffer VBO;
     int fontSize = 14;
     ShaderGroup* fontShaderGroup;
 };

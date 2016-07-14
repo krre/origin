@@ -8,7 +8,12 @@ PlaneOld::PlaneOld(int width, int height) : width(width), height(height),
         colorBuffer(GL_ARRAY_BUFFER) {
 
     baseShaderGroup = ResourceManager::getInstance()->getShaderGroup("BaseShaderGroup");
+    matrix = glGetUniformLocation(baseShaderGroup->getProgram(), "mvp");
 
+    vao.bind();
+
+    // Vertex buffer
+    vbo.bind();
     static const GLfloat vertexData[] = {
         -1.0f * width, 0.0f, -1.0f * height,
         1.0f * width, 0.0f, 1.0f * height,
@@ -18,10 +23,7 @@ PlaneOld::PlaneOld(int width, int height) : width(width), height(height),
         -1.0f * width,  0.0f, 1.0f * height,
         1.0f * width,  0.0f, 1.0f * height,
     };
-    vbo.bind();
     vbo.setData(vertexData, sizeof(vertexData));
-
-    matrix = glGetUniformLocation(baseShaderGroup->getProgram(), "mvp");
 
     static const GLfloat colorData[] = {
         0.000f,  1.000f,  0.000f,
@@ -32,24 +34,6 @@ PlaneOld::PlaneOld(int width, int height) : width(width), height(height),
         1.000f,  0.000f,  1.000f
     };
 
-    colorBuffer.bind();
-    colorBuffer.setData(colorData, sizeof(colorData));
-}
-
-void PlaneOld::draw() {
-    baseShaderGroup->use();
-    glm::mat4 projection = App::getInstance()->getViewport()->getCamera()->getProjection();
-    glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();
-    mvp = projection * view * getModelMatrix();
-
-//    glm::vec4 pos = mvp * glm::vec4(-1.0f, 0.0f, -1.0f, 1.0f);
-//    print(glm::to_std::string(pos));
-    vao.bind();
-
-    glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
-
-    glEnableVertexAttribArray(0);
-    vbo.bind();
     glVertexAttribPointer(
        0,                  // attribute. No particular reason for 0, but must match the layout in the shader.
        3,                  // size
@@ -58,9 +42,12 @@ void PlaneOld::draw() {
        0,                  // stride
        (void*)0            // array buffer offset
     );
+    glEnableVertexAttribArray(0);
 
-    glEnableVertexAttribArray(1);
+    // Color buffer
     colorBuffer.bind();
+    colorBuffer.setData(colorData, sizeof(colorData));
+
     glVertexAttribPointer(
        1,                  // attribute. No particular reason for 1, but must match the layout in the shader.
        3,                  // size
@@ -70,8 +57,21 @@ void PlaneOld::draw() {
        (void*)0            // array buffer offset
     );
 
+    glEnableVertexAttribArray(1);
+
+    vao.unbind();
+}
+
+void PlaneOld::draw() {
+    baseShaderGroup->use();
+    glm::mat4 projection = App::getInstance()->getViewport()->getCamera()->getProjection();
+    glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();
+    mvp = projection * view * getModelMatrix();
+    glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
+//    glm::vec4 pos = mvp * glm::vec4(-1.0f, 0.0f, -1.0f, 1.0f);
+//    print(glm::to_std::string(pos));
+
+    vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-    glBindVertexArray(0);
-    glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
+    vao.unbind();
 }

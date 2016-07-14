@@ -2,9 +2,12 @@
 
 VertexArray::VertexArray() {
     glGenVertexArrays(1, &id);
-    bind();
 }
 
 void VertexArray::bind() {
     glBindVertexArray(id);
+}
+
+void VertexArray::unbind() {
+    glBindVertexArray(0);
 }

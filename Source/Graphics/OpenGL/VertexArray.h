@@ -9,4 +9,5 @@ public:
     GLuint getId() const { return id; }
     GLuint id;
     void bind();
+    void unbind();
 };

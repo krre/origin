@@ -1,5 +1,6 @@
 #include "PlaneOld.h"
 #include "../Core/App.h"
+#include "../Core/Game.h"
 #include "../Resource/ResourceManager.h"
 #include <glm/ext.hpp>
 
@@ -72,6 +73,17 @@ void PlaneOld::draw() {
 //    print(glm::to_std::string(pos));
 
     vao.bind();
+
+    bool wireframe = Game::getInstance()->getWireframe();
+    if (wireframe) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
+
     glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
+
+    if (wireframe) {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
     vao.unbind();
 }

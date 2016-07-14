@@ -23,6 +23,8 @@ public:
     State getState() { return state; }
     void setState(State state);
 
+    bool getWireframe() const { return wireframe; }
+
     void cameraMove(float dt);
 
 private:
@@ -35,4 +37,5 @@ private:
     float pitch = 0;
     std::shared_ptr<Camera> camera;
     State state = PLAY;
+    bool wireframe = false; // TODO: Move to renderer
 };

@@ -124,6 +124,9 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
         }
         break;
 
+    case SDLK_g:
+        wireframe = !wireframe;
+
     default:
         break;
     }

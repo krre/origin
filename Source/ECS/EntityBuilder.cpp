@@ -2,6 +2,7 @@
 #include "Components/Components.h"
 #include "../Graphics/Model.h"
 #include "../Graphics/Mesh/Plane.h"
+#include "../Graphics/Material.h"
 
 
 Entity* EntityBuilder::ground() {
@@ -9,8 +10,14 @@ Entity* EntityBuilder::ground() {
     entity->addComponent<RenderComponent>();
     RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(ComponentType::Render));
     std::shared_ptr<Model> planeModel = std::make_shared<Model>();
+
     std::shared_ptr<Plane> planeMesh = std::make_shared<Plane>(1, 1);
     planeModel->setMesh(planeMesh);
+
+    std::shared_ptr<Material> planeMaterial = std::make_shared<Material>();
+    planeMaterial->setColor(Color(0, 0, 1, 1));
+    planeModel->setMaterial(planeMaterial);
+
     renderComp->drawable = planeModel;
     entity->addComponent<TransformComponent>();
 

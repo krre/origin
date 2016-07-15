@@ -1,6 +1,7 @@
 #include "Text.h"
 #include "../Core/App.h"
 #include "../Graphics/OpenGL/Shader.h"
+#include "../Graphics/OpenGL/Texture.h"
 #include "../Resource/ResourceManager.h"
 #include <GL/glew.h>
 #include <ft2build.h>
@@ -40,9 +41,8 @@ Text::Text() : VBO(GL_ARRAY_BUFFER) {
         }
 
         // Generate texture
-        GLuint texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        Texture texture(GL_TEXTURE_2D);
+        texture.bind();
         glTexImage2D(
             GL_TEXTURE_2D,
             0,
@@ -63,15 +63,14 @@ Text::Text() : VBO(GL_ARRAY_BUFFER) {
 
         // Now store character for later use
         Character character = {
-            texture,
+            texture.getId(),
             glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             (GLuint)face->glyph->advance.x
         };
         characters.insert(std::pair<GLchar, Character>(i, character));
+        texture.unbind();
     }
-
-    glBindTexture(GL_TEXTURE_2D, 0);
 
     // Destroy FreeType once we're finished
     FT_Done_Face(face);

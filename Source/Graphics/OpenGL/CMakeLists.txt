@@ -6,6 +6,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Program.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Shader.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Shader.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Texture.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VertexArray.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VertexArray.h
     PARENT_SCOPE

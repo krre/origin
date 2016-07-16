@@ -4,7 +4,7 @@
 #include "../Event/Event.h"
 #include "../Graphics/Renderer.h"
 #include "Singleton.h"
-#include "../Scene/Viewport.h"
+#include "../UI/Viewport.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;

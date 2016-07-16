@@ -1,9 +1,10 @@
 #pragma once
 #include "../Core/Object.h"
+#include "Control.h"
 #include "../Graphics/Camera.h"
 #include "../Scene/Scene.h"
 
-class Viewport : public Object {
+class Viewport : public Control {
 
 public:
     Viewport();

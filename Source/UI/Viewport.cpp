@@ -22,8 +22,8 @@ void Viewport::setBackgroundColor(const glm::vec4& backgroundColor) {
     glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 }
 
-void Viewport::setRectangle(glm::vec4& rectangle) {
-    this->rectangle = rectangle;
+void Viewport::setRectangle(int x, int y, int width, int height) {
+        glViewport(x, y, width, height);
 }
 
 void Viewport::addCamera(std::shared_ptr<Camera> camera) {

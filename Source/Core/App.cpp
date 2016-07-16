@@ -163,7 +163,7 @@ int App::run() {
 void App::windowResize(int width, int height) {
     this->width = width;
     this->height = height;
-    glViewport(0, 0, width, height);
+    viewport->setRectangle(0, 0, width, height);
 }
 
 void App::initSingletons() {

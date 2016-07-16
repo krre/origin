@@ -13,7 +13,7 @@ public:
     void draw();
 
     void setBackgroundColor(const glm::vec4& backgroundColor);
-    void setRectangle(glm::vec4& rectangle);
+    void setRectangle(int x, int y, int width, int height);
     void setScene(std::shared_ptr<Scene> const scene) { this->scene = scene; }
     std::shared_ptr<Scene> getScene() const { return scene; }
 

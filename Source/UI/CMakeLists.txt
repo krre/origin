@@ -4,6 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Font.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Font.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MoveController.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/MoveController.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Text.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Text.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.cpp

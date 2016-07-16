@@ -1,5 +1,5 @@
 #include "Mesh.h"
 
-Mesh::Mesh() : vbo(GL_ARRAY_BUFFER) {
+Mesh::Mesh() : VBO(GL_ARRAY_BUFFER) {
 
 }

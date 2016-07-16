@@ -31,7 +31,7 @@ void RenderSystem::process(float dt) {
     renderer.setEntities(&renderEntities);
     renderer.render(dt);
 
-    App::getInstance()->getViewport()->render();
+    App::getInstance()->getViewport()->draw();
     for (auto drawable : drawables) {
         if (drawable->getVisible()) {
             drawable->draw(dt);

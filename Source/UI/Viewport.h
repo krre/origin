@@ -9,7 +9,7 @@ class Viewport : public Control {
 public:
     Viewport();
     void update(double dt);
-    void render();
+    void draw();
 
     void setBackgroundColor(const glm::vec4& backgroundColor);
     void setRectangle(glm::vec4& rectangle);

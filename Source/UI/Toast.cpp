@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 
 Toast::Toast() {
+    setVisible(false);
     timer.timeout.connectMember(&Toast::onTimeout, this);
 }
 

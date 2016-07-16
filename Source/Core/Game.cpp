@@ -46,7 +46,7 @@ void Game::create() {
     auto plane = std::make_shared<PlaneOld>(1, 1);
     scene->setRoot(plane);
 
-    camera = App::getInstance()->getViewport()->getCamera();
+    camera = App::getInstance()->getViewport()->getCurrentCamera();
     camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 

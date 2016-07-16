@@ -4,7 +4,7 @@
 #include <algorithm>
 
 Viewport::Viewport() {
-    camera = std::make_shared<Camera>();
+    currentCamera = std::make_shared<Camera>();
 }
 
 void Viewport::update(double dt) {
@@ -36,4 +36,8 @@ void Viewport::removeCamera(std::shared_ptr<Camera> camera) {
 
 void Viewport::clearCameras() {
     cameras.clear();
+}
+
+void Viewport::setCurrentCamera(std::shared_ptr<Camera> currentCamera) {
+    this->currentCamera = currentCamera;
 }

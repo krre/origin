@@ -17,15 +17,16 @@ public:
     void setScene(std::shared_ptr<Scene> const scene) { this->scene = scene; }
     std::shared_ptr<Scene> getScene() const { return scene; }
 
-    std::shared_ptr<Camera> getCamera() const { return camera; }
-
     void addCamera(std::shared_ptr<Camera> camera);
     void removeCamera(std::shared_ptr<Camera> camera);
     void clearCameras();
 
+    void setCurrentCamera(std::shared_ptr<Camera> currentCamera);
+    std::shared_ptr<Camera> getCurrentCamera() const { return currentCamera; }
+
 private:
     std::shared_ptr<Scene> scene;
-    std::shared_ptr<Camera> camera;
+    std::shared_ptr<Camera> currentCamera;
     glm::vec4 backgroundColor;
     glm::vec4 rectangle;
     std::vector<std::shared_ptr<Camera>> cameras;

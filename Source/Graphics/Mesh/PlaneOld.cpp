@@ -65,8 +65,8 @@ PlaneOld::PlaneOld(int width, int height) : width(width), height(height),
 
 void PlaneOld::draw() {
     baseShaderGroup->use();
-    glm::mat4 projection = App::getInstance()->getViewport()->getCamera()->getProjection();
-    glm::mat4 view = App::getInstance()->getViewport()->getCamera()->getView();
+    glm::mat4 projection = App::getInstance()->getViewport()->getCurrentCamera()->getProjection();
+    glm::mat4 view = App::getInstance()->getViewport()->getCurrentCamera()->getView();
     mvp = projection * view * getModelMatrix();
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
 //    glm::vec4 pos = mvp * glm::vec4(-1.0f, 0.0f, -1.0f, 1.0f);

@@ -1,7 +1,7 @@
 #include "Viewport.h"
-
 #include "../Event/Event.h"
 #include <SDL_opengl.h>
+#include <algorithm>
 
 Viewport::Viewport() {
     camera = std::make_shared<Camera>();
@@ -24,4 +24,16 @@ void Viewport::setBackgroundColor(const glm::vec4& backgroundColor) {
 
 void Viewport::setRectangle(glm::vec4& rectangle) {
     this->rectangle = rectangle;
+}
+
+void Viewport::addCamera(std::shared_ptr<Camera> camera) {
+    cameras.push_back(camera);
+}
+
+void Viewport::removeCamera(std::shared_ptr<Camera> camera) {
+    cameras.erase(std::remove(cameras.begin(), cameras.end(), camera), cameras.end());
+}
+
+void Viewport::clearCameras() {
+    cameras.clear();
 }

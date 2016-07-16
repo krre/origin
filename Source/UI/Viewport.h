@@ -3,6 +3,7 @@
 #include "Control.h"
 #include "../Graphics/Camera.h"
 #include "../Scene/Scene.h"
+#include <vector>
 
 class Viewport : public Control {
 
@@ -18,11 +19,14 @@ public:
 
     std::shared_ptr<Camera> getCamera() const { return camera; }
 
+    void addCamera(std::shared_ptr<Camera> camera);
+    void removeCamera(std::shared_ptr<Camera> camera);
+    void clearCameras();
+
 private:
     std::shared_ptr<Scene> scene;
     std::shared_ptr<Camera> camera;
     glm::vec4 backgroundColor;
     glm::vec4 rectangle;
-
-
+    std::vector<std::shared_ptr<Camera>> cameras;
 };

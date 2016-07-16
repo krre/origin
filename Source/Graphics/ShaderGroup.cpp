@@ -13,7 +13,6 @@ void ShaderGroup::setFragShaderPath(const std::string& path) {
     fragShaderPath = path;
 }
 
-
 void ShaderGroup::load() {
     vertShader.load(vertShaderPath);
     fragShader.load(fragShaderPath);

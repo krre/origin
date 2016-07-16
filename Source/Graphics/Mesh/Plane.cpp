@@ -1,4 +1,5 @@
 #include "Plane.h"
+#include "../Resource/ResourceManager.h"
 
 Plane::Plane(int width, int height) : width(width), height(height) {
     static GLfloat vertexData[] = {
@@ -13,4 +14,5 @@ Plane::Plane(int width, int height) : width(width), height(height) {
 
     verticles = std::vector<GLfloat>(vertexData, vertexData + sizeof vertexData / sizeof vertexData[0]);
     setup();
+    setShaderGroup(ResourceManager::getInstance()->getShaderGroup("BaseShaderGroup"));
 }

@@ -2,6 +2,7 @@
 #include "../Core/Object.h"
 #include "OpenGL/VertexArray.h"
 #include "OpenGL/Buffer.h"
+#include "ShaderGroup.h"
 #include <vector>
 
 class Mesh : public Object {
@@ -15,6 +16,8 @@ public:
     const std::vector<int>& getIndices() const { return indices; }
 
     void setup();
+    void setShaderGroup(ShaderGroup* shaderGroup);
+    void draw(float dt);
 
 protected:
     std::vector<GLfloat> verticles;
@@ -23,4 +26,5 @@ protected:
 private:
     VertexArray VAO;
     Buffer VBO;
+    ShaderGroup* shaderGroup;
 };

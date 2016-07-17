@@ -12,7 +12,6 @@ void Viewport::update(double dt) {
 }
 
 void Viewport::draw() {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     Node* rootNode = scene->getRoot();
     rootNode->draw();
 }

@@ -1,14 +1,17 @@
 #include "Mesh.h"
+#include "../Core/App.h"
 #include <assert.h>
+#include <glm/ext.hpp>
+#include <glm/glm.hpp>
 
 Mesh::Mesh() : VBO(GL_ARRAY_BUFFER) {
 
 }
 
 void Mesh::setup() {
+    assert(verticles.size());
     VAO.bind();
     VBO.bind();
-    assert(verticles.size());
     VBO.setData(&verticles[0], verticles.size() * sizeof(verticles[0]));
 
     glVertexAttribPointer(
@@ -19,6 +22,8 @@ void Mesh::setup() {
        0,                  // stride
        (void*)0            // array buffer offset
     );
+    glEnableVertexAttribArray(0);
+
     VAO.unbind();
 }
 
@@ -28,7 +33,19 @@ void Mesh::setShaderGroup(ShaderGroup* shaderGroup) {
 
 void Mesh::draw(float dt) {
     shaderGroup->use();
+
+    GLuint matrix = glGetUniformLocation(shaderGroup->getProgram(), "mvp");
+    glm::mat4 projection = App::getInstance()->getViewport()->getCurrentCamera()->getProjection();
+    glm::mat4 view = App::getInstance()->getViewport()->getCurrentCamera()->getView();
+    glm::mat4 modelMatrix(1.0f);
+    glm::mat4 mvp = projection * view * modelMatrix;
+    glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);
+
+    GLuint color = glGetUniformLocation(shaderGroup->getProgram(), "color");
+    glm::vec3 c(0.2, 0.7, 0.8);
+    glUniform3fv(color, 1, &c[0]);
+
     VAO.bind();
-    glDrawArrays(GL_TRIANGLES, 0, verticles.size());
+    glDrawArrays(GL_TRIANGLES, 0, verticles.size() / 3);
     VAO.unbind();
 }

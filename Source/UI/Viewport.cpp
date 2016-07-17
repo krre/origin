@@ -11,9 +11,7 @@ void Viewport::update(double dt) {
 
 }
 
-void Viewport::draw() {
-    Node* rootNode = scene->getRoot();
-    rootNode->draw();
+void Viewport::draw(float dt) {
 }
 
 void Viewport::setBackgroundColor(const glm::vec4& backgroundColor) {

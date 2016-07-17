@@ -4,6 +4,7 @@
 #include "OpenGL/Buffer.h"
 #include "ShaderGroup.h"
 #include <vector>
+#include <glm/ext.hpp>
 
 class Mesh : public Object {
 

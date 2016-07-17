@@ -1,10 +1,8 @@
 #include "Game.h"
-#include "../Scene/Scene.h"
 #include "App.h"
 #include "../Debug/Console.h"
 #include "../Debug/DebugHUD.h"
 #include "../UI/Toast.h"
-#include "../Graphics/Mesh/PlaneOld.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../ECS/Engine.h"
@@ -39,12 +37,7 @@ void Game::create() {
     // Ground
     Engine::getInstance()->addEntity(EntityBuilder::ground());
 
-    auto scene = std::make_shared<Scene>();
-    App::getInstance()->getViewport()->setScene(scene);
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
-
-    auto plane = std::make_shared<PlaneOld>(1, 1);
-    scene->setRoot(plane);
 
     camera = App::getInstance()->getViewport()->getCurrentCamera();
     camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));

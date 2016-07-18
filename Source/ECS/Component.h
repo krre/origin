@@ -19,6 +19,7 @@ public:
     Component();
     ComponentType getType() const { return type; }
     bool enable = true;
+    bool dirty = false;
 
 protected:
     ComponentType type = ComponentType::Empty;

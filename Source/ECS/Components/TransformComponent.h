@@ -13,5 +13,4 @@ public:
     glm::vec3 scale = glm::vec3(1.0);
     float yaw = 0;
     float pitch = 0;
-    bool dirty = false;
 };

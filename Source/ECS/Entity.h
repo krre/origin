@@ -3,7 +3,7 @@
 #include "Component.h"
 #include <map>
 
-typedef uint64_t EntityId;
+using EntityId = uint64_t;
 
 class Entity : Object {
 

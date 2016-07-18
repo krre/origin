@@ -6,5 +6,5 @@ class MaterialComponent : public Component {
 
 public:
     MaterialComponent();
-    Material* material;
+    std::shared_ptr<Material> material;
 };

@@ -22,18 +22,12 @@ App::App(int argc, char* argv[]) {
     }
     absoluteFilePath = this->argv[0];
     absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
+
+    init();
 }
 
 App::~App() {
-    Engine::getInstance()->release();
-    Event::getInstance()->release();
-    Input::getInstance()->release();
-    ResourceManager::getInstance()->release();
-    Console::getInstance()->release();
-    DebugHUD::getInstance()->release();
-    Toast::getInstance()->release();
-    Logger::getInstance()->release();
-    delete viewport;
+    clean();
 }
 
 std::string App::getPathSeparator() {
@@ -115,6 +109,15 @@ void App::clean() {
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    Engine::getInstance()->release();
+    Event::getInstance()->release();
+    Input::getInstance()->release();
+    ResourceManager::getInstance()->release();
+    Console::getInstance()->release();
+    DebugHUD::getInstance()->release();
+    Toast::getInstance()->release();
+    Logger::getInstance()->release();
+    delete viewport;
 }
 
 int App::run() {

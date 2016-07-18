@@ -19,8 +19,6 @@ public:
     // Path to application directory
     static std::string getAbsolutePath() { return absolutePath; }
     static std::string getPathSeparator();
-    void init();
-    void clean();
     int run();
     void quit();
     Viewport* getViewport() { return viewport; }
@@ -43,6 +41,8 @@ private:
     int width = WINDOW_WIDTH;
     int height = WINDOW_HEIGHT;
 
+    void init();
+    void clean();
     void windowResize(int width, int height);
     void initSingletons();
 };

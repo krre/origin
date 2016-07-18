@@ -6,5 +6,5 @@ class MeshComponent : public Component {
 
 public:
     MeshComponent();
-    Mesh* mesh;
+    std::shared_ptr<Mesh> mesh;
 };

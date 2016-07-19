@@ -185,8 +185,8 @@ void App::initSingletons() {
     new Game();
     Game::getInstance()->create();
 
-    Event::getInstance()->windowResize.connectMember(&App::windowResize, this, std::placeholders::_1, std::placeholders::_2);
-    Event::getInstance()->quit.connectMember(&App::quit, this);
+    Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
+    Event::getInstance()->quit.connect<App, &App::quit>(this);
 }
 
 void App::quit() {

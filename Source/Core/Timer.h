@@ -9,7 +9,7 @@ public:
     void start(int msec);
     void stop();
 
-    Signal<> timeout;
+    Nano::Signal<void()> timeout;
 
 private:
     static Uint32 onTimeElaplsed(Uint32 interval, void *param);

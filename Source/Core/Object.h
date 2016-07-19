@@ -1,6 +1,6 @@
 #pragma once
 #include "Defines.h"
-#include "Signal.h"
+#include <nano-signal-slot/nano_signal_slot.hpp>
 #include <iostream>
 #include <memory>
 

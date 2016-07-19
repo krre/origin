@@ -43,8 +43,8 @@ void Game::create() {
     camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
     pitch = -35.0f;
 
-    Event::getInstance()->keyPress.connectMember(&Game::keyPress, this, std::placeholders::_1);
-    Event::getInstance()->mouseButtonAction.connectMember(&Game::mouseButtonAction, this, std::placeholders::_1);
+    Event::getInstance()->keyPress.connect<Game, &Game::keyPress>(this);
+    Event::getInstance()->mouseButtonAction.connect<Game, &Game::mouseButtonAction>(this);
 }
 
 void Game::load() {

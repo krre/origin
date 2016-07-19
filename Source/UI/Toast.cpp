@@ -4,7 +4,7 @@
 
 Toast::Toast() {
     setVisible(false);
-    timer.timeout.connectMember(&Toast::onTimeout, this);
+    timer.timeout.connect<Toast, &Toast::onTimeout>(this);
 }
 
 void Toast::draw(float dt) {

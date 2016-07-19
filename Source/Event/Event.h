@@ -8,14 +8,14 @@ public:
     Event();
     void handleEvents();
 
-    Signal<> quit;
-    Signal<> render;
-    Signal<double> update;
-    Signal<int, int> windowResize;
-    Signal<int, int> mouseMove;
-    Signal<SDL_KeyboardEvent> keyPress;
-    Signal<SDL_KeyboardEvent> keyRelease;
-    Signal<SDL_MouseButtonEvent> mouseButtonAction;
+    Nano::Signal<void()> quit;
+    Nano::Signal<void()> render;
+    Nano::Signal<void(double)> update;
+    Nano::Signal<void(int, int)> windowResize;
+    Nano::Signal<void(int, int)> mouseMove;
+    Nano::Signal<void(const SDL_KeyboardEvent&)> keyPress;
+    Nano::Signal<void(const SDL_KeyboardEvent&)> keyRelease;
+    Nano::Signal<void(const SDL_MouseButtonEvent&)> mouseButtonAction;
 
 private:
 

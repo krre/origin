@@ -5,6 +5,7 @@
 #include "../Graphics/OpenGL/Buffer.h"
 #include "../Graphics/ShaderGroup.h"
 #include <glm/glm.hpp>
+#include <map>
 
 class Text : public Control {
 

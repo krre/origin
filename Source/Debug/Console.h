@@ -15,5 +15,4 @@ private:
     void keyPress(const SDL_KeyboardEvent& event);
     void execute();
     Text cmdLine;
-    int keyPressId = 0;
 };

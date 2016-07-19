@@ -16,18 +16,14 @@ void Console::draw(float dt) {
 void Console::setVisible(bool visible) {
     this->visible = visible;
     if (visible) {
-        cmdLine.setText("");
-        if (!keyPressId) {
-            keyPressId = Event::getInstance()->keyPress.connectMember(&Console::keyPress, this, std::placeholders::_1);
-        }
+        cmdLine.setText("/");
+        Event::getInstance()->keyPress.connect<Console, &Console::keyPress>(this);
     } else {
-//        Event::getInstance()->keyPress.disconnect(keyPressId);
+        Event::getInstance()->keyPress.disconnect<Console, &Console::keyPress>(this);
     }
 }
 
 void Console::keyPress(const SDL_KeyboardEvent& event) {
-    if (!visible) return;
-
     std::string newText;
     switch (event.keysym.sym) {
     case SDLK_BACKSPACE:

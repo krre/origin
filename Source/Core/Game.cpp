@@ -102,6 +102,10 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
         DebugHUD::getInstance()->trigger();
         break;
 
+    case SDLK_F6:
+        wireframe = !wireframe;
+        break;
+
     case SDLK_F10:
         toggleFullScreen();
         break;
@@ -116,9 +120,6 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
             state = CONSOLE;
         }
         break;
-
-    case SDLK_g:
-        wireframe = !wireframe;
 
     default:
         break;

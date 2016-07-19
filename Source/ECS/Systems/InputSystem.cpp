@@ -34,7 +34,7 @@ void InputSystem::moveActiveEntity(float dt) {
     tc->pitch = glm::clamp(tc->pitch, -80.0f, 80.0f);
 
     glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(tc->yaw), glm::radians(tc->pitch)));
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(System::Type::Transform).get());
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(engine->getSystem(System::Type::Transform).get());
     transformSystem->setRotation(activeEntity, rotation);
 
     if (Input::getInstance()->isKeyPressed(SDLK_w)) {

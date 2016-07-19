@@ -1,8 +1,11 @@
 #include "System.h"
+#include "Engine.h"
 #include <algorithm>
 
-System::System() {
+Engine* System::engine;
 
+System::System() {
+    engine = Engine::getInstance();
 }
 
 void System::addEntity(Entity* entity) {

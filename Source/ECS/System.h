@@ -3,6 +3,8 @@
 #include "Entity.h"
 #include <vector>
 
+class Engine;
+
 class System : public Object {
 
 public:
@@ -26,4 +28,5 @@ public:
 protected:
     std::vector<Entity*> entities;
     Type type = Type::None;
+    static Engine* engine;
 };

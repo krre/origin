@@ -19,7 +19,7 @@ void RenderSystem::process(float dt) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // TODO: Replace by family
     std::vector<std::shared_ptr<Entity>> renderEntities;
-    for (auto entity : Engine::getInstance()->getEntities()) {
+    for (auto entity : engine->getEntities()) {
         RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(Component::Type::Render));
         if (renderComp) {
             assert(renderComp->drawable);

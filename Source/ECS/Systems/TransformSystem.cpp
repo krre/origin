@@ -7,7 +7,7 @@ TransformSystem::TransformSystem() {
 }
 
 void TransformSystem::process(float dt) {
-    for (auto entity: Engine::getInstance()->getEntities()) {
+    for (auto entity: engine->getEntities()) {
         TransformComponent* tc = static_cast<TransformComponent*>(entity->getComponent(Component::Type::Transform));
         if (tc && tc->dirty) {
             glm::mat4 translationMatrix = glm::translate(tc->translation);

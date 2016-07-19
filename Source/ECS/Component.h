@@ -1,26 +1,27 @@
 #pragma once
 #include "../Core/Object.h"
 
-enum class ComponentType {
-    Camera,
-    Empty,
-    Input,
-    Node,
-    Render,
-    Transform,
-    Movement,
-    Mesh,
-    Material
-};
-
 class Component : public Object {
 
 public:
+    enum class Type {
+        Camera,
+        Empty,
+        Input,
+        Node,
+        Render,
+        Transform,
+        Movement,
+        Mesh,
+        Material
+    };
+
+
     Component();
-    ComponentType getType() const { return type; }
+    Component::Type getType() const { return type; }
     bool enable = true;
     bool dirty = false;
 
 protected:
-    ComponentType type = ComponentType::Empty;
+    Component::Type type = Component::Type::Empty;
 };

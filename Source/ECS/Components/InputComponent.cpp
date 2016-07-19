@@ -1,5 +1,5 @@
 #include "InputComponent.h"
 
 InputComponent::InputComponent() {
-    type = ComponentType::Input;
+    type = Component::Type::Input;
 }

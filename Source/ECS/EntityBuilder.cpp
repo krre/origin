@@ -8,7 +8,7 @@
 Entity* EntityBuilder::ground() {
     Entity* entity = new Entity;
     entity->addComponent<RenderComponent>();
-    RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(ComponentType::Render));
+    RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(Component::Type::Render));
     auto planeModel = std::make_shared<Model>();
 
     auto planeMesh = std::make_shared<Plane>(1, 1);

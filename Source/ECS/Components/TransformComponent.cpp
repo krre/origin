@@ -1,5 +1,5 @@
 #include "TransformComponent.h"
 
 TransformComponent::TransformComponent() {
-    type = ComponentType::Transform;
+    type = Component::Type::Transform;
 }

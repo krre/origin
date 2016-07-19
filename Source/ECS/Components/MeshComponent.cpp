@@ -1,5 +1,5 @@
 #include "MeshComponent.h"
 
 MeshComponent::MeshComponent() {
-    type = ComponentType::Mesh;
+    type = Component::Type::Mesh;
 }

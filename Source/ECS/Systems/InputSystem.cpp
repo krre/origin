@@ -23,8 +23,8 @@ void InputSystem::setActiveEntity(Entity* activeEntity) {
 }
 
 void InputSystem::moveActiveEntity(float dt) {
-    MovementComponent* mc = static_cast<MovementComponent*>(activeEntity->getComponent(ComponentType::Movement));
-    TransformComponent* tc = static_cast<TransformComponent*>(activeEntity->getComponent(ComponentType::Transform));
+    MovementComponent* mc = static_cast<MovementComponent*>(activeEntity->getComponent(Component::Type::Movement));
+    TransformComponent* tc = static_cast<TransformComponent*>(activeEntity->getComponent(Component::Type::Transform));
 
     glm::ivec2 relMousePos = Input::getInstance()->getRelMousePos();
     tc->yaw += mc->rotateSpeed * relMousePos.x;

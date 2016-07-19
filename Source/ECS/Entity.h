@@ -17,14 +17,14 @@ public:
         return component;
     }
 
-    void removeComponent(ComponentType type);
-    Component *getComponent(ComponentType type);
+    void removeComponent(Component::Type type);
+    Component *getComponent(Component::Type type);
     void clearComponents();
 
     EntityId getId() { return id; }
-    std::map<ComponentType, std::shared_ptr<Component>> getComponents() { return components; }
+    std::map<Component::Type, std::shared_ptr<Component>> getComponents() { return components; }
 
 private:
-    std::map<ComponentType, std::shared_ptr<Component>> components;
+    std::map<Component::Type, std::shared_ptr<Component>> components;
     EntityId id;
 };

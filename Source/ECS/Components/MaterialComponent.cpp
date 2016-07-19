@@ -1,5 +1,5 @@
 #include "MaterialComponent.h"
 
 MaterialComponent::MaterialComponent() {
-    type = ComponentType::Material;
+    type = Component::Type::Material;
 }

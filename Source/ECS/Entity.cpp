@@ -18,11 +18,11 @@ Entity::~Entity() {
 
 
 
-void Entity::removeComponent(ComponentType type) {
+void Entity::removeComponent(Component::Type type) {
     components.erase(type);
 }
 
-Component* Entity::getComponent(ComponentType type) {
+Component* Entity::getComponent(Component::Type type) {
     Component* component = nullptr;
     try {
         component = components.at(type).get();

@@ -1,5 +1,5 @@
 #include "CameraComponent.h"
 
 CameraComponent::CameraComponent() {
-    type = ComponentType::Camera;
+    type = Component::Type::Camera;
 }

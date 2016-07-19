@@ -1,5 +1,5 @@
 #include "MovementComponent.h"
 
 MovementComponent::MovementComponent() {
-    type = ComponentType::Movement;
+    type = Component::Type::Movement;
 }

@@ -1,5 +1,5 @@
 #include "RenderComponent.h"
 
 RenderComponent::RenderComponent() {
-    type = ComponentType::Render;
+    type = Component::Type::Render;
 }

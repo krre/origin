@@ -50,6 +50,7 @@ void Engine::process(float dt) {
 void Engine::initSystems() {
     // Order important!
     // This is also order of processing
+    addSystem<MotionControllerSystem>();
     addSystem<InputSystem>();
     addSystem<TransformSystem>();
     addSystem<NodeSystem>();

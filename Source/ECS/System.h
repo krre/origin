@@ -13,7 +13,8 @@ public:
         Input,
         Render,
         Transform,
-        Node
+        Node,
+        MotionController
     };
 
     System();

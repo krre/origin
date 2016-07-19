@@ -21,9 +21,13 @@ public:
 
     virtual void process(float dt) = 0;
 
-    Type getType() { return type; }
+    Type getType() const { return type; }
+
+    bool setActive(bool active);
+    bool getActive() const { active; }
 
 protected:
     Type type = Type::None;
+    bool active = true;
     static Engine* engine;
 };

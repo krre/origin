@@ -13,10 +13,6 @@ Entity::Entity(EntityId id) {
     }
 }
 
-Entity::~Entity() {
-    clearComponents();
-}
-
 Component* Entity::createComponent(Component::Type type) {
     switch (type) {
     case Component::Type::Camera:

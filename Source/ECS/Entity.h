@@ -10,7 +10,6 @@ class Entity : public Object {
 
 public:
     Entity(EntityId id = 0);
-    virtual ~Entity();
 
     Component* createComponent(Component::Type type);
     void createComponents(std::vector<Component::Type> types);

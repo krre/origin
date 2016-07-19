@@ -16,8 +16,6 @@ Entity::~Entity() {
     clearComponents();
 }
 
-
-
 void Entity::removeComponent(Component::Type type) {
     components.erase(type);
 }

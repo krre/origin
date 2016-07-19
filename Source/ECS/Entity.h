@@ -18,7 +18,7 @@ public:
     }
 
     void removeComponent(Component::Type type);
-    Component *getComponent(Component::Type type);
+    Component* getComponent(Component::Type type);
     void clearComponents();
 
     EntityId getId() { return id; }

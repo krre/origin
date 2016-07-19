@@ -103,15 +103,3 @@ void Engine::addComponent(Entity* entity, std::shared_ptr<Component> component) 
 void Engine::removeComponent(Entity* entity, Component::Type type) {
     entity->components.erase(type);
 }
-
-Component* Engine::getComponent(Entity* entity, Component::Type type) {
-    Component* component = nullptr;
-    try {
-        component = entity->components.at(type).get();
-    } catch (...) {
-
-    }
-
-    return component;
-}
-

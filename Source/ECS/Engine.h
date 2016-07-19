@@ -28,6 +28,9 @@ public:
 
     Component* createComponent(Entity* entity, Component::Type type);
     void createComponents(Entity* entity, std::vector<Component::Type> types);
+    void addComponent(Entity* entity, std::shared_ptr<Component> component);
+    void removeComponent(Entity* entity, Component::Type type);
+    Component* getComponent(Entity* entity, Component::Type type);
 
 private:
     std::map<System::Type, std::shared_ptr<System>> systems;

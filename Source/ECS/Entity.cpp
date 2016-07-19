@@ -11,23 +11,3 @@ Entity::Entity(EntityId id) {
         this->id = duration_cast<nanoseconds>(now.time_since_epoch()).count();
     }
 }
-
-void Entity::addComponent(std::shared_ptr<Component> component) {
-    components[component->getType()] = component;
-}
-
-void Entity::removeComponent(Component::Type type) {
-    components.erase(type);
-}
-
-Component* Entity::getComponent(Component::Type type) {
-    Component* component = nullptr;
-    try {
-        component = components.at(type).get();
-    } catch (...) {
-
-    }
-
-    return component;
-}
-

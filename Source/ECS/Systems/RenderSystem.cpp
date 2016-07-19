@@ -20,7 +20,7 @@ void RenderSystem::process(float dt) {
     // TODO: Replace by family
     std::vector<std::shared_ptr<Entity>> renderEntities;
     for (auto entity : engine->getEntities()) {
-        RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(Component::Type::Render));
+        RenderComponent* renderComp = static_cast<RenderComponent*>(entity->components[Component::Type::Render].get());
         if (renderComp) {
             assert(renderComp->drawable);
             if (renderComp->drawable->getVisible()) {

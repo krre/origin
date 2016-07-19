@@ -17,7 +17,7 @@ void Renderer::render(float dt) {
     }
 
     for (auto entity : *entities) {
-        RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(Component::Type::Render));
+        RenderComponent* renderComp = static_cast<RenderComponent*>(entity->components[Component::Type::Render].get());
         renderComp->drawable->draw(dt);
     }
 

@@ -22,7 +22,7 @@ std::shared_ptr<Entity> EntityBuilder::ground() {
     planeMaterial->setColor(Color(0, 0, 1, 1));
     planeModel->setMaterial(planeMaterial);
 
-    RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(Component::Type::Render));
+    RenderComponent* renderComp = static_cast<RenderComponent*>(entity->components[Component::Type::Render].get());
     renderComp->drawable = planeModel;
 
     return entity;
@@ -39,7 +39,7 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
 
-    auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
+    auto cameraComponent = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;
@@ -54,7 +54,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
 
-    auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
+    auto cameraComponent = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;
@@ -69,7 +69,7 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
 
-    auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
+    auto cameraComponent = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;

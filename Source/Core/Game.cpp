@@ -35,6 +35,10 @@ void Game::create() {
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(System::Type::Node).get());
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
+    MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(System::Type::MotionController).get());
+    motionControllerSystem->setMoveEntity(avatarCamera.get());
+    motionControllerSystem->setRotateEntity(avatarCamera.get());
+
     // Ground
     Engine::getInstance()->addEntity(EntityBuilder::ground());
 

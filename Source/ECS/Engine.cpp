@@ -7,18 +7,14 @@ Engine::Engine() {
 }
 
 void Engine::removeSystem(System::Type type) {
-    delete systems.at(type);
     systems.erase(type);
 }
 
-System* Engine::getSystem(System::Type type) {
+std::shared_ptr<System> Engine::getSystem(System::Type type) {
     return systems.at(type);
 }
 
 void Engine::clearSystems() {
-    for (auto it: systems) {
-        delete it.second;
-    }
     systems.clear();
 }
 

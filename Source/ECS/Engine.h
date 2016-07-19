@@ -9,12 +9,12 @@ public:
     Engine();
 
     template <typename T> void addSystem() {
-        T* system = new T;
+        auto system = std::make_shared<T>();
         systems[system->getType()] = system;
     }
 
     void removeSystem(System::Type type);
-    System* getSystem(System::Type type);
+    std::shared_ptr<System> getSystem(System::Type type);
     void clearSystems();
 
     void addEntity(std::shared_ptr<Entity> entity);
@@ -27,7 +27,7 @@ public:
     void process(float dt);
 
 private:
-    std::map<System::Type, System*> systems;
+    std::map<System::Type, std::shared_ptr<System>> systems;
     std::vector<std::shared_ptr<Entity>> entities;
 
     void initSystems();

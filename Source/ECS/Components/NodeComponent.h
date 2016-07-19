@@ -1,6 +1,6 @@
 #pragma once
-#include "../Component.h"
 #include "../Entity.h"
+#include "../Component.h"
 #include <vector>
 
 class NodeComponent : public Component {

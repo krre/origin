@@ -5,18 +5,14 @@
 
 using EntityId = uint64_t;
 
-class Entity : Object {
+class Entity : public Object {
 
 public:
     Entity(EntityId id = 0);
     virtual ~Entity();
 
-    template <typename T> std::shared_ptr<T> addComponent() {
-        auto component = std::make_shared<T>();
-        components[component->getType()] = component;
-        return component;
-    }
-
+    Component* createComponent(Component::Type type);
+    void addComponent(std::shared_ptr<Component> component);
     void removeComponent(Component::Type type);
     Component* getComponent(Component::Type type);
     void clearComponents();

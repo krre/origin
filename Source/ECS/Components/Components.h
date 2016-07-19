@@ -5,4 +5,6 @@
 #include "RenderComponent.h"
 #include "TransformComponent.h"
 #include "MovementComponent.h"
+#include "MaterialComponent.h"
+#include "MeshComponent.h"
 

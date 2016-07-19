@@ -19,14 +19,13 @@ Entity::~Entity() {
 
 
 void Entity::removeComponent(ComponentType type) {
-    delete components.at(type);
     components.erase(type);
 }
 
 Component* Entity::getComponent(ComponentType type) {
     Component* component = nullptr;
     try {
-        component = components.at(type);
+        component = components.at(type).get();
     } catch (...) {
 
     }
@@ -35,8 +34,5 @@ Component* Entity::getComponent(ComponentType type) {
 }
 
 void Entity::clearComponents() {
-    for (auto it: components) {
-        delete it.second;
-    }
     components.clear();
 }

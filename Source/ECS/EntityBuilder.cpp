@@ -31,7 +31,7 @@ Entity* EntityBuilder::avatar() {
     entity->addComponent<InputComponent>();
     entity->addComponent<MovementComponent>();
 
-    CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
+    auto cameraComponent = entity->addComponent<CameraComponent>();
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;
@@ -42,7 +42,7 @@ Entity* EntityBuilder::camera() {
     entity->addComponent<NodeComponent>();
     entity->addComponent<TransformComponent>();
 
-    CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
+    auto cameraComponent = entity->addComponent<CameraComponent>();
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;
@@ -53,7 +53,7 @@ Entity* EntityBuilder::freeCamera() {
     entity->addComponent<TransformComponent>();
     entity->addComponent<MovementComponent>();
 
-    CameraComponent* cameraComponent = entity->addComponent<CameraComponent>();
+    auto cameraComponent = entity->addComponent<CameraComponent>();
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;

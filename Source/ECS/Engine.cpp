@@ -42,8 +42,10 @@ void Engine::clearEntities() {
 }
 
 void Engine::process(float dt) {
-    for (auto it: systems) {
-        it.second->process(dt);
+    for (auto system : systems) {
+        if (system.second->getActive()) {
+            system.second->process(dt);
+        }
     }
 }
 

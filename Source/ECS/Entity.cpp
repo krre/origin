@@ -48,6 +48,12 @@ Component* Entity::createComponent(Component::Type type) {
     return components[type].get();
 }
 
+void Entity::createComponents(std::vector<Component::Type> types) {
+    for (auto type : types) {
+        createComponent(type);
+    }
+}
+
 void Entity::addComponent(std::shared_ptr<Component> component) {
     components[component->getType()] = component;
 }

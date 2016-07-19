@@ -4,10 +4,14 @@
 #include "../Graphics/Mesh/Plane.h"
 #include "../Graphics/Material.h"
 
-
 std::shared_ptr<Entity> EntityBuilder::ground() {
-    auto entity = std::make_shared<Entity>();
-    RenderComponent* renderComp = static_cast<RenderComponent*>(entity->createComponent(Component::Type::Render));
+    std::vector<Component::Type> types = {
+        Component::Type::Render,
+        Component::Type::Transform,
+    };
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+    entity->createComponents(types);
+
     auto planeModel = std::make_shared<Model>();
 
     auto planeMesh = std::make_shared<Plane>(1, 1);
@@ -17,42 +21,54 @@ std::shared_ptr<Entity> EntityBuilder::ground() {
     planeMaterial->setColor(Color(0, 0, 1, 1));
     planeModel->setMaterial(planeMaterial);
 
+    RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(Component::Type::Render));
     renderComp->drawable = planeModel;
-    entity->createComponent(Component::Type::Transform);
 
     return entity;
 }
 
 std::shared_ptr<Entity> EntityBuilder::avatar() {
-    auto entity = std::make_shared<Entity>();
-    entity->createComponent(Component::Type::Node);
-    entity->createComponent(Component::Type::Transform);
-    entity->createComponent(Component::Type::Input);
-    entity->createComponent(Component::Type::Movement);
+    std::vector<Component::Type> types = {
+        Component::Type::Node,
+        Component::Type::Transform,
+        Component::Type::Input,
+        Component::Type::Movement,
+        Component::Type::Camera
+    };
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+    entity->createComponents(types);
 
-    auto cameraComponent = static_cast<CameraComponent*>(entity->createComponent(Component::Type::Camera));
+    auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;
 }
 
 std::shared_ptr<Entity> EntityBuilder::camera() {
-    auto entity = std::make_shared<Entity>();
-    entity->createComponent(Component::Type::Node);
-    entity->createComponent(Component::Type::Transform);
+    std::vector<Component::Type> types = {
+        Component::Type::Node,
+        Component::Type::Transform,
+        Component::Type::Camera
+    };
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+    entity->createComponents(types);
 
-    auto cameraComponent = static_cast<CameraComponent*>(entity->createComponent(Component::Type::Camera));
+    auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;
 }
 
 std::shared_ptr<Entity> EntityBuilder::freeCamera() {
-    auto entity = std::make_shared<Entity>();
-    entity->createComponent(Component::Type::Transform);
-    entity->createComponent(Component::Type::Movement);
+    std::vector<Component::Type> types = {
+        Component::Type::Transform,
+        Component::Type::Camera,
+        Component::Type::Movement
+    };
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+    entity->createComponents(types);
 
-    auto cameraComponent = static_cast<CameraComponent*>(entity->createComponent(Component::Type::Camera));
+    auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
     cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;

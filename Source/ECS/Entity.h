@@ -2,6 +2,7 @@
 #include "../Core/Object.h"
 #include "Component.h"
 #include <map>
+#include <vector>
 
 using EntityId = uint64_t;
 
@@ -12,6 +13,7 @@ public:
     virtual ~Entity();
 
     Component* createComponent(Component::Type type);
+    void createComponents(std::vector<Component::Type> types);
     void addComponent(std::shared_ptr<Component> component);
     void removeComponent(Component::Type type);
     Component* getComponent(Component::Type type);

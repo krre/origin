@@ -18,7 +18,6 @@ public:
     void addComponent(std::shared_ptr<Component> component);
     void removeComponent(Component::Type type);
     Component* getComponent(Component::Type type);
-    void clearComponents();
 
 private:
     EntityId id;

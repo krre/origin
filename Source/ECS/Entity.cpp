@@ -72,6 +72,3 @@ Component* Entity::getComponent(Component::Type type) {
     return component;
 }
 
-void Entity::clearComponents() {
-    components.clear();
-}

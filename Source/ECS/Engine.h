@@ -26,6 +26,9 @@ public:
 
     void process(float dt);
 
+    Component* createComponent(Entity* entity, Component::Type type);
+    void createComponents(Entity* entity, std::vector<Component::Type> types);
+
 private:
     std::map<System::Type, std::shared_ptr<System>> systems;
     std::vector<std::shared_ptr<Entity>> entities;

@@ -1,5 +1,6 @@
 #include "Engine.h"
 #include "../ECS/Systems/Systems.h"
+#include "Components/Components.h"
 #include <algorithm>
 
 Engine::Engine() {
@@ -53,4 +54,44 @@ void Engine::initSystems() {
     addSystem<TransformSystem>();
     addSystem<NodeSystem>();
     addSystem<RenderSystem>();
+}
+
+Component* Engine::createComponent(Entity* entity, Component::Type type) {
+    switch (type) {
+    case Component::Type::Camera:
+        entity->components[type] = std::make_shared<CameraComponent>();
+        break;
+    case Component::Type::Input:
+        entity->components[type] = std::make_shared<InputComponent>();
+        break;
+    case Component::Type::Material:
+        entity->components[type] = std::make_shared<MaterialComponent>();
+        break;
+    case Component::Type::Mesh:
+        entity->components[type] = std::make_shared<MeshComponent>();
+        break;
+    case Component::Type::Movement:
+        entity->components[type] = std::make_shared<MovementComponent>();
+        break;
+    case Component::Type::Node:
+        entity->components[type] = std::make_shared<NodeComponent>();
+        break;
+    case Component::Type::Render:
+        entity->components[type] = std::make_shared<RenderComponent>();
+        break;
+    case Component::Type::Transform:
+        entity->components[type] = std::make_shared<TransformComponent>();
+        break;
+    case Component::Type::MotionController:
+        entity->components[type] = std::make_shared<MotionControllerComponent>();
+        break;
+    }
+
+    return entity->components[type].get();
+}
+
+void Engine::createComponents(Entity *entity, std::vector<Component::Type> types) {
+    for (auto type : types) {
+        createComponent(entity, type);
+    }
 }

@@ -1,4 +1,5 @@
 #include "EntityBuilder.h"
+#include "Engine.h"
 #include "Components/Components.h"
 #include "../Graphics/Model.h"
 #include "../Graphics/Mesh/Plane.h"
@@ -10,7 +11,7 @@ std::shared_ptr<Entity> EntityBuilder::ground() {
         Component::Type::Transform,
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    entity->createComponents(types);
+    Engine::getInstance()->createComponents(entity.get(), types);
 
     auto planeModel = std::make_shared<Model>();
 
@@ -36,7 +37,7 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
         Component::Type::Camera
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    entity->createComponents(types);
+    Engine::getInstance()->createComponents(entity.get(), types);
 
     auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
     cameraComponent->camera = std::make_shared<Camera>();
@@ -51,7 +52,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
         Component::Type::Camera
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    entity->createComponents(types);
+    Engine::getInstance()->createComponents(entity.get(), types);
 
     auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
     cameraComponent->camera = std::make_shared<Camera>();
@@ -66,7 +67,7 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
         Component::Type::Movement
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    entity->createComponents(types);
+    Engine::getInstance()->createComponents(entity.get(), types);
 
     auto cameraComponent = static_cast<CameraComponent*>(entity->getComponent(Component::Type::Camera));
     cameraComponent->camera = std::make_shared<Camera>();

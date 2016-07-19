@@ -7,7 +7,7 @@
 #include "../ECS/Components/Components.h"
 
 RenderSystem::RenderSystem() {
-    type = SystemType::Render;
+    type = System::Type::Render;
     // Order important!
     // From bottom layer to top
     drawables.push_back(Console::getInstance());

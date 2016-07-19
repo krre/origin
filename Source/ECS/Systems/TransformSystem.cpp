@@ -3,7 +3,7 @@
 #include "../Engine.h"
 
 TransformSystem::TransformSystem() {
-    type = SystemType::Transform;
+    type = System::Type::Transform;
 }
 
 void TransformSystem::process(float dt) {

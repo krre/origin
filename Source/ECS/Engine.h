@@ -13,8 +13,8 @@ public:
         systems[system->getType()] = system;
     }
 
-    void removeSystem(SystemType type);
-    System* getSystem(SystemType type);
+    void removeSystem(System::Type type);
+    System* getSystem(System::Type type);
     void clearSystems();
 
     void addEntity(Entity* entity);
@@ -27,7 +27,7 @@ public:
     void process(float dt);
 
 private:
-    std::map<SystemType, System*> systems;
+    std::map<System::Type, System*> systems;
     std::vector<Entity*> entities;
 
     void initSystems();

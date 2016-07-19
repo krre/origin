@@ -6,12 +6,12 @@ Engine::Engine() {
     initSystems();
 }
 
-void Engine::removeSystem(SystemType type) {
+void Engine::removeSystem(System::Type type) {
     delete systems.at(type);
     systems.erase(type);
 }
 
-System* Engine::getSystem(SystemType type) {
+System* Engine::getSystem(System::Type type) {
     return systems.at(type);
 }
 

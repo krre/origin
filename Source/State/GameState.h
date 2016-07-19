@@ -1,5 +1,5 @@
 #pragma once
-#include "Object.h"
+#include "../Core/Object.h"
 
 class GameState : public Object {
 

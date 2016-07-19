@@ -8,11 +8,11 @@ System::System() {
     engine = Engine::getInstance();
 }
 
-void System::addEntity(Entity* entity) {
+void System::addEntity(std::shared_ptr<Entity> entity) {
     entities.push_back(entity);
 }
 
-void System::removeEntity(Entity* entity) {
+void System::removeEntity(std::shared_ptr<Entity> entity) {
     entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 }
 

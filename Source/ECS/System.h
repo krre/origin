@@ -18,8 +18,8 @@ public:
     };
 
     System();
-    void addEntity(Entity* entity);
-    void removeEntity(Entity* entity);
+    void addEntity(std::shared_ptr<Entity> entity);
+    void removeEntity(std::shared_ptr<Entity> entity);
     void clearEntities();
 
     virtual void process(float dt) = 0;
@@ -27,7 +27,7 @@ public:
     Type getType() { return type; }
 
 protected:
-    std::vector<Entity*> entities;
+    std::vector<std::shared_ptr<Entity>> entities;
     Type type = Type::None;
     static Engine* engine;
 };

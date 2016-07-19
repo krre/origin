@@ -9,15 +9,13 @@ class ResourceManager : public Singleton<ResourceManager> {
 
 public:
     ResourceManager();
-    ~ResourceManager();
     void loadAll();
-    void releaseAll();
 
     Font* getFont(const std::string& name);
     ShaderGroup* getShaderGroup(const std::string& name);
 
 private:
-    std::map<std::string, Resource*> resources;
+    std::map<std::string, std::shared_ptr<Resource>> resources;
     std::string dataPath;
     std::string shaderPath;
     std::string fontPath;

@@ -13,7 +13,8 @@ public:
         Transform,
         Movement,
         Mesh,
-        Material
+        Material,
+        MotionController
     };
 
 

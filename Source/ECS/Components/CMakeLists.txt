@@ -9,6 +9,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MaterialComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MeshComponent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MeshComponent.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/MotionControllerComponent.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MotionControllerComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MovementComponent.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MovementComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/NodeComponent.cpp

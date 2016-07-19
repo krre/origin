@@ -7,4 +7,5 @@
 #include "MovementComponent.h"
 #include "MaterialComponent.h"
 #include "MeshComponent.h"
+#include "MotionControllerComponent.h"
 

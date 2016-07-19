@@ -43,6 +43,9 @@ Component* Entity::createComponent(Component::Type type) {
     case Component::Type::Transform:
         components[type] = std::make_shared<TransformComponent>();
         break;
+    case Component::Type::MotionController:
+        components[type] = std::make_shared<MotionControllerComponent>();
+        break;
     }
 
     return components[type].get();

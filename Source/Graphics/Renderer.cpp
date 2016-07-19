@@ -26,6 +26,6 @@ void Renderer::render(float dt) {
     }
 }
 
-void Renderer::setEntities(std::vector<Entity*>* entities) {
+void Renderer::setEntities(std::vector<std::shared_ptr<Entity>>* entities) {
     this->entities = entities;
 }

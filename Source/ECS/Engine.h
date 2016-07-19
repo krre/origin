@@ -17,18 +17,18 @@ public:
     System* getSystem(System::Type type);
     void clearSystems();
 
-    void addEntity(Entity* entity);
-    void removeEntity(Entity* entity);
-    Entity* getEntity(EntityId id);
+    void addEntity(std::shared_ptr<Entity> entity);
+    void removeEntity(std::shared_ptr<Entity> entity);
+    std::shared_ptr<Entity> getEntity(EntityId id);
     void clearEntities();
 
-    std::vector<Entity*> getEntities() { return entities; }
+    std::vector<std::shared_ptr<Entity>> getEntities() { return entities; }
 
     void process(float dt);
 
 private:
     std::map<System::Type, System*> systems;
-    std::vector<Entity*> entities;
+    std::vector<std::shared_ptr<Entity>> entities;
 
     void initSystems();
 };

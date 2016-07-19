@@ -18,7 +18,7 @@ void InputSystem::process(float dt) {
     }
 }
 
-void InputSystem::setActiveEntity(Entity* activeEntity) {
+void InputSystem::setActiveEntity(std::shared_ptr<Entity> activeEntity) {
     this->activeEntity = activeEntity;
 }
 

@@ -23,12 +23,12 @@ void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
 
     // Avatar
-    Entity* avatar = EntityBuilder::avatar();
+    auto avatar = EntityBuilder::avatar();
     Engine::getInstance()->addEntity(avatar);
     InputSystem* inputSystem = static_cast<InputSystem*>(Engine::getInstance()->getSystem(System::Type::Input));\
     inputSystem->setActiveEntity(avatar);
 
-    Entity* avatarCamera = EntityBuilder::camera();
+    std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     TransformSystem* avatarCameraTransformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(System::Type::Transform));
     avatarCameraTransformSystem->translate(avatarCamera, glm::vec3(0.0f, 0.5f, 0.0f));
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(System::Type::Node));

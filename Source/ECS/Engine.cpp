@@ -22,15 +22,15 @@ void Engine::clearSystems() {
     systems.clear();
 }
 
-void Engine::addEntity(Entity* entity) {
+void Engine::addEntity(std::shared_ptr<Entity> entity) {
     entities.push_back(entity);
 }
 
-void Engine::removeEntity(Entity* entity) {
+void Engine::removeEntity(std::shared_ptr<Entity> entity) {
     entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 }
 
-Entity* Engine::getEntity(EntityId id) {
+std::shared_ptr<Entity> Engine::getEntity(EntityId id) {
     for (auto it: entities) {
         if (it->getId() == id) {
             return it;

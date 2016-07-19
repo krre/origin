@@ -8,8 +8,8 @@ class Renderer : public Object {
 public:
     Renderer();
     void render(float dt);
-    void setEntities(std::vector<Entity*>* entities);
+    void setEntities(std::vector<std::shared_ptr<Entity>> *entities);
 
 private:
-    std::vector<Entity*>* entities = nullptr;
+    std::vector<std::shared_ptr<Entity>>* entities = nullptr;
 };

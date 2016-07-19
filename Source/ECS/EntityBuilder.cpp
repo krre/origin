@@ -5,8 +5,8 @@
 #include "../Graphics/Material.h"
 
 
-Entity* EntityBuilder::ground() {
-    Entity* entity = new Entity;
+std::shared_ptr<Entity> EntityBuilder::ground() {
+    auto entity = std::make_shared<Entity>();
     entity->addComponent<RenderComponent>();
     RenderComponent* renderComp = static_cast<RenderComponent*>(entity->getComponent(Component::Type::Render));
     auto planeModel = std::make_shared<Model>();
@@ -24,8 +24,8 @@ Entity* EntityBuilder::ground() {
     return entity;
 }
 
-Entity* EntityBuilder::avatar() {
-    Entity* entity = new Entity;
+std::shared_ptr<Entity> EntityBuilder::avatar() {
+    auto entity = std::make_shared<Entity>();
     entity->addComponent<NodeComponent>();
     entity->addComponent<TransformComponent>();
     entity->addComponent<InputComponent>();
@@ -37,8 +37,8 @@ Entity* EntityBuilder::avatar() {
     return entity;
 }
 
-Entity* EntityBuilder::camera() {
-    Entity* entity = new Entity;
+std::shared_ptr<Entity> EntityBuilder::camera() {
+    auto entity = std::make_shared<Entity>();
     entity->addComponent<NodeComponent>();
     entity->addComponent<TransformComponent>();
 
@@ -48,8 +48,8 @@ Entity* EntityBuilder::camera() {
     return entity;
 }
 
-Entity* EntityBuilder::freeCamera() {
-    Entity* entity = new Entity;
+std::shared_ptr<Entity> EntityBuilder::freeCamera() {
+    auto entity = std::make_shared<Entity>();
     entity->addComponent<TransformComponent>();
     entity->addComponent<MovementComponent>();
 

@@ -27,9 +27,11 @@ void Game::create() {
     Engine::getInstance()->addEntity(avatar);
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
+    App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
     Engine::getInstance()->addEntity(avatarCamera);
-    TransformSystem* avatarCameraTransformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(System::Type::Transform).get());
-    avatarCameraTransformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.5f, 0.0f));
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(System::Type::Transform).get());
+    transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.5f, 0.0f));
+    transformSystem->setPitch(avatarCamera.get(), -35.0);
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(System::Type::Node).get());
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
@@ -41,10 +43,6 @@ void Game::create() {
     Engine::getInstance()->addEntity(EntityBuilder::ground());
 
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
-
-    camera = App::getInstance()->getViewport()->getCurrentCamera();
-    camera->setPosition(glm::vec3(0.0f, 0.5f, 0.0f));
-    pitch = -35.0f;
 
     Event::getInstance()->keyPress.connect<Game, &Game::keyPress>(this);
     Event::getInstance()->mouseButtonAction.connect<Game, &Game::mouseButtonAction>(this);
@@ -60,33 +58,6 @@ void Game::save() {
 
 void Game::setState(Game::State state) {
     this->state = state;
-}
-
-void Game::cameraMove(float dt) {
-    if (state != PLAY) return;
-
-    const float MOVE_SPEED = 1.0f;
-    const float ROTATE_SPEED = 0.1f;
-
-    glm::ivec2 relMousePos = Input::getInstance()->getRelMousePos();
-    yaw += ROTATE_SPEED * relMousePos.x;
-    yaw = fmod(yaw, 360.0f);
-
-    pitch -= ROTATE_SPEED * relMousePos.y;
-    pitch = glm::clamp(pitch, -80.0f, 80.0f);
-
-    glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(yaw), glm::radians(pitch)));
-    camera->setRotation(rotation);
-
-    if (Input::getInstance()->isKeyPressed(SDLK_w)) {
-        camera->translate(glm::vec3(0.0f, 0.0f, -1.0f) * MOVE_SPEED * dt);
-    } else if (Input::getInstance()->isKeyPressed(SDLK_s)) {
-        camera->translate(glm::vec3(0.0f, 0.0f, 1.0f) * MOVE_SPEED * dt);
-    } else if (Input::getInstance()->isKeyPressed(SDLK_a)) {
-        camera->translate(glm::vec3(-1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
-    } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
-        camera->translate(glm::vec3(1.0f, 0.0f, 0.0f) * MOVE_SPEED * dt);
-    }
 }
 
 void Game::keyPress(const SDL_KeyboardEvent& event) {

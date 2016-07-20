@@ -13,6 +13,8 @@ public:
     void setRotation(Entity* entity, glm::quat& rotation);
     void setScale(Entity* entity, glm::vec3& scale);
 
+    void setPitch(Entity* entity, float pitch);
+
     void translate(Entity* entity, const glm::vec3& delta, bool local = true);
     void rotate(Entity* entity, glm::quat& delta);
     void scale(Entity* entity, glm::vec3& delta);

@@ -1,5 +1,7 @@
 #include "Mesh.h"
 #include "../Core/App.h"
+#include "../ECS/Engine.h"
+#include "../ECS/Systems/CameraSystem.h"
 #include <assert.h>
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
@@ -35,8 +37,9 @@ void Mesh::draw(float dt) {
     shaderGroup->use();
 
     GLuint matrix = glGetUniformLocation(shaderGroup->getProgram(), "mvp");
-    glm::mat4 projection = App::getInstance()->getViewport()->getCurrentCamera()->getProjection();
-    glm::mat4 view = App::getInstance()->getViewport()->getCurrentCamera()->getView();
+    CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(System::Type::Camera).get());
+    glm::mat4 projection = cameraSystem->getProjection(App::getInstance()->getViewport()->getCurrentCamera().get());
+    glm::mat4 view = cameraSystem->getView(App::getInstance()->getViewport()->getCurrentCamera().get());
     glm::mat4 modelMatrix(1.0f);
     glm::mat4 mvp = projection * view * modelMatrix;
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);

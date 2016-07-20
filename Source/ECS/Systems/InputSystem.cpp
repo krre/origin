@@ -11,6 +11,5 @@ InputSystem::InputSystem() {
 }
 
 void InputSystem::process(float dt) {
-    if (Game::getInstance()->getState() == Game::PAUSE) return;
-    Game::getInstance()->cameraMove(dt); // TODO: remove
+
 }

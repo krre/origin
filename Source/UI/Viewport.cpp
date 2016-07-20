@@ -4,7 +4,6 @@
 #include <algorithm>
 
 Viewport::Viewport() {
-    currentCamera = std::make_shared<Camera>();
 }
 
 void Viewport::update(double dt) {
@@ -23,11 +22,11 @@ void Viewport::setRectangle(int x, int y, int width, int height) {
     glViewport(x, y, width, height);
 }
 
-void Viewport::addCamera(std::shared_ptr<Camera> camera) {
+void Viewport::addCamera(std::shared_ptr<Entity> camera) {
     cameras.push_back(camera);
 }
 
-void Viewport::removeCamera(std::shared_ptr<Camera> camera) {
+void Viewport::removeCamera(std::shared_ptr<Entity> camera) {
     cameras.erase(std::remove(cameras.begin(), cameras.end(), camera), cameras.end());
 }
 
@@ -35,6 +34,6 @@ void Viewport::clearCameras() {
     cameras.clear();
 }
 
-void Viewport::setCurrentCamera(std::shared_ptr<Camera> currentCamera) {
+void Viewport::setCurrentCamera(std::shared_ptr<Entity> currentCamera) {
     this->currentCamera = currentCamera;
 }

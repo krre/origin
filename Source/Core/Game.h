@@ -25,8 +25,6 @@ public:
 
     bool getWireframe() const { return wireframe; }
 
-    void cameraMove(float dt);
-
 private:
     void keyPress(const SDL_KeyboardEvent& event);
     void mouseButtonAction(const SDL_MouseButtonEvent& event);

@@ -1,8 +1,8 @@
 #pragma once
-#include "../Scene/Node.h"
+#include "../Core/Object.h"
 #include <glm/glm.hpp>
 
-class Camera : public Node {
+class Camera : public Object {
 
 public:
     Camera();
@@ -11,7 +11,6 @@ public:
     void setFov(float fov);
     void setAspect(float aspect);
     const glm::mat4& getProjection() const { return projection; }
-    const glm::mat4& getView();
 
 private:
     float near = 0.1f;

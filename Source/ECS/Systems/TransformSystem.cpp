@@ -14,6 +14,7 @@ void TransformSystem::process(float dt) {
             glm::mat4 rotationMatrix = glm::toMat4(tc->rotation);
             glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), tc->scale);
             tc->localMatrix = rotationMatrix * translationMatrix * scaleMatrix;
+            tc->worldMatrix = tc->localMatrix;
             tc->dirty = false;
         }
     }
@@ -40,6 +41,12 @@ void TransformSystem::setRotation(Entity* entity, glm::quat& rotation) {
 void TransformSystem::setScale(Entity* entity, glm::vec3& scale) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     tc->scale = scale;
+    tc->dirty = true;
+}
+
+void TransformSystem::setPitch(Entity *entity, float pitch) {
+    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
+    tc->pitch = pitch;
     tc->dirty = true;
 }
 

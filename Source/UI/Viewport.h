@@ -1,5 +1,6 @@
 #pragma once
 #include "../Core/Object.h"
+#include "../ECS/Entity.h"
 #include "Control.h"
 #include "../Graphics/Camera.h"
 #include <vector>
@@ -14,16 +15,16 @@ public:
     void setBackgroundColor(const glm::vec4& backgroundColor);
     void setRectangle(int x, int y, int width, int height);
 
-    void addCamera(std::shared_ptr<Camera> camera);
-    void removeCamera(std::shared_ptr<Camera> camera);
+    void addCamera(std::shared_ptr<Entity> camera);
+    void removeCamera(std::shared_ptr<Entity> camera);
     void clearCameras();
 
-    void setCurrentCamera(std::shared_ptr<Camera> currentCamera);
-    std::shared_ptr<Camera> getCurrentCamera() const { return currentCamera; }
+    void setCurrentCamera(std::shared_ptr<Entity> currentCamera);
+    std::shared_ptr<Entity> getCurrentCamera() const { return currentCamera; }
 
 private:
-    std::shared_ptr<Camera> currentCamera;
+    std::shared_ptr<Entity> currentCamera;
     glm::vec4 backgroundColor;
     glm::vec4 rectangle;
-    std::vector<std::shared_ptr<Camera>> cameras;
+    std::vector<std::shared_ptr<Entity>> cameras;
 };

@@ -6,5 +6,5 @@
 class InputComponent : public Component {
 
 public:
-    InputComponent();
+    InputComponent() { type = Component::Type::Input; }
 };

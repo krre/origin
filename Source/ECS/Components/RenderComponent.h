@@ -5,6 +5,6 @@
 class RenderComponent : public Component {
 
 public:
-    RenderComponent();
+    RenderComponent() { type = Component::Type::Render; }
     std::shared_ptr<Drawable> drawable;
 };

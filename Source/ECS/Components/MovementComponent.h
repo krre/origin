@@ -4,7 +4,7 @@
 class MovementComponent : public Component {
 
 public:
-    MovementComponent();
+    MovementComponent() { type = Component::Type::Movement; }
     float moveSpeed = 0;
     float rotateSpeed = 0;
 };

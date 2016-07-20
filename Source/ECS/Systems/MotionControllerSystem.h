@@ -12,8 +12,8 @@ public:
     void setRotateEntity(Entity* rotateEntity);
 
 private:
-    TransformComponent* moveTarget;
-    TransformComponent* rotateTarget;
+    Entity* moveEntity;
+    Entity* rotateEntity;
 
     float moveSpeed;
     float rotateSpeed;

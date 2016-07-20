@@ -24,7 +24,7 @@ public:
     Type getType() const { return type; }
 
     bool setActive(bool active);
-    bool getActive() const { active; }
+    bool getActive() const { return active; }
 
 protected:
     Type type = Type::None;

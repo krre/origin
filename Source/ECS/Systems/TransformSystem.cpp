@@ -31,19 +31,19 @@ void TransformSystem::setRotation(Entity* entity, float angle, glm::vec3& axis) 
     tc->dirty = true;
 }
 
-void TransformSystem::setRotation(std::shared_ptr<Entity> entity, glm::quat& rotation) {
+void TransformSystem::setRotation(Entity* entity, glm::quat& rotation) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     tc->rotation = rotation;
     tc->dirty = true;
 }
 
-void TransformSystem::setScale(std::shared_ptr<Entity> entity, glm::vec3& scale) {
+void TransformSystem::setScale(Entity* entity, glm::vec3& scale) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     tc->scale = scale;
     tc->dirty = true;
 }
 
-void TransformSystem::translate(std::shared_ptr<Entity> entity, const glm::vec3& delta, bool local) {
+void TransformSystem::translate(Entity* entity, const glm::vec3& delta, bool local) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     if (local) {
         tc->translation += tc->rotation * delta;
@@ -54,13 +54,13 @@ void TransformSystem::translate(std::shared_ptr<Entity> entity, const glm::vec3&
     tc->dirty = true;
 }
 
-void TransformSystem::rotate(std::shared_ptr<Entity> entity, glm::quat& delta) {
+void TransformSystem::rotate(Entity* entity, glm::quat& delta) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     tc->rotation *= delta;
     tc->dirty = true;
 }
 
-void TransformSystem::scale(std::shared_ptr<Entity> entity, glm::vec3& delta) {
+void TransformSystem::scale(Entity* entity, glm::vec3& delta) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     tc->scale *= delta;
     tc->dirty = true;

@@ -31,7 +31,7 @@ void Game::create() {
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     Engine::getInstance()->addEntity(avatarCamera);
     TransformSystem* avatarCameraTransformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(System::Type::Transform).get());
-    avatarCameraTransformSystem->translate(avatarCamera, glm::vec3(0.0f, 0.5f, 0.0f));
+    avatarCameraTransformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.5f, 0.0f));
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(System::Type::Node).get());
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 

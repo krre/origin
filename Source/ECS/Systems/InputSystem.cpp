@@ -35,15 +35,15 @@ void InputSystem::moveActiveEntity(float dt) {
 
     glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(tc->yaw), glm::radians(tc->pitch)));
     TransformSystem* transformSystem = static_cast<TransformSystem*>(engine->getSystem(System::Type::Transform).get());
-    transformSystem->setRotation(activeEntity, rotation);
+    transformSystem->setRotation(activeEntity.get(), rotation);
 
     if (Input::getInstance()->isKeyPressed(SDLK_w)) {
-        transformSystem->translate(activeEntity, glm::vec3(0.0f, 0.0f, -1.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity.get(), glm::vec3(0.0f, 0.0f, -1.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_s)) {
-        transformSystem->translate(activeEntity, glm::vec3(0.0f, 0.0f, 1.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity.get(), glm::vec3(0.0f, 0.0f, 1.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_a)) {
-        transformSystem->translate(activeEntity, glm::vec3(-1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity.get(), glm::vec3(-1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
     } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
-        transformSystem->translate(activeEntity, glm::vec3(1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
+        transformSystem->translate(activeEntity.get(), glm::vec3(1.0f, 0.0f, 0.0f) * mc->moveSpeed * dt);
     }
 }

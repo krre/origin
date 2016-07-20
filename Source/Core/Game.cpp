@@ -98,6 +98,8 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
             state = PAUSE;
             SDL_SetRelativeMouseMode(SDL_FALSE);
         } else if (state == CONSOLE) {
+            MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(System::Type::MotionController).get());
+            motionControllerSystem->setActive(true);
             Console::getInstance()->setVisible(false);
             state = PLAY;
         }
@@ -122,6 +124,8 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
 
     case SDLK_SLASH:
         if (state == PLAY) {
+            MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(System::Type::MotionController).get());
+            motionControllerSystem->setActive(false);
             Console::getInstance()->setVisible(true);
             state = CONSOLE;
         }

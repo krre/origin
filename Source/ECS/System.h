@@ -9,12 +9,13 @@ class System : public Object {
 
 public:
     enum class Type {
-        None,
+        Camera,
         Input,
-        Render,
-        Transform,
+        MotionController,
         Node,
-        MotionController
+        None,
+        Render,
+        Transform
     };
 
     System();

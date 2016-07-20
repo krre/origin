@@ -25,8 +25,6 @@ void Game::create() {
     // Avatar
     auto avatar = EntityBuilder::avatar();
     Engine::getInstance()->addEntity(avatar);
-    InputSystem* inputSystem = static_cast<InputSystem*>(Engine::getInstance()->getSystem(System::Type::Input).get());\
-    inputSystem->setActiveEntity(avatar);
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     Engine::getInstance()->addEntity(avatarCamera);

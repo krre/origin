@@ -14,4 +14,7 @@ public:
 private:
     TransformComponent* moveTarget;
     TransformComponent* rotateTarget;
+
+    float moveSpeed;
+    float rotateSpeed;
 };

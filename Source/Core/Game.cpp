@@ -112,7 +112,8 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
         break;
 
     case SDLK_F10:
-        toggleFullScreen();
+        // TODO: Incorrect work
+//        toggleFullScreen();
         break;
 
     case SDLK_F12:

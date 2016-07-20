@@ -7,9 +7,5 @@ class Renderer : public Object {
 
 public:
     Renderer();
-    void render(float dt);
-    void setEntities(std::vector<std::shared_ptr<Entity>> *entities);
-
-private:
-    std::vector<std::shared_ptr<Entity>>* entities = nullptr;
+    void render(Entity* entity);
 };

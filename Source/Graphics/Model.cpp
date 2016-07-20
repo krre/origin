@@ -5,7 +5,7 @@ Model::Model() {
 }
 
 void Model::draw(float dt) {
-    mesh->draw(dt);
+    mesh->draw();
 }
 
 void Model::setMaterial(std::shared_ptr<Material> material) {

@@ -7,23 +7,21 @@
 
 std::shared_ptr<Entity> EntityBuilder::ground() {
     std::vector<Component::Type> types = {
-        Component::Type::Render,
+        Component::Type::Node,
         Component::Type::Transform,
+        Component::Type::Mesh,
+        Component::Type::Material,
+        Component::Type::Render,
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
 
-    auto planeModel = std::make_shared<Model>();
+    MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[Component::Type::Mesh].get());
+    meshComp->mesh = std::make_shared<Plane>(1, 1);
 
-    auto planeMesh = std::make_shared<Plane>(1, 1);
-    planeModel->setMesh(planeMesh);
-
-    auto planeMaterial = std::make_shared<Material>();
-    planeMaterial->setColor(Color(0, 0, 1, 1));
-    planeModel->setMaterial(planeMaterial);
-
-    RenderComponent* renderComp = static_cast<RenderComponent*>(entity->components[Component::Type::Render].get());
-    renderComp->drawable = planeModel;
+    MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[Component::Type::Material].get());
+    materialComp->material = std::make_shared<Material>();
+    materialComp->material->setColor(Color(0.2, 0.7f, 0.8f, 1));
 
     return entity;
 }
@@ -39,8 +37,8 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
 
-    auto cameraComponent = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
-    cameraComponent->camera = std::make_shared<Camera>();
+    CameraComponent* cameraComp = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
+    cameraComp->camera = std::make_shared<Camera>();
 
     return entity;
 }

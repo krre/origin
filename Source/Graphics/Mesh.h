@@ -18,7 +18,8 @@ public:
 
     void setup();
     void setShaderGroup(ShaderGroup* shaderGroup);
-    void draw(float dt);
+    ShaderGroup* getShaderGroup() { return shaderGroup; }
+    void draw();
 
 protected:
     std::vector<GLfloat> verticles;

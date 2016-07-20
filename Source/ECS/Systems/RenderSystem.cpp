@@ -18,19 +18,12 @@ RenderSystem::RenderSystem() {
 void RenderSystem::process(float dt) {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // TODO: Replace by family
-    std::vector<std::shared_ptr<Entity>> renderEntities;
     for (auto entity : engine->getEntities()) {
         RenderComponent* renderComp = static_cast<RenderComponent*>(entity->components[Component::Type::Render].get());
-        if (renderComp) {
-            assert(renderComp->drawable);
-            if (renderComp->drawable->getVisible()) {
-                renderEntities.push_back(entity);
-            }
+        if (renderComp && renderComp->visible) {
+            renderer.render(entity.get());
         }
     }
-
-    renderer.setEntities(&renderEntities);
-    renderer.render(dt);
 
     for (auto drawable : drawables) {
         if (drawable->getVisible()) {

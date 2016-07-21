@@ -5,7 +5,7 @@
 #include "../Graphics/Mesh/Cube.h"
 #include "../Graphics/Material.h"
 
-std::shared_ptr<Entity> EntityBuilder::plane() {
+std::shared_ptr<Entity> EntityBuilder::geometry() {
     std::vector<Component::Type> types = {
         Component::Type::Node,
         Component::Type::Transform,
@@ -15,9 +15,6 @@ std::shared_ptr<Entity> EntityBuilder::plane() {
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
-
-    MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[Component::Type::Mesh].get());
-    meshComp->mesh = std::make_shared<Plane>();
 
     MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[Component::Type::Material].get());
     materialComp->material = std::make_shared<Material>();
@@ -26,23 +23,20 @@ std::shared_ptr<Entity> EntityBuilder::plane() {
     return entity;
 }
 
+std::shared_ptr<Entity> EntityBuilder::plane() {
+    std::shared_ptr<Entity> entity = geometry();
+
+    MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[Component::Type::Mesh].get());
+    meshComp->mesh = std::make_shared<Plane>();
+
+    return entity;
+}
+
 std::shared_ptr<Entity> EntityBuilder::cube() {
-    std::vector<Component::Type> types = {
-        Component::Type::Node,
-        Component::Type::Transform,
-        Component::Type::Mesh,
-        Component::Type::Material,
-        Component::Type::Render,
-    };
-    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    Engine::getInstance()->createComponents(entity.get(), types);
+    std::shared_ptr<Entity> entity = geometry();
 
     MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[Component::Type::Mesh].get());
     meshComp->mesh = std::make_shared<Cube>();
-
-    MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[Component::Type::Material].get());
-    materialComp->material = std::make_shared<Material>();
-    materialComp->material->setColor(Color(0.2, 0.7f, 0.8f, 1));
 
     return entity;
 }

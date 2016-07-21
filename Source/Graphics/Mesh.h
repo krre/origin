@@ -17,8 +17,6 @@ public:
     const std::vector<int>& getIndices() const { return indices; }
 
     void setup();
-    void setShaderGroup(ShaderGroup* shaderGroup);
-    ShaderGroup* getShaderGroup() { return shaderGroup; }
     void draw();
 
 protected:
@@ -28,5 +26,4 @@ protected:
 private:
     VertexArray VAO;
     Buffer VBO;
-    ShaderGroup* shaderGroup;
 };

@@ -1,5 +1,6 @@
 #include "Renderer.h"
 #include "../Core/App.h"
+#include "../Resource/ResourceManager.h"
 #include "../ECS/Components/Components.h"
 #include "../ECS/Engine.h"
 #include "../ECS/Systems/CameraSystem.h"
@@ -21,7 +22,7 @@ void Renderer::render(Entity* entity) {
     MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[Component::Type::Mesh].get());
     MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[Component::Type::Material].get());
 
-    ShaderGroup* shaderGroup = meshComp->mesh->getShaderGroup();
+    ShaderGroup* shaderGroup = ResourceManager::getInstance()->getShaderGroup("BaseShaderGroup");
     shaderGroup->use();
 
     GLuint matrix = glGetUniformLocation(shaderGroup->getProgram(), "mvp");

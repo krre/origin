@@ -26,10 +26,6 @@ void Mesh::setup() {
     VAO.unbind();
 }
 
-void Mesh::setShaderGroup(ShaderGroup* shaderGroup) {
-    this->shaderGroup = shaderGroup;
-}
-
 void Mesh::draw() {
     VAO.bind();
     glDrawArrays(GL_TRIANGLES, 0, verticles.size() / 3);

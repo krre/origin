@@ -43,7 +43,10 @@ void Game::create() {
     Engine::getInstance()->addEntity(EntityBuilder::plane());
 
     // Cube
-    Engine::getInstance()->addEntity(EntityBuilder::cube());
+    std::shared_ptr<Entity> cube = EntityBuilder::cube();
+    transformSystem->scale(cube.get(), glm::vec3(0.2, 0.2, 0.2));
+    Engine::getInstance()->addEntity(cube);
+
 
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
 

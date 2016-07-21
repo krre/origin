@@ -67,7 +67,7 @@ void TransformSystem::rotate(Entity* entity, glm::quat& delta) {
     tc->dirty = true;
 }
 
-void TransformSystem::scale(Entity* entity, glm::vec3& delta) {
+void TransformSystem::scale(Entity* entity, const glm::vec3& delta) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     tc->scale *= delta;
     tc->dirty = true;

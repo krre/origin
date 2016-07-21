@@ -17,5 +17,5 @@ public:
 
     void translate(Entity* entity, const glm::vec3& delta, bool local = true);
     void rotate(Entity* entity, glm::quat& delta);
-    void scale(Entity* entity, glm::vec3& delta);
+    void scale(Entity* entity, const glm::vec3 &delta);
 };

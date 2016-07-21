@@ -21,6 +21,7 @@ Game::Game() {
 
 void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(System::Type::Transform).get());
 
     // Avatar
     auto avatar = EntityBuilder::avatar();
@@ -29,7 +30,6 @@ void Game::create() {
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
     Engine::getInstance()->addEntity(avatarCamera);
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(System::Type::Transform).get());
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.5f, 0.0f));
     transformSystem->setPitch(avatarCamera.get(), -35.0);
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(System::Type::Node).get());
@@ -39,8 +39,11 @@ void Game::create() {
     motionControllerSystem->setMoveEntity(avatarCamera.get());
     motionControllerSystem->setRotateEntity(avatarCamera.get());
 
-    // Ground
+    // Plane
     Engine::getInstance()->addEntity(EntityBuilder::plane());
+
+    // Cube
+    Engine::getInstance()->addEntity(EntityBuilder::cube());
 
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
 

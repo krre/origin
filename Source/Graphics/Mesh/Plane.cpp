@@ -1,6 +1,6 @@
 #include "Plane.h"
 
-Plane::Plane(int width, int height) : width(width), height(height) {
+Plane::Plane(float width, float height) : width(width), height(height) {
     static GLfloat vertexData[] = {
         -1.0f * width, 0.0f, -1.0f * height,
         1.0f * width, 0.0f, 1.0f * height,

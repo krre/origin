@@ -4,9 +4,9 @@
 class Plane : public Mesh {
 
 public:
-    Plane(int width, int height);
+    Plane(float width = 1.0, float height = 1.0);
 
 private:
-    int width;
-    int height;
+    float width;
+    float height;
 };

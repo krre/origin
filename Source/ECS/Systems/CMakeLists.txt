@@ -2,8 +2,6 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/CameraSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CameraSystem.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/InputSystem.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/InputSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MotionControllerSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MotionControllerSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/NodeSystem.cpp

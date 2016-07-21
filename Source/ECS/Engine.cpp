@@ -54,7 +54,6 @@ void Engine::initSystems() {
     // This is also order of processing
     addSystem<MotionControllerSystem>();
     addSystem<CameraSystem>();
-    addSystem<InputSystem>();
     addSystem<TransformSystem>();
     addSystem<NodeSystem>();
     addSystem<RenderSystem>();

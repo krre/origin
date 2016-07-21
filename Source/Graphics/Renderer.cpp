@@ -18,6 +18,8 @@ void Renderer::render(Entity* entity) {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     }
 
+    Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
+    CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[Component::Type::Camera].get());
     TransformComponent* transformComp = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[Component::Type::Mesh].get());
     MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[Component::Type::Material].get());
@@ -27,8 +29,9 @@ void Renderer::render(Entity* entity) {
 
     GLuint matrix = glGetUniformLocation(shaderGroup->getProgram(), "mvp");
     CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(System::Type::Camera).get());
-    glm::mat4 projection = cameraSystem->getProjection(App::getInstance()->getViewport()->getCurrentCamera().get());
-    glm::mat4 view = cameraSystem->getView(App::getInstance()->getViewport()->getCurrentCamera().get());
+
+    glm::mat4 projection = cameraComp->projection;
+    glm::mat4 view = cameraSystem->getView(currentCamera);
     glm::mat4 modelMatrix = transformComp->worldMatrix;
     glm::mat4 mvp = projection * view * modelMatrix;
     glUniformMatrix4fv(matrix, 1, GL_FALSE, &mvp[0][0]);

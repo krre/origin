@@ -1,6 +1,5 @@
 #pragma once
 #include "Singleton.h"
-#include "../Graphics/Camera.h"
 #include <list>
 #include <glm/glm.hpp>
 #include <SDL.h>
@@ -31,9 +30,6 @@ private:
     void toggleFullScreen();
     void saveScreenshot();
 
-    float yaw = 0;
-    float pitch = 0;
-    std::shared_ptr<Camera> camera;
     State state = PLAY;
     bool wireframe = false; // TODO: Move to renderer
 };

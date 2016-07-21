@@ -52,9 +52,6 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
 
-    CameraComponent* cameraComp = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
-    cameraComp->camera = std::make_shared<Camera>();
-
     return entity;
 }
 
@@ -67,9 +64,6 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
-
-    auto cameraComponent = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
-    cameraComponent->camera = std::make_shared<Camera>();
 
     auto movementComponent = static_cast<MovementComponent*>(entity->components[Component::Type::Movement].get());
     movementComponent->moveSpeed = 1.0;
@@ -86,9 +80,6 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
     };
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     Engine::getInstance()->createComponents(entity.get(), types);
-
-    auto cameraComponent = static_cast<CameraComponent*>(entity->components[Component::Type::Camera].get());
-    cameraComponent->camera = std::make_shared<Camera>();
 
     return entity;
 }

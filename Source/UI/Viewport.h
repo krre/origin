@@ -2,7 +2,6 @@
 #include "../Core/Object.h"
 #include "../ECS/Entity.h"
 #include "Control.h"
-#include "../Graphics/Camera.h"
 #include <vector>
 
 class Viewport : public Control {

@@ -4,7 +4,7 @@
 #include "../Graphics/Mesh/Plane.h"
 #include "../Graphics/Material.h"
 
-std::shared_ptr<Entity> EntityBuilder::ground() {
+std::shared_ptr<Entity> EntityBuilder::plane() {
     std::vector<Component::Type> types = {
         Component::Type::Node,
         Component::Type::Transform,

@@ -40,7 +40,7 @@ void Game::create() {
     motionControllerSystem->setRotateEntity(avatarCamera.get());
 
     // Ground
-    Engine::getInstance()->addEntity(EntityBuilder::ground());
+    Engine::getInstance()->addEntity(EntityBuilder::plane());
 
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
 

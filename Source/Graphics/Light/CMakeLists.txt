@@ -1,0 +1,7 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Light.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Light.h
+
+    PARENT_SCOPE
+)

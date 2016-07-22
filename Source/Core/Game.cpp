@@ -50,6 +50,10 @@ void Game::create() {
     materialComp->material->setColor(Color(0.8, 0.1f, 0.1f, 1.0f));
     Engine::getInstance()->addEntity(cube);
 
+    // Light
+    std::shared_ptr<Entity> light = EntityBuilder::light();
+    transformSystem->translate(light.get(), glm::vec3(1.0, 1.0, 1.0));
+    Engine::getInstance()->addEntity(light);
 
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
 

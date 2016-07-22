@@ -83,3 +83,14 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
 
     return entity;
 }
+
+std::shared_ptr<Entity> EntityBuilder::light() {
+    std::vector<Component::Type> types = {
+        Component::Type::Transform,
+        Component::Type::Light,
+    };
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+    Engine::getInstance()->createComponents(entity.get(), types);
+
+    return entity;
+}

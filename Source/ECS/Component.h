@@ -8,15 +8,15 @@ public:
         Camera,
         Empty,
         Input,
+        Light,
+        Material,
+        Mesh,
+        MotionController,
+        Movement,
         Node,
         Render,
-        Transform,
-        Movement,
-        Mesh,
-        Material,
-        MotionController
+        Transform
     };
-
 
     Component();
     Component::Type getType() const { return type; }

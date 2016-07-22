@@ -64,6 +64,9 @@ Component* Engine::createComponent(Entity* entity, Component::Type type) {
     case Component::Type::Camera:
         entity->components[type] = std::make_shared<CameraComponent>();
         break;
+    case Component::Type::Light:
+        entity->components[type] = std::make_shared<LightComponent>();
+        break;
     case Component::Type::Material:
         entity->components[type] = std::make_shared<MaterialComponent>();
         break;

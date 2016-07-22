@@ -2,6 +2,7 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Components.h
     ${CMAKE_CURRENT_SOURCE_DIR}/CameraComponent.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/LightComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MaterialComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MeshComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MotionControllerComponent.h

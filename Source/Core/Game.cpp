@@ -29,7 +29,6 @@ void Game::create() {
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
-    Engine::getInstance()->addEntity(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.5f, 0.0f));
     transformSystem->setPitch(avatarCamera.get(), -35.0);
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(System::Type::Node).get());
@@ -39,12 +38,16 @@ void Game::create() {
     motionControllerSystem->setMoveEntity(avatarCamera.get());
     motionControllerSystem->setRotateEntity(avatarCamera.get());
 
+    Engine::getInstance()->addEntity(avatarCamera);
+
     // Plane
     Engine::getInstance()->addEntity(EntityBuilder::plane());
 
     // Cube
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
     transformSystem->scale(cube.get(), glm::vec3(0.2, 0.2, 0.2));
+    MaterialComponent* materialComp = static_cast<MaterialComponent*>(cube->components[Component::Type::Material].get());
+    materialComp->material->setColor(Color(0.8, 0.1f, 0.1f, 1.0f));
     Engine::getInstance()->addEntity(cube);
 
 

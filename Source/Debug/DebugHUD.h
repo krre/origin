@@ -11,7 +11,7 @@ public:
     void trigger();
 
 private:
-    Text fpsText;
+    Text fps;
     Text version;
     float accumTime = 0.5;
     int counter = 30;

@@ -10,18 +10,18 @@ DebugHUD::DebugHUD() {
 
 void DebugHUD::draw(float dt) {
     version.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 15));
-    fpsText.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 32));
+    fps.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 32));
 
     accumTime += dt;
     counter++;
     if (accumTime >= 0.5) {
         // Average fps for 0.5 sec
-        fpsText.setText(std::to_string(int(std::round(counter / accumTime))) + " fps");
+        fps.setText(std::to_string(int(std::round(counter / accumTime))) + " fps");
         accumTime = 0;
         counter = 0;
     }
     version.draw(dt);
-    fpsText.draw(dt);
+    fps.draw(dt);
 }
 
 void DebugHUD::trigger() {

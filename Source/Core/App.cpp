@@ -97,6 +97,7 @@ void App::init() {
 
                 glewExperimental = GL_TRUE;
                 glewInit();
+                glEnable(GL_DEPTH_TEST);
                 isRunning = true;
             }
         }

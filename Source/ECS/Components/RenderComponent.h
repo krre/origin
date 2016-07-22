@@ -4,6 +4,6 @@
 class RenderComponent : public Component {
 
 public:
-    RenderComponent() { type = Component::Type::Render; }
+    RenderComponent() { type = ComponentType::Render; }
     bool visible = true;
 };

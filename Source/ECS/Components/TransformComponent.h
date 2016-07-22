@@ -5,7 +5,7 @@
 class TransformComponent : public Component {
 
 public:
-    TransformComponent() { type = Component::Type::Transform; }
+    TransformComponent() { type = ComponentType::Transform; }
     glm::mat4 localMatrix = glm::mat4(1.0);
     glm::mat4 worldMatrix = glm::mat4(1.0);
     glm::vec3 translation;

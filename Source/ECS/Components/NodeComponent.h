@@ -6,7 +6,7 @@
 class NodeComponent : public Component {
 
 public:
-    NodeComponent() { type = Component::Type::Node; }
+    NodeComponent() { type = ComponentType::Node; }
     EntityId parent = 0;
     std::vector<EntityId> children;
 };

@@ -7,7 +7,7 @@ class CameraComponent : public Component {
 
 public:
     CameraComponent() {
-        type = Component::Type::Camera;
+        type = ComponentType::Camera;
         int width = App::getInstance()->getWidth();
         int height = App::getInstance()->getHeight();
         aspect = width * 1.0f / height;

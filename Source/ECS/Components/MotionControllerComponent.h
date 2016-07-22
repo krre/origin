@@ -5,7 +5,7 @@
 class MotionControllerComponent : public Component {
 
 public:
-    MotionControllerComponent() { type = Component::Type::MotionController; }
+    MotionControllerComponent() { type = ComponentType::MotionController; }
     EntityId moveTarget;
     EntityId rotateTarget;
 };

@@ -19,10 +19,10 @@ void Renderer::render(Entity* entity) {
     }
 
     Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
-    CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[Component::Type::Camera].get());
-    TransformComponent* transformComp = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
-    MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[Component::Type::Mesh].get());
-    MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[Component::Type::Material].get());
+    CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
+    TransformComponent* transformComp = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+    MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[ComponentType::Mesh].get());
+    MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
 
     ShaderGroup* shaderGroup = ResourceManager::getInstance()->getShaderGroup("BaseShaderGroup");
     shaderGroup->use();

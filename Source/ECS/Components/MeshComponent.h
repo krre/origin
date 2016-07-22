@@ -5,6 +5,6 @@
 class MeshComponent : public Component {
 
 public:
-    MeshComponent() { type = Component::Type::Mesh; }
+    MeshComponent() { type = ComponentType::Mesh; }
     std::shared_ptr<Mesh> mesh;
 };

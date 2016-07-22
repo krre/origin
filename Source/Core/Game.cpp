@@ -46,7 +46,7 @@ void Game::create() {
     // Cube
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
     transformSystem->scale(cube.get(), glm::vec3(0.2, 0.2, 0.2));
-    MaterialComponent* materialComp = static_cast<MaterialComponent*>(cube->components[Component::Type::Material].get());
+    MaterialComponent* materialComp = static_cast<MaterialComponent*>(cube->components[ComponentType::Material].get());
     materialComp->material->setColor(Color(0.8, 0.1f, 0.1f, 1.0f));
     Engine::getInstance()->addEntity(cube);
 

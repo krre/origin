@@ -9,7 +9,7 @@ MotionControllerSystem::MotionControllerSystem() {
 }
 
 void MotionControllerSystem::process(float dt) {
-    TransformComponent* tc = static_cast<TransformComponent*>(rotateEntity->components[Component::Type::Transform].get());
+    TransformComponent* tc = static_cast<TransformComponent*>(rotateEntity->components[ComponentType::Transform].get());
 
     glm::ivec2 relMousePos = Input::getInstance()->getRelMousePos();
     tc->yaw += rotateSpeed * relMousePos.x;
@@ -35,10 +35,10 @@ void MotionControllerSystem::process(float dt) {
 
 void MotionControllerSystem::setMoveEntity(Entity* moveEntity) {
     this->moveEntity = moveEntity;
-    moveSpeed = static_cast<MovementComponent*>(moveEntity->components[Component::Type::Movement].get())->moveSpeed;
+    moveSpeed = static_cast<MovementComponent*>(moveEntity->components[ComponentType::Movement].get())->moveSpeed;
 }
 
 void MotionControllerSystem::setRotateEntity(Entity* rotateEntity) {
     this->rotateEntity = rotateEntity;
-    rotateSpeed = static_cast<MovementComponent*>(rotateEntity->components[Component::Type::Movement].get())->rotateSpeed;
+    rotateSpeed = static_cast<MovementComponent*>(rotateEntity->components[ComponentType::Movement].get())->rotateSpeed;
 }

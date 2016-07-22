@@ -4,6 +4,6 @@
 class LightComponent : public Component {
 
 public:
-    LightComponent() { type = Component::Type::Light; }
+    LightComponent() { type = ComponentType::Light; }
 
 };

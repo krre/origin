@@ -26,10 +26,10 @@ public:
 
     void process(float dt);
 
-    Component* createComponent(Entity* entity, Component::Type type);
-    void createComponents(Entity* entity, std::vector<Component::Type> types);
+    Component* createComponent(Entity* entity, ComponentType type);
+    void createComponents(Entity* entity, std::vector<ComponentType> types);
     void addComponent(Entity* entity, std::shared_ptr<Component> component);
-    void removeComponent(Entity* entity, Component::Type type);
+    void removeComponent(Entity* entity, ComponentType type);
 
 private:
     std::map<System::Type, std::shared_ptr<System>> systems;

@@ -59,33 +59,33 @@ void Engine::initSystems() {
     addSystem<RenderSystem>();
 }
 
-Component* Engine::createComponent(Entity* entity, Component::Type type) {
+Component* Engine::createComponent(Entity* entity, ComponentType type) {
     switch (type) {
-    case Component::Type::Camera:
+    case ComponentType::Camera:
         entity->components[type] = std::make_shared<CameraComponent>();
         break;
-    case Component::Type::Light:
+    case ComponentType::Light:
         entity->components[type] = std::make_shared<LightComponent>();
         break;
-    case Component::Type::Material:
+    case ComponentType::Material:
         entity->components[type] = std::make_shared<MaterialComponent>();
         break;
-    case Component::Type::Mesh:
+    case ComponentType::Mesh:
         entity->components[type] = std::make_shared<MeshComponent>();
         break;
-    case Component::Type::Movement:
+    case ComponentType::Movement:
         entity->components[type] = std::make_shared<MovementComponent>();
         break;
-    case Component::Type::Node:
+    case ComponentType::Node:
         entity->components[type] = std::make_shared<NodeComponent>();
         break;
-    case Component::Type::Render:
+    case ComponentType::Render:
         entity->components[type] = std::make_shared<RenderComponent>();
         break;
-    case Component::Type::Transform:
+    case ComponentType::Transform:
         entity->components[type] = std::make_shared<TransformComponent>();
         break;
-    case Component::Type::MotionController:
+    case ComponentType::MotionController:
         entity->components[type] = std::make_shared<MotionControllerComponent>();
         break;
     }
@@ -93,7 +93,7 @@ Component* Engine::createComponent(Entity* entity, Component::Type type) {
     return entity->components[type].get();
 }
 
-void Engine::createComponents(Entity *entity, std::vector<Component::Type> types) {
+void Engine::createComponents(Entity *entity, std::vector<ComponentType> types) {
     for (auto type : types) {
         createComponent(entity, type);
     }
@@ -103,6 +103,6 @@ void Engine::addComponent(Entity* entity, std::shared_ptr<Component> component) 
     entity->components[component->getType()] = component;
 }
 
-void Engine::removeComponent(Entity* entity, Component::Type type) {
+void Engine::removeComponent(Entity* entity, ComponentType type) {
     entity->components.erase(type);
 }

@@ -5,6 +5,6 @@
 class MaterialComponent : public Component {
 
 public:
-    MaterialComponent() { type = Component::Type::Material; }
+    MaterialComponent() { type = ComponentType::Material; }
     std::shared_ptr<Material> material;
 };

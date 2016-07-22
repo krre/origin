@@ -4,7 +4,7 @@
 #include <algorithm>
 
 NodeSystem::NodeSystem() {
-    type = System::Type::Node;
+    type = SystemType::Node;
 }
 
 void NodeSystem::process(float dt) {

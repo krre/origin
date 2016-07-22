@@ -13,8 +13,8 @@ public:
         systems[system->getType()] = system;
     }
 
-    void removeSystem(System::Type type);
-    std::shared_ptr<System> getSystem(System::Type type);
+    void removeSystem(SystemType type);
+    std::shared_ptr<System> getSystem(SystemType type);
     void clearSystems();
 
     void addEntity(std::shared_ptr<Entity> entity);
@@ -32,7 +32,7 @@ public:
     void removeComponent(Entity* entity, ComponentType type);
 
 private:
-    std::map<System::Type, std::shared_ptr<System>> systems;
+    std::map<SystemType, std::shared_ptr<System>> systems;
     std::vector<std::shared_ptr<Entity>> entities;
 
     void initSystems();

@@ -7,11 +7,11 @@ Engine::Engine() {
     initSystems();
 }
 
-void Engine::removeSystem(System::Type type) {
+void Engine::removeSystem(SystemType type) {
     systems.erase(type);
 }
 
-std::shared_ptr<System> Engine::getSystem(System::Type type) {
+std::shared_ptr<System> Engine::getSystem(SystemType type) {
     return systems.at(type);
 }
 

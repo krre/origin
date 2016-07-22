@@ -28,7 +28,7 @@ void Renderer::render(Entity* entity) {
     shaderGroup->use();
 
     GLuint matrix = glGetUniformLocation(shaderGroup->getProgram(), "mvp");
-    CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(System::Type::Camera).get());
+    CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(SystemType::Camera).get());
 
     glm::mat4 projection = cameraComp->projection;
     glm::mat4 view = cameraSystem->getView(currentCamera);

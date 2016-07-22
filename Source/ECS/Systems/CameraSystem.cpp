@@ -6,7 +6,7 @@
 #include "../Components/TransformComponent.h"
 
 CameraSystem::CameraSystem() {
-    type = System::Type::Camera;
+    type = SystemType::Camera;
     Event::getInstance()->windowResize.connect<CameraSystem, &CameraSystem::onWindowResize>(this);
 }
 

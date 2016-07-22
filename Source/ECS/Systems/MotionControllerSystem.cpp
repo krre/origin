@@ -5,7 +5,7 @@
 #include "../Engine.h"
 
 MotionControllerSystem::MotionControllerSystem() {
-    type = System::Type::MotionController;
+    type = SystemType::MotionController;
 }
 
 void MotionControllerSystem::process(float dt) {
@@ -19,7 +19,7 @@ void MotionControllerSystem::process(float dt) {
     tc->pitch = glm::clamp(tc->pitch, -80.0f, 80.0f);
 
     glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(tc->yaw), glm::radians(tc->pitch)));
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(engine->getSystem(System::Type::Transform).get());
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(engine->getSystem(SystemType::Transform).get());
     transformSystem->setRotation(rotateEntity, rotation);
 
     if (Input::getInstance()->isKeyPressed(SDLK_w)) {

@@ -26,6 +26,6 @@ void Mesh::setup() {
 
 void Mesh::draw() {
     VAO.bind();
-    glDrawArrays(GL_TRIANGLES, 0, verticles.size() / 3);
+    glDrawArrays(GL_TRIANGLES, 0, verticles.size() / 6);
     VAO.unbind();
 }

@@ -25,7 +25,7 @@ void ResourceManager::loadAll() {
     lightShaderGroup->setVertShaderPath(shaderPath + "/Light.vert");
     lightShaderGroup->setFragShaderPath(shaderPath + "/Light.frag");
     lightShaderGroup->load();
-    resources["LightShaderGroup"] = fontShaderGroup;
+    resources["LightShaderGroup"] = lightShaderGroup;
 
     // Fonts
     auto iconsolataFont = std::make_shared<Font>();

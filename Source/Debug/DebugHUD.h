@@ -12,6 +12,7 @@ public:
 
 private:
     Text fpsText;
+    Text version;
     float accumTime = 0.5;
     int counter = 30;
 };

@@ -37,7 +37,7 @@ void Renderer::render(Entity* entity) {
     GLuint model      = glGetUniformLocation(shaderGroup->getProgram(), "model");
 
     glm::vec3 color = materialComp->color;
-    glm::vec3 cameraPos = cameraTransform->translation;
+    glm::vec3 cameraPos = cameraTransform->position;
     CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(SystemType::Camera).get());
 
     glm::mat4 projection = cameraComp->projection;

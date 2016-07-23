@@ -8,7 +8,7 @@ public:
     TransformComponent() { type = ComponentType::Transform; }
     glm::mat4 localMatrix = glm::mat4(1.0);
     glm::mat4 worldMatrix = glm::mat4(1.0);
-    glm::vec3 translation;
+    glm::vec3 position;
     glm::quat rotation;
     glm::vec3 scale = glm::vec3(1.0);
     float yaw = 0;

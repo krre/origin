@@ -10,7 +10,7 @@ void TransformSystem::process(float dt) {
     for (auto entity: engine->getEntities()) {
         TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
         if (tc && tc->dirty) {
-            glm::mat4 translationMatrix = glm::translate(tc->translation);
+            glm::mat4 translationMatrix = glm::translate(tc->position);
             glm::mat4 rotationMatrix = glm::toMat4(tc->rotation);
             glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), tc->scale);
             tc->localMatrix = rotationMatrix * translationMatrix * scaleMatrix;
@@ -22,7 +22,7 @@ void TransformSystem::process(float dt) {
 
 void TransformSystem::setPosition(Entity* entity, glm::vec3& position) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
-    tc->translation = position;
+    tc->position = position;
     tc->dirty = true;
 }
 
@@ -53,9 +53,9 @@ void TransformSystem::setPitch(Entity *entity, float pitch) {
 void TransformSystem::translate(Entity* entity, const glm::vec3& delta, bool local) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     if (local) {
-        tc->translation += tc->rotation * delta;
+        tc->position += tc->rotation * delta;
     } else {
-        tc->translation += delta;
+        tc->position += delta;
     }
 
     tc->dirty = true;

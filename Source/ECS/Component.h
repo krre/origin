@@ -4,7 +4,6 @@
 enum class ComponentType {
     Camera,
     Empty,
-    Input,
     Light,
     Material,
     Mesh,

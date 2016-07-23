@@ -44,7 +44,6 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
     std::vector<ComponentType> types = {
         ComponentType::Node,
         ComponentType::Transform,
-        ComponentType::Input,
         ComponentType::Movement,
         ComponentType::Camera
     };

@@ -93,7 +93,7 @@ Component* Engine::createComponent(Entity* entity, ComponentType type) {
     return entity->components[type].get();
 }
 
-void Engine::createComponents(Entity *entity, std::vector<ComponentType> types) {
+void Engine::createComponents(Entity* entity, std::vector<ComponentType> types) {
     for (auto type : types) {
         createComponent(entity, type);
     }

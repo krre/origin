@@ -31,6 +31,10 @@ void MotionControllerSystem::process(float dt) {
     } else if (Input::getInstance()->isKeyPressed(SDLK_d)) {
         transformSystem->translate(moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * moveSpeed * dt);
     }
+
+    TransformComponent* mtc = static_cast<TransformComponent*>(moveEntity->components[ComponentType::Transform].get());
+    // Track to floor position
+    mtc->position.y = 0.1; // TODO: take from height map
 }
 
 void MotionControllerSystem::setMoveEntity(Entity* moveEntity) {

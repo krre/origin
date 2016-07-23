@@ -30,8 +30,8 @@ void Game::create() {
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
-    transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.5f, 0.0f));
-    transformSystem->setPitch(avatarCamera.get(), -35.0);
+    transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.1f, 0.0f));
+    transformSystem->setPitch(avatarCamera.get(), -15.0);
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
@@ -42,14 +42,25 @@ void Game::create() {
     Engine::getInstance()->addEntity(avatarCamera);
 
     // Plane
+    std::shared_ptr<Entity> plane = EntityBuilder::plane();
     Engine::getInstance()->addEntity(EntityBuilder::plane());
+    transformSystem->scale(plane.get(), glm::vec3(10.0, 10.0, 10.0));
 
-    // Cube
-    std::shared_ptr<Entity> cube = EntityBuilder::cube();
-    transformSystem->scale(cube.get(), glm::vec3(0.2, 0.2, 0.2));
-    MaterialComponent* materialComp = static_cast<MaterialComponent*>(cube->components[ComponentType::Material].get());
-    materialComp->color = glm::vec3(0.8, 0.1f, 0.1f);
-    Engine::getInstance()->addEntity(cube);
+    // Cube1
+    std::shared_ptr<Entity> cube1 = EntityBuilder::cube();
+    transformSystem->scale(cube1.get(), glm::vec3(0.2, 0.2, 0.2));
+    transformSystem->translate(cube1.get(), glm::vec3(0.2, 0.21, -0.5));
+    MaterialComponent* materialComp1 = static_cast<MaterialComponent*>(cube1->components[ComponentType::Material].get());
+    materialComp1->color = glm::vec3(0.8, 0.1f, 0.1f);
+    Engine::getInstance()->addEntity(cube1);
+
+    // Cube2
+    std::shared_ptr<Entity> cube2 = EntityBuilder::cube();
+    transformSystem->scale(cube2.get(), glm::vec3(0.1, 0.3, 0.1));
+    transformSystem->translate(cube2.get(), glm::vec3(-0.2, 0.25, 0.25));
+    MaterialComponent* materialComp2 = static_cast<MaterialComponent*>(cube2->components[ComponentType::Material].get());
+    materialComp2->color = glm::vec3(0.1, 0.5f, 0.9f);
+    Engine::getInstance()->addEntity(cube2);
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();

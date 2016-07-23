@@ -12,7 +12,7 @@ public:
         int height = App::getInstance()->getHeight();
         aspect = width * 1.0f / height;
     }
-    float near = 0.1f;
+    float near = 0.01f;
     float far = 100.0f;
     float fov = glm::radians(50.0f);
     float aspect;

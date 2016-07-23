@@ -29,6 +29,7 @@ private:
     void mouseButtonAction(const SDL_MouseButtonEvent& event);
     void toggleFullScreen();
     void saveScreenshot();
+    std::string zeroFill(std::string number);
 
     State state = PLAY;
     bool wireframe = false; // TODO: Move to renderer

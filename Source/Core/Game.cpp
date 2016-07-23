@@ -153,11 +153,11 @@ void Game::saveScreenshot() {
     std::string path = App::getAbsolutePath() +
             App::getPathSeparator() + "Screenshot" + App::getPathSeparator() +
             std::to_string(now->tm_year + 1900) + "-" +
-            std::to_string(now->tm_mon + 1) + "-" +
-            std::to_string(now->tm_mday) + "_" +
-            std::to_string(now->tm_hour) + "-" +
-            std::to_string(now->tm_min) + "-" +
-            std::to_string(now->tm_sec) + ".png";
+            zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
+            zeroFill(std::to_string(now->tm_mday)) + "_" +
+            zeroFill(std::to_string(now->tm_hour)) + "-" +
+            zeroFill(std::to_string(now->tm_min)) + "-" +
+            zeroFill(std::to_string(now->tm_sec)) + ".png";
 
     int width = App::getInstance()->getWidth();
     int height = App::getInstance()->getHeight();
@@ -196,4 +196,8 @@ void Game::saveScreenshot() {
 
     std::string message = "Screenshot saved to " + path;
     Toast::getInstance()->showToast(message);
+}
+
+std::string Game::zeroFill(std::string number) {
+    return (number.size() == 1 ? "0" : "") + number;
 }

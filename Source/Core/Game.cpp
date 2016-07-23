@@ -11,6 +11,7 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/Systems.h"
 #include <SDL_keycode.h>
+#include <glm/glm.hpp>
 #include <glm/ext.hpp>
 #include <ctime>
 #include <lodepng/lodepng.h>
@@ -47,7 +48,7 @@ void Game::create() {
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
     transformSystem->scale(cube.get(), glm::vec3(0.2, 0.2, 0.2));
     MaterialComponent* materialComp = static_cast<MaterialComponent*>(cube->components[ComponentType::Material].get());
-    materialComp->material->setColor(Color(0.8, 0.1f, 0.1f, 1.0f));
+    materialComp->color = glm::vec3(0.8, 0.1f, 0.1f);
     Engine::getInstance()->addEntity(cube);
 
     // Light

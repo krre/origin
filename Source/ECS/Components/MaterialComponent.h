@@ -1,10 +1,10 @@
 #pragma once
 #include "../Component.h"
-#include "../Graphics/Material.h"
+#include <glm/glm.hpp>
 
 class MaterialComponent : public Component {
 
 public:
     MaterialComponent() { type = ComponentType::Material; }
-    std::shared_ptr<Material> material;
+    glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
 };

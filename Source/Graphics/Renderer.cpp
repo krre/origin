@@ -36,7 +36,7 @@ void Renderer::render(Entity* entity) {
     GLuint mvp        = glGetUniformLocation(shaderGroup->getProgram(), "mvp");
     GLuint model      = glGetUniformLocation(shaderGroup->getProgram(), "model");
 
-    glm::vec3 color = materialComp->material->getColor().getRgb();
+    glm::vec3 color = materialComp->color;
     glm::vec3 cameraPos = cameraTransform->translation;
     CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(SystemType::Camera).get());
 

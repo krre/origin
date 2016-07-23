@@ -3,7 +3,7 @@
 #include "Components/Components.h"
 #include "../Graphics/Mesh/Plane.h"
 #include "../Graphics/Mesh/Cube.h"
-#include "../Graphics/Material.h"
+#include <glm/glm.hpp>
 
 std::shared_ptr<Entity> EntityBuilder::geometry() {
     std::vector<ComponentType> types = {
@@ -17,8 +17,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
     Engine::getInstance()->createComponents(entity.get(), types);
 
     MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
-    materialComp->material = std::make_shared<Material>();
-    materialComp->material->setColor(Color(0.2, 0.7f, 0.8f, 1));
+    materialComp->color = glm::vec3(0.2, 0.7f, 0.8f);
 
     return entity;
 }

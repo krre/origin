@@ -8,7 +8,7 @@ Toast::Toast() {
 }
 
 void Toast::draw(float dt) {
-    text.setPosition(glm::vec2(10, App::getInstance()->getHeight() / 2.0));
+    text.setPosition(glm::vec2(5, App::getInstance()->getHeight() / 2.0));
     text.draw(dt);
 }
 

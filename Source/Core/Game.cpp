@@ -43,23 +43,25 @@ void Game::create() {
 
     // Plane
     std::shared_ptr<Entity> plane = EntityBuilder::plane();
-    Engine::getInstance()->addEntity(EntityBuilder::plane());
-    transformSystem->scale(plane.get(), glm::vec3(10.0, 10.0, 10.0));
+    transformSystem->scale(plane.get(), glm::vec3(5.0, 1.0, 5.0));
+    MaterialComponent* materialPlane = static_cast<MaterialComponent*>(plane->components[ComponentType::Material].get());
+    materialPlane->color = glm::vec3(0.52, 0.35f, 0.35f);
+    Engine::getInstance()->addEntity(plane);
 
     // Cube1
     std::shared_ptr<Entity> cube1 = EntityBuilder::cube();
     transformSystem->scale(cube1.get(), glm::vec3(0.2, 0.2, 0.2));
     transformSystem->translate(cube1.get(), glm::vec3(0.2, 0.21, -0.5));
-    MaterialComponent* materialComp1 = static_cast<MaterialComponent*>(cube1->components[ComponentType::Material].get());
-    materialComp1->color = glm::vec3(0.8, 0.1f, 0.1f);
+    MaterialComponent* materialCube1 = static_cast<MaterialComponent*>(cube1->components[ComponentType::Material].get());
+    materialCube1->color = glm::vec3(0.8, 0.1f, 0.1f);
     Engine::getInstance()->addEntity(cube1);
 
     // Cube2
     std::shared_ptr<Entity> cube2 = EntityBuilder::cube();
     transformSystem->scale(cube2.get(), glm::vec3(0.1, 0.3, 0.1));
     transformSystem->translate(cube2.get(), glm::vec3(-0.2, 0.25, 0.25));
-    MaterialComponent* materialComp2 = static_cast<MaterialComponent*>(cube2->components[ComponentType::Material].get());
-    materialComp2->color = glm::vec3(0.1, 0.5f, 0.9f);
+    MaterialComponent* materialCube2 = static_cast<MaterialComponent*>(cube2->components[ComponentType::Material].get());
+    materialCube2->color = glm::vec3(0.1, 0.5f, 0.9f);
     Engine::getInstance()->addEntity(cube2);
 
     // Light
@@ -67,7 +69,7 @@ void Game::create() {
     transformSystem->translate(light.get(), glm::vec3(1.0, 1.0, 1.0));
     Engine::getInstance()->addEntity(light);
 
-    App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.25, 0.2, 0.2, 1.0));
+    App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 
     Event::getInstance()->keyPress.connect<Game, &Game::keyPress>(this);
     Event::getInstance()->mouseButtonAction.connect<Game, &Game::mouseButtonAction>(this);

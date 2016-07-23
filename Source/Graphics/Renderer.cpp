@@ -36,7 +36,7 @@ void Renderer::render(Entity* entity) {
     GLuint mvp        = glGetUniformLocation(shaderGroup->getProgram(), "mvp");
     GLuint model      = glGetUniformLocation(shaderGroup->getProgram(), "model");
 
-    glm::vec3 color = materialComp->color;
+    glm::vec3 materialColor = materialComp->color;
     glm::vec3 cameraPos = cameraTransform->position;
     CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(SystemType::Camera).get());
 
@@ -45,7 +45,7 @@ void Renderer::render(Entity* entity) {
     glm::mat4 modelMatrix = transformComp->worldMatrix;
     glm::mat4 mvpMatrix = projection * view * modelMatrix;
 
-    glUniform3f(objectColor, color.r, color.g, color.b);
+    glUniform3f(objectColor, materialColor.r, materialColor.g, materialColor.b);
     glUniform3f(lightColor, 1.0f, 1.0f, 1.0f);
     glUniform3f(lightPos, -0.5f, 1.0f, 0.3f);
     glUniform3f(viewPos, cameraPos.x, cameraPos.y, cameraPos.z);

@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/MenuState.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MenuState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PlayState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PlayState.h
     PARENT_SCOPE

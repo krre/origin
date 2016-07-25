@@ -17,5 +17,5 @@ public:
 
 private:
     std::vector<std::shared_ptr<Layout>> layouts;
-    int spacing;
+    int spacing = 10;
 };

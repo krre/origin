@@ -24,20 +24,6 @@ void Scene2D::clearControls() {
     controls.clear();
 }
 
-void Scene2D::addLayout(std::shared_ptr<Layout> layout) {
-    layouts.push_back(layout);
-}
-
-void Scene2D::removeLayout(std::shared_ptr<Layout> layout) {
-    layouts.erase(std::remove(layouts.begin(), layouts.end(), layout), layouts.end());
-}
-
-void Scene2D::clearLayouts() {
-    layouts.clear();
-}
-
 void Scene2D::onWindowResize(int width, int height) {
-    for (auto layout : layouts) {
-        layout->resize(width, height);
-    }
+
 }

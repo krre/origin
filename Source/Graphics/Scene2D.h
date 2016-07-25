@@ -1,10 +1,9 @@
 #pragma once
-#include "Drawable.h"
 #include "../UI/Control.h"
 #include "../UI/Layout.h"
 #include <vector>
 
-class Scene2D : public Drawable {
+class Scene2D : public Control {
 
 public:
     Scene2D();

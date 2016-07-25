@@ -14,8 +14,11 @@ public:
     void removeControl(std::shared_ptr<Control> control);
     void clearControls();
 
+    void setLayout(std::shared_ptr<Layout> layout);
+
 private:
     void onWindowResize(int width, int height);
 
     std::vector<std::shared_ptr<Control>> controls;
+    std::shared_ptr<Layout> layout;
 };

@@ -24,6 +24,12 @@ void Scene2D::clearControls() {
     controls.clear();
 }
 
-void Scene2D::onWindowResize(int width, int height) {
+void Scene2D::setLayout(std::shared_ptr<Layout> layout) {
+    this->layout = layout;
+}
 
+void Scene2D::onWindowResize(int width, int height) {
+    if (layout != nullptr) {
+        layout->resize(width, height);
+    }
 }

@@ -12,6 +12,10 @@ public:
     void removeLayout(std::shared_ptr<Layout> layout);
     void clearLayouts();
 
+    int getSpacing() const { return spacing; }
+    void setSpacing(int spacing);
+
 private:
     std::vector<std::shared_ptr<Layout>> layouts;
+    int spacing;
 };

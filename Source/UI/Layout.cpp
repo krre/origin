@@ -21,3 +21,7 @@ void Layout::removeLayout(std::shared_ptr<Layout> layout) {
 void Layout::clearLayouts() {
     layouts.clear();
 }
+
+void Layout::setSpacing(int spacing) {
+    this->spacing = spacing;
+}

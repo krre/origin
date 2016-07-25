@@ -1,7 +1,7 @@
 #pragma once
-#include "../Graphics/Drawable.h"
+#include "Control.h"
 
-class Rectangle : Drawable {
+class Rectangle : Control {
 
 public:
     Rectangle();

@@ -37,5 +37,7 @@ void Scene2D::clearLayouts() {
 }
 
 void Scene2D::onWindowResize(int width, int height) {
-
+    for (auto layout : layouts) {
+        layout->resize(width, height);
+    }
 }

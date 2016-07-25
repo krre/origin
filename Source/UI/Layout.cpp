@@ -1,6 +1,9 @@
 #include "Layout.h"
 
-Layout::Layout()
-{
+Layout::Layout() {
+
+}
+
+void Layout::resize(int width, int height) {
 
 }

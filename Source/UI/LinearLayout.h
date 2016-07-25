@@ -4,5 +4,13 @@
 class LinearLayout : public Layout {
 
 public:
-    LinearLayout();
+    enum Direction {
+        HORIZONTAL,
+        VERICAL
+    };
+
+    LinearLayout(Direction direction);
+
+private:
+    Direction direction;
 };

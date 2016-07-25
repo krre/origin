@@ -1,5 +1,6 @@
 #include "LinearLayout.h"
 
-LinearLayout::LinearLayout() {
+LinearLayout::LinearLayout(Direction direction) :
+    direction(direction) {
 
 }

@@ -1,6 +1,7 @@
 #include "Scene2D.h"
 
-Scene2D::Scene2D()
-{
-
+void Scene2D::draw(float dt) {
+    for (auto control : controls) {
+        control->draw(dt);
+    }
 }

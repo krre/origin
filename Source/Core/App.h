@@ -21,7 +21,7 @@ public:
     static std::string getPathSeparator();
     int run();
     void quit();
-    Viewport* getViewport() { return viewport; }
+    Viewport* getViewport() { return &viewport; }
     SDL_Window* getWindow() const { return window; }
     int getWidth() const { return width; }
     int getHeight() const { return height; }
@@ -32,7 +32,7 @@ private:
     static std::string absolutePath;
 
     Renderer renderer;
-    Viewport* viewport;
+    Viewport viewport;
 
     bool isRunning = false;
     SDL_Window* window = nullptr;

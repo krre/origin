@@ -39,12 +39,6 @@ std::string App::getPathSeparator() {
 }
 
 void App::init() {
-    print("Gagarin " << VERSION_STRING);
-//    SDL_version compiled;
-//    SDL_VERSION(&compiled);
-//    std::string sdlVersion = "SDL " + std::to_string(compiled.major) + "." + std::to_string(compiled.minor) + "." + std::to_string(compiled.patch);
-//    print(sdlVersion);
-
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());
     } else {
@@ -118,7 +112,6 @@ void App::clean() {
     DebugHUD::getInstance()->release();
     Toast::getInstance()->release();
     Logger::getInstance()->release();
-    delete viewport;
 }
 
 int App::run() {
@@ -167,7 +160,7 @@ int App::run() {
 void App::windowResize(int width, int height) {
     this->width = width;
     this->height = height;
-    viewport->setRectangle(0, 0, width, height);
+    viewport.setRectangle(0, 0, width, height);
 }
 
 void App::initSingletons() {
@@ -180,9 +173,6 @@ void App::initSingletons() {
     new Toast();
     new Input();
     new Engine();
-
-    viewport = new Viewport();
-
     new Game();
     Game::getInstance()->create();
 

@@ -9,6 +9,14 @@ public:
     void setPosition(const glm::vec2& position);
     glm::vec2 getPostion() const { return position; }
 
+    int getWidth() const { return width; }
+    void setWidth(int width);
+
+    int getHeght() const { return heght; }
+    void setHeght(int height);
+
 protected:
     glm::vec2 position;
+    int width = 0;
+    int heght = 0;
 };

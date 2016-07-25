@@ -1,4 +1,5 @@
 #include "Layout.h"
+#include <algorithm>
 
 Layout::Layout() {
 

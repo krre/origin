@@ -4,6 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuState.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PauseState.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PauseState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PlayState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PlayState.h
     PARENT_SCOPE

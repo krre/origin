@@ -11,11 +11,11 @@ void Layout::resize(int width, int height) {
     }
 }
 
-void Layout::addControl(std::shared_ptr<Control> control) {
+void Layout::addControl(Control* control) {
     controls.push_back(control);
 }
 
-void Layout::removeControl(std::shared_ptr<Control> control) {
+void Layout::removeControl(Control *control) {
     controls.erase(std::remove(controls.begin(), controls.end(), control), controls.end());
 }
 

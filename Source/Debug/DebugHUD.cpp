@@ -6,6 +6,9 @@
 DebugHUD::DebugHUD() {
     visible = false;
     version.setText("Gagarin " + std::string(VERSION_STRING));
+    statisticsLayout->addControl(&version);
+    statisticsLayout->addControl(&fps);
+    setLayout(statisticsLayout);
 }
 
 void DebugHUD::draw(float dt) {

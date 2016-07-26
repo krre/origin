@@ -12,6 +12,8 @@ public:
     void setVisible(bool visible) override;
 
 private:
+    void onWindowResize(int width, int height);
+
     void keyPress(const SDL_KeyboardEvent& event);
     void execute();
     Text cmdLine;

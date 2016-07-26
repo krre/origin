@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 Console::Console() {
-    cmdLine.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 5));
+    Event::getInstance()->windowResize.connect<Console, &Console::onWindowResize>(this);
     visible = false;
 }
 
@@ -21,6 +21,10 @@ void Console::setVisible(bool visible) {
     } else {
         Event::getInstance()->keyPress.disconnect<Console, &Console::keyPress>(this);
     }
+}
+
+void Console::onWindowResize(int width, int height) {
+    cmdLine.setPosition(glm::vec2(5, height - 5));
 }
 
 void Console::keyPress(const SDL_KeyboardEvent& event) {

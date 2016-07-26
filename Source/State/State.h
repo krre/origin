@@ -1,10 +1,10 @@
 #pragma once
 #include "../Core/Object.h"
 
-class GameState : public Object {
+class State : public Object {
 
 public:
-    GameState();
+    State();
     virtual void init() = 0;
     virtual void cleanup() = 0;
 

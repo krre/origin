@@ -2,7 +2,7 @@
 #include "Control.h"
 #include <glm/glm.hpp>
 
-class Rectangle : Control {
+class Rectangle : public Control {
 
 public:
     Rectangle();

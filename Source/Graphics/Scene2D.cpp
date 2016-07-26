@@ -7,6 +7,10 @@ Scene2D::Scene2D() {
 }
 
 void Scene2D::draw(float dt) {
+    if (layout != nullptr) {
+        layout->draw(dt);
+    }
+
     for (auto control : controls) {
         control->draw(dt);
     }

@@ -9,16 +9,13 @@ DebugHUD::DebugHUD() {
     fps.resize(100, 10);
 
     version.setText("Gagarin " + std::string(VERSION_STRING));
-    statisticsLayout->setPosition(glm::vec2(5, 5));
+    statisticsLayout->setPosition(glm::vec2(5, 15));
     statisticsLayout->addControl(&version);
     statisticsLayout->addControl(&fps);
     setLayout(statisticsLayout);
 }
 
 void DebugHUD::draw(float dt) {
-//    version.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 15));
-//    fps.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 32));
-
     accumTime += dt;
     counter++;
     if (accumTime >= 0.5) {

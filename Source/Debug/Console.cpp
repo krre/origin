@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 
 Console::Console() {
-    cmdLine.setPosition(glm::vec2(5, 5));
+    cmdLine.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 5));
     visible = false;
 }
 

@@ -120,12 +120,14 @@ void Text::draw(float dt) {
 
     // Iterate through all characters
     GLfloat startX = position.x;
+    // TODO: Move relative coordinates on top level
+    float y = App::getInstance()->getHeight() - position.y;
     std::string::const_iterator c;
     for (c = text.begin(); c != text.end(); c++) {
         Character ch = characters[*c];
 
         GLfloat xpos = startX + ch.bearing.x * scale;
-        GLfloat ypos = position.y - (ch.size.y - ch.bearing.y) * scale;
+        GLfloat ypos = y - (ch.size.y - ch.bearing.y) * scale;
 
         GLfloat w = ch.size.x * scale;
         GLfloat h = ch.size.y * scale;

@@ -19,8 +19,9 @@ void DebugHUD::draw(float dt) {
     accumTime += dt;
     counter++;
     if (accumTime >= 0.5) {
-        // Average fps for 0.5 sec
-        fps.setText(std::to_string(int(std::round(counter / accumTime))) + " fps");
+        // Average fps for 0.5 sec (on resize may be > 60, so clamp to 60)
+        int fpsNumber = std::min(int(std::round(counter / accumTime)), 60);
+        fps.setText(std::to_string(fpsNumber) + " fps");
         accumTime = 0;
         counter = 0;
     }

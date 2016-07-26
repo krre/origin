@@ -11,6 +11,16 @@ void Layout::resize(int width, int height) {
     }
 }
 
+void Layout::draw(float dt) {
+    for (auto layout : layouts) {
+        layout->draw(dt);
+    }
+
+    for (auto control : controls) {
+        control->draw(dt);
+    }
+}
+
 void Layout::addControl(Control* control) {
     controls.push_back(control);
 }

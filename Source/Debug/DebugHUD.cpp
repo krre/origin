@@ -12,8 +12,8 @@ DebugHUD::DebugHUD() {
 }
 
 void DebugHUD::draw(float dt) {
-    version.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 15));
-    fps.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 32));
+//    version.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 15));
+//    fps.setPosition(glm::vec2(5, App::getInstance()->getHeight() - 32));
 
     accumTime += dt;
     counter++;
@@ -23,8 +23,9 @@ void DebugHUD::draw(float dt) {
         accumTime = 0;
         counter = 0;
     }
-    version.draw(dt);
-    fps.draw(dt);
+//    version.draw(dt);
+//    fps.draw(dt);
+    Scene2D::draw(dt);
 }
 
 void DebugHUD::trigger() {

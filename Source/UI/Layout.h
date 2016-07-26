@@ -7,6 +7,7 @@ class Layout : public Rectangle {
 public:
     Layout();
     virtual void resize(int width, int height);
+    virtual void draw(float dt) override;
 
     void addControl(Control *control);
     void removeControl(Control* control);

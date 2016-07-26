@@ -6,6 +6,9 @@ Layout::Layout() {
 }
 
 void Layout::resize(int width, int height) {
+    this->width = parent->getWidth();
+    this->heght = parent->getHeght();
+
     for (auto layout : layouts) {
         layout->resize(width, height);
     }

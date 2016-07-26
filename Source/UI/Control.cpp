@@ -15,3 +15,8 @@ void Control::setWidth(int width) {
 void Control::setHeght(int height) {
     this->heght = height;
 }
+
+void Control::resize(int width, int height) {
+    this->width = width;
+    this->heght = height;
+}

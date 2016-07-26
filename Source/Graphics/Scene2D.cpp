@@ -30,6 +30,7 @@ void Scene2D::clearControls() {
 
 void Scene2D::setLayout(std::shared_ptr<Layout> layout) {
     this->layout = layout;
+    this->layout->setParent(this);
 }
 
 void Scene2D::onWindowResize(int width, int height) {

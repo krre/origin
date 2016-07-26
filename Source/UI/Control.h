@@ -15,6 +15,8 @@ public:
     int getHeght() const { return heght; }
     void setHeght(int height);
 
+    void resize(int width, int height);
+
 protected:
     glm::vec2 position;
     int width = 0;

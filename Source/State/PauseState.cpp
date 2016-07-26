@@ -1,7 +1,7 @@
 #include "PauseState.h"
 
 PauseState::PauseState() {
-
+    stateName = PAUSE;
 }
 
 void PauseState::init() {

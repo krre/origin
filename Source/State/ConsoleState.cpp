@@ -1,7 +1,7 @@
 #include "ConsoleState.h"
 
 ConsoleState::ConsoleState() {
-
+    stateName = CONSOLE;
 }
 
 void ConsoleState::init() {

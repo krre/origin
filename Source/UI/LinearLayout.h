@@ -12,5 +12,6 @@ public:
     LinearLayout(Direction direction);
 
 private:
+    void updateContentPostion() override;
     Direction direction;
 };

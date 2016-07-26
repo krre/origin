@@ -5,7 +5,11 @@
 
 DebugHUD::DebugHUD() {
     visible = false;
+    version.resize(100, 10);
+    fps.resize(100, 10);
+
     version.setText("Gagarin " + std::string(VERSION_STRING));
+    statisticsLayout->setPosition(glm::vec2(5, 5));
     statisticsLayout->addControl(&version);
     statisticsLayout->addControl(&fps);
     setLayout(statisticsLayout);
@@ -23,8 +27,6 @@ void DebugHUD::draw(float dt) {
         accumTime = 0;
         counter = 0;
     }
-//    version.draw(dt);
-//    fps.draw(dt);
     Scene2D::draw(dt);
 }
 

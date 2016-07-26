@@ -23,8 +23,10 @@ public:
     void setParent(Control* parent);
 
 protected:
+    virtual void updateContentPostion() = 0;
+
     std::vector<Control*> controls;
     std::vector<std::shared_ptr<Layout>> layouts;
-    int spacing = 10;
+    int spacing = 5;
     Control* parent = nullptr;
 };

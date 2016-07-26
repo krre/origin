@@ -12,7 +12,7 @@ void Control::setWidth(int width) {
     this->width = width;
 }
 
-void Control::setHeght(int height) {
+void Control::setHeight(int height) {
     this->heght = height;
 }
 

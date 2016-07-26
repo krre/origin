@@ -7,13 +7,13 @@ class Control : public Drawable {
 public:
     Control();
     void setPosition(const glm::vec2& position);
-    glm::vec2 getPostion() const { return position; }
+    glm::vec2 getPosition() const { return position; }
 
     int getWidth() const { return width; }
     void setWidth(int width);
 
-    int getHeght() const { return heght; }
-    void setHeght(int height);
+    int getHeight() const { return heght; }
+    void setHeight(int height);
 
     void resize(int width, int height);
 

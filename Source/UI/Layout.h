@@ -15,7 +15,10 @@ public:
     int getSpacing() const { return spacing; }
     void setSpacing(int spacing);
 
+    void setParent(Control* parent);
+
 private:
     std::vector<std::shared_ptr<Layout>> layouts;
     int spacing = 10;
+    Control* parent = nullptr;
 };

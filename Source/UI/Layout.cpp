@@ -13,16 +13,25 @@ void Layout::resize(int width, int height) {
 
 void Layout::addLayout(std::shared_ptr<Layout> layout) {
     layouts.push_back(layout);
+    layout->setParent(this);
 }
 
 void Layout::removeLayout(std::shared_ptr<Layout> layout) {
     layouts.erase(std::remove(layouts.begin(), layouts.end(), layout), layouts.end());
+    layout->setParent(nullptr);
 }
 
 void Layout::clearLayouts() {
+    for (auto layout : layouts) {
+        layout->setParent(nullptr);
+    }
     layouts.clear();
 }
 
 void Layout::setSpacing(int spacing) {
     this->spacing = spacing;
+}
+
+void Layout::setParent(Control* parent) {
+    this->parent = parent;
 }

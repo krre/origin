@@ -21,7 +21,7 @@ public:
 
     void setParent(Control* parent);
 
-private:
+protected:
     std::vector<Control*> controls;
     std::vector<std::shared_ptr<Layout>> layouts;
     int spacing = 10;

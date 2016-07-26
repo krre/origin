@@ -52,7 +52,7 @@ void Engine::process(float dt) {
 void Engine::initSystems() {
     // Order important!
     // This is also order of processing
-    addSystem<MotionControllerSystem>();
+    addSystem<MovementControllerSystem>();
     addSystem<CameraSystem>();
     addSystem<TransformSystem>();
     addSystem<NodeSystem>();
@@ -85,8 +85,8 @@ Component* Engine::createComponent(Entity* entity, ComponentType type) {
     case ComponentType::Transform:
         entity->components[type] = std::make_shared<TransformComponent>();
         break;
-    case ComponentType::MotionController:
-        entity->components[type] = std::make_shared<MotionControllerComponent>();
+    case ComponentType::MovementController:
+        entity->components[type] = std::make_shared<MovementControllerComponent>();
         break;
     }
 

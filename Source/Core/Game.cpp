@@ -35,9 +35,9 @@ void Game::create() {
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
-    MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MotionController).get());
-    motionControllerSystem->setMoveEntity(avatarCamera.get());
-    motionControllerSystem->setRotateEntity(avatarCamera.get());
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+    movementControllerSystem->setMoveEntity(avatarCamera.get());
+    movementControllerSystem->setRotateEntity(avatarCamera.get());
 
     Engine::getInstance()->addEntity(avatarCamera);
 
@@ -93,11 +93,11 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
         if (state == PLAY) {
             state = PAUSE;
             SDL_SetRelativeMouseMode(SDL_FALSE);
-            MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MotionController).get());
-            motionControllerSystem->setActive(false);
+            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+            movementControllerSystem->setActive(false);
         } else if (state == CONSOLE) {
-            MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MotionController).get());
-            motionControllerSystem->setActive(true);
+            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+            movementControllerSystem->setActive(true);
             Console::getInstance()->setVisible(false);
             state = PLAY;
         }
@@ -122,8 +122,8 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
 
     case SDLK_SLASH:
         if (state == PLAY) {
-            MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MotionController).get());
-            motionControllerSystem->setActive(false);
+            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+            movementControllerSystem->setActive(false);
             Console::getInstance()->setVisible(true);
             state = CONSOLE;
         }
@@ -137,8 +137,8 @@ void Game::keyPress(const SDL_KeyboardEvent& event) {
 void Game::mouseButtonAction(const SDL_MouseButtonEvent& event) {
     if (state == PAUSE) {
         state = PLAY;
-        MotionControllerSystem* motionControllerSystem = static_cast<MotionControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MotionController).get());
-        motionControllerSystem->setActive(true);
+        MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+        movementControllerSystem->setActive(true);
         SDL_SetRelativeMouseMode(SDL_TRUE);
     }
 }

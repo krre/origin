@@ -3,10 +3,10 @@
 #include "../Entity.h"
 #include "../Components/TransformComponent.h"
 
-class MotionControllerSystem : public System {
+class MovementControllerSystem : public System {
 
 public:
-    MotionControllerSystem();
+    MovementControllerSystem();
     void process(float dt) override;
     void setMoveEntity(Entity* moveEntity);
     void setRotateEntity(Entity* rotateEntity);

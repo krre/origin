@@ -7,7 +7,7 @@ enum class ComponentType {
     Light,
     Material,
     Mesh,
-    MotionController,
+    MovementController,
     Movement,
     Node,
     Render,

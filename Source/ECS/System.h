@@ -6,7 +6,7 @@
 enum class SystemType {
     Camera,
     Input,
-    MotionController,
+    MovementController,
     Node,
     None,
     Render,

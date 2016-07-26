@@ -1,14 +1,14 @@
-#include "MotionControllerSystem.h"
+#include "MovementControllerSystem.h"
 #include "TransformSystem.h"
 #include "../Event/Input.h"
 #include "../Components/MovementComponent.h"
 #include "../Engine.h"
 
-MotionControllerSystem::MotionControllerSystem() {
-    type = SystemType::MotionController;
+MovementControllerSystem::MovementControllerSystem() {
+    type = SystemType::MovementController;
 }
 
-void MotionControllerSystem::process(float dt) {
+void MovementControllerSystem::process(float dt) {
     TransformComponent* tc = static_cast<TransformComponent*>(rotateEntity->components[ComponentType::Transform].get());
 
     glm::ivec2 relMousePos = Input::getInstance()->getRelMousePos();
@@ -37,12 +37,12 @@ void MotionControllerSystem::process(float dt) {
     mtc->position.y = 0.1; // TODO: take from height map
 }
 
-void MotionControllerSystem::setMoveEntity(Entity* moveEntity) {
+void MovementControllerSystem::setMoveEntity(Entity* moveEntity) {
     this->moveEntity = moveEntity;
     moveSpeed = static_cast<MovementComponent*>(moveEntity->components[ComponentType::Movement].get())->moveSpeed;
 }
 
-void MotionControllerSystem::setRotateEntity(Entity* rotateEntity) {
+void MovementControllerSystem::setRotateEntity(Entity* rotateEntity) {
     this->rotateEntity = rotateEntity;
     rotateSpeed = static_cast<MovementComponent*>(rotateEntity->components[ComponentType::Movement].get())->rotateSpeed;
 }

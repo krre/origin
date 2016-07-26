@@ -3,7 +3,7 @@
 #include "LightComponent.h"
 #include "MaterialComponent.h"
 #include "MeshComponent.h"
-#include "MotionControllerComponent.h"
+#include "MovementControllerComponent.h"
 #include "MovementComponent.h"
 #include "NodeComponent.h"
 #include "RenderComponent.h"

@@ -17,7 +17,7 @@
 #include <lodepng/lodepng.h>
 
 Game::Game() {
-
+    create();
 }
 
 void Game::create() {

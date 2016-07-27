@@ -102,6 +102,7 @@ void App::init() {
 }
 
 void App::initSingletons() {
+    // Order is important
     new Logger();
     new Event();
     new ResourceManager();
@@ -112,7 +113,6 @@ void App::initSingletons() {
     new Engine();
     new GameStateManager();
     new Game();
-    Game::getInstance()->create();
 
     Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
     Event::getInstance()->quit.connect<App, &App::quit>(this);

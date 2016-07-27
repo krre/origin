@@ -15,7 +15,6 @@ public:
     };
 
     Game();
-    void create();
     void load();
     void save();
 
@@ -25,6 +24,7 @@ public:
     bool getWireframe() const { return wireframe; }
 
 private:
+    void create();
     void keyPress(const SDL_KeyboardEvent& event);
     void mouseButtonAction(const SDL_MouseButtonEvent& event);
     void toggleFullScreen();

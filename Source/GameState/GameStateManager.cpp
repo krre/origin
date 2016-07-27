@@ -4,15 +4,19 @@ GameStateManager::GameStateManager() {
 
 }
 
-void GameStateManager::push(std::shared_ptr<GameState> gameState) {
+void GameStateManager::pushState(std::shared_ptr<GameState> gameState) {
     gameStates.push_back(gameState);
 }
 
-void GameStateManager::pop() {
+void GameStateManager::popState() {
     gameStates.pop_back();
 }
 
-void GameStateManager::set(std::shared_ptr<GameState> gameState) {
+void GameStateManager::setState(std::shared_ptr<GameState> gameState) {
     gameStates.clear();
     gameStates.push_back(gameState);
+}
+
+GameState *GameStateManager::getState() {
+    gameStates.back().get();
 }

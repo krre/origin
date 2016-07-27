@@ -1,6 +1,8 @@
 #include "Rectangle.h"
 
-Rectangle::Rectangle() {
+Rectangle::Rectangle(int width, int height) :
+    Control(width, height),
+    plane(1.0, 1.0) {
 
 }
 

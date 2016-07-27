@@ -91,7 +91,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
         if (gameState == GameState::PLAY) {
-            GameStateManager::getInstance()->setState(GameState::PAUSE);
+            GameStateManager::getInstance()->pushState(GameState::PAUSE);
             SDL_SetRelativeMouseMode(SDL_FALSE);
             MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
             movementControllerSystem->setActive(false);
@@ -99,7 +99,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
             MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
             movementControllerSystem->setActive(true);
             Console::getInstance()->setVisible(false);
-            GameStateManager::getInstance()->setState(GameState::PLAY);
+            GameStateManager::getInstance()->popState();
         }
         break;
 
@@ -125,7 +125,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
             MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
             movementControllerSystem->setActive(false);
             Console::getInstance()->setVisible(true);
-            GameStateManager::getInstance()->setState(GameState::CONSOLE);
+            GameStateManager::getInstance()->pushState(GameState::CONSOLE);
         }
         break;
 
@@ -136,7 +136,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 
 void Game::mouseButtonAction(const SDL_MouseButtonEvent& event) {
     if (GameStateManager::getInstance()->getStateType() == GameState::PAUSE) {
-        GameStateManager::getInstance()->setState(GameState::PLAY);
+        GameStateManager::getInstance()->popState();
         MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
         movementControllerSystem->setActive(true);
         SDL_SetRelativeMouseMode(SDL_TRUE);

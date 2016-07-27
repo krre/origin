@@ -1,6 +1,6 @@
 #include "Control.h"
 
-Control::Control() {
+Control::Control(int width, int height) : width(width), height(height) {
 
 }
 
@@ -13,10 +13,10 @@ void Control::setWidth(int width) {
 }
 
 void Control::setHeight(int height) {
-    this->heght = height;
+    this->height = height;
 }
 
 void Control::resize(int width, int height) {
     this->width = width;
-    this->heght = height;
+    this->height = height;
 }

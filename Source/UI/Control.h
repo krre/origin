@@ -5,20 +5,20 @@
 class Control : public Drawable {
 
 public:
-    Control();
+    Control(int width = 0, int height = 0);
     void setPosition(const glm::vec2& position);
     glm::vec2 getPosition() const { return position; }
 
     int getWidth() const { return width; }
     void setWidth(int width);
 
-    int getHeight() const { return heght; }
+    int getHeight() const { return height; }
     void setHeight(int height);
 
     void resize(int width, int height);
 
 protected:
     glm::vec2 position;
-    int width = 0;
-    int heght = 0;
+    int width;
+    int height;
 };

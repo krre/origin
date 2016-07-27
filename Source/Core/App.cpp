@@ -8,6 +8,7 @@
 #include "../Debug/DebugHUD.h"
 #include "../UI/Toast.h"
 #include "../ECS/Engine.h"
+#include "../GameState/GameStateManager.h"
 #include <string>
 #include <SDL_timer.h>
 #include <GL/glew.h>
@@ -100,13 +101,34 @@ void App::init() {
     }
 }
 
+void App::initSingletons() {
+    new Logger();
+    new Event();
+    new ResourceManager();
+    ResourceManager::getInstance()->loadAll();
+    new Console();
+    new DebugHUD();
+    new Toast();
+    new Input();
+    new Engine();
+    new GameStateManager();
+    new Game();
+    Game::getInstance()->create();
+
+    Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
+    Event::getInstance()->quit.connect<App, &App::quit>(this);
+    Event::getInstance()->windowResize.emit(width, height);
+}
+
 void App::clean() {
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();
+    Game::getInstance()->release();
+    GameStateManager::getInstance()->release();
     Engine::getInstance()->release();
-    Event::getInstance()->release();
     Input::getInstance()->release();
+    Event::getInstance()->release();
     ResourceManager::getInstance()->release();
     Console::getInstance()->release();
     DebugHUD::getInstance()->release();
@@ -162,24 +184,6 @@ void App::windowResize(int width, int height) {
     this->height = height;
     viewport.setRectangle(0, 0, width, height);
     DebugHUD::getInstance()->resize(width, height);
-}
-
-void App::initSingletons() {
-    new Logger();
-    new Event();
-    new ResourceManager();
-    ResourceManager::getInstance()->loadAll();
-    new Console();
-    new DebugHUD();
-    new Toast();
-    new Input();
-    new Engine();
-    new Game();
-    Game::getInstance()->create();
-
-    Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
-    Event::getInstance()->quit.connect<App, &App::quit>(this);
-    Event::getInstance()->windowResize.emit(width, height);
 }
 
 void App::quit() {

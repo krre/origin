@@ -2,6 +2,7 @@
 #include "../Event/Event.h"
 #include "../Core/Game.h"
 #include "../Core/App.h"
+#include "../GameState/GameStateManager.h"
 #include <glm/glm.hpp>
 
 Console::Console() {
@@ -52,6 +53,6 @@ void Console::execute() {
             App::getInstance()->quit();
         }
         setVisible(false);
-        Game::getInstance()->setState(Game::PLAY);
+        GameStateManager::getInstance()->setState(GameState::PLAY);
     }
 }

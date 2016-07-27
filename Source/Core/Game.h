@@ -7,19 +7,9 @@
 class Game : public Singleton<Game> {
 
 public:
-
-    enum State {
-        PLAY,
-        PAUSE,
-        CONSOLE
-    };
-
     Game();
     void load();
     void save();
-
-    State getState() { return state; }
-    void setState(State state);
 
     bool getWireframe() const { return wireframe; }
 
@@ -31,6 +21,5 @@ private:
     void saveScreenshot();
     std::string zeroFill(std::string number);
 
-    State state = PLAY;
     bool wireframe = false; // TODO: Move to renderer
 };

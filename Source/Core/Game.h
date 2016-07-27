@@ -1,7 +1,5 @@
 #pragma once
 #include "Singleton.h"
-#include <list>
-#include <glm/glm.hpp>
 #include <SDL.h>
 
 class Game : public Singleton<Game> {

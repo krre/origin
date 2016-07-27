@@ -15,7 +15,7 @@ public:
 
 private:
     void create();
-    void keyPressed(const SDL_KeyboardEvent& event);
+    void onKeyPressed(const SDL_KeyboardEvent& event);
     void mouseButtonAction(const SDL_MouseButtonEvent& event);
     void toggleFullScreen();
     void saveScreenshot();

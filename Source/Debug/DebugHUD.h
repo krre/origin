@@ -1,10 +1,10 @@
 #pragma once
 #include "../Core/Singleton.h"
-#include "../Graphics/Scene2D.h"
+#include "../UI/Scene.h"
 #include "../UI/Text.h"
 #include "../UI/LinearLayout.h"
 
-class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
+class DebugHUD : public Singleton<DebugHUD>, public Scene {
 
 public:
     DebugHUD();

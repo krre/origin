@@ -12,6 +12,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Text.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Text.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.cpp

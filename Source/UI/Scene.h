@@ -3,10 +3,10 @@
 #include "../UI/Layout.h"
 #include <vector>
 
-class Scene2D : public Control {
+class Scene : public Control {
 
 public:
-    Scene2D();
+    Scene();
     void draw(float dt) override;
 
     void addControl(std::shared_ptr<Control> control);

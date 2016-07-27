@@ -98,6 +98,10 @@ void App::init() {
         }
 
         initSingletons();
+
+        Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
+        Event::getInstance()->quit.connect<App, &App::quit>(this);
+        Event::getInstance()->windowResize.emit(width, height);
     }
 }
 
@@ -113,10 +117,6 @@ void App::initSingletons() {
     new Engine();
     new GameStateManager();
     new Game();
-
-    Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
-    Event::getInstance()->quit.connect<App, &App::quit>(this);
-    Event::getInstance()->windowResize.emit(width, height);
 }
 
 void App::clean() {

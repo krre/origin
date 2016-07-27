@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Object.h"
 
-class State : public Object {
+class GameState : public Object {
 
 public:
 
@@ -12,7 +12,7 @@ public:
         PLAY
     };
 
-    State();
+    GameState();
     StateName getName() const { return stateName; }
 
     virtual void init() = 0;

@@ -1,7 +1,7 @@
 #pragma once
-#include "State.h"
+#include "GameState.h"
 
-class ConsoleState : public State {
+class ConsoleState : public GameState {
 
 public:
     ConsoleState();

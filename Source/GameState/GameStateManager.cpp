@@ -26,8 +26,12 @@ GameState::Type GameStateManager::getStateType() {
 }
 
 void GameStateManager::update(float dt) {
-    for (auto gameState : gameStates) {
-        gameState->update(dt);
+    if (gameStates.size() > 1 && !gameStates.back()->getIsFeezable()) {
+        for (auto gameState : gameStates) {
+            gameState->update(dt);
+        }
+    } else {
+        gameStates.back()->update(dt);
     }
 }
 

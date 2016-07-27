@@ -2,6 +2,7 @@
 
 PauseState::PauseState() {
     type = PAUSE;
+    isFreezable = true;
 }
 
 void PauseState::init() {

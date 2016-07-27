@@ -3,6 +3,7 @@
 
 PlayState::PlayState() {
     type = PLAY;
+    isFreezable = true;
 }
 
 void PlayState::init() {

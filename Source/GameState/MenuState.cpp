@@ -2,6 +2,7 @@
 
 MenuState::MenuState() {
     type = MENU;
+    isFreezable = true;
 }
 
 void MenuState::init() {

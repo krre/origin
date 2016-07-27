@@ -2,6 +2,7 @@
 
 ConsoleState::ConsoleState() {
     type = CONSOLE;
+    isFreezable = false;
 }
 
 void ConsoleState::init() {

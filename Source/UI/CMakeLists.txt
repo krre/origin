@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Button.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Button.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Font.h

@@ -14,7 +14,7 @@ void GameStateManager::popState() {
 
 void GameStateManager::setState(std::shared_ptr<GameState> gameState) {
     gameStates.clear();
-    gameStates.push_back(gameState);
+    pushState(gameState);
 }
 
 GameState *GameStateManager::getState() {

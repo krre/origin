@@ -25,7 +25,7 @@ void DebugHUD::draw(float dt) {
         accumTime = 0;
         counter = 0;
     }
-    Scene::draw(dt);
+    Scene2D::draw(dt);
 }
 
 void DebugHUD::trigger() {

@@ -1,0 +1,6 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.cpp
+    PARENT_SCOPE
+)

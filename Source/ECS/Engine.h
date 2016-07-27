@@ -1,3 +1,4 @@
+#pragma once
 #include "../Core/Singleton.h"
 #include "System.h"
 #include "Entity.h"

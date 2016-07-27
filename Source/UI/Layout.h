@@ -1,8 +1,8 @@
 #pragma once
-#include "Rectangle.h"
+#include "Control.h"
 #include <vector>
 
-class Layout : public Rectangle {
+class Layout : public Control {
 
 public:
     Layout();

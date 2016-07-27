@@ -4,6 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/ConsoleState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/GameStateManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/GameStateManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseState.cpp

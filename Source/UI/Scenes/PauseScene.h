@@ -1,8 +1,15 @@
 #pragma once
 #include "../Scene2D.h"
+#include "../UI/Rectangle.h"
+#include "../UI/LinearLayout.h"
 
 class PauseScene : public Scene2D {
 
 public:
-    PauseScene();
+    PauseScene(int width, int height);
+
+private:
+    std::shared_ptr<LinearLayout> layout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
+    Rectangle continueRect;
+    Rectangle exitRect;
 };

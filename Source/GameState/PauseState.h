@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "../UI/Scenes/PauseScene.h"
 
 class PauseState : public GameState {
 
@@ -13,4 +14,7 @@ public:
 
     void draw(float dt) override;
     void update(float dt) override;
+
+private:
+    PauseScene pauseScene;
 };

@@ -3,7 +3,7 @@
 #include <glm/glm.hpp>
 #include <Gagarin.h>
 
-DebugHUD::DebugHUD() {
+DebugHUD::DebugHUD() : Scene2D(500, 500) {
     visible = false;
     version.resize(100, 10);
     fps.resize(100, 10);

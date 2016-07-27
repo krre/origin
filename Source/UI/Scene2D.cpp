@@ -2,7 +2,7 @@
 #include "../Event/Event.h"
 #include <algorithm>
 
-Scene2D::Scene2D() {
+Scene2D::Scene2D(int width, int height) : Control(width, height) {
     Event::getInstance()->windowResize.connect<Scene2D, &Scene2D::onWindowResize>(this);
 }
 

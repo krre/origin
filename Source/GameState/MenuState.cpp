@@ -20,10 +20,6 @@ void MenuState::resume() {
 
 }
 
-void MenuState::handleEvents() {
-
-}
-
 void MenuState::update(float dt) {
 
 }

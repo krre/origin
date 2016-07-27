@@ -20,14 +20,10 @@ void PauseState::resume() {
 
 }
 
-void PauseState::handleEvents() {
+void PauseState::draw(float dt) {
 
 }
 
 void PauseState::update(float dt) {
-
-}
-
-void PauseState::draw(float dt) {
 
 }

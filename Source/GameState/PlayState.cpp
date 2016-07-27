@@ -1,4 +1,5 @@
 #include "PlayState.h"
+#include "../ECS/Engine.h"
 
 PlayState::PlayState() {
     type = PLAY;
@@ -20,14 +21,10 @@ void PlayState::resume() {
 
 }
 
-void PlayState::handleEvents() {
-
-}
-
 void PlayState::update(float dt) {
 
 }
 
 void PlayState::draw(float dt) {
-
+    Engine::getInstance()->process(dt);
 }

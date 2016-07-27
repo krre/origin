@@ -20,10 +20,6 @@ void ConsoleState::resume() {
 
 }
 
-void ConsoleState::handleEvents() {
-
-}
-
 void ConsoleState::update(float dt) {
 
 }

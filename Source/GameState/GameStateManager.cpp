@@ -25,6 +25,16 @@ GameState::Type GameStateManager::getStateType() {
     gameStates.back()->getType();
 }
 
+void GameStateManager::update(float dt) {
+    gameStates.back()->update(dt);
+}
+
+void GameStateManager::draw(float dt) {
+    for (auto gameState : gameStates) {
+        gameState->draw(dt);
+    }
+}
+
 std::shared_ptr<GameState> GameStateManager::createState(GameState::Type type) {
     switch (type) {
     case GameState::PLAY:

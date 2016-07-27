@@ -6,12 +6,11 @@ class PlayState : public GameState {
 public:
     PlayState();
     void init()  override;
-    virtual void cleanup() override;
+    void cleanup() override;
 
-    virtual void pause() override;
-    virtual void resume() override;
+    void pause() override;
+    void resume() override;
 
-    virtual void handleEvents() override;
-    virtual void update(float dt) override;
-    virtual void draw(float dt) override;
+    void draw(float dt) override;
+    void update(float dt) override;
 };

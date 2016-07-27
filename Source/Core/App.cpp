@@ -145,7 +145,9 @@ int App::run() {
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
-        Engine::getInstance()->process(frameTime);
+
+        GameStateManager::getInstance()->update(frameTime);
+        GameStateManager::getInstance()->draw(frameTime);
 
         SDL_GL_SwapWindow(window);
     }

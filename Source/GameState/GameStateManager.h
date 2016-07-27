@@ -12,6 +12,9 @@ public:
     void setState(GameState::Type type);
     GameState::Type getStateType();
 
+    void update(float dt);
+    void draw(float dt);
+
 private:
     std::shared_ptr<GameState> createState(GameState::Type type);
     std::vector<std::shared_ptr<GameState>> gameStates;

@@ -7,11 +7,12 @@ class GameStateManager : public Singleton<GameStateManager> {
 
 public:
     GameStateManager();
-    void pushState(std::shared_ptr<GameState> gameState);
+    void pushState(GameState::Type type);
     void popState();
-    void setState(std::shared_ptr<GameState> gameState);
-    GameState* getState();
+    void setState(GameState::Type type);
+    GameState::Type getStateType();
 
 private:
+    std::shared_ptr<GameState> createState(GameState::Type type);
     std::vector<std::shared_ptr<GameState>> gameStates;
 };

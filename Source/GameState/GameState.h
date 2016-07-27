@@ -5,7 +5,7 @@ class GameState : public Object {
 
 public:
 
-    enum StateName {
+    enum Type {
         CONSOLE,
         MENU,
         PAUSE,
@@ -13,7 +13,7 @@ public:
     };
 
     GameState();
-    StateName getName() const { return stateName; }
+    Type getType() const { return type; }
 
     virtual void init() = 0;
     virtual void cleanup() = 0;
@@ -26,5 +26,5 @@ public:
     virtual void draw(float dt) = 0;
 
 protected:
-     StateName stateName;
+     Type type;
 };

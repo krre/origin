@@ -1,7 +1,7 @@
 #include "PlayState.h"
 
 PlayState::PlayState() {
-    stateName = PLAY;
+    type = PLAY;
 }
 
 void PlayState::init() {

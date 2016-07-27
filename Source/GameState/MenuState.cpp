@@ -1,7 +1,7 @@
 #include "MenuState.h"
 
 MenuState::MenuState() {
-    stateName = MENU;
+    type = MENU;
 }
 
 void MenuState::init() {

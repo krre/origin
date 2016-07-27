@@ -105,7 +105,6 @@ void App::initSingletons() {
     new Logger();
     new Event();
     new ResourceManager();
-    ResourceManager::getInstance()->loadAll();
     new Console();
     new DebugHUD();
     new Toast();

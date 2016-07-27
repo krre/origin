@@ -5,6 +5,7 @@ ResourceManager::ResourceManager() {
     dataPath = App::getAbsolutePath() + "/Data";
     shaderPath = dataPath + "/Shader";
     fontPath = dataPath + "/Font";
+    loadAll();
 }
 
 void ResourceManager::loadAll() {

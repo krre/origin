@@ -1,7 +1,7 @@
 #pragma once
-#include "../Control.h"
+#include "../Scene2D.h"
 
-class PauseScene : public Control {
+class PauseScene : public Scene2D {
 
 public:
     PauseScene();

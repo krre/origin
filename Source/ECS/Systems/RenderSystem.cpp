@@ -16,7 +16,6 @@ RenderSystem::RenderSystem() {
 }
 
 void RenderSystem::process(float dt) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     // TODO: Replace by family
     for (auto entity : engine->getEntities()) {
         RenderComponent* renderComp = static_cast<RenderComponent*>(entity->components[ComponentType::Render].get());

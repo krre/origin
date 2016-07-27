@@ -72,7 +72,7 @@ void Game::create() {
 
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 
-    Event::getInstance()->keyPress.connect<Game, &Game::keyPress>(this);
+    Event::getInstance()->keyPressed.connect<Game, &Game::keyPressed>(this);
     Event::getInstance()->mouseButtonAction.connect<Game, &Game::mouseButtonAction>(this);
 
     GameStateManager::getInstance()->setState(GameState::PLAY);
@@ -86,7 +86,7 @@ void Game::save() {
 
 }
 
-void Game::keyPress(const SDL_KeyboardEvent& event) {
+void Game::keyPressed(const SDL_KeyboardEvent& event) {
     GameState::Type gameState = GameStateManager::getInstance()->getStateType();
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:

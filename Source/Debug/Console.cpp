@@ -18,9 +18,9 @@ void Console::setVisible(bool visible) {
     this->visible = visible;
     if (visible) {
         cmdLine.setText("/");
-        Event::getInstance()->keyPress.connect<Console, &Console::keyPress>(this);
+        Event::getInstance()->keyPressed.connect<Console, &Console::keyPressed>(this);
     } else {
-        Event::getInstance()->keyPress.disconnect<Console, &Console::keyPress>(this);
+        Event::getInstance()->keyPressed.disconnect<Console, &Console::keyPressed>(this);
     }
 }
 
@@ -28,7 +28,7 @@ void Console::onWindowResize(int width, int height) {
     cmdLine.setPosition(glm::vec2(5, height - 5));
 }
 
-void Console::keyPress(const SDL_KeyboardEvent& event) {
+void Console::keyPressed(const SDL_KeyboardEvent& event) {
     std::string newText;
     switch (event.keysym.sym) {
     case SDLK_BACKSPACE:

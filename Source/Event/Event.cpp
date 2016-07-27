@@ -49,7 +49,7 @@ void Event::handleEvents() {
 
         case SDL_KEYDOWN:
             Input::getInstance()->addKey(event.key.keysym.sym);
-            keyPress.emit(event.key);
+            keyPressed.emit(event.key);
 //            print("key down: " << event.key.keysym.sym);
             break;
 

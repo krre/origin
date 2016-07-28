@@ -8,8 +8,8 @@ PauseScene::PauseScene(int width, int height) :
     layout->setHeight(50);
     layout->setSpacing(25); // TODO: Fix - abnormally!
 
-    layout->addControl(&continueRect);
-    layout->addControl(&exitRect);
+    layout->addControl(&continueButton);
+    layout->addControl(&exitButton);
     setLayout(layout);
 }
 

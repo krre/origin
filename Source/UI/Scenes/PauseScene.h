@@ -11,6 +11,6 @@ public:
 
 private:
     std::shared_ptr<LinearLayout> layout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
-    Button continueRect;
-    Button exitRect;
+    Button continueButton;
+    Button exitButton;
 };

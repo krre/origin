@@ -1,5 +1,6 @@
 #pragma once
 #include "Rectangle.h"
+#include "Text.h"
 
 class Button : public Rectangle {
 
@@ -10,6 +11,10 @@ public:
 
     Nano::Signal<void()> clicked;
 
+protected:
+    void draw(float dt) override;
+
 private:
     std::string text;
+    Text labelText;
 };

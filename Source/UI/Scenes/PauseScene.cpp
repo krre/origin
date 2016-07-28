@@ -4,10 +4,12 @@
 PauseScene::PauseScene(int width, int height) :
     Scene2D(width, height) {
 
+    continueButton.setText("Continue");
+    exitButton.setText("Exit");
+
     layout->setWidth(100);
     layout->setHeight(50);
     layout->setSpacing(25); // TODO: Fix - abnormally!
-
     layout->addControl(&continueButton);
     layout->addControl(&exitButton);
     setLayout(layout);

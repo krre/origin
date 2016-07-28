@@ -10,8 +10,8 @@ PauseScene::PauseScene(int width, int height) :
     layout->setHeight(50);
     layout->setSpacing(25); // TODO: Fix - abnormally!
 
-    continueRect.setColor(glm::vec3(1.0, 1.0, 1.0));
-    exitRect.setColor(glm::vec3(1.0, 1.0, 1.0));
+    continueRect.setColor(glm::vec3(0.7, 0.7, 0.7));
+    exitRect.setColor(glm::vec3(0.7, 0.7, 0.7));
     layout->addControl(&continueRect);
     layout->addControl(&exitRect);
     setLayout(layout);

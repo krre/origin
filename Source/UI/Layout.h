@@ -21,6 +21,7 @@ public:
     void setSpacing(int spacing);
 
     void setParent(Control* parent);
+    void update();
 
 protected:
     virtual void updateContentPostion() = 0;

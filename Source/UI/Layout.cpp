@@ -62,3 +62,7 @@ void Layout::setParent(Control* parent) {
     this->parent = parent;
 }
 
+void Layout::update() {
+    updateContentPostion();
+}
+

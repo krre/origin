@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene2D.h"
-#include "../UI/Rectangle.h"
+#include "../UI/Button.h"
 #include "../UI/LinearLayout.h"
 
 class PauseScene : public Scene2D {
@@ -11,6 +11,6 @@ public:
 
 private:
     std::shared_ptr<LinearLayout> layout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
-    Rectangle continueRect;
-    Rectangle exitRect;
+    Button continueRect;
+    Button exitRect;
 };

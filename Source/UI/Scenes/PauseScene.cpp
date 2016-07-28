@@ -2,16 +2,12 @@
 #include "../Core/App.h"
 
 PauseScene::PauseScene(int width, int height) :
-    Scene2D(width, height),
-    continueRect(100, 20),
-    exitRect(100, 20) {
+    Scene2D(width, height) {
 
     layout->setWidth(100);
     layout->setHeight(50);
     layout->setSpacing(25); // TODO: Fix - abnormally!
 
-    continueRect.setColor(glm::vec3(0.7, 0.7, 0.7));
-    exitRect.setColor(glm::vec3(0.7, 0.7, 0.7));
     layout->addControl(&continueRect);
     layout->addControl(&exitRect);
     setLayout(layout);

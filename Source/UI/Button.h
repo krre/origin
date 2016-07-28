@@ -1,7 +1,7 @@
 #pragma once
-#include "Control.h"
+#include "Rectangle.h"
 
-class Button : public Control {
+class Button : public Rectangle {
 
 public:
     Button();

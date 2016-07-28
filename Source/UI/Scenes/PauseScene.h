@@ -10,6 +10,9 @@ public:
     void draw(float dt) override;
 
 private:
+    void onContinueButtonClicked();
+    void onExitButtonClicked();
+
     std::shared_ptr<LinearLayout> layout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
     Button continueButton;
     Button exitButton;

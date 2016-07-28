@@ -1,6 +1,7 @@
 #pragma once
 #include "Rectangle.h"
 #include "Text.h"
+#include <SDL.h>
 
 class Button : public Rectangle {
 
@@ -15,6 +16,7 @@ protected:
     void draw(float dt) override;
 
 private:
+    void onMouseButtonAction(const SDL_MouseButtonEvent& event);
     std::string text;
     Text labelText;
 };

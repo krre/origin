@@ -1,5 +1,8 @@
 #include "PauseScene.h"
 #include "../Core/App.h"
+#include "../GameState/GameStateManager.h"
+#include "../ECS/Systems/Systems.h"
+#include "../ECS/Engine.h"
 
 PauseScene::PauseScene(int width, int height) :
     Scene2D(width, height) {
@@ -13,10 +16,24 @@ PauseScene::PauseScene(int width, int height) :
     layout->addControl(&continueButton);
     layout->addControl(&exitButton);
     setLayout(layout);
+
+    continueButton.clicked.connect<PauseScene, &PauseScene::onContinueButtonClicked>(this);
+    exitButton.clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);
 }
 
 void PauseScene::draw(float dt) {
     layout->setPosition(glm::vec2((App::getInstance()->getWidth() - layout->getWidth()) / 2.0, (App::getInstance()->getHeight() - layout->getHeight()) / 2.0));
     layout->update();
     Scene2D::draw(dt);
+}
+
+void PauseScene::onContinueButtonClicked() {
+    GameStateManager::getInstance()->popState();
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+    movementControllerSystem->setActive(true);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+}
+
+void PauseScene::onExitButtonClicked() {
+    App::getInstance()->quit();
 }

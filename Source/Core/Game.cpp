@@ -73,7 +73,6 @@ void Game::create() {
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 
     Event::getInstance()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
-    Event::getInstance()->mouseButtonAction.connect<Game, &Game::mouseButtonAction>(this);
 
     GameStateManager::getInstance()->setState(GameState::PLAY);
 }
@@ -131,15 +130,6 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 
     default:
         break;
-    }
-}
-
-void Game::mouseButtonAction(const SDL_MouseButtonEvent& event) {
-    if (GameStateManager::getInstance()->getStateType() == GameState::PAUSE) {
-        GameStateManager::getInstance()->popState();
-        MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
-        movementControllerSystem->setActive(true);
-        SDL_SetRelativeMouseMode(SDL_TRUE);
     }
 }
 

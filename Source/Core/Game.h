@@ -14,7 +14,6 @@ public:
 private:
     void create();
     void onKeyPressed(const SDL_KeyboardEvent& event);
-    void mouseButtonAction(const SDL_MouseButtonEvent& event);
     void toggleFullScreen();
     void saveScreenshot();
     std::string zeroFill(std::string number);

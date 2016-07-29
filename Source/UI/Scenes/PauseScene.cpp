@@ -1,8 +1,6 @@
 #include "PauseScene.h"
 #include "../Core/App.h"
 #include "../GameState/GameStateManager.h"
-#include "../ECS/Systems/Systems.h"
-#include "../ECS/Engine.h"
 
 PauseScene::PauseScene(int width, int height) :
     Scene2D(width, height) {
@@ -29,9 +27,6 @@ void PauseScene::draw(float dt) {
 
 void PauseScene::onContinueButtonClicked() {
     GameStateManager::getInstance()->popState();
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
-    movementControllerSystem->setActive(true);
-    SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
 void PauseScene::onExitButtonClicked() {

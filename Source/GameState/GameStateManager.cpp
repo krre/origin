@@ -11,15 +11,18 @@ GameStateManager::GameStateManager() {
 
 void GameStateManager::pushState(GameState::Type type) {
     gameStates.push_back(createState(type));
+    gameStates.back()->resume();
 }
 
 void GameStateManager::popState() {
     gameStates.pop_back();
+    gameStates.back()->resume();
 }
 
 void GameStateManager::setState(GameState::Type type) {
     gameStates.clear();
     pushState(type);
+    gameStates.back()->resume();
 }
 
 GameState::Type GameStateManager::getStateType() {

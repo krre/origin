@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/OctreeRenderer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/OctreeRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Voxel.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Voxel.h
     PARENT_SCOPE

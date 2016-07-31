@@ -16,6 +16,7 @@ public:
     const glm::ivec2& getMousePos() const { return mousePos; }
     const glm::ivec2& getRelMousePos() const { return relMousePos; }
     void mouseReset();
+    bool isKeyAccepted = false;
 private:
     std::unordered_set<SDL_Keycode> keys;
     glm::ivec2 mousePos;

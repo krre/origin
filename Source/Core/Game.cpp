@@ -89,11 +89,9 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
     GameState::Type gameState = GameStateManager::getInstance()->getStateType();
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
+        if (Input::getInstance()->isKeyAccepted) break;
         if (gameState == GameState::PLAY) {
             GameStateManager::getInstance()->pushState(GameState::PAUSE);
-            SDL_SetRelativeMouseMode(SDL_FALSE);
-            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
-            movementControllerSystem->setActive(false);
         } else if (gameState == GameState::CONSOLE) {
             MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
             movementControllerSystem->setActive(true);

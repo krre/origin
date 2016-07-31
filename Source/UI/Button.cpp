@@ -6,6 +6,10 @@ Button::Button() : Rectangle(100, 20) {
     Event::getInstance()->mouseButtonAction.connect<Button, &Button::onMouseButtonAction>(this);
 }
 
+Button::~Button() {
+   Event::getInstance()->mouseButtonAction.disconnect<Button, &Button::onMouseButtonAction>(this);
+}
+
 void Button::setText(const std::string &text) {
     this->text = text;
     labelText.setText(text);
@@ -17,7 +21,6 @@ void Button::draw(float dt) {
     labelText.draw(dt);
 }
 
-// TODO: Fix multiply action with every new click
 void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         int mouseX = event.x;

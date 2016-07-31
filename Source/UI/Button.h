@@ -7,6 +7,7 @@ class Button : public Rectangle {
 
 public:
     Button();
+    ~Button();
     void setText(const std::string& text);
     std::string getText() const { return text; }
 

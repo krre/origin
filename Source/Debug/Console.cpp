@@ -51,6 +51,8 @@ void Console::execute() {
         command = command.substr(1, command.length() - 1);
         if (command == "exit") {
             App::getInstance()->quit();
+        } else if (command == "help") {
+            print("help");
         }
         setVisible(false);
         GameStateManager::getInstance()->setState(GameState::PLAY);

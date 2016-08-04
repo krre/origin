@@ -6,8 +6,12 @@ class RenderSurface : public Drawable {
 
 public:
     RenderSurface();
+    ~RenderSurface();
     void draw(float dt) override;
 
 private:
     Rectangle rectangle;
+
+    uint32_t* data;
+    uint32_t* depth;
 };

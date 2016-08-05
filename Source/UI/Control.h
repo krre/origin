@@ -17,8 +17,12 @@ public:
 
     void resize(int width, int height);
 
+    float getZ() const { return z; }
+    void setZ(float z);
+
 protected:
     glm::vec2 position;
     int width;
     int height;
+    float z = 0.0f;
 };

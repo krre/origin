@@ -5,8 +5,12 @@
 
 DebugHUD::DebugHUD() : Scene2D(500, 500) {
     visible = false;
+
     version.resize(100, 10);
+    version.setZ(1.0f);
+
     fps.resize(100, 10);
+    fps.setZ(1.0f);
 
     version.setText("Gagarin " + std::string(VERSION_STRING));
     statisticsLayout->setPosition(glm::vec2(5, 15));

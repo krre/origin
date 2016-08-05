@@ -20,3 +20,7 @@ void Control::resize(int width, int height) {
     this->width = width;
     this->height = height;
 }
+
+void Control::setZ(float z) {
+    this->z = z;
+}

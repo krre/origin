@@ -13,6 +13,7 @@ Button::~Button() {
 void Button::setText(const std::string &text) {
     this->text = text;
     labelText.setText(text);
+    labelText.setZ(1.0f);
 }
 
 void Button::draw(float dt) {

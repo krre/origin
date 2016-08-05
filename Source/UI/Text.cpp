@@ -110,7 +110,7 @@ void Text::draw(float dt) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     fontShaderGroup->use();
 
-    glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, 1.0f));
+    glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, z));
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight())) * translationMatrix;
     glUniformMatrix4fv(glGetUniformLocation(fontShaderGroup->getProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 

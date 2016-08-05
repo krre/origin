@@ -7,7 +7,10 @@ PauseScene::PauseScene(int width, int height) :
     Scene2D(width, height) {
 
     continueButton.setText("Continue");
+    continueButton.setZ(0.5f);
+
     exitButton.setText("Exit");
+    exitButton.setZ(0.5f);
 
     layout->setWidth(100);
     layout->setHeight(50);

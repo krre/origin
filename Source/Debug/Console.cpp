@@ -7,6 +7,7 @@
 
 Console::Console() {
     Event::getInstance()->windowResize.connect<Console, &Console::onWindowResize>(this);
+    cmdLine.setZ(1.0f);
     visible = false;
 }
 

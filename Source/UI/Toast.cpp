@@ -5,6 +5,7 @@
 Toast::Toast() {
     setVisible(false);
     timer.timeout.connect<Toast, &Toast::onTimeout>(this);
+    text.setZ(1.0f);
 }
 
 void Toast::draw(float dt) {

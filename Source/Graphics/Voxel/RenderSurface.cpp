@@ -2,7 +2,7 @@
 #include "../Event/Event.h"
 
 RenderSurface::RenderSurface() : rectangle(800, 480) {
-    rectangle.setColor(glm::vec3(0.9f, 0.7f, 0.5f));
+//    rectangle.setColor(glm::vec3(0.9f, 0.7f, 0.5f));
     data = new uint32_t[rectangle.getWidth() * rectangle.getHeight()];
     Event::getInstance()->windowResize.connect<RenderSurface, &RenderSurface::onWindowResize>(this);
 }

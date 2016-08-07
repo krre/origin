@@ -28,6 +28,12 @@ void ResourceManager::loadAll() {
     lightShaderGroup->load();
     resources["LightShaderGroup"] = lightShaderGroup;
 
+    auto surfaceShaderGroup = std::make_shared<ShaderGroup>();
+    surfaceShaderGroup->setVertShaderPath(shaderPath + "/Surface.vert");
+    surfaceShaderGroup->setFragShaderPath(shaderPath + "/Surface.frag");
+    surfaceShaderGroup->load();
+    resources["SurfaceShaderGroup"] = surfaceShaderGroup;
+
     // Fonts
     auto iconsolataFont = std::make_shared<Font>();
     iconsolataFont->load(fontPath + "/inconsolatalgc.ttf");

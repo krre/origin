@@ -51,6 +51,12 @@ void RenderSurface::draw(float dt) {
     VAO.unbind();
 }
 
+void RenderSurface::clear() {
+    uint32_t color = 0xaaccffu;
+    std::fill_n(data, width * height, color);
+    std::fill_n(depth, width * height, ~0u);
+}
+
 void RenderSurface::onWindowResize(int width, int height) {
     this->width = width;
     this->height = height;
@@ -65,4 +71,5 @@ void RenderSurface::onWindowResize(int width, int height) {
 
     data = new uint32_t[width * height];
     depth = new uint32_t[width * height];
+    clear();
 }

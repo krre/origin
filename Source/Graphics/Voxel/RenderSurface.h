@@ -11,6 +11,7 @@ public:
     RenderSurface();
     ~RenderSurface();
     void draw(float dt) override;
+    void clear();
 
 private:
     void onWindowResize(int width, int height);

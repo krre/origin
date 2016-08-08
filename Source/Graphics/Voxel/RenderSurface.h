@@ -2,6 +2,8 @@
 #include "../Drawable.h"
 #include "../Graphics/ShaderGroup.h"
 #include "../Graphics/OpenGL/Texture.h"
+#include "../Graphics/OpenGL/VertexArray.h"
+#include "../Graphics/OpenGL/Buffer.h"
 
 class RenderSurface : public Drawable {
 
@@ -15,7 +17,11 @@ private:
     uint32_t* data = nullptr;
     uint32_t* depth = nullptr;
     ShaderGroup* surfaceShaderGroup;
+
     Texture texture;
+    VertexArray VAO;
+    Buffer VBO;
+
     int width = 0;
     int height = 0;
 };

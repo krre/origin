@@ -45,6 +45,7 @@ RenderSurface::~RenderSurface() {
 void RenderSurface::draw(float dt) {
     texture.bind();
     glTexImage2D(texture.getType(), 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data);
+    glGenerateMipmap(GL_TEXTURE_2D);
     surfaceShaderGroup->use();
     VAO.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);

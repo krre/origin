@@ -2,11 +2,17 @@
 #include "../Event/Event.h"
 #include "../Resource/ResourceManager.h"
 
-RenderSurface::RenderSurface() : rectangle(800, 480) {
-//    rectangle.setColor(glm::vec3(0.9f, 0.7f, 0.5f));
+RenderSurface::RenderSurface() :
+    rectangle(800, 480),
+    texture(GL_TEXTURE_2D) {
     data = new uint32_t[rectangle.getWidth() * rectangle.getHeight()];
     depth = new uint32_t[rectangle.getWidth() * rectangle.getHeight()];
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
+
+    texture.bind();
+    glTexImage2D(texture.getType(), 0, GL_RGB, rectangle.getWidth(), rectangle.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    texture.unbind();
+
     Event::getInstance()->windowResize.connect<RenderSurface, &RenderSurface::onWindowResize>(this);
 }
 

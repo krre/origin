@@ -2,6 +2,7 @@
 #include "../Drawable.h"
 #include "../UI/Rectangle.h"
 #include "../Graphics/ShaderGroup.h"
+#include "../Graphics/OpenGL/Texture.h"
 
 class RenderSurface : public Drawable {
 
@@ -16,4 +17,5 @@ private:
     uint32_t* data;
     uint32_t* depth;
     ShaderGroup* surfaceShaderGroup;
+    Texture texture;
 };

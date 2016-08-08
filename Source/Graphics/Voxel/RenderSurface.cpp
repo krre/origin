@@ -2,17 +2,8 @@
 #include "../Event/Event.h"
 #include "../Resource/ResourceManager.h"
 
-RenderSurface::RenderSurface() :
-    rectangle(800, 480),
-    texture(GL_TEXTURE_2D) {
-    data = new uint32_t[rectangle.getWidth() * rectangle.getHeight()];
-    depth = new uint32_t[rectangle.getWidth() * rectangle.getHeight()];
+RenderSurface::RenderSurface() : texture(GL_TEXTURE_2D) {
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
-
-    texture.bind();
-    glTexImage2D(texture.getType(), 0, GL_RGB, rectangle.getWidth(), rectangle.getHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-    texture.unbind();
-
     Event::getInstance()->windowResize.connect<RenderSurface, &RenderSurface::onWindowResize>(this);
 }
 
@@ -22,13 +13,23 @@ RenderSurface::~RenderSurface() {
 }
 
 void RenderSurface::draw(float dt) {
-    rectangle.draw(dt);
+    texture.bind();
+    glTexImage2D(texture.getType(), 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    texture.unbind();
 }
 
 void RenderSurface::onWindowResize(int width, int height) {
-    rectangle.resize(width, height);
-    delete data;
-    delete depth;
-    data = new uint32_t[rectangle.getWidth() * rectangle.getHeight()];
-    depth = new uint32_t[rectangle.getWidth() * rectangle.getHeight()];
+    this->width = width;
+    this->height = height;
+
+    if (data != nullptr) {
+        delete data;
+    }
+
+    if (depth != nullptr) {
+        delete depth;
+    }
+
+    data = new uint32_t[width * height];
+    depth = new uint32_t[width * height];
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include "../Drawable.h"
-#include "../UI/Rectangle.h"
 #include "../Graphics/ShaderGroup.h"
 #include "../Graphics/OpenGL/Texture.h"
 
@@ -13,9 +12,10 @@ public:
 
 private:
     void onWindowResize(int width, int height);
-    Rectangle rectangle;
-    uint32_t* data;
-    uint32_t* depth;
+    uint32_t* data = nullptr;
+    uint32_t* depth = nullptr;
     ShaderGroup* surfaceShaderGroup;
     Texture texture;
+    int width = 0;
+    int height = 0;
 };

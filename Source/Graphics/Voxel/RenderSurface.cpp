@@ -44,7 +44,7 @@ RenderSurface::~RenderSurface() {
 
 void RenderSurface::draw(float dt) {
     texture.bind();
-    glTexImage2D(texture.getType(), 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(texture.getType(), 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data);
     surfaceShaderGroup->use();
     VAO.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -52,7 +52,7 @@ void RenderSurface::draw(float dt) {
 }
 
 void RenderSurface::clear() {
-    uint32_t color = 0xaaccffu;
+    uint32_t color = 0xff0000ffu;
     std::fill_n(data, width * height, color);
     std::fill_n(depth, width * height, ~0u);
 }

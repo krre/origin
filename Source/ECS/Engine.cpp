@@ -88,6 +88,9 @@ Component* Engine::createComponent(Entity* entity, ComponentType type) {
     case ComponentType::MovementController:
         entity->components[type] = std::make_shared<MovementControllerComponent>();
         break;
+    case ComponentType::Octree:
+        entity->components[type] = std::make_shared<OctreeComponent>();
+        break;
     }
 
     return entity->components[type].get();

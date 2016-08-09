@@ -1,7 +1,7 @@
 #pragma once
-#include "../Mesh.h"
+#include "../Voxel/Octree.h"
 
-class Cube : public Mesh {
+class Cube : public Octree {
 
 public:
     Cube(float width = 1.0, float height = 1.0, float depth = 1.0);

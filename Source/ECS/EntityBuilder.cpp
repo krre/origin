@@ -9,7 +9,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
     std::vector<ComponentType> types = {
         ComponentType::Node,
         ComponentType::Transform,
-        ComponentType::Mesh,
+        ComponentType::Octree,
         ComponentType::Material,
         ComponentType::Render,
     };
@@ -25,8 +25,8 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
 std::shared_ptr<Entity> EntityBuilder::plane() {
     std::shared_ptr<Entity> entity = geometry();
 
-    MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[ComponentType::Mesh].get());
-    meshComp->mesh = std::make_shared<Plane>();
+    OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+    octreeComp->octree = std::make_shared<Cube>();
 
     return entity;
 }
@@ -34,8 +34,8 @@ std::shared_ptr<Entity> EntityBuilder::plane() {
 std::shared_ptr<Entity> EntityBuilder::cube() {
     std::shared_ptr<Entity> entity = geometry();
 
-    MeshComponent* meshComp = static_cast<MeshComponent*>(entity->components[ComponentType::Mesh].get());
-    meshComp->mesh = std::make_shared<Cube>();
+    OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+    octreeComp->octree = std::make_shared<Cube>();
 
     return entity;
 }

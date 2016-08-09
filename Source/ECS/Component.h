@@ -10,6 +10,7 @@ enum class ComponentType {
     MovementController,
     Movement,
     Node,
+    Octree,
     Render,
     Transform
 };

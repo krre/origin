@@ -43,10 +43,6 @@ void App::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());
     } else {
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-        SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-
         int screenWidth;
         int screenHeight;
 
@@ -79,16 +75,16 @@ void App::init() {
         if (window == nullptr) {
             error("Window could not be created! SDL_Error: " << SDL_GetError());
         } else {
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+            SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+            SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
             context = SDL_GL_CreateContext(window);
             if (context == nullptr) {
                 error("OpenGL context could not be created! SDL_Error: " << SDL_GetError());
             } else {
                 SDL_GL_MakeCurrent(window, context);
-
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-                SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-                SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 
                 glewExperimental = GL_TRUE;
                 glewInit();

@@ -51,7 +51,7 @@ void RenderSurface::draw(float dt) {
 }
 
 void RenderSurface::clear() {
-    uint32_t color = 0xff0000ffu;
+    uint32_t color = 0xc4d3d3ffu;
     std::fill_n(data, width * height, color);
     std::fill_n(depth, width * height, ~0u);
 }

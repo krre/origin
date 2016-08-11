@@ -5,6 +5,8 @@
 RenderSurface::RenderSurface() :
     texture(GL_TEXTURE_RECTANGLE),
     VBO(GL_ARRAY_BUFFER) {
+    octreeRenderer.setRenderSurface(this);
+
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
 
     GLfloat vertices[] = {
@@ -54,14 +56,7 @@ void RenderSurface::clear() {
 }
 
 void RenderSurface::update(float dt) {
-
-    for (int i = 0; i < width * height; i++) {
-        if (i < 98000) {
-            data[i] = 0x0000ffff;
-        } else {
-            data[i] = 0xff0000ff;
-        }
-    }
+    octreeRenderer.render();
 }
 
 void RenderSurface::onWindowResize(int width, int height) {

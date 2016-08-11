@@ -8,14 +8,14 @@ RenderSurface::RenderSurface() :
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
 
     GLfloat vertices[] = {
-        // Positions          // Texture Coords
-        -1.0f,  1.0f, 0.0f,   0.0f, 1.0f, // Top Left
-        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, // Bottom Left
-         1.0f,  1.0f, 0.0f,   1.0f, 1.0f, // Top Right
+        // Positions
+        -1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,
 
-        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, // Bottom Left
-         1.0f, -1.0f, 0.0f,   1.0f, 0.0f, // Bottom Right
-         1.0f,  1.0f, 0.0f,   1.0f, 1.0f  // Top Right
+        -1.0f, -1.0f, 0.0f,
+         1.0f, -1.0f, 0.0f,
+         1.0f,  1.0f, 0.0f,
     };
 
     VAO.bind();
@@ -24,12 +24,8 @@ RenderSurface::RenderSurface() :
     VBO.setData(vertices, sizeof(vertices));
 
     // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
-
-    // TexCoord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (GLvoid*)(3 * sizeof(GLfloat)));
-    glEnableVertexAttribArray(1);
 
     VAO.unbind();
 
@@ -60,7 +56,7 @@ void RenderSurface::clear() {
 void RenderSurface::update(float dt) {
 
     for (int i = 0; i < width * height; i++) {
-        if (i < 200) {
+        if (i < 98000) {
             data[i] = 0x0000ffff;
         } else {
             data[i] = 0xff0000ff;

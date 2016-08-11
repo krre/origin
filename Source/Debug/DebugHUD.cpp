@@ -17,6 +17,8 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     statisticsLayout->addControl(&version);
     statisticsLayout->addControl(&fps);
     setLayout(statisticsLayout);
+
+    Event::getInstance()->windowResize.connect<DebugHUD, &DebugHUD::onWindowResize>(this);
 }
 
 void DebugHUD::draw(float dt) {
@@ -34,4 +36,8 @@ void DebugHUD::draw(float dt) {
 
 void DebugHUD::trigger() {
     visible = !visible;
+}
+
+void DebugHUD::onWindowResize(int width, int height) {
+    resize(width, height);
 }

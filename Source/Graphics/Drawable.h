@@ -6,6 +6,7 @@ class Drawable : Object {
 public:
     Drawable();
     virtual void draw(float dt) = 0;
+    virtual void update(float dt) {}
 
     virtual void setVisible(bool visible);
     bool getVisible() const { return visible; }

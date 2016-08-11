@@ -42,6 +42,7 @@ RenderSurface::~RenderSurface() {
 }
 
 void RenderSurface::draw(float dt) {
+    update(dt);
     texture.bind();
     glTexImage2D(texture.getType(), 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data);
     surfaceShaderGroup->use();
@@ -54,6 +55,17 @@ void RenderSurface::clear() {
     uint32_t color = 0xc4d3d3ffu;
     std::fill_n(data, width * height, color);
     std::fill_n(depth, width * height, ~0u);
+}
+
+void RenderSurface::update(float dt) {
+
+    for (int i = 0; i < width * height; i++) {
+        if (i < 200) {
+            data[i] = 0x0000ffff;
+        } else {
+            data[i] = 0xff0000ff;
+        }
+    }
 }
 
 void RenderSurface::onWindowResize(int width, int height) {

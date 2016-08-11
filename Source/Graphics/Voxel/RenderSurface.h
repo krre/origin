@@ -12,6 +12,7 @@ public:
     ~RenderSurface();
     void draw(float dt) override;
     void clear();
+    void update(float dt) override;
 
 private:
     void onWindowResize(int width, int height);

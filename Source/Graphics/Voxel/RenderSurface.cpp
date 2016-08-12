@@ -5,7 +5,6 @@
 RenderSurface::RenderSurface() :
     texture(GL_TEXTURE_RECTANGLE),
     VBO(GL_ARRAY_BUFFER) {
-    octreeRenderer.setRenderSurface(this);
 
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
 
@@ -56,7 +55,7 @@ void RenderSurface::clear() {
 }
 
 void RenderSurface::update(float dt) {
-    octreeRenderer.render();
+    octreeRenderer.render(this);
 }
 
 void RenderSurface::onWindowResize(int width, int height) {

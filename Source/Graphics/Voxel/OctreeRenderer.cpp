@@ -5,7 +5,7 @@ OctreeRenderer::OctreeRenderer() {
 
 }
 
-void OctreeRenderer::render() {
+void OctreeRenderer::render(const RenderSurface* renderSurface) {
     uint32_t* data = renderSurface->getData();
     int count = renderSurface->getWidth() * renderSurface->getHeight();
     for (int i = 0; i < count; i++) {
@@ -15,8 +15,4 @@ void OctreeRenderer::render() {
             data[i] = 0xff0000ff;
         }
     }
-}
-
-void OctreeRenderer::setRenderSurface(RenderSurface* renderSurface) {
-    this->renderSurface = renderSurface;
 }

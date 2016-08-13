@@ -9,14 +9,13 @@ RenderSurface::RenderSurface() :
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
 
     GLfloat vertices[] = {
-        // Positions
-        -1.0f,  1.0f, 0.0f,
-        -1.0f, -1.0f, 0.0f,
-         1.0f,  1.0f, 0.0f,
+        -1.0f,  1.0f,
+        -1.0f, -1.0f,
+         1.0f,  1.0f,
 
-        -1.0f, -1.0f, 0.0f,
-         1.0f, -1.0f, 0.0f,
-         1.0f,  1.0f, 0.0f,
+        -1.0f, -1.0f,
+         1.0f, -1.0f,
+         1.0f,  1.0f,
     };
 
     VAO.bind();
@@ -25,7 +24,7 @@ RenderSurface::RenderSurface() :
     VBO.setData(vertices, sizeof(vertices));
 
     // Position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
     VAO.unbind();

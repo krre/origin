@@ -1,7 +1,7 @@
 #pragma once
-#include "../Mesh.h"
+#include "../Voxel/Octree.h"
 
-class Sphere : Mesh {
+class Sphere : Octree {
 
 public:
     Sphere();

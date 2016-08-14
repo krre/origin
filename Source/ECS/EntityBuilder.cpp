@@ -1,7 +1,6 @@
 #include "EntityBuilder.h"
 #include "Engine.h"
 #include "Components/Components.h"
-#include "../Graphics/Voxel/Primitive/Plane.h"
 #include "../Graphics/Voxel/Primitive/Cube.h"
 #include <glm/glm.hpp>
 

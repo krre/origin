@@ -1,7 +1,7 @@
 #pragma once
 #include "../Resource/Resource.h"
-#include "OpenGL/Shader.h"
-#include "OpenGL/Program.h"
+#include "Shader.h"
+#include "Program.h"
 
 class ShaderGroup : public Resource {
 

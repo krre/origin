@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Object.h"
-#include "OpenGL/VertexArray.h"
-#include "OpenGL/Buffer.h"
+#include "VertexArray.h"
+#include "Buffer.h"
 #include "ShaderGroup.h"
 #include <vector>
 #include <glm/ext.hpp>

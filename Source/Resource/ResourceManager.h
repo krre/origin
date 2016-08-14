@@ -2,7 +2,7 @@
 #include "../Core/Singleton.h"
 #include "../Resource/Resource.h"
 #include "../UI/Font.h"
-#include "../Graphics/ShaderGroup.h"
+#include "../Graphics/OpenGL/ShaderGroup.h"
 #include <map>
 
 class ResourceManager : public Singleton<ResourceManager> {

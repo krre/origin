@@ -1,6 +1,6 @@
 #pragma once
 #include "../Component.h"
-#include "../Graphics/Mesh.h"
+#include "../Graphics/OpenGL/Mesh.h"
 
 class MeshComponent : public Component {
 

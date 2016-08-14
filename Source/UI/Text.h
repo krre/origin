@@ -3,7 +3,7 @@
 #include "Font.h"
 #include "../Graphics/OpenGL/VertexArray.h"
 #include "../Graphics/OpenGL/Buffer.h"
-#include "../Graphics/ShaderGroup.h"
+#include "../Graphics/OpenGL/ShaderGroup.h"
 #include <glm/glm.hpp>
 #include <map>
 

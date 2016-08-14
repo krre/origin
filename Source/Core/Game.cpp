@@ -49,7 +49,7 @@ void Game::create() {
 
 /*
     // Plane
-    std::shared_ptr<Entity> plane = EntityBuilder::plane();
+    std::shared_ptr<Entity> plane = EntityBuilder::cube();
     transformSystem->scale(plane.get(), glm::vec3(5.0, 1.0, 5.0));
     MaterialComponent* materialPlane = static_cast<MaterialComponent*>(plane->components[ComponentType::Material].get());
     materialPlane->color = glm::vec3(0.52, 0.35f, 0.35f);

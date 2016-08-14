@@ -16,7 +16,6 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void toggleFullScreen();
     void saveScreenshot();
-    std::string zeroFill(std::string number);
 
     bool wireframe = false; // TODO: Move to renderer
 };

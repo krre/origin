@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "App.h"
+#include "Utils.h"
 #include "../Debug/Console.h"
 #include "../Debug/DebugHUD.h"
 #include "../UI/Toast.h"
@@ -143,11 +144,11 @@ void Game::saveScreenshot() {
     std::string path = App::getAbsolutePath() +
             App::getPathSeparator() + "Screenshot" + App::getPathSeparator() +
             std::to_string(now->tm_year + 1900) + "-" +
-            zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
-            zeroFill(std::to_string(now->tm_mday)) + "_" +
-            zeroFill(std::to_string(now->tm_hour)) + "-" +
-            zeroFill(std::to_string(now->tm_min)) + "-" +
-            zeroFill(std::to_string(now->tm_sec)) + ".png";
+            Utils::zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_mday)) + "_" +
+            Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
 
     int width = App::getInstance()->getWidth();
     int height = App::getInstance()->getHeight();
@@ -186,8 +187,4 @@ void Game::saveScreenshot() {
 
     std::string message = "Screenshot saved to " + path;
     Toast::getInstance()->showToast(message);
-}
-
-std::string Game::zeroFill(std::string number) {
-    return (number.size() == 1 ? "0" : "") + number;
 }

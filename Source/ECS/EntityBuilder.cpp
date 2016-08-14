@@ -1,8 +1,8 @@
 #include "EntityBuilder.h"
 #include "Engine.h"
 #include "Components/Components.h"
-#include "../Graphics/Mesh/Plane.h"
-#include "../Graphics/Mesh/Cube.h"
+#include "../Graphics/Voxel/Primitive/Plane.h"
+#include "../Graphics/Voxel/Primitive/Cube.h"
 #include <glm/glm.hpp>
 
 std::shared_ptr<Entity> EntityBuilder::geometry() {

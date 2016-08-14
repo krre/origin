@@ -1,5 +1,5 @@
 #pragma once
-#include "../Voxel/Octree.h"
+#include "../Octree.h"
 
 class Cone : public Octree {
 

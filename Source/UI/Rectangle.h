@@ -1,6 +1,6 @@
 #pragma once
 #include "Control.h"
-#include "../Graphics/Mesh/Plane.h"
+#include "../Graphics/Voxel/Primitive/Plane.h"
 #include "../Graphics/ShaderGroup.h"
 #include <glm/glm.hpp>
 

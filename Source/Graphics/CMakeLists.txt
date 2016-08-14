@@ -1,5 +1,4 @@
 add_subdirectory(Light)
-add_subdirectory(Mesh)
 add_subdirectory(OpenGL)
 add_subdirectory(Voxel)
 

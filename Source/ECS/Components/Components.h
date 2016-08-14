@@ -2,7 +2,6 @@
 #include "CameraComponent.h"
 #include "LightComponent.h"
 #include "MaterialComponent.h"
-#include "MeshComponent.h"
 #include "MovementComponent.h"
 #include "MovementControllerComponent.h"
 #include "NodeComponent.h"

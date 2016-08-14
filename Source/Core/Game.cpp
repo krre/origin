@@ -167,22 +167,13 @@ void Game::saveScreenshot() {
         for(unsigned x = 0; x < width; x++) {
             unsigned offset = 4 * (x + y * width);
             unsigned swapOffset = 4 * (x + swapY * width);
+            unsigned char temp;
 
-            unsigned char temp = image[offset + 0];
-            image[offset + 0] = image[swapOffset + 0];
-            image[swapOffset + 0] = temp;
-
-            temp = image[offset + 1];
-            image[offset + 1] = image[swapOffset + 1];
-            image[swapOffset + 1] = temp;
-
-            temp = image[offset + 2];
-            image[offset + 2] = image[swapOffset + 2];
-            image[swapOffset + 2] = temp;
-
-            temp = image[offset + 3];
-            image[offset + 3] = image[swapOffset + 3];
-            image[swapOffset + 3] = temp;
+            for (int channel = 0; channel <= 3; channel++ ) {
+                temp = image[offset + channel];
+                image[offset + channel] = image[swapOffset + channel];
+                image[swapOffset + channel] = temp;
+            }
         }
     }
 

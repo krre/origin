@@ -42,6 +42,11 @@ void Game::create() {
     movementControllerSystem->setRotateEntity(avatarCamera.get());
 
     Engine::getInstance()->addEntity(avatarCamera);
+
+    // Cube
+    std::shared_ptr<Entity> cube = EntityBuilder::cube();
+    Engine::getInstance()->addEntity(cube);
+
 /*
     // Plane
     std::shared_ptr<Entity> plane = EntityBuilder::plane();

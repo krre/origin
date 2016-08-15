@@ -146,14 +146,14 @@ void Game::toggleFullScreen() {
 void Game::saveScreenshot() {
     time_t t = std::time(0);   // get time now
     struct tm * now = std::localtime(&t);
-    std::string path = App::getAbsolutePath() +
-            App::getPathSeparator() + "Screenshot" + App::getPathSeparator() +
+    std::string filename =
             std::to_string(now->tm_year + 1900) + "-" +
             Utils::zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
             Utils::zeroFill(std::to_string(now->tm_mday)) + "_" +
             Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
             Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
+    std::string path = App::getAbsolutePath() + App::getPathSeparator() + "Screenshot" + App::getPathSeparator() + filename;
 
     int width = App::getInstance()->getWidth();
     int height = App::getInstance()->getHeight();
@@ -181,6 +181,6 @@ void Game::saveScreenshot() {
 
     delete[] image;
 
-    std::string message = "Screenshot saved to " + path;
+    std::string message = "Screenshot saved to " + filename;
     Toast::getInstance()->showToast(message);
 }

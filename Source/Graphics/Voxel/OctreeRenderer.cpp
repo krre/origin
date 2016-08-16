@@ -6,7 +6,7 @@ OctreeRenderer::OctreeRenderer() {
 }
 
 void OctreeRenderer::render(const RenderSurface* renderSurface) {
-    uint32_t* data = renderSurface->getData();
+    uint32* data = renderSurface->getData();
     int count = renderSurface->getWidth() * renderSurface->getHeight();
     for (int i = 0; i < count; i++) {
         if (i < 98000) {

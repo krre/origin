@@ -48,7 +48,7 @@ void RenderSurface::draw(float dt) {
 }
 
 void RenderSurface::clear() {
-    uint32_t color = 0xc4d3d3ffu;
+    uint32 color = 0xc4d3d3ffu;
     std::fill_n(data, width * height, color);
     std::fill_n(depth, width * height, ~0u);
 }
@@ -69,7 +69,7 @@ void RenderSurface::onWindowResize(int width, int height) {
         delete depth;
     }
 
-    data = new uint32_t[width * height];
-    depth = new uint32_t[width * height];
+    data = new uint32[width * height];
+    depth = new uint32[width * height];
     clear();
 }

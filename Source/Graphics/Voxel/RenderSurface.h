@@ -18,14 +18,14 @@ public:
     void update(float dt) override;
     int getWidth() const { return width; }
     int getHeight() const { return height; }
-    uint32_t* getData() const { return data; }
+    uint32* getData() const { return data; }
 
 private:
     void onWindowResize(int width, int height);
 
     OctreeRenderer octreeRenderer;
-    uint32_t* data = nullptr;
-    uint32_t* depth = nullptr;
+    uint32* data = nullptr;
+    uint32* depth = nullptr;
     int width = 0;
     int height = 0;
 

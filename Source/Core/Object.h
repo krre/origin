@@ -1,6 +1,5 @@
 #pragma once
 #include "Common.h"
-#include <nano-signal-slot/nano_signal_slot.hpp>
 
 class Object {
 

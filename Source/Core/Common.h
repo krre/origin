@@ -1,5 +1,7 @@
 #pragma once
 #include <cstdint>
+#include <iostream>
+#include <memory>
 
 using uint8 = std::uint8_t;
 using uint16 = std::uint16_t;

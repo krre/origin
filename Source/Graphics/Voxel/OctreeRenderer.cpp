@@ -20,6 +20,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 
     glm::mat4 inverseProjection = glm::inverse(cameraComp->projection);
     glm::mat4 inverseView = glm::inverse(cameraSystem->getView(currentCamera));
+    glm::mat4 inverseViewProjection = inverseView * inverseProjection;
 
     // Loop on screen coordinates [0:width, height:0]
     for (int y = 0; y < height; y++) {
@@ -34,11 +35,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
             // 4D Homogeneous Clip Coordinates [-1:1, -1:1, -1:1, -1:1]
             glm::vec4 clipRay = glm::vec4(ndsRay.x, ndsRay.y, -1.0, 1.0);
 
-            // 4D Eye (Camera) Coordinates [-x:x, -y:y, -z:z, -w:w]
-            glm::vec4 eyeRay = inverseProjection * clipRay;
-
             // 3D World Coordinates [-x:x, -y:y, -z:z, -w:w]
-            glm::vec3 worldRay(inverseView * eyeRay);
+            glm::vec3 worldRay(inverseViewProjection * clipRay);
             worldRay = glm::normalize(worldRay);
         }
     }

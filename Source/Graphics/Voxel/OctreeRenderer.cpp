@@ -4,16 +4,27 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/CameraSystem.h"
 #include "../ECS/Engine.h"
+#include "Octree.h"
 
 OctreeRenderer::OctreeRenderer() {
 
 }
 
 void OctreeRenderer::render(const RenderSurface* renderSurface) {
+    Octree* octree;
+    // TODO: Replace by family
+    for (auto entity : Engine::getInstance()->getEntities()) {
+        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+        if (octreeComp) {
+            octree = octreeComp->octree.get();
+            break;
+        }
+    }
+
     uint32* data = renderSurface->getData();
     int width = renderSurface->getWidth();
     int height = renderSurface->getHeight();
-
+/*
     Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(SystemType::Camera).get());
@@ -40,7 +51,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
             worldRay = glm::normalize(worldRay);
         }
     }
-
+*/
 //    for (int i = 0; i < count; i++) {
 //        if (i < 98000) {
 //            data[i] = 0x0000ffff;

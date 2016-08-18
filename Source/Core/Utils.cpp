@@ -9,7 +9,7 @@ std::string Utils::zeroFill(const std::string& number) {
 }
 
 std::string Utils::getPathSeparator() {
-#ifdef __WINDOWS__
+#ifdef _WIN32
     return "\\";
 #else
     return "/";

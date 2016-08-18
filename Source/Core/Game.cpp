@@ -153,7 +153,7 @@ void Game::saveScreenshot() {
             Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
             Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
-    std::string path = App::getAbsolutePath() + App::getPathSeparator() + "Screenshot" + App::getPathSeparator() + filename;
+    std::string path = App::getAbsolutePath() + Utils::getPathSeparator() + "Screenshot" + Utils::getPathSeparator() + filename;
 
     int width = App::getInstance()->getWidth();
     int height = App::getInstance()->getHeight();

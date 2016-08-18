@@ -1,5 +1,6 @@
 #include "App.h"
 #include "Game.h"
+#include "Utils.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../Resource/ResourceManager.h"
@@ -22,21 +23,13 @@ App::App(int argc, char* argv[]) {
         this->argv.push_back(argv[i]);
     }
     absoluteFilePath = this->argv[0];
-    absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(getPathSeparator()));
+    absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(Utils::getPathSeparator()));
 
     init();
 }
 
 App::~App() {
     clean();
-}
-
-std::string App::getPathSeparator() {
-#ifdef __WINDOWS__
-    return "\\";
-#else
-    return "/";
-#endif
 }
 
 void App::init() {

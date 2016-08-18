@@ -18,7 +18,6 @@ public:
     static std::string getAbsoluteFilePath() { return absoluteFilePath; }
     // Path to application directory
     static std::string getAbsolutePath() { return absolutePath; }
-    static std::string getPathSeparator();
     int run();
     void quit();
     Viewport* getViewport() { return &viewport; }

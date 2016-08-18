@@ -11,11 +11,11 @@ public:
     void setPosition(Entity* entity, glm::vec3& position);
     void setRotation(Entity* entity, float angle, glm::vec3& axis);
     void setRotation(Entity* entity, glm::quat& rotation);
-    void setScale(Entity* entity, glm::vec3& scale);
+    void setScale(Entity* entity, float scale);
 
     void setPitch(Entity* entity, float pitch);
 
     void translate(Entity* entity, const glm::vec3& delta, bool local = true);
     void rotate(Entity* entity, glm::quat& delta);
-    void scale(Entity* entity, const glm::vec3 &delta);
+    void scale(Entity* entity, float delta);
 };

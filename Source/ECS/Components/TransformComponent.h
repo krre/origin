@@ -10,7 +10,7 @@ public:
     glm::mat4 worldMatrix = glm::mat4(1.0);
     glm::vec3 position;
     glm::quat rotation;
-    glm::vec3 scale = glm::vec3(1.0);
+    float scale = 1.0;
     float yaw = 0;
     float pitch = 0;
 };

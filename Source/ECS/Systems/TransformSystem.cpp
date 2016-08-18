@@ -12,8 +12,7 @@ void TransformSystem::process(float dt) {
         if (tc && tc->dirty) {
             glm::mat4 translationMatrix = glm::translate(tc->position);
             glm::mat4 rotationMatrix = glm::toMat4(tc->rotation);
-            glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), tc->scale);
-            tc->localMatrix = rotationMatrix * translationMatrix * scaleMatrix;
+            tc->localMatrix = rotationMatrix * translationMatrix;
             tc->worldMatrix = tc->localMatrix;
             tc->dirty = false;
         }
@@ -38,7 +37,7 @@ void TransformSystem::setRotation(Entity* entity, glm::quat& rotation) {
     tc->dirty = true;
 }
 
-void TransformSystem::setScale(Entity* entity, glm::vec3& scale) {
+void TransformSystem::setScale(Entity* entity, float scale) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     tc->scale = scale;
     tc->dirty = true;
@@ -67,7 +66,7 @@ void TransformSystem::rotate(Entity* entity, glm::quat& delta) {
     tc->dirty = true;
 }
 
-void TransformSystem::scale(Entity* entity, const glm::vec3& delta) {
+void TransformSystem::scale(Entity* entity, float delta) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     tc->scale *= delta;
     tc->dirty = true;

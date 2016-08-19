@@ -12,7 +12,8 @@ void TransformSystem::process(float dt) {
         if (tc && tc->dirty) {
             glm::mat4 translationMatrix = glm::translate(tc->position);
             glm::mat4 rotationMatrix = glm::toMat4(tc->rotation);
-            tc->localMatrix = rotationMatrix * translationMatrix;
+            glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(tc->scale));
+            tc->localMatrix = rotationMatrix * translationMatrix * scaleMatrix;
             tc->worldMatrix = tc->localMatrix;
             tc->dirty = false;
         }

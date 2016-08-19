@@ -12,11 +12,13 @@ OctreeRenderer::OctreeRenderer() {
 
 void OctreeRenderer::render(const RenderSurface* renderSurface) {
     Octree* octree;
+    TransformComponent* transformComp;
     // TODO: Replace by family
     for (auto entity : Engine::getInstance()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
             octree = octreeComp->octree.get();
+            transformComp = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
             break;
         }
     }
@@ -24,6 +26,9 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     uint32* data = renderSurface->getData();
     int width = renderSurface->getWidth();
     int height = renderSurface->getHeight();
+
+    updateCubeTransform(transformComp->worldMatrix);
+
 /*
     Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
@@ -58,5 +63,22 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 //        } else {
 //            data[i] = 0xff0000ff;
 //        }
-//    }
+    //    }
+}
+
+void OctreeRenderer::updateCubeTransform(const glm::mat4& matrix) {
+    cubeVerticles.clear();
+    cubeVerticles.push_back(glm::vec4(-1.0,  1.0, -1.0, 1.0)); // back top left
+    cubeVerticles.push_back(glm::vec4(-1.0, -1.0, -1.0, 1.0)); // back bottom left
+    cubeVerticles.push_back(glm::vec4( 1.0,  1.0, -1.0, 1.0)); // back top right
+    cubeVerticles.push_back(glm::vec4( 1.0, -1.0, -1.0, 1.0)); // back bottom right
+
+    cubeVerticles.push_back(glm::vec4(-1.0,  1.0,  1.0, 1.0)); // front top left
+    cubeVerticles.push_back(glm::vec4(-1.0, -1.0,  1.0, 1.0)); // front bottom left
+    cubeVerticles.push_back(glm::vec4( 1.0,  1.0,  1.0, 1.0)); // front top right
+    cubeVerticles.push_back(glm::vec4( 1.0, -1.0,  1.0, 1.0)); // front bottom right
+
+    for (auto vertex : cubeVerticles) {
+        vertex = matrix * vertex;
+    }
 }

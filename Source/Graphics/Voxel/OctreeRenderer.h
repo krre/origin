@@ -18,7 +18,7 @@ public:
 
 private:
     void updateCubeTransform(const glm::mat4& matrix);
-
+    bool renderOnlyFirst = false; // for debug
     Ray ray;
     std::vector<glm::vec4> cubeVerticles;
 };

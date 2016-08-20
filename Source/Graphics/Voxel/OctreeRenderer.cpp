@@ -11,6 +11,7 @@ OctreeRenderer::OctreeRenderer() {
 }
 
 void OctreeRenderer::render(const RenderSurface* renderSurface) {
+//    if (renderOnlyFirst) return;
     Octree* octree;
     TransformComponent* transformComp;
     // TODO: Replace by family
@@ -28,6 +29,20 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     int height = renderSurface->getHeight();
 
     updateCubeTransform(transformComp->worldMatrix);
+
+    for (int y = 0; y < height; y++) {
+        float yNorm = 1.0f - (2.0f * y) / height;
+        for (int x = 0; x < width; x++) {
+            float xNorm = (2.0f * x) / width - 1.0f;
+            if (xNorm >= cubeVerticles[0].x && xNorm <= cubeVerticles[1].x && yNorm >= cubeVerticles[0].y && yNorm <= cubeVerticles[1].y) {
+                data[y * width + x] = 0x00abffff;
+            } else {
+                data[y * width + x] = 0xc4d3d3ffu; // background color;
+            }
+        }
+    }
+
+    renderOnlyFirst = true;
 
 /*
     Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
@@ -57,28 +72,15 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         }
     }
 */
-//    for (int i = 0; i < count; i++) {
-//        if (i < 98000) {
-//            data[i] = 0x0000ffff;
-//        } else {
-//            data[i] = 0xff0000ff;
-//        }
-    //    }
 }
 
 void OctreeRenderer::updateCubeTransform(const glm::mat4& matrix) {
     cubeVerticles.clear();
-    cubeVerticles.push_back(glm::vec4(-1.0,  1.0, -1.0, 1.0)); // back top left
-    cubeVerticles.push_back(glm::vec4(-1.0, -1.0, -1.0, 1.0)); // back bottom left
-    cubeVerticles.push_back(glm::vec4( 1.0,  1.0, -1.0, 1.0)); // back top right
-    cubeVerticles.push_back(glm::vec4( 1.0, -1.0, -1.0, 1.0)); // back bottom right
+    cubeVerticles.push_back(glm::vec4(-1.0, -1.0, -1.0, 1.0)); // back bottom left (min)
+    cubeVerticles.push_back(glm::vec4( 1.0,  1.0,  1.0, 1.0)); // front top right (max)
 
-    cubeVerticles.push_back(glm::vec4(-1.0,  1.0,  1.0, 1.0)); // front top left
-    cubeVerticles.push_back(glm::vec4(-1.0, -1.0,  1.0, 1.0)); // front bottom left
-    cubeVerticles.push_back(glm::vec4( 1.0,  1.0,  1.0, 1.0)); // front top right
-    cubeVerticles.push_back(glm::vec4( 1.0, -1.0,  1.0, 1.0)); // front bottom right
-
+    int i = 0;
     for (auto vertex : cubeVerticles) {
-        vertex = matrix * vertex;
+        cubeVerticles[i++] = matrix * vertex;
     }
 }

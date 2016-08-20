@@ -17,6 +17,7 @@
 #include <glm/ext.hpp>
 #include <ctime>
 #include <lodepng/lodepng.h>
+#include <Gagarin.h>
 
 Game::Game() {
     create();
@@ -106,11 +107,11 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
             GameStateManager::getInstance()->popState();
         }
         break;
-
+#ifdef DEBUG_HUD_ENABLE
     case SDLK_F5:
         DebugHUD::getInstance()->trigger();
         break;
-
+#endif
     case SDLK_F6:
         wireframe = !wireframe;
         break;
@@ -123,7 +124,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
     case SDLK_F12:
         saveScreenshot();
         break;
-
+#ifdef CONSOLE_ENABLE
     case SDLK_SLASH:
         if (gameState == GameState::PLAY) {
             MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
@@ -132,7 +133,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
             GameStateManager::getInstance()->pushState(GameState::CONSOLE);
         }
         break;
-
+#endif
     default:
         break;
     }

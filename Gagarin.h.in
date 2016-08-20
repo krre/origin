@@ -1,3 +1,10 @@
 #pragma once
 
 #cmakedefine VERSION_STRING "@VERSION_STRING@"
+
+#define DEVELOP_MODE
+
+#ifdef DEVELOP_MODE
+    #define CONSOLE_ENABLE
+    #define DEBUG_HUD_ENABLE
+#endif

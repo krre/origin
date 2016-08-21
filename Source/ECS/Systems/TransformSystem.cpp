@@ -26,7 +26,7 @@ void TransformSystem::setPosition(Entity* entity, glm::vec3& position) {
     tc->dirty = true;
 }
 
-void TransformSystem::setRotation(Entity* entity, float angle, glm::vec3& axis) {
+void TransformSystem::setRotation(Entity* entity, float angle, const glm::vec3& axis) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     tc->rotation = toQuat(glm::rotate(glm::mat4(1.0f), angle, axis));
     tc->dirty = true;

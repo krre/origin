@@ -9,7 +9,7 @@ public:
     void process(float dt) override;
 
     void setPosition(Entity* entity, glm::vec3& position);
-    void setRotation(Entity* entity, float angle, glm::vec3& axis);
+    void setRotation(Entity* entity, float angle, const glm::vec3& axis);
     void setRotation(Entity* entity, glm::quat& rotation);
     void setScale(Entity* entity, float scale);
 

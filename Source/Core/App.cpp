@@ -59,11 +59,7 @@ void App::init() {
         int x = (screenWidth - WINDOW_WIDTH) / 2;
         int y = (screenHeight - WINDOW_HEIGHT) / 2;
 
-        window = SDL_CreateWindow("Gagarin",
-            x,
-            y,
-            WINDOW_WIDTH,
-            WINDOW_HEIGHT,
+        window = SDL_CreateWindow("Gagarin", x, y, WINDOW_WIDTH, WINDOW_HEIGHT,
             SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
         if (window == nullptr) {
             error("Window could not be created! SDL_Error: " << SDL_GetError());
@@ -78,7 +74,6 @@ void App::init() {
                 error("OpenGL context could not be created! SDL_Error: " << SDL_GetError());
             } else {
                 SDL_GL_MakeCurrent(window, context);
-
                 glewExperimental = GL_TRUE;
                 glewInit();
                 glEnable(GL_DEPTH_TEST);

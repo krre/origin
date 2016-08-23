@@ -28,8 +28,10 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     int height = renderSurface->getHeight();
 
     Ray ray;
-    AABB aabb;
+    ray.origin.z = 1.0;
+    ray.direction = glm::vec3(0.0, 0.0, -1.0);
 
+    AABB aabb;
     aabb.min = glm::vec3(transformComp->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
     aabb.max = glm::vec3(transformComp->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
 
@@ -39,11 +41,6 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
             float xNorm = (2.0f * x) / width - 1.0f;
             ray.origin.x = xNorm;
             ray.origin.y = yNorm;
-            ray.origin.z = 1.0;
-
-            ray.direction.x = 0.0;
-            ray.direction.y = 0.0;
-            ray.origin.z = -1.0;
 
             if (rayAABBIntersect(&ray, &aabb)) {
                 data[y * width + x] = 0x00abffff;

@@ -47,6 +47,7 @@ void Game::create() {
     // Cube
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
     transformSystem->setScale(cube.get(), 0.25);
+    transformSystem->setPosition(cube.get(), glm::vec3(0.0, 0.0, 0.0));
     Engine::getInstance()->addEntity(cube);
 
 /*

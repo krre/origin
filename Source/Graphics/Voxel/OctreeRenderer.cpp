@@ -43,9 +43,9 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
             ray.origin.y = yNorm;
 
             if (rayAABBIntersect(&ray, &aabb)) {
-                data[y * width + x] = 0x00abffff;
+                data[(height - y - 1) * width + x] = 0x00abffff;
             } else {
-                data[y * width + x] = 0xc4d3d3ffu; // background color;
+                data[(height - y - 1) * width + x] = 0xc4d3d3ffu; // background color;
             }
         }
     }

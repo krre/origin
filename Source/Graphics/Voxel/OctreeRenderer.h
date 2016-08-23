@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Core/Object.h"
+#include "Octree.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -17,6 +18,7 @@ public:
     void render(const RenderSurface* renderSurface);
 
 private:
+    bool rayOctreeIntersect(Ray* ray, Octree* octree);
     void updateCubeTransform(const glm::mat4& matrix);
     bool renderOnlyFirst = false; // for debug
     Ray ray;

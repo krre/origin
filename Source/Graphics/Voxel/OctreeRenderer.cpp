@@ -4,7 +4,6 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/CameraSystem.h"
 #include "../ECS/Engine.h"
-#include "Octree.h"
 
 OctreeRenderer::OctreeRenderer() {
 
@@ -72,6 +71,10 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         }
     }
 */
+}
+
+bool OctreeRenderer::rayOctreeIntersect(OctreeRenderer::Ray* ray, Octree* octree) {
+    return false;
 }
 
 void OctreeRenderer::updateCubeTransform(const glm::mat4& matrix) {

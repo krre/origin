@@ -101,22 +101,32 @@ bool OctreeRenderer::rayAABBIntersect(OctreeRenderer::Ray* ray, AABB* aabb) {
     tymin = (bounds[sign.y].y - ray->origin.y) * invdir.y;
     tymax = (bounds[1 - sign.y].y - ray->origin.y) * invdir.y;
 
-    if ((tmin > tymax) || (tymin > tmax))
+    if ((tmin > tymax) || (tymin > tmax)) {
         return false;
-    if (tymin > tmin)
+    }
+
+    if (tymin > tmin) {
         tmin = tymin;
-    if (tymax < tmax)
+    }
+
+    if (tymax < tmax) {
         tmax = tymax;
+    }
 
     tzmin = (bounds[sign.z].z - ray->origin.z) * invdir.z;
     tzmax = (bounds[1 - sign.z].z - ray->origin.z) * invdir.z;
 
-    if ((tmin > tzmax) || (tzmin > tmax))
+    if ((tmin > tzmax) || (tzmin > tmax)) {
         return false;
-    if (tzmin > tmin)
+    }
+
+    if (tzmin > tmin) {
         tmin = tzmin;
-    if (tzmax < tmax)
+    }
+
+    if (tzmax < tmax) {
         tmax = tzmax;
+    }
 
     return true;
 }

@@ -27,13 +27,25 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     int width = renderSurface->getWidth();
     int height = renderSurface->getHeight();
 
-    updateCubeTransform(transformComp->worldMatrix);
+    Ray ray;
+    AABB aabb;
+
+    aabb.min = glm::vec3(transformComp->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
+    aabb.max = glm::vec3(transformComp->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
 
     for (int y = 0; y < height; y++) {
         float yNorm = 1.0f - (2.0f * y) / height;
         for (int x = 0; x < width; x++) {
             float xNorm = (2.0f * x) / width - 1.0f;
-            if (xNorm >= cubeVerticles[0].x && xNorm <= cubeVerticles[1].x && yNorm >= cubeVerticles[0].y && yNorm <= cubeVerticles[1].y) {
+            ray.origin.x = xNorm;
+            ray.origin.y = yNorm;
+            ray.origin.z = 1.0;
+
+            ray.direction.x = 0.0;
+            ray.direction.y = 0.0;
+            ray.origin.z = -1.0;
+
+            if (rayAABBIntersect(&ray, &aabb)) {
                 data[y * width + x] = 0x00abffff;
             } else {
                 data[y * width + x] = 0xc4d3d3ffu; // background color;
@@ -73,17 +85,41 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 */
 }
 
-bool OctreeRenderer::rayOctreeIntersect(OctreeRenderer::Ray* ray, Octree* octree) {
-    return false;
-}
+bool OctreeRenderer::rayAABBIntersect(OctreeRenderer::Ray* ray, AABB* aabb) {
+    float tmin, tmax, tymin, tymax, tzmin, tzmax;
 
-void OctreeRenderer::updateCubeTransform(const glm::mat4& matrix) {
-    cubeVerticles.clear();
-    cubeVerticles.push_back(glm::vec4(-1.0, -1.0, -1.0, 1.0)); // back bottom left (min)
-    cubeVerticles.push_back(glm::vec4( 1.0,  1.0,  1.0, 1.0)); // front top right (max)
+    glm::vec3 bounds[2];
+    bounds[0] = aabb->min;
+    bounds[1] = aabb->max;
 
-    int i = 0;
-    for (auto vertex : cubeVerticles) {
-        cubeVerticles[i++] = matrix * vertex;
-    }
+    glm::vec3 invdir = 1.0f / ray->direction;
+    glm::i8vec3 sign;
+
+    sign.x = (invdir.x < 0);
+    sign.y = (invdir.y < 0);
+    sign.z = (invdir.z < 0);
+
+    tmin = (bounds[sign.x].x - ray->origin.x) * invdir.x;
+    tmax = (bounds[1 - sign.x].x - ray->origin.x) * invdir.x;
+    tymin = (bounds[sign.y].y - ray->origin.y) * invdir.y;
+    tymax = (bounds[1 - sign.y].y - ray->origin.y) * invdir.y;
+
+    if ((tmin > tymax) || (tymin > tmax))
+        return false;
+    if (tymin > tmin)
+        tmin = tymin;
+    if (tymax < tmax)
+        tmax = tymax;
+
+    tzmin = (bounds[sign.z].z - ray->origin.z) * invdir.z;
+    tzmax = (bounds[1 - sign.z].z - ray->origin.z) * invdir.z;
+
+    if ((tmin > tzmax) || (tzmin > tmax))
+        return false;
+    if (tzmin > tmin)
+        tmin = tzmin;
+    if (tzmax < tmax)
+        tmax = tzmax;
+
+    return true;
 }

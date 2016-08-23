@@ -14,13 +14,15 @@ public:
         glm::vec3 direction;
     };
 
+    struct AABB {
+        glm::vec3 min;
+        glm::vec3 max;
+    };
+
     OctreeRenderer();
     void render(const RenderSurface* renderSurface);
 
 private:
-    bool rayOctreeIntersect(Ray* ray, Octree* octree);
-    void updateCubeTransform(const glm::mat4& matrix);
+    bool rayAABBIntersect(Ray* ray, AABB* aabb);
     bool renderOnlyFirst = false; // for debug
-    Ray ray;
-    std::vector<glm::vec4> cubeVerticles;
 };

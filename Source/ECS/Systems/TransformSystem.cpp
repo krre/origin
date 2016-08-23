@@ -20,7 +20,7 @@ void TransformSystem::process(float dt) {
     }
 }
 
-void TransformSystem::setPosition(Entity* entity, glm::vec3& position) {
+void TransformSystem::setPosition(Entity* entity, const glm::vec3& position) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     tc->position = position;
     tc->dirty = true;
@@ -32,7 +32,7 @@ void TransformSystem::setRotation(Entity* entity, float angle, const glm::vec3& 
     tc->dirty = true;
 }
 
-void TransformSystem::setRotation(Entity* entity, glm::quat& rotation) {
+void TransformSystem::setRotation(Entity* entity, const glm::quat& rotation) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     tc->rotation = rotation;
     tc->dirty = true;
@@ -44,7 +44,7 @@ void TransformSystem::setScale(Entity* entity, float scale) {
     tc->dirty = true;
 }
 
-void TransformSystem::setPitch(Entity *entity, float pitch) {
+void TransformSystem::setPitch(Entity* entity, float pitch) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     tc->pitch = pitch;
     tc->dirty = true;
@@ -61,7 +61,7 @@ void TransformSystem::translate(Entity* entity, const glm::vec3& delta, bool loc
     tc->dirty = true;
 }
 
-void TransformSystem::rotate(Entity* entity, glm::quat& delta) {
+void TransformSystem::rotate(Entity* entity, const glm::quat& delta) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     tc->rotation *= delta;
     tc->dirty = true;

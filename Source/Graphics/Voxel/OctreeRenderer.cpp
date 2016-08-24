@@ -4,6 +4,7 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/CameraSystem.h"
 #include "../ECS/Engine.h"
+#include <glm/gtx/matrix_decompose.hpp>
 
 OctreeRenderer::OctreeRenderer() {
 
@@ -27,9 +28,17 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     int width = renderSurface->getWidth();
     int height = renderSurface->getHeight();
 
+    glm::vec3 scale;
+    glm::quat rotation;
+    glm::vec3 translation;
+    glm::vec3 skew;
+    glm::vec4 perspective;
+    glm::decompose(transformComp->worldMatrix, scale, rotation, translation, skew, perspective);
+    glm::mat4 invRotationMatrix = glm::inverse(glm::toMat4(rotation));
+
     Ray ray;
     ray.origin.z = 1.0;
-    ray.direction = glm::vec3(0.0, 0.0, -1.0);
+    ray.direction = glm::vec3(invRotationMatrix * glm::vec4(0.0, 0.0, -1.0, 0.0));
 
     AABB aabb;
     aabb.min = glm::vec3(transformComp->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
@@ -41,6 +50,11 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
             float xNorm = (2.0f * x) / width - 1.0f;
             ray.origin.x = xNorm;
             ray.origin.y = yNorm;
+
+            glm::mat4 invMatrix = glm::translate(glm::mat4(1.0), -ray.origin) * invRotationMatrix;
+            invMatrix = glm::translate(invMatrix, ray.origin);
+
+            ray.origin = glm::vec3(invMatrix * glm::vec4(ray.origin.x, ray.origin.y, ray.origin.z, 1.0));
 
             if (rayAABBIntersect(&ray, &aabb)) {
                 data[(height - y - 1) * width + x] = 0x00abffff;

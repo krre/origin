@@ -33,8 +33,8 @@ void Game::create() {
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
-    transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.1f, 0.0f));
-    transformSystem->setPitch(avatarCamera.get(), -15.0);
+    transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 1.0f));
+//    transformSystem->setPitch(avatarCamera.get(), -15.0);
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
@@ -48,7 +48,7 @@ void Game::create() {
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
     transformSystem->setScale(cube.get(), 0.25);
     transformSystem->setPosition(cube.get(), glm::vec3(0.0, 0.0, 0.0));
-    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 1.0, 0.0));
+//    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 1.0, 0.0));
     Engine::getInstance()->addEntity(cube);
 
 /*

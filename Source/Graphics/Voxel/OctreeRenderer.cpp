@@ -28,75 +28,49 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     int width = renderSurface->getWidth();
     int height = renderSurface->getHeight();
 
+    Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
+    CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
+    TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
+
     glm::vec3 scale;
     glm::quat rotation;
     glm::vec3 translation;
     glm::vec3 skew;
     glm::vec4 perspective;
-    glm::decompose(transformComp->worldMatrix, scale, rotation, translation, skew, perspective);
-    glm::mat4 invRotationMatrix = glm::inverse(glm::toMat4(rotation));
+    glm::decompose(cameraTransform->worldMatrix, scale, rotation, translation, skew, perspective);
+//    print(glm::to_string(translation));
 
     Ray ray;
-    ray.origin.z = 1.0;
-    ray.direction = glm::vec3(invRotationMatrix * glm::vec4(0.0, 0.0, -1.0, 0.0));
+    ray.origin = translation;
 
     AABB aabb;
     aabb.min = glm::vec3(transformComp->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
     aabb.max = glm::vec3(transformComp->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
 
     for (int y = 0; y < height; y++) {
-        float yNorm = 1.0f - (2.0f * y) / height;
+//        float yNorm = 1.0f - (2.0f * y) / height;
         for (int x = 0; x < width; x++) {
-            float xNorm = (2.0f * x) / width - 1.0f;
-            ray.origin.x = xNorm;
-            ray.origin.y = yNorm;
+//            float xNorm = (2.0f * x) / width - 1.0f;
+//            ray.origin.x = xNorm;
+//            ray.origin.y = yNorm;
 
-            glm::mat4 invMatrix = glm::translate(glm::mat4(1.0), -ray.origin) * invRotationMatrix;
-            invMatrix = glm::translate(invMatrix, ray.origin);
+//            glm::mat4 invMatrix = glm::translate(glm::mat4(1.0), -ray.origin) * invRotationMatrix;
+//            invMatrix = glm::translate(invMatrix, ray.origin);
 
-            ray.origin = glm::vec3(invMatrix * glm::vec4(ray.origin.x, ray.origin.y, ray.origin.z, 1.0));
+//            ray.origin = glm::vec3(invMatrix * glm::vec4(ray.origin.x, ray.origin.y, ray.origin.z, 1.0));
 
-            if (rayAABBIntersect(&ray, &aabb)) {
-                data[(height - y - 1) * width + x] = 0x00abffff;
-            } else {
-                data[(height - y - 1) * width + x] = 0xc4d3d3ffu; // background color;
-            }
+//            if (rayAABBIntersect(&ray, &aabb)) {
+//                data[(height - y - 1) * width + x] = 0x00abffff;
+//            } else {
+//                data[(height - y - 1) * width + x] = 0xc4d3d3ffu; // background color;
+//            }
         }
     }
 
     renderOnlyFirst = true;
-
-/*
-    Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
-    CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
-    CameraSystem* cameraSystem = static_cast<CameraSystem*>(Engine::getInstance()->getSystem(SystemType::Camera).get());
-
-    glm::mat4 inverseProjection = glm::inverse(cameraComp->projection);
-    glm::mat4 inverseView = glm::inverse(cameraSystem->getView(currentCamera));
-    glm::mat4 inverseViewProjection = inverseView * inverseProjection;
-
-    // Loop on screen coordinates [0:width, height:0]
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-
-            // 3D Normalised Device Coordinates [-1:1, -1:1, -1:1]
-            float ndcX = (2.0f * x) / width - 1.0f;
-            float ndcY = 1.0f - (2.0f * y) / height;
-            float ndcZ = 1.0f;
-            glm::vec3 ndsRay = glm::vec3(ndcX, ndcY, ndcZ);
-
-            // 4D Homogeneous Clip Coordinates [-1:1, -1:1, -1:1, -1:1]
-            glm::vec4 clipRay = glm::vec4(ndsRay.x, ndsRay.y, -1.0, 1.0);
-
-            // 3D World Coordinates [-x:x, -y:y, -z:z, -w:w]
-            glm::vec3 worldRay(inverseViewProjection * clipRay);
-            worldRay = glm::normalize(worldRay);
-        }
-    }
-*/
 }
 
-bool OctreeRenderer::rayAABBIntersect(OctreeRenderer::Ray* ray, AABB* aabb) {
+bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb) {
     float tmin, tmax, tymin, tymax, tzmin, tzmax;
 
     glm::vec3 bounds[2];

@@ -32,9 +32,9 @@ void MovementControllerSystem::process(float dt) {
         transformSystem->translate(moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * moveSpeed * dt);
     }
 
-    TransformComponent* mtc = static_cast<TransformComponent*>(moveEntity->components[ComponentType::Transform].get());
     // Track to floor pos
-    mtc->position.y = 0.1; // TODO: take from height map
+//    TransformComponent* mtc = static_cast<TransformComponent*>(moveEntity->components[ComponentType::Transform].get());
+//    mtc->position.y = 0.1; // TODO: take from height map
 }
 
 void MovementControllerSystem::setMoveEntity(Entity* moveEntity) {

@@ -56,8 +56,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glm::vec3 h1 = look + up * glm::tan(cameraComp->fov); // max height vector
     glm::vec3 stepH = (h1 - h0) / height;
 
-    glm::vec3 w0 = look - right * glm::tan(cameraComp->fov); // min width vector
-    glm::vec3 w1 = look + right * glm::tan(cameraComp->fov); // max width vector
+    glm::vec3 w0 = look - right * glm::tan(cameraComp->fov) * width / height; // min width vector
+    glm::vec3 w1 = look + right * glm::tan(cameraComp->fov) * width / height; // max width vector
     glm::vec3 stepW = (w1 - w0) / width;
 
     AABB aabb;

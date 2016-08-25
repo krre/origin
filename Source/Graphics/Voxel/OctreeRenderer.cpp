@@ -14,6 +14,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 //    if (renderOnlyFirst) return;
     Octree* octree;
     TransformComponent* octreeTransform;
+    MaterialComponent* octreeMaterial;
+    glm::vec3 octreeColor;
 
     TransformComponent* lightTransform;
     glm::vec3 lightColor = glm::vec3(0.0);
@@ -25,6 +27,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         if (octreeComp) {
             octree = octreeComp->octree.get();
             octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+            octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
+            octreeColor = octreeMaterial->color;
         }
 
         LightComponent* lightComp = static_cast<LightComponent*>(entity->components[ComponentType::Light].get());

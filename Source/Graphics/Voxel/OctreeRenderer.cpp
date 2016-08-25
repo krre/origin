@@ -13,13 +13,13 @@ OctreeRenderer::OctreeRenderer() {
 void OctreeRenderer::render(const RenderSurface* renderSurface) {
 //    if (renderOnlyFirst) return;
     Octree* octree;
-    TransformComponent* transformComp;
+    TransformComponent* octreeTransform;
     // TODO: Replace by family
     for (auto entity : Engine::getInstance()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
             octree = octreeComp->octree.get();
-            transformComp = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+            octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
             break;
         }
     }
@@ -61,8 +61,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glm::vec3 stepW = (w1 - w0) / width;
 
     AABB aabb;
-    aabb.min = glm::vec3(transformComp->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
-    aabb.max = glm::vec3(transformComp->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
+    aabb.min = glm::vec3(octreeTransform->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
+    aabb.max = glm::vec3(octreeTransform->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
 
     glm::vec3 directionW;
     glm::vec3 directionH = h0 - stepH / 2; // start height vector (from bottom to up)

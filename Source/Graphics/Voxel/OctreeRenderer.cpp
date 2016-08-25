@@ -46,9 +46,9 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     Ray ray;
     ray.origin = translation;
 
-    glm::mat4 invMatrix = glm::translate(glm::mat4(1.0), -ray.origin) * glm::inverse(glm::mat4(cameraTransform->rotation));
-    invMatrix = glm::translate(invMatrix, ray.origin);
-    ray.origin = glm::vec3(invMatrix * glm::vec4(ray.origin.x, ray.origin.y, ray.origin.z, 1.0));
+//    glm::mat4 invMatrix = glm::translate(glm::mat4(1.0), -ray.origin) * glm::inverse(glm::mat4(cameraTransform->rotation));
+//    invMatrix = glm::translate(invMatrix, ray.origin);
+//    ray.origin = glm::vec3(invMatrix * glm::vec4(ray.origin.x, ray.origin.y, ray.origin.z, 1.0));
 
     // Ray calculation base on Johns Hopkins presentation:
     // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
@@ -74,7 +74,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
             directionW = directionW + stepW;
 
             ray.direction = glm::normalize(directionW + directionH);
-            ray.direction = glm::vec3(invMatrix * glm::vec4(ray.direction.x, ray.direction.y, ray.direction.z, 0.0));
+//            ray.direction = glm::vec3(invMatrix * glm::vec4(ray.direction.x, ray.direction.y, ray.direction.z, 0.0));
 
             if (rayAABBIntersect(&ray, &aabb)) {
                 data[y * width + x] = 0x00abffff;

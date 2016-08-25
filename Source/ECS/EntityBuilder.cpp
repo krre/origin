@@ -55,7 +55,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
 
     auto movementComponent = static_cast<MovementComponent*>(entity->components[ComponentType::Movement].get());
     movementComponent->moveSpeed = 1.0;
-    movementComponent->rotateSpeed = 0.1;
+    movementComponent->rotateSpeed = 0.05;
 
     return entity;
 }

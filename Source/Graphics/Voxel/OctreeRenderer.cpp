@@ -14,13 +14,24 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 //    if (renderOnlyFirst) return;
     Octree* octree;
     TransformComponent* octreeTransform;
+
+    TransformComponent* lightTransform;
+    glm::vec3 lightColor = glm::vec3(0.0);
+    glm::vec3 lightPos = glm::vec3(0.0);
+
     // TODO: Replace by family
     for (auto entity : Engine::getInstance()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
             octree = octreeComp->octree.get();
             octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
-            break;
+        }
+
+        LightComponent* lightComp = static_cast<LightComponent*>(entity->components[ComponentType::Light].get());
+        if (lightComp) {
+            lightTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+            lightColor = lightComp->color;
+            lightPos = glm::vec3(lightTransform->worldMatrix[3]);
         }
     }
 

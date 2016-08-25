@@ -77,7 +77,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 //            ray.direction = glm::vec3(invMatrix * glm::vec4(ray.direction.x, ray.direction.y, ray.direction.z, 0.0));
 
             if (rayAABBIntersect(&ray, &aabb)) {
-                data[y * width + x] = 0x00abffff;
+                data[y * width + x] = 0x94510eff;
             } else {
                 data[y * width + x] = 0xc4d3d3ffu; // background color;
             }

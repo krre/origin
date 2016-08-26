@@ -7,6 +7,7 @@ RenderSurface::RenderSurface() :
     VBO(GL_ARRAY_BUFFER) {
 
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
+    voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
 
     GLfloat vertices[] = {
         -1.0f,  1.0f,
@@ -39,9 +40,15 @@ RenderSurface::~RenderSurface() {
 
 void RenderSurface::draw(float dt) {
     update(dt);
-    texture.bind();
-    glTexImage2D(texture.getType(), 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data);
-    surfaceShaderGroup->use();
+
+    if (voxel) {
+        voxelShaderGroup->use();
+    } else {
+        texture.bind();
+        glTexImage2D(texture.getType(), 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data);
+        surfaceShaderGroup->use();
+    }
+
     VAO.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
     VAO.unbind();

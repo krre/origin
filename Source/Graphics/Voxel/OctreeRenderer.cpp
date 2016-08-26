@@ -4,6 +4,7 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/CameraSystem.h"
 #include "../ECS/Engine.h"
+#include "../Resource/ResourceManager.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
 OctreeRenderer::OctreeRenderer() {
@@ -81,6 +82,13 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 
     glm::vec3 directionW;
     glm::vec3 directionH = h0 - stepH / 2; // start height vector (from bottom to up)
+
+    ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
+    GLuint cameraMat = glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat");
+    GLint cameraPos = glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos");
+
+    glUniformMatrix4fv(cameraMat, 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
+    glUniform3f(cameraPos, translation.x, translation.y, translation.z);
 
     for (int y = 0; y < height; y++) {
         directionH = directionH + stepH;

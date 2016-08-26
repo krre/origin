@@ -27,9 +27,9 @@ void PlayState::resume() {
 }
 
 void PlayState::update(float dt) {
-
+    Engine::getInstance()->update(dt);
 }
 
 void PlayState::draw(float dt) {
-    Engine::getInstance()->process(dt);
+    Engine::getInstance()->draw(dt);
 }

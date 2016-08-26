@@ -9,10 +9,16 @@ class Engine : public Singleton<Engine> {
 public:
     Engine();
 
-    // System
-    template <typename T> void addSystem() {
+    // Update system
+    template <typename T> void addUpdateSystem() {
         auto system = std::make_shared<T>();
-        systems[system->getType()] = system;
+        updateSystems[system->getType()] = system;
+    }
+
+    // Draw system
+    template <typename T> void addDrawSystem() {
+        auto system = std::make_shared<T>();
+        drawSystems[system->getType()] = system;
     }
 
     void removeSystem(SystemType type);
@@ -32,10 +38,12 @@ public:
     void addComponent(Entity* entity, std::shared_ptr<Component> component);
     void removeComponent(Entity* entity, ComponentType type);
 
-    void process(float dt);
+    void update(float dt);
+    void draw(float dt);
 
 private:
-    std::map<SystemType, std::shared_ptr<System>> systems;
+    std::map<SystemType, std::shared_ptr<System>> updateSystems;
+    std::map<SystemType, std::shared_ptr<System>> drawSystems;
     std::vector<std::shared_ptr<Entity>> entities;
 
     void initSystems();

@@ -8,15 +8,17 @@ Engine::Engine() {
 }
 
 void Engine::removeSystem(SystemType type) {
-    systems.erase(type);
+    updateSystems.erase(type);
+    drawSystems.erase(type);
 }
 
 std::shared_ptr<System> Engine::getSystem(SystemType type) {
-    return systems.at(type);
-}
-
-void Engine::clearSystems() {
-    systems.clear();
+    auto it = updateSystems.find(type);
+    if (it != updateSystems.end()) {
+        return it->second;
+    }
+    std::shared_ptr<System> system = drawSystems.at(type);
+    return system;
 }
 
 void Engine::addEntity(std::shared_ptr<Entity> entity) {
@@ -41,22 +43,14 @@ void Engine::clearEntities() {
     entities.clear();
 }
 
-void Engine::process(float dt) {
-    for (auto system : systems) {
-        if (system.second->getActive()) {
-            system.second->process(dt);
-        }
-    }
-}
-
 void Engine::initSystems() {
     // Order important!
     // This is also order of processing
-    addSystem<MovementControllerSystem>();
-    addSystem<CameraSystem>();
-    addSystem<TransformSystem>();
-    addSystem<NodeSystem>();
-    addSystem<RenderSystem>();
+    addUpdateSystem<MovementControllerSystem>();
+    addUpdateSystem<CameraSystem>();
+    addUpdateSystem<TransformSystem>();
+    addUpdateSystem<NodeSystem>();
+    addDrawSystem<RenderSystem>();
 }
 
 Component* Engine::createComponent(Entity* entity, ComponentType type) {
@@ -105,4 +99,20 @@ void Engine::addComponent(Entity* entity, std::shared_ptr<Component> component) 
 
 void Engine::removeComponent(Entity* entity, ComponentType type) {
     entity->components.erase(type);
+}
+
+void Engine::update(float dt) {
+    for (auto system : updateSystems) {
+        if (system.second->getActive()) {
+            system.second->process(dt);
+        }
+    }
+}
+
+void Engine::draw(float dt) {
+    for (auto system : drawSystems) {
+        if (system.second->getActive()) {
+            system.second->process(dt);
+        }
+    }
 }

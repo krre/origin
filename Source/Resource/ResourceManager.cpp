@@ -34,6 +34,12 @@ void ResourceManager::loadAll() {
     surfaceShaderGroup->load();
     resources["SurfaceShaderGroup"] = surfaceShaderGroup;
 
+    auto voxelShaderGroup = std::make_shared<ShaderGroup>();
+    voxelShaderGroup->setVertShaderPath(shaderPath + "/Voxel.vert");
+    voxelShaderGroup->setFragShaderPath(shaderPath + "/Voxel.frag");
+    voxelShaderGroup->load();
+    resources["VoxelShaderGroup"] = voxelShaderGroup;
+
     // Fonts
     auto iconsolataFont = std::make_shared<Font>();
     iconsolataFont->load(fontPath + "/inconsolatalgc.ttf");

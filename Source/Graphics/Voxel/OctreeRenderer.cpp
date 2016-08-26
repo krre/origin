@@ -65,7 +65,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 //    invMatrix = glm::translate(invMatrix, ray.origin);
 //    ray.origin = glm::vec3(invMatrix * glm::vec4(ray.origin.x, ray.origin.y, ray.origin.z, 1.0));
 
-    // Ray calculation base on Johns Hopkins presentation:
+    // Ray calculation is based on Johns Hopkins presentation:
     // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
     glm::vec3 h0 = look - up * glm::tan(cameraComp->fov); // min height vector
     glm::vec3 h1 = look + up * glm::tan(cameraComp->fov); // max height vector

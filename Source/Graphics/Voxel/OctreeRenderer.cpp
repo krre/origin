@@ -83,11 +83,18 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     aabb.max = glm::vec3(octreeTransform->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
 
     ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
-    GLuint cameraMat = glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat");
-    GLint cameraPos = glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos");
 
-    glUniformMatrix4fv(cameraMat, 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
-    glUniform3f(cameraPos, translation.x, translation.y, translation.z);
+    glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
+//    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
+
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "w0"), w0.x, w0.y, w0.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "h0"), h0.x, h0.y, h0.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepW"), stepW.x, stepW.y, stepW.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepH"), stepH.x, stepH.y, stepH.z);
+
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
 
     if (App::getInstance()->getRendererType() == RendererType::GPU) return;
 

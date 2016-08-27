@@ -71,17 +71,16 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glm::vec3 h0 = look - up * glm::tan(cameraComp->fov); // min height vector
     glm::vec3 h1 = look + up * glm::tan(cameraComp->fov); // max height vector
     glm::vec3 stepH = (h1 - h0) / height;
+    h0 += stepH / 2;
 
     glm::vec3 w0 = look - right * glm::tan(cameraComp->fov) * width / height; // min width vector
     glm::vec3 w1 = look + right * glm::tan(cameraComp->fov) * width / height; // max width vector
     glm::vec3 stepW = (w1 - w0) / width;
+    w0 += stepW / 2;
 
     AABB aabb;
     aabb.min = glm::vec3(octreeTransform->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
     aabb.max = glm::vec3(octreeTransform->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
-
-    glm::vec3 directionW;
-    glm::vec3 directionH = h0 - stepH / 2; // start height vector (from bottom to up)
 
     ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     GLuint cameraMat = glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat");
@@ -93,13 +92,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     if (App::getInstance()->getRendererType() == RendererType::GPU) return;
 
     for (int y = 0; y < height; y++) {
-        directionH = directionH + stepH;
-        directionW = w0 - stepW / 2; // start width vector (from left to right)
         for (int x = 0; x < width; x++) {
-            directionW = directionW + stepW;
-
-            ray.direction = glm::normalize(directionW + directionH);
-//            ray.direction = glm::vec3(invMatrix * glm::vec4(ray.direction.x, ray.direction.y, ray.direction.z, 0.0));
+            ray.direction = glm::normalize(w0 + stepW * x + h0 + stepH * y);
 
             if (rayAABBIntersect(&ray, &aabb)) {
                 data[y * width + x] = 0x94510eff; // objects color

@@ -90,6 +90,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glUniformMatrix4fv(cameraMat, 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
     glUniform3f(cameraPos, translation.x, translation.y, translation.z);
 
+    if (App::getInstance()->getRendererType() == RendererType::GPU) return;
+
     for (int y = 0; y < height; y++) {
         directionH = directionH + stepH;
         directionW = w0 - stepW / 2; // start width vector (from left to right)

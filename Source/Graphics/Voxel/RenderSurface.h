@@ -34,6 +34,4 @@ private:
     Texture texture;
     VertexArray VAO;
     Buffer VBO;
-
-    bool voxel = false; // temporary while test voxel shader
 };

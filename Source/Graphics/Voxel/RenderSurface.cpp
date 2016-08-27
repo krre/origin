@@ -1,6 +1,7 @@
 #include "RenderSurface.h"
 #include "../Event/Event.h"
 #include "../Resource/ResourceManager.h"
+#include "../Core/App.h"
 
 RenderSurface::RenderSurface() :
     texture(GL_TEXTURE_RECTANGLE),
@@ -41,7 +42,7 @@ RenderSurface::~RenderSurface() {
 void RenderSurface::draw(float dt) {
     update(dt);
 
-    if (voxel) {
+    if (App::getInstance()->getRendererType() == RendererType::GPU) {
         voxelShaderGroup->use();
     } else {
         texture.bind();

@@ -9,6 +9,11 @@
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
 
+enum class RendererType {
+    CPU,
+    GPU
+};
+
 class App : public Singleton<App> {
 
 public:
@@ -24,6 +29,8 @@ public:
     SDL_Window* getWindow() const { return window; }
     int getWidth() const { return width; }
     int getHeight() const { return height; }
+    RendererType getRendererType() { return rendererType; }
+    void setRendererType(RendererType rendererType) { this->rendererType = rendererType; }
 
 private:
     std::vector<std::string> argv;
@@ -36,6 +43,7 @@ private:
     bool isRunning = false;
     SDL_Window* window = nullptr;
     SDL_GLContext context;
+    RendererType rendererType = RendererType::GPU;
 
     int width = WINDOW_WIDTH;
     int height = WINDOW_HEIGHT;

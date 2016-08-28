@@ -12,6 +12,9 @@ struct Ray {
 
 out vec4 color;
 
+uniform vec3 backgroundColor;
+uniform vec3 octreeColor;
+
 uniform mat4 cameraMat;
 uniform vec3 cameraPos;
 
@@ -86,9 +89,9 @@ bool rayAABBIntersect(in Ray ray, in AABB aabb) {
 
 vec4 castRay(in Ray ray) {
     if (rayAABBIntersect(ray, aabb)) {
-        return vec4(0.58, 0.32, 0.0, 0.05);
+        return vec4(octreeColor, 1.0);
     } else {
-        return vec4(0.75, 0.82, 0.82, 1.0);
+        return vec4(backgroundColor, 1.0);
     }
 }
 

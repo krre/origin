@@ -5,6 +5,8 @@
 #include "../ECS/Systems/CameraSystem.h"
 #include "../ECS/Engine.h"
 #include "../Resource/ResourceManager.h"
+#include "../Core/Common.h"
+#include "../Core/Utils.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
 OctreeRenderer::OctreeRenderer() {
@@ -78,10 +80,16 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     aabb.min = glm::vec3(octreeTransform->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
     aabb.max = glm::vec3(octreeTransform->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
 
+    glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
+    uint32 bgColorPack = Utils::rgbaToUint32(bgColor);
+    uint32 octreeColorPack = Utils::rgbaToUint32(glm::vec4(octreeColor.r, octreeColor.g, octreeColor.b, 1.0));
+
     if (App::getInstance()->getRendererType() == RendererType::GPU) {
         ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
         voxelShaderGroup->use();
 
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
         glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
     //    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
@@ -99,9 +107,9 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
                 ray.direction = glm::normalize(w0 + stepW * x + h0 + stepH * y);
 
                 if (rayAABBIntersect(&ray, &aabb)) {
-                    data[y * width + x] = 0x94510eff; // objects color
+                    data[y * width + x] = octreeColorPack; // objects color
                 } else {
-                    data[y * width + x] = 0xc4d3d3ff; // background color
+                    data[y * width + x] = bgColorPack; // background color
                 }
             }
         }

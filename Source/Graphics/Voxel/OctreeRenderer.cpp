@@ -62,10 +62,6 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     Ray ray;
     ray.origin = translation;
 
-//    glm::mat4 invMatrix = glm::translate(glm::mat4(1.0), -ray.origin) * glm::inverse(glm::mat4(cameraTransform->rotation));
-//    invMatrix = glm::translate(invMatrix, ray.origin);
-//    ray.origin = glm::vec3(invMatrix * glm::vec4(ray.origin.x, ray.origin.y, ray.origin.z, 1.0));
-
     // Ray calculation is based on Johns Hopkins presentation:
     // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
     glm::vec3 h0 = look - up * glm::tan(cameraComp->fov); // min height vector
@@ -82,30 +78,30 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     aabb.min = glm::vec3(octreeTransform->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
     aabb.max = glm::vec3(octreeTransform->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
 
-    ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
+    if (App::getInstance()->getRendererType() == RendererType::GPU) {
+        ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
 
-    glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
-//    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
+        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
+    //    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
 
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "w0"), w0.x, w0.y, w0.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "h0"), h0.x, h0.y, h0.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepW"), stepW.x, stepW.y, stepW.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepH"), stepH.x, stepH.y, stepH.z);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "w0"), w0.x, w0.y, w0.z);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "h0"), h0.x, h0.y, h0.z);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepW"), stepW.x, stepW.y, stepW.z);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepH"), stepH.x, stepH.y, stepH.z);
 
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
+    } else {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
+                ray.direction = glm::normalize(w0 + stepW * x + h0 + stepH * y);
 
-    if (App::getInstance()->getRendererType() == RendererType::GPU) return;
-
-    for (int y = 0; y < height; y++) {
-        for (int x = 0; x < width; x++) {
-            ray.direction = glm::normalize(w0 + stepW * x + h0 + stepH * y);
-
-            if (rayAABBIntersect(&ray, &aabb)) {
-                data[y * width + x] = 0x94510eff; // objects color
-            } else {
-                data[y * width + x] = 0xc4d3d3ff; // background color
+                if (rayAABBIntersect(&ray, &aabb)) {
+                    data[y * width + x] = 0x94510eff; // objects color
+                } else {
+                    data[y * width + x] = 0xc4d3d3ff; // background color
+                }
             }
         }
     }

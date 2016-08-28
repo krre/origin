@@ -15,7 +15,6 @@ public:
     ~RenderSurface();
     void draw(float dt) override;
     void clear();
-    void update(float dt) override;
     int getWidth() const { return width; }
     int getHeight() const { return height; }
     uint32* getData() const { return data; }

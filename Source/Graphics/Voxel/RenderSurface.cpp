@@ -40,7 +40,7 @@ RenderSurface::~RenderSurface() {
 }
 
 void RenderSurface::draw(float dt) {
-    update(dt);
+    octreeRenderer.render(this);
 
     if (App::getInstance()->getRendererType() == RendererType::GPU) {
         voxelShaderGroup->use();
@@ -59,10 +59,6 @@ void RenderSurface::clear() {
     uint32 color = 0xc4d3d3ffu;
     std::fill_n(data, width * height, color);
     std::fill_n(depth, width * height, ~0u);
-}
-
-void RenderSurface::update(float dt) {
-    octreeRenderer.render(this);
 }
 
 void RenderSurface::onWindowResize(int width, int height) {

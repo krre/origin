@@ -42,9 +42,7 @@ RenderSurface::~RenderSurface() {
 void RenderSurface::draw(float dt) {
     octreeRenderer.render(this);
 
-    if (App::getInstance()->getRendererType() == RendererType::GPU) {
-        voxelShaderGroup->use();
-    } else {
+    if (App::getInstance()->getRendererType() == RendererType::CPU) {
         texture.bind();
         glTexImage2D(texture.getType(), 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_INT_8_8_8_8, data);
         surfaceShaderGroup->use();

@@ -80,6 +80,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 
     if (App::getInstance()->getRendererType() == RendererType::GPU) {
         ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
+        voxelShaderGroup->use();
 
         glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);

@@ -125,17 +125,16 @@ bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb) {
     bounds[0] = aabb->min;
     bounds[1] = aabb->max;
 
-    glm::vec3 invdir = 1.0f / ray->direction;
     glm::i8vec3 sign;
 
-    sign.x = (invdir.x < 0);
-    sign.y = (invdir.y < 0);
-    sign.z = (invdir.z < 0);
+    sign.x = (ray->direction.x < 0);
+    sign.y = (ray->direction.y < 0);
+    sign.z = (ray->direction.z < 0);
 
-    tmin = (bounds[sign.x].x - ray->origin.x) * invdir.x;
-    tmax = (bounds[1 - sign.x].x - ray->origin.x) * invdir.x;
-    tymin = (bounds[sign.y].y - ray->origin.y) * invdir.y;
-    tymax = (bounds[1 - sign.y].y - ray->origin.y) * invdir.y;
+    tmin = (bounds[sign.x].x - ray->origin.x) / ray->direction.x;
+    tmax = (bounds[1 - sign.x].x - ray->origin.x) / ray->direction.x;
+    tymin = (bounds[sign.y].y - ray->origin.y) /ray->direction.y;
+    tymax = (bounds[1 - sign.y].y - ray->origin.y) / ray->direction.y;
 
     if ((tmin > tymax) || (tymin > tmax)) {
         return false;
@@ -149,8 +148,8 @@ bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb) {
         tmax = tymax;
     }
 
-    tzmin = (bounds[sign.z].z - ray->origin.z) * invdir.z;
-    tzmax = (bounds[1 - sign.z].z - ray->origin.z) * invdir.z;
+    tzmin = (bounds[sign.z].z - ray->origin.z) / ray->direction.z;
+    tzmax = (bounds[1 - sign.z].z - ray->origin.z) / ray->direction.z;
 
     if ((tmin > tzmax) || (tzmin > tmax)) {
         return false;

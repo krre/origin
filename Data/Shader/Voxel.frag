@@ -46,17 +46,16 @@ bool rayAABBIntersect(in Ray ray, in AABB aabb) {
     bounds[0] = aabbMin;
     bounds[1] = aabbMax;
 
-    vec3 invdir = 1.0f / ray.direction;
     ivec3 sign;
 
-    sign.x = int(invdir.x < 0);
-    sign.y = int(invdir.y < 0);
-    sign.z = int(invdir.z < 0);
+    sign.x = int(ray.direction.x < 0);
+    sign.y = int(ray.direction.y < 0);
+    sign.z = int(ray.direction.z < 0);
 
-    tmin = (bounds[sign.x].x - ray.origin.x) * invdir.x;
-    tmax = (bounds[1 - sign.x].x - ray.origin.x) * invdir.x;
-    tymin = (bounds[sign.y].y - ray.origin.y) * invdir.y;
-    tymax = (bounds[1 - sign.y].y - ray.origin.y) * invdir.y;
+    tmin = (bounds[sign.x].x - ray.origin.x) / ray.direction.x;
+    tmax = (bounds[1 - sign.x].x - ray.origin.x) / ray.direction.x;
+    tymin = (bounds[sign.y].y - ray.origin.y) / ray.direction.y;
+    tymax = (bounds[1 - sign.y].y - ray.origin.y) / ray.direction.y;
 
     if ((tmin > tymax) || (tymin > tmax)) {
         return false;
@@ -70,8 +69,8 @@ bool rayAABBIntersect(in Ray ray, in AABB aabb) {
         tmax = tymax;
     }
 
-    tzmin = (bounds[sign.z].z - ray.origin.z) * invdir.z;
-    tzmax = (bounds[1 - sign.z].z - ray.origin.z) * invdir.z;
+    tzmin = (bounds[sign.z].z - ray.origin.z) / ray.direction.z;
+    tzmax = (bounds[1 - sign.z].z - ray.origin.z) / ray.direction.z;
 
     if ((tmin > tzmax) || (tzmin > tmax)) {
         return false;

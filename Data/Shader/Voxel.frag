@@ -28,7 +28,7 @@ uniform vec3 stepH;
 uniform vec3 aabbMin;
 uniform vec3 aabbMax;
 
-uniform AABB aabb;
+//uniform AABB aabb;
 
 Ray constructRay() {
     Ray ray;
@@ -38,56 +38,31 @@ Ray constructRay() {
 }
 
 bool rayAABBIntersect(in Ray ray, in AABB aabb) {
-    float tmin, tmax, tymin, tymax, tzmin, tzmax;
+    float loX = (aabb.min.x - ray.origin.x) / ray.direction.x;
+    float hiX = (aabb.max.x - ray.origin.x) / ray.direction.x;
 
-    vec3 bounds[2];
-//    bounds[0] = aabb.min;
-//    bounds[1] = aabb.max;
-    bounds[0] = aabbMin;
-    bounds[1] = aabbMax;
+    float tmin = min(loX, hiX);
+    float tmax = max(loX, hiX);
 
-    ivec3 sign;
+    float loY = (aabb.min.y - ray.origin.y) / ray.direction.y;
+    float hiY = (aabb.max.y - ray.origin.y) / ray.direction.y;
 
-    sign.x = int(ray.direction.x < 0);
-    sign.y = int(ray.direction.y < 0);
-    sign.z = int(ray.direction.z < 0);
+    tmin = max(tmin, min(loY, hiY));
+    tmax = min(tmax, max(loY, hiY));
 
-    tmin = (bounds[sign.x].x - ray.origin.x) / ray.direction.x;
-    tmax = (bounds[1 - sign.x].x - ray.origin.x) / ray.direction.x;
-    tymin = (bounds[sign.y].y - ray.origin.y) / ray.direction.y;
-    tymax = (bounds[1 - sign.y].y - ray.origin.y) / ray.direction.y;
+    float loZ = (aabb.min.z - ray.origin.z) / ray.direction.z;
+    float hiZ = (aabb.max.z - ray.origin.z) / ray.direction.z;
 
-    if ((tmin > tymax) || (tymin > tmax)) {
-        return false;
-    }
+    tmin = max(tmin, min(loZ, hiZ));
+    tmax = min(tmax, max(loZ, hiZ));
 
-    if (tymin > tmin) {
-        tmin = tymin;
-    }
-
-    if (tymax < tmax) {
-        tmax = tymax;
-    }
-
-    tzmin = (bounds[sign.z].z - ray.origin.z) / ray.direction.z;
-    tzmax = (bounds[1 - sign.z].z - ray.origin.z) / ray.direction.z;
-
-    if ((tmin > tzmax) || (tzmin > tmax)) {
-        return false;
-    }
-
-    if (tzmin > tmin) {
-        tmin = tzmin;
-    }
-
-    if (tzmax < tmax) {
-        tmax = tzmax;
-    }
-
-    return true;
+    return (tmin <= tmax) && (tmax > 0.0f);
 }
 
 vec4 castRay(in Ray ray) {
+    AABB aabb;
+    aabb.min = aabbMin;
+    aabb.max = aabbMax;
     if (rayAABBIntersect(ray, aabb)) {
         return vec4(octreeColor, 1.0);
     } else {

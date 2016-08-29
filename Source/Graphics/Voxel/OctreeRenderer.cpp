@@ -119,49 +119,23 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 }
 
 bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb) {
-    float tmin, tmax, tymin, tymax, tzmin, tzmax;
+    float loX = (aabb->min.x - ray->origin.x) / ray->direction.x;
+    float hiX = (aabb->max.x - ray->origin.x) / ray->direction.x;
 
-    glm::vec3 bounds[2];
-    bounds[0] = aabb->min;
-    bounds[1] = aabb->max;
+    float tmin = std::min(loX, hiX);
+    float tmax = std::max(loX, hiX);
 
-    glm::i8vec3 sign;
+    float loY = (aabb->min.y - ray->origin.y) / ray->direction.y;
+    float hiY = (aabb->max.y - ray->origin.y) / ray->direction.y;
 
-    sign.x = (ray->direction.x < 0);
-    sign.y = (ray->direction.y < 0);
-    sign.z = (ray->direction.z < 0);
+    tmin = std::max(tmin, std::min(loY, hiY));
+    tmax = std::min(tmax, std::max(loY, hiY));
 
-    tmin = (bounds[sign.x].x - ray->origin.x) / ray->direction.x;
-    tmax = (bounds[1 - sign.x].x - ray->origin.x) / ray->direction.x;
-    tymin = (bounds[sign.y].y - ray->origin.y) /ray->direction.y;
-    tymax = (bounds[1 - sign.y].y - ray->origin.y) / ray->direction.y;
+    float loZ = (aabb->min.z - ray->origin.z) / ray->direction.z;
+    float hiZ = (aabb->max.z - ray->origin.z) / ray->direction.z;
 
-    if ((tmin > tymax) || (tymin > tmax)) {
-        return false;
-    }
+    tmin = std::max(tmin, std::min(loZ, hiZ));
+    tmax = std::min(tmax, std::max(loZ, hiZ));
 
-    if (tymin > tmin) {
-        tmin = tymin;
-    }
-
-    if (tymax < tmax) {
-        tmax = tymax;
-    }
-
-    tzmin = (bounds[sign.z].z - ray->origin.z) / ray->direction.z;
-    tzmax = (bounds[1 - sign.z].z - ray->origin.z) / ray->direction.z;
-
-    if ((tmin > tzmax) || (tzmin > tmax)) {
-        return false;
-    }
-
-    if (tzmin > tmin) {
-        tmin = tzmin;
-    }
-
-    if (tzmax < tmax) {
-        tmax = tzmax;
-    }
-
-    return true;
+    return (tmin <= tmax) && (tmax > 0.0f);
 }

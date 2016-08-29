@@ -14,6 +14,7 @@ out vec4 color;
 
 uniform vec3 backgroundColor;
 uniform vec3 octreeColor;
+uniform vec3 lightColor;
 
 uniform mat4 cameraMat;
 uniform vec3 cameraPos;

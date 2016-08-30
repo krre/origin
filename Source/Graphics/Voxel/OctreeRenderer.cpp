@@ -57,12 +57,16 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glm::vec4 perspective;
     glm::decompose(cameraTransform->worldMatrix, scale, rotation, translation, skew, perspective);
 
+    Ray ray;
+    ray.origin = translation;
+
+    if (octreeTransform->rotation.x || octreeTransform->rotation.y || octreeTransform->rotation.z) {
+
+    }
+
     glm::vec3 up = cameraComp->up * rotation;
     glm::vec3 look = cameraComp->look * rotation;
     glm::vec3 right = cameraComp->right * rotation;
-
-    Ray ray;
-    ray.origin = translation;
 
     // Ray calculation is based on Johns Hopkins presentation:
     // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
@@ -90,6 +94,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightColor"), lightColor.r, lightColor.g, lightColor.b);
+        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
         glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
     //    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));

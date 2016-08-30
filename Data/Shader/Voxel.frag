@@ -18,6 +18,7 @@ uniform vec3 lightColor;
 
 uniform mat4 cameraMat;
 uniform vec3 cameraPos;
+uniform vec3 lightPos;
 
 uniform vec3 w0;
 uniform vec3 h0;

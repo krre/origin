@@ -113,7 +113,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
                 float t;
                 if (rayAABBIntersect(&ray, &aabb, t)) {
                     glm::vec3 hitPointObject = ray.origin + ray.direction * t;
-                    glm::vec3 hitNormalObject = glm::vec3(int(hitPointObject.x), int(hitPointObject.y), int(hitPointObject.z));
+                    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
+                    glm::vec3 hitNormalObject = glm::vec3(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision));
                     glm::vec3 hitPointWorld = glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitPointObject.x, hitPointObject.y, hitPointObject.z, 1.0));
                     glm::vec3 hitNormalWorld = glm::normalize(glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitNormalObject.x, hitNormalObject.y, hitNormalObject.z, 0.0)));
 //                    print(x << "|" << y << "|" << glm::to_string(hitPointObject));

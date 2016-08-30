@@ -23,6 +23,6 @@ public:
     void render(const RenderSurface* renderSurface);
 
 private:
-    bool rayAABBIntersect(Ray* ray, AABB* aabb);
+    bool rayAABBIntersect(Ray* ray, AABB* aabb, float& t);
     bool renderOnlyFirst = false; // for debug
 };

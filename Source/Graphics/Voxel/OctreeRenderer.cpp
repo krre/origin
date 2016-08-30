@@ -110,9 +110,18 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 ray.direction = glm::normalize(w0 + stepW * x + h0 + stepH * y);
-
-                if (rayAABBIntersect(&ray, &aabb)) {
-                    data[y * width + x] = octreeColorPack; // objects color
+                float t;
+                if (rayAABBIntersect(&ray, &aabb, t)) {
+                    glm::vec3 hitPointObject = ray.origin + ray.direction * t;
+                    glm::vec3 hitNormalObject = glm::vec3(int(hitPointObject.x), int(hitPointObject.y), int(hitPointObject.z));
+                    glm::vec3 hitPointWorld = glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitPointObject.x, hitPointObject.y, hitPointObject.z, 1.0));
+                    glm::vec3 hitNormalWorld = glm::normalize(glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitNormalObject.x, hitNormalObject.y, hitNormalObject.z, 0.0)));
+//                    print(x << "|" << y << "|" << glm::to_string(hitPointObject));
+//                    print(x << "|" << y << "|" << glm::to_string(hitNormalObject));
+//                    print(x << "|" << y << "|" << glm::to_string(hitPointWorld));
+//                    print(x << "|" << y << "|" << glm::to_string(hitNormalWorld));
+                    glm::vec3 color = glm::dot(hitNormalWorld, glm::normalize(lightPos)) * octreeColor;
+                    data[y * width + x] = Utils::rgbaToUint32(glm::vec4(color.r, color.g, color.b, 1.0));; // objects color
                 } else {
                     data[y * width + x] = bgColorPack; // background color
                 }
@@ -123,7 +132,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     renderOnlyFirst = true;
 }
 
-bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb) {
+bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb, float& t) {
     float loX = (aabb->min.x - ray->origin.x) / ray->direction.x;
     float hiX = (aabb->max.x - ray->origin.x) / ray->direction.x;
 
@@ -141,6 +150,6 @@ bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb) {
 
     tmin = std::max(tmin, std::min(loZ, hiZ));
     tmax = std::min(tmax, std::max(loZ, hiZ));
-
+    t = tmin;
     return (tmin <= tmax) && (tmax > 0.0f);
 }

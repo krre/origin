@@ -85,7 +85,6 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
     uint32 bgColorPack = Utils::rgbaToUint32(bgColor);
-    uint32 octreeColorPack = Utils::rgbaToUint32(glm::vec4(octreeColor.r, octreeColor.g, octreeColor.b, 1.0));
 
     if (App::getInstance()->getRendererType() == RendererType::GPU) {
         ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");

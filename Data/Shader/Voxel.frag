@@ -12,11 +12,13 @@ struct Ray {
 
 out vec4 color;
 
+uniform mat4 octreeToWorld;
+uniform mat4 cameraMat;
+
 uniform vec3 backgroundColor;
 uniform vec3 octreeColor;
 uniform vec3 lightColor;
 
-uniform mat4 cameraMat;
 uniform vec3 cameraPos;
 uniform vec3 lightPos;
 
@@ -38,7 +40,7 @@ Ray constructRay() {
     return ray;
 }
 
-bool rayAABBIntersect(in Ray ray, in AABB aabb) {
+bool rayAABBIntersect(in Ray ray, in AABB aabb, out float t) {
     float loX = (aabb.min.x - ray.origin.x) / ray.direction.x;
     float hiX = (aabb.max.x - ray.origin.x) / ray.direction.x;
 
@@ -56,6 +58,7 @@ bool rayAABBIntersect(in Ray ray, in AABB aabb) {
 
     tmin = max(tmin, min(loZ, hiZ));
     tmax = min(tmax, max(loZ, hiZ));
+    t = tmin;
 
     return (tmin <= tmax) && (tmax > 0.0f);
 }
@@ -64,8 +67,13 @@ vec4 castRay(in Ray ray) {
     AABB aabb;
     aabb.min = aabbMin;
     aabb.max = aabbMax;
-    if (rayAABBIntersect(ray, aabb)) {
-        return vec4(octreeColor, 1.0);
+    float t;
+    if (rayAABBIntersect(ray, aabb, t)) {
+        vec3 hitPointObject = ray.origin + ray.direction * t;
+        vec3 hitNormalObject = vec3(int(hitPointObject.x), int(hitPointObject.y), int(hitPointObject.z));
+        vec3 hitNormalWorld = normalize(vec3(octreeToWorld * vec4(hitPointObject.x, hitPointObject.y, hitPointObject.z, 0.0)));
+        vec3 color = dot(hitNormalWorld, normalize(lightPos)) * octreeColor;
+        return vec4(color, 1.0);
     } else {
         return vec4(backgroundColor, 1.0);
     }

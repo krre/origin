@@ -95,6 +95,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightColor"), lightColor.r, lightColor.g, lightColor.b);
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
         glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
+        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->worldMatrix));
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
     //    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
 

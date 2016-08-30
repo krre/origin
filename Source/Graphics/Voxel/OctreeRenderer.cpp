@@ -50,19 +50,18 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
+    glm::mat4 worldToObject = glm::inverse(octreeTransform->worldMatrix);
+    glm::mat4 cameraToObject = worldToObject * cameraTransform->worldMatrix;
+
     glm::vec3 scale;
     glm::quat rotation;
     glm::vec3 translation;
     glm::vec3 skew;
     glm::vec4 perspective;
-    glm::decompose(cameraTransform->worldMatrix, scale, rotation, translation, skew, perspective);
+    glm::decompose(cameraToObject, scale, rotation, translation, skew, perspective);
 
     Ray ray;
     ray.origin = translation;
-
-    if (octreeTransform->rotation.x || octreeTransform->rotation.y || octreeTransform->rotation.z) {
-
-    }
 
     glm::vec3 up = cameraComp->up * rotation;
     glm::vec3 look = cameraComp->look * rotation;
@@ -81,8 +80,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     w0 += stepW / 2;
 
     AABB aabb;
-    aabb.min = glm::vec3(octreeTransform->worldMatrix * glm::vec4(-1.0, -1.0, -1.0, 1.0));
-    aabb.max = glm::vec3(octreeTransform->worldMatrix * glm::vec4( 1.0,  1.0,  1.0, 1.0));
+    aabb.min = glm::vec3(-1.0, -1.0, -1.0);
+    aabb.max = glm::vec3(1.0, 1.0, 1.0);
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
     uint32 bgColorPack = Utils::rgbaToUint32(bgColor);

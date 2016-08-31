@@ -17,8 +17,8 @@ public:
     float fov = glm::radians(50.0f);
     float aspect;
     const float distance = 0.5f; // distance from camera to screen
-    glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
-    glm::vec3 look = glm::vec3(0.0, 0.0, -1.0);
-    glm::vec3 right = glm::vec3(1.0, 0.0, 0.0);
+    const glm::vec3 up = glm::vec3(0.0, 1.0, 0.0);
+    const glm::vec3 look = glm::vec3(0.0, 0.0, -1.0);
+    const glm::vec3 right = glm::vec3(1.0, 0.0, 0.0);
     glm::mat4 projection = glm::perspective(fov, aspect, near, far);
 };

@@ -50,8 +50,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
-    glm::mat4 worldToObject = glm::inverse(octreeTransform->objectToWorld);
-    glm::mat4 cameraToObject = worldToObject * cameraTransform->objectToWorld;
+    glm::mat4 cameraToObject = octreeTransform->worldToObject * cameraTransform->objectToWorld;
 
     glm::vec3 scale;
     glm::quat rotation;

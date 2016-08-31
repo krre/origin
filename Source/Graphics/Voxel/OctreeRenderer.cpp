@@ -83,7 +83,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     aabb.max = glm::vec3(1.0, 1.0, 1.0);
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
-    uint32 bgColorPack = Utils::rgbaToUint32(bgColor);
+    uint32 bgColorUint32 = Utils::rgbaToUint32(bgColor);
 
     float ambientStrength = 0.1f;
     glm::vec3 ambient = ambientStrength * lightColor;
@@ -127,7 +127,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
                     glm::vec3 color = (ambient + diffuse) * octreeColor;
                     data[y * width + x] = Utils::rgbaToUint32(glm::vec4(color.r, color.g, color.b, 1.0));; // objects color
                 } else {
-                    data[y * width + x] = bgColorPack; // background color
+                    data[y * width + x] = bgColorUint32; // background color
                 }
             }
         }

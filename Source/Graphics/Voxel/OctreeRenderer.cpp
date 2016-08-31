@@ -86,6 +86,10 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
     uint32 bgColorPack = Utils::rgbaToUint32(bgColor);
 
+    float ambientStrength = 0.1f;
+    glm::vec3 ambient = ambientStrength * lightColor;
+    glm::vec3 lightDir = glm::normalize(lightPos);
+
     if (App::getInstance()->getRendererType() == RendererType::GPU) {
         ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
         voxelShaderGroup->use();
@@ -117,11 +121,9 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
                     glm::vec3 hitNormalObject = glm::vec3(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision));
                     glm::vec3 hitPointWorld = glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitPointObject.x, hitPointObject.y, hitPointObject.z, 1.0));
                     glm::vec3 hitNormalWorld = glm::normalize(glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitNormalObject.x, hitNormalObject.y, hitNormalObject.z, 0.0)));
-//                    print(x << "|" << y << "|" << glm::to_string(hitPointObject));
-//                    print(x << "|" << y << "|" << glm::to_string(hitNormalObject));
-//                    print(x << "|" << y << "|" << glm::to_string(hitPointWorld));
-//                    print(x << "|" << y << "|" << glm::to_string(hitNormalWorld));
-                    glm::vec3 color = glm::dot(hitNormalWorld, glm::normalize(lightPos)) * octreeColor;
+
+                    glm::vec3 diffuse = glm::max(glm::dot(hitNormalWorld, lightDir), 0.0f) * lightColor;
+                    glm::vec3 color = (ambient + diffuse) * octreeColor;
                     data[y * width + x] = Utils::rgbaToUint32(glm::vec4(color.r, color.g, color.b, 1.0));; // objects color
                 } else {
                     data[y * width + x] = bgColorPack; // background color

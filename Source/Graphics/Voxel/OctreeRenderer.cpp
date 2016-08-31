@@ -78,6 +78,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glm::vec3 stepW = (w1 - w0) / width;
     w0 += stepW / 2;
 
+    glm::vec3 startCorner = w0 + h0;
+
     AABB aabb;
     aabb.min = glm::vec3(-1.0, -1.0, -1.0);
     aabb.max = glm::vec3(1.0, 1.0, 1.0);
@@ -113,8 +115,9 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         glUniform1f(glGetUniformLocation(voxelShaderGroup->getProgram(), "ambientStrength"), ambientStrength);
     } else {
         for (int y = 0; y < height; y++) {
+            glm::vec3 startYPos = startCorner + stepH * y;
             for (int x = 0; x < width; x++) {
-                ray.direction = glm::normalize(w0 + stepW * x + h0 + stepH * y);
+                ray.direction = glm::normalize(startYPos + stepW * x);
                 float t;
                 if (rayAABBIntersect(&ray, &aabb, t)) {
                     glm::vec3 hitPointObject = ray.origin + ray.direction * t;

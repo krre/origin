@@ -48,22 +48,21 @@ void Game::create() {
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
     transformSystem->setScale(cube.get(), 0.25);
     transformSystem->setPosition(cube.get(), glm::vec3(0.0, 0.0, 0.0));
-    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 0.0, 0.0));
+//    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 0.0, 0.0));
     MaterialComponent* cubeMaterial = static_cast<MaterialComponent*>(cube->components[ComponentType::Material].get());
     cubeMaterial->color = glm::vec3(0.52, 0.35f, 0.35f);
     Engine::getInstance()->addEntity(cube);
 
-/*
     // Plane
     std::shared_ptr<Entity> plane = EntityBuilder::cube();
-    transformSystem->scale(plane.get(), glm::vec3(5.0, 1.0, 5.0));
+    transformSystem->setScale(plane.get(), 5.0);
     MaterialComponent* materialPlane = static_cast<MaterialComponent*>(plane->components[ComponentType::Material].get());
     materialPlane->color = glm::vec3(0.52, 0.35f, 0.35f);
     Engine::getInstance()->addEntity(plane);
 
     // Cube1
     std::shared_ptr<Entity> cube1 = EntityBuilder::cube();
-    transformSystem->scale(cube1.get(), glm::vec3(0.2, 0.2, 0.2));
+    transformSystem->setScale(cube1.get(), 0.2);
     transformSystem->translate(cube1.get(), glm::vec3(0.2, 0.21, -0.5));
     MaterialComponent* materialCube1 = static_cast<MaterialComponent*>(cube1->components[ComponentType::Material].get());
     materialCube1->color = glm::vec3(0.8, 0.1f, 0.1f);
@@ -71,12 +70,12 @@ void Game::create() {
 
     // Cube2
     std::shared_ptr<Entity> cube2 = EntityBuilder::cube();
-    transformSystem->scale(cube2.get(), glm::vec3(0.1, 0.3, 0.1));
+    transformSystem->setScale(cube2.get(), 0.1);
     transformSystem->translate(cube2.get(), glm::vec3(-0.2, 0.25, 0.25));
     MaterialComponent* materialCube2 = static_cast<MaterialComponent*>(cube2->components[ComponentType::Material].get());
     materialCube2->color = glm::vec3(0.1, 0.5f, 0.9f);
     Engine::getInstance()->addEntity(cube2);
-*/
+
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
     transformSystem->translate(light.get(), glm::vec3(1.0, 1.0, 1.0));

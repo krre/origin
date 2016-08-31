@@ -28,12 +28,6 @@ void ResourceManager::loadAll() {
     lightShaderGroup->load();
     resources["LightShaderGroup"] = lightShaderGroup;
 
-    auto surfaceShaderGroup = std::make_shared<ShaderGroup>();
-    surfaceShaderGroup->setVertShaderPath(shaderPath + "/Surface.vert");
-    surfaceShaderGroup->setFragShaderPath(shaderPath + "/Surface.frag");
-    surfaceShaderGroup->load();
-    resources["SurfaceShaderGroup"] = surfaceShaderGroup;
-
     auto voxelShaderGroup = std::make_shared<ShaderGroup>();
     voxelShaderGroup->setVertShaderPath(shaderPath + "/Voxel.vert");
     voxelShaderGroup->setFragShaderPath(shaderPath + "/Voxel.frag");

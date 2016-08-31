@@ -26,12 +26,6 @@ App::App(int argc, char* argv[]) {
     absoluteFilePath = this->argv[0];
     absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(Utils::getPathSeparator()));
 
-    if (std::find(this->argv.begin(), this->argv.end(), "-cpu") != this->argv.end()) {
-        rendererType = RendererType::CPU;
-    } else {
-        rendererType = RendererType::GPU;
-    }
-
     init();
 }
 

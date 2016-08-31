@@ -42,7 +42,6 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         }
     }
 
-    uint32* data = renderSurface->getData();
     int width = renderSurface->getWidth();
     int height = renderSurface->getHeight();
 
@@ -78,85 +77,36 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     glm::vec3 stepW = (w1 - w0) / width;
     w0 += stepW / 2;
 
-    glm::vec3 startCorner = w0 + h0;
-
     AABB aabb;
     aabb.min = glm::vec3(-1.0, -1.0, -1.0);
     aabb.max = glm::vec3(1.0, 1.0, 1.0);
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
-    uint32 bgColorUint32 = Utils::rgbaToUint32(bgColor);
 
     float ambientStrength = 0.1f;
-    glm::vec3 ambient = ambientStrength * lightColor;
-    glm::vec3 lightDir = glm::normalize(lightPos);
 
-    if (App::getInstance()->getRendererType() == RendererType::GPU) {
-        ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
-        voxelShaderGroup->use();
+    ShaderGroup* voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
+    voxelShaderGroup->use();
 
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightColor"), lightColor.r, lightColor.g, lightColor.b);
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraToWorld"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
-        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
-    //    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightColor"), lightColor.r, lightColor.g, lightColor.b);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+    glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraToWorld"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
+    glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
+//    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
 
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "w0"), w0.x, w0.y, w0.z);
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "h0"), h0.x, h0.y, h0.z);
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepW"), stepW.x, stepW.y, stepW.z);
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepH"), stepH.x, stepH.y, stepH.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "w0"), w0.x, w0.y, w0.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "h0"), h0.x, h0.y, h0.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepW"), stepW.x, stepW.y, stepW.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepH"), stepH.x, stepH.y, stepH.z);
 
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
-        glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
+    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
 
-        glUniform1f(glGetUniformLocation(voxelShaderGroup->getProgram(), "ambientStrength"), ambientStrength);
-    } else {
-        for (int y = 0; y < height; y++) {
-            glm::vec3 startYPos = startCorner + stepH * y;
-            for (int x = 0; x < width; x++) {
-                ray.direction = glm::normalize(startYPos + stepW * x);
-                float t;
-                if (rayAABBIntersect(&ray, &aabb, t)) {
-                    glm::vec3 hitPointObject = ray.origin + ray.direction * t;
-                    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
-                    glm::vec3 hitNormalObject = glm::vec3(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision));
-                    glm::vec3 hitPointWorld = glm::vec3(octreeTransform->objectToWorld * glm::vec4(hitPointObject.x, hitPointObject.y, hitPointObject.z, 1.0));
-                    glm::vec3 hitNormalWorld = glm::normalize(glm::vec3(octreeTransform->objectToWorld * glm::vec4(hitNormalObject.x, hitNormalObject.y, hitNormalObject.z, 0.0)));
-
-                    glm::vec3 diffuse = glm::max(glm::dot(hitNormalWorld, lightDir), 0.0f) * lightColor;
-                    glm::vec3 color = (ambient + diffuse) * octreeColor;
-                    data[y * width + x] = Utils::rgbaToUint32(glm::vec4(color.r, color.g, color.b, 1.0));; // objects color
-                } else {
-                    data[y * width + x] = bgColorUint32; // background color
-                }
-            }
-        }
-    }
+    glUniform1f(glGetUniformLocation(voxelShaderGroup->getProgram(), "ambientStrength"), ambientStrength);
 
     renderOnlyFirst = true;
 }
 
-bool OctreeRenderer::rayAABBIntersect(Ray* ray, AABB* aabb, float& t) {
-    float loX = (aabb->min.x - ray->origin.x) / ray->direction.x;
-    float hiX = (aabb->max.x - ray->origin.x) / ray->direction.x;
-
-    float tmin = std::min(loX, hiX);
-    float tmax = std::max(loX, hiX);
-
-    float loY = (aabb->min.y - ray->origin.y) / ray->direction.y;
-    float hiY = (aabb->max.y - ray->origin.y) / ray->direction.y;
-
-    tmin = std::max(tmin, std::min(loY, hiY));
-    tmax = std::min(tmax, std::max(loY, hiY));
-
-    float loZ = (aabb->min.z - ray->origin.z) / ray->direction.z;
-    float hiZ = (aabb->max.z - ray->origin.z) / ray->direction.z;
-
-    tmin = std::max(tmin, std::min(loZ, hiZ));
-    tmax = std::min(tmax, std::max(loZ, hiZ));
-    t = tmin;
-    return (tmin <= tmax) && (tmax > 0.0f);
-}

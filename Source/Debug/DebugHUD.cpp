@@ -10,16 +10,11 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     version.setZ(1.0f);
     version.setText("Gagarin " + std::string(VERSION_STRING));
 
-    rendererType.resize(100, 10);
-    rendererType.setZ(1.0f);
-    rendererType.setText(std::string("Renderer: ") + (App::getInstance()->getRendererType() == RendererType::CPU ? "CPU" : "GPU"));
-
     fps.resize(100, 10);
     fps.setZ(1.0f);
 
     statisticsLayout->setPosition(glm::vec2(5, 15));
     statisticsLayout->addControl(&version);
-    statisticsLayout->addControl(&rendererType);
     statisticsLayout->addControl(&fps);
     setLayout(statisticsLayout);
 

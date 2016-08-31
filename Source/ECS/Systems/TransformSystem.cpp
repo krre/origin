@@ -13,8 +13,7 @@ void TransformSystem::process(float dt) {
             glm::mat4 translationMatrix = glm::translate(tc->position);
             glm::mat4 rotationMatrix = glm::toMat4(tc->rotation);
             glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(tc->scale));
-            tc->localMatrix = translationMatrix * rotationMatrix * scaleMatrix;
-            tc->objectToWorld = tc->localMatrix;
+            tc->objectToWorld = translationMatrix * rotationMatrix * scaleMatrix;
             tc->dirty = false;
         }
     }

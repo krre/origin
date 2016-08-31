@@ -6,7 +6,6 @@ class TransformComponent : public Component {
 
 public:
     TransformComponent() { type = ComponentType::Transform; }
-    glm::mat4 localMatrix = glm::mat4(1.0);
     glm::mat4 objectToWorld = glm::mat4(1.0);
     glm::vec3 position;
     glm::quat rotation;

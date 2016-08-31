@@ -38,7 +38,7 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         if (lightComp) {
             lightTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
             lightColor = lightComp->color;
-            lightPos = glm::vec3(lightTransform->worldMatrix[3]);
+            lightPos = glm::vec3(lightTransform->objectToWorld[3]);
         }
     }
 
@@ -50,8 +50,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
-    glm::mat4 worldToObject = glm::inverse(octreeTransform->worldMatrix);
-    glm::mat4 cameraToObject = worldToObject * cameraTransform->worldMatrix;
+    glm::mat4 worldToObject = glm::inverse(octreeTransform->objectToWorld);
+    glm::mat4 cameraToObject = worldToObject * cameraTransform->objectToWorld;
 
     glm::vec3 scale;
     glm::quat rotation;
@@ -98,8 +98,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightColor"), lightColor.r, lightColor.g, lightColor.b);
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->worldMatrix));
-        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->worldMatrix));
+        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraMat"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
+        glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
     //    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
 
@@ -121,8 +121,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
                     glm::vec3 hitPointObject = ray.origin + ray.direction * t;
                     float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
                     glm::vec3 hitNormalObject = glm::vec3(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision));
-                    glm::vec3 hitPointWorld = glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitPointObject.x, hitPointObject.y, hitPointObject.z, 1.0));
-                    glm::vec3 hitNormalWorld = glm::normalize(glm::vec3(octreeTransform->worldMatrix * glm::vec4(hitNormalObject.x, hitNormalObject.y, hitNormalObject.z, 0.0)));
+                    glm::vec3 hitPointWorld = glm::vec3(octreeTransform->objectToWorld * glm::vec4(hitPointObject.x, hitPointObject.y, hitPointObject.z, 1.0));
+                    glm::vec3 hitNormalWorld = glm::normalize(glm::vec3(octreeTransform->objectToWorld * glm::vec4(hitNormalObject.x, hitNormalObject.y, hitNormalObject.z, 0.0)));
 
                     glm::vec3 diffuse = glm::max(glm::dot(hitNormalWorld, lightDir), 0.0f) * lightColor;
                     glm::vec3 color = (ambient + diffuse) * octreeColor;

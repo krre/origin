@@ -27,7 +27,7 @@ void Renderer::render(Entity* entity) {
 
     glm::mat4 projection = cameraComp->projection;
     glm::mat4 view = cameraSystem->getView(currentCamera);
-    glm::mat4 modelMatrix = transformComp->worldMatrix;
+    glm::mat4 modelMatrix = transformComp->objectToWorld;
     glm::mat4 mvpMatrix = projection * view * modelMatrix;
 
     octreeComp->octree->draw();

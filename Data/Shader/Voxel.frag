@@ -68,12 +68,18 @@ vec4 castRay(in Ray ray) {
     aabb.min = aabbMin;
     aabb.max = aabbMax;
     float t;
+
+    float ambientStrength = 0.1f;
+    vec3 ambient = ambientStrength * lightColor;
+
     if (rayAABBIntersect(ray, aabb, t)) {
         vec3 hitPointObject = ray.origin + ray.direction * t;
         float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
         vec3 hitNormalObject = vec3(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision));
         vec3 hitNormalWorld = normalize(vec3(octreeToWorld * vec4(hitNormalObject.x, hitNormalObject.y, hitNormalObject.z, 0.0)));
-        vec3 color = dot(hitNormalWorld, normalize(lightPos)) * octreeColor;
+        vec3 lightDir = normalize(lightPos);
+        vec3 diffuse = max(dot(hitNormalWorld, lightDir), 0.0) * lightColor;
+        vec3 color = (ambient + diffuse) * octreeColor;
         return vec4(color, 1.0);
     } else {
         return vec4(backgroundColor, 1.0);

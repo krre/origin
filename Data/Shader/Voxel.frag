@@ -32,6 +32,7 @@ uniform vec3 aabbMin;
 uniform vec3 aabbMax;
 
 //uniform AABB aabb;
+uniform float ambientStrength;
 
 Ray constructRay() {
     Ray ray;
@@ -69,7 +70,6 @@ vec4 castRay(in Ray ray) {
     aabb.max = aabbMax;
     float t;
 
-    float ambientStrength = 0.1f;
     vec3 ambient = ambientStrength * lightColor;
 
     if (rayAABBIntersect(ray, aabb, t)) {

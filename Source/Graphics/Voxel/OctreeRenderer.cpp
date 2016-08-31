@@ -110,6 +110,8 @@ void OctreeRenderer::render(const RenderSurface* renderSurface) {
 
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
         glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
+
+        glUniform1f(glGetUniformLocation(voxelShaderGroup->getProgram(), "ambientStrength"), ambientStrength);
     } else {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {

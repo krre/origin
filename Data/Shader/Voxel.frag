@@ -13,7 +13,7 @@ struct Ray {
 out vec4 color;
 
 uniform mat4 octreeToWorld;
-uniform mat4 cameraMat;
+uniform mat4 cameraToWorld;
 
 uniform vec3 backgroundColor;
 uniform vec3 octreeColor;

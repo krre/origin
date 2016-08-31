@@ -2,7 +2,6 @@
 #include <SDL.h>
 #include <vector>
 #include "../Event/Event.h"
-#include "../Graphics/Renderer.h"
 #include "Singleton.h"
 #include "../UI/Viewport.h"
 
@@ -30,7 +29,6 @@ private:
     static std::string absoluteFilePath;
     static std::string absolutePath;
 
-    Renderer renderer;
     Viewport viewport;
 
     bool isRunning = false;

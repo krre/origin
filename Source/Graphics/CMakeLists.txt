@@ -8,7 +8,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Color.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
     PARENT_SCOPE
 )

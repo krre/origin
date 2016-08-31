@@ -1,7 +1,6 @@
 #pragma once
 #include "../System.h"
 #include "../Graphics/Drawable.h"
-#include "../Graphics/Renderer.h"
 #include "../Graphics/Voxel/RenderSurface.h"
 #include <vector>
 
@@ -13,6 +12,5 @@ public:
 
 private:
     RenderSurface renderSurface;
-    Renderer renderer;
     std::vector<Drawable*> drawables;
 };

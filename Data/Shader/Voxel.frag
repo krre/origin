@@ -28,9 +28,6 @@ uniform vec3 h0;
 uniform vec3 stepW;
 uniform vec3 stepH;
 
-uniform vec3 aabbMin;
-uniform vec3 aabbMax;
-
 uniform AABB aabb;
 uniform float ambientStrength;
 

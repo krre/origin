@@ -14,6 +14,16 @@ RenderSurface::RenderSurface() :
     VBO(GL_ARRAY_BUFFER) {
 
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
+    program = voxelShaderGroup->getProgram();
+    voxelShaderGroup->use();
+
+    AABB aabb;
+    aabb.min = glm::vec3(-1.0, -1.0, -1.0);
+    aabb.max = glm::vec3(1.0, 1.0, 1.0);
+
+    glUniform3f(glGetUniformLocation(program, "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
+    glUniform3f(glGetUniformLocation(program, "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
+//    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
 
     GLfloat vertices[] = {
         -1.0f,  1.0f,
@@ -100,16 +110,11 @@ void RenderSurface::draw(float dt) {
     glm::vec3 stepW = (w1 - w0) / width;
     w0 += stepW / 2;
 
-    AABB aabb;
-    aabb.min = glm::vec3(-1.0, -1.0, -1.0);
-    aabb.max = glm::vec3(1.0, 1.0, 1.0);
-
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
     float ambientStrength = 0.1f;
 
     voxelShaderGroup->use();
-    GLuint program = voxelShaderGroup->getProgram();
 
     glUniform3f(glGetUniformLocation(program, "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
     glUniform3f(glGetUniformLocation(program, "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
@@ -118,15 +123,11 @@ void RenderSurface::draw(float dt) {
     glUniformMatrix4fv(glGetUniformLocation(program, "cameraToWorld"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
     glUniformMatrix4fv(glGetUniformLocation(program, "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
     glUniform3f(glGetUniformLocation(program, "cameraPos"), translation.x, translation.y, translation.z);
-//    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
 
     glUniform3f(glGetUniformLocation(program, "w0"), w0.x, w0.y, w0.z);
     glUniform3f(glGetUniformLocation(program, "h0"), h0.x, h0.y, h0.z);
     glUniform3f(glGetUniformLocation(program, "stepW"), stepW.x, stepW.y, stepW.z);
     glUniform3f(glGetUniformLocation(program, "stepH"), stepH.x, stepH.y, stepH.z);
-
-    glUniform3f(glGetUniformLocation(program, "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
-    glUniform3f(glGetUniformLocation(program, "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
 
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
 

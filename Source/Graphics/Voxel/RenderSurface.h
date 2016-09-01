@@ -27,4 +27,5 @@ private:
     Texture texture;
     VertexArray VAO;
     Buffer VBO;
+    GLuint program;
 };

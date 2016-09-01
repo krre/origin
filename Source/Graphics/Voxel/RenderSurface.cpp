@@ -108,6 +108,7 @@ void RenderSurface::draw(float dt) {
     glm::vec3 stepW = (w1 - w0) / width;
     w0 += stepW / 2;
 
+    glm::vec3 startCornerPos = w0 + h0;
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
     float ambientStrength = 0.1f;
@@ -122,8 +123,7 @@ void RenderSurface::draw(float dt) {
     glUniformMatrix4fv(glGetUniformLocation(program, "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
     glUniform3fv(glGetUniformLocation(program, "cameraPos"), 1, &translation[0]);
 
-    glUniform3fv(glGetUniformLocation(program, "w0"), 1, &w0[0]);
-    glUniform3fv(glGetUniformLocation(program, "h0"), 1, &h0[0]);
+    glUniform3fv(glGetUniformLocation(program, "startCornerPos"), 1, &startCornerPos[0]);
     glUniform3fv(glGetUniformLocation(program, "stepW"), 1, &stepW[0]);
     glUniform3fv(glGetUniformLocation(program, "stepH"), 1, &stepH[0]);
 

@@ -22,9 +22,7 @@ uniform vec3 lightColor;
 uniform vec3 cameraPos;
 uniform vec3 lightPos;
 
-uniform vec3 w0;
-uniform vec3 h0;
-
+uniform vec3 startCornerPos;
 uniform vec3 stepW;
 uniform vec3 stepH;
 
@@ -34,7 +32,7 @@ uniform float ambientStrength;
 Ray constructRay() {
     Ray ray;
     ray.origin = cameraPos;
-    ray.direction = normalize(w0 + stepW * gl_FragCoord.x + h0 + stepH * gl_FragCoord.y);
+    ray.direction = normalize(startCornerPos + stepW * gl_FragCoord.x + stepH * gl_FragCoord.y);
     return ray;
 }
 

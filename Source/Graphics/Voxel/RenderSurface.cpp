@@ -114,18 +114,18 @@ void RenderSurface::draw(float dt) {
 
     voxelShaderGroup->use();
 
-    glUniform3f(glGetUniformLocation(program, "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
-    glUniform3f(glGetUniformLocation(program, "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
-    glUniform3f(glGetUniformLocation(program, "lightColor"), lightColor.r, lightColor.g, lightColor.b);
-    glUniform3f(glGetUniformLocation(program, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+    glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
+    glUniform3fv(glGetUniformLocation(program, "octreeColor"), 1, &octreeColor[0]);
+    glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
+    glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniformMatrix4fv(glGetUniformLocation(program, "cameraToWorld"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
     glUniformMatrix4fv(glGetUniformLocation(program, "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
-    glUniform3f(glGetUniformLocation(program, "cameraPos"), translation.x, translation.y, translation.z);
+    glUniform3fv(glGetUniformLocation(program, "cameraPos"), 1, &translation[0]);
 
-    glUniform3f(glGetUniformLocation(program, "w0"), w0.x, w0.y, w0.z);
-    glUniform3f(glGetUniformLocation(program, "h0"), h0.x, h0.y, h0.z);
-    glUniform3f(glGetUniformLocation(program, "stepW"), stepW.x, stepW.y, stepW.z);
-    glUniform3f(glGetUniformLocation(program, "stepH"), stepH.x, stepH.y, stepH.z);
+    glUniform3fv(glGetUniformLocation(program, "w0"), 1, &w0[0]);
+    glUniform3fv(glGetUniformLocation(program, "h0"), 1, &h0[0]);
+    glUniform3fv(glGetUniformLocation(program, "stepW"), 1, &stepW[0]);
+    glUniform3fv(glGetUniformLocation(program, "stepH"), 1, &stepH[0]);
 
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
 
@@ -133,4 +133,3 @@ void RenderSurface::draw(float dt) {
     glDrawArrays(GL_TRIANGLES, 0, 6);
     VAO.unbind();
 }
-

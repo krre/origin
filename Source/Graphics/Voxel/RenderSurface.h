@@ -14,11 +14,6 @@ public:
         glm::vec3 direction;
     };
 
-    struct AABB {
-        glm::vec3 min;
-        glm::vec3 max;
-    };
-
     RenderSurface();
     void draw(float dt) override;
 

@@ -31,7 +31,7 @@ uniform vec3 stepH;
 uniform vec3 aabbMin;
 uniform vec3 aabbMax;
 
-//uniform AABB aabb;
+uniform AABB aabb;
 uniform float ambientStrength;
 
 Ray constructRay() {
@@ -41,7 +41,7 @@ Ray constructRay() {
     return ray;
 }
 
-bool rayAABBIntersect(in Ray ray, in AABB aabb, out float t) {
+bool rayAABBIntersect(in Ray ray, out float t) {
     float loX = (aabb.min.x - ray.origin.x) / ray.direction.x;
     float hiX = (aabb.max.x - ray.origin.x) / ray.direction.x;
 
@@ -65,14 +65,11 @@ bool rayAABBIntersect(in Ray ray, in AABB aabb, out float t) {
 }
 
 vec4 castRay(in Ray ray) {
-    AABB aabb;
-    aabb.min = aabbMin;
-    aabb.max = aabbMax;
     float t;
 
     vec3 ambient = ambientStrength * lightColor;
 
-    if (rayAABBIntersect(ray, aabb, t)) {
+    if (rayAABBIntersect(ray, t)) {
         vec3 hitPointObject = ray.origin + ray.direction * t;
         float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
         vec3 hitNormalObject = vec3(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision));

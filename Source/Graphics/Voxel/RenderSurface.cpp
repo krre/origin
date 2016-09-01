@@ -17,13 +17,11 @@ RenderSurface::RenderSurface() :
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->use();
 
-    AABB aabb;
-    aabb.min = glm::vec3(-1.0, -1.0, -1.0);
-    aabb.max = glm::vec3(1.0, 1.0, 1.0);
+    glm::vec3 aabbMin = glm::vec3(-1.0, -1.0, -1.0);
+    glm::vec3 aabbMax = glm::vec3(1.0, 1.0, 1.0);
 
-    glUniform3f(glGetUniformLocation(program, "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
-    glUniform3f(glGetUniformLocation(program, "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
-//    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
+    glUniform3fv(glGetUniformLocation(program, "aabb.min"), 1, &aabbMin[0]);
+    glUniform3fv(glGetUniformLocation(program, "aabb.max"), 1, &aabbMax[0]);
 
     GLfloat vertices[] = {
         -1.0f,  1.0f,

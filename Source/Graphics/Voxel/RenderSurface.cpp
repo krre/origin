@@ -109,25 +109,26 @@ void RenderSurface::draw(float dt) {
     float ambientStrength = 0.1f;
 
     voxelShaderGroup->use();
+    GLuint program = voxelShaderGroup->getProgram();
 
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightColor"), lightColor.r, lightColor.g, lightColor.b);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "lightPos"), lightPos.x, lightPos.y, lightPos.z);
-    glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraToWorld"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
-    glUniformMatrix4fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "cameraPos"), translation.x, translation.y, translation.z);
+    glUniform3f(glGetUniformLocation(program, "backgroundColor"), bgColor.r, bgColor.g, bgColor.b);
+    glUniform3f(glGetUniformLocation(program, "octreeColor"), octreeColor.r, octreeColor.g, octreeColor.b);
+    glUniform3f(glGetUniformLocation(program, "lightColor"), lightColor.r, lightColor.g, lightColor.b);
+    glUniform3f(glGetUniformLocation(program, "lightPos"), lightPos.x, lightPos.y, lightPos.z);
+    glUniformMatrix4fv(glGetUniformLocation(program, "cameraToWorld"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
+    glUniformMatrix4fv(glGetUniformLocation(program, "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
+    glUniform3f(glGetUniformLocation(program, "cameraPos"), translation.x, translation.y, translation.z);
 //    glProgramUniform3fv(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabb.min"), 1, glm::value_ptr(aabb.min));
 
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "w0"), w0.x, w0.y, w0.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "h0"), h0.x, h0.y, h0.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepW"), stepW.x, stepW.y, stepW.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "stepH"), stepH.x, stepH.y, stepH.z);
+    glUniform3f(glGetUniformLocation(program, "w0"), w0.x, w0.y, w0.z);
+    glUniform3f(glGetUniformLocation(program, "h0"), h0.x, h0.y, h0.z);
+    glUniform3f(glGetUniformLocation(program, "stepW"), stepW.x, stepW.y, stepW.z);
+    glUniform3f(glGetUniformLocation(program, "stepH"), stepH.x, stepH.y, stepH.z);
 
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
-    glUniform3f(glGetUniformLocation(voxelShaderGroup->getProgram(), "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
+    glUniform3f(glGetUniformLocation(program, "aabbMin"), aabb.min.x, aabb.min.y, aabb.min.z);
+    glUniform3f(glGetUniformLocation(program, "aabbMax"), aabb.max.x, aabb.max.y, aabb.max.z);
 
-    glUniform1f(glGetUniformLocation(voxelShaderGroup->getProgram(), "ambientStrength"), ambientStrength);
+    glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
 
     VAO.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);

@@ -26,7 +26,7 @@ void GameStateManager::setState(GameState::Type type) {
 }
 
 GameState::Type GameStateManager::getStateType() {
-    gameStates.back()->getType();
+    return gameStates.back()->getType();
 }
 
 void GameStateManager::update(float dt) {

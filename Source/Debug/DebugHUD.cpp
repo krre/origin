@@ -26,6 +26,14 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     systemRAM.setZ(1.0);
     systemRAM.setText("System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB");
 
+    arbSSBO.resize(100, 10);
+    arbSSBO.setZ(1.0);
+    arbSSBO.setText(std::string("GL_ARB_shader_storage_buffer_object: ") + (SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object") ? "Yes" : "No"));
+
+    arbCS.resize(100, 10);
+    arbCS.setZ(1.0);
+    arbCS.setText(std::string("GL_ARB_compute_shader: ") +  + (SDL_GL_ExtensionSupported("GL_ARB_compute_shader") ? "Yes" : "No"));
+
     fps.resize(100, 10);
     fps.setZ(1.0f);
 
@@ -35,6 +43,8 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     statisticsLayout->addControl(&openGL);
     statisticsLayout->addControl(&cpuCount);
     statisticsLayout->addControl(&systemRAM);
+    statisticsLayout->addControl(&arbSSBO);
+    statisticsLayout->addControl(&arbCS);
     statisticsLayout->addControl(&fps);
     setLayout(statisticsLayout);
 

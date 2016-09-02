@@ -12,10 +12,9 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
 
     openGL.resize(100, 10);
     openGL.setZ(1.0);
-    GLint glMajorVersion, glMinorVersion;
-    glGetIntegerv(GL_MAJOR_VERSION, &glMajorVersion);
-    glGetIntegerv(GL_MINOR_VERSION, &glMinorVersion);
-    openGL.setText("OpenGL " + std::to_string(glMajorVersion) + "." + std::to_string(glMinorVersion));
+    openGL.setText("OpenGL " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
+
+    print(glGetString(GL_VERSION));
 
     fps.resize(100, 10);
     fps.setZ(1.0f);

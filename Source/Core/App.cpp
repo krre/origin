@@ -77,8 +77,12 @@ void App::init() {
                 SDL_GL_MakeCurrent(window, context);
                 glewExperimental = GL_TRUE;
                 glewInit();
-//                glEnable(GL_DEPTH_TEST);
-                isRunning = true;
+//                glEnable(GL_DEPTH_TEST)
+                if (SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object")) {
+                    isRunning = true;
+                } else {
+                    error("Extension GL_ARB_shader_storage_buffer_object is not supported!")
+                }
             }
         }
 

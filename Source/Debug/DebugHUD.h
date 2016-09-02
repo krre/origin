@@ -19,6 +19,7 @@ private:
     Text version;
     Text openGL;
     Text vendor;
+    Text cpuCount;
     Text systemRAM;
     float accumTime = 0.5;
     int counter = 30;

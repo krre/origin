@@ -45,8 +45,6 @@ void App::init() {
         return;
     }
 
-    // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
-    // then divide it on 2
     if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL_GetDisplayMode failed", SDL_GetError(), NULL);
         return;
@@ -55,6 +53,8 @@ void App::init() {
     int screenWidth = mode.w;
     int screenHeight = mode.h;
 
+    // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
+    // then divide it on 2
     if (screenWidth > mode.w) {
         screenWidth /= 2;
     }

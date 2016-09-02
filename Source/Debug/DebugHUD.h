@@ -18,6 +18,7 @@ private:
     Text fps;
     Text version;
     Text openGL;
+    Text vendor;
     float accumTime = 0.5;
     int counter = 30;
     std::shared_ptr<LinearLayout> statisticsLayout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);

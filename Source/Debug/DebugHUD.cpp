@@ -10,17 +10,20 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     version.setZ(1.0f);
     version.setText("Gagarin " + std::string(VERSION_STRING));
 
+    vendor.resize(100, 10);
+    vendor.setZ(1.0);
+    vendor.setText(std::string(reinterpret_cast<const char*>(glGetString(GL_VENDOR))));
+
     openGL.resize(100, 10);
     openGL.setZ(1.0);
     openGL.setText("OpenGL " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
-
-    print(glGetString(GL_VERSION));
 
     fps.resize(100, 10);
     fps.setZ(1.0f);
 
     statisticsLayout->setPosition(glm::vec2(5, 15));
     statisticsLayout->addControl(&version);
+    statisticsLayout->addControl(&vendor);
     statisticsLayout->addControl(&openGL);
     statisticsLayout->addControl(&fps);
     setLayout(statisticsLayout);

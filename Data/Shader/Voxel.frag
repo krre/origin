@@ -1,5 +1,5 @@
 #version 330 core
-#extension GL_ARB_shader_storage_buffer_object : require
+//#extension GL_ARB_shader_storage_buffer_object : require
 
 struct AABB {
     vec3 min;
@@ -30,9 +30,9 @@ uniform vec3 stepH;
 uniform AABB aabb;
 uniform float ambientStrength;
 
-layout (std430, binding = 0) buffer OctreeBuffer {
-    int count;
-};
+//layout (std430, binding = 0) buffer OctreeBuffer {
+//    int count;
+//};
 
 Ray constructRay() {
     Ray ray;

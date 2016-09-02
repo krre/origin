@@ -36,65 +36,71 @@ App::~App() {
 void App::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());
-    } else {
-        int screenWidth;
-        int screenHeight;
-
-        SDL_DisplayMode mode;
-        if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
-            SDL_Log("SDL_GetDesktopDisplayMode failed: %s", SDL_GetError());
-        } else {
-            screenWidth = mode.w;
-            screenHeight = mode.h;
-            // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
-            // then divide it on 2
-            if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
-                SDL_Log("SDL_GetDisplayMode failed: %s", SDL_GetError());
-            } else {
-                if (screenWidth > mode.w) {
-                    screenWidth /= 2;
-                }
-            }
-        }
-
-        int x = (screenWidth - WINDOW_WIDTH) / 2;
-        int y = (screenHeight - WINDOW_HEIGHT) / 2;
-
-        window = SDL_CreateWindow("Gagarin", x, y, WINDOW_WIDTH, WINDOW_HEIGHT,
-            SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
-        if (window == nullptr) {
-            error("Window could not be created! SDL_Error: " << SDL_GetError());
-        } else {
-            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-            SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-            SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-            SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-            context = SDL_GL_CreateContext(window);
-            if (context == nullptr) {
-                error("OpenGL context could not be created! SDL_Error: " << SDL_GetError());
-            } else {
-                SDL_GL_MakeCurrent(window, context);
-                glewExperimental = GL_TRUE;
-                glewInit();
-//                glEnable(GL_DEPTH_TEST)
-                isRunning = true;
-                /*
-                if (SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object")) {
-                    isRunning = true;
-                } else {
-                    error("Extension GL_ARB_shader_storage_buffer_object is not supported!")
-                }
-                */
-            }
-        }
-
-        initSingletons();
-
-        Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
-        Event::getInstance()->quit.connect<App, &App::quit>(this);
-        Event::getInstance()->windowResize.emit(width, height);
+        return;
     }
+
+    SDL_DisplayMode mode;
+    if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL_GetDesktopDisplayMode failed", SDL_GetError(), NULL);
+        return;
+    }
+
+    // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
+    // then divide it on 2
+    if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL_GetDisplayMode failed", SDL_GetError(), NULL);
+        return;
+    }
+
+    int screenWidth = mode.w;
+    int screenHeight = mode.h;
+
+    if (screenWidth > mode.w) {
+        screenWidth /= 2;
+    }
+
+    int x = (screenWidth - WINDOW_WIDTH) / 2;
+    int y = (screenHeight - WINDOW_HEIGHT) / 2;
+
+    window = SDL_CreateWindow("Gagarin", x, y, WINDOW_WIDTH, WINDOW_HEIGHT,
+        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+
+    if (window == nullptr) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Window could not be created", SDL_GetError(), NULL);
+        return;
+    }
+
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+    context = SDL_GL_CreateContext(window);
+
+    if (context == nullptr) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "OpenGL context could not be created", SDL_GetError(), NULL);
+        return;
+    }
+
+    /*
+    if (SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object")) {
+        isRunning = true;
+    } else {
+        error("Extension GL_ARB_shader_storage_buffer_object is not supported!")
+    }
+    */
+
+    SDL_GL_MakeCurrent(window, context);
+    glewExperimental = GL_TRUE;
+    glewInit();
+//                glEnable(GL_DEPTH_TEST)
+    isRunning = true;
+
+    initSingletons();
+
+    Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
+    Event::getInstance()->quit.connect<App, &App::quit>(this);
+    Event::getInstance()->windowResize.emit(width, height);
 }
 
 void App::initSingletons() {

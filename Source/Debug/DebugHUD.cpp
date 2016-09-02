@@ -18,6 +18,10 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     openGL.setZ(1.0);
     openGL.setText("OpenGL " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
 
+    systemRAM.resize(100, 10);
+    systemRAM.setZ(1.0);
+    systemRAM.setText("System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB");
+
     fps.resize(100, 10);
     fps.setZ(1.0f);
 
@@ -25,6 +29,7 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     statisticsLayout->addControl(&version);
     statisticsLayout->addControl(&vendor);
     statisticsLayout->addControl(&openGL);
+    statisticsLayout->addControl(&systemRAM);
     statisticsLayout->addControl(&fps);
     setLayout(statisticsLayout);
 

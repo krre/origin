@@ -39,14 +39,18 @@ void App::init() {
         return;
     }
 
+    const char* title = "Gagarin";
+
     SDL_DisplayMode mode;
     if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL_GetDesktopDisplayMode failed", SDL_GetError(), NULL);
+        std::string errorMsg = std::string("SDL_GetDesktopDisplayMode failed\n") + SDL_GetError();
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
         return;
     }
 
     if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "SDL_GetDisplayMode failed", SDL_GetError(), NULL);
+        std::string errorMsg = std::string("SDL_GetDisplayMode failed\n") + SDL_GetError();
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
         return;
     }
 
@@ -62,11 +66,12 @@ void App::init() {
     int x = (screenWidth - WINDOW_WIDTH) / 2;
     int y = (screenHeight - WINDOW_HEIGHT) / 2;
 
-    window = SDL_CreateWindow("Gagarin", x, y, WINDOW_WIDTH, WINDOW_HEIGHT,
+    window = SDL_CreateWindow(title, x, y, WINDOW_WIDTH, WINDOW_HEIGHT,
         SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 
     if (window == nullptr) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Window could not be created", SDL_GetError(), NULL);
+        std::string errorMsg = std::string("Window could not be created\n") + SDL_GetError();
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
         return;
     }
 
@@ -78,7 +83,8 @@ void App::init() {
     context = SDL_GL_CreateContext(window);
 
     if (context == nullptr) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "OpenGL context could not be created", SDL_GetError(), NULL);
+        std::string errorMsg = std::string("OpenGL context could not be created\n") + SDL_GetError();
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
         return;
     }
 
@@ -95,14 +101,15 @@ void App::init() {
     SDL_GL_MakeCurrent(window, context);
     glewExperimental = GL_TRUE;
     glewInit();
-//                glEnable(GL_DEPTH_TEST)
-    isRunning = true;
+//    glEnable(GL_DEPTH_TEST)
 
     initSingletons();
 
     Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
     Event::getInstance()->quit.connect<App, &App::quit>(this);
     Event::getInstance()->windowResize.emit(width, height);
+
+    isRunning = true;
 }
 
 void App::initSingletons() {

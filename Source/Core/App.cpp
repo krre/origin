@@ -101,7 +101,6 @@ void App::init() {
     SDL_GL_MakeCurrent(window, context);
     glewExperimental = GL_TRUE;
     glewInit();
-//    glEnable(GL_DEPTH_TEST)
 
     initSingletons();
 

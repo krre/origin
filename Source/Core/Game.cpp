@@ -81,9 +81,6 @@ void Game::create() {
     transformSystem->translate(light.get(), glm::vec3(1.5, 1.0, 1.0));
     Engine::getInstance()->addEntity(light);
 
-    RenderSystem* renderSystem = static_cast<RenderSystem*>(Engine::getInstance()->getSystem(SystemType::Render).get());
-    renderSystem->getRenderSurface()->sendDataToGPU();
-
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 
     Event::getInstance()->keyPressed.connect<Game, &Game::onKeyPressed>(this);

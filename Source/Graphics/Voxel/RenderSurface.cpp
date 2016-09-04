@@ -45,6 +45,10 @@ RenderSurface::RenderSurface() :
 
     vao.unbind();
 
+    tbo.bind();
+    glBufferData(GL_TEXTURE_BUFFER, 5000, NULL, GL_STATIC_DRAW);
+    tbo.unbind();
+
     octreeToWorldTexture.bind();
     octreeToWorldTexture.attachBuffer(GL_RGBA32F, tbo.getId());
     octreeToWorldTexture.unbind();
@@ -77,6 +81,8 @@ void RenderSurface::draw(float dt) {
             lightPos = glm::vec3(lightTransform->objectToWorld[3]);
         }
     }
+
+    sendDataToGPU();
 
     int width = App::getInstance()->getWidth();
     int height = App::getInstance()->getHeight();
@@ -125,7 +131,6 @@ void RenderSurface::draw(float dt) {
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniformMatrix4fv(glGetUniformLocation(program, "cameraToWorld"), 1, GL_FALSE, glm::value_ptr(cameraTransform->objectToWorld));
-    glUniformMatrix4fv(glGetUniformLocation(program, "octreeToWorld"), 1, GL_FALSE, glm::value_ptr(octreeTransform->objectToWorld));
     glUniform3fv(glGetUniformLocation(program, "cameraPos"), 1, &translation[0]);
 
     glUniform3fv(glGetUniformLocation(program, "startCornerPos"), 1, &startCornerPos[0]);
@@ -158,6 +163,6 @@ void RenderSurface::sendDataToGPU() {
     }
 
     tbo.bind();
-    tbo.setData(&octreeToWorldVector[0], sizeof(glm::mat4) * octreeToWorldVector.size());
+    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::mat4) * octreeToWorldVector.size(), &octreeToWorldVector[0]);
     tbo.unbind();
 }

@@ -14,7 +14,6 @@ struct Ray {
 
 uniform samplerBuffer octreeToWorldArray;
 
-uniform mat4 octreeToWorld;
 uniform mat4 cameraToWorld;
 
 uniform vec3 backgroundColor;
@@ -30,8 +29,6 @@ uniform vec3 stepH;
 
 uniform AABB aabb;
 uniform float ambientStrength;
-
-uniform float step;
 
 out vec4 color;
 
@@ -78,6 +75,7 @@ vec4 castRay(in Ray ray) {
         vec3 hitPointObject = ray.origin + ray.direction * t;
         float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
         vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);
+        mat4 octreeToWorld = mat4(texelFetch(octreeToWorldArray, 0), texelFetch(octreeToWorldArray, 1), texelFetch(octreeToWorldArray, 2), texelFetch(octreeToWorldArray, 3));
         vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
         vec3 lightDir = normalize(lightPos);
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
@@ -89,7 +87,6 @@ vec4 castRay(in Ray ray) {
 }
 
 void main() {
-    mat4 octreeToWorld = mat4(texelFetch(octreeToWorldArray, 0), texelFetch(octreeToWorldArray, 1), texelFetch(octreeToWorldArray, 2), texelFetch(octreeToWorldArray, 3));
     Ray ray = constructRay();
     color = castRay(ray);
 }

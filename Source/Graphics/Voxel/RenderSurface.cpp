@@ -82,9 +82,22 @@ void RenderSurface::draw(float dt) {
         }
     }
 
-    voxelShaderGroup->use();
+    // TODO: Replace by family
+    std::vector<glm::mat4> octreeToWorldVector;
+    for (auto entity : Engine::getInstance()->getEntities()) {
+        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+        if (octreeComp) {
+            Octree* octree = octreeComp->octree.get();
+            TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+            octreeToWorldVector.push_back(octreeTransform->objectToWorld);
+            MaterialComponent* octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
+            glm::vec3 octreeColor = octreeMaterial->color;
+        }
+    }
 
-    sendDataToGPU();
+    tbo.bind();
+    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::mat4) * octreeToWorldVector.size(), &octreeToWorldVector[0]);
+    tbo.unbind();
 
     int width = App::getInstance()->getWidth();
     int height = App::getInstance()->getHeight();
@@ -126,6 +139,8 @@ void RenderSurface::draw(float dt) {
 
     float ambientStrength = 0.1f;
 
+    voxelShaderGroup->use();
+
     glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
     glUniform3fv(glGetUniformLocation(program, "octreeColor"), 1, &octreeColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
@@ -140,6 +155,7 @@ void RenderSurface::draw(float dt) {
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
 
     glUniform1f(glGetUniformLocation(program, "octreeToWorldArray"), 0);
+    glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeToWorldVector.size());
     glActiveTexture(GL_TEXTURE0);
     octreeToWorldTexture.bind();
 
@@ -148,23 +164,3 @@ void RenderSurface::draw(float dt) {
     vao.unbind();
 }
 
-void RenderSurface::sendDataToGPU() {
-    // TODO: Replace by family
-    std::vector<glm::mat4> octreeToWorldVector;
-    for (auto entity : Engine::getInstance()->getEntities()) {
-        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
-        if (octreeComp) {
-            Octree* octree = octreeComp->octree.get();
-            TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
-            octreeToWorldVector.push_back(octreeTransform->objectToWorld);
-            MaterialComponent* octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
-            glm::vec3 octreeColor = octreeMaterial->color;
-        }
-    }
-
-    glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeToWorldVector.size());
-
-    tbo.bind();
-    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::mat4) * octreeToWorldVector.size(), &octreeToWorldVector[0]);
-    tbo.unbind();
-}

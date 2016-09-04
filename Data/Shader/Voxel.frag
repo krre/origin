@@ -1,6 +1,5 @@
 #version 330 core
 //#extension GL_ARB_shader_storage_buffer_object : require
-layout(std140, column_major) uniform;
 
 struct AABB {
     vec3 min;
@@ -12,20 +11,13 @@ struct Ray {
     vec3 direction;
 };
 
-uniform samplerBuffer octreeToWorldArray;
-
-uniform mat4 cameraToWorld;
+uniform samplerBuffer octrees;
 
 uniform vec3 backgroundColor;
 uniform vec3 octreeColor;
 uniform vec3 lightColor;
 
-uniform vec3 cameraPos;
 uniform vec3 lightPos;
-
-uniform vec3 startCornerPos;
-uniform vec3 stepW;
-uniform vec3 stepH;
 
 uniform AABB aabb;
 uniform float ambientStrength;
@@ -37,9 +29,12 @@ out vec4 color;
 //    int count;
 //};
 
-Ray constructRay() {
+Ray constructRay(int offset) {
     Ray ray;
-    ray.origin = cameraPos;
+    ray.origin = vec3(texelFetch(octrees, offset++));
+    vec3 startCornerPos = vec3(texelFetch(octrees, offset++));
+    vec3 stepW = vec3(texelFetch(octrees, offset++));
+    vec3 stepH = vec3(texelFetch(octrees, offset));
     ray.direction = normalize(startCornerPos + stepW * gl_FragCoord.x + stepH * gl_FragCoord.y);
     return ray;
 }
@@ -67,7 +62,7 @@ bool rayAABBIntersect(in Ray ray, out float t) {
     return (tmin <= tmax) && (tmax > 0.0f);
 }
 
-vec4 castRay(in Ray ray) {
+bool castRay(in Ray ray, in int offset, out vec3 color) {
     float t;
 
     vec3 ambient = ambientStrength * lightColor;
@@ -76,18 +71,26 @@ vec4 castRay(in Ray ray) {
         vec3 hitPointObject = ray.origin + ray.direction * t;
         float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
         vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);
-        mat4 octreeToWorld = mat4(texelFetch(octreeToWorldArray, 0), texelFetch(octreeToWorldArray, 1), texelFetch(octreeToWorldArray, 2), texelFetch(octreeToWorldArray, 3));
+        mat4 octreeToWorld = mat4(texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset));
         vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
         vec3 lightDir = normalize(lightPos);
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
-        vec3 color = (ambient + diffuse) * octreeColor;
-        return vec4(color, 1.0);
-    } else {
-        return vec4(backgroundColor, 1.0);
+        color = (ambient + diffuse) * octreeColor;
+        return true;
     }
+
+    return false;
 }
 
 void main() {
-    Ray ray = constructRay();
-    color = castRay(ray);
+    vec4 outColor = vec4(backgroundColor, 1.0);
+    for (int i = 0; i < octreeCount; i++) {
+        Ray ray = constructRay(i * 8 + 4);
+        vec3 castColor;
+        if (castRay(ray, i * 8, castColor)) {
+            outColor = vec4(castColor, 1.0);
+        }
+    }
+
+    color = outColor;
 }

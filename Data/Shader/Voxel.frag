@@ -1,5 +1,6 @@
 #version 330 core
 //#extension GL_ARB_shader_storage_buffer_object : require
+layout(std140, column_major) uniform;
 
 struct AABB {
     vec3 min;
@@ -11,7 +12,7 @@ struct Ray {
     vec3 direction;
 };
 
-out vec4 color;
+uniform samplerBuffer octreeToWorldArray;
 
 uniform mat4 octreeToWorld;
 uniform mat4 cameraToWorld;
@@ -29,6 +30,10 @@ uniform vec3 stepH;
 
 uniform AABB aabb;
 uniform float ambientStrength;
+
+uniform float step;
+
+out vec4 color;
 
 //layout (std430, binding = 0) buffer OctreeBuffer {
 //    int count;
@@ -84,6 +89,7 @@ vec4 castRay(in Ray ray) {
 }
 
 void main() {
+    mat4 octreeToWorld = mat4(texelFetch(octreeToWorldArray, 0), texelFetch(octreeToWorldArray, 1), texelFetch(octreeToWorldArray, 2), texelFetch(octreeToWorldArray, 3));
     Ray ray = constructRay();
     color = castRay(ray);
 }

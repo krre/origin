@@ -134,6 +134,10 @@ void RenderSurface::draw(float dt) {
 
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
 
+    glUniform1f(glGetUniformLocation(program, "octreeToWorldArray"), 0);
+    glActiveTexture(GL_TEXTURE0);
+    octreeToWorldTexture.bind();
+
     vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
     vao.unbind();

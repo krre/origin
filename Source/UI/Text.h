@@ -40,8 +40,8 @@ private:
     glm::vec4 color;
     float scale = 1.0;
     std::map<GLchar, Character> characters;
-    VertexArray VAO;
-    Buffer VBO;
+    VertexArray vao;
+    Buffer vbo;
     int fontSize = 14;
     ShaderGroup* fontShaderGroup;
 };

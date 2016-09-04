@@ -9,7 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Text::Text() : VBO(GL_ARRAY_BUFFER) {
+Text::Text() : vbo(GL_ARRAY_BUFFER) {
     color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 
     FT_Library ft;
@@ -77,12 +77,12 @@ Text::Text() : VBO(GL_ARRAY_BUFFER) {
     FT_Done_FreeType(ft);
 
     // Configure VAO/VBO for texture quads
-    VAO.bind();
-    VBO.bind();
+    vao.bind();
+    vbo.bind();
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
-    VAO.unbind();
+    vao.unbind();
 }
 
 void Text::setText(const std::string& text) {
@@ -117,7 +117,7 @@ void Text::draw(float dt) {
     glUniform3f(glGetUniformLocation(fontShaderGroup->getProgram(), "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
 
-    VAO.bind();
+    vao.bind();
 
     // Iterate through all characters
     GLfloat startX = position.x;
@@ -148,9 +148,9 @@ void Text::draw(float dt) {
         glBindTexture(GL_TEXTURE_2D, ch.textureId);
 
         // Update content of VBO memory
-        VBO.bind();
+        vbo.bind();
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
-        VBO.unbind();
+        vbo.unbind();
 
         // Render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -158,7 +158,7 @@ void Text::draw(float dt) {
         startX += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
 
-    VAO.unbind();
+    vao.unbind();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_BLEND);
 }

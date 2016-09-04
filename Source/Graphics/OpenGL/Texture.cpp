@@ -11,3 +11,7 @@ void Texture::bind() {
 void Texture::unbind() {
     glBindTexture(type, 0);
 }
+
+void Texture::attachBuffer(GLenum internalFormat, GLuint buffer) {
+    glTexBuffer(type, internalFormat, buffer);
+}

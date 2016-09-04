@@ -10,6 +10,7 @@ public:
     GLenum getType() const { return type; }
     void bind();
     void unbind();
+    void attachBuffer(GLenum internalFormat, GLuint buffer);
 
 private:
     GLenum type;

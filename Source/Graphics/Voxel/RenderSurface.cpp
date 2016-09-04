@@ -44,6 +44,10 @@ RenderSurface::RenderSurface() :
     glEnableVertexAttribArray(0);
 
     vao.unbind();
+
+    octreeToWorldTexture.bind();
+    octreeToWorldTexture.attachBuffer(GL_RGBA32F, tbo.getId());
+    octreeToWorldTexture.unbind();
 }
 
 void RenderSurface::draw(float dt) {

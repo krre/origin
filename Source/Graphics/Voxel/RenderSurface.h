@@ -6,6 +6,8 @@
 #include "../Graphics/OpenGL/Buffer.h"
 #include <glm/glm.hpp>
 
+constexpr int MAX_OCTREE_COUNT = 10;
+
 class RenderSurface : public Drawable {
 
 public:

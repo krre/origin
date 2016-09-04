@@ -46,7 +46,7 @@ RenderSurface::RenderSurface() :
     vao.unbind();
 
     tbo.bind();
-    glBufferData(GL_TEXTURE_BUFFER, 5000, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::mat4) * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
     tbo.unbind();
 
     octreeToWorldTexture.bind();

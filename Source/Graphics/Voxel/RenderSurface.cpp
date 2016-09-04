@@ -33,7 +33,7 @@ RenderSurface::RenderSurface() :
          1.0f,  1.0f,
     };
 
-    VAO.bind();
+    vao.bind();
 
     VBO.bind();
     VBO.setData(vertices, sizeof(vertices));
@@ -42,7 +42,7 @@ RenderSurface::RenderSurface() :
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    VAO.unbind();
+    vao.unbind();
 }
 
 void RenderSurface::draw(float dt) {
@@ -129,7 +129,7 @@ void RenderSurface::draw(float dt) {
 
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
 
-    VAO.bind();
+    vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
-    VAO.unbind();
+    vao.unbind();
 }

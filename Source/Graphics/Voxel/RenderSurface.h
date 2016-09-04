@@ -20,7 +20,7 @@ public:
 private:
     ShaderGroup* voxelShaderGroup;
     Texture texture;
-    VertexArray VAO;
+    VertexArray vao;
     Buffer VBO;
     GLuint program;
 };

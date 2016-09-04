@@ -29,6 +29,7 @@ uniform vec3 stepH;
 
 uniform AABB aabb;
 uniform float ambientStrength;
+uniform int octreeCount;
 
 out vec4 color;
 

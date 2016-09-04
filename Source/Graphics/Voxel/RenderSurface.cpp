@@ -82,6 +82,8 @@ void RenderSurface::draw(float dt) {
         }
     }
 
+    voxelShaderGroup->use();
+
     sendDataToGPU();
 
     int width = App::getInstance()->getWidth();
@@ -124,8 +126,6 @@ void RenderSurface::draw(float dt) {
 
     float ambientStrength = 0.1f;
 
-    voxelShaderGroup->use();
-
     glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
     glUniform3fv(glGetUniformLocation(program, "octreeColor"), 1, &octreeColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
@@ -161,6 +161,8 @@ void RenderSurface::sendDataToGPU() {
             glm::vec3 octreeColor = octreeMaterial->color;
         }
     }
+
+    glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeToWorldVector.size());
 
     tbo.bind();
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::mat4) * octreeToWorldVector.size(), &octreeToWorldVector[0]);

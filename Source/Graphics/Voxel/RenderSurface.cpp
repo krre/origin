@@ -46,7 +46,7 @@ RenderSurface::RenderSurface() :
     vao.unbind();
 
     tbo.bind();
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * 8 * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * 9 * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
     tbo.unbind();
 
     octreeToWorldTexture.bind();
@@ -101,8 +101,6 @@ void RenderSurface::draw(float dt) {
             octrees.push_back(octreeTransform->objectToWorld[1]);
             octrees.push_back(octreeTransform->objectToWorld[2]);
             octrees.push_back(octreeTransform->objectToWorld[3]);
-//            MaterialComponent* octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
-//            glm::vec3 octreeColor = octreeMaterial->color;
 
             glm::mat4 cameraToObject = octreeTransform->worldToObject * cameraTransform->objectToWorld;
 
@@ -137,6 +135,10 @@ void RenderSurface::draw(float dt) {
             octrees.push_back(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
             octrees.push_back(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
 
+            MaterialComponent* octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
+            glm::vec3 octreeColor = octreeMaterial->color;
+            octrees.push_back(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
+
             octreeCount++;
         }
     }
@@ -152,7 +154,6 @@ void RenderSurface::draw(float dt) {
     voxelShaderGroup->use();
 
     glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
-    glUniform3fv(glGetUniformLocation(program, "octreeColor"), 1, &octreeColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);

@@ -14,7 +14,6 @@ struct Ray {
 uniform samplerBuffer octrees;
 
 uniform vec3 backgroundColor;
-uniform vec3 octreeColor;
 uniform vec3 lightColor;
 
 uniform vec3 lightPos;
@@ -29,7 +28,8 @@ out vec4 color;
 //    int count;
 //};
 
-Ray constructRay(int offset) {
+Ray constructRay(in int index) {
+    int offset = index * 9 + 4;
     Ray ray;
     ray.origin = vec3(texelFetch(octrees, offset++));
     vec3 startCornerPos = vec3(texelFetch(octrees, offset++));
@@ -62,9 +62,9 @@ bool rayAABBIntersect(in Ray ray, out float t) {
     return (tmin <= tmax) && (tmax > 0.0f);
 }
 
-bool castRay(in Ray ray, in int offset, out vec3 color) {
+bool castRay(in Ray ray, in int index, out vec3 color) {
     float t;
-
+    int offset = index * 9;
     vec3 ambient = ambientStrength * lightColor;
 
     if (rayAABBIntersect(ray, t)) {
@@ -75,6 +75,7 @@ bool castRay(in Ray ray, in int offset, out vec3 color) {
         vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
         vec3 lightDir = normalize(lightPos);
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
+        vec3 octreeColor = vec3(texelFetch(octrees, index * 9 + 8));
         color = (ambient + diffuse) * octreeColor;
         return true;
     }
@@ -85,9 +86,9 @@ bool castRay(in Ray ray, in int offset, out vec3 color) {
 void main() {
     vec4 outColor = vec4(backgroundColor, 1.0);
     for (int i = 0; i < octreeCount; i++) {
-        Ray ray = constructRay(i * 8 + 4);
+        Ray ray = constructRay(i);
         vec3 castColor;
-        if (castRay(ray, i * 8, castColor)) {
+        if (castRay(ray, i, castColor)) {
             outColor = vec4(castColor, 1.0);
         }
     }

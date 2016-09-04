@@ -19,8 +19,9 @@ public:
 
 private:
     ShaderGroup* voxelShaderGroup;
-    Texture texture;
+    Texture octreeToWorldTexture;
     VertexArray vao;
     Buffer vbo;
+    Buffer tbo;
     GLuint program;
 };

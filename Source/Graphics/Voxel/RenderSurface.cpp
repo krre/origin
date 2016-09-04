@@ -10,8 +10,9 @@
 #include <glm/gtx/matrix_decompose.hpp>
 
 RenderSurface::RenderSurface() :
-    texture(GL_TEXTURE_RECTANGLE),
-    vbo(GL_ARRAY_BUFFER) {
+    octreeToWorldTexture(GL_TEXTURE_BUFFER),
+    vbo(GL_ARRAY_BUFFER),
+    tbo(GL_TEXTURE_BUFFER) {
 
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     program = voxelShaderGroup->getProgram();

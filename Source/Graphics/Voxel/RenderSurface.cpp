@@ -11,7 +11,7 @@
 
 RenderSurface::RenderSurface() :
     texture(GL_TEXTURE_RECTANGLE),
-    VBO(GL_ARRAY_BUFFER) {
+    vbo(GL_ARRAY_BUFFER) {
 
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     program = voxelShaderGroup->getProgram();
@@ -35,8 +35,8 @@ RenderSurface::RenderSurface() :
 
     vao.bind();
 
-    VBO.bind();
-    VBO.setData(vertices, sizeof(vertices));
+    vbo.bind();
+    vbo.setData(vertices, sizeof(vertices));
 
     // Position attribute
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);

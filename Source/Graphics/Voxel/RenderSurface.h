@@ -21,6 +21,6 @@ private:
     ShaderGroup* voxelShaderGroup;
     Texture texture;
     VertexArray vao;
-    Buffer VBO;
+    Buffer vbo;
     GLuint program;
 };

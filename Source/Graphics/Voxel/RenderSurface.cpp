@@ -138,3 +138,22 @@ void RenderSurface::draw(float dt) {
     glDrawArrays(GL_TRIANGLES, 0, 6);
     vao.unbind();
 }
+
+void RenderSurface::sendDataToGPU() {
+    // TODO: Replace by family
+    std::vector<glm::mat4> octreeToWorldVector;
+    for (auto entity : Engine::getInstance()->getEntities()) {
+        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+        if (octreeComp) {
+            Octree* octree = octreeComp->octree.get();
+            TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+            octreeToWorldVector.push_back(octreeTransform->objectToWorld);
+            MaterialComponent* octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
+            glm::vec3 octreeColor = octreeMaterial->color;
+        }
+    }
+
+    tbo.bind();
+    tbo.setData(&octreeToWorldVector[0], sizeof(glm::mat4) * octreeToWorldVector.size());
+    tbo.unbind();
+}

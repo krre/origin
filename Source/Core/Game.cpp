@@ -52,7 +52,7 @@ void Game::create() {
     MaterialComponent* cubeMaterial = static_cast<MaterialComponent*>(cube->components[ComponentType::Material].get());
     cubeMaterial->color = glm::vec3(0.52, 0.35f, 0.35f);
     Engine::getInstance()->addEntity(cube);
-/*
+
     // Plane
     std::shared_ptr<Entity> plane = EntityBuilder::cube();
     transformSystem->setScale(plane.get(), 5.0);
@@ -75,11 +75,14 @@ void Game::create() {
     MaterialComponent* materialCube2 = static_cast<MaterialComponent*>(cube2->components[ComponentType::Material].get());
     materialCube2->color = glm::vec3(0.1, 0.5f, 0.9f);
     Engine::getInstance()->addEntity(cube2);
-*/
+
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
     transformSystem->translate(light.get(), glm::vec3(1.5, 1.0, 1.0));
     Engine::getInstance()->addEntity(light);
+
+    RenderSystem* renderSystem = static_cast<RenderSystem*>(Engine::getInstance()->getSystem(SystemType::Render).get());
+    renderSystem->getRenderSurface()->sendDataToGPU();
 
     App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 

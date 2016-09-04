@@ -9,6 +9,7 @@ class RenderSystem : public System {
 public:
     RenderSystem();
     void process(float dt) override;
+    RenderSurface* getRenderSurface() { return &renderSurface; }
 
 private:
     RenderSurface renderSurface;

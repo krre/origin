@@ -16,6 +16,7 @@ public:
 
     RenderSurface();
     void draw(float dt) override;
+    void sendDataToGPU();
 
 private:
     ShaderGroup* voxelShaderGroup;

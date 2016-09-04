@@ -11,11 +11,6 @@ constexpr int MAX_OCTREE_COUNT = 10;
 class RenderSurface : public Drawable {
 
 public:
-    struct Ray {
-        glm::vec3 origin;
-        glm::vec3 direction;
-    };
-
     RenderSurface();
     void draw(float dt) override;
 

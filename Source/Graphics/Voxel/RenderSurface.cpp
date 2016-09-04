@@ -115,9 +115,6 @@ void RenderSurface::draw(float dt) {
     glm::vec4 perspective;
     glm::decompose(cameraToObject, scale, rotation, translation, skew, perspective);
 
-    Ray ray;
-    ray.origin = translation;
-
     glm::vec3 up = cameraComp->up * rotation;
     glm::vec3 look = cameraComp->look * rotation;
     glm::vec3 right = cameraComp->right * rotation;

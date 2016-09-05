@@ -89,7 +89,7 @@ void RenderSurface::draw(float dt) {
 
     // TODO: Replace by family
     std::vector<glm::vec4> objects;
-    int octreeCount = 0;
+    int objectCount = 0;
     for (auto entity : Engine::getInstance()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
@@ -137,7 +137,7 @@ void RenderSurface::draw(float dt) {
             glm::vec3 octreeColor = octreeMaterial->color;
             objects.push_back(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
 
-            octreeCount++;
+            objectCount++;
         }
     }
 
@@ -156,7 +156,7 @@ void RenderSurface::draw(float dt) {
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
     glUniform1f(glGetUniformLocation(program, "objects"), 0);
-    glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeCount);
+    glUniform1i(glGetUniformLocation(program, "objectCount"), objectCount);
 
     glActiveTexture(GL_TEXTURE0);
     objectsTexture.bind();

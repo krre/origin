@@ -20,7 +20,7 @@ uniform vec3 lightPos;
 
 uniform AABB aabb;
 uniform float ambientStrength;
-uniform int octreeCount;
+uniform int objectCount;
 
 out vec4 color;
 
@@ -87,7 +87,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 void main() {
     vec4 outColor = vec4(backgroundColor, 1.0);
     float distanceMin = 10000;
-    for (int i = 0; i < octreeCount; i++) {
+    for (int i = 0; i < objectCount; i++) {
         Ray ray = constructRay(i);
         vec3 castColor;
         float distance;

@@ -25,6 +25,7 @@ RenderSurface::RenderSurface() :
 
     glUniform3fv(glGetUniformLocation(program, "aabb.min"), 1, &aabbMin[0]);
     glUniform3fv(glGetUniformLocation(program, "aabb.max"), 1, &aabbMax[0]);
+    glUniform1i(glGetUniformLocation(program, "objectStride"), OBJECT_STRIDE);
 
     GLfloat vertices[] = {
         -1.0f,  1.0f,
@@ -49,7 +50,7 @@ RenderSurface::RenderSurface() :
 
     // Objects
     objectsTbo.bind();
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * 9 * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * OBJECT_STRIDE * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
     objectsTbo.unbind();
 
     glActiveTexture(GL_TEXTURE0);

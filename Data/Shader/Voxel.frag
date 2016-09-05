@@ -22,6 +22,7 @@ uniform vec3 lightPos;
 uniform AABB aabb;
 uniform float ambientStrength;
 uniform int objectCount;
+uniform int objectStride;
 
 out vec4 color;
 
@@ -30,7 +31,7 @@ out vec4 color;
 //};
 
 Ray constructRay(in int index) {
-    int offset = index * 9 + 4;
+    int offset = index * objectStride + 4;
     Ray ray;
     ray.origin = vec3(texelFetch(objects, offset++));
     vec3 startCornerPos = vec3(texelFetch(objects, offset++));
@@ -65,7 +66,7 @@ bool rayAABBIntersect(in Ray ray, out float t) {
 
 bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     float t;
-    int offset = index * 9;
+    int offset = index * objectStride;
     vec3 ambient = ambientStrength * lightColor;
 
     if (rayAABBIntersect(ray, t)) {
@@ -76,7 +77,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
         vec3 lightDir = normalize(lightPos);
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
-        vec3 octreeColor = vec3(texelFetch(objects, index * 9 + 8));
+        vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
         color = (ambient + diffuse) * octreeColor;
         distance = t * octreeToWorld[0][0]; // t * scale
         return true;

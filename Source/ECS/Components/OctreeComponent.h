@@ -6,5 +6,5 @@ class OctreeComponent : public Component {
 
 public:
     OctreeComponent() { type = ComponentType::Octree; }
-    std::shared_ptr<Octree> octree;
+    uint32* data;
 };

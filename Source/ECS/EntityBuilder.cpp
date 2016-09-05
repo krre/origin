@@ -23,10 +23,6 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
 
 std::shared_ptr<Entity> EntityBuilder::cube() {
     std::shared_ptr<Entity> entity = geometry();
-
-    OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
-    octreeComp->octree = std::make_shared<Cube>();
-
     return entity;
 }
 

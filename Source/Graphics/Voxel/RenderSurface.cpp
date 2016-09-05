@@ -62,7 +62,6 @@ void RenderSurface::draw(float dt) {
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
-    Octree* octree;
     TransformComponent* octreeTransform;
     MaterialComponent* octreeMaterial;
     glm::vec3 octreeColor;
@@ -75,7 +74,6 @@ void RenderSurface::draw(float dt) {
     for (auto entity : Engine::getInstance()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
-            octree = octreeComp->octree.get();
             octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
             octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
             octreeColor = octreeMaterial->color;

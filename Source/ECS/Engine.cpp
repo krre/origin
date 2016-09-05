@@ -50,6 +50,7 @@ void Engine::initSystems() {
     addUpdateSystem<CameraSystem>();
     addUpdateSystem<TransformSystem>();
     addUpdateSystem<NodeSystem>();
+    addUpdateSystem<OctreeSystem>();
     addDrawSystem<RenderSystem>();
 }
 

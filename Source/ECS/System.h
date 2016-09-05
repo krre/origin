@@ -9,6 +9,7 @@ enum class SystemType {
     MovementController,
     Node,
     None,
+    Octree,
     Render,
     Transform
 };

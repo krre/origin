@@ -6,6 +6,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MovementControllerSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/NodeSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/NodeSystem.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/OctreeSystem.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/OctreeSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderSystem.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderSystem.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Systems.h

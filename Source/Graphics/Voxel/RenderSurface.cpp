@@ -11,8 +11,10 @@
 
 RenderSurface::RenderSurface() :
     objectsTexture(GL_TEXTURE_BUFFER),
+    octreesTexture(GL_TEXTURE_BUFFER),
     vbo(GL_ARRAY_BUFFER),
-    tbo(GL_TEXTURE_BUFFER) {
+    objectsTbo(GL_TEXTURE_BUFFER),
+    octreesTbo(GL_TEXTURE_BUFFER) {
 
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     program = voxelShaderGroup->getProgram();
@@ -45,13 +47,26 @@ RenderSurface::RenderSurface() :
 
     vao.unbind();
 
-    tbo.bind();
+    // Objects
+    objectsTbo.bind();
     glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * 9 * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
-    tbo.unbind();
+    objectsTbo.unbind();
 
+    glActiveTexture(GL_TEXTURE0);
     objectsTexture.bind();
-    objectsTexture.attachBuffer(GL_RGBA32F, tbo.getId());
+    objectsTexture.attachBuffer(GL_RGBA32F, objectsTbo.getId());
+
+    // Octrees
+    octreesTbo.bind();
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32) * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
+    octreesTbo.unbind();
+
+    glActiveTexture(GL_TEXTURE1);
+    octreesTexture.bind();
+    octreesTexture.attachBuffer(GL_RGBA32UI, octreesTbo.getId());
+
     objectsTexture.unbind();
+    octreesTexture.unbind();
 }
 
 void RenderSurface::draw(float dt) {
@@ -141,9 +156,9 @@ void RenderSurface::draw(float dt) {
         }
     }
 
-    tbo.bind();
+    objectsTbo.bind();
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), &objects[0]);
-    tbo.unbind();
+    objectsTbo.unbind();
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
@@ -156,10 +171,8 @@ void RenderSurface::draw(float dt) {
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
     glUniform1f(glGetUniformLocation(program, "objects"), 0);
+    glUniform1f(glGetUniformLocation(program, "octrees"), 1);
     glUniform1i(glGetUniformLocation(program, "objectCount"), objectCount);
-
-    glActiveTexture(GL_TEXTURE0);
-    objectsTexture.bind();
 
     vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);

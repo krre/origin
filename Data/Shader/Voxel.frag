@@ -12,6 +12,7 @@ struct Ray {
 };
 
 uniform samplerBuffer objects;
+uniform usamplerBuffer octrees;
 
 uniform vec3 backgroundColor;
 uniform vec3 lightColor;

@@ -77,7 +77,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
         vec3 octreeColor = vec3(texelFetch(octrees, index * 9 + 8));
         color = (ambient + diffuse) * octreeColor;
-        distance = t;
+        distance = t * octreeToWorld[0][0]; // t * scale
         return true;
     }
 

@@ -46,7 +46,7 @@ void Game::create() {
 
     // Cube
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
-    transformSystem->setScale(cube.get(), 0.5);
+    transformSystem->setScale(cube.get(), 0.25);
     transformSystem->setPosition(cube.get(), glm::vec3(0.0, 0.0, 0.0));
 //    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 0.0, 0.0));
     MaterialComponent* cubeMaterial = static_cast<MaterialComponent*>(cube->components[ComponentType::Material].get());
@@ -63,7 +63,7 @@ void Game::create() {
     // Cube1
     std::shared_ptr<Entity> cube1 = EntityBuilder::cube();
     transformSystem->setScale(cube1.get(), 0.25);
-    transformSystem->translate(cube1.get(), glm::vec3(1.0, 0.0, 0.0));
+    transformSystem->translate(cube1.get(), glm::vec3(0.0, 0.0, -1.0));
     MaterialComponent* materialCube1 = static_cast<MaterialComponent*>(cube1->components[ComponentType::Material].get());
     materialCube1->color = glm::vec3(0.8, 0.1f, 0.1f);
     Engine::getInstance()->addEntity(cube1);
@@ -71,7 +71,7 @@ void Game::create() {
     // Cube2
     std::shared_ptr<Entity> cube2 = EntityBuilder::cube();
     transformSystem->setScale(cube2.get(), 0.25);
-    transformSystem->translate(cube2.get(), glm::vec3(-1.0, 0.0, 0.0));
+    transformSystem->translate(cube2.get(), glm::vec3(0.0, 0.0, -2.0));
     MaterialComponent* materialCube2 = static_cast<MaterialComponent*>(cube2->components[ComponentType::Material].get());
     materialCube2->color = glm::vec3(0.1, 0.5f, 0.9f);
     Engine::getInstance()->addEntity(cube2);

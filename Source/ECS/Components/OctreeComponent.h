@@ -7,5 +7,4 @@ class OctreeComponent : public Component {
 public:
     OctreeComponent() { type = ComponentType::Octree; }
     std::shared_ptr<Octree> octree;
-    float size = 1.0;
 };

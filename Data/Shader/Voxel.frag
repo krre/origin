@@ -77,7 +77,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
         vec3 octreeColor = vec3(texelFetch(octrees, index * 9 + 8));
         color = (ambient + diffuse) * octreeColor;
-        distance = length(ray.direction * t);
+        distance = t;
         return true;
     }
 
@@ -86,14 +86,14 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
 void main() {
     vec4 outColor = vec4(backgroundColor, 1.0);
-    float distanceMin = 100000;
+    float distanceMin = 10000;
     for (int i = 0; i < octreeCount; i++) {
         Ray ray = constructRay(i);
         vec3 castColor;
         float distance;
         if (castRay(ray, i, castColor, distance)) {
-            distanceMin = min(distanceMin, distance);
-            if (distanceMin == distance) {
+            if (distance < distanceMin) {
+                distanceMin = distance;
                 outColor = vec4(castColor, 1.0);
             }
         }

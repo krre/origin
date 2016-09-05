@@ -16,7 +16,7 @@ public:
 
 private:
     ShaderGroup* voxelShaderGroup;
-    Texture octreeToWorldTexture;
+    Texture objectsTexture;
     VertexArray vao;
     Buffer vbo;
     Buffer tbo;

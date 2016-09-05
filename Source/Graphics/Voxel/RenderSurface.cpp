@@ -10,7 +10,7 @@
 #include <glm/gtx/matrix_decompose.hpp>
 
 RenderSurface::RenderSurface() :
-    octreeToWorldTexture(GL_TEXTURE_BUFFER),
+    objectsTexture(GL_TEXTURE_BUFFER),
     vbo(GL_ARRAY_BUFFER),
     tbo(GL_TEXTURE_BUFFER) {
 
@@ -49,9 +49,9 @@ RenderSurface::RenderSurface() :
     glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * 9 * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
     tbo.unbind();
 
-    octreeToWorldTexture.bind();
-    octreeToWorldTexture.attachBuffer(GL_RGBA32F, tbo.getId());
-    octreeToWorldTexture.unbind();
+    objectsTexture.bind();
+    objectsTexture.attachBuffer(GL_RGBA32F, tbo.getId());
+    objectsTexture.unbind();
 }
 
 void RenderSurface::draw(float dt) {
@@ -159,7 +159,7 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeCount);
 
     glActiveTexture(GL_TEXTURE0);
-    octreeToWorldTexture.bind();
+    objectsTexture.bind();
 
     vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);

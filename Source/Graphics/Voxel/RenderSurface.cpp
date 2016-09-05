@@ -88,17 +88,17 @@ void RenderSurface::draw(float dt) {
     }
 
     // TODO: Replace by family
-    std::vector<glm::vec4> octrees;
+    std::vector<glm::vec4> objects;
     int octreeCount = 0;
     for (auto entity : Engine::getInstance()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
 //            Octree* octree = octreeComp->octree.get();
             TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
-            octrees.push_back(octreeTransform->objectToWorld[0]);
-            octrees.push_back(octreeTransform->objectToWorld[1]);
-            octrees.push_back(octreeTransform->objectToWorld[2]);
-            octrees.push_back(octreeTransform->objectToWorld[3]);
+            objects.push_back(octreeTransform->objectToWorld[0]);
+            objects.push_back(octreeTransform->objectToWorld[1]);
+            objects.push_back(octreeTransform->objectToWorld[2]);
+            objects.push_back(octreeTransform->objectToWorld[3]);
 
             glm::mat4 cameraToObject = octreeTransform->worldToObject * cameraTransform->objectToWorld;
 
@@ -109,7 +109,7 @@ void RenderSurface::draw(float dt) {
             glm::vec4 perspective;
             glm::decompose(cameraToObject, scale, rotation, translation, skew, perspective);
 
-            octrees.push_back(glm::vec4(translation.x, translation.y, translation.z, 1.0));
+            objects.push_back(glm::vec4(translation.x, translation.y, translation.z, 1.0));
 
             glm::vec3 up = cameraComp->up * rotation;
             glm::vec3 look = cameraComp->look * rotation;
@@ -129,20 +129,20 @@ void RenderSurface::draw(float dt) {
 
             glm::vec3 startCornerPos = w0 + h0;
 
-            octrees.push_back(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
-            octrees.push_back(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
-            octrees.push_back(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
+            objects.push_back(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
+            objects.push_back(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
+            objects.push_back(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
 
             MaterialComponent* octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
             glm::vec3 octreeColor = octreeMaterial->color;
-            octrees.push_back(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
+            objects.push_back(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
 
             octreeCount++;
         }
     }
 
     tbo.bind();
-    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * octrees.size(), &octrees[0]);
+    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), &objects[0]);
     tbo.unbind();
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
@@ -155,7 +155,7 @@ void RenderSurface::draw(float dt) {
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
-    glUniform1f(glGetUniformLocation(program, "octrees"), 0);
+    glUniform1f(glGetUniformLocation(program, "objects"), 0);
     glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeCount);
 
     glActiveTexture(GL_TEXTURE0);

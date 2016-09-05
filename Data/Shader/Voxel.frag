@@ -11,7 +11,7 @@ struct Ray {
     vec3 direction;
 };
 
-uniform samplerBuffer octrees;
+uniform samplerBuffer objects;
 
 uniform vec3 backgroundColor;
 uniform vec3 lightColor;
@@ -31,10 +31,10 @@ out vec4 color;
 Ray constructRay(in int index) {
     int offset = index * 9 + 4;
     Ray ray;
-    ray.origin = vec3(texelFetch(octrees, offset++));
-    vec3 startCornerPos = vec3(texelFetch(octrees, offset++));
-    vec3 stepW = vec3(texelFetch(octrees, offset++));
-    vec3 stepH = vec3(texelFetch(octrees, offset));
+    ray.origin = vec3(texelFetch(objects, offset++));
+    vec3 startCornerPos = vec3(texelFetch(objects, offset++));
+    vec3 stepW = vec3(texelFetch(objects, offset++));
+    vec3 stepH = vec3(texelFetch(objects, offset));
     ray.direction = normalize(startCornerPos + stepW * gl_FragCoord.x + stepH * gl_FragCoord.y);
     return ray;
 }
@@ -71,11 +71,11 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         vec3 hitPointObject = ray.origin + ray.direction * t;
         float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
         vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);
-        mat4 octreeToWorld = mat4(texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset));
+        mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
         vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
         vec3 lightDir = normalize(lightPos);
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
-        vec3 octreeColor = vec3(texelFetch(octrees, index * 9 + 8));
+        vec3 octreeColor = vec3(texelFetch(objects, index * 9 + 8));
         color = (ambient + diffuse) * octreeColor;
         distance = t * octreeToWorld[0][0]; // t * scale
         return true;

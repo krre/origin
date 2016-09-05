@@ -10,8 +10,8 @@ class Mesh : public Object {
 
 public:
     Mesh();
-    VertexArray* getVAO() { return &VAO; }
-    Buffer* getVBO() { return &VBO; }
+    VertexArray* getVAO() { return &vao; }
+    Buffer* getVBO() { return &vbo; }
 
     const std::vector<GLfloat>& getVerticles() const { return verticles; }
     const std::vector<int>& getIndices() const { return indices; }
@@ -24,6 +24,6 @@ protected:
     std::vector<int> indices;
 
 private:
-    VertexArray VAO;
-    Buffer VBO;
+    VertexArray vao;
+    Buffer vbo;
 };

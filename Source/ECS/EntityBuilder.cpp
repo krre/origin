@@ -21,8 +21,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
 }
 
 std::shared_ptr<Entity> EntityBuilder::cube() {
-    std::shared_ptr<Entity> entity = geometry();
-    return entity;
+    return geometry();
 }
 
 std::shared_ptr<Entity> EntityBuilder::avatar() {

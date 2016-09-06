@@ -67,7 +67,7 @@ void App::init() {
     int y = (screenHeight - WINDOW_HEIGHT) / 2;
 
     window = SDL_CreateWindow(title, x, y, WINDOW_WIDTH, WINDOW_HEIGHT,
-        SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+        SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 
     if (window == nullptr) {
         std::string errorMsg = std::string("Window could not be created\n") + SDL_GetError();
@@ -97,6 +97,8 @@ void App::init() {
 //        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "OpenGL extension is not supported", "GL_ARB_compute_shader", NULL);
 //        return;
 //    }
+
+    SDL_ShowWindow(window);
 
     SDL_GL_MakeCurrent(window, context);
     glewExperimental = GL_TRUE;

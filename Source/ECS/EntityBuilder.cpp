@@ -12,8 +12,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
         ComponentType::Material,
         ComponentType::Render,
     };
-    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    Engine::getInstance()->createComponents(entity.get(), types);
+    std::shared_ptr<Entity> entity = Engine::getInstance()->createComponents(types);
 
     MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
     materialComp->color = glm::vec3(1.0, 1.0f, 1.0f);
@@ -33,10 +32,7 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
         ComponentType::Movement,
         ComponentType::Camera
     };
-    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    Engine::getInstance()->createComponents(entity.get(), types);
-
-    return entity;
+    return Engine::getInstance()->createComponents(types);
 }
 
 std::shared_ptr<Entity> EntityBuilder::camera() {
@@ -46,8 +42,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
         ComponentType::Movement, // TODO: take from to avatar
         ComponentType::Camera
     };
-    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    Engine::getInstance()->createComponents(entity.get(), types);
+    std::shared_ptr<Entity> entity = Engine::getInstance()->createComponents(types);
 
     auto movementComponent = static_cast<MovementComponent*>(entity->components[ComponentType::Movement].get());
     movementComponent->moveSpeed = 1.0;
@@ -62,10 +57,7 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
         ComponentType::Camera,
         ComponentType::Movement
     };
-    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    Engine::getInstance()->createComponents(entity.get(), types);
-
-    return entity;
+    return Engine::getInstance()->createComponents(types);
 }
 
 std::shared_ptr<Entity> EntityBuilder::light() {
@@ -73,8 +65,5 @@ std::shared_ptr<Entity> EntityBuilder::light() {
         ComponentType::Transform,
         ComponentType::Light,
     };
-    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    Engine::getInstance()->createComponents(entity.get(), types);
-
-    return entity;
+    return Engine::getInstance()->createComponents(types);
 }

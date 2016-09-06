@@ -88,10 +88,13 @@ Component* Engine::createComponent(Entity* entity, ComponentType type) {
     return entity->components[type].get();
 }
 
-void Engine::createComponents(Entity* entity, std::vector<ComponentType> types) {
+std::shared_ptr<Entity> Engine::createComponents(std::vector<ComponentType> types) {
+    std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     for (auto type : types) {
-        createComponent(entity, type);
+        createComponent(entity.get(), type);
     }
+
+    return entity;
 }
 
 void Engine::addComponent(Entity* entity, std::shared_ptr<Component> component) {

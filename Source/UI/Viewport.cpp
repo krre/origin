@@ -6,6 +6,8 @@
 #include <algorithm>
 
 Viewport::Viewport() {
+    switchCameras[0] = nullptr;
+    switchCameras[1] = nullptr;
 }
 
 void Viewport::update(double dt) {
@@ -41,4 +43,13 @@ void Viewport::setCurrentCamera(std::shared_ptr<Entity> currentCamera) {
     MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setMoveEntity(currentCamera.get());
     movementControllerSystem->setRotateEntity(currentCamera.get());
+
+    switchCameras[1] = switchCameras[0];
+    switchCameras[0] = currentCamera;
+}
+
+void Viewport::switchCamera() {
+    if (switchCameras[1] != nullptr) {
+        setCurrentCamera(switchCameras[1]);
+    }
 }

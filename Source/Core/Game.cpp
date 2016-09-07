@@ -27,6 +27,12 @@ void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
     TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(SystemType::Transform).get());
 
+    // Free camera
+    std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
+    transformSystem->translate(freeCamera.get(), glm::vec3(0.0f, 0.0f, 3.0f));
+    App::getInstance()->getViewport()->setCurrentCamera(freeCamera);
+    Engine::getInstance()->addEntity(freeCamera);
+
     // Avatar
     auto avatar = EntityBuilder::avatar();
     Engine::getInstance()->addEntity(avatar);
@@ -35,16 +41,10 @@ void Game::create() {
     App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 1.5f));
 //    transformSystem->setPitch(avatarCamera.get(), -15.0);
-    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
-    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
+//    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
+//    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
     Engine::getInstance()->addEntity(avatarCamera);
-
-    // Free camera
-    std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
-    transformSystem->translate(freeCamera.get(), glm::vec3(0.0f, 0.0f, 3.0f));
-//    App::getInstance()->getViewport()->setCurrentCamera(freeCamera);
-    Engine::getInstance()->addEntity(freeCamera);
 
     // Cube
     std::shared_ptr<Entity> cube = EntityBuilder::cube();
@@ -135,6 +135,10 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
         }
         break;
 #endif
+    case SDLK_KP_0:
+        App::getInstance()->getViewport()->switchCamera();
+        break;
+
     default:
         break;
     }

@@ -21,9 +21,12 @@ public:
 
     void setCurrentCamera(std::shared_ptr<Entity> currentCamera);
     std::shared_ptr<Entity> getCurrentCamera() const { return currentCamera; }
+    // Swap last to cameras
+    void switchCamera();
 
 private:
     std::shared_ptr<Entity> currentCamera;
+    std::shared_ptr<Entity> switchCameras[2];
     glm::vec4 backgroundColor;
     glm::vec4 rectangle;
     std::vector<std::shared_ptr<Entity>> cameras;

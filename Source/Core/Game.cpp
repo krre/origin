@@ -38,11 +38,13 @@ void Game::create() {
     NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
     nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
 
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
-    movementControllerSystem->setMoveEntity(avatarCamera.get());
-    movementControllerSystem->setRotateEntity(avatarCamera.get());
-
     Engine::getInstance()->addEntity(avatarCamera);
+
+    // Free camera
+    std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
+    transformSystem->translate(freeCamera.get(), glm::vec3(0.0f, 0.0f, 3.0f));
+//    App::getInstance()->getViewport()->setCurrentCamera(freeCamera);
+    Engine::getInstance()->addEntity(freeCamera);
 
     // Cube
     std::shared_ptr<Entity> cube = EntityBuilder::cube();

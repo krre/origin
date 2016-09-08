@@ -57,6 +57,8 @@ void Game::create() {
     OctreeComponent* cubeOctree = static_cast<OctreeComponent*>(cube->components[ComponentType::Octree].get());
     cubeOctree->data = octreeSystem->getSVOBuilder()->buildTest();
     Engine::getInstance()->addEntity(cube);
+
+    octreeSystem->sendToGPU(*cubeOctree->data.get());
 /*
     // Plane
 //    std::shared_ptr<Entity> plane = EntityBuilder::cube();

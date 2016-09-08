@@ -59,7 +59,7 @@ RenderSurface::RenderSurface() :
 
     // Octrees
     octreesTbo.bind();
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32) * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
     octreesTbo.unbind();
 
     glActiveTexture(GL_TEXTURE1);

@@ -8,5 +8,5 @@ public:
     void draw();
 
 private:
-    uint32* data;
+    uint32_t* data;
 };

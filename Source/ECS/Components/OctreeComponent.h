@@ -7,5 +7,5 @@ class OctreeComponent : public Component {
 
 public:
     OctreeComponent() { type = ComponentType::Octree; }
-    std::vector<uint32> data;
+    std::vector<uint32_t> data;
 };

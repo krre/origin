@@ -9,5 +9,5 @@ public:
     Utils();
     static std::string zeroFill(const std::string& number);
     static std::string getPathSeparator();
-    static uint32 rgbaToUint32(const glm::vec4& color);
+    static uint32_t rgbaToUint32(const glm::vec4& color);
 };

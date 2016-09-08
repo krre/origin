@@ -135,10 +135,11 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
         }
         break;
 #endif
+#ifdef DEVELOP_MODE
     case SDLK_KP_0:
         App::getInstance()->getViewport()->switchCamera();
         break;
-
+#endif
     default:
         break;
     }

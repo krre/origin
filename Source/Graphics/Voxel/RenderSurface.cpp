@@ -46,25 +46,20 @@ RenderSurface::RenderSurface() :
     // Position attribute
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
-    vao.unbind();
 
     // Objects
     objectsTbo.bind();
     glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * OBJECT_STRIDE * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
-    objectsTbo.unbind();
 
     objectsTexture.bind();
     objectsTexture.attachBuffer(GL_RGBA32F, objectsTbo.getId());
-    objectsTexture.unbind();
 
     // Octrees
     octreesTbo.bind();
     glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * MAX_OCTREE_COUNT * 10, NULL, GL_STATIC_DRAW);
-    octreesTbo.unbind();
 
     octreesTexture.bind();
     octreesTexture.attachBuffer(GL_RGBA8UI, octreesTbo.getId());
-    octreesTexture.unbind();
 }
 
 void RenderSurface::draw(float dt) {
@@ -156,7 +151,6 @@ void RenderSurface::draw(float dt) {
 
     objectsTbo.bind();
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), &objects[0]);
-    objectsTbo.unbind();
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
@@ -177,15 +171,10 @@ void RenderSurface::draw(float dt) {
 
     vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
-    vao.unbind();
-
-    objectsTexture.unbind();
-    octreesTexture.unbind();
 }
 
 void RenderSurface::sendOctreeToGPU(const std::vector<uint32_t>& data) {
     octreesTbo.bind();
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(uint32_t) * data.size(), &data[0]);
-    octreesTbo.unbind();
 
 }

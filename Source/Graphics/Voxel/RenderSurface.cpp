@@ -39,15 +39,13 @@ RenderSurface::RenderSurface() :
          1.0f,  1.0f,
     };
 
-    vao.bind();
-
     vbo.bind();
     vbo.setData(vertices, sizeof(vertices));
 
+    vao.bind();
     // Position attribute
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
-
     vao.unbind();
 
     // Objects

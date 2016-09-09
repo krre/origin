@@ -14,6 +14,7 @@ class RenderSurface : public Drawable {
 public:
     RenderSurface();
     void draw(float dt) override;
+    void sendToGPU(const std::vector<uint32_t>& data);
 
 private:
     ShaderGroup* voxelShaderGroup;

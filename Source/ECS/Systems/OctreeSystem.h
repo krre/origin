@@ -11,7 +11,6 @@ public:
     OctreeSystem();
     void process(float dt) override;
     SVOBuilder* getSVOBuilder() { return &svoBuilder; }
-    void sendToGPU(const std::vector<uint32_t>& data);
 
 private:
     SVOBuilder svoBuilder;

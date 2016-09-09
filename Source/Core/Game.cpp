@@ -27,6 +27,7 @@ void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
     TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(SystemType::Transform).get());
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::getInstance()->getSystem(SystemType::Octree).get());
+    RenderSystem* renderSystem = static_cast<RenderSystem*>(Engine::getInstance()->getSystem(SystemType::Render).get());
 
     // Free camera
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
@@ -58,7 +59,7 @@ void Game::create() {
     cubeOctree->data = octreeSystem->getSVOBuilder()->buildTest();
     Engine::getInstance()->addEntity(cube);
 
-    octreeSystem->sendToGPU(*cubeOctree->data.get());
+    renderSystem->getRenderSurface()->sendToGPU(*cubeOctree->data.get());
 /*
     // Plane
 //    std::shared_ptr<Entity> plane = EntityBuilder::cube();

@@ -77,12 +77,12 @@ Text::Text() : vbo(GL_ARRAY_BUFFER) {
     FT_Done_FreeType(ft);
 
     // Configure VAO/VBO for texture quads
-    vao.bind();
     vbo.bind();
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+
+    vao.bind();
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
-    vao.unbind();
 }
 
 void Text::setText(const std::string& text) {
@@ -118,14 +118,13 @@ void Text::draw(float dt) {
     glActiveTexture(GL_TEXTURE0);
 
     vao.bind();
-
+    vbo.bind();
     // Iterate through all characters
     GLfloat startX = position.x;
     // TODO: Move relative coordinates on top level
     float y = App::getInstance()->getHeight() - position.y;
-    std::string::const_iterator c;
-    for (c = text.begin(); c != text.end(); c++) {
-        Character ch = characters[*c];
+    for (auto c: text) {
+        Character ch = characters[c];
 
         GLfloat xpos = startX + ch.bearing.x * scale;
         GLfloat ypos = y - (ch.size.y - ch.bearing.y) * scale;
@@ -148,9 +147,7 @@ void Text::draw(float dt) {
         glBindTexture(GL_TEXTURE_2D, ch.textureId);
 
         // Update content of VBO memory
-        vbo.bind();
         glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices); // Be sure to use glBufferSubData and not glBufferData
-        vbo.unbind();
 
         // Render quad
         glDrawArrays(GL_TRIANGLES, 0, 6);
@@ -158,7 +155,6 @@ void Text::draw(float dt) {
         startX += (ch.advance >> 6) * scale; // Bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
 
-    vao.unbind();
     glBindTexture(GL_TEXTURE_2D, 0);
     glDisable(GL_BLEND);
 }

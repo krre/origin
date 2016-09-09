@@ -59,7 +59,7 @@ void Game::create() {
     cubeOctree->data = octreeSystem->getSVOBuilder()->buildTest();
     Engine::getInstance()->addEntity(cube);
 
-    renderSystem->getRenderSurface()->sendToGPU(*cubeOctree->data.get());
+    renderSystem->getRenderSurface()->sendOctreeToGPU(*cubeOctree->data.get());
 /*
     // Plane
 //    std::shared_ptr<Entity> plane = EntityBuilder::cube();

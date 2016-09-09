@@ -180,7 +180,7 @@ void RenderSurface::draw(float dt) {
     vao.unbind();
 }
 
-void RenderSurface::sendToGPU(const std::vector<uint32_t>& data) {
+void RenderSurface::sendOctreeToGPU(const std::vector<uint32_t>& data) {
     octreesTbo.bind();
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(uint32_t) * data.size(), &data[0]);
     octreesTbo.unbind();

@@ -64,10 +64,10 @@ RenderSurface::RenderSurface() :
 
     glActiveTexture(GL_TEXTURE1);
     octreesTexture.bind();
-    octreesTexture.attachBuffer(GL_RGBA32UI, octreesTbo.getId());
+    octreesTexture.attachBuffer(GL_RGBA8UI, octreesTbo.getId());
 
-    objectsTexture.unbind();
-    octreesTexture.unbind();
+//    objectsTexture.unbind();
+//    octreesTexture.unbind();
 }
 
 void RenderSurface::draw(float dt) {

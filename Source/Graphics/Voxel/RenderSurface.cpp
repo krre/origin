@@ -53,21 +53,18 @@ RenderSurface::RenderSurface() :
     glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * OBJECT_STRIDE * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
     objectsTbo.unbind();
 
-    glActiveTexture(GL_TEXTURE0);
     objectsTexture.bind();
     objectsTexture.attachBuffer(GL_RGBA32F, objectsTbo.getId());
+    objectsTexture.unbind();
 
     // Octrees
     octreesTbo.bind();
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * MAX_OCTREE_COUNT * 10, NULL, GL_STATIC_DRAW);
     octreesTbo.unbind();
 
-    glActiveTexture(GL_TEXTURE1);
     octreesTexture.bind();
     octreesTexture.attachBuffer(GL_RGBA8UI, octreesTbo.getId());
-
-//    objectsTexture.unbind();
-//    octreesTexture.unbind();
+    octreesTexture.unbind();
 }
 
 void RenderSurface::draw(float dt) {
@@ -173,9 +170,17 @@ void RenderSurface::draw(float dt) {
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
     glUniform1i(glGetUniformLocation(program, "objectCount"), objectCount);
 
+    glActiveTexture(GL_TEXTURE0);
+    objectsTexture.bind();
+    glActiveTexture(GL_TEXTURE1);
+    octreesTexture.bind();
+
     vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
     vao.unbind();
+
+    objectsTexture.unbind();
+    octreesTexture.unbind();
 }
 
 void RenderSurface::sendOctreeToGPU(const std::vector<uint32_t>& data) {

@@ -26,6 +26,8 @@ RenderSurface::RenderSurface() :
     glUniform3fv(glGetUniformLocation(program, "aabb.min"), 1, &aabbMin[0]);
     glUniform3fv(glGetUniformLocation(program, "aabb.max"), 1, &aabbMax[0]);
     glUniform1i(glGetUniformLocation(program, "objectStride"), OBJECT_STRIDE);
+    glUniform1f(glGetUniformLocation(program, "objects"), 0);
+    glUniform1f(glGetUniformLocation(program, "octrees"), 1);
 
     GLfloat vertices[] = {
         -1.0f,  1.0f,
@@ -171,8 +173,6 @@ void RenderSurface::draw(float dt) {
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
-    glUniform1f(glGetUniformLocation(program, "objects"), 0);
-    glUniform1f(glGetUniformLocation(program, "octrees"), 1);
     glUniform1i(glGetUniformLocation(program, "objectCount"), objectCount);
 
     vao.bind();

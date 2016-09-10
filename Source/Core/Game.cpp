@@ -158,8 +158,8 @@ void Game::toggleFullScreen() {
 }
 
 void Game::saveScreenshot() {
-    time_t t = std::time(0);   // get time now
-    struct tm * now = std::localtime(&t);
+    time_t t = std::time(0); // Get time now
+    struct tm* now = std::localtime(&t);
     std::string filename =
             std::to_string(now->tm_year + 1900) + "-" +
             Utils::zeroFill(std::to_string(now->tm_mon + 1)) + "-" +

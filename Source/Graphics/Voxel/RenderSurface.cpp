@@ -22,7 +22,9 @@ RenderSurface::RenderSurface() :
 
     glm::vec3 aabbMin = glm::vec3(-1.0, -1.0, -1.0);
     glm::vec3 aabbMax = glm::vec3(1.0, 1.0, 1.0);
+    glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
+    glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
     glUniform3fv(glGetUniformLocation(program, "aabb.min"), 1, &aabbMin[0]);
     glUniform3fv(glGetUniformLocation(program, "aabb.max"), 1, &aabbMax[0]);
     glUniform1i(glGetUniformLocation(program, "objectStride"), OBJECT_STRIDE);
@@ -101,7 +103,6 @@ void RenderSurface::draw(float dt) {
     for (auto entity : Engine::getInstance()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
-//            Octree* octree = octreeComp->octree.get();
             TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
             objects.push_back(octreeTransform->objectToWorld[0]);
             objects.push_back(octreeTransform->objectToWorld[1]);
@@ -152,16 +153,11 @@ void RenderSurface::draw(float dt) {
     objectsTbo.bind();
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), &objects[0]);
 
-    glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
-
-    float ambientStrength = 0.1f;
-
     voxelShaderGroup->use();
 
-    glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
-    glUniform1f(glGetUniformLocation(program, "ambientStrength"), ambientStrength);
+    glUniform1f(glGetUniformLocation(program, "ambientStrength"), 0.1f);
     glUniform1i(glGetUniformLocation(program, "objectCount"), objectCount);
 
     glActiveTexture(GL_TEXTURE0);

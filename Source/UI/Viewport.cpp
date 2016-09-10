@@ -8,6 +8,7 @@
 Viewport::Viewport() {
     switchCameras[0] = nullptr;
     switchCameras[1] = nullptr;
+    setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 }
 
 void Viewport::update(double dt) {

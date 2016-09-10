@@ -1,5 +1,4 @@
 #version 330 core
-//#extension GL_ARB_shader_storage_buffer_object : require
 
 struct AABB {
     vec3 min;
@@ -25,10 +24,6 @@ uniform int objectCount;
 uniform int objectStride;
 
 out vec4 color;
-
-//layout (std430, binding = 0) buffer OctreeBuffer {
-//    int count;
-//};
 
 Ray constructRay(in int index) {
     int offset = index * objectStride + 4;

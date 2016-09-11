@@ -72,3 +72,8 @@ void TransformSystem::scale(Entity* entity, float delta) {
     tc->scale *= delta;
     tc->dirty = true;
 }
+
+void TransformSystem::lookAt(Entity* entity, const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up) {
+    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+    tc->objectToWorld = glm::lookAt(eye, center, up);
+}

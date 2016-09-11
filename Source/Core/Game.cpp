@@ -31,7 +31,8 @@ void Game::create() {
 
     // Free camera
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
-    transformSystem->translate(freeCamera.get(), glm::vec3(0.0f, 0.0f, 3.0f));
+//    transformSystem->lookAt(freeCamera.get(), glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
+    transformSystem->translate(freeCamera.get(), glm::vec3(2.0f, 0.0f, 0.0f));
     App::getInstance()->getViewport()->setCurrentCamera(freeCamera);
     Engine::getInstance()->addEntity(freeCamera);
 

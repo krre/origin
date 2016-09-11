@@ -18,4 +18,6 @@ public:
     void translate(Entity* entity, const glm::vec3& delta, bool local = true);
     void rotate(Entity* entity, const glm::quat& delta);
     void scale(Entity* entity, float delta);
+
+    void lookAt(Entity* entity, const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up);
 };

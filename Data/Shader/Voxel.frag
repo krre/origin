@@ -36,12 +36,12 @@ Ray constructRay(in int index) {
     return ray;
 }
 
-bool rayAABBIntersect(in Ray ray, out float t) {
+bool rayAABBIntersect(in Ray ray, out float tmin, out float tmax) {
     float loX = (aabb.min.x - ray.origin.x) / ray.direction.x;
     float hiX = (aabb.max.x - ray.origin.x) / ray.direction.x;
 
-    float tmin = min(loX, hiX);
-    float tmax = max(loX, hiX);
+    tmin = min(loX, hiX);
+    tmax = max(loX, hiX);
 
     float loY = (aabb.min.y - ray.origin.y) / ray.direction.y;
     float hiY = (aabb.max.y - ray.origin.y) / ray.direction.y;
@@ -54,18 +54,17 @@ bool rayAABBIntersect(in Ray ray, out float t) {
 
     tmin = max(tmin, min(loZ, hiZ));
     tmax = min(tmax, max(loZ, hiZ));
-    t = tmin;
 
     return (tmin <= tmax) && (tmax > 0.0f);
 }
 
 bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
-    float t;
+    float tmin, tmax;
     int offset = index * objectStride;
     vec3 ambient = ambientStrength * lightColor;
 
-    if (rayAABBIntersect(ray, t)) {
-        vec3 hitPointObject = ray.origin + ray.direction * t;
+    if (rayAABBIntersect(ray, tmin, tmax)) {
+        vec3 hitPointObject = ray.origin + ray.direction * tmin;
         float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
         vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);
         mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
@@ -74,7 +73,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
         vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
         color = (ambient + diffuse) * octreeColor;
-        distance = t * octreeToWorld[0][0]; // t * scale
+        distance = tmin * octreeToWorld[0][0]; // tmin * scale
         return true;
     }
 

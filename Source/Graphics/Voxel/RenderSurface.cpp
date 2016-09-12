@@ -20,13 +20,9 @@ RenderSurface::RenderSurface() :
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->use();
 
-    glm::vec3 aabbMin = glm::vec3(-1.0, -1.0, -1.0);
-    glm::vec3 aabbMax = glm::vec3(1.0, 1.0, 1.0);
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
     glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
-    glUniform3fv(glGetUniformLocation(program, "aabb.min"), 1, &aabbMin[0]);
-    glUniform3fv(glGetUniformLocation(program, "aabb.max"), 1, &aabbMax[0]);
     glUniform1i(glGetUniformLocation(program, "objectStride"), OBJECT_STRIDE);
     glUniform1i(glGetUniformLocation(program, "objects"), 0);
     glUniform1i(glGetUniformLocation(program, "octrees"), 1);

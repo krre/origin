@@ -10,6 +10,8 @@ struct Ray {
     vec3 direction;
 };
 
+const AABB aabb = AABB(vec3(-1.0, -1.0, -1.0) , vec3(1.0, 1.0, 1.0));
+
 uniform samplerBuffer objects;
 uniform usamplerBuffer octrees;
 
@@ -18,7 +20,6 @@ uniform vec3 lightColor;
 
 uniform vec3 lightPos;
 
-uniform AABB aabb;
 uniform float ambientStrength;
 uniform int objectCount;
 uniform int objectStride;

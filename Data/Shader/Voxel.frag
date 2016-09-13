@@ -71,6 +71,33 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     float tmin, tmax;
 
     if (rayAABBIntersect(ray, tmin, tmax)) {
+        // NEW VERSION
+        ivec2 stack[scaleMax + 1]; // Stack of parent voxels
+
+        // Get rid of small ray direction components to avoid division by zero
+        float dx = (abs(ray.direction.x) < epsilon ? epsilon * sign(ray.direction.x) : ray.direction.x);
+        float dy = (abs(ray.direction.y) < epsilon ? epsilon * sign(ray.direction.y) : ray.direction.y);
+        float dz = (abs(ray.direction.z) < epsilon ? epsilon * sign(ray.direction.z) : ray.direction.z);
+
+        // Precompute the coefficients of tx(x), ty(y), and tz(z).
+        // The octree is assumed to reside at coordinates [1, 2]
+        float txcoef = 1.0f / -abs(dx);
+        float tycoef = 1.0f / -abs(dy);
+        float tzcoef = 1.0f / -abs(dz);
+
+        float txbias = txcoef * ray.origin.x;
+        float tybias = tycoef * ray.origin.y;
+        float tzbias = tzcoef * ray.origin.z;
+
+        // Select octant mask to mirror the coordinate system so
+        // that ray direction is negative along each axis
+        int octantMask = 7;
+        if (dx > 0.0f) octantMask ^= 1, txbias = 3.0f * txcoef - txbias;
+        if (dy > 0.0f) octantMask ^= 2, tybias = 3.0f * tycoef - tybias;
+        if (dz > 0.0f) octantMask ^= 4, tzbias = 3.0f * tzcoef - tzbias;
+
+
+        // OLD VERSION
         int offset = index * objectStride;
         vec3 ambient = ambientStrength * lightColor;
         vec3 hitPointObject = ray.origin + ray.direction * tmin;

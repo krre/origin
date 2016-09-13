@@ -12,6 +12,6 @@ public:
     Nano::Signal<void()> timeout;
 
 private:
-    static Uint32 onTimeElaplsed(Uint32 interval, void *param);
+    static Uint32 onTimeElaplsed(Uint32 interval, void* param);
     SDL_TimerID timerId;
 };

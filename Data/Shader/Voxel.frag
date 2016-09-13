@@ -11,7 +11,7 @@ struct Ray {
 };
 
 const AABB aabb = AABB(vec3(-1.0, -1.0, -1.0) , vec3(1.0, 1.0, 1.0));
-const int scaleMax = 23;
+const int scaleMax = 23;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-scaleMax);
 
 uniform samplerBuffer objects;

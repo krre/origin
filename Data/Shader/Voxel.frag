@@ -63,10 +63,10 @@ bool rayAABBIntersect(in Ray ray, out float tmin, out float tmax) {
 
 bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     float tmin, tmax;
-    int offset = index * objectStride;
-    vec3 ambient = ambientStrength * lightColor;
 
     if (rayAABBIntersect(ray, tmin, tmax)) {
+        int offset = index * objectStride;
+        vec3 ambient = ambientStrength * lightColor;
         vec3 hitPointObject = ray.origin + ray.direction * tmin;
         float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
         vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);

@@ -1,3 +1,9 @@
+// Rendering algorithm is based on article:
+// Samuli Laine and Tero Karras.
+// Efficient Sparse Voxel Octrees – Analysis, Extensions, and Implementation.
+// NVIDIA Technical Report NVR-2010-001, 2010.
+// https://mediatech.aalto.fi/~samuli/publications/laine2010tr1_paper.pdf
+// http://code.google.com/p/efficient-sparse-voxel-octrees
 #version 330 core
 
 struct AABB {

@@ -36,7 +36,8 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
     ${OPENGL_LIBRARIES}
     ${GLEW_LIBRARIES}
-    ${FREETYPE_LIBRARIES})
+    ${FREETYPE_LIBRARIES}
+    stdc++fs)
 
 # Show in QtCreator project tree
 FILE(GLOB_RECURSE Data "Data/*.*")

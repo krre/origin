@@ -18,6 +18,7 @@
 #include <ctime>
 #include <lodepng/lodepng.h>
 #include <Gagarin.h>
+#include <experimental/filesystem>
 
 Game::Game() {
     create();
@@ -159,6 +160,12 @@ void Game::toggleFullScreen() {
 }
 
 void Game::saveScreenshot() {
+    std::string directoryPath = App::getAbsolutePath() + Utils::getPathSeparator() + "Screenshot";
+    namespace fs = std::experimental::filesystem;
+    if (!fs::exists(directoryPath)) {
+        fs::create_directory(directoryPath);
+    }
+
     time_t t = std::time(0); // Get time now
     struct tm* now = std::localtime(&t);
     std::string filename =
@@ -168,7 +175,7 @@ void Game::saveScreenshot() {
             Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
             Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
-    std::string path = App::getAbsolutePath() + Utils::getPathSeparator() + "Screenshot" + Utils::getPathSeparator() + filename;
+    std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
 
     int width = App::getInstance()->getWidth();
     int height = App::getInstance()->getHeight();
@@ -192,7 +199,7 @@ void Game::saveScreenshot() {
         }
     }
 
-    lodepng::encode(path, image, width, height);
+    lodepng::encode(filePath, image, width, height);
 
     delete[] image;
 

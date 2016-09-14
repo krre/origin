@@ -96,6 +96,13 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         if (dy > 0.0f) octantMask ^= 2, tybias = 3.0f * tycoef - tybias;
         if (dz > 0.0f) octantMask ^= 4, tzbias = 3.0f * tzcoef - tzbias;
 
+        // Initialize the active span of t-values
+        float t_min = max(max(2.0f * txcoef - txbias, 2.0f * tycoef - tybias), 2.0f * tzcoef - tzbias);
+        float t_max = min(min(txcoef - txbias, tycoef - tybias), tzcoef - tzbias);
+        float h = t_max;
+        t_min = max(t_min, 0.0f);
+        t_max = min(t_max, 1.0f);
+
 
         // OLD VERSION
         int offset = index * objectStride;

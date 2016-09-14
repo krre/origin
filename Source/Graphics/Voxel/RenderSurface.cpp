@@ -105,14 +105,14 @@ void RenderSurface::draw(float dt) {
             objects.push_back(octreeTransform->objectToWorld[2]);
             objects.push_back(octreeTransform->objectToWorld[3]);
 
-            glm::mat4 cameraToObject = octreeTransform->worldToObject * cameraTransform->objectToWorld;
+            glm::mat4 cameraToOctree = octreeTransform->worldToObject * cameraTransform->objectToWorld;
 
             glm::vec3 scale;
             glm::quat rotation;
             glm::vec3 translation;
             glm::vec3 skew;
             glm::vec4 perspective;
-            glm::decompose(cameraToObject, scale, rotation, translation, skew, perspective);
+            glm::decompose(cameraToOctree, scale, rotation, translation, skew, perspective);
 
             objects.push_back(glm::vec4(translation.x, translation.y, translation.z, 1.0));
 

@@ -88,15 +88,12 @@ void App::init() {
         return;
     }
 
-//    if (!SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object")) {
-//        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "OpenGL extension is not supported", "GL_ARB_shader_storage_buffer_object", NULL);
-//        return;
-//    }
-
-//    if (!SDL_GL_ExtensionSupported("GL_ARB_compute_shader")) {
-//        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "OpenGL extension is not supported", "GL_ARB_compute_shader", NULL);
-//        return;
-//    }
+#if 1
+    if (!SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object") || !SDL_GL_ExtensionSupported("GL_ARB_compute_shader")) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, "OpenGL 4.3 is not supported.\nUpdate your video driver", NULL);
+        return;
+    }
+#endif
 
     SDL_ShowWindow(window);
 

@@ -24,8 +24,8 @@ struct Ray {
 };
 
 const AABB aabb = AABB(vec3(-1.0, -1.0, -1.0) , vec3(1.0, 1.0, 1.0));
-const int scaleMax = 23;  // Maximum scale (number of float mantissa bits)
-const float epsilon = exp2(-scaleMax);
+const int s_max = 23;  // Maximum scale (number of float mantissa bits)
+const float epsilon = exp2(-s_max);
 
 uniform samplerBuffer objects;
 uniform usamplerBuffer octrees;
@@ -79,7 +79,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
     if (rayAABBIntersect(ray, tmin, tmax)) {
         // NEW VERSION
-        ivec2 stack[scaleMax + 1]; // Stack of parent voxels
+        ivec2 stack[s_max + 1]; // Stack of parent voxels
 
         // Get rid of small ray direction components to avoid division by zero
         float dx = (abs(ray.direction.x) < epsilon ? epsilon * sign(ray.direction.x) : ray.direction.x);
@@ -88,24 +88,24 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
         // Precompute the coefficients of tx(x), ty(y), and tz(z).
         // The octree is assumed to reside at coordinates [1, 2]
-        float txcoef = 1.0f / -abs(dx);
-        float tycoef = 1.0f / -abs(dy);
-        float tzcoef = 1.0f / -abs(dz);
+        float tx_coef = 1.0f / -abs(dx);
+        float ty_coef = 1.0f / -abs(dy);
+        float tz_coef = 1.0f / -abs(dz);
 
-        float txbias = txcoef * ray.origin.x;
-        float tybias = tycoef * ray.origin.y;
-        float tzbias = tzcoef * ray.origin.z;
+        float tx_bias = tx_coef * ray.origin.x;
+        float ty_bias = ty_coef * ray.origin.y;
+        float tz_bias = tz_coef * ray.origin.z;
 
         // Select octant mask to mirror the coordinate system so
         // that ray direction is negative along each axis
-        int octantMask = 7;
-        if (dx > 0.0f) octantMask ^= 1, txbias = 3.0f * txcoef - txbias;
-        if (dy > 0.0f) octantMask ^= 2, tybias = 3.0f * tycoef - tybias;
-        if (dz > 0.0f) octantMask ^= 4, tzbias = 3.0f * tzcoef - tzbias;
+        int octant_mask = 7;
+        if (dx > 0.0f) octant_mask ^= 1, tx_bias = 3.0f * tx_coef - tx_bias;
+        if (dy > 0.0f) octant_mask ^= 2, ty_bias = 3.0f * ty_coef - ty_bias;
+        if (dz > 0.0f) octant_mask ^= 4, tz_bias = 3.0f * tz_coef - tz_bias;
 
         // Initialize the active span of t-values
-        float t_min = max(max(2.0f * txcoef - txbias, 2.0f * tycoef - tybias), 2.0f * tzcoef - tzbias);
-        float t_max = min(min(txcoef - txbias, tycoef - tybias), tzcoef - tzbias);
+        float t_min = max(max(2.0f * tx_coef - tx_bias, 2.0f * ty_coef - ty_bias), 2.0f * tz_coef - tz_bias);
+        float t_max = min(min(tx_coef - tx_bias, ty_coef - ty_bias), tz_coef - tz_bias);
         float h = t_max;
         t_min = max(t_min, 0.0f);
         t_max = min(t_max, 1.0f);

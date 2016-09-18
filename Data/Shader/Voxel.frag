@@ -75,8 +75,8 @@ bool rayAABBIntersect(in Ray ray, out float tmin, out float tmax) {
 }
 
 bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
-    float ray_size_coef;
-    float ray_size_bias;
+    float ray_size_coef = 0;
+    float ray_size_bias = 0;
 
     uvec2 stack[s_max + 1u]; // Stack of parent voxels
 

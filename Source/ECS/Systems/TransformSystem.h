@@ -7,6 +7,7 @@ class TransformSystem : public System {
 public:
     TransformSystem();
     void process(float dt) override;
+    void update(Entity* entity);
 
     void setPosition(Entity* entity, const glm::vec3& position);
     void setRotation(Entity* entity, float angle, const glm::vec3& axis);

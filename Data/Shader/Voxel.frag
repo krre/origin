@@ -110,6 +110,11 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         return false;
     }
 
+    // Hit point entire octree at coordinates [0, 1]
+    vec3 hitPointOctree = ray.origin + ray.direction * t_min - 1.0;
+    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
+    vec4 hitNormal = vec4(int(hitPointOctree.x + fixPrecision), int(hitPointOctree.y + fixPrecision), int(hitPointOctree.z + fixPrecision), 0.0);
+
     float h = t_max;
     t_min = max(t_min, 0.0f);
     t_max = min(t_max, 1.0f);
@@ -272,8 +277,8 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 //    vec3 hitPoint = ray.origin + ray.direction * t_min;
     vec3 hitPoint = hit_pos;
 
-    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
-    vec4 hitNormal = vec4(int(hitPoint.x + fixPrecision), int(hitPoint.y + fixPrecision), int(hitPoint.z + fixPrecision), 0.0);
+//    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
+//    vec4 hitNormal = vec4(int(hitPoint.x + fixPrecision), int(hitPoint.y + fixPrecision), int(hitPoint.z + fixPrecision), 0.0);
     mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
     vec4 hitNormalWorld = normalize(octreeToWorld * hitNormal);
     vec3 lightDir = normalize(lightPos);

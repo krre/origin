@@ -105,13 +105,14 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     // Initialize the active span of t-values
     float t_min = max(max(2.0f * tx_coef - tx_bias, 2.0f * ty_coef - ty_bias), 2.0f * tz_coef - tz_bias);
     float t_max = min(min(tx_coef - tx_bias, ty_coef - ty_bias), tz_coef - tz_bias);
-    float h = t_max;
-//        t_min = max(t_min, 0.0f);
-//        t_max = min(t_max, 1.0f);
 
     if (t_min > t_max || t_max < 0) {
         return false;
     }
+
+    float h = t_max;
+    t_min = max(t_min, 0.0f);
+    t_max = min(t_max, 1.0f);
 
     // Initialize the current voxel to the first child of the root.
     int parent = 0;

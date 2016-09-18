@@ -136,7 +136,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
             // Fetch child descriptor unless it is already valid.
             if (child_descriptor == 0u) {
                 uvec4 v = texelFetch(octrees, parent);
-                child_descriptor = v.r << 24 | v.g << 16 | v.b << 8 | v.a;
+                child_descriptor = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
             }
 
             // Determine maximum t-value of the cube by evaluating
@@ -152,6 +152,8 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
             uint child_masks = child_descriptor << child_shift;
 
             if ((child_masks & 0x8000u) != 0u && t_min <= t_max) {
+//                color = vec3(1.0, 0.0, 0.0);
+//                return true;
                 // Terminate if the voxel is small enough.
                 if (tc_max * ray_size_coef + ray_size_bias >= scale_exp2) {
                     break; // at t_min

@@ -13,17 +13,11 @@ layout (std430, binding = 0) buffer OctreeBuffer {
 };
 #endif
 
-struct AABB {
-    vec3 min;
-    vec3 max;
-};
-
 struct Ray {
     vec3 origin;
     vec3 direction;
 };
 
-const AABB aabb = AABB(vec3(-1.0, -1.0, -1.0) , vec3(1.0, 1.0, 1.0));
 const uint s_max = 23u;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-s_max);
 
@@ -50,28 +44,6 @@ Ray constructRay(in int index) {
     vec3 stepH = vec3(texelFetch(objects, offset));
     ray.direction = normalize(startCornerPos + stepW * gl_FragCoord.x + stepH * gl_FragCoord.y);
     return ray;
-}
-
-bool rayAABBIntersect(in Ray ray, out float tmin, out float tmax) {
-    float loX = (aabb.min.x - ray.origin.x) / ray.direction.x;
-    float hiX = (aabb.max.x - ray.origin.x) / ray.direction.x;
-
-    tmin = min(loX, hiX);
-    tmax = max(loX, hiX);
-
-    float loY = (aabb.min.y - ray.origin.y) / ray.direction.y;
-    float hiY = (aabb.max.y - ray.origin.y) / ray.direction.y;
-
-    tmin = max(tmin, min(loY, hiY));
-    tmax = min(tmax, max(loY, hiY));
-
-    float loZ = (aabb.min.z - ray.origin.z) / ray.direction.z;
-    float hiZ = (aabb.max.z - ray.origin.z) / ray.direction.z;
-
-    tmin = max(tmin, min(loZ, hiZ));
-    tmax = min(tmax, max(loZ, hiZ));
-
-    return (tmin <= tmax) && (tmax > 0.0f);
 }
 
 bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {

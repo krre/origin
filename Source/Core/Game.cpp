@@ -43,7 +43,7 @@ void Game::create() {
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
-    transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 5.0f));
+    transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 2.0f));
 //    transformSystem->setPitch(avatarCamera.get(), -15.0);
 //    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
 //    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());

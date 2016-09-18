@@ -24,7 +24,7 @@ struct Ray {
 };
 
 const AABB aabb = AABB(vec3(-1.0, -1.0, -1.0) , vec3(1.0, 1.0, 1.0));
-const int s_max = 23;  // Maximum scale (number of float mantissa bits)
+const uint s_max = 23u;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-s_max);
 
 uniform samplerBuffer objects;
@@ -79,26 +79,14 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     float ray_size_coef;
     float ray_size_bias;
 
-    if (rayAABBIntersect(ray, tmin, tmax)) {
-#if 1
-        // OLD VERSION
-        int offset = index * objectStride;
-        vec3 ambient = ambientStrength * lightColor;
-        vec3 hitPointObject = ray.origin + ray.direction * tmin;
-        float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
-        vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);
-        mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
-        vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
-        vec3 lightDir = normalize(lightPos);
-        vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
-        vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
-        color = (ambient + diffuse) * octreeColor;
-        distance = tmin * octreeToWorld[0][0]; // tmin * scale
-        return true;
-#endif
+//    uvec4 mask = texelFetch(octrees, 0);
+//    if (mask.b == 255u) {
+//        color = vec3(1.0, 0.0, 0.0);
+//        return true;
+//    }
 
-        // NEW VERSION
-        uvec2 stack[s_max + 1]; // Stack of parent voxels
+    if (rayAABBIntersect(ray, tmin, tmax)) {
+        uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
         // Get rid of small ray direction components to avoid division by zero.
         float dx = (abs(ray.direction.x) < epsilon ? epsilon * sign(ray.direction.x) : ray.direction.x);
@@ -130,12 +118,11 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         t_max = min(t_max, 1.0f);
 
         // Initialize the current voxel to the first child of the root.
-        uvec4 parent_v = texelFetch(octrees, 0);
         int parent = 0;
-        uvec2 child_descriptor = uvec2(0, 0); // invalid until fetched
+        uint child_descriptor = 0u; // invalid until fetched
         int idx = 0;
         vec3 pos = vec3(1.0f, 1.0f, 1.0f);
-        int scale = s_max - 1;
+        uint scale = s_max - 1u;
         float scale_exp2 = 0.5f; // exp2f(scale - s_max)
 
         if (1.5f * tx_coef - tx_bias > t_min) idx ^= 1, pos.x = 1.5f;
@@ -145,11 +132,11 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         // Traverse voxels along the ray as long as the current voxel
         // stays within the octree.
         while (scale < s_max) {
-            break; // Remove after debug
 
             // Fetch child descriptor unless it is already valid.
-            if (child_descriptor.x == 0u) {
-//                child_descriptor = texelFetch(octrees, parent);
+            if (child_descriptor == 0u) {
+                uvec4 v = texelFetch(octrees, parent);
+                child_descriptor = v.r << 24 | v.g << 16 | v.b << 8 | v.a;
             }
 
             // Determine maximum t-value of the cube by evaluating
@@ -162,7 +149,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
             // Process voxel if the corresponding bit in valid mask is set
             // and the active t-span is non-empty.
             int child_shift = idx ^ octant_mask; // permute child slots based on the mirroring
-            uint child_masks = child_descriptor.x << child_shift;
+            uint child_masks = child_descriptor << child_shift;
 
             if ((child_masks & 0x8000u) != 0u && t_min <= t_max) {
                 // Terminate if the voxel is small enough.
@@ -189,18 +176,18 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
                     // PUSH
                     // Write current parent to the stack.
                     if (tc_max < h) {
-//                        stack[scale] = uvec3(parent, floatBitsToInt(t_max));
+                        stack[scale] = uvec2(parent, floatBitsToUint(t_max));
                     }
 
                     h = tc_max;
 
                     // Find child descriptor corresponding to the current voxel.
-                    uint ofs = child_descriptor.x >> 17; // child pointer
-                    if ((child_descriptor.x & 0x10000u) != 0u) { // far
+                    uint ofs = child_descriptor >> 17; // child pointer
+                    if ((child_descriptor & 0x10000u) != 0u) { // far
 //                        ofs = parent[ofs * 2]; // far pointer
                     }
 
-//                    ofs += popc8(child_masks & 0x7F);
+//                    ofs += popc8(child_masks & 0x7Fu);
 //                    parent += ofs * 2;
 
                     // Select child voxel that the ray enters first.
@@ -213,7 +200,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
                     // Update active t-span and invalidate cached child descriptor.
                     t_max = tv_max;
-                    child_descriptor.x = 0u;
+                    child_descriptor = 0u;
                     continue;
                 }
             }
@@ -235,15 +222,15 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
                 // Find the highest differing bit between the two positions.
                 uint differing_bits = 0u;
 
-                if ((step_mask & 1) != 0) differing_bits |= floatBitsToInt(pos.x) ^ floatBitsToInt(pos.x + scale_exp2);
-                if ((step_mask & 2) != 0) differing_bits |= floatBitsToInt(pos.y) ^ floatBitsToInt(pos.y + scale_exp2);
-                if ((step_mask & 4) != 0) differing_bits |= floatBitsToInt(pos.z) ^ floatBitsToInt(pos.z + scale_exp2);
-                scale = (floatBitsToInt(float(differing_bits)) >> 23) - 127; // position of the highest bit
-                scale_exp2 = intBitsToFloat((scale - s_max + 127) << 23); // exp2f(scale - s_max)
+                if ((step_mask & 1) != 0) differing_bits |= floatBitsToUint(pos.x) ^ floatBitsToUint(pos.x + scale_exp2);
+                if ((step_mask & 2) != 0) differing_bits |= floatBitsToUint(pos.y) ^ floatBitsToUint(pos.y + scale_exp2);
+                if ((step_mask & 4) != 0) differing_bits |= floatBitsToUint(pos.z) ^ floatBitsToUint(pos.z + scale_exp2);
+                scale = (floatBitsToUint(float(differing_bits)) >> 23) - 127u; // position of the highest bit
+                scale_exp2 = uintBitsToFloat((scale - s_max + 127u) << 23); // exp2f(scale - s_max)
 
                 // Restore parent voxel from the stack.
                 uvec2 stackEntry = stack[scale];
-//                parent = stackEntry.x;
+                parent = int(stackEntry.x);
                 t_max = uintBitsToFloat(stackEntry.y);
 
                 // Round cube position and extract child slot index.
@@ -257,7 +244,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
                 // Prevent same parent from being stored again and invalidate cached child descriptor.
                 h = 0.0f;
-                child_descriptor.x = 0u;
+                child_descriptor = 0u;
             }
         }
 
@@ -273,12 +260,30 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
         // Output results.
 //        hit_t = t_min;
-//        hit_pos.x = fminf(fmaxf(p.x + t_min * d.x, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
-//        hit_pos.y = fminf(fmaxf(p.y + t_min * d.y, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
-//        hit_pos.z = fminf(fmaxf(p.z + t_min * d.z, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
+        vec3 hit_pos;
+        hit_pos.x = min(max(ray.origin.x + t_min * dx, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
+        hit_pos.y = min(max(ray.origin.y + t_min * dy, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
+        hit_pos.z = min(max(ray.origin.z + t_min * dz, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
 //        hit_parent = parent;
 //        hit_idx = idx ^ octant_mask ^ 7;
 //        hit_scale = scale;
+
+
+        int offset = index * objectStride;
+        vec3 ambient = ambientStrength * lightColor;
+//        vec3 hitPointObject = ray.origin + ray.direction * t_min;
+        vec3 hitPointObject = hit_pos;
+
+        float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
+        vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);
+        mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
+        vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
+        vec3 lightDir = normalize(lightPos);
+        vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
+        vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
+        color = (ambient + diffuse) * octreeColor;
+        distance = t_min * octreeToWorld[0][0]; // t_min * scale
+        return true;
     }
 
     return false;

@@ -270,11 +270,11 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
     int offset = index * objectStride;
     vec3 ambient = ambientStrength * lightColor;
-//        vec3 hitPointObject = ray.origin + ray.direction * t_min;
-    vec3 hitPointObject = hit_pos;
+//    vec3 hitPoint = ray.origin + ray.direction * t_min;
+    vec3 hitPoint = hit_pos;
 
     float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
-    vec4 hitNormalObject = vec4(int(hitPointObject.x + fixPrecision), int(hitPointObject.y + fixPrecision), int(hitPointObject.z + fixPrecision), 0.0);
+    vec4 hitNormalObject = vec4(int(hitPoint.x + fixPrecision), int(hitPoint.y + fixPrecision), int(hitPoint.z + fixPrecision), 0.0);
     mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
     vec4 hitNormalWorld = normalize(octreeToWorld * hitNormalObject);
     vec3 lightDir = normalize(lightPos);

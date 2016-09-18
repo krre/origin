@@ -149,8 +149,8 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         uint child_masks = child_descriptor << child_shift;
 
         if ((child_masks & 0x8000u) != 0u && t_min <= t_max) {
-//                color = vec3(1.0, 0.0, 0.0);
-//                return true;
+//            color = vec3(1.0, 0.0, 0.0);
+//            return true;
             // Terminate if the voxel is small enough.
             if (tc_max * ray_size_coef + ray_size_bias >= scale_exp2) {
                 break; // at t_min

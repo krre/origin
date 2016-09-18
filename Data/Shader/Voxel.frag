@@ -258,15 +258,14 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     if ((octant_mask & 4) == 0) pos.z = 3.0f - scale_exp2 - pos.z;
 
     // Output results.
-//        hit_t = t_min;
+    float hit_t = t_min;
     vec3 hit_pos;
     hit_pos.x = min(max(ray.origin.x + t_min * dx, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
     hit_pos.y = min(max(ray.origin.y + t_min * dy, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
     hit_pos.z = min(max(ray.origin.z + t_min * dz, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
-//        hit_parent = parent;
-//        hit_idx = idx ^ octant_mask ^ 7;
-//        hit_scale = scale;
-
+    int hit_parent = parent;
+    int hit_idx = idx ^ octant_mask ^ 7;
+    uint hit_scale = scale;
 
     int offset = index * objectStride;
     vec3 ambient = ambientStrength * lightColor;

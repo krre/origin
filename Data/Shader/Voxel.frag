@@ -80,6 +80,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     float ray_size_bias;
 
     if (rayAABBIntersect(ray, tmin, tmax)) {
+#if 1
         // OLD VERSION
         int offset = index * objectStride;
         vec3 ambient = ambientStrength * lightColor;
@@ -94,7 +95,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
         color = (ambient + diffuse) * octreeColor;
         distance = tmin * octreeToWorld[0][0]; // tmin * scale
         return true;
-
+#endif
 
         // NEW VERSION
         uvec2 stack[s_max + 1]; // Stack of parent voxels

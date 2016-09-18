@@ -1,6 +1,7 @@
 #include "TransformSystem.h"
 #include "../Components/TransformComponent.h"
 #include "../Engine.h"
+#include <glm/gtx/matrix_decompose.hpp>
 
 TransformSystem::TransformSystem() {
     type = SystemType::Transform;
@@ -78,6 +79,17 @@ void TransformSystem::scale(Entity* entity, float delta) {
 }
 
 void TransformSystem::lookAt(Entity* entity, const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up) {
+    glm::mat4 m = glm::lookAt(eye, center, up);
+
+    glm::vec3 scale;
+    glm::quat rotation;
+    glm::vec3 translation;
+    glm::vec3 skew;
+    glm::vec4 perspective;
+    glm::decompose(glm::inverse(m), scale, rotation, translation, skew, perspective);
+
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
-    tc->objectToWorld = glm::lookAt(eye, center, up);
+    tc->position = translation;
+    tc->rotation = rotation;
+    tc->dirty = true;
 }

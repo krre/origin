@@ -61,9 +61,9 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
     // Precompute the coefficients of tx(x), ty(y), and tz(z).
     // The octree is assumed to reside at coordinates [1, 2].
-    float tx_coef = 1.0f / -abs(dx);
-    float ty_coef = 1.0f / -abs(dy);
-    float tz_coef = 1.0f / -abs(dz);
+    float tx_coef = 1.0 / -abs(dx);
+    float ty_coef = 1.0 / -abs(dy);
+    float tz_coef = 1.0 / -abs(dz);
 
     float tx_bias = tx_coef * origin.x;
     float ty_bias = ty_coef * origin.y;
@@ -72,12 +72,12 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     // Select octant mask to mirror the coordinate system so
     // that ray direction is negative along each axis.
     int octant_mask = 7;
-    if (dx > 0.0f) octant_mask ^= 1, tx_bias = 3.0f * tx_coef - tx_bias;
-    if (dy > 0.0f) octant_mask ^= 2, ty_bias = 3.0f * ty_coef - ty_bias;
-    if (dz > 0.0f) octant_mask ^= 4, tz_bias = 3.0f * tz_coef - tz_bias;
+    if (dx > 0.0) octant_mask ^= 1, tx_bias = 3.0 * tx_coef - tx_bias;
+    if (dy > 0.0) octant_mask ^= 2, ty_bias = 3.0 * ty_coef - ty_bias;
+    if (dz > 0.0) octant_mask ^= 4, tz_bias = 3.0 * tz_coef - tz_bias;
 
     // Initialize the active span of t-values
-    float t_min = max(max(2.0f * tx_coef - tx_bias, 2.0f * ty_coef - ty_bias), 2.0f * tz_coef - tz_bias);
+    float t_min = max(max(2.0 * tx_coef - tx_bias, 2.0 * ty_coef - ty_bias), 2.0 * tz_coef - tz_bias);
     float t_max = min(min(tx_coef - tx_bias, ty_coef - ty_bias), tz_coef - tz_bias);
 
     if (t_min > t_max || t_max < 0) {
@@ -90,20 +90,20 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     vec4 hitNormal = vec4(int(hitPointOctree.x + fixPrecision), int(hitPointOctree.y + fixPrecision), int(hitPointOctree.z + fixPrecision), 0.0);
 
     float h = t_max;
-    t_min = max(t_min, 0.0f);
-    t_max = min(t_max, 1.0f);
+    t_min = max(t_min, 0.0);
+    t_max = min(t_max, 1.0);
 
     // Initialize the current voxel to the first child of the root.
     int parent = 0;
     uint child_descriptor = 0u; // invalid until fetched
     int idx = 0;
-    vec3 pos = vec3(1.0f, 1.0f, 1.0f);
+    vec3 pos = vec3(1.0, 1.0, 1.0);
     uint scale = s_max - 1u;
-    float scale_exp2 = 0.5f; // exp2f(scale - s_max)
+    float scale_exp2 = 0.5; // exp2f(scale - s_max)
 
-    if (1.5f * tx_coef - tx_bias > t_min) idx ^= 1, pos.x = 1.5f;
-    if (1.5f * ty_coef - ty_bias > t_min) idx ^= 2, pos.y = 1.5f;
-    if (1.5f * tz_coef - tz_bias > t_min) idx ^= 4, pos.z = 1.5f;
+    if (1.5 * tx_coef - tx_bias > t_min) idx ^= 1, pos.x = 1.5;
+    if (1.5 * ty_coef - ty_bias > t_min) idx ^= 2, pos.y = 1.5;
+    if (1.5 * tz_coef - tz_bias > t_min) idx ^= 4, pos.z = 1.5;
 
     // Traverse voxels along the ray as long as the current voxel
     // stays within the octree.
@@ -139,7 +139,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
             // Intersect active t-span with the cube and evaluate
             // tx(), ty(), and tz() at the center of the voxel.
             float tv_max = min(t_max, tc_max);
-            float half_scale_exp2 = scale_exp2 * 0.5f;
+            float half_scale_exp2 = scale_exp2 * 0.5;
             float tx_center = half_scale_exp2 * tx_coef + tx_corner;
             float ty_center = half_scale_exp2 * ty_coef + ty_corner;
             float tz_center = half_scale_exp2 * tz_coef + tz_corner;
@@ -221,22 +221,20 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
             idx = (shx & 1) | ((shy & 1) << 1) | ((shz & 1) << 2);
 
             // Prevent same parent from being stored again and invalidate cached child descriptor.
-            h = 0.0f;
+            h = 0.0;
             child_descriptor = 0u;
         }
     }
 
     // Indicate miss if we are outside the octree.
     if (scale >= s_max) {
-        t_min = 2.0f;
-//        color = vec3(1.0, 0.0, 0.0);
-//        return true;
+        t_min = 2.0;
     }
 
     // Undo mirroring of the coordinate system.
-    if ((octant_mask & 1) == 0) pos.x = 3.0f - scale_exp2 - pos.x;
-    if ((octant_mask & 2) == 0) pos.y = 3.0f - scale_exp2 - pos.y;
-    if ((octant_mask & 4) == 0) pos.z = 3.0f - scale_exp2 - pos.z;
+    if ((octant_mask & 1) == 0) pos.x = 3.0 - scale_exp2 - pos.x;
+    if ((octant_mask & 2) == 0) pos.y = 3.0 - scale_exp2 - pos.y;
+    if ((octant_mask & 4) == 0) pos.z = 3.0 - scale_exp2 - pos.z;
 
     // Output results.
     float hit_t = t_min;

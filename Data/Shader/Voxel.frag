@@ -139,10 +139,10 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
             // Intersect active t-span with the cube and evaluate
             // tx(), ty(), and tz() at the center of the voxel.
             float tv_max = min(t_max, tc_max);
-            float half = scale_exp2 * 0.5f;
-            float tx_center = half * tx_coef + tx_corner;
-            float ty_center = half * ty_coef + ty_corner;
-            float tz_center = half * tz_coef + tz_corner;
+            float half_scale_exp2 = scale_exp2 * 0.5f;
+            float tx_center = half_scale_exp2 * tx_coef + tx_corner;
+            float ty_center = half_scale_exp2 * ty_coef + ty_corner;
+            float tz_center = half_scale_exp2 * tz_coef + tz_corner;
 
             // Descend to the first child if the resulting t-span is non-empty.
             if (t_min <= tv_max) {
@@ -171,7 +171,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
                 // Select child voxel that the ray enters first.
                 idx = 0;
                 scale--;
-                scale_exp2 = half;
+                scale_exp2 = half_scale_exp2;
                 if (tx_center > t_min) idx ^= 1, pos.x += scale_exp2;
                 if (ty_center > t_min) idx ^= 2, pos.y += scale_exp2;
                 if (tz_center > t_min) idx ^= 4, pos.z += scale_exp2;

@@ -54,16 +54,11 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
     uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
-    // Get rid of small ray direction components to avoid division by zero.
-    float dx = (abs(ray.direction.x) < epsilon ? epsilon * sign(ray.direction.x) : ray.direction.x);
-    float dy = (abs(ray.direction.y) < epsilon ? epsilon * sign(ray.direction.y) : ray.direction.y);
-    float dz = (abs(ray.direction.z) < epsilon ? epsilon * sign(ray.direction.z) : ray.direction.z);
-
     // Precompute the coefficients of tx(x), ty(y), and tz(z).
     // The octree is assumed to reside at coordinates [1, 2].
-    float tx_coef = 1.0 / -abs(dx);
-    float ty_coef = 1.0 / -abs(dy);
-    float tz_coef = 1.0 / -abs(dz);
+    float tx_coef = 1.0 / -abs(ray.direction.x);
+    float ty_coef = 1.0 / -abs(ray.direction.y);
+    float tz_coef = 1.0 / -abs(ray.direction.z);
 
     float tx_bias = tx_coef * origin.x;
     float ty_bias = ty_coef * origin.y;
@@ -72,9 +67,9 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     // Select octant mask to mirror the coordinate system so
     // that ray direction is negative along each axis.
     int octant_mask = 7;
-    if (dx > 0.0) octant_mask ^= 1, tx_bias = 3.0 * tx_coef - tx_bias;
-    if (dy > 0.0) octant_mask ^= 2, ty_bias = 3.0 * ty_coef - ty_bias;
-    if (dz > 0.0) octant_mask ^= 4, tz_bias = 3.0 * tz_coef - tz_bias;
+    if (ray.direction.x > 0.0) octant_mask ^= 1, tx_bias = 3.0 * tx_coef - tx_bias;
+    if (ray.direction.y > 0.0) octant_mask ^= 2, ty_bias = 3.0 * ty_coef - ty_bias;
+    if (ray.direction.z > 0.0) octant_mask ^= 4, tz_bias = 3.0 * tz_coef - tz_bias;
 
     // Initialize the active span of t-values
     float t_min = max(max(2.0 * tx_coef - tx_bias, 2.0 * ty_coef - ty_bias), 2.0 * tz_coef - tz_bias);
@@ -239,9 +234,9 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     // Output results.
     float hit_t = t_min;
     vec3 hit_pos;
-    hit_pos.x = min(max(origin.x + t_min * dx, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
-    hit_pos.y = min(max(origin.y + t_min * dy, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
-    hit_pos.z = min(max(origin.z + t_min * dz, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
+    hit_pos.x = min(max(origin.x + t_min * ray.direction.x, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
+    hit_pos.y = min(max(origin.y + t_min * ray.direction.y, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
+    hit_pos.z = min(max(origin.z + t_min * ray.direction.z, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
     int hit_parent = parent;
     int hit_idx = idx ^ octant_mask ^ 7;
     uint hit_scale = scale;

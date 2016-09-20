@@ -212,5 +212,6 @@ void Game::saveScreenshot() {
 }
 
 void Game::loadDevelopSettings() {
-
+    std::string mainDebugPath = App::getAbsolutePath() + "/Debug/main.debug";
+    std::string mainDebugText = Utils::readTextFile(mainDebugPath);
 }

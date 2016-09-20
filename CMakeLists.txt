@@ -41,4 +41,5 @@ target_link_libraries(${EXECUTABLE_NAME}
 
 # Show in QtCreator project tree
 FILE(GLOB_RECURSE Data "Data/*.*")
+FILE(GLOB_RECURSE Data "Debug/*.*")
 add_custom_target(data SOURCES ${Data})

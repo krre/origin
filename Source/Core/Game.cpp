@@ -92,7 +92,7 @@ void Game::create() {
 */
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
-    transformSystem->translate(light.get(), glm::vec3(1.5, 1.0, 1.0));
+    transformSystem->translate(light.get(), glm::vec3(1.5, 2.5, 1.0));
     Engine::getInstance()->addEntity(light);
 
 //    App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));

@@ -89,7 +89,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
     float h = t_max;
     t_min = max(t_min, 0.0);
-    t_max = min(t_max, 1.0);
+//    t_max = min(t_max, 1.0);
 
     // Initialize the current voxel to the first child of the root.
     int parent = 0;
@@ -223,7 +223,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
     // Indicate miss if we are outside the octree.
     if (scale >= s_max) {
-        t_min = 2.0;
+        return false;
     }
 
     // Undo mirroring of the coordinate system.

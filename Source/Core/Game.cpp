@@ -21,6 +21,10 @@
 #include <experimental/filesystem>
 
 Game::Game() {
+#ifdef DEVELOP_MODE
+    loadDevelopSettings();
+#endif
+
     create();
 }
 
@@ -205,4 +209,8 @@ void Game::saveScreenshot() {
 
     std::string message = "Screenshot saved to " + filename;
     Toast::getInstance()->showToast(message);
+}
+
+void Game::loadDevelopSettings() {
+
 }

@@ -240,7 +240,6 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     // Take vector from center of voxel to hit point, convert to prevailing axis direction and use as voxel normal
     vec3 centerToHit = hitPoint - (pos + scale_exp2 * 0.5); // vector
     float maxDir = max(abs(centerToHit.x), max(abs(centerToHit.y), abs(centerToHit.z)));
-    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
     vec3 axisDir = vec3(int(centerToHit.x / maxDir), int(centerToHit.y / maxDir), int(centerToHit.z / maxDir));
     vec4 hitNormal = vec4(axisDir, 0.0);
 

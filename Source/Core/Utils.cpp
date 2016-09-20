@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include <fstream>
 
 Utils::Utils() {
 
@@ -18,4 +19,15 @@ std::string Utils::getPathSeparator() {
 
 uint32_t Utils::rgbaToUint32(const glm::vec4& color) {
     return (((int(color.r * 255) & 0xff) << 24) + ((int(color.g * 255) & 0xff) << 16) + ((int(color.b * 255) & 0xff) << 8) + (int(color.a * 255) & 0xff));
+}
+
+std::string Utils::readTextFile(const std::string& filePath) {
+    std::ifstream in(filePath);
+    if (in.is_open()) {
+        std::string text((std::istreambuf_iterator<char>(in)), (std::istreambuf_iterator<char>()));
+        return text;
+    } else {
+        error("Failed open file: " << filePath);
+        return "";
+    }
 }

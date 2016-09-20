@@ -7,7 +7,7 @@
 #version 330 core
 
 // For debug in castRay() function
-#define RED color = vec3(1.0, 0.0, 0.0); return true;
+#define RED { color = vec3(1.0, 0.0, 0.0); return true; }
 
 #if 1
 #extension GL_ARB_shader_storage_buffer_object : require
@@ -81,11 +81,6 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     if (t_min > t_max || t_max < 0) {
         return false;
     }
-
-    // Hit point entire octree at coordinates [-0.5, 0.5]
-    vec3 hitPointOctree = origin + ray.direction * t_min - 1.0;
-    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
-    vec4 hitNormal = vec4(int(hitPointOctree.x + fixPrecision), int(hitPointOctree.y + fixPrecision), int(hitPointOctree.z + fixPrecision), 0.0);
 
     float h = t_max;
     t_min = max(t_min, 0.0);
@@ -233,24 +228,31 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
     // Output results.
     float hit_t = t_min;
-    vec3 hit_pos;
-    hit_pos.x = min(max(origin.x + t_min * ray.direction.x, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
-    hit_pos.y = min(max(origin.y + t_min * ray.direction.y, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
-    hit_pos.z = min(max(origin.z + t_min * ray.direction.z, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
+//    vec3 hit_pos;
+//    hit_pos.x = min(max(origin.x + t_min * ray.direction.x, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
+//    hit_pos.y = min(max(origin.y + t_min * ray.direction.y, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
+//    hit_pos.z = min(max(origin.z + t_min * ray.direction.z, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
     int hit_parent = parent;
     int hit_idx = idx ^ octant_mask ^ 7;
     uint hit_scale = scale;
+    vec3 hitPoint = origin + ray.direction * t_min;
+
+    // Take vector from center of voxel to hit point, convert to prevailing axis direction and use as voxel normal
+    vec3 centerToHit = hitPoint - (pos + scale_exp2 * 0.5); // vector
+    float maxDir = max(abs(centerToHit.x), max(abs(centerToHit.y), abs(centerToHit.z)));
+    float fixPrecision = 0.00001; // for fix numbers 0.9999999 to 1.0
+    vec3 axisDir = vec3(int(centerToHit.x / maxDir), int(centerToHit.y / maxDir), int(centerToHit.z / maxDir));
+    vec4 hitNormal = vec4(axisDir, 0.0);
 
     int offset = index * objectStride;
     vec3 ambient = ambientStrength * lightColor;
-    vec3 hitPoint = hit_pos;
     mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
     vec4 hitNormalWorld = normalize(octreeToWorld * hitNormal);
     vec3 lightDir = normalize(lightPos);
     vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
     vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
-//    color = (ambient + diffuse) * octreeColor;
-    color = octreeColor;
+    color = (ambient + diffuse) * octreeColor;
+//    color = octreeColor;
     distance = t_min * octreeToWorld[0][0]; // t_min * octree transfrom scale
     return true;
 }

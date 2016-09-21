@@ -21,6 +21,15 @@ struct Ray {
     vec3 direction;
 };
 
+struct CastResult {
+    float t;
+    vec3 pos;
+    vec3 normal;
+    uint node;
+    int childIdx;
+    uint scale;
+};
+
 const uint s_max = 23u;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-s_max);
 

@@ -38,6 +38,19 @@ uniform int objectStride;
 
 out vec4 color;
 
+// TODO: Replace by bitCount from GLSL 4.0
+uint bitCount8(uint value) {
+    uint count = 0u;
+    for (int i = 0; i < 8; i++) {
+        if ((value & 1u) == 1u) {
+            count++;
+        }
+        value >>= 1;
+    }
+
+    return count;
+}
+
 Ray constructRay(in int index) {
     int offset = index * objectStride + 4;
     Ray ray;
@@ -136,10 +149,8 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
             // Descend to the first child if the resulting t-span is non-empty.
             if (t_min <= tv_max) {
-                // Terminate if the corresponding bit in the leaf mask is set.
-                if ((child_masks & 0x0080u) != 0u) {
-                    break; // at t_min (overridden with tv_min).
-                }
+                // Terminate if the corresponding bit in the non-leaf mask is not set.
+                if ((child_masks & 0x0080u) == 0u) break; // at t_min (overridden with tv_min).
 
                 // PUSH
                 // Write current parent to the stack.
@@ -155,9 +166,11 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 //                        ofs = parent[ofs * 2]; // far pointer
                 }
 
-//                    ofs += popc8(child_masks & 0x7Fu);
+                ofs += bitCount8(child_masks & 0xFFu);
+//                if ((child_masks & 0xFFu) == 0x77u) RED
 //                    parent += ofs * 2;
                 parent += 1;
+//                parent += int(ofs);
 
                 // Select child voxel that the ray enters first.
                 idx = 0;

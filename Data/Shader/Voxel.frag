@@ -136,8 +136,8 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
             // Descend to the first child if the resulting t-span is non-empty.
             if (t_min <= tv_max) {
-                // Terminate if the corresponding bit in the non-leaf mask is not set.
-                if ((child_masks & 0x0080u) == 0u) {
+                // Terminate if the corresponding bit in the leaf mask is set.
+                if ((child_masks & 0x0080u) != 0u) {
                     break; // at t_min (overridden with tv_min).
                 }
 
@@ -157,6 +157,7 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 
 //                    ofs += popc8(child_masks & 0x7Fu);
 //                    parent += ofs * 2;
+                parent += 1;
 
                 // Select child voxel that the ray enters first.
                 idx = 0;

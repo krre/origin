@@ -166,11 +166,9 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
 //                        ofs = parent[ofs * 2]; // far pointer
                 }
 
-                ofs += bitCount8(child_masks & 0xFFu);
-//                if ((child_masks & 0xFFu) == 0x77u) RED
-//                    parent += ofs * 2;
-                parent += 1;
-//                parent += int(ofs);
+                ofs += bitCount8(child_masks & 0x7Fu);
+//                parent += ofs * 2;
+                parent += int(ofs);
 
                 // Select child voxel that the ray enters first.
                 idx = 0;

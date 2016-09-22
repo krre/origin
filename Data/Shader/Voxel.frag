@@ -273,6 +273,58 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
     vec3 color = (ambient + diffuse) * octreeColor;
     return vec4(color, 1.0);
+
+
+    uint px = floatBitsToUint(castRes.pos.x);
+    uint py = floatBitsToUint(castRes.pos.y);
+    uint pz = floatBitsToUint(castRes.pos.z);
+
+    // Current position in tree
+    int node  = castRes.node;
+    int cidx  = castRes.childIdx;
+    uint level = castRes.scale;
+/*
+    // start here
+    S32* pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);
+    S32* blockInfo    = pageHeader + *pageHeader;
+    S32* blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
+    S32* attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
+    S32* attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
+    S32* attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
+    U32  paletteNode  = attachData[(node - blockStart) >> 1];
+
+    // while node has no color, loop
+    while (!((paletteNode >> cidx) & 1))
+    {
+        level++;
+        if (level >= CAST_STACK_DEPTH)
+        {
+            colorRes = make_float4(0.0f, 0.0f, 0.0f, 0.0f);
+            normalRes = make_float3(1.0f, 0.0f, 0.0f);
+        }
+
+        F32 tmax;
+        node = stack.read(level, tmax);
+        cidx = 0;
+        if ((px & (1 << level)) != 0) cidx |= 1;
+        if ((py & (1 << level)) != 0) cidx |= 2;
+        if ((pz & (1 << level)) != 0) cidx |= 4;
+
+        // update
+        pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);
+        blockInfo    = pageHeader + *pageHeader;
+        blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
+        attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
+        attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
+        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
+        paletteNode  = attachData[(node - blockStart) >> 1];
+    }
+
+    // found, return it
+    S32* pAttach = attachData + (paletteNode >> 8) + popc8(paletteNode & ((1 << cidx) - 1)) * 2;
+    colorRes = fromABGR(pAttach[0]);
+    normalRes = decodeRawNormal(pAttach[1]);
+    */
 }
 
 void main() {

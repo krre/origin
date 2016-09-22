@@ -71,7 +71,7 @@ Ray constructRay(in int index) {
     return ray;
 }
 
-bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
+bool castRay(in Ray ray, in int index, out vec3 color, out CastResult castRes) {
     float ray_size_coef = 0;
     float ray_size_bias = 0;
      // Shift origin at (1.5, 1.5, 1.5) to follow reside octree at [1, 2]
@@ -273,20 +273,20 @@ bool castRay(in Ray ray, in int index, out vec3 color, out float distance) {
     vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
     color = (ambient + diffuse) * octreeColor;
 //    color = octreeColor;
-    distance = t_min * octreeToWorld[0][0]; // t_min * octree transfrom scale
+    castRes.t = t_min * octreeToWorld[0][0]; // t_min * octree transfrom scale
     return true;
 }
 
 void main() {
     vec4 outColor = vec4(backgroundColor, 1.0);
-    float distanceMin = 10000;
+    float t = 10000;
     for (int i = 0; i < objectCount; i++) {
         Ray ray = constructRay(i);
         vec3 castColor;
-        float distance;
-        if (castRay(ray, i, castColor, distance)) {
-            if (distance < distanceMin) {
-                distanceMin = distance;
+        CastResult castRes;
+        if (castRay(ray, i, castColor, castRes)) {
+            if (castRes.t < t) {
+                t = castRes.t;
                 outColor = vec4(castColor, 1.0);
             }
         }

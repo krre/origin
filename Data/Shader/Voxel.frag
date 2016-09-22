@@ -32,6 +32,7 @@ struct CastResult {
 
 const uint s_max = 23u;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-s_max);
+const int pageBytes = 1 << 13; // 8192
 
 uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
@@ -283,48 +284,49 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int node  = castRes.node;
     int cidx  = castRes.childIdx;
     uint level = castRes.scale;
-/*
-    // start here
-    S32* pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);
-    S32* blockInfo    = pageHeader + *pageHeader;
-    S32* blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
-    S32* attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
-    S32* attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
-    S32* attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
-    U32  paletteNode  = attachData[(node - blockStart) >> 1];
 
-    // while node has no color, loop
-    while (!((paletteNode >> cidx) & 1))
-    {
-        level++;
-        if (level >= CAST_STACK_DEPTH)
-        {
-            colorRes = make_float4(0.0f, 0.0f, 0.0f, 0.0f);
-            normalRes = make_float3(1.0f, 0.0f, 0.0f);
-        }
+    // Start here
+    int pageHeader = node & -pageBytes;
+    uvec4 v = texelFetch(octrees, pageHeader);
+    int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
+//    S32* blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
+//    S32* attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
+//    S32* attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
+//    S32* attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
+//    U32  paletteNode  = attachData[(node - blockStart) >> 1];
 
-        F32 tmax;
-        node = stack.read(level, tmax);
-        cidx = 0;
-        if ((px & (1 << level)) != 0) cidx |= 1;
-        if ((py & (1 << level)) != 0) cidx |= 2;
-        if ((pz & (1 << level)) != 0) cidx |= 4;
+//    // while node has no color, loop
+//    while (!((paletteNode >> cidx) & 1))
+//    {
+//        level++;
+//        if (level >= CAST_STACK_DEPTH)
+//        {
+//            colorRes = make_float4(0.0f, 0.0f, 0.0f, 0.0f);
+//            normalRes = make_float3(1.0f, 0.0f, 0.0f);
+//        }
 
-        // update
-        pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);
-        blockInfo    = pageHeader + *pageHeader;
-        blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
-        attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
-        attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
-        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
-        paletteNode  = attachData[(node - blockStart) >> 1];
-    }
+//        F32 tmax;
+//        node = stack.read(level, tmax);
+//        cidx = 0;
+//        if ((px & (1 << level)) != 0) cidx |= 1;
+//        if ((py & (1 << level)) != 0) cidx |= 2;
+//        if ((pz & (1 << level)) != 0) cidx |= 4;
 
-    // found, return it
-    S32* pAttach = attachData + (paletteNode >> 8) + popc8(paletteNode & ((1 << cidx) - 1)) * 2;
-    colorRes = fromABGR(pAttach[0]);
-    normalRes = decodeRawNormal(pAttach[1]);
-    */
+//        // update
+//        pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);
+//        blockInfo    = pageHeader + *pageHeader;
+//        blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
+//        attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
+//        attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
+//        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
+//        paletteNode  = attachData[(node - blockStart) >> 1];
+//    }
+
+//    // found, return it
+//    S32* pAttach = attachData + (paletteNode >> 8) + popc8(paletteNode & ((1 << cidx) - 1)) * 2;
+//    colorRes = fromABGR(pAttach[0]);
+//    normalRes = decodeRawNormal(pAttach[1]);
+
 }
 
 void main() {

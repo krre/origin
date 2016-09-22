@@ -259,7 +259,6 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     castRes.scale = scale;
     castRes.pos = pos;
     castRes.t = t_min;
-//    castRes.t = t_min * octreeToWorld[0][0]; // t_min * octree transfrom scale
 
     return true;
 }
@@ -285,8 +284,12 @@ void main() {
         // Take near to camera t
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
-            if (castRes.t < t) {
-                t = castRes.t;
+            // TODO: Remove duplication of octreeToWorld calculation with lookupColor() function
+            int offset = i * objectStride;
+            mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
+            float real_t = castRes.t * octreeToWorld[0][0]; // castRes.t * scale of octreee
+            if (real_t < t) {
+                t = real_t;
                 index = i;
                 outCastRes = castRes;
             }

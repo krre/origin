@@ -33,6 +33,8 @@ struct CastResult {
 const uint s_max = 23u;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-s_max);
 
+uvec2 stack[s_max + 1u]; // Stack of parent voxels
+
 uniform samplerBuffer objects;
 uniform usamplerBuffer octrees;
 
@@ -76,8 +78,6 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     float ray_size_bias = 0;
      // Shift origin at (1.5, 1.5, 1.5) to follow reside octree at [1, 2]
     vec3 origin = ray.origin + vec3(1.5);
-
-    uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
     // Precompute the coefficients of tx(x), ty(y), and tz(z).
     // The octree is assumed to reside at coordinates [1, 2].

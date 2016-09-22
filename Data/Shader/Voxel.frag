@@ -24,8 +24,8 @@ struct Ray {
 struct CastResult {
     float t;
     vec3 pos;
-    vec3 normal;
-    uint node;
+    vec4 normal;
+    int node;
     int childIdx;
     uint scale;
 };
@@ -247,32 +247,26 @@ bool castRay(in Ray ray, in int index, out vec3 color, out CastResult castRes) {
     if ((octant_mask & 2) == 0) pos.y = 3.0 - scale_exp2 - pos.y;
     if ((octant_mask & 4) == 0) pos.z = 3.0 - scale_exp2 - pos.z;
 
-    // Output results.
-    float hit_t = t_min;
-//    vec3 hit_pos;
-//    hit_pos.x = min(max(origin.x + t_min * ray.direction.x, pos.x + epsilon), pos.x + scale_exp2 - epsilon);
-//    hit_pos.y = min(max(origin.y + t_min * ray.direction.y, pos.y + epsilon), pos.y + scale_exp2 - epsilon);
-//    hit_pos.z = min(max(origin.z + t_min * ray.direction.z, pos.z + epsilon), pos.z + scale_exp2 - epsilon);
-    int hit_parent = parent;
-    int hit_idx = idx ^ octant_mask ^ 7;
-    uint hit_scale = scale;
+    castRes.node = parent;
+    castRes.childIdx = idx ^ octant_mask ^ 7;
+    castRes.scale = scale;
+    castRes.pos = pos;
     vec3 hitPoint = origin + ray.direction * t_min;
 
     // Take vector from center of voxel to hit point, convert to prevailing axis direction and use as voxel normal
     vec3 centerToHit = hitPoint - (pos + scale_exp2 * 0.5); // vector
     float maxDir = max(abs(centerToHit.x), max(abs(centerToHit.y), abs(centerToHit.z)));
     vec3 axisDir = vec3(int(centerToHit.x / maxDir), int(centerToHit.y / maxDir), int(centerToHit.z / maxDir));
-    vec4 hitNormal = vec4(axisDir, 0.0);
+    castRes.normal = vec4(axisDir, 0.0);
 
     int offset = index * objectStride;
     vec3 ambient = ambientStrength * lightColor;
     mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
-    vec4 hitNormalWorld = normalize(octreeToWorld * hitNormal);
+    vec4 hitNormalWorld = normalize(octreeToWorld * castRes.normal);
     vec3 lightDir = normalize(lightPos);
     vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
     vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
     color = (ambient + diffuse) * octreeColor;
-//    color = octreeColor;
     castRes.t = t_min * octreeToWorld[0][0]; // t_min * octree transfrom scale
     return true;
 }
@@ -284,6 +278,7 @@ void main() {
         Ray ray = constructRay(i);
         vec3 castColor;
         CastResult castRes;
+        // Take near to camera color
         if (castRay(ray, i, castColor, castRes)) {
             if (castRes.t < t) {
                 t = castRes.t;

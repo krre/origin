@@ -110,7 +110,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 //    t_max = min(t_max, 1.0);
 
     // Initialize the current voxel to the first child of the root.
-    int parent = 0;
+    int parent = 1;
     uint child_descriptor = 0u; // invalid until fetched
     int idx = 0;
     vec3 pos = vec3(1.0, 1.0, 1.0);
@@ -273,7 +273,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
     vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
     vec3 color = (ambient + diffuse) * octreeColor;
-    return vec4(color, 1.0);
+//    return vec4(color, 1.0);
 
 
     uint px = floatBitsToUint(castRes.pos.x);
@@ -289,30 +289,26 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int pageHeader = node & -pageBytes;
     uvec4 v = texelFetch(octrees, pageHeader);
     int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
-//    S32* blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
-//    S32* attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
-//    S32* attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
-//    S32* attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
-//    U32  paletteNode  = attachData[(node - blockStart) >> 1];
+    int blockStart = blockInfo;
+    int attachInfos = blockInfo + 1;
+    int attachInfo = attachInfos;
+    int attachData = blockInfo + attachInfo;
+    uint paletteNode = uint(attachData + ((node - blockStart) >> 1));
 
-//    // while node has no color, loop
-//    while (!((paletteNode >> cidx) & 1))
-//    {
-//        level++;
-//        if (level >= CAST_STACK_DEPTH)
-//        {
-//            colorRes = make_float4(0.0f, 0.0f, 0.0f, 0.0f);
-//            normalRes = make_float3(1.0f, 0.0f, 0.0f);
-//        }
+    // While node has no color, loop
+    while ((int(paletteNode >> cidx) & 1) != 1) {
+        level++;
+        if (level >= s_max) {
+            return vec4(0.0, 0.0, 0.0, 1.0);
+        }
 
-//        F32 tmax;
-//        node = stack.read(level, tmax);
-//        cidx = 0;
-//        if ((px & (1 << level)) != 0) cidx |= 1;
-//        if ((py & (1 << level)) != 0) cidx |= 2;
-//        if ((pz & (1 << level)) != 0) cidx |= 4;
+        node = int(stack[level].x);
+        cidx = 0;
+        if ((int(px) & (1 << level)) != 0) cidx |= 1;
+        if ((int(py) & (1 << level)) != 0) cidx |= 2;
+        if ((int(pz) & (1 << level)) != 0) cidx |= 4;
 
-//        // update
+        // Update
 //        pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);
 //        blockInfo    = pageHeader + *pageHeader;
 //        blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
@@ -320,13 +316,20 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 //        attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
 //        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
 //        paletteNode  = attachData[(node - blockStart) >> 1];
-//    }
 
-//    // found, return it
-//    S32* pAttach = attachData + (paletteNode >> 8) + popc8(paletteNode & ((1 << cidx) - 1)) * 2;
-//    colorRes = fromABGR(pAttach[0]);
-//    normalRes = decodeRawNormal(pAttach[1]);
+        int pageHeader = node & -pageBytes;
+        uvec4 v = texelFetch(octrees, pageHeader);
+        int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
+        int blockStart = blockInfo;
+        int attachInfos = blockInfo + 1;
+        int attachInfo = attachInfos;
+        int attachData = blockInfo + attachInfo;
+        uint paletteNode = uint(attachData + ((node - blockStart) >> 1));
+    }
 
+    // Found, return it
+    int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & uint((1 << cidx) - 1)) * 2u);
+    return vec4(texelFetch(octrees, pAttach));
 }
 
 void main() {

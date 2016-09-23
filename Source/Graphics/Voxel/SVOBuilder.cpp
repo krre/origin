@@ -6,9 +6,10 @@ SVOBuilder::SVOBuilder() {
 
 std::shared_ptr<std::vector<uint32_t> > SVOBuilder::buildTest() {
     auto data = std::make_shared<std::vector<uint32_t>>();
-    data->push_back(0x00000003); // header
+    data->push_back(0x00000003); // header => blockInfo
     data->push_back(0x00027F08); // 0000 0000 0000 0010 | 0111 1111 | 0000 1000
     data->push_back(0x0000BF00); // 0000 0000 0000 0000 | 1101 1111 | 0000 0000
-    data->push_back(0x00000004); // info
+    data->push_back(0x00000000); // blockInfo, blockStart
+    data->push_back(0x00000000); // attachInfos
     return data;
 }

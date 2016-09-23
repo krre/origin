@@ -315,7 +315,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     // Found, return it
     int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & 0xFFu & uint((1 << cidx) - 1)));
     v = texelFetch(octrees, pAttach);
-    vec3 octreeColor = vec3(v.b / 255., v.g / 255., v.r / 255.0);
+    vec3 octreeColor = vec3(v.b / 255f, v.g / 255f, v.r / 255f);
 //    vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
 
     int offset = index * objectStride;

@@ -33,6 +33,7 @@ struct CastResult {
 const uint s_max = 23u;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-s_max);
 const int pageBytes = 1 << 13; // 8192
+const int blockInfoEnd = 1;
 
 uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
@@ -265,17 +266,6 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 }
 
 vec4 lookupColor(in int index, in CastResult castRes) {
-    int offset = index * objectStride;
-    vec3 ambient = ambientStrength * lightColor;
-    mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
-    vec4 hitNormalWorld = normalize(octreeToWorld * castRes.normal);
-    vec3 lightDir = normalize(lightPos);
-    vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
-    vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
-    vec3 color = (ambient + diffuse) * octreeColor;
-//    return vec4(color, 1.0);
-
-
     uint px = floatBitsToUint(castRes.pos.x);
     uint py = floatBitsToUint(castRes.pos.y);
     uint pz = floatBitsToUint(castRes.pos.z);
@@ -289,11 +279,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int pageHeader = node & -pageBytes;
     uvec4 v = texelFetch(octrees, pageHeader);
     int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
-    int blockStart = blockInfo;
-    int attachInfos = blockInfo + 1;
-    int attachInfo = attachInfos;
-    int attachData = blockInfo + attachInfo;
-    uint paletteNode = uint(attachData + ((node - blockStart) >> 1));
+    int attachData = blockInfo + blockInfoEnd;
+    v = texelFetch(octrees, attachData + node - 1);
+    uint paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
 
     // While node has no color, loop
     while ((int(paletteNode >> cidx) & 1) != 1) {
@@ -320,16 +308,25 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         int pageHeader = node & -pageBytes;
         uvec4 v = texelFetch(octrees, pageHeader);
         int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
-        int blockStart = blockInfo;
-        int attachInfos = blockInfo + 1;
-        int attachInfo = attachInfos;
-        int attachData = blockInfo + attachInfo;
-        uint paletteNode = uint(attachData + ((node - blockStart) >> 1));
+        v = texelFetch(octrees, attachData + node - 1);
+        uint paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
     }
 
     // Found, return it
-    int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & uint((1 << cidx) - 1)) * 2u);
-    return vec4(texelFetch(octrees, pAttach));
+    int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & 0xFFu & uint((1 << cidx) - 1)));
+    v = texelFetch(octrees, pAttach);
+    vec3 octreeColor = vec3(v.b / 255., v.g / 255., v.r / 255.0);
+//    vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
+
+    int offset = index * objectStride;
+    vec3 ambient = ambientStrength * lightColor;
+    mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
+    vec4 hitNormalWorld = normalize(octreeToWorld * castRes.normal);
+    vec3 lightDir = normalize(lightPos);
+    vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
+    vec3 color = (ambient + diffuse) * octreeColor;
+
+    return vec4(color, 1.0);
 }
 
 void main() {

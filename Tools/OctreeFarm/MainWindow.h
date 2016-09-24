@@ -1,4 +1,5 @@
 #pragma once
+#include "GLWidget.h"
 #include <QtWidgets>
 
 class MainWindow : public QMainWindow {
@@ -21,4 +22,5 @@ private:
     void setupMenuBar();
 
     QSplitter splitter;
+    GLWidget* glWidget;
 };

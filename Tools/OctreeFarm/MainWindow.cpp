@@ -1,5 +1,4 @@
 #include "MainWindow.h"
-#include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     resize(800, 480);
@@ -7,10 +6,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
     setupMenuBar();
 
-    QListView* listview = new QListView;
+    glWidget = new GLWidget;
     QTreeView* treeview = new QTreeView;
-    splitter.addWidget(listview);
     splitter.addWidget(treeview);
+    splitter.addWidget(glWidget);
 
     setCentralWidget(&splitter);
 }

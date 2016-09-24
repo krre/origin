@@ -58,11 +58,11 @@ void MainWindow::setupSplitter() {
 }
 
 void MainWindow::readSettings() {
-
+    splitter->restoreState(settings->value("General/splitter").toByteArray());
 }
 
 void MainWindow::writeSettings() {
-//    settings->setValue("editor/wrapMargin", 68);
+    settings->setValue("General/splitter", splitter->saveState());
 }
 
 void MainWindow::newFile() {

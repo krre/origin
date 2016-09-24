@@ -2,7 +2,7 @@
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
-    resize(800, 600);
+    resize(800, 480);
     setWindowTitle(QApplication::applicationName());
 
     setupMenuBar();

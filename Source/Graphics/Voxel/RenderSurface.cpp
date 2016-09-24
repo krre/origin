@@ -40,7 +40,8 @@ RenderSurface::RenderSurface() :
     vbo.bind();
     vbo.setData(vertices, sizeof(vertices));
 
-    vao.bind();
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
     // Position attribute
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
@@ -161,7 +162,7 @@ void RenderSurface::draw(float dt) {
     glActiveTexture(GL_TEXTURE1);
     octreesTexture.bind();
 
-    vao.bind();
+    glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 

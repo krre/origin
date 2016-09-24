@@ -2,7 +2,6 @@
 #include "../Drawable.h"
 #include "../../Graphics/OpenGL/ShaderGroup.h"
 #include "../../Graphics/OpenGL/Texture.h"
-#include "../../Graphics/OpenGL/VertexArray.h"
 #include "../../Graphics/OpenGL/Buffer.h"
 #include <glm/glm.hpp>
 
@@ -20,7 +19,7 @@ private:
     ShaderGroup* voxelShaderGroup;
     Texture objectsTexture;
     Texture octreesTexture;
-    VertexArray vao;
+    GLuint vao;
     Buffer vbo;
     Buffer objectsTbo;
     Buffer octreesTbo;

@@ -1,6 +1,5 @@
 #pragma once
 #include "../../Core/Object.h"
-#include "VertexArray.h"
 #include "Buffer.h"
 #include "ShaderGroup.h"
 #include <vector>
@@ -10,7 +9,7 @@ class Mesh : public Object {
 
 public:
     Mesh();
-    VertexArray* getVAO() { return &vao; }
+    GLuint getVAO() { return vao; }
     Buffer* getVBO() { return &vbo; }
 
     const std::vector<GLfloat>& getVerticles() const { return verticles; }
@@ -24,6 +23,6 @@ protected:
     std::vector<int> indices;
 
 private:
-    VertexArray vao;
+    GLuint vao;
     Buffer vbo;
 };

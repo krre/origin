@@ -25,8 +25,9 @@ private:
 
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
-    QOpenGLTexture objectsTexture;
-    QOpenGLTexture octreesTexture;
+    GLuint objectsTexture;
+    GLuint octreesTexture;
     GLuint objectsTbo;
-    GLuint octreeTbo;
+    GLuint octreesTbo;
+    QOpenGLShaderProgram program;
 };

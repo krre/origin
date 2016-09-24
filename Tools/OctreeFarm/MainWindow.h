@@ -20,8 +20,9 @@ private slots:
 
 private:
     void setupMenuBar();
+    void setupSplitter();
 
-    QSplitter splitter;
+    QSplitter* splitter;
     GLWidget* glWidget;
     ControlsWidget* controlsWidget;
 };

@@ -5,13 +5,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle(QApplication::applicationName());
 
     setupMenuBar();
+    setupSplitter();
 
-    glWidget = new GLWidget;
-    controlsWidget = new ControlsWidget;
-    splitter.addWidget(controlsWidget);
-    splitter.addWidget(glWidget);
-
-    setCentralWidget(&splitter);
+    setCentralWidget(splitter);
 }
 
 MainWindow::~MainWindow() {
@@ -31,6 +27,25 @@ void MainWindow::setupMenuBar() {
     QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(QString(tr("About %1...")).arg(QApplication::applicationName()), this, &MainWindow::about);
     helpMenu->addAction(tr("About Qt..."), qApp, &QApplication::aboutQt);
+}
+
+void MainWindow::setupSplitter() {
+    splitter = new QSplitter;
+    splitter->setChildrenCollapsible(false);
+    splitter->setFrameStyle(QFrame::Box | QFrame::Raised);
+    splitter->setLineWidth(1);
+
+    controlsWidget = new ControlsWidget;
+    controlsWidget->setMinimumWidth(100);
+    splitter->addWidget(controlsWidget);
+
+    glWidget = new GLWidget;
+    glWidget->setMinimumWidth(100);
+    splitter->addWidget(glWidget);
+
+    QList<int> sizes;
+    sizes << 250 << 550;
+    splitter->setSizes(sizes);
 }
 
 void MainWindow::newFile() {

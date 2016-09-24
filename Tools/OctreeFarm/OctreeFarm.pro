@@ -14,7 +14,9 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    GLWidget.cpp
+    GLWidget.cpp \
+    ControlsWidget.cpp
 
 HEADERS  += MainWindow.h \
-    GLWidget.h
+    GLWidget.h \
+    ControlsWidget.h

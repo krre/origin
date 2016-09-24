@@ -7,8 +7,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setupMenuBar();
 
     glWidget = new GLWidget;
-    QTreeView* treeview = new QTreeView;
-    splitter.addWidget(treeview);
+    controlsWidget = new ControlsWidget;
+    splitter.addWidget(controlsWidget);
     splitter.addWidget(glWidget);
 
     setCentralWidget(&splitter);

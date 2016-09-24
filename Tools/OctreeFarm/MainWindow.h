@@ -1,5 +1,6 @@
 #pragma once
 #include "GLWidget.h"
+#include "ControlsWidget.h"
 #include <QtWidgets>
 
 class MainWindow : public QMainWindow {
@@ -15,7 +16,6 @@ private slots:
     void saveFile();
     void saveAsFile();
     void closeFile();
-
     void about();
 
 private:
@@ -23,4 +23,5 @@ private:
 
     QSplitter splitter;
     GLWidget* glWidget;
+    ControlsWidget* controlsWidget;
 };

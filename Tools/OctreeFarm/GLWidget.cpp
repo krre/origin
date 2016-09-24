@@ -1,12 +1,25 @@
 #include "GLWidget.h"
+#include <QtCore>
 
-GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent) {
-
+GLWidget::GLWidget(QWidget* parent) :
+    QOpenGLWidget(parent),
+    objectsTexture(QOpenGLTexture::TargetBuffer),
+    octreesTexture(QOpenGLTexture::TargetBuffer) {
 }
 
 void GLWidget::initializeGL() {
     initializeOpenGLFunctions();
     glClearColor(0.95, 1.0, 1.0, 1.0);
+
+    QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
+
+    f->glGenBuffers(1, &objectsTbo);
+    f->glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
+    f->glBufferData(GL_TEXTURE_BUFFER, 100, NULL, GL_STATIC_DRAW);
+
+    f->glGenBuffers(1, &octreeTbo);
+    f->glBindBuffer(GL_TEXTURE_BUFFER, octreeTbo);
+    f->glBufferData(GL_TEXTURE_BUFFER, 100, NULL, GL_STATIC_DRAW);
 }
 
 void GLWidget::paintGL() {
@@ -24,4 +37,10 @@ void GLWidget::mousePressEvent(QMouseEvent* event) {
 
 void GLWidget::mouseMoveEvent(QMouseEvent* event) {
     Q_UNUSED(event)
+}
+
+void GLWidget::updateOctreeInGPU(int offset, void* data, int count) {
+    QOpenGLFunctions* f = QOpenGLContext::currentContext()->functions();
+    f->glBindBuffer(GL_TEXTURE_BUFFER, octreeTbo);
+    f->glBufferSubData(GL_TEXTURE_BUFFER, offset, count, data);
 }

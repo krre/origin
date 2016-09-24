@@ -1,6 +1,11 @@
 #pragma once
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
+#include <QOpenGLBuffer>
+#include <QOpenGLTexture>
+#include <QOpenGLVertexArrayObject>
+#include <QOpenGLShaderProgram>
+#include <cstdint>
 
 class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
     Q_OBJECT
@@ -14,4 +19,14 @@ protected:
     void resizeGL(int width, int height) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
+
+private:
+    void updateOctreeInGPU(int offset, void* data, int count);
+
+    QOpenGLVertexArrayObject vao;
+    QOpenGLBuffer vbo;
+    QOpenGLTexture objectsTexture;
+    QOpenGLTexture octreesTexture;
+    GLuint objectsTbo;
+    GLuint octreeTbo;
 };

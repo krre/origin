@@ -80,7 +80,8 @@ Text::Text() : vbo(GL_ARRAY_BUFFER) {
     vbo.bind();
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 
-    vao.bind();
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
 }
@@ -117,7 +118,7 @@ void Text::draw(float dt) {
     glUniform3f(glGetUniformLocation(fontShaderGroup->getProgram(), "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
 
-    vao.bind();
+    glBindVertexArray(vao);
     vbo.bind();
     // Iterate through all characters
     GLfloat startX = position.x;

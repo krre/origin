@@ -8,10 +8,17 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setupSplitter();
 
     setCentralWidget(splitter);
+
+    readSettings();
 }
 
 MainWindow::~MainWindow() {
 
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    writeSettings();
+    event->accept();
 }
 
 void MainWindow::setupMenuBar() {
@@ -46,6 +53,16 @@ void MainWindow::setupSplitter() {
     QList<int> sizes;
     sizes << 250 << 550;
     splitter->setSizes(sizes);
+
+    settings = new QSettings(QApplication::applicationDirPath() + "/" + QApplication::applicationName() + ".ini", QSettings::IniFormat);
+}
+
+void MainWindow::readSettings() {
+
+}
+
+void MainWindow::writeSettings() {
+//    settings->setValue("editor/wrapMargin", 68);
 }
 
 void MainWindow::newFile() {

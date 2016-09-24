@@ -10,6 +10,9 @@ public:
     MainWindow(QWidget* parent = 0);
     ~MainWindow();
 
+protected:
+    void closeEvent(QCloseEvent* event) override;
+
 private slots:
     void newFile();
     void openFile();
@@ -21,8 +24,11 @@ private slots:
 private:
     void setupMenuBar();
     void setupSplitter();
+    void readSettings();
+    void writeSettings();
 
     QSplitter* splitter;
     GLWidget* glWidget;
     ControlsWidget* controlsWidget;
+    QSettings* settings;
 };

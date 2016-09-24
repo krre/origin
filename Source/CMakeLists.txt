@@ -6,7 +6,6 @@ add_subdirectory(GameState)
 add_subdirectory(Graphics)
 add_subdirectory(Process)
 add_subdirectory(Resource)
-add_subdirectory(ThirdParty)
 add_subdirectory(UI)
 add_subdirectory(Universe)
 

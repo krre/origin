@@ -1,7 +1,7 @@
 #include "PauseScene.h"
-#include "../Core/App.h"
-#include "../GameState/GameStateManager.h"
-#include "../Event/Input.h"
+#include "../../Core/App.h"
+#include "../../GameState/GameStateManager.h"
+#include "../../Event/Input.h"
 
 PauseScene::PauseScene(int width, int height) :
     Scene2D(width, height) {

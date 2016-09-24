@@ -12,6 +12,8 @@ configure_file(Gagarin.h.in Gagarin.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(Source)
+add_subdirectory(ThirdParty)
+
 set(EXECUTABLE_NAME "gagarin")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
@@ -28,7 +30,7 @@ include_directories(${GLEW_INCLUDE_DIRS})
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
 
-include_directories(Source/ThirdParty)
+include_directories(ThirdParty)
 
 find_package(OpenGL)
 

@@ -59,10 +59,16 @@ void MainWindow::setupSplitter() {
 
 void MainWindow::readSettings() {
     splitter->restoreState(settings->value("General/splitter").toByteArray());
+
+    int x = settings->value("Window/x", 200).toInt();
+    int y = settings->value("Window/y", 200).toInt();
+    move(x, y);
 }
 
 void MainWindow::writeSettings() {
     settings->setValue("General/splitter", splitter->saveState());
+    settings->setValue("Window/x", x());
+    settings->setValue("Window/y", y());
 }
 
 void MainWindow::newFile() {

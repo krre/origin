@@ -1,5 +1,5 @@
 #pragma once
-#include <QMainWindow>
+#include <QtWidgets>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -19,4 +19,6 @@ private slots:
 
 private:
     void setupMenuBar();
+
+    QSplitter splitter;
 };

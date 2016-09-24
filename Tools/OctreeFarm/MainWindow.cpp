@@ -6,6 +6,13 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setWindowTitle(QApplication::applicationName());
 
     setupMenuBar();
+
+    QListView* listview = new QListView;
+    QTreeView* treeview = new QTreeView;
+    splitter.addWidget(listview);
+    splitter.addWidget(treeview);
+
+    setCentralWidget(&splitter);
 }
 
 MainWindow::~MainWindow() {

@@ -1,6 +1,6 @@
 #pragma once
 #include "../Component.h"
-#include "../Core/App.h"
+#include "../../Core/App.h"
 #include <glm/ext.hpp>
 
 class CameraComponent : public Component {

@@ -1,12 +1,12 @@
 #include "RenderSurface.h"
-#include "../Resource/ResourceManager.h"
+#include "../../Resource/ResourceManager.h"
 #include "Octree.h"
-#include "../Core/App.h"
-#include "../ECS/Components/Components.h"
-#include "../ECS/Systems/CameraSystem.h"
-#include "../ECS/Engine.h"
-#include "../Core/Common.h"
-#include "../Core/Utils.h"
+#include "../../Core/App.h"
+#include "../../ECS/Components/Components.h"
+#include "../../ECS/Systems/CameraSystem.h"
+#include "../../ECS/Engine.h"
+#include "../../Core/Common.h"
+#include "../../Core/Utils.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
 RenderSurface::RenderSurface() :

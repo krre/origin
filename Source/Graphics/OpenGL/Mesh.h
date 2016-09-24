@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Object.h"
+#include "../../Core/Object.h"
 #include "VertexArray.h"
 #include "Buffer.h"
 #include "ShaderGroup.h"

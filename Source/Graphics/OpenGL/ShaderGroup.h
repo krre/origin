@@ -1,5 +1,5 @@
 #pragma once
-#include "../Resource/Resource.h"
+#include "../../Resource/Resource.h"
 #include "Shader.h"
 #include "Program.h"
 

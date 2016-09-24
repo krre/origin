@@ -1,9 +1,9 @@
 #pragma once
 #include "../Drawable.h"
-#include "../Graphics/OpenGL/ShaderGroup.h"
-#include "../Graphics/OpenGL/Texture.h"
-#include "../Graphics/OpenGL/VertexArray.h"
-#include "../Graphics/OpenGL/Buffer.h"
+#include "../../Graphics/OpenGL/ShaderGroup.h"
+#include "../../Graphics/OpenGL/Texture.h"
+#include "../../Graphics/OpenGL/VertexArray.h"
+#include "../../Graphics/OpenGL/Buffer.h"
 #include <glm/glm.hpp>
 
 constexpr int MAX_OCTREE_COUNT = 10;

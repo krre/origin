@@ -167,8 +167,8 @@ void RenderSurface::draw(float dt) {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void RenderSurface::sendOctreeToGPU(const std::vector<uint32_t>& data) {
+void RenderSurface::sendOctreeToGPU(int offset, const std::vector<uint32_t>& data) {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
-    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(uint32_t) * data.size(), &data[0]);
+    glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * data.size(), &data[0]);
 
 }

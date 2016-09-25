@@ -10,9 +10,11 @@ SOURCES += main.cpp\
         MainWindow.cpp \
     GLWidget.cpp \
     ControlsWidget.cpp \
-    Octree.cpp
+    Octree.cpp \
+    Camera.cpp
 
 HEADERS  += MainWindow.h \
     GLWidget.h \
     ControlsWidget.h \
-    Octree.h
+    Octree.h \
+    Camera.h

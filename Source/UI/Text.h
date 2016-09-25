@@ -1,9 +1,7 @@
 #pragma once
 #include "Control.h"
 #include "Font.h"
-#include "../Graphics/OpenGL/Buffer.h"
 #include "../Graphics/OpenGL/ShaderGroup.h"
-#include <glm/glm.hpp>
 #include <map>
 
 class Text : public Control {
@@ -40,7 +38,7 @@ private:
     float scale = 1.0;
     std::map<GLchar, Character> characters;
     GLuint vao;
-    Buffer vbo;
+    GLuint vbo;
     int fontSize = 14;
     ShaderGroup* fontShaderGroup;
 };

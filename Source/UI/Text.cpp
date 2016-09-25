@@ -9,7 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-Text::Text() : vbo(GL_ARRAY_BUFFER) {
+Text::Text() {
     color = glm::vec4(1.0, 1.0, 1.0, 1.0);
 
     FT_Library ft;
@@ -77,7 +77,8 @@ Text::Text() : vbo(GL_ARRAY_BUFFER) {
     FT_Done_FreeType(ft);
 
     // Configure VAO/VBO for texture quads
-    vbo.bind();
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
 
     glGenVertexArrays(1, &vao);
@@ -119,7 +120,7 @@ void Text::draw(float dt) {
     glActiveTexture(GL_TEXTURE0);
 
     glBindVertexArray(vao);
-    vbo.bind();
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
     // Iterate through all characters
     GLfloat startX = position.x;
     // TODO: Move relative coordinates on top level

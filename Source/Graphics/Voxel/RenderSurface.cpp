@@ -9,13 +9,7 @@
 #include "../../Core/Utils.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
-RenderSurface::RenderSurface() :
-    objectsTexture(GL_TEXTURE_BUFFER),
-    octreesTexture(GL_TEXTURE_BUFFER),
-    vbo(GL_ARRAY_BUFFER),
-    objectsTbo(GL_TEXTURE_BUFFER),
-    octreesTbo(GL_TEXTURE_BUFFER) {
-
+RenderSurface::RenderSurface() {
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->use();
@@ -37,8 +31,9 @@ RenderSurface::RenderSurface() :
          1.0f,  1.0f,
     };
 
-    vbo.bind();
-    vbo.setData(vertices, sizeof(vertices));
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -46,19 +41,24 @@ RenderSurface::RenderSurface() :
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    // Objects
-    objectsTbo.bind();
+
+    // Objects buffer
+    glGenBuffers(1, &objectsTbo);
+    glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
     glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * OBJECT_STRIDE * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
 
-    objectsTexture.bind();
-    objectsTexture.attachBuffer(GL_RGBA32F, objectsTbo.getId());
+    glGenTextures(1, &objectsTexture);
+    glBindTexture(GL_TEXTURE_BUFFER, objectsTexture);
+    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, objectsTbo);
 
-    // Octrees
-    octreesTbo.bind();
+    // Octrees buffer
+    glGenBuffers(1, &octreesTbo);
+    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * MAX_OCTREE_COUNT * 10, NULL, GL_STATIC_DRAW);
 
-    octreesTexture.bind();
-    octreesTexture.attachBuffer(GL_RGBA8UI, octreesTbo.getId());
+    glGenTextures(1, &octreesTexture);
+    glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
+    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA8UI, octreesTbo);
 }
 
 void RenderSurface::draw(float dt) {
@@ -147,7 +147,7 @@ void RenderSurface::draw(float dt) {
         }
     }
 
-    objectsTbo.bind();
+    glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), &objects[0]);
 
     voxelShaderGroup->use();
@@ -158,16 +158,17 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "objectCount"), objectCount);
 
     glActiveTexture(GL_TEXTURE0);
-    objectsTexture.bind();
+    glBindTexture(GL_TEXTURE_BUFFER, objectsTexture);
+
     glActiveTexture(GL_TEXTURE1);
-    octreesTexture.bind();
+    glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
 
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void RenderSurface::sendOctreeToGPU(const std::vector<uint32_t>& data) {
-    octreesTbo.bind();
+    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(uint32_t) * data.size(), &data[0]);
 
 }

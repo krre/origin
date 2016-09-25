@@ -1,8 +1,6 @@
 #pragma once
 #include "../Drawable.h"
 #include "../../Graphics/OpenGL/ShaderGroup.h"
-#include "../../Graphics/OpenGL/Texture.h"
-#include "../../Graphics/OpenGL/Buffer.h"
 #include <glm/glm.hpp>
 
 constexpr int MAX_OCTREE_COUNT = 10;
@@ -17,11 +15,11 @@ public:
 
 private:
     ShaderGroup* voxelShaderGroup;
-    Texture objectsTexture;
-    Texture octreesTexture;
+    GLuint objectsTexture;
+    GLuint octreesTexture;
     GLuint vao;
-    Buffer vbo;
-    Buffer objectsTbo;
-    Buffer octreesTbo;
+    GLuint vbo;
+    GLuint objectsTbo;
+    GLuint octreesTbo;
     GLuint program;
 };

@@ -1,16 +1,14 @@
 #pragma once
 #include "../../Core/Object.h"
-#include "Buffer.h"
-#include "ShaderGroup.h"
+#include <GL/glew.h>
 #include <vector>
-#include <glm/ext.hpp>
 
 class Mesh : public Object {
 
 public:
     Mesh();
     GLuint getVAO() { return vao; }
-    Buffer* getVBO() { return &vbo; }
+    GLuint getVBO() { return vbo; }
 
     const std::vector<GLfloat>& getVerticles() const { return verticles; }
     const std::vector<int>& getIndices() const { return indices; }
@@ -24,5 +22,5 @@ protected:
 
 private:
     GLuint vao;
-    Buffer vbo;
+    GLuint vbo;
 };

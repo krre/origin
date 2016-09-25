@@ -3,15 +3,17 @@
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
 
-Mesh::Mesh() : vbo(GL_ARRAY_BUFFER) {
+Mesh::Mesh() {
+    glGenBuffers(1, &vbo);
     glGenVertexArrays(1, &vao);
 }
 
 void Mesh::setup() {
     assert(verticles.size());
+
     glBindVertexArray(vao);
-    vbo.bind();
-    vbo.setData(&verticles[0], verticles.size() * sizeof(verticles[0]));
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, verticles.size() * sizeof(verticles[0]), &verticles[0], GL_STATIC_DRAW);
 
     // Position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), (void*)0);

@@ -1,6 +1,8 @@
 #include "Octree.h"
 
 Octree::Octree(QObject* parent) : QObject(parent) {
+    m_worldToOctree = glm::inverse(m_octreeToWorld);
+
     // Test data
     // Header
     storage.push_back(0x00000003); // => Block info

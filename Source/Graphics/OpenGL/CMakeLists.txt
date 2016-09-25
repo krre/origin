@@ -10,7 +10,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Shader.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderGroup.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderGroup.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Texture.h
     PARENT_SCOPE
 )

@@ -4,6 +4,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = OctreeFarm
 TEMPLATE = app
 
+INCLUDEPATH += "../../ThirdParty"
+
 SOURCES += main.cpp\
         MainWindow.cpp \
     GLWidget.cpp \

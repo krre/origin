@@ -1,13 +1,13 @@
 #pragma once
 #include <QOpenGLWidget>
-#include <QOpenGLFunctions>
+#include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLBuffer>
 #include <QOpenGLTexture>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
 #include <cstdint>
 
-class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions {
+class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     Q_OBJECT
 
 public:

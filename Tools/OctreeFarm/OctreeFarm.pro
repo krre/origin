@@ -9,8 +9,10 @@ INCLUDEPATH += "../../ThirdParty"
 SOURCES += main.cpp\
         MainWindow.cpp \
     GLWidget.cpp \
-    ControlsWidget.cpp
+    ControlsWidget.cpp \
+    Octree.cpp
 
 HEADERS  += MainWindow.h \
     GLWidget.h \
-    ControlsWidget.h
+    ControlsWidget.h \
+    Octree.h

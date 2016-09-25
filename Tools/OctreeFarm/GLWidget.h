@@ -1,4 +1,5 @@
 #pragma once
+#include "Octree.h"
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLBuffer>
@@ -30,5 +31,7 @@ private:
     GLuint objectsTbo;
     GLuint octreesTbo;
     QOpenGLShaderProgram program;
+
+    Octree octree;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
 };

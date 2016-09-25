@@ -17,7 +17,7 @@ void GLWidget::initializeGL() {
     program.link();
     program.bind();
 
-    program.setUniformValue("backgroundColor", QVector3D(1.0, 0.0, 0.0));
+    program.setUniformValue("backgroundColor", backgroundColor);
     program.setUniformValue("objectStride", 9);
     program.setUniformValue("objects", 0);
     program.setUniformValue("octrees", 1);
@@ -59,6 +59,9 @@ void GLWidget::initializeGL() {
 
 void GLWidget::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    program.bind();
+    vao.bind();
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 void GLWidget::resizeGL(int w, int h) {

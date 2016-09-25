@@ -30,4 +30,5 @@ private:
     GLuint objectsTbo;
     GLuint octreesTbo;
     QOpenGLShaderProgram program;
+    QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
 };

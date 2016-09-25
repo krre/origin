@@ -148,7 +148,7 @@ void RenderSurface::draw(float dt) {
     }
 
     glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
-    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), &objects[0]);
+    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), objects.data());
 
     voxelShaderGroup->use();
 
@@ -169,6 +169,6 @@ void RenderSurface::draw(float dt) {
 
 void RenderSurface::sendOctreeToGPU(int offset, const std::vector<uint32_t>& data) {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
-    glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * data.size(), &data[0]);
+    glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * data.size(), data.data());
 
 }

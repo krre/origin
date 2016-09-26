@@ -21,7 +21,22 @@ void Camera::setPosition(const glm::vec3& position) {
 }
 
 void Camera::rotate(float yaw, float pitch) {
-    glm::mat4 R = glm::yawPitchRoll(glm::radians(yaw), glm::radians(pitch), 0.0f);
+    m_yaw = yaw;
+    m_pitch = pitch;
+    update();
+}
+
+void Camera::zoom(float amount) {
+//    qDebug() << amount;
+    m_position += m_look * amount;
+//    std::cout << glm::to_string(m_position) << std::endl;
+    distance = glm::distance(m_position, m_target);
+    distance = std::max(minDistance, std::min(distance, maxDistance));
+    update();
+}
+
+void Camera::update() {
+    glm::mat4 R = glm::yawPitchRoll(glm::radians(m_yaw), glm::radians(m_pitch), 0.0f);
     glm::vec3 T = glm::vec3(0, 0, distance);
     T = glm::vec3(R * glm::vec4(T, 0.0f));
     m_position = m_target + T;

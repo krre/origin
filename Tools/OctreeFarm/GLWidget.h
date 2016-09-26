@@ -22,6 +22,7 @@ protected:
     void resizeGL(int width, int height) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
+    void wheelEvent(QWheelEvent* event) override;
 
 private:
     void updateOctreeInGPU(int offset, void* data, int count);
@@ -38,6 +39,7 @@ private:
     QPoint lastPos;
     float rx = 0;
     float ry = 0;
+    float rw = 1;
     Octree octree;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);

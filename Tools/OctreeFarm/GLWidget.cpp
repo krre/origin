@@ -156,6 +156,11 @@ void GLWidget::mouseMoveEvent(QMouseEvent* event) {
     }
 }
 
+void GLWidget::wheelEvent(QWheelEvent* event) {
+    camera.zoom(glm::sin(event->angleDelta().ry()));
+    update();
+}
+
 void GLWidget::updateOctreeInGPU(int offset, void* data, int count) {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, offset, count, data);

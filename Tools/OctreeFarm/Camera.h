@@ -14,6 +14,7 @@ public:
     void setTarget(const glm::vec3& target);
     void setPosition(const glm::vec3& position);
     void rotate(float yaw, float pitch);
+    void zoom(float amount);
 
     float fov() { return m_fov; }
     glm::vec3 up() { return m_up; }
@@ -21,6 +22,10 @@ public:
     glm::vec3 right() { return m_right; }
 
 private:
+    void update();
+
+    const float minDistance = 0.1;
+    const float maxDistance = 50;
     float m_fov = glm::radians(50.0f);
     float aspect;
 //    const float distance = 0.5f; // distance from camera to screen

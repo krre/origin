@@ -8,13 +8,13 @@ INCLUDEPATH += "../../ThirdParty"
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    ControlsWidget.cpp \
     Octree.cpp \
     Camera.cpp \
-    Viewport.cpp
+    Viewport.cpp \
+    Properties.cpp
 
 HEADERS  += MainWindow.h \
-    ControlsWidget.h \
     Octree.h \
     Camera.h \
-    Viewport.h
+    Viewport.h \
+    Properties.h

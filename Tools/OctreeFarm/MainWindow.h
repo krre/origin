@@ -1,6 +1,6 @@
 #pragma once
 #include "Viewport.h"
-#include "ControlsWidget.h"
+#include "Properties.h"
 #include <QtWidgets>
 
 class MainWindow : public QMainWindow {
@@ -29,6 +29,6 @@ private:
 
     QSplitter* splitter;
     Viewport* glWidget;
-    ControlsWidget* controlsWidget;
+    Properties* controlsWidget;
     QSettings* settings;
 };

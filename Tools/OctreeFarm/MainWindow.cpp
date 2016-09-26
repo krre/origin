@@ -42,7 +42,7 @@ void MainWindow::setupSplitter() {
     splitter->setFrameStyle(QFrame::Box | QFrame::Raised);
     splitter->setLineWidth(1);
 
-    controlsWidget = new ControlsWidget;
+    controlsWidget = new Properties;
     controlsWidget->setMinimumWidth(100);
     splitter->addWidget(controlsWidget);
 

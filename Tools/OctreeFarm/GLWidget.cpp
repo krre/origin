@@ -5,6 +5,10 @@
 #include <glm/gtx/matrix_decompose.hpp>
 
 GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent) {
+    QSurfaceFormat format;
+    format.setVersion(3, 3);
+    format.setRenderableType(QSurfaceFormat::OpenGL);
+    setFormat(format);
 }
 
 void GLWidget::initializeGL() {

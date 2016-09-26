@@ -23,7 +23,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 void MainWindow::setupMenuBar() {
     QMenu* fileMenu = menuBar()->addMenu(tr("File"));
-    fileMenu->addAction(tr("New File"), this, &MainWindow::newFile, QKeySequence("Ctrl+N"));
+    fileMenu->addAction(tr("New"), this, &MainWindow::newFile, QKeySequence("Ctrl+N"));
     fileMenu->addAction(tr("Open..."), this, &MainWindow::openFile, QKeySequence("Ctrl+O"));
     fileMenu->addAction(tr("Save"), this, &MainWindow::saveFile, QKeySequence("Ctrl+S"));
     fileMenu->addAction(tr("Save As..."), this, &MainWindow::saveAsFile, QKeySequence("Ctrl+Shift+S"));

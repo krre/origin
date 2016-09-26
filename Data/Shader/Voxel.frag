@@ -1,10 +1,10 @@
+#version 330 core
 // Rendering algorithm is based on article:
 // Samuli Laine and Tero Karras.
 // Efficient Sparse Voxel Octrees – Analysis, Extensions, and Implementation.
 // NVIDIA Technical Report NVR-2010-001, 2010.
 // https://mediatech.aalto.fi/~samuli/publications/laine2010tr1_paper.pdf
 // http://code.google.com/p/efficient-sparse-voxel-octrees
-#version 330 core // Useless comment to prevent bug with QOpenGLShaderProgram::addShaderFromSourceFile in OctreeFarm
 
 // For debug in castRay() function
 #define RED { color = vec3(1.0, 0.0, 0.0); return true; }
@@ -315,7 +315,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     // Found, return it
     int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & 0xFFu & uint((1 << cidx) - 1)));
     v = texelFetch(octrees, pAttach);
-    vec3 octreeColor = vec3(v.b / 255f, v.g / 255f, v.r / 255f);
+    vec3 octreeColor = vec3(v.b / 255.0, v.g / 255.0, v.r / 255.0);
 //    vec3 octreeColor = vec3(texelFetch(objects, index * objectStride + 8));
 
     int offset = index * objectStride;

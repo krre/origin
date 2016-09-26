@@ -49,7 +49,7 @@ void GLWidget::initializeGL() {
     glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
     glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * 100, NULL, GL_STATIC_DRAW);
 
-    glGenBuffers(1, &objectsTexture);
+    glGenTextures(1, &objectsTexture);
     glBindTexture(GL_TEXTURE_BUFFER, objectsTexture);
     glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, objectsTbo);
 
@@ -57,7 +57,7 @@ void GLWidget::initializeGL() {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * 100, NULL, GL_STATIC_DRAW);
 
-    glGenBuffers(1, &octreesTexture);
+    glGenTextures(1, &octreesTexture);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
     glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA8UI, octreesTbo);
 

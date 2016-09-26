@@ -11,6 +11,9 @@ GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     format.setVersion(3, 3);
     format.setRenderableType(QSurfaceFormat::OpenGL);
     setFormat(format);
+
+    camera.setPosition(glm::vec3(0.0, 0.0, 3.0));
+    camera.setTarget(glm::vec3(0.0, 0.0, 0.0));
 }
 
 void GLWidget::initializeGL() {
@@ -85,9 +88,9 @@ void GLWidget::paintGL() {
 
     object.push_back(glm::vec4(translation.x, translation.y, translation.z, 1.0));
 
-    glm::vec3 up = camera.up() * rotation;
-    glm::vec3 look = camera.look() * rotation;
-    glm::vec3 right = camera.right() * rotation;
+    glm::vec3 up = camera.up();
+    glm::vec3 look = camera.look();
+    glm::vec3 right = camera.right();
 
     // Ray calculation is based on Johns Hopkins presentation:
     // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
@@ -145,15 +148,10 @@ void GLWidget::mousePressEvent(QMouseEvent* event) {
 
 void GLWidget::mouseMoveEvent(QMouseEvent* event) {
     if (QGuiApplication::mouseButtons() == Qt::RightButton) {
-        int dx = lastPos.x() - event->pos().x();
-        int dy = lastPos.y() - event->pos().y();
+        rx += (lastPos.x() - event->pos().x()) / rotateSpeed;
+        ry += (lastPos.y() - event->pos().y()) / rotateSpeed;
         lastPos = event->pos();
-        glm::vec4 target = glm::vec4(0.0, 0.0, 0.0, 1.0);
-        glm::vec4 position = camera.cameraToWorld()[3];
-        position = glm::toMat4(glm::toQuat(glm::rotate(glm::mat4(1.0), dy * rotateSpeed, camera.right()))) * (position - target) + target;
-        position = glm::toMat4(glm::toQuat(glm::rotate(glm::mat4(1.0), dx * rotateSpeed, camera.up()))) * (position - target) + target;
-//        std::cout << glm::to_string(pos1) << std::endl;
-        camera.setCameraToWorld(glm::inverse(glm::lookAt(glm::vec3(position), glm::vec3(target), camera.up())));
+        camera.rotate(rx, ry);
         update();
     }
 }

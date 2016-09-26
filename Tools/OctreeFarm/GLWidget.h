@@ -34,8 +34,10 @@ private:
     GLuint octreesTbo;
     QOpenGLShaderProgram program;
 
-    float rotateSpeed = 0.007;
+    float rotateSpeed = 5;
     QPoint lastPos;
+    float rx = 0;
+    float ry = 0;
     Octree octree;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);

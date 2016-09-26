@@ -10,11 +10,11 @@
 #include <QOpenGLShaderProgram>
 #include <cstdint>
 
-class GLWidget : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
+class Viewport : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     Q_OBJECT
 
 public:
-    GLWidget(QWidget *parent = 0);
+    Viewport(QWidget *parent = 0);
 
 protected:
     void initializeGL() override;

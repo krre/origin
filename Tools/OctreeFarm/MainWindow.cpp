@@ -46,7 +46,7 @@ void MainWindow::setupSplitter() {
     controlsWidget->setMinimumWidth(100);
     splitter->addWidget(controlsWidget);
 
-    glWidget = new GLWidget;
+    glWidget = new Viewport;
     glWidget->setMinimumWidth(100);
     splitter->addWidget(glWidget);
 

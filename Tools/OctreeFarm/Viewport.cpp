@@ -1,4 +1,4 @@
-#include "GLWidget.h"
+#include "Viewport.h"
 #include <QtCore>
 #include <QApplication>
 #include <glm/glm.hpp>
@@ -6,7 +6,7 @@
 #include <iostream>
 
 
-GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent) {
+Viewport::Viewport(QWidget* parent) : QOpenGLWidget(parent) {
     QSurfaceFormat format;
     format.setVersion(3, 3);
     format.setRenderableType(QSurfaceFormat::OpenGL);
@@ -16,7 +16,7 @@ GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     camera.setTarget(glm::vec3(0.0, 0.0, 0.0));
 }
 
-void GLWidget::initializeGL() {
+void Viewport::initializeGL() {
     initializeOpenGLFunctions();
     glClearColor(0.95, 1.0, 1.0, 1.0);
 
@@ -69,7 +69,7 @@ void GLWidget::initializeGL() {
     updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
 }
 
-void GLWidget::paintGL() {
+void Viewport::paintGL() {
 
     QVector<glm::vec4> object;
     object.push_back(octree.octreeToWorld()[0]);
@@ -137,16 +137,16 @@ void GLWidget::paintGL() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
-void GLWidget::resizeGL(int w, int h) {
+void Viewport::resizeGL(int w, int h) {
     Q_UNUSED(w)
     Q_UNUSED(h)
 }
 
-void GLWidget::mousePressEvent(QMouseEvent* event) {
+void Viewport::mousePressEvent(QMouseEvent* event) {
     lastPos = event->pos();
 }
 
-void GLWidget::mouseMoveEvent(QMouseEvent* event) {
+void Viewport::mouseMoveEvent(QMouseEvent* event) {
     if (QGuiApplication::mouseButtons() == Qt::RightButton) {
         rx += (lastPos.x() - event->pos().x()) / rotateSpeed;
         ry += (lastPos.y() - event->pos().y()) / rotateSpeed;
@@ -156,12 +156,12 @@ void GLWidget::mouseMoveEvent(QMouseEvent* event) {
     }
 }
 
-void GLWidget::wheelEvent(QWheelEvent* event) {
+void Viewport::wheelEvent(QWheelEvent* event) {
     camera.zoom(glm::sin(event->angleDelta().ry()));
     update();
 }
 
-void GLWidget::updateOctreeInGPU(int offset, void* data, int count) {
+void Viewport::updateOctreeInGPU(int offset, void* data, int count) {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, offset, count, data);
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "GLWidget.h"
+#include "Viewport.h"
 #include "ControlsWidget.h"
 #include <QtWidgets>
 
@@ -28,7 +28,7 @@ private:
     void writeSettings();
 
     QSplitter* splitter;
-    GLWidget* glWidget;
+    Viewport* glWidget;
     ControlsWidget* controlsWidget;
     QSettings* settings;
 };

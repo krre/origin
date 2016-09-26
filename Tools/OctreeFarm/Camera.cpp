@@ -27,9 +27,7 @@ void Camera::rotate(float yaw, float pitch) {
 }
 
 void Camera::zoom(float amount) {
-//    qDebug() << amount;
     m_position += m_look * amount;
-//    std::cout << glm::to_string(m_position) << std::endl;
     distance = glm::distance(m_position, m_target);
     distance = std::max(minDistance, std::min(distance, maxDistance));
     update();

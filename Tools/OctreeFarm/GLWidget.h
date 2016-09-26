@@ -1,6 +1,7 @@
 #pragma once
 #include "Octree.h"
 #include "Camera.h"
+#include <QtGui>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLBuffer>
@@ -33,6 +34,8 @@ private:
     GLuint octreesTbo;
     QOpenGLShaderProgram program;
 
+    float rotateSpeed = 0.007;
+    QPoint lastPos;
     Octree octree;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);

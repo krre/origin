@@ -3,6 +3,8 @@
 #include <QApplication>
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
+#include <iostream>
+
 
 GLWidget::GLWidget(QWidget* parent) : QOpenGLWidget(parent) {
     QSurfaceFormat format;
@@ -138,11 +140,22 @@ void GLWidget::resizeGL(int w, int h) {
 }
 
 void GLWidget::mousePressEvent(QMouseEvent* event) {
-    Q_UNUSED(event)
+    lastPos = event->pos();
 }
 
 void GLWidget::mouseMoveEvent(QMouseEvent* event) {
-    Q_UNUSED(event)
+    if (QGuiApplication::mouseButtons() == Qt::RightButton) {
+        int dx = lastPos.x() - event->pos().x();
+        int dy = lastPos.y() - event->pos().y();
+        lastPos = event->pos();
+        glm::vec4 target = glm::vec4(0.0, 0.0, 0.0, 1.0);
+        glm::vec4 position = camera.cameraToWorld()[3];
+        position = glm::toMat4(glm::toQuat(glm::rotate(glm::mat4(1.0), dy * rotateSpeed, camera.right()))) * (position - target) + target;
+        position = glm::toMat4(glm::toQuat(glm::rotate(glm::mat4(1.0), dx * rotateSpeed, camera.up()))) * (position - target) + target;
+//        std::cout << glm::to_string(pos1) << std::endl;
+        camera.setCameraToWorld(glm::inverse(glm::lookAt(glm::vec3(position), glm::vec3(target), camera.up())));
+        update();
+    }
 }
 
 void GLWidget::updateOctreeInGPU(int offset, void* data, int count) {

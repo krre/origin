@@ -8,6 +8,7 @@ class Camera : public QObject {
 public:
     explicit Camera(QObject* parent = 0);
     glm::mat4 cameraToWorld() const { return m_cameraToWorld; }
+    void setCameraToWorld(const glm::mat4 cameraToWorld);
     glm::mat4 worldToCamera() const { return m_worldToCamera; }
 
     float fov() { return m_fov; }

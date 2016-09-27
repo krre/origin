@@ -20,7 +20,7 @@ protected:
 private slots:
     void newFile();
     void open();
-    void saveFile();
+    void save();
     void saveAsFile();
     void about();
     void initViewport();

@@ -81,6 +81,7 @@ void MainWindow::newFile() {
 }
 
 void MainWindow::openFile() {
+    dirty = false;
 
 }
 
@@ -89,6 +90,7 @@ void MainWindow::saveFile() {
         saveAsFile();
     } else if (dirty) {
         octree.save(octreeFilePath);
+        dirty = false;
     }
 }
 

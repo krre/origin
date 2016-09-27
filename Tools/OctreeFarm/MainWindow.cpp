@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setCentralWidget(splitter);
 
     readSettings();
+
+    newFile();
 }
 
 MainWindow::~MainWindow() {

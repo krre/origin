@@ -184,10 +184,20 @@ void MainWindow::newFile() {
 
 void MainWindow::open() {
     if (maybeSave()) {
-        QString fileName = QFileDialog::getOpenFileName(this);
-        if (!fileName.isEmpty()) {
-            loadFile(fileName);
+        QFileDialog dialog(this);
+        dialog.setWindowModality(Qt::WindowModal);
+        dialog.setAcceptMode(QFileDialog::AcceptOpen);
+        dialog.setNameFilter(tr("Octrees (*.octree)"));
+        if (dialog.exec() != QDialog::Accepted) {
+            return;
         }
+        QString fileName = dialog.selectedFiles().first();
+        QStringList list = fileName.split(".");
+        if (list.length() > 0 && list.at(list.length() - 1) != "octree") {
+            fileName += ".octree";
+        }
+
+        loadFile(fileName);
     }
 }
 

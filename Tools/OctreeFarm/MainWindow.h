@@ -1,6 +1,7 @@
 #pragma once
 #include "Viewport.h"
 #include "Properties.h"
+#include "Octree.h"
 #include <QtWidgets>
 
 class MainWindow : public QMainWindow {
@@ -31,4 +32,5 @@ private:
     Viewport* glWidget;
     Properties* controlsWidget;
     QSettings* settings;
+    Octree octree;
 };

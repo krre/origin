@@ -14,7 +14,7 @@ class Viewport : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     Q_OBJECT
 
 public:
-    Viewport(QWidget *parent = 0);
+    Viewport(Octree* octree);
 
 protected:
     void initializeGL() override;
@@ -39,7 +39,7 @@ private:
     QPoint lastPos;
     float rx = 0;
     float ry = 0;
-    Octree octree;
+    Octree* octree;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
 };

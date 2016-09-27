@@ -19,6 +19,7 @@ public:
     void createNew();
     void createTest();
     bool save(const QString& filePath);
+    bool load(const QString& filePath);
 
     void setIsModified(bool isModified);
     bool isModified() const { return m_isModified; }

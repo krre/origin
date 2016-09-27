@@ -32,6 +32,7 @@ private:
     void writeSettings();
     bool maybeSave();
     bool saveFile(const QString& fileName);
+    void loadFile(const QString& fileName);
     void setCurrentFile(const QString& fileName);
 
     QSplitter* splitter;

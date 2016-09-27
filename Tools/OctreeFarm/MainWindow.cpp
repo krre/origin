@@ -125,12 +125,34 @@ bool MainWindow::saveFile(const QString& fileName) {
     return true;
 }
 
+void MainWindow::loadFile(const QString& fileName) {
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::warning(this, QCoreApplication::applicationName(),
+                             tr("Cannot read file %1:\n%2.")
+                             .arg(QDir::toNativeSeparators(fileName), file.errorString()));
+        return;
+    }
+
+#ifndef QT_NO_CURSOR
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+#endif
+
+    octree.load(fileName);
+
+#ifndef QT_NO_CURSOR
+    QApplication::restoreOverrideCursor();
+#endif
+
+    setCurrentFile(fileName);
+}
+
 void MainWindow::setCurrentFile(const QString& fileName) {
     currentFile = fileName;
     octree.setIsModified(false);
     setWindowModified(false);
 
-    QString shownName = currentFile;
+    QString shownName = QFileInfo(currentFile).fileName();
     if (currentFile.isEmpty()) {
         shownName = "untitled.octree";
     }
@@ -147,8 +169,12 @@ void MainWindow::newFile() {
 }
 
 void MainWindow::open() {
-    octree.setIsModified(false);
-
+    if (maybeSave()) {
+        QString fileName = QFileDialog::getOpenFileName(this);
+        if (!fileName.isEmpty()) {
+            loadFile(fileName);
+        }
+    }
 }
 
 bool MainWindow::save() {

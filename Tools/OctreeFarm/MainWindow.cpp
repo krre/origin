@@ -68,15 +68,20 @@ void MainWindow::setupSplitter() {
 void MainWindow::readSettings() {
     splitter->restoreState(settings->value("General/splitter").toByteArray());
 
-    int x = settings->value("Window/x", 200).toInt();
-    int y = settings->value("Window/y", 200).toInt();
-    move(x, y);
+    const QByteArray geometry = settings->value("General/geometry", QByteArray()).toByteArray();
+    if (geometry.isEmpty()) {
+        const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
+        resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
+        move((availableGeometry.width() - width()) / 2,
+             (availableGeometry.height() - height()) / 2);
+    } else {
+        restoreGeometry(geometry);
+    }
 }
 
 void MainWindow::writeSettings() {
     settings->setValue("General/splitter", splitter->saveState());
-    settings->setValue("Window/x", x());
-    settings->setValue("Window/y", y());
+    settings->setValue("General/geometry", saveGeometry());
 }
 
 bool MainWindow::maybeSave() {

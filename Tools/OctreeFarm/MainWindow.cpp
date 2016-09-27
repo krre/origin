@@ -98,6 +98,11 @@ bool MainWindow::maybeSave() {
     return true;
 }
 
+bool MainWindow::saveFile(const QString& fileName) {
+    octree.save(fileName);
+    return true;
+}
+
 void MainWindow::newFile() {
     octreeFilePath.clear();
     octree.createNew();
@@ -114,16 +119,19 @@ void MainWindow::open() {
 bool MainWindow::save() {
     if (octreeFilePath.isEmpty()) {
         return saveAs();
-    } else if (dirty) {
-        octree.save(octreeFilePath);
-        dirty = false;
+    } else {
+        return saveFile(octreeFilePath);
     }
-
-    return true;
 }
 
 bool MainWindow::saveAs() {
-    qDebug() << "Save as";
+    QFileDialog dialog(this);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setAcceptMode(QFileDialog::AcceptSave);
+    if (dialog.exec() != QDialog::Accepted) {
+        return false;
+    }
+    return saveFile(dialog.selectedFiles().first());
 }
 
 void MainWindow::about() {

@@ -31,6 +31,7 @@ private:
     void readSettings();
     void writeSettings();
     bool maybeSave();
+    bool saveFile(const QString& fileName);
 
     QSplitter* splitter;
     Viewport* viewport;

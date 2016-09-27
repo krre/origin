@@ -54,6 +54,7 @@ void Octree::createTest() {
     storage.push_back(0xC5651FFF);
 }
 
-void Octree::save(const QString& filePath) {
+bool Octree::save(const QString& filePath) {
     qDebug() << "Save with path" << filePath;
+    return true;
 }

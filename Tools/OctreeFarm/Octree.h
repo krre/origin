@@ -18,7 +18,7 @@ public:
 
     void createNew();
     void createTest();
-    void save(const QString& filePath);
+    bool save(const QString& filePath);
 
 private:
     QVector<uint32_t> storage;

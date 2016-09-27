@@ -3,7 +3,6 @@
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     resize(800, 480);
-    setWindowTitle(QApplication::applicationName());
 
     setupMenuBar();
     setupSplitter();
@@ -13,6 +12,9 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     readSettings();
 
     connect(viewport, &Viewport::ready, this, &MainWindow::initViewport);
+    connect(&octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
+
+    setCurrentFile(QString());
 }
 
 MainWindow::~MainWindow() {
@@ -99,16 +101,49 @@ bool MainWindow::maybeSave() {
 }
 
 bool MainWindow::saveFile(const QString& fileName) {
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        QMessageBox::warning(this, QCoreApplication::applicationName(),
+                             tr("Cannot write file %1:\n%2.")
+                             .arg(QDir::toNativeSeparators(fileName),
+                                  file.errorString()));
+        return false;
+    }
+
+
+#ifndef QT_NO_CURSOR
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+#endif
+
     octree.save(fileName);
+
+#ifndef QT_NO_CURSOR
+    QApplication::restoreOverrideCursor();
+#endif
+
+    setCurrentFile(fileName);
     return true;
 }
 
+void MainWindow::setCurrentFile(const QString& fileName) {
+    octreeFilePath = fileName;
+    octree.setIsModified(false);
+    setWindowModified(false);
+
+    QString shownName = octreeFilePath;
+    if (octreeFilePath.isEmpty()) {
+        shownName = "untitled.octree";
+    }
+    setWindowFilePath(shownName);
+    setWindowTitle(shownName + "[*] - " + QCoreApplication::applicationName());
+}
+
 void MainWindow::newFile() {
-    octreeFilePath.clear();
-    octree.createNew();
-//    octree.createTest();
-    viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
-    octree.setIsModified(true);
+    if (maybeSave()) {
+        octree.createNew();
+        setCurrentFile(QString());
+        viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
+    }
 }
 
 void MainWindow::open() {

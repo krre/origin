@@ -5,8 +5,25 @@ Octree::Octree(QObject* parent) : QObject(parent) {
 }
 
 void Octree::createNew() {
-    qDebug() << "New octree";
     storage.clear();
+
+    // Header
+    storage.push_back(0x00000002); // => Block info
+    // Nodes
+    storage.push_back(0x0000FF00); // 0000 0000 0000 0000 | 1111 1111 | 0000 0000
+    // Block info
+    storage.push_back(0x00000000);
+    // Attach data
+    storage.push_back(0x000001FF); // 0000 0000 0000 0000 0000 0001 | 1111 1111
+    // Colors
+    storage.push_back(defaultColor);
+    storage.push_back(defaultColor);
+    storage.push_back(defaultColor);
+    storage.push_back(defaultColor);
+    storage.push_back(defaultColor);
+    storage.push_back(defaultColor);
+    storage.push_back(defaultColor);
+    storage.push_back(defaultColor);
 }
 
 void Octree::createTest() {

@@ -74,9 +74,10 @@ void MainWindow::writeSettings() {
 
 void MainWindow::newFile() {
     octreeFilePath.clear();
-//    octree.createNew();
-    octree.createTest();
+    octree.createNew();
+//    octree.createTest();
     viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
+    dirty = true;
 }
 
 void MainWindow::openFile() {

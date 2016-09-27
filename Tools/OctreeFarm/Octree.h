@@ -21,6 +21,7 @@ public:
 
 private:
     QVector<uint32_t> storage;
+    uint32_t defaultColor = 0x7E4681FF;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);
 };

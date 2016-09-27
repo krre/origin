@@ -21,7 +21,7 @@ private slots:
     void newFile();
     void open();
     void save();
-    void saveAsFile();
+    void saveAs();
     void about();
     void initViewport();
 

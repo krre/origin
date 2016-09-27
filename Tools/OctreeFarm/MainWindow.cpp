@@ -29,7 +29,7 @@ void MainWindow::setupMenuBar() {
     fileMenu->addAction(tr("New"), this, &MainWindow::newFile, QKeySequence("Ctrl+N"));
     fileMenu->addAction(tr("Open..."), this, &MainWindow::open, QKeySequence("Ctrl+O"));
     fileMenu->addAction(tr("Save"), this, &MainWindow::save, QKeySequence("Ctrl+S"));
-    fileMenu->addAction(tr("Save As..."), this, &MainWindow::saveAsFile, QKeySequence("Ctrl+Shift+S"));
+    fileMenu->addAction(tr("Save As..."), this, &MainWindow::saveAs, QKeySequence("Ctrl+Shift+S"));
     fileMenu->addSeparator();
     fileMenu->addAction(tr("Exit"), this, &QWidget::close, QKeySequence("Ctrl+Q"));
 
@@ -88,14 +88,14 @@ void MainWindow::open() {
 
 void MainWindow::save() {
     if (octreeFilePath.isEmpty()) {
-        saveAsFile();
+        saveAs();
     } else if (dirty) {
         octree.save(octreeFilePath);
         dirty = false;
     }
 }
 
-void MainWindow::saveAsFile() {
+void MainWindow::saveAs() {
     qDebug() << "Save as";
 }
 

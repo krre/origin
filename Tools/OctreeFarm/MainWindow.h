@@ -30,7 +30,7 @@ private:
 
     QSplitter* splitter;
     Viewport* viewport;
-    Properties* controlsWidget;
+    Properties* properties;
     QSettings* settings;
     Octree octree;
 };

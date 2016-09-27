@@ -55,7 +55,17 @@ void Octree::createTest() {
 }
 
 bool Octree::save(const QString& fileName) {
-    qDebug() << "Save with path" << fileName;
+    QFile file(fileName);
+    if (!file.open(QFile::WriteOnly)) {
+        qDebug() << "Could not open file for writing";
+        return false;
+    }
+    QDataStream out(&file);
+    for (auto it: storage) {
+        out << it;
+    }
+    file.close();
+
     return true;
 }
 

@@ -39,5 +39,5 @@ private:
     Properties* properties;
     QSettings* settings;
     Octree octree;
-    QString octreeFilePath;
+    QString currentFile;
 };

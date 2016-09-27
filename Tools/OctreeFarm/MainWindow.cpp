@@ -126,12 +126,12 @@ bool MainWindow::saveFile(const QString& fileName) {
 }
 
 void MainWindow::setCurrentFile(const QString& fileName) {
-    octreeFilePath = fileName;
+    currentFile = fileName;
     octree.setIsModified(false);
     setWindowModified(false);
 
-    QString shownName = octreeFilePath;
-    if (octreeFilePath.isEmpty()) {
+    QString shownName = currentFile;
+    if (currentFile.isEmpty()) {
         shownName = "untitled.octree";
     }
     setWindowFilePath(shownName);
@@ -152,10 +152,10 @@ void MainWindow::open() {
 }
 
 bool MainWindow::save() {
-    if (octreeFilePath.isEmpty()) {
+    if (currentFile.isEmpty()) {
         return saveAs();
     } else {
-        return saveFile(octreeFilePath);
+        return saveFile(currentFile);
     }
 }
 

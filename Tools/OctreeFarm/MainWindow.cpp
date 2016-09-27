@@ -161,6 +161,23 @@ void MainWindow::loadFile(const QString& fileName) {
     setCurrentFile(fileName);
 }
 
+QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
+    QFileDialog dialog(this);
+    dialog.setWindowModality(Qt::WindowModal);
+    dialog.setAcceptMode(mode);
+    dialog.setNameFilter(tr("Octrees (*.octree)"));
+    if (dialog.exec() != QDialog::Accepted) {
+        return QString();
+    }
+    QString fileName = dialog.selectedFiles().first();
+    QStringList list = fileName.split(".");
+    if (list.length() > 0 && list.at(list.length() - 1) != "octree") {
+        fileName += ".octree";
+    }
+
+    return fileName;
+}
+
 void MainWindow::setCurrentFile(const QString& fileName) {
     currentFile = fileName;
     octree.setIsModified(false);
@@ -184,20 +201,10 @@ void MainWindow::newFile() {
 
 void MainWindow::open() {
     if (maybeSave()) {
-        QFileDialog dialog(this);
-        dialog.setWindowModality(Qt::WindowModal);
-        dialog.setAcceptMode(QFileDialog::AcceptOpen);
-        dialog.setNameFilter(tr("Octrees (*.octree)"));
-        if (dialog.exec() != QDialog::Accepted) {
-            return;
+        QString fileName = openFileDialog(QFileDialog::AcceptOpen);
+        if (!fileName.isEmpty()) {
+            loadFile(fileName);
         }
-        QString fileName = dialog.selectedFiles().first();
-        QStringList list = fileName.split(".");
-        if (list.length() > 0 && list.at(list.length() - 1) != "octree") {
-            fileName += ".octree";
-        }
-
-        loadFile(fileName);
     }
 }
 
@@ -210,19 +217,12 @@ bool MainWindow::save() {
 }
 
 bool MainWindow::saveAs() {
-    QFileDialog dialog(this);
-    dialog.setWindowModality(Qt::WindowModal);
-    dialog.setAcceptMode(QFileDialog::AcceptSave);
-    dialog.setNameFilter(tr("Octrees (*.octree)"));
-    if (dialog.exec() != QDialog::Accepted) {
-        return false;
+    QString fileName = openFileDialog(QFileDialog::AcceptSave);
+    if (!fileName.isEmpty()) {
+        return saveFile(fileName);
     }
-    QString fileName = dialog.selectedFiles().first();
-    QStringList list = fileName.split(".");
-    if (list.length() > 0 && list.at(list.length() - 1) != "octree") {
-        fileName += ".octree";
-    }
-    return saveFile(fileName);
+
+    return false;
 }
 
 void MainWindow::about() {

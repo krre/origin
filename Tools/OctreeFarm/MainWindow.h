@@ -6,6 +6,7 @@
 #include <QSplitter>
 #include <QSettings>
 #include <QCloseEvent>
+#include <QFileDialog>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -35,6 +36,7 @@ private:
     bool maybeSave();
     bool saveFile(const QString& fileName);
     void loadFile(const QString& fileName);
+    QString openFileDialog(QFileDialog::QFileDialog::AcceptMode mode);
     void setCurrentFile(const QString& fileName);
 
     QSplitter* splitter;

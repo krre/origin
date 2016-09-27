@@ -2,7 +2,14 @@
 
 Octree::Octree(QObject* parent) : QObject(parent) {
     m_worldToOctree = glm::inverse(m_octreeToWorld);
+}
 
+void Octree::createNew() {
+    qDebug() << "New octree";
+    storage.clear();
+}
+
+void Octree::createTest() {
     // Test data
     // Header
     storage.push_back(0x00000003); // => Block info
@@ -27,10 +34,6 @@ Octree::Octree(QObject* parent) : QObject(parent) {
     storage.push_back(0x6B38ACFF);
     storage.push_back(0x5DD772FF);
     storage.push_back(0xC5651FFF);
-}
-
-void Octree::createNew() {
-    qDebug() << "New octree";
 }
 
 void Octree::save(const QString& filePath) {

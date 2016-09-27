@@ -20,6 +20,7 @@ private slots:
     void saveFile();
     void saveAsFile();
     void about();
+    void initViewport();
 
 private:
     void setupMenuBar();

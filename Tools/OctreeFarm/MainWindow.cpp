@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
     readSettings();
 
-    newFile();
+    connect(viewport, &Viewport::ready, this, &MainWindow::initViewport);
 }
 
 MainWindow::~MainWindow() {
@@ -74,7 +74,9 @@ void MainWindow::writeSettings() {
 
 void MainWindow::newFile() {
     octreeFilePath.clear();
-    octree.createNew();
+//    octree.createNew();
+    octree.createTest();
+    viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
 }
 
 void MainWindow::openFile() {
@@ -95,5 +97,9 @@ void MainWindow::saveAsFile() {
 
 void MainWindow::about() {
     QMessageBox::about(this, QString(tr("About %1")).arg(QApplication::applicationName()),
-            QString(tr("<h3><b>%1 %2<b></h3><br>Sparse voxel octree editor for Gagarin game")).arg(QApplication::applicationName()).arg(QApplication::applicationVersion()));
+                       QString(tr("<h3><b>%1 %2<b></h3><br>Sparse voxel octree editor for Gagarin game")).arg(QApplication::applicationName()).arg(QApplication::applicationVersion()));
+}
+
+void MainWindow::initViewport() {
+    newFile();
 }

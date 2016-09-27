@@ -15,6 +15,7 @@ class Viewport : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
 
 public:
     Viewport(Octree* octree);
+    void updateOctreeInGPU(int offset, void* data, int count);
 
 protected:
     void initializeGL() override;
@@ -24,9 +25,10 @@ protected:
     void mouseMoveEvent(QMouseEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
 
-private:
-    void updateOctreeInGPU(int offset, void* data, int count);
+signals:
+    void ready();
 
+private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
     GLuint objectsTexture;

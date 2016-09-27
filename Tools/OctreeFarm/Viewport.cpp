@@ -66,7 +66,7 @@ void Viewport::initializeGL() {
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
     glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA8UI, octreesTbo);
 
-    updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
+    emit ready();
 }
 
 void Viewport::paintGL() {

@@ -20,9 +20,13 @@ public:
     void createTest();
     bool save(const QString& filePath);
 
+    void setIsModified(bool isModified) { m_isModified = isModified; }
+    bool isModified() const { return m_isModified; }
+
 private:
     QVector<uint32_t> storage;
     uint32_t defaultColor = 0x7E4681FF;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);
+    bool m_isModified = false;
 };

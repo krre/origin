@@ -78,7 +78,7 @@ void MainWindow::writeSettings() {
 }
 
 bool MainWindow::maybeSave() {
-    if (!dirty) {
+    if (!octree.isModified()) {
         return true;
     }
 
@@ -108,11 +108,11 @@ void MainWindow::newFile() {
     octree.createNew();
 //    octree.createTest();
     viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
-    dirty = true;
+    octree.setIsModified(true);
 }
 
 void MainWindow::open() {
-    dirty = false;
+    octree.setIsModified(false);
 
 }
 

@@ -24,11 +24,12 @@ private slots:
     bool saveAs();
     void about();
     void initViewport();
+    void resetGeometry();
 
 private:
     void setupMenuBar();
+    void setupActions();
     void setupSplitter();
-    void resetGeometry();
     void readSettings();
     void writeSettings();
     bool maybeSave();

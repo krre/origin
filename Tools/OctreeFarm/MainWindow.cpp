@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     setupMenuBar();
     setupSplitter();
+    setupActions();
 
     setCentralWidget(splitter);
 
@@ -40,6 +41,13 @@ void MainWindow::setupMenuBar() {
     QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(QString(tr("About %1...")).arg(QApplication::applicationName()), this, &MainWindow::about);
     helpMenu->addAction(tr("About Qt..."), qApp, &QApplication::aboutQt);
+}
+
+void MainWindow::setupActions() {
+    QAction* resetGeometryAct = new QAction;
+    resetGeometryAct->setShortcut(QKeySequence("Ctrl+F12"));
+    connect(resetGeometryAct, &QAction::triggered, this, &MainWindow::resetGeometry);
+    addAction(resetGeometryAct);
 }
 
 void MainWindow::setupSplitter() {

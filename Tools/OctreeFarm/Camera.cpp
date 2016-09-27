@@ -1,4 +1,5 @@
 #include "Camera.h"
+#include <QtCore>
 #include <iostream>
 
 Camera::Camera(QObject* parent) : QObject(parent) {

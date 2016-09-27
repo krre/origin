@@ -1,7 +1,8 @@
 #pragma once
-#include <QtCore>
 #include <cstdint>
 #include <glm/ext.hpp>
+#include <QObject>
+#include <QVector>
 
 class Octree : public QObject {
     Q_OBJECT

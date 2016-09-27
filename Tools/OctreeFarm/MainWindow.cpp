@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     resize(800, 480);

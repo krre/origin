@@ -1,7 +1,6 @@
 #pragma once
 #include "Octree.h"
 #include "Camera.h"
-#include <QtGui>
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLBuffer>

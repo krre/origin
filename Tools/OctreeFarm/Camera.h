@@ -1,5 +1,5 @@
 #pragma once
-#include <QtCore>
+#include <QObject>
 #include <glm/ext.hpp>
 
 class Camera : public QObject {

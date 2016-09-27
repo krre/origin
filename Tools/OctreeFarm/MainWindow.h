@@ -2,7 +2,10 @@
 #include "Viewport.h"
 #include "Properties.h"
 #include "Octree.h"
-#include <QtWidgets>
+#include <QMainWindow>
+#include <QSplitter>
+#include <QSettings>
+#include <QCloseEvent>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT

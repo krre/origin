@@ -1,10 +1,9 @@
 #include "Viewport.h"
-#include <QtCore>
+#include <QtGui>
 #include <QApplication>
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
-
 
 Viewport::Viewport(Octree* octree) : octree(octree) {
     QSurfaceFormat format;

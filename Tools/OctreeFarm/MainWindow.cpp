@@ -80,11 +80,15 @@ void MainWindow::openFile() {
 }
 
 void MainWindow::saveFile() {
-
+    if (octreeFilePath.isEmpty()) {
+        saveAsFile();
+    } else {
+        octree.save(octreeFilePath);
+    }
 }
 
 void MainWindow::saveAsFile() {
-
+    qDebug() << "Save as";
 }
 
 void MainWindow::closeFile() {

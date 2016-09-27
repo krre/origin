@@ -28,3 +28,7 @@ Octree::Octree(QObject* parent) : QObject(parent) {
     storage.push_back(0x5DD772FF);
     storage.push_back(0xC5651FFF);
 }
+
+void Octree::save(const QString& filePath) {
+    qDebug() << "Save with path" << filePath;
+}

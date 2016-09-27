@@ -1,6 +1,5 @@
 #pragma once
-#include <QObject>
-#include <QVector>
+#include <QtCore>
 #include <cstdint>
 #include <glm/ext.hpp>
 
@@ -15,6 +14,8 @@ public:
 
     glm::mat4 octreeToWorld() const { return m_octreeToWorld; }
     glm::mat4 worldToOctree() const { return m_worldToOctree; }
+
+    void save(const QString& filePath);
 
 private:
     QVector<uint32_t> storage;

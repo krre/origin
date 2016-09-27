@@ -38,6 +38,20 @@ void MainWindow::setupMenuBar() {
     fileMenu->addSeparator();
     fileMenu->addAction(tr("Exit"), this, &QWidget::close, QKeySequence("Ctrl+Q"));
 
+    QMenu* editMenu = menuBar()->addMenu(tr("Edit"));
+    editMenu->addAction(tr("Undo"));
+    editMenu->addAction(tr("Redo"));
+    editMenu->addSeparator();
+
+    QMenu* octreeMenu = menuBar()->addMenu(tr("Node"));
+    octreeMenu->addAction(tr("Split"));
+    octreeMenu->addAction(tr("Merge"));
+    octreeMenu->addAction(tr("Add"));
+    octreeMenu->addAction(tr("Remove"));
+
+    QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));
+    toolsMenu->addAction(tr("Options.."));
+
     QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(QString(tr("About %1...")).arg(QApplication::applicationName()), this, &MainWindow::about);
     helpMenu->addAction(tr("About Qt..."), qApp, &QApplication::aboutQt);

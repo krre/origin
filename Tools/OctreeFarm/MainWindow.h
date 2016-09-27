@@ -29,7 +29,7 @@ private:
     void writeSettings();
 
     QSplitter* splitter;
-    Viewport* glWidget;
+    Viewport* viewport;
     Properties* controlsWidget;
     QSettings* settings;
     Octree octree;

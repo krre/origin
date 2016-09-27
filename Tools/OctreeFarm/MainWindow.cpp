@@ -46,9 +46,9 @@ void MainWindow::setupSplitter() {
     controlsWidget->setMinimumWidth(100);
     splitter->addWidget(controlsWidget);
 
-    glWidget = new Viewport(&octree);
-    glWidget->setMinimumWidth(100);
-    splitter->addWidget(glWidget);
+    viewport = new Viewport(&octree);
+    viewport->setMinimumWidth(100);
+    splitter->addWidget(viewport);
 
     QList<int> sizes;
     sizes << 250 << 550;

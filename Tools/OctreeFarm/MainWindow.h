@@ -19,7 +19,7 @@ protected:
 
 private slots:
     void newFile();
-    void openFile();
+    void open();
     void saveFile();
     void saveAsFile();
     void about();

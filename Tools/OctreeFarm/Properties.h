@@ -1,13 +1,13 @@
 #pragma once
+#include "Octree.h"
 #include <QWidget>
 
 class Properties : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Properties(QWidget* parent = 0);
+    explicit Properties(Octree* octree);
 
-signals:
-
-public slots:
+private:
+    Octree* octree;
 };

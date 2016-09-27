@@ -1,5 +1,5 @@
 #include "Properties.h"
 
-Properties::Properties(QWidget* parent) : QWidget(parent) {
+Properties::Properties(Octree* octree) : octree(octree) {
 
 }

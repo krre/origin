@@ -29,7 +29,6 @@ void MainWindow::setupMenuBar() {
     fileMenu->addAction(tr("Open..."), this, &MainWindow::openFile, QKeySequence("Ctrl+O"));
     fileMenu->addAction(tr("Save"), this, &MainWindow::saveFile, QKeySequence("Ctrl+S"));
     fileMenu->addAction(tr("Save As..."), this, &MainWindow::saveAsFile, QKeySequence("Ctrl+Shift+S"));
-    fileMenu->addAction(tr("Close"), this, &MainWindow::closeFile, QKeySequence("Ctrl+W"));
     fileMenu->addSeparator();
     fileMenu->addAction(tr("Exit"), this, &QWidget::close, QKeySequence("Ctrl+Q"));
 
@@ -92,10 +91,6 @@ void MainWindow::saveFile() {
 
 void MainWindow::saveAsFile() {
     qDebug() << "Save as";
-}
-
-void MainWindow::closeFile() {
-
 }
 
 void MainWindow::about() {

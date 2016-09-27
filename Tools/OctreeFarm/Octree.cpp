@@ -70,7 +70,20 @@ bool Octree::save(const QString& fileName) {
 }
 
 bool Octree::load(const QString& fileName) {
-    qDebug() << "Load with path" << fileName;
+    QFile file(fileName);
+    if (!file.open(QFile::ReadOnly)) {
+        qDebug() << "Could not open file for reading";
+        return false;
+    }
+    QDataStream in(&file);
+    uint32_t word;
+    storage.clear();
+    while (!in.atEnd()) {
+        in >> word;
+        storage.push_back(word);
+    }
+    file.close();
+
     return true;
 }
 

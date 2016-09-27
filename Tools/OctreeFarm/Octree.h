@@ -15,6 +15,7 @@ public:
     glm::mat4 octreeToWorld() const { return m_octreeToWorld; }
     glm::mat4 worldToOctree() const { return m_worldToOctree; }
 
+    void createNew();
     void save(const QString& filePath);
 
 private:

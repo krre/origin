@@ -72,7 +72,8 @@ void MainWindow::writeSettings() {
 }
 
 void MainWindow::newFile() {
-    qDebug() << "new";
+    octreeFilePath.clear();
+    octree.createNew();
 }
 
 void MainWindow::openFile() {

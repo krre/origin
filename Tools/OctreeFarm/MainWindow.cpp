@@ -20,8 +20,12 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
-    writeSettings();
-    event->accept();
+    if (maybeSave()) {
+        writeSettings();
+        event->accept();
+    } else {
+        event->ignore();
+    }
 }
 
 void MainWindow::setupMenuBar() {
@@ -73,6 +77,27 @@ void MainWindow::writeSettings() {
     settings->setValue("Window/y", y());
 }
 
+bool MainWindow::maybeSave() {
+    if (!dirty) {
+        return true;
+    }
+
+    const QMessageBox::StandardButton ret
+        = QMessageBox::warning(this, QCoreApplication::applicationName(),
+                               tr("The octree has been modified.\n"
+                                  "Do you want to save your changes?"),
+                               QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
+    switch (ret) {
+    case QMessageBox::Save:
+        return save();
+    case QMessageBox::Cancel:
+        return false;
+    default:
+        break;
+    }
+    return true;
+}
+
 void MainWindow::newFile() {
     octreeFilePath.clear();
     octree.createNew();
@@ -86,16 +111,18 @@ void MainWindow::open() {
 
 }
 
-void MainWindow::save() {
+bool MainWindow::save() {
     if (octreeFilePath.isEmpty()) {
-        saveAs();
+        return saveAs();
     } else if (dirty) {
         octree.save(octreeFilePath);
         dirty = false;
     }
+
+    return true;
 }
 
-void MainWindow::saveAs() {
+bool MainWindow::saveAs() {
     qDebug() << "Save as";
 }
 

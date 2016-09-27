@@ -20,8 +20,8 @@ protected:
 private slots:
     void newFile();
     void open();
-    void save();
-    void saveAs();
+    bool save();
+    bool saveAs();
     void about();
     void initViewport();
 
@@ -30,6 +30,7 @@ private:
     void setupSplitter();
     void readSettings();
     void writeSettings();
+    bool maybeSave();
 
     QSplitter* splitter;
     Viewport* viewport;

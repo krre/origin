@@ -203,10 +203,16 @@ bool MainWindow::saveAs() {
     QFileDialog dialog(this);
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(QFileDialog::AcceptSave);
+    dialog.setNameFilter(tr("Octrees (*.octree)"));
     if (dialog.exec() != QDialog::Accepted) {
         return false;
     }
-    return saveFile(dialog.selectedFiles().first());
+    QString fileName = dialog.selectedFiles().first();
+    QStringList list = fileName.split(".");
+    if (list.length() > 0 && list.at(list.length() - 1) != "octree") {
+        fileName += ".octree";
+    }
+    return saveFile(fileName);
 }
 
 void MainWindow::about() {

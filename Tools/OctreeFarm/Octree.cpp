@@ -54,13 +54,13 @@ void Octree::createTest() {
     storage.push_back(0xC5651FFF);
 }
 
-bool Octree::save(const QString& filePath) {
-    qDebug() << "Save with path" << filePath;
+bool Octree::save(const QString& fileName) {
+    qDebug() << "Save with path" << fileName;
     return true;
 }
 
-bool Octree::load(const QString& filePath) {
-    qDebug() << "Load with path" << filePath;
+bool Octree::load(const QString& fileName) {
+    qDebug() << "Load with path" << fileName;
     return true;
 }
 

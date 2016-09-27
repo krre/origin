@@ -33,4 +33,5 @@ private:
     QSettings* settings;
     Octree octree;
     QString octreeFilePath;
+    bool dirty = false;
 };

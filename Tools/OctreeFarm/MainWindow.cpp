@@ -84,7 +84,7 @@ void MainWindow::openFile() {
 void MainWindow::saveFile() {
     if (octreeFilePath.isEmpty()) {
         saveAsFile();
-    } else {
+    } else if (dirty) {
         octree.save(octreeFilePath);
     }
 }

@@ -28,6 +28,7 @@ private slots:
 private:
     void setupMenuBar();
     void setupSplitter();
+    void resetGeometry();
     void readSettings();
     void writeSettings();
     bool maybeSave();

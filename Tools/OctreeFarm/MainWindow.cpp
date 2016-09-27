@@ -2,8 +2,6 @@
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
-    resize(800, 480);
-
     setupMenuBar();
     setupSplitter();
 
@@ -65,15 +63,18 @@ void MainWindow::setupSplitter() {
     settings = new QSettings(QApplication::applicationDirPath() + "/" + QApplication::applicationName() + ".ini", QSettings::IniFormat);
 }
 
+void MainWindow::resetGeometry() {
+    resize(800, 480);
+    const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
+    move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
+}
+
 void MainWindow::readSettings() {
     splitter->restoreState(settings->value("General/splitter").toByteArray());
 
     const QByteArray geometry = settings->value("General/geometry", QByteArray()).toByteArray();
     if (geometry.isEmpty()) {
-        const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
-        resize(availableGeometry.width() / 3, availableGeometry.height() / 2);
-        move((availableGeometry.width() - width()) / 2,
-             (availableGeometry.height() - height()) / 2);
+        resetGeometry();
     } else {
         restoreGeometry(geometry);
     }

@@ -58,3 +58,9 @@ bool Octree::save(const QString& filePath) {
     qDebug() << "Save with path" << filePath;
     return true;
 }
+
+void Octree::setIsModified(bool isModified) {
+    if (isModified == m_isModified) return;
+    m_isModified = isModified;
+    emit isModifiedChanged(isModified);
+}

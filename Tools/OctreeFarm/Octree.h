@@ -20,8 +20,11 @@ public:
     void createTest();
     bool save(const QString& filePath);
 
-    void setIsModified(bool isModified) { m_isModified = isModified; }
+    void setIsModified(bool isModified);
     bool isModified() const { return m_isModified; }
+
+signals:
+    void isModifiedChanged(bool isModified);
 
 private:
     QVector<uint32_t> storage;

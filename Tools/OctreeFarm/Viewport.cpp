@@ -10,6 +10,8 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
     format.setVersion(3, 3);
     format.setRenderableType(QSurfaceFormat::OpenGL);
     setFormat(format);
+
+    setUpdateBehavior(QOpenGLWidget::PartialUpdate);
 }
 
 void Viewport::initializeGL() {
@@ -62,6 +64,16 @@ void Viewport::initializeGL() {
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
     glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA8UI, octreesTbo);
 
+    glGenFramebuffers(1, &framebuffer);
+    glGenRenderbuffers(1, &renderbuffer);
+
+    glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
+//    glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA32UI, width(), height());
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, width(), height());
+
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+    glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffer);
+
     emit ready();
 }
 
@@ -112,7 +124,6 @@ void Viewport::paintGL() {
     glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * object.size(), object.data());
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     program.bind();
 
     QVector3D lightColor = QVector3D(1.0, 1.0, 1.0);
@@ -129,8 +140,27 @@ void Viewport::paintGL() {
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
 
+    if (fboMode) {
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+    } else {
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    }
+
     vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    if (fboMode) {
+        unsigned char* data = new unsigned char[1 * 1 * 4];
+//        glReadBuffer(GL_COLOR_ATTACHMENT0);
+        glReadPixels(pick.x(), pick.y() - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        for (int i = 0; i < 4; i++) {
+//            qDebug() << data[i];
+        }
+//                qDebug() << data[0] << data[1] << data[2] << data[3];
+        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+        delete data;
+        fboMode = false;
+    }
 }
 
 void Viewport::resizeGL(int w, int h) {
@@ -144,8 +174,10 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         qDebug() << event->pos();
         program.bind();
-        QPoint p(event->pos().x(), height() - event->pos().y());
+        pick = event->pos();
+        QPoint p = QPoint(pick.x(), height() - pick.y());
         program.setUniformValue("pickPixel", p);
+        fboMode = true;
         update();
     }
 }

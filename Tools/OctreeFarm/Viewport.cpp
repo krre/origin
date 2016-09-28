@@ -143,6 +143,10 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
 
     if (event->button() == Qt::LeftButton) {
         qDebug() << event->pos();
+        program.bind();
+        QPoint p(event->pos().x(), height() - event->pos().y());
+        program.setUniformValue("pickPixel", p);
+        update();
     }
 }
 

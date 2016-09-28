@@ -49,6 +49,8 @@ uniform float ambientStrength;
 uniform int objectCount;
 uniform int objectStride;
 
+uniform vec2 pickPixel;
+
 out vec4 color;
 
 // TODO: Replace by bitCount from GLSL 4.0
@@ -351,9 +353,13 @@ void main() {
         }
     }
 
-    if (index != -1) {
-        color = lookupColor(index, outCastRes);
+    if (gl_FragCoord.x == pickPixel.x + 0.5 && gl_FragCoord.y == pickPixel.y + 0.5) { // For OctreeFarm
+        color = vec4(1.0, 0.0, 0.0, 1.0);
     } else {
-        color = vec4(backgroundColor, 1.0);
+        if (index != -1) {
+            color = lookupColor(index, outCastRes);
+        } else {
+            color = vec4(backgroundColor, 1.0);
+        }
     }
 }

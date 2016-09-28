@@ -3,7 +3,7 @@
 #include <iostream>
 
 Camera::Camera(QObject* parent) : QObject(parent) {
-
+    reset();
 }
 
 void Camera::setCameraToWorld(const glm::mat4 cameraToWorld) {
@@ -31,6 +31,18 @@ void Camera::zoom(float amount) {
     m_position += m_look * amount;
     distance = glm::distance(m_position, m_target);
     distance = std::max(minDistance, std::min(distance, maxDistance));
+    update();
+}
+
+void Camera::reset() {
+    m_position = glm::vec3(0.0, 0.0, 3.0);
+    setTarget(glm::vec3(0.0, 0.0, 0.0));
+    m_scale = 1.0;
+    m_yaw = 0;
+    m_pitch = 0;
+    m_up = glm::vec3(0.0, 1.0, 0.0);
+    m_look = glm::vec3(0.0, 0.0, -1.0);
+    m_right = glm::vec3(1.0, 0.0, 0.0);
     update();
 }
 

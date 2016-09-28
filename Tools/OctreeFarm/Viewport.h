@@ -15,6 +15,7 @@ class Viewport : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
 public:
     Viewport(Octree* octree);
     void updateOctreeInGPU(int offset, void* data, int count);
+    void reset();
 
 protected:
     void initializeGL() override;

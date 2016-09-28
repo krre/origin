@@ -208,6 +208,7 @@ void MainWindow::setCurrentFile(const QString& fileName) {
 void MainWindow::newFile() {
     if (maybeSave()) {
         octree.createNew();
+        viewport->reset();
         viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
         viewport->update();
         setCurrentFile(QString());
@@ -219,6 +220,7 @@ void MainWindow::open() {
         QString fileName = openFileDialog(QFileDialog::AcceptOpen);
         if (!fileName.isEmpty()) {
             loadFile(fileName);
+            viewport->reset();
             viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
             viewport->update();
         }

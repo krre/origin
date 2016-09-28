@@ -10,9 +10,6 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
     format.setVersion(3, 3);
     format.setRenderableType(QSurfaceFormat::OpenGL);
     setFormat(format);
-
-    camera.setPosition(glm::vec3(0.0, 0.0, 3.0));
-    camera.setTarget(glm::vec3(0.0, 0.0, 0.0));
 }
 
 void Viewport::initializeGL() {
@@ -163,4 +160,10 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 void Viewport::updateOctreeInGPU(int offset, void* data, int count) {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, offset, count, data);
+}
+
+void Viewport::reset() {
+    rx = 0;
+    ry = 0;
+    camera.reset();
 }

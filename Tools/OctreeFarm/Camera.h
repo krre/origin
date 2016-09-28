@@ -15,6 +15,7 @@ public:
     void setPosition(const glm::vec3& position);
     void rotate(float yaw, float pitch);
     void zoom(float amount);
+    void reset();
 
     float fov() { return m_fov; }
     glm::vec3 up() { return m_up; }
@@ -30,16 +31,16 @@ private:
     float aspect;
 //    const float distance = 0.5f; // distance from camera to screen
     const glm::vec3 UP = glm::vec3(0.0, 1.0, 0.0);
-    glm::vec3 m_up = glm::vec3(0.0, 1.0, 0.0);
-    glm::vec3 m_look = glm::vec3(0.0, 0.0, -1.0);
-    glm::vec3 m_right = glm::vec3(1.0, 0.0, 0.0);
+    glm::vec3 m_up;
+    glm::vec3 m_look;
+    glm::vec3 m_right;
 
     glm::mat4 m_cameraToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToCamera = glm::mat4(1.0);
     glm::vec3 m_position;
-    glm::vec3 m_target = glm::vec3(0.0, 0.0, 0.0);
+    glm::vec3 m_target;
     float distance; // from target to position
-    float m_scale = 1.0;
-    float m_yaw = 0;
-    float m_pitch = 0;
+    float m_scale;
+    float m_yaw;
+    float m_pitch;
 };

@@ -245,7 +245,7 @@ bool MainWindow::saveAs() {
     return false;
 }
 
-bool MainWindow::revert() {
+void MainWindow::revert() {
     qDebug() << "revert";
 }
 

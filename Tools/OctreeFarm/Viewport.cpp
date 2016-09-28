@@ -140,10 +140,14 @@ void Viewport::resizeGL(int w, int h) {
 
 void Viewport::mousePressEvent(QMouseEvent* event) {
     lastPos = event->pos();
+
+    if (event->button() == Qt::LeftButton) {
+        qDebug() << event->pos();
+    }
 }
 
 void Viewport::mouseMoveEvent(QMouseEvent* event) {
-    if (QGuiApplication::mouseButtons() == Qt::RightButton) {
+    if (event->buttons() == Qt::RightButton) {
         rx += (lastPos.x() - event->pos().x()) / rotateSpeed;
         ry += (lastPos.y() - event->pos().y()) / rotateSpeed;
         lastPos = event->pos();

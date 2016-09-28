@@ -23,6 +23,7 @@ private slots:
     void open();
     bool save();
     bool saveAs();
+    bool revert();
     void about();
     void initViewport();
     void resetGeometry();

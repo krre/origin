@@ -246,7 +246,11 @@ bool MainWindow::saveAs() {
 }
 
 void MainWindow::revert() {
-    qDebug() << "revert";
+    if (!currentFile.isEmpty()) {
+        loadFile(currentFile);
+        viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
+        viewport->update();
+    }
 }
 
 void MainWindow::about() {

@@ -34,7 +34,7 @@ public:
 
 signals:
     void isModifiedChanged(bool isModified);
-    void storageChanged();
+    void dataChanged();
 
 private:
     int bitCount8(int value);

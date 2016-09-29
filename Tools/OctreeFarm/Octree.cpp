@@ -117,5 +117,5 @@ void Octree::select(const QVector<Node>& selection) {
         storage[pAttach] = 0xFFFFFF00;
     }
 
-    storageChanged();
+    dataChanged();
 }

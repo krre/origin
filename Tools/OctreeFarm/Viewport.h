@@ -30,7 +30,7 @@ signals:
     void ready();
 
 private slots:
-    void onStorageChanged();
+    void onOctreeChanged();
 
 private:
     QOpenGLVertexArrayObject vao;

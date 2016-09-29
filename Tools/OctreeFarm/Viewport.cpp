@@ -13,7 +13,7 @@ Viewport::Viewport(Octree* octree) : m_octree(octree) {
 
     setUpdateBehavior(QOpenGLWidget::PartialUpdate);
 
-    connect(octree, &Octree::storageChanged, this, &Viewport::onStorageChanged);
+    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
 }
 
 void Viewport::initializeGL() {
@@ -199,7 +199,7 @@ void Viewport::wheelEvent(QWheelEvent* event) {
     update();
 }
 
-void Viewport::onStorageChanged() {
+void Viewport::onOctreeChanged() {
     updateOctreeInGPU(0, m_octree->data(), sizeof(uint32_t) * m_octree->count());
     update();
 }

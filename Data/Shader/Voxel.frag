@@ -353,8 +353,15 @@ void main() {
         }
     }
 
-    if (gl_FragCoord.x == pickPixel.x + 0.5 && gl_FragCoord.y == pickPixel.y + 0.5) { // For OctreeFarm
-        color = vec4(1.0, 0.0, 0.0, 1.0);
+    if (gl_FragCoord.y == pickPixel.y + 0.5) { // For OctreeFarm pick node
+        float d = 255;
+        if (gl_FragCoord.x == pickPixel.x + 0.5) { // x
+            color = vec4(0xAF / d, 0x1D / d, 0x37 / d, 0x7F / d);
+        } else if (gl_FragCoord.x == pickPixel.x + 1.5) { // x + 1
+            color = vec4(0.0, 1.0, 0.0, 1.0);
+        } else if (gl_FragCoord.x == pickPixel.x + 2.5) { // x + 2
+            color = vec4(0.0, 0.0, 1.0, 1.0);
+        }
     } else {
         if (index != -1) {
             color = lookupColor(index, outCastRes);

@@ -68,7 +68,6 @@ void Viewport::initializeGL() {
     glGenRenderbuffers(1, &renderbuffer);
 
     glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
-//    glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA32UI, width(), height());
     glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, width(), height());
 
     glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
@@ -150,9 +149,11 @@ void Viewport::paintGL() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     if (fboMode) {
-        unsigned char* data = new unsigned char[1 * 1 * 4];
-        glReadPixels(pick.x(), height() - pick.y(), 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        qDebug() << data[0] << data[1] << data[2] << data[3];
+        unsigned char* data = new unsigned char[3 * 4];
+        glReadPixels(pick.x(), height() - pick.y(), 3, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        for (int i = 0; i < 3 * 4; i++) {
+//            qDebug() << data[i];
+        }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;

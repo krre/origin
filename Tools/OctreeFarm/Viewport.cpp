@@ -12,6 +12,8 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
     setFormat(format);
 
     setUpdateBehavior(QOpenGLWidget::PartialUpdate);
+
+    connect(octree, &Octree::storageChanged, this, &Viewport::onStorageChanged);
 }
 
 void Viewport::initializeGL() {
@@ -25,6 +27,8 @@ void Viewport::initializeGL() {
     program.link();
     program.bind();
 
+    program.setUniformValue("pageBytes", pageBytes);
+    program.setUniformValue("blockInfoEnd", blockInfoEnd);
     program.setUniformValue("backgroundColor", backgroundColor);
     program.setUniformValue("objectStride", 9);
     program.setUniformValue("objects", 0);
@@ -77,7 +81,6 @@ void Viewport::initializeGL() {
 }
 
 void Viewport::paintGL() {
-
     QVector<glm::vec4> object;
     object.push_back(octree->octreeToWorld()[0]);
     object.push_back(octree->octreeToWorld()[1]);
@@ -193,6 +196,11 @@ void Viewport::mouseMoveEvent(QMouseEvent* event) {
 
 void Viewport::wheelEvent(QWheelEvent* event) {
     camera.zoom(glm::sin(event->angleDelta().ry()));
+    update();
+}
+
+void Viewport::onStorageChanged() {
+    updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
     update();
 }
 

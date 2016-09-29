@@ -28,6 +28,9 @@ protected:
 signals:
     void ready();
 
+private slots:
+    void onStorageChanged();
+
 private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;

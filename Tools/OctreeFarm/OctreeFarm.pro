@@ -17,4 +17,5 @@ HEADERS  += MainWindow.h \
     Octree.h \
     Camera.h \
     Viewport.h \
-    Properties.h
+    Properties.h \
+    ../../Source/Core/Common.h

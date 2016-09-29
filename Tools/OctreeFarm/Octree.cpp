@@ -93,8 +93,28 @@ void Octree::setIsModified(bool isModified) {
     emit isModifiedChanged(isModified);
 }
 
-void Octree::select(const QVector<Node>& selection) {
-    for (auto node: selection) {
-        qDebug() << node.parent << node.childIndex;
+int Octree::bitCount8(int value) {
+    int count = 0;
+    for (int i = 0; i < 8; i++) {
+        if ((value & 1) == 1) {
+            count++;
+        }
+        value >>= 1;
     }
+
+    return count;
+}
+
+void Octree::select(const QVector<Node>& selection) {
+    createNew();
+    for (auto node: selection) {
+        int pageHeader = node.parent & -pageBytes;
+        int blockInfo = pageHeader + storage.at(pageHeader);
+        int attachData = blockInfo + blockInfoEnd;
+        int paletteNode = storage.at(attachData + node.parent - 1);
+        int pAttach = attachData + (paletteNode >> 8) + bitCount8(paletteNode & 0xFF & ((1 << node.childIndex) - 1));
+        storage[pAttach] = 0xFFFFFF00;
+    }
+
+    storageChanged();
 }

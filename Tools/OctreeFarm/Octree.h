@@ -2,6 +2,7 @@
 #include <cstdint>
 #include <glm/ext.hpp>
 #include <QObject>
+#include "../../Source/Core/Common.h"
 #include <QVector>
 
 struct Node {
@@ -33,8 +34,11 @@ public:
 
 signals:
     void isModifiedChanged(bool isModified);
+    void storageChanged();
 
 private:
+    int bitCount8(int value);
+
     QVector<uint32_t> storage;
     uint32_t defaultColor = 0x7E4681FF;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);

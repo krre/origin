@@ -158,6 +158,7 @@ void Viewport::paintGL() {
         }
 //                qDebug() << data[0] << data[1] << data[2] << data[3];
         glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+        program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;
         fboMode = false;
     }

@@ -71,7 +71,7 @@ void Viewport::initializeGL() {
 //    glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA32UI, width(), height());
     glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, width(), height());
 
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffer);
 
     emit ready();
@@ -141,7 +141,7 @@ void Viewport::paintGL() {
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
 
     if (fboMode) {
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, framebuffer);
+        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
     } else {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
@@ -151,13 +151,9 @@ void Viewport::paintGL() {
 
     if (fboMode) {
         unsigned char* data = new unsigned char[1 * 1 * 4];
-//        glReadBuffer(GL_COLOR_ATTACHMENT0);
-        glReadPixels(pick.x(), pick.y() - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        for (int i = 0; i < 4; i++) {
-//            qDebug() << data[i];
-        }
-//                qDebug() << data[0] << data[1] << data[2] << data[3];
-        glBindFramebuffer(GL_DRAW_FRAMEBUFFER, 0);
+        glReadPixels(pick.x(), height() - pick.y(), 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        qDebug() << data[0] << data[1] << data[2] << data[3];
+        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;
         fboMode = false;
@@ -173,7 +169,7 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
     lastPos = event->pos();
 
     if (event->button() == Qt::LeftButton) {
-        qDebug() << event->pos();
+//        qDebug() << event->pos();
         program.bind();
         pick = event->pos();
         QPoint p = QPoint(pick.x(), height() - pick.y());

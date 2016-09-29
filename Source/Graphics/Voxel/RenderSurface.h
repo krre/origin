@@ -5,7 +5,6 @@
 
 constexpr int MAX_OCTREE_COUNT = 10;
 constexpr int OBJECT_STRIDE = 8;
-constexpr int pageBytes = 1 << 13; // 8192
 
 class RenderSurface : public Drawable {
 

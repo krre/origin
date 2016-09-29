@@ -5,7 +5,7 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
 
-Viewport::Viewport(Octree* octree) : octree(octree) {
+Viewport::Viewport(Octree* octree) : m_octree(octree) {
     QSurfaceFormat format;
     format.setVersion(3, 3);
     format.setRenderableType(QSurfaceFormat::OpenGL);
@@ -82,12 +82,12 @@ void Viewport::initializeGL() {
 
 void Viewport::paintGL() {
     QVector<glm::vec4> object;
-    object.push_back(octree->octreeToWorld()[0]);
-    object.push_back(octree->octreeToWorld()[1]);
-    object.push_back(octree->octreeToWorld()[2]);
-    object.push_back(octree->octreeToWorld()[3]);
+    object.push_back(m_octree->octreeToWorld()[0]);
+    object.push_back(m_octree->octreeToWorld()[1]);
+    object.push_back(m_octree->octreeToWorld()[2]);
+    object.push_back(m_octree->octreeToWorld()[3]);
 
-    glm::mat4 cameraToOctree = octree->worldToOctree() * camera.cameraToWorld();
+    glm::mat4 cameraToOctree = m_octree->worldToOctree() * camera.cameraToWorld();
 
     glm::vec3 scale;
     glm::quat rotation;
@@ -162,7 +162,7 @@ void Viewport::paintGL() {
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;
         fboMode = false;
-        octree->select(selection);
+        m_octree->select(selection);
     }
 }
 
@@ -200,7 +200,7 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 }
 
 void Viewport::onStorageChanged() {
-    updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
+    updateOctreeInGPU(0, m_octree->data(), sizeof(uint32_t) * m_octree->count());
     update();
 }
 

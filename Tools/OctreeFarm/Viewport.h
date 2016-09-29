@@ -13,9 +13,10 @@ class Viewport : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     Q_OBJECT
 
 public:
-    Viewport(Octree* octree);
+    Viewport(Octree* m_octree);
     void updateOctreeInGPU(int offset, void* data, int count);
     void reset();
+    Octree* octree() const { return m_octree; }
 
 protected:
     void initializeGL() override;
@@ -46,7 +47,7 @@ private:
     QPoint lastPos;
     float rx = 0;
     float ry = 0;
-    Octree* octree;
+    Octree* m_octree;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
     bool fboMode = false;

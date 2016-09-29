@@ -159,6 +159,7 @@ void Viewport::paintGL() {
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;
         fboMode = false;
+        octree->select(selection);
     }
 }
 

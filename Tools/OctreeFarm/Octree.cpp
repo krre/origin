@@ -92,3 +92,9 @@ void Octree::setIsModified(bool isModified) {
     m_isModified = isModified;
     emit isModifiedChanged(isModified);
 }
+
+void Octree::select(const QVector<Node>& selection) {
+    for (auto node: selection) {
+        qDebug() << node.parent << node.childIndex;
+    }
+}

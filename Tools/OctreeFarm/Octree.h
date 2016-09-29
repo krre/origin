@@ -29,6 +29,8 @@ public:
     void setIsModified(bool isModified);
     bool isModified() const { return m_isModified; }
 
+    void select(const QVector<Node>& selection);
+
 signals:
     void isModifiedChanged(bool isModified);
 

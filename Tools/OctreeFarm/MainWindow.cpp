@@ -48,7 +48,7 @@ void MainWindow::setupMenuBar() {
     octreeMenu->addAction(tr("Split"));
     octreeMenu->addAction(tr("Merge"));
     octreeMenu->addAction(tr("Add"));
-    octreeMenu->addAction(tr("Remove"));
+    octreeMenu->addAction(tr("Delete"));
 
     QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));
     toolsMenu->addAction(tr("Options.."));

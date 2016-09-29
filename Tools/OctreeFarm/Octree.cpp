@@ -28,6 +28,7 @@ void Octree::createNew() {
 }
 
 void Octree::createTest() {
+    storage.clear();
     // Test data
     // Header
     storage.push_back(0x00000003); // => Block info

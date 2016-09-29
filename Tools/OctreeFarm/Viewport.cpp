@@ -204,6 +204,10 @@ void Viewport::onOctreeChanged() {
     update();
 }
 
+void Viewport::deselect() {
+    m_octree->deselect();
+}
+
 void Viewport::updateOctreeInGPU(int offset, void* data, int count) {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, offset, count, data);

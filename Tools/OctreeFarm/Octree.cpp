@@ -119,3 +119,7 @@ void Octree::select(const QVector<Node>& selection) {
 
     dataChanged();
 }
+
+void Octree::deselect() {
+
+}

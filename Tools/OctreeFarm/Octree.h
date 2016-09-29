@@ -31,6 +31,7 @@ public:
     bool isModified() const { return m_isModified; }
 
     void select(const QVector<Node>& selection);
+    void deselect();
 
 signals:
     void isModifiedChanged(bool isModified);

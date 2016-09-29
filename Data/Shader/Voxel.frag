@@ -334,6 +334,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 
 void main() {
     CastResult outCastRes;
+    outCastRes.node = -1;
     float t = 10000;
     int index = -1;
     for (int i = 0; i < objectCount; i++) {
@@ -363,8 +364,13 @@ void main() {
             // Parent node address
             color = vec4(r / d, g / d, b / d, a / d);
         } else if (gl_FragCoord.x == pickPixel.x + 1.5) { // x + 1
-            // Child index in parent node
-            color = vec4(0.0, 0.0, 0.0, outCastRes.childIdx / d);
+            if (outCastRes.node != -1) {
+                // Child index in parent node
+                color = vec4(0.0, 0.0, 0.0, outCastRes.childIdx / d);
+            } else {
+                // Invalid bit
+                color = vec4(0x80 / d, 0.0, 0.0, 0.0);
+            }
         }
     } else {
         if (index != -1) {

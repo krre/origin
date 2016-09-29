@@ -157,12 +157,18 @@ void Viewport::paintGL() {
         Node node;
         node.parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
         node.childIndex = data[7];
-        selection.push_back(node);
+        int invalidBit = data[4];
+        if (invalidBit & 0x80) {
+            // Deselect
+        } else {
+            selection.push_back(node);
+            m_octree->select(selection);
+        }
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;
         fboMode = false;
-        m_octree->select(selection);
     }
 }
 

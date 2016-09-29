@@ -4,6 +4,11 @@
 #include <QObject>
 #include <QVector>
 
+struct Node {
+    uint32_t parent;
+    uint32_t childIndex;
+};
+
 class Octree : public QObject {
     Q_OBJECT
 

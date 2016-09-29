@@ -48,4 +48,5 @@ private:
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
     bool fboMode = false;
     QPoint pick;
+    QVector<Node> selection;
 };

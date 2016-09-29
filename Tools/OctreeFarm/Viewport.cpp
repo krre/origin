@@ -151,9 +151,10 @@ void Viewport::paintGL() {
     if (fboMode) {
         unsigned char* data = new unsigned char[2 * 4];
         glReadPixels(pick.x(), height() - pick.y(), 2, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        for (int i = 0; i < 2 * 4; i++) {
-//            qDebug() << data[i];
-        }
+        Node node;
+        node.parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
+        node.childIndex = data[7];
+        selection.push_back(node);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;
@@ -170,12 +171,11 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
     lastPos = event->pos();
 
     if (event->button() == Qt::LeftButton) {
-//        qDebug() << event->pos();
         program.bind();
         pick = event->pos();
-        QPoint p = QPoint(pick.x(), height() - pick.y());
-        program.setUniformValue("pickPixel", p);
+        program.setUniformValue("pickPixel", QPoint(pick.x(), height() - pick.y()));
         fboMode = true;
+        selection.clear();
         update();
     }
 }

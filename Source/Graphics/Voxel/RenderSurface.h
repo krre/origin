@@ -4,7 +4,7 @@
 #include <glm/glm.hpp>
 
 constexpr int MAX_OCTREE_COUNT = 10;
-constexpr int OBJECT_STRIDE = 9;
+constexpr int OBJECT_STRIDE = 8;
 
 class RenderSurface : public Drawable {
 

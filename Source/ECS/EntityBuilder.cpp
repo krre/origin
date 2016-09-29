@@ -9,13 +9,9 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
         ComponentType::Node,
         ComponentType::Transform,
         ComponentType::Octree,
-        ComponentType::Material,
         ComponentType::Render,
     };
     std::shared_ptr<Entity> entity = Engine::getInstance()->createComponents(types);
-
-    MaterialComponent* materialComp = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
-    materialComp->color = glm::vec3(1.0, 1.0f, 1.0f);
 
     return entity;
 }

@@ -70,8 +70,6 @@ void RenderSurface::draw(float dt) {
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
     TransformComponent* octreeTransform;
-    MaterialComponent* octreeMaterial;
-    glm::vec3 octreeColor;
 
     TransformComponent* lightTransform;
     glm::vec3 lightColor = glm::vec3(0.0);
@@ -82,8 +80,6 @@ void RenderSurface::draw(float dt) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         if (octreeComp) {
             octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
-            octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
-            octreeColor = octreeMaterial->color;
         }
 
         LightComponent* lightComp = static_cast<LightComponent*>(entity->components[ComponentType::Light].get());
@@ -138,10 +134,6 @@ void RenderSurface::draw(float dt) {
             objects.push_back(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
             objects.push_back(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
             objects.push_back(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
-
-            MaterialComponent* octreeMaterial = static_cast<MaterialComponent*>(entity->components[ComponentType::Material].get());
-            glm::vec3 octreeColor = octreeMaterial->color;
-            objects.push_back(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
 
             objectCount++;
         }

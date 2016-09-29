@@ -32,11 +32,11 @@ struct CastResult {
 
 const uint s_max = 23u;  // Maximum scale (number of float mantissa bits)
 const float epsilon = exp2(-s_max);
-const int blockInfoEnd = 1;
 
 uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
 uniform int pageBytes;
+uniform int blockInfoEnd;
 
 uniform samplerBuffer objects;
 uniform usamplerBuffer octrees;

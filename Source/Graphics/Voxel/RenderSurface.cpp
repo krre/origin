@@ -17,6 +17,7 @@ RenderSurface::RenderSurface() {
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
     glUniform1i(glGetUniformLocation(program, "pageBytes"), pageBytes);
+    glUniform1i(glGetUniformLocation(program, "blockInfoEnd"), blockInfoEnd);
     glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
     glUniform1i(glGetUniformLocation(program, "objectStride"), OBJECT_STRIDE);
     glUniform1i(glGetUniformLocation(program, "objects"), 0);

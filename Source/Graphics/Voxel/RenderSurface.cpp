@@ -14,7 +14,6 @@ RenderSurface::RenderSurface() {
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->use();
 
-    const int pageBytes = 1 << 13; // 8192
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
     glUniform1i(glGetUniformLocation(program, "pageBytes"), pageBytes);

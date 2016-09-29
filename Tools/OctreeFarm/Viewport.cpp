@@ -149,9 +149,9 @@ void Viewport::paintGL() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     if (fboMode) {
-        unsigned char* data = new unsigned char[3 * 4];
-        glReadPixels(pick.x(), height() - pick.y(), 3, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        for (int i = 0; i < 3 * 4; i++) {
+        unsigned char* data = new unsigned char[2 * 4];
+        glReadPixels(pick.x(), height() - pick.y(), 2, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        for (int i = 0; i < 2 * 4; i++) {
 //            qDebug() << data[i];
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);

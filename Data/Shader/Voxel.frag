@@ -356,11 +356,15 @@ void main() {
     if (gl_FragCoord.y == pickPixel.y + 0.5) { // For OctreeFarm pick node
         float d = 255;
         if (gl_FragCoord.x == pickPixel.x + 0.5) { // x
-            color = vec4(0xAF / d, 0x1D / d, 0x37 / d, 0x7F / d);
+            int r = (outCastRes.node >> 24) & 0xFF;
+            int g = (outCastRes.node >> 16) & 0xFF;
+            int b = (outCastRes.node >> 8) & 0xFF;
+            int a = outCastRes.node & 0xFF;
+            // Parent node address
+            color = vec4(r / d, g / d, b / d, a / d);
         } else if (gl_FragCoord.x == pickPixel.x + 1.5) { // x + 1
-            color = vec4(0.0, 1.0, 0.0, 1.0);
-        } else if (gl_FragCoord.x == pickPixel.x + 2.5) { // x + 2
-            color = vec4(0.0, 0.0, 1.0, 1.0);
+            // Child index in parent node
+            color = vec4(0.0, 0.0, 0.0, outCastRes.childIdx / d);
         }
     } else {
         if (index != -1) {

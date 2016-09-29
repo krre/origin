@@ -30,7 +30,8 @@ public:
     void setIsModified(bool isModified);
     bool isModified() const { return m_isModified; }
 
-    void select(const QVector<Node>& selection);
+    QVector<Node>& selection() { return m_selection; }
+    void select(const Node& node);
     void deselect();
 
 signals:
@@ -41,6 +42,7 @@ private:
     int bitCount8(int value);
 
     QVector<uint32_t> storage;
+    QVector<Node> m_selection;
     uint32_t defaultColor = 0x7E4681FF;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);

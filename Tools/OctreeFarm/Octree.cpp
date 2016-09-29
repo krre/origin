@@ -106,9 +106,10 @@ int Octree::bitCount8(int value) {
     return count;
 }
 
-void Octree::select(const QVector<Node>& selection) {
+void Octree::select(const Node& node) {
+    m_selection.push_back(node);
     createNew();
-    for (auto node: selection) {
+    for (auto node: m_selection) {
         int pageHeader = node.parent & -pageBytes;
         int blockInfo = pageHeader + storage.at(pageHeader);
         int attachData = blockInfo + blockInfoEnd;

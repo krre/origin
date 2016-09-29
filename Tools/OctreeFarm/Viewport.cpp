@@ -161,8 +161,7 @@ void Viewport::paintGL() {
         if (invalidBit & 0x80) {
             // Deselect
         } else {
-            selection.push_back(node);
-            m_octree->select(selection);
+            m_octree->select(node);
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -185,7 +184,7 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
         pick = event->pos();
         program.setUniformValue("pickPixel", QPoint(pick.x(), height() - pick.y()));
         fboMode = true;
-        selection.clear();
+        m_octree->selection().clear();
         update();
     }
 }

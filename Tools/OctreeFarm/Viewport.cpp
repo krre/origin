@@ -154,8 +154,8 @@ void Viewport::paintGL() {
     if (fboMode) {
         unsigned char* data = new unsigned char[2 * 4];
         glReadPixels(pick.x(), height() - pick.y(), 2, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        int invalidBit = data[4];
-        if (invalidBit & 0x80) {
+        int invalidBit = data[4] & 0x80;
+        if (invalidBit) {
             m_octree->deselect();
         } else {
             uint32_t parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];

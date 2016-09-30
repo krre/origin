@@ -115,6 +115,7 @@ int Octree::colorAttachAddress(int parent, int childIndex) {
 }
 
 void Octree::select(Node node, bool append) {
+    deselect();
     int address = colorAttachAddress(node.parent, node.childIndex);
     node.color = storage[address];
     storage[address] = 0xFFFFFF00;
@@ -125,5 +126,12 @@ void Octree::select(Node node, bool append) {
 }
 
 void Octree::deselect() {
-    qDebug() << "deselect";
+    if (m_selection.count()) {
+        for (auto node: m_selection) {
+            int address = colorAttachAddress(node.parent, node.childIndex);
+            storage[address] = node.color;
+        }
+
+        dataChanged();
+    }
 }

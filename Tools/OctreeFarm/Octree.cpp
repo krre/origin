@@ -122,5 +122,5 @@ void Octree::select(const Node& node) {
 }
 
 void Octree::deselect() {
-
+    qDebug() << "deselect";
 }

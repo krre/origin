@@ -45,6 +45,7 @@ void MainWindow::setupMenuBar() {
     editMenu->addSeparator();
 
     QMenu* octreeMenu = menuBar()->addMenu(tr("Node"));
+    octreeMenu->addAction(tr("Deselect"), &octree, &Octree::deselect);
     octreeMenu->addAction(tr("Split"));
     octreeMenu->addAction(tr("Merge"));
     octreeMenu->addAction(tr("Add"));

@@ -159,7 +159,7 @@ void Viewport::paintGL() {
         node.childIndex = data[7];
         int invalidBit = data[4];
         if (invalidBit & 0x80) {
-            // Deselect
+            m_octree->deselect();
         } else {
             m_octree->select(node);
         }
@@ -207,10 +207,6 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 void Viewport::onOctreeChanged() {
     updateOctreeInGPU(0, m_octree->data(), sizeof(uint32_t) * m_octree->count());
     update();
-}
-
-void Viewport::deselect() {
-    m_octree->deselect();
 }
 
 void Viewport::updateOctreeInGPU(int offset, void* data, int count) {

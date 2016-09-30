@@ -32,6 +32,8 @@ public:
 
     QVector<Node>& selection() { return m_selection; }
     void select(const Node& node);
+
+public slots:
     void deselect();
 
 signals:

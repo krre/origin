@@ -29,9 +29,6 @@ protected:
 signals:
     void ready();
 
-public slots:
-    void deselect();
-
 private slots:
     void onOctreeChanged();
 

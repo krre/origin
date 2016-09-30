@@ -8,6 +8,7 @@
 struct Node {
     uint32_t parent;
     uint32_t childIndex;
+    uint32_t color;
 };
 
 class Octree : public QObject {
@@ -31,7 +32,7 @@ public:
     bool isModified() const { return m_isModified; }
 
     QVector<Node>& selection() { return m_selection; }
-    void select(const Node& node, bool append = false);
+    void select(Node node, bool append = false);
 
 public slots:
     void deselect();

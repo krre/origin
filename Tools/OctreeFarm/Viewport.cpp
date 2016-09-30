@@ -183,7 +183,7 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
         pick = event->pos();
         program.setUniformValue("pickPixel", QPoint(pick.x(), height() - pick.y()));
         fboMode = true;
-        m_octree->selection().clear();
+        // Update is asynchronous action so selection is continued in paintGL()
         update();
     }
 }

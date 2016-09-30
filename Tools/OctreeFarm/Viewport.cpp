@@ -82,10 +82,10 @@ void Viewport::initializeGL() {
 
 void Viewport::paintGL() {
     QVector<glm::vec4> object;
-    object.push_back(m_octree->octreeToWorld()[0]);
-    object.push_back(m_octree->octreeToWorld()[1]);
-    object.push_back(m_octree->octreeToWorld()[2]);
-    object.push_back(m_octree->octreeToWorld()[3]);
+    object.append(m_octree->octreeToWorld()[0]);
+    object.append(m_octree->octreeToWorld()[1]);
+    object.append(m_octree->octreeToWorld()[2]);
+    object.append(m_octree->octreeToWorld()[3]);
 
     glm::mat4 cameraToOctree = m_octree->worldToOctree() * camera.cameraToWorld();
 
@@ -96,7 +96,7 @@ void Viewport::paintGL() {
     glm::vec4 perspective;
     glm::decompose(cameraToOctree, scale, rotation, translation, skew, perspective);
 
-    object.push_back(glm::vec4(translation.x, translation.y, translation.z, 1.0));
+    object.append(glm::vec4(translation.x, translation.y, translation.z, 1.0));
 
     glm::vec3 up = camera.up();
     glm::vec3 look = camera.look();
@@ -116,12 +116,12 @@ void Viewport::paintGL() {
 
     glm::vec3 startCornerPos = w0 + h0;
 
-    object.push_back(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
-    object.push_back(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
-    object.push_back(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
+    object.append(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
+    object.append(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
+    object.append(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
 
     glm::vec3 octreeColor = glm::vec3(0.0, 1.0, 0.0);
-    object.push_back(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
+    object.append(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
 
     glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * object.size(), object.data());

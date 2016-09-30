@@ -132,6 +132,7 @@ void Octree::deselect() {
             storage[address] = node.color;
         }
 
+        m_selection.clear();
         dataChanged();
     }
 }

@@ -138,7 +138,7 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
             storage[address] = selectionColor;
             m_selection.append(node);
         }
-    } else if (index == -1) {
+    } else if (index == -1 || m_selection.count() > 1) {
         deselect();
         node.color = storage[address];
         storage[address] = selectionColor;

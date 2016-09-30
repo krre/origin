@@ -106,14 +106,18 @@ int Octree::bitCount8(int value) {
     return count;
 }
 
-void Octree::select(Node node, bool append) {
-    int pageHeader = node.parent & -pageBytes;
+int Octree::colorAttachAddress(int parent, int childIndex) {
+    int pageHeader = parent & -pageBytes;
     int blockInfo = pageHeader + storage.at(pageHeader);
     int attachData = blockInfo + blockInfoEnd;
-    int paletteNode = storage.at(attachData + node.parent - 1);
-    int pAttach = attachData + (paletteNode >> 8) + bitCount8(paletteNode & 0xFF & ((1 << node.childIndex) - 1));
-    node.color = storage[pAttach];
-    storage[pAttach] = 0xFFFFFF00;
+    int paletteNode = storage.at(attachData + parent - 1);
+    return attachData + (paletteNode >> 8) + bitCount8(paletteNode & 0xFF & ((1 << childIndex) - 1));
+}
+
+void Octree::select(Node node, bool append) {
+    int address = colorAttachAddress(node.parent, node.childIndex);
+    node.color = storage[address];
+    storage[address] = 0xFFFFFF00;
 
     m_selection.push_back(node);
 

@@ -43,6 +43,7 @@ signals:
 
 private:
     int bitCount8(int value);
+    int colorAttachAddress(int parent, int childIndex);
 
     QVector<uint32_t> storage;
     QVector<Node> m_selection;

@@ -154,14 +154,13 @@ void Viewport::paintGL() {
     if (fboMode) {
         unsigned char* data = new unsigned char[2 * 4];
         glReadPixels(pick.x(), height() - pick.y(), 2, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        Node node;
-        node.parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
-        node.childIndex = data[7];
         int invalidBit = data[4];
         if (invalidBit & 0x80) {
             m_octree->deselect();
         } else {
-            m_octree->select(node, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+            uint32_t parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
+            uint32_t childIndex = data[7];
+            m_octree->select(parent, childIndex, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
         }
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));

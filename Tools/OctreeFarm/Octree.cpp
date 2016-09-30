@@ -114,15 +114,36 @@ int Octree::colorAttachAddress(int parent, int childIndex) {
     return attachData + (paletteNode >> 8) + bitCount8(paletteNode & 0xFF & ((1 << childIndex) - 1));
 }
 
-void Octree::select(Node node, bool append) {
-    if (!append) {
-        deselect();
-    }
-    int address = colorAttachAddress(node.parent, node.childIndex);
-    node.color = storage[address];
-    storage[address] = 0xFFFFFF00;
+void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
+    int address = colorAttachAddress(parent, childIndex);
 
-    m_selection.append(node);
+    Node node;
+    node.parent = parent;
+    node.childIndex = childIndex;
+
+    if (append) {
+        int index = -1;
+        for (int i = 0; i < m_selection.count(); i++) {
+            if (m_selection.at(i).parent == parent && m_selection.at(i).childIndex == childIndex) {
+                index = i;
+                break;
+            }
+        }
+
+        if (index >= 0) { // Remove selection
+            storage[address] = m_selection.at(index).color;
+            m_selection.remove(index);
+        } else { // Append selection
+            node.color = storage[address];
+            storage[address] = selectionColor;
+            m_selection.append(node);
+        }
+    } else {
+        deselect();
+        node.color = storage[address];
+        storage[address] = selectionColor;
+        m_selection.append(node);
+    }
 
     dataChanged();
 }

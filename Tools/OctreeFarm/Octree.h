@@ -31,8 +31,7 @@ public:
     void setIsModified(bool isModified);
     bool isModified() const { return m_isModified; }
 
-    QVector<Node>& selection() { return m_selection; }
-    void select(Node node, bool append = false);
+    void select(uint32_t parent, uint32_t childIndex, bool append = false);
 
 public slots:
     void deselect();
@@ -48,6 +47,7 @@ private:
     QVector<uint32_t> storage;
     QVector<Node> m_selection;
     uint32_t defaultColor = 0x7E4681FF;
+    uint32_t selectionColor = 0xFFFFFF00;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);
     bool m_isModified = false;

@@ -31,7 +31,7 @@ public:
     bool isModified() const { return m_isModified; }
 
     QVector<Node>& selection() { return m_selection; }
-    void select(const Node& node);
+    void select(const Node& node, bool append = false);
 
 public slots:
     void deselect();

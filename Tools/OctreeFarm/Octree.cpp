@@ -106,7 +106,7 @@ int Octree::bitCount8(int value) {
     return count;
 }
 
-void Octree::select(const Node& node) {
+void Octree::select(const Node& node, bool append) {
     m_selection.push_back(node);
     createNew();
     for (auto node: m_selection) {

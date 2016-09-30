@@ -161,9 +161,8 @@ void Viewport::paintGL() {
         if (invalidBit & 0x80) {
             m_octree->deselect();
         } else {
-            m_octree->select(node);
+            m_octree->select(node, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
         }
-
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;

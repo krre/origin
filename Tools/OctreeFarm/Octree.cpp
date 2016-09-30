@@ -121,15 +121,15 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
     node.parent = parent;
     node.childIndex = childIndex;
 
-    if (append) {
-        int index = -1;
-        for (int i = 0; i < m_selection.count(); i++) {
-            if (m_selection.at(i).parent == parent && m_selection.at(i).childIndex == childIndex) {
-                index = i;
-                break;
-            }
+    int index = -1;
+    for (int i = 0; i < m_selection.count(); i++) {
+        if (m_selection.at(i).parent == parent && m_selection.at(i).childIndex == childIndex) {
+            index = i;
+            break;
         }
+    }
 
+    if (append) {
         if (index >= 0) { // Remove selection
             storage[address] = m_selection.at(index).color;
             m_selection.remove(index);
@@ -138,7 +138,7 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
             storage[address] = selectionColor;
             m_selection.append(node);
         }
-    } else {
+    } else if (index == -1) {
         deselect();
         node.color = storage[address];
         storage[address] = selectionColor;

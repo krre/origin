@@ -1,5 +1,6 @@
 #include "Octree.h"
 #include <QtCore>
+#include <QtGui>
 
 Octree::Octree(QObject* parent) : QObject(parent) {
     m_worldToOctree = glm::inverse(m_octreeToWorld);
@@ -120,6 +121,7 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
     Node node;
     node.parent = parent;
     node.childIndex = childIndex;
+    QColor color;
 
     int index = -1;
     for (int i = 0; i < m_selection.count(); i++) {
@@ -133,16 +135,21 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
         if (index >= 0) { // Remove selection
             storage[address] = m_selection.at(index).color;
             m_selection.remove(index);
+            nodeDeselected();
         } else { // Append selection
             node.color = storage[address];
             storage[address] = selectionColor;
             m_selection.append(node);
+            color.setRgba(node.color);
+            nodeSelected(childIndex, color);
         }
     } else if (index == -1 || m_selection.count() > 1) {
         deselect();
         node.color = storage[address];
         storage[address] = selectionColor;
         m_selection.append(node);
+        color.setRgba(node.color);
+        nodeSelected(childIndex, color);
     }
 
     dataChanged();
@@ -156,6 +163,7 @@ void Octree::deselect() {
         }
 
         m_selection.clear();
+        nodeDeselected();
         dataChanged();
     }
 }

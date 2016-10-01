@@ -163,3 +163,7 @@ void Octree::deselect() {
 void Octree::split() {
     qDebug() << "split";
 }
+
+void Octree::merge() {
+    qDebug() << "merge";
+}

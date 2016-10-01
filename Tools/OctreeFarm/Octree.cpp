@@ -160,6 +160,7 @@ void Octree::changeNodeColor(const QColor& color) {
     for (auto node: m_selection) {
         node->color = color.rgba();
     }
+    setIsModified(true);
 }
 
 void Octree::deselect() {

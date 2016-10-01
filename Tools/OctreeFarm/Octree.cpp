@@ -160,15 +160,15 @@ void Octree::deselect() {
     }
 }
 
-void Octree::split() {
+void Octree::splitNode() {
     qDebug() << "split";
 }
 
-void Octree::merge() {
+void Octree::mergeNode() {
     qDebug() << "merge";
 }
 
-void Octree::add() {
+void Octree::addNode() {
     qDebug() << "add";
 }
 

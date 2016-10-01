@@ -35,9 +35,9 @@ public:
 
 public slots:
     void deselect();
-    void split();
-    void merge();
-    void add();
+    void splitNode();
+    void mergeNode();
+    void addNode();
     void deleteNode();
 
 signals:

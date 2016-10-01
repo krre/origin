@@ -12,9 +12,6 @@ public:
     void setNodeIndex(int index);
     void setNodeColor(const QColor& color);
 
-signals:
-    void nodeColorChanged(const QColor& color);
-
 private slots:
     void changeNodeColor();
     void onNodeSelected(int index, const QColor& color);

@@ -118,14 +118,15 @@ int Octree::colorAttachAddress(int parent, int childIndex) {
 void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
     int address = colorAttachAddress(parent, childIndex);
 
-    Node node;
-    node.parent = parent;
-    node.childIndex = childIndex;
+    QSharedPointer<Node> node;
+    node.reset(new Node);
+    node->parent = parent;
+    node->childIndex = childIndex;
     QColor color;
 
     int index = -1;
     for (int i = 0; i < m_selection.count(); i++) {
-        if (m_selection.at(i).parent == parent && m_selection.at(i).childIndex == childIndex) {
+        if (m_selection.at(i)->parent == parent && m_selection.at(i)->childIndex == childIndex) {
             index = i;
             break;
         }
@@ -133,33 +134,39 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
 
     if (append) {
         if (index >= 0) { // Remove selection
-            storage[address] = m_selection.at(index).color;
+            storage[address] = m_selection.at(index)->color;
             m_selection.remove(index);
             nodeDeselected();
         } else { // Append selection
-            node.color = storage[address];
+            node->color = storage[address];
             storage[address] = selectionColor;
             m_selection.append(node);
-            color.setRgba(node.color);
+            color.setRgba(node->color);
             nodeSelected(childIndex, color);
         }
     } else if (index == -1 || m_selection.count() > 1) {
         deselect();
-        node.color = storage[address];
+        node->color = storage[address];
         storage[address] = selectionColor;
         m_selection.append(node);
-        color.setRgba(node.color);
+        color.setRgba(node->color);
         nodeSelected(childIndex, color);
     }
 
     dataChanged();
 }
 
+void Octree::changeNodeColor(const QColor& color) {
+    for (auto node: m_selection) {
+        node->color = color.rgba();
+    }
+}
+
 void Octree::deselect() {
     if (m_selection.count()) {
         for (auto node: m_selection) {
-            int address = colorAttachAddress(node.parent, node.childIndex);
-            storage[address] = node.color;
+            int address = colorAttachAddress(node->parent, node->childIndex);
+            storage[address] = node->color;
         }
 
         m_selection.clear();

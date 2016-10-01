@@ -4,6 +4,7 @@
 #include <QObject>
 #include "../../Source/Core/Common.h"
 #include <QVector>
+#include <QSharedPointer>
 
 struct Node {
     uint32_t parent;
@@ -32,6 +33,7 @@ public:
     bool isModified() const { return m_isModified; }
 
     void select(uint32_t parent, uint32_t childIndex, bool append = false);
+    void changeNodeColor(const QColor& color);
 
 public slots:
     void deselect();
@@ -51,7 +53,7 @@ private:
     int colorAttachAddress(int parent, int childIndex);
 
     QVector<uint32_t> storage;
-    QVector<Node> m_selection;
+    QVector<QSharedPointer<Node>> m_selection;
     uint32_t defaultColor = 0x7E4681FF;
     uint32_t selectionColor = 0xFFFFFF00;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);

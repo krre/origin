@@ -159,3 +159,7 @@ void Octree::deselect() {
         dataChanged();
     }
 }
+
+void Octree::split() {
+    qDebug() << "split";
+}

@@ -35,6 +35,7 @@ public:
 
 public slots:
     void deselect();
+    void split();
 
 signals:
     void isModifiedChanged(bool isModified);

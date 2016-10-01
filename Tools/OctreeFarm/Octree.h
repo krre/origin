@@ -38,6 +38,7 @@ public slots:
     void split();
     void merge();
     void add();
+    void deleteNode();
 
 signals:
     void isModifiedChanged(bool isModified);

@@ -171,3 +171,7 @@ void Octree::merge() {
 void Octree::add() {
     qDebug() << "add";
 }
+
+void Octree::deleteNode() {
+    qDebug() << "delete";
+}

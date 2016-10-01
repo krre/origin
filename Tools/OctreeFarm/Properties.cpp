@@ -42,8 +42,10 @@ void Properties::setNodeColor(const QColor& color) {
 
 void Properties::changeNodeColor() {
     QColor color = QColorDialog::getColor(nodeColor);
-    setNodeColor(color);
-    octree->changeNodeColor(color);
+    if (color.isValid()) {
+        setNodeColor(color);
+        octree->changeNodeColor(color);
+    }
 }
 
 void Properties::onNodeSelected(int index, const QColor& color) {

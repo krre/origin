@@ -78,13 +78,10 @@ bool Octree::load(const QString& fileName) {
         qDebug() << "Could not open file for reading";
         return false;
     }
-    QDataStream in(&file);
-    uint32_t word;
-    storage.clear();
-    while (!in.atEnd()) {
-        in >> word;
-        storage.append(word);
-    }
+    QTextStream in(&file);
+    QString data = in.readAll();
+    source.create(data);
+
     file.close();
 
     return true;

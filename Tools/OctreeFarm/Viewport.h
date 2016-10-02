@@ -44,6 +44,7 @@ private:
     QOpenGLShaderProgram program;
 
     float rotateSpeed = 5;
+    float panSpeed = 100;
     QPoint lastPos;
     float rx = 0;
     float ry = 0;

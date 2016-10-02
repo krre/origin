@@ -21,6 +21,14 @@ void Camera::setPosition(const glm::vec3& position) {
     setCameraToWorld(glm::translate(m_cameraToWorld, position));
 }
 
+void Camera::pan(float dx, float dy) {
+    glm::vec3 X = m_right * dx;
+    glm::vec3 Y = m_up * dy;
+    m_position += X + Y;
+    m_target += X + Y;
+    update();
+}
+
 void Camera::rotate(float yaw, float pitch) {
     m_yaw = yaw;
     m_pitch = pitch;

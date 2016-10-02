@@ -13,6 +13,7 @@ public:
 
     void setTarget(const glm::vec3& target);
     void setPosition(const glm::vec3& position);
+    void pan(float dx, float dy);
     void rotate(float yaw, float pitch);
     void zoom(float amount);
     void reset();

@@ -191,10 +191,16 @@ void Viewport::mouseMoveEvent(QMouseEvent* event) {
     if (event->buttons() == Qt::RightButton) {
         rx += (lastPos.x() - event->pos().x()) / rotateSpeed;
         ry += (lastPos.y() - event->pos().y()) / rotateSpeed;
-        lastPos = event->pos();
         camera.rotate(rx, ry);
         update();
+    } else if (event->buttons() == Qt::MiddleButton) {
+        float dx = (lastPos.x() - event->pos().x()) / panSpeed;
+        float dy = (event->pos().y() - lastPos.y()) / panSpeed;
+        camera.pan(dx, dy);
+        update();
     }
+
+    lastPos = event->pos();
 }
 
 void Viewport::wheelEvent(QWheelEvent* event) {

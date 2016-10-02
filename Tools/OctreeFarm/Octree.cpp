@@ -64,10 +64,9 @@ bool Octree::save(const QString& fileName) {
         qDebug() << "Could not open file for writing";
         return false;
     }
-    QDataStream out(&file);
-    for (auto it: storage) {
-        out << it;
-    }
+
+    QTextStream out(&file);
+    out << source.serialize();
     file.close();
 
     return true;

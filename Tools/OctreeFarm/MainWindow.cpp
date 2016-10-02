@@ -191,14 +191,14 @@ QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
     QFileDialog dialog(this);
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(mode);
-    dialog.setNameFilter(tr("Octrees (*.octree)"));
+    dialog.setNameFilter(tr("JSON Octrees (*.json)"));
     if (dialog.exec() != QDialog::Accepted) {
         return QString();
     }
     QString fileName = dialog.selectedFiles().first();
     QStringList list = fileName.split(".");
-    if (list.length() > 0 && list.at(list.length() - 1) != "octree") {
-        fileName += ".octree";
+    if (list.length() > 0 && list.at(list.length() - 1) != "json") {
+        fileName += ".json";
     }
 
     return fileName;
@@ -211,7 +211,7 @@ void MainWindow::setCurrentFile(const QString& fileName) {
 
     QString shownName = QFileInfo(currentFile).fileName();
     if (currentFile.isEmpty()) {
-        shownName = "untitled.octree";
+        shownName = "untitled.json";
     }
     setWindowFilePath(shownName);
     setWindowTitle(shownName + "[*] - " + QCoreApplication::applicationName());

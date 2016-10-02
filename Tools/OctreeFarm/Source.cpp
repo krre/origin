@@ -7,19 +7,16 @@ Source::Source(QObject* parent) : QObject(parent) {
 
 void Source::create(const QString& string) {
     if (string.isEmpty()) {
+        QJsonObject topNode;
         for (int i = 0; i < 8; i++) {
-            document.setObject(createNode(i, QColor(Qt::blue)));
+            QJsonObject node;
+            node["color"] = int(QColor(Qt::blue).rgba());
+            topNode[QString::number(i)] = node;
         }
+        document.setObject(topNode);
 
     } else {
         document = QJsonDocument::fromJson(string.toUtf8());
     }
 }
 
-QJsonObject Source::createNode(int index, const QColor& color) {
-    QJsonObject node;
-    node["idx"] = index;
-    node["color"] = int(color.rgba());
-
-    return node;
-}

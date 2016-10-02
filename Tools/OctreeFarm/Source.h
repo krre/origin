@@ -11,7 +11,5 @@ public:
     void create(const QString& string = QString());
 
 private:
-    QJsonObject createNode(int index, const QColor& color);
-
     QJsonDocument document;
 };

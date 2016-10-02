@@ -10,7 +10,7 @@ void Source::create(const QString& string) {
         QJsonObject topNode;
         for (int i = 0; i < 8; i++) {
             QJsonObject node;
-            node["color"] = int(QColor(Qt::blue).rgba());
+            node["color"] = QColor(Qt::blue).name(QColor::HexArgb);
             topNode[QString::number(i)] = node;
         }
         document.setObject(topNode);
@@ -23,4 +23,3 @@ void Source::create(const QString& string) {
 QString Source::serialize() {
     return QString(document.toJson());
 }
-

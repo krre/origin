@@ -14,7 +14,6 @@ void Source::create(const QString& string) {
             topNode[QString::number(i)] = node;
         }
         document.setObject(topNode);
-
     } else {
         document = QJsonDocument::fromJson(string.toUtf8());
     }
@@ -22,4 +21,12 @@ void Source::create(const QString& string) {
 
 QString Source::serialize() {
     return QString(document.toJson());
+}
+
+QSharedPointer<QVector<uint32_t>> Source::binary() {
+    QSharedPointer<QVector<uint32_t>> data;
+    data.reset(new QVector<uint32_t>());
+    data->append(0); // Header (at first empty)
+
+    return data;
 }

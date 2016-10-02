@@ -3,6 +3,7 @@
 #include <glm/ext.hpp>
 #include <QObject>
 #include "../../Source/Core/Common.h"
+#include "Source.h"
 #include <QVector>
 #include <QSharedPointer>
 
@@ -52,6 +53,7 @@ private:
     int bitCount8(int value);
     int colorAttachAddress(int parent, int childIndex);
 
+    Source source;
     QVector<uint32_t> storage;
     QVector<QSharedPointer<Node>> m_selection;
     uint32_t defaultColor = 0x7E4681FF;

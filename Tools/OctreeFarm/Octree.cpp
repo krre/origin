@@ -26,6 +26,8 @@ void Octree::createNew() {
     storage.append(defaultColor);
     storage.append(defaultColor);
     storage.append(defaultColor);
+
+    source.create();
 }
 
 void Octree::createTest() {

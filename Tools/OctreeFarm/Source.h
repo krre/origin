@@ -9,6 +9,7 @@ class Source : public QObject {
 public:
     explicit Source(QObject* parent = 0);
     void create(const QString& string = QString());
+    QString serialize();
 
 private:
     QJsonDocument document;

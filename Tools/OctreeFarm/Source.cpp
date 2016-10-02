@@ -20,3 +20,7 @@ void Source::create(const QString& string) {
     }
 }
 
+QString Source::serialize() {
+    return QString(document.toJson());
+}
+

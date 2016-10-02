@@ -266,7 +266,12 @@ void MainWindow::revert() {
 
 void MainWindow::about() {
     QMessageBox::about(this, QString(tr("About %1")).arg(QApplication::applicationName()),
-                       QString(tr("<h3><b>%1 %2<b></h3><br>Sparse voxel octree editor for Gagarin game")).arg(QApplication::applicationName()).arg(QApplication::applicationVersion()));
+                       QString(tr("<h3><b>%1 %2<b></h3>"
+                                  "Sparse voxel octree editor for Gagarin game<br>"
+                                  "<a href=\"https://github.com/krre/gagarin\">"
+                                  "https://github.com/krre/gagarin</a><br><br>"
+                                  "Copyright © 2016, Vladimir Zarypov")).
+                       arg(QApplication::applicationName()).arg(QApplication::applicationVersion()));
 }
 
 void MainWindow::initViewport() {

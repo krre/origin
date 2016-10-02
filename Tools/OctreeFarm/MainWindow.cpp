@@ -35,7 +35,7 @@ void MainWindow::setupMenuBar() {
     fileMenu->addAction(tr("Open..."), this, &MainWindow::open, QKeySequence("Ctrl+O"));
     fileMenu->addAction(tr("Save"), this, &MainWindow::save, QKeySequence("Ctrl+S"));
     fileMenu->addAction(tr("Save As..."), this, &MainWindow::saveAs, QKeySequence("Ctrl+Shift+S"));
-    fileMenu->addAction(tr("Revert"), this, &MainWindow::revert);
+    fileMenu->addAction(tr("Revert"), this, &MainWindow::revert, QKeySequence("F5"));
     fileMenu->addSeparator();
     fileMenu->addAction(tr("Exit"), this, &QWidget::close, QKeySequence("Ctrl+Q"));
 

@@ -29,6 +29,9 @@ protected:
 signals:
     void ready();
 
+public slots:
+    void setShadeless(bool shadeless);
+
 private slots:
     void onOctreeChanged();
 

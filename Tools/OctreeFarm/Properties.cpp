@@ -1,8 +1,9 @@
 #include "Properties.h"
 #include <QtWidgets>
 
-Properties::Properties(Octree* octree) :
-    octree(octree) {
+Properties::Properties(Octree* octree, Viewport* viewport) :
+    octree(octree),
+    viewport(viewport) {
     QFormLayout* formlayout = new QFormLayout;
     setLayout(formlayout);
 
@@ -15,7 +16,12 @@ Properties::Properties(Octree* octree) :
     setNodeColor(QColor(Qt::blue));
     formlayout->addRow(tr("Color:"), colorButton);
 
+    QPushButton* shadelessButton = new QPushButton;
+    shadelessButton->setCheckable(true);
+    formlayout->addRow(tr("Shadeless:"), shadelessButton);
+
     connect(colorButton, &QPushButton::clicked, this, &Properties::changeNodeColor);
+    connect(shadelessButton, &QPushButton::toggled, viewport, &Viewport::setShadeless);
     connect(octree, &Octree::nodeSelected, this, &Properties::onNodeSelected);
     connect(octree, &Octree::nodeDeselected, this, &Properties::onNodeDeselected);
 

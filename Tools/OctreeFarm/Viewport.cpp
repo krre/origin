@@ -223,3 +223,9 @@ void Viewport::reset() {
     ry = 0;
     camera.reset();
 }
+
+void Viewport::setShadeless(bool shadeless) {
+    program.bind();
+    program.setUniformValue("shadeless", shadeless);
+    update();
+}

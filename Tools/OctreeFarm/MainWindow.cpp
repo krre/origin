@@ -70,16 +70,6 @@ void MainWindow::setupSplitter() {
     splitter = new QSplitter;
     splitter->setChildrenCollapsible(false);
 
-    // Properties
-    QFrame* propFrame = new QFrame;
-    propFrame->setFrameStyle(QFrame::Box | QFrame::Sunken);
-    QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, propFrame);
-    propLayout->setMargin(0);
-    properties = new Properties(&octree);
-    properties->setMinimumWidth(100);
-    propLayout->addWidget(properties);
-    splitter->addWidget(propFrame);
-
     // Viewport
     QFrame* viewportFrame = new QFrame;
     viewportFrame->setFrameStyle(QFrame::Box | QFrame::Sunken);
@@ -88,6 +78,18 @@ void MainWindow::setupSplitter() {
     viewport = new Viewport(&octree);
     viewport->setMinimumWidth(100);
     viewportLayout->addWidget(viewport);
+
+
+    // Properties
+    QFrame* propFrame = new QFrame;
+    propFrame->setFrameStyle(QFrame::Box | QFrame::Sunken);
+    QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, propFrame);
+    propLayout->setMargin(0);
+    properties = new Properties(&octree, viewport);
+    properties->setMinimumWidth(100);
+    propLayout->addWidget(properties);
+
+    splitter->addWidget(propFrame);
     splitter->addWidget(viewportFrame);
 
     QList<int> sizes;

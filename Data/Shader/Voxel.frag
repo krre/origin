@@ -43,8 +43,8 @@ uniform usamplerBuffer octrees;
 
 uniform vec3 backgroundColor;
 uniform vec3 lightColor;
-
 uniform vec3 lightPos;
+uniform bool shadeless;
 
 uniform float ambientStrength;
 uniform int objectCount;
@@ -320,6 +320,10 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     v = texelFetch(octrees, pAttach);
     float d = 255.0; // On Windows division like v.b / 255.0 rises runtime error
     vec3 octreeColor = vec3(v.b / d, v.g / d, v.r / d);
+
+    if (shadeless) {
+        return vec4(octreeColor, 1.0);
+    }
 
     int offset = index * objectStride;
     vec3 ambient = ambientStrength * lightColor;

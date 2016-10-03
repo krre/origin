@@ -27,5 +27,29 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     data.reset(new QVector<uint32_t>());
     data->append(0); // Header (at first empty)
 
+    json::object_t* parent = root.get_ptr<json::object_t*>();
+
+    while (true) {
+
+        uint32_t descriptor = 0;
+        for (int i = 0; i < 8; i++) {
+            json::object_t* node = (*parent)[std::to_string(i)].get_ptr<json::object_t*>();
+            if (node != nullptr && (*node).size()) {
+                descriptor |= (1 << (8 + i));
+                qDebug() << i;
+                json::object_t* childred = (*node)[std::string("children")].get_ptr<json::object_t*>();
+                if (childred != nullptr && (*childred).size()) {
+                    descriptor |= (1 << i);
+                }
+            }
+        }
+
+        qDebug() << descriptor;
+
+        break;
+
+
+    }
+
     return data;
 }

@@ -1,7 +1,9 @@
 #pragma once
 #include <QObject>
-#include <QJsonObject>
 #include <QColor>
+#include <json/json.hpp>
+
+using json = nlohmann::json;
 
 class Source : public QObject {
     Q_OBJECT
@@ -13,5 +15,5 @@ public:
     QSharedPointer<QVector<uint32_t>> binary();
 
 private:
-    QJsonObject root;
+    json root;
 };

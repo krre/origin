@@ -7,21 +7,19 @@ Source::Source(QObject* parent) : QObject(parent) {
 
 void Source::create(const QString& string) {
     if (string.isEmpty()) {
-        QJsonObject root;
         for (int i = 0; i < 8; i++) {
-            QJsonObject node;
-            node["color"] = QColor(Qt::blue).name(QColor::HexArgb);
-            root[QString::number(i)] = node;
+            json node;
+            node["color"] = QColor(Qt::blue).name(QColor::HexArgb).toStdString();
+            root[QString::number(i).toStdString()] = node;
         }
     } else {
-        root = QJsonDocument::fromJson(string.toUtf8()).object();
+        root = json::parse(string.toStdString());
     }
 }
 
 QString Source::serialize() {
-    QJsonDocument doc;
-    doc.setObject(root);
-    return QString(doc.toJson());
+    std::string dump = root.dump(4);
+    return QString::fromStdString(dump);
 }
 
 QSharedPointer<QVector<uint32_t>> Source::binary() {

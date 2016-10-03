@@ -1,6 +1,6 @@
 #pragma once
 #include <QObject>
-#include <QJsonDocument>
+#include <QJsonObject>
 #include <QColor>
 
 class Source : public QObject {
@@ -13,5 +13,5 @@ public:
     QSharedPointer<QVector<uint32_t>> binary();
 
 private:
-    QJsonDocument document;
+    QJsonObject root;
 };

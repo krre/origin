@@ -28,6 +28,7 @@ void Octree::createNew() {
     storage.append(defaultColor);
 
     source.create();
+    QSharedPointer<QVector<uint32_t>> data = source.binary();
 }
 
 void Octree::createTest() {

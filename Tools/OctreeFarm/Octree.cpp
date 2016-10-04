@@ -186,5 +186,7 @@ void Octree::deleteNode() {
         storage = source.binary();
         setIsModified(true);
         dataChanged();
+    } else {
+        qDebug() << "Failure delete node";
     }
 }

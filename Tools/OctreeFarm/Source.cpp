@@ -98,3 +98,20 @@ bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
 
     return true;
 }
+
+bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
+    if (!selection.count()) return false;
+
+    for (int i = 0; i < selection.count(); i++) {
+        Node* node = selection.at(i).data();
+        json::object_t* parent = parents[node->parent];
+        json children;
+        for (int i = 0; i < 8; i++) {
+            children[std::to_string(i)] = json::object();
+        }
+
+        (*parent)[std::to_string(node->childIndex)]["children"] = children;
+    }
+
+    return true;
+}

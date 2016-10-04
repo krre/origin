@@ -19,6 +19,7 @@ public:
     QString serialize();
     QSharedPointer<QVector<uint32_t>> binary();
     bool deleteNode(const QVector<QSharedPointer<Node>>& selection);
+    bool splitNode(const QVector<QSharedPointer<Node>>& selection);
 
 private:
     json root;

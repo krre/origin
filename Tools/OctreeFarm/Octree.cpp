@@ -168,7 +168,15 @@ void Octree::deselect() {
 }
 
 void Octree::splitNode() {
-    qDebug() << "split";
+    if (source.splitNode(m_selection)) {
+        m_selection.clear();
+        nodeDeselected();
+        storage = source.binary();
+        setIsModified(true);
+        dataChanged();
+    } else {
+        qDebug() << "Failure split node";
+    }
 }
 
 void Octree::mergeNode() {

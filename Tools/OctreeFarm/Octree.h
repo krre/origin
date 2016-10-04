@@ -50,7 +50,6 @@ signals:
     void dataChanged();
 
 private:
-    int bitCount8(int value);
     int colorAttachAddress(int parent, int childIndex);
 
     Source source;

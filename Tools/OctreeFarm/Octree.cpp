@@ -1,6 +1,7 @@
 #include "Octree.h"
 #include <QtCore>
 #include <QtGui>
+#include "Utils.h"
 
 Octree::Octree(QObject* parent) : QObject(parent) {
     m_worldToOctree = glm::inverse(m_octreeToWorld);
@@ -95,24 +96,12 @@ void Octree::setIsModified(bool isModified) {
     emit isModifiedChanged(isModified);
 }
 
-int Octree::bitCount8(int value) {
-    int count = 0;
-    for (int i = 0; i < 8; i++) {
-        if ((value & 1) == 1) {
-            count++;
-        }
-        value >>= 1;
-    }
-
-    return count;
-}
-
 int Octree::colorAttachAddress(int parent, int childIndex) {
     int pageHeader = parent & -pageBytes;
     int blockInfo = pageHeader + storage.at(pageHeader);
     int attachData = blockInfo + blockInfoEnd;
     int paletteNode = storage.at(attachData + parent - 1);
-    return attachData + (paletteNode >> 8) + bitCount8(paletteNode & 0xFF & ((1 << childIndex) - 1));
+    return attachData + (paletteNode >> 8) + Utils::bitCount8(paletteNode & 0xFF & ((1 << childIndex) - 1));
 }
 
 void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {

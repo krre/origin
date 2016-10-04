@@ -12,7 +12,8 @@ SOURCES += main.cpp\
     Camera.cpp \
     Viewport.cpp \
     Properties.cpp \
-    Source.cpp
+    Source.cpp \
+    Utils.cpp
 
 HEADERS  += MainWindow.h \
     Octree.h \
@@ -20,4 +21,5 @@ HEADERS  += MainWindow.h \
     Viewport.h \
     Properties.h \
     ../../Source/Core/Common.h \
-    Source.h
+    Source.h \
+    Utils.h

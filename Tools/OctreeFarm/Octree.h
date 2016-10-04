@@ -1,11 +1,10 @@
 #pragma once
-#include <cstdint>
-#include <glm/ext.hpp>
-#include <QObject>
+#include <QObject> // Must be before Common.h since need define QT_VERSION macro
 #include "../../Source/Core/Common.h"
 #include "Source.h"
 #include <QVector>
 #include <QSharedPointer>
+#include <glm/ext.hpp>
 
 struct Node {
     uint32_t parent;

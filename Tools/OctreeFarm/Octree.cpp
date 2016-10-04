@@ -180,5 +180,8 @@ void Octree::addNode() {
 }
 
 void Octree::deleteNode() {
-    qDebug() << "delete";
+    if (source.deleteNode(m_selection)) {
+        storage = source.binary();
+        emit dataChanged();
+    }
 }

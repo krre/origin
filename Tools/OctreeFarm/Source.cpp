@@ -1,4 +1,5 @@
 #include "Source.h"
+#include "Octree.h"
 #include "Utils.h"
 #include <QtCore>
 
@@ -83,4 +84,14 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     }
 
     return data;
+}
+
+bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
+    if (!selection.count()) return false;
+    for (int i = 0; i < selection.count(); i++) {
+        Node* node = selection.at(i).data();
+        qDebug() << node->parent << node->childIndex;
+    }
+
+    return true;
 }

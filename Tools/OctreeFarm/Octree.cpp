@@ -29,6 +29,7 @@ void Octree::createNew() {
 
     source.create();
     QSharedPointer<QVector<uint32_t>> data = source.binary();
+    qDebug() << *data.data();
 }
 
 void Octree::createTest() {

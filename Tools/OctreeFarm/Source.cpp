@@ -25,10 +25,12 @@ QString Source::serialize() {
 QSharedPointer<QVector<uint32_t>> Source::binary() {
     QSharedPointer<QVector<uint32_t>> data;
     data.reset(new QVector<uint32_t>());
-    data->append(0); // Header (at first empty)
+    data->append(0); // Header
 
     json::object_t* parent = root.get_ptr<json::object_t*>();
+    uint32_t address = 0;
 
+    // Append node descriptors
     while (true) {
 
         uint32_t descriptor = 0;
@@ -39,15 +41,21 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
             if (iter != node.second.end()) {
                 descriptor |= (1 << std::stoi(node.first));
             }
-
         }
 
-        qDebug() << descriptor;
+//        qDebug() << descriptor;
+
+        data->append(descriptor);
+        address++;
 
         break;
-
-
     }
+
+    (*data.data())[0] = address + 1; // Address to block info
+
+    data->append(0); // Block info
+
+    // Append attach descriptors
 
     return data;
 }

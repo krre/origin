@@ -32,16 +32,14 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     while (true) {
 
         uint32_t descriptor = 0;
-        for (int i = 0; i < 8; i++) {
-            json::object_t* node = (*parent)[std::to_string(i)].get_ptr<json::object_t*>();
-            if (node != nullptr && (*node).size()) {
-                descriptor |= (1 << (8 + i));
-                qDebug() << i;
-                json::object_t* childred = (*node)[std::string("children")].get_ptr<json::object_t*>();
-                if (childred != nullptr && (*childred).size()) {
-                    descriptor |= (1 << i);
-                }
+        for (auto& node: (*parent)) {
+            descriptor |= (1 << (8 + std::stoi(node.first)));
+
+            json::iterator iter = node.second.find("children");
+            if (iter != node.second.end()) {
+                descriptor |= (1 << std::stoi(node.first));
             }
+
         }
 
         qDebug() << descriptor;

@@ -29,23 +29,36 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
 
     json::object_t* parent = root.get_ptr<json::object_t*>();
     uint32_t address = 0;
+    QVector<uint32_t> colorDescriptors;
+    QVector<uint32_t> colors;
 
     // Append node descriptors
     while (true) {
 
-        uint32_t descriptor = 0;
+        uint32_t nodeDescriptor = 0;
+        uint32_t colorDescriptor = 0;
+
         for (auto& node: (*parent)) {
-            descriptor |= (1 << (8 + std::stoi(node.first)));
+            nodeDescriptor |= (1 << (8 + std::stoi(node.first)));
 
             json::iterator iter = node.second.find("children");
             if (iter != node.second.end()) {
-                descriptor |= (1 << std::stoi(node.first));
+                nodeDescriptor |= (1 << std::stoi(node.first));
+            }
+
+            iter = node.second.find("color");
+            if (iter != node.second.end()) {
+                colorDescriptor |= (1 << std::stoi(node.first));
+                colorDescriptors.append(colorDescriptors);
+                std::string nameColor = (*parent)[node.first]["color"];
+                QColor color(nameColor.c_str());
+                colors.append(color.rgba());
             }
         }
 
-//        qDebug() << descriptor;
+//        qDebug() << nodeDescriptor << colorDescriptor;
 
-        data->append(descriptor);
+        data->append(nodeDescriptor);
         address++;
 
         break;

@@ -3,6 +3,7 @@
 #include <QColor>
 #include <QSharedPointer>
 #include <QVector>
+#include <QMap>
 #include <json/json.hpp>
 
 struct Node;
@@ -21,5 +22,6 @@ public:
 
 private:
     json root;
+    QMap<uint32_t, json::object_t*> parents;
     uint32_t defaultColor = 0xFF4681FF;
 };

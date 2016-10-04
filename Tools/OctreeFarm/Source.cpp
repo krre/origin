@@ -30,7 +30,7 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     data->append(0); // Header
 
     json::object_t* parent = root.get_ptr<json::object_t*>();
-    uint32_t address = 0;
+    uint32_t offset = 0;
     QVector<uint32_t> colorDescriptors;
     QVector<uint32_t> colors;
 
@@ -59,18 +59,19 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
 
         data->append(nodeDescriptor);
         colorDescriptors.append(colorDescriptor);
-        address++;
+        offset++;
+        parents[offset] = parent;
 
         break;
     }
 
-    (*data)[0] = address + 1; // Address to block info
+    (*data)[0] = offset + 1; // Address to block info
 
     // Append block info
     data->append(0);
 
     // Append attach descriptors
-    int offset = colorDescriptors.count();
+    offset = colorDescriptors.count();
     for (int i = 0 ; i < colorDescriptors.count(); i++) {
         uint32_t colorDescriptor = colorDescriptors[i];
         colorDescriptor |= (offset << 8);
@@ -88,9 +89,11 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
 
 bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
     if (!selection.count()) return false;
+
     for (int i = 0; i < selection.count(); i++) {
         Node* node = selection.at(i).data();
-        qDebug() << node->parent << node->childIndex;
+        json::object_t* parent = parents[node->parent];
+        parent->erase(std::to_string(node->childIndex));
     }
 
     return true;

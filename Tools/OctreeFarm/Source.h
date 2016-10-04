@@ -16,4 +16,5 @@ public:
 
 private:
     json root;
+    uint32_t defaultColor = 0xFF4681FF;
 };

@@ -1,4 +1,5 @@
 #include "Source.h"
+#include "Utils.h"
 #include <QtCore>
 
 Source::Source(QObject* parent) : QObject(parent) {
@@ -9,7 +10,7 @@ void Source::create(const QString& string) {
     if (string.isEmpty()) {
         for (int i = 0; i < 8; i++) {
             json node;
-            node["color"] = QColor(Qt::blue).name(QColor::HexArgb).toStdString();
+            node["color"] = QColor(defaultColor).name(QColor::HexArgb).toStdString();
             root[QString::number(i).toStdString()] = node;
         }
     } else {
@@ -49,26 +50,37 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
             iter = node.second.find("color");
             if (iter != node.second.end()) {
                 colorDescriptor |= (1 << std::stoi(node.first));
-                colorDescriptors.append(colorDescriptors);
                 std::string nameColor = (*parent)[node.first]["color"];
                 QColor color(nameColor.c_str());
                 colors.append(color.rgba());
             }
         }
 
-//        qDebug() << nodeDescriptor << colorDescriptor;
-
         data->append(nodeDescriptor);
+        colorDescriptors.append(colorDescriptor);
         address++;
 
         break;
     }
 
-    (*data.data())[0] = address + 1; // Address to block info
+    (*data)[0] = address + 1; // Address to block info
 
-    data->append(0); // Block info
+    // Append block info
+    data->append(0);
 
     // Append attach descriptors
+    int offset = colorDescriptors.count();
+    for (int i = 0 ; i < colorDescriptors.count(); i++) {
+        uint32_t colorDescriptor = colorDescriptors[i];
+        colorDescriptor |= (offset << 8);
+        data->append(colorDescriptor);
+        offset += Utils::bitCount8(colorDescriptor);
+    }
+
+    // Append colors
+    for (int i = 0; i < colors.count(); i++) {
+        data->append(colors[i]);
+    }
 
     return data;
 }

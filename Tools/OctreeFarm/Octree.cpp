@@ -8,8 +8,11 @@ Octree::Octree(QObject* parent) : QObject(parent) {
 }
 
 void Octree::createNew() {
-    storage.clear();
+    source.create();
+    storage = source.binary();
 
+    /* Example
+     *
     // Header
     storage.append(0x00000002); // => Block info
     // Nodes
@@ -27,13 +30,11 @@ void Octree::createNew() {
     storage.append(defaultColor);
     storage.append(defaultColor);
     storage.append(defaultColor);
-
-    source.create();
-    QSharedPointer<QVector<uint32_t>> data = source.binary();
-    qDebug() << *data.data();
+    */
 }
 
 void Octree::createTest() {
+    /*
     storage.clear();
     // Test data
     // Header
@@ -59,6 +60,7 @@ void Octree::createTest() {
     storage.append(0x6B38ACFF);
     storage.append(0x5DD772FF);
     storage.append(0xC5651FFF);
+    */
 }
 
 bool Octree::save(const QString& fileName) {
@@ -98,9 +100,9 @@ void Octree::setIsModified(bool isModified) {
 
 int Octree::colorAttachAddress(int parent, int childIndex) {
     int pageHeader = parent & -pageBytes;
-    int blockInfo = pageHeader + storage.at(pageHeader);
+    int blockInfo = pageHeader + storage->at(pageHeader);
     int attachData = blockInfo + blockInfoEnd;
-    int paletteNode = storage.at(attachData + parent - 1);
+    int paletteNode = storage->at(attachData + parent - 1);
     return attachData + (paletteNode >> 8) + Utils::bitCount8(paletteNode & 0xFF & ((1 << childIndex) - 1));
 }
 
@@ -123,20 +125,20 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
 
     if (append) {
         if (index >= 0) { // Remove selection
-            storage[address] = m_selection.at(index)->color;
+            (*storage)[address] = m_selection.at(index)->color;
             m_selection.remove(index);
             nodeDeselected();
         } else { // Append selection
-            node->color = storage[address];
-            storage[address] = selectionColor;
+            node->color = (*storage)[address];
+            (*storage)[address] = selectionColor;
             m_selection.append(node);
             color.setRgba(node->color);
             nodeSelected(childIndex, color);
         }
     } else if (index == -1 || m_selection.count() > 1) {
         deselect();
-        node->color = storage[address];
-        storage[address] = selectionColor;
+        node->color = (*storage)[address];
+        (*storage)[address] = selectionColor;
         m_selection.append(node);
         color.setRgba(node->color);
         nodeSelected(childIndex, color);
@@ -156,7 +158,7 @@ void Octree::deselect() {
     if (m_selection.count()) {
         for (auto node: m_selection) {
             int address = colorAttachAddress(node->parent, node->childIndex);
-            storage[address] = node->color;
+            (*storage)[address] = node->color;
         }
 
         m_selection.clear();

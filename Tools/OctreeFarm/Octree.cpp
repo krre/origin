@@ -184,6 +184,7 @@ void Octree::deleteNode() {
         m_selection.clear();
         nodeDeselected();
         storage = source.binary();
+        setIsModified(true);
         dataChanged();
     }
 }

@@ -89,6 +89,9 @@ bool Octree::load(const QString& fileName) {
 
     file.close();
 
+    storage = source.binary();
+    dataChanged();
+
     return true;
 }
 

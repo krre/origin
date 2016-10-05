@@ -54,7 +54,7 @@ private:
     Source source;
     QSharedPointer<QVector<uint32_t>> storage;
     QVector<QSharedPointer<Node>> m_selection;
-    uint32_t selectionColor = 0xFFFFFF00;
+    uint32_t selectionColor = 0xFF909090;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);
     bool m_isModified = false;

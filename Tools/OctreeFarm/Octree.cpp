@@ -148,10 +148,15 @@ void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
 }
 
 void Octree::changeNodeColor(const QColor& color) {
-    for (auto node: m_selection) {
-        node->color = color.rgba();
+    if (source.changeNodeColor(m_selection, color)) {
+        m_selection.clear();
+        nodeDeselected();
+        storage = source.binary();
+        setIsModified(true);
+        dataChanged();
+    } else {
+        qDebug() << "Failure change node color";
     }
-    setIsModified(true);
 }
 
 void Octree::deselect() {

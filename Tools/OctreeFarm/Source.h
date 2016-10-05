@@ -18,6 +18,7 @@ public:
     void create(const QString& string = QString());
     QString serialize();
     QSharedPointer<QVector<uint32_t>> binary();
+    bool changeNodeColor(const QVector<QSharedPointer<Node>>& selection, const QColor& color);
     bool deleteNode(const QVector<QSharedPointer<Node>>& selection);
     bool splitNode(const QVector<QSharedPointer<Node>>& selection);
 

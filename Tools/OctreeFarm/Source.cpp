@@ -122,6 +122,18 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     return data;
 }
 
+bool Source::changeNodeColor(const QVector<QSharedPointer<Node>>& selection, const QColor& color) {
+    if (!selection.count()) return false;
+
+    for (int i = 0; i < selection.count(); i++) {
+        Node* node = selection.at(i).data();
+        json::object_t* parent = parents[node->parent];
+        (*parent)[std::to_string(node->childIndex)]["color"] = color.name(QColor::HexArgb).toStdString();
+    }
+
+    return true;
+}
+
 bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
     if (!selection.count()) return false;
 

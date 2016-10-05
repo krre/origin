@@ -47,7 +47,7 @@ RenderSurface::RenderSurface() {
     // Objects buffer
     glGenBuffers(1, &objectsTbo);
     glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * OBJECT_STRIDE * MAX_OCTREE_COUNT, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * OBJECT_STRIDE * MAX_OCTREE_COUNT, NULL, GL_DYNAMIC_DRAW);
 
     glGenTextures(1, &objectsTexture);
     glBindTexture(GL_TEXTURE_BUFFER, objectsTexture);
@@ -56,7 +56,7 @@ RenderSurface::RenderSurface() {
     // Octrees buffer
     glGenBuffers(1, &octreesTbo);
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * MAX_OCTREE_COUNT * 10, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * MAX_OCTREE_COUNT * 10, NULL, GL_DYNAMIC_DRAW);
 
     glGenTextures(1, &octreesTexture);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);

@@ -7,15 +7,17 @@ SVOBuilder::SVOBuilder() {
 std::shared_ptr<std::vector<uint32_t> > SVOBuilder::buildTest() {
     auto data = std::make_shared<std::vector<uint32_t>>();
     // Header
-    data->push_back(0x00000003); // => Block info
+    data->push_back(0x00000004); // => Block info
     // Nodes
     data->push_back(0x00027F08); // 0000 0000 0000 0010 | 0111 1111 | 0000 1000
-    data->push_back(0x0000BF00); // 0000 0000 0000 0000 | 1011 1111 | 0000 0000
+    data->push_back(0x0002BF80); // 0000 0000 0000 0010 | 1011 1111 | 1000 0000
+    data->push_back(0x00008F00); // 0000 0000 0000 0000 | 1000 1111 | 0000 0000
     // Block info
     data->push_back(0x00000000);
     // Attach data
-    data->push_back(0x0000027F); // 0000 0000 0000 0000 0000 0002 | 0111 1111
-    data->push_back(0x00000999); // 0000 0000 0000 0000 0000 1001 | 1001 1001
+    data->push_back(0x0000037F); // 0000 0000 0000 0000 0000 0003 | 0111 1111
+    data->push_back(0x00000A99); // 0000 0000 0000 0000 0000 1010 | 1001 1001
+    data->push_back(0x00000000); // 0000 0000 0000 0000 0000 0000 | 0000 0000
     // Colors
     data->push_back(0x044A00FF);
     data->push_back(0xA30000FF);

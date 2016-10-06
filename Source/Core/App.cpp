@@ -15,6 +15,7 @@
 #include <GL/glew.h>
 #include <Gagarin.h>
 #include <algorithm>
+#include <experimental/filesystem>
 
 std::string App::absoluteFilePath;
 std::string App::absolutePath;
@@ -23,8 +24,9 @@ App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);
     }
+    namespace fs = std::experimental::filesystem;
     absoluteFilePath = this->argv[0];
-    absolutePath = absoluteFilePath.substr(0, absoluteFilePath.find_last_of(Utils::getPathSeparator()));
+    absolutePath = fs::current_path().string();
 
     init();
 }

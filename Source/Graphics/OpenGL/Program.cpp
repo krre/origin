@@ -32,3 +32,7 @@ bool Program::link() {
 void Program::bind() {
     glUseProgram(id);
 }
+
+void Program::release() {
+    glUseProgram(0);
+}

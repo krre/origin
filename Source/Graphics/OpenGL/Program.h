@@ -11,6 +11,7 @@ public:
     void addShader(const Shader& shader);
     bool link();
     void bind();
+    void release();
     GLuint getId() const { return id; }
 
 private:

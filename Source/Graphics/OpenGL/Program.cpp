@@ -29,6 +29,6 @@ bool Program::link() {
     return true;
 }
 
-void Program::bind(bool value) {
-    glUseProgram(value ? id : 0);
+void Program::bind() {
+    glUseProgram(id);
 }

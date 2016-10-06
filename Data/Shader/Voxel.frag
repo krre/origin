@@ -310,6 +310,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         int pageHeader = int(node) & -pageBytes;
         uvec4 v = texelFetch(octrees, pageHeader);
         int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
+        int attachData = blockInfo + blockInfoEnd;
         v = texelFetch(octrees, attachData + int(node) - 1);
         uint paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
     }

@@ -25,7 +25,7 @@ struct CastResult {
     float t;
     vec3 pos;
     vec4 normal;
-    int node;
+    uint node;
     int childIdx;
     uint scale;
 };
@@ -114,7 +114,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 //    t_max = min(t_max, 1.0);
 
     // Initialize the current voxel to the first child of the root.
-    int parent = 1;
+    uint parent = 1u;
     uint child_descriptor = 0u; // invalid until fetched
     int idx = 0;
     vec3 pos = vec3(1.0, 1.0, 1.0);
@@ -130,7 +130,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     while (scale < s_max) {
         // Fetch child descriptor unless it is already valid.
         if (child_descriptor == 0u) {
-            uvec4 v = texelFetch(octrees, parent);
+            uvec4 v = texelFetch(octrees, int(parent));
             child_descriptor = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
         }
 
@@ -177,12 +177,11 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
                 // Find child descriptor corresponding to the current voxel.
                 uint ofs = child_descriptor >> 17; // child pointer
                 if ((child_descriptor & 0x10000u) != 0u) { // far
-//                        ofs = parent[ofs * 2]; // far pointer
+                    ofs += parent; // far pointer
                 }
 
                 ofs += bitCount8(child_masks & 0x7Fu);
-//                parent += ofs * 2;
-                parent += int(ofs);
+                parent += ofs;
 
                 // Select child voxel that the ray enters first.
                 idx = 0;
@@ -224,7 +223,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 
             // Restore parent voxel from the stack.
             uvec2 stackEntry = stack[scale];
-            parent = int(stackEntry.x);
+            parent = stackEntry.x;
             t_max = uintBitsToFloat(stackEntry.y);
 
             // Round cube position and extract child slot index.
@@ -274,16 +273,16 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     uint pz = floatBitsToUint(castRes.pos.z);
 
     // Current position in tree
-    int node  = castRes.node;
+    uint node  = castRes.node;
     int cidx  = castRes.childIdx;
     uint level = castRes.scale;
 
     // Start here
-    int pageHeader = node & -pageBytes;
+    int pageHeader = int(node) & -pageBytes;
     uvec4 v = texelFetch(octrees, pageHeader);
     int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
     int attachData = blockInfo + blockInfoEnd;
-    v = texelFetch(octrees, attachData + node - 1);
+    v = texelFetch(octrees, attachData + int(node) - 1);
     uint paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
 
     // While node has no color, loop
@@ -293,7 +292,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
             return vec4(0.0, 0.0, 0.0, 1.0);
         }
 
-        node = int(stack[level].x);
+        node = stack[level].x;
         cidx = 0;
         if ((int(px) & (1 << level)) != 0) cidx |= 1;
         if ((int(py) & (1 << level)) != 0) cidx |= 2;
@@ -308,10 +307,10 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 //        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
 //        paletteNode  = attachData[(node - blockStart) >> 1];
 
-        int pageHeader = node & -pageBytes;
+        int pageHeader = int(node) & -pageBytes;
         uvec4 v = texelFetch(octrees, pageHeader);
         int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
-        v = texelFetch(octrees, attachData + node - 1);
+        v = texelFetch(octrees, attachData + int(node) - 1);
         uint paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
     }
 
@@ -338,7 +337,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 
 void main() {
     CastResult outCastRes;
-    outCastRes.node = -1;
+    outCastRes.node = 0u;
     float t = 10000;
     int index = -1;
     for (int i = 0; i < objectCount; i++) {
@@ -361,14 +360,14 @@ void main() {
     if (gl_FragCoord.y == pickPixel.y + 0.5) { // For OctreeFarm pick node
         float d = 255;
         if (gl_FragCoord.x == pickPixel.x + 0.5) { // x
-            int r = (outCastRes.node >> 24) & 0xFF;
-            int g = (outCastRes.node >> 16) & 0xFF;
-            int b = (outCastRes.node >> 8) & 0xFF;
-            int a = outCastRes.node & 0xFF;
+            int r = int(outCastRes.node >> 24) & 0xFF;
+            int g = int(outCastRes.node >> 16) & 0xFF;
+            int b = int(outCastRes.node >> 8) & 0xFF;
+            int a = int(outCastRes.node) & 0xFF;
             // Parent node address
             color = vec4(r / d, g / d, b / d, a / d);
         } else if (gl_FragCoord.x == pickPixel.x + 1.5) { // x + 1
-            if (outCastRes.node != -1) {
+            if (outCastRes.node != 0u) {
                 // Child index in parent node
                 color = vec4(0.0, 0.0, 0.0, outCastRes.childIdx / d);
             } else {

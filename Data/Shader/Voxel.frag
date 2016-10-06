@@ -268,9 +268,9 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 }
 
 vec4 lookupColor(in int index, in CastResult castRes) {
-    uint px = floatBitsToUint(castRes.pos.x);
-    uint py = floatBitsToUint(castRes.pos.y);
-    uint pz = floatBitsToUint(castRes.pos.z);
+    int px = floatBitsToInt(castRes.pos.x);
+    int py = floatBitsToInt(castRes.pos.y);
+    int pz = floatBitsToInt(castRes.pos.z);
 
     // Current position in tree
     uint node  = castRes.node;
@@ -294,9 +294,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 
         node = stack[level].x;
         cidx = 0;
-        if ((int(px) & (1 << level)) != 0) cidx |= 1;
-        if ((int(py) & (1 << level)) != 0) cidx |= 2;
-        if ((int(pz) & (1 << level)) != 0) cidx |= 4;
+        if ((px & (1 << level)) != 0) cidx |= 1;
+        if ((py & (1 << level)) != 0) cidx |= 2;
+        if ((pz & (1 << level)) != 0) cidx |= 4;
 
         // Update
 //        pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);

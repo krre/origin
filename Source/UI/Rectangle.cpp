@@ -16,7 +16,7 @@ void Rectangle::draw(float dt) {
     glm::mat4 model = rotationMatrix * translationMatrix * scaleMatrix;
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight()));
     glm::mat4 mvp = projection * model;
-    baseShaderGroup->use();
+    baseShaderGroup->bind();
     glUniformMatrix4fv(glGetUniformLocation(baseShaderGroup->getProgram(), "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
     glUniform3f(glGetUniformLocation(baseShaderGroup->getProgram(), "color"), color.x, color.y, color.z);
     plane.draw();

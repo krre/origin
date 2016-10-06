@@ -27,7 +27,7 @@ Text::Text() {
     FT_Set_Pixel_Sizes(face, 0, fontSize);
 
     fontShaderGroup = ResourceManager::getInstance()->getShaderGroup("FontShaderGroup");
-    fontShaderGroup->use();
+    fontShaderGroup->bind();
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 
@@ -110,7 +110,7 @@ void Text::setFontSize(int fontSize) {
 void Text::draw(float dt) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    fontShaderGroup->use();
+    fontShaderGroup->bind();
 
     glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, z));
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight())) * translationMatrix;

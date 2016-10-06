@@ -10,7 +10,7 @@ public:
     Program();
     void addShader(const Shader& shader);
     bool link();
-    void use(bool value=true);
+    void bind(bool value=true);
     GLuint getId() const { return id; }
 
 private:

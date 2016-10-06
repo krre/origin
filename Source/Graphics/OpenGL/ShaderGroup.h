@@ -10,7 +10,7 @@ public:
     void setVertShaderPath(const std::string& path);
     void setFragShaderPath(const std::string& path);
     void load() override;
-    void use();
+    void bind();
     GLuint getProgram() { return program.getId(); }
 
 private:

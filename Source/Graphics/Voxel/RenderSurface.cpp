@@ -12,7 +12,7 @@
 RenderSurface::RenderSurface() {
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     program = voxelShaderGroup->getProgram();
-    voxelShaderGroup->use();
+    voxelShaderGroup->bind();
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
 
@@ -144,7 +144,7 @@ void RenderSurface::draw(float dt) {
     glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
     glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * objects.size(), objects.data());
 
-    voxelShaderGroup->use();
+    voxelShaderGroup->bind();
 
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);

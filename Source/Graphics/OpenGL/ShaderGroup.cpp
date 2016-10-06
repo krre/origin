@@ -22,6 +22,6 @@ void ShaderGroup::load() {
     program.link();
 }
 
-void ShaderGroup::use() {
-    program.use();
+void ShaderGroup::bind() {
+    program.bind();
 }

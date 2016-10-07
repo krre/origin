@@ -112,13 +112,14 @@ int Octree::colorAttachAddress(int parent, int childIndex) {
     return attachData + (paletteNode >> 8) + Utils::bitCount8(paletteNode & ((1 << childIndex) - 1));
 }
 
-void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {
+void Octree::select(uint32_t parent, uint32_t childIndex, const glm::vec3& pos, bool append) {
     int address = colorAttachAddress(parent, childIndex);
 
     QSharedPointer<Node> node;
     node.reset(new Node);
     node->parent = parent;
     node->childIndex = childIndex;
+    node->pos = pos;
     QColor color;
 
     int index = -1;

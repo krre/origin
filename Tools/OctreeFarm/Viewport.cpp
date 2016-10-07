@@ -152,16 +152,22 @@ void Viewport::paintGL() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
     if (fboMode) {
-        unsigned char* data = new unsigned char[2 * 4];
-        glReadPixels(pick.x(), height() - pick.y(), 2, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        int words = 5;
+        unsigned char* data = new unsigned char[words * 4];
+        glReadPixels(pick.x(), height() - pick.y(), words, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
         int invalidBit = data[4] & 0x80;
         if (invalidBit) {
             m_octree->deselect();
         } else {
             uint32_t parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
             uint32_t childIndex = data[7];
-            m_octree->select(parent, childIndex, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+            glm::uvec3 pos;
+            pos.x = data[8] << 24 | data[9] << 16 | data[10] << 8 | data[11];
+            pos.y = data[12] << 24 | data[13] << 16 | data[14] << 8 | data[15];
+            pos.z = data[16] << 24 | data[17] << 16 | data[18] << 8 | data[19];
+            m_octree->select(parent, childIndex, pos, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
         }
+
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));
         delete data;

@@ -375,6 +375,12 @@ void main() {
                 // Invalid bit
                 color = vec4(0x80 / d, 0.0, 0.0, 0.0);
             }
+        } else if (gl_FragCoord.x == pickPixel.x + 2.5) { // x + 2
+            color = vec4(outCastRes.pos.x);
+        } else if (gl_FragCoord.x == pickPixel.x + 3.5) { // x + 3
+            color = vec4(outCastRes.pos.y);
+        } else if (gl_FragCoord.x == pickPixel.x + 4.5) { // x + 4
+            color = vec4(outCastRes.pos.z);
         }
     } else {
         if (index != -1) {

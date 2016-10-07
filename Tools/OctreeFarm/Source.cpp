@@ -164,3 +164,9 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
 
     return true;
 }
+
+bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
+    if (!selection.count()) return false;
+
+    return false;
+}

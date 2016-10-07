@@ -21,6 +21,7 @@ public:
     bool changeNodeColor(const QVector<QSharedPointer<Node>>& selection, const QColor& color);
     bool deleteNode(const QVector<QSharedPointer<Node>>& selection);
     bool splitNode(const QVector<QSharedPointer<Node>>& selection);
+    bool mergeNode(const QVector<QSharedPointer<Node>>& selection);
 
 private:
     json root;

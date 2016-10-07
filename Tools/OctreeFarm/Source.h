@@ -10,6 +10,12 @@ struct Node;
 
 using json = nlohmann::json;
 
+struct Property {
+    json::object_t* parent;
+    QString name;
+    bool exist;
+};
+
 class Source : public QObject {
     Q_OBJECT
 
@@ -24,6 +30,8 @@ public:
     bool mergeNode(const QVector<QSharedPointer<Node>>& selection);
 
 private:
+    Property findParent(json::object_t* parent, const json::object_t* find);
+
     json root;
     QMap<uint32_t, json::object_t*> parents;
     uint32_t defaultColor = 0xFF4681FF;

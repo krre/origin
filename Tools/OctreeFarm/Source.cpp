@@ -167,6 +167,41 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
 
 bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     if (!selection.count()) return false;
+    qDebug() << "merge";
+    Node* node = selection.at(0).data();
+    json::object_t* current = parents[node->parent];
+    std::cout << (*current) << std::endl;
+    Property property = findParent(root.get_ptr<json::object_t*>(), current);
+    if (property.exist) {
+        qDebug() << "exist" << property.name;
+    }
 
     return false;
+}
+
+// Recursive search node pointer in tree
+Property Source::findParent(json::object_t* parent, const json::object_t* find) {
+    Property property;
+    property.exist = false;
+
+    for (auto node: (*parent)) {
+        if (node.second.is_object()) {
+            std::cout << "first: " << node.first << " | second: " << node.second << std::endl;
+            std::cout << node.second.get_ptr<json::object_t*>() << " | " << find << std::endl;
+            if (node.second.get_ptr<json::object_t*>() == find) {
+                qDebug() << "FIND";
+                property.parent = parent;
+                property.name = QString::fromStdString(node.first);
+                property.exist = true;
+                return property;
+            } else {
+                property = findParent(node.second.get_ptr<json::object_t*>(), find);
+                if (property.exist) {
+                    return property;
+                }
+            }
+        }
+    }
+
+    return property;
 }

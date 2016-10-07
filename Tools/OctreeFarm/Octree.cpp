@@ -109,7 +109,7 @@ int Octree::colorAttachAddress(int parent, int childIndex) {
     int blockInfo = pageHeader + storage->at(pageHeader);
     int attachData = blockInfo + blockInfoEnd;
     int paletteNode = storage->at(attachData + parent - 1);
-    return attachData + (paletteNode >> 8) + Utils::bitCount8(paletteNode & 0xFF & ((1 << childIndex) - 1));
+    return attachData + (paletteNode >> 8) + Utils::bitCount8(paletteNode & ((1 << childIndex) - 1));
 }
 
 void Octree::select(uint32_t parent, uint32_t childIndex, bool append) {

@@ -76,7 +76,7 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
                 nodeDescriptor |= (1 << 17); // Set offset to 1
             } else {
                 uint32_t lastDescriptor = data->at(offset);
-                nodeDescriptor |= ((lastDescriptor >> 17) + Utils::bitCount8(lastDescriptor));
+                nodeDescriptor |= ((lastDescriptor >> 17) + Utils::bitCount8(lastDescriptor) - 1);
             }
         }
 
@@ -154,7 +154,9 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
         json::object_t* parent = parents[node->parent];
         json children;
         for (int i = 0; i < 8; i++) {
-            children[std::to_string(i)] = json::object();
+            json obj;
+            obj["color"] = QColor(defaultColor).name(QColor::HexArgb).toStdString();
+            children[std::to_string(i)] = obj;
         }
 
         (*parent)[std::to_string(node->childIndex)]["children"] = children;

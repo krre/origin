@@ -10,7 +10,7 @@ struct Node {
     uint32_t parent;
     uint32_t childIndex;
     uint32_t color;
-    glm::vec3 pos;
+    glm::uvec3 pos;
 };
 
 class Octree : public QObject {
@@ -33,7 +33,7 @@ public:
     void setIsModified(bool isModified);
     bool isModified() const { return m_isModified; }
 
-    void select(uint32_t parent, uint32_t childIndex, const glm::vec3& pos, bool append = false);
+    void select(uint32_t parent, uint32_t childIndex, const glm::uvec3 &pos, bool append = false);
     void changeNodeColor(const QColor& color);
 
 public slots:

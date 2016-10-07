@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QMap>
 #include <json/json.hpp>
+#include <glm/glm.hpp>
 
 struct Node;
 
@@ -31,6 +32,7 @@ public:
 
 private:
     Property findParent(json::object_t* parent, const json::object_t* find);
+    json::json_pointer posToPointer(const glm::uvec3& pos);
 
     json root;
     QMap<uint32_t, json::object_t*> parents;

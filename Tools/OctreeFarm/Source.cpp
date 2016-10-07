@@ -205,3 +205,8 @@ Property Source::findParent(json::object_t* parent, const json::object_t* find) 
 
     return property;
 }
+
+json::json_pointer Source::posToPointer(const glm::uvec3& pos) {
+    std::string p;
+    return json::json_pointer(p);
+}

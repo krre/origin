@@ -67,6 +67,17 @@ uint bitCount8(uint value) {
     return count;
 }
 
+vec4 floatToVec4(float value) {
+    uint u = floatBitsToUint(value);
+    float d = 255.0;
+    int r = int(u >> 24) & 0xFF;
+    int g = int(u >> 16) & 0xFF;
+    int b = int(u >> 8) & 0xFF;
+    int a = int(u) & 0xFF;
+
+    return vec4(r / d, g / d, b / d, a / d);
+}
+
 Ray constructRay(in int index) {
     int offset = index * objectStride + 4;
     Ray ray;
@@ -376,11 +387,11 @@ void main() {
                 color = vec4(0x80 / d, 0.0, 0.0, 0.0);
             }
         } else if (gl_FragCoord.x == pickPixel.x + 2.5) { // x + 2
-            color = vec4(outCastRes.pos.x);
+            color = floatToVec4(outCastRes.pos.x);
         } else if (gl_FragCoord.x == pickPixel.x + 3.5) { // x + 3
-            color = vec4(outCastRes.pos.y);
+            color = floatToVec4(outCastRes.pos.y);
         } else if (gl_FragCoord.x == pickPixel.x + 4.5) { // x + 4
-            color = vec4(outCastRes.pos.z);
+            color = floatToVec4(outCastRes.pos.z);
         }
     } else {
         if (index != -1) {

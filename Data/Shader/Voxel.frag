@@ -307,16 +307,16 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 //        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
 //        paletteNode  = attachData[(node - blockStart) >> 1];
 
-        int pageHeader = int(node) & -pageBytes;
-        uvec4 v = texelFetch(octrees, pageHeader);
-        int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
-        int attachData = blockInfo + blockInfoEnd;
+        pageHeader = int(node) & -pageBytes;
+        v = texelFetch(octrees, pageHeader);
+        blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
+        attachData = blockInfo + blockInfoEnd;
         v = texelFetch(octrees, attachData + int(node) - 1);
-        uint paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
+        paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
     }
 
     // Found, return it
-    int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & 0xFFu & uint((1 << cidx) - 1)));
+    int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & uint((1 << cidx) - 1)));
     v = texelFetch(octrees, pAttach);
     float d = 255.0; // On Windows division like v.b / 255.0 rises runtime error
     vec3 octreeColor = vec3(v.b / d, v.g / d, v.r / d);

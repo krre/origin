@@ -13,8 +13,6 @@ class App : public Singleton<App> {
 public:
     App(int argc, char* argv[]);
     ~App();
-    // Full path to application
-    static std::string getAbsoluteFilePath() { return absoluteFilePath; }
     // Path to application directory
     static std::string getAbsolutePath() { return absolutePath; }
     int run();
@@ -26,7 +24,6 @@ public:
 
 private:
     std::vector<std::string> argv;
-    static std::string absoluteFilePath;
     static std::string absolutePath;
 
     Viewport viewport;

@@ -17,7 +17,6 @@
 #include <algorithm>
 #include <experimental/filesystem>
 
-std::string App::absoluteFilePath;
 std::string App::absolutePath;
 
 App::App(int argc, char* argv[]) {
@@ -25,7 +24,6 @@ App::App(int argc, char* argv[]) {
         this->argv.push_back(argv[i]);
     }
     namespace fs = std::experimental::filesystem;
-    absoluteFilePath = this->argv[0];
     absolutePath = fs::current_path().string();
 
     init();

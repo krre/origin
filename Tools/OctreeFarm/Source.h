@@ -30,6 +30,5 @@ private:
     QVector<int> posToPath(const glm::uvec3& pos, int scale);
 
     json root;
-    QMap<uint32_t, json::object_t*> parents;
     uint32_t defaultColor = 0xFF4681FF;
 };

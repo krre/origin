@@ -85,7 +85,6 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
 
         colorDescriptors.append(colorDescriptor);
         offset++;
-        parents[offset] = octree;
 
         if (octreesFirst.isEmpty()) {
             if (octreesSecond.isEmpty()) {

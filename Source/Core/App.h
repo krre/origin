@@ -14,7 +14,7 @@ public:
     App(int argc, char* argv[]);
     ~App();
     // Path to application directory
-    static std::string getAbsolutePath() { return absolutePath; }
+    static std::string getCurrentPath();
     int run();
     void quit();
     Viewport* getViewport() { return &viewport; }
@@ -24,7 +24,6 @@ public:
 
 private:
     std::vector<std::string> argv;
-    static std::string absolutePath;
 
     Viewport viewport;
 

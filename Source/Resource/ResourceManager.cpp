@@ -2,7 +2,7 @@
 #include "../Core/App.h"
 
 ResourceManager::ResourceManager() {
-    dataPath = App::getAbsolutePath() + "/Data";
+    dataPath = App::getCurrentPath() + "/Data";
     shaderPath = dataPath + "/Shader";
     fontPath = dataPath + "/Font";
     loadAll();

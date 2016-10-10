@@ -156,7 +156,7 @@ void Game::toggleFullScreen() {
 }
 
 void Game::saveScreenshot() {
-    std::string directoryPath = App::getAbsolutePath() + Utils::getPathSeparator() + "Screenshot";
+    std::string directoryPath = App::getCurrentPath() + Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;
     if (!fs::exists(directoryPath)) {
         fs::create_directory(directoryPath);
@@ -204,7 +204,7 @@ void Game::saveScreenshot() {
 }
 
 void Game::loadDevelopSettings() {
-    std::string mainDebugPath = App::getAbsolutePath() + "/Debug/main.debug";
+    std::string mainDebugPath = App::getCurrentPath() + "/Debug/main.debug";
     std::string mainDebugText = Utils::readTextFile(mainDebugPath);
     std::stringstream stream(mainDebugText);
     std::string line;

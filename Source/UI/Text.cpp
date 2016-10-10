@@ -19,7 +19,7 @@ Text::Text() {
 
     FT_Face face;
 
-    std::string fontPath = App::getAbsolutePath() + "/Data/Fonts/inconsolatalgc.ttf";
+    std::string fontPath = App::getCurrentPath() + "/Data/Fonts/inconsolatalgc.ttf";
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
         error("Could not open font " << fontPath);
     }

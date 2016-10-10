@@ -17,20 +17,21 @@
 #include <algorithm>
 #include <experimental/filesystem>
 
-std::string App::absolutePath;
-
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);
     }
-    namespace fs = std::experimental::filesystem;
-    absolutePath = fs::current_path().string();
 
     init();
 }
 
 App::~App() {
     clean();
+}
+
+std::string App::getCurrentPath() {
+    namespace fs = std::experimental::filesystem;
+    return fs::current_path().string();
 }
 
 void App::init() {

@@ -170,9 +170,7 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
         }
         json children;
         for (int i = 0; i < 8; i++) {
-            json obj;
-            obj["color"] = QColor(defaultColor).name(QColor::HexArgb).toStdString();
-            children[std::to_string(i)] = obj;
+            children[std::to_string(i)]["color"] = QColor(defaultColor).name(QColor::HexArgb).toStdString();;
         }
 
         (*parentNode)[std::to_string(path.last())]["children"] = children;

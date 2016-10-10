@@ -382,7 +382,7 @@ void main() {
         } else if (gl_FragCoord.x == pickPixel.x + 1.5) { // x + 1
             if (outCastRes.node != 0u) {
                 // Child index in parent node
-                color = vec4(0.0, 0.0, 0.0, outCastRes.childIdx / d);
+                color = vec4(0.0, 0.0, outCastRes.scale / d, outCastRes.childIdx / d);
             } else {
                 // Invalid bit
                 color = vec4(0x80 / d, 0.0, 0.0, 0.0);

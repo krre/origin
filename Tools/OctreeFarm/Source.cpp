@@ -172,8 +172,8 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     Node* node = selection.at(0).data();
     json::object_t* current = parents[node->parent];
     std::cout << (*current) << std::endl;
-    QVector<int> sequence = posToSequence(node->pos, node->scale);
-    qDebug() << "sequence" << sequence;
+    QVector<int> path = posToPath(node->pos, node->scale);
+    qDebug() << "path" << path;
 //    Property property = findParent(root.get_ptr<json::object_t*>(), current);
 //    if (property.exist) {
 //        qDebug() << "exist" << property.name;
@@ -214,8 +214,8 @@ json::json_pointer Source::posToPointer(const glm::uvec3& pos) {
     return json::json_pointer(p);
 }
 
-QVector<int> Source::posToSequence(const glm::uvec3& pos, int scale) {
-    QVector<int> v;
+QVector<int> Source::posToPath(const glm::uvec3& pos, int scale) {
+    QVector<int> path;
     int s_max = 23; // from Voxel.frag
     std::bitset<32> bitsX(pos.x);
     std::bitset<32> bitsY(pos.y);
@@ -226,8 +226,8 @@ QVector<int> Source::posToSequence(const glm::uvec3& pos, int scale) {
         index |= bitsX[i];
         index |= bitsY[i] << 1;
         index |= bitsZ[i] << 2;
-        v.append(index);
+        path.append(index);
     }
 
-    return v;
+    return path;
 }

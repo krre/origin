@@ -153,7 +153,8 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
 
     for (int i = 0; i < selection.count(); i++) {
         Node* node = selection.at(i).data();
-        json::object_t* parent = parents[node->parent];
+        QVector<int> path = posToPath(node->pos, node->scale);
+        json::object_t* parentNode = findNode(path, path.count() - 2);
         json children;
         for (int i = 0; i < 8; i++) {
             json obj;
@@ -161,7 +162,7 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
             children[std::to_string(i)] = obj;
         }
 
-        (*parent)[std::to_string(node->childIndex)]["children"] = children;
+        (*parentNode)[std::to_string(path.last())]["children"] = children;
     }
 
     return true;

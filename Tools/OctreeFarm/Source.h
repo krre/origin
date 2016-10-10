@@ -11,12 +11,6 @@ struct Node;
 
 using json = nlohmann::json;
 
-struct Property {
-    json::object_t* parent;
-    QString name;
-    bool exist;
-};
-
 class Source : public QObject {
     Q_OBJECT
 

@@ -2,6 +2,7 @@
 #include "Octree.h"
 #include "Utils.h"
 #include <QtCore>
+#include <bitset>
 
 Source::Source(QObject* parent) : QObject(parent) {
 
@@ -171,10 +172,12 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     Node* node = selection.at(0).data();
     json::object_t* current = parents[node->parent];
     std::cout << (*current) << std::endl;
-    Property property = findParent(root.get_ptr<json::object_t*>(), current);
-    if (property.exist) {
-        qDebug() << "exist" << property.name;
-    }
+    QVector<int> sequence = posToSequence(node->pos, node->scale);
+    qDebug() << "sequence" << sequence;
+//    Property property = findParent(root.get_ptr<json::object_t*>(), current);
+//    if (property.exist) {
+//        qDebug() << "exist" << property.name;
+//    }
 
     return false;
 }
@@ -186,10 +189,10 @@ Property Source::findParent(json::object_t* parent, const json::object_t* find) 
 
     for (auto node: (*parent)) {
         if (node.second.is_object()) {
-            std::cout << "first: " << node.first << " | second: " << node.second << std::endl;
-            std::cout << node.second.get_ptr<json::object_t*>() << " | " << find << std::endl;
+//            std::cout << "first: " << node.first << " | second: " << node.second << std::endl;
+//            std::cout << node.second.get_ptr<json::object_t*>() << " | " << find << std::endl;
             if (node.second.get_ptr<json::object_t*>() == find) {
-                qDebug() << "FIND";
+//                qDebug() << "FIND";
                 property.parent = parent;
                 property.name = QString::fromStdString(node.first);
                 property.exist = true;
@@ -209,4 +212,22 @@ Property Source::findParent(json::object_t* parent, const json::object_t* find) 
 json::json_pointer Source::posToPointer(const glm::uvec3& pos) {
     std::string p;
     return json::json_pointer(p);
+}
+
+QVector<int> Source::posToSequence(const glm::uvec3& pos, int scale) {
+    QVector<int> v;
+    int s_max = 23; // from Voxel.frag
+    std::bitset<32> bitsX(pos.x);
+    std::bitset<32> bitsY(pos.y);
+    std::bitset<32> bitsZ(pos.z);
+
+    for (int i = s_max - 1; i >= scale; i--) {
+        int index = 0;
+        index |= bitsX[i];
+        index |= bitsY[i] << 1;
+        index |= bitsZ[i] << 2;
+        v.append(index);
+    }
+
+    return v;
 }

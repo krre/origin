@@ -32,7 +32,6 @@ public:
 
 private:
     json::object_t* findNode(const QVector<int>& path, int index);
-    Property findParent(json::object_t* parent, const json::object_t* find);
     QVector<int> posToPath(const glm::uvec3& pos, int scale);
 
     json root;

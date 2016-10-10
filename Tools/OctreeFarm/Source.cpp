@@ -191,33 +191,6 @@ json::object_t* Source::findNode(const QVector<int>& path, int index) {
     return node;
 }
 
-// Recursive search node pointer in tree
-Property Source::findParent(json::object_t* parent, const json::object_t* find) {
-    Property property;
-    property.exist = false;
-
-    for (auto node: (*parent)) {
-        if (node.second.is_object()) {
-//            std::cout << "first: " << node.first << " | second: " << node.second << std::endl;
-//            std::cout << node.second.get_ptr<json::object_t*>() << " | " << find << std::endl;
-            if (node.second.get_ptr<json::object_t*>() == find) {
-//                qDebug() << "FIND";
-                property.parent = parent;
-                property.name = QString::fromStdString(node.first);
-                property.exist = true;
-                return property;
-            } else {
-                property = findParent(node.second.get_ptr<json::object_t*>(), find);
-                if (property.exist) {
-                    return property;
-                }
-            }
-        }
-    }
-
-    return property;
-}
-
 QVector<int> Source::posToPath(const glm::uvec3& pos, int scale) {
     QVector<int> path;
     int s_max = 23; // from Voxel.frag

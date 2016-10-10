@@ -128,8 +128,9 @@ bool Source::changeNodeColor(const QVector<QSharedPointer<Node>>& selection, con
 
     for (int i = 0; i < selection.count(); i++) {
         Node* node = selection.at(i).data();
-        json::object_t* parent = parents[node->parent];
-        (*parent)[std::to_string(node->childIndex)]["color"] = color.name(QColor::HexArgb).toStdString();
+        QVector<int> path = posToPath(node->pos, node->scale);
+        json::object_t* parentNode = findNode(path, path.count() - 2);
+        (*parentNode)[std::to_string(path.last())]["color"] = color.name(QColor::HexArgb).toStdString();
     }
 
     return true;

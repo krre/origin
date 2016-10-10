@@ -180,6 +180,12 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     }
 }
 
+bool Source::addNode(const QVector<QSharedPointer<Node>>& selection) {
+    if (!selection.count()) return false;
+
+    return false;
+}
+
 json::object_t* Source::findNode(const QVector<int>& path, int index) {
     json::object_t* node = root.get_ptr<json::object_t*>();
     for (int i = 0; i <= index; i++) {

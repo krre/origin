@@ -201,7 +201,11 @@ void Octree::mergeNode() {
 }
 
 void Octree::addNode() {
-    qDebug() << "add";
+    if (source.addNode(m_selection)) {
+        confirmUpdate();
+    } else {
+        qDebug() << "Failure add node";
+    }
 }
 
 void Octree::deleteNode() {

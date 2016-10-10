@@ -218,11 +218,6 @@ Property Source::findParent(json::object_t* parent, const json::object_t* find) 
     return property;
 }
 
-json::json_pointer Source::posToPointer(const glm::uvec3& pos) {
-    std::string p;
-    return json::json_pointer(p);
-}
-
 QVector<int> Source::posToPath(const glm::uvec3& pos, int scale) {
     QVector<int> path;
     int s_max = 23; // from Voxel.frag

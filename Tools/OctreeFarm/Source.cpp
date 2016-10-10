@@ -140,8 +140,9 @@ bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
 
     for (int i = 0; i < selection.count(); i++) {
         Node* node = selection.at(i).data();
-        json::object_t* parent = parents[node->parent];
-        parent->erase(std::to_string(node->childIndex));
+        QVector<int> path = posToPath(node->pos, node->scale);
+        json::object_t* parentNode = findNode(path, path.count() - 2);
+        (*parentNode).erase(std::to_string(path.last()));
     }
 
     return true;
@@ -168,6 +169,7 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
 
 bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     if (!selection.count()) return false;
+
     Node* node = selection.at(0).data();
     QVector<int> path = posToPath(node->pos, node->scale);
     if (path.count() > 1) {

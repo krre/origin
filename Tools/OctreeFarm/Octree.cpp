@@ -112,6 +112,14 @@ int Octree::colorAttachAddress(int parent, int childIndex) {
     return attachData + (paletteNode >> 8) + Utils::bitCount8(paletteNode & ((1 << childIndex) - 1));
 }
 
+void Octree::confirmUpdate() {
+    m_selection.clear();
+    nodeDeselected();
+    storage = source.binary();
+    setIsModified(true);
+    dataChanged();
+}
+
 void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::uvec3& pos, bool append) {
     int address = colorAttachAddress(parent, childIndex);
 
@@ -157,11 +165,7 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
 
 void Octree::changeNodeColor(const QColor& color) {
     if (source.changeNodeColor(m_selection, color)) {
-        m_selection.clear();
-        nodeDeselected();
-        storage = source.binary();
-        setIsModified(true);
-        dataChanged();
+        confirmUpdate();
     } else {
         qDebug() << "Failure change node color";
     }
@@ -182,11 +186,7 @@ void Octree::deselect() {
 
 void Octree::splitNode() {
     if (source.splitNode(m_selection)) {
-        m_selection.clear();
-        nodeDeselected();
-        storage = source.binary();
-        setIsModified(true);
-        dataChanged();
+        confirmUpdate();
     } else {
         qDebug() << "Failure split node";
     }
@@ -194,11 +194,7 @@ void Octree::splitNode() {
 
 void Octree::mergeNode() {
     if (source.mergeNode(m_selection)) {
-        m_selection.clear();
-        nodeDeselected();
-        storage = source.binary();
-        setIsModified(true);
-        dataChanged();
+        confirmUpdate();
     } else {
         qDebug() << "Failure merge node";
     }
@@ -210,11 +206,7 @@ void Octree::addNode() {
 
 void Octree::deleteNode() {
     if (source.deleteNode(m_selection)) {
-        m_selection.clear();
-        nodeDeselected();
-        storage = source.binary();
-        setIsModified(true);
-        dataChanged();
+        confirmUpdate();
     } else {
         qDebug() << "Failure delete node";
     }

@@ -52,6 +52,7 @@ signals:
 
 private:
     int colorAttachAddress(int parent, int childIndex);
+    void confirmUpdate();
 
     Source source;
     QSharedPointer<QVector<uint32_t>> storage;

@@ -168,18 +168,27 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
 
 bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     if (!selection.count()) return false;
-    qDebug() << "merge";
     Node* node = selection.at(0).data();
-    json::object_t* current = parents[node->parent];
-    std::cout << (*current) << std::endl;
     QVector<int> path = posToPath(node->pos, node->scale);
-    qDebug() << "path" << path;
-//    Property property = findParent(root.get_ptr<json::object_t*>(), current);
-//    if (property.exist) {
-//        qDebug() << "exist" << property.name;
-//    }
+    if (path.count() > 1) {
+        int parentIndex = path.count() - 2;
+        json::object_t* parentNode = findNode(path, parentIndex);
+        (*parentNode).erase("children");
+        return true;
+    } else {
+        return false;
+    }
+}
 
-    return false;
+json::object_t* Source::findNode(const QVector<int>& path, int index) {
+    json::object_t* node = root.get_ptr<json::object_t*>();
+    for (int i = 0; i <= index; i++) {
+        node = (*node)[std::to_string(path.at(i))].get_ptr<json::object_t*>();
+        if (i != index) {
+            node = (*node)["children"].get_ptr<json::object_t*>();
+        }
+    }
+    return node;
 }
 
 // Recursive search node pointer in tree

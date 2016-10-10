@@ -31,6 +31,7 @@ public:
     bool mergeNode(const QVector<QSharedPointer<Node>>& selection);
 
 private:
+    json::object_t* findNode(const QVector<int>& path, int index);
     Property findParent(json::object_t* parent, const json::object_t* find);
     json::json_pointer posToPointer(const glm::uvec3& pos);
     QVector<int> posToPath(const glm::uvec3& pos, int scale);

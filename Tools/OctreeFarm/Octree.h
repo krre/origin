@@ -27,7 +27,6 @@ public:
     glm::mat4 worldToOctree() const { return m_worldToOctree; }
 
     void createNew();
-    void createTest();
     bool save(const QString& fileName);
     bool load(const QString& fileName);
 

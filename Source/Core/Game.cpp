@@ -57,6 +57,8 @@ void Game::create() {
 
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
+    transformSystem->setScale(ground.get(), 5);
+    transformSystem->setPosition(ground.get(), glm::vec3(0.0, 1.0, 0.0));
     OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
     groundOctree->data = ResourceManager::getInstance()->getOctree("GroundOctree")->data();
     Engine::getInstance()->addEntity(ground);

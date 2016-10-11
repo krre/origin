@@ -48,7 +48,8 @@ void MainWindow::setupMenuBar() {
     octreeMenu->addAction(tr("Deselect"), &octree, &Octree::deselect);
     octreeMenu->addAction(tr("Split"), &octree, &Octree::splitNode, QKeySequence("S"));
     octreeMenu->addAction(tr("Merge"), &octree, &Octree::mergeNode, QKeySequence("M"));
-    octreeMenu->addAction(tr("Add"), &octree, &Octree::addNode, QKeySequence("A"));
+    octreeMenu->addAction(tr("Add Forward"), &octree, &Octree::addNode, QKeySequence("A"));
+    octreeMenu->addAction(tr("Add Back"), &octree, &Octree::addNode, QKeySequence("Shift+A"));
     octreeMenu->addAction(tr("Delete"), &octree, &Octree::deleteNode, QKeySequence("D"));
 
     QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));

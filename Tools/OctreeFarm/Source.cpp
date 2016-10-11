@@ -194,7 +194,7 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     }
 }
 
-bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool forward) {
+bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back) {
     if (!selection.count()) return false;
 
     Node* node = selection.at(0).data();
@@ -215,15 +215,15 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool forwar
 
     // Find next or previous empty node
     while (true) {
-        if (forward) {
-            i++;
-            if (i > 7) {
-                i = 0;
-            }
-        } else {
+        if (back) {
             i--;
             if (i < 0) {
                 i = 7;
+            }
+        } else {
+            i++;
+            if (i > 7) {
+                i = 0;
             }
         }
 

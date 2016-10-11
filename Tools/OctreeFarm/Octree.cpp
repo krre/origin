@@ -201,7 +201,7 @@ void Octree::mergeNode() {
 }
 
 void Octree::addNode() {
-    if (source.addNode(m_selection)) {
+    if (source.addNode(m_selection, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier)) {
         confirmUpdate();
     } else {
         qDebug() << "Failure add node";

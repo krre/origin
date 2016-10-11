@@ -37,7 +37,7 @@ std::shared_ptr<std::vector<uint32_t>> Octree::data() {
     std::vector<uint32_t> colors;
     uint32_t offset = 0;
 
-    std::cout << source.dump(4) << std::endl;
+//    std::cout << source.dump(4) << std::endl;
 
     // Append node descriptors
     while (true) {
@@ -61,8 +61,9 @@ std::shared_ptr<std::vector<uint32_t>> Octree::data() {
             if (iter != node.second.end()) {
                 colorDescriptor |= (1 << std::stoi(node.first)); // Valid colors
                 std::string nameColor = (*octree)[node.first]["color"];
-//                QColor color(nameColor.c_str());
-//                colors.push_back(color.rgba());
+                nameColor = nameColor.substr(1, nameColor.size() - 1);
+                uint32_t color = std::stoul(nameColor, 0, 16);
+                colors.push_back(color);
             }
         }
 
@@ -112,8 +113,6 @@ std::shared_ptr<std::vector<uint32_t>> Octree::data() {
     for (int i = 0; i < colors.size(); i++) {
         data->push_back(colors[i]);
     }
-
-//    qDebug() << *data;
 
     return data;
 }

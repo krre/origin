@@ -39,6 +39,11 @@ void ResourceManager::loadAll() {
     auto iconsolataFont = std::make_shared<Font>();
     iconsolataFont->load(fontPath + "/inconsolatalgc.ttf");
     resources["IconsolataFont"] = iconsolataFont;
+
+    // Octrees
+    auto groundOctree = std::make_shared<Octree>();
+    groundOctree->load(octreePath + "/Ground.json");
+    resources["GroundOctree"] = groundOctree;
 }
 
 Font* ResourceManager::getFont(const std::string& name) {

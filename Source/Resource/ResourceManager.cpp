@@ -5,6 +5,7 @@ ResourceManager::ResourceManager() {
     dataPath = App::getCurrentPath() + "/Data";
     shaderPath = dataPath + "/Shader";
     fontPath = dataPath + "/Font";
+    octreePath = dataPath + "/Octree";
     loadAll();
 }
 
@@ -46,4 +47,8 @@ Font* ResourceManager::getFont(const std::string& name) {
 
 ShaderGroup* ResourceManager::getShaderGroup(const std::string& name) {
     return static_cast<ShaderGroup*>(resources[name].get());
+}
+
+Octree *ResourceManager::getOctree(const std::string& name) {
+    return static_cast<Octree*>(resources[name].get());
 }

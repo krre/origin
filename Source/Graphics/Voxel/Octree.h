@@ -1,7 +1,7 @@
 #pragma once
-#include "../../Core/Object.h"
+#include "../../Resource/Resource.h"
 
-class Octree : public Object {
+class Octree : public Resource {
 
 public:
     Octree();

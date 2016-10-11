@@ -3,6 +3,7 @@
 #include "../Resource/Resource.h"
 #include "../UI/Font.h"
 #include "../Graphics/OpenGL/ShaderGroup.h"
+#include "../Graphics/Voxel/Octree.h"
 #include <map>
 
 class ResourceManager : public Singleton<ResourceManager> {
@@ -12,6 +13,7 @@ public:
 
     Font* getFont(const std::string& name);
     ShaderGroup* getShaderGroup(const std::string& name);
+    Octree* getOctree(const std::string& name);
 
 private:
     void loadAll();
@@ -20,4 +22,5 @@ private:
     std::string dataPath;
     std::string shaderPath;
     std::string fontPath;
+    std::string octreePath;
 };

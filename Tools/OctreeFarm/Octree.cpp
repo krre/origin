@@ -10,27 +10,6 @@ Octree::Octree(QObject* parent) : QObject(parent) {
 void Octree::createNew() {
     source.create();
     storage = source.binary();
-
-    /* Example
-     *
-    // Header
-    storage.append(0x00000002); // => Block info
-    // Nodes
-    storage.append(0x0000FF00); // 0000 0000 0000 0000 | 1111 1111 | 0000 0000
-    // Block info
-    storage.append(0x00000000);
-    // Attach data
-    storage.append(0x000001FF); // 0000 0000 0000 0000 0000 0001 | 1111 1111
-    // Colors
-    storage.append(defaultColor);
-    storage.append(defaultColor);
-    storage.append(defaultColor);
-    storage.append(defaultColor);
-    storage.append(defaultColor);
-    storage.append(defaultColor);
-    storage.append(defaultColor);
-    storage.append(defaultColor);
-    */
 }
 
 bool Octree::save(const QString& fileName) {

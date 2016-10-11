@@ -194,10 +194,47 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     }
 }
 
-bool Source::addNode(const QVector<QSharedPointer<Node>>& selection) {
+bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool forward) {
     if (!selection.count()) return false;
 
-    return false;
+    Node* node = selection.at(0).data();
+    QVector<int> path = posToPath(node->pos, node->scale);
+    json::object_t* parentNode;
+    if (path.count() == 1) {
+        parentNode = root.get_ptr<json::object_t*>();
+    } else {
+        parentNode = findNode(path, path.count() - 2);
+        parentNode = (*parentNode)["children"].get_ptr<json::object_t*>();
+    }
+
+    if ((*parentNode).size() == 8) {
+        return false;
+    }
+
+    int i = path.last();
+
+    // Find next or previous empty node
+    while (true) {
+        if (forward) {
+            i++;
+            if (i > 7) {
+                i = 0;
+            }
+        } else {
+            i--;
+            if (i < 0) {
+                i = 7;
+            }
+        }
+
+        auto iter = (*parentNode).find(std::to_string(i));
+        if (iter == (*parentNode).end()) {
+            (*parentNode)[std::to_string(i)]["color"] = QColor(defaultColor).name(QColor::HexArgb).toStdString();
+            break;
+        }
+    }
+
+    return true;
 }
 
 json::object_t* Source::findNode(const QVector<int>& path, int index) {

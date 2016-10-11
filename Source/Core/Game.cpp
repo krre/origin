@@ -12,6 +12,7 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/Systems.h"
 #include "../GameState/GameStateManager.h"
+#include "../Resource/ResourceManager.h"
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -54,16 +55,24 @@ void Game::create() {
 
     Engine::getInstance()->addEntity(avatarCamera);
 
-    // Cube
-    std::shared_ptr<Entity> cube = EntityBuilder::cube();
-//    transformSystem->setScale(cube.get(), 0.25);
-    transformSystem->setPosition(cube.get(), glm::vec3(0.0, 0.0, 0.0));
-//    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 1.0, 1.0));
-    OctreeComponent* cubeOctree = static_cast<OctreeComponent*>(cube->components[ComponentType::Octree].get());
-    cubeOctree->data = octreeSystem->getSVOBuilder()->buildTest();
-    Engine::getInstance()->addEntity(cube);
+    // Ground
+    std::shared_ptr<Entity> ground = EntityBuilder::geometry();
+    OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
+    groundOctree->data = ResourceManager::getInstance()->getOctree("GroundOctree")->data();
+    Engine::getInstance()->addEntity(ground);
+    renderSystem->getRenderSurface()->sendOctreeToGPU(0, *groundOctree->data.get());
 
-    renderSystem->getRenderSurface()->sendOctreeToGPU(0, *cubeOctree->data.get());
+
+    // Cube
+//    std::shared_ptr<Entity> cube = EntityBuilder::cube();
+//    transformSystem->setScale(cube.get(), 0.25);
+//    transformSystem->setPosition(cube.get(), glm::vec3(0.0, 0.0, 0.0));
+//    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 1.0, 1.0));
+//    OctreeComponent* cubeOctree = static_cast<OctreeComponent*>(cube->components[ComponentType::Octree].get());
+//    cubeOctree->data = octreeSystem->getSVOBuilder()->buildTest();
+//    Engine::getInstance()->addEntity(cube);
+
+//    renderSystem->getRenderSurface()->sendOctreeToGPU(0, *cubeOctree->data.get());
 /*
     // Plane
 //    std::shared_ptr<Entity> plane = EntityBuilder::cube();

@@ -10,8 +10,8 @@ public:
     Octree();
     void load(const std::string& path) override;
     void draw();
+    std::shared_ptr<std::vector<uint32_t>> data();
 
 private:
-    uint32_t* data;
     json source;
 };

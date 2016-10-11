@@ -13,7 +13,8 @@ SOURCES += main.cpp\
     Viewport.cpp \
     Properties.cpp \
     Source.cpp \
-    Utils.cpp
+    ../../Source/Core/Utils.cpp \
+    ../../Source/Core/Object.cpp
 
 HEADERS  += MainWindow.h \
     Octree.h \
@@ -22,4 +23,5 @@ HEADERS  += MainWindow.h \
     Properties.h \
     ../../Source/Core/Common.h \
     Source.h \
-    Utils.h
+    ../../Source/Core/Utils.h \
+    ../../Source/Core/Object.h

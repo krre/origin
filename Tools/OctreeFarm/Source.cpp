@@ -1,6 +1,6 @@
 #include "Source.h"
 #include "Octree.h"
-#include "Utils.h"
+#include "../../Source/Core/Utils.h"
 #include <QtCore>
 #include <bitset>
 

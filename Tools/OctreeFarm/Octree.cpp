@@ -1,7 +1,7 @@
 #include "Octree.h"
 #include <QtCore>
 #include <QtGui>
-#include "Utils.h"
+#include "../../Source/Core/Utils.h"
 
 Octree::Octree(QObject* parent) : QObject(parent) {
     m_worldToOctree = glm::inverse(m_octreeToWorld);

@@ -10,6 +10,7 @@ Octree::Octree(QObject* parent) : QObject(parent) {
 void Octree::createNew() {
     source.create();
     storage = source.binary();
+    clipboard.fill = false;
 }
 
 bool Octree::save(const QString& fileName) {
@@ -39,6 +40,7 @@ bool Octree::load(const QString& fileName) {
     file.close();
 
     storage = source.binary();
+    clipboard.fill = false;
     dataChanged();
 
     return true;

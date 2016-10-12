@@ -14,6 +14,11 @@ struct Node {
     glm::uvec3 pos;
 };
 
+struct Clipboard {
+    uint32_t color;
+    bool fill = false;
+};
+
 class Octree : public QObject {
     Q_OBJECT
 
@@ -62,4 +67,5 @@ private:
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);
     bool m_isModified = false;
+    Clipboard clipboard;
 };

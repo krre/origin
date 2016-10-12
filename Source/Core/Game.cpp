@@ -65,6 +65,25 @@ void Game::create() {
     renderSystem->getRenderSurface()->sendOctreeToGPU(0, *groundOctree->data.get());
     renderSystem->getGpuMemoryManager()->addEntity(ground.get());
 
+    // Trees
+    std::shared_ptr<Entity> tree1 = EntityBuilder::geometry();
+    transformSystem->setScale(tree1.get(), 0.5);
+    transformSystem->setPosition(tree1.get(), glm::vec3(1.0, 0.3, 0.0));
+    Engine::getInstance()->addEntity(tree1);
+    renderSystem->getGpuMemoryManager()->addEntity(tree1.get());
+
+    std::shared_ptr<Entity> tree2 = EntityBuilder::geometry();
+    transformSystem->setScale(tree2.get(), 0.6);
+    transformSystem->setPosition(tree2.get(), glm::vec3(-0.7, 0.3, 1.2));
+    Engine::getInstance()->addEntity(tree2);
+    renderSystem->getGpuMemoryManager()->addEntity(tree2.get());
+
+    std::shared_ptr<Entity> tree3 = EntityBuilder::geometry();
+    transformSystem->setScale(tree3.get(), 0.7);
+    transformSystem->setPosition(tree3.get(), glm::vec3(-0.3, 0.3, -1.8));
+    Engine::getInstance()->addEntity(tree3);
+    renderSystem->getGpuMemoryManager()->addEntity(tree3.get());
+
 
     // Cube
 //    std::shared_ptr<Entity> cube = EntityBuilder::cube();

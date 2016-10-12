@@ -84,6 +84,25 @@ void Game::create() {
     Engine::getInstance()->addEntity(tree3);
     octreeSystem->getGpuMemoryManager()->addEntity(tree3.get());
 
+    // Chamomiles
+    std::shared_ptr<Entity> chamomile1 = EntityBuilder::geometry();
+    transformSystem->setScale(chamomile1.get(), 0.1);
+    transformSystem->setPosition(chamomile1.get(), glm::vec3(0.2, -0.2, 0.2));
+    Engine::getInstance()->addEntity(chamomile1);
+    octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get());
+
+    std::shared_ptr<Entity> chamomile2 = EntityBuilder::geometry();
+    transformSystem->setScale(chamomile2.get(), 0.1);
+    transformSystem->setPosition(chamomile2.get(), glm::vec3(-0.3, -0.2, 1.3));
+    Engine::getInstance()->addEntity(chamomile2);
+    octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get());
+
+    std::shared_ptr<Entity> chamomile3 = EntityBuilder::geometry();
+    transformSystem->setScale(chamomile3.get(), 0.1);
+    transformSystem->setPosition(chamomile3.get(), glm::vec3(0.4, -0.2, 1.0));
+    Engine::getInstance()->addEntity(chamomile3);
+    octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get());
+
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
     transformSystem->translate(light.get(), glm::vec3(1.5, 2.5, 1.0));

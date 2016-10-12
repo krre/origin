@@ -1,6 +1,8 @@
 #pragma once
 #include "../../Core/Common.h"
+#include "../../Graphics/OpenGL/ShaderGroup.h"
 #include "../../ECS/Entity.h"
+#include <GL/glew.h>
 
 constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
 
@@ -16,6 +18,14 @@ public:
     void beginBatch();
     void endBatch();
 
+    void bind();
+    void release();
+    void use();
+
 private:
+    ShaderGroup* voxelShaderGroup;
+    GLuint program;
     bool batch = false;
+    GLuint octreesTbo;
+    GLuint octreesTexture;
 };

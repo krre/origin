@@ -63,6 +63,7 @@ void Game::create() {
     groundOctree->data = ResourceManager::getInstance()->getOctree("GroundOctree")->data();
     Engine::getInstance()->addEntity(ground);
     renderSystem->getRenderSurface()->sendOctreeToGPU(0, *groundOctree->data.get());
+    renderSystem->getGpuMemoryManager()->addEntity(ground.get());
 
 
     // Cube

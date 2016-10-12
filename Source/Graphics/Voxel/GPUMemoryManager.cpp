@@ -19,3 +19,11 @@ void GPUMemoryManager::updateEntityTransform(const Entity* entity) {
 void GPUMemoryManager::removeEntity(const Entity* entity) {
 
 }
+
+void GPUMemoryManager::beginBatch() {
+    batch = true;
+}
+
+void GPUMemoryManager::endBatch() {
+    batch = false;
+}

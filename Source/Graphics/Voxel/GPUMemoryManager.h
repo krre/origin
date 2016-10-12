@@ -12,4 +12,10 @@ public:
     void updateEntityOctree(const Entity* entity);
     void updateEntityTransform(const Entity* entity);
     void removeEntity(const Entity* entity);
+
+    void beginBatch();
+    void endBatch();
+
+private:
+    bool batch = false;
 };

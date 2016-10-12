@@ -2,6 +2,8 @@
 #include "../../Core/Common.h"
 #include "../../ECS/Entity.h"
 
+constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
+
 class GPUMemoryManager {
 
 public:

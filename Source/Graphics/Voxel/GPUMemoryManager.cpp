@@ -8,7 +8,7 @@ void GPUMemoryManager::addEntity(const Entity* entity) {
 
 }
 
-void GPUMemoryManager::updateEntity(const Entity* entity) {
+void GPUMemoryManager::updateEntityOctree(const Entity* entity) {
 
 }
 

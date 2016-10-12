@@ -48,6 +48,10 @@ void ResourceManager::loadAll() {
     auto treeOctree = std::make_shared<Octree>();
     treeOctree->load(octreePath + "/Tree.json");
     resources["TreeOctree"] = treeOctree;
+
+    auto chamomileOctree = std::make_shared<Octree>();
+    chamomileOctree->load(octreePath + "/Chamomile.json");
+    resources["ChamomileOctree"] = chamomileOctree;
 }
 
 Font* ResourceManager::getFont(const std::string& name) {

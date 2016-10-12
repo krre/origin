@@ -84,40 +84,10 @@ void Game::create() {
     Engine::getInstance()->addEntity(tree3);
     octreeSystem->getGpuMemoryManager()->addEntity(tree3.get());
 
-    // Cube
-//    std::shared_ptr<Entity> cube = EntityBuilder::cube();
-//    transformSystem->setScale(cube.get(), 0.25);
-//    transformSystem->setPosition(cube.get(), glm::vec3(0.0, 0.0, 0.0));
-//    transformSystem->setRotation(cube.get(), glm::radians(45.0), glm::vec3(1.0, 1.0, 1.0));
-//    OctreeComponent* cubeOctree = static_cast<OctreeComponent*>(cube->components[ComponentType::Octree].get());
-//    cubeOctree->data = octreeSystem->getSVOBuilder()->buildTest();
-//    Engine::getInstance()->addEntity(cube);
-
-//    renderSystem->getRenderSurface()->sendOctreeToGPU(0, *cubeOctree->data.get());
-/*
-    // Plane
-//    std::shared_ptr<Entity> plane = EntityBuilder::cube();
-//    transformSystem->setScale(plane.get(), 5.0);
-//    Engine::getInstance()->addEntity(plane);
-
-    // Cube1
-    std::shared_ptr<Entity> cube1 = EntityBuilder::cube();
-    transformSystem->setScale(cube1.get(), 0.25);
-    transformSystem->translate(cube1.get(), glm::vec3(0.0, 0.0, -1.0));
-    Engine::getInstance()->addEntity(cube1);
-
-    // Cube2
-    std::shared_ptr<Entity> cube2 = EntityBuilder::cube();
-    transformSystem->setScale(cube2.get(), 0.25);
-    transformSystem->translate(cube2.get(), glm::vec3(0.0, 0.0, -2.0));
-    Engine::getInstance()->addEntity(cube2);
-*/
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
     transformSystem->translate(light.get(), glm::vec3(1.5, 2.5, 1.0));
     Engine::getInstance()->addEntity(light);
-
-//    App::getInstance()->getViewport()->setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 
     Event::getInstance()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
 

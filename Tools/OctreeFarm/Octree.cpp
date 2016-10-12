@@ -161,3 +161,11 @@ void Octree::deleteNode() {
         qDebug() << "Failure delete node";
     }
 }
+
+void Octree::copy() {
+    qDebug() << "copy";
+}
+
+void Octree::paste() {
+    qDebug() << "paste";
+}

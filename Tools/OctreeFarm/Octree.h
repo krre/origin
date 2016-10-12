@@ -42,6 +42,8 @@ public slots:
     void mergeNode();
     void addNode();
     void deleteNode();
+    void copy();
+    void paste();
 
 signals:
     void isModifiedChanged(bool isModified);

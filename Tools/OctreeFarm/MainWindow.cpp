@@ -43,6 +43,8 @@ void MainWindow::setupMenuBar() {
     editMenu->addAction(tr("Undo"));
     editMenu->addAction(tr("Redo"));
     editMenu->addSeparator();
+    editMenu->addAction(tr("Copy"), &octree, &Octree::copy, QKeySequence("Ctrl+C"));
+    editMenu->addAction(tr("Paste"), &octree, &Octree::paste, QKeySequence("Ctrl+V"));
 
     QMenu* octreeMenu = menuBar()->addMenu(tr("Node"));
     octreeMenu->addAction(tr("Deselect"), &octree, &Octree::deselect);

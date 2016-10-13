@@ -14,7 +14,7 @@ GPUMemoryManager::GPUMemoryManager() {
 
     glGenTextures(1, &octreesTexture);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
-    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32UI, octreesTbo);
+    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA8UI, octreesTbo);
 }
 
 void GPUMemoryManager::addEntity(Entity* entity) {
@@ -23,13 +23,19 @@ void GPUMemoryManager::addEntity(Entity* entity) {
     }
 
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
-    glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * oc->data.get()->size(), oc->data.get()->data());
+    glBufferSubData(GL_TEXTURE_BUFFER, endOffset, sizeof(uint32_t) * oc->data.get()->size(), oc->data.get()->data());
+    octreeOffsets[entity->getId()] = endOffset;
+    endOffset += pageBytes;
 }
 
-void GPUMemoryManager::updateEntityOctree(const Entity* entity) {
+void GPUMemoryManager::updateEntityOctree(Entity* entity) {
     if (!batch) {
         bind();
     }
+
+    int offset = octreeOffsets[entity->getId()];
+    OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+    glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * oc->data.get()->size(), oc->data.get()->data());
 }
 
 void GPUMemoryManager::updateEntityTransform(const Entity* entity) {

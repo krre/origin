@@ -3,6 +3,7 @@
 #include "../../Graphics/OpenGL/ShaderGroup.h"
 #include "../../ECS/Entity.h"
 #include <GL/glew.h>
+#include <map>
 
 constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
 
@@ -11,7 +12,7 @@ class GPUMemoryManager {
 public:
     GPUMemoryManager();
     void addEntity(Entity* entity);
-    void updateEntityOctree(const Entity* entity);
+    void updateEntityOctree(Entity* entity);
     void updateEntityTransform(const Entity* entity);
     void removeEntity(const Entity* entity);
 
@@ -28,5 +29,6 @@ private:
     bool batch = false;
     GLuint octreesTbo;
     GLuint octreesTexture;
-    int offset = 0;
+    int endOffset = 0;
+    std::map<EntityId, int> octreeOffsets;
 };

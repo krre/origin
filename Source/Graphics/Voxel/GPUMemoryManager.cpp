@@ -14,7 +14,7 @@ GPUMemoryManager::GPUMemoryManager() {
 
     glGenTextures(1, &octreesTexture);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
-    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA8UI, octreesTbo);
+    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32UI, octreesTbo);
 }
 
 void GPUMemoryManager::addEntity(Entity* entity) {
@@ -38,10 +38,14 @@ void GPUMemoryManager::updateEntityOctree(Entity* entity) {
     glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * oc->data.get()->size(), oc->data.get()->data());
 }
 
-void GPUMemoryManager::updateEntityTransform(const Entity* entity) {
+void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform) {
     if (!batch) {
         bind();
     }
+
+    int size = sizeof(uint32_t) * transform.size();
+    int offset = octreeOffsets[entity->getId()] + pageBytes - size;
+    glBufferSubData(GL_TEXTURE_BUFFER, offset, size, transform.data());
 }
 
 void GPUMemoryManager::removeEntity(const Entity* entity) {

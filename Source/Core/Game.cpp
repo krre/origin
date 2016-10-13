@@ -62,7 +62,6 @@ void Game::create() {
     OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
     groundOctree->data = ResourceManager::getInstance()->getOctree("GroundOctree")->data();
     Engine::getInstance()->addEntity(ground);
-    renderSystem->getRenderSurface()->sendOctreeToGPU(0, *groundOctree->data.get());
     octreeSystem->getGpuMemoryManager()->addEntity(ground.get());
 
     // Trees

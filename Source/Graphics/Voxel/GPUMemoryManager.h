@@ -4,6 +4,7 @@
 #include "../../ECS/Entity.h"
 #include <GL/glew.h>
 #include <map>
+#include <glm/glm.hpp>
 
 constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
 
@@ -13,7 +14,7 @@ public:
     GPUMemoryManager();
     void addEntity(Entity* entity);
     void updateEntityOctree(Entity* entity);
-    void updateEntityTransform(const Entity* entity);
+    void updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform);
     void removeEntity(const Entity* entity);
 
     void beginBatch();
@@ -22,6 +23,8 @@ public:
     void bind();
     void release();
     void use();
+
+    std::map<EntityId, int> getOctreeOffsets() const { return octreeOffsets; }
 
 private:
     ShaderGroup* voxelShaderGroup;

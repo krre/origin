@@ -38,7 +38,6 @@ uvec2 stack[s_max + 1u]; // Stack of parent voxels
 uniform int pageBytes;
 uniform int blockInfoEnd;
 
-uniform samplerBuffer objects;
 uniform usamplerBuffer octrees;
 
 uniform vec3 backgroundColor;
@@ -47,8 +46,8 @@ uniform vec3 lightPos;
 uniform bool shadeless;
 
 uniform float ambientStrength;
-uniform int objectCount;
-uniform int objectStride;
+uniform int octreeCount;
+uniform int transformCount;
 
 uniform vec2 pickPixel;
 
@@ -79,12 +78,12 @@ vec4 floatToVec4(float value) {
 }
 
 Ray constructRay(in int index) {
-    int offset = index * objectStride + 4;
+    int offset = index * pageBytes - transformCount * 4;
     Ray ray;
-    ray.origin = vec3(texelFetch(objects, offset++));
-    vec3 startCornerPos = vec3(texelFetch(objects, offset++));
-    vec3 stepW = vec3(texelFetch(objects, offset++));
-    vec3 stepH = vec3(texelFetch(objects, offset));
+    ray.origin = vec3(texelFetch(octrees, offset++));
+    vec3 startCornerPos = vec3(texelFetch(octrees, offset++));
+    vec3 stepW = vec3(texelFetch(octrees, offset++));
+    vec3 stepH = vec3(texelFetch(octrees, offset));
     ray.direction = normalize(startCornerPos + stepW * gl_FragCoord.x + stepH * gl_FragCoord.y);
     return ray;
 }
@@ -336,9 +335,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         return vec4(octreeColor, 1.0);
     }
 
-    int offset = index * objectStride;
+    int offset = index * pageBytes - transformCount * 4;
     vec3 ambient = ambientStrength * lightColor;
-    mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
+    mat4 octreeToWorld = mat4(texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset));
     vec4 hitNormalWorld = normalize(octreeToWorld * castRes.normal);
     vec3 lightDir = normalize(lightPos);
     vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
@@ -353,14 +352,14 @@ void main() {
     outCastRes.pos = vec3(0);
     float t = 10000;
     int index = -1;
-    for (int i = 0; i < objectCount; i++) {
+    for (int i = 0; i < octreeCount; i++) {
         Ray ray = constructRay(i);
         // Take near to camera t
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
             // TODO: Remove duplication of octreeToWorld calculation with lookupColor() function
-            int offset = i * objectStride;
-            mat4 octreeToWorld = mat4(texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset++), texelFetch(objects, offset));
+            int offset = index * pageBytes - transformCount * 4;
+            mat4 octreeToWorld = mat4(texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset));
             float real_t = castRes.t * octreeToWorld[0][0]; // castRes.t * scale of octreee
             if (real_t < t) {
                 t = real_t;

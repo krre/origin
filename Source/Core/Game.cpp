@@ -55,6 +55,8 @@ void Game::create() {
 
     Engine::getInstance()->addEntity(avatarCamera);
 
+    octreeSystem->getGpuMemoryManager()->beginBatch();
+
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
     transformSystem->setScale(ground.get(), 5);
@@ -113,6 +115,8 @@ void Game::create() {
     chamomile3Octree->data = ResourceManager::getInstance()->getOctree("ChamomileOctree")->data();
     Engine::getInstance()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get());
+
+    octreeSystem->getGpuMemoryManager()->endBatch();
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();

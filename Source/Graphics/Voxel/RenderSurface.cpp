@@ -72,6 +72,7 @@ void RenderSurface::draw(float dt) {
         }
     }
 
+    octreeSystem->getGpuMemoryManager()->beginBatch();
     int transformCount = 0;
 
     for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
@@ -123,6 +124,8 @@ void RenderSurface::draw(float dt) {
             transformCount = transform.size();
         }
     }
+
+    octreeSystem->getGpuMemoryManager()->endBatch();
 
     voxelShaderGroup->bind();
 

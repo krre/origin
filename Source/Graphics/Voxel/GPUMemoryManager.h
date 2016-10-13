@@ -10,7 +10,7 @@ class GPUMemoryManager {
 
 public:
     GPUMemoryManager();
-    void addEntity(const Entity* entity);
+    void addEntity(Entity* entity);
     void updateEntityOctree(const Entity* entity);
     void updateEntityTransform(const Entity* entity);
     void removeEntity(const Entity* entity);
@@ -28,4 +28,5 @@ private:
     bool batch = false;
     GLuint octreesTbo;
     GLuint octreesTexture;
+    int offset = 0;
 };

@@ -1,5 +1,6 @@
 #include "GPUMemoryManager.h"
 #include "../../Resource/ResourceManager.h"
+#include "../../ECS/Components/Components.h"
 
 GPUMemoryManager::GPUMemoryManager() {
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
@@ -16,10 +17,13 @@ GPUMemoryManager::GPUMemoryManager() {
     glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32UI, octreesTbo);
 }
 
-void GPUMemoryManager::addEntity(const Entity* entity) {
+void GPUMemoryManager::addEntity(Entity* entity) {
     if (!batch) {
         bind();
     }
+
+    OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+    glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * oc->data.get()->size(), oc->data.get()->data());
 }
 
 void GPUMemoryManager::updateEntityOctree(const Entity* entity) {

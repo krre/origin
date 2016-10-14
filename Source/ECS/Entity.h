@@ -15,4 +15,5 @@ public:
 
 private:
     EntityId id;
+    static EntityId counter;
 };

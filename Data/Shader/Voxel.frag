@@ -342,9 +342,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     // Found, return it
     int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & uint((1 << cidx) - 1)));
     int c = int(texelFetch(octrees, pAttach).r);
-    int r = c >> 24 & 0xFF;
-    int g = c >> 16 & 0xFF;
-    int b = c >> 8 & 0xFF;
+    int r = (c >> 16) & 0xFF;
+    int g = (c >> 8) & 0xFF;
+    int b = c & 0xFF;
     float d = 255.0; // On Windows division like v.b / 255.0 rises runtime error
     vec3 octreeColor = vec3(r / d, g / d, b / d);
 
@@ -373,15 +373,6 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 }
 
 void main() {
-//    int index = 0;
-//    int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
-//    uint v = texelFetch(octrees, offset).r;
-//    float f = uintBitsToFloat(v);
-//    if (f == 0) {
-//        color = vec4(1.0, 0.0, 0.0, 1.0);
-//    } else {
-//        color = vec4(backgroundColor, 1.0);
-//    }
     CastResult outCastRes;
     outCastRes.node = 0u;
     outCastRes.pos = vec3(0);

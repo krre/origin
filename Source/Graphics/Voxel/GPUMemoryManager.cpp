@@ -43,7 +43,7 @@ void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<g
         bind();
     }
 
-    int size = sizeof(uint32_t) * transform.size();
+    int size = sizeof(glm::vec4) * transform.size();
     int offset = octreeOffsets[entity->getId()] + pageBytes - size;
     glBufferSubData(GL_TEXTURE_BUFFER, offset, size, transform.data());
 }

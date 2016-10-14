@@ -143,7 +143,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 //    t_max = min(t_max, 1.0);
 
     // Initialize the current voxel to the first child of the root.
-    uint parent = 1u;
+    uint parent = uint(index * pageBytes / 4 + 1);
     uint child_descriptor = 0u; // invalid until fetched
     int idx = 0;
     vec3 pos = vec3(1.0, 1.0, 1.0);

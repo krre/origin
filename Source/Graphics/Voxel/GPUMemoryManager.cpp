@@ -14,7 +14,7 @@ GPUMemoryManager::GPUMemoryManager() {
 
     glGenTextures(1, &octreesTexture);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
-    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32UI, octreesTbo);
+    glTexBuffer(GL_TEXTURE_BUFFER, GL_R32UI, octreesTbo);
 }
 
 void GPUMemoryManager::addEntity(Entity* entity) {

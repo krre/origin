@@ -78,12 +78,31 @@ vec4 floatToVec4(float value) {
 }
 
 Ray constructRay(in int index) {
-    int offset = index * pageBytes - transformCount * 4;
+    int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
+    offset + 16; // skip octreeToWorld matrix
     Ray ray;
-    ray.origin = vec3(texelFetch(octrees, offset++));
-    vec3 startCornerPos = vec3(texelFetch(octrees, offset++));
-    vec3 stepW = vec3(texelFetch(octrees, offset++));
-    vec3 stepH = vec3(texelFetch(octrees, offset));
+
+    float v[4];
+    for (int i = 0; i < 4; i++) {
+        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+    }
+    ray.origin = vec3(v[0], v[1], v[2]);
+
+    for (int i = 0; i < 4; i++) {
+        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+    }
+    vec3 startCornerPos = vec3(v[0], v[1], v[2]);
+
+    for (int i = 0; i < 4; i++) {
+        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+    }
+    vec3 stepW = vec3(v[0], v[1], v[2]);
+
+    for (int i = 0; i < 4; i++) {
+        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+    }
+    vec3 stepH = vec3(v[0], v[1], v[2]);
+
     ray.direction = normalize(startCornerPos + stepW * gl_FragCoord.x + stepH * gl_FragCoord.y);
     return ray;
 }
@@ -140,8 +159,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     while (scale < s_max) {
         // Fetch child descriptor unless it is already valid.
         if (child_descriptor == 0u) {
-            uvec4 v = texelFetch(octrees, int(parent));
-            child_descriptor = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
+            child_descriptor = texelFetch(octrees, int(parent)).r;
         }
 
         // Determine maximum t-value of the cube by evaluating
@@ -289,11 +307,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 
     // Start here
     int pageHeader = int(node) & -pageBytes;
-    uvec4 v = texelFetch(octrees, pageHeader);
-    int blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
+    int blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
     int attachData = blockInfo + blockInfoEnd;
-    v = texelFetch(octrees, attachData + int(node) - 1);
-    uint paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
+    uint paletteNode = texelFetch(octrees, attachData + int(node) - 1).r;
 
     // While node has no color, loop
     while ((int(paletteNode >> cidx) & 1) != 1) {
@@ -318,26 +334,36 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 //        paletteNode  = attachData[(node - blockStart) >> 1];
 
         pageHeader = int(node) & -pageBytes;
-        v = texelFetch(octrees, pageHeader);
-        blockInfo = pageHeader + int(v.a << 24 | v.b << 16 | v.g << 8 | v.r);
+        blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
         attachData = blockInfo + blockInfoEnd;
-        v = texelFetch(octrees, attachData + int(node) - 1);
-        paletteNode = v.a << 24 | v.b << 16 | v.g << 8 | v.r;
+        paletteNode = texelFetch(octrees, attachData + int(node) - 1).r;
     }
 
     // Found, return it
     int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & uint((1 << cidx) - 1)));
-    v = texelFetch(octrees, pAttach);
+    int c = int(texelFetch(octrees, pAttach).r);
+    int r = c >> 24 & 0xFF;
+    int g = c >> 16 & 0xFF;
+    int b = c >> 8 & 0xFF;
     float d = 255.0; // On Windows division like v.b / 255.0 rises runtime error
-    vec3 octreeColor = vec3(v.b / d, v.g / d, v.r / d);
+    vec3 octreeColor = vec3(r / d, g / d, b / d);
 
     if (shadeless) {
         return vec4(octreeColor, 1.0);
     }
 
-    int offset = index * pageBytes - transformCount * 4;
+    int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
+    float v[16];
+    for (int i = 0; i < 16; i++) {
+        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+    }
+    vec4 col0 = vec4(v[0], v[1], v[2], v[3]);
+    vec4 col1 = vec4(v[4], v[5], v[6], v[7]);
+    vec4 col2 = vec4(v[8], v[9], v[10], v[11]);
+    vec4 col3 = vec4(v[12], v[13], v[14], v[15]);
+    mat4 octreeToWorld = mat4(col0, col1, col2, col3);
+
     vec3 ambient = ambientStrength * lightColor;
-    mat4 octreeToWorld = mat4(texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset));
     vec4 hitNormalWorld = normalize(octreeToWorld * castRes.normal);
     vec3 lightDir = normalize(lightPos);
     vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * lightColor;
@@ -347,6 +373,15 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 }
 
 void main() {
+//    int index = 0;
+//    int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
+//    uint v = texelFetch(octrees, offset).r;
+//    float f = uintBitsToFloat(v);
+//    if (f == 0) {
+//        color = vec4(1.0, 0.0, 0.0, 1.0);
+//    } else {
+//        color = vec4(backgroundColor, 1.0);
+//    }
     CastResult outCastRes;
     outCastRes.node = 0u;
     outCastRes.pos = vec3(0);
@@ -358,8 +393,16 @@ void main() {
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
             // TODO: Remove duplication of octreeToWorld calculation with lookupColor() function
-            int offset = index * pageBytes - transformCount * 4;
-            mat4 octreeToWorld = mat4(texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset++), texelFetch(octrees, offset));
+            int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
+            float v[16];
+            for (int i = 0; i < 16; i++) {
+                v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+            }
+            vec4 col0 = vec4(v[0], v[1], v[2], v[3]);
+            vec4 col1 = vec4(v[4], v[5], v[6], v[7]);
+            vec4 col2 = vec4(v[8], v[9], v[10], v[11]);
+            vec4 col3 = vec4(v[12], v[13], v[14], v[15]);
+            mat4 octreeToWorld = mat4(col0, col1, col2, col3);
             float real_t = castRes.t * octreeToWorld[0][0]; // castRes.t * scale of octreee
             if (real_t < t) {
                 t = real_t;

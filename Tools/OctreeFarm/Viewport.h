@@ -38,9 +38,7 @@ private slots:
 private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
-    GLuint objectsTexture;
     GLuint octreesTexture;
-    GLuint objectsTbo;
     GLuint octreesTbo;
     GLuint framebuffer;
     GLuint renderbuffer;

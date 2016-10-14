@@ -52,21 +52,13 @@ void Viewport::initializeGL() {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, &objectsTbo);
-    glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(glm::vec4) * 100, NULL, GL_STATIC_DRAW);
-
-    glGenTextures(1, &objectsTexture);
-    glBindTexture(GL_TEXTURE_BUFFER, objectsTexture);
-    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, objectsTbo);
-
     glGenBuffers(1, &octreesTbo);
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
-    glBufferData(GL_TEXTURE_BUFFER, sizeof(uint32_t) * 100, NULL, GL_STATIC_DRAW);
+    glBufferData(GL_TEXTURE_BUFFER, pageBytes, NULL, GL_DYNAMIC_DRAW);
 
     glGenTextures(1, &octreesTexture);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
-    glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA8UI, octreesTbo);
+    glTexBuffer(GL_TEXTURE_BUFFER, GL_R32UI, octreesTbo);
 
     glGenFramebuffers(1, &framebuffer);
     glGenRenderbuffers(1, &renderbuffer);
@@ -81,11 +73,11 @@ void Viewport::initializeGL() {
 }
 
 void Viewport::paintGL() {
-    QVector<glm::vec4> object;
-    object.append(m_octree->octreeToWorld()[0]);
-    object.append(m_octree->octreeToWorld()[1]);
-    object.append(m_octree->octreeToWorld()[2]);
-    object.append(m_octree->octreeToWorld()[3]);
+    QVector<glm::vec4> transform;
+    transform.append(m_octree->octreeToWorld()[0]);
+    transform.append(m_octree->octreeToWorld()[1]);
+    transform.append(m_octree->octreeToWorld()[2]);
+    transform.append(m_octree->octreeToWorld()[3]);
 
     glm::mat4 cameraToOctree = m_octree->worldToOctree() * camera.cameraToWorld();
 
@@ -96,7 +88,7 @@ void Viewport::paintGL() {
     glm::vec4 perspective;
     glm::decompose(cameraToOctree, scale, rotation, translation, skew, perspective);
 
-    object.append(glm::vec4(translation.x, translation.y, translation.z, 1.0));
+    transform.append(glm::vec4(translation.x, translation.y, translation.z, 1.0));
 
     glm::vec3 up = camera.up();
     glm::vec3 look = camera.look();
@@ -116,15 +108,17 @@ void Viewport::paintGL() {
 
     glm::vec3 startCornerPos = w0 + h0;
 
-    object.append(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
-    object.append(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
-    object.append(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
+    transform.append(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
+    transform.append(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
+    transform.append(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
 
     glm::vec3 octreeColor = glm::vec3(0.0, 1.0, 0.0);
-    object.append(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
+    transform.append(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
 
-    glBindBuffer(GL_TEXTURE_BUFFER, objectsTbo);
-    glBufferSubData(GL_TEXTURE_BUFFER, 0, sizeof(glm::vec4) * object.size(), object.data());
+    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
+    int size = sizeof(glm::vec4) * transform.size();
+    int offset = pageBytes - size;
+    glBufferSubData(GL_TEXTURE_BUFFER, offset, size, transform.data());
 
     program.bind();
 
@@ -134,12 +128,10 @@ void Viewport::paintGL() {
     program.setUniformValue("lightColor", lightColor);
     program.setUniformValue("lightPos", lightPos);
     program.setUniformValue("ambientStrength", 0.1f);
-    program.setUniformValue("objectCount", 1);
+    program.setUniformValue("octreeCount", 1);
+    program.setUniformValue("transformCount", transform.size());
 
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_BUFFER, objectsTexture);
-
-    glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
 
     if (fboMode) {

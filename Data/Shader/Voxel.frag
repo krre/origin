@@ -6,9 +6,6 @@
 // https://mediatech.aalto.fi/~samuli/publications/laine2010tr1_paper.pdf
 // http://code.google.com/p/efficient-sparse-voxel-octrees
 
-// For debug in castRay() function
-#define RED { color = vec3(1.0, 0.0, 0.0); return true; }
-
 #if 1
 #extension GL_ARB_shader_storage_buffer_object : require
 layout (std430, binding = 0) buffer OctreeBuffer {

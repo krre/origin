@@ -78,7 +78,6 @@ void RenderSurface::draw(float dt) {
     for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
         std::vector<glm::vec4> transform;
         Entity* entity = Engine::getInstance()->getEntity(imap.first).get();
-        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
         TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
         transform.push_back(octreeTransform->objectToWorld[0]);
         transform.push_back(octreeTransform->objectToWorld[1]);

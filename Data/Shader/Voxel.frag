@@ -79,7 +79,7 @@ vec4 floatToVec4(float value) {
 
 Ray constructRay(in int index) {
     int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
-    offset + 16; // skip octreeToWorld matrix
+    offset += 16; // skip octreeToWorld matrix
     Ray ray;
 
     float v[4];

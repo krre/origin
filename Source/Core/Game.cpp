@@ -68,24 +68,24 @@ void Game::create() {
 
     // Trees
     std::shared_ptr<Entity> tree1 = EntityBuilder::geometry();
-    transformSystem->setScale(tree1.get(), 0.5);
-    transformSystem->setPosition(tree1.get(), glm::vec3(1.0, 0.3, 0.0));
+    transformSystem->setScale(tree1.get(), 1.2);
+    transformSystem->setPosition(tree1.get(), glm::vec3(1.0, 0.0, 0.0));
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
     tree1Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
     Engine::getInstance()->addEntity(tree1);
     octreeSystem->getGpuMemoryManager()->addEntity(tree1.get());
 
     std::shared_ptr<Entity> tree2 = EntityBuilder::geometry();
-    transformSystem->setScale(tree2.get(), 0.6);
-    transformSystem->setPosition(tree2.get(), glm::vec3(-0.7, 0.3, 1.2));
+    transformSystem->setScale(tree2.get(), 0.9);
+    transformSystem->setPosition(tree2.get(), glm::vec3(-0.7, 0.0, 1.2));
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
     tree2Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
     Engine::getInstance()->addEntity(tree2);
     octreeSystem->getGpuMemoryManager()->addEntity(tree2.get());
 
     std::shared_ptr<Entity> tree3 = EntityBuilder::geometry();
-    transformSystem->setScale(tree3.get(), 0.7);
-    transformSystem->setPosition(tree3.get(), glm::vec3(-0.3, 0.3, -1.8));
+    transformSystem->setScale(tree3.get(), 1.1);
+    transformSystem->setPosition(tree3.get(), glm::vec3(-0.3, 0.0, -1.8));
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
     tree3Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
     Engine::getInstance()->addEntity(tree3);
@@ -93,24 +93,24 @@ void Game::create() {
 
     // Chamomiles
     std::shared_ptr<Entity> chamomile1 = EntityBuilder::geometry();
-    transformSystem->setScale(chamomile1.get(), 0.1);
-    transformSystem->setPosition(chamomile1.get(), glm::vec3(0.2, -0.2, 0.2));
+    transformSystem->setScale(chamomile1.get(), 0.04);
+    transformSystem->setPosition(chamomile1.get(), glm::vec3(0.2, -0.22, 0.2));
     OctreeComponent* chamomile1Octree = static_cast<OctreeComponent*>(chamomile1->components[ComponentType::Octree].get());
     chamomile1Octree->data = ResourceManager::getInstance()->getOctree("ChamomileOctree")->data();
     Engine::getInstance()->addEntity(chamomile1);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get());
 
     std::shared_ptr<Entity> chamomile2 = EntityBuilder::geometry();
-    transformSystem->setScale(chamomile2.get(), 0.1);
-    transformSystem->setPosition(chamomile2.get(), glm::vec3(-0.3, -0.2, 1.3));
+    transformSystem->setScale(chamomile2.get(), 0.04);
+    transformSystem->setPosition(chamomile2.get(), glm::vec3(-0.3, -0.22, 1.3));
     OctreeComponent* chamomile2Octree = static_cast<OctreeComponent*>(chamomile2->components[ComponentType::Octree].get());
     chamomile2Octree->data = ResourceManager::getInstance()->getOctree("ChamomileOctree")->data();
     Engine::getInstance()->addEntity(chamomile2);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get());
 
     std::shared_ptr<Entity> chamomile3 = EntityBuilder::geometry();
-    transformSystem->setScale(chamomile3.get(), 0.1);
-    transformSystem->setPosition(chamomile3.get(), glm::vec3(0.4, -0.2, 1.0));
+    transformSystem->setScale(chamomile3.get(), 0.04);
+    transformSystem->setPosition(chamomile3.get(), glm::vec3(0.4, -0.22, 1.0));
     OctreeComponent* chamomile3Octree = static_cast<OctreeComponent*>(chamomile3->components[ComponentType::Octree].get());
     chamomile3Octree->data = ResourceManager::getInstance()->getOctree("ChamomileOctree")->data();
     Engine::getInstance()->addEntity(chamomile3);

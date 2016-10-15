@@ -306,7 +306,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int pageHeader = int(node) & -pageBytes / 4;
     int blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
     int attachData = blockInfo + blockInfoEnd;
-    uint paletteNode = texelFetch(octrees, attachData + int(node) - 1).r;
+    uint paletteNode = texelFetch(octrees, attachData + int(node) - index * pageBytes / 4 - 1).r;
 
     // While node has no color, loop
     while ((int(paletteNode >> cidx) & 1) != 1) {
@@ -333,7 +333,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         pageHeader = int(node) & -pageBytes / 4;
         blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
         attachData = blockInfo + blockInfoEnd;
-        paletteNode = texelFetch(octrees, attachData + int(node) - 1).r;
+        paletteNode = texelFetch(octrees, attachData + int(node) - index * pageBytes / 4 - 1).r;
     }
 
     // Found, return it

@@ -30,9 +30,7 @@ void Viewport::initializeGL() {
     program.setUniformValue("pageBytes", pageBytes);
     program.setUniformValue("blockInfoEnd", blockInfoEnd);
     program.setUniformValue("backgroundColor", backgroundColor);
-    program.setUniformValue("objectStride", 9);
-    program.setUniformValue("objects", 0);
-    program.setUniformValue("octrees", 1);
+    program.setUniformValue("octrees", 0);
 
     vbo.create();
     vbo.bind();

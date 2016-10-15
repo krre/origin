@@ -2,16 +2,16 @@
     "0": {
         "children": {
             "0": {
-                "color": "#ff56ba18"
+                "color": "#ff92ba3c"
             },
             "1": {
-                "color": "#ff56ba18"
+                "color": "#ff20ba15"
             },
             "4": {
                 "color": "#ff56ba18"
             },
             "5": {
-                "color": "#ff56ba18"
+                "color": "#ff4fb139"
             }
         },
         "color": "#ff564235"
@@ -22,10 +22,10 @@
                 "color": "#ff56ba18"
             },
             "1": {
-                "color": "#ff56ba18"
+                "color": "#ff92ba3c"
             },
             "4": {
-                "color": "#ff56ba18"
+                "color": "#ffa6ba23"
             },
             "5": {
                 "color": "#ff56ba18"
@@ -44,13 +44,13 @@
     "4": {
         "children": {
             "0": {
-                "color": "#ff56ba18"
+                "color": "#ff20ba15"
             },
             "1": {
-                "color": "#ff56ba18"
+                "color": "#ffa6ba23"
             },
             "4": {
-                "color": "#ff56ba18"
+                "color": "#ff4fb139"
             },
             "5": {
                 "color": "#ff56ba18"
@@ -61,13 +61,13 @@
     "5": {
         "children": {
             "0": {
-                "color": "#ff56ba18"
+                "color": "#ff20ba15"
             },
             "1": {
-                "color": "#ff56ba18"
+                "color": "#ff92ba3c"
             },
             "4": {
-                "color": "#ff56ba18"
+                "color": "#ff92ba3c"
             },
             "5": {
                 "color": "#ff56ba18"

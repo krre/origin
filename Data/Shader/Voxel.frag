@@ -303,7 +303,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     uint level = castRes.scale;
 
     // Start here
-    int pageHeader = int(node) & -pageBytes;
+    int pageHeader = int(node) & -pageBytes / 4;
     int blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
     int attachData = blockInfo + blockInfoEnd;
     uint paletteNode = texelFetch(octrees, attachData + int(node) - 1).r;
@@ -330,7 +330,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 //        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
 //        paletteNode  = attachData[(node - blockStart) >> 1];
 
-        pageHeader = int(node) & -pageBytes;
+        pageHeader = int(node) & -pageBytes / 4;
         blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
         attachData = blockInfo + blockInfoEnd;
         paletteNode = texelFetch(octrees, attachData + int(node) - 1).r;

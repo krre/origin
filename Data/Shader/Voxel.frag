@@ -381,10 +381,10 @@ void main() {
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
             // TODO: Remove duplication of octreeToWorld calculation with lookupColor() function
-            int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
+            int offset = (i + 1) * (pageBytes / 4) - transformCount * 4;
             float v[16];
-            for (int i = 0; i < 16; i++) {
-                v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+            for (int j = 0; j < 16; j++) {
+                v[j] = uintBitsToFloat(texelFetch(octrees, offset++).r);
             }
             vec4 col0 = vec4(v[0], v[1], v[2], v[3]);
             vec4 col1 = vec4(v[4], v[5], v[6], v[7]);

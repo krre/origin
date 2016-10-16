@@ -7,8 +7,8 @@ class Camera : public QObject {
 
 public:
     explicit Camera(QObject* parent = 0);
-    glm::mat4 cameraToWorld() const { return m_cameraToWorld; }
-    void setCameraToWorld(const glm::mat4 cameraToWorld);
+    glm::mat4 getCameraToWorld() const { return cameraToWorld; }
+    void setCameraToWorld(const glm::mat4& cameraToWorld);
     glm::mat4 worldToCamera() const { return m_worldToCamera; }
 
     void setTarget(const glm::vec3& target);
@@ -36,7 +36,7 @@ private:
     glm::vec3 m_look;
     glm::vec3 m_right;
 
-    glm::mat4 m_cameraToWorld = glm::mat4(1.0);
+    glm::mat4 cameraToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToCamera = glm::mat4(1.0);
     glm::vec3 m_position;
     glm::vec3 m_target;

@@ -6,9 +6,9 @@ Camera::Camera(QObject* parent) : QObject(parent) {
     reset();
 }
 
-void Camera::setCameraToWorld(const glm::mat4 cameraToWorld) {
-    m_cameraToWorld = cameraToWorld;
-    m_worldToCamera = glm::inverse(m_cameraToWorld);
+void Camera::setCameraToWorld(const glm::mat4& cameraToWorld) {
+    this->cameraToWorld = cameraToWorld;
+    m_worldToCamera = glm::inverse(cameraToWorld);
 }
 
 void Camera::setTarget(const glm::vec3& target) {
@@ -18,7 +18,7 @@ void Camera::setTarget(const glm::vec3& target) {
 
 void Camera::setPosition(const glm::vec3& position) {
     m_position = position;
-    setCameraToWorld(glm::translate(m_cameraToWorld, position));
+    setCameraToWorld(glm::translate(cameraToWorld, position));
 }
 
 void Camera::pan(float dx, float dy) {
@@ -63,5 +63,5 @@ void Camera::update() {
     m_up = glm::vec3(R * glm::vec4(UP, 0.0f));
     m_right = glm::cross(m_look, m_up);
     m_worldToCamera = glm::lookAt(m_position, m_target, m_up);
-    m_cameraToWorld = glm::inverse(m_worldToCamera);
+    cameraToWorld = glm::inverse(m_worldToCamera);
 }

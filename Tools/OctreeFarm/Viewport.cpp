@@ -77,7 +77,7 @@ void Viewport::paintGL() {
     transform.append(m_octree->octreeToWorld()[2]);
     transform.append(m_octree->octreeToWorld()[3]);
 
-    glm::mat4 cameraToOctree = m_octree->worldToOctree() * camera.cameraToWorld();
+    glm::mat4 cameraToOctree = m_octree->worldToOctree() * camera.getCameraToWorld();
 
     glm::vec3 scale;
     glm::quat rotation;

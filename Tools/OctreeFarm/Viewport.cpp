@@ -5,7 +5,7 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
 
-Viewport::Viewport(Octree* octree) : m_octree(octree) {
+Viewport::Viewport(Octree* octree) : octree(octree) {
     QSurfaceFormat format;
     format.setVersion(3, 3);
     format.setRenderableType(QSurfaceFormat::OpenGL);
@@ -72,12 +72,12 @@ void Viewport::initializeGL() {
 
 void Viewport::paintGL() {
     QVector<glm::vec4> transform;
-    transform.append(m_octree->octreeToWorld()[0]);
-    transform.append(m_octree->octreeToWorld()[1]);
-    transform.append(m_octree->octreeToWorld()[2]);
-    transform.append(m_octree->octreeToWorld()[3]);
+    transform.append(octree->octreeToWorld()[0]);
+    transform.append(octree->octreeToWorld()[1]);
+    transform.append(octree->octreeToWorld()[2]);
+    transform.append(octree->octreeToWorld()[3]);
 
-    glm::mat4 cameraToOctree = m_octree->worldToOctree() * camera.getCameraToWorld();
+    glm::mat4 cameraToOctree = octree->worldToOctree() * camera.getCameraToWorld();
 
     glm::vec3 scale;
     glm::quat rotation;
@@ -147,7 +147,7 @@ void Viewport::paintGL() {
         glReadPixels(pick.x(), height() - pick.y(), words, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
         int invalidBit = data[4] & 0x80;
         if (invalidBit) {
-            m_octree->deselect();
+            octree->deselect();
         } else {
             uint32_t parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
             uint32_t scale = data[6];
@@ -156,7 +156,7 @@ void Viewport::paintGL() {
             pos.x = data[8] << 24 | data[9] << 16 | data[10] << 8 | data[11];
             pos.y = data[12] << 24 | data[13] << 16 | data[14] << 8 | data[15];
             pos.z = data[16] << 24 | data[17] << 16 | data[18] << 8 | data[19];
-            m_octree->select(parent, scale, childIndex, pos, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+            octree->select(parent, scale, childIndex, pos, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
         }
 
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -206,7 +206,7 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 }
 
 void Viewport::onOctreeChanged() {
-    updateOctreeInGPU(0, m_octree->data(), sizeof(uint32_t) * m_octree->count());
+    updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
     update();
 }
 

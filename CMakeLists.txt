@@ -30,6 +30,9 @@ include_directories(${GLEW_INCLUDE_DIRS})
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
 
+find_package(Bullet REQUIRED)
+include_directories(${BULLET_INCLUDE_DIRS})
+
 include_directories(ThirdParty)
 
 find_package(OpenGL)
@@ -39,6 +42,7 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${OPENGL_LIBRARIES}
     ${GLEW_LIBRARIES}
     ${FREETYPE_LIBRARIES}
+    ${BULLET_LIBRARIES}
     stdc++fs)
 
 # Show in QtCreator project tree

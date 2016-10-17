@@ -61,7 +61,7 @@ int Octree::colorAttachAddress(int parent, int childIndex) {
 }
 
 void Octree::confirmUpdate() {
-    m_selection.clear();
+    selection.clear();
     nodeDeselected();
     storage = source.binary();
     setIsModified(true);
@@ -80,8 +80,8 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
     QColor color;
 
     int index = -1;
-    for (int i = 0; i < m_selection.count(); i++) {
-        if (m_selection.at(i)->parent == parent && m_selection.at(i)->childIndex == childIndex) {
+    for (int i = 0; i < selection.count(); i++) {
+        if (selection.at(i)->parent == parent && selection.at(i)->childIndex == childIndex) {
             index = i;
             break;
         }
@@ -89,21 +89,21 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
 
     if (append) {
         if (index >= 0) { // Remove selection
-            (*storage)[address] = m_selection.at(index)->color;
-            m_selection.remove(index);
+            (*storage)[address] = selection.at(index)->color;
+            selection.remove(index);
             nodeDeselected();
         } else { // Append selection
             node->color = (*storage)[address];
             (*storage)[address] = selectionColor;
-            m_selection.append(node);
+            selection.append(node);
             color.setRgba(node->color);
             nodeSelected(childIndex, color);
         }
-    } else if (index == -1 || m_selection.count() > 1) {
+    } else if (index == -1 || selection.count() > 1) {
         deselect();
         node->color = (*storage)[address];
         (*storage)[address] = selectionColor;
-        m_selection.append(node);
+        selection.append(node);
         color.setRgba(node->color);
         nodeSelected(childIndex, color);
     }
@@ -112,7 +112,7 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
 }
 
 void Octree::changeNodeColor(const QColor& color) {
-    if (source.changeNodeColor(m_selection, color)) {
+    if (source.changeNodeColor(selection, color)) {
         confirmUpdate();
     } else {
         qDebug() << "Failure change node color";
@@ -120,20 +120,20 @@ void Octree::changeNodeColor(const QColor& color) {
 }
 
 void Octree::deselect() {
-    if (m_selection.count()) {
-        for (auto node: m_selection) {
+    if (selection.count()) {
+        for (auto node: selection) {
             int address = colorAttachAddress(node->parent, node->childIndex);
             (*storage)[address] = node->color;
         }
 
-        m_selection.clear();
+        selection.clear();
         nodeDeselected();
         dataChanged();
     }
 }
 
 void Octree::splitNode() {
-    if (source.splitNode(m_selection)) {
+    if (source.splitNode(selection)) {
         confirmUpdate();
     } else {
         qDebug() << "Failure split node";
@@ -141,7 +141,7 @@ void Octree::splitNode() {
 }
 
 void Octree::mergeNode() {
-    if (source.mergeNode(m_selection)) {
+    if (source.mergeNode(selection)) {
         confirmUpdate();
     } else {
         qDebug() << "Failure merge node";
@@ -149,7 +149,7 @@ void Octree::mergeNode() {
 }
 
 void Octree::addNode() {
-    if (source.addNode(m_selection, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier)) {
+    if (source.addNode(selection, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier)) {
         confirmUpdate();
     } else {
         qDebug() << "Failure add node";
@@ -157,7 +157,7 @@ void Octree::addNode() {
 }
 
 void Octree::deleteNode() {
-    if (source.deleteNode(m_selection)) {
+    if (source.deleteNode(selection)) {
         confirmUpdate();
     } else {
         qDebug() << "Failure delete node";

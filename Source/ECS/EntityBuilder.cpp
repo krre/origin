@@ -10,6 +10,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
         ComponentType::Transform,
         ComponentType::Octree,
         ComponentType::Render,
+        ComponentType::Phisics,
     };
     std::shared_ptr<Entity> entity = Engine::getInstance()->createComponents(types);
 

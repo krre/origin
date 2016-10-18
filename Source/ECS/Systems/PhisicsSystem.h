@@ -7,6 +7,7 @@ class PhisicsSystem : public System {
 
 public:
     PhisicsSystem();
+    ~PhisicsSystem();
     void process(float dt) override;
     void addRigidBody(Entity* entity);
     void createRigidBody(Entity* entity);

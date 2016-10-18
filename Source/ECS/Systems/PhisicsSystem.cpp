@@ -13,6 +13,14 @@ PhisicsSystem::PhisicsSystem() {
     dynamicsWorld->setGravity(btVector3(0, -10, 0));
 }
 
+PhisicsSystem::~PhisicsSystem() {
+    dynamicsWorld.release();
+    solver.release();
+    overlappingPairCache.release();
+    dispatcher.release();
+    collisionConfiguration.release();
+}
+
 void PhisicsSystem::process(float dt) {
     dynamicsWorld->stepSimulation(dt, 10);
 }

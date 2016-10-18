@@ -9,6 +9,7 @@ public:
     PhisicsSystem();
     void process(float dt) override;
     void addRigidBody(Entity* entity);
+    void createCollisionShape(Entity* entity);
 private:
     std::unique_ptr<btDiscreteDynamicsWorld> dynamicsWorld;
     std::unique_ptr<btDefaultCollisionConfiguration> collisionConfiguration;

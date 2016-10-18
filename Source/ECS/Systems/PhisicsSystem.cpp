@@ -1,5 +1,5 @@
 #include "PhisicsSystem.h"
-#include "../Components/PhisicsComponent.h"
+#include "../Components/Components.h"
 
 PhisicsSystem::PhisicsSystem() {
     type = SystemType::Phisics;
@@ -20,4 +20,11 @@ void PhisicsSystem::process(float dt) {
 void PhisicsSystem::addRigidBody(Entity* entity) {
     PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
     dynamicsWorld->addRigidBody(pc->rigidBody.get());
+}
+
+void PhisicsSystem::createCollisionShape(Entity* entity) {
+    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+    btScalar scale = btScalar(tc->scale);
+    pc->collisionShape.reset(new btBoxShape(btVector3(scale, scale, scale)));
 }

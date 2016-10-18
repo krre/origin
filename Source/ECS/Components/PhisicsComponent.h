@@ -8,4 +8,5 @@ public:
     PhisicsComponent() { type = ComponentType::Phisics; }
     std::unique_ptr<btRigidBody> rigidBody;
     std::unique_ptr<btCollisionShape> collisionShape;
+    btScalar mass = 0;
 };

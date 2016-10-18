@@ -25,6 +25,6 @@ void PhisicsSystem::addRigidBody(Entity* entity) {
 void PhisicsSystem::createCollisionShape(Entity* entity) {
     PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
-    btScalar scale = btScalar(tc->scale);
+    btScalar scale = btScalar(tc->scale) / 2.0;
     pc->collisionShape.reset(new btBoxShape(btVector3(scale, scale, scale)));
 }

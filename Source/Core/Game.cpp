@@ -33,7 +33,7 @@ void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
     TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(SystemType::Transform).get());
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::getInstance()->getSystem(SystemType::Octree).get());
-    RenderSystem* renderSystem = static_cast<RenderSystem*>(Engine::getInstance()->getSystem(SystemType::Render).get());
+    PhisicsSystem* phisicsSystem = static_cast<PhisicsSystem*>(Engine::getInstance()->getSystem(SystemType::Phisics).get());
 
     // Free camera
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
@@ -70,6 +70,12 @@ void Game::create() {
     std::shared_ptr<Entity> tree1 = EntityBuilder::geometry();
     transformSystem->setScale(tree1.get(), 1.2);
     transformSystem->setPosition(tree1.get(), glm::vec3(1.0, 0.0, 0.0));
+
+    phisicsSystem->createCollisionShape(tree1.get());
+    phisicsSystem->createMotionState(tree1.get());
+    phisicsSystem->createRigidBody(tree1.get());
+    phisicsSystem->addRigidBody(tree1.get());
+
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
     tree1Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
     Engine::getInstance()->addEntity(tree1);
@@ -78,6 +84,12 @@ void Game::create() {
     std::shared_ptr<Entity> tree2 = EntityBuilder::geometry();
     transformSystem->setScale(tree2.get(), 0.9);
     transformSystem->setPosition(tree2.get(), glm::vec3(-0.7, 0.0, 1.2));
+
+    phisicsSystem->createCollisionShape(tree2.get());
+    phisicsSystem->createMotionState(tree2.get());
+    phisicsSystem->createRigidBody(tree2.get());
+    phisicsSystem->addRigidBody(tree2.get());
+
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
     tree2Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
     Engine::getInstance()->addEntity(tree2);
@@ -86,6 +98,12 @@ void Game::create() {
     std::shared_ptr<Entity> tree3 = EntityBuilder::geometry();
     transformSystem->setScale(tree3.get(), 1.1);
     transformSystem->setPosition(tree3.get(), glm::vec3(-0.3, 0.0, -1.8));
+
+    phisicsSystem->createCollisionShape(tree3.get());
+    phisicsSystem->createMotionState(tree3.get());
+    phisicsSystem->createRigidBody(tree3.get());
+    phisicsSystem->addRigidBody(tree3.get());
+
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
     tree3Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
     Engine::getInstance()->addEntity(tree3);

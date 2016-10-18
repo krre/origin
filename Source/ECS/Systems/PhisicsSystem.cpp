@@ -22,6 +22,11 @@ void PhisicsSystem::addRigidBody(Entity* entity) {
     dynamicsWorld->addRigidBody(pc->rigidBody.get());
 }
 
+void PhisicsSystem::createRigidBody(Entity* entity) {
+    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+    pc->rigidBody.reset(new btRigidBody(pc->mass, pc->motionState.get(), pc->collisionShape.get()));
+}
+
 void PhisicsSystem::createCollisionShape(Entity* entity) {
     PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());

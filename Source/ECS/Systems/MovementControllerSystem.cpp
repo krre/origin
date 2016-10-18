@@ -33,8 +33,8 @@ void MovementControllerSystem::process(float dt) {
     }
 
     // Track to floor pos
-//    TransformComponent* mtc = static_cast<TransformComponent*>(moveEntity->components[ComponentType::Transform].get());
-//    mtc->position.y = 0.1; // TODO: take from height map
+    TransformComponent* mtc = static_cast<TransformComponent*>(moveEntity->components[ComponentType::Transform].get());
+    mtc->position.y = 0; // TODO: take from height map
 }
 
 void MovementControllerSystem::setMoveEntity(Entity* moveEntity) {

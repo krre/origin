@@ -13,5 +13,5 @@ PhisicsSystem::PhisicsSystem() {
 }
 
 void PhisicsSystem::process(float dt) {
-
+    dynamicsWorld->stepSimulation(dt);
 }

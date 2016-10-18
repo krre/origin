@@ -53,6 +53,16 @@ void Game::create() {
 //    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
 //    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
     characterId = avatarCamera->getId();
+
+    std::shared_ptr<PhisicsComponent> phisicsComponent = std::make_shared<PhisicsComponent>();
+    phisicsComponent->mass = 1.0;
+    phisicsComponent->collisionShape.reset(new btCapsuleShape(0.5, 1.75));
+    Engine::getInstance()->addComponent(avatarCamera.get(), phisicsComponent);
+    phisicsSystem->createMotionState(avatarCamera.get());
+    phisicsSystem->createRigidBody(avatarCamera.get());
+    phisicsComponent->rigidBody->setAngularFactor(btVector3(0, 0, 0));
+    phisicsSystem->addRigidBody(avatarCamera.get());
+
     Engine::getInstance()->addEntity(avatarCamera);
 
     octreeSystem->getGpuMemoryManager()->beginBatch();

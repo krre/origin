@@ -1,5 +1,6 @@
 #pragma once
 #include "../System.h"
+#include "../Entity.h"
 #include <btBulletDynamicsCommon.h>
 
 class PhisicsSystem : public System {
@@ -7,6 +8,7 @@ class PhisicsSystem : public System {
 public:
     PhisicsSystem();
     void process(float dt) override;
+    void addRigidBody(Entity* entity);
 private:
     std::unique_ptr<btDiscreteDynamicsWorld> dynamicsWorld;
     std::unique_ptr<btDefaultCollisionConfiguration> collisionConfiguration;

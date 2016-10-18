@@ -1,4 +1,5 @@
 #include "PhisicsSystem.h"
+#include "../Components/PhisicsComponent.h"
 
 PhisicsSystem::PhisicsSystem() {
     type = SystemType::Phisics;
@@ -13,5 +14,10 @@ PhisicsSystem::PhisicsSystem() {
 }
 
 void PhisicsSystem::process(float dt) {
-    dynamicsWorld->stepSimulation(dt);
+    dynamicsWorld->stepSimulation(dt, 10);
+}
+
+void PhisicsSystem::addRigidBody(Entity* entity) {
+    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+    dynamicsWorld->addRigidBody(pc->rigidBody.get());
 }

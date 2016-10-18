@@ -21,6 +21,9 @@ private:
     Text vendor;
     Text cpuCount;
     Text systemRAM;
+    Text posX;
+    Text posY;
+    Text posZ;
     float accumTime = 0.5;
     int counter = 30;
     std::shared_ptr<LinearLayout> statisticsLayout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);

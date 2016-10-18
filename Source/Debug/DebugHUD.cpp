@@ -1,5 +1,8 @@
 #include "DebugHUD.h"
 #include "../Core/App.h"
+#include "../Core/Game.h"
+#include "../ECS/Engine.h"
+#include "../ECS/Components/TransformComponent.h"
 #include <glm/glm.hpp>
 #include <Gagarin.h>
 
@@ -29,6 +32,15 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     fps.resize(100, 10);
     fps.setZ(1.0f);
 
+    posX.resize(100, 10);
+    posX.setZ(1.0f);
+
+    posY.resize(100, 10);
+    posY.setZ(1.0f);
+
+    posZ.resize(100, 10);
+    posZ.setZ(1.0f);
+
     statisticsLayout->setPosition(glm::vec2(5, 15));
     statisticsLayout->addControl(&version);
     statisticsLayout->addControl(&vendor);
@@ -36,6 +48,9 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     statisticsLayout->addControl(&cpuCount);
     statisticsLayout->addControl(&systemRAM);
     statisticsLayout->addControl(&fps);
+    statisticsLayout->addControl(&posX);
+    statisticsLayout->addControl(&posY);
+    statisticsLayout->addControl(&posZ);
     setLayout(statisticsLayout);
 
     Event::getInstance()->windowResize.connect<DebugHUD, &DebugHUD::onWindowResize>(this);
@@ -51,6 +66,12 @@ void DebugHUD::draw(float dt) {
         accumTime = 0;
         counter = 0;
     }
+    Entity* character = Engine::getInstance()->getEntity(Game::getInstance()->getCharacterId()).get();
+    TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
+
+    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));
+    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
+    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
     Scene2D::draw(dt);
 }
 

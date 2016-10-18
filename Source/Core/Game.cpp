@@ -52,7 +52,7 @@ void Game::create() {
 //    transformSystem->setPitch(avatarCamera.get(), -15.0);
 //    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
 //    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
-
+    characterId = avatarCamera->getId();
     Engine::getInstance()->addEntity(avatarCamera);
 
     octreeSystem->getGpuMemoryManager()->beginBatch();

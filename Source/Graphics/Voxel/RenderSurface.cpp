@@ -85,37 +85,29 @@ void RenderSurface::draw(float dt) {
         transform.push_back(octreeTransform->objectToWorld[3]);
 
         glm::mat4 cameraToOctree = octreeTransform->worldToObject * cameraTransform->objectToWorld;
+        transform.push_back(cameraToOctree[3]);
 
-        glm::vec3 scale;
-        glm::quat rotation;
-        glm::vec3 translation;
-        glm::vec3 skew;
-        glm::vec4 perspective;
-        glm::decompose(cameraToOctree, scale, rotation, translation, skew, perspective);
-
-        transform.push_back(glm::vec4(translation.x, translation.y, translation.z, 1.0));
-
-        glm::vec3 up = cameraComp->up * rotation;
-        glm::vec3 look = cameraComp->look * rotation;
-        glm::vec3 right = cameraComp->right * rotation;
+        glm::vec4 up = cameraToOctree * cameraComp->up;
+        glm::vec4 look = cameraToOctree * cameraComp->look;
+        glm::vec4 right = cameraToOctree * cameraComp->right;
 
         // Ray calculation is based on Johns Hopkins presentation:
         // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
-        glm::vec3 h0 = look - up * glm::tan(cameraComp->fov); // min height vector
-        glm::vec3 h1 = look + up * glm::tan(cameraComp->fov); // max height vector
-        glm::vec3 stepH = (h1 - h0) / height;
+        glm::vec4 h0 = look - up * glm::tan(cameraComp->fov); // min height vector
+        glm::vec4 h1 = look + up * glm::tan(cameraComp->fov); // max height vector
+        glm::vec4 stepH = (h1 - h0) / height;
         h0 += stepH / 2;
 
-        glm::vec3 w0 = look - right * glm::tan(cameraComp->fov) * width / height; // min width vector
-        glm::vec3 w1 = look + right * glm::tan(cameraComp->fov) * width / height; // max width vector
-        glm::vec3 stepW = (w1 - w0) / width;
+        glm::vec4 w0 = look - right * glm::tan(cameraComp->fov) * width / height; // min width vector
+        glm::vec4 w1 = look + right * glm::tan(cameraComp->fov) * width / height; // max width vector
+        glm::vec4 stepW = (w1 - w0) / width;
         w0 += stepW / 2;
 
-        glm::vec3 startCornerPos = w0 + h0;
+        glm::vec4 startCornerPos = w0 + h0;
 
-        transform.push_back(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
-        transform.push_back(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
-        transform.push_back(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
+        transform.push_back(startCornerPos);
+        transform.push_back(stepW);
+        transform.push_back(stepH);
 
         octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform);
 

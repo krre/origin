@@ -50,6 +50,7 @@ void Engine::initSystems() {
     addUpdateSystem<CameraSystem>();
     addUpdateSystem<TransformSystem>();
     addUpdateSystem<NodeSystem>();
+    addUpdateSystem<PhisicsSystem>();
     addUpdateSystem<OctreeSystem>();
     addDrawSystem<RenderSystem>();
 }
@@ -73,6 +74,9 @@ Component* Engine::createComponent(Entity* entity, ComponentType type) {
         break;
     case ComponentType::Render:
         entity->components[type] = std::make_shared<RenderComponent>();
+        break;
+    case ComponentType::Phisics:
+        entity->components[type] = std::make_shared<PhisicsComponent>();
         break;
     case ComponentType::Transform:
         entity->components[type] = std::make_shared<TransformComponent>();

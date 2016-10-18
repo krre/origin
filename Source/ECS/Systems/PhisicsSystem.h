@@ -11,6 +11,7 @@ public:
     void addRigidBody(Entity* entity);
     void createRigidBody(Entity* entity);
     void createCollisionShape(Entity* entity);
+    void createMotionState(Entity* entity);
 private:
     std::unique_ptr<btDiscreteDynamicsWorld> dynamicsWorld;
     std::unique_ptr<btDefaultCollisionConfiguration> collisionConfiguration;

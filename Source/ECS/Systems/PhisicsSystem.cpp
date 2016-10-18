@@ -33,3 +33,12 @@ void PhisicsSystem::createCollisionShape(Entity* entity) {
     btScalar scale = btScalar(tc->scale) / 2.0;
     pc->collisionShape.reset(new btBoxShape(btVector3(scale, scale, scale)));
 }
+
+void PhisicsSystem::createMotionState(Entity* entity) {
+    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+    btTransform transform;
+    transform.setIdentity();
+    transform.setOrigin(btVector3(tc->position.x, tc->position.y, tc->position.z));
+    pc->motionState.reset(new btDefaultMotionState(transform));
+}

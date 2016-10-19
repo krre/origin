@@ -6,13 +6,10 @@
 // https://mediatech.aalto.fi/~samuli/publications/laine2010tr1_paper.pdf
 // http://code.google.com/p/efficient-sparse-voxel-octrees
 
-#if 1
 #extension GL_ARB_shader_storage_buffer_object : require
 layout (std430, binding = 0) buffer Octree {
-    int count;
     uint octreeData[];
 };
-#endif
 
 struct Ray {
     vec3 origin;
@@ -35,8 +32,6 @@ uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
 uniform int pageBytes;
 uniform int blockInfoEnd;
-
-uniform usamplerBuffer octrees;
 
 uniform vec3 backgroundColor;
 uniform vec3 lightColor;
@@ -82,22 +77,22 @@ Ray constructRay(in int index) {
 
     float v[4];
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+        v[i] = uintBitsToFloat(octreeData[offset++]);
     }
     ray.origin = vec3(v[0], v[1], v[2]);
 
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+        v[i] = uintBitsToFloat(octreeData[offset++]);
     }
     vec3 startCornerPos = vec3(v[0], v[1], v[2]);
 
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+        v[i] = uintBitsToFloat(octreeData[offset++]);
     }
     vec3 stepW = vec3(v[0], v[1], v[2]);
 
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+        v[i] = uintBitsToFloat(octreeData[offset++]);
     }
     vec3 stepH = vec3(v[0], v[1], v[2]);
 
@@ -157,7 +152,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     while (scale < s_max) {
         // Fetch child descriptor unless it is already valid.
         if (child_descriptor == 0u) {
-            child_descriptor = texelFetch(octrees, int(parent)).r;
+            child_descriptor = octreeData[int(parent)];
         }
 
         // Determine maximum t-value of the cube by evaluating
@@ -305,9 +300,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 
     // Start here
     int pageHeader = int(node) & -pageBytes / 4;
-    int blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
+    int blockInfo = pageHeader + int(octreeData[pageHeader]);
     int attachData = blockInfo + blockInfoEnd;
-    uint paletteNode = texelFetch(octrees, attachData + int(node) - index * pageBytes / 4 - 1).r;
+    uint paletteNode = octreeData[attachData + int(node) - index * pageBytes / 4 - 1];
 
     // While node has no color, loop
     while ((int(paletteNode >> cidx) & 1) != 1) {
@@ -332,14 +327,14 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 //        paletteNode  = attachData[(node - blockStart) >> 1];
 
         pageHeader = int(node) & -pageBytes / 4;
-        blockInfo = pageHeader + int(texelFetch(octrees, pageHeader).r);
+        blockInfo = pageHeader + int(octreeData[pageHeader]);
         attachData = blockInfo + blockInfoEnd;
-        paletteNode = texelFetch(octrees, attachData + int(node) - index * pageBytes / 4 - 1).r;
+        paletteNode = octreeData[attachData + int(node) - index * pageBytes / 4 - 1];
     }
 
     // Found, return it
     int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & uint((1 << cidx) - 1)));
-    int c = int(texelFetch(octrees, pAttach).r);
+    int c = int(octreeData[pAttach]);
     int r = (c >> 16) & 0xFF;
     int g = (c >> 8) & 0xFF;
     int b = c & 0xFF;
@@ -353,7 +348,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
     float v[16];
     for (int i = 0; i < 16; i++) {
-        v[i] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+        v[i] = uintBitsToFloat(octreeData[offset++]);
     }
     vec4 col0 = vec4(v[0], v[1], v[2], v[3]);
     vec4 col1 = vec4(v[4], v[5], v[6], v[7]);
@@ -385,7 +380,7 @@ void main() {
             int offset = (i + 1) * (pageBytes / 4) - transformCount * 4;
             float v[16];
             for (int j = 0; j < 16; j++) {
-                v[j] = uintBitsToFloat(texelFetch(octrees, offset++).r);
+                v[j] = uintBitsToFloat(octreeData[offset++]);
             }
             vec4 col0 = vec4(v[0], v[1], v[2], v[3]);
             vec4 col1 = vec4(v[4], v[5], v[6], v[7]);

@@ -125,8 +125,6 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeSystem->getGpuMemoryManager()->getOctreeOffsets().size());
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
 
-    octreeSystem->getGpuMemoryManager()->use();
-
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLES, 0, 6);
 }

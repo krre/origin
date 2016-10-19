@@ -12,16 +12,6 @@ GPUMemoryManager::GPUMemoryManager() {
     glBufferData(GL_SHADER_STORAGE_BUFFER, MEMORY_SIZE, NULL, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, octreesSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-
-    glUniform1i(glGetUniformLocation(program, "octrees"), 0);
-
-    glGenBuffers(1, &octreesTbo);
-    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
-    glBufferData(GL_TEXTURE_BUFFER, MEMORY_SIZE, NULL, GL_DYNAMIC_DRAW);
-
-    glGenTextures(1, &octreesTexture);
-    glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
-    glTexBuffer(GL_TEXTURE_BUFFER, GL_R32UI, octreesTbo);
 }
 
 void GPUMemoryManager::addEntity(Entity* entity) {
@@ -31,8 +21,6 @@ void GPUMemoryManager::addEntity(Entity* entity) {
 
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
     int size = sizeof(uint32_t) * oc->data.get()->size();
-    glBufferSubData(GL_TEXTURE_BUFFER, endOffset, size, oc->data.get()->data());
-
     GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, endOffset, size, GL_MAP_WRITE_BIT);
     memcpy(data, oc->data.get()->data(), size);
     glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
@@ -49,8 +37,6 @@ void GPUMemoryManager::updateEntityOctree(Entity* entity) {
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
     int offset = octreeOffsets[entity->getId()];
     int size = sizeof(uint32_t) * oc->data.get()->size();
-    glBufferSubData(GL_TEXTURE_BUFFER, offset, size, oc->data.get()->data());
-
     GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);
     memcpy(data, oc->data.get()->data(), size);
     glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
@@ -63,10 +49,7 @@ void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<g
 
     int size = sizeof(glm::vec4) * transform.size();
     int offset = octreeOffsets[entity->getId()] + pageBytes - size;
-    glBufferSubData(GL_TEXTURE_BUFFER, offset, size, transform.data());
-
     GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);
-//    print(data);
     memcpy(data, transform.data(), size);
     glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
@@ -89,16 +72,9 @@ void GPUMemoryManager::endBatch() {
 }
 
 void GPUMemoryManager::bind() {
-    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
 }
 
 void GPUMemoryManager::release() {
-    glBindBuffer(GL_TEXTURE_BUFFER, 0);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-}
-
-void GPUMemoryManager::use() {
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
 }

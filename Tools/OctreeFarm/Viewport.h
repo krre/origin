@@ -2,14 +2,13 @@
 #include "Octree.h"
 #include "Camera.h"
 #include <QOpenGLWidget>
-#include <QOpenGLFunctions_3_3_Core>
 #include <QOpenGLBuffer>
 #include <QOpenGLTexture>
 #include <QOpenGLVertexArrayObject>
 #include <QOpenGLShaderProgram>
 #include <cstdint>
 
-class Viewport : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
+class Viewport : public QOpenGLWidget {
     Q_OBJECT
 
 public:
@@ -37,8 +36,7 @@ private slots:
 private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
-    GLuint octreesTexture;
-    GLuint octreesTbo;
+    GLuint octreesSsbo;
     GLuint framebuffer;
     GLuint renderbuffer;
     QOpenGLShaderProgram program;

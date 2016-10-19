@@ -3,11 +3,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = OctreeFarm
 TEMPLATE = app
+LIBS += -L$$(GLEW_HOME)/lib -lglew32
+WIN32: LIBS += -lopengl32
 
-INCLUDEPATH += "../../ThirdParty"
+INCLUDEPATH += "../../ThirdParty" $$(GLEW_HOME)/include
 
 SOURCES += main.cpp\
-        MainWindow.cpp \
+    MainWindow.cpp \
     Octree.cpp \
     Camera.cpp \
     Viewport.cpp \

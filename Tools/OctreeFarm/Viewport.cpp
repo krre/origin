@@ -1,6 +1,7 @@
+#include <GL/glew.h>
 #include "Viewport.h"
-#include <QtGui>
 #include <QApplication>
+#include <QMouseEvent>
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
@@ -17,7 +18,8 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
 }
 
 void Viewport::initializeGL() {
-    initializeOpenGLFunctions();
+    glewExperimental = GL_TRUE;
+    glewInit();
     glClearColor(0.95, 1.0, 1.0, 1.0);
 
     QString shaderDirPath = QApplication::applicationDirPath() + "/Data/Shader";
@@ -30,7 +32,6 @@ void Viewport::initializeGL() {
     program.setUniformValue("pageBytes", pageBytes);
     program.setUniformValue("blockInfoEnd", blockInfoEnd);
     program.setUniformValue("backgroundColor", backgroundColor);
-    program.setUniformValue("octrees", 0);
 
     vbo.create();
     vbo.bind();
@@ -50,13 +51,11 @@ void Viewport::initializeGL() {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
 
-    glGenBuffers(1, &octreesTbo);
-    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
-    glBufferData(GL_TEXTURE_BUFFER, pageBytes, NULL, GL_DYNAMIC_DRAW);
-
-    glGenTextures(1, &octreesTexture);
-    glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
-    glTexBuffer(GL_TEXTURE_BUFFER, GL_R32UI, octreesTbo);
+    glGenBuffers(1, &octreesSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, pageBytes, NULL, GL_DYNAMIC_COPY);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, octreesSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
     glGenFramebuffers(1, &framebuffer);
     glGenRenderbuffers(1, &renderbuffer);
@@ -113,10 +112,9 @@ void Viewport::paintGL() {
     glm::vec3 octreeColor = glm::vec3(0.0, 1.0, 0.0);
     transform.append(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
 
-    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
     int size = sizeof(glm::vec4) * transform.size();
     int offset = pageBytes - size;
-    glBufferSubData(GL_TEXTURE_BUFFER, offset, size, transform.data());
+    updateOctreeInGPU(offset, transform.data(), size);
 
     program.bind();
 
@@ -128,9 +126,6 @@ void Viewport::paintGL() {
     program.setUniformValue("ambientStrength", 0.1f);
     program.setUniformValue("octreeCount", 1);
     program.setUniformValue("transformCount", transform.size());
-
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_BUFFER, octreesTexture);
 
     if (fboMode) {
         glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
@@ -211,8 +206,11 @@ void Viewport::onOctreeChanged() {
 }
 
 void Viewport::updateOctreeInGPU(int offset, void* data, int count) {
-    glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
-    glBufferSubData(GL_TEXTURE_BUFFER, offset, count, data);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
+    GLvoid* target = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, count, GL_MAP_WRITE_BIT);
+    memcpy(target, data, count);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 void Viewport::reset() {

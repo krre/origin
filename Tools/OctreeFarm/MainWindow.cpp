@@ -125,7 +125,7 @@ void MainWindow::writeSettings() {
 }
 
 bool MainWindow::maybeSave() {
-    if (!octree.isModified()) {
+    if (!octree.getIsModified()) {
         return true;
     }
 

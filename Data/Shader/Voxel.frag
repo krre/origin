@@ -8,8 +8,9 @@
 
 #if 1
 #extension GL_ARB_shader_storage_buffer_object : require
-layout (std430, binding = 0) buffer OctreeBuffer {
+layout (std430, binding = 0) buffer Octree {
     int count;
+    uint octreeData[];
 };
 #endif
 

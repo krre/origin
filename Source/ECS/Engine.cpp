@@ -22,21 +22,15 @@ std::shared_ptr<System> Engine::getSystem(SystemType type) {
 }
 
 void Engine::addEntity(std::shared_ptr<Entity> entity) {
-    entities.push_back(entity);
+    entities[entity->getId()] = entity;
 }
 
 void Engine::removeEntity(std::shared_ptr<Entity> entity) {
-    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
+//    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 }
 
 std::shared_ptr<Entity> Engine::getEntity(EntityId id) {
-    for (auto it: entities) {
-        if (it->getId() == id) {
-            return it;
-        }
-    }
-
-    return nullptr;
+    return entities[id];
 }
 
 void Engine::clearEntities() {

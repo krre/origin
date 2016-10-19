@@ -9,7 +9,7 @@ TransformSystem::TransformSystem() {
 
 void TransformSystem::process(float dt) {
     for (auto entity: engine->getEntities()) {
-        update(entity.get());
+        update(entity.second.get());
     }
 }
 

@@ -30,7 +30,7 @@ public:
     void removeEntity(std::shared_ptr<Entity> entity);
     std::shared_ptr<Entity> getEntity(EntityId id);
     void clearEntities();
-    std::vector<std::shared_ptr<Entity>> getEntities() { return entities; }
+    std::map<EntityId, std::shared_ptr<Entity>> getEntities() { return entities; }
 
     // Component
     Component* createComponent(Entity* entity, ComponentType type);
@@ -44,7 +44,7 @@ public:
 private:
     std::map<SystemType, std::shared_ptr<System>> updateSystems;
     std::map<SystemType, std::shared_ptr<System>> drawSystems;
-    std::vector<std::shared_ptr<Entity>> entities;
+    std::map<EntityId, std::shared_ptr<Entity>> entities;
 
     void initSystems();
 };

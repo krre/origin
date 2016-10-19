@@ -25,7 +25,7 @@ glm::mat4 CameraSystem::getView(Entity* entity) {
 void CameraSystem::onWindowResize(int width, int height) {
     // TODO: Replace by family
     for (auto entity : engine->getEntities()) {
-        CameraComponent* cameraComp = static_cast<CameraComponent*>(entity->components[ComponentType::Camera].get());
+        CameraComponent* cameraComp = static_cast<CameraComponent*>(entity.second->components[ComponentType::Camera].get());
         if (cameraComp) {
             cameraComp->aspect = width * 1.0f / height;
             cameraComp->projection = glm::perspective(cameraComp->fov, cameraComp->aspect, cameraComp->near, cameraComp->far);

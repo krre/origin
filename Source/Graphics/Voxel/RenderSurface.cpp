@@ -59,14 +59,14 @@ void RenderSurface::draw(float dt) {
 
     // TODO: Replace by family
     for (auto entity : Engine::getInstance()->getEntities()) {
-        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity.second->components[ComponentType::Octree].get());
         if (octreeComp) {
-            octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+            octreeTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
         }
 
-        LightComponent* lightComp = static_cast<LightComponent*>(entity->components[ComponentType::Light].get());
+        LightComponent* lightComp = static_cast<LightComponent*>(entity.second->components[ComponentType::Light].get());
         if (lightComp) {
-            lightTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+            lightTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
             lightColor = lightComp->color;
             lightPos = glm::vec3(lightTransform->objectToWorld[3]);
         }

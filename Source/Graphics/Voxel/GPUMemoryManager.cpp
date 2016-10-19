@@ -6,6 +6,13 @@ GPUMemoryManager::GPUMemoryManager() {
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->bind();
+
+    glGenBuffers(1, &octreesSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, MEMORY_SIZE, NULL, GL_DYNAMIC_COPY);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, octreesSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
     glUniform1i(glGetUniformLocation(program, "octrees"), 0);
 
     glGenBuffers(1, &octreesTbo);
@@ -46,6 +53,12 @@ void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<g
     int size = sizeof(glm::vec4) * transform.size();
     int offset = octreeOffsets[entity->getId()] + pageBytes - size;
     glBufferSubData(GL_TEXTURE_BUFFER, offset, size, transform.data());
+
+    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);
+//    print(data);
+    memcpy(data, transform.data(), size);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+
 }
 
 void GPUMemoryManager::removeEntity(const Entity* entity) {
@@ -66,10 +79,12 @@ void GPUMemoryManager::endBatch() {
 
 void GPUMemoryManager::bind() {
     glBindBuffer(GL_TEXTURE_BUFFER, octreesTbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
 }
 
 void GPUMemoryManager::release() {
     glBindBuffer(GL_TEXTURE_BUFFER, 0);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 void GPUMemoryManager::use() {

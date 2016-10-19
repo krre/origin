@@ -31,6 +31,7 @@ private:
     GLuint program;
     bool batch = false;
     GLuint octreesTbo;
+    GLuint octreesSsbo;
     GLuint octreesTexture;
     int endOffset = 0;
     std::map<EntityId, int> octreeOffsets;

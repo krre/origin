@@ -8,7 +8,6 @@
 #include "../../ECS/Engine.h"
 #include "../../Core/Common.h"
 #include "../../Core/Utils.h"
-#include <glm/gtx/matrix_decompose.hpp>
 
 RenderSurface::RenderSurface() {
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");

@@ -22,7 +22,7 @@ PhisicsSystem::~PhisicsSystem() {
 }
 
 void PhisicsSystem::process(float dt) {
-    dynamicsWorld->stepSimulation(dt, 10);
+//    dynamicsWorld->stepSimulation(dt, 10);
 }
 
 void PhisicsSystem::addRigidBody(Entity* entity) {

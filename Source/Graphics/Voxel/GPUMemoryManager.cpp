@@ -30,7 +30,13 @@ void GPUMemoryManager::addEntity(Entity* entity) {
     }
 
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
-    glBufferSubData(GL_TEXTURE_BUFFER, endOffset, sizeof(uint32_t) * oc->data.get()->size(), oc->data.get()->data());
+    int size = sizeof(uint32_t) * oc->data.get()->size();
+    glBufferSubData(GL_TEXTURE_BUFFER, endOffset, size, oc->data.get()->data());
+
+    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, endOffset, size, GL_MAP_WRITE_BIT);
+    memcpy(data, oc->data.get()->data(), size);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+
     octreeOffsets[entity->getId()] = endOffset;
     endOffset += pageBytes;
 }
@@ -40,9 +46,14 @@ void GPUMemoryManager::updateEntityOctree(Entity* entity) {
         bind();
     }
 
-    int offset = octreeOffsets[entity->getId()];
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
-    glBufferSubData(GL_TEXTURE_BUFFER, offset, sizeof(uint32_t) * oc->data.get()->size(), oc->data.get()->data());
+    int offset = octreeOffsets[entity->getId()];
+    int size = sizeof(uint32_t) * oc->data.get()->size();
+    glBufferSubData(GL_TEXTURE_BUFFER, offset, size, oc->data.get()->data());
+
+    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);
+    memcpy(data, oc->data.get()->data(), size);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
 
 void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform) {

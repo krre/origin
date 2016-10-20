@@ -100,9 +100,6 @@ void Viewport::paintGL() {
     transform.append(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
     transform.append(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
 
-    glm::vec3 octreeColor = glm::vec3(0.0, 1.0, 0.0);
-    transform.append(glm::vec4(octreeColor.x, octreeColor.y, octreeColor.z, 1.0));
-
     int size = sizeof(glm::vec4) * transform.size();
     int offset = pageBytes - size;
     updateOctreeInGPU(offset, transform.data(), size);

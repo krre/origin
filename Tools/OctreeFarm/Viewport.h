@@ -11,6 +11,13 @@
 class Viewport : public QOpenGLWidget {
     Q_OBJECT
 
+    struct PickResult {
+        uint32_t parent;
+        uint32_t scale;
+        int childIdx;
+        glm::vec3 pos;
+    };
+
 public:
     Viewport(Octree* octree);
     void updateOctreeInGPU(int offset, void* data, int count);
@@ -37,6 +44,7 @@ private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
     GLuint octreesSsbo;
+    GLuint pickResultSsbo;
     QOpenGLShaderProgram program;
 
     float rotateSpeed = 5;

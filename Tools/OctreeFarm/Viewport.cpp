@@ -193,9 +193,7 @@ void Viewport::onOctreeChanged() {
 
 void Viewport::updateOctreeInGPU(int offset, void* data, int count) {
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
-    GLvoid* target = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, count, GL_MAP_WRITE_BIT);
-    memcpy(target, data, count);
-    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+    glBufferSubData(GL_SHADER_STORAGE_BUFFER, offset, count, data);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 

@@ -36,7 +36,7 @@ RenderSurface::RenderSurface() {
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
     // Position attribute
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
     glEnableVertexAttribArray(0);
 }
 

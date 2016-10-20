@@ -47,7 +47,7 @@ void Viewport::initializeGL() {
 
     vao.create();
     vao.bind();
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
     glEnableVertexAttribArray(0);
 
     glGenBuffers(1, &octreesSsbo);

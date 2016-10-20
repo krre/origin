@@ -15,10 +15,12 @@ RenderSurface::RenderSurface() {
     voxelShaderGroup->bind();
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
+    glm::vec2 pickPixel(-1, -1);
 
     glUniform1i(glGetUniformLocation(program, "pageBytes"), pageBytes);
     glUniform1i(glGetUniformLocation(program, "blockInfoEnd"), blockInfoEnd);
     glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
+    glUniform2fv(glGetUniformLocation(program, "pickPixel"), 1, &pickPixel[0]);
 
     GLfloat vertices[] = {
         -1.0f,  1.0f,

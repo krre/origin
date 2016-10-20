@@ -11,6 +11,14 @@ layout (std430, binding = 0) buffer Octree {
     uint octreeData[];
 };
 
+layout (std430, binding = 0) buffer PickResult {
+    uint pickParent;
+    uint pickScale;
+    int pickChildIdx;
+    vec3 pickPos;
+    bool pickInvalid;
+};
+
 struct Ray {
     vec3 origin;
     vec3 direction;
@@ -396,29 +404,15 @@ void main() {
         }
     }
 
-    if (gl_FragCoord.y == pickPixel.y + 0.5) { // For OctreeFarm pick node
-        float d = 255;
-        if (gl_FragCoord.x == pickPixel.x + 0.5) { // x
-            int r = int(outCastRes.node >> 24) & 0xFF;
-            int g = int(outCastRes.node >> 16) & 0xFF;
-            int b = int(outCastRes.node >> 8) & 0xFF;
-            int a = int(outCastRes.node) & 0xFF;
-            // Parent node address
-            color = vec4(r / d, g / d, b / d, a / d);
-        } else if (gl_FragCoord.x == pickPixel.x + 1.5) { // x + 1
-            if (outCastRes.node != 0u) {
-                // Child index in parent node
-                color = vec4(0.0, 0.0, outCastRes.scale / d, outCastRes.childIdx / d);
-            } else {
-                // Invalid bit
-                color = vec4(0x80 / d, 0.0, 0.0, 0.0);
-            }
-        } else if (gl_FragCoord.x == pickPixel.x + 2.5) { // x + 2
-            color = floatToVec4(outCastRes.pos.x);
-        } else if (gl_FragCoord.x == pickPixel.x + 3.5) { // x + 3
-            color = floatToVec4(outCastRes.pos.y);
-        } else if (gl_FragCoord.x == pickPixel.x + 4.5) { // x + 4
-            color = floatToVec4(outCastRes.pos.z);
+    if (gl_FragCoord.y == (pickPixel.y + 0.5) && gl_FragCoord.x == (pickPixel.x + 0.5)) { // For OctreeFarm pick node
+        if (outCastRes.node != 0u) {
+            pickParent = outCastRes.node;
+            pickScale = outCastRes.scale;
+            pickChildIdx = outCastRes.childIdx;
+            pickPos = outCastRes.pos;
+            pickInvalid = false;
+        } else {
+            pickInvalid = true;
         }
     } else {
         if (index != -1) {

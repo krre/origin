@@ -12,10 +12,11 @@ layout (std430, binding = 0) buffer Octree {
 };
 
 layout (std430, binding = 1) buffer PickResult {
+    vec3 pickPos;
     uint pickParent;
     uint pickScale;
     int pickChildIdx;
-    vec3 pickPos;
+
 };
 
 struct Ray {
@@ -405,9 +406,9 @@ void main() {
     if (gl_FragCoord.y == (pickPixel.y + 0.5) && gl_FragCoord.x == (pickPixel.x + 0.5)) { // For OctreeFarm pick node
         pickParent = outCastRes.node;
         if (pickParent != 0u) {
+            pickPos = outCastRes.pos;
             pickScale = outCastRes.scale;
             pickChildIdx = outCastRes.childIdx;
-            pickPos = outCastRes.pos;
         }
     }
 

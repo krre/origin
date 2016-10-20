@@ -148,7 +148,6 @@ bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
             parentNode = findNode(path, path.count() - 2);
             parentNode = (*parentNode)["children"].get_ptr<json::object_t*>();
         }
-
         (*parentNode).erase(std::to_string(path.last()));
     }
 
@@ -248,12 +247,13 @@ json::object_t* Source::findNode(const QVector<int>& path, int index) {
     return node;
 }
 
-QVector<int> Source::posToPath(const glm::uvec3& pos, int scale) {
+QVector<int> Source::posToPath(const glm::vec3& pos, int scale) {
     QVector<int> path;
     int s_max = 23; // from Voxel.frag
-    std::bitset<32> bitsX(pos.x);
-    std::bitset<32> bitsY(pos.y);
-    std::bitset<32> bitsZ(pos.z);
+    // Convert float to uint32_t
+    std::bitset<32> bitsX(*(uint32_t*)&pos.x);
+    std::bitset<32> bitsY(*(uint32_t*)&pos.y);
+    std::bitset<32> bitsZ(*(uint32_t*)&pos.z);
 
     for (int i = s_max - 1; i >= scale; i--) {
         int index = 0;

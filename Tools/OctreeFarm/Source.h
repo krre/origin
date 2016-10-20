@@ -27,7 +27,7 @@ public:
 
 private:
     json::object_t* findNode(const QVector<int>& path, int index);
-    QVector<int> posToPath(const glm::uvec3& pos, int scale);
+    QVector<int> posToPath(const glm::vec3& pos, int scale);
 
     json root;
     uint32_t defaultColor = 0xFF4681FF;

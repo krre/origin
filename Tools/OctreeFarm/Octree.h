@@ -11,7 +11,7 @@ struct Node {
     uint32_t childIndex;
     uint32_t color;
     uint32_t scale;
-    glm::uvec3 pos;
+    glm::vec3 pos;
 };
 
 struct Clipboard {
@@ -38,7 +38,7 @@ public:
     void setIsModified(bool isModified);
     bool getIsModified() const { return isModified; }
 
-    void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::uvec3& pos, bool append = false);
+    void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append = false);
     void changeNodeColor(const QColor& color);
 
 public slots:

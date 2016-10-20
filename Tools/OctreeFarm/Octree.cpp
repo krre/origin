@@ -68,7 +68,7 @@ void Octree::confirmUpdate() {
     dataChanged();
 }
 
-void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::uvec3& pos, bool append) {
+void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append) {
     int address = colorAttachAddress(parent, childIndex);
 
     QSharedPointer<Node> node;

@@ -12,10 +12,10 @@ class Viewport : public QOpenGLWidget {
     Q_OBJECT
 
     struct PickResult {
+        glm::vec3 pos;
         uint32_t parent;
         uint32_t scale;
         int childIdx;
-        glm::vec3 pos;
     };
 
 public:

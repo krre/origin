@@ -414,11 +414,11 @@ void main() {
         } else {
             pickInvalid = true;
         }
+    }
+
+    if (index != -1) {
+        color = lookupColor(index, outCastRes);
     } else {
-        if (index != -1) {
-            color = lookupColor(index, outCastRes);
-        } else {
-            color = vec4(backgroundColor, 1.0);
-        }
+        color = vec4(backgroundColor, 1.0);
     }
 }

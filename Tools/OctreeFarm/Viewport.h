@@ -37,8 +37,6 @@ private:
     QOpenGLVertexArrayObject vao;
     QOpenGLBuffer vbo;
     GLuint octreesSsbo;
-    GLuint framebuffer;
-    GLuint renderbuffer;
     QOpenGLShaderProgram program;
 
     float rotateSpeed = 5;
@@ -49,6 +47,6 @@ private:
     Octree* octree;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
-    bool fboMode = false;
+    bool pickMode = false;
     QPoint pick;
 };

@@ -32,6 +32,8 @@ void Viewport::initializeGL() {
     program.setUniformValue("pageBytes", pageBytes);
     program.setUniformValue("blockInfoEnd", blockInfoEnd);
     program.setUniformValue("backgroundColor", backgroundColor);
+    program.setUniformValue("pickPixel", QPoint(-1, -1));
+    program.setUniformValue("octreeCount", 1);
 
     vbo.create();
     vbo.bind();
@@ -56,15 +58,6 @@ void Viewport::initializeGL() {
     glBufferData(GL_SHADER_STORAGE_BUFFER, pageBytes, NULL, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, octreesSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-
-    glGenFramebuffers(1, &framebuffer);
-    glGenRenderbuffers(1, &renderbuffer);
-
-    glBindRenderbuffer(GL_RENDERBUFFER, renderbuffer);
-    glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, width(), height());
-
-    glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    glFramebufferRenderbuffer(GL_DRAW_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, renderbuffer);
 
     emit ready();
 }
@@ -124,40 +117,33 @@ void Viewport::paintGL() {
     program.setUniformValue("lightColor", lightColor);
     program.setUniformValue("lightPos", lightPos);
     program.setUniformValue("ambientStrength", 0.1f);
-    program.setUniformValue("octreeCount", 1);
     program.setUniformValue("transformCount", transform.size());
 
-    if (fboMode) {
-        glBindFramebuffer(GL_FRAMEBUFFER, framebuffer);
-    } else {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    }
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     vao.bind();
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    if (fboMode) {
-        int words = 5;
-        unsigned char* data = new unsigned char[words * 4];
-        glReadPixels(pick.x(), height() - pick.y(), words, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
-        int invalidBit = data[4] & 0x80;
-        if (invalidBit) {
-            octree->deselect();
-        } else {
-            uint32_t parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
-            uint32_t scale = data[6];
-            uint32_t childIndex = data[7];
-            glm::uvec3 pos;
-            pos.x = data[8] << 24 | data[9] << 16 | data[10] << 8 | data[11];
-            pos.y = data[12] << 24 | data[13] << 16 | data[14] << 8 | data[15];
-            pos.z = data[16] << 24 | data[17] << 16 | data[18] << 8 | data[19];
-            octree->select(parent, scale, childIndex, pos, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
-        }
+    if (pickMode) {
+//        int words = 5;
+//        unsigned char* data = new unsigned char[words * 4];
+//        glReadPixels(pick.x(), height() - pick.y(), words, 1, GL_RGBA, GL_UNSIGNED_BYTE, data);
+//        int invalidBit = data[4] & 0x80;
+//        if (invalidBit) {
+//            octree->deselect();
+//        } else {
+//            uint32_t parent = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
+//            uint32_t scale = data[6];
+//            uint32_t childIndex = data[7];
+//            glm::uvec3 pos;
+//            pos.x = data[8] << 24 | data[9] << 16 | data[10] << 8 | data[11];
+//            pos.y = data[12] << 24 | data[13] << 16 | data[14] << 8 | data[15];
+//            pos.z = data[16] << 24 | data[17] << 16 | data[18] << 8 | data[19];
+//            octree->select(parent, scale, childIndex, pos, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+//        }
 
-        glBindFramebuffer(GL_FRAMEBUFFER, 0);
         program.setUniformValue("pickPixel", QPoint(-1, -1));
-        delete data;
-        fboMode = false;
+        pickMode = false;
     }
 }
 
@@ -173,7 +159,7 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
         program.bind();
         pick = event->pos();
         program.setUniformValue("pickPixel", QPoint(pick.x(), height() - pick.y()));
-        fboMode = true;
+        pickMode = true;
         // Update is asynchronous action so selection is continued in paintGL()
         update();
     }

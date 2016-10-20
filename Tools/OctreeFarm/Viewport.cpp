@@ -41,10 +41,7 @@ void Viewport::initializeGL() {
         -1.0f,  1.0f,
         -1.0f, -1.0f,
          1.0f,  1.0f,
-
-        -1.0f, -1.0f,
          1.0f, -1.0f,
-         1.0f,  1.0f,
     };
     vbo.allocate(vertices, sizeof(vertices));
 
@@ -117,7 +114,7 @@ void Viewport::paintGL() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     vao.bind();
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
     if (pickMode) {
         PickResult pickResult;

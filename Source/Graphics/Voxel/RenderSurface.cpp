@@ -26,10 +26,7 @@ RenderSurface::RenderSurface() {
         -1.0f,  1.0f,
         -1.0f, -1.0f,
          1.0f,  1.0f,
-
-        -1.0f, -1.0f,
          1.0f, -1.0f,
-         1.0f,  1.0f,
     };
 
     glGenBuffers(1, &vbo);
@@ -128,6 +125,6 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
 
     glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 }
 

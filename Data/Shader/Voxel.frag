@@ -375,7 +375,6 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 void main() {
     CastResult outCastRes;
     outCastRes.node = 0u;
-    outCastRes.pos = vec3(0);
     float t = 10000;
     int index = -1;
     for (int i = 0; i < octreeCount; i++) {
@@ -409,7 +408,6 @@ void main() {
             pickScale = outCastRes.scale;
             pickChildIdx = outCastRes.childIdx;
             pickPos = outCastRes.pos;
-
         }
     }
 

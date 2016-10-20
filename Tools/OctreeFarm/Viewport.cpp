@@ -78,27 +78,27 @@ void Viewport::paintGL() {
     glm::mat4 cameraToOctree = octree->worldToOctree() * camera.getCameraToWorld();
     transform.append(cameraToOctree[3]);
 
-    glm::vec3 up = camera.up();
-    glm::vec3 look = camera.look();
-    glm::vec3 right = camera.right();
+    glm::vec4 up = glm::vec4(camera.up(), 0.0);
+    glm::vec4 look = glm::vec4(camera.look(), 0.0);
+    glm::vec4 right = glm::vec4(camera.right(), 0.0);
 
     // Ray calculation is based on Johns Hopkins presentation:
     // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
-    glm::vec3 h0 = look - up * glm::tan(camera.fov()); // min height vector
-    glm::vec3 h1 = look + up * glm::tan(camera.fov()); // max height vector
-    glm::vec3 stepH = (h1 - h0) / height();
+    glm::vec4 h0 = look - up * glm::tan(camera.fov()); // min height vector
+    glm::vec4 h1 = look + up * glm::tan(camera.fov()); // max height vector
+    glm::vec4 stepH = (h1 - h0) / height();
     h0 += stepH / 2;
 
-    glm::vec3 w0 = look - right * glm::tan(camera.fov()) * width() / height(); // min width vector
-    glm::vec3 w1 = look + right * glm::tan(camera.fov()) * width() / height(); // max width vector
-    glm::vec3 stepW = (w1 - w0) / width();
+    glm::vec4 w0 = look - right * glm::tan(camera.fov()) * width() / height(); // min width vector
+    glm::vec4 w1 = look + right * glm::tan(camera.fov()) * width() / height(); // max width vector
+    glm::vec4 stepW = (w1 - w0) / width();
     w0 += stepW / 2;
 
-    glm::vec3 startCornerPos = w0 + h0;
+    glm::vec4 startCornerPos = w0 + h0;
 
-    transform.append(glm::vec4(startCornerPos.x, startCornerPos.y, startCornerPos.z, 0.0));
-    transform.append(glm::vec4(stepW.x, stepW.y, stepW.z, 0.0));
-    transform.append(glm::vec4(stepH.x, stepH.y, stepH.z, 0.0));
+    transform.append(startCornerPos);
+    transform.append(stepW);
+    transform.append(stepH);
 
     int size = sizeof(glm::vec4) * transform.size();
     int offset = pageBytes - size;

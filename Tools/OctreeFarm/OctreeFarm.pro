@@ -3,8 +3,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = OctreeFarm
 TEMPLATE = app
-WIN32: LIBS += -L$$(GLEW_HOME)/lib -lglew32 -lopengl32
-LINUX: LIBS += -lGLEW
+win32: LIBS += -L$$(GLEW_HOME)/lib -lglew32 -lopengl32
+linux: LIBS += -lGLEW
 
 INCLUDEPATH += "../../ThirdParty" $$(GLEW_HOME)/include
 

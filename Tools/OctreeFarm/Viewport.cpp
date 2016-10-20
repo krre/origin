@@ -133,11 +133,9 @@ void Viewport::paintGL() {
     if (pickMode) {
         PickResult pickResult;
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, pickResultSsbo);
-        int size = sizeof(pickResult);
-        GLvoid* target = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, size, GL_MAP_READ_BIT);
-        memcpy(&pickResult, target, size);
-        glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+        glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(pickResult), &pickResult);
         glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
         if (pickResult.parent == 0) {
             octree->deselect();
         } else {

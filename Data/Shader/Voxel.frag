@@ -11,7 +11,7 @@ layout (std430, binding = 0) buffer Octree {
     uint octreeData[];
 };
 
-layout (std430, binding = 0) buffer PickResult {
+layout (std430, binding = 1) buffer PickResult {
     uint pickParent;
     uint pickScale;
     int pickChildIdx;

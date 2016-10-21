@@ -8,12 +8,8 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
     setCentralWidget(splitter);
 
-    readSettings();
-
     connect(viewport, &Viewport::ready, this, &MainWindow::initViewport);
     connect(&octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
-
-    setCurrentFile(QString());
 }
 
 MainWindow::~MainWindow() {
@@ -117,11 +113,19 @@ void MainWindow::readSettings() {
     } else {
         restoreGeometry(geometry);
     }
+
+    QString filePath = settings->value("Path/currentFile").toString();
+    if (!filePath.isEmpty() && QFile::exists(filePath)) {
+        loadFile(filePath);
+    } else {
+        newFile();
+    }
 }
 
 void MainWindow::writeSettings() {
     settings->setValue("General/splitter", splitter->saveState());
     settings->setValue("General/geometry", saveGeometry());
+    settings->setValue("Path/currentFile", currentFile);
 }
 
 bool MainWindow::maybeSave() {
@@ -280,5 +284,5 @@ void MainWindow::about() {
 }
 
 void MainWindow::initViewport() {
-    newFile();
+    readSettings();
 }

@@ -57,5 +57,9 @@ std::string Utils::uintToBinaryString(uint32_t value) {
     return std::bitset<8>(value >> 24 & 0xFF).to_string() + " " +
            std::bitset<8>(value >> 16 & 0xFF).to_string() + " " +
            std::bitset<8>(value >> 8 & 0xFF).to_string() + " " +
-           std::bitset<8>(value & 0xFF).to_string();
+            std::bitset<8>(value & 0xFF).to_string();
+}
+
+uint32_t Utils::binaryStringToUint(const std::string& value) {
+    return uint32_t(std::bitset<32>(value).to_ullong());
 }

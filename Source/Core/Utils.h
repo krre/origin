@@ -15,4 +15,5 @@ public:
     static uint32_t floatToUint(float value);
     static float uintToFloat(uint32_t value);
     static std::string uintToBinaryString(uint32_t value);
+    static uint32_t binaryStringToUint(const std::string& value);
 };

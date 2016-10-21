@@ -1,5 +1,6 @@
 #include "Utils.h"
 #include <fstream>
+#include <bitset>
 
 Utils::Utils() {
 
@@ -50,4 +51,8 @@ uint32_t Utils::floatToUint(float value) {
 
 float Utils::uintToFloat(uint32_t value) {
     return *(float*)&value;
+}
+
+std::string Utils::uintToBinaryString(uint32_t value) {
+    return std::bitset<32>(value).to_string();
 }

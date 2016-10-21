@@ -7,6 +7,9 @@
 // http://code.google.com/p/efficient-sparse-voxel-octrees
 
 #extension GL_ARB_shader_storage_buffer_object : require
+// For bitCount
+#extension GL_ARB_gpu_shader5 : require
+
 layout (std430, binding = 0) buffer Octree {
     uint octreeData[];
 };
@@ -53,19 +56,6 @@ uniform int transformCount;
 uniform vec2 pickPixel;
 
 out vec4 color;
-
-// TODO: Replace by bitCount from GLSL 4.0
-uint bitCount8(uint value) {
-    uint count = 0u;
-    for (int i = 0; i < 8; i++) {
-        if ((value & 1u) == 1u) {
-            count++;
-        }
-        value >>= 1;
-    }
-
-    return count;
-}
 
 vec4 floatToVec4(float value) {
     uint u = floatBitsToUint(value);
@@ -209,7 +199,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
                     ofs += parent; // far pointer
                 }
 
-                ofs += bitCount8(child_masks & 0x7Fu);
+                ofs += bitCount(child_masks & 0x7Fu);
                 parent += ofs;
 
                 // Select child voxel that the ray enters first.
@@ -341,7 +331,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     }
 
     // Found, return it
-    int pAttach = attachData + int(paletteNode >> 8) + int(bitCount8(paletteNode & uint((1 << cidx) - 1)));
+    int pAttach = attachData + int(paletteNode >> 8) + bitCount(paletteNode & uint((1 << cidx) - 1));
     int c = int(octreeData[pAttach]);
     int r = (c >> 16) & 0xFF;
     int g = (c >> 8) & 0xFF;

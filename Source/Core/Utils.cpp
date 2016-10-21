@@ -54,5 +54,8 @@ float Utils::uintToFloat(uint32_t value) {
 }
 
 std::string Utils::uintToBinaryString(uint32_t value) {
-    return std::bitset<32>(value).to_string();
+    return std::bitset<8>(value >> 24 & 0xFF).to_string() + " " +
+           std::bitset<8>(value >> 16 & 0xFF).to_string() + " " +
+           std::bitset<8>(value >> 8 & 0xFF).to_string() + " " +
+           std::bitset<8>(value & 0xFF).to_string();
 }

@@ -1,24 +1,15 @@
 #include "ShaderGroup.h"
 
-ShaderGroup::ShaderGroup() :
-    vertShader(GL_VERTEX_SHADER),
-    fragShader(GL_FRAGMENT_SHADER) {
+ShaderGroup::ShaderGroup() {
 }
 
-void ShaderGroup::setVertShaderPath(const std::string& path) {
-    vertShaderPath = path;
+void ShaderGroup::loadShader(GLenum type, const std::string& path) {
+    Shader shader(type);
+    shader.load(path);
+    program.addShader(shader);
 }
 
-void ShaderGroup::setFragShaderPath(const std::string& path) {
-    fragShaderPath = path;
-}
-
-void ShaderGroup::load() {
-    vertShader.load(vertShaderPath);
-    fragShader.load(fragShaderPath);
-
-    program.addShader(vertShader);
-    program.addShader(fragShader);
+void ShaderGroup::link() {
     program.link();
 }
 

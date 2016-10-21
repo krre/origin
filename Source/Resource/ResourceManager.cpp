@@ -12,27 +12,27 @@ ResourceManager::ResourceManager() {
 void ResourceManager::loadAll() {
     // ShaderGroups
     auto baseShaderGroup = std::make_shared<ShaderGroup>();
-    baseShaderGroup->setVertShaderPath(shaderPath + "/Base.vert");
-    baseShaderGroup->setFragShaderPath(shaderPath + "/Base.frag");
-    baseShaderGroup->load();
+    baseShaderGroup->loadShader(GL_VERTEX_SHADER, shaderPath + "/Base.vert");
+    baseShaderGroup->loadShader(GL_FRAGMENT_SHADER, shaderPath + "/Base.frag");
+    baseShaderGroup->link();
     resources["BaseShaderGroup"] = baseShaderGroup;
 
     auto fontShaderGroup = std::make_shared<ShaderGroup>();
-    fontShaderGroup->setVertShaderPath(shaderPath + "/Font.vert");
-    fontShaderGroup->setFragShaderPath(shaderPath + "/Font.frag");
-    fontShaderGroup->load();
+    fontShaderGroup->loadShader(GL_VERTEX_SHADER, shaderPath + "/Font.vert");
+    fontShaderGroup->loadShader(GL_FRAGMENT_SHADER, shaderPath + "/Font.frag");
+    fontShaderGroup->link();
     resources["FontShaderGroup"] = fontShaderGroup;
 
     auto lightShaderGroup = std::make_shared<ShaderGroup>();
-    lightShaderGroup->setVertShaderPath(shaderPath + "/Light.vert");
-    lightShaderGroup->setFragShaderPath(shaderPath + "/Light.frag");
-    lightShaderGroup->load();
+    lightShaderGroup->loadShader(GL_VERTEX_SHADER, shaderPath + "/Light.vert");
+    lightShaderGroup->loadShader(GL_FRAGMENT_SHADER, shaderPath + "/Light.frag");
+    lightShaderGroup->link();
     resources["LightShaderGroup"] = lightShaderGroup;
 
     auto voxelShaderGroup = std::make_shared<ShaderGroup>();
-    voxelShaderGroup->setVertShaderPath(shaderPath + "/Voxel.vert");
-    voxelShaderGroup->setFragShaderPath(shaderPath + "/Voxel.frag");
-    voxelShaderGroup->load();
+    voxelShaderGroup->loadShader(GL_VERTEX_SHADER, shaderPath + "/Voxel.vert");
+    voxelShaderGroup->loadShader(GL_FRAGMENT_SHADER, shaderPath + "/Voxel.frag");
+    voxelShaderGroup->link();
     resources["VoxelShaderGroup"] = voxelShaderGroup;
 
     // Fonts

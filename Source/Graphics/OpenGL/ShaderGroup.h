@@ -7,17 +7,11 @@ class ShaderGroup : public Resource {
 
 public:
     ShaderGroup();
-    void setVertShaderPath(const std::string& path);
-    void setFragShaderPath(const std::string& path);
-    void load() override;
+    void loadShader(GLenum type, const std::string& path);
+    void link();
     void bind();
     GLuint getProgram() { return program.getId(); }
 
 private:
-    Shader vertShader;
-    Shader fragShader;
     Program program;
-
-    std::string vertShaderPath;
-    std::string fragShaderPath;
 };

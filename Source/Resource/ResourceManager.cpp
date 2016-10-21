@@ -35,6 +35,11 @@ void ResourceManager::loadAll() {
     voxelShaderGroup->link();
     resources["VoxelShaderGroup"] = voxelShaderGroup;
 
+    auto raycastShaderGroup = std::make_shared<ShaderGroup>();
+    raycastShaderGroup->loadShader(GL_COMPUTE_SHADER, shaderPath + "/Raycast.comp");
+    raycastShaderGroup->link();
+    resources["RaycastShaderGroup"] = raycastShaderGroup;
+
     // Fonts
     auto iconsolataFont = std::make_shared<Font>();
     iconsolataFont->load(fontPath + "/inconsolatalgc.ttf");

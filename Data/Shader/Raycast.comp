@@ -1,0 +1,6 @@
+#version 330 core
+#extension GL_ARB_compute_shader : require
+
+void main() {
+
+}

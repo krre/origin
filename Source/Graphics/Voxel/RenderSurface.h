@@ -11,6 +11,7 @@ public:
 
 private:
     ShaderGroup* voxelShaderGroup;
+    ShaderGroup* raycastShaderGroup;
     GLuint vao;
     GLuint vbo;
     GLuint program;

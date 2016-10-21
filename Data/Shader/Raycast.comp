@@ -1,6 +1,8 @@
 #version 330 core
 #extension GL_ARB_compute_shader : require
 
+layout(local_size_x = 1) in;
+
 void main() {
 
 }

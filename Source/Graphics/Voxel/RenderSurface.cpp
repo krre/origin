@@ -11,6 +11,7 @@
 
 RenderSurface::RenderSurface() {
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
+    raycastShaderGroup = ResourceManager::getInstance()->getShaderGroup("RaycastShaderGroup");
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->bind();
 
@@ -115,6 +116,9 @@ void RenderSurface::draw(float dt) {
     }
 
     octreeSystem->getGpuMemoryManager()->endBatch();
+
+    raycastShaderGroup->bind();
+    glDispatchCompute(1, 1, 1);
 
     voxelShaderGroup->bind();
 

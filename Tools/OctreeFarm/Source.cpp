@@ -250,10 +250,9 @@ json::object_t* Source::findNode(const QVector<int>& path, int index) {
 QVector<int> Source::posToPath(const glm::vec3& pos, int scale) {
     QVector<int> path;
     int s_max = 23; // from Voxel.frag
-    // Convert float to uint32_t
-    std::bitset<32> bitsX(*(uint32_t*)&pos.x);
-    std::bitset<32> bitsY(*(uint32_t*)&pos.y);
-    std::bitset<32> bitsZ(*(uint32_t*)&pos.z);
+    std::bitset<32> bitsX(Utils::floatToUint(pos.x));
+    std::bitset<32> bitsY(Utils::floatToUint(pos.y));
+    std::bitset<32> bitsZ(Utils::floatToUint(pos.z));
 
     for (int i = s_max - 1; i >= scale; i--) {
         int index = 0;

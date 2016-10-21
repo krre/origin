@@ -12,4 +12,5 @@ public:
     static uint32_t rgbaToUint32(const glm::vec4& color);
     static std::string readTextFile(const std::string& filePath);
     static int bitCount8(int value);
+    static uint32_t floatToUint(float value);
 };

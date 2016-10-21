@@ -117,7 +117,9 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
         data->append(colors[i]);
     }
 
-    qDebug() << *data;
+    for (auto value: *data) {
+        qDebug() << QString::fromStdString(Utils::uintToBinaryString(value)) << value;
+    }
 
     return data;
 }

@@ -47,3 +47,7 @@ int Utils::bitCount8(int value) {
 uint32_t Utils::floatToUint(float value) {
     return *(uint32_t*)&value;
 }
+
+float Utils::uintToFloat(uint32_t value) {
+    return *(float*)&value;
+}

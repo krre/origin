@@ -13,4 +13,5 @@ public:
     static std::string readTextFile(const std::string& filePath);
     static int bitCount8(int value);
     static uint32_t floatToUint(float value);
+    static float uintToFloat(uint32_t value);
 };

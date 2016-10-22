@@ -71,7 +71,7 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
 //    std::cout << source.dump(4) << std::endl;
 
     // Append node descriptors
-    while (true) {
+    while (octreesFirst.size()) {
         uint32_t nodeDescriptor = 0;
         uint32_t colorDescriptor = 0;
         octreesSecond.clear();
@@ -112,13 +112,7 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
         colorDescriptors.push_back(colorDescriptor);
         offset++;
 
-        if (octreesFirst.empty()) {
-            if (octreesSecond.empty()) {
-                break;
-            } else {
-                octreesFirst = octreesSecond;
-            }
-        }
+        octreesFirst = octreesSecond;
     }
 
     (*data)[0] = offset + 1; // Address to block info

@@ -145,15 +145,5 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
         data->push_back(colors[i]);
     }
 
-#if BINARY_PRINT == 1
-    for (auto value: *data) {
-    #ifdef QT_VERSION
-        qDebug() << QString::fromStdString(uintToBinaryString(value)) << value;
-    #else
-        print(uintToBinaryString(value) << " " << value)
-    #endif
-    }
-#endif
-
     return data;
 }

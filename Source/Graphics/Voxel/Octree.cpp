@@ -1,6 +1,7 @@
 #include "Octree.h"
 #include "../../Core/Utils.h"
 #include <fstream>
+#include <bitset>
 
 Octree::Octree() {
 
@@ -68,13 +69,13 @@ std::shared_ptr<std::vector<uint32_t>> Octree::data() {
         }
 
 
-        int childNum = Utils::bitCount8(nodeDescriptor);
+        int childNum = std::bitset<8>(nodeDescriptor).count();
         if (childNum) {
             if (data->size() == 1) { // First descriptor in vector
                 nodeDescriptor |= (1 << 17); // Set offset to 1
             } else {
                 uint32_t lastDescriptor = data->at(offset);
-                nodeDescriptor |= ((lastDescriptor >> 17) + Utils::bitCount8(lastDescriptor) - 1);
+                nodeDescriptor |= ((lastDescriptor >> 17) + std::bitset<8>(lastDescriptor).count() - 1);
             }
         }
 
@@ -101,7 +102,7 @@ std::shared_ptr<std::vector<uint32_t>> Octree::data() {
     offset = colorDescriptors.size();
     for (int i = 0 ; i < colorDescriptors.size(); i++) {
         uint32_t colorDescriptor = colorDescriptors[i];
-        int numColors = Utils::bitCount8(colorDescriptor);
+        int numColors = std::bitset<8>(colorDescriptor).count();
         if (numColors) {
             colorDescriptor |= (offset << 8);
             offset += numColors;

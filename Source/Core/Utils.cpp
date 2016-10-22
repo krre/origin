@@ -33,18 +33,6 @@ std::string Utils::readTextFile(const std::string& filePath) {
     }
 }
 
-int Utils::bitCount8(int value) {
-    int count = 0;
-    for (int i = 0; i < 8; i++) {
-        if ((value & 1) == 1) {
-            count++;
-        }
-        value >>= 1;
-    }
-
-    return count;
-}
-
 uint32_t Utils::floatToUint(float value) {
     return *(uint32_t*)&value;
 }

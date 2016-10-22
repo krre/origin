@@ -303,15 +303,6 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         if ((py & (1 << level)) != 0) cidx |= 2;
         if ((pz & (1 << level)) != 0) cidx |= 4;
 
-        // Update
-//        pageHeader   = (S32*)((S32)node & -OctreeRuntime::PageBytes);
-//        blockInfo    = pageHeader + *pageHeader;
-//        blockStart   = blockInfo + blockInfo[OctreeRuntime::BlockInfo_BlockPtr];
-//        attachInfos  = blockInfo + OctreeRuntime::BlockInfo_End;
-//        attachInfo   = attachInfos + OctreeRuntime::AttachInfo_End * AttachSlot_Attribute;
-//        attachData   = blockInfo + attachInfo[OctreeRuntime::AttachInfo_Ptr];
-//        paletteNode  = attachData[(node - blockStart) >> 1];
-
         pageHeader = int(node) & -pageBytes / 4;
         blockInfo = pageHeader + int(octreeData[pageHeader]);
         attachData = blockInfo + blockInfoEnd;

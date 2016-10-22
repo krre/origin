@@ -57,17 +57,6 @@ uniform vec2 pickPixel;
 
 out vec4 color;
 
-vec4 floatToVec4(float value) {
-    uint u = floatBitsToUint(value);
-    float d = 255.0;
-    int r = int(u >> 24) & 0xFF;
-    int g = int(u >> 16) & 0xFF;
-    int b = int(u >> 8) & 0xFF;
-    int a = int(u) & 0xFF;
-
-    return vec4(r / d, g / d, b / d, a / d);
-}
-
 Ray constructRay(in int index) {
     int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
     offset += 16; // skip octreeToWorld matrix

@@ -187,7 +187,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
                     ofs += parent; // far pointer
                 }
 
-                ofs += bitCount(child_masks & 0x7Fu);
+                ofs += bitCount(child_masks & 0x7F);
                 parent += ofs;
 
                 // Select child voxel that the ray enters first.
@@ -319,7 +319,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     }
 
     // Found, return it
-    int pAttach = attachData + int(paletteNode >> 8) + bitCount(paletteNode & uint((1 << cidx) - 1));
+    int pAttach = attachData + int(paletteNode >> 8) + bitCount(paletteNode & (1 << cidx) - 1);
     int c = int(octreeData[pAttach]);
     int r = (c >> 16) & 0xFF;
     int g = (c >> 8) & 0xFF;

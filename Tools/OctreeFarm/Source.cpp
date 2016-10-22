@@ -27,8 +27,7 @@ QString Source::serialize() {
 }
 
 QSharedPointer<QVector<uint32_t>> Source::binary() {
-    QSharedPointer<QVector<uint32_t>> data;
-    data.reset(new QVector<uint32_t>());
+    QSharedPointer<QVector<uint32_t>> data(new QVector<uint32_t>);
 
     // Append header
     data->append(0);

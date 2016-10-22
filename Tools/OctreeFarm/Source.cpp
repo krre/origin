@@ -1,6 +1,7 @@
 #include "Source.h"
 #include "Octree.h"
 #include "../../Source/Core/Utils.h"
+#include "Defines.h"
 #include <QtCore>
 #include <bitset>
 
@@ -42,7 +43,9 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     QVector<uint32_t> colors;
     uint32_t offset = 0;
 
+#if JSON_PRINT == 1
     std::cout << root.dump(4) << std::endl;
+#endif
 
     // Append node descriptors
     while (true) {
@@ -117,9 +120,11 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
         data->append(colors[i]);
     }
 
+#if BINARY_PRINT == 1
     for (auto value: *data) {
         qDebug() << QString::fromStdString(Utils::uintToBinaryString(value)) << value;
     }
+#endif
 
     return data;
 }

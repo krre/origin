@@ -26,4 +26,5 @@ HEADERS  += MainWindow.h \
     ../../Source/Core/Common.h \
     Source.h \
     ../../Source/Core/Utils.h \
-    ../../Source/Core/Object.h
+    ../../Source/Core/Object.h \
+    Defines.h

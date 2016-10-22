@@ -361,18 +361,9 @@ void main() {
         // Take near to camera t
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
-            // TODO: Remove duplication of octreeToWorld calculation with lookupColor() function
             int offset = (i + 1) * (pageBytes / 4) - transformCount * 4;
-            float v[16];
-            for (int j = 0; j < 16; j++) {
-                v[j] = uintBitsToFloat(octreeData[offset++]);
-            }
-            vec4 col0 = vec4(v[0], v[1], v[2], v[3]);
-            vec4 col1 = vec4(v[4], v[5], v[6], v[7]);
-            vec4 col2 = vec4(v[8], v[9], v[10], v[11]);
-            vec4 col3 = vec4(v[12], v[13], v[14], v[15]);
-            mat4 octreeToWorld = mat4(col0, col1, col2, col3);
-            float real_t = castRes.t * octreeToWorld[0][0]; // castRes.t * scale of octreee
+            float octreeScale = uintBitsToFloat(octreeData[offset]);
+            float real_t = castRes.t * octreeScale;
             if (real_t < t) {
                 t = real_t;
                 index = i;

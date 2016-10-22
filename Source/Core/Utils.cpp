@@ -72,7 +72,6 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
 
     // Append node descriptors
     while (true) {
-
         uint32_t nodeDescriptor = 0;
         uint32_t colorDescriptor = 0;
         octreesSecond.clear();
@@ -97,7 +96,6 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
                 colors.push_back(color);
             }
         }
-
 
         int childNum = std::bitset<8>(nodeDescriptor).count();
         if (childNum) {

@@ -14,9 +14,9 @@ bool Shader::load(const std::string& path) {
         return false;
     }
 
-    source = std::string((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
     id = glCreateShader(type);
 
+    source = std::string((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
     const char *c_str = source.c_str();
     glShaderSource(id, 1, &c_str, NULL);
 

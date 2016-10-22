@@ -130,7 +130,7 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
 
     // Append attach descriptors
     offset = colorDescriptors.size();
-    for (int i = 0 ; i < colorDescriptors.size(); i++) {
+    for (size_t i = 0 ; i < colorDescriptors.size(); i++) {
         uint32_t colorDescriptor = colorDescriptors[i];
         int numColors = std::bitset<8>(colorDescriptor).count();
         if (numColors) {
@@ -141,9 +141,19 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
     }
 
     // Append colors
-    for (int i = 0; i < colors.size(); i++) {
+    for (size_t i = 0; i < colors.size(); i++) {
         data->push_back(colors[i]);
     }
+
+#if BINARY_PRINT == 1
+    for (auto value: *data) {
+    #ifdef QT_VERSION
+        qDebug() << QString::fromStdString(uintToBinaryString(value)) << value;
+    #else
+        print(uintToBinaryString(value) << " " << value)
+    #endif
+    }
+#endif
 
     return data;
 }

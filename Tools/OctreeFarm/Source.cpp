@@ -1,7 +1,7 @@
 #include "Source.h"
 #include "Octree.h"
-#include "../../Source/Core/Utils.h"
 #include "Defines.h"
+#include "../../Source/Core/Utils.h"
 #include <QtCore>
 #include <bitset>
 
@@ -27,97 +27,9 @@ QString Source::serialize() {
 }
 
 QSharedPointer<QVector<uint32_t>> Source::binary() {
-    QSharedPointer<QVector<uint32_t>> data(new QVector<uint32_t>);
-
-    // Append header
-    data->append(0);
-
-    QVector<json::object_t*> octreesFirst;
-    QVector<json::object_t*> octreesSecond;
-
-    json::object_t* parent = root.get_ptr<json::object_t*>();
-    octreesFirst.append(parent);
-
-    QVector<uint32_t> colorDescriptors;
-    QVector<uint32_t> colors;
-    uint32_t offset = 0;
-
-#if JSON_PRINT == 1
-    std::cout << root.dump(4) << std::endl;
-#endif
-
-    // Append node descriptors
-    while (true) {
-
-        uint32_t nodeDescriptor = 0;
-        uint32_t colorDescriptor = 0;
-        octreesSecond.clear();
-        json::object_t* octree = octreesFirst.takeFirst();
-
-        for (auto& node: (*octree)) {
-            nodeDescriptor |= (1 << (8 + std::stoi(node.first))); // Valid nodes
-
-            json::iterator iter = node.second.find("children");
-            if (iter != node.second.end()) {
-                nodeDescriptor |= (1 << std::stoi(node.first)); // Non-leaf nodes
-                octreesSecond.append(iter.value().get_ptr<json::object_t*>());
-            }
-
-            iter = node.second.find("color");
-            if (iter != node.second.end()) {
-                colorDescriptor |= (1 << std::stoi(node.first)); // Valid colors
-                std::string nameColor = (*octree)[node.first]["color"];
-                QColor color(nameColor.c_str());
-                colors.append(color.rgba());
-            }
-        }
-
-
-        int childNum = std::bitset<8>(nodeDescriptor).count();
-        if (childNum) {
-            if (data->count() == 1) { // First descriptor in vector
-                nodeDescriptor |= (1 << 17); // Set offset to 1
-            } else {
-                uint32_t lastDescriptor = data->at(offset);
-                nodeDescriptor |= ((lastDescriptor >> 17) + std::bitset<8>(lastDescriptor).count() - 1);
-            }
-        }
-
-        data->append(nodeDescriptor);
-
-        colorDescriptors.append(colorDescriptor);
-        offset++;
-
-        if (octreesFirst.isEmpty()) {
-            if (octreesSecond.isEmpty()) {
-                break;
-            } else {
-                octreesFirst = octreesSecond;
-            }
-        }
-    }
-
-    (*data)[0] = offset + 1; // Address to block info
-
-    // Append block info
-    data->append(0);
-
-    // Append attach descriptors
-    offset = colorDescriptors.count();
-    for (int i = 0 ; i < colorDescriptors.count(); i++) {
-        uint32_t colorDescriptor = colorDescriptors[i];
-        int numColors = std::bitset<8>(colorDescriptor).count();
-        if (numColors) {
-            colorDescriptor |= (offset << 8);
-            offset += numColors;
-        }
-        data->append(colorDescriptor);
-    }
-
-    // Append colors
-    for (int i = 0; i < colors.count(); i++) {
-        data->append(colors[i]);
-    }
+    std::shared_ptr<std::vector<uint32_t>> dataStd = Utils::jsonToBinary(root);
+    QVector<uint32_t>* vector = new QVector<uint32_t>(QVector<uint32_t>::fromStdVector(*dataStd));
+    QSharedPointer<QVector<uint32_t>> data(vector);
 
 #if BINARY_PRINT == 1
     for (auto value: *data) {

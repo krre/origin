@@ -310,8 +310,8 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     }
 
     // Found, return it
-    int pAttach = attachData + int(paletteNode >> 8) + bitCount(paletteNode & (1 << cidx) - 1);
-    int c = int(octreeData[pAttach]);
+    int attachOffset = attachData + int(paletteNode >> 8) + bitCount(paletteNode & (1 << cidx) - 1);
+    int c = int(octreeData[attachOffset]);
     int r = (c >> 16) & 0xFF;
     int g = (c >> 8) & 0xFF;
     int b = c & 0xFF;

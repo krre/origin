@@ -79,7 +79,7 @@ void Game::create() {
     // Trees
     std::shared_ptr<Entity> tree1 = EntityBuilder::geometry();
     transformSystem->setScale(tree1.get(), 1.2);
-    transformSystem->setPosition(tree1.get(), glm::vec3(1.0, 0.0, 0.0));
+    transformSystem->setPosition(tree1.get(), glm::vec3(1.0, 0.15, 0.0));
 
     phisicsSystem->createCollisionShape(tree1.get());
     phisicsSystem->createMotionState(tree1.get());
@@ -93,7 +93,7 @@ void Game::create() {
 
     std::shared_ptr<Entity> tree2 = EntityBuilder::geometry();
     transformSystem->setScale(tree2.get(), 0.9);
-    transformSystem->setPosition(tree2.get(), glm::vec3(-0.7, 0.0, 1.2));
+    transformSystem->setPosition(tree2.get(), glm::vec3(-0.7, 0.15, 1.2));
 
     phisicsSystem->createCollisionShape(tree2.get());
     phisicsSystem->createMotionState(tree2.get());
@@ -107,7 +107,7 @@ void Game::create() {
 
     std::shared_ptr<Entity> tree3 = EntityBuilder::geometry();
     transformSystem->setScale(tree3.get(), 1.1);
-    transformSystem->setPosition(tree3.get(), glm::vec3(-0.3, 0.0, -1.8));
+    transformSystem->setPosition(tree3.get(), glm::vec3(-0.3, 0.15, -1.8));
 
     phisicsSystem->createCollisionShape(tree3.get());
     phisicsSystem->createMotionState(tree3.get());

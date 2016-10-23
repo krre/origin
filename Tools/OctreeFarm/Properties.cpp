@@ -16,12 +16,11 @@ Properties::Properties(Octree* octree, Viewport* viewport) :
     setNodeColor(QColor(Qt::blue));
     formlayout->addRow(tr("Color:"), colorButton);
 
-    QPushButton* shadelessButton = new QPushButton(tr("Shadeless"));
-    shadelessButton->setCheckable(true);
-    formlayout->addRow(shadelessButton);
+    QCheckBox* shadelessCheckBox = new QCheckBox(tr("Shadeless"));
+    formlayout->addRow(shadelessCheckBox);
 
     connect(colorButton, &QPushButton::clicked, this, &Properties::changeNodeColor);
-    connect(shadelessButton, &QPushButton::toggled, viewport, &Viewport::setShadeless);
+    connect(shadelessCheckBox, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
     connect(octree, &Octree::nodeSelected, this, &Properties::onNodeSelected);
     connect(octree, &Octree::nodeDeselected, this, &Properties::onNodeDeselected);
 

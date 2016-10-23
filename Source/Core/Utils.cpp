@@ -58,25 +58,24 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
     // Append header
     data->push_back(0);
 
-    std::vector<json::object_t*> octreesFirst;
-    std::vector<json::object_t*> octreesSecond;
+    std::vector<json::object_t*> upLevel; // current parents
+    std::vector<json::object_t*> downLevel; // childern for parents in upLevel
 
-    json::object_t* parent = source.get_ptr<json::object_t*>();
-    octreesFirst.push_back(parent);
+    json::object_t* root = source.get_ptr<json::object_t*>();
+    upLevel.push_back(root);
 
     std::vector<uint32_t> colorDescriptors;
     std::vector<uint32_t> colors;
     uint32_t offset = 0;
-
-//    std::cout << source.dump(4) << std::endl;
+    size_t upIndex = 0;
 
     // Append node descriptors
-    while (octreesFirst.size()) {
+    while (upLevel.size()) {
         uint32_t nodeDescriptor = 0;
         uint32_t colorDescriptor = 0;
-        octreesSecond.clear();
-        json::object_t* octree = octreesFirst[0];
-        octreesFirst.erase(octreesFirst.begin());
+        json::object_t* octree = upLevel[upIndex];
+
+        int downLevelIndex = downLevel.size(); // Save current position before new children will added
 
         for (auto& node: (*octree)) {
             nodeDescriptor |= (1 << (8 + std::stoi(node.first))); // Valid nodes
@@ -84,7 +83,7 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
             json::iterator iter = node.second.find("children");
             if (iter != node.second.end()) {
                 nodeDescriptor |= (1 << std::stoi(node.first)); // Non-leaf nodes
-                octreesSecond.push_back(iter.value().get_ptr<json::object_t*>());
+                downLevel.push_back(iter.value().get_ptr<json::object_t*>());
             }
 
             iter = node.second.find("color");
@@ -99,20 +98,21 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
 
         int childNum = std::bitset<8>(nodeDescriptor).count();
         if (childNum) {
-            if (data->size() == 1) { // First descriptor in vector
-                nodeDescriptor |= (1 << 17); // Set offset to 1
-            } else {
-                uint32_t lastDescriptor = data->at(offset);
-                nodeDescriptor |= ((lastDescriptor >> 17) + std::bitset<8>(lastDescriptor).count() - 1);
-            }
+            int childrenOffset = upLevel.size() - upIndex + downLevelIndex;
+            nodeDescriptor |= (childrenOffset << 17);
         }
 
         data->push_back(nodeDescriptor);
-
         colorDescriptors.push_back(colorDescriptor);
-        offset++;
 
-        octreesFirst = octreesSecond;
+        offset++;
+        upIndex++;
+
+        if (upIndex == upLevel.size()) {
+            upLevel = downLevel;
+            downLevel.clear();
+            upIndex = 0;
+        }
     }
 
     (*data)[0] = offset + 1; // Address to block info

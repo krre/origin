@@ -97,7 +97,7 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
             (*storage)[offset] = selectionColor;
             selection.append(node);
             color.setRgba(node->color);
-            nodeSelected(childIndex, color);
+            nodeSelected(node->scale, childIndex, color);
         }
     } else if (index == -1 || selection.count() > 1) {
         deselect();
@@ -105,7 +105,7 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
         (*storage)[offset] = selectionColor;
         selection.append(node);
         color.setRgba(node->color);
-        nodeSelected(childIndex, color);
+        nodeSelected(node->scale, childIndex, color);
     }
 
     dataChanged();

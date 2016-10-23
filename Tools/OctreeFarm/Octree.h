@@ -52,7 +52,7 @@ public slots:
 
 signals:
     void isModifiedChanged(bool isModified);
-    void nodeSelected(int index, const QColor& color);
+    void nodeSelected(int level, int index, const QColor& color);
     void nodeDeselected();
     void dataChanged();
 

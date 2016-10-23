@@ -7,6 +7,9 @@ Properties::Properties(Octree* octree, Viewport* viewport) :
     QFormLayout* formlayout = new QFormLayout;
     setLayout(formlayout);
 
+    levelLabel = new QLabel;
+    formlayout->addRow(tr("Level:"), levelLabel);
+
     indexLabel = new QLabel;
     formlayout->addRow(tr("Index:"), indexLabel);
 
@@ -25,6 +28,14 @@ Properties::Properties(Octree* octree, Viewport* viewport) :
     connect(octree, &Octree::nodeDeselected, this, &Properties::onNodeDeselected);
 
     onNodeDeselected();
+}
+
+void Properties::setNodeLevel(int level) {
+    if (level >= 0) {
+        levelLabel->setText(QString::number(23 - level));
+    } else {
+        levelLabel->setText(QString());
+    }
 }
 
 void Properties::setNodeIndex(int index) {
@@ -53,12 +64,14 @@ void Properties::changeNodeColor() {
     }
 }
 
-void Properties::onNodeSelected(int index, const QColor& color) {
+void Properties::onNodeSelected(int level, int index, const QColor& color) {
+    setNodeLevel(level);
     setNodeIndex(index);
     setNodeColor(color);
 }
 
 void Properties::onNodeDeselected() {
+    setNodeLevel(-1);
     setNodeIndex(-1);
     setNodeColor(QColor());
 }

@@ -57,7 +57,7 @@ signals:
     void dataChanged();
 
 private:
-    int colorAttachAddress(int parent, int childIndex);
+    int colorAttachOffset(int parent, int childIndex);
     void confirmUpdate();
 
     Source source;

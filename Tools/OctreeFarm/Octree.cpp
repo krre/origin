@@ -53,7 +53,7 @@ void Octree::setIsModified(bool isModified) {
     emit isModifiedChanged(isModified);
 }
 
-int Octree::colorAttachAddress(int parent, int childIndex) {
+int Octree::colorAttachOffset(int parent, int childIndex) {
     int pageHeader = parent & -pageBytes;
     int blockInfo = pageHeader + storage->at(pageHeader);
     int attachData = blockInfo + blockInfoEnd;
@@ -70,7 +70,7 @@ void Octree::confirmUpdate() {
 }
 
 void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append) {
-    int address = colorAttachAddress(parent, childIndex);
+    int offset = colorAttachOffset(parent, childIndex);
 
     QSharedPointer<Node> node(new Node);
     node->parent = parent;
@@ -89,20 +89,20 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
 
     if (append) {
         if (index >= 0) { // Remove selection
-            (*storage)[address] = selection.at(index)->color;
+            (*storage)[offset] = selection.at(index)->color;
             selection.remove(index);
             nodeDeselected();
         } else { // Append selection
-            node->color = (*storage)[address];
-            (*storage)[address] = selectionColor;
+            node->color = (*storage)[offset];
+            (*storage)[offset] = selectionColor;
             selection.append(node);
             color.setRgba(node->color);
             nodeSelected(childIndex, color);
         }
     } else if (index == -1 || selection.count() > 1) {
         deselect();
-        node->color = (*storage)[address];
-        (*storage)[address] = selectionColor;
+        node->color = (*storage)[offset];
+        (*storage)[offset] = selectionColor;
         selection.append(node);
         color.setRgba(node->color);
         nodeSelected(childIndex, color);
@@ -122,7 +122,7 @@ void Octree::changeNodeColor(const QColor& color) {
 void Octree::deselect() {
     if (selection.count()) {
         for (auto node: selection) {
-            int address = colorAttachAddress(node->parent, node->childIndex);
+            int address = colorAttachOffset(node->parent, node->childIndex);
             (*storage)[address] = node->color;
         }
 

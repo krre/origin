@@ -47,12 +47,10 @@ void Properties::setNodeIndex(int index) {
 }
 
 void Properties::setNodeColor(const QColor& color) {
-
     QPalette colorButtonPal = colorButton->palette();
     colorButtonPal.setColor(QPalette::Button, color.isValid() ? color : QColor(Qt::transparent));
     colorButton->setPalette(colorButtonPal);
     nodeColor = color;
-
     colorButton->setEnabled(color.isValid());
 }
 

@@ -12,6 +12,7 @@
 RenderSurface::RenderSurface() {
     voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     raycastShaderGroup = ResourceManager::getInstance()->getShaderGroup("RaycastShaderGroup");
+    surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->bind();
 
@@ -129,7 +130,8 @@ void RenderSurface::draw(float dt) {
     octreeSystem->getGpuMemoryManager()->endBatch();
 
     raycastShaderGroup->bind();
-    glDispatchCompute(1, 1, 1);
+    glDispatchCompute(800, 480, 1);
+    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
     voxelShaderGroup->bind();
 
@@ -138,6 +140,10 @@ void RenderSurface::draw(float dt) {
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), 0.1f);
     glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeSystem->getGpuMemoryManager()->getOctreeOffsets().size());
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
+
+    surfaceShaderGroup->bind();
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, surfaceTex);
 
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);

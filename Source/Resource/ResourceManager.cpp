@@ -35,6 +35,12 @@ void ResourceManager::loadAll() {
     voxelShaderGroup->link();
     resources["VoxelShaderGroup"] = voxelShaderGroup;
 
+    auto surfaceShaderGroup = std::make_shared<ShaderGroup>();
+    surfaceShaderGroup->loadShader(GL_VERTEX_SHADER, shaderPath + "/Surface.vert");
+    surfaceShaderGroup->loadShader(GL_FRAGMENT_SHADER, shaderPath + "/Surface.frag");
+    surfaceShaderGroup->link();
+    resources["SurfaceShaderGroup"] = surfaceShaderGroup;
+
     auto raycastShaderGroup = std::make_shared<ShaderGroup>();
     raycastShaderGroup->loadShader(GL_COMPUTE_SHADER, shaderPath + "/Raycast.comp");
     raycastShaderGroup->link();

@@ -10,11 +10,10 @@
 #include "../../Core/Utils.h"
 
 RenderSurface::RenderSurface() {
-    voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     raycastShaderGroup = ResourceManager::getInstance()->getShaderGroup("RaycastShaderGroup");
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
-    program = voxelShaderGroup->getProgram();
-    voxelShaderGroup->bind();
+    program = raycastShaderGroup->getProgram();
+    raycastShaderGroup->bind();
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
     glm::vec2 pickPixel(-1, -1);
@@ -130,16 +129,15 @@ void RenderSurface::draw(float dt) {
     octreeSystem->getGpuMemoryManager()->endBatch();
 
     raycastShaderGroup->bind();
-    glDispatchCompute(800, 480, 1);
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
-
-    voxelShaderGroup->bind();
 
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), 0.1f);
     glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeSystem->getGpuMemoryManager()->getOctreeOffsets().size());
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
+
+    glDispatchCompute(800, 480, 1);
+    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
     surfaceShaderGroup->bind();
     glActiveTexture(GL_TEXTURE0);

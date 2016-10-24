@@ -10,7 +10,6 @@ public:
     void draw(float dt) override;
 
 private:
-    ShaderGroup* voxelShaderGroup;
     ShaderGroup* raycastShaderGroup;
     ShaderGroup* surfaceShaderGroup;
     GLuint vao;

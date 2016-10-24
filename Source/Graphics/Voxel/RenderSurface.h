@@ -14,5 +14,6 @@ private:
     ShaderGroup* raycastShaderGroup;
     GLuint vao;
     GLuint vbo;
+    GLuint surfaceTex;
     GLuint program;
 };

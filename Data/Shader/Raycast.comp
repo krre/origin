@@ -8,6 +8,6 @@ layout(rgba32f, binding = 0) uniform image2D surface;
 
 void main() {
     vec4 pixel = vec4(1.0, 0.0, 0.0, 1.0);
-    ivec2 pixelCoords = ivec2(gl_GlobalInvocationID.xy);
-    imageStore(surface, pixelCoords, pixel);
+    ivec2 coords = ivec2(gl_GlobalInvocationID.xy);
+    imageStore(surface, coords, pixel);
 }

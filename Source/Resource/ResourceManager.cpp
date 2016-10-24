@@ -42,7 +42,7 @@ void ResourceManager::loadAll() {
     resources["SurfaceShaderGroup"] = surfaceShaderGroup;
 
     auto raycastShaderGroup = std::make_shared<ShaderGroup>();
-    raycastShaderGroup->loadShader(GL_COMPUTE_SHADER, shaderPath + "/Raycast.comp");
+    raycastShaderGroup->loadShader(GL_COMPUTE_SHADER, shaderPath + "/Raycast.comp.glsl");
     raycastShaderGroup->link();
     resources["RaycastShaderGroup"] = raycastShaderGroup;
 

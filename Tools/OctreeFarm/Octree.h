@@ -15,8 +15,8 @@ struct Node {
 };
 
 struct Clipboard {
-    uint32_t color;
-    bool fill = false;
+    QColor color;
+    bool fill = false; // Clipboard contains legal data
 };
 
 class Octree : public QObject {

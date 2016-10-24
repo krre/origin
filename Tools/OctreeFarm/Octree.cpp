@@ -165,9 +165,13 @@ void Octree::deleteNode() {
 }
 
 void Octree::copy() {
-    qDebug() << "copy";
+    if (selection.count()) {
+        clipboard.color = selection.last().data()->color;
+    }
 }
 
 void Octree::paste() {
-    qDebug() << "paste";
+    if (clipboard.color.isValid()) {
+        changeNodeColor(clipboard.color);
+    }
 }

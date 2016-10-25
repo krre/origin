@@ -16,7 +16,8 @@ SOURCES += main.cpp\
     Properties.cpp \
     Source.cpp \
     ../../Source/Core/Utils.cpp \
-    ../../Source/Core/Object.cpp
+    ../../Source/Core/Object.cpp \
+    Command.cpp
 
 HEADERS  += MainWindow.h \
     Octree.h \
@@ -27,4 +28,5 @@ HEADERS  += MainWindow.h \
     Source.h \
     ../../Source/Core/Utils.h \
     ../../Source/Core/Object.h \
-    Defines.h
+    Defines.h \
+    Command.h

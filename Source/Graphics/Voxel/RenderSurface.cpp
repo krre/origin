@@ -77,7 +77,7 @@ RenderSurface::RenderSurface() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 800, 480, 0, GL_RGBA, GL_FLOAT, NULL);
-    glBindImageTexture(0, surfaceTex, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
+    glBindImageTexture(2, surfaceTex, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
 
     int work_grp_cnt[3];
     glGetIntegeri_v(GL_MAX_COMPUTE_WORK_GROUP_COUNT, 0, &work_grp_cnt[0]);
@@ -184,7 +184,7 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeSystem->getGpuMemoryManager()->getOctreeOffsets().size());
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
 
-    glDispatchCompute(800, 480, 1);
+    glDispatchCompute(width, height, 1);
     glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
     surfaceShaderGroup->bind();

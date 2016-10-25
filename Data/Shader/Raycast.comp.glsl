@@ -13,7 +13,6 @@
 #extension GL_ARB_gpu_shader5 : require
 
 layout(local_size_x = 1, local_size_y = 1) in;
-layout(rgba32f, binding = 0) uniform image2D surface;
 
 layout (std430, binding = 0) buffer Octree {
     uint octreeData[];
@@ -25,6 +24,8 @@ layout (std430, binding = 1) buffer PickResult {
     uint pickScale;
     int pickChildIdx;
 };
+
+layout(rgba32f, binding = 2) uniform image2D surface;
 
 struct Ray {
     vec3 origin;
@@ -375,7 +376,7 @@ void main() {
         }
     }
 
-    vec4 color;
+    vec4 color = vec4(0.0, 1.0, 0.0, 1.0);
 
     if (index != -1) {
         color = lookupColor(index, outCastRes);

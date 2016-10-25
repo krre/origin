@@ -10,10 +10,13 @@
 #include "../../Core/Utils.h"
 
 RenderSurface::RenderSurface() {
+    voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
     raycastShaderGroup = ResourceManager::getInstance()->getShaderGroup("RaycastShaderGroup");
     surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
-    program = raycastShaderGroup->getProgram();
-    raycastShaderGroup->bind();
+//    program = raycastShaderGroup->getProgram();
+//    raycastShaderGroup->bind();
+    program = voxelShaderGroup->getProgram();
+    voxelShaderGroup->bind();
 
     glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
     glm::vec2 pickPixel(-1, -1);
@@ -23,25 +26,25 @@ RenderSurface::RenderSurface() {
     glUniform3fv(glGetUniformLocation(program, "backgroundColor"), 1, &bgColor[0]);
     glUniform2fv(glGetUniformLocation(program, "pickPixel"), 1, &pickPixel[0]);
 
+    GLfloat vertices[] = {
+        -1.0f,  1.0f,
+        -1.0f, -1.0f,
+         1.0f,  1.0f,
+         1.0f, -1.0f,
+    };
+
 //    GLfloat vertices[] = {
-//        -1.0f,  1.0f,
-//        -1.0f, -1.0f,
-//         1.0f,  1.0f,
-//         1.0f, -1.0f,
+//        // Positions          // Colors           // Texture Coords
+//         1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right
+//         1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // Bottom Right
+//        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // Bottom Left
+//        -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // Top Left
 //    };
 
-    GLfloat vertices[] = {
-        // Positions          // Colors           // Texture Coords
-         1.0f,  1.0f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // Top Right
-         1.0f, -1.0f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // Bottom Right
-        -1.0f, -1.0f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // Bottom Left
-        -1.0f,  1.0f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // Top Left
-    };
-
-    GLuint indices[] = {  // Note that we start from 0!
-        0, 1, 3, // First Triangle
-        1, 2, 3  // Second Triangle
-    };
+//    GLuint indices[] = {  // Note that we start from 0!
+//        0, 1, 3, // First Triangle
+//        1, 2, 3  // Second Triangle
+//    };
 
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -50,14 +53,16 @@ RenderSurface::RenderSurface() {
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
 
-    GLuint EBO;
-    glGenBuffers(1, &EBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+//    GLuint EBO;
+//    glGenBuffers(1, &EBO);
+//    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+//    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Position attribute
-//    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
-//    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
+    glEnableVertexAttribArray(0);
+
+    /*
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
     // Color attribute
@@ -98,6 +103,7 @@ RenderSurface::RenderSurface() {
     int work_grp_inv;
     glGetIntegerv(GL_MAX_COMPUTE_WORK_GROUP_INVOCATIONS, &work_grp_inv);
     printf("max local work group invocations: %i\n", work_grp_inv);
+    */
 }
 
 void RenderSurface::draw(float dt) {
@@ -176,7 +182,8 @@ void RenderSurface::draw(float dt) {
 
     octreeSystem->getGpuMemoryManager()->endBatch();
 
-    raycastShaderGroup->bind();
+//    raycastShaderGroup->bind();
+    voxelShaderGroup->bind();
 
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
@@ -184,16 +191,16 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeSystem->getGpuMemoryManager()->getOctreeOffsets().size());
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
 
-    glDispatchCompute(width, height, 1);
-    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
+//    glDispatchCompute(width, height, 1);
+//    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 
-    surfaceShaderGroup->bind();
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, surfaceTex);
+//    surfaceShaderGroup->bind();
+//    glActiveTexture(GL_TEXTURE0);
+//    glBindTexture(GL_TEXTURE_2D, surfaceTex);
 
     glBindVertexArray(vao);
-//    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+//    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 

@@ -32,7 +32,7 @@ void GPUMemoryManager::addEntity(Entity* entity) {
     glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 
     octreeOffsets[entity->getId()] = endOffset;
-    renderList.push_back(endOffset);
+    renderList.data.push_back(endOffset);
     print(endOffset)
     endOffset += pageBytes;
 }
@@ -70,10 +70,11 @@ void GPUMemoryManager::removeEntity(const Entity* entity) {
 }
 
 void GPUMemoryManager::updateRenderList() {
+    renderList.count = renderList.data.size();
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, renderListSsbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, renderList.size() * sizeof(uint32_t), &renderList[0], GL_DYNAMIC_COPY);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(renderList), &renderList, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, renderListSsbo);
-    print(renderList.size())
+    print(renderList.data.size() << " " << sizeof(renderList))
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 

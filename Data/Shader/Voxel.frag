@@ -21,8 +21,9 @@ layout (std430, binding = 1) buffer PickResult {
     int pickChildIdx;
 };
 
-layout (std430, binding = 2) buffer Render {
-    uint renderList[];
+layout (std430, binding = 2) buffer RenderList {
+    int renderCount;
+    uint renderData[];
 };
 
 struct Ray {
@@ -382,7 +383,7 @@ void main() {
         color = vec4(backgroundColor, 1.0);
     }
 
-    if (renderList.length() > 0) {
+    if (renderCount == 7) {
         color = vec4(1.0, 0.0, 0.0, 1.0);
     }
 }

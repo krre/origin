@@ -188,7 +188,6 @@ void RenderSurface::draw(float dt) {
     glUniform3fv(glGetUniformLocation(program, "lightColor"), 1, &lightColor[0]);
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), 0.1f);
-    glUniform1i(glGetUniformLocation(program, "octreeCount"), octreeSystem->getGpuMemoryManager()->getOctreeOffsets().size());
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
 
 //    glDispatchCompute(width, height, 1);

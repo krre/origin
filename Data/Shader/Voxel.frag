@@ -54,7 +54,6 @@ uniform vec3 lightPos;
 uniform bool shadeless;
 
 uniform float ambientStrength;
-uniform int octreeCount;
 uniform int transformCount;
 
 uniform vec2 pickPixel;
@@ -352,7 +351,7 @@ void main() {
     outCastRes.node = 0u;
     float t = 10000;
     int index = -1;
-    for (int i = 0; i < octreeCount; i++) {
+    for (int i = 0; i < renderCount; i++) {
         Ray ray = constructRay(i);
         // Take near to camera t
         CastResult castRes;
@@ -381,9 +380,5 @@ void main() {
         color = lookupColor(index, outCastRes);
     } else {
         color = vec4(backgroundColor, 1.0);
-    }
-
-    if (renderCount == 7) {
-        color = vec4(1.0, 0.0, 0.0, 1.0);
     }
 }

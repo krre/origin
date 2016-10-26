@@ -21,6 +21,10 @@ layout (std430, binding = 1) buffer PickResult {
     int pickChildIdx;
 };
 
+layout (std430, binding = 2) buffer Render {
+    uint renderList[];
+};
+
 struct Ray {
     vec3 origin;
     vec3 direction;
@@ -376,5 +380,9 @@ void main() {
         color = lookupColor(index, outCastRes);
     } else {
         color = vec4(backgroundColor, 1.0);
+    }
+
+    if (renderList.length() > 0) {
+        color = vec4(1.0, 0.0, 0.0, 1.0);
     }
 }

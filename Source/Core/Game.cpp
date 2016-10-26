@@ -145,6 +145,7 @@ void Game::create() {
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get());
 
     octreeSystem->getGpuMemoryManager()->endBatch();
+    octreeSystem->getGpuMemoryManager()->updateRenderList();
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();

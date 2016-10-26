@@ -12,7 +12,7 @@ const int MAX_OCTREE_COUNT = 100;
 
 struct RenderList {
     int count;
-    std::vector<uint32_t> data;
+    std::vector<uint32_t> offsets;
 };
 
 class GPUMemoryManager {

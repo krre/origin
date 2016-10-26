@@ -23,7 +23,7 @@ layout (std430, binding = 1) buffer PickResult {
 
 layout (std430, binding = 2) buffer RenderList {
     int renderCount;
-    uint renderData[];
+    uint renderOffsets[];
 };
 
 struct Ray {

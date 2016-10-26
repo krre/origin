@@ -10,11 +10,6 @@
 constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
 const int MAX_OCTREE_COUNT = 100;
 
-struct RenderList {
-    int count;
-    std::vector<uint32_t> offsets;
-};
-
 class GPUMemoryManager {
 
 public:
@@ -42,5 +37,5 @@ private:
     GLuint renderListSsbo;
     int endOffset = 0;
     std::map<EntityId, int> octreeOffsets;
-    RenderList renderList;
+    std::vector<uint32_t> renderOffsets;
 };

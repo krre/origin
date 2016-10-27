@@ -289,9 +289,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     uint level = castRes.scale;
 
     // Start here
-    int pageHeader = int(node) & -pageBytes / 4;
-    int blockInfo = pageHeader + int(octreeData[pageHeader]);
-    int attachData = blockInfo + blockInfoEnd;
+    uint pageHeader = node & uint(-pageBytes) / 4;
+    uint blockInfo = pageHeader + octreeData[pageHeader];
+    int attachData = int(blockInfo) + blockInfoEnd;
     uint paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
 
     // While node has no color, loop
@@ -307,9 +307,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         if ((py & (1 << level)) != 0) cidx |= 2;
         if ((pz & (1 << level)) != 0) cidx |= 4;
 
-        pageHeader = int(node) & -pageBytes / 4;
+        pageHeader = node & uint(-pageBytes) / 4;
         blockInfo = pageHeader + int(octreeData[pageHeader]);
-        attachData = blockInfo + blockInfoEnd;
+        attachData = int(blockInfo) + blockInfoEnd;
         paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
     }
 

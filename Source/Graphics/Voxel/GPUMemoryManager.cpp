@@ -77,8 +77,9 @@ void GPUMemoryManager::updateRenderList() {
     memcpy(data, &size, sizeof(int));
     glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
     // Render list
-    data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, sizeof(int), sizeof(renderOffsets), GL_MAP_WRITE_BIT);
-    memcpy(data, renderOffsets.data(), sizeof(renderOffsets));
+    size = sizeof(uint32_t) * renderOffsets.size();
+    data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, sizeof(int), size, GL_MAP_WRITE_BIT);
+    memcpy(data, renderOffsets.data(), size);
     glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }

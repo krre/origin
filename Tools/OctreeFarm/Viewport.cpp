@@ -33,7 +33,6 @@ void Viewport::initializeGL() {
     program.setUniformValue("blockInfoEnd", blockInfoEnd);
     program.setUniformValue("backgroundColor", backgroundColor);
     program.setUniformValue("pickPixel", QPoint(-1, -1));
-    program.setUniformValue("octreeCount", 1);
 
     vbo.create();
     vbo.bind();
@@ -60,6 +59,25 @@ void Viewport::initializeGL() {
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, pickResultSsbo);
     glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(PickResult), NULL, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, pickResultSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
+    glGenBuffers(1, &renderListSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, renderListSsbo);
+    int size = sizeof(int) * 2; // count + one offset
+    glBufferData(GL_SHADER_STORAGE_BUFFER, size, NULL, GL_DYNAMIC_COPY);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, renderListSsbo);
+    // Count
+    size = sizeof(int);
+    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, size, GL_MAP_WRITE_BIT);
+    int count = 1;
+    memcpy(data, &count, size);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+    // Render list
+    size = sizeof(uint32_t);
+    int offset = 0;
+    data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, sizeof(int), size, GL_MAP_WRITE_BIT);
+    memcpy(data, &offset, size);
+    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
     emit ready();

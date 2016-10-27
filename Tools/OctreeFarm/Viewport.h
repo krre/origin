@@ -45,6 +45,7 @@ private:
     QOpenGLBuffer vbo;
     GLuint octreesSsbo;
     GLuint pickResultSsbo;
+    GLuint renderListSsbo;
     QOpenGLShaderProgram program;
 
     float rotateSpeed = 5;

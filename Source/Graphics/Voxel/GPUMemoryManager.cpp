@@ -33,7 +33,6 @@ void GPUMemoryManager::addEntity(Entity* entity) {
 
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);
-    print(endOffset)
     endOffset += pageBytes;
 }
 

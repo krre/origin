@@ -61,7 +61,7 @@ uniform vec2 pickPixel;
 out vec4 color;
 
 Ray constructRay(in int index) {
-    int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
+    int offset = int(renderOffsets[index] + pageBytes) / 4 - transformCount * 4;
     offset += 16; // skip octreeToWorld matrix
     Ray ray;
 
@@ -126,7 +126,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 //    t_max = min(t_max, 1.0);
 
     // Initialize the current voxel to the first child of the root.
-    uint parent = uint(index * pageBytes / 4 + 1);
+    uint parent = uint(renderOffsets[index] / 4 + 1);
     uint child_descriptor = 0u; // invalid until fetched
     int idx = 0;
     vec3 pos = vec3(1.0, 1.0, 1.0);
@@ -292,7 +292,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int pageHeader = int(node) & -pageBytes / 4;
     int blockInfo = pageHeader + int(octreeData[pageHeader]);
     int attachData = blockInfo + blockInfoEnd;
-    uint paletteNode = octreeData[attachData + int(node) - index * pageBytes / 4 - 1];
+    uint paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
 
     // While node has no color, loop
     while ((int(paletteNode >> cidx) & 1) != 1) {
@@ -310,7 +310,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         pageHeader = int(node) & -pageBytes / 4;
         blockInfo = pageHeader + int(octreeData[pageHeader]);
         attachData = blockInfo + blockInfoEnd;
-        paletteNode = octreeData[attachData + int(node) - index * pageBytes / 4 - 1];
+        paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
     }
 
     // Found, return it
@@ -326,7 +326,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         return vec4(octreeColor, 1.0);
     }
 
-    int offset = (index + 1) * (pageBytes / 4) - transformCount * 4;
+    int offset = int(renderOffsets[index] + pageBytes) / 4 - transformCount * 4;
     float v[16];
     for (int i = 0; i < 16; i++) {
         v[i] = uintBitsToFloat(octreeData[offset++]);
@@ -356,7 +356,7 @@ void main() {
         // Take near to camera t
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
-            int offset = (i + 1) * (pageBytes / 4) - transformCount * 4;
+            int offset = int(renderOffsets[i] + pageBytes) / 4 - transformCount * 4;
             float octreeScale = uintBitsToFloat(octreeData[offset]);
             float real_t = castRes.t * octreeScale;
             if (real_t < t) {

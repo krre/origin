@@ -59,6 +59,7 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
     auto movementComponent = static_cast<MovementComponent*>(entity->components[ComponentType::Movement].get());
     movementComponent->moveSpeed = 1.0;
     movementComponent->rotateSpeed = 0.05;
+    movementComponent->free = true;
 
     return entity;
 }

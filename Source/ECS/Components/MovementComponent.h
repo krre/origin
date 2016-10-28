@@ -7,4 +7,5 @@ public:
     MovementComponent() { type = ComponentType::Movement; }
     float moveSpeed = 0;
     float rotateSpeed = 0;
+    bool free = false;
 };

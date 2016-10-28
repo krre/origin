@@ -289,7 +289,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     uint level = castRes.scale;
 
     // Start here
-    uint pageHeader = node & uint(-pageBytes) / 4;
+    uint pageHeader = node & uint(-pageBytes / 4);
     uint blockInfo = pageHeader + octreeData[pageHeader];
     int attachData = int(blockInfo) + blockInfoEnd;
     uint paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];

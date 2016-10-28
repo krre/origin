@@ -288,8 +288,11 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int cidx  = castRes.childIdx;
     uint level = castRes.scale;
 
-    // Start here
-    uint pageHeader = node & uint(-pageBytes / 4);
+    // Clear lower 11 bits.
+    // Same as uint(-pageBytes) / 4, however this formula gives different result on Windows and Linux,
+    // so simple do hardcode.
+    uint pageHeader = node & 0xFFFFF800;
+
     uint blockInfo = pageHeader + octreeData[pageHeader];
     int attachData = int(blockInfo) + blockInfoEnd;
     uint paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
@@ -307,7 +310,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         if ((py & (1 << level)) != 0) cidx |= 2;
         if ((pz & (1 << level)) != 0) cidx |= 4;
 
-        pageHeader = node & uint(-pageBytes) / 4;
+        pageHeader = node & 0xFFFFF800; // Clear lower 11 bits.
         blockInfo = pageHeader + int(octreeData[pageHeader]);
         attachData = int(blockInfo) + blockInfoEnd;
         paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];

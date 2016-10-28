@@ -129,7 +129,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     uint parent = uint(renderOffsets[index] / 4 + 1);
     uint child_descriptor = 0u; // invalid until fetched
     int idx = 0;
-    vec3 pos = vec3(1.0, 1.0, 1.0);
+    vec3 pos = vec3(1.0);
     uint scale = s_max - 1u;
     float scale_exp2 = 0.5; // exp2f(scale - s_max)
 

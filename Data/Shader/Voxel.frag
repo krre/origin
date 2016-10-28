@@ -98,24 +98,20 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 
     // Precompute the coefficients of tx(x), ty(y), and tz(z).
     // The octree is assumed to reside at coordinates [1, 2].
-    float tx_coef = 1.0 / -abs(ray.direction.x);
-    float ty_coef = 1.0 / -abs(ray.direction.y);
-    float tz_coef = 1.0 / -abs(ray.direction.z);
+    vec3 t_coef = 1.0 / -abs(ray.direction);
+    vec3 t_bias = t_coef * origin;
 
-    float tx_bias = tx_coef * origin.x;
-    float ty_bias = ty_coef * origin.y;
-    float tz_bias = tz_coef * origin.z;
 
     // Select octant mask to mirror the coordinate system so
     // that ray direction is negative along each axis.
     int octant_mask = 7;
-    if (ray.direction.x > 0.0) octant_mask ^= 1, tx_bias = 3.0 * tx_coef - tx_bias;
-    if (ray.direction.y > 0.0) octant_mask ^= 2, ty_bias = 3.0 * ty_coef - ty_bias;
-    if (ray.direction.z > 0.0) octant_mask ^= 4, tz_bias = 3.0 * tz_coef - tz_bias;
+    if (ray.direction.x > 0.0) octant_mask ^= 1, t_bias.x = 3.0 * t_coef.x - t_bias.x;
+    if (ray.direction.y > 0.0) octant_mask ^= 2, t_bias.y = 3.0 * t_coef.y - t_bias.y;
+    if (ray.direction.z > 0.0) octant_mask ^= 4, t_bias.z = 3.0 * t_coef.z - t_bias.z;
 
     // Initialize the active span of t-values
-    float t_min = max(max(2.0 * tx_coef - tx_bias, 2.0 * ty_coef - ty_bias), 2.0 * tz_coef - tz_bias);
-    float t_max = min(min(tx_coef - tx_bias, ty_coef - ty_bias), tz_coef - tz_bias);
+    float t_min = max(max(2.0 * t_coef.x - t_bias.x, 2.0 * t_coef.y - t_bias.y), 2.0 * t_coef.z - t_bias.z);
+    float t_max = min(min(t_coef.x - t_bias.x, t_coef.y - t_bias.y), t_coef.z - t_bias.z);
 
     if (t_min > t_max || t_max < 0) {
         return false;
@@ -133,9 +129,9 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     uint scale = s_max - 1u;
     float scale_exp2 = 0.5; // exp2f(scale - s_max)
 
-    if (1.5 * tx_coef - tx_bias > t_min) idx ^= 1, pos.x = 1.5;
-    if (1.5 * ty_coef - ty_bias > t_min) idx ^= 2, pos.y = 1.5;
-    if (1.5 * tz_coef - tz_bias > t_min) idx ^= 4, pos.z = 1.5;
+    if (1.5 * t_coef.x - t_bias.x > t_min) idx ^= 1, pos.x = 1.5;
+    if (1.5 * t_coef.y - t_bias.y > t_min) idx ^= 2, pos.y = 1.5;
+    if (1.5 * t_coef.z - t_bias.z > t_min) idx ^= 4, pos.z = 1.5;
 
     // Traverse voxels along the ray as long as the current voxel
     // stays within the octree.
@@ -147,10 +143,8 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 
         // Determine maximum t-value of the cube by evaluating
         // tx(), ty(), and tz() at its corner.
-        float tx_corner = pos.x * tx_coef - tx_bias;
-        float ty_corner = pos.y * ty_coef - ty_bias;
-        float tz_corner = pos.z * tz_coef - tz_bias;
-        float tc_max = min(min(tx_corner, ty_corner), tz_corner);
+        vec3 t_corner = pos * t_coef - t_bias;
+        float tc_max = min(min(t_corner.x, t_corner.y), t_corner.z);
 
         // Process voxel if the corresponding bit in valid mask is set
         // and the active t-span is non-empty.
@@ -168,9 +162,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
             // tx(), ty(), and tz() at the center of the voxel.
             float tv_max = min(t_max, tc_max);
             float half_scale_exp2 = scale_exp2 * 0.5;
-            float tx_center = half_scale_exp2 * tx_coef + tx_corner;
-            float ty_center = half_scale_exp2 * ty_coef + ty_corner;
-            float tz_center = half_scale_exp2 * tz_coef + tz_corner;
+            vec3 t_center = half_scale_exp2 * t_coef + t_corner;
 
             // Descend to the first child if the resulting t-span is non-empty.
             if (t_min <= tv_max) {
@@ -198,9 +190,9 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
                 idx = 0;
                 scale--;
                 scale_exp2 = half_scale_exp2;
-                if (tx_center > t_min) idx ^= 1, pos.x += scale_exp2;
-                if (ty_center > t_min) idx ^= 2, pos.y += scale_exp2;
-                if (tz_center > t_min) idx ^= 4, pos.z += scale_exp2;
+                if (t_center.x > t_min) idx ^= 1, pos.x += scale_exp2;
+                if (t_center.y > t_min) idx ^= 2, pos.y += scale_exp2;
+                if (t_center.z > t_min) idx ^= 4, pos.z += scale_exp2;
 
                 // Update active t-span and invalidate cached child descriptor.
                 t_max = tv_max;
@@ -212,9 +204,9 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
         // ADVANCE
         // Step along the ray.
         int step_mask = 0;
-        if (tx_corner <= tc_max) step_mask ^= 1, pos.x -= scale_exp2;
-        if (ty_corner <= tc_max) step_mask ^= 2, pos.y -= scale_exp2;
-        if (tz_corner <= tc_max) step_mask ^= 4, pos.z -= scale_exp2;
+        if (t_corner.x <= tc_max) step_mask ^= 1, pos.x -= scale_exp2;
+        if (t_corner.y <= tc_max) step_mask ^= 2, pos.y -= scale_exp2;
+        if (t_corner.z <= tc_max) step_mask ^= 4, pos.z -= scale_exp2;
 
         // Update active t-span and flip bits of the child slot index.
         t_min = tc_max;

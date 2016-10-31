@@ -5,6 +5,12 @@
 
 class RenderSurface : public Drawable {
 
+struct DebugOut {
+    int debugInt;
+    float debugFloat;
+    glm::vec4 debugVec;
+};
+
 public:
     RenderSurface();
     void draw(float dt) override;
@@ -17,4 +23,5 @@ private:
     GLuint vbo;
     GLuint surfaceTex;
     GLuint program;
+    GLuint debugSsbo;
 };

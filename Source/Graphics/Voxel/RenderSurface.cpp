@@ -62,6 +62,12 @@ RenderSurface::RenderSurface() {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), 0);
     glEnableVertexAttribArray(0);
 
+    glGenBuffers(1, &debugSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, debugSsbo);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(DebugOut), NULL, GL_DYNAMIC_COPY);
+    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 10, debugSsbo);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
     /*
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
@@ -201,5 +207,14 @@ void RenderSurface::draw(float dt) {
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 //    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
+
+    DebugOut debugOut;
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, debugSsbo);
+    glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(debugOut), &debugOut);
+    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+
+//    print(debugOut.debugInt)
+//    print(debugOut.debugFloat)
+//    print(glm4::to_string(debugOut.debugVec))
 }
 

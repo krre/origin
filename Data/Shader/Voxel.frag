@@ -26,6 +26,13 @@ layout (std430, binding = 2) buffer RenderList {
     uint renderOffsets[];
 };
 
+layout (std430, binding = 10) buffer DebugOut {
+    int debugInt;
+    float debugFloat;
+    vec4 debugVec;
+};
+
+
 struct Ray {
     vec3 origin;
     vec3 direction;
@@ -376,4 +383,8 @@ void main() {
     } else {
         color = vec4(backgroundColor, 1.0);
     }
+
+//    if (gl_FragCoord.x == 800 / 2 + 0.5 && gl_FragCoord.y == 480 / 2 + 0.5) {
+//        debugVec = color;
+//    }
 }

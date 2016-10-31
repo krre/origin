@@ -22,6 +22,15 @@ Properties::Properties(Octree* octree, Viewport* viewport) :
     QCheckBox* shadelessCheckBox = new QCheckBox(tr("Shadeless"));
     formlayout->addRow(shadelessCheckBox);
 
+    QBoxLayout* levelLayout = new QBoxLayout(QBoxLayout::LeftToRight);
+    QPushButton* levelPlusButton = new QPushButton(tr("Level") + "+");
+    QPushButton* levelMinusButton = new QPushButton(tr("Level") + "-");
+    QPushButton* levelResetButton = new QPushButton(tr("Reset"));
+    levelLayout->addWidget(levelPlusButton);
+    levelLayout->addWidget(levelMinusButton);
+    levelLayout->addWidget(levelResetButton);
+    formlayout->addRow(levelLayout);
+
     connect(colorButton, &QPushButton::clicked, this, &Properties::changeNodeColor);
     connect(shadelessCheckBox, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
     connect(octree, &Octree::nodeSelected, this, &Properties::onNodeSelected);

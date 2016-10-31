@@ -18,6 +18,12 @@ class Viewport : public QOpenGLWidget {
         int childIdx;
     };
 
+    struct DebugOut {
+        glm::vec4 debugVec;
+        int debugInt;
+        float debugFloat;
+    };
+
 public:
     Viewport(Octree* octree);
     void updateOctreeInGPU(int offset, void* data, int count);
@@ -46,6 +52,7 @@ private:
     GLuint octreesSsbo;
     GLuint pickResultSsbo;
     GLuint renderListSsbo;
+    GLuint debugSsbo;
     QOpenGLShaderProgram program;
 
     float rotateSpeed = 5;

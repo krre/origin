@@ -6,9 +6,9 @@
 class RenderSurface : public Drawable {
 
 struct DebugOut {
+    glm::vec4 debugVec;
     int debugInt;
     float debugFloat;
-    glm::vec4 debugVec;
 };
 
 public:

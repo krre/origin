@@ -27,9 +27,9 @@ layout (std430, binding = 2) buffer RenderList {
 };
 
 layout (std430, binding = 10) buffer DebugOut {
+    vec4 debugVec;
     int debugInt;
     float debugFloat;
-    vec4 debugVec;
 };
 
 
@@ -386,5 +386,8 @@ void main() {
 
 //    if (gl_FragCoord.x == 800 / 2 + 0.5 && gl_FragCoord.y == 480 / 2 + 0.5) {
 //        debugVec = color;
+//        debugFloat = 43.56;
+//        debugInt = 77777;
+//        color = vec4(1.0, 0.0, 0.0, 1.0);
 //    }
 }

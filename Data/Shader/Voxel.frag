@@ -385,9 +385,6 @@ void main() {
     }
 
 //    if (gl_FragCoord.x == 800 / 2 + 0.5 && gl_FragCoord.y == 480 / 2 + 0.5) {
-//        debugVec = color;
-//        debugFloat = 43.56;
-//        debugInt = 77777;
 //        color = vec4(1.0, 0.0, 0.0, 1.0);
 //    }
 }

@@ -36,6 +36,8 @@ layout (std430, binding = 10) buffer DebugOut {
 struct Ray {
     vec3 origin;
     vec3 direction;
+    float ray_size_coef;
+    float ray_size_bias;
 };
 
 struct CastResult {

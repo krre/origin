@@ -137,6 +137,10 @@ void Viewport::paintGL() {
     program.setUniformValue("frameWidth", width());
     program.setUniformValue("frameHeight", height());
 
+    float pixelLimit = 1;
+    float lod = pixelLimit * camera.fov() / height();
+    program.setUniformValue("lod", glm::tan(lod));
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     vao.bind();

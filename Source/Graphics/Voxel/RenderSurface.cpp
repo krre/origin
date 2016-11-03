@@ -195,6 +195,8 @@ void RenderSurface::draw(float dt) {
     glUniform3fv(glGetUniformLocation(program, "lightPos"), 1, &lightPos[0]);
     glUniform1f(glGetUniformLocation(program, "ambientStrength"), 0.1f);
     glUniform1i(glGetUniformLocation(program, "transformCount"), transformCount);
+    glUniform1i(glGetUniformLocation(program, "frameWidth"), width);
+    glUniform1i(glGetUniformLocation(program, "frameHeight"), height);
 
 //    glDispatchCompute(width, height, 1);
 //    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);

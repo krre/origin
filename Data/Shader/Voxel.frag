@@ -57,6 +57,9 @@ uvec2 stack[s_max + 1u]; // Stack of parent voxels
 uniform int pageBytes;
 uniform int blockInfoEnd;
 
+uniform int frameWidth;
+uniform int frameHeight;
+
 uniform vec3 backgroundColor;
 uniform vec3 lightColor;
 uniform vec3 lightPos;
@@ -388,7 +391,7 @@ void main() {
         color = vec4(backgroundColor, 1.0);
     }
 
-//    if (gl_FragCoord.x == 800 / 2 + 0.5 && gl_FragCoord.y == 480 / 2 + 0.5) {
+//    if (gl_FragCoord.x == frameWidth / 2 + 0.5 && gl_FragCoord.y == frameHeight / 2 + 0.5) {
 //        color = vec4(1.0, 0.0, 0.0, 1.0);
 //    }
 }

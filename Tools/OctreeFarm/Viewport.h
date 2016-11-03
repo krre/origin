@@ -8,6 +8,8 @@
 #include <QOpenGLShaderProgram>
 #include <cstdint>
 
+const int PIXEL_LIMIT = 1;
+
 class Viewport : public QOpenGLWidget {
     Q_OBJECT
 

@@ -3,6 +3,8 @@
 #include "../../Graphics/OpenGL/ShaderGroup.h"
 #include <glm/glm.hpp>
 
+const int PIXEL_LIMIT = 1;
+
 class RenderSurface : public Drawable {
 
 struct DebugOut {

@@ -134,6 +134,8 @@ void Viewport::paintGL() {
     program.setUniformValue("lightPos", lightPos);
     program.setUniformValue("ambientStrength", 0.1f);
     program.setUniformValue("transformCount", transform.size());
+    program.setUniformValue("frameWidth", width());
+    program.setUniformValue("frameHeight", height());
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

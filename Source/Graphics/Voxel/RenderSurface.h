@@ -3,7 +3,7 @@
 #include "../../Graphics/OpenGL/ShaderGroup.h"
 #include <glm/glm.hpp>
 
-const int PIXEL_LIMIT = 1;
+const int LOD_PIXEL_LIMIT = 1;
 
 class RenderSurface : public Drawable {
 

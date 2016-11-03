@@ -198,7 +198,7 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "frameWidth"), width);
     glUniform1i(glGetUniformLocation(program, "frameHeight"), height);
 
-    float lod = PIXEL_LIMIT * cameraComp->fov / height;
+    float lod = LOD_PIXEL_LIMIT * cameraComp->fov / height;
     glUniform1f(glGetUniformLocation(program, "lod"), glm::tan(lod));
 
 //    glDispatchCompute(width, height, 1);

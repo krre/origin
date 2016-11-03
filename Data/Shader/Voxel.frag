@@ -66,6 +66,7 @@ uniform vec3 lightPos;
 uniform bool shadeless;
 
 uniform float ambientStrength;
+uniform float lod;
 uniform int transformCount;
 
 uniform vec2 pickPixel;
@@ -160,6 +161,10 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
         vec3 t_corner = pos * t_coef - t_bias;
         float tc_max = min(min(t_corner.x, t_corner.y), t_corner.z);
 
+        if (gl_FragCoord.x == frameWidth / 2 + 0.5 && gl_FragCoord.y == frameHeight / 2 + 0.5) {
+            debugVec = vec4(pos, 1.0);
+        }
+
         // Process voxel if the corresponding bit in valid mask is set
         // and the active t-span is non-empty.
         int child_shift = idx ^ octant_mask; // permute child slots based on the mirroring
@@ -167,7 +172,11 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 
         if ((child_masks & 0x8000u) != 0u && t_min <= t_max) {
             // Terminate if the voxel is small enough.
-            if (tc_max * ray_size_coef + ray_size_bias >= scale_exp2) {
+//            if (tc_max * ray_size_coef + ray_size_bias >= scale_exp2) {
+//            if (gl_FragCoord.x == frameWidth / 2 + 0.5 && gl_FragCoord.y == frameHeight / 2 + 0.5) {
+//                debugFloat = lod * tc_max;
+//            }
+            if (lod * tc_max  >= scale_exp2) {
                 break; // at t_min
             }
 

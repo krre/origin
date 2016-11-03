@@ -198,6 +198,10 @@ void RenderSurface::draw(float dt) {
     glUniform1i(glGetUniformLocation(program, "frameWidth"), width);
     glUniform1i(glGetUniformLocation(program, "frameHeight"), height);
 
+    float pixelLimit = 1;
+    float lod = pixelLimit * cameraComp->fov / height;
+    glUniform1f(glGetUniformLocation(program, "lod"), glm::tan(lod));
+
 //    glDispatchCompute(width, height, 1);
 //    glMemoryBarrier(GL_SHADER_IMAGE_ACCESS_BARRIER_BIT);
 

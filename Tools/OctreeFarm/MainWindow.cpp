@@ -2,6 +2,8 @@
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
+    undoStack = new QUndoStack(this);
+
     setupMenuBar();
     setupSplitter();
     setupActions();

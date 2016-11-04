@@ -7,6 +7,7 @@
 #include <QSettings>
 #include <QCloseEvent>
 #include <QFileDialog>
+#include <QUndoStack>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -46,4 +47,5 @@ private:
     QSettings* settings;
     Octree octree;
     QString currentFile;
+    QUndoStack* undoStack;
 };

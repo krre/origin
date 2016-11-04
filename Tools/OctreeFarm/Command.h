@@ -31,3 +31,16 @@ private:
     Octree* octree;
     QVector<QSharedPointer<Node>> nodes;
 };
+
+class ChangeColorCommand : public QUndoCommand {
+
+public:
+    explicit ChangeColorCommand(Octree* octree, QColor color);
+    void undo() override;
+    void redo() override;
+
+private:
+    Octree* octree;
+    QVector<QSharedPointer<Node>> nodes;
+    QColor color;
+};

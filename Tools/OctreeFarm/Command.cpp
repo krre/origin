@@ -53,3 +53,27 @@ void SplitCommand::redo() {
         qDebug() << "Failure split node";
     }
 }
+
+ChangeColorCommand::ChangeColorCommand(Octree* octree, QColor color) : octree(octree), color(color) {
+    nodes = octree->getSelection();
+}
+
+void ChangeColorCommand::undo() {
+//    bool result = false;
+//    for (auto node: nodes) {
+//        result = octree->getSource()->mergeNode(node);
+//    }
+//    if (result) {
+//        octree->confirmUpdate();
+//    } else {
+//        qDebug() << "Failure merge node";
+//    }
+}
+
+void ChangeColorCommand::redo() {
+//    if (octree->getSource()->splitNode(nodes)) {
+//        octree->confirmUpdate();
+//    } else {
+//        qDebug() << "Failure split node";
+//    }
+}

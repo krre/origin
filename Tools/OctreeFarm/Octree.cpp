@@ -109,14 +109,6 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
     dataChanged();
 }
 
-void Octree::changeNodeColor(const QColor& color) {
-    if (source.changeNodeColor(selection, color)) {
-        confirmUpdate();
-    } else {
-        qDebug() << "Failure change node color";
-    }
-}
-
 void Octree::deselect() {
     if (selection.count()) {
         for (auto node: selection) {
@@ -146,6 +138,6 @@ void Octree::copy() {
 
 void Octree::paste() {
     if (clipboard.color.isValid()) {
-        changeNodeColor(clipboard.color);
+//        changeNodeColor(clipboard.color);
     }
 }

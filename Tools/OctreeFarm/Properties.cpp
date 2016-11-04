@@ -1,4 +1,5 @@
 #include "Properties.h"
+#include "Command.h"
 #include <QtWidgets>
 
 Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack) :
@@ -68,7 +69,8 @@ void Properties::changeNodeColor() {
     QColor color = QColorDialog::getColor(nodeColor);
     if (color.isValid()) {
         setNodeColor(color);
-        octree->changeNodeColor(color);
+        QUndoCommand* changeColorCommand = new ChangeColorCommand(octree, color);
+        undoStack->push(changeColorCommand);
     }
 }
 

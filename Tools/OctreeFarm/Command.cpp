@@ -71,9 +71,9 @@ void ChangeColorCommand::undo() {
 }
 
 void ChangeColorCommand::redo() {
-//    if (octree->getSource()->splitNode(nodes)) {
-//        octree->confirmUpdate();
-//    } else {
-//        qDebug() << "Failure split node";
-//    }
+    if (octree->getSource()->changeNodeColor(nodes, color)) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure change node color";
+    }
 }

@@ -39,7 +39,6 @@ public:
     bool getIsModified() const { return isModified; }
 
     void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append = false);
-    void changeNodeColor(const QColor& color);
 
     QVector<QSharedPointer<Node>> getSelection() { return selection; }
     Source* getSource() { return &source; }

@@ -24,6 +24,7 @@ public:
     bool splitNode(const QVector<QSharedPointer<Node>>& selection);
     bool mergeNode(const QVector<QSharedPointer<Node>>& selection);
     bool addNode(const QVector<QSharedPointer<Node>>& selection, bool back = false);
+    bool addNode(QSharedPointer<Node> node);
 
 private:
     json::object_t* findNode(const QVector<int>& path, int index);

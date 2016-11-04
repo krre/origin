@@ -153,6 +153,26 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back) 
     return true;
 }
 
+bool Source::addNode(QSharedPointer<Node> node) {
+    QVector<int> path = posToPath(node->pos, node->scale);
+    json::object_t* parentNode;
+    if (path.count() == 1) {
+        parentNode = root.get_ptr<json::object_t*>();
+    } else {
+        parentNode = findNode(path, path.count() - 2);
+        parentNode = (*parentNode)["children"].get_ptr<json::object_t*>();
+    }
+
+    if ((*parentNode).size() == 8) {
+        return false;
+    }
+
+    int i = path.last();
+    (*parentNode)[std::to_string(i)]["color"] = QColor(node->color).name(QColor::HexArgb).toStdString();
+
+    return true;
+}
+
 json::object_t* Source::findNode(const QVector<int>& path, int index) {
     json::object_t* node = root.get_ptr<json::object_t*>();
     for (int i = 0; i <= index; i++) {

@@ -6,7 +6,12 @@ DeleteCommand::DeleteCommand(Octree* octree) : octree(octree) {
 }
 
 void DeleteCommand::undo() {
-    if (octree->getSource()->addNode(nodes)) {
+    bool result = false;
+    for (auto node: nodes) {
+        result = octree->getSource()->addNode(node);
+    }
+
+    if (result) {
         octree->confirmUpdate();
     } else {
         qDebug() << "Failure add node";

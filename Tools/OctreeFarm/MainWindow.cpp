@@ -1,4 +1,5 @@
 #include "MainWindow.h"
+#include "Command.h"
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
@@ -48,9 +49,9 @@ void MainWindow::setupMenuBar() {
     octreeMenu->addAction(tr("Deselect"), &octree, &Octree::deselect);
     octreeMenu->addAction(tr("Split"), &octree, &Octree::splitNode, QKeySequence("S"));
     octreeMenu->addAction(tr("Merge"), &octree, &Octree::mergeNode, QKeySequence("M"));
-    octreeMenu->addAction(tr("Add Forward"), &octree, &Octree::addNode, QKeySequence("A"));
-    octreeMenu->addAction(tr("Add Back"), &octree, &Octree::addNode, QKeySequence("Shift+A"));
-    octreeMenu->addAction(tr("Delete"), &octree, &Octree::deleteNode, QKeySequence("D"));
+//    octreeMenu->addAction(tr("Add Forward"), &octree, &Octree::addNode, QKeySequence("A"));
+//    octreeMenu->addAction(tr("Add Back"), &octree, &Octree::addNode, QKeySequence("Shift+A"));
+    octreeMenu->addAction(tr("Delete"), this, &MainWindow::deleteNode, QKeySequence("D"));
 
     QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));
     toolsMenu->addAction(tr("Options.."));
@@ -104,6 +105,11 @@ void MainWindow::resetGeometry() {
     resize(800, 480);
     const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
     move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
+}
+
+void MainWindow::deleteNode() {
+    QUndoCommand* deleteCommand = new DeleteCommand(&octree);
+    undoStack->push(deleteCommand);
 }
 
 void MainWindow::readSettings() {

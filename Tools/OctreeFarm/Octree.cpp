@@ -146,22 +146,6 @@ void Octree::mergeNode() {
     }
 }
 
-void Octree::addNode() {
-    if (source.addNode(selection, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier)) {
-        confirmUpdate();
-    } else {
-        qDebug() << "Failure add node";
-    }
-}
-
-void Octree::deleteNode() {
-    if (source.deleteNode(selection)) {
-        confirmUpdate();
-    } else {
-        qDebug() << "Failure delete node";
-    }
-}
-
 void Octree::copy() {
     if (selection.count()) {
         clipboard.color = selection.last().data()->color;

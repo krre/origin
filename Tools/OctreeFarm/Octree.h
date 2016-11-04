@@ -33,6 +33,7 @@ public:
     void createNew();
     bool save(const QString& fileName);
     bool load(const QString& fileName);
+    void confirmUpdate();
 
     void setIsModified(bool isModified);
     bool getIsModified() const { return isModified; }
@@ -40,12 +41,13 @@ public:
     void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append = false);
     void changeNodeColor(const QColor& color);
 
+    QVector<QSharedPointer<Node>> getSelection() { return selection; }
+    Source* getSource() { return &source; }
+
 public slots:
     void deselect();
     void splitNode();
     void mergeNode();
-    void addNode();
-    void deleteNode();
     void copy();
     void paste();
 
@@ -57,7 +59,6 @@ signals:
 
 private:
     int colorAttachOffset(int parent, int childIndex);
-    void confirmUpdate();
 
     Source source;
     QSharedPointer<QVector<uint32_t>> storage;

@@ -38,8 +38,8 @@ void MainWindow::setupMenuBar() {
     fileMenu->addAction(tr("Exit"), this, &QWidget::close, QKeySequence("Ctrl+Q"));
 
     QMenu* editMenu = menuBar()->addMenu(tr("Edit"));
-    editMenu->addAction(tr("Undo"));
-    editMenu->addAction(tr("Redo"));
+    editMenu->addAction(tr("Undo"), undoStack, &QUndoStack::undo, QKeySequence("Ctrl+Z"));
+    editMenu->addAction(tr("Redo"), undoStack, &QUndoStack::redo, QKeySequence("Ctrl+Shift+Z"));
     editMenu->addSeparator();
     editMenu->addAction(tr("Copy"), &octree, &Octree::copy, QKeySequence("Ctrl+C"));
     editMenu->addAction(tr("Paste"), &octree, &Octree::paste, QKeySequence("Ctrl+V"));

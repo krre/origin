@@ -28,7 +28,9 @@ private slots:
     void about();
     void initViewport();
     void resetGeometry();
+
     void deleteNode();
+    void splitNode();
 
 private:
     void setupMenuBar();

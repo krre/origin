@@ -130,14 +130,6 @@ void Octree::deselect() {
     }
 }
 
-void Octree::splitNode() {
-    if (source.splitNode(selection)) {
-        confirmUpdate();
-    } else {
-        qDebug() << "Failure split node";
-    }
-}
-
 void Octree::mergeNode() {
     if (source.mergeNode(selection)) {
         confirmUpdate();

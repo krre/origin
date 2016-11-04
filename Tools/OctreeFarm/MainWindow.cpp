@@ -47,7 +47,7 @@ void MainWindow::setupMenuBar() {
 
     QMenu* octreeMenu = menuBar()->addMenu(tr("Node"));
     octreeMenu->addAction(tr("Deselect"), &octree, &Octree::deselect);
-    octreeMenu->addAction(tr("Split"), &octree, &Octree::splitNode, QKeySequence("S"));
+    octreeMenu->addAction(tr("Split"), this, &MainWindow::splitNode, QKeySequence("S"));
     octreeMenu->addAction(tr("Merge"), &octree, &Octree::mergeNode, QKeySequence("M"));
 //    octreeMenu->addAction(tr("Add Forward"), &octree, &Octree::addNode, QKeySequence("A"));
 //    octreeMenu->addAction(tr("Add Back"), &octree, &Octree::addNode, QKeySequence("Shift+A"));
@@ -110,6 +110,11 @@ void MainWindow::resetGeometry() {
 void MainWindow::deleteNode() {
     QUndoCommand* deleteCommand = new DeleteCommand(&octree);
     undoStack->push(deleteCommand);
+}
+
+void MainWindow::splitNode() {
+    QUndoCommand* splitCommand = new SplitCommand(&octree);
+    undoStack->push(splitCommand);
 }
 
 void MainWindow::readSettings() {

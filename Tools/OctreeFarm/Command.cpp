@@ -29,3 +29,28 @@ void DeleteCommand::redo() {
 AddCommand::AddCommand(QUndoCommand* parent) : QUndoCommand(parent) {
 
 }
+
+SplitCommand::SplitCommand(Octree* octree) : octree(octree) {
+    nodes = octree->getSelection();
+}
+
+void SplitCommand::undo() {
+//    bool result = false;
+//    for (auto node: nodes) {
+//        result = octree->getSource()->addNode(node);
+//    }
+
+//    if (result) {
+//        octree->confirmUpdate();
+//    } else {
+//        qDebug() << "Failure add node";
+//    }
+}
+
+void SplitCommand::redo() {
+    if (octree->getSource()->splitNode(nodes)) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure split node";
+    }
+}

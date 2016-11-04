@@ -35,16 +35,15 @@ SplitCommand::SplitCommand(Octree* octree) : octree(octree) {
 }
 
 void SplitCommand::undo() {
-//    bool result = false;
-//    for (auto node: nodes) {
-//        result = octree->getSource()->addNode(node);
-//    }
-
-//    if (result) {
-//        octree->confirmUpdate();
-//    } else {
-//        qDebug() << "Failure add node";
-//    }
+    bool result = false;
+    for (auto node: nodes) {
+        result = octree->getSource()->mergeNode(node);
+    }
+    if (result) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure merge node";
+    }
 }
 
 void SplitCommand::redo() {

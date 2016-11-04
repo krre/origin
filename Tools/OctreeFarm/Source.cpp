@@ -110,6 +110,18 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     }
 }
 
+bool Source::mergeNode(QSharedPointer<Node> node) {
+    QVector<int> path = posToPath(node->pos, node->scale);
+    if (path.count() > 0) {
+        int currentIndex = path.count() - 1;
+        json::object_t* currentNode = findNode(path, currentIndex);
+        (*currentNode).erase("children");
+        return true;
+    } else {
+        return false;
+    }
+}
+
 bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back) {
     if (!selection.count()) return false;
 

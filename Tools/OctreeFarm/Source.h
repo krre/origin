@@ -23,6 +23,7 @@ public:
     bool deleteNode(const QVector<QSharedPointer<Node>>& selection);
     bool splitNode(const QVector<QSharedPointer<Node>>& selection);
     bool mergeNode(const QVector<QSharedPointer<Node>>& selection);
+    bool mergeNode(QSharedPointer<Node> node);
     bool addNode(const QVector<QSharedPointer<Node>>& selection, bool back = false);
     bool addNode(QSharedPointer<Node> node);
 

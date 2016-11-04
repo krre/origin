@@ -4,12 +4,13 @@
 #include <QWidget>
 #include <QPushButton>
 #include <QLabel>
+#include <QUndoStack>
 
 class Properties : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Properties(Octree* octree, Viewport* viewport);
+    explicit Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack);
     void setNodeLevel(int level);
     void setNodeIndex(int index);
     void setNodeColor(const QColor& color);
@@ -22,6 +23,7 @@ private slots:
 private:
     Octree* octree;
     Viewport* viewport;
+    QUndoStack* undoStack;
     QColor nodeColor;
     QPushButton* colorButton;
     QLabel* levelLabel;

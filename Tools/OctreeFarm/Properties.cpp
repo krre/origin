@@ -1,9 +1,10 @@
 #include "Properties.h"
 #include <QtWidgets>
 
-Properties::Properties(Octree* octree, Viewport* viewport) :
+Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack) :
     octree(octree),
-    viewport(viewport) {
+    viewport(viewport),
+    undoStack(undoStack) {
     QFormLayout* formlayout = new QFormLayout;
     setLayout(formlayout);
 

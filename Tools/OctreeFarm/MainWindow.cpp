@@ -87,7 +87,7 @@ void MainWindow::setupSplitter() {
     propFrame->setFrameStyle(QFrame::Box | QFrame::Sunken);
     QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, propFrame);
     propLayout->setMargin(0);
-    properties = new Properties(&octree, viewport);
+    properties = new Properties(&octree, viewport, undoStack);
     properties->setMinimumWidth(100);
     propLayout->addWidget(properties);
 

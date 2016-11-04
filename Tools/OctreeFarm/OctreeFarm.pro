@@ -3,6 +3,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = OctreeFarm
 TEMPLATE = app
+CONFIG += c++11
 win32: LIBS += -L$$(GLEW_HOME)/lib -lglew32 -lopengl32
 linux: LIBS += -lGLEW
 

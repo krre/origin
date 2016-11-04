@@ -52,6 +52,14 @@ bool Source::changeNodeColor(const QVector<QSharedPointer<Node>>& selection, con
     return true;
 }
 
+bool Source::changeNodeColor(QSharedPointer<Node> node) {
+    QVector<int> path = posToPath(node->pos, node->scale);
+    json::object_t* currentNode = findNode(path, path.count() - 1);
+    (*currentNode)["color"] = QColor(node->color).name(QColor::HexArgb).toStdString();
+
+    return true;
+}
+
 bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
     if (!selection.count()) return false;
 

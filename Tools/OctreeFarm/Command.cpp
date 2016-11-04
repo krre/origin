@@ -59,15 +59,15 @@ ChangeColorCommand::ChangeColorCommand(Octree* octree, QColor color) : octree(oc
 }
 
 void ChangeColorCommand::undo() {
-//    bool result = false;
-//    for (auto node: nodes) {
-//        result = octree->getSource()->mergeNode(node);
-//    }
-//    if (result) {
-//        octree->confirmUpdate();
-//    } else {
-//        qDebug() << "Failure merge node";
-//    }
+    bool result = false;
+    for (auto node: nodes) {
+        result = octree->getSource()->changeNodeColor(node);
+    }
+    if (result) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure change node color";
+    }
 }
 
 void ChangeColorCommand::redo() {

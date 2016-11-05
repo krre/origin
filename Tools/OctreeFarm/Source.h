@@ -24,10 +24,11 @@ public:
     bool deleteNode(const QVector<QSharedPointer<Node>>& selection);
     bool deleteNode(const Node& node);
     bool splitNode(const QVector<QSharedPointer<Node>>& selection);
-    bool mergeNode(const QVector<QSharedPointer<Node>>& selection);
+    bool mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& newNode, QVector<Node>& mergedNodes);
     bool mergeNode(const Node& node);
     bool addNode(const QVector<QSharedPointer<Node>>& selection, bool back, Node& newNode);
-    bool addNode(QSharedPointer<Node> node);
+    bool addNode(const Node& node);
+    void createChildren(const Node& node);
 
 private:
     json::object_t* findNode(const QVector<int>& path, int index);

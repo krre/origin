@@ -117,7 +117,7 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
     return true;
 }
 
-bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
+bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& newNode, QVector<Node>& mergedNodes) {
     if (!selection.count()) return false;
 
     Node* node = selection.at(0).data();
@@ -125,6 +125,22 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection) {
     if (path.count() > 1) {
         int parentIndex = path.count() - 2;
         json::object_t* parentNode = findNode(path, parentIndex);
+        json::object_t* children = (*parentNode)["children"].get_ptr<json::object_t*>();
+        for (int i = 0; i < 8; i++) {
+            auto iter = (*children).find(std::to_string(i));
+            if (iter != (*children).end()) {
+                Node childNode;
+                childNode.scale = node->scale;
+                QColor color(QString::fromStdString((*children)[std::to_string(i)]["color"]));
+                childNode.color = color.rgba();
+                path[path.count() - 1] = i;
+                childNode.pos = pathToPos(path);
+                mergedNodes.append(childNode);
+            }
+        }
+        newNode.scale = node->scale + 1;
+        path.removeLast();
+        newNode.pos = pathToPos(path);
         (*parentNode).erase("children");
         return true;
     } else {
@@ -190,8 +206,8 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, 
     return true;
 }
 
-bool Source::addNode(QSharedPointer<Node> node) {
-    QVector<int> path = posToPath(node->pos, node->scale);
+bool Source::addNode(const Node& node) {
+    QVector<int> path = posToPath(node.pos, node.scale);
     json::object_t* parentNode;
     if (path.count() == 1) {
         parentNode = root.get_ptr<json::object_t*>();
@@ -205,9 +221,15 @@ bool Source::addNode(QSharedPointer<Node> node) {
     }
 
     int i = path.last();
-    (*parentNode)[std::to_string(i)]["color"] = QColor(node->color).name(QColor::HexArgb).toStdString();
+    (*parentNode)[std::to_string(i)]["color"] = QColor(node.color).name(QColor::HexArgb).toStdString();
 
     return true;
+}
+
+void Source::createChildren(const Node& node) {
+    QVector<int> path = posToPath(node.pos, node.scale);
+    json::object_t* jNode = findNode(path, path.count() - 1);
+    (*jNode)["children"] = json::object();
 }
 
 json::object_t* Source::findNode(const QVector<int>& path, int index) {

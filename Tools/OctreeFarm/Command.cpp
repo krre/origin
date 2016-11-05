@@ -8,7 +8,7 @@ DeleteCommand::DeleteCommand(Octree* octree) : octree(octree) {
 void DeleteCommand::undo() {
     bool result = false;
     for (auto node: nodes) {
-        result = octree->getSource()->addNode(node);
+        result = octree->getSource()->addNode(*node.data());
     }
 
     if (result) {
@@ -75,19 +75,20 @@ MergeCommand::MergeCommand(Octree* octree) : octree(octree) {
 }
 
 void MergeCommand::undo() {
-//    bool result = false;
-//    for (auto node: nodes) {
-//        result = octree->getSource()->mergeNode(node);
-//    }
-//    if (result) {
-//        octree->confirmUpdate();
-//    } else {
-//        qDebug() << "Failure merge node";
-//    }
+    octree->getSource()->createChildren(newNode);
+    bool result = false;
+    for (auto node: mergedNodes) {
+        result = octree->getSource()->addNode(node);
+    }
+    if (result) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure merge node";
+    }
 }
 
 void MergeCommand::redo() {
-    if (octree->getSource()->mergeNode(nodes)) {
+    if (octree->getSource()->mergeNode(nodes, newNode, mergedNodes)) {
         octree->confirmUpdate();
     } else {
         qDebug() << "Failure merge node";

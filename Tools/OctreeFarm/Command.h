@@ -51,6 +51,7 @@ private:
     Octree* octree;
     QVector<QSharedPointer<Node>> nodes;
     QVector<Node> mergedNodes;
+    Node newNode;
 };
 
 class ChangeColorCommand : public QUndoCommand {

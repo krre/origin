@@ -25,6 +25,7 @@ private:
     Octree* octree;
     bool back;
     QVector<QSharedPointer<Node>> nodes;
+    Node node;
 };
 
 class SplitCommand : public QUndoCommand {

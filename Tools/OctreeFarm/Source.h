@@ -22,15 +22,17 @@ public:
     bool changeNodeColor(const QVector<QSharedPointer<Node>>& selection, const QColor& color);
     bool changeNodeColor(QSharedPointer<Node> node);
     bool deleteNode(const QVector<QSharedPointer<Node>>& selection);
+    bool deleteNode(const Node& node);
     bool splitNode(const QVector<QSharedPointer<Node>>& selection);
     bool mergeNode(const QVector<QSharedPointer<Node>>& selection);
     bool mergeNode(QSharedPointer<Node> node);
-    bool addNode(const QVector<QSharedPointer<Node>>& selection, bool back = false);
+    bool addNode(const QVector<QSharedPointer<Node>>& selection, bool back, Node& newNode);
     bool addNode(QSharedPointer<Node> node);
 
 private:
     json::object_t* findNode(const QVector<int>& path, int index);
     QVector<int> posToPath(const glm::vec3& pos, int scale);
+    glm::vec3 pathToPos(const QVector<int> path);
 
     json root;
     uint32_t defaultColor = 0xFF4681FF;

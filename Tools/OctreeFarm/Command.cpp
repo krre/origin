@@ -31,19 +31,15 @@ AddCommand::AddCommand(Octree* octree, bool back) : octree(octree), back(back) {
 }
 
 void AddCommand::undo() {
-//    bool result = false;
-//    for (auto node: nodes) {
-//        result = octree->getSource()->mergeNode(node);
-//    }
-//    if (result) {
-//        octree->confirmUpdate();
-//    } else {
-//        qDebug() << "Failure merge node";
-//    }
+    if (octree->getSource()->deleteNode(node)) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure delete node";
+    }
 }
 
 void AddCommand::redo() {
-    if (octree->getSource()->addNode(nodes, back)) {
+    if (octree->getSource()->addNode(nodes, back, node)) {
         octree->confirmUpdate();
     } else {
         qDebug() << "Failure add node";

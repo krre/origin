@@ -79,6 +79,20 @@ bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
     return true;
 }
 
+bool Source::deleteNode(const Node& node) {
+    QVector<int> path = posToPath(node.pos, node.scale);
+    json::object_t* parentNode;
+    if (path.count() == 1) {
+        parentNode = root.get_ptr<json::object_t*>();
+    } else {
+        parentNode = findNode(path, path.count() - 2);
+        parentNode = (*parentNode)["children"].get_ptr<json::object_t*>();
+    }
+    (*parentNode).erase(std::to_string(path.last()));
+
+    return true;
+}
+
 bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
     if (!selection.count()) return false;
 
@@ -130,7 +144,7 @@ bool Source::mergeNode(QSharedPointer<Node> node) {
     }
 }
 
-bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back) {
+bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, Node& newNode) {
     if (!selection.count()) return false;
 
     Node* node = selection.at(0).data();
@@ -166,6 +180,9 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back) 
         auto iter = (*parentNode).find(std::to_string(i));
         if (iter == (*parentNode).end()) {
             (*parentNode)[std::to_string(i)]["color"] = QColor(defaultColor).name(QColor::HexArgb).toStdString();
+            path[path.count() - 1] = i; // Write to path finded node index
+            newNode.pos = pathToPos(path);
+            newNode.scale = node->scale;
             break;
         }
     }
@@ -220,4 +237,26 @@ QVector<int> Source::posToPath(const glm::vec3& pos, int scale) {
     }
 
     return path;
+}
+
+glm::vec3 Source::pathToPos(const QVector<int> path) {
+    glm::vec3 pos = glm::vec3(1.0);
+    int s_max = 23; // from Voxel.frag
+    int i = s_max - 1;
+    std::bitset<32> bitsX(Utils::floatToUint(pos.x));
+    std::bitset<32> bitsY(Utils::floatToUint(pos.y));
+    std::bitset<32> bitsZ(Utils::floatToUint(pos.z));
+
+    for (auto index: path) {
+        bitsX[i] = index & 1;
+        bitsY[i] = (index >> 1) & 1;
+        bitsZ[i] = (index >> 2) & 1;
+        i--;
+    }
+
+    pos.x = Utils::uintToFloat(bitsX.to_ullong());
+    pos.y = Utils::uintToFloat(bitsY.to_ullong());
+    pos.z = Utils::uintToFloat(bitsZ.to_ullong());
+
+    return pos;
 }

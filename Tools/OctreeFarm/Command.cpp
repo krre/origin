@@ -102,7 +102,7 @@ ChangeColorCommand::ChangeColorCommand(Octree* octree, QColor color) : octree(oc
 void ChangeColorCommand::undo() {
     bool result = false;
     for (auto node: nodes) {
-        result = octree->getSource()->changeNodeColor(node);
+        result = octree->getSource()->changeNodeColor(*node.data());
     }
     if (result) {
         octree->confirmUpdate();

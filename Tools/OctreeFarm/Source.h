@@ -20,7 +20,7 @@ public:
     QString serialize();
     QSharedPointer<QVector<uint32_t>> binary();
     bool changeNodeColor(const QVector<QSharedPointer<Node>>& selection, const QColor& color);
-    bool changeNodeColor(QSharedPointer<Node> node);
+    bool changeNodeColor(const Node& node);
     bool deleteNode(const QVector<QSharedPointer<Node>>& selection);
     bool deleteNode(const Node& node);
     bool splitNode(const QVector<QSharedPointer<Node>>& selection);

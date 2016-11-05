@@ -31,6 +31,7 @@ private slots:
 
     void deleteNode();
     void splitNode();
+    void addNode();
 
 private:
     void setupMenuBar();

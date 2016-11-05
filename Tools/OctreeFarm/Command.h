@@ -17,7 +17,14 @@ private:
 class AddCommand : public QUndoCommand {
 
 public:
-    explicit AddCommand(QUndoCommand* parent = 0);
+    explicit AddCommand(Octree* octree, bool back = false);
+    void undo() override;
+    void redo() override;
+
+private:
+    Octree* octree;
+    bool back;
+    QVector<QSharedPointer<Node>> nodes;
 };
 
 class SplitCommand : public QUndoCommand {

@@ -49,8 +49,8 @@ void MainWindow::setupMenuBar() {
     octreeMenu->addAction(tr("Deselect"), &octree, &Octree::deselect);
     octreeMenu->addAction(tr("Split"), this, &MainWindow::splitNode, QKeySequence("S"));
     octreeMenu->addAction(tr("Merge"), &octree, &Octree::mergeNode, QKeySequence("M"));
-//    octreeMenu->addAction(tr("Add Forward"), &octree, &Octree::addNode, QKeySequence("A"));
-//    octreeMenu->addAction(tr("Add Back"), &octree, &Octree::addNode, QKeySequence("Shift+A"));
+    octreeMenu->addAction(tr("Add Forward"), this, &MainWindow::addNode, QKeySequence("A"));
+    octreeMenu->addAction(tr("Add Back"), this, &MainWindow::addNode, QKeySequence("Shift+A"));
     octreeMenu->addAction(tr("Delete"), this, &MainWindow::deleteNode, QKeySequence("D"));
 
     QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));
@@ -115,6 +115,11 @@ void MainWindow::deleteNode() {
 void MainWindow::splitNode() {
     QUndoCommand* splitCommand = new SplitCommand(&octree);
     undoStack->push(splitCommand);
+}
+
+void MainWindow::addNode() {
+    QUndoCommand* addCommand = new AddCommand(&octree, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+    undoStack->push(addCommand);
 }
 
 void MainWindow::readSettings() {

@@ -26,8 +26,28 @@ void DeleteCommand::redo() {
     }
 }
 
-AddCommand::AddCommand(QUndoCommand* parent) : QUndoCommand(parent) {
+AddCommand::AddCommand(Octree* octree, bool back) : octree(octree), back(back) {
+    nodes = octree->getSelection();
+}
 
+void AddCommand::undo() {
+//    bool result = false;
+//    for (auto node: nodes) {
+//        result = octree->getSource()->mergeNode(node);
+//    }
+//    if (result) {
+//        octree->confirmUpdate();
+//    } else {
+//        qDebug() << "Failure merge node";
+//    }
+}
+
+void AddCommand::redo() {
+    if (octree->getSource()->addNode(nodes, back)) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure add node";
+    }
 }
 
 SplitCommand::SplitCommand(Octree* octree) : octree(octree) {

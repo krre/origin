@@ -122,14 +122,6 @@ void Octree::deselect() {
     }
 }
 
-void Octree::mergeNode() {
-    if (source.mergeNode(selection)) {
-        confirmUpdate();
-    } else {
-        qDebug() << "Failure merge node";
-    }
-}
-
 void Octree::copy() {
     if (selection.count()) {
         clipboard.color = selection.last().data()->color;

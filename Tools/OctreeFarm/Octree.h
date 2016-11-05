@@ -45,7 +45,6 @@ public:
 
 public slots:
     void deselect();
-    void mergeNode();
     void copy();
     void paste();
 

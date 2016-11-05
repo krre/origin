@@ -40,6 +40,18 @@ private:
     QVector<QSharedPointer<Node>> nodes;
 };
 
+class MergeCommand : public QUndoCommand {
+
+public:
+    explicit MergeCommand(Octree* octree);
+    void undo() override;
+    void redo() override;
+
+private:
+    Octree* octree;
+    QVector<QSharedPointer<Node>> nodes;
+};
+
 class ChangeColorCommand : public QUndoCommand {
 
 public:

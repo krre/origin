@@ -70,6 +70,30 @@ void SplitCommand::redo() {
     }
 }
 
+MergeCommand::MergeCommand(Octree* octree) : octree(octree) {
+    nodes = octree->getSelection();
+}
+
+void MergeCommand::undo() {
+//    bool result = false;
+//    for (auto node: nodes) {
+//        result = octree->getSource()->mergeNode(node);
+//    }
+//    if (result) {
+//        octree->confirmUpdate();
+//    } else {
+//        qDebug() << "Failure merge node";
+//    }
+}
+
+void MergeCommand::redo() {
+    if (octree->getSource()->mergeNode(nodes)) {
+        octree->confirmUpdate();
+    } else {
+        qDebug() << "Failure merge node";
+    }
+}
+
 ChangeColorCommand::ChangeColorCommand(Octree* octree, QColor color) : octree(octree), color(color) {
     nodes = octree->getSelection();
 }

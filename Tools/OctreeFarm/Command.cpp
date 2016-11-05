@@ -53,7 +53,7 @@ SplitCommand::SplitCommand(Octree* octree) : octree(octree) {
 void SplitCommand::undo() {
     bool result = false;
     for (auto node: nodes) {
-        result = octree->getSource()->mergeNode(node);
+        result = octree->getSource()->mergeNode(*node.data());
     }
     if (result) {
         octree->confirmUpdate();

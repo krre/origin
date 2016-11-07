@@ -3,5 +3,5 @@
 
 Options::Options(QWidget* parent) : QDialog(parent) {
     setWindowTitle(tr("Options"));
-    resize(400, 300);
+    setMinimumSize(400, 300);
 }

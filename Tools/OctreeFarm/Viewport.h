@@ -30,6 +30,7 @@ public:
     Viewport(Octree* octree);
     void updateOctreeInGPU(int offset, void* data, int count);
     void reset();
+    bool getIsReady() { return isReady; }
 
 protected:
     void initializeGL() override;
@@ -67,4 +68,5 @@ private:
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
     bool pickMode = false;
     QPoint pick;
+    bool isReady = false;
 };

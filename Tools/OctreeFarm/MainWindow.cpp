@@ -11,7 +11,12 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
 
     setCentralWidget(splitter);
 
-    connect(viewport, &Viewport::ready, this, &MainWindow::initViewport);
+    if (!viewport->getIsReady()) {
+        connect(viewport, &Viewport::ready, this, &MainWindow::initViewport);
+    } else {
+        initViewport();
+    }
+
     connect(&octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 

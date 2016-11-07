@@ -86,6 +86,7 @@ void Viewport::initializeGL() {
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 10, debugSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
+    isReady = true;
     emit ready();
 }
 

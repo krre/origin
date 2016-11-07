@@ -28,6 +28,7 @@ private slots:
     void about();
     void initViewport();
     void resetGeometry();
+    void showOptions();
 
     void deleteNode();
     void splitNode();

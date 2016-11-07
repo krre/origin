@@ -1,7 +1,7 @@
 #pragma once
-#include <QWidget>
+#include <QDialog>
 
-class Options : public QWidget {
+class Options : public QDialog {
 
 public:
     Options(QWidget* parent = 0);

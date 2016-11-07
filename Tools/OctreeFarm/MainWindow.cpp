@@ -1,5 +1,6 @@
 #include "MainWindow.h"
 #include "Command.h"
+#include "Options.h"
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
@@ -59,7 +60,7 @@ void MainWindow::setupMenuBar() {
     octreeMenu->addAction(tr("Delete"), this, &MainWindow::deleteNode, QKeySequence("D"));
 
     QMenu* toolsMenu = menuBar()->addMenu(tr("Tools"));
-    toolsMenu->addAction(tr("Options.."));
+    toolsMenu->addAction(tr("Options.."), this, &MainWindow::showOptions);
 
     QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(QString(tr("About %1...")).arg(QApplication::applicationName()), this, &MainWindow::about);
@@ -110,6 +111,11 @@ void MainWindow::resetGeometry() {
     resize(800, 480);
     const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
     move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
+}
+
+void MainWindow::showOptions() {
+    Options options(this);
+    options.exec();
 }
 
 void MainWindow::deleteNode() {

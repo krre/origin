@@ -1,5 +1,5 @@
 #include "Options.h"
 
-Options::Options() {
+Options::Options(QWidget* parent) : QWidget(parent) {
 
 }

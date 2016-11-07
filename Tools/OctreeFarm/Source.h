@@ -3,7 +3,6 @@
 #include <QColor>
 #include <QSharedPointer>
 #include <QVector>
-#include <QMap>
 #include <json/json.hpp>
 #include <glm/glm.hpp>
 

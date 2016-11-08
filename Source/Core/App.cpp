@@ -34,6 +34,10 @@ std::string App::getCurrentPath() {
     return fs::current_path().string();
 }
 
+void App::setBackend(App::GraphicsBackend backend) {
+    this->graphicsBackend = backend;
+}
+
 void App::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());

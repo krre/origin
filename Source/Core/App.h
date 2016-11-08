@@ -21,6 +21,7 @@ public:
     // Path to application directory
     static std::string getCurrentPath();
 
+    void init();
     int run();
     void quit();
 
@@ -46,7 +47,6 @@ private:
     int width = WINDOW_WIDTH;
     int height = WINDOW_HEIGHT;
 
-    void init();
     void clean();
     void windowResize(int width, int height);
     void initSingletons();

@@ -37,6 +37,7 @@ Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack
     connect(shadelessCheckBox, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
     connect(octree, &Octree::nodeSelected, this, &Properties::onNodeSelected);
     connect(octree, &Octree::nodeDeselected, this, &Properties::onNodeDeselected);
+    connect(levelPlusButton, &QPushButton::clicked, this, &Properties::levelPlus);
 
     onNodeDeselected();
 }
@@ -84,4 +85,8 @@ void Properties::onNodeDeselected() {
     setNodeLevel(-1);
     setNodeIndex(-1);
     setNodeColor(QColor());
+}
+
+void Properties::levelPlus() {
+    qDebug() << "level plus";
 }

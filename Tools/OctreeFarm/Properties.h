@@ -19,6 +19,7 @@ private slots:
     void changeNodeColor();
     void onNodeSelected(int level, int index, const QColor& color);
     void onNodeDeselected();
+    void levelPlus();
 
 private:
     Octree* octree;

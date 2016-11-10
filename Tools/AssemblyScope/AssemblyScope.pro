@@ -9,6 +9,8 @@ linux: LIBS += -lGLEW
 INCLUDEPATH += "../../ThirdParty" $$(GLEW_HOME)/include
 
 SOURCES += main.cpp\
-        MainWindow.cpp
+        MainWindow.cpp \
+    Viewport.cpp
 
-HEADERS  += MainWindow.h
+HEADERS  += MainWindow.h \
+    Viewport.h

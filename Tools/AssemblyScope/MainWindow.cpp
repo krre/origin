@@ -2,9 +2,17 @@
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
+    settings = new QSettings(QApplication::applicationDirPath() + "/" + QApplication::applicationName() + ".ini", QSettings::IniFormat);
+
     resetGeometry();
     setupMenuBar();
     setupActions();
+    readSettings();
+}
+
+void MainWindow::closeEvent(QCloseEvent* event) {
+    Q_UNUSED(event)
+    writeSettings();
 }
 
 void MainWindow::resetGeometry() {
@@ -26,4 +34,17 @@ void MainWindow::setupActions() {
     resetGeometryAct->setShortcut(QKeySequence("Ctrl+F12"));
     connect(resetGeometryAct, &QAction::triggered, this, &MainWindow::resetGeometry);
     addAction(resetGeometryAct);
+}
+
+void MainWindow::readSettings() {
+    const QByteArray geometry = settings->value("General/geometry", QByteArray()).toByteArray();
+    if (geometry.isEmpty()) {
+        resetGeometry();
+    } else {
+        restoreGeometry(geometry);
+    }
+}
+
+void MainWindow::writeSettings() {
+    settings->setValue("General/geometry", saveGeometry());
 }

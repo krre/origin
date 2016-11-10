@@ -21,6 +21,7 @@ private slots:
     void onNodeDeselected();
     void levelPlus();
     void levelMinus();
+    void levelReset();
 
 private:
     Octree* octree;

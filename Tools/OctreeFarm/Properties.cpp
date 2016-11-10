@@ -39,6 +39,7 @@ Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack
     connect(octree, &Octree::nodeDeselected, this, &Properties::onNodeDeselected);
     connect(levelPlusButton, &QPushButton::clicked, this, &Properties::levelPlus);
     connect(levelMinusButton, &QPushButton::clicked, this, &Properties::levelMinus);
+    connect(levelResetButton, &QPushButton::clicked, this, &Properties::levelReset);
 
     onNodeDeselected();
 }
@@ -94,4 +95,8 @@ void Properties::levelPlus() {
 
 void Properties::levelMinus() {
     qDebug() << "level minus";
+}
+
+void Properties::levelReset() {
+    qDebug() << "level reset";
 }

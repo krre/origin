@@ -5,6 +5,7 @@
 
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     undoStack = new QUndoStack(this);
+    settings = new QSettings(QApplication::applicationDirPath() + "/" + QApplication::applicationName() + ".ini", QSettings::IniFormat);
 
     setupMenuBar();
     setupSplitter();
@@ -99,8 +100,6 @@ void MainWindow::setupSplitter() {
     QList<int> sizes;
     sizes << 250 << 550;
     splitter->setSizes(sizes);
-
-    settings = new QSettings(QApplication::applicationDirPath() + "/" + QApplication::applicationName() + ".ini", QSettings::IniFormat);
 }
 
 void MainWindow::resetGeometry() {

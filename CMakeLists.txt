@@ -28,7 +28,7 @@ find_package(GLEW REQUIRED)
 include_directories(${GLEW_INCLUDE_DIRS})
 
 find_package(Vulkan REQUIRED)
-include_directories(${VULKAN_INCLUDE_DIRS})
+include_directories(${Vulkan_INCLUDE_DIRS})
 
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
@@ -43,7 +43,7 @@ find_package(OpenGL)
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
     ${OPENGL_LIBRARIES}
-    ${VULKAN_LIBRARIES}
+    ${Vulkan_LIBRARIES}
     ${GLEW_LIBRARIES}
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}

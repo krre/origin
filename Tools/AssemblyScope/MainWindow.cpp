@@ -7,7 +7,10 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     resetGeometry();
     setupMenuBar();
     setupActions();
+    setupSplitter();
     readSettings();
+
+    setCentralWidget(&splitter);
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
@@ -45,6 +48,24 @@ void MainWindow::setupActions() {
     resetGeometryAct->setShortcut(QKeySequence("Ctrl+F12"));
     connect(resetGeometryAct, &QAction::triggered, this, &MainWindow::resetGeometry);
     addAction(resetGeometryAct);
+}
+
+void MainWindow::setupSplitter() {
+    splitter.setChildrenCollapsible(false);
+
+    QList<int> sizes;
+    sizes << 250 << 550;
+    splitter.setSizes(sizes);
+
+    // Viewport
+    QFrame* viewportFrame = new QFrame;
+    viewportFrame->setFrameStyle(QFrame::Box | QFrame::Sunken);
+    QBoxLayout* viewportLayout = new QBoxLayout(QBoxLayout::LeftToRight, viewportFrame);
+    viewportLayout->setMargin(0);
+    viewport = new Viewport;
+    viewport->setMinimumWidth(100);
+    viewportLayout->addWidget(viewport);
+    splitter.addWidget(viewportFrame);
 }
 
 void MainWindow::readSettings() {

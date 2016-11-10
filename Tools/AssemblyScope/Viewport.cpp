@@ -1,5 +1,5 @@
 #include "Viewport.h"
-#include <QMouseEvent>
+#include <QtCore>
 
 Viewport::Viewport() {
     QSurfaceFormat format;

@@ -1,6 +1,8 @@
 #pragma once
+#include "Viewport.h"
 #include <QMainWindow>
 #include <QSettings>
+#include <QSplitter>
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -18,8 +20,11 @@ private slots:
 private:
     void setupMenuBar();
     void setupActions();
+    void setupSplitter();
     void readSettings();
     void writeSettings();
 
     QSettings* settings;
+    Viewport* viewport;
+    QSplitter splitter;
 };

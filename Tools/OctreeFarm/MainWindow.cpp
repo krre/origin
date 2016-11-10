@@ -21,10 +21,6 @@ MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     connect(&octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 
-MainWindow::~MainWindow() {
-
-}
-
 void MainWindow::closeEvent(QCloseEvent* event) {
     if (maybeSave()) {
         writeSettings();

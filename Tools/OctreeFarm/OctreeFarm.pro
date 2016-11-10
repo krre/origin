@@ -19,7 +19,7 @@ SOURCES += main.cpp\
     ../../Source/Core/Utils.cpp \
     ../../Source/Core/Object.cpp \
     Command.cpp \
-    Options.cpp
+    OptionsDialog.cpp
 
 HEADERS  += MainWindow.h \
     Octree.h \
@@ -32,4 +32,4 @@ HEADERS  += MainWindow.h \
     ../../Source/Core/Object.h \
     Defines.h \
     Command.h \
-    Options.h
+    OptionsDialog.h

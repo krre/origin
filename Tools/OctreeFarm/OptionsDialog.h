@@ -2,10 +2,10 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 
-class Options : public QDialog {
+class OptionsDialog : public QDialog {
 
 public:
-    Options(QWidget* parent = 0);
+    OptionsDialog(QWidget* parent = 0);
 
 private slots:
     void onAccepted();

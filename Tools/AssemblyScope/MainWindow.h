@@ -12,4 +12,5 @@ private slots:
 
 private:
     void setupMenuBar();
+    void setupActions();
 };

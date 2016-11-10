@@ -4,6 +4,7 @@
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     resetGeometry();
     setupMenuBar();
+    setupActions();
 }
 
 void MainWindow::resetGeometry() {
@@ -18,4 +19,11 @@ void MainWindow::setupMenuBar() {
 
     QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(tr("About Qt..."), qApp, &QApplication::aboutQt);
+}
+
+void MainWindow::setupActions() {
+    QAction* resetGeometryAct = new QAction;
+    resetGeometryAct->setShortcut(QKeySequence("Ctrl+F12"));
+    connect(resetGeometryAct, &QAction::triggered, this, &MainWindow::resetGeometry);
+    addAction(resetGeometryAct);
 }

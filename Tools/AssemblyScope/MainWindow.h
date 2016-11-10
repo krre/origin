@@ -9,4 +9,7 @@ public:
 
 private slots:
     void resetGeometry();
+
+private:
+    void setupMenuBar();
 };

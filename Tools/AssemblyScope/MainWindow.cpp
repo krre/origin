@@ -53,10 +53,6 @@ void MainWindow::setupActions() {
 void MainWindow::setupSplitter() {
     splitter.setChildrenCollapsible(false);
 
-    QList<int> sizes;
-    sizes << 250 << 550;
-    splitter.setSizes(sizes);
-
     // Viewport
     QFrame* viewportFrame = new QFrame;
     viewportFrame->setFrameStyle(QFrame::Box | QFrame::Sunken);
@@ -66,6 +62,15 @@ void MainWindow::setupSplitter() {
     viewport->setMinimumWidth(100);
     viewportLayout->addWidget(viewport);
     splitter.addWidget(viewportFrame);
+
+    // Properties
+    QWidget* properties = new QWidget;
+    properties->setMinimumWidth(100);
+    splitter.addWidget(properties);
+
+    QList<int> sizes;
+    sizes << 550 << 250;
+    splitter.setSizes(sizes);
 }
 
 void MainWindow::readSettings() {
@@ -75,8 +80,11 @@ void MainWindow::readSettings() {
     } else {
         restoreGeometry(geometry);
     }
+
+    splitter.restoreState(settings->value("General/splitter").toByteArray());
 }
 
 void MainWindow::writeSettings() {
     settings->setValue("General/geometry", saveGeometry());
+    settings->setValue("General/splitter", splitter.saveState());
 }

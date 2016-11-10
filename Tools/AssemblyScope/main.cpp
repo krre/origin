@@ -2,9 +2,12 @@
 #include <QApplication>
 
 int main(int argc, char *argv[]) {
-    QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
+    QApplication app(argc, argv);
+    app.setApplicationName("AssemblyScope");
+    app.setApplicationVersion("0.1.0");
 
-    return a.exec();
+    MainWindow window;
+    window.show();
+
+    return app.exec();
 }

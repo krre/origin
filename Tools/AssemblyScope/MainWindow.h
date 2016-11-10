@@ -13,6 +13,7 @@ protected:
 
 private slots:
     void resetGeometry();
+    void about();
 
 private:
     void setupMenuBar();

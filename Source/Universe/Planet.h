@@ -1,11 +1,11 @@
 #pragma once
-#include "../Core/Object.h"
+#include "ProceduralObject.h"
 
 struct PlanetParameters {
     int radius;
 };
 
-class Planet : public Object {
+class Planet : public ProceduralObject {
 
 public:
     Planet(PlanetParameters parameters);

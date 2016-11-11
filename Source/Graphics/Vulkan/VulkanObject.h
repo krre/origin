@@ -9,6 +9,7 @@ class VulkanObject : public Object {
 
 public:
     VulkanObject();
+    std::string getError() const { return "Vulkan: " + error; }
 
 protected:
     std::string error = "Unknown error";

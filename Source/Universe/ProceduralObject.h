@@ -5,4 +5,7 @@ class ProceduralObject : public Object {
 
 public:
     ProceduralObject();
+
+private:
+    uint64_t seed;
 };

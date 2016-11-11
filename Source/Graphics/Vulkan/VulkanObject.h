@@ -10,7 +10,7 @@ class VulkanObject : public Object {
 public:
     VulkanObject();
 
-private:
+protected:
     std::string error = "Unknown error";
 };
 

@@ -1,11 +1,10 @@
 #pragma once
-#include "../../Core/Object.h"
+#include "VulkanObject.h"
 #include <vulkan/vulkan.h>
-#include <string>
 
 namespace Vulkan {
 
-class Instance : public Object {
+class Instance : public VulkanObject {
 
 public:
     Instance();
@@ -16,8 +15,6 @@ public:
 private:
     VkInstance* pInstance = nullptr;
     VkInstanceCreateInfo* pCreateInfo = nullptr;
-    std::string error = "Unknown error";
-
 };
 
 } // Vulkan

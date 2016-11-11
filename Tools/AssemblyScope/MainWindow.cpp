@@ -42,6 +42,7 @@ void MainWindow::setupMenuBar() {
     QMenu* fileMenu = menuBar()->addMenu(tr("File"));
     QMenu* newMenu = fileMenu->addMenu(tr("New"));
     newMenu->addAction(tr("Planet"), this, &MainWindow::newPlanet);
+    fileMenu->addSeparator();
     fileMenu->addAction(tr("Exit"), this, &QWidget::close, QKeySequence("Ctrl+Q"));
 
     QMenu* helpMenu = menuBar()->addMenu(tr("Help"));

@@ -16,6 +16,7 @@ protected:
 
 private slots:
     void resetGeometry();
+    void newPlanet();
     void about();
 
 private:

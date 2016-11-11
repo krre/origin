@@ -24,6 +24,10 @@ void MainWindow::resetGeometry() {
     move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
 }
 
+void MainWindow::newPlanet() {
+    qDebug() << "planet";
+}
+
 void MainWindow::about() {
     QMessageBox::about(this, QString(tr("About %1")).arg(QApplication::applicationName()),
                        QString(tr("<h3><b>%1 %2<b></h3>"
@@ -36,6 +40,8 @@ void MainWindow::about() {
 
 void MainWindow::setupMenuBar() {
     QMenu* fileMenu = menuBar()->addMenu(tr("File"));
+    QMenu* newMenu = fileMenu->addMenu(tr("New"));
+    newMenu->addAction(tr("Planet"), this, &MainWindow::newPlanet);
     fileMenu->addAction(tr("Exit"), this, &QWidget::close, QKeySequence("Ctrl+Q"));
 
     QMenu* helpMenu = menuBar()->addMenu(tr("Help"));

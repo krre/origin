@@ -1,5 +1,6 @@
 #pragma once
 #include "Viewport.h"
+#include "Properties.h"
 #include <QMainWindow>
 #include <QSettings>
 #include <QSplitter>
@@ -26,5 +27,6 @@ private:
 
     QSettings* settings;
     Viewport* viewport;
+    Properties* properties;
     QSplitter splitter;
 };

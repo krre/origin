@@ -10,7 +10,9 @@ INCLUDEPATH += "../../ThirdParty" $$(GLEW_HOME)/include
 
 SOURCES += main.cpp\
         MainWindow.cpp \
-    Viewport.cpp
+    Viewport.cpp \
+    Properties.cpp
 
 HEADERS  += MainWindow.h \
-    Viewport.h
+    Viewport.h \
+    Properties.h

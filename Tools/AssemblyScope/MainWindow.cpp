@@ -64,9 +64,14 @@ void MainWindow::setupSplitter() {
     splitter.addWidget(viewportFrame);
 
     // Properties
-    QWidget* properties = new QWidget;
+    QFrame* propFrame = new QFrame;
+    propFrame->setFrameStyle(QFrame::Box | QFrame::Sunken);
+    QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, propFrame);
+    propLayout->setMargin(0);
+    properties = new Properties;
     properties->setMinimumWidth(100);
-    splitter.addWidget(properties);
+    propLayout->addWidget(properties);
+    splitter.addWidget(propFrame);
 
     QList<int> sizes;
     sizes << 550 << 250;

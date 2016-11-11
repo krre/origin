@@ -10,6 +10,7 @@ public:
     void load();
     void save();
     EntityId getCharacterId() { return characterId; }
+    uint64_t getSeed() { return seed; }
 
 private:
     void create();
@@ -19,4 +20,5 @@ private:
     void loadDevelopSettings();
 
     EntityId characterId;
+    uint64_t seed;
 };

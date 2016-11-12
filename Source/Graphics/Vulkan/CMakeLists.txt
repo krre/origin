@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanObject.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanObject.h
     PARENT_SCOPE

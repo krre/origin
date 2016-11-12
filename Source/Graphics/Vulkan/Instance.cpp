@@ -3,17 +3,28 @@
 using namespace Vulkan;
 
 Instance::Instance() {
+    appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    appInfo.pApplicationName = "Gagarin";
+    appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);;
+    appInfo.pEngineName = "Gagarin Engine";
+    appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);;
+    appInfo.apiVersion = VK_API_VERSION_1_0;
 
+    createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+    createInfo.flags = 0;
+    createInfo.pApplicationInfo = &appInfo;
+    createInfo.enabledLayerCount = 0;
+    createInfo.enabledExtensionCount = 0;
 }
 
 Instance::~Instance() {
-    if (instance != nullptr) {
-        vkDestroyInstance(*instance, NULL);
+    if (instance) {
+        vkDestroyInstance(instance, NULL);
     }
 }
 
 bool Instance::create() {
-    VkResult result = vkCreateInstance(&createInfo, NULL, instance);
+    VkResult result = vkCreateInstance(&createInfo, NULL, &instance);
     if (result == VK_SUCCESS) {
         return true;
     } else {
@@ -36,8 +47,8 @@ bool Instance::create() {
         case VK_ERROR_INCOMPATIBLE_DRIVER:
             error = "Incompatible driver";
             return false;
-        default:
-            return false;
         }
     }
+
+    return false;
 }

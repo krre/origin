@@ -10,10 +10,11 @@ public:
     Instance();
     ~Instance();
     bool create();
-    VkInstance* getInstance() const { return instance; }
+    VkInstance getInstance() const { return instance; }
 
 private:
-    VkInstance* instance = nullptr;
+    VkInstance instance = 0;
+    VkApplicationInfo appInfo;
     VkInstanceCreateInfo createInfo;
 };
 

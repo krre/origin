@@ -4,6 +4,7 @@
 #include "../Event/Event.h"
 #include "Singleton.h"
 #include "../UI/Viewport.h"
+#include "../Graphics/Vulkan/Instance.h"
 
 constexpr int WINDOW_WIDTH = 800;
 constexpr int WINDOW_HEIGHT = 480;
@@ -37,7 +38,7 @@ public:
 private:
     std::vector<std::string> argv;
     GraphicsBackend graphicsBackend = VULKAN;
-
+    Vulkan::Instance vulkanInstance;
     Viewport viewport;
 
     bool isRunning = false;

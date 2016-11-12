@@ -18,13 +18,13 @@ Instance::Instance() {
 }
 
 Instance::~Instance() {
-    if (instance) {
-        vkDestroyInstance(instance, NULL);
+    if (handle) {
+        vkDestroyInstance(handle, NULL);
     }
 }
 
 bool Instance::create() {
-    VkResult result = vkCreateInstance(&createInfo, NULL, &instance);
+    VkResult result = vkCreateInstance(&createInfo, NULL, &handle);
     if (result == VK_SUCCESS) {
         return true;
     } else {

@@ -7,13 +7,13 @@ Instance::Instance() {
 }
 
 Instance::~Instance() {
-    if (pInstance != nullptr) {
-        vkDestroyInstance(*pInstance, NULL);
+    if (instance != nullptr) {
+        vkDestroyInstance(*instance, NULL);
     }
 }
 
 bool Instance::create() {
-    VkResult result = vkCreateInstance(pCreateInfo, NULL, pInstance);
+    VkResult result = vkCreateInstance(pCreateInfo, NULL, instance);
     if (result == VK_SUCCESS) {
         return true;
     } else {

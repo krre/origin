@@ -10,10 +10,10 @@ public:
     Instance();
     ~Instance();
     bool create();
-    VkInstance* getInstance() const { return pInstance; }
+    VkInstance* getInstance() const { return instance; }
 
 private:
-    VkInstance* pInstance = nullptr;
+    VkInstance* instance = nullptr;
     VkInstanceCreateInfo* pCreateInfo = nullptr;
 };
 

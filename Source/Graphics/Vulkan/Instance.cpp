@@ -13,7 +13,7 @@ Instance::~Instance() {
 }
 
 bool Instance::create() {
-    VkResult result = vkCreateInstance(pCreateInfo, NULL, instance);
+    VkResult result = vkCreateInstance(&createInfo, NULL, instance);
     if (result == VK_SUCCESS) {
         return true;
     } else {

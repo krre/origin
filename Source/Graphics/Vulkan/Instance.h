@@ -14,7 +14,7 @@ public:
 
 private:
     VkInstance* instance = nullptr;
-    VkInstanceCreateInfo* pCreateInfo = nullptr;
+    VkInstanceCreateInfo createInfo;
 };
 
 } // Vulkan

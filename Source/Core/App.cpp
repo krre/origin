@@ -38,11 +38,11 @@ void App::setBackend(App::GraphicsBackend backend) {
 
 void App::init() {
 
-//    if (vulkanInstance.create()) {
-//        print("Vulkan instance is created")
-//    } else {
-//        print(vulkanInstance.getError())
-//    }
+    if (vulkanInstance.create()) {
+        print("Vulkan instance is created")
+    } else {
+        error(vulkanInstance.getError())
+    }
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());

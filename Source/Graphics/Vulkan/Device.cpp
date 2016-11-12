@@ -7,8 +7,8 @@ Device::Device() {
 }
 
 Device::~Device() {
-    if (device) {
-        vkDestroyDevice(device, NULL);
+    if (handle) {
+        vkDestroyDevice(handle, NULL);
     }
 }
 

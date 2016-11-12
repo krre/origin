@@ -10,6 +10,10 @@ public:
     Device();
     ~Device();
     bool create();
+    VkDevice getDevice() const { return device; }
+
+private:
+    VkDevice device = 0;
 };
 
 } // Vulkan

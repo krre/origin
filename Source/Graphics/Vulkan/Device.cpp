@@ -3,7 +3,7 @@
 
 using namespace Vulkan;
 
-Device::Device() {
+Device::Device(const PhysicalDevice* physicalDevice) : physicalDevice(physicalDevice) {
 
 }
 

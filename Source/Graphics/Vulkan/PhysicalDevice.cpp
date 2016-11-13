@@ -2,6 +2,6 @@
 
 using namespace Vulkan;
 
-PhysicalDevice::PhysicalDevice(Instance& instance) : instance(instance) {
+PhysicalDevice::PhysicalDevice(const Instance* instance) : instance(instance) {
 
 }

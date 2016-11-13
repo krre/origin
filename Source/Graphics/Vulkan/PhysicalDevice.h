@@ -8,10 +8,10 @@ namespace Vulkan {
 class PhysicalDevice : public VulkanObject {
 
 public:
-    PhysicalDevice(Instance& instance);
+    PhysicalDevice(const Instance* instance);
 
 private:
-    Instance instance;
+    const Instance* instance;
 };
 
 } // Vulkan

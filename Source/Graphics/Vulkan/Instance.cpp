@@ -1,4 +1,5 @@
 #include "Instance.h"
+#include <assert.h>
 
 using namespace Vulkan;
 
@@ -24,6 +25,8 @@ Instance::~Instance() {
 }
 
 bool Instance::create() {
+    assert(!handle && "Vulkan instance already is created");
+
     VkResult result = vkCreateInstance(&createInfo, NULL, &handle);
     if (result == VK_SUCCESS) {
         return true;

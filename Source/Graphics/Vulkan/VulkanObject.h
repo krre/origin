@@ -1,11 +1,11 @@
 #pragma once
-#include "../../Core/Object.h"
+#include "../../Core/Common.h"
 #include <vulkan/vulkan.h>
 #include <string>
 
 namespace Vulkan {
 
-class VulkanObject : public Object {
+class VulkanObject {
 
 public:
     VulkanObject();

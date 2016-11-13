@@ -10,7 +10,7 @@ public:
     Device();
     ~Device();
     bool create();
-    VkDevice getHandle() const { return handle; }
+    VkDevice getHandle() const;
 
 private:
     VkDevice handle = 0;

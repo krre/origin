@@ -14,6 +14,7 @@ Device::~Device() {
 }
 
 bool Device::create() {
+    assert(!handle && "Vulkan device already is created");
 
     return false;
 }

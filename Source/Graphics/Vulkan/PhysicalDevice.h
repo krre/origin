@@ -1,5 +1,6 @@
 #pragma once
 #include "VulkanObject.h"
+#include "Instance.h"
 #include <vulkan/vulkan.h>
 
 namespace Vulkan {
@@ -7,8 +8,10 @@ namespace Vulkan {
 class PhysicalDevice : public VulkanObject {
 
 public:
-    PhysicalDevice();
+    PhysicalDevice(Instance& instance);
 
+private:
+    Instance instance;
 };
 
 } // Vulkan

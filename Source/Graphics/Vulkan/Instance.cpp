@@ -55,3 +55,9 @@ bool Instance::create() {
 
     return false;
 }
+
+VkInstance Instance::getHandle() const {
+    assert(handle && "Vulkan instance is not created");
+
+    return handle;
+}

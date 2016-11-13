@@ -10,7 +10,7 @@ public:
     Instance();
     ~Instance();
     bool create();
-    VkInstance getHandle() const { return handle; }
+    VkInstance getHandle() const;
 
 private:
     VkInstance handle = 0;

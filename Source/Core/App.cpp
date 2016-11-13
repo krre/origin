@@ -54,13 +54,13 @@ void App::init() {
     SDL_DisplayMode mode;
     if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
         std::string errorMsg = std::string("SDL_GetDesktopDisplayMode failed\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
         return;
     }
 
     if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
         std::string errorMsg = std::string("SDL_GetDisplayMode failed\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
         return;
     }
 
@@ -81,7 +81,7 @@ void App::init() {
 
     if (window == nullptr) {
         std::string errorMsg = std::string("Window could not be created\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
         return;
     }
 
@@ -94,12 +94,12 @@ void App::init() {
 
     if (context == nullptr) {
         std::string errorMsg = std::string("OpenGL context could not be created\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
         return;
     }
 
     if (!SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object") || !SDL_GL_ExtensionSupported("GL_ARB_compute_shader")) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, "OpenGL 4.3 is not supported.\nUpdate your video driver", NULL);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, "OpenGL 4.3 is not supported.\nUpdate your video driver", nullptr);
         return;
     }
 

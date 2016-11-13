@@ -79,7 +79,7 @@ Text::Text() {
     // Configure VAO/VBO for texture quads
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
 
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);

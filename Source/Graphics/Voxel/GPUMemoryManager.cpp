@@ -9,13 +9,13 @@ GPUMemoryManager::GPUMemoryManager() {
 
     glGenBuffers(1, &octreesSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, MEMORY_SIZE, NULL, GL_DYNAMIC_COPY);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, MEMORY_SIZE, nullptr, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, octreesSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
     glGenBuffers(1, &renderListSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, renderListSsbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_OCTREE_COUNT, NULL, GL_DYNAMIC_COPY);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_OCTREE_COUNT, nullptr, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, renderListSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }

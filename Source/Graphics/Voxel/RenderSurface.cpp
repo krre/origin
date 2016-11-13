@@ -64,7 +64,7 @@ RenderSurface::RenderSurface() {
 
     glGenBuffers(1, &debugSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, debugSsbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(DebugOut), NULL, GL_DYNAMIC_COPY);
+    glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(DebugOut), nullptr, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 10, debugSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
@@ -87,7 +87,7 @@ RenderSurface::RenderSurface() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 800, 480, 0, GL_RGBA, GL_FLOAT, NULL);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F, 800, 480, 0, GL_RGBA, GL_FLOAT, nullptr);
     glBindImageTexture(2, surfaceTex, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F);
 
     int work_grp_cnt[3];

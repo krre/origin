@@ -20,14 +20,14 @@ Instance::Instance() {
 
 Instance::~Instance() {
     if (handle) {
-        vkDestroyInstance(handle, NULL);
+        vkDestroyInstance(handle, nullptr);
     }
 }
 
 bool Instance::create() {
     assert(!handle && "Vulkan instance already is created");
 
-    VkResult result = vkCreateInstance(&createInfo, NULL, &handle);
+    VkResult result = vkCreateInstance(&createInfo, nullptr, &handle);
     if (result == VK_SUCCESS) {
         return true;
     } else {

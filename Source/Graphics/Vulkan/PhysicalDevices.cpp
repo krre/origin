@@ -10,25 +10,19 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
     for (auto device: devices) {
         VkPhysicalDeviceProperties deviceProperties;
         vkGetPhysicalDeviceProperties(device, &deviceProperties);
-        devicesByType[deviceProperties.deviceType] = device;
-    }
-}
-
-VkPhysicalDevice PhysicalDevices::getPrimary() {
-    auto it = devicesByType.find(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
-    if (it != devicesByType.end()) {
-        return it->second;
-    } else {
-        return devices[0]; // Any first
-    }
-}
-
-VkPhysicalDevice PhysicalDevices::getSecondary() {
-    for (auto it: devicesByType) {
-        if (it.first != VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
-            return it.second; // Any not discrete
+        if (deviceProperties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
+            primaryDevice = device;
+        } else {
+            secondaryDevice = device;
         }
     }
 
-    return 0;
+    if (!primaryDevice) {
+        primaryDevice = secondaryDevice;
+    }
+
+    if (!secondaryDevice) {
+        secondaryDevice = primaryDevice;
+    }
 }
+

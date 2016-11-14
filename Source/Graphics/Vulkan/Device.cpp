@@ -12,15 +12,3 @@ Device::~Device() {
         vkDestroyDevice(handle, nullptr);
     }
 }
-
-bool Device::create() {
-    assert(!handle && "Vulkan device already is created");
-
-    return false;
-}
-
-VkDevice Device::getHandle() const {
-    assert(handle && "Vulkan device is not created");
-
-    return handle;
-}

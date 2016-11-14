@@ -9,7 +9,6 @@ class Instance : public VulkanObject {
 public:
     Instance();
     ~Instance();
-    bool create();
     VkInstance getHandle() const { return handle; }
 
 private:

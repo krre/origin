@@ -40,8 +40,9 @@ public:
 private:
     std::vector<std::string> argv;
     GraphicsBackend graphicsBackend = VULKAN;
-    Vulkan::Instance vulkanInstance;
     Viewport viewport;
+
+    std::unique_ptr<Vulkan::Instance> vulkanInstance;
     std::unique_ptr<Vulkan::PhysicalDevices> vulkanPhysicalDevices;
     std::unique_ptr<Vulkan::Device> vulkanDevice;
 

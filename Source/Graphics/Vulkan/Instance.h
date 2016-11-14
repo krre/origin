@@ -10,12 +10,10 @@ public:
     Instance();
     ~Instance();
     bool create();
-    VkInstance getHandle() const;
+    VkInstance getHandle() const { return handle; }
 
 private:
     VkInstance handle = 0;
-    VkApplicationInfo appInfo;
-    VkInstanceCreateInfo createInfo;
 };
 
 } // Vulkan

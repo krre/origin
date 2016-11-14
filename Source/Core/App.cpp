@@ -39,7 +39,7 @@ void App::setBackend(App::GraphicsBackend backend) {
 void App::init() {
 
     vulkanInstance.reset(new Vulkan::Instance);
-    if (!vulkanInstance->getHandle()) {
+    if (!vulkanInstance->isValid()) {
         error(vulkanInstance->getError())
         return;
     }

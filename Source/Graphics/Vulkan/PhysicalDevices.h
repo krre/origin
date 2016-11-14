@@ -7,10 +7,10 @@
 
 namespace Vulkan {
 
-class PhysicalDevice : public VulkanObject {
+class PhysicalDevices : public VulkanObject {
 
 public:
-    PhysicalDevice(const Instance* instance);
+    PhysicalDevices(const Instance* instance);
     uint32_t getCount() const { return count; }
     VkPhysicalDevice getPrimary();
     VkPhysicalDevice getSecondary();

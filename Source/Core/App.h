@@ -3,7 +3,7 @@
 #include "Singleton.h"
 #include "../UI/Viewport.h"
 #include "../Graphics/Vulkan/Instance.h"
-#include "../Graphics/Vulkan/PhysicalDevice.h"
+#include "../Graphics/Vulkan/PhysicalDevices.h"
 #include "../Graphics/Vulkan/Device.h"
 #include <SDL.h>
 #include <vector>
@@ -42,7 +42,7 @@ private:
     GraphicsBackend graphicsBackend = VULKAN;
     Vulkan::Instance vulkanInstance;
     Viewport viewport;
-    std::unique_ptr<Vulkan::PhysicalDevice> vulkanPhysicalDevice;
+    std::unique_ptr<Vulkan::PhysicalDevices> vulkanPhysicalDevices;
     std::unique_ptr<Vulkan::Device> vulkanDevice;
 
     bool isRunning = false;

@@ -40,7 +40,7 @@ void App::init() {
 
     if (vulkanInstance.create()) {
         print("Vulkan instance is created")
-        vulkanPhysicalDevice.reset(new Vulkan::PhysicalDevice(&vulkanInstance));
+        vulkanPhysicalDevices.reset(new Vulkan::PhysicalDevices(&vulkanInstance));
     } else {
         error(vulkanInstance.getError())
     }

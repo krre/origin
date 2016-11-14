@@ -1,6 +1,6 @@
 #pragma once
 #include "VulkanObject.h"
-#include "PhysicalDevice.h"
+#include "PhysicalDevices.h"
 #include <vulkan/vulkan.h>
 
 namespace Vulkan {
@@ -8,13 +8,13 @@ namespace Vulkan {
 class Device : public VulkanObject {
 
 public:
-    Device(const PhysicalDevice* physicalDevice);
+    Device(const PhysicalDevices* physicalDevices);
     ~Device();
     bool create();
     VkDevice getHandle() const;
 
 private:
-    const PhysicalDevice* physicalDevice;
+    const PhysicalDevices* physicalDevices;
     VkDevice handle = 0;
     VkDeviceCreateInfo createInfo;
 };

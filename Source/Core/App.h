@@ -4,6 +4,7 @@
 #include "../UI/Viewport.h"
 #include "../Graphics/Vulkan/Instance.h"
 #include "../Graphics/Vulkan/PhysicalDevice.h"
+#include "../Graphics/Vulkan/Device.h"
 #include <SDL.h>
 #include <vector>
 
@@ -42,6 +43,7 @@ private:
     Vulkan::Instance vulkanInstance;
     Viewport viewport;
     std::unique_ptr<Vulkan::PhysicalDevice> vulkanPhysicalDevice;
+    std::unique_ptr<Vulkan::Device> vulkanDevice;
 
     bool isRunning = false;
     SDL_Window* window = nullptr;

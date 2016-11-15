@@ -11,6 +11,7 @@ public:
     Device(const PhysicalDevices* physicalDevices);
     ~Device();
     VkDevice getHandle() const { return handle; }
+    bool isValid() const { return handle != 0; }
 
 private:
     const PhysicalDevices* physicalDevices;

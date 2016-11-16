@@ -6,6 +6,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Queue.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanObject.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanObject.h
     PARENT_SCOPE

@@ -38,22 +38,6 @@ void App::setBackend(App::GraphicsBackend backend) {
 }
 
 void App::init() {
-
-    // Vulkan instance
-    vulkanInstance.reset(new Vulkan::Instance);
-    if (!vulkanInstance->isValid()) {
-        error(vulkanInstance->getError())
-        return;
-    }
-
-    // Vulkan device
-    vulkanPhysicalDevices.reset(new Vulkan::PhysicalDevices(vulkanInstance.get()));
-    vulkanDevice.reset(new Vulkan::Device(vulkanPhysicalDevices.get()));
-    if (!vulkanDevice->isValid()) {
-        error(vulkanDevice->getError());
-        return;
-    }
-
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());
         return;

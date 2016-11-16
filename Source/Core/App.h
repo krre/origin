@@ -2,9 +2,6 @@
 #include "../Event/Event.h"
 #include "Singleton.h"
 #include "../UI/Viewport.h"
-#include "../Graphics/Vulkan/Instance.h"
-#include "../Graphics/Vulkan/PhysicalDevices.h"
-#include "../Graphics/Vulkan/Device.h"
 #include <SDL.h>
 #include <vector>
 
@@ -41,11 +38,6 @@ private:
     std::vector<std::string> argv;
     GraphicsBackend graphicsBackend = VULKAN;
     Viewport viewport;
-
-    std::unique_ptr<Vulkan::Instance> vulkanInstance;
-    std::unique_ptr<Vulkan::PhysicalDevices> vulkanPhysicalDevices;
-    std::unique_ptr<Vulkan::Device> vulkanDevice;
-
     bool isRunning = false;
     SDL_Window* window = nullptr;
     SDL_GLContext context;

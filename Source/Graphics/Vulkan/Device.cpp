@@ -32,30 +32,8 @@ Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physica
     createInfo.enabledExtensionCount = 0;
 
     VkResult result = vkCreateDevice(physicalDevices->getPrimary(), &createInfo, nullptr, &handle);
-
     if (result != VK_SUCCESS) {
-        switch (result) {
-        case VK_ERROR_OUT_OF_HOST_MEMORY:
-            error = "Out of host memory";
-            break;
-        case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-            error = "Out of device memory";
-            break;
-        case VK_ERROR_INITIALIZATION_FAILED:
-            error = "Initialization failed";
-            break;
-        case VK_ERROR_EXTENSION_NOT_PRESENT:
-            error = "Extension not present";
-            break;
-        case VK_ERROR_FEATURE_NOT_PRESENT:
-            error = "Feature not present";
-            break;
-        case VK_ERROR_TOO_MANY_OBJECTS:
-            error = "Too many objects";
-            break;
-        case VK_ERROR_DEVICE_LOST:
-            error = "Device lost";
-        }
+        error = resultDescription[result];
     }
 }
 

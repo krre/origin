@@ -1,4 +1,5 @@
 #include "Instance.h"
+#include "VulkanManager.h"
 #include <assert.h>
 
 using namespace Vulkan;
@@ -21,25 +22,7 @@ Instance::Instance() {
 
     VkResult result = vkCreateInstance(&createInfo, nullptr, &handle);
     if (result != VK_SUCCESS) {
-        switch (result) {
-        case VK_ERROR_OUT_OF_HOST_MEMORY:
-            error = "Out of host memory";
-            break;
-        case VK_ERROR_OUT_OF_DEVICE_MEMORY:
-            error = "Out of device memory";
-            break;
-        case VK_ERROR_INITIALIZATION_FAILED:
-            error = "Initialization failed";
-            break;
-        case VK_ERROR_LAYER_NOT_PRESENT:
-            error = "Layer not present";
-            break;
-        case VK_ERROR_EXTENSION_NOT_PRESENT:
-            error = "Extension not present";
-            break;
-        case VK_ERROR_INCOMPATIBLE_DRIVER:
-            error = "Incompatible driver";
-        }
+        error = resultDescription[result];
     }
 }
 

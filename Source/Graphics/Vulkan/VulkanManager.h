@@ -5,9 +5,8 @@
 #include "Device.h"
 #include <vulkan/vulkan.h>
 #include <string>
-#include <map>
 
-const std::string initError = "Vulkan initialization error\n\n";
+const std::string initError = "Vulkan initialization error:\n";
 
 class VulkanManager : public Singleton<VulkanManager> {
 
@@ -17,10 +16,8 @@ public:
     std::string getError() const { return error; }
     Vulkan::Instance* getInstance() const { return instance.get(); }
     Vulkan::Device* getDevice() const { return device.get(); }
-    static std::string getResultDescription(VkResult result) { resultDescription.at(result); }
 
 private:
-    static std::map<VkResult, std::string> resultDescription;
     std::string error = "Undefined error";
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;

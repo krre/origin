@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Game.h"
 #include "Utils.h"
+#include "../Graphics/Vulkan/VulkanManager.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../Resource/ResourceManager.h"
@@ -109,6 +110,12 @@ void App::init() {
 
     if (!SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object") || !SDL_GL_ExtensionSupported("GL_ARB_compute_shader")) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, "OpenGL 4.3 is not supported.\nUpdate your video driver", nullptr);
+        return;
+    }
+
+    new VulkanManager;
+    if (!VulkanManager::getInstance()->init()) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, VulkanManager::getInstance()->getError().c_str(), nullptr);
         return;
     }
 

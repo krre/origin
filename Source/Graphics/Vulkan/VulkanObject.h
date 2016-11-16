@@ -1,12 +1,12 @@
 #pragma once
-#include "../../Core/Common.h"
+#include "../../Core/Object.h"
 #include <vulkan/vulkan.h>
 #include <string>
 #include <map>
 
 namespace Vulkan {
 
-class VulkanObject {
+class VulkanObject : public Object {
 
 public:
     VulkanObject();
@@ -14,10 +14,8 @@ public:
     VkResult getResult() const { return result; }
 
 protected:
-    std::string error = "Unknown error";
     VkResult result = VK_SUCCESS;
     static std::map<VkResult, std::string> resultDescription;
-
 };
 
 } // Vulkan

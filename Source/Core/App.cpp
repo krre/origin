@@ -99,7 +99,7 @@ void App::init() {
 
     new VulkanManager;
     if (!VulkanManager::get()->init()) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, VulkanManager::get()->getError().c_str(), nullptr);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, VulkanManager::get()->getResultDescription().c_str(), nullptr);
         return;
     }
 

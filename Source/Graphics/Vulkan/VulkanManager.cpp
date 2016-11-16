@@ -10,7 +10,7 @@ bool VulkanManager::init() {
     // Vulkan instance
     instance.reset(new Instance);
     if (!instance->isValid()) {
-        error = std::string(initError) + instance->getError();
+        resultDescription = std::string(initError) + instance->getResultDescription();
         return false;
     }
 
@@ -18,7 +18,7 @@ bool VulkanManager::init() {
     physicalDevices.reset(new PhysicalDevices(instance.get()));
     device.reset(new Device(physicalDevices.get()));
     if (!device->isValid()) {
-        error = std::string(initError) + device->getError();
+        resultDescription = std::string(initError) + device->getResultDescription();
         return false;
     }
 

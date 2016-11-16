@@ -20,10 +20,7 @@ Instance::Instance() {
     createInfo.enabledLayerCount = 0;
     createInfo.enabledExtensionCount = 0;
 
-    VkResult result = vkCreateInstance(&createInfo, nullptr, &handle);
-    if (result != VK_SUCCESS) {
-        error = resultDescription[result];
-    }
+    result = vkCreateInstance(&createInfo, nullptr, &handle);
 }
 
 Instance::~Instance() {

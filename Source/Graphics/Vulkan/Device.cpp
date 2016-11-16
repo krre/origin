@@ -31,10 +31,7 @@ Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physica
     createInfo.enabledLayerCount = 0;
     createInfo.enabledExtensionCount = 0;
 
-    VkResult result = vkCreateDevice(physicalDevices->getPrimary(), &createInfo, nullptr, &handle);
-    if (result != VK_SUCCESS) {
-        error = resultDescription[result];
-    }
+    result = vkCreateDevice(physicalDevices->getPrimary(), &createInfo, nullptr, &handle);
 }
 
 Device::~Device() {

@@ -13,12 +13,12 @@ class VulkanManager : public Singleton<VulkanManager> {
 public:
     VulkanManager();
     bool init();
-    std::string getError() const { return error; }
+    std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance.get(); }
     Vulkan::Device* getDevice() const { return device.get(); }
 
 private:
-    std::string error = "Undefined error";
+    std::string resultDescription = "Undefined error";
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
     std::unique_ptr<Vulkan::Device> device;

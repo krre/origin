@@ -13,6 +13,7 @@ public:
     VulkanManager();
     bool init();
     std::string getError() const { return error; }
+    Vulkan::Instance* getInstance() const { return instance.get(); }
 
 private:
     std::string error = "Undefined error";

@@ -18,7 +18,7 @@ public:
     Vulkan::Device* getDevice() const { return device.get(); }
 
 private:
-    std::string resultDescription = "Undefined error";
+    std::string resultDescription = "None";
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
     std::unique_ptr<Vulkan::Device> device;

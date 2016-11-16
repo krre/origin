@@ -1,5 +1,4 @@
 #include "Device.h"
-#include <assert.h>
 
 using namespace Vulkan;
 

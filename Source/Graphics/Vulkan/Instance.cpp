@@ -1,6 +1,4 @@
 #include "Instance.h"
-#include "VulkanManager.h"
-#include <assert.h>
 
 using namespace Vulkan;
 

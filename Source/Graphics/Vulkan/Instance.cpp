@@ -18,7 +18,9 @@ Instance::Instance() {
     createInfo.enabledLayerCount = 0;
     createInfo.enabledExtensionCount = 0;
 
-    result = vkCreateInstance(&createInfo, nullptr, &handle);
+    // Using direct assign 'result = vkCreateInstance' causes crash on Windows
+    VkResult hackResult = vkCreateInstance(&createInfo, nullptr, &handle);
+    result = hackResult;
 }
 
 Instance::~Instance() {

@@ -12,6 +12,7 @@ public:
     ~Device();
     VkDevice getHandle() const { return handle; }
     bool isValid() const { return handle != 0; }
+    void waitIdle();
 
 private:
     const PhysicalDevices* physicalDevices;

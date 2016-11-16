@@ -64,3 +64,9 @@ Device::~Device() {
         vkDestroyDevice(handle, nullptr);
     }
 }
+
+void Device::waitIdle() {
+    if (handle) {
+        vkDeviceWaitIdle(handle);
+    }
+}

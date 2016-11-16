@@ -133,6 +133,7 @@ void App::initSingletons() {
 }
 
 void App::clean() {
+    VulkanManager::getInstance()->release();
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();

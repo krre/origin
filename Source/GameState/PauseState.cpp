@@ -22,7 +22,7 @@ void PauseState::pause() {
 
 void PauseState::resume() {
     SDL_SetRelativeMouseMode(SDL_FALSE);
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setActive(false);
 }
 

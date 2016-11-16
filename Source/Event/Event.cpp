@@ -6,7 +6,7 @@ Event::Event() {
 }
 
 void Event::handleEvents() {
-    Input::getInstance()->mouseReset();
+    Input::get()->mouseReset();
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -27,8 +27,8 @@ void Event::handleEvents() {
             break;
 
         case SDL_MOUSEMOTION:
-            Input::getInstance()->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
-            Input::getInstance()->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
+            Input::get()->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
+            Input::get()->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
             mouseMove.emit(event.motion.x, event.motion.y);
 //            print("mouse move: " << event.motion.x << " " << event.motion.y);
             break;
@@ -48,15 +48,15 @@ void Event::handleEvents() {
             break;
 
         case SDL_KEYDOWN:
-            Input::getInstance()->addKey(event.key.keysym.sym);
-            Input::getInstance()->isKeyAccepted = false;
+            Input::get()->addKey(event.key.keysym.sym);
+            Input::get()->isKeyAccepted = false;
             keyPressed.emit(event.key);
 //            print("key down: " << event.key.keysym.sym);
             break;
 
         case SDL_KEYUP:
-            Input::getInstance()->removeKey(event.key.keysym.sym);
-            Input::getInstance()->isKeyAccepted = false;
+            Input::get()->removeKey(event.key.keysym.sym);
+            Input::get()->isKeyAccepted = false;
 //            print("key up: " << event.key.keysym.sym);
             keyRelease.emit(event.key);
 

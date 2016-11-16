@@ -7,7 +7,7 @@
 
 CameraSystem::CameraSystem() {
     type = SystemType::Camera;
-    Event::getInstance()->windowResize.connect<CameraSystem, &CameraSystem::onWindowResize>(this);
+    Event::get()->windowResize.connect<CameraSystem, &CameraSystem::onWindowResize>(this);
 }
 
 void CameraSystem::process(float dt) {

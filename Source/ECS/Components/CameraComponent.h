@@ -8,8 +8,8 @@ class CameraComponent : public Component {
 public:
     CameraComponent() {
         type = ComponentType::Camera;
-        int width = App::getInstance()->getWidth();
-        int height = App::getInstance()->getHeight();
+        int width = App::get()->getWidth();
+        int height = App::get()->getHeight();
         aspect = width * 1.0f / height;
     }
     float near = 0.01f;

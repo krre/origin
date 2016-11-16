@@ -5,7 +5,7 @@
 Engine* System::engine;
 
 System::System() {
-    engine = Engine::getInstance();
+    engine = Engine::get();
 }
 
 bool System::setActive(bool active) {

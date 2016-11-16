@@ -41,7 +41,7 @@ void Viewport::clearCameras() {
 
 void Viewport::setCurrentCamera(std::shared_ptr<Entity> currentCamera) {
     this->currentCamera = currentCamera;
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setMoveEntity(currentCamera.get());
     movementControllerSystem->setRotateEntity(currentCamera.get());
 

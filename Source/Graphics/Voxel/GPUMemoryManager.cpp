@@ -3,7 +3,7 @@
 #include "../../ECS/Components/Components.h"
 
 GPUMemoryManager::GPUMemoryManager() {
-    voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
+    voxelShaderGroup = ResourceManager::get()->getShaderGroup("VoxelShaderGroup");
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->bind();
 

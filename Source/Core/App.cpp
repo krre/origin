@@ -98,8 +98,8 @@ void App::init() {
     }
 
     new VulkanManager;
-    if (!VulkanManager::getInstance()->init()) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, VulkanManager::getInstance()->getError().c_str(), nullptr);
+    if (!VulkanManager::get()->init()) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, VulkanManager::get()->getError().c_str(), nullptr);
         return;
     }
 
@@ -111,9 +111,9 @@ void App::init() {
 
     initSingletons();
 
-    Event::getInstance()->windowResize.connect<App, &App::windowResize>(this);
-    Event::getInstance()->quit.connect<App, &App::quit>(this);
-    Event::getInstance()->windowResize.emit(width, height);
+    Event::get()->windowResize.connect<App, &App::windowResize>(this);
+    Event::get()->quit.connect<App, &App::quit>(this);
+    Event::get()->windowResize.emit(width, height);
 
     isRunning = true;
 }
@@ -133,20 +133,20 @@ void App::initSingletons() {
 }
 
 void App::clean() {
-    VulkanManager::getInstance()->release();
+    VulkanManager::get()->release();
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();
-    Game::getInstance()->release();
-    GameStateManager::getInstance()->release();
-    Engine::getInstance()->release();
-    Input::getInstance()->release();
-    Event::getInstance()->release();
-    ResourceManager::getInstance()->release();
-    Console::getInstance()->release();
-    DebugHUD::getInstance()->release();
-    Toast::getInstance()->release();
-    Logger::getInstance()->release();
+    Game::get()->release();
+    GameStateManager::get()->release();
+    Engine::get()->release();
+    Input::get()->release();
+    Event::get()->release();
+    ResourceManager::get()->release();
+    Console::get()->release();
+    DebugHUD::get()->release();
+    Toast::get()->release();
+    Logger::get()->release();
 }
 
 int App::run() {
@@ -154,14 +154,14 @@ int App::run() {
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
     while (isRunning) {
-        Event::getInstance()->handleEvents();
+        Event::get()->handleEvents();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        GameStateManager::getInstance()->update(frameTime);
-        GameStateManager::getInstance()->draw(frameTime);
+        GameStateManager::get()->update(frameTime);
+        GameStateManager::get()->draw(frameTime);
 
         SDL_GL_SwapWindow(window);
     }
@@ -176,7 +176,7 @@ int App::run() {
     double accumulator = 0.0;
 
     while (isRunning) {
-        Event::getInstance()->handleEvents();
+        Event::get()->handleEvents();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
@@ -184,11 +184,11 @@ int App::run() {
         accumulator += frameTime;
 
         while (accumulator >= dt) {
-            Engine::getInstance()->process(dt, Engine::UPDATE);
+            Engine::get()->process(dt, Engine::UPDATE);
             accumulator -= dt;
         }
 
-        Engine::getInstance()->process(dt, Engine::RENDER);
+        Engine::get()->process(dt, Engine::RENDER);
         SDL_GL_SwapWindow(window);
     }
 }

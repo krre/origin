@@ -10,15 +10,15 @@
 #include "../../Core/Utils.h"
 
 RenderSurface::RenderSurface() {
-    voxelShaderGroup = ResourceManager::getInstance()->getShaderGroup("VoxelShaderGroup");
-    raycastShaderGroup = ResourceManager::getInstance()->getShaderGroup("RaycastShaderGroup");
-    surfaceShaderGroup = ResourceManager::getInstance()->getShaderGroup("SurfaceShaderGroup");
+    voxelShaderGroup = ResourceManager::get()->getShaderGroup("VoxelShaderGroup");
+    raycastShaderGroup = ResourceManager::get()->getShaderGroup("RaycastShaderGroup");
+    surfaceShaderGroup = ResourceManager::get()->getShaderGroup("SurfaceShaderGroup");
 //    program = raycastShaderGroup->getProgram();
 //    raycastShaderGroup->bind();
     program = voxelShaderGroup->getProgram();
     voxelShaderGroup->bind();
 
-    glm::vec4 bgColor = App::getInstance()->getViewport()->getBackgroundColor();
+    glm::vec4 bgColor = App::get()->getViewport()->getBackgroundColor();
     glm::vec2 pickPixel(-1, -1);
 
     glUniform1i(glGetUniformLocation(program, "pageBytes"), pageBytes);
@@ -113,11 +113,11 @@ RenderSurface::RenderSurface() {
 }
 
 void RenderSurface::draw(float dt) {
-    int width = App::getInstance()->getWidth();
-    int height = App::getInstance()->getHeight();
+    int width = App::get()->getWidth();
+    int height = App::get()->getHeight();
 
-    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::getInstance()->getSystem(SystemType::Octree).get());
-    Entity* currentCamera = App::getInstance()->getViewport()->getCurrentCamera().get();
+    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
+    Entity* currentCamera = App::get()->getViewport()->getCurrentCamera().get();
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
@@ -128,7 +128,7 @@ void RenderSurface::draw(float dt) {
     glm::vec3 lightPos = glm::vec3(0.0);
 
     // TODO: Replace by family
-    for (auto entity : Engine::getInstance()->getEntities()) {
+    for (auto entity : Engine::get()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity.second->components[ComponentType::Octree].get());
         if (octreeComp) {
             octreeTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
@@ -147,7 +147,7 @@ void RenderSurface::draw(float dt) {
 
     for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
         std::vector<glm::vec4> transform;
-        Entity* entity = Engine::getInstance()->getEntity(imap.first).get();
+        Entity* entity = Engine::get()->getEntity(imap.first).get();
         TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
         transform.push_back(octreeTransform->objectToWorld[0]);
         transform.push_back(octreeTransform->objectToWorld[1]);

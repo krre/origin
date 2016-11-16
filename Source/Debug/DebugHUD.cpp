@@ -53,7 +53,7 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     statisticsLayout->addControl(&posZ);
     setLayout(statisticsLayout);
 
-    Event::getInstance()->windowResize.connect<DebugHUD, &DebugHUD::onWindowResize>(this);
+    Event::get()->windowResize.connect<DebugHUD, &DebugHUD::onWindowResize>(this);
 }
 
 void DebugHUD::draw(float dt) {
@@ -66,7 +66,7 @@ void DebugHUD::draw(float dt) {
         accumTime = 0;
         counter = 0;
     }
-    Entity* character = Engine::getInstance()->getEntity(Game::getInstance()->getCharacterId()).get();
+    Entity* character = Engine::get()->getEntity(Game::get()->getCharacterId()).get();
     TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
 
     posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));

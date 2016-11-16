@@ -3,11 +3,11 @@
 
 Button::Button() : Rectangle(100, 20) {
     setColor(glm::vec3(0.6, 0.6, 0.6));
-    Event::getInstance()->mouseButtonAction.connect<Button, &Button::onMouseButtonAction>(this);
+    Event::get()->mouseButtonAction.connect<Button, &Button::onMouseButtonAction>(this);
 }
 
 Button::~Button() {
-   Event::getInstance()->mouseButtonAction.disconnect<Button, &Button::onMouseButtonAction>(this);
+   Event::get()->mouseButtonAction.disconnect<Button, &Button::onMouseButtonAction>(this);
 }
 
 void Button::setText(const std::string &text) {

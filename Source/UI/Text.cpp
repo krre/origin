@@ -26,7 +26,7 @@ Text::Text() {
 
     FT_Set_Pixel_Sizes(face, 0, fontSize);
 
-    fontShaderGroup = ResourceManager::getInstance()->getShaderGroup("FontShaderGroup");
+    fontShaderGroup = ResourceManager::get()->getShaderGroup("FontShaderGroup");
     fontShaderGroup->bind();
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -113,7 +113,7 @@ void Text::draw(float dt) {
     fontShaderGroup->bind();
 
     glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0), glm::vec3(0.0f, 0.0f, z));
-    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::getInstance()->getWidth()), 0.0f, static_cast<GLfloat>(App::getInstance()->getHeight())) * translationMatrix;
+    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::get()->getWidth()), 0.0f, static_cast<GLfloat>(App::get()->getHeight())) * translationMatrix;
     glUniformMatrix4fv(glGetUniformLocation(fontShaderGroup->getProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     glUniform3f(glGetUniformLocation(fontShaderGroup->getProgram(), "textColor"), color.x, color.y, color.z);
@@ -124,7 +124,7 @@ void Text::draw(float dt) {
     // Iterate through all characters
     GLfloat startX = position.x;
     // TODO: Move relative coordinates on top level
-    float y = App::getInstance()->getHeight() - position.y;
+    float y = App::get()->getHeight() - position.y;
     for (auto c: text) {
         Character ch = characters[c];
 

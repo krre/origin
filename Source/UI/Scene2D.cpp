@@ -3,7 +3,7 @@
 #include <algorithm>
 
 Scene2D::Scene2D(int width, int height) : Control(width, height) {
-    Event::getInstance()->windowResize.connect<Scene2D, &Scene2D::onWindowResize>(this);
+    Event::get()->windowResize.connect<Scene2D, &Scene2D::onWindowResize>(this);
 }
 
 void Scene2D::draw(float dt) {

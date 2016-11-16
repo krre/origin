@@ -11,9 +11,9 @@ RenderSystem::RenderSystem() {
     // Order important!
     // From bottom layer to top
     drawables.push_back(&renderSurface);
-    drawables.push_back(Console::getInstance());
-    drawables.push_back(DebugHUD::getInstance());
-    drawables.push_back(Toast::getInstance());
+    drawables.push_back(Console::get());
+    drawables.push_back(DebugHUD::get());
+    drawables.push_back(Toast::get());
 }
 
 void RenderSystem::process(float dt) {

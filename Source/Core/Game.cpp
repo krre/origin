@@ -31,39 +31,39 @@ Game::Game() {
 
 void Game::create() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::getInstance()->getSystem(SystemType::Transform).get());
-    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::getInstance()->getSystem(SystemType::Octree).get());
-    PhisicsSystem* phisicsSystem = static_cast<PhisicsSystem*>(Engine::getInstance()->getSystem(SystemType::Phisics).get());
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::get()->getSystem(SystemType::Transform).get());
+    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
+    PhisicsSystem* phisicsSystem = static_cast<PhisicsSystem*>(Engine::get()->getSystem(SystemType::Phisics).get());
 
     // Free camera
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
     transformSystem->lookAt(freeCamera.get(), glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     transformSystem->translate(freeCamera.get(), glm::vec3(2.0f, 1.0f, 3.0f));
-    App::getInstance()->getViewport()->setCurrentCamera(freeCamera);
-    Engine::getInstance()->addEntity(freeCamera);
+    App::get()->getViewport()->setCurrentCamera(freeCamera);
+    Engine::get()->addEntity(freeCamera);
 
     // Avatar
     auto avatar = EntityBuilder::avatar();
-    Engine::getInstance()->addEntity(avatar);
+    Engine::get()->addEntity(avatar);
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
-    App::getInstance()->getViewport()->setCurrentCamera(avatarCamera);
+    App::get()->getViewport()->setCurrentCamera(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 2.0f));
 //    transformSystem->setPitch(avatarCamera.get(), -15.0);
-//    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::getInstance()->getSystem(SystemType::Node).get());
+//    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::get()->getSystem(SystemType::Node).get());
 //    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
     characterId = avatarCamera->getId();
 
     std::shared_ptr<PhisicsComponent> phisicsComponent = std::make_shared<PhisicsComponent>();
     phisicsComponent->mass = 1.0;
     phisicsComponent->collisionShape.reset(new btCapsuleShape(0.5, 1.75));
-    Engine::getInstance()->addComponent(avatarCamera.get(), phisicsComponent);
+    Engine::get()->addComponent(avatarCamera.get(), phisicsComponent);
     phisicsSystem->createMotionState(avatarCamera.get());
     phisicsSystem->createRigidBody(avatarCamera.get());
     phisicsComponent->rigidBody->setAngularFactor(btVector3(0, 0, 0));
     phisicsSystem->addRigidBody(avatarCamera.get());
 
-    Engine::getInstance()->addEntity(avatarCamera);
+    Engine::get()->addEntity(avatarCamera);
 
     octreeSystem->getGpuMemoryManager()->beginBatch();
 
@@ -72,8 +72,8 @@ void Game::create() {
     transformSystem->setScale(ground.get(), 5);
     transformSystem->setPosition(ground.get(), glm::vec3(0.0, 1.0, 0.0));
     OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
-    groundOctree->data = ResourceManager::getInstance()->getOctree("GroundOctree")->data();
-    Engine::getInstance()->addEntity(ground);
+    groundOctree->data = ResourceManager::get()->getOctree("GroundOctree")->data();
+    Engine::get()->addEntity(ground);
     octreeSystem->getGpuMemoryManager()->addEntity(ground.get());
 
     // Trees
@@ -87,8 +87,8 @@ void Game::create() {
     phisicsSystem->addRigidBody(tree1.get());
 
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
-    tree1Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
-    Engine::getInstance()->addEntity(tree1);
+    tree1Octree->data = ResourceManager::get()->getOctree("TreeOctree")->data();
+    Engine::get()->addEntity(tree1);
     octreeSystem->getGpuMemoryManager()->addEntity(tree1.get());
 
     std::shared_ptr<Entity> tree2 = EntityBuilder::geometry();
@@ -101,8 +101,8 @@ void Game::create() {
     phisicsSystem->addRigidBody(tree2.get());
 
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
-    tree2Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
-    Engine::getInstance()->addEntity(tree2);
+    tree2Octree->data = ResourceManager::get()->getOctree("TreeOctree")->data();
+    Engine::get()->addEntity(tree2);
     octreeSystem->getGpuMemoryManager()->addEntity(tree2.get());
 
     std::shared_ptr<Entity> tree3 = EntityBuilder::geometry();
@@ -115,8 +115,8 @@ void Game::create() {
     phisicsSystem->addRigidBody(tree3.get());
 
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
-    tree3Octree->data = ResourceManager::getInstance()->getOctree("TreeOctree")->data();
-    Engine::getInstance()->addEntity(tree3);
+    tree3Octree->data = ResourceManager::get()->getOctree("TreeOctree")->data();
+    Engine::get()->addEntity(tree3);
     octreeSystem->getGpuMemoryManager()->addEntity(tree3.get());
 
     // Chamomiles
@@ -124,24 +124,24 @@ void Game::create() {
     transformSystem->setScale(chamomile1.get(), 0.04);
     transformSystem->setPosition(chamomile1.get(), glm::vec3(0.2, -0.22, 0.2));
     OctreeComponent* chamomile1Octree = static_cast<OctreeComponent*>(chamomile1->components[ComponentType::Octree].get());
-    chamomile1Octree->data = ResourceManager::getInstance()->getOctree("ChamomileOctree")->data();
-    Engine::getInstance()->addEntity(chamomile1);
+    chamomile1Octree->data = ResourceManager::get()->getOctree("ChamomileOctree")->data();
+    Engine::get()->addEntity(chamomile1);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get());
 
     std::shared_ptr<Entity> chamomile2 = EntityBuilder::geometry();
     transformSystem->setScale(chamomile2.get(), 0.04);
     transformSystem->setPosition(chamomile2.get(), glm::vec3(-0.3, -0.22, 1.3));
     OctreeComponent* chamomile2Octree = static_cast<OctreeComponent*>(chamomile2->components[ComponentType::Octree].get());
-    chamomile2Octree->data = ResourceManager::getInstance()->getOctree("ChamomileOctree")->data();
-    Engine::getInstance()->addEntity(chamomile2);
+    chamomile2Octree->data = ResourceManager::get()->getOctree("ChamomileOctree")->data();
+    Engine::get()->addEntity(chamomile2);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get());
 
     std::shared_ptr<Entity> chamomile3 = EntityBuilder::geometry();
     transformSystem->setScale(chamomile3.get(), 0.04);
     transformSystem->setPosition(chamomile3.get(), glm::vec3(0.4, -0.22, 1.0));
     OctreeComponent* chamomile3Octree = static_cast<OctreeComponent*>(chamomile3->components[ComponentType::Octree].get());
-    chamomile3Octree->data = ResourceManager::getInstance()->getOctree("ChamomileOctree")->data();
-    Engine::getInstance()->addEntity(chamomile3);
+    chamomile3Octree->data = ResourceManager::get()->getOctree("ChamomileOctree")->data();
+    Engine::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get());
 
     octreeSystem->getGpuMemoryManager()->endBatch();
@@ -150,11 +150,11 @@ void Game::create() {
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
     transformSystem->translate(light.get(), glm::vec3(1.5, 2.5, 1.0));
-    Engine::getInstance()->addEntity(light);
+    Engine::get()->addEntity(light);
 
-    Event::getInstance()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
+    Event::get()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
 
-    GameStateManager::getInstance()->setState(GameState::PLAY);
+    GameStateManager::get()->setState(GameState::PLAY);
 }
 
 void Game::load() {
@@ -166,22 +166,22 @@ void Game::save() {
 }
 
 void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
-    GameState::Type gameState = GameStateManager::getInstance()->getStateType();
+    GameState::Type gameState = GameStateManager::get()->getStateType();
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-        if (Input::getInstance()->isKeyAccepted) break;
+        if (Input::get()->isKeyAccepted) break;
         if (gameState == GameState::PLAY) {
-            GameStateManager::getInstance()->pushState(GameState::PAUSE);
+            GameStateManager::get()->pushState(GameState::PAUSE);
         } else if (gameState == GameState::CONSOLE) {
-            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
             movementControllerSystem->setActive(true);
-            Console::getInstance()->setVisible(false);
-            GameStateManager::getInstance()->popState();
+            Console::get()->setVisible(false);
+            GameStateManager::get()->popState();
         }
         break;
 #ifdef DEBUG_HUD_ENABLE
     case SDLK_F5:
-        DebugHUD::getInstance()->trigger();
+        DebugHUD::get()->trigger();
         break;
 #endif
     case SDLK_F10:
@@ -195,16 +195,16 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 #ifdef CONSOLE_ENABLE
     case SDLK_SLASH:
         if (gameState == GameState::PLAY) {
-            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::getInstance()->getSystem(SystemType::MovementController).get());
+            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
             movementControllerSystem->setActive(false);
-            Console::getInstance()->setVisible(true);
-            GameStateManager::getInstance()->pushState(GameState::CONSOLE);
+            Console::get()->setVisible(true);
+            GameStateManager::get()->pushState(GameState::CONSOLE);
         }
         break;
 #endif
 #ifdef DEVELOP_MODE
     case SDLK_KP_0:
-        App::getInstance()->getViewport()->switchCamera();
+        App::get()->getViewport()->switchCamera();
         break;
 #endif
     default:
@@ -213,8 +213,8 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void Game::toggleFullScreen() {
-    bool isFullscreen = SDL_GetWindowFlags(App::getInstance()->getWindow()) & SDL_WINDOW_FULLSCREEN;
-    SDL_SetWindowFullscreen(App::getInstance()->getWindow(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+    bool isFullscreen = SDL_GetWindowFlags(App::get()->getWindow()) & SDL_WINDOW_FULLSCREEN;
+    SDL_SetWindowFullscreen(App::get()->getWindow(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
     SDL_ShowCursor(isFullscreen);
 }
 
@@ -236,8 +236,8 @@ void Game::saveScreenshot() {
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
     std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
 
-    int width = App::getInstance()->getWidth();
-    int height = App::getInstance()->getHeight();
+    int width = App::get()->getWidth();
+    int height = App::get()->getHeight();
 
     unsigned char* image = new unsigned char[width * height * 4];
     glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
@@ -263,7 +263,7 @@ void Game::saveScreenshot() {
     delete[] image;
 
     std::string message = "Screenshot saved to " + filename;
-    Toast::getInstance()->showToast(message);
+    Toast::get()->showToast(message);
 }
 
 void Game::loadDevelopSettings() {

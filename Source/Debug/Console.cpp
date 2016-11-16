@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 
 Console::Console() {
-    Event::getInstance()->windowResize.connect<Console, &Console::onWindowResize>(this);
+    Event::get()->windowResize.connect<Console, &Console::onWindowResize>(this);
     cmdLine.setZ(1.0f);
     visible = false;
 }
@@ -19,9 +19,9 @@ void Console::setVisible(bool visible) {
     this->visible = visible;
     if (visible) {
         cmdLine.setText("/");
-        Event::getInstance()->keyPressed.connect<Console, &Console::onKeyPressed>(this);
+        Event::get()->keyPressed.connect<Console, &Console::onKeyPressed>(this);
     } else {
-        Event::getInstance()->keyPressed.disconnect<Console, &Console::onKeyPressed>(this);
+        Event::get()->keyPressed.disconnect<Console, &Console::onKeyPressed>(this);
     }
 }
 
@@ -51,11 +51,11 @@ void Console::execute() {
     if (command.length() > 0 && command.substr(0, 1) == "/") {
         command = command.substr(1, command.length() - 1);
         if (command == "exit") {
-            App::getInstance()->quit();
+            App::get()->quit();
         } else if (command == "help") {
             print("help");
         }
         setVisible(false);
-        GameStateManager::getInstance()->setState(GameState::PLAY);
+        GameStateManager::get()->setState(GameState::PLAY);
     }
 }

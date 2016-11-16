@@ -19,32 +19,32 @@ PauseScene::PauseScene(int width, int height) :
     layout->addControl(&exitButton);
     setLayout(layout);
 
-    Event::getInstance()->keyPressed.connect<PauseScene, &PauseScene::onKeyPressed>(this);
+    Event::get()->keyPressed.connect<PauseScene, &PauseScene::onKeyPressed>(this);
     continueButton.clicked.connect<PauseScene, &PauseScene::onContinueButtonClicked>(this);
     exitButton.clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);
 }
 
 PauseScene::~PauseScene() {
-    Event::getInstance()->keyPressed.disconnect<PauseScene, &PauseScene::onKeyPressed>(this);
+    Event::get()->keyPressed.disconnect<PauseScene, &PauseScene::onKeyPressed>(this);
 }
 
 void PauseScene::draw(float dt) {
-    layout->setPosition(glm::vec2((App::getInstance()->getWidth() - layout->getWidth()) / 2.0, (App::getInstance()->getHeight() - layout->getHeight()) / 2.0));
+    layout->setPosition(glm::vec2((App::get()->getWidth() - layout->getWidth()) / 2.0, (App::get()->getHeight() - layout->getHeight()) / 2.0));
     layout->update();
     Scene2D::draw(dt);
 }
 
 void PauseScene::onContinueButtonClicked() {
-    GameStateManager::getInstance()->popState();
+    GameStateManager::get()->popState();
 }
 
 void PauseScene::onExitButtonClicked() {
-    App::getInstance()->quit();
+    App::get()->quit();
 }
 
 void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
-        GameStateManager::getInstance()->popState();
-        Input::getInstance()->isKeyAccepted = true;
+        GameStateManager::get()->popState();
+        Input::get()->isKeyAccepted = true;
     }
 }

@@ -120,16 +120,16 @@ void App::init() {
 
 void App::initSingletons() {
     // Order is important
-    new Logger();
-    new Event();
-    new ResourceManager();
-    new Console();
-    new DebugHUD();
-    new Toast();
-    new Input();
-    new Engine();
-    new GameStateManager();
-    new Game();
+    new Logger;
+    new Event;
+    new ResourceManager;
+    new Console;
+    new DebugHUD;
+    new Toast;
+    new Input;
+    new Engine;
+    new GameStateManager;
+    new Game;
 }
 
 void App::clean() {

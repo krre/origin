@@ -14,6 +14,7 @@ public:
     bool init();
     std::string getError() const { return error; }
     Vulkan::Instance* getInstance() const { return instance.get(); }
+    Vulkan::Device* getDevice() const { return device.get(); }
 
 private:
     std::string error = "Undefined error";

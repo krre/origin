@@ -6,6 +6,14 @@ VulkanManager::VulkanManager() {
 
 }
 
+VulkanManager::~VulkanManager() {
+    queue.release();
+    surface.release();
+    device.release();
+    physicalDevices.release();
+    instance.release();
+}
+
 bool VulkanManager::init() {
     // Vulkan instance
     instance.reset(new Instance);

@@ -14,6 +14,7 @@ class VulkanManager : public Singleton<VulkanManager> {
 
 public:
     VulkanManager();
+    ~VulkanManager();
     bool init();
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance.get(); }

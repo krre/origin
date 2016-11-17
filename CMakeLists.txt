@@ -47,8 +47,14 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${GLEW_LIBRARIES}
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
-    X11-xcb
     stdc++fs)
+
+IF (WIN32)
+
+ELSE()
+target_link_libraries(${EXECUTABLE_NAME}
+    X11-xcb)
+ENDIF()
 
 # Show in QtCreator project tree
 FILE(GLOB_RECURSE Data "Data/*.*")

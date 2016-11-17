@@ -29,5 +29,12 @@ bool VulkanManager::init() {
         return false;
     }
 
+    // Vulkan queue
+    queue.reset(new Queue(device.get()));
+    if (!queue->isValid()) {
+        resultDescription = std::string(initError) + queue->getResultDescription();
+        return false;
+    }
+
     return true;
 }

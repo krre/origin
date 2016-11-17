@@ -2,7 +2,6 @@
 
 using namespace Vulkan;
 
-Queue::Queue() {
-
+Queue::Queue(const Device* device) : device(device) {
+    vkGetDeviceQueue(device->getHandle(), 0, 0, &handle);
 }
-

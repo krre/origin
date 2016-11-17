@@ -1,7 +1,7 @@
 #pragma once
+#define VK_USE_PLATFORM_XCB_KHR
 #include "VulkanObject.h"
 #include "Instance.h"
-#include <vulkan/vulkan.h>
 
 namespace Vulkan {
 

@@ -24,6 +24,10 @@ bool VulkanManager::init() {
 
     // Vulkan surface
     surface.reset(new Surface(instance.get()));
+    if (!surface->isValid()) {
+        resultDescription = std::string(initError) + surface->getResultDescription();
+        return false;
+    }
 
     return true;
 }

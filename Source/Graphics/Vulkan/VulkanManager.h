@@ -17,6 +17,7 @@ public:
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance.get(); }
     Vulkan::Device* getDevice() const { return device.get(); }
+    Vulkan::Surface* getSurface() const { return surface.get(); }
 
 private:
     std::string resultDescription = "None";

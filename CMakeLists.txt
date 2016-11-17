@@ -47,6 +47,7 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${GLEW_LIBRARIES}
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
+    X11-xcb
     stdc++fs)
 
 # Show in QtCreator project tree

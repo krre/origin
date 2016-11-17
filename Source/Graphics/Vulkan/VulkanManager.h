@@ -3,6 +3,7 @@
 #include "Instance.h"
 #include "PhysicalDevices.h"
 #include "Device.h"
+#include "Surface.h"
 #include <vulkan/vulkan.h>
 #include <string>
 
@@ -22,4 +23,5 @@ private:
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
     std::unique_ptr<Vulkan::Device> device;
+    std::unique_ptr<Vulkan::Surface> surface;
 };

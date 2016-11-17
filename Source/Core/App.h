@@ -2,7 +2,7 @@
 #include "../Event/Event.h"
 #include "Singleton.h"
 #include "../UI/Viewport.h"
-#include <SDL.h>
+#include <SDL_video.h>
 #include <vector>
 
 constexpr int WINDOW_WIDTH = 800;

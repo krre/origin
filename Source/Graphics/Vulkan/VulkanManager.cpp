@@ -22,5 +22,8 @@ bool VulkanManager::init() {
         return false;
     }
 
+    // Vulkan surface
+    surface.reset(new Surface(instance.get()));
+
     return true;
 }

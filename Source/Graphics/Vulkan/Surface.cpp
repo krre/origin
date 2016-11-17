@@ -43,3 +43,9 @@ Surface::Surface(const Instance* instance) : instance(instance) {
 
     }
 }
+
+Surface::~Surface() {
+    if (handle) {
+        vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr);
+    }
+}

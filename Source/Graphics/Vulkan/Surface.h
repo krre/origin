@@ -14,6 +14,7 @@ class Surface : public VulkanObject {
 
 public:
     Surface(const Instance* instance);
+    ~Surface();
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkSurfaceKHR getHandle() const { return handle; }
 

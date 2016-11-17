@@ -11,12 +11,12 @@ public:
     Device(const PhysicalDevices* physicalDevices);
     ~Device();
     VkDevice getHandle() const { return handle; }
-    bool isValid() const { return handle != 0; }
+    bool isValid() const { return handle != VK_NULL_HANDLE; }
     void waitIdle();
 
 private:
     const PhysicalDevices* physicalDevices;
-    VkDevice handle = 0;
+    VkDevice handle = VK_NULL_HANDLE;
 };
 
 } // Vulkan

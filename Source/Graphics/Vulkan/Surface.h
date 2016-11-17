@@ -9,12 +9,12 @@ class Surface : public VulkanObject {
 
 public:
     Surface(const Instance* instance);
-    bool isValid() const { return handle != 0; }
+    bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkSurfaceKHR getHandle() const { return handle; }
 
 private:
     const Instance* instance;
-    VkSurfaceKHR handle = 0;
+    VkSurfaceKHR handle = VK_NULL_HANDLE;
 };
 
 } // Vulkan

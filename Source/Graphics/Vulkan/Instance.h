@@ -9,11 +9,11 @@ class Instance : public VulkanObject {
 public:
     Instance();
     ~Instance();
-    bool isValid() const { return handle != 0; }
+    bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkInstance getHandle() const { return handle; }
 
 private:
-    VkInstance handle = 0;
+    VkInstance handle = VK_NULL_HANDLE;
 };
 
 } // Vulkan

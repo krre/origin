@@ -8,11 +8,11 @@ class Queue : public VulkanObject {
 
 public:
     Queue();
-    bool isValid() const { return handle != 0; }
+    bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkQueue getHandle() const { return handle; }
 
 private:
-    VkQueue handle = 0;
+    VkQueue handle = VK_NULL_HANDLE;
 };
 
 } // Vulkan

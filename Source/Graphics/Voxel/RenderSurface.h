@@ -5,7 +5,7 @@
 
 const int LOD_PIXEL_LIMIT = 1;
 
-class RenderSurface : public Drawable {
+class RenderSurface : public Gagarin::Drawable {
 
 struct DebugOut {
     glm::vec4 debugVec;

@@ -1,5 +1,7 @@
 #include "Drawable.h"
 
+using namespace Gagarin;
+
 Drawable::Drawable() {
 
 }

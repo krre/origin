@@ -1,6 +1,9 @@
 #pragma once
 #include "../Core/Object.h"
 
+// Use namespace to prevent conflict with Drawable in X11
+namespace Gagarin {
+
 class Drawable : Object {
 
 public:
@@ -18,3 +21,5 @@ protected:
     bool visible = true;
     float opacity = 1.0;
 };
+
+} // Gagarin

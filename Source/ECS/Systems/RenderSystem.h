@@ -13,5 +13,5 @@ public:
 
 private:
     RenderSurface renderSurface;
-    std::vector<Drawable*> drawables;
+    std::vector<Gagarin::Drawable*> drawables;
 };

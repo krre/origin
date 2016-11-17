@@ -1,5 +1,6 @@
 #pragma once
 #include "VulkanObject.h"
+#include "Instance.h"
 #include <vulkan/vulkan.h>
 
 namespace Vulkan {
@@ -7,12 +8,13 @@ namespace Vulkan {
 class Surface : public VulkanObject {
 
 public:
-    Surface();
+    Surface(const Instance* instance);
     bool isValid() const { return handle != 0; }
     VkSurfaceKHR getHandle() const { return handle; }
 
 private:
-   VkSurfaceKHR handle = 0;
+    const Instance* instance;
+    VkSurfaceKHR handle = 0;
 };
 
 } // Vulkan

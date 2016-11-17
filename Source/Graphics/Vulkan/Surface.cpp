@@ -2,6 +2,6 @@
 
 using namespace Vulkan;
 
-Surface::Surface() {
+Surface::Surface(const Instance* instance) : instance(instance) {
 
 }

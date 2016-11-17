@@ -1,6 +1,7 @@
 #pragma once
 #include "VulkanObject.h"
 #include <vulkan/vulkan.h>
+#include <vector>
 
 namespace Vulkan {
 
@@ -14,6 +15,8 @@ public:
 
 private:
     VkInstance handle = VK_NULL_HANDLE;
+    uint32_t extensionCount = 0;
+    std::vector<VkExtensionProperties> extensions;
 };
 
 } // Vulkan

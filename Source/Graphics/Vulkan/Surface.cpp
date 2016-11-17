@@ -31,7 +31,12 @@ Surface::Surface(const Instance* instance) : instance(instance) {
 
 #elif _WIN32
     case SDL_SYSWM_WINDOWS: {
-        print("Windows")
+        VkWin32SurfaceCreateInfoKHR createInfo;
+        createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+        createInfo.flags = 0;
+        createInfo.hwnd = wminfo.info.win.window;
+        createInfo.hinstance = wminfo.info.win.hdc;
+        print("Windows: " << result)
         break;
     }
 #endif

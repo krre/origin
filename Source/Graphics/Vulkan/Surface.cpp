@@ -25,7 +25,7 @@ Surface::Surface(const Instance* instance) : instance(instance) {
         createInfo.window = wminfo.info.x11.window;
 
         result = vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle);
-        print("X11: " << result)
+        print("X11: " << handle)
         break;
     }
 
@@ -36,7 +36,7 @@ Surface::Surface(const Instance* instance) : instance(instance) {
         createInfo.flags = 0;
         createInfo.hwnd = wminfo.info.win.window;
         createInfo.hinstance = wminfo.info.win.hdc;
-        print("Windows: " << result)
+        print("Windows: " << handle)
         break;
     }
 #endif

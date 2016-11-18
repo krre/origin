@@ -18,7 +18,7 @@ Surface::Surface(const Instance* instance) : instance(instance) {
     switch (wminfo.subsystem) {
 #ifdef __linux__
     case SDL_SYSWM_X11: {
-        VkXcbSurfaceCreateInfoKHR createInfo;
+        VkXcbSurfaceCreateInfoKHR createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
         createInfo.flags = 0;
         createInfo.connection = XGetXCBConnection(wminfo.info.x11.display);
@@ -36,7 +36,7 @@ Surface::Surface(const Instance* instance) : instance(instance) {
 //        WNDCLASS wce;
 //        GetClassInfo(GetModuleHandle(NULL), className, &wce);
 
-        VkWin32SurfaceCreateInfoKHR createInfo;
+        VkWin32SurfaceCreateInfoKHR createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
         createInfo.flags = 0;
         createInfo.hwnd = wminfo.info.win.window;

@@ -4,7 +4,7 @@ using namespace Vulkan;
 
 Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physicalDevices) {
     float queuePriority = 1.0f;
-    VkDeviceQueueCreateInfo queueCreateInfo;
+    VkDeviceQueueCreateInfo queueCreateInfo = {};
     queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     queueCreateInfo.queueCount = 1;
     queueCreateInfo.pQueuePriorities = &queuePriority;
@@ -33,7 +33,7 @@ Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physica
         extNames.push_back(extension.extensionName);
     }
 
-    VkDeviceCreateInfo createInfo;
+    VkDeviceCreateInfo createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.queueCreateInfoCount = 1;
     createInfo.pQueueCreateInfos = &queueCreateInfo;

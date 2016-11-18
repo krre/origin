@@ -10,6 +10,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanObject.cpp

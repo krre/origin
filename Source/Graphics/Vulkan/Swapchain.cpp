@@ -3,11 +3,15 @@
 using namespace Vulkan;
 
 Swapchain::Swapchain(const Device* device, const Surface* surface) : device(device) {
+    VkSurfaceCapabilitiesKHR capabilities = {};
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &capabilities);
+    uint32_t imageCount = capabilities.minImageCount + 1;
+
     VkSwapchainCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
     createInfo.flags = 0;
     createInfo.surface = surface->getHandle();
-//    createInfo.minImageCount =
+//    createInfo.minImageCount = imageCount;
 //    createInfo.imageFormat =
 //    createInfo.imageColorSpace =
 //    createInfo.imageExtent =
@@ -24,6 +28,10 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) : device(devi
 
     result = vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle);
     print(handle);
+
+    vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, nullptr);
+    images.resize(imageCount);
+    vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, images.data());
 }
 
 Swapchain::~Swapchain() {

@@ -3,6 +3,7 @@
 #include "Device.h"
 #include "Surface.h"
 #include <vulkan/vulkan.h>
+#include <vector>
 
 namespace Vulkan {
 
@@ -18,6 +19,7 @@ private:
     VkSwapchainKHR handle = VK_NULL_HANDLE;
     const Device* device;
     const Surface* surface;
+    std::vector<VkImage> images;
 };
 
 } // Vulkan

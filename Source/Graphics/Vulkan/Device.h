@@ -13,6 +13,7 @@ public:
     VkDevice getHandle() const { return handle; }
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     void waitIdle();
+    const PhysicalDevices* getPhysicalDevices() const { return physicalDevices; }
 
 private:
     const PhysicalDevices* physicalDevices;

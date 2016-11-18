@@ -23,12 +23,23 @@ Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physica
         }
     }
 
+    uint32_t extensionCount;
+    vkEnumerateDeviceExtensionProperties(physicalDevices->getPrimary(), nullptr, &extensionCount, nullptr);
+    std::vector<VkExtensionProperties> availableExtensions(extensionCount);
+    vkEnumerateDeviceExtensionProperties(physicalDevices->getPrimary(), nullptr, &extensionCount, availableExtensions.data());
+    std::vector<const char*> extNames;
+    for (const auto& extension : availableExtensions) {
+        print(extension.extensionName);
+        extNames.push_back(extension.extensionName);
+    }
+
     VkDeviceCreateInfo createInfo;
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.queueCreateInfoCount = 1;
     createInfo.pQueueCreateInfos = &queueCreateInfo;
     createInfo.enabledLayerCount = 0;
-    createInfo.enabledExtensionCount = 0;
+    createInfo.enabledExtensionCount = extensionCount;
+    createInfo.ppEnabledExtensionNames = extNames.data();
 
     result = vkCreateDevice(physicalDevices->getPrimary(), &createInfo, nullptr, &handle);
 }

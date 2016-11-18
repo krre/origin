@@ -34,7 +34,7 @@ Instance::Instance() {
 }
 
 Instance::~Instance() {
-    if (handle) {
+    if (handle != VK_NULL_HANDLE) {
         vkDestroyInstance(handle, nullptr);
     }
 }

@@ -54,7 +54,7 @@ Surface::Surface(const Instance* instance) : instance(instance) {
 }
 
 Surface::~Surface() {
-    if (handle) {
+    if (handle != VK_NULL_HANDLE) {
         vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr);
     }
 }

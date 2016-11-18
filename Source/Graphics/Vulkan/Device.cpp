@@ -45,13 +45,13 @@ Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physica
 }
 
 Device::~Device() {
-    if (handle) {
+    if (handle != VK_NULL_HANDLE) {
         vkDestroyDevice(handle, nullptr);
     }
 }
 
 void Device::waitIdle() {
-    if (handle) {
+    if (handle != VK_NULL_HANDLE) {
         vkDeviceWaitIdle(handle);
     }
 }

@@ -7,6 +7,7 @@ VulkanManager::VulkanManager() {
 }
 
 VulkanManager::~VulkanManager() {
+    swapchain.release();
     queue.release();
     surface.release();
     device.release();

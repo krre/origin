@@ -9,6 +9,7 @@ class Swapchain : public VulkanObject {
 
 public:
     Swapchain(const Device* device);
+    ~Swapchain();
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkSwapchainKHR getHandle() const { return handle; }
 

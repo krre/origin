@@ -44,5 +44,12 @@ bool VulkanManager::init() {
         return false;
     }
 
+    // Vulkan swapchain
+    swapchain.reset(new Swapchain(device.get()));
+    if (!swapchain->isValid()) {
+        resultDescription = std::string(initError) + swapchain->getResultDescription();
+        return false;
+    }
+
     return true;
 }

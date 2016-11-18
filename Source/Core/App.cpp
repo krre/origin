@@ -67,10 +67,10 @@ void App::init() {
         screenWidth /= 2;
     }
 
-    int x = (screenWidth - WINDOW_WIDTH) / 2;
-    int y = (screenHeight - WINDOW_HEIGHT) / 2;
+    int x = (screenWidth - WIDTH) / 2;
+    int y = (screenHeight - HEIGHT) / 2;
 
-    window = SDL_CreateWindow(title, x, y, WINDOW_WIDTH, WINDOW_HEIGHT,
+    window = SDL_CreateWindow(title, x, y, WIDTH, HEIGHT,
         SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
 
     if (window == nullptr) {

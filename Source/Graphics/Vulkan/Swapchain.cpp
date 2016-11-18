@@ -7,12 +7,19 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) : device(devi
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &capabilities);
     uint32_t imageCount = capabilities.minImageCount + 1;
 
+
+    uint32_t formatCount;
+    vkGetPhysicalDeviceSurfaceFormatsKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &formatCount, nullptr);
+    std::vector<VkSurfaceFormatKHR> formats(formatCount);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &formatCount, formats.data());
+    VkSurfaceFormatKHR surfaceFormat = formats[0]; // TODO: Select by requirements
+
     VkSwapchainCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
     createInfo.flags = 0;
     createInfo.surface = surface->getHandle();
 //    createInfo.minImageCount = imageCount;
-//    createInfo.imageFormat =
+    createInfo.imageFormat = surfaceFormat.format;
 //    createInfo.imageColorSpace =
 //    createInfo.imageExtent =
     createInfo.imageArrayLayers = 1;

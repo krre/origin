@@ -5,6 +5,12 @@
 
 namespace Vulkan {
 
+#ifdef NDEBUG
+    const bool enableValidationLayers = false;
+#else
+    const bool enableValidationLayers = true;
+#endif
+
 class Instance : public VulkanObject {
 
 public:
@@ -15,7 +21,9 @@ public:
 
 private:
     VkInstance handle = VK_NULL_HANDLE;
+    uint32_t layerCount = 0;
     uint32_t extensionCount = 0;
+    std::vector<VkLayerProperties> layers;
     std::vector<VkExtensionProperties> extensions;
 };
 

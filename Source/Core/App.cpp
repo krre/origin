@@ -1,7 +1,7 @@
 #include "App.h"
 #include "Game.h"
 #include "Utils.h"
-#include "../Graphics/Vulkan/VulkanManager.h"
+#include "../Graphics/Vulkan/Manager.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../Resource/ResourceManager.h"
@@ -97,9 +97,9 @@ void App::init() {
         return;
     }
 
-    new VulkanManager;
-    if (!VulkanManager::get()->init()) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, VulkanManager::get()->getResultDescription().c_str(), nullptr);
+    new Vulkan::Manager;
+    if (!Vulkan::Manager::get()->init()) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getResultDescription().c_str(), nullptr);
         return;
     }
 
@@ -133,7 +133,7 @@ void App::initSingletons() {
 }
 
 void App::clean() {
-    VulkanManager::get()->release();
+    Vulkan::Manager::get()->release();
     SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_Quit();

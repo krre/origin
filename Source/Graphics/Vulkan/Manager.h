@@ -11,11 +11,13 @@
 
 const std::string initError = "Vulkan initialization error:\n";
 
-class VulkanManager : public Singleton<VulkanManager> {
+namespace Vulkan {
+
+class Manager : public Singleton<Manager> {
 
 public:
-    VulkanManager();
-    ~VulkanManager();
+    Manager();
+    ~Manager();
     bool init();
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance.get(); }
@@ -31,3 +33,5 @@ private:
     std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
 };
+
+} // Vulkan

@@ -4,6 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Manager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.cpp
@@ -12,8 +14,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanManager.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanObject.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanObject.h
     PARENT_SCOPE

@@ -1,12 +1,12 @@
-#include "VulkanManager.h"
+#include "Manager.h"
 
 using namespace Vulkan;
 
-VulkanManager::VulkanManager() {
+Manager::Manager() {
 
 }
 
-VulkanManager::~VulkanManager() {
+Manager::~Manager() {
     swapchain.release();
     queue.release();
     surface.release();
@@ -15,7 +15,7 @@ VulkanManager::~VulkanManager() {
     instance.release();
 }
 
-bool VulkanManager::init() {
+bool Manager::init() {
     // Vulkan instance
     instance.reset(new Instance);
     if (!instance->isValid()) {
@@ -46,11 +46,11 @@ bool VulkanManager::init() {
     }
 
     // Vulkan swapchain
-    swapchain.reset(new Swapchain(device.get(), surface.get()));
-    if (!swapchain->isValid()) {
-        resultDescription = std::string(initError) + swapchain->getResultDescription();
-        return false;
-    }
+//    swapchain.reset(new Swapchain(device.get(), surface.get()));
+//    if (!swapchain->isValid()) {
+//        resultDescription = std::string(initError) + swapchain->getResultDescription();
+//        return false;
+//    }
 
     return true;
 }

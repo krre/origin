@@ -19,28 +19,33 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) : device(devi
     vkGetPhysicalDeviceSurfacePresentModesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &presentModeCount, presentModes.data());
     VkPresentModeKHR presentMode = presentModes[0]; // TODO: Select by requirements
 
-    VkSwapchainCreateInfoKHR createInfo = {};
-    createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-    createInfo.flags = 0;
-    createInfo.surface = surface->getHandle();
-    createInfo.minImageCount = imageCount;
-    createInfo.imageFormat = surfaceFormat.format;
-    createInfo.imageColorSpace = surfaceFormat.colorSpace;
-    createInfo.imageExtent = capabilities.currentExtent;
-    createInfo.imageArrayLayers = 1;
-    createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
-    createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
-    createInfo.preTransform = capabilities.currentTransform;
-    createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
-    createInfo.presentMode = presentMode;
-    createInfo.clipped = VK_TRUE;
-    createInfo.oldSwapchain = VK_NULL_HANDLE;
+    VkBool32 surfaceSupport;
+    result = vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevices()->getPrimary(), 0, surface->getHandle(), &surfaceSupport);
+    if (surfaceSupport) {
+        VkSwapchainCreateInfoKHR createInfo = {};
+        createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
+        createInfo.flags = 0;
+        createInfo.surface = surface->getHandle();
+        createInfo.minImageCount = imageCount;
+        createInfo.imageFormat = surfaceFormat.format;
+        createInfo.imageColorSpace = surfaceFormat.colorSpace;
+        createInfo.imageExtent = capabilities.currentExtent;
+        createInfo.imageArrayLayers = 1;
+        createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;
+        createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+        createInfo.preTransform = capabilities.currentTransform;
+        createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+        createInfo.presentMode = presentMode;
+        createInfo.clipped = VK_TRUE;
+        createInfo.oldSwapchain = VK_NULL_HANDLE;
 
-//    result = vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle);
+        result = vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle);
+        print(result)
 
-//    vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, nullptr);
-//    images.resize(imageCount);
-//    vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, images.data());
+//        vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, nullptr);
+//        images.resize(imageCount);
+//        vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, images.data());
+    }
 }
 
 Swapchain::~Swapchain() {

@@ -46,11 +46,11 @@ bool Manager::init() {
     }
 
     // Vulkan swapchain
-//    swapchain.reset(new Swapchain(device.get(), surface.get()));
-//    if (!swapchain->isValid()) {
-//        resultDescription = std::string(initError) + swapchain->getResultDescription();
-//        return false;
-//    }
+    swapchain.reset(new Swapchain(device.get(), surface.get()));
+    if (!swapchain->isValid()) {
+        resultDescription = std::string(initError) + swapchain->getResultDescription();
+        return false;
+    }
 
     return true;
 }

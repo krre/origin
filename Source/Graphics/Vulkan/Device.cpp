@@ -28,10 +28,12 @@ Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physica
     std::vector<VkExtensionProperties> availableExtensions(extensionCount);
     vkEnumerateDeviceExtensionProperties(physicalDevices->getPrimary(), nullptr, &extensionCount, availableExtensions.data());
     std::vector<const char*> extNames;
+    print("Physical device extensions:")
     for (const auto& extension : availableExtensions) {
         print(extension.extensionName);
         extNames.push_back(extension.extensionName);
     }
+    print("")
 
     VkDeviceCreateInfo createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;

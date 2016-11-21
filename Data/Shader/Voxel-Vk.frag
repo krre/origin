@@ -28,7 +28,7 @@ layout (std430, binding = 10) buffer DebugOut {
     float debugFloat;
 };
 
-layout(std140, binding = 20) uniform buf {
+layout(std140, binding = 20) uniform UBO {
     int pageBytes;
     int blockInfoEnd;
 
@@ -45,7 +45,7 @@ layout(std140, binding = 20) uniform buf {
     int transformCount;
 
     vec2 pickPixel;
-} ubuf;
+} ubo;
 
 
 struct Ray {
@@ -72,7 +72,7 @@ uvec2 stack[s_max + 1u]; // Stack of parent voxels
 out vec4 color;
 
 Ray constructRay(in int index) {
-    int offset = int(renderOffsets[index] + ubuf.pageBytes) / 4 - ubuf.transformCount * 4;
+    int offset = int(renderOffsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
     offset += 16; // skip octreeToWorld matrix
     Ray ray;
     ray.ray_size_coef = 0;
@@ -159,7 +159,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
         vec3 t_corner = pos * t_coef - t_bias;
         float tc_max = min(min(t_corner.x, t_corner.y), t_corner.z);
 
-        if (gl_FragCoord.x == ubuf.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubuf.frameHeight / 2 + 0.5) {
+        if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {
             debugVec = vec4(pos, 1.0);
         }
 
@@ -171,10 +171,10 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
         if ((child_masks & 0x8000u) != 0u && t_min <= t_max) {
             // Terminate if the voxel is small enough.
 //            if (tc_max * ray_size_coef + ray_size_bias >= scale_exp2) {
-//            if (gl_FragCoord.x == ubuf.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubuf.frameHeight / 2 + 0.5) {
-//                debugFloat = ubuf.lod * tc_max;
+//            if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {
+//                debugFloat = ubo.lod * tc_max;
 //            }
-            if (ubuf.lod * tc_max  >= scale_exp2) {
+            if (ubo.lod * tc_max  >= scale_exp2) {
                 break; // at t_min
             }
 
@@ -302,12 +302,12 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     uint level = castRes.scale;
 
     // Clear lower 11 bits.
-    // Same as uint(-ubuf.pageBytes) / 4, however this formula gives different result on Windows and Linux,
+    // Same as uint(-ubo.pageBytes) / 4, however this formula gives different result on Windows and Linux,
     // so simple do hardcode.
     uint pageHeader = node & 0xFFFFF800;
 
     uint blockInfo = pageHeader + octreeData[pageHeader];
-    int attachData = int(blockInfo) + ubuf.blockInfoEnd;
+    int attachData = int(blockInfo) + ubo.blockInfoEnd;
     uint paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
 
     // While node has no color, loop
@@ -325,7 +325,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 
         pageHeader = node & 0xFFFFF800; // Clear lower 11 bits.
         blockInfo = pageHeader + int(octreeData[pageHeader]);
-        attachData = int(blockInfo) + ubuf.blockInfoEnd;
+        attachData = int(blockInfo) + ubo.blockInfoEnd;
         paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
     }
 
@@ -338,11 +338,11 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     float d = 255.0; // On Windows division like v.b / 255.0 rises runtime error
     vec3 octreeColor = vec3(r / d, g / d, b / d);
 
-    if (ubuf.shadeless) {
+    if (ubo.shadeless) {
         return vec4(octreeColor, 1.0);
     }
 
-    int offset = int(renderOffsets[index] + ubuf.pageBytes) / 4 - ubuf.transformCount * 4;
+    int offset = int(renderOffsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
     float v[16];
     for (int i = 0; i < 16; i++) {
         v[i] = uintBitsToFloat(octreeData[offset++]);
@@ -353,10 +353,10 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     vec4 col3 = vec4(v[12], v[13], v[14], v[15]);
     mat4 octreeToWorld = mat4(col0, col1, col2, col3);
 
-    vec3 ambient = ubuf.ambientStrength * ubuf.lightColor;
+    vec3 ambient = ubo.ambientStrength * ubo.lightColor;
     vec4 hitNormalWorld = normalize(octreeToWorld * castRes.normal);
-    vec3 lightDir = normalize(ubuf.lightPos);
-    vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * ubuf.lightColor;
+    vec3 lightDir = normalize(ubo.lightPos);
+    vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * ubo.lightColor;
     vec3 color = (ambient + diffuse) * octreeColor;
 
     return vec4(color, 1.0);
@@ -372,7 +372,7 @@ void main() {
         // Take near to camera t
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
-            int offset = int(renderOffsets[i] + ubuf.pageBytes) / 4 - ubuf.transformCount * 4;
+            int offset = int(renderOffsets[i] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
             float octreeScale = uintBitsToFloat(octreeData[offset]);
             float real_t = castRes.t * octreeScale;
             if (real_t < t) {
@@ -383,7 +383,7 @@ void main() {
         }
     }
 
-    if (gl_FragCoord.y == (ubuf.pickPixel.y + 0.5) && gl_FragCoord.x == (ubuf.pickPixel.x + 0.5)) { // For OctreeFarm pick node
+    if (gl_FragCoord.y == (ubo.pickPixel.y + 0.5) && gl_FragCoord.x == (ubo.pickPixel.x + 0.5)) { // For OctreeFarm pick node
         pickParent = outCastRes.node;
         if (pickParent != 0u) {
             pickPos = outCastRes.pos;
@@ -395,10 +395,10 @@ void main() {
     if (index != -1) {
         color = lookupColor(index, outCastRes);
     } else {
-        color = vec4(ubuf.backgroundColor, 1.0);
+        color = vec4(ubo.backgroundColor, 1.0);
     }
 
-//    if (gl_FragCoord.x == ubuf.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubuf.frameHeight / 2 + 0.5) {
+//    if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {
 //        color = vec4(1.0, 0.0, 0.0, 1.0);
 //    }
 }

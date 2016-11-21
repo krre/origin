@@ -2,10 +2,10 @@
 
 layout(location = 0) in vec3 position;
 
-layout(std140, binding = 0) uniform buf {
+layout(std140, binding = 0) uniform UBO {
     mat4 mvp;
-} ubuf;
+} ubo;
 
 void main() {
-    gl_Position = ubuf.mvp * vec4(position, 1.0);
+    gl_Position = ubo.mvp * vec4(position, 1.0);
 }

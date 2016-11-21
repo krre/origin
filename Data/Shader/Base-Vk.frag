@@ -2,10 +2,10 @@
 
 out vec3 fragColor;
 
-layout(std140, binding = 0) uniform buf {
+layout(std140, binding = 0) uniform UBO {
     vec3 color;
-} ubuf;
+} ubo;
 
 void main() {
-    fragColor = ubuf.color;
+    fragColor = ubo.color;
 }

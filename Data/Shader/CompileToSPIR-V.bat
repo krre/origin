@@ -1,5 +1,5 @@
 @ECHO OFF
-set validator=%VULKAN_SDK%/bin/glslangValidator -V
+set validator=%VULKAN_SDK%/bin/glslangValidator -V -t
 %validator% Base-Vk.vert -o Base.vert.spv
 %validator% Base-Vk.frag -o Base.frag.spv
 %validator% Font-Vk.vert -o Font.vert.spv

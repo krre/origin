@@ -1,4 +1,4 @@
-validator="$VULKAN_SDK/bin/glslangValidator -V"
+validator="$VULKAN_SDK/bin/glslangValidator -V -t"
 $validator Base-Vk.vert -o Base.vert.spv
 $validator Base-Vk.frag -o Base.frag.spv
 $validator Font-Vk.vert -o Font.vert.spv

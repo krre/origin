@@ -10,12 +10,11 @@ class VulkanObject : public Object {
 
 public:
     VulkanObject();
-    std::string getResultDescription() const { return resultDescription[result]; }
+    std::string getResultDescription() const;
     VkResult getResult() const { return result; }
 
 protected:
     VkResult result = VK_SUCCESS;
-    static std::map<VkResult, std::string> resultDescription;
 };
 
 } // Vulkan

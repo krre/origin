@@ -12,6 +12,7 @@ Manager::~Manager() {
     surface.release();
     device.release();
     physicalDevices.release();
+    debugCallback.release();
     instance.release();
 }
 
@@ -20,6 +21,13 @@ bool Manager::init() {
     instance.reset(new Instance);
     if (!instance->isValid()) {
         resultDescription = std::string(initError) + instance->getResultDescription();
+        return false;
+    }
+
+    // Vulkan debug callback
+    debugCallback.reset(new DebugReportCallback(instance.get()));
+    if (!debugCallback->isValid()) {
+        resultDescription = std::string(initError) + debugCallback->getResultDescription();
         return false;
     }
 

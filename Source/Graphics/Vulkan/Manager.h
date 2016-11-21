@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Core/Singleton.h"
 #include "Instance.h"
+#include "DebugReportCallback.h"
 #include "PhysicalDevices.h"
 #include "Device.h"
 #include "Surface.h"
@@ -27,6 +28,7 @@ public:
 private:
     std::string resultDescription = "None";
     std::unique_ptr<Vulkan::Instance> instance;
+    std::unique_ptr<Vulkan::DebugReportCallback> debugCallback;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
     std::unique_ptr<Vulkan::Device> device;
     std::unique_ptr<Vulkan::Surface> surface;

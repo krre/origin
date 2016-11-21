@@ -12,6 +12,10 @@ DebugReportCallback::DebugReportCallback(const Instance* instance) : instance(in
     if (!pfnDestroyDebugReportCallback) {
         error("GetInstanceProcAddr: Unable to find vkDestroyDebugReportCallbackEXT function");
     }
+
+    VkDebugReportCallbackCreateInfoEXT createInfo;
+    createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
+    result = pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle);
 }
 
 DebugReportCallback::~DebugReportCallback() {

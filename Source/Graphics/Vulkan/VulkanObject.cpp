@@ -23,7 +23,8 @@ VulkanObject::VulkanObject() {
         resultDescription[VK_ERROR_INCOMPATIBLE_DRIVER] = "Incompatible driver";
         resultDescription[VK_ERROR_TOO_MANY_OBJECTS] = "Too many objects";
         resultDescription[VK_ERROR_FORMAT_NOT_SUPPORTED] = "Format not supported";
-        resultDescription[VK_ERROR_FRAGMENTED_POOL] = "Fragmented pool";
+        // VK_ERROR_FRAGMENTED_POOL absent on Linux
+//        resultDescription[VK_ERROR_FRAGMENTED_POOL] = "Fragmented pool";
         resultDescription[VK_ERROR_SURFACE_LOST_KHR] = "Surface lost";
         resultDescription[VK_ERROR_NATIVE_WINDOW_IN_USE_KHR] = "Native window in use";
         resultDescription[VK_SUBOPTIMAL_KHR] = "Suboptimal";

@@ -1,0 +1,9 @@
+validator="$VULKAN_SDK/bin/glslangValidator -V"
+$validator Base.vert
+$validator Base.frag
+$validator Font.vert
+$validator Font.frag
+$validator Surface.frag
+$validator Surface.vert
+$validator Voxel.vert
+$validator Voxel-Vk.frag

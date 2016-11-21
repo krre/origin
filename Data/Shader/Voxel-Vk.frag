@@ -29,22 +29,22 @@ layout (std430, binding = 10) buffer DebugOut {
 };
 
 layout(std140, binding = 20) uniform buf {
-    uniform int pageBytes;
-    uniform int blockInfoEnd;
+    int pageBytes;
+    int blockInfoEnd;
 
-    uniform int frameWidth;
-    uniform int frameHeight;
+    int frameWidth;
+    int frameHeight;
 
-    uniform vec3 backgroundColor;
-    uniform vec3 lightColor;
-    uniform vec3 lightPos;
-    uniform bool shadeless;
+    vec3 backgroundColor;
+    vec3 lightColor;
+    vec3 lightPos;
+    bool shadeless;
 
-    uniform float ambientStrength;
-    uniform float lod;
-    uniform int transformCount;
+    float ambientStrength;
+    float lod;
+    int transformCount;
 
-    uniform vec2 pickPixel;
+    vec2 pickPixel;
 } ubuf;
 
 

@@ -12,6 +12,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp

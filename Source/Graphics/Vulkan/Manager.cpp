@@ -7,6 +7,7 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
+    shaderModule.release();
     swapchain.release();
     queue.release();
     surface.release();
@@ -59,6 +60,13 @@ bool Manager::init() {
         resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;
     }
+
+    // Vulkan swapchain
+//    shaderModule.reset(new ShaderModule(device.get()));
+//    if (!shaderModule->isValid()) {
+//        resultDescription = std::string(initError) + shaderModule->getResultDescription();
+//        return false;
+//    }
 
     return true;
 }

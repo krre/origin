@@ -1,11 +1,11 @@
 #pragma once
-#include "VulkanObject.h"
+#include "VkObject.h"
 #include "Instance.h"
 #include <vulkan/vulkan.h>
 
 namespace Vulkan {
 
-class DebugReportCallback : public VulkanObject {
+class DebugReportCallback : public VkObject {
 
 public:
     DebugReportCallback(const Instance* instance);

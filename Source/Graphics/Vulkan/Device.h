@@ -1,11 +1,11 @@
 #pragma once
-#include "VulkanObject.h"
+#include "VkObject.h"
 #include "PhysicalDevices.h"
 #include <vulkan/vulkan.h>
 
 namespace Vulkan {
 
-class Device : public VulkanObject {
+class Device : public VkObject {
 
 public:
     Device(const PhysicalDevices* physicalDevices);

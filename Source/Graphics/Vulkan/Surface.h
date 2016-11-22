@@ -5,12 +5,12 @@
     #define VK_USE_PLATFORM_WIN32_KHR
 #endif
 
-#include "VulkanObject.h"
+#include "VkObject.h"
 #include "Instance.h"
 
 namespace Vulkan {
 
-class Surface : public VulkanObject {
+class Surface : public VkObject {
 
 public:
     Surface(const Instance* instance);

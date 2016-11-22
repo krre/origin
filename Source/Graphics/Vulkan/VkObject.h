@@ -6,10 +6,10 @@
 
 namespace Vulkan {
 
-class VulkanObject : public Object {
+class VkObject : public Object {
 
 public:
-    VulkanObject();
+    VkObject();
     std::string getResultDescription() const;
     VkResult getResult() const { return result; }
 

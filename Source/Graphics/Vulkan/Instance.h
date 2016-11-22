@@ -1,5 +1,5 @@
 #pragma once
-#include "VulkanObject.h"
+#include "VkObject.h"
 #include <vulkan/vulkan.h>
 #include <vector>
 
@@ -11,7 +11,7 @@ namespace Vulkan {
     const bool enableValidationLayers = true;
 #endif
 
-class Instance : public VulkanObject {
+class Instance : public VkObject {
 
 public:
     Instance();

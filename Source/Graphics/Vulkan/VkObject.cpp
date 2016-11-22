@@ -1,12 +1,12 @@
-#include "VulkanObject.h"
+#include "VkObject.h"
 
 using namespace Vulkan;
 
-VulkanObject::VulkanObject() {
+VkObject::VkObject() {
 
 }
 
-std::string VulkanObject::getResultDescription() const {
+std::string VkObject::getResultDescription() const {
     switch (result) {
     case VK_SUCCESS: return "Success";
     case VK_NOT_READY: return "Not ready";

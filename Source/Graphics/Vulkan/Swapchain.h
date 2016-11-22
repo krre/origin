@@ -1,5 +1,5 @@
 #pragma once
-#include "VulkanObject.h"
+#include "VkObject.h"
 #include "Device.h"
 #include "Surface.h"
 #include <vulkan/vulkan.h>
@@ -7,7 +7,7 @@
 
 namespace Vulkan {
 
-class Swapchain : public VulkanObject {
+class Swapchain : public VkObject {
 
 public:
     Swapchain(const Device* device, const Surface* surface);

@@ -11,7 +11,6 @@ class ResourceManager : public Singleton<ResourceManager> {
 public:
     ResourceManager();
 
-    Font* getFont(const std::string& name);
     Octree* getOctree(const std::string& name);
 
     template <typename T> T* getResource(const std::string& name) {

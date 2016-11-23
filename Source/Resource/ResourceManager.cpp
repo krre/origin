@@ -65,10 +65,6 @@ void ResourceManager::loadAll() {
     resources["ChamomileOctree"] = chamomileOctree;
 }
 
-Font* ResourceManager::getFont(const std::string& name) {
-    return static_cast<Font*>(resources[name].get());
-}
-
 Octree *ResourceManager::getOctree(const std::string& name) {
     return static_cast<Octree*>(resources[name].get());
 }

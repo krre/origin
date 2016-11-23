@@ -1,4 +1,5 @@
 #include "ResourceManager.h"
+#include "ShaderResource.h"
 #include "../Core/App.h"
 
 ResourceManager::ResourceManager() {
@@ -63,4 +64,8 @@ void ResourceManager::loadAll() {
     auto chamomileOctree = std::make_shared<Octree>();
     chamomileOctree->load(octreePath + "/Chamomile.json");
     resources["ChamomileOctree"] = chamomileOctree;
+
+    auto baseVertShader = std::make_shared<ShaderResource>();
+    baseVertShader->load(shaderPath + "/Base.vert.spv");
+    resources["BaseVertShader"] = baseVertShader;
 }

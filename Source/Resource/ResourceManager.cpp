@@ -68,4 +68,8 @@ void ResourceManager::loadAll() {
     auto baseVertShader = std::make_shared<ShaderResource>();
     baseVertShader->load(shaderPath + "/Base.vert.spv");
     resources["BaseVertShader"] = baseVertShader;
+
+    auto baseFragShader = std::make_shared<ShaderResource>();
+    baseFragShader->load(shaderPath + "/Base.frag.spv");
+    resources["BaseFragShader"] = baseFragShader;
 }

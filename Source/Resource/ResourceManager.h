@@ -14,6 +14,9 @@ public:
     Font* getFont(const std::string& name);
     ShaderGroup* getShaderGroup(const std::string& name);
     Octree* getOctree(const std::string& name);
+    template <typename T> T* getResource(const std::string& name) {
+        return static_cast<T*>(resources[name].get());
+    }
 
 private:
     void loadAll();

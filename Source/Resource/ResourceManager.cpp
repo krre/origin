@@ -69,10 +69,6 @@ Font* ResourceManager::getFont(const std::string& name) {
     return static_cast<Font*>(resources[name].get());
 }
 
-ShaderGroup* ResourceManager::getShaderGroup(const std::string& name) {
-    return static_cast<ShaderGroup*>(resources[name].get());
-}
-
 Octree *ResourceManager::getOctree(const std::string& name) {
     return static_cast<Octree*>(resources[name].get());
 }

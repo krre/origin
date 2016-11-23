@@ -10,9 +10,9 @@
 #include "../../Core/Utils.h"
 
 RenderSurface::RenderSurface() {
-    voxelShaderGroup = ResourceManager::get()->getShaderGroup("VoxelShaderGroup");
-    raycastShaderGroup = ResourceManager::get()->getShaderGroup("RaycastShaderGroup");
-    surfaceShaderGroup = ResourceManager::get()->getShaderGroup("SurfaceShaderGroup");
+    voxelShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("VoxelShaderGroup");
+    raycastShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("RaycastShaderGroup");
+    surfaceShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("SurfaceShaderGroup");
 //    program = raycastShaderGroup->getProgram();
 //    raycastShaderGroup->bind();
     program = voxelShaderGroup->getProgram();

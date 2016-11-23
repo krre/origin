@@ -6,7 +6,7 @@
 Rectangle::Rectangle(int width, int height) :
     Control(width, height),
     plane(1.0, 1.0) {
-    baseShaderGroup = ResourceManager::get()->getShaderGroup("BaseShaderGroup");
+    baseShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("BaseShaderGroup");
 }
 
 void Rectangle::draw(float dt) {

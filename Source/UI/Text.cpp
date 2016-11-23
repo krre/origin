@@ -26,7 +26,7 @@ Text::Text() {
 
     FT_Set_Pixel_Sizes(face, 0, fontSize);
 
-    fontShaderGroup = ResourceManager::get()->getShaderGroup("FontShaderGroup");
+    fontShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("FontShaderGroup");
     fontShaderGroup->bind();
     // Disable byte-alignment restriction
     glPixelStorei(GL_UNPACK_ALIGNMENT, 1);

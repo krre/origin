@@ -72,7 +72,7 @@ void Game::create() {
     transformSystem->setScale(ground.get(), 5);
     transformSystem->setPosition(ground.get(), glm::vec3(0.0, 1.0, 0.0));
     OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
-    groundOctree->data = ResourceManager::get()->getOctree("GroundOctree")->data();
+    groundOctree->data = ResourceManager::get()->getResource<Octree>("GroundOctree")->data();
     Engine::get()->addEntity(ground);
     octreeSystem->getGpuMemoryManager()->addEntity(ground.get());
 
@@ -87,7 +87,7 @@ void Game::create() {
     phisicsSystem->addRigidBody(tree1.get());
 
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
-    tree1Octree->data = ResourceManager::get()->getOctree("TreeOctree")->data();
+    tree1Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
     Engine::get()->addEntity(tree1);
     octreeSystem->getGpuMemoryManager()->addEntity(tree1.get());
 
@@ -101,7 +101,7 @@ void Game::create() {
     phisicsSystem->addRigidBody(tree2.get());
 
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
-    tree2Octree->data = ResourceManager::get()->getOctree("TreeOctree")->data();
+    tree2Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
     Engine::get()->addEntity(tree2);
     octreeSystem->getGpuMemoryManager()->addEntity(tree2.get());
 
@@ -115,7 +115,7 @@ void Game::create() {
     phisicsSystem->addRigidBody(tree3.get());
 
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
-    tree3Octree->data = ResourceManager::get()->getOctree("TreeOctree")->data();
+    tree3Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
     Engine::get()->addEntity(tree3);
     octreeSystem->getGpuMemoryManager()->addEntity(tree3.get());
 
@@ -124,7 +124,7 @@ void Game::create() {
     transformSystem->setScale(chamomile1.get(), 0.04);
     transformSystem->setPosition(chamomile1.get(), glm::vec3(0.2, -0.22, 0.2));
     OctreeComponent* chamomile1Octree = static_cast<OctreeComponent*>(chamomile1->components[ComponentType::Octree].get());
-    chamomile1Octree->data = ResourceManager::get()->getOctree("ChamomileOctree")->data();
+    chamomile1Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
     Engine::get()->addEntity(chamomile1);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get());
 
@@ -132,7 +132,7 @@ void Game::create() {
     transformSystem->setScale(chamomile2.get(), 0.04);
     transformSystem->setPosition(chamomile2.get(), glm::vec3(-0.3, -0.22, 1.3));
     OctreeComponent* chamomile2Octree = static_cast<OctreeComponent*>(chamomile2->components[ComponentType::Octree].get());
-    chamomile2Octree->data = ResourceManager::get()->getOctree("ChamomileOctree")->data();
+    chamomile2Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
     Engine::get()->addEntity(chamomile2);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get());
 
@@ -140,7 +140,7 @@ void Game::create() {
     transformSystem->setScale(chamomile3.get(), 0.04);
     transformSystem->setPosition(chamomile3.get(), glm::vec3(0.4, -0.22, 1.0));
     OctreeComponent* chamomile3Octree = static_cast<OctreeComponent*>(chamomile3->components[ComponentType::Octree].get());
-    chamomile3Octree->data = ResourceManager::get()->getOctree("ChamomileOctree")->data();
+    chamomile3Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
     Engine::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get());
 

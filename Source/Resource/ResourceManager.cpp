@@ -64,7 +64,3 @@ void ResourceManager::loadAll() {
     chamomileOctree->load(octreePath + "/Chamomile.json");
     resources["ChamomileOctree"] = chamomileOctree;
 }
-
-Octree *ResourceManager::getOctree(const std::string& name) {
-    return static_cast<Octree*>(resources[name].get());
-}

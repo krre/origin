@@ -18,21 +18,18 @@ Manager::~Manager() {
 }
 
 bool Manager::init() {
-    // Vulkan instance
     instance.reset(new Instance);
     if (!instance->isValid()) {
         resultDescription = std::string(initError) + instance->getResultDescription();
         return false;
     }
 
-    // Vulkan debug callback
     debugCallback.reset(new DebugReportCallback(instance.get()));
     if (!debugCallback->isValid()) {
         resultDescription = std::string(initError) + debugCallback->getResultDescription();
         return false;
     }
 
-    // Vulkan device
     physicalDevices.reset(new PhysicalDevices(instance.get()));
     device.reset(new Device(physicalDevices.get()));
     if (!device->isValid()) {
@@ -40,28 +37,24 @@ bool Manager::init() {
         return false;
     }
 
-    // Vulkan surface
     surface.reset(new Surface(instance.get()));
     if (!surface->isValid()) {
         resultDescription = std::string(initError) + surface->getResultDescription();
         return false;
     }
 
-    // Vulkan queue
     queue.reset(new Queue(device.get()));
     if (!queue->isValid()) {
         resultDescription = std::string(initError) + queue->getResultDescription();
         return false;
     }
 
-    // Vulkan swapchain
     swapchain.reset(new Swapchain(device.get(), surface.get()));
     if (!swapchain->isValid()) {
         resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;
     }
 
-    // Vulkan swapchain
 //    shaderModule.reset(new ShaderModule(device.get()));
 //    if (!shaderModule->isValid()) {
 //        resultDescription = std::string(initError) + shaderModule->getResultDescription();

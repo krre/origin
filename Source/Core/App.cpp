@@ -14,7 +14,6 @@
 #include "../Resource/ShaderResource.h"
 #include <string>
 #include <SDL_timer.h>
-#include <GL/glew.h>
 #include <Gagarin.h>
 #include <algorithm>
 #include <experimental/filesystem>
@@ -66,30 +65,11 @@ void App::init() {
     int x = (screenWidth - WIDTH) / 2;
     int y = (screenHeight - HEIGHT) / 2;
 
-    window = SDL_CreateWindow(title, x, y, WIDTH, HEIGHT,
-        SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow(title, x, y, WIDTH, HEIGHT, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
 
     if (window == nullptr) {
         std::string errorMsg = std::string("Window could not be created\n") + SDL_GetError();
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
-        return;
-    }
-
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
-    SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
-    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
-
-    context = SDL_GL_CreateContext(window);
-
-    if (context == nullptr) {
-        std::string errorMsg = std::string("OpenGL context could not be created\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
-        return;
-    }
-
-    if (!SDL_GL_ExtensionSupported("GL_ARB_shader_storage_buffer_object") || !SDL_GL_ExtensionSupported("GL_ARB_compute_shader")) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, "OpenGL 4.3 is not supported.\nUpdate your video driver", nullptr);
         return;
     }
 
@@ -100,10 +80,6 @@ void App::init() {
     }
 
     SDL_ShowWindow(window);
-
-    SDL_GL_MakeCurrent(window, context);
-    glewExperimental = GL_TRUE;
-    glewInit();
 
     initSingletons();
 
@@ -123,13 +99,13 @@ void App::initSingletons() {
     new Logger;
     new Event;
     new ResourceManager;
-    new Console;
-    new DebugHUD;
-    new Toast;
+//    new Console;
+//    new DebugHUD;
+//    new Toast;
     new Input;
-    new Engine;
+//    new Engine;
     new GameStateManager;
-    new Game;
+//    new Game;
 }
 
 bool App::initGraphics() {
@@ -179,8 +155,6 @@ int App::run() {
 
         GameStateManager::get()->update(frameTime);
         GameStateManager::get()->draw(frameTime);
-
-        SDL_GL_SwapWindow(window);
     }
 }
 

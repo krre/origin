@@ -27,6 +27,7 @@ public:
     Manager();
     ~Manager();
     bool init();
+    bool createSurface();
     void addShaderCode(size_t size, const uint32_t* code);
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance.get(); }

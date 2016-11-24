@@ -11,12 +11,15 @@
 #include "../UI/Toast.h"
 #include "../ECS/Engine.h"
 #include "../GameState/GameStateManager.h"
+#include "../Resource/ShaderResource.h"
 #include <string>
 #include <SDL_timer.h>
 #include <GL/glew.h>
 #include <Gagarin.h>
 #include <algorithm>
 #include <experimental/filesystem>
+
+const char* title = "Gagarin";
 
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
@@ -42,8 +45,6 @@ void App::init() {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());
         return;
     }
-
-    const char* title = "Gagarin";
 
     SDL_DisplayMode mode;
     if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
@@ -111,6 +112,10 @@ void App::init() {
 
     initSingletons();
 
+    if (!initGraphics()) {
+        return;
+    }
+
     Event::get()->windowResize.connect<App, &App::windowResize>(this);
     Event::get()->quit.connect<App, &App::quit>(this);
     Event::get()->windowResize.emit(width, height);
@@ -130,6 +135,23 @@ void App::initSingletons() {
     new Engine;
     new GameStateManager;
     new Game;
+}
+
+bool App::initGraphics() {
+    ShaderResource* shaderResource;
+
+    shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
+    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getBuffer().size(), (uint32_t*)shaderResource->getBuffer().data());
+
+    shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");
+    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getBuffer().size(), (uint32_t*)shaderResource->getBuffer().data());
+
+    if (!Vulkan::Manager::get()->createSurface()) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getResultDescription().c_str(), nullptr);
+        return false;
+    }
+
+    return true;
 }
 
 void App::clean() {

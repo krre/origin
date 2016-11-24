@@ -37,6 +37,10 @@ bool Manager::init() {
         return false;
     }
 
+    return true;
+}
+
+bool Manager::createSurface() {
     surface.reset(new Surface(instance.get()));
     if (!surface->isValid()) {
         resultDescription = std::string(initError) + surface->getResultDescription();

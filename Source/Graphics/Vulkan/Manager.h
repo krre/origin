@@ -44,7 +44,7 @@ private:
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
-    std::unique_ptr<Vulkan::ShaderModule> shaderModule;
+    std::vector<std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
 };
 
 } // Vulkan

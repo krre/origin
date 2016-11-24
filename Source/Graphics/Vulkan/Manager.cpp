@@ -7,7 +7,7 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
-    shaderModule.release();
+    shaderModules.clear();
     swapchain.release();
     queue.release();
     surface.release();
@@ -55,11 +55,15 @@ bool Manager::init() {
         return false;
     }
 
-//    shaderModule.reset(new ShaderModule(device.get()));
-//    if (!shaderModule->isValid()) {
-//        resultDescription = std::string(initError) + shaderModule->getResultDescription();
-//        return false;
-//    }
+    for (auto shaderCode : shaderCodes) {
+        std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device.get(), shaderCode.size, shaderCode.code));
+        if (!shaderModule->isValid()) {
+            resultDescription = std::string(initError) + shaderModule->getResultDescription();
+            return false;
+        }
+        shaderModules.push_back(shaderModule);
+
+    }
 
     return true;
 }

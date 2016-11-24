@@ -63,3 +63,8 @@ bool Manager::init() {
 
     return true;
 }
+
+void Manager::addShaderCode(size_t size, const uint32_t* code) {
+    ShaderCode shaderCode { size, code };
+    shaderCodes.push_back(shaderCode);
+}

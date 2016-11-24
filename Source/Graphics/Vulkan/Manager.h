@@ -10,6 +10,7 @@
 #include "ShaderModule.h"
 #include <vulkan/vulkan.h>
 #include <string>
+#include <vector>
 
 const std::string initError = "Vulkan initialization error:\n";
 
@@ -17,10 +18,16 @@ namespace Vulkan {
 
 class Manager : public Singleton<Manager> {
 
+    struct ShaderCode {
+        size_t size;
+        const uint32_t* code;
+    };
+
 public:
     Manager();
     ~Manager();
     bool init();
+    void addShaderCode(size_t size, const uint32_t* code);
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance.get(); }
     Vulkan::Device* getDevice() const { return device.get(); }
@@ -28,6 +35,8 @@ public:
 
 private:
     std::string resultDescription = "None";
+    std::vector<ShaderCode> shaderCodes;
+
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::DebugReportCallback> debugCallback;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;

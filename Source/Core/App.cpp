@@ -32,8 +32,7 @@ App::~App() {
 }
 
 std::string App::getCurrentPath() {
-    namespace fs = std::experimental::filesystem;
-    return fs::current_path().string();
+    return std::experimental::filesystem::current_path().string();
 }
 
 void App::init() {

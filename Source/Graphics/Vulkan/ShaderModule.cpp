@@ -7,6 +7,7 @@ ShaderModule::ShaderModule(const Device* device, size_t codeSize, const uint32_t
     createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
     createInfo.codeSize = codeSize;
     createInfo.pCode = pCode;
+    print(codeSize)
     result = vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle);
 }
 

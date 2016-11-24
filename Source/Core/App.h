@@ -11,11 +11,6 @@ constexpr int HEIGHT = 480;
 class App : public Singleton<App> {
 
 public:
-    enum GraphicsBackend {
-        VULKAN,
-        OPENGL
-    };
-
     App(int argc, char* argv[]);
     ~App();
     // Path to application directory
@@ -25,9 +20,6 @@ public:
     int run();
     void quit();
 
-    void setBackend(GraphicsBackend graphicsBackend);
-    GraphicsBackend getBackend() const { return graphicsBackend; }
-
     Viewport* getViewport() { return &viewport; }
     SDL_Window* getWindow() const { return window; }
 
@@ -36,7 +28,6 @@ public:
 
 private:
     std::vector<std::string> argv;
-    GraphicsBackend graphicsBackend = VULKAN;
     Viewport viewport;
     bool isRunning = false;
     SDL_Window* window = nullptr;

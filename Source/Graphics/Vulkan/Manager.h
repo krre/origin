@@ -36,7 +36,7 @@ public:
 
 private:
     std::string resultDescription = "None";
-    std::vector<ShaderCode> shaderCodes;
+    std::vector<std::shared_ptr<ShaderCode>> shaderCodes;
 
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::DebugReportCallback> debugCallback;

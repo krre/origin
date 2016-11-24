@@ -112,10 +112,10 @@ bool App::initGraphics() {
     ShaderResource* shaderResource;
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
-    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getBuffer().size(), (uint32_t*)shaderResource->getBuffer().data());
+    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");
-    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getBuffer().size(), (uint32_t*)shaderResource->getBuffer().data());
+    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     if (!Vulkan::Manager::get()->createSurface()) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getResultDescription().c_str(), nullptr);

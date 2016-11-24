@@ -60,7 +60,7 @@ bool Manager::createSurface() {
     }
 
     for (auto shaderCode : shaderCodes) {
-        std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device.get(), shaderCode.size, shaderCode.code));
+        std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device.get(), shaderCode->size, shaderCode->code));
         if (!shaderModule->isValid()) {
             resultDescription = std::string(initError) + shaderModule->getResultDescription();
             return false;
@@ -73,6 +73,6 @@ bool Manager::createSurface() {
 }
 
 void Manager::addShaderCode(size_t size, const uint32_t* code) {
-    ShaderCode shaderCode { size, code };
+    std::shared_ptr<ShaderCode> shaderCode(new ShaderCode { size, code });
     shaderCodes.push_back(shaderCode);
 }

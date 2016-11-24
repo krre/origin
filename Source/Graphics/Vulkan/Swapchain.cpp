@@ -41,9 +41,9 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) : device(devi
 
         result = vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle);
 
-//        vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, nullptr);
-//        images.resize(imageCount);
-//        vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, images.data());
+        vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, nullptr);
+        images.resize(imageCount);
+        vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, images.data());
     }
 }
 

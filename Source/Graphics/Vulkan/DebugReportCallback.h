@@ -7,7 +7,7 @@ namespace Vulkan {
 class DebugReportCallback : public VkObject {
 
 public:
-    DebugReportCallback(const Instance* instance);
+    DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback);
     ~DebugReportCallback();
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkDebugReportCallbackEXT getHandle() const { return handle; }

@@ -18,6 +18,12 @@ Manager::~Manager() {
     instance.release();
 }
 
+static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {
+    std::cerr << "Validation layer: " << msg << std::endl;
+
+    return VK_FALSE;
+}
+
 bool Manager::init() {
     instance.reset(new Instance);
     if (!instance->isValid()) {
@@ -25,10 +31,12 @@ bool Manager::init() {
         return false;
     }
 
-    debugCallback.reset(new DebugReportCallback(instance.get()));
-    if (!debugCallback->isValid()) {
-        resultDescription = std::string(initError) + debugCallback->getResultDescription();
-        return false;
+    if (enableValidationLayers) {
+        debugCallback.reset(new DebugReportCallback(instance.get(), debugCallbackFunc));
+        if (!debugCallback->isValid()) {
+            resultDescription = std::string(initError) + debugCallback->getResultDescription();
+            return false;
+        }
     }
 
     physicalDevices.reset(new PhysicalDevices(instance.get()));

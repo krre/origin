@@ -70,6 +70,12 @@ bool Manager::createSurface() {
         imageViews.push_back(imageView);
     }
 
+    renderPass.reset(new RenderPass(device.get(), surfaceFormat.get()));
+    if (!renderPass->isValid()) {
+        resultDescription = std::string(initError) + renderPass->getResultDescription();
+        return false;
+    }
+
     for (auto shaderCode : shaderCodes) {
         std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device.get(), shaderCode->size, shaderCode->code));
         if (!shaderModule->isValid()) {
@@ -83,12 +89,6 @@ bool Manager::createSurface() {
     pipelineLayout.reset(new PipelineLayout(device.get()));
     if (!pipelineLayout->isValid()) {
         resultDescription = std::string(initError) + pipelineLayout->getResultDescription();
-        return false;
-    }
-
-    renderPass.reset(new RenderPass(device.get(), surfaceFormat.get()));
-    if (!renderPass->isValid()) {
-        resultDescription = std::string(initError) + renderPass->getResultDescription();
         return false;
     }
 

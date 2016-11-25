@@ -7,6 +7,7 @@
 #include "Surface.h"
 #include "Queue.h"
 #include "Swapchain.h"
+#include "ImageView.h"
 #include "SurfaceFormat.h"
 #include "ShaderModule.h"
 #include "PipelineLayout.h"
@@ -51,6 +52,7 @@ private:
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::unique_ptr<Vulkan::RenderPass> renderPass;
     std::vector<std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
+    std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
 };
 
 } // Vulkan

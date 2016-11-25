@@ -61,6 +61,15 @@ bool Manager::createSurface() {
         return false;
     }
 
+    for (uint32_t i = 0; i < imageViews.size(); i++) {
+        std::shared_ptr<ImageView> imageView(new ImageView(device.get(), surfaceFormat.get(), (*swapchain->getImages())[i]));
+        if (!imageView->isValid()) {
+            resultDescription = std::string(initError) + imageView->getResultDescription();
+            return false;
+        }
+        imageViews.push_back(imageView);
+    }
+
     for (auto shaderCode : shaderCodes) {
         std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device.get(), shaderCode->size, shaderCode->code));
         if (!shaderModule->isValid()) {

@@ -2,12 +2,12 @@
 
 using namespace Vulkan;
 
-ImageView::ImageView(const Device* device, const SurfaceFormat* surfaceFormat) :
+ImageView::ImageView(const Device* device, const SurfaceFormat* surfaceFormat, VkImage image) :
     device(device),
     surfaceFormat(surfaceFormat) {
     VkImageViewCreateInfo createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-//    createInfo.image = swapChainImages[i];
+    createInfo.image = image;
     createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
     createInfo.format = surfaceFormat->getSurfaceFormat()->format;
     createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;

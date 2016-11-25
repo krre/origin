@@ -4,6 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.cpp

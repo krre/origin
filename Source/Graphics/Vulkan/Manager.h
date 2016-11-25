@@ -7,6 +7,7 @@
 #include "Surface.h"
 #include "Queue.h"
 #include "Swapchain.h"
+#include "SurfaceFormat.h"
 #include "ShaderModule.h"
 #include "PipelineLayout.h"
 #include "RenderPass.h"
@@ -45,6 +46,7 @@ private:
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
     std::unique_ptr<Vulkan::Device> device;
     std::unique_ptr<Vulkan::Surface> surface;
+    std::unique_ptr<Vulkan::SurfaceFormat> surfaceFormat;
     std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;

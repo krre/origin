@@ -2,16 +2,13 @@
 
 using namespace Vulkan;
 
-Swapchain::Swapchain(const Device* device, const Surface* surface) : device(device) {
+Swapchain::Swapchain(const Device* device, const Surface* surface, const SurfaceFormat* surfaceFormat) :
+    device(device),
+    surface(surface),
+    surfaceFormat(surfaceFormat) {
     VkSurfaceCapabilitiesKHR capabilities = {};
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &capabilities);
     uint32_t imageCount = capabilities.minImageCount + 1;
-
-    uint32_t formatCount;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &formatCount, nullptr);
-    std::vector<VkSurfaceFormatKHR> formats(formatCount);
-    vkGetPhysicalDeviceSurfaceFormatsKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &formatCount, formats.data());
-    VkSurfaceFormatKHR surfaceFormat = formats[0]; // TODO: Select by requirements
 
     uint32_t presentModeCount;
     vkGetPhysicalDeviceSurfacePresentModesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &presentModeCount, nullptr);
@@ -27,8 +24,8 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) : device(devi
         createInfo.flags = 0;
         createInfo.surface = surface->getHandle();
         createInfo.minImageCount = imageCount;
-        createInfo.imageFormat = surfaceFormat.format;
-        createInfo.imageColorSpace = surfaceFormat.colorSpace;
+        createInfo.imageFormat = surfaceFormat->getSurfaceFormat()->format;
+        createInfo.imageColorSpace = surfaceFormat->getSurfaceFormat()->colorSpace;
         createInfo.imageExtent = capabilities.currentExtent;
         createInfo.imageArrayLayers = 1;
         createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;

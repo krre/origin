@@ -47,13 +47,15 @@ bool Manager::createSurface() {
         return false;
     }
 
+    surfaceFormat.reset(new SurfaceFormat(physicalDevices.get(), surface.get()));
+
     queue.reset(new Queue(device.get()));
     if (!queue->isValid()) {
         resultDescription = std::string(initError) + queue->getResultDescription();
         return false;
     }
 
-    swapchain.reset(new Swapchain(device.get(), surface.get()));
+    swapchain.reset(new Swapchain(device.get(), surface.get(), surfaceFormat.get()));
     if (!swapchain->isValid()) {
         resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;
@@ -75,7 +77,7 @@ bool Manager::createSurface() {
         return false;
     }
 
-    renderPass.reset(new RenderPass(device.get()));
+    renderPass.reset(new RenderPass(device.get(), surfaceFormat.get()));
     if (!renderPass->isValid()) {
         resultDescription = std::string(initError) + renderPass->getResultDescription();
         return false;

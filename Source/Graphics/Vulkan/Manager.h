@@ -9,8 +9,8 @@
 #include "Swapchain.h"
 #include "ImageView.h"
 #include "SurfaceFormat.h"
-#include "ShaderModule.h"
 #include "PipelineLayout.h"
+#include "Pipeline.h"
 #include "RenderPass.h"
 #include <string>
 #include <vector>
@@ -21,17 +21,11 @@ namespace Vulkan {
 
 class Manager : public Singleton<Manager> {
 
-    struct ShaderCode {
-        size_t size;
-        const uint32_t* code;
-    };
-
 public:
     Manager();
     ~Manager();
     bool init();
     bool createSurface();
-    void addShaderCode(size_t size, const uint32_t* code);
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance.get(); }
     Vulkan::Device* getDevice() const { return device.get(); }
@@ -39,7 +33,6 @@ public:
 
 private:
     std::string resultDescription = "None";
-    std::vector<std::shared_ptr<ShaderCode>> shaderCodes;
 
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::DebugReportCallback> debugCallback;
@@ -50,8 +43,8 @@ private:
     std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
+    std::unique_ptr<Vulkan::Pipeline> graphicsPipeline;
     std::unique_ptr<Vulkan::RenderPass> renderPass;
-    std::vector<std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
 };
 

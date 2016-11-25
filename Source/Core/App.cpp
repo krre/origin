@@ -11,7 +11,6 @@
 #include "../UI/Toast.h"
 #include "../ECS/Engine.h"
 #include "../GameState/GameStateManager.h"
-#include "../Resource/ShaderResource.h"
 #include <string>
 #include <SDL_timer.h>
 #include <Gagarin.h>
@@ -109,14 +108,6 @@ void App::initSingletons() {
 }
 
 bool App::initGraphics() {
-    ShaderResource* shaderResource;
-
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
-    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
-
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");
-    Vulkan::Manager::get()->addShaderCode((size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
-
     if (!Vulkan::Manager::get()->createSurface()) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getResultDescription().c_str(), nullptr);
         return false;

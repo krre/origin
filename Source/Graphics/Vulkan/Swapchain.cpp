@@ -41,6 +41,8 @@ Swapchain::Swapchain(const Device* device, const Surface* surface, const Surface
         vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, nullptr);
         images.resize(imageCount);
         vkGetSwapchainImagesKHR(device->getHandle(), handle, &imageCount, images.data());
+
+        extent = capabilities.currentExtent;
     }
 }
 

@@ -15,6 +15,7 @@ public:
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkSwapchainKHR getHandle() const { return handle; }
     std::vector<VkImage>* getImages() { return &images; }
+    VkExtent2D getExtent() const { return extent; }
 
 private:
     VkSwapchainKHR handle = VK_NULL_HANDLE;
@@ -22,6 +23,7 @@ private:
     const Surface* surface;
     std::vector<VkImage> images;
     const SurfaceFormat* surfaceFormat;
+    VkExtent2D extent;
 };
 
 } // Vulkan

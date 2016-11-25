@@ -92,6 +92,10 @@ bool Manager::createSurface() {
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");
     graphicsPipeline->addShaderCode(ShaderType::Fragment, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
+    graphicsPipeline->setExtent(swapchain->getExtent());
+    graphicsPipeline->setPipelineLayout(pipelineLayout.get());
+    graphicsPipeline->setRenderPass(renderPass.get());
+
     graphicsPipeline->create();
 
     if (!graphicsPipeline->isValid()) {

@@ -2,7 +2,9 @@
 
 using namespace Vulkan;
 
-Pipeline::Pipeline(const Device* device) : device(device) {
+Pipeline::Pipeline(PipelineType type, const Device* device) :
+    type(type),
+    device(device) {
 
 }
 

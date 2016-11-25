@@ -75,6 +75,12 @@ bool Manager::createSurface() {
         return false;
     }
 
+    renderPass.reset(new RenderPass(device.get()));
+    if (!renderPass->isValid()) {
+        resultDescription = std::string(initError) + renderPass->getResultDescription();
+        return false;
+    }
+
     return true;
 }
 

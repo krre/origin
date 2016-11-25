@@ -12,6 +12,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.cpp

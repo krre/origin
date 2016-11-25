@@ -1,6 +1,5 @@
 #pragma once
 #include "VkObject.h"
-#include <vulkan/vulkan.h>
 #include <vector>
 
 namespace Vulkan {

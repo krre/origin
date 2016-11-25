@@ -1,7 +1,6 @@
 #pragma once
 #include "VkObject.h"
 #include "Instance.h"
-#include <vulkan/vulkan.h>
 #include <vector>
 
 namespace Vulkan {

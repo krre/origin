@@ -11,7 +11,6 @@
 #include "ShaderModule.h"
 #include "PipelineLayout.h"
 #include "RenderPass.h"
-#include <vulkan/vulkan.h>
 #include <string>
 #include <vector>
 

@@ -3,7 +3,6 @@
 #include "Device.h"
 #include "Surface.h"
 #include "SurfaceFormat.h"
-#include <vulkan/vulkan.h>
 #include <vector>
 
 namespace Vulkan {

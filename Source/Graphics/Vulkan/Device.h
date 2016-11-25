@@ -1,7 +1,6 @@
 #pragma once
 #include "VkObject.h"
 #include "PhysicalDevices.h"
-#include <vulkan/vulkan.h>
 
 namespace Vulkan {
 

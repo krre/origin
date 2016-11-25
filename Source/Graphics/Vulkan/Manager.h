@@ -8,6 +8,7 @@
 #include "Queue.h"
 #include "Swapchain.h"
 #include "ShaderModule.h"
+#include "PipelineLayout.h"
 #include <vulkan/vulkan.h>
 #include <string>
 #include <vector>
@@ -45,6 +46,7 @@ private:
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
+    std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::vector<std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
 };
 

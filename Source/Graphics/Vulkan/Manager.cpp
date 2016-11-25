@@ -69,6 +69,12 @@ bool Manager::createSurface() {
 
     }
 
+    pipelineLayout.reset(new PipelineLayout(device.get()));
+    if (!pipelineLayout->isValid()) {
+        resultDescription = std::string(initError) + pipelineLayout->getResultDescription();
+        return false;
+    }
+
     return true;
 }
 

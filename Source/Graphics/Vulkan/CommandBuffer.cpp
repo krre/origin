@@ -5,3 +5,12 @@ using namespace Vulkan;
 CommandBuffer::CommandBuffer(const Device* device) : device(device) {
 
 }
+
+bool CommandBuffer::allocate(const CommandPool* commandPool, int count) {
+    commandBuffers.resize(count);
+    VkCommandBufferAllocateInfo info = {};
+    info.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    info.commandPool = commandPool->getHandle();
+    info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
+    info.commandBufferCount = (uint32_t) commandBuffers.size();
+}

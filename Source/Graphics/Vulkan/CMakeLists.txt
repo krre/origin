@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp

@@ -13,6 +13,7 @@
 #include "Pipeline.h"
 #include "RenderPass.h"
 #include "Framebuffer.h"
+#include "CommandPool.h"
 #include <string>
 #include <vector>
 
@@ -48,6 +49,7 @@ private:
     std::unique_ptr<Vulkan::RenderPass> renderPass;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
+    std::unique_ptr<Vulkan::CommandPool> commandPool;
 };
 
 } // Vulkan

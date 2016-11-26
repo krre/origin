@@ -121,6 +121,11 @@ bool Manager::createSurface() {
         framebuffers.push_back(framebuffer);
     }
 
+    commandPool.reset(new CommandPool(device.get()));
+    if (!commandPool->isValid()) {
+        resultDescription = std::string(initError) + commandPool->getResultDescription();
+        return false;
+    }
+
     return true;
 }
-

@@ -63,9 +63,7 @@ Instance::Instance() {
     createInfo.enabledExtensionCount = extensionCount;
     createInfo.ppEnabledExtensionNames = extNames.data();
 
-    // Using direct assign 'result = vkCreateInstance' causes crash on Windows
-    VkResult hackResult = vkCreateInstance(&createInfo, nullptr, &handle);
-    result = hackResult;
+    result = vkCreateInstance(&createInfo, nullptr, &handle);
 }
 
 Instance::~Instance() {

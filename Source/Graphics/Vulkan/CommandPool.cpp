@@ -16,3 +16,8 @@ CommandPool::~CommandPool() {
         vkDestroyCommandPool(device->getHandle(), handle, nullptr);
     }
 }
+
+bool CommandPool::reset() {
+    result = vkResetCommandPool(device->getHandle(), handle, VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT);
+    return result == VK_SUCCESS;
+}

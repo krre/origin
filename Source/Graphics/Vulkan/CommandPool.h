@@ -11,6 +11,7 @@ public:
     ~CommandPool();
     VkCommandPool getHandle() const { return handle; }
     bool isValid() const { return handle != VK_NULL_HANDLE; }
+    bool reset();
 
 private:
     VkCommandPool handle = VK_NULL_HANDLE;

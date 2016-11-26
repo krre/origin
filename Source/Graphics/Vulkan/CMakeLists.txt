@@ -8,6 +8,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.cpp

@@ -127,5 +127,13 @@ bool Manager::createSurface() {
         return false;
     }
 
+    commandBuffer.reset(new CommandBuffer(device.get()));
+    commandBuffer->allocate(commandPool.get(), swapchain->getImages()->size());
+
+    if (commandBuffer->getResult() != VK_SUCCESS) {
+        resultDescription = std::string(initError) + commandBuffer->getResultDescription();
+        return false;
+    }
+
     return true;
 }

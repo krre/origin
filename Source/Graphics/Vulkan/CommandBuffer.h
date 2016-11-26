@@ -11,7 +11,7 @@ public:
     CommandBuffer(const Device* device);
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkCommandBuffer getHandle() const { return handle; }
-    bool allocate(const CommandPool* commandPool, int count);
+    void allocate(const CommandPool* commandPool, int count);
 
 private:
     VkCommandBuffer handle = VK_NULL_HANDLE;

@@ -14,6 +14,7 @@
 #include "RenderPass.h"
 #include "Framebuffer.h"
 #include "CommandPool.h"
+#include "CommandBuffer.h"
 #include <string>
 #include <vector>
 
@@ -50,6 +51,7 @@ private:
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
     std::unique_ptr<Vulkan::CommandPool> commandPool;
+    std::unique_ptr<Vulkan::CommandBuffer> commandBuffer;
 };
 
 } // Vulkan

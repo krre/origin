@@ -112,6 +112,15 @@ bool Manager::createSurface() {
         return false;
     }
 
+    for (uint32_t i = 0; i < swapchain->getImages()->size(); i++) {
+        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get(), renderPass.get(), imageViews[i].get(), swapchain->getExtent()));
+        if (!framebuffer->isValid()) {
+            resultDescription = std::string(initError) + framebuffer->getResultDescription();
+            return false;
+        }
+        framebuffers.push_back(framebuffer);
+    }
+
     return true;
 }
 

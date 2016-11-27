@@ -162,7 +162,7 @@ bool Manager::createSurface() {
         renderPassInfo.renderArea.offset = {0, 0};
         renderPassInfo.renderArea.extent = swapchain->getExtent();
 
-        VkClearValue clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+        VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
         renderPassInfo.clearValueCount = 1;
         renderPassInfo.pClearValues = &clearColor;
 

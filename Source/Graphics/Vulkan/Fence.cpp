@@ -18,5 +18,9 @@ Fence::~Fence() {
 }
 
 VkResult Fence::wait(uint32_t count) {
-    vkWaitForFences(device->getHandle(), count, &handle, VK_TRUE, 100000000);
+    return vkWaitForFences(device->getHandle(), count, &handle, VK_TRUE, 100000000);
+}
+
+VkResult Fence::reset(uint32_t count) {
+    return vkResetFences(device->getHandle(), count, &handle);
 }

@@ -12,6 +12,7 @@ public:
     VkFence getHandle() const { return handle; }
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkResult wait(uint32_t count);
+    VkResult reset(uint32_t count);
 
 private:
     VkFence handle = VK_NULL_HANDLE;

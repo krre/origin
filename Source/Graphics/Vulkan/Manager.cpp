@@ -155,20 +155,22 @@ bool Manager::createSurface() {
 
         vkBeginCommandBuffer(buffer, &beginInfo);
 
+        VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
+
         VkRenderPassBeginInfo renderPassInfo = {};
         renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
         renderPassInfo.renderPass = renderPass->getHandle();
         renderPassInfo.framebuffer = framebuffers[i]->getHandle();
-        renderPassInfo.renderArea.offset = {0, 0};
+        renderPassInfo.renderArea.offset = { 0, 0 };
         renderPassInfo.renderArea.extent = swapchain->getExtent();
-
-        VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
         renderPassInfo.clearValueCount = 1;
         renderPassInfo.pClearValues = &clearColor;
 
         vkCmdBeginRenderPass(buffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-            vkCmdBindPipeline(buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
-            vkCmdDraw(buffer, 3, 1, 0, 0);
+
+        vkCmdBindPipeline(buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
+        vkCmdDraw(buffer, 3, 1, 0, 0);
+
         vkCmdEndRenderPass(buffer);
 
         VkResult result = vkEndCommandBuffer(buffer);

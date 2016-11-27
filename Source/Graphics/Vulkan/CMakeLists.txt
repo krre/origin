@@ -28,6 +28,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Semaphore.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Semaphore.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.cpp

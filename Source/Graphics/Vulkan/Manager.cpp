@@ -9,6 +9,13 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
+    commandBuffer.release();
+    commandPool.release();
+    framebuffers.clear();
+    graphicsPipeline.release();
+    pipelineLayout.release();
+    renderPass.release();
+    imageViews.clear();
     swapchain.release();
     queue.release();
     surface.release();

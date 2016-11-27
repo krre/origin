@@ -213,7 +213,8 @@ void Manager::drawFrame() {
     submitInfo.pSignalSemaphores = signalSemaphores;
 
     if (vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE) != VK_SUCCESS) {
-        throw std::runtime_error("failed to submit draw command buffer!");
+        error("Failed to submit draw command buffer!");
+        return;
     }
 
     VkSwapchainKHR swapChains[] = { swapchain->getHandle() };

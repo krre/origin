@@ -16,3 +16,7 @@ Fence::~Fence() {
         vkDestroyFence(device->getHandle(), handle, nullptr);
     }
 }
+
+VkResult Fence::wait(uint32_t count) {
+    vkWaitForFences(device->getHandle(), count, &handle, VK_TRUE, 100000000);
+}

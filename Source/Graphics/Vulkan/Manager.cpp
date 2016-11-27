@@ -83,8 +83,8 @@ bool Manager::createSurface() {
     }
 
 
-    for (uint32_t i = 0; i < swapchain->getImages()->size(); i++) {
-        std::shared_ptr<ImageView> imageView(new ImageView(device.get(), surfaceFormat.get(), (*swapchain->getImages())[i]));
+    for (uint32_t i = 0; i < swapchain->getCount(); i++) {
+        std::shared_ptr<ImageView> imageView(new ImageView(device.get(), surfaceFormat.get(), swapchain->getImage(i)));
         if (!imageView->isValid()) {
             resultDescription = std::string(initError) + imageView->getResultDescription();
             return false;
@@ -124,7 +124,7 @@ bool Manager::createSurface() {
         return false;
     }
 
-    for (uint32_t i = 0; i < swapchain->getImages()->size(); i++) {
+    for (uint32_t i = 0; i < swapchain->getCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get(), renderPass.get(), imageViews[i].get(), swapchain->getExtent()));
         if (!framebuffer->isValid()) {
             resultDescription = std::string(initError) + framebuffer->getResultDescription();
@@ -140,7 +140,7 @@ bool Manager::createSurface() {
     }
 
     commandBuffer.reset(new CommandBuffer(device.get()));
-    commandBuffer->allocate(commandPool.get(), swapchain->getImages()->size());
+    commandBuffer->allocate(commandPool.get(), swapchain->getCount());
 
     if (commandBuffer->getResult() != VK_SUCCESS) {
         resultDescription = std::string(initError) + commandBuffer->getResultDescription();

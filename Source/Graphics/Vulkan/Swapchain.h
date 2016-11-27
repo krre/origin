@@ -14,8 +14,9 @@ public:
     ~Swapchain();
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     VkSwapchainKHR getHandle() const { return handle; }
-    std::vector<VkImage>* getImages() { return &images; }
+    VkImage getImage(int i) const { return images.at(i); }
     VkExtent2D getExtent() const { return extent; }
+    int getCount() const { return images.size(); }
 
 private:
     VkSwapchainKHR handle = VK_NULL_HANDLE;

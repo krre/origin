@@ -19,7 +19,7 @@ Manager::~Manager() {
     renderPass.release();
     imageViews.clear();
     swapchain.release();
-    queue.release();
+//    queue.release();
     surface.release();
     device.release();
     physicalDevices.release();
@@ -70,11 +70,11 @@ bool Manager::createSurface() {
 
     surfaceFormat.reset(new SurfaceFormat(physicalDevices.get(), surface.get()));
 
-    queue.reset(new Queue(device.get()));
-    if (!queue->isValid()) {
-        resultDescription = std::string(initError) + queue->getResultDescription();
-        return false;
-    }
+//    queue.reset(new Queue(device.get()));
+//    if (!queue->isValid()) {
+//        resultDescription = std::string(initError) + queue->getResultDescription();
+//        return false;
+//    }
 
     swapchain.reset(new Swapchain(device.get(), surface.get(), surfaceFormat.get()));
     if (!swapchain->isValid()) {

@@ -45,7 +45,7 @@ private:
     std::unique_ptr<Vulkan::Device> device;
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::SurfaceFormat> surfaceFormat;
-    std::unique_ptr<Vulkan::Queue> queue;
+//    std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::unique_ptr<Vulkan::Pipeline> graphicsPipeline;

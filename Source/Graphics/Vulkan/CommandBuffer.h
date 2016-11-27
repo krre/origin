@@ -13,6 +13,7 @@ public:
     VkCommandBuffer getHandle() const { return handle; }
     void allocate(const CommandPool* commandPool, int count);
     int getCount() const { return commandBuffers.size(); }
+    VkCommandBuffer getBuffer(int i) const { return commandBuffers.at(i); }
 
 private:
     VkCommandBuffer handle = VK_NULL_HANDLE;

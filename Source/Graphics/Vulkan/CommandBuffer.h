@@ -14,6 +14,7 @@ public:
     void allocate(const CommandPool* commandPool, int count);
     int getCount() const { return commandBuffers.size(); }
     VkCommandBuffer getBuffer(int i) const { return commandBuffers.at(i); }
+    VkCommandBuffer* getBuffers() { return commandBuffers.data(); }
 
 private:
     VkCommandBuffer handle = VK_NULL_HANDLE;

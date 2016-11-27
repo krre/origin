@@ -143,8 +143,9 @@ int App::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        GameStateManager::get()->update(frameTime);
-        GameStateManager::get()->draw(frameTime);
+//        GameStateManager::get()->update(frameTime);
+//        GameStateManager::get()->draw(frameTime);
+        Vulkan::Manager::get()->drawFrame();
     }
 }
 

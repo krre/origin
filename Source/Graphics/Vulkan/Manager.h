@@ -34,6 +34,7 @@ public:
     Vulkan::Instance* getInstance() const { return instance.get(); }
     Vulkan::Device* getDevice() const { return device.get(); }
     Vulkan::Surface* getSurface() const { return surface.get(); }
+    void drawFrame();
 
 private:
     std::string resultDescription = "None";
@@ -55,6 +56,9 @@ private:
     std::unique_ptr<Vulkan::CommandBuffer> commandBuffer;
     std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
+
+    VkQueue graphicsQueue;
+    VkQueue presentQueue;
 };
 
 } // Vulkan

@@ -9,6 +9,8 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
+    renderFinishedSemaphore.release();
+    imageAvailableSemaphore.release();
     commandBuffer.release();
     commandPool.release();
     framebuffers.clear();
@@ -170,6 +172,18 @@ bool Manager::createSurface() {
         if (result != VK_SUCCESS) {
             error("Error vkEndCommandBuffer"); // TODO: Replace by common error handler
         }
+    }
+
+    imageAvailableSemaphore.reset(new Semaphore(device.get()));
+    if (!imageAvailableSemaphore->isValid()) {
+        resultDescription = std::string(initError) + imageAvailableSemaphore->getResultDescription();
+        return false;
+    }
+
+    renderFinishedSemaphore.reset(new Semaphore(device.get()));
+    if (!renderFinishedSemaphore->isValid()) {
+        resultDescription = std::string(initError) + renderFinishedSemaphore->getResultDescription();
+        return false;
     }
 
     return true;

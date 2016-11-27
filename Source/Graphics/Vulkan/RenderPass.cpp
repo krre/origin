@@ -24,14 +24,14 @@ RenderPass::RenderPass(const Device* device, const SurfaceFormat* surfaceFormat)
     subPass.colorAttachmentCount = 1;
     subPass.pColorAttachments = &colorAttachmentRef;
 
-    VkRenderPassCreateInfo renderPassInfo = {};
-    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    renderPassInfo.attachmentCount = 1;
-    renderPassInfo.pAttachments = &colorAttachment;
-    renderPassInfo.subpassCount = 1;
-    renderPassInfo.pSubpasses = &subPass;
+    VkRenderPassCreateInfo createInfo = {};
+    createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+    createInfo.attachmentCount = 1;
+    createInfo.pAttachments = &colorAttachment;
+    createInfo.subpassCount = 1;
+    createInfo.pSubpasses = &subPass;
 
-    result = vkCreateRenderPass(device->getHandle(), &renderPassInfo, nullptr, &handle);
+    result = vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle);
 }
 
 RenderPass::~RenderPass() {

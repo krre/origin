@@ -135,5 +135,35 @@ bool Manager::createSurface() {
         return false;
     }
 
+    for (size_t i = 0; i < commandBuffer->getCount(); i++) {
+        VkCommandBufferBeginInfo beginInfo = {};
+        beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+        beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
+        VkCommandBuffer buffer = commandBuffer->getBuffer(i);
+
+        vkBeginCommandBuffer(buffer, &beginInfo);
+
+        VkRenderPassBeginInfo renderPassInfo = {};
+        renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+        renderPassInfo.renderPass = renderPass->getHandle();
+        renderPassInfo.framebuffer = framebuffers[i]->getHandle();
+        renderPassInfo.renderArea.offset = {0, 0};
+        renderPassInfo.renderArea.extent = swapchain->getExtent();
+
+        VkClearValue clearColor = { 0.0f, 0.0f, 0.0f, 1.0f };
+        renderPassInfo.clearValueCount = 1;
+        renderPassInfo.pClearValues = &clearColor;
+
+        vkCmdBeginRenderPass(buffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+            vkCmdBindPipeline(buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
+            vkCmdDraw(buffer, 3, 1, 0, 0);
+        vkCmdEndRenderPass(buffer);
+
+        VkResult result = vkEndCommandBuffer(buffer);
+        if (result != VK_SUCCESS) {
+            error("Error vkEndCommandBuffer"); // TODO: Replace by common error handler
+        }
+    }
+
     return true;
 }

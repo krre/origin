@@ -11,6 +11,7 @@ Manager::Manager() {
 Manager::~Manager() {
     renderFinishedSemaphore.release();
     imageAvailableSemaphore.release();
+    fence.release();
     commandBuffer.release();
     commandPool.release();
     framebuffers.clear();
@@ -177,6 +178,12 @@ bool Manager::createSurface() {
         if (result != VK_SUCCESS) {
             error("Error vkEndCommandBuffer"); // TODO: Replace by common error handler
         }
+    }
+
+    fence.reset(new Fence(device.get()));
+    if (!fence->isValid()) {
+        resultDescription = std::string(initError) + fence->getResultDescription();
+        return false;
     }
 
     imageAvailableSemaphore.reset(new Semaphore(device.get()));

@@ -147,6 +147,8 @@ int App::run() {
 //        GameStateManager::get()->draw(frameTime);
         Vulkan::Manager::get()->drawFrame();
     }
+
+    Vulkan::Manager::get()->getDevice()->waitIdle();
 }
 
 /*

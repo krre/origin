@@ -18,9 +18,13 @@ public:
     Instance();
     ~Instance();
     void create() override;
+
     uint32_t getLayerCount() const { return layerCount; }
-    uint32_t getExtensionCount() const { return extensionCount; }
+    VkLayerProperties getLayer(int i) const { return layers.at(i); }
     void dumpLayers();
+
+    uint32_t getExtensionCount() const { return extensionCount; }
+    VkExtensionProperties getExtension(int i) const { return extensions.at(i); }
     void dumpExtensions();
 
 private:

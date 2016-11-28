@@ -9,23 +9,23 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
-    renderFinishedSemaphore.release();
-    imageAvailableSemaphore.release();
-    fence.release();
-    commandBuffer.release();
-    commandPool.release();
+    renderFinishedSemaphore.reset();
+    imageAvailableSemaphore.reset();
+    fence.reset();
+    commandBuffer.reset();
+    commandPool.reset();
     framebuffers.clear();
-    graphicsPipeline.release();
-    pipelineLayout.release();
-    renderPass.release();
+    graphicsPipeline.reset();
+    pipelineLayout.reset();
+    renderPass.reset();
     imageViews.clear();
-    swapchain.release();
-//    queue.release();
-    surface.release();
-    device.release();
-    physicalDevices.release();
-    debugCallback.release();
-    instance.release();
+    swapchain.reset();
+//    queue.reset();
+    surface.reset();
+    device.reset();
+    physicalDevices.reset();
+    debugCallback.reset();
+    instance.reset();
 }
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {

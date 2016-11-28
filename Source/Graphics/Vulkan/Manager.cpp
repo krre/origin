@@ -36,10 +36,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT fl
 
 bool Manager::init() {
     instance.reset(new Instance);
-    if (!instance->create()) {
-        resultDescription = std::string(initError) + instance->getResultDescription();
-        return false;
-    }
+    instance->create();
 
     if (enableValidationLayers) {
         debugCallback.reset(new DebugReportCallback(instance.get(), debugCallbackFunc));

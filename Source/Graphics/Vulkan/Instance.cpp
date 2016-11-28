@@ -6,7 +6,7 @@ Instance::Instance() {
 
 }
 
-bool Instance::create() {
+void Instance::create() {
     // Get layers
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
     layers.resize(layerCount);
@@ -67,9 +67,7 @@ bool Instance::create() {
     createInfo.enabledExtensionCount = extensionCount;
     createInfo.ppEnabledExtensionNames = extNames.data();
 
-    result = vkCreateInstance(&createInfo, nullptr, &handle);
-
-    return isValid();
+    checkError(vkCreateInstance(&createInfo, nullptr, &handle));
 }
 
 Instance::~Instance() {

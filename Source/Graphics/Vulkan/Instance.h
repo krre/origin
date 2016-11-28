@@ -15,7 +15,7 @@ class Instance : public VkCreatableObject<VkInstance> {
 public:
     Instance();
     ~Instance();
-    bool create() override;
+    void create() override;
 
 private:
     uint32_t layerCount = 0;

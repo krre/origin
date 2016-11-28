@@ -7,6 +7,11 @@ Instance::Instance() {
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
     layers.resize(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
+
+    // Get extensions
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
+    extensions.resize(extensionCount);
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 }
 
 void Instance::create() {
@@ -24,17 +29,11 @@ void Instance::create() {
         "VK_LAYER_LUNARG_standard_validation"
     };
 
-    // Get extensions
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-    extensions.resize(extensionCount);
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
-    std::vector<const char*> extNames;
-    print("Extensions:")
-    for (const auto& extension : extensions) {
-        print(extension.extensionName);
-        extNames.push_back(extension.extensionName);
-    }
-    print("")
+    std::vector<const char*> enabledExtensions {
+        "VK_KHR_surface",
+        "VK_KHR_xcb_surface",
+        "VK_EXT_debug_report"
+    };
 
     VkApplicationInfo appInfo;
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
@@ -55,8 +54,8 @@ void Instance::create() {
     } else {
         createInfo.enabledLayerCount = 0;
     }
-    createInfo.enabledExtensionCount = extensionCount;
-    createInfo.ppEnabledExtensionNames = extNames.data();
+    createInfo.enabledExtensionCount = enabledExtensions.size();
+    createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 
     checkError(vkCreateInstance(&createInfo, nullptr, &handle));
 }
@@ -64,6 +63,12 @@ void Instance::create() {
 void Instance::dumpLayers() {
     for (const auto& layer : layers) {
         print(layer.layerName);
+    }
+}
+
+void Instance::dumpExtensions() {
+    for (const auto& extension : extensions) {
+        print(extension.extensionName);
     }
 }
 

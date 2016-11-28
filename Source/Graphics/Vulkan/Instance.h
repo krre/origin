@@ -19,7 +19,9 @@ public:
     ~Instance();
     void create() override;
     uint32_t getLayerCount() const { return layerCount; }
+    uint32_t getExtensionCount() const { return extensionCount; }
     void dumpLayers();
+    void dumpExtensions();
 
 private:
     uint32_t layerCount = 0;

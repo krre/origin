@@ -35,6 +35,6 @@ std::string VkObject::getResultDescription() const {
     case VK_ERROR_VALIDATION_FAILED_EXT: return "Validation failed";
     case VK_ERROR_INVALID_SHADER_NV: return "Invalid shader";
 
-    return "Unknown";
+    return "Unknown result code";
     }
 }

@@ -14,7 +14,7 @@ public:
     VkResult getResult() const { return result; }
 
 protected:
-    VkResult result = VK_SUCCESS;
+    VkResult result = VK_NOT_READY;
 };
 
 } // Vulkan

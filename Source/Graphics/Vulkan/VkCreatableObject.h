@@ -16,9 +16,9 @@ public:
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     T getHandle() const { return handle; }
     virtual bool create() = 0;
-    virtual void destroy() = 0;
 
 protected:
+    virtual void destroy() = 0;
     T handle = VK_NULL_HANDLE;
 };
 

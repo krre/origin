@@ -12,6 +12,7 @@ public:
     VkObject();
     std::string getResultDescription() const;
     VkResult getResult() const { return result; }
+    std::string resultToString(VkResult result);
 
 protected:
     void checkError(VkResult result);

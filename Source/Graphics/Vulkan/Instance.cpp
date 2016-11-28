@@ -72,10 +72,6 @@ bool Instance::create() {
     return isValid();
 }
 
-void Instance::destroy() {
-    vkDestroyInstance(handle, nullptr);
-}
-
 Instance::~Instance() {
-    destroy();
+    vkDestroyInstance(handle, nullptr);
 }

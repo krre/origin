@@ -16,7 +16,6 @@ public:
     Instance();
     ~Instance();
     bool create() override;
-    void destroy() override;
 
 private:
     uint32_t layerCount = 0;

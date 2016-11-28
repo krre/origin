@@ -1,4 +1,5 @@
 #include "VkObject.h"
+#include <assert.h>
 
 using namespace Vulkan;
 
@@ -37,4 +38,9 @@ std::string VkObject::getResultDescription() const {
 
     return "Unknown result code";
     }
+}
+
+void VkObject::checkError(VkResult result) {
+    this->result = result;
+    assert(result == VK_SUCCESS);
 }

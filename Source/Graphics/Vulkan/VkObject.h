@@ -14,6 +14,8 @@ public:
     VkResult getResult() const { return result; }
 
 protected:
+    void checkError(VkResult result);
+
     VkResult result = VK_NOT_READY;
 };
 

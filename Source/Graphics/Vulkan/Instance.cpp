@@ -9,19 +9,7 @@ Instance::Instance() {
     layers.resize(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
 
-    // Get extensions
-    uint32_t extensionCount;
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-    extensions.resize(extensionCount);
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
-
-    for (const auto& extension : extensions) {
-        enabledExtensions.push_back(extension.extensionName);
-    }
-}
-
-void Instance::create() {
-    const std::vector<const char*> enabledLayers = {
+    enabledLayers = {
 //        "VK_LAYER_LUNARG_api_dump",
         "VK_LAYER_LUNARG_image",
         "VK_LAYER_LUNARG_parameter_validation",
@@ -35,6 +23,18 @@ void Instance::create() {
         "VK_LAYER_LUNARG_standard_validation"
     };
 
+    // Get extensions
+    uint32_t extensionCount;
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
+    extensions.resize(extensionCount);
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
+
+    for (const auto& extension : extensions) {
+        enabledExtensions.push_back(extension.extensionName);
+    }
+}
+
+void Instance::create() {
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     appInfo.pApplicationName = "Gagarin";

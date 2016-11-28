@@ -29,6 +29,7 @@ public:
 
 private:
     std::vector<VkLayerProperties> layers;
+    std::vector<const char*> enabledLayers;
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
 };

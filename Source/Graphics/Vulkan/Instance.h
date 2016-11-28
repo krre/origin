@@ -30,6 +30,7 @@ public:
 private:
     std::vector<VkLayerProperties> layers;
     std::vector<VkExtensionProperties> extensions;
+    std::vector<const char*> enabledExtensions;
 };
 
 } // Vulkan

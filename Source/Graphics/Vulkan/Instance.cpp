@@ -14,6 +14,10 @@ Instance::Instance() {
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
     extensions.resize(extensionCount);
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
+
+    for (const auto& extension : extensions) {
+        enabledExtensions.push_back(extension.extensionName);
+    }
 }
 
 void Instance::create() {
@@ -31,13 +35,7 @@ void Instance::create() {
         "VK_LAYER_LUNARG_standard_validation"
     };
 
-    std::vector<const char*> enabledExtensions {
-        "VK_KHR_surface",
-        "VK_KHR_xcb_surface",
-        "VK_EXT_debug_report"
-    };
-
-    VkApplicationInfo appInfo;
+    VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     appInfo.pApplicationName = "Gagarin";
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);;

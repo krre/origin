@@ -32,22 +32,21 @@ Instance::Instance() {
     for (const auto& extension : extensions) {
         enabledExtensions.push_back(extension.extensionName);
     }
-}
 
-void Instance::create() {
-    VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Gagarin";
+    appInfo.pApplicationName = "Application name";
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);;
-    appInfo.pEngineName = "Gagarin Engine";
+    appInfo.pEngineName = "Engine name";
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);;
     appInfo.apiVersion = VK_API_VERSION_1_0;
     appInfo.pNext = nullptr;
 
-    VkInstanceCreateInfo createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.flags = 0;
     createInfo.pApplicationInfo = &appInfo;
+}
+
+void Instance::create() {
     if (enableValidationLayers) {
         createInfo.enabledLayerCount = enabledLayers.size();
         createInfo.ppEnabledLayerNames = enabledLayers.data();

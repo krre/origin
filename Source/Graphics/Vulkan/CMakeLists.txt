@@ -40,6 +40,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/SurfaceFormat.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/VkCreatableObject.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/VkCreatableObject.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VkObject.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VkObject.h
     PARENT_SCOPE

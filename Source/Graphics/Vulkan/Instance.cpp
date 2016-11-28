@@ -4,11 +4,13 @@ using namespace Vulkan;
 
 Instance::Instance() {
     // Get layers
+    uint32_t layerCount;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
     layers.resize(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
 
     // Get extensions
+    uint32_t extensionCount;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
     extensions.resize(extensionCount);
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());

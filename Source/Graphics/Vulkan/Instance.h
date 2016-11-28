@@ -19,17 +19,15 @@ public:
     ~Instance();
     void create() override;
 
-    uint32_t getLayerCount() const { return layerCount; }
+    uint32_t getLayerCount() const { return layers.size(); }
     VkLayerProperties getLayer(int i) const { return layers.at(i); }
     void dumpLayers();
 
-    uint32_t getExtensionCount() const { return extensionCount; }
+    uint32_t getExtensionCount() const { return extensions.size(); }
     VkExtensionProperties getExtension(int i) const { return extensions.at(i); }
     void dumpExtensions();
 
 private:
-    uint32_t layerCount = 0;
-    uint32_t extensionCount = 0;
     std::vector<VkLayerProperties> layers;
     std::vector<VkExtensionProperties> extensions;
 };

@@ -3,10 +3,23 @@
 
 namespace Vulkan {
 
-class VkCreatableObject : public VkObject {
+template<typename T> class VkCreatableObject : public VkObject {
 
 public:
-    VkCreatableObject();
+    VkCreatableObject() {}
+    virtual ~VkCreatableObject() {
+        if (handle != VK_NULL_HANDLE) {
+            destroy();
+        }
+    }
+
+    bool isValid() const { return handle != VK_NULL_HANDLE; }
+    T getHandle() const { return handle; }
+    virtual bool create() = 0;
+    virtual void destroy() = 0;
+
+private:
+    T handle = VK_NULL_HANDLE;
 };
 
 } // Vulkan

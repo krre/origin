@@ -21,6 +21,7 @@ public:
 
     uint32_t getLayerCount() const { return layers.size(); }
     VkLayerProperties getLayer(int i) const { return layers.at(i); }
+    void setEnabledLayers(const std::vector<const char*> enabledLayers);
     void dumpLayers();
 
     uint32_t getExtensionCount() const { return extensions.size(); }

@@ -26,6 +26,7 @@ public:
 
     uint32_t getExtensionCount() const { return extensions.size(); }
     VkExtensionProperties getExtension(int i) const { return extensions.at(i); }
+    void setEnabledExtensions(const std::vector<const char*> enabledExtensions);
     void dumpExtensions();
 
 private:

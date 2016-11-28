@@ -58,6 +58,10 @@ void Instance::dumpLayers() {
     }
 }
 
+void Instance::setEnabledExtensions(const std::vector<const char*> enabledExtensions) {
+    this->enabledExtensions = enabledExtensions;
+}
+
 void Instance::dumpExtensions() {
     for (const auto& extension : extensions) {
         print(extension.extensionName);

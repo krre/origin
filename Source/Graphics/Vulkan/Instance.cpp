@@ -10,13 +10,6 @@ Instance::Instance() {
 }
 
 void Instance::create() {
-    print("Layers:")
-    for (const auto& layer : layers) {
-        print(layer.layerName);
-        layerNames.push_back(layer.layerName);
-    }
-    print("")
-
     const std::vector<const char*> enabledLayers = {
 //        "VK_LAYER_LUNARG_api_dump",
         "VK_LAYER_LUNARG_image",
@@ -66,6 +59,12 @@ void Instance::create() {
     createInfo.ppEnabledExtensionNames = extNames.data();
 
     checkError(vkCreateInstance(&createInfo, nullptr, &handle));
+}
+
+void Instance::dumpLayers() {
+    for (const auto& layer : layers) {
+        print(layer.layerName);
+    }
 }
 
 Instance::~Instance() {

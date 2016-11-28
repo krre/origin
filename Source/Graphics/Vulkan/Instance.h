@@ -18,9 +18,11 @@ public:
     Instance();
     ~Instance();
     void create() override;
+    uint32_t getLayerCount() const { return layerCount; }
 
 private:
     uint32_t layerCount = 0;
+    std::vector<const char*> layerNames;
     uint32_t extensionCount = 0;
     std::vector<VkLayerProperties> layers;
     std::vector<VkExtensionProperties> extensions;

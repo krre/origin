@@ -3,15 +3,13 @@
 using namespace Vulkan;
 
 Instance::Instance() {
-
-}
-
-void Instance::create() {
     // Get layers
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
     layers.resize(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
-    std::vector<const char*> layerNames;
+}
+
+void Instance::create() {
     print("Layers:")
     for (const auto& layer : layers) {
         print(layer.layerName);

@@ -33,31 +33,31 @@ public:
     bool createSurface();
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance; }
-    Vulkan::Device* getDevice() const { return device.get(); }
-    Vulkan::Surface* getSurface() const { return surface.get(); }
+    Vulkan::Device* getDevice() const { return device; }
+    Vulkan::Surface* getSurface() const { return surface; }
     void drawFrame();
 
 private:
     std::string resultDescription = "None";
 
     Vulkan::Instance* instance;
-    std::unique_ptr<Vulkan::DebugReportCallback> debugCallback;
-    std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
-    std::unique_ptr<Vulkan::Device> device;
-    std::unique_ptr<Vulkan::Surface> surface;
-    std::unique_ptr<Vulkan::SurfaceFormat> surfaceFormat;
-//    std::unique_ptr<Vulkan::Queue> queue;
-    std::unique_ptr<Vulkan::Swapchain> swapchain;
-    std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
-    std::unique_ptr<Vulkan::Pipeline> graphicsPipeline;
-    std::unique_ptr<Vulkan::RenderPass> renderPass;
+    Vulkan::DebugReportCallback* debugCallback;
+    Vulkan::PhysicalDevices* physicalDevices;
+    Vulkan::Device* device;
+    Vulkan::Surface* surface;
+    Vulkan::SurfaceFormat* surfaceFormat;
+//    Vulkan::Queue* queue;
+    Vulkan::Swapchain* swapchain;
+    Vulkan::PipelineLayout* pipelineLayout;
+    Vulkan::Pipeline* graphicsPipeline;
+    Vulkan::RenderPass* renderPass;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
-    std::unique_ptr<Vulkan::CommandPool> commandPool;
-    std::unique_ptr<Vulkan::CommandBuffer> commandBuffer;
-    std::unique_ptr<Vulkan::Fence> fence;
-    std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
-    std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
+    Vulkan::CommandPool* commandPool;
+    Vulkan::CommandBuffer* commandBuffer;
+    Vulkan::Fence* fence;
+    Vulkan::Semaphore* imageAvailableSemaphore;
+    Vulkan::Semaphore* renderFinishedSemaphore;
 
     VkQueue graphicsQueue;
     VkQueue presentQueue;

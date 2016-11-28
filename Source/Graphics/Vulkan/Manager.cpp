@@ -9,22 +9,22 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
-    renderFinishedSemaphore.reset();
-    imageAvailableSemaphore.reset();
-    fence.reset();
-    commandBuffer.reset();
-    commandPool.reset();
+    delete renderFinishedSemaphore;
+    delete imageAvailableSemaphore;
+    delete fence;
+    delete commandBuffer;
+    delete commandPool;
     framebuffers.clear();
-    graphicsPipeline.reset();
-    pipelineLayout.reset();
-    renderPass.reset();
+    delete graphicsPipeline;
+    delete pipelineLayout;
+    delete renderPass;
     imageViews.clear();
-    swapchain.reset();
-//    queue.reset();
-    surface.reset();
-    device.reset();
-    physicalDevices.reset();
-    debugCallback.reset();
+    delete swapchain;
+//    delete queue;
+    delete surface;
+    delete device;
+    delete physicalDevices;
+    delete debugCallback;
     delete instance;
 }
 
@@ -57,15 +57,15 @@ bool Manager::init() {
     }
 
     if (enableValidationLayers) {
-        debugCallback.reset(new DebugReportCallback(instance, debugCallbackFunc));
+        debugCallback = new DebugReportCallback(instance, debugCallbackFunc);
         if (!debugCallback->isValid()) {
             resultDescription = std::string(initError) + debugCallback->getResultDescription();
             return false;
         }
     }
 
-    physicalDevices.reset(new PhysicalDevices(instance));
-    device.reset(new Device(physicalDevices.get()));
+    physicalDevices = new PhysicalDevices(instance);
+    device = new Device(physicalDevices);
     if (!device->isValid()) {
         resultDescription = std::string(initError) + device->getResultDescription();
         return false;
@@ -78,21 +78,21 @@ bool Manager::init() {
 }
 
 bool Manager::createSurface() {
-    surface.reset(new Surface(instance));
+    surface = new Surface(instance);
     if (!surface->isValid()) {
         resultDescription = std::string(initError) + surface->getResultDescription();
         return false;
     }
 
-    surfaceFormat.reset(new SurfaceFormat(physicalDevices.get(), surface.get()));
+    surfaceFormat = new SurfaceFormat(physicalDevices, surface);
 
-//    queue.reset(new Queue(device.get()));
+//    queue = new Queue(device);
 //    if (!queue->isValid()) {
 //        resultDescription = std::string(initError) + queue->getResultDescription();
 //        return false;
 //    }
 
-    swapchain.reset(new Swapchain(device.get(), surface.get(), surfaceFormat.get()));
+    swapchain = new Swapchain(device, surface, surfaceFormat);
     if (!swapchain->isValid()) {
         resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;
@@ -100,7 +100,7 @@ bool Manager::createSurface() {
 
 
     for (uint32_t i = 0; i < swapchain->getCount(); i++) {
-        std::shared_ptr<ImageView> imageView(new ImageView(device.get(), surfaceFormat.get(), swapchain->getImage(i)));
+        std::shared_ptr<ImageView> imageView(new ImageView(device, surfaceFormat, swapchain->getImage(i)));
         if (!imageView->isValid()) {
             resultDescription = std::string(initError) + imageView->getResultDescription();
             return false;
@@ -108,19 +108,19 @@ bool Manager::createSurface() {
         imageViews.push_back(imageView);
     }
 
-    renderPass.reset(new RenderPass(device.get(), surfaceFormat.get()));
+    renderPass = new RenderPass(device, surfaceFormat);
     if (!renderPass->isValid()) {
         resultDescription = std::string(initError) + renderPass->getResultDescription();
         return false;
     }
 
-    pipelineLayout.reset(new PipelineLayout(device.get()));
+    pipelineLayout = new PipelineLayout(device);
     if (!pipelineLayout->isValid()) {
         resultDescription = std::string(initError) + pipelineLayout->getResultDescription();
         return false;
     }
 
-    graphicsPipeline.reset(new Pipeline(PipelineType::Graphics, device.get()));
+    graphicsPipeline = new Pipeline(PipelineType::Graphics, device);
     ShaderResource* shaderResource;
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
@@ -130,8 +130,8 @@ bool Manager::createSurface() {
     graphicsPipeline->addShaderCode(ShaderType::Fragment, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     graphicsPipeline->setExtent(swapchain->getExtent());
-    graphicsPipeline->setPipelineLayout(pipelineLayout.get());
-    graphicsPipeline->setRenderPass(renderPass.get());
+    graphicsPipeline->setPipelineLayout(pipelineLayout);
+    graphicsPipeline->setRenderPass(renderPass);
 
     graphicsPipeline->create();
 
@@ -141,7 +141,7 @@ bool Manager::createSurface() {
     }
 
     for (uint32_t i = 0; i < swapchain->getCount(); i++) {
-        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get(), renderPass.get(), imageViews[i].get(), swapchain->getExtent()));
+        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
         if (!framebuffer->isValid()) {
             resultDescription = std::string(initError) + framebuffer->getResultDescription();
             return false;
@@ -149,14 +149,14 @@ bool Manager::createSurface() {
         framebuffers.push_back(framebuffer);
     }
 
-    commandPool.reset(new CommandPool(device.get()));
+    commandPool = new CommandPool(device);
     if (!commandPool->isValid()) {
         resultDescription = std::string(initError) + commandPool->getResultDescription();
         return false;
     }
 
-    commandBuffer.reset(new CommandBuffer(device.get()));
-    commandBuffer->allocate(commandPool.get(), swapchain->getCount());
+    commandBuffer = new CommandBuffer(device);
+    commandBuffer->allocate(commandPool, swapchain->getCount());
 
     if (commandBuffer->getResult() != VK_SUCCESS) {
         resultDescription = std::string(initError) + commandBuffer->getResultDescription();
@@ -195,19 +195,19 @@ bool Manager::createSurface() {
         }
     }
 
-    fence.reset(new Fence(device.get()));
+    fence = new Fence(device);
     if (!fence->isValid()) {
         resultDescription = std::string(initError) + fence->getResultDescription();
         return false;
     }
 
-    imageAvailableSemaphore.reset(new Semaphore(device.get()));
+    imageAvailableSemaphore = new Semaphore(device);
     if (!imageAvailableSemaphore->isValid()) {
         resultDescription = std::string(initError) + imageAvailableSemaphore->getResultDescription();
         return false;
     }
 
-    renderFinishedSemaphore.reset(new Semaphore(device.get()));
+    renderFinishedSemaphore = new Semaphore(device);
     if (!renderFinishedSemaphore->isValid()) {
         resultDescription = std::string(initError) + renderFinishedSemaphore->getResultDescription();
         return false;

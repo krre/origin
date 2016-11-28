@@ -3,6 +3,10 @@
 using namespace Vulkan;
 
 Instance::Instance() {
+
+}
+
+bool Instance::create() {
     // Get layers
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
     layers.resize(layerCount);
@@ -64,10 +68,10 @@ Instance::Instance() {
     createInfo.ppEnabledExtensionNames = extNames.data();
 
     result = vkCreateInstance(&createInfo, nullptr, &handle);
+
+    return isValid();
 }
 
 Instance::~Instance() {
-    if (handle != VK_NULL_HANDLE) {
-        vkDestroyInstance(handle, nullptr);
-    }
+    vkDestroyInstance(handle, nullptr);
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "VkObject.h"
+#include "VkCreatableObject.h"
 #include <vector>
 
 namespace Vulkan {
@@ -10,16 +10,14 @@ namespace Vulkan {
     const bool enableValidationLayers = true;
 #endif
 
-class Instance : public VkObject {
+class Instance : public VkCreatableObject<VkInstance> {
 
 public:
     Instance();
     ~Instance();
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
-    VkInstance getHandle() const { return handle; }
+    bool create() override;
 
 private:
-    VkInstance handle = VK_NULL_HANDLE;
     uint32_t layerCount = 0;
     uint32_t extensionCount = 0;
     std::vector<VkLayerProperties> layers;

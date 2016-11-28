@@ -18,7 +18,7 @@ public:
     virtual bool create() = 0;
     virtual void destroy() = 0;
 
-private:
+protected:
     T handle = VK_NULL_HANDLE;
 };
 

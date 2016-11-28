@@ -25,7 +25,7 @@ Manager::~Manager() {
     device.reset();
     physicalDevices.reset();
     debugCallback.reset();
-    instance.reset();
+    delete instance;
 }
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {
@@ -35,7 +35,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT fl
 }
 
 bool Manager::init() {
-    instance.reset(new Instance);
+    instance = new Instance();
     instance->setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
         "VK_LAYER_LUNARG_image",
@@ -57,14 +57,14 @@ bool Manager::init() {
     }
 
     if (enableValidationLayers) {
-        debugCallback.reset(new DebugReportCallback(instance.get(), debugCallbackFunc));
+        debugCallback.reset(new DebugReportCallback(instance, debugCallbackFunc));
         if (!debugCallback->isValid()) {
             resultDescription = std::string(initError) + debugCallback->getResultDescription();
             return false;
         }
     }
 
-    physicalDevices.reset(new PhysicalDevices(instance.get()));
+    physicalDevices.reset(new PhysicalDevices(instance));
     device.reset(new Device(physicalDevices.get()));
     if (!device->isValid()) {
         resultDescription = std::string(initError) + device->getResultDescription();
@@ -78,7 +78,7 @@ bool Manager::init() {
 }
 
 bool Manager::createSurface() {
-    surface.reset(new Surface(instance.get()));
+    surface.reset(new Surface(instance));
     if (!surface->isValid()) {
         resultDescription = std::string(initError) + surface->getResultDescription();
         return false;

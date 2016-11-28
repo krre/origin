@@ -32,7 +32,7 @@ public:
     bool init();
     bool createSurface();
     std::string getResultDescription() const { return resultDescription; }
-    Vulkan::Instance* getInstance() const { return instance.get(); }
+    Vulkan::Instance* getInstance() const { return instance; }
     Vulkan::Device* getDevice() const { return device.get(); }
     Vulkan::Surface* getSurface() const { return surface.get(); }
     void drawFrame();
@@ -40,7 +40,7 @@ public:
 private:
     std::string resultDescription = "None";
 
-    std::unique_ptr<Vulkan::Instance> instance;
+    Vulkan::Instance* instance;
     std::unique_ptr<Vulkan::DebugReportCallback> debugCallback;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
     std::unique_ptr<Vulkan::Device> device;

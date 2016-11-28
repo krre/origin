@@ -75,5 +75,7 @@ std::string VkObject::resultToString(VkResult result) {
 
 void VkObject::checkError(VkResult result) {
     this->result = result;
+#ifdef ASSERT_ERROR
     assert(result == VK_SUCCESS && std::string("Vulkan error: " + resultToString(result)).c_str());
+#endif
 }

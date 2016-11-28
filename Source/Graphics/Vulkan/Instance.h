@@ -2,6 +2,8 @@
 #include "VkCreatableObject.h"
 #include <vector>
 
+#undef ASSERT_ERROR
+
 namespace Vulkan {
 
 #ifdef NDEBUG

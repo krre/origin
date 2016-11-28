@@ -38,6 +38,11 @@ bool Manager::init() {
     instance.reset(new Instance);
     instance->create();
 
+    if (!instance->isValid()) {
+        resultDescription = std::string(initError) + instance->resultToString(instance->getResult());
+        return false;
+    }
+
     if (enableValidationLayers) {
         debugCallback.reset(new DebugReportCallback(instance.get(), debugCallbackFunc));
         if (!debugCallback->isValid()) {

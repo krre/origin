@@ -10,6 +10,7 @@ class PhysicalDevices : public VkObject {
 public:
     PhysicalDevices(const Instance* instance);
     uint32_t getCount() const { return devices.size(); }
+    VkPhysicalDevice getDevice(size_t i) const { return devices.at(i); }
     VkPhysicalDevice getPrimary() const { return primaryDevice; }
     VkPhysicalDevice getSecondary() const { return secondaryDevice; }
 

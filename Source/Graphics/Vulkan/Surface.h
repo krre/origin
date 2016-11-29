@@ -16,13 +16,18 @@ public:
     Surface(const Instance* instance, VkPhysicalDevice physicalDevice);
     ~Surface();
     void create() override;
+
     int getFormatCount() const { return formats.size(); }
     VkSurfaceFormatKHR getFormat(size_t i) const { return formats.at(i); }
+
+    int getPresentModeCount() const { return presentModes.size(); }
+    VkPresentModeKHR getPresentMode(size_t i) const { return presentModes.at(i); }
 
 private:
     const Instance* instance;
     VkPhysicalDevice physicalDevice;
     std::vector<VkSurfaceFormatKHR> formats;
+    std::vector<VkPresentModeKHR> presentModes;
 };
 
 } // Vulkan

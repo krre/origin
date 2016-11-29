@@ -23,11 +23,14 @@ public:
     int getPresentModeCount() const { return presentModes.size(); }
     VkPresentModeKHR getPresentMode(size_t i) const { return presentModes.at(i); }
 
+    VkSurfaceCapabilitiesKHR getCapabilities() const { return capabilities; }
+
 private:
     const Instance* instance;
     VkPhysicalDevice physicalDevice;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;
+    VkSurfaceCapabilitiesKHR capabilities;
 };
 
 } // Vulkan

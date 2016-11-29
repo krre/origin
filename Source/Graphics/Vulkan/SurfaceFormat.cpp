@@ -6,9 +6,8 @@ SurfaceFormat::SurfaceFormat(VkPhysicalDevice physicalDevice, const Surface* sur
     physicalDevice(physicalDevice),
     surface(surface) {
 
-    uint32_t formatCount;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface->getHandle(), &formatCount, nullptr);
-    std::vector<VkSurfaceFormatKHR> formats(formatCount);
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface->getHandle(), &formatCount, formats.data());
-    surfaceFormat = formats[0]; // TODO: Select by requirements
+    uint32_t count;
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface->getHandle(), &count, nullptr);
+    formats.resize(count);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, surface->getHandle(), &count, formats.data());
 }

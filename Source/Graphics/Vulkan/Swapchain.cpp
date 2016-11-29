@@ -24,8 +24,8 @@ Swapchain::Swapchain(const Device* device, const Surface* surface, const Surface
         createInfo.flags = 0;
         createInfo.surface = surface->getHandle();
         createInfo.minImageCount = imageCount;
-        createInfo.imageFormat = surfaceFormat->getSurfaceFormat()->format;
-        createInfo.imageColorSpace = surfaceFormat->getSurfaceFormat()->colorSpace;
+        createInfo.imageFormat = surfaceFormat->getFormat(0).format;
+        createInfo.imageColorSpace = surfaceFormat->getFormat(0).colorSpace;
         createInfo.imageExtent = capabilities.currentExtent;
         createInfo.imageArrayLayers = 1;
         createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT;

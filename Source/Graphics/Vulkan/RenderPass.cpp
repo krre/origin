@@ -6,7 +6,7 @@ RenderPass::RenderPass(const Device* device, const SurfaceFormat* surfaceFormat)
     device(device),
     surfaceFormat(surfaceFormat) {
     VkAttachmentDescription colorAttachment = {};
-    colorAttachment.format = surfaceFormat->getSurfaceFormat()->format;
+    colorAttachment.format = surfaceFormat->getFormat(0).format;
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
     colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;

@@ -9,7 +9,9 @@
 
 using namespace Vulkan;
 
-Surface::Surface(const Instance* instance) : instance(instance) {
+Surface::Surface(const Instance* instance, VkPhysicalDevice physicalDevice) :
+    instance(instance),
+    physicalDevice(physicalDevice) {
 
 }
 
@@ -47,4 +49,9 @@ void Surface::create() {
 #endif
 
     }
+
+    uint32_t count;
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, handle, &count, nullptr);
+    formats.resize(count);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, handle, &count, formats.data());
 }

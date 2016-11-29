@@ -2,11 +2,11 @@
 
 using namespace Vulkan;
 
-RenderPass::RenderPass(const Device* device, const SurfaceFormat* surfaceFormat) :
+RenderPass::RenderPass(const Device* device, const Surface* surface) :
     device(device),
-    surfaceFormat(surfaceFormat) {
+    surface(surface) {
     VkAttachmentDescription colorAttachment = {};
-    colorAttachment.format = surfaceFormat->getFormat(0).format;
+    colorAttachment.format = surface->getFormat(0).format;
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
     colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;

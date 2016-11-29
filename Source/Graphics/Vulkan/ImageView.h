@@ -8,7 +8,7 @@ namespace Vulkan {
 class ImageView : public VkObject {
 
 public:
-    ImageView(const Device* device, const SurfaceFormat* surfaceFormat, VkImage image);
+    ImageView(const Device* device, const Surface* surface, VkImage image);
     ~ImageView();
     VkImageView getHandle() const { return handle; }
     bool isValid() const { return handle != VK_NULL_HANDLE; }
@@ -16,7 +16,7 @@ public:
 private:
     VkImageView handle = VK_NULL_HANDLE;
     const Device* device;
-    const SurfaceFormat* surfaceFormat;
+    const Surface* surface;
 };
 
 } // Vulkan

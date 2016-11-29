@@ -86,14 +86,12 @@ bool Manager::init() {
 }
 
 bool Manager::createSurface() {
-    surface = new Surface(instance);
+    surface = new Surface(instance, basePhysicalDevice);
     surface->create();
     if (!surface->isValid()) {
         resultDescription = std::string(initError) + surface->getResultDescription();
         return false;
     }
-
-    surfaceFormat = new SurfaceFormat(basePhysicalDevice, surface);
 
 //    queue = new Queue(device);
 //    if (!queue->isValid()) {
@@ -101,7 +99,7 @@ bool Manager::createSurface() {
 //        return false;
 //    }
 
-    swapchain = new Swapchain(device, surface, surfaceFormat);
+    swapchain = new Swapchain(device, surface);
     if (!swapchain->isValid()) {
         resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;
@@ -109,7 +107,7 @@ bool Manager::createSurface() {
 
 
     for (uint32_t i = 0; i < swapchain->getCount(); i++) {
-        std::shared_ptr<ImageView> imageView(new ImageView(device, surfaceFormat, swapchain->getImage(i)));
+        std::shared_ptr<ImageView> imageView(new ImageView(device, surface, swapchain->getImage(i)));
         if (!imageView->isValid()) {
             resultDescription = std::string(initError) + imageView->getResultDescription();
             return false;
@@ -117,7 +115,7 @@ bool Manager::createSurface() {
         imageViews.push_back(imageView);
     }
 
-    renderPass = new RenderPass(device, surfaceFormat);
+    renderPass = new RenderPass(device, surface);
     if (!renderPass->isValid()) {
         resultDescription = std::string(initError) + renderPass->getResultDescription();
         return false;

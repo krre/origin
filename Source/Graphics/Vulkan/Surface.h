@@ -13,12 +13,16 @@ namespace Vulkan {
 class Surface : public VkCreatableObject<VkSurfaceKHR> {
 
 public:
-    Surface(const Instance* instance);
+    Surface(const Instance* instance, VkPhysicalDevice physicalDevice);
     ~Surface();
     void create() override;
+    int getFormatCount() const { return formats.size(); }
+    VkSurfaceFormatKHR getFormat(size_t i) const { return formats.at(i); }
 
 private:
     const Instance* instance;
+    VkPhysicalDevice physicalDevice;
+    std::vector<VkSurfaceFormatKHR> formats;
 };
 
 } // Vulkan

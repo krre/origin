@@ -70,16 +70,16 @@ bool Manager::init() {
         basePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     }
 
-    uint32_t queueIndex = physicalDevices->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT | VK_QUEUE_COMPUTE_BIT);
+    uint32_t graphicsFamily = physicalDevices->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
-    device = new Device(basePhysicalDevice, queueIndex);
+    device = new Device(basePhysicalDevice, graphicsFamily);
     device->create();
     if (!device->isValid()) {
         resultDescription = std::string(initError) + device->getResultDescription();
         return false;
     }
 
-    vkGetDeviceQueue(device->getHandle(), 0, 0, &graphicsQueue); // TODO: Set family index and queue index
+    vkGetDeviceQueue(device->getHandle(), graphicsFamily, 0, &graphicsQueue);
     vkGetDeviceQueue(device->getHandle(), 0, 0, &presentQueue); // TODO: Set family index and queue index
 
     return true;

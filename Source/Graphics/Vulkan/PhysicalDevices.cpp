@@ -34,8 +34,8 @@ VkPhysicalDevice PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
     return VK_NULL_HANDLE;
 }
 
-int PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {
-    int i = 0;
+uint32_t PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {
+    uint32_t i = 0;
     for (auto familyProperty : queueFamilyProperties[device]) {
         if (familyProperty.queueCount > 0 && (familyProperty.queueFlags & flags)) {
             return i;

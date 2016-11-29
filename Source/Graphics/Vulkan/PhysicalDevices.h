@@ -16,7 +16,7 @@ public:
     VkPhysicalDeviceFeatures getFeatures(VkPhysicalDevice device) { return features[device]; }
     std::vector<VkQueueFamilyProperties> getQueueFamilyProperties(VkPhysicalDevice device) { return queueFamilyProperties[device]; }
     VkPhysicalDevice findDevice(VkPhysicalDeviceType type);
-    int findQueue(VkPhysicalDevice device, VkQueueFlags flags);
+    uint32_t findQueue(VkPhysicalDevice device, VkQueueFlags flags);
     void dumpDevices();
 
 private:

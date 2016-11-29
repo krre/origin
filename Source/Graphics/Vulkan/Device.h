@@ -17,6 +17,7 @@ public:
 private:
     VkPhysicalDevice physicalDevice;
     VkDeviceCreateInfo createInfo;
+    VkDeviceQueueCreateInfo queueCreateInfo;
 
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;

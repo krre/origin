@@ -73,6 +73,7 @@ bool Manager::init() {
     uint32_t queueIndex = physicalDevices->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT | VK_QUEUE_COMPUTE_BIT);
 
     device = new Device(basePhysicalDevice, queueIndex);
+    device->create();
     if (!device->isValid()) {
         resultDescription = std::string(initError) + device->getResultDescription();
         return false;

@@ -18,10 +18,23 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
         features[device] = deviceFeatures;
 
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
-        std::vector<VkQueueFamilyProperties> familyProperties;
+        std::vector<VkQueueFamilyProperties> familyProperties(count);
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, familyProperties.data());
         queueFamilyProperties[device] = familyProperties;
     }
+}
+
+int PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {
+    int i = 0;
+    for (auto familyProperty : queueFamilyProperties[device]) {
+        if (familyProperty.queueCount > 0 && (familyProperty.queueFlags & flags)) {
+            return i;
+        }
+        i++;
+
+    }
+
+    return -1;
 }
 
 void PhysicalDevices::dumpDevices() {

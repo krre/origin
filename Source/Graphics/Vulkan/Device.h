@@ -12,10 +12,15 @@ public:
     void waitIdle();
     VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
     void create() override;
+    void dumpExtensions();
 
 private:
     VkPhysicalDevice physicalDevice;
     VkDeviceCreateInfo createInfo;
+
+    std::vector<VkExtensionProperties> extensions;
+    std::vector<const char*> enabledExtensions;
+
 };
 
 } // Vulkan

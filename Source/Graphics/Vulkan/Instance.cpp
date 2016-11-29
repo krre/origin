@@ -34,6 +34,7 @@ Instance::Instance() {
     createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
     createInfo.flags = 0;
     createInfo.pApplicationInfo = &appInfo;
+    createInfo.pNext = nullptr;
 }
 
 void Instance::create() {

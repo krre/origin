@@ -2,6 +2,7 @@
 #include "VkObject.h"
 #include "Instance.h"
 #include <vector>
+#include <map>
 
 namespace Vulkan {
 
@@ -11,15 +12,15 @@ public:
     PhysicalDevices(const Instance* instance);
     uint32_t getCount() const { return devices.size(); }
     VkPhysicalDevice getDevice(size_t i) const { return devices.at(i); }
+    VkPhysicalDeviceProperties* getProperties(VkPhysicalDevice device) { return &properties[device]; }
+    VkPhysicalDeviceFeatures* getFeatures(VkPhysicalDevice device) { return &features[device]; }
     void dumpDevices();
-    VkPhysicalDevice getPrimary() const { return primaryDevice; }
-    VkPhysicalDevice getSecondary() const { return secondaryDevice; }
 
 private:
     const Instance* instance;
     std::vector<VkPhysicalDevice> devices;
-    VkPhysicalDevice primaryDevice = 0;
-    VkPhysicalDevice secondaryDevice = 0;
+    std::map<VkPhysicalDevice, VkPhysicalDeviceProperties> properties;
+    std::map<VkPhysicalDevice, VkPhysicalDeviceFeatures> features;
 };
 
 } // Vulkan

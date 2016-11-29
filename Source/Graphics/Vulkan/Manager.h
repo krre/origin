@@ -8,7 +8,6 @@
 #include "Queue.h"
 #include "Swapchain.h"
 #include "ImageView.h"
-#include "SurfaceFormat.h"
 #include "PipelineLayout.h"
 #include "Pipeline.h"
 #include "RenderPass.h"

@@ -1,7 +1,7 @@
 #pragma once
 #include "VkObject.h"
 #include "Device.h"
-#include "SurfaceFormat.h"
+#include "Surface.h"
 
 namespace Vulkan {
 

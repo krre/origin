@@ -2,31 +2,18 @@
 
 using namespace Vulkan;
 
-Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physicalDevices) {
+Device::Device(VkPhysicalDevice physicalDevice, uint32_t familyIndex) : physicalDevice(physicalDevice) {
     float queuePriority = 1.0f;
     VkDeviceQueueCreateInfo queueCreateInfo = {};
     queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     queueCreateInfo.queueCount = 1;
     queueCreateInfo.pQueuePriorities = &queuePriority;
-
-    uint32_t familyCount;
-    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevices->getPrimary(), &familyCount, nullptr);
-    std::vector<VkQueueFamilyProperties> familyProperties(familyCount);
-    vkGetPhysicalDeviceQueueFamilyProperties(physicalDevices->getPrimary(), &familyCount, familyProperties.data());
-
-    bool found = false;
-    for (int i = 0; i < familyCount; i++) {
-        if (familyProperties[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) {
-            queueCreateInfo.queueFamilyIndex = i;
-            found = true;
-            break;
-        }
-    }
+    queueCreateInfo.queueFamilyIndex = familyIndex;
 
     uint32_t extensionCount;
-    vkEnumerateDeviceExtensionProperties(physicalDevices->getPrimary(), nullptr, &extensionCount, nullptr);
+    vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &extensionCount, nullptr);
     std::vector<VkExtensionProperties> availableExtensions(extensionCount);
-    vkEnumerateDeviceExtensionProperties(physicalDevices->getPrimary(), nullptr, &extensionCount, availableExtensions.data());
+    vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &extensionCount, availableExtensions.data());
     std::vector<const char*> extNames;
     print("Physical device extensions:")
     for (const auto& extension : availableExtensions) {
@@ -43,7 +30,7 @@ Device::Device(const PhysicalDevices* physicalDevices) : physicalDevices(physica
     createInfo.enabledExtensionCount = extensionCount;
     createInfo.ppEnabledExtensionNames = extNames.data();
 
-    result = vkCreateDevice(physicalDevices->getPrimary(), &createInfo, nullptr, &handle);
+    result = vkCreateDevice(physicalDevice, &createInfo, nullptr, &handle);
 }
 
 Device::~Device() {

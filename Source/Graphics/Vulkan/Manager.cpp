@@ -65,7 +65,14 @@ bool Manager::init() {
     }
 
     physicalDevices = new PhysicalDevices(instance);
-    device = new Device(physicalDevices);
+    basePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+    if (basePhysicalDevice == VK_NULL_HANDLE) {
+        basePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+    }
+
+    uint32_t queueIndex = physicalDevices->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT | VK_QUEUE_COMPUTE_BIT);
+
+    device = new Device(basePhysicalDevice, queueIndex);
     if (!device->isValid()) {
         resultDescription = std::string(initError) + device->getResultDescription();
         return false;
@@ -84,7 +91,7 @@ bool Manager::createSurface() {
         return false;
     }
 
-    surfaceFormat = new SurfaceFormat(physicalDevices, surface);
+    surfaceFormat = new SurfaceFormat(basePhysicalDevice, surface);
 
 //    queue = new Queue(device);
 //    if (!queue->isValid()) {

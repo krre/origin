@@ -7,17 +7,17 @@ Swapchain::Swapchain(const Device* device, const Surface* surface, const Surface
     surface(surface),
     surfaceFormat(surfaceFormat) {
     VkSurfaceCapabilitiesKHR capabilities = {};
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &capabilities);
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(device->getPhysicalDevice(), surface->getHandle(), &capabilities);
     uint32_t imageCount = capabilities.minImageCount + 1;
 
     uint32_t presentModeCount;
-    vkGetPhysicalDeviceSurfacePresentModesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &presentModeCount, nullptr);
+    vkGetPhysicalDeviceSurfacePresentModesKHR(device->getPhysicalDevice(), surface->getHandle(), &presentModeCount, nullptr);
     std::vector<VkPresentModeKHR> presentModes(presentModeCount);
-    vkGetPhysicalDeviceSurfacePresentModesKHR(device->getPhysicalDevices()->getPrimary(), surface->getHandle(), &presentModeCount, presentModes.data());
+    vkGetPhysicalDeviceSurfacePresentModesKHR(device->getPhysicalDevice(), surface->getHandle(), &presentModeCount, presentModes.data());
     VkPresentModeKHR presentMode = presentModes[0]; // TODO: Select by requirements
 
     VkBool32 surfaceSupport;
-    result = vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevices()->getPrimary(), 0, surface->getHandle(), &surfaceSupport);
+    result = vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice(), 0, surface->getHandle(), &surfaceSupport);
     if (surfaceSupport) {
         VkSwapchainCreateInfoKHR createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;

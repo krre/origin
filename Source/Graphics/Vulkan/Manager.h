@@ -41,6 +41,7 @@ private:
     std::string resultDescription = "None";
 
     Vulkan::Instance* instance;
+    VkPhysicalDevice basePhysicalDevice;
     Vulkan::DebugReportCallback* debugCallback;
     Vulkan::PhysicalDevices* physicalDevices;
     Vulkan::Device* device;

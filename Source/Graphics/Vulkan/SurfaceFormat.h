@@ -8,11 +8,11 @@ namespace Vulkan {
 class SurfaceFormat : public VkObject {
 
 public:
-    SurfaceFormat(const PhysicalDevices* physicalDevices, const Surface* surface);
+    SurfaceFormat(VkPhysicalDevice physicalDevice, const Surface* surface);
     const VkSurfaceFormatKHR* getSurfaceFormat() const { return &surfaceFormat; }
 
 private:
-    const PhysicalDevices* physicalDevices;
+    VkPhysicalDevice physicalDevice;
     const Surface* surface;
     VkSurfaceFormatKHR surfaceFormat;
 };

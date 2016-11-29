@@ -7,15 +7,15 @@ namespace Vulkan {
 class Device : public VkObject {
 
 public:
-    Device(const PhysicalDevices* physicalDevices);
+    Device(VkPhysicalDevice physicalDevice, uint32_t familyIndex);
     ~Device();
     VkDevice getHandle() const { return handle; }
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     void waitIdle();
-    const PhysicalDevices* getPhysicalDevices() const { return physicalDevices; }
+    VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
 
 private:
-    const PhysicalDevices* physicalDevices;
+    VkPhysicalDevice physicalDevice;
     VkDevice handle = VK_NULL_HANDLE;
 };
 

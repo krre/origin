@@ -24,6 +24,16 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
     }
 }
 
+VkPhysicalDevice PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
+    for (auto device : properties) {
+        if (device.second.deviceType == type) {
+            return device.first;
+        }
+    }
+
+    return VK_NULL_HANDLE;
+}
+
 int PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {
     int i = 0;
     for (auto familyProperty : queueFamilyProperties[device]) {

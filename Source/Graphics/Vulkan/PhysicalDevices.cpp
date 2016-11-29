@@ -3,6 +3,7 @@
 using namespace Vulkan;
 
 PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) {
+    uint32_t count;
     vkEnumeratePhysicalDevices(instance->getHandle(), &count, nullptr);
     devices.resize(count);
     vkEnumeratePhysicalDevices(instance->getHandle(), &count, devices.data());

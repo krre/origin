@@ -27,3 +27,11 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
     }
 }
 
+void PhysicalDevices::dumpDevices() {
+    for (auto device: devices) {
+        VkPhysicalDeviceProperties deviceProperties;
+        vkGetPhysicalDeviceProperties(device, &deviceProperties);
+        print(deviceProperties.deviceName);
+    }
+}
+

@@ -5,22 +5,20 @@
     #define VK_USE_PLATFORM_WIN32_KHR
 #endif
 
-#include "VkObject.h"
+#include "VkCreatableObject.h"
 #include "Instance.h"
 
 namespace Vulkan {
 
-class Surface : public VkObject {
+class Surface : public VkCreatableObject<VkSurfaceKHR> {
 
 public:
     Surface(const Instance* instance);
     ~Surface();
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
-    VkSurfaceKHR getHandle() const { return handle; }
+    void create() override;
 
 private:
     const Instance* instance;
-    VkSurfaceKHR handle = VK_NULL_HANDLE;
 };
 
 } // Vulkan

@@ -7,10 +7,17 @@
 
 #endif
 
-
 using namespace Vulkan;
 
 Surface::Surface(const Instance* instance) : instance(instance) {
+
+}
+
+Surface::~Surface() {
+    vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr);
+}
+
+void Surface::create() {
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(App::get()->getWindow(), &wminfo);
@@ -39,11 +46,5 @@ Surface::Surface(const Instance* instance) : instance(instance) {
     }
 #endif
 
-    }
-}
-
-Surface::~Surface() {
-    if (handle != VK_NULL_HANDLE) {
-        vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr);
     }
 }

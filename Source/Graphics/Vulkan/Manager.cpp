@@ -100,6 +100,7 @@ bool Manager::createSurface() {
 //    }
 
     swapchain = new Swapchain(device, surface);
+    swapchain->create();
     if (!swapchain->isValid()) {
         resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;

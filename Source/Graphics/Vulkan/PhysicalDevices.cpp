@@ -16,6 +16,11 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
         VkPhysicalDeviceFeatures deviceFeatures;
         vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
         features[device] = deviceFeatures;
+
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
+        std::vector<VkQueueFamilyProperties> familyProperties;
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &count, familyProperties.data());
+        queueFamilyProperties[device] = familyProperties;
     }
 }
 

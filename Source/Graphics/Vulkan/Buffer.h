@@ -10,6 +10,8 @@ public:
     Buffer(const Device* device);
     ~Buffer();
     void create() override;
+    void setSize(VkDeviceSize size);
+    void setUsage(VkBufferUsageFlags usage);
 
 private:
     const Device* device;

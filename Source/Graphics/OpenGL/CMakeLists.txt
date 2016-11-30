@@ -1,7 +1,5 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Program.cpp

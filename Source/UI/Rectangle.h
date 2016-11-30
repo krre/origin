@@ -2,7 +2,6 @@
 #include "Control.h"
 #include "../Graphics/Plane.h"
 #include "../Graphics/OpenGL/ShaderGroup.h"
-#include <glm/glm.hpp>
 
 class Rectangle : public Control {
 

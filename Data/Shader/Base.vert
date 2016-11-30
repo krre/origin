@@ -1,9 +1,12 @@
-#version 330 core
+#version 450 core
 
-layout(location = 0) in vec3 position;
+//layout(location = 0) in vec3 position;
 
-uniform mat4 mvp;
+//layout(std140, binding = 0) uniform UBO {
+//    mat4 mvp;
+//} ubo;
 
 void main() {
-    gl_Position = mvp * vec4(position, 1.0);
+//    gl_Position = ubo.mvp * vec4(position, 1.0);
+    gl_Position = vec4(0);
 }

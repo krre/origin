@@ -1,9 +1,12 @@
-#version 330 core
+#version 450 core
 
 out vec3 fragColor;
 
-uniform vec3 color;
+//layout(std140, binding = 0) uniform UBO {
+//    vec3 color;
+//} ubo;
 
 void main() {
-    fragColor = color;
+//    fragColor = ubo.color;
+    fragColor = vec3(1.0);
 }

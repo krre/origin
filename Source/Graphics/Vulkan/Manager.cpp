@@ -109,6 +109,7 @@ bool Manager::createSurface() {
 
     for (uint32_t i = 0; i < swapchain->getCount(); i++) {
         std::shared_ptr<ImageView> imageView(new ImageView(device, surface, swapchain->getImage(i)));
+        imageView->create();
         if (!imageView->isValid()) {
             resultDescription = std::string(initError) + imageView->getResultDescription();
             return false;

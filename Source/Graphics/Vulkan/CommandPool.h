@@ -1,21 +1,20 @@
 #pragma once
-#include "VkObject.h"
+#include "VkCreatableObject.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class CommandPool : public VkObject {
+class CommandPool : public VkCreatableObject<VkCommandPool> {
 
 public:
     CommandPool(const Device* device);
     ~CommandPool();
-    VkCommandPool getHandle() const { return handle; }
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
+    void create() override;
     bool reset();
 
 private:
-    VkCommandPool handle = VK_NULL_HANDLE;
     const Device* device;
+    VkCommandPoolCreateInfo createInfo;
 };
 
 } // Vulkan

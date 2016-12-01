@@ -159,6 +159,7 @@ bool Manager::createSurface() {
     }
 
     commandPool = new CommandPool(device);
+    commandPool->create();
     if (!commandPool->isValid()) {
         resultDescription = std::string(initError) + commandPool->getResultDescription();
         return false;

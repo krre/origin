@@ -28,13 +28,7 @@ Manager::~Manager() {
     delete instance;
 }
 
-static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {
-//    std::cerr << "Validation layer: " << msg << std::endl;
-
-    return VK_FALSE;
-}
-
-bool Manager::init() {
+bool Manager::createInstance() {
     instance = new Instance();
     instance->setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
@@ -56,6 +50,16 @@ bool Manager::init() {
         return false;
     }
 
+    return true;
+}
+
+static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {
+//    std::cerr << "Validation layer: " << msg << std::endl;
+
+    return VK_FALSE;
+}
+
+bool Manager::init() {
     if (enableValidationLayers) {
         debugCallback = new DebugReportCallback(instance, debugCallbackFunc);
         if (!debugCallback->isValid()) {
@@ -81,6 +85,8 @@ bool Manager::init() {
 
     vkGetDeviceQueue(device->getHandle(), graphicsFamily, 0, &graphicsQueue);
     vkGetDeviceQueue(device->getHandle(), 0, 0, &presentQueue); // TODO: Set family index and queue index
+
+    createSurface();
 
     return true;
 }

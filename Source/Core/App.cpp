@@ -73,7 +73,7 @@ void App::init() {
     }
 
     new Vulkan::Manager;
-    if (!Vulkan::Manager::get()->init()) {
+    if (!Vulkan::Manager::get()->createInstance()) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getResultDescription().c_str(), nullptr);
         return;
     }
@@ -82,9 +82,7 @@ void App::init() {
 
     initSingletons();
 
-    if (!initGraphics()) {
-        return;
-    }
+    Vulkan::Manager::get()->init();
 
     Event::get()->windowResize.connect<App, &App::windowResize>(this);
     Event::get()->quit.connect<App, &App::quit>(this);
@@ -105,15 +103,6 @@ void App::initSingletons() {
     new Engine;
     new GameStateManager;
     new Game;
-}
-
-bool App::initGraphics() {
-    if (!Vulkan::Manager::get()->createSurface()) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getResultDescription().c_str(), nullptr);
-        return false;
-    }
-
-    return true;
 }
 
 void App::clean() {

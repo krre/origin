@@ -28,6 +28,7 @@ class Manager : public Singleton<Manager> {
 public:
     Manager();
     ~Manager();
+    bool createInstance();
     bool init();
     bool createSurface();
     std::string getResultDescription() const { return resultDescription; }

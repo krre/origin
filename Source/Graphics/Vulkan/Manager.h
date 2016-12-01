@@ -61,6 +61,7 @@ private:
     VkQueue graphicsQueue;
     VkQueue presentQueue;
     uint32_t graphicsFamily;
+    uint32_t presentFamily; // TODO: Find and use
 };
 
 } // Vulkan

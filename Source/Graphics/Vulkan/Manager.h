@@ -60,6 +60,7 @@ private:
 
     VkQueue graphicsQueue;
     VkQueue presentQueue;
+    uint32_t graphicsFamily;
 };
 
 } // Vulkan

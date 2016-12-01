@@ -7,7 +7,7 @@ namespace Vulkan {
 class CommandPool : public VkCreatableObject<VkCommandPool> {
 
 public:
-    CommandPool(const Device* device);
+    CommandPool(const Device* device, uint32_t familyIndex);
     ~CommandPool();
     void create() override;
     bool reset();

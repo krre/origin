@@ -2,10 +2,10 @@
 
 using namespace Vulkan;
 
-CommandPool::CommandPool(const Device* device) : device(device) {
+CommandPool::CommandPool(const Device* device, uint32_t familyIndex) : device(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
     createInfo.pNext = nullptr;
-    createInfo.queueFamilyIndex = 0; // TODO: Set real family index;
+    createInfo.queueFamilyIndex = familyIndex;
     createInfo.flags = 0;
 }
 

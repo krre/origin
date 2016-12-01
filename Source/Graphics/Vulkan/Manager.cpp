@@ -70,7 +70,7 @@ bool Manager::init() {
         basePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     }
 
-    uint32_t graphicsFamily = physicalDevices->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
+    graphicsFamily = physicalDevices->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
     device = new Device(basePhysicalDevice, graphicsFamily);
     device->create();
@@ -158,7 +158,7 @@ bool Manager::createSurface() {
         framebuffers.push_back(framebuffer);
     }
 
-    commandPool = new CommandPool(device);
+    commandPool = new CommandPool(device, graphicsFamily);
     commandPool->create();
     if (!commandPool->isValid()) {
         resultDescription = std::string(initError) + commandPool->getResultDescription();

@@ -98,13 +98,13 @@ void App::initSingletons() {
     new Logger;
     new Event;
     new ResourceManager;
-//    new Console;
-//    new DebugHUD;
-//    new Toast;
+    new Console;
+    new DebugHUD;
+    new Toast;
     new Input;
-//    new Engine;
+    new Engine;
     new GameStateManager;
-//    new Game;
+    new Game;
 }
 
 bool App::initGraphics() {
@@ -143,8 +143,8 @@ int App::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-//        GameStateManager::get()->update(frameTime);
-//        GameStateManager::get()->draw(frameTime);
+        GameStateManager::get()->update(frameTime);
+        GameStateManager::get()->draw(frameTime);
         Vulkan::Manager::get()->drawFrame();
     }
 

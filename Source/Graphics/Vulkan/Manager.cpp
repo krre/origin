@@ -44,13 +44,7 @@ bool Manager::createInstance() {
         "VK_LAYER_LUNARG_standard_validation"
     });
     instance->create();
-
-    if (!instance->isValid()) {
-        resultDescription = std::string(initError) + instance->resultToString(instance->getResult());
-        return false;
-    }
-
-    return true;
+    return instance->isValid();
 }
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {

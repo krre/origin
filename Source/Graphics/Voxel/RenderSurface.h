@@ -1,6 +1,5 @@
 #pragma once
 #include "../Drawable.h"
-#include "../../Graphics/OpenGL/ShaderGroup.h"
 #include <glm/glm.hpp>
 
 const int LOD_PIXEL_LIMIT = 1;
@@ -18,12 +17,12 @@ public:
     void draw(float dt) override;
 
 private:
-    ShaderGroup* raycastShaderGroup;
-    ShaderGroup* voxelShaderGroup;
-    ShaderGroup* surfaceShaderGroup;
-    GLuint vao;
-    GLuint vbo;
-    GLuint surfaceTex;
-    GLuint program;
-    GLuint debugSsbo;
+//    ShaderGroup* raycastShaderGroup;
+//    ShaderGroup* voxelShaderGroup;
+//    ShaderGroup* surfaceShaderGroup;
+//    GLuint vao;
+//    GLuint vbo;
+//    GLuint surfaceTex;
+//    GLuint program;
+//    GLuint debugSsbo;
 };

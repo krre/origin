@@ -15,11 +15,11 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
 
     vendor.resize(100, 10);
     vendor.setZ(1.0);
-    vendor.setText("Video driver: " + std::string(reinterpret_cast<const char*>(glGetString(GL_VENDOR))));
+//    vendor.setText("Video driver: " + std::string(reinterpret_cast<const char*>(glGetString(GL_VENDOR))));
 
     openGL.resize(100, 10);
     openGL.setZ(1.0);
-    openGL.setText("OpenGL " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
+//    openGL.setText("OpenGL " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
 
     cpuCount.resize(100, 10);
     cpuCount.setZ(1.0);

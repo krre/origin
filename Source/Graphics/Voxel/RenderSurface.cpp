@@ -10,6 +10,7 @@
 #include "../../Core/Utils.h"
 
 RenderSurface::RenderSurface() {
+    /*
     voxelShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("VoxelShaderGroup");
     raycastShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("RaycastShaderGroup");
     surfaceShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("SurfaceShaderGroup");
@@ -67,7 +68,7 @@ RenderSurface::RenderSurface() {
     glBufferData(GL_SHADER_STORAGE_BUFFER, sizeof(DebugOut), nullptr, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 10, debugSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-
+*/
     /*
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(GLfloat), (GLvoid*)0);
     glEnableVertexAttribArray(0);
@@ -187,7 +188,7 @@ void RenderSurface::draw(float dt) {
     }
 
     octreeSystem->getGpuMemoryManager()->endBatch();
-
+/*
 //    raycastShaderGroup->bind();
     voxelShaderGroup->bind();
 
@@ -217,7 +218,7 @@ void RenderSurface::draw(float dt) {
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, debugSsbo);
     glGetBufferSubData(GL_SHADER_STORAGE_BUFFER, 0, sizeof(debugOut), &debugOut);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-
+*/
 //    print(debugOut.debugInt)
 //    print(debugOut.debugFloat)
 //    print(glm4::to_string(debugOut.debugVec))

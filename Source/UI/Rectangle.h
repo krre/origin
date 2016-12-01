@@ -1,7 +1,6 @@
 #pragma once
 #include "Control.h"
 #include "../Graphics/Plane.h"
-#include "../Graphics/OpenGL/ShaderGroup.h"
 
 class Rectangle : public Control {
 
@@ -15,5 +14,5 @@ public:
 protected:
     glm::vec3 color;
     Plane plane;
-    ShaderGroup* baseShaderGroup;
+//    ShaderGroup* baseShaderGroup;
 };

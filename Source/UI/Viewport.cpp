@@ -20,11 +20,11 @@ void Viewport::draw(float dt) {
 
 void Viewport::setBackgroundColor(const glm::vec4& backgroundColor) {
     this->backgroundColor = backgroundColor;
-    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+//    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 }
 
 void Viewport::setRectangle(int x, int y, int width, int height) {
-    glViewport(x, y, width, height);
+//    glViewport(x, y, width, height);
 }
 
 void Viewport::addCamera(std::shared_ptr<Entity> camera) {

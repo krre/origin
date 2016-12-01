@@ -1,6 +1,5 @@
 #pragma once
 #include "../../Core/Common.h"
-#include "../../Graphics/OpenGL/ShaderGroup.h"
 #include "../../ECS/Entity.h"
 #include <GL/glew.h>
 #include <map>
@@ -30,7 +29,7 @@ public:
     std::map<EntityId, int> getOctreeOffsets() const { return octreeOffsets; }
 
 private:
-    ShaderGroup* voxelShaderGroup;
+//    ShaderGroup* voxelShaderGroup;
     GLuint program;
     bool batch = false;
     GLuint octreesSsbo;

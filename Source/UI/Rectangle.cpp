@@ -6,7 +6,7 @@
 Rectangle::Rectangle(int width, int height) :
     Control(width, height),
     plane(1.0, 1.0) {
-    baseShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("BaseShaderGroup");
+//    baseShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("BaseShaderGroup");
 }
 
 void Rectangle::draw(float dt) {
@@ -16,9 +16,9 @@ void Rectangle::draw(float dt) {
     glm::mat4 model = rotationMatrix * translationMatrix * scaleMatrix;
     glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::get()->getWidth()), 0.0f, static_cast<GLfloat>(App::get()->getHeight()));
     glm::mat4 mvp = projection * model;
-    baseShaderGroup->bind();
-    glUniformMatrix4fv(glGetUniformLocation(baseShaderGroup->getProgram(), "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
-    glUniform3f(glGetUniformLocation(baseShaderGroup->getProgram(), "color"), color.x, color.y, color.z);
+//    baseShaderGroup->bind();
+//    glUniformMatrix4fv(glGetUniformLocation(baseShaderGroup->getProgram(), "mvp"), 1, GL_FALSE, glm::value_ptr(mvp));
+//    glUniform3f(glGetUniformLocation(baseShaderGroup->getProgram(), "color"), color.x, color.y, color.z);
     plane.draw();
 }
 

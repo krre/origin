@@ -240,7 +240,7 @@ void Game::saveScreenshot() {
     int height = App::get()->getHeight();
 
     unsigned char* image = new unsigned char[width * height * 4];
-    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
+//    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
 
     // Vertically flip
     for (unsigned y = 0; y < height / 2; y++) {

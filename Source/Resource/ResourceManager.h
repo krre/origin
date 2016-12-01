@@ -2,7 +2,6 @@
 #include "../Core/Singleton.h"
 #include "../Resource/Resource.h"
 #include "../UI/Font.h"
-#include "../Graphics/OpenGL/ShaderGroup.h"
 #include "../Graphics/Voxel/Octree.h"
 #include <map>
 

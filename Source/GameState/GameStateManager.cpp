@@ -40,7 +40,7 @@ void GameStateManager::update(float dt) {
 }
 
 void GameStateManager::draw(float dt) {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     for (auto gameState : gameStates) {
         gameState->draw(dt);
     }

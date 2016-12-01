@@ -3,7 +3,6 @@
 #include "PauseState.h"
 #include "MenuState.h"
 #include "ConsoleState.h"
-#include <GL/glew.h>
 
 GameStateManager::GameStateManager() {
 

@@ -1,7 +1,6 @@
 #include "Text.h"
 #include "../Core/App.h"
 #include "../Resource/ResourceManager.h"
-#include <GL/glew.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include <glm/gtc/matrix_transform.hpp>

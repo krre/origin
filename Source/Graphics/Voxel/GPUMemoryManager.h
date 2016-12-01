@@ -1,7 +1,6 @@
 #pragma once
 #include "../../Core/Common.h"
 #include "../../ECS/Entity.h"
-#include <GL/glew.h>
 #include <map>
 #include <vector>
 #include <glm/glm.hpp>
@@ -30,10 +29,10 @@ public:
 
 private:
 //    ShaderGroup* voxelShaderGroup;
-    GLuint program;
+//    GLuint program;
     bool batch = false;
-    GLuint octreesSsbo;
-    GLuint renderListSsbo;
+//    GLuint octreesSsbo;
+//    GLuint renderListSsbo;
     int endOffset = 0;
     std::map<EntityId, int> octreeOffsets;
     std::vector<uint32_t> renderOffsets;

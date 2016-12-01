@@ -9,7 +9,7 @@ Mesh::Mesh() {
 }
 
 void Mesh::setup() {
-    assert(verticles.size());
+//    assert(verticles.size());
 
 //    glBindVertexArray(vao);
 //    glBindBuffer(GL_ARRAY_BUFFER, vbo);

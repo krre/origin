@@ -24,5 +24,5 @@ bool Framebuffer::create() {
 
     createInfo.pAttachments = attachments;
 
-    return checkError(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle));
+    return checkError(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create framebuffer");
 }

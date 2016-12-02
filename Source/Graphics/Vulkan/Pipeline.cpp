@@ -110,10 +110,10 @@ bool Pipeline::create() {
         createInfo.renderPass = renderPass->getHandle();
         createInfo.subpass = 0;
         createInfo.basePipelineHandle = VK_NULL_HANDLE;
-        return checkError(vkCreateGraphicsPipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle));
+        return checkError(vkCreateGraphicsPipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
     } else {
         VkComputePipelineCreateInfo createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
-        return checkError(vkCreateComputePipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle));
+        return checkError(vkCreateComputePipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
     }
 }

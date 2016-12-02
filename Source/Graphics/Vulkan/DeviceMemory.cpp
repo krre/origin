@@ -11,5 +11,5 @@ DeviceMemory::~DeviceMemory() {
 }
 
 bool DeviceMemory::create() {
-    return checkError(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle));
+    return checkError(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
 }

@@ -44,10 +44,10 @@ std::string Object::resultToString(VkResult result) const {
     }
 }
 
-bool Object::checkError(VkResult result) {
+bool Object::checkError(VkResult result, const char* message) {
     this->result = result;
 #if ASSERT_ERROR == 1
-    assert(result == VK_SUCCESS);
+    assert(result == VK_SUCCESS && message);
 #endif
     return result == VK_SUCCESS;
 }

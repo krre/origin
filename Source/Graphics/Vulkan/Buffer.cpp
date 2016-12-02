@@ -18,7 +18,7 @@ Buffer::~Buffer() {
 }
 
 bool Buffer::create() {
-    return checkError(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle));
+    return checkError(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create buffer");
 }
 
 void Buffer::setSize(VkDeviceSize size) {

@@ -41,7 +41,7 @@ void Device::waitIdle() {
 }
 
 bool Device::create() {
-    return checkError(vkCreateDevice(physicalDevice, &createInfo, nullptr, &handle));
+    return checkError(vkCreateDevice(physicalDevice, &createInfo, nullptr, &handle), "Failed to create device");
 }
 
 void Device::dumpExtensions() {

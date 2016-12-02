@@ -13,5 +13,5 @@ ShaderModule::~ShaderModule() {
 }
 
 bool ShaderModule::create() {
-    return checkError(vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle));
+    return checkError(vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create shader module");
 }

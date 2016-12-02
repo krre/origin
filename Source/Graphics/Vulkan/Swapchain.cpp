@@ -35,7 +35,7 @@ Swapchain::~Swapchain() {
 }
 
 bool Swapchain::create() {
-    checkError(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle));
+    checkError(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);

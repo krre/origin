@@ -44,7 +44,7 @@ bool Instance::create() {
     createInfo.enabledExtensionCount = enabledExtensions.size();
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 
-    return checkError(vkCreateInstance(&createInfo, nullptr, &handle));
+    return checkError(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
 }
 void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
     this->enabledLayers = enabledLayers;

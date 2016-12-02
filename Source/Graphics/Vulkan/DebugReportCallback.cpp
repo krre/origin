@@ -24,5 +24,5 @@ DebugReportCallback::~DebugReportCallback() {
 }
 
 bool DebugReportCallback::create() {
-    return checkError(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle));
+    return checkError(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create debug report callback");
 }

@@ -15,5 +15,5 @@ bool CommandBuffer::allocate(const CommandPool* commandPool, int count) {
     info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     info.commandBufferCount = (uint32_t) commandBuffers.size();
 
-    return checkError(vkAllocateCommandBuffers(device->getHandle(), &info, commandBuffers.data()));
+    return checkError(vkAllocateCommandBuffers(device->getHandle(), &info, commandBuffers.data()), "Failed to allocate command buffers");
 }

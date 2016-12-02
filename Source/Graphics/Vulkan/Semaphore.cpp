@@ -11,5 +11,5 @@ Semaphore::~Semaphore() {
 }
 
 bool Semaphore::create() {
-    return checkError(vkCreateSemaphore(device->getHandle(), &createInfo, nullptr, &handle));
+    return checkError(vkCreateSemaphore(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create semaphore");
 }

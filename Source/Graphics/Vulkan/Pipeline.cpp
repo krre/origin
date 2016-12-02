@@ -15,6 +15,7 @@ Pipeline::~Pipeline() {
 
 bool Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code) {
     std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device, size, code));
+    shaderModule->create();
     if (!shaderModule->isValid()) {
         result = shaderModule->getResult();
         return false;

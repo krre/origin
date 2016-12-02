@@ -80,9 +80,7 @@ bool Manager::init() {
     vkGetDeviceQueue(device->getHandle(), graphicsFamily, 0, &graphicsQueue);
     vkGetDeviceQueue(device->getHandle(), 0, 0, &presentQueue); // TODO: Set family index and queue index
 
-    createSurface();
-
-    return true;
+    return createSurface();
 }
 
 bool Manager::createSurface() {

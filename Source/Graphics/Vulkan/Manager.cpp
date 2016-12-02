@@ -147,6 +147,7 @@ bool Manager::init() {
 
     for (uint32_t i = 0; i < swapchain->getCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
+        framebuffer->create();
         if (!framebuffer->isValid()) {
             resultDescription = std::string(initError) + framebuffer->getResultDescription();
             return false;

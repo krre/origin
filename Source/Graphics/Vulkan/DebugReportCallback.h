@@ -1,21 +1,19 @@
 #pragma once
-#include "VkObject.h"
+#include "VkCreatableObject.h"
 #include "Instance.h"
 
 namespace Vulkan {
 
-class DebugReportCallback : public VkObject {
+class DebugReportCallback : public VkCreatableObject<VkDebugReportCallbackEXT> {
 
 public:
     DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback);
     ~DebugReportCallback();
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
-    VkDebugReportCallbackEXT getHandle() const { return handle; }
+    void create() override;
 
 private:
-    VkDebugReportCallbackEXT handle = VK_NULL_HANDLE;
     const Instance* instance;
-
+    VkDebugReportCallbackCreateInfoEXT createInfo = {};
     PFN_vkCreateDebugReportCallbackEXT pfnCreateDebugReportCallback;
     PFN_vkDestroyDebugReportCallbackEXT pfnDestroyDebugReportCallback;
 };

@@ -13,15 +13,16 @@ DebugReportCallback::DebugReportCallback(const Instance* instance, PFN_vkDebugRe
         error("GetInstanceProcAddr: Unable to find vkDestroyDebugReportCallbackEXT function");
     }
 
-    VkDebugReportCallbackCreateInfoEXT createInfo;
     createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
     createInfo.flags = VK_DEBUG_REPORT_ERROR_BIT_EXT | VK_DEBUG_REPORT_WARNING_BIT_EXT;
     createInfo.pfnCallback = debugCallback;
-    result = pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle);
+
 }
 
 DebugReportCallback::~DebugReportCallback() {
-    if (handle != VK_NULL_HANDLE) {
-        pfnDestroyDebugReportCallback(instance->getHandle(), handle, nullptr);
-    }
+    pfnDestroyDebugReportCallback(instance->getHandle(), handle, nullptr);
+}
+
+void DebugReportCallback::create() {
+    checkError(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle));
 }

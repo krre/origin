@@ -80,22 +80,11 @@ void App::init() {
 
     SDL_ShowWindow(window);
 
-    initSingletons();
-
-    Vulkan::Manager::get()->init();
-
-    Event::get()->windowResize.connect<App, &App::windowResize>(this);
-    Event::get()->quit.connect<App, &App::quit>(this);
-    Event::get()->windowResize.emit(width, height);
-
-    isRunning = true;
-}
-
-void App::initSingletons() {
     // Order is important
     new Logger;
     new Event;
     new ResourceManager;
+    Vulkan::Manager::get()->init(); // After init resources with shaders
     new Console;
     new DebugHUD;
     new Toast;
@@ -103,6 +92,12 @@ void App::initSingletons() {
     new Engine;
     new GameStateManager;
     new Game;
+
+    Event::get()->windowResize.connect<App, &App::windowResize>(this);
+    Event::get()->quit.connect<App, &App::quit>(this);
+    Event::get()->windowResize.emit(width, height);
+
+    isRunning = true;
 }
 
 void App::clean() {

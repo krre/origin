@@ -8,9 +8,7 @@ Pipeline::Pipeline(PipelineType type, const Device* device) :
 }
 
 Pipeline::~Pipeline() {
-    if (handle != VK_NULL_HANDLE) {
-        vkDestroyPipeline(device->getHandle(), handle, nullptr);
-    }
+    vkDestroyPipeline(device->getHandle(), handle, nullptr);
 }
 
 bool Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code) {

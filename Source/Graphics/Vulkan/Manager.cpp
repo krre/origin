@@ -202,6 +202,7 @@ bool Manager::init() {
     }
 
     fence = new Fence(device);
+    fence->create();
     if (!fence->isValid()) {
         resultDescription = std::string(initError) + fence->getResultDescription();
         return false;

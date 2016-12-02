@@ -1,18 +1,16 @@
 #pragma once
-#include "VkObject.h"
+#include "VkCreatableObject.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class Queue : public VkObject {
+class Queue : public VkCreatableObject<VkQueue> {
 
 public:
     Queue(const Device* device);
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
-    VkQueue getHandle() const { return handle; }
+    void create() override;
 
 private:
-    VkQueue handle = VK_NULL_HANDLE;
     const Device* device;
 };
 

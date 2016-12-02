@@ -89,6 +89,7 @@ bool Manager::init() {
     }
 
 //    queue = new Queue(device);
+//    queue.create();
 //    if (!queue->isValid()) {
 //        resultDescription = std::string(initError) + queue->getResultDescription();
 //        return false;

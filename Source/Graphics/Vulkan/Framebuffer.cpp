@@ -17,12 +17,12 @@ Framebuffer::~Framebuffer() {
     vkDestroyFramebuffer(device->getHandle(), handle, nullptr);
 }
 
-void Framebuffer::create() {
+bool Framebuffer::create() {
     VkImageView attachments[] = {
         imageView->getHandle()
     };
 
     createInfo.pAttachments = attachments;
 
-    checkError(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle));
+    return checkError(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle));
 }

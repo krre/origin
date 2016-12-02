@@ -12,6 +12,6 @@ ShaderModule::~ShaderModule() {
     vkDestroyShaderModule(device->getHandle(), handle, nullptr);
 }
 
-void ShaderModule::create() {
-    checkError(vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle));
+bool ShaderModule::create() {
+    return checkError(vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle));
 }

@@ -34,7 +34,7 @@ Instance::Instance() {
     createInfo.pApplicationInfo = &appInfo;
 }
 
-void Instance::create() {
+bool Instance::create() {
     if (enableValidationLayers) {
         createInfo.enabledLayerCount = enabledLayers.size();
         createInfo.ppEnabledLayerNames = enabledLayers.data();
@@ -44,7 +44,7 @@ void Instance::create() {
     createInfo.enabledExtensionCount = enabledExtensions.size();
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 
-    checkError(vkCreateInstance(&createInfo, nullptr, &handle));
+    return checkError(vkCreateInstance(&createInfo, nullptr, &handle));
 }
 void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
     this->enabledLayers = enabledLayers;

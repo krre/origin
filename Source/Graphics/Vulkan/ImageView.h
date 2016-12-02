@@ -9,7 +9,7 @@ class ImageView : public CreatableObject<VkImageView> {
 public:
     ImageView(const Device* device, const Surface* surface, VkImage image);
     ~ImageView();
-    void create() override;
+    bool create() override;
 
 private:
     const Device* device;

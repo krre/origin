@@ -9,7 +9,7 @@ class DebugReportCallback : public CreatableObject<VkDebugReportCallbackEXT> {
 public:
     DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback);
     ~DebugReportCallback();
-    void create() override;
+    bool create() override;
 
 private:
     const Instance* instance;

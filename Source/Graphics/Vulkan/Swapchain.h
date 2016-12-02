@@ -11,7 +11,7 @@ class Swapchain : public CreatableObject<VkSwapchainKHR> {
 public:
     Swapchain(const Device* device, const Surface* surface);
     ~Swapchain();
-    void create() override;
+    bool create() override;
     VkImage getImage(int i) const { return images.at(i); }
     VkExtent2D getExtent() const { return extent; }
     int getCount() const { return images.size(); }

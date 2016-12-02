@@ -21,7 +21,7 @@ bool Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code)
     shaderModules[type] = shaderModule;
 }
 
-void Pipeline::create() {
+bool Pipeline::create() {
     if (type == PipelineType::Graphics) {
         VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
         vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
@@ -110,10 +110,10 @@ void Pipeline::create() {
         createInfo.renderPass = renderPass->getHandle();
         createInfo.subpass = 0;
         createInfo.basePipelineHandle = VK_NULL_HANDLE;
-        result = vkCreateGraphicsPipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle);
+        return checkError(vkCreateGraphicsPipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle));
     } else {
         VkComputePipelineCreateInfo createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
-        result = vkCreateComputePipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle);
+        return checkError(vkCreateComputePipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle));
     }
 }

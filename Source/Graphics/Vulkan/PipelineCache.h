@@ -9,7 +9,7 @@ class PipelineCache : public CreatableObject<VkPipelineCache> {
 public:
     PipelineCache(const Device* device);
     ~PipelineCache();
-    void create() override;
+    bool create() override;
 
 private:
     const Device* device;

@@ -9,7 +9,7 @@ class PipelineLayout : public CreatableObject<VkPipelineLayout> {
 public:
     PipelineLayout(const Device* device);
     ~PipelineLayout();
-    void create() override;
+    bool create() override;
 
 private:
     const Device* device;

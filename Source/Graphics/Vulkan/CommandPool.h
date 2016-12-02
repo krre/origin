@@ -9,7 +9,7 @@ class CommandPool : public CreatableObject<VkCommandPool> {
 public:
     CommandPool(const Device* device, uint32_t familyIndex);
     ~CommandPool();
-    void create() override;
+    bool create() override;
     bool reset();
 
 private:

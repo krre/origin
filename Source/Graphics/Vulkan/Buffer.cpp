@@ -17,8 +17,8 @@ Buffer::~Buffer() {
     vkDestroyBuffer(device->getHandle(), handle, nullptr);
 }
 
-void Buffer::create() {
-    checkError(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle));
+bool Buffer::create() {
+    return checkError(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle));
 }
 
 void Buffer::setSize(VkDeviceSize size) {

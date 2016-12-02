@@ -9,7 +9,7 @@ class Buffer : public CreatableObject<VkBuffer> {
 public:
     Buffer(const Device* device);
     ~Buffer();
-    void create() override;
+    bool create() override;
     void setSize(VkDeviceSize size);
     void setUsage(VkBufferUsageFlags usage);
 

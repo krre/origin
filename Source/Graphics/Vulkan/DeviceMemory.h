@@ -9,7 +9,7 @@ class DeviceMemory : public CreatableObject<VkDeviceMemory> {
 public:
     DeviceMemory(const Device* device);
     ~DeviceMemory();
-    void create() override;
+    bool create() override;
 
 private:
     const Device* device;

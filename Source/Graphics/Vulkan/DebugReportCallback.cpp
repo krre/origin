@@ -23,6 +23,6 @@ DebugReportCallback::~DebugReportCallback() {
     pfnDestroyDebugReportCallback(instance->getHandle(), handle, nullptr);
 }
 
-void DebugReportCallback::create() {
-    checkError(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle));
+bool DebugReportCallback::create() {
+    return checkError(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle));
 }

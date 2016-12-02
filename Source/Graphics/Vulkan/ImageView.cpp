@@ -26,6 +26,6 @@ ImageView::~ImageView() {
     vkDestroyImageView(device->getHandle(), handle, nullptr);
 }
 
-void ImageView::create() {
-    checkError(vkCreateImageView(device->getHandle(), &createInfo, nullptr, &handle));
+bool ImageView::create() {
+    return checkError(vkCreateImageView(device->getHandle(), &createInfo, nullptr, &handle));
 }

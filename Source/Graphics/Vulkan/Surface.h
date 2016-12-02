@@ -15,7 +15,7 @@ class Surface : public CreatableObject<VkSurfaceKHR> {
 public:
     Surface(const Instance* instance, VkPhysicalDevice physicalDevice);
     ~Surface();
-    void create() override;
+    bool create() override;
 
     int getFormatCount() const { return formats.size(); }
     VkSurfaceFormatKHR getFormat(size_t i) const { return formats.at(i); }

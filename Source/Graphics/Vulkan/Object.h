@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 
-#define ASSERT_ERROR
+#define ASSERT_ERROR 0
 
 namespace Vulkan {
 
@@ -14,12 +14,12 @@ public:
     Object();
     std::string getResultDescription() const;
     VkResult getResult() const { return result; }
-    std::string resultToString(VkResult result);
+    std::string resultToString(VkResult result) const;
 
 protected:
-    void checkError(VkResult result);
+    bool checkError(VkResult result);
 
-    VkResult result = VK_NOT_READY;
+    VkResult result;
 };
 
 } // Vulkan

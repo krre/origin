@@ -10,6 +10,6 @@ Semaphore::~Semaphore() {
     vkDestroySemaphore(device->getHandle(), handle, nullptr);
 }
 
-void Semaphore::create() {
-    checkError(vkCreateSemaphore(device->getHandle(), &createInfo, nullptr, &handle));
+bool Semaphore::create() {
+    return checkError(vkCreateSemaphore(device->getHandle(), &createInfo, nullptr, &handle));
 }

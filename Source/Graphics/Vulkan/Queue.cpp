@@ -6,7 +6,8 @@ Queue::Queue(const Device* device) : device(device) {
 
 }
 
-void Queue::create() {
+bool Queue::create() {
     // TODO: Set family index and queue index
     vkGetDeviceQueue(device->getHandle(), 0, 0, &handle);
+    return true;
 }

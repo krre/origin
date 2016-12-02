@@ -19,7 +19,7 @@ Surface::~Surface() {
     vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr);
 }
 
-void Surface::create() {
+bool Surface::create() {
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(App::get()->getWindow(), &wminfo);
@@ -32,7 +32,7 @@ void Surface::create() {
         createInfo.flags = 0;
         createInfo.connection = XGetXCBConnection(wminfo.info.x11.display);
         createInfo.window = wminfo.info.x11.window;
-        result = vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle);
+        checkError(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle));
         break;
     }
 
@@ -43,7 +43,7 @@ void Surface::create() {
         createInfo.flags = 0;
         createInfo.hwnd = wminfo.info.win.window;
         createInfo.hinstance = GetModuleHandle(nullptr);
-        result = vkCreateWin32SurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle);
+        checkError(vkCreateWin32SurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle));
         break;
     }
 #endif
@@ -60,4 +60,6 @@ void Surface::create() {
     vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, handle, &count, presentModes.data());
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
+
+    return isValid();
 }

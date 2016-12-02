@@ -10,8 +10,8 @@ Fence::~Fence() {
     vkDestroyFence(device->getHandle(), handle, nullptr);
 }
 
-void Fence::create() {
-    checkError(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle));
+bool Fence::create() {
+    return checkError(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle));
 }
 
 VkResult Fence::wait(uint32_t count) {

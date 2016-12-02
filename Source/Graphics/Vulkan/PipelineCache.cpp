@@ -10,6 +10,6 @@ PipelineCache::~PipelineCache() {
     vkDestroyPipelineCache(device->getHandle(), handle, nullptr);
 }
 
-void PipelineCache::create() {
-    checkError(vkCreatePipelineCache(device->getHandle(), &createInfo, nullptr, &handle));
+bool PipelineCache::create() {
+    return checkError(vkCreatePipelineCache(device->getHandle(), &createInfo, nullptr, &handle));
 }

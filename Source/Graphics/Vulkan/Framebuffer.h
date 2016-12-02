@@ -11,7 +11,7 @@ class Framebuffer : public CreatableObject<VkFramebuffer> {
 public:
     Framebuffer(const Device* device, const RenderPass* renderPass, ImageView* imageView, VkExtent2D extent);
     ~Framebuffer();
-    void create() override;
+    bool create() override;
 
 private:
     const Device* device;

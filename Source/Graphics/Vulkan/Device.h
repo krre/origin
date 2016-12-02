@@ -11,7 +11,7 @@ public:
     ~Device();
     void waitIdle();
     VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
-    void create() override;
+    bool create() override;
     void dumpExtensions();
 
 private:

@@ -9,7 +9,7 @@ class Semaphore : public CreatableObject<VkSemaphore> {
 public:
     Semaphore(const Device* device);
     ~Semaphore();
-    void create() override;
+    bool create() override;
 
 private:
     const Device* device;

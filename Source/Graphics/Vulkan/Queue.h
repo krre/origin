@@ -8,7 +8,7 @@ class Queue : public CreatableObject<VkQueue> {
 
 public:
     Queue(const Device* device);
-    void create() override;
+    bool create() override;
 
 private:
     const Device* device;

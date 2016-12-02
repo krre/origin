@@ -13,8 +13,8 @@ CommandPool::~CommandPool() {
     vkDestroyCommandPool(device->getHandle(), handle, nullptr);
 }
 
-void CommandPool::create() {
-    checkError(vkCreateCommandPool(device->getHandle(), &createInfo, nullptr, &handle));
+bool CommandPool::create() {
+    return checkError(vkCreateCommandPool(device->getHandle(), &createInfo, nullptr, &handle));
 }
 
 bool CommandPool::reset() {

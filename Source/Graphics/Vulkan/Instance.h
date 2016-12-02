@@ -2,8 +2,6 @@
 #include "CreatableObject.h"
 #include <vector>
 
-#undef ASSERT_ERROR
-
 namespace Vulkan {
 
 #ifdef NDEBUG
@@ -17,7 +15,7 @@ class Instance : public CreatableObject<VkInstance> {
 public:
     Instance();
     ~Instance();
-    void create() override;
+    bool create() override;
 
     uint32_t getLayerCount() const { return layers.size(); }
     VkLayerProperties getLayer(int i) const { return layers.at(i); }

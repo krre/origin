@@ -34,7 +34,7 @@ Swapchain::~Swapchain() {
     vkDestroySwapchainKHR(device->getHandle(), handle, nullptr);
 }
 
-void Swapchain::create() {
+bool Swapchain::create() {
     checkError(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle));
 
     uint32_t count;
@@ -43,4 +43,6 @@ void Swapchain::create() {
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
 
     extent = surface->getCapabilities().currentExtent;
+
+    return isValid();
 }

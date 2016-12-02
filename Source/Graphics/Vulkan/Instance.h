@@ -30,8 +30,8 @@ public:
     void dumpExtensions();
 
 private:
-    VkApplicationInfo appInfo;
-    VkInstanceCreateInfo createInfo;
+    VkApplicationInfo appInfo = {};
+    VkInstanceCreateInfo createInfo = {};
     std::vector<VkLayerProperties> layers;
     std::vector<const char*> enabledLayers;
     std::vector<VkExtensionProperties> extensions;

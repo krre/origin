@@ -1,10 +1,10 @@
 #pragma once
-#include "VkCreatableObject.h"
+#include "CreatableObject.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class Fence : public VkCreatableObject<VkFence> {
+class Fence : public CreatableObject<VkFence> {
 
 public:
     Fence(const Device* device);

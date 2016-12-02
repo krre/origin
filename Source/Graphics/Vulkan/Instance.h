@@ -1,5 +1,5 @@
 #pragma once
-#include "VkCreatableObject.h"
+#include "CreatableObject.h"
 #include <vector>
 
 #undef ASSERT_ERROR
@@ -12,7 +12,7 @@ namespace Vulkan {
     const bool enableValidationLayers = true;
 #endif
 
-class Instance : public VkCreatableObject<VkInstance> {
+class Instance : public CreatableObject<VkInstance> {
 
 public:
     Instance();

@@ -1,10 +1,10 @@
 #pragma once
-#include "VkCreatableObject.h"
+#include "CreatableObject.h"
 #include "Instance.h"
 
 namespace Vulkan {
 
-class DebugReportCallback : public VkCreatableObject<VkDebugReportCallbackEXT> {
+class DebugReportCallback : public CreatableObject<VkDebugReportCallbackEXT> {
 
 public:
     DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback);

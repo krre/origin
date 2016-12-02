@@ -5,12 +5,12 @@
     #define VK_USE_PLATFORM_WIN32_KHR
 #endif
 
-#include "VkCreatableObject.h"
+#include "CreatableObject.h"
 #include "Instance.h"
 
 namespace Vulkan {
 
-class Surface : public VkCreatableObject<VkSurfaceKHR> {
+class Surface : public CreatableObject<VkSurfaceKHR> {
 
 public:
     Surface(const Instance* instance, VkPhysicalDevice physicalDevice);

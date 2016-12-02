@@ -1,11 +1,11 @@
 #pragma once
-#include "VkCreatableObject.h"
+#include "CreatableObject.h"
 #include "Device.h"
 #include "CommandPool.h"
 
 namespace Vulkan {
 
-class CommandBuffer : public VkCreatableObject<VkCommandBuffer> {
+class CommandBuffer : public CreatableObject<VkCommandBuffer> {
 
 public:
     CommandBuffer(const Device* device);

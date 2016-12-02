@@ -1,10 +1,10 @@
 #pragma once
-#include "VkCreatableObject.h"
+#include "CreatableObject.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class ShaderModule : public VkCreatableObject<VkShaderModule> {
+class ShaderModule : public CreatableObject<VkShaderModule> {
 
 public:
     ShaderModule(const Device* device, size_t codeSize, const uint32_t* pCode);

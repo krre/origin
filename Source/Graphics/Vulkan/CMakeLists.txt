@@ -42,7 +42,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/VkCreatableObject.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/CreatableObject.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.h
     PARENT_SCOPE

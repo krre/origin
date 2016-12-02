@@ -1,10 +1,10 @@
 #pragma once
-#include "VkCreatableObject.h"
+#include "CreatableObject.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class Semaphore : public VkCreatableObject<VkSemaphore> {
+class Semaphore : public CreatableObject<VkSemaphore> {
 
 public:
     Semaphore(const Device* device);

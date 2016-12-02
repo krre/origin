@@ -1,13 +1,13 @@
-#include "VkObject.h"
+#include "Object.h"
 #include <assert.h>
 
 using namespace Vulkan;
 
-VkObject::VkObject() {
+Object::Object() {
 
 }
 
-std::string VkObject::getResultDescription() const {
+std::string Object::getResultDescription() const {
     switch (result) {
     case VK_SUCCESS: return "Success";
     case VK_NOT_READY: return "Not ready";
@@ -40,7 +40,7 @@ std::string VkObject::getResultDescription() const {
     }
 }
 
-std::string VkObject::resultToString(VkResult result) {
+std::string Object::resultToString(VkResult result) {
     switch (result) {
         case VK_SUCCESS: return "Success";
         case VK_NOT_READY: return "Not ready";
@@ -73,7 +73,7 @@ std::string VkObject::resultToString(VkResult result) {
     }
 }
 
-void VkObject::checkError(VkResult result) {
+void Object::checkError(VkResult result) {
     this->result = result;
     if (result != VK_SUCCESS) {
         error("Vulkan error: " + resultToString(result))

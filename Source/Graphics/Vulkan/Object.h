@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Core/Object.h"
+#include "../../Core/Common.h"
 #include <vulkan/vulkan.h>
 #include <string>
 #include <map>
@@ -8,10 +8,10 @@
 
 namespace Vulkan {
 
-class VkObject : public Object {
+class Object {
 
 public:
-    VkObject();
+    Object();
     std::string getResultDescription() const;
     VkResult getResult() const { return result; }
     std::string resultToString(VkResult result);

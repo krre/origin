@@ -1,9 +1,9 @@
 #pragma once
-#include "VkObject.h"
+#include "Object.h"
 
 namespace Vulkan {
 
-template<typename T> class VkCreatableObject : public VkObject {
+template<typename T> class VkCreatableObject : public Object {
 
 public:
     VkCreatableObject() {}

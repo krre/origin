@@ -1,12 +1,12 @@
 #pragma once
-#include "VkObject.h"
+#include "Object.h"
 #include "Instance.h"
 #include <vector>
 #include <map>
 
 namespace Vulkan {
 
-class PhysicalDevices : public VkObject {
+class PhysicalDevices : public Object {
 
 public:
     PhysicalDevices(const Instance* instance);

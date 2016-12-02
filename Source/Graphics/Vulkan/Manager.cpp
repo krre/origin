@@ -120,6 +120,7 @@ bool Manager::init() {
     }
 
     pipelineLayout = new PipelineLayout(device);
+    pipelineLayout->create();
     if (!pipelineLayout->isValid()) {
         resultDescription = std::string(initError) + pipelineLayout->getResultDescription();
         return false;

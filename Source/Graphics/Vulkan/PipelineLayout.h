@@ -1,20 +1,19 @@
 #pragma once
-#include "VkObject.h"
+#include "VkCreatableObject.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class PipelineLayout : public VkObject {
+class PipelineLayout : public VkCreatableObject<VkPipelineLayout> {
 
 public:
     PipelineLayout(const Device* device);
     ~PipelineLayout();
-    VkPipelineLayout getHandle() const { return handle; }
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
+    void create() override;
 
 private:
-    VkPipelineLayout handle = VK_NULL_HANDLE;
     const Device* device;
+    VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
 };
 
 } // Vulkan

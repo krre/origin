@@ -30,7 +30,6 @@ public:
     ~Manager();
     bool createInstance();
     bool init();
-    bool createSurface();
     std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance; }
     Vulkan::Device* getDevice() const { return device; }

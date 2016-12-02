@@ -212,12 +212,14 @@ bool Manager::init() {
     }
 
     imageAvailableSemaphore = new Semaphore(device);
+    imageAvailableSemaphore->create();
     if (!imageAvailableSemaphore->isValid()) {
         resultDescription = std::string(initError) + imageAvailableSemaphore->getResultDescription();
         return false;
     }
 
     renderFinishedSemaphore = new Semaphore(device);
+    renderFinishedSemaphore->create();
     if (!renderFinishedSemaphore->isValid()) {
         resultDescription = std::string(initError) + renderFinishedSemaphore->getResultDescription();
         return false;

@@ -83,7 +83,7 @@ bool Manager::init() {
         return false;
     }
 
-    for (uint32_t i = 0; i < swapchain->getCount(); i++) {
+    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<ImageView> imageView(new ImageView(device, surface, swapchain->getImage(i)));
         if (!imageView->create()) {
             resultDescription = std::string(initError) + imageView->getResultDescription();
@@ -122,7 +122,7 @@ bool Manager::init() {
         return false;
     }
 
-    for (uint32_t i = 0; i < swapchain->getCount(); i++) {
+    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
         if (!framebuffer->create()) {
             resultDescription = std::string(initError) + framebuffer->getResultDescription();
@@ -138,7 +138,7 @@ bool Manager::init() {
     }
 
     commandBuffer = new CommandBuffer(device);
-    if (!commandBuffer->allocate(commandPool, swapchain->getCount())) {
+    if (!commandBuffer->allocate(commandPool, swapchain->getImageCount())) {
         resultDescription = std::string(initError) + commandBuffer->getResultDescription();
         return false;
     }

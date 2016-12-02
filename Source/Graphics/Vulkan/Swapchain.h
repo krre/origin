@@ -14,7 +14,7 @@ public:
     bool create() override;
     VkImage getImage(int i) const { return images.at(i); }
     VkExtent2D getExtent() const { return extent; }
-    int getCount() const { return images.size(); }
+    int getImageCount() const { return images.size(); }
 
 private:
     const Device* device;

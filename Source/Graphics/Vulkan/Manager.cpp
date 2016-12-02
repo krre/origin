@@ -116,6 +116,7 @@ bool Manager::createSurface() {
     }
 
     renderPass = new RenderPass(device, surface);
+    renderPass->create();
     if (!renderPass->isValid()) {
         resultDescription = std::string(initError) + renderPass->getResultDescription();
         return false;

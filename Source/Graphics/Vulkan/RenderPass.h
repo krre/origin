@@ -1,22 +1,24 @@
 #pragma once
-#include "VkObject.h"
+#include "VkCreatableObject.h"
 #include "Device.h"
 #include "Surface.h"
 
 namespace Vulkan {
 
-class RenderPass : public VkObject {
+class RenderPass : public VkCreatableObject<VkRenderPass> {
 
 public:
     RenderPass(const Device* device, const Surface* surface);
     ~RenderPass();
-    VkRenderPass getHandle() const { return handle; }
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
+    void create() override;
 
 private:
-    VkRenderPass handle = VK_NULL_HANDLE;
     const Device* device;
     const Surface* surface;
+    VkRenderPassCreateInfo createInfo = {};
+    VkAttachmentDescription colorAttachment = {};
+    VkAttachmentReference colorAttachmentRef = {};
+    VkSubpassDescription subPass = {};
 };
 
 } // Vulkan

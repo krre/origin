@@ -20,7 +20,6 @@ Manager::~Manager() {
     delete renderPass;
     imageViews.clear();
     delete swapchain;
-//    delete queue;
     delete surface;
     delete device;
     delete physicalDevices;
@@ -43,8 +42,7 @@ bool Manager::createInstance() {
         "VK_LAYER_GOOGLE_threading",
         "VK_LAYER_LUNARG_standard_validation"
     });
-    instance->create();
-    return instance->isValid();
+    return instance->create();
 }
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {
@@ -56,8 +54,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackFunc(VkDebugReportFlagsEXT fl
 bool Manager::init() {
     if (enableValidationLayers) {
         debugCallback = new DebugReportCallback(instance, debugCallbackFunc);
-        debugCallback->create();
-        if (!debugCallback->isValid()) {
+        if (!debugCallback->create()) {
             resultDescription = std::string(initError) + debugCallback->getResultDescription();
             return false;
         }
@@ -72,8 +69,7 @@ bool Manager::init() {
     graphicsFamily = physicalDevices->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
     device = new Device(basePhysicalDevice, graphicsFamily);
-    device->create();
-    if (!device->isValid()) {
+    if (!device->create()) {
         resultDescription = std::string(initError) + device->getResultDescription();
         return false;
     }
@@ -82,31 +78,20 @@ bool Manager::init() {
     vkGetDeviceQueue(device->getHandle(), 0, 0, &presentQueue); // TODO: Set family index and queue index
 
     surface = new Surface(instance, basePhysicalDevice);
-    surface->create();
-    if (!surface->isValid()) {
+    if (!surface->create()) {
         resultDescription = std::string(initError) + surface->getResultDescription();
         return false;
     }
 
-//    queue = new Queue(device);
-//    queue.create();
-//    if (!queue->isValid()) {
-//        resultDescription = std::string(initError) + queue->getResultDescription();
-//        return false;
-//    }
-
     swapchain = new Swapchain(device, surface);
-    swapchain->create();
-    if (!swapchain->isValid()) {
+    if (!swapchain->create()) {
         resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;
     }
 
-
     for (uint32_t i = 0; i < swapchain->getCount(); i++) {
         std::shared_ptr<ImageView> imageView(new ImageView(device, surface, swapchain->getImage(i)));
-        imageView->create();
-        if (!imageView->isValid()) {
+        if (!imageView->create()) {
             resultDescription = std::string(initError) + imageView->getResultDescription();
             return false;
         }
@@ -114,15 +99,13 @@ bool Manager::init() {
     }
 
     renderPass = new RenderPass(device, surface);
-    renderPass->create();
-    if (!renderPass->isValid()) {
+    if (!renderPass->create()) {
         resultDescription = std::string(initError) + renderPass->getResultDescription();
         return false;
     }
 
     pipelineLayout = new PipelineLayout(device);
-    pipelineLayout->create();
-    if (!pipelineLayout->isValid()) {
+    if (!pipelineLayout->create()) {
         resultDescription = std::string(initError) + pipelineLayout->getResultDescription();
         return false;
     }
@@ -140,17 +123,14 @@ bool Manager::init() {
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(renderPass);
 
-    graphicsPipeline->create();
-
-    if (!graphicsPipeline->isValid()) {
+    if (!graphicsPipeline->create()) {
         resultDescription = std::string(initError) + graphicsPipeline->getResultDescription();
         return false;
     }
 
     for (uint32_t i = 0; i < swapchain->getCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
-        framebuffer->create();
-        if (!framebuffer->isValid()) {
+        if (!framebuffer->create()) {
             resultDescription = std::string(initError) + framebuffer->getResultDescription();
             return false;
         }
@@ -158,16 +138,13 @@ bool Manager::init() {
     }
 
     commandPool = new CommandPool(device, graphicsFamily);
-    commandPool->create();
-    if (!commandPool->isValid()) {
+    if (!commandPool->create()) {
         resultDescription = std::string(initError) + commandPool->getResultDescription();
         return false;
     }
 
     commandBuffer = new CommandBuffer(device);
-    commandBuffer->allocate(commandPool, swapchain->getCount());
-
-    if (commandBuffer->getResult() != VK_SUCCESS) {
+    if (!commandBuffer->allocate(commandPool, swapchain->getCount())) {
         resultDescription = std::string(initError) + commandBuffer->getResultDescription();
         return false;
     }
@@ -205,22 +182,19 @@ bool Manager::init() {
     }
 
     fence = new Fence(device);
-    fence->create();
-    if (!fence->isValid()) {
+    if (!fence->create()) {
         resultDescription = std::string(initError) + fence->getResultDescription();
         return false;
     }
 
     imageAvailableSemaphore = new Semaphore(device);
-    imageAvailableSemaphore->create();
-    if (!imageAvailableSemaphore->isValid()) {
+    if (!imageAvailableSemaphore->create()) {
         resultDescription = std::string(initError) + imageAvailableSemaphore->getResultDescription();
         return false;
     }
 
     renderFinishedSemaphore = new Semaphore(device);
-    renderFinishedSemaphore->create();
-    if (!renderFinishedSemaphore->isValid()) {
+    if (!renderFinishedSemaphore->create()) {
         resultDescription = std::string(initError) + renderFinishedSemaphore->getResultDescription();
         return false;
     }

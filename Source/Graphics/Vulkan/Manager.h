@@ -45,7 +45,6 @@ private:
     Vulkan::PhysicalDevices* physicalDevices;
     Vulkan::Device* device;
     Vulkan::Surface* surface;
-//    Vulkan::Queue* queue;
     Vulkan::Swapchain* swapchain;
     Vulkan::PipelineLayout* pipelineLayout;
     Vulkan::Pipeline* graphicsPipeline;

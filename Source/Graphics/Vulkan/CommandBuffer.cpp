@@ -6,7 +6,7 @@ CommandBuffer::CommandBuffer(const Device* device) : device(device) {
 
 }
 
-void CommandBuffer::allocate(const CommandPool* commandPool, int count) {
+bool CommandBuffer::allocate(const CommandPool* commandPool, int count) {
     commandBuffers.resize(count);
 
     VkCommandBufferAllocateInfo info = {};
@@ -15,5 +15,5 @@ void CommandBuffer::allocate(const CommandPool* commandPool, int count) {
     info.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
     info.commandBufferCount = (uint32_t) commandBuffers.size();
 
-    checkError(vkAllocateCommandBuffers(device->getHandle(), &info, commandBuffers.data()));
+    return checkError(vkAllocateCommandBuffers(device->getHandle(), &info, commandBuffers.data()));
 }

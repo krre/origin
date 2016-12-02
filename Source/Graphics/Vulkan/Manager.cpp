@@ -136,6 +136,7 @@ bool Manager::init() {
         resultDescription = std::string(initError) + commandPool->getResultDescription();
         return false;
     }
+    commandPool->reset();
 
     commandBuffer = new CommandBuffer(device);
     if (!commandBuffer->allocate(commandPool, swapchain->getImageCount())) {

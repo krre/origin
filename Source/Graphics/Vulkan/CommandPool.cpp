@@ -18,6 +18,5 @@ bool CommandPool::create() {
 }
 
 bool CommandPool::reset() {
-    result = vkResetCommandPool(device->getHandle(), handle, VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT);
-    return result == VK_SUCCESS;
+    return checkError(vkResetCommandPool(device->getHandle(), handle, VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT), "Failed to reset command pool");
 }

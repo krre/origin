@@ -6,8 +6,6 @@ ImageView::ImageView(const Device* device, const Surface* surface, VkImage image
     device(device),
     surface(surface) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
-    createInfo.pNext = nullptr;
-    createInfo.flags = 0;
     createInfo.image = image;
     createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
     createInfo.format = surface->getFormat(0).format;

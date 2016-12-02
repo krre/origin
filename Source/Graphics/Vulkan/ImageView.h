@@ -14,7 +14,7 @@ public:
 private:
     const Device* device;
     const Surface* surface;
-    VkImageViewCreateInfo createInfo;
+    VkImageViewCreateInfo createInfo = {};
 };
 
 } // Vulkan

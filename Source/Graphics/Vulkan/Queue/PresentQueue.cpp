@@ -26,7 +26,3 @@ void PresentQueue::setSwapchains(std::vector<VkSwapchainKHR> swapchains) {
 void PresentQueue::setImageIndices(const uint32_t* indices) {
     presentInfo.pImageIndices = indices;
 }
-
-bool Vulkan::PresentQueue::create() {
-    return isValid();
-}

@@ -30,15 +30,12 @@ public:
     ~Manager();
     bool createInstance();
     bool init();
-    std::string getResultDescription() const { return resultDescription; }
     Vulkan::Instance* getInstance() const { return instance; }
     Vulkan::Device* getDevice() const { return device; }
     Vulkan::Surface* getSurface() const { return surface; }
     void drawFrame();
 
 private:
-    std::string resultDescription = "None";
-
     Vulkan::Instance* instance;
     VkPhysicalDevice basePhysicalDevice;
     Vulkan::DebugReportCallback* debugCallback;

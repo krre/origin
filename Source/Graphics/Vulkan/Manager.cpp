@@ -49,7 +49,6 @@ bool Manager::init() {
     if (enableValidationLayers) {
         debugCallback = new DebugReportCallback(instance);
         if (!debugCallback->create()) {
-            resultDescription = std::string(initError) + debugCallback->getResultDescription();
             return false;
         }
     }
@@ -64,7 +63,6 @@ bool Manager::init() {
 
     device = new Device(basePhysicalDevice, graphicsFamily);
     if (!device->create()) {
-        resultDescription = std::string(initError) + device->getResultDescription();
         return false;
     }
 
@@ -73,20 +71,17 @@ bool Manager::init() {
 
     surface = new Surface(instance, basePhysicalDevice);
     if (!surface->create()) {
-        resultDescription = std::string(initError) + surface->getResultDescription();
         return false;
     }
 
     swapchain = new Swapchain(device, surface);
     if (!swapchain->create()) {
-        resultDescription = std::string(initError) + swapchain->getResultDescription();
         return false;
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<ImageView> imageView(new ImageView(device, surface, swapchain->getImage(i)));
         if (!imageView->create()) {
-            resultDescription = std::string(initError) + imageView->getResultDescription();
             return false;
         }
         imageViews.push_back(imageView);
@@ -94,13 +89,11 @@ bool Manager::init() {
 
     renderPass = new RenderPass(device, surface);
     if (!renderPass->create()) {
-        resultDescription = std::string(initError) + renderPass->getResultDescription();
         return false;
     }
 
     pipelineLayout = new PipelineLayout(device);
     if (!pipelineLayout->create()) {
-        resultDescription = std::string(initError) + pipelineLayout->getResultDescription();
         return false;
     }
 
@@ -118,14 +111,12 @@ bool Manager::init() {
     graphicsPipeline->setRenderPass(renderPass);
 
     if (!graphicsPipeline->create()) {
-        resultDescription = std::string(initError) + graphicsPipeline->getResultDescription();
         return false;
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
         if (!framebuffer->create()) {
-            resultDescription = std::string(initError) + framebuffer->getResultDescription();
             return false;
         }
         framebuffers.push_back(framebuffer);
@@ -133,14 +124,12 @@ bool Manager::init() {
 
     commandPool = new CommandPool(device, graphicsFamily);
     if (!commandPool->create()) {
-        resultDescription = std::string(initError) + commandPool->getResultDescription();
         return false;
     }
     commandPool->reset();
 
     commandBuffer = new CommandBuffer(device);
     if (!commandBuffer->allocate(commandPool, swapchain->getImageCount())) {
-        resultDescription = std::string(initError) + commandBuffer->getResultDescription();
         return false;
     }
 
@@ -178,19 +167,16 @@ bool Manager::init() {
 
     fence = new Fence(device);
     if (!fence->create()) {
-        resultDescription = std::string(initError) + fence->getResultDescription();
         return false;
     }
 
     imageAvailableSemaphore = new Semaphore(device);
     if (!imageAvailableSemaphore->create()) {
-        resultDescription = std::string(initError) + imageAvailableSemaphore->getResultDescription();
         return false;
     }
 
     renderFinishedSemaphore = new Semaphore(device);
     if (!renderFinishedSemaphore->create()) {
-        resultDescription = std::string(initError) + renderFinishedSemaphore->getResultDescription();
         return false;
     }
 

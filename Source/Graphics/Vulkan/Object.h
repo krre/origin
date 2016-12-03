@@ -4,8 +4,6 @@
 #include <string>
 #include <map>
 
-#define ASSERT_ERROR 0
-
 namespace Vulkan {
 
 class Object {

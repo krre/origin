@@ -46,14 +46,13 @@ std::string Object::resultToString(VkResult result) const {
 
 bool Object::checkError(VkResult result, const char* message) {
     this->result = result;
+
 #ifndef NDEBUG
     if (result != VK_SUCCESS) {
         error(std::string(message) + ": " + resultToString(result))
     }
-#endif
-
-#if ASSERT_ERROR == 1
     assert(result == VK_SUCCESS);
 #endif
+
     return result == VK_SUCCESS;
 }

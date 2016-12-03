@@ -9,6 +9,8 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
+    delete presentQueue;
+    delete graphicsQueue;
     delete renderFinishedSemaphore;
     delete imageAvailableSemaphore;
     delete fence;
@@ -66,8 +68,8 @@ bool Manager::init() {
         return false;
     }
 
-    vkGetDeviceQueue(device->getHandle(), graphicsFamily, 0, &graphicsQueue);
-    vkGetDeviceQueue(device->getHandle(), 0, 0, &presentQueue); // TODO: Set family index and queue index
+    graphicsQueue = new Queue(device, graphicsFamily, 0);
+    presentQueue = new Queue(device, 0, 0); // TODO: Set family index and queue index
 
     surface = new Surface(instance, basePhysicalDevice);
     if (!surface->create()) {
@@ -175,46 +177,27 @@ bool Manager::init() {
         return false;
     }
 
+    graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() }, true);
+
     renderFinishedSemaphore = new Semaphore(device);
     if (!renderFinishedSemaphore->create()) {
         return false;
     }
 
+    graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
+    graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
+    graphicsQueue->setCommandBuffersCount(commandBuffer->getCount());
+    graphicsQueue->setCommandBuffersData(commandBuffer->getBuffers());
+
+    presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() }, false);
+    presentQueue->setSwapchains({ swapchain->getHandle() });
+    presentQueue->setImageIndices(&swapchainImageIndex);
+
     return true;
 }
 
 void Manager::drawFrame() {
-    uint32_t imageIndex;
-    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, &imageIndex);
-
-    VkSemaphore waitSemaphores[] = { imageAvailableSemaphore->getHandle() };
-    VkSemaphore signalSemaphores[] = { renderFinishedSemaphore->getHandle() };
-    VkPipelineStageFlags waitStages[] = { VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT };
-
-    VkSubmitInfo submitInfo = {};
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submitInfo.waitSemaphoreCount = 1;
-    submitInfo.pWaitSemaphores = waitSemaphores;
-    submitInfo.pWaitDstStageMask = waitStages;
-    submitInfo.commandBufferCount = 1;
-    submitInfo.pCommandBuffers = commandBuffer->getBuffers();
-    submitInfo.signalSemaphoreCount = 1;
-    submitInfo.pSignalSemaphores = signalSemaphores;
-
-    if (vkQueueSubmit(graphicsQueue, 1, &submitInfo, VK_NULL_HANDLE) != VK_SUCCESS) {
-        error("Failed to submit draw command buffer!");
-        return;
-    }
-
-    VkSwapchainKHR swapChains[] = { swapchain->getHandle() };
-
-    VkPresentInfoKHR presentInfo = {};
-    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-    presentInfo.waitSemaphoreCount = 1;
-    presentInfo.pWaitSemaphores = signalSemaphores;
-    presentInfo.swapchainCount = 1;
-    presentInfo.pSwapchains = swapChains;
-    presentInfo.pImageIndices = &imageIndex;
-
-    vkQueuePresentKHR(presentQueue, &presentInfo);
+    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, &swapchainImageIndex);
+    graphicsQueue->submit();
+    presentQueue->present();
 }

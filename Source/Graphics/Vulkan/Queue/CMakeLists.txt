@@ -2,5 +2,7 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubmitQueue.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubmitQueue.h
     PARENT_SCOPE
 )

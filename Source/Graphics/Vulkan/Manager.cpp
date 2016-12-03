@@ -68,7 +68,8 @@ bool Manager::init() {
         return false;
     }
 
-    graphicsQueue = new Queue(device, graphicsFamily, 0);
+    graphicsQueue = new SubmitQueue(device, graphicsFamily, 0);
+    graphicsQueue->create();
     presentQueue = new Queue(device, 0, 0); // TODO: Set family index and queue index
 
     surface = new Surface(instance, basePhysicalDevice);
@@ -177,7 +178,7 @@ bool Manager::init() {
         return false;
     }
 
-    graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() }, true);
+    graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
 
     renderFinishedSemaphore = new Semaphore(device);
     if (!renderFinishedSemaphore->create()) {

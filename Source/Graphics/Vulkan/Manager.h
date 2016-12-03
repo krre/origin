@@ -6,6 +6,7 @@
 #include "Device.h"
 #include "Surface.h"
 #include "Queue/Queue.h"
+#include "Queue/SubmitQueue.h"
 #include "Swapchain.h"
 #include "ImageView.h"
 #include "PipelineLayout.h"
@@ -54,7 +55,7 @@ private:
     Vulkan::Semaphore* imageAvailableSemaphore;
     Vulkan::Semaphore* renderFinishedSemaphore;
 
-    Queue* graphicsQueue;
+    SubmitQueue* graphicsQueue;
     Queue* presentQueue;
     uint32_t graphicsFamily;
     uint32_t presentFamily; // TODO: Find and use

@@ -1,6 +1,6 @@
 #pragma once
-#include "CreatableObject.h"
-#include "Device.h"
+#include "../CreatableObject.h"
+#include "../Device.h"
 #include <vector>
 
 namespace Vulkan {

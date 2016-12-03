@@ -4,12 +4,7 @@ using namespace Vulkan;
 
 SubmitQueue::SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) :
     Queue(device, queueFamilyIndex, queueIndex) {
-
-}
-
-bool Vulkan::SubmitQueue::create() {
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    return true;
 }
 
 bool SubmitQueue::submit() {

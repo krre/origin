@@ -69,7 +69,6 @@ bool Manager::init() {
     }
 
     graphicsQueue = new SubmitQueue(device, graphicsFamily, 0);
-    graphicsQueue->create();
     presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
     presentQueue->create();
 

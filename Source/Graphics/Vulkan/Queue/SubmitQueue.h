@@ -8,7 +8,6 @@ class SubmitQueue : public Queue {
 
 public:
     SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);
-    bool create() override;
     bool submit();
 
     void setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) override;

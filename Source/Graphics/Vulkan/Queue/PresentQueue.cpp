@@ -4,6 +4,7 @@ using namespace Vulkan;
 
 PresentQueue::PresentQueue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) :
     Queue(device, queueFamilyIndex, queueIndex) {
+    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 }
 
 void PresentQueue::setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) {
@@ -27,5 +28,5 @@ void PresentQueue::setImageIndices(const uint32_t* indices) {
 }
 
 bool Vulkan::PresentQueue::create() {
-    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+    return isValid();
 }

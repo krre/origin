@@ -70,7 +70,8 @@ bool Manager::init() {
 
     graphicsQueue = new SubmitQueue(device, graphicsFamily, 0);
     graphicsQueue->create();
-    presentQueue = new Queue(device, 0, 0); // TODO: Set family index and queue index
+    presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
+    presentQueue->create();
 
     surface = new Surface(instance, basePhysicalDevice);
     if (!surface->create()) {
@@ -190,7 +191,7 @@ bool Manager::init() {
     graphicsQueue->setCommandBuffersCount(commandBuffer->getCount());
     graphicsQueue->setCommandBuffersData(commandBuffer->getBuffers());
 
-    presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() }, false);
+    presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() });
     presentQueue->setSwapchains({ swapchain->getHandle() });
     presentQueue->setImageIndices(&swapchainImageIndex);
 

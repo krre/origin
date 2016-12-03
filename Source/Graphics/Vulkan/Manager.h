@@ -5,7 +5,7 @@
 #include "PhysicalDevices.h"
 #include "Device.h"
 #include "Surface.h"
-#include "Queue/Queue.h"
+#include "Queue/PresentQueue.h"
 #include "Queue/SubmitQueue.h"
 #include "Swapchain.h"
 #include "ImageView.h"
@@ -56,7 +56,7 @@ private:
     Vulkan::Semaphore* renderFinishedSemaphore;
 
     SubmitQueue* graphicsQueue;
-    Queue* presentQueue;
+    PresentQueue* presentQueue;
     uint32_t graphicsFamily;
     uint32_t presentFamily; // TODO: Find and use
     uint32_t swapchainImageIndex;

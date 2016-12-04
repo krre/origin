@@ -136,12 +136,8 @@ bool Manager::init() {
     }
 
     for (size_t i = 0; i < commandBufferCollection->getCount(); i++) {
-        VkCommandBufferBeginInfo beginInfo = {};
-        beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-        beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
-        VkCommandBuffer buffer = commandBufferCollection->at(i);
-
-        vkBeginCommandBuffer(buffer, &beginInfo);
+        CommandBuffer commandBuffer(commandBufferCollection->at(i));
+        commandBuffer.begin();
 
         VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
 
@@ -154,17 +150,14 @@ bool Manager::init() {
         renderPassInfo.clearValueCount = 1;
         renderPassInfo.pClearValues = &clearColor;
 
-        vkCmdBeginRenderPass(buffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+        vkCmdBeginRenderPass(commandBuffer.getHandle(), &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-        vkCmdBindPipeline(buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
-        vkCmdDraw(buffer, 3, 1, 0, 0);
+        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
+        vkCmdDraw(commandBuffer.getHandle(), 3, 1, 0, 0);
 
-        vkCmdEndRenderPass(buffer);
+        vkCmdEndRenderPass(commandBuffer.getHandle());
 
-        VkResult result = vkEndCommandBuffer(buffer);
-        if (result != VK_SUCCESS) {
-            error("Error vkEndCommandBuffer"); // TODO: Replace by common error handler
-        }
+        commandBuffer.end();
     }
 
     fence = new Fence(device);

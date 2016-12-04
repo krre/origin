@@ -1,10 +1,10 @@
 #pragma once
-#include "Object.h"
+#include "Resulter.h"
 #include <vector>
 
 namespace Vulkan {
 
-template<typename T> class Collection : public Object {
+template<typename T> class Collection : public Resulter {
 
 public:
     Collection() = default;

@@ -1,12 +1,12 @@
 #pragma once
-#include "Base/Object.h"
+#include "Base/Resulter.h"
 #include "Instance.h"
 #include <vector>
 #include <map>
 
 namespace Vulkan {
 
-class PhysicalDevices : public Object {
+class PhysicalDevices : public Resulter {
 
 public:
     PhysicalDevices(const Instance* instance);

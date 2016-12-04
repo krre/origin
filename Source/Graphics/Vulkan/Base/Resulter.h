@@ -6,10 +6,10 @@
 
 namespace Vulkan {
 
-class Object {
+class Resulter {
 
 public:
-    Object() = default;
+    Resulter() = default;
     std::string getResultDescription() const;
     VkResult getResult() const { return result; }
     std::string resultToString(VkResult result) const;

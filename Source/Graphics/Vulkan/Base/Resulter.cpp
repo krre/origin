@@ -1,13 +1,13 @@
-#include "Object.h"
+#include "Resulter.h"
 #include <assert.h>
 
 using namespace Vulkan;
 
-std::string Object::getResultDescription() const {
+std::string Resulter::getResultDescription() const {
     resultToString(result);
 }
 
-std::string Object::resultToString(VkResult result) const {
+std::string Resulter::resultToString(VkResult result) const {
     switch (result) {
         case VK_SUCCESS: return "Success";
         case VK_NOT_READY: return "Not ready";
@@ -40,7 +40,7 @@ std::string Object::resultToString(VkResult result) const {
     }
 }
 
-bool Object::checkError(VkResult result, const char* message) {
+bool Resulter::checkError(VkResult result, const char* message) {
     this->result = result;
 
 #ifndef NDEBUG

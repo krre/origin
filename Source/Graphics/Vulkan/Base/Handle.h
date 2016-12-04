@@ -1,9 +1,9 @@
 #pragma once
-#include "Object.h"
+#include "Resulter.h"
 
 namespace Vulkan {
 
-template<typename T> class Handle : public Object {
+template<typename T> class Handle : public Resulter {
 
 public:
     Handle() = default;

@@ -1,4 +1,5 @@
 add_subdirectory(Base)
+add_subdirectory(Collection)
 add_subdirectory(Queue)
 
 set(SOURCES

@@ -14,7 +14,7 @@ Manager::~Manager() {
     delete renderFinishedSemaphore;
     delete imageAvailableSemaphore;
     delete fence;
-    delete commandBuffer;
+    delete commandBufferCollection;
     delete commandPool;
     framebuffers.clear();
     delete graphicsPipeline;
@@ -130,16 +130,16 @@ bool Manager::init() {
     }
     commandPool->reset();
 
-    commandBuffer = new CommandBuffer(device);
-    if (!commandBuffer->allocate(commandPool, swapchain->getImageCount())) {
+    commandBufferCollection = new CommandBufferCollection(device, commandPool);
+    if (!commandBufferCollection->allocate(swapchain->getImageCount())) {
         return false;
     }
 
-    for (size_t i = 0; i < commandBuffer->getCount(); i++) {
+    for (size_t i = 0; i < commandBufferCollection->getCount(); i++) {
         VkCommandBufferBeginInfo beginInfo = {};
         beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
         beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
-        VkCommandBuffer buffer = commandBuffer->getBuffer(i);
+        VkCommandBuffer buffer = commandBufferCollection->at(i);
 
         vkBeginCommandBuffer(buffer, &beginInfo);
 
@@ -186,8 +186,8 @@ bool Manager::init() {
 
     graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
-    graphicsQueue->setCommandBuffersCount(commandBuffer->getCount());
-    graphicsQueue->setCommandBuffersData(commandBuffer->getBuffers());
+    graphicsQueue->setCommandBuffersCount(commandBufferCollection->getCount());
+    graphicsQueue->setCommandBuffersData(commandBufferCollection->getData());
 
     presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() });
     presentQueue->setSwapchains({ swapchain->getHandle() });

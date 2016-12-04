@@ -10,7 +10,7 @@ public:
     Collection() = default;
     int getCount() const { return collection.size(); }
     T at(size_t i) const { return collection.at(i); }
-    T* data() const { return collection.data(); }
+    const T* getData() const { return collection.data(); }
 
 protected:
     std::vector<T> collection;

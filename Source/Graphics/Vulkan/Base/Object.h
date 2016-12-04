@@ -9,7 +9,7 @@ namespace Vulkan {
 class Object {
 
 public:
-    Object();
+    Object() = default;
     std::string getResultDescription() const;
     VkResult getResult() const { return result; }
     std::string resultToString(VkResult result) const;

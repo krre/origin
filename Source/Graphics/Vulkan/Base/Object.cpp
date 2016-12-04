@@ -3,10 +3,6 @@
 
 using namespace Vulkan;
 
-Object::Object() {
-
-}
-
 std::string Object::getResultDescription() const {
     resultToString(result);
 }

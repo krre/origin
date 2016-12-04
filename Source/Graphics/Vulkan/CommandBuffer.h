@@ -8,16 +8,11 @@ namespace Vulkan {
 class CommandBuffer : public Handle<VkCommandBuffer> {
 
 public:
-    CommandBuffer(const Device* device);
+    CommandBuffer(VkCommandBuffer handle);
     bool create() override {}
-    bool allocate(const CommandPool* commandPool, int count);
-    int getCount() const { return commandBuffers.size(); }
-    VkCommandBuffer getBuffer(int i) const { return commandBuffers.at(i); }
-    VkCommandBuffer* getBuffers() { return commandBuffers.data(); }
 
 private:
-    const Device* device;
-    std::vector<VkCommandBuffer> commandBuffers;
+
 };
 
 } // Vulkan

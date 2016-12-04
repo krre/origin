@@ -1,10 +1,10 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class DeviceMemory : public CreatableObject<VkDeviceMemory> {
+class DeviceMemory : public Handle<VkDeviceMemory> {
 
 public:
     DeviceMemory(const Device* device);

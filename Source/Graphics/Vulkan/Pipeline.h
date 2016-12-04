@@ -1,5 +1,5 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include "Device.h"
 #include "ShaderModule.h"
 #include "PipelineLayout.h"
@@ -17,7 +17,7 @@ enum class ShaderType {
     Fragment
 };
 
-class Pipeline : public CreatableObject<VkPipeline> {
+class Pipeline : public Handle<VkPipeline> {
 
 public:
     Pipeline(PipelineType type, const Device* device);

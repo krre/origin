@@ -1,5 +1,5 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include "Instance.h"
 
 namespace Vulkan {
@@ -10,7 +10,7 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT
     return VK_FALSE;
 }
 
-class DebugReportCallback : public CreatableObject<VkDebugReportCallbackEXT> {
+class DebugReportCallback : public Handle<VkDebugReportCallbackEXT> {
 
 public:
     DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback = debugCallbackDefault);

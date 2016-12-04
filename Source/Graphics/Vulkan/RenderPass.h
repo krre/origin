@@ -1,11 +1,11 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include "Device.h"
 #include "Surface.h"
 
 namespace Vulkan {
 
-class RenderPass : public CreatableObject<VkRenderPass> {
+class RenderPass : public Handle<VkRenderPass> {
 
 public:
     RenderPass(const Device* device, const Surface* surface);

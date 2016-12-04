@@ -3,10 +3,10 @@
 
 namespace Vulkan {
 
-template<typename T> class CreatableObject : public Object {
+template<typename T> class Handle : public Object {
 
 public:
-    CreatableObject() = default;
+    Handle() = default;
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     T getHandle() const { return handle; }
     virtual bool create() = 0;

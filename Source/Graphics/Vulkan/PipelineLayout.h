@@ -1,10 +1,10 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class PipelineLayout : public CreatableObject<VkPipelineLayout> {
+class PipelineLayout : public Handle<VkPipelineLayout> {
 
 public:
     PipelineLayout(const Device* device);

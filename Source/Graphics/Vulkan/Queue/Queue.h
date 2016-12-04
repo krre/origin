@@ -1,11 +1,11 @@
 #pragma once
-#include "../Base/CreatableObject.h"
+#include "../Base/Handle.h"
 #include "../Device.h"
 #include <vector>
 
 namespace Vulkan {
 
-class Queue : public CreatableObject<VkQueue> {
+class Queue : public Handle<VkQueue> {
 
 public:
     Queue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);

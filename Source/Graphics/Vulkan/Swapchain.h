@@ -1,12 +1,12 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include "Device.h"
 #include "Surface.h"
 #include <vector>
 
 namespace Vulkan {
 
-class Swapchain : public CreatableObject<VkSwapchainKHR> {
+class Swapchain : public Handle<VkSwapchainKHR> {
 
 public:
     Swapchain(const Device* device, const Surface* surface);

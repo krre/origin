@@ -1,10 +1,10 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include "Device.h"
 
 namespace Vulkan {
 
-class PipelineCache : public CreatableObject<VkPipelineCache> {
+class PipelineCache : public Handle<VkPipelineCache> {
 
 public:
     PipelineCache(const Device* device);

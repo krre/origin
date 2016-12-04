@@ -4,7 +4,7 @@
 
 namespace Vulkan {
 
-class ImageView : public CreatableObject<VkImageView> {
+class ImageView : public Handle<VkImageView> {
 
 public:
     ImageView(const Device* device, const Surface* surface, VkImage image);

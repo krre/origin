@@ -1,5 +1,5 @@
 #pragma once
-#include "Base/CreatableObject.h"
+#include "Base/Handle.h"
 #include <vector>
 
 namespace Vulkan {
@@ -10,7 +10,7 @@ namespace Vulkan {
     const bool enableValidationLayers = true;
 #endif
 
-class Instance : public CreatableObject<VkInstance> {
+class Instance : public Handle<VkInstance> {
 
 public:
     Instance();

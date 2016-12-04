@@ -11,7 +11,6 @@ bool SubmitQueue::submit() {
     return checkError(vkQueueSubmit(handle, 1, &submitInfo, VK_NULL_HANDLE), "Failed to submit draw command buffer");
 }
 
-
 void SubmitQueue::setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) {
     this->waitSemaphores = waitSemaphores;
     submitInfo.waitSemaphoreCount = waitSemaphores.size();

@@ -1,3 +1,4 @@
+add_subdirectory(Base)
 add_subdirectory(Queue)
 
 set(SOURCES
@@ -43,7 +44,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
     ${CMAKE_CURRENT_SOURCE_DIR}/CreatableObject.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Object.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Object.h
     PARENT_SCOPE
 )

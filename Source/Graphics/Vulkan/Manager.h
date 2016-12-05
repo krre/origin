@@ -39,7 +39,7 @@ public:
 
 private:
     Vulkan::Instance* instance;
-    VkPhysicalDevice basePhysicalDevice;
+    VkPhysicalDevice mainPhysicalDevice;
     Vulkan::DebugReportCallback* debugCallback;
     Vulkan::PhysicalDeviceCollection* physicalDeviceCollection;
     Vulkan::Device* device;

@@ -56,14 +56,14 @@ bool Manager::init() {
     }
 
     physicalDeviceCollection = new PhysicalDeviceCollection(instance);
-    basePhysicalDevice = physicalDeviceCollection->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
-    if (basePhysicalDevice == VK_NULL_HANDLE) {
-        basePhysicalDevice = physicalDeviceCollection->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+    mainPhysicalDevice = physicalDeviceCollection->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+    if (mainPhysicalDevice == VK_NULL_HANDLE) {
+        mainPhysicalDevice = physicalDeviceCollection->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     }
 
-    graphicsFamily = physicalDeviceCollection->findQueue(basePhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
+    graphicsFamily = physicalDeviceCollection->findQueue(mainPhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
-    device = new Device(basePhysicalDevice, graphicsFamily);
+    device = new Device(mainPhysicalDevice, graphicsFamily);
     if (!device->create()) {
         return false;
     }
@@ -71,7 +71,7 @@ bool Manager::init() {
     graphicsQueue = new SubmitQueue(device, graphicsFamily, 0);
     presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
 
-    surface = new Surface(instance, basePhysicalDevice);
+    surface = new Surface(instance, mainPhysicalDevice);
     if (!surface->create()) {
         return false;
     }

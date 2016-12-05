@@ -19,7 +19,8 @@ Surface::~Surface() {
     vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr);
 }
 
-bool Surface::create() {
+VkResult Surface::create() {
+    VkResult result;
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(App::get()->getWindow(), &wminfo);
@@ -32,7 +33,7 @@ bool Surface::create() {
         createInfo.flags = 0;
         createInfo.connection = XGetXCBConnection(wminfo.info.x11.display);
         createInfo.window = wminfo.info.x11.window;
-        checkError(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
+        result = checkError(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
         break;
     }
 
@@ -43,7 +44,7 @@ bool Surface::create() {
         createInfo.flags = 0;
         createInfo.hwnd = wminfo.info.win.window;
         createInfo.hinstance = GetModuleHandle(nullptr);
-        checkError(vkCreateWin32SurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create win32 surface");
+        result = checkError(vkCreateWin32SurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create win32 surface");
         break;
     }
 #endif
@@ -61,5 +62,5 @@ bool Surface::create() {
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
 
-    return isValid();
+    return result;
 }

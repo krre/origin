@@ -10,6 +10,6 @@ DeviceMemory::~DeviceMemory() {
     vkFreeMemory(device->getHandle(), handle, nullptr);
 }
 
-bool DeviceMemory::create() {
+VkResult DeviceMemory::create() {
     return checkError(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
 }

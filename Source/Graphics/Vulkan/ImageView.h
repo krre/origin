@@ -9,7 +9,7 @@ class ImageView : public Handle<VkImageView> {
 public:
     ImageView(const Device* device, const Surface* surface, VkImage image);
     ~ImageView();
-    bool create() override;
+    VkResult create() override;
 
 private:
     const Device* device;

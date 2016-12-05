@@ -73,7 +73,7 @@ void App::init() {
     }
 
     new Vulkan::Manager;
-    if (!Vulkan::Manager::get()->createInstance()) {
+    if (Vulkan::Manager::get()->createInstance() != VK_SUCCESS) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getInstance()->getResultDescription().c_str(), nullptr);
         return;
     }

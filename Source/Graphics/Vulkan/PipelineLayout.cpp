@@ -12,6 +12,6 @@ PipelineLayout::~PipelineLayout() {
     vkDestroyPipelineLayout(device->getHandle(), handle, nullptr);
 }
 
-bool PipelineLayout::create() {
+VkResult PipelineLayout::create() {
     return checkError(vkCreatePipelineLayout(device->getHandle(), &pipelineLayoutInfo, nullptr, &handle), "Failed to create pipeline layout");
 }

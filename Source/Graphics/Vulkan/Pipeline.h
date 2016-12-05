@@ -27,7 +27,7 @@ public:
     void setExtent(VkExtent2D extent) { this->extent = extent; }
     void setPipelineLayout(const PipelineLayout* pipelineLayout) { this->pipelineLayout = pipelineLayout; }
     void setRenderPass(const RenderPass* renderPass) { this->renderPass = renderPass; }
-    bool create() override;
+    VkResult create() override;
 
 private:
     const Device* device;

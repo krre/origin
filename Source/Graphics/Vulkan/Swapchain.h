@@ -11,7 +11,7 @@ class Swapchain : public Handle<VkSwapchainKHR> {
 public:
     Swapchain(const Device* device, const Surface* surface);
     ~Swapchain();
-    bool create() override;
+    VkResult create() override;
     VkImage getImage(int i) const { return images.at(i); }
     VkExtent2D getExtent() const { return extent; }
     int getImageCount() const { return images.size(); }

@@ -40,7 +40,7 @@ std::string Resulter::resultToString(VkResult result) const {
     }
 }
 
-bool Resulter::checkError(VkResult result, const char* message) {
+VkResult Resulter::checkError(VkResult result, const char* message) {
     this->result = result;
 
 #ifndef NDEBUG
@@ -50,5 +50,5 @@ bool Resulter::checkError(VkResult result, const char* message) {
     assert(result == VK_SUCCESS);
 #endif
 
-    return result == VK_SUCCESS;
+    return result;
 }

@@ -10,6 +10,6 @@ PipelineCache::~PipelineCache() {
     vkDestroyPipelineCache(device->getHandle(), handle, nullptr);
 }
 
-bool PipelineCache::create() {
+VkResult PipelineCache::create() {
     return checkError(vkCreatePipelineCache(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create pipeline cache");
 }

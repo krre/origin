@@ -15,7 +15,7 @@ class DebugReportCallback : public Handle<VkDebugReportCallbackEXT> {
 public:
     DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback = debugCallbackDefault);
     ~DebugReportCallback();
-    bool create() override;
+    VkResult create() override;
 
 private:
     const Instance* instance;

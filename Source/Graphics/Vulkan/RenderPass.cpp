@@ -32,6 +32,6 @@ RenderPass::~RenderPass() {
     vkDestroyRenderPass(device->getHandle(), handle, nullptr);
 }
 
-bool RenderPass::create() {
+VkResult RenderPass::create() {
     return checkError(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
 }

@@ -34,7 +34,7 @@ Instance::Instance() {
     createInfo.pApplicationInfo = &appInfo;
 }
 
-bool Instance::create() {
+VkResult Instance::create() {
     if (enableValidationLayers) {
         createInfo.enabledLayerCount = enabledLayers.size();
         createInfo.ppEnabledLayerNames = enabledLayers.data();

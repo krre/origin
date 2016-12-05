@@ -17,7 +17,7 @@ Buffer::~Buffer() {
     vkDestroyBuffer(device->getHandle(), handle, nullptr);
 }
 
-bool Buffer::create() {
+VkResult Buffer::create() {
     return checkError(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create buffer");
 }
 

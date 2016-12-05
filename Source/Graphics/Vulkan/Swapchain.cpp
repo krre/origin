@@ -34,8 +34,8 @@ Swapchain::~Swapchain() {
     vkDestroySwapchainKHR(device->getHandle(), handle, nullptr);
 }
 
-bool Swapchain::create() {
-    checkError(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
+VkResult Swapchain::create() {
+    VkResult result = checkError(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);
@@ -44,5 +44,5 @@ bool Swapchain::create() {
 
     extent = surface->getCapabilities().currentExtent;
 
-    return isValid();
+    return result;
 }

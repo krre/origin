@@ -9,7 +9,7 @@ class Buffer : public Handle<VkBuffer> {
 public:
     Buffer(const Device* device);
     ~Buffer();
-    bool create() override;
+    VkResult create() override;
     void setSize(VkDeviceSize size);
     void setUsage(VkBufferUsageFlags usage);
 

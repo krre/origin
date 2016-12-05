@@ -15,7 +15,7 @@ class Instance : public Handle<VkInstance> {
 public:
     Instance();
     ~Instance();
-    bool create() override;
+    VkResult create() override;
 
     uint32_t getLayerCount() const { return layers.size(); }
     VkLayerProperties getLayer(int i) const { return layers.at(i); }

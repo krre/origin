@@ -21,7 +21,7 @@ bool Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code)
     shaderModules[type] = shaderModule;
 }
 
-bool Pipeline::create() {
+VkResult Pipeline::create() {
     if (type == PipelineType::Graphics) {
         VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
         vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;

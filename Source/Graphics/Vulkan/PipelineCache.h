@@ -9,7 +9,7 @@ class PipelineCache : public Handle<VkPipelineCache> {
 public:
     PipelineCache(const Device* device);
     ~PipelineCache();
-    bool create() override;
+    VkResult create() override;
 
 private:
     const Device* device;

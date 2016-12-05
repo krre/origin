@@ -10,7 +10,7 @@ class RenderPass : public Handle<VkRenderPass> {
 public:
     RenderPass(const Device* device, const Surface* surface);
     ~RenderPass();
-    bool create() override;
+    VkResult create() override;
 
 private:
     const Device* device;

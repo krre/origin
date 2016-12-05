@@ -29,7 +29,7 @@ Manager::~Manager() {
     delete instance;
 }
 
-bool Manager::createInstance() {
+VkResult Manager::createInstance() {
     instance = new Instance();
     instance->setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
@@ -50,7 +50,7 @@ bool Manager::createInstance() {
 bool Manager::init() {
     if (enableValidationLayers) {
         debugCallback = new DebugReportCallback(instance);
-        if (!debugCallback->create()) {
+        if (debugCallback->create() != VK_SUCCESS) {
             return false;
         }
     }
@@ -64,7 +64,7 @@ bool Manager::init() {
     graphicsFamily = physicalDeviceCollection->findQueue(mainPhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
     device = new Device(mainPhysicalDevice, graphicsFamily);
-    if (!device->create()) {
+    if (device->create() != VK_SUCCESS) {
         return false;
     }
 
@@ -72,30 +72,30 @@ bool Manager::init() {
     presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
 
     surface = new Surface(instance, mainPhysicalDevice);
-    if (!surface->create()) {
+    if (surface->create() != VK_SUCCESS) {
         return false;
     }
 
     swapchain = new Swapchain(device, surface);
-    if (!swapchain->create()) {
+    if (swapchain->create() != VK_SUCCESS) {
         return false;
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<ImageView> imageView(new ImageView(device, surface, swapchain->getImage(i)));
-        if (!imageView->create()) {
+        if (imageView->create() != VK_SUCCESS) {
             return false;
         }
         imageViews.push_back(imageView);
     }
 
     renderPass = new RenderPass(device, surface);
-    if (!renderPass->create()) {
+    if (renderPass->create() != VK_SUCCESS) {
         return false;
     }
 
     pipelineLayout = new PipelineLayout(device);
-    if (!pipelineLayout->create()) {
+    if (pipelineLayout->create() != VK_SUCCESS) {
         return false;
     }
 
@@ -112,26 +112,26 @@ bool Manager::init() {
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(renderPass);
 
-    if (!graphicsPipeline->create()) {
+    if (graphicsPipeline->create() != VK_SUCCESS) {
         return false;
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
-        if (!framebuffer->create()) {
+        if (framebuffer->create() != VK_SUCCESS) {
             return false;
         }
         framebuffers.push_back(framebuffer);
     }
 
     commandPool = new CommandPool(device, graphicsFamily);
-    if (!commandPool->create()) {
+    if (commandPool->create() != VK_SUCCESS) {
         return false;
     }
     commandPool->reset();
 
     commandBufferCollection = new CommandBufferCollection(device, commandPool);
-    if (!commandBufferCollection->allocate(swapchain->getImageCount())) {
+    if (commandBufferCollection->allocate(swapchain->getImageCount()) != VK_SUCCESS) {
         return false;
     }
 
@@ -161,19 +161,19 @@ bool Manager::init() {
     }
 
     fence = new Fence(device);
-    if (!fence->create()) {
+    if (fence->create() != VK_SUCCESS) {
         return false;
     }
 
     imageAvailableSemaphore = new Semaphore(device);
-    if (!imageAvailableSemaphore->create()) {
+    if (imageAvailableSemaphore->create() != VK_SUCCESS) {
         return false;
     }
 
     graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
 
     renderFinishedSemaphore = new Semaphore(device);
-    if (!renderFinishedSemaphore->create()) {
+    if (renderFinishedSemaphore->create() != VK_SUCCESS) {
         return false;
     }
 

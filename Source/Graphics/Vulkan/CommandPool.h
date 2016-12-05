@@ -9,8 +9,8 @@ class CommandPool : public Handle<VkCommandPool> {
 public:
     CommandPool(const Device* device, uint32_t familyIndex);
     ~CommandPool();
-    bool create() override;
-    bool reset();
+    VkResult create() override;
+    VkResult reset();
 
 private:
     const Device* device;

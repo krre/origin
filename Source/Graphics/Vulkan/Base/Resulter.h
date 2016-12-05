@@ -15,7 +15,7 @@ public:
     std::string resultToString(VkResult result) const;
 
 protected:
-    bool checkError(VkResult result, const char* message);
+    VkResult checkError(VkResult result, const char* message);
 
     VkResult result;
 };

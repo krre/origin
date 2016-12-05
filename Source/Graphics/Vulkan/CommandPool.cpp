@@ -13,10 +13,10 @@ CommandPool::~CommandPool() {
     vkDestroyCommandPool(device->getHandle(), handle, nullptr);
 }
 
-bool CommandPool::create() {
+VkResult CommandPool::create() {
     return checkError(vkCreateCommandPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create command pool");
 }
 
-bool CommandPool::reset() {
+VkResult CommandPool::reset() {
     return checkError(vkResetCommandPool(device->getHandle(), handle, VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT), "Failed to reset command pool");
 }

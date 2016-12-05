@@ -9,7 +9,7 @@ class PipelineLayout : public Handle<VkPipelineLayout> {
 public:
     PipelineLayout(const Device* device);
     ~PipelineLayout();
-    bool create() override;
+    VkResult create() override;
 
 private:
     const Device* device;

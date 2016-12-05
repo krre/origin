@@ -9,7 +9,7 @@ class CommandBuffer : public Handle<VkCommandBuffer> {
 
 public:
     CommandBuffer(VkCommandBuffer handle);
-    bool create() override {}
+    VkResult create() override {}
     bool begin();
     bool end();
 

@@ -17,7 +17,7 @@ Framebuffer::~Framebuffer() {
     vkDestroyFramebuffer(device->getHandle(), handle, nullptr);
 }
 
-bool Framebuffer::create() {
+VkResult Framebuffer::create() {
     VkImageView attachments[] = {
         imageView->getHandle()
     };

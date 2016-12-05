@@ -13,7 +13,7 @@ void PresentQueue::setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) {
     presentInfo.pWaitSemaphores = this->waitSemaphores.data();
 }
 
-bool PresentQueue::present() {
+VkResult PresentQueue::present() {
     return checkError(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
 }
 

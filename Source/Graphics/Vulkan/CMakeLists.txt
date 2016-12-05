@@ -26,8 +26,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.cpp

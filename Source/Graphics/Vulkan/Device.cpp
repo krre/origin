@@ -12,7 +12,6 @@ Device::Device(VkPhysicalDevice physicalDevice, uint32_t familyIndex) : physical
         enabledExtensions.push_back(extension.extensionName);
     }
 
-    float queuePriority = 1.0f;
     queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     queueCreateInfo.queueCount = 1;
     queueCreateInfo.pQueuePriorities = &queuePriority;

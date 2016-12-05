@@ -21,7 +21,7 @@ private:
 
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
-
+    float queuePriority = 1.0f;
 };
 
 } // Vulkan

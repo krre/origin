@@ -15,7 +15,7 @@ public:
 
 private:
     const Device* device;
-    VkBufferCreateInfo createInfo;
+    VkBufferCreateInfo createInfo = {};
 };
 
 } // Vulkan

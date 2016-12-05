@@ -10,8 +10,8 @@ class CommandBuffer : public Handle<VkCommandBuffer> {
 public:
     CommandBuffer(VkCommandBuffer handle);
     VkResult create() override {}
-    bool begin();
-    bool end();
+    VkResult begin();
+    VkResult end();
 
 private:
     VkCommandBufferBeginInfo beginInfo = {};

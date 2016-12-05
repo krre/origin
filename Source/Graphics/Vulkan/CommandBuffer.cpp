@@ -7,10 +7,10 @@ CommandBuffer::CommandBuffer(VkCommandBuffer handle) : Handle(handle) {
     beginInfo.flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT;
 }
 
-bool CommandBuffer::begin() {
+VkResult CommandBuffer::begin() {
     return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
 }
 
-bool CommandBuffer::end() {
+VkResult CommandBuffer::end() {
     return checkError(vkEndCommandBuffer(handle), "Failed to end command buffer");
 }

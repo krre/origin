@@ -170,14 +170,13 @@ bool Manager::init() {
         return false;
     }
 
-    graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
-
     renderFinishedSemaphore = new Semaphore(device);
     if (renderFinishedSemaphore->create() != VK_SUCCESS) {
         return false;
     }
 
     graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
+    graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
     graphicsQueue->setCommandBuffersCount(commandBufferCollection->getCount());
     graphicsQueue->setCommandBuffersData(commandBufferCollection->getData());

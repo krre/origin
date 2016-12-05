@@ -9,7 +9,7 @@ class DeviceMemory : public Handle<VkDeviceMemory> {
 public:
     DeviceMemory(const Device* device);
     ~DeviceMemory();
-    VkResult create() override;
+    VkResult allocate();
 
 private:
     const Device* device;

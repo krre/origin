@@ -2,10 +2,10 @@
 
 using namespace Vulkan;
 
-Buffer::Buffer(const Device* device) : device(device) {
+Buffer::Buffer(const Device* device, VkBufferUsageFlags usage) : device(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = 0;
-    createInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+    createInfo.usage = usage;
     createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.queueFamilyIndexCount = 0;
     createInfo.pQueueFamilyIndices = nullptr;
@@ -21,8 +21,4 @@ VkResult Buffer::create() {
 
 void Buffer::setSize(VkDeviceSize size) {
     createInfo.size = size;
-}
-
-void Buffer::setUsage(VkBufferUsageFlags usage) {
-    createInfo.usage = usage;
 }

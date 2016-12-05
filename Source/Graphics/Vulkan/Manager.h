@@ -2,7 +2,7 @@
 #include "../../Core/Singleton.h"
 #include "Instance.h"
 #include "DebugReportCallback.h"
-#include "PhysicalDevices.h"
+#include "Collection/PhysicalDeviceCollection.h"
 #include "Device.h"
 #include "Surface.h"
 #include "Queue/PresentQueue.h"
@@ -41,7 +41,7 @@ private:
     Vulkan::Instance* instance;
     VkPhysicalDevice basePhysicalDevice;
     Vulkan::DebugReportCallback* debugCallback;
-    Vulkan::PhysicalDevices* physicalDevices;
+    Vulkan::PhysicalDeviceCollection* physicalDeviceCollection;
     Vulkan::Device* device;
     Vulkan::Surface* surface;
     Vulkan::Swapchain* swapchain;

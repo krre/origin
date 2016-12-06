@@ -141,14 +141,23 @@ bool Manager::init() {
         {  1.0f,  1.0f },
         {  1.0f, -1.0f },
     };
-    vertexBuffer->setSize(sizeof(vertices[0]) * vertices.size());
+    int verticesSize = sizeof(vertices[0]) * vertices.size();
+    vertexBuffer->setSize(verticesSize);
     vertexBuffer->create();
 
     vertexMemory = new DeviceMemory(device);
     VkMemoryRequirements memRequirements;
     vkGetBufferMemoryRequirements(device->getHandle(), vertexBuffer->getHandle(), &memRequirements);
     vertexMemory->setAllocationSize(memRequirements.size);
+    vertexMemory->setMemoryTypeIndex(physicalDeviceCollection->findMemoryType(mainPhysicalDevice, memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
     vertexMemory->allocate();
+
+    vkBindBufferMemory(device->getHandle(), vertexBuffer->getHandle(), vertexMemory->getHandle(), 0);
+
+    void* data;
+    vkMapMemory(device->getHandle(), vertexMemory->getHandle(), 0, verticesSize, 0, &data);
+    memcpy(data, vertices.data(), (size_t) verticesSize);
+    vkUnmapMemory(device->getHandle(), vertexMemory->getHandle());
 
     commandBufferCollection = new CommandBufferCollection(device, commandPool);
     if (commandBufferCollection->allocate(swapchain->getImageCount()) != VK_SUCCESS) {

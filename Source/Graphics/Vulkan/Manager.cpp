@@ -117,6 +117,13 @@ bool Manager::init() {
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     graphicsPipeline->setVertexBindingDescriptions({ bindingDescription });
 
+    VkVertexInputAttributeDescription attributeDescriptions = {};
+    attributeDescriptions.binding = 0;
+    attributeDescriptions.location = 0;
+    attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
+    attributeDescriptions.offset = 0;
+    graphicsPipeline->setVertexAttributeDescriptions({ attributeDescriptions });
+
     graphicsPipeline->setExtent(swapchain->getExtent());
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(renderPass);

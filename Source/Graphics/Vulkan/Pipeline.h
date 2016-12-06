@@ -27,12 +27,15 @@ public:
     void setExtent(VkExtent2D extent) { this->extent = extent; }
     void setPipelineLayout(const PipelineLayout* pipelineLayout) { this->pipelineLayout = pipelineLayout; }
     void setRenderPass(const RenderPass* renderPass) { this->renderPass = renderPass; }
+    void setVertexInputBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexInputBindingDescriptions);
     VkResult create() override;
 
 private:
     const Device* device;
+    VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
     PipelineType type;
     std::map<ShaderType, std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
+    std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
     VkExtent2D extent;
     const PipelineLayout* pipelineLayout;
     const RenderPass* renderPass;

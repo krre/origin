@@ -5,6 +5,7 @@ using namespace Vulkan;
 Pipeline::Pipeline(PipelineType type, const Device* device) :
     type(type),
     device(device) {
+    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 }
 
 Pipeline::~Pipeline() {
@@ -19,6 +20,12 @@ bool Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code)
         return false;
     }
     shaderModules[type] = shaderModule;
+}
+
+void Pipeline::setVertexInputBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexInputBindingDescriptions) {
+    this->vertexInputBindingDescriptions = vertexInputBindingDescriptions;
+    vertexInputInfo.vertexBindingDescriptionCount = vertexInputBindingDescriptions.size();
+    vertexInputInfo.pVertexBindingDescriptions = this->vertexInputBindingDescriptions.data();
 }
 
 VkResult Pipeline::create() {
@@ -36,11 +43,6 @@ VkResult Pipeline::create() {
         fragShaderStageInfo.pName = "main";
 
         VkPipelineShaderStageCreateInfo shaderStages[] = { vertShaderStageInfo, fragShaderStageInfo };
-
-        VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
-        vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
-        vertexInputInfo.vertexBindingDescriptionCount = 0;
-        vertexInputInfo.vertexAttributeDescriptionCount = 0;
 
         VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
         inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;

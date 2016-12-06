@@ -145,6 +145,9 @@ bool Manager::init() {
     vertexBuffer->create();
 
     vertexMemory = new DeviceMemory(device);
+    VkMemoryRequirements memRequirements;
+    vkGetBufferMemoryRequirements(device->getHandle(), vertexBuffer->getHandle(), &memRequirements);
+    vertexMemory->setAllocationSize(memRequirements.size);
     vertexMemory->allocate();
 
     commandBufferCollection = new CommandBufferCollection(device, commandPool);

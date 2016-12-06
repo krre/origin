@@ -13,3 +13,7 @@ DeviceMemory::~DeviceMemory() {
 VkResult DeviceMemory::allocate() {
     return checkError(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
 }
+
+void DeviceMemory::setAllocationSize(VkDeviceSize allocationSize) {
+    allocateInfo.allocationSize = allocationSize;
+}

@@ -11,6 +11,7 @@ public:
     ~DeviceMemory();
     VkResult create() {}
     VkResult allocate();
+    void setAllocationSize(VkDeviceSize allocationSize);
 
 private:
     const Device* device;

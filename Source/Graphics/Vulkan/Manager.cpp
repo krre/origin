@@ -182,7 +182,12 @@ bool Manager::init() {
         vkCmdBeginRenderPass(commandBuffer.getHandle(), &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
         vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
-        vkCmdDraw(commandBuffer.getHandle(), 3, 1, 0, 0);
+
+        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
+        VkDeviceSize offsets[] = { 0 };
+        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
+
+        vkCmdDraw(commandBuffer.getHandle(), vertices.size(), 1, 0, 0);
 
         vkCmdEndRenderPass(commandBuffer.getHandle());
 

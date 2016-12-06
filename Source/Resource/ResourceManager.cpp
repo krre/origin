@@ -36,4 +36,12 @@ void ResourceManager::loadAll() {
     auto baseFragShader = std::make_shared<ShaderResource>();
     baseFragShader->load(shaderPath + "/Base.frag.spv");
     resources["BaseFragShader"] = baseFragShader;
+
+    auto voxelVertShader = std::make_shared<ShaderResource>();
+    voxelVertShader->load(shaderPath + "/Voxel.vert.spv");
+    resources["VoxelVertShader"] = voxelVertShader;
+
+    auto voxelFragShader = std::make_shared<ShaderResource>();
+    voxelFragShader->load(shaderPath + "/Voxel.frag.spv");
+    resources["VoxelFragShader"] = voxelFragShader;
 }

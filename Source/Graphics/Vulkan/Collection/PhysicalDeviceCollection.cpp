@@ -51,6 +51,16 @@ uint32_t PhysicalDeviceCollection::findQueue(VkPhysicalDevice device, VkQueueFla
     return -1;
 }
 
+uint32_t PhysicalDeviceCollection::findMemoryType(VkPhysicalDevice device, uint32_t typeFilter, VkMemoryPropertyFlags properties) {
+    for (uint32_t i = 0; i < memoryProperties[device].memoryTypeCount; i++) {
+        if ((typeFilter & (1 << i)) && (memoryProperties[device].memoryTypes[i].propertyFlags & properties) == properties) {
+            return i;
+        }
+    }
+
+    return -1;
+}
+
 void PhysicalDeviceCollection::dumpDevices() {
     for (auto device: collection) {
         VkPhysicalDeviceProperties deviceProperties;

@@ -12,36 +12,29 @@ ResourceManager::ResourceManager() {
 
 void ResourceManager::loadAll() {
     // Fonts
-    auto iconsolataFont = std::make_shared<Font>();
-    iconsolataFont->load(fontPath + "/inconsolatalgc.ttf");
-    resources["IconsolataFont"] = iconsolataFont;
+    resources["IconsolataFont"] = std::make_shared<Font>();
+    resources["IconsolataFont"]->load(fontPath + "/inconsolatalgc.ttf");
 
     // Octrees
-    auto groundOctree = std::make_shared<Octree>();
-    groundOctree->load(octreePath + "/Ground.json");
-    resources["GroundOctree"] = groundOctree;
+    resources["GroundOctree"] = std::make_shared<Octree>();
+    resources["GroundOctree"]->load(octreePath + "/Ground.json");
 
-    auto treeOctree = std::make_shared<Octree>();
-    treeOctree->load(octreePath + "/Tree.json");
-    resources["TreeOctree"] = treeOctree;
+    resources["TreeOctree"] = std::make_shared<Octree>();
+    resources["TreeOctree"]->load(octreePath + "/Tree.json");
 
-    auto chamomileOctree = std::make_shared<Octree>();
-    chamomileOctree->load(octreePath + "/Chamomile.json");
-    resources["ChamomileOctree"] = chamomileOctree;
+    resources["ChamomileOctree"] = std::make_shared<Octree>();
+    resources["ChamomileOctree"]->load(octreePath + "/Chamomile.json");
 
-    auto baseVertShader = std::make_shared<ShaderResource>();
-    baseVertShader->load(shaderPath + "/Base.vert.spv");
-    resources["BaseVertShader"] = baseVertShader;
+    resources["BaseVertShader"] = std::make_shared<ShaderResource>();
+    resources["BaseVertShader"]->load(shaderPath + "/Base.vert.spv");
 
-    auto baseFragShader = std::make_shared<ShaderResource>();
-    baseFragShader->load(shaderPath + "/Base.frag.spv");
-    resources["BaseFragShader"] = baseFragShader;
+    resources["BaseFragShader"] = std::make_shared<ShaderResource>();
+    resources["BaseFragShader"]->load(shaderPath + "/Base.frag.spv");
 
-    auto voxelVertShader = std::make_shared<ShaderResource>();
-    voxelVertShader->load(shaderPath + "/Voxel.vert.spv");
-    resources["VoxelVertShader"] = voxelVertShader;
+    // Shaders
+    resources["VoxelVertShader"] = std::make_shared<ShaderResource>();
+    resources["VoxelVertShader"]->load(shaderPath + "/Voxel.vert.spv");
 
-    auto voxelFragShader = std::make_shared<ShaderResource>();
-    voxelFragShader->load(shaderPath + "/Voxel.frag.spv");
-    resources["VoxelFragShader"] = voxelFragShader;
+    resources["VoxelFragShader"] = std::make_shared<ShaderResource>();
+    resources["VoxelFragShader"]->load(shaderPath + "/Voxel.frag.spv");
 }

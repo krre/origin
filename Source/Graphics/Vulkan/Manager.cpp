@@ -111,6 +111,12 @@ bool Manager::init() {
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");
     graphicsPipeline->addShaderCode(ShaderType::Fragment, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
+    VkVertexInputBindingDescription bindingDescription = {};
+    bindingDescription.binding = 0;
+    bindingDescription.stride = sizeof(glm::vec2);
+    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+    graphicsPipeline->setVertexBindingDescriptions({ bindingDescription });
+
     graphicsPipeline->setExtent(swapchain->getExtent());
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(renderPass);

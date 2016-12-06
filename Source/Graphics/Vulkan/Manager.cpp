@@ -1,6 +1,7 @@
 #include "Manager.h"
 #include "../../Resource/ShaderResource.h"
 #include "../../Resource/ResourceManager.h"
+#include <glm/glm.hpp>
 
 using namespace Vulkan;
 
@@ -15,6 +16,7 @@ Manager::~Manager() {
     delete imageAvailableSemaphore;
     delete fence;
     delete commandBufferCollection;
+    delete vertexBuffer;
     delete commandPool;
     framebuffers.clear();
     delete graphicsPipeline;
@@ -129,6 +131,17 @@ bool Manager::init() {
         return false;
     }
     commandPool->reset();
+
+    vertexBuffer = new Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+
+    const std::vector<glm::vec2> vertices = {
+        { -1.0f,  1.0f },
+        { -1.0f, -1.0f },
+        {  1.0f,  1.0f },
+        {  1.0f, -1.0f },
+    };
+    vertexBuffer->setSize(sizeof(vertices[0]) * vertices.size());
+    vertexBuffer->create();
 
     commandBufferCollection = new CommandBufferCollection(device, commandPool);
     if (commandBufferCollection->allocate(swapchain->getImageCount()) != VK_SUCCESS) {

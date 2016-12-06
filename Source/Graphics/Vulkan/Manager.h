@@ -18,6 +18,7 @@
 #include "Collection/CommandBufferCollection.h"
 #include "Fence.h"
 #include "Semaphore.h"
+#include "Buffer.h"
 #include <string>
 #include <vector>
 
@@ -52,6 +53,7 @@ private:
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
     Vulkan::CommandPool* commandPool;
     Vulkan::CommandBufferCollection* commandBufferCollection;
+    Vulkan::Buffer* vertexBuffer;
     Vulkan::Fence* fence;
     Vulkan::Semaphore* imageAvailableSemaphore;
     Vulkan::Semaphore* renderFinishedSemaphore;

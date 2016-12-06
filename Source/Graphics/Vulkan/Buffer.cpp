@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Buffer::Buffer(const Device* device, VkBufferUsageFlags usage) : device(device) {
+Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage) : device(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = 0;
     createInfo.usage = usage;

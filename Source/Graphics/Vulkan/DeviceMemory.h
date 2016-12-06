@@ -9,6 +9,7 @@ class DeviceMemory : public Handle<VkDeviceMemory> {
 public:
     DeviceMemory(const Device* device);
     ~DeviceMemory();
+    VkResult create() {}
     VkResult allocate();
 
 private:

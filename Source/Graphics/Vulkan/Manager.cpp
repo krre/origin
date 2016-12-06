@@ -16,6 +16,7 @@ Manager::~Manager() {
     delete imageAvailableSemaphore;
     delete fence;
     delete commandBufferCollection;
+    delete vertexMemory;
     delete vertexBuffer;
     delete commandPool;
     framebuffers.clear();
@@ -142,6 +143,9 @@ bool Manager::init() {
     };
     vertexBuffer->setSize(sizeof(vertices[0]) * vertices.size());
     vertexBuffer->create();
+
+    vertexMemory = new DeviceMemory(device);
+    vertexMemory->allocate();
 
     commandBufferCollection = new CommandBufferCollection(device, commandPool);
     if (commandBufferCollection->allocate(swapchain->getImageCount()) != VK_SUCCESS) {

@@ -19,6 +19,7 @@
 #include "Fence.h"
 #include "Semaphore.h"
 #include "Buffer.h"
+#include "DeviceMemory.h"
 #include <string>
 #include <vector>
 
@@ -54,6 +55,7 @@ private:
     Vulkan::CommandPool* commandPool;
     Vulkan::CommandBufferCollection* commandBufferCollection;
     Vulkan::Buffer* vertexBuffer;
+    Vulkan::DeviceMemory* vertexMemory;
     Vulkan::Fence* fence;
     Vulkan::Semaphore* imageAvailableSemaphore;
     Vulkan::Semaphore* renderFinishedSemaphore;

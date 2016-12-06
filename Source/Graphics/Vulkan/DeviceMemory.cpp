@@ -3,7 +3,7 @@
 using namespace Vulkan;
 
 DeviceMemory::DeviceMemory(const Device* device) : device(device) {
-
+    allocateInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 }
 
 DeviceMemory::~DeviceMemory() {

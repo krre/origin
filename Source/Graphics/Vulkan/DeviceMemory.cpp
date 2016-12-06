@@ -17,3 +17,7 @@ VkResult DeviceMemory::allocate() {
 void DeviceMemory::setAllocationSize(VkDeviceSize allocationSize) {
     allocateInfo.allocationSize = allocationSize;
 }
+
+void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
+    allocateInfo.memoryTypeIndex = index;
+}

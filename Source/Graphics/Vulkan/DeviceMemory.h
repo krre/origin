@@ -12,6 +12,7 @@ public:
     VkResult create() {}
     VkResult allocate();
     void setAllocationSize(VkDeviceSize allocationSize);
+    void setMemoryTypeIndex(uint32_t index);
 
 private:
     const Device* device;

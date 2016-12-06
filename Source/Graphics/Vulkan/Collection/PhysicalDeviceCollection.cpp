@@ -17,6 +17,10 @@ PhysicalDeviceCollection::PhysicalDeviceCollection(const Instance* instance) : i
         vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
         features[device] = deviceFeatures;
 
+        VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
+        vkGetPhysicalDeviceMemoryProperties(device, &deviceMemoryProperties);
+        memoryProperties[device] = deviceMemoryProperties;
+
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
         std::vector<VkQueueFamilyProperties> familyProperties(count);
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, familyProperties.data());

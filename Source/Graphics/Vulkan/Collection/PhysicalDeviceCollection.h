@@ -12,6 +12,7 @@ public:
     PhysicalDeviceCollection(const Instance* instance);
     VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device) { return properties[device]; }
     VkPhysicalDeviceFeatures getFeatures(VkPhysicalDevice device) { return features[device]; }
+    VkPhysicalDeviceMemoryProperties getMemoryProperties(VkPhysicalDevice device) { return memoryProperties[device]; }
     std::vector<VkQueueFamilyProperties> getQueueFamilyProperties(VkPhysicalDevice device) { return queueFamilyProperties[device]; }
     VkPhysicalDevice findDevice(VkPhysicalDeviceType type);
     uint32_t findQueue(VkPhysicalDevice device, VkQueueFlags flags);
@@ -21,6 +22,7 @@ private:
     const Instance* instance;
     std::map<VkPhysicalDevice, VkPhysicalDeviceProperties> properties;
     std::map<VkPhysicalDevice, VkPhysicalDeviceFeatures> features;
+    std::map<VkPhysicalDevice, VkPhysicalDeviceMemoryProperties> memoryProperties;
     std::map<VkPhysicalDevice, std::vector<VkQueueFamilyProperties>> queueFamilyProperties;
 };
 

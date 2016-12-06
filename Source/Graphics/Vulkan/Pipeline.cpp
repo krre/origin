@@ -22,10 +22,10 @@ bool Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code)
     shaderModules[type] = shaderModule;
 }
 
-void Pipeline::setVertexInputBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexInputBindingDescriptions) {
-    this->vertexInputBindingDescriptions = vertexInputBindingDescriptions;
-    vertexInputInfo.vertexBindingDescriptionCount = vertexInputBindingDescriptions.size();
-    vertexInputInfo.pVertexBindingDescriptions = this->vertexInputBindingDescriptions.data();
+void Pipeline::setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions) {
+    this->vertexBindingDescriptions = vertexBindingDescriptions;
+    vertexInputInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
+    vertexInputInfo.pVertexBindingDescriptions = this->vertexBindingDescriptions.data();
 }
 
 void Pipeline::setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions) {

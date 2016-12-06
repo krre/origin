@@ -105,10 +105,10 @@ bool Manager::init() {
     graphicsPipeline = new Pipeline(PipelineType::Graphics, device);
     ShaderResource* shaderResource;
 
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
+    shaderResource = ResourceManager::get()->getResource<ShaderResource>("VoxelVertShader");
     graphicsPipeline->addShaderCode(ShaderType::Vertex, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");
+    shaderResource = ResourceManager::get()->getResource<ShaderResource>("VoxelFragShader");
     graphicsPipeline->addShaderCode(ShaderType::Fragment, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     VkVertexInputBindingDescription bindingDescription = {};

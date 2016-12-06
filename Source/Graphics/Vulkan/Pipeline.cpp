@@ -28,6 +28,12 @@ void Pipeline::setVertexInputBindingDescriptions(const std::vector<VkVertexInput
     vertexInputInfo.pVertexBindingDescriptions = this->vertexInputBindingDescriptions.data();
 }
 
+void Pipeline::setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions) {
+    this->vertexAttributeDescriptions = vertexAttributeDescriptions;
+    vertexInputInfo.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
+    vertexInputInfo.pVertexAttributeDescriptions = this->vertexAttributeDescriptions.data();
+}
+
 VkResult Pipeline::create() {
     if (type == PipelineType::Graphics) {
         VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};

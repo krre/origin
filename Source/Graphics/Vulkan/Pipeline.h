@@ -28,6 +28,7 @@ public:
     void setPipelineLayout(const PipelineLayout* pipelineLayout) { this->pipelineLayout = pipelineLayout; }
     void setRenderPass(const RenderPass* renderPass) { this->renderPass = renderPass; }
     void setVertexInputBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexInputBindingDescriptions);
+    void setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions);
     VkResult create() override;
 
 private:
@@ -36,6 +37,7 @@ private:
     PipelineType type;
     std::map<ShaderType, std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
+    std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     VkExtent2D extent;
     const PipelineLayout* pipelineLayout;
     const RenderPass* renderPass;

@@ -29,7 +29,7 @@ struct DebugOut {
     glm::vec4 debugVec;
     int debugInt;
     float debugFloat;
-};
+} debugOut;
 
 public:
     RenderSurface();

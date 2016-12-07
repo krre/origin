@@ -14,6 +14,7 @@
 #include "RenderPass.h"
 #include "DescriptorSetLayout.h"
 #include "DescriptorPool.h"
+#include "Collection/DescriptorSetCollection.h"
 #include "Framebuffer.h"
 #include "CommandPool.h"
 #include "CommandBuffer.h"
@@ -54,6 +55,7 @@ private:
     Vulkan::RenderPass* renderPass;
     Vulkan::DescriptorSetLayout* descriptorSetLayout;
     Vulkan::DescriptorPool* descriptorPool;
+    Vulkan::DescriptorSetCollection* descriptorSetCollection;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
     Vulkan::CommandPool* commandPool;

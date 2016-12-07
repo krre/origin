@@ -183,6 +183,12 @@ bool Manager::init() {
         return false;
     }
 
+    descriptorSetCollection = new DescriptorSetCollection(device, descriptorPool);
+    descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
+    if (descriptorSetCollection->allocate() != VK_SUCCESS) {
+        return false;
+    }
+
     commandBufferCollection = new CommandBufferCollection(device, commandPool);
     if (commandBufferCollection->allocate(swapchain->getImageCount()) != VK_SUCCESS) {
         return false;

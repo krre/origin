@@ -7,16 +7,20 @@ DescriptorSetCollection::DescriptorSetCollection(const Device* device, const Des
     device(device), descriptorPool(descriptorPool) {
     allocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
     allocateInfo.descriptorPool = descriptorPool->getHandle();
-//    allocateInfo.pSetLayouts = layouts;
 }
 
 DescriptorSetCollection::~DescriptorSetCollection() {
     vkFreeDescriptorSets(device->getHandle(), descriptorPool->getHandle(), collection.size(), collection.data());
 }
 
-bool DescriptorSetCollection::allocate(uint32_t count) {
-    assert(collection.size() == 0 && count > 0);
-    allocateInfo.descriptorSetCount = count;
-
+bool DescriptorSetCollection::allocate() {
+    assert(collection.size() == 0 && allocateInfo.descriptorSetCount > 0);
     return checkError(vkAllocateDescriptorSets(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
+}
+
+void DescriptorSetCollection::setDescriptorSetLayouts(const std::vector<VkDescriptorSetLayout>& setLayouts) {
+    assert(setLayouts.size() > 0);
+    this->descriptorSetLayouts = setLayouts;
+    allocateInfo.descriptorSetCount = setLayouts.size();
+    allocateInfo.pSetLayouts = this->descriptorSetLayouts.data();
 }

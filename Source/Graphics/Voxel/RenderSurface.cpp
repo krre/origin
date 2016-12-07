@@ -10,6 +10,12 @@
 #include "../../Core/Utils.h"
 
 RenderSurface::RenderSurface() {
+    ubo.pageBytes = pageBytes;
+    ubo.blockInfoEnd = blockInfoEnd;
+    ubo.backgroundColor = glm::vec3(App::get()->getViewport()->getBackgroundColor());
+    ubo.pickPixel = glm::vec2(-1, -1);
+    ubo.shadeless = true;
+    ubo.ambientStrength = 0.1;
     /*
     voxelShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("VoxelShaderGroup");
     raycastShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("RaycastShaderGroup");
@@ -125,8 +131,8 @@ void RenderSurface::draw(float dt) {
     TransformComponent* octreeTransform;
 
     TransformComponent* lightTransform;
-    glm::vec3 lightColor = glm::vec3(0.0);
-    glm::vec3 lightPos = glm::vec3(0.0);
+    ubo.lightColor = glm::vec3(0.0);
+    ubo.lightPos = glm::vec3(0.0);
 
     // TODO: Replace by family
     for (auto entity : Engine::get()->getEntities()) {
@@ -138,13 +144,13 @@ void RenderSurface::draw(float dt) {
         LightComponent* lightComp = static_cast<LightComponent*>(entity.second->components[ComponentType::Light].get());
         if (lightComp) {
             lightTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
-            lightColor = lightComp->color;
-            lightPos = glm::vec3(lightTransform->objectToWorld[3]);
+            ubo.lightColor = lightComp->color;
+            ubo.lightPos = glm::vec3(lightTransform->objectToWorld[3]);
         }
     }
 
     octreeSystem->getGpuMemoryManager()->beginBatch();
-    int transformCount = 0;
+    ubo.transformCount = 0;
 
     for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
         std::vector<glm::vec4> transform;
@@ -182,12 +188,15 @@ void RenderSurface::draw(float dt) {
 
         octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform);
 
-        if (!transformCount) {
-            transformCount = transform.size();
+        if (!ubo.transformCount) {
+            ubo.transformCount = transform.size();
         }
     }
 
     octreeSystem->getGpuMemoryManager()->endBatch();
+    ubo.frameWidth = width;
+    ubo.frameHeight = height;
+    ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
 /*
 //    raycastShaderGroup->bind();
     voxelShaderGroup->bind();

@@ -7,6 +7,7 @@
 // http://code.google.com/p/efficient-sparse-voxel-octrees
 
 layout (std430, binding = 0) buffer Octree {
+    int octreeCount;
     uint octreeData[];
 };
 

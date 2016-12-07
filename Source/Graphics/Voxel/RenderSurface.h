@@ -6,6 +6,29 @@ const int LOD_PIXEL_LIMIT = 1;
 
 class RenderSurface : public Gagarin::Drawable {
 
+struct Octree {
+    int octreeCount;
+    uint octreeData[];
+} octree;
+
+struct PickResult {
+    glm::vec3 pickPos;
+    uint pickParent;
+    uint pickScale;
+    int pickChildIdx;
+} pickResult;
+
+struct RenderList {
+    int renderCount;
+    uint renderOffsets[];
+} renderList;
+
+struct DebugOut {
+    glm::vec4 debugVec;
+    int debugInt;
+    float debugFloat;
+} debugOut;
+
 struct UBO {
     int pageBytes;
     int blockInfoEnd;
@@ -24,12 +47,6 @@ struct UBO {
 
     glm::vec2 pickPixel;
 } ubo;
-
-struct DebugOut {
-    glm::vec4 debugVec;
-    int debugInt;
-    float debugFloat;
-} debugOut;
 
 public:
     RenderSurface();

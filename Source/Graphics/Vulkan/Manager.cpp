@@ -16,12 +16,15 @@ Manager::~Manager() {
     delete imageAvailableSemaphore;
     delete fence;
     delete commandBufferCollection;
+    delete descriptorSetCollection;
+    delete descriptorPool;
     delete vertexMemory;
     delete vertexBuffer;
     delete commandPool;
     framebuffers.clear();
     delete graphicsPipeline;
     delete pipelineLayout;
+    delete descriptorSetLayout;
     delete renderPass;
     imageViews.clear();
     delete swapchain;

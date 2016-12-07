@@ -205,9 +205,8 @@ bool Manager::init() {
         VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
         VkDeviceSize offsets[] = { 0 };
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
-
+        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, 1, &descriptorSet, 0, nullptr);
         vkCmdDraw(commandBuffer.getHandle(), vertices.size(), 1, 0, 0);
-
         vkCmdEndRenderPass(commandBuffer.getHandle());
 
         commandBuffer.end();

@@ -4,7 +4,7 @@
 
 namespace Vulkan {
 
-class DescriptorPool : public Handle<VkPipelineLayout> {
+class DescriptorPool : public Handle<VkDescriptorPool> {
 
 public:
     DescriptorPool(const Device* device);

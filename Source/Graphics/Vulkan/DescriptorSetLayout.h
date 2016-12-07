@@ -4,7 +4,7 @@
 
 namespace Vulkan {
 
-class DescriptorSetLayout : public Handle<VkPipelineLayout> {
+class DescriptorSetLayout : public Handle<VkDescriptorSetLayout> {
 
 public:
     DescriptorSetLayout(const Device* device);

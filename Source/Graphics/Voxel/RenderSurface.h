@@ -8,19 +8,19 @@ class RenderSurface : public Gagarin::Drawable {
 
 struct Octree {
     int octreeCount;
-    uint octreeData[];
+    uint32_t octreeData[];
 } octree;
 
 struct PickResult {
     glm::vec3 pickPos;
-    uint pickParent;
-    uint pickScale;
+    uint32_t pickParent;
+    uint32_t pickScale;
     int pickChildIdx;
 } pickResult;
 
 struct RenderList {
     int renderCount;
-    uint renderOffsets[];
+    uint32_t renderOffsets[];
 } renderList;
 
 struct DebugOut {

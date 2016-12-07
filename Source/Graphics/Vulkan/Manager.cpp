@@ -104,6 +104,7 @@ bool Manager::init() {
     }
 
     pipelineLayout = new PipelineLayout(device);
+    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
     if (pipelineLayout->create() != VK_SUCCESS) {
         return false;
     }

@@ -14,6 +14,7 @@ public:
 private:
     const Device* device;
     VkDescriptorPoolCreateInfo createInfo = {};
+    VkDescriptorPoolSize poolSize = {};
 };
 
 } // Vulkan

@@ -3,7 +3,13 @@
 using namespace Vulkan;
 
 DescriptorPool::DescriptorPool(const Device* device) : device(device) {
+    poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    poolSize.descriptorCount = 1;
+
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+    createInfo.poolSizeCount = 1;
+    createInfo.pPoolSizes = &poolSize;
+    createInfo.maxSets = 1;
 }
 
 DescriptorPool::~DescriptorPool() {

@@ -178,6 +178,11 @@ bool Manager::init() {
     memcpy(data, vertices.data(), (size_t) verticesSize);
     vkUnmapMemory(device->getHandle(), vertexMemory->getHandle());
 
+    descriptorPool = new DescriptorPool(device);
+    if (descriptorPool->create() != VK_SUCCESS) {
+        return false;
+    }
+
     commandBufferCollection = new CommandBufferCollection(device, commandPool);
     if (commandBufferCollection->allocate(swapchain->getImageCount()) != VK_SUCCESS) {
         return false;

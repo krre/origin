@@ -15,6 +15,7 @@ DescriptorSetCollection::~DescriptorSetCollection() {
 
 bool DescriptorSetCollection::allocate() {
     assert(collection.size() == 0 && allocateInfo.descriptorSetCount > 0);
+    collection.resize(allocateInfo.descriptorSetCount);
     return checkError(vkAllocateDescriptorSets(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
 }
 

@@ -97,6 +97,12 @@ bool Manager::init() {
         return false;
     }
 
+    descriptorSetLayout = new DescriptorSetLayout(device);
+
+    if (descriptorSetLayout->create() != VK_SUCCESS) {
+        return false;
+    }
+
     pipelineLayout = new PipelineLayout(device);
     if (pipelineLayout->create() != VK_SUCCESS) {
         return false;

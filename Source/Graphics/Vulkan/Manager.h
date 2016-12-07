@@ -12,6 +12,7 @@
 #include "PipelineLayout.h"
 #include "Pipeline.h"
 #include "RenderPass.h"
+#include "DescriptorSetLayout.h"
 #include "Framebuffer.h"
 #include "CommandPool.h"
 #include "CommandBuffer.h"
@@ -50,6 +51,7 @@ private:
     Vulkan::PipelineLayout* pipelineLayout;
     Vulkan::Pipeline* graphicsPipeline;
     Vulkan::RenderPass* renderPass;
+    Vulkan::DescriptorSetLayout* descriptorSetLayout;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
     Vulkan::CommandPool* commandPool;

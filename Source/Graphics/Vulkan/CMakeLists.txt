@@ -14,6 +14,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorPool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorPool.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.cpp

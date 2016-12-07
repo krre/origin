@@ -13,7 +13,7 @@ public:
 
 private:
     const Device* device;
-    VkPipelineLayoutCreateInfo pipelineLayoutInfo = {};
+    VkPipelineLayoutCreateInfo createInfo = {};
 };
 
 } // Vulkan

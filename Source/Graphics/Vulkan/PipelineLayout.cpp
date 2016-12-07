@@ -3,9 +3,9 @@
 using namespace Vulkan;
 
 PipelineLayout::PipelineLayout(const Device* device) : device(device) {
-    pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-    pipelineLayoutInfo.setLayoutCount = 0;
-    pipelineLayoutInfo.pushConstantRangeCount = 0;
+    createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+    createInfo.setLayoutCount = 0;
+    createInfo.pushConstantRangeCount = 0;
 }
 
 PipelineLayout::~PipelineLayout() {
@@ -13,5 +13,5 @@ PipelineLayout::~PipelineLayout() {
 }
 
 VkResult PipelineLayout::create() {
-    return checkError(vkCreatePipelineLayout(device->getHandle(), &pipelineLayoutInfo, nullptr, &handle), "Failed to create pipeline layout");
+    return checkError(vkCreatePipelineLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create pipeline layout");
 }

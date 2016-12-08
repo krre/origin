@@ -1,8 +1,8 @@
 # Gagarin
-Procedural world game based on raycast rendering and sparse voxel octree technologies
+Procedural world game based on raycast rendering and sparse voxel octree technologies with using Vulkan API
 
 ## Dependencies
-- Vulkan 1.0
+- Vulkan SKD 1.0.33
 - SDL 2.0.4
 - FreeType 2.7
 

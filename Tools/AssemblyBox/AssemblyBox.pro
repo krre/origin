@@ -1,6 +1,6 @@
 QT += widgets
 CONFIG += c++11
-TARGET = AssemblyScope
+TARGET = AssemblyBox
 TEMPLATE = app
 
 win32: LIBS += -L$$(GLEW_HOME)/lib -lglew32 -lopengl32

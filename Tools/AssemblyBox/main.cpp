@@ -3,7 +3,7 @@
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    app.setApplicationName("AssemblyScope");
+    app.setApplicationName("AssemblyBox");
     app.setApplicationVersion("0.1.0");
 
     MainWindow window;

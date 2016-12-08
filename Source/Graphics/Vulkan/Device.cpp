@@ -20,10 +20,8 @@ Device::Device(VkPhysicalDevice physicalDevice, uint32_t familyIndex) : physical
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.queueCreateInfoCount = 1;
     createInfo.pQueueCreateInfos = &queueCreateInfo;
-    createInfo.enabledLayerCount = 0;
     createInfo.enabledExtensionCount = enabledExtensions.size();
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
-    createInfo.pEnabledFeatures = nullptr;
 }
 
 Device::~Device() {

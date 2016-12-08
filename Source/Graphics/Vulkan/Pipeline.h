@@ -12,18 +12,13 @@ enum class PipelineType {
     Graphics
 };
 
-enum class ShaderType {
-    Vertex,
-    Fragment
-};
-
 class Pipeline : public Handle<VkPipeline> {
 
 public:
     Pipeline(PipelineType type, const Device* device);
     ~Pipeline();
     PipelineType getType() const { return type; }
-    VkResult addShaderCode(ShaderType type, size_t size, const uint32_t* code);
+    VkResult addShaderCode(VkShaderStageFlagBits stage, const char* entryPoint, size_t size, const uint32_t* code);
     void setExtent(VkExtent2D extent) { this->extent = extent; }
     void setPipelineLayout(const PipelineLayout* pipelineLayout) { this->pipelineLayout = pipelineLayout; }
     void setRenderPass(const RenderPass* renderPass) { this->renderPass = renderPass; }
@@ -35,7 +30,10 @@ private:
     const Device* device;
     VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
     PipelineType type;
-    std::map<ShaderType, std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
+
+    std::map<VkShaderStageFlagBits, std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
+    std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
+
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     VkExtent2D extent;

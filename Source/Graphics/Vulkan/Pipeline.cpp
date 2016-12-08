@@ -12,11 +12,17 @@ Pipeline::~Pipeline() {
     vkDestroyPipeline(device->getHandle(), handle, nullptr);
 }
 
-VkResult Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code) {
+VkResult Pipeline::addShaderCode(VkShaderStageFlagBits stage, const char* entryPoint, size_t size, const uint32_t* code) {
     std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device, size, code));
     VkResult result = shaderModule->create();
     if (result == VK_SUCCESS) {;
-        shaderModules[type] = shaderModule;
+        shaderModules[stage] = shaderModule;
+        VkPipelineShaderStageCreateInfo shaderStageInfo = {};
+        shaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+        shaderStageInfo.stage = stage;
+        shaderStageInfo.module = shaderModules[stage]->getHandle();
+        shaderStageInfo.pName = entryPoint;
+        shaderStages.push_back(shaderStageInfo);
     }
     return result;
 }
@@ -35,20 +41,6 @@ void Pipeline::setVertexAttributeDescriptions(const std::vector<VkVertexInputAtt
 
 VkResult Pipeline::create() {
     if (type == PipelineType::Graphics) {
-        VkPipelineShaderStageCreateInfo vertShaderStageInfo = {};
-        vertShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        vertShaderStageInfo.stage = VK_SHADER_STAGE_VERTEX_BIT;
-        vertShaderStageInfo.module = shaderModules[ShaderType::Vertex]->getHandle();
-        vertShaderStageInfo.pName = "main";
-
-        VkPipelineShaderStageCreateInfo fragShaderStageInfo = {};
-        fragShaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
-        fragShaderStageInfo.stage = VK_SHADER_STAGE_FRAGMENT_BIT;
-        fragShaderStageInfo.module = shaderModules[ShaderType::Fragment]->getHandle();
-        fragShaderStageInfo.pName = "main";
-
-        VkPipelineShaderStageCreateInfo shaderStages[] = { vertShaderStageInfo, fragShaderStageInfo };
-
         VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
         inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
         inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
@@ -105,8 +97,8 @@ VkResult Pipeline::create() {
 
         VkGraphicsPipelineCreateInfo createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-        createInfo.stageCount = 2;
-        createInfo.pStages = shaderStages;
+        createInfo.stageCount = shaderStages.size();
+        createInfo.pStages = shaderStages.data();
         createInfo.pVertexInputState = &vertexInputInfo;
         createInfo.pInputAssemblyState = &inputAssembly;
         createInfo.pViewportState = &viewportState;

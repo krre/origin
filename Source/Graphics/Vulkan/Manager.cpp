@@ -74,9 +74,6 @@ bool Manager::init() {
         return false;
     }
 
-    graphicsQueue = new SubmitQueue(device, graphicsFamily, 0);
-    presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
-
     surface = new Surface(instance, mainPhysicalDevice);
     if (surface->create() != VK_SUCCESS) {
         return false;
@@ -242,12 +239,14 @@ bool Manager::init() {
         return false;
     }
 
+    graphicsQueue = new SubmitQueue(device, graphicsFamily, 0);
     graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
     graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
     graphicsQueue->setCommandBuffersCount(commandBufferCollection->getCount());
     graphicsQueue->setCommandBuffersData(commandBufferCollection->getData());
 
+    presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
     presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() });
     presentQueue->setSwapchains({ swapchain->getHandle() });
     presentQueue->setImageIndices(&swapchainImageIndex);

@@ -12,14 +12,13 @@ Pipeline::~Pipeline() {
     vkDestroyPipeline(device->getHandle(), handle, nullptr);
 }
 
-bool Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code) {
+VkResult Pipeline::addShaderCode(ShaderType type, size_t size, const uint32_t* code) {
     std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device, size, code));
-    shaderModule->create();
-    if (!shaderModule->isValid()) {
-        result = shaderModule->getResult();
-        return false;
+    VkResult result = shaderModule->create();
+    if (result == VK_SUCCESS) {;
+        shaderModules[type] = shaderModule;
     }
-    shaderModules[type] = shaderModule;
+    return result;
 }
 
 void Pipeline::setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions) {

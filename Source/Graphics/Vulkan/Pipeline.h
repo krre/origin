@@ -23,7 +23,7 @@ public:
     Pipeline(PipelineType type, const Device* device);
     ~Pipeline();
     PipelineType getType() const { return type; }
-    bool addShaderCode(ShaderType type, size_t size, const uint32_t* code);
+    VkResult addShaderCode(ShaderType type, size_t size, const uint32_t* code);
     void setExtent(VkExtent2D extent) { this->extent = extent; }
     void setPipelineLayout(const PipelineLayout* pipelineLayout) { this->pipelineLayout = pipelineLayout; }
     void setRenderPass(const RenderPass* renderPass) { this->renderPass = renderPass; }

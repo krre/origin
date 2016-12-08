@@ -8,7 +8,7 @@ class SubmitQueue : public Queue {
 
 public:
     SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);
-    bool submit();
+    VkResult submit();
 
     void setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) override;
     void setSignalSemaphores(std::vector<VkSemaphore> signalSemaphores);

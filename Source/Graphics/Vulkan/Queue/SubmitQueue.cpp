@@ -7,7 +7,7 @@ SubmitQueue::SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 }
 
-bool SubmitQueue::submit() {
+VkResult SubmitQueue::submit() {
     return checkError(vkQueueSubmit(handle, 1, &submitInfo, VK_NULL_HANDLE), "Failed to submit draw command buffer");
 }
 

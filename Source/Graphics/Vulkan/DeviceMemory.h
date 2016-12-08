@@ -16,7 +16,7 @@ public:
 
 private:
     const Device* device;
-    VkMemoryAllocateInfo allocateInfo;
+    VkMemoryAllocateInfo allocateInfo = {};
 };
 
 } // Vulkan

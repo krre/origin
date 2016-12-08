@@ -52,7 +52,9 @@ target_link_libraries(${EXECUTABLE_NAME}
 ENDIF()
 
 # Show in QtCreator project tree
+FILE(GLOB_RECURSE Root "*.*")
 FILE(GLOB_RECURSE Data "Data/*.*")
 FILE(GLOB_RECURSE Debug "Debug/*.*")
+add_custom_target(root SOURCES ${Root})
 add_custom_target(data SOURCES ${Data})
 add_custom_target(debug SOURCES ${Debug})

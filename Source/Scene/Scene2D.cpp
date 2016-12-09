@@ -1,9 +1,12 @@
 #include "Scene2D.h"
-#include "../Event/Event.h"
 #include <algorithm>
 
-Scene2D::Scene2D(int width, int height) : Control(width, height) {
-    Event::get()->windowResize.connect<Scene2D, &Scene2D::onWindowResize>(this);
+Scene2D::Scene2D() {
+
+}
+
+Scene2D::Scene2D(int width, int height) {
+
 }
 
 void Scene2D::draw(float dt) {
@@ -30,7 +33,7 @@ void Scene2D::clearControls() {
 
 void Scene2D::setLayout(std::shared_ptr<Layout> layout) {
     this->layout = layout;
-    this->layout->setParent(this);
+//    this->layout->setParent(this);
 }
 
 void Scene2D::onWindowResize(int width, int height) {

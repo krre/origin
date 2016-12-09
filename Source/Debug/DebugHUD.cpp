@@ -7,7 +7,7 @@
 #include <Gagarin.h>
 
 DebugHUD::DebugHUD() : Scene2D(500, 500) {
-    visible = false;
+//    visible = false;
 
     version.resize(100, 10);
     version.setZ(1.0f);
@@ -76,9 +76,9 @@ void DebugHUD::draw(float dt) {
 }
 
 void DebugHUD::trigger() {
-    visible = !visible;
+//    visible = !visible;
 }
 
 void DebugHUD::onWindowResize(int width, int height) {
-    resize(width, height);
+//    resize(width, height);
 }

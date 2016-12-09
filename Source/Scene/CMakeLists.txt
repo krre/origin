@@ -2,5 +2,7 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scene2D.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scene2D.h
     PARENT_SCOPE
 )

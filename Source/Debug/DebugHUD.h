@@ -1,6 +1,6 @@
 #pragma once
 #include "../Core/Singleton.h"
-#include "../UI/Scene2D.h"
+#include "../Scene/Scene2D.h"
 #include "../UI/Text.h"
 #include "../UI/LinearLayout.h"
 #include "../Event/Event.h"

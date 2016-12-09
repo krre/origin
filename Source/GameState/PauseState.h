@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.h"
-#include "../UI/Scenes/PauseScene.h"
+#include "../Scene/PauseScene.h"
 
 class PauseState : public GameState {
 

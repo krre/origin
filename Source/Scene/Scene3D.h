@@ -1,11 +1,12 @@
 #pragma once
+#include "Scene.h"
 
-class Scene3D {
+class Scene3D : public Scene {
 
 public:
     Scene3D();
-    void draw(float dt);
 
 private:
-    void onWindowResize(int width, int height);
+    void draw(float dt) override;
+    void onWindowResize(int width, int height) override;
 };

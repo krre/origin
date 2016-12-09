@@ -5,6 +5,7 @@ Procedural world game based on raycast rendering and sparse voxel octree technol
 - Vulkan SDK 1.0.33
 - SDL 2.0.4
 - FreeType 2.7
+- Bullet 2.85
 
 ## Status
 Now under initial development stage

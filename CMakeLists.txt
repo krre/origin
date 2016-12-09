@@ -37,9 +37,7 @@ include_directories(ThirdParty)
 
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
-    ${OPENGL_LIBRARIES}
     ${Vulkan_LIBRARIES}
-    ${GLEW_LIBRARIES}
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs)

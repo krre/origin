@@ -1,13 +1,9 @@
 #pragma once
-#include <QOpenGLWidget>
+#include <QWidget>
 
-class Viewport : public QOpenGLWidget {
+class Viewport : public QWidget {
     Q_OBJECT
 
 public:
     Viewport();
-
-protected:
-    void initializeGL() override;
-    void paintGL() override;
 };

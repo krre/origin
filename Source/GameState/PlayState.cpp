@@ -31,5 +31,6 @@ void PlayState::update(float dt) {
 }
 
 void PlayState::draw(float dt) {
-    Engine::get()->draw(dt);
+//    Engine::get()->draw(dt);
+    worldScene.draw(dt);
 }

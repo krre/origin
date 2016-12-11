@@ -1,5 +1,6 @@
 #pragma once
 #include "GameState.h"
+#include "../Scene/WorldScene.h"
 
 class PlayState : public GameState {
 
@@ -13,4 +14,7 @@ public:
 
     void draw(float dt) override;
     void update(float dt) override;
+
+private:
+    WorldScene worldScene;
 };

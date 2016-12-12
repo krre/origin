@@ -254,7 +254,7 @@ bool Manager::init() {
     return true;
 }
 
-void Manager::drawFrame() {
+void Manager::render() {
     vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, &swapchainImageIndex);
     graphicsQueue->submit();
     presentQueue->present();

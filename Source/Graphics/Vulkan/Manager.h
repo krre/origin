@@ -40,7 +40,7 @@ public:
     Vulkan::Instance* getInstance() const { return instance; }
     Vulkan::Device* getDevice() const { return device; }
     Vulkan::Surface* getSurface() const { return surface; }
-    void drawFrame();
+    void render();
 
 private:
     Vulkan::Instance* instance;

@@ -26,7 +26,7 @@ void PlayState::resume() {
 }
 
 void PlayState::update(float dt) {
-    Engine::get()->update(dt);
+    worldScene.update(dt);
 }
 
 void PlayState::draw(float dt) {

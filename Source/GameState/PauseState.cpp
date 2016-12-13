@@ -30,5 +30,5 @@ void PauseState::draw(float dt) {
 }
 
 void PauseState::update(float dt) {
-
+    pauseScene.update(dt);
 }

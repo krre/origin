@@ -21,7 +21,7 @@ void SettingsState::resume() {
 }
 
 void SettingsState::update(float dt) {
-
+    menuScene.update(dt);
 }
 
 void SettingsState::draw(float dt) {

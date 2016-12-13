@@ -21,7 +21,7 @@ void MenuState::resume() {
 }
 
 void MenuState::update(float dt) {
-
+    menuScene.update(dt);
 }
 
 void MenuState::draw(float dt) {

@@ -154,7 +154,7 @@ void Game::create() {
 
     Event::get()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
 
-    GameStateManager::get()->setState(GameState::PLAY);
+    GameStateManager::get()->setState(GameState::MENU);
 }
 
 void Game::load() {

@@ -9,6 +9,7 @@ public:
     MenuScene(int width, int height);
     ~MenuScene();
     void draw(float dt) override;
+    void update(float dt) override;
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);

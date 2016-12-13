@@ -15,6 +15,10 @@ void MenuScene::draw(float dt) {
 
 }
 
+void MenuScene::update(float dt) {
+
+}
+
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         GameStateManager::get()->popState();

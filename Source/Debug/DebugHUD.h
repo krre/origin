@@ -10,6 +10,7 @@ class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
 public:
     DebugHUD();
     void draw(float dt) override;
+    void update(float dt) override;
     void trigger();
 
 private:

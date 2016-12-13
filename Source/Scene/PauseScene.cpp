@@ -34,6 +34,10 @@ void PauseScene::draw(float dt) {
     Scene2D::draw(dt);
 }
 
+void PauseScene::update(float dt) {
+
+}
+
 void PauseScene::onContinueButtonClicked() {
     GameStateManager::get()->popState();
 }

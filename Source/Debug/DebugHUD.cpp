@@ -75,6 +75,10 @@ void DebugHUD::draw(float dt) {
     Scene2D::draw(dt);
 }
 
+void DebugHUD::update(float dt) {
+
+}
+
 void DebugHUD::trigger() {
 //    visible = !visible;
 }

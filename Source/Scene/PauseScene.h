@@ -9,6 +9,7 @@ public:
     PauseScene(int width, int height);
     ~PauseScene();
     void draw(float dt) override;
+    void update(float dt) override;
 
 private:
     void onContinueButtonClicked();

@@ -20,9 +20,6 @@ Manager::~Manager() {
 //    delete vertexMemory;
 //    delete vertexBuffer;
     framebuffers.clear();
-//    delete graphicsPipeline;
-//    delete pipelineLayout;
-//    delete descriptorSetLayout;
     delete renderPass;
     imageViews.clear();
     delete swapchain;
@@ -110,48 +107,6 @@ bool Manager::init() {
         framebuffers.push_back(framebuffer);
     }
 /*
-    descriptorSetLayout = new DescriptorSetLayout(device);
-
-    if (descriptorSetLayout->create() != VK_SUCCESS) {
-        return false;
-    }
-
-    pipelineLayout = new PipelineLayout(device);
-    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
-    if (pipelineLayout->create() != VK_SUCCESS) {
-        return false;
-    }
-
-    graphicsPipeline = new Pipeline(PipelineType::Graphics, device);
-    ShaderResource* shaderResource;
-
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("VoxelVertShader");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
-
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("VoxelFragShader");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
-
-    VkVertexInputBindingDescription bindingDescription = {};
-    bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(glm::vec2);
-    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline->setVertexBindingDescriptions({ bindingDescription });
-
-    VkVertexInputAttributeDescription attributeDescriptions = {};
-    attributeDescriptions.binding = 0;
-    attributeDescriptions.location = 0;
-    attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
-    attributeDescriptions.offset = 0;
-    graphicsPipeline->setVertexAttributeDescriptions({ attributeDescriptions });
-
-    graphicsPipeline->setExtent(swapchain->getExtent());
-    graphicsPipeline->setPipelineLayout(pipelineLayout);
-    graphicsPipeline->setRenderPass(renderPass);
-
-    if (graphicsPipeline->create() != VK_SUCCESS) {
-        return false;
-    }
-
     vertexBuffer = new Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 
     const std::vector<glm::vec2> vertices = {

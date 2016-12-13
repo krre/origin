@@ -40,6 +40,8 @@ public:
     Vulkan::Instance* getInstance() const { return instance; }
     Vulkan::Device* getDevice() const { return device; }
     Vulkan::Surface* getSurface() const { return surface; }
+    Vulkan::Swapchain* getSwapchain() const { return swapchain; }
+    Vulkan::RenderPass* getRenderPass() const { return renderPass; }
     void render();
 
 private:
@@ -50,10 +52,7 @@ private:
     Vulkan::Device* device;
     Vulkan::Surface* surface;
     Vulkan::Swapchain* swapchain;
-    Vulkan::PipelineLayout* pipelineLayout;
-    Vulkan::Pipeline* graphicsPipeline;
     Vulkan::RenderPass* renderPass;
-    Vulkan::DescriptorSetLayout* descriptorSetLayout;
     Vulkan::DescriptorPool* descriptorPool;
     Vulkan::DescriptorSetCollection* descriptorSetCollection;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;

@@ -103,18 +103,18 @@ void App::init() {
 }
 
 void App::clean() {
-    Vulkan::Manager::get()->release();
     SDL_DestroyWindow(window);
     SDL_Quit();
     Game::get()->release();
     GameStateManager::get()->release();
     Engine::get()->release();
     Input::get()->release();
-    Event::get()->release();
     ResourceManager::get()->release();
     Console::get()->release();
     DebugHUD::get()->release();
     Toast::get()->release();
+    Event::get()->release();
+    Vulkan::Manager::get()->release();
     Logger::get()->release();
 }
 

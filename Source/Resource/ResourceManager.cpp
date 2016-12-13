@@ -25,13 +25,13 @@ void ResourceManager::loadAll() {
     resources["ChamomileOctree"] = std::make_shared<Octree>();
     resources["ChamomileOctree"]->load(octreePath + "/Chamomile.json");
 
+    // Shaders
     resources["BaseVertShader"] = std::make_shared<ShaderResource>();
     resources["BaseVertShader"]->load(shaderPath + "/Base.vert.spv");
 
     resources["BaseFragShader"] = std::make_shared<ShaderResource>();
     resources["BaseFragShader"]->load(shaderPath + "/Base.frag.spv");
 
-    // Shaders
     resources["VoxelVertShader"] = std::make_shared<ShaderResource>();
     resources["VoxelVertShader"]->load(shaderPath + "/Voxel.vert.spv");
 

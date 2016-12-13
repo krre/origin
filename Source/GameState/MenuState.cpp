@@ -1,6 +1,6 @@
 #include "MenuState.h"
 
-MenuState::MenuState() {
+MenuState::MenuState() : mainMenuScene(300, 300) {
     type = MENU;
     isFreezable = true;
 }
@@ -26,5 +26,5 @@ void MenuState::update(float dt) {
 }
 
 void MenuState::draw(float dt) {
-
+    mainMenuScene.draw(dt);
 }

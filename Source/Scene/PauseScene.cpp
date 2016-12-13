@@ -5,6 +5,7 @@
 
 PauseScene::PauseScene(int width, int height) :
     Scene2D(width, height) {
+    isFullScreen = false;
 
     continueButton.setText("Continue");
     continueButton.setZ(0.5f);

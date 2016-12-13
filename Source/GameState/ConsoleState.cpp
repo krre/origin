@@ -1,7 +1,6 @@
 #include "ConsoleState.h"
 
-ConsoleState::ConsoleState() {
-    type = CONSOLE;
+ConsoleState::ConsoleState() : GameState(CONSOLE) {
     isFreezable = false;
 }
 

@@ -13,7 +13,7 @@ public:
         SETTINGS
     };
 
-    GameState();
+    GameState(Type type);
     Type getType() const { return type; }
     bool getIsFeezable() const { return isFreezable; }
 

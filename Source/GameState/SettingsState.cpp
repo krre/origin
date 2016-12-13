@@ -1,7 +1,6 @@
 #include "SettingsState.h"
 
-SettingsState::SettingsState() : menuScene(300, 300) {
-    type = SETTINGS;
+SettingsState::SettingsState() : GameState(SETTINGS), menuScene(300, 300) {
     isFreezable = true;
 }
 

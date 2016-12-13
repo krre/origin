@@ -3,8 +3,7 @@
 #include "../ECS/Systems/Systems.h"
 #include <SDL.h>
 
-PauseState::PauseState() : pauseScene(300, 200) {
-    type = PAUSE;
+PauseState::PauseState() : GameState(PAUSE), pauseScene(300, 200) {
     isFreezable = true;
 }
 

@@ -3,8 +3,7 @@
 #include "../ECS/Systems/Systems.h"
 #include <SDL.h>
 
-PlayState::PlayState() {
-    type = PLAY;
+PlayState::PlayState() : GameState(PLAY) {
     isFreezable = true;
 }
 

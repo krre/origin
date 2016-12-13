@@ -11,6 +11,7 @@ GameStateManager::GameStateManager() {
 
 void GameStateManager::pushState(GameState::Type type) {
     gameStates.push_back(createState(type));
+    gameStates.back()->init();
     gameStates.back()->resume();
 }
 

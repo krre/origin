@@ -1,6 +1,7 @@
 #pragma once
+#include "../UI/Viewport.h"
 
-class Scene {
+class Scene : public Viewport {
 
 public:
     Scene();

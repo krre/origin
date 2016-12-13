@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/MainMenuScene.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/MainMenuScene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp

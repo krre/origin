@@ -34,6 +34,8 @@ std::string App::getCurrentPath() {
 }
 
 void App::init() {
+    new Logger;
+
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         error("SDL could not initialize! SDL_Error: " << SDL_GetError());
         return;
@@ -81,7 +83,6 @@ void App::init() {
     SDL_ShowWindow(window);
 
     // Order is important
-    new Logger;
     new Event;
     new ResourceManager;
     Vulkan::Manager::get()->init(); // After init resources with shaders

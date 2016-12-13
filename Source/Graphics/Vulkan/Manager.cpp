@@ -10,25 +10,24 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
-//    delete presentQueue;
-//    delete graphicsQueue;
-//    delete renderFinishedSemaphore;
-//    delete imageAvailableSemaphore;
-//    delete fence;
+    delete presentQueue;
+    delete graphicsQueue;
+    delete renderFinishedSemaphore;
+    delete imageAvailableSemaphore;
 //    delete commandBufferCollection;
 //    delete descriptorSetCollection;
 //    delete descriptorPool;
 //    delete vertexMemory;
 //    delete vertexBuffer;
-//    delete commandPool;
-//    framebuffers.clear();
+    framebuffers.clear();
 //    delete graphicsPipeline;
 //    delete pipelineLayout;
 //    delete descriptorSetLayout;
-//    delete renderPass;
+    delete renderPass;
     imageViews.clear();
     delete swapchain;
     delete surface;
+    delete commandPool;
     delete device;
     delete physicalDeviceCollection;
     delete debugCallback;
@@ -74,6 +73,12 @@ bool Manager::init() {
         return false;
     }
 
+    commandPool = new CommandPool(device, graphicsFamily);
+    if (commandPool->create() != VK_SUCCESS) {
+        return false;
+    }
+    commandPool->reset();
+
     surface = new Surface(instance, mainPhysicalDevice);
     if (surface->create() != VK_SUCCESS) {
         return false;
@@ -92,13 +97,19 @@ bool Manager::init() {
         imageViews.push_back(imageView);
     }
 
-    return true; // TODO: Move next initing to scenes
-
     renderPass = new RenderPass(device, surface);
     if (renderPass->create() != VK_SUCCESS) {
         return false;
     }
 
+    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
+        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
+        if (framebuffer->create() != VK_SUCCESS) {
+            return false;
+        }
+        framebuffers.push_back(framebuffer);
+    }
+/*
     descriptorSetLayout = new DescriptorSetLayout(device);
 
     if (descriptorSetLayout->create() != VK_SUCCESS) {
@@ -140,20 +151,6 @@ bool Manager::init() {
     if (graphicsPipeline->create() != VK_SUCCESS) {
         return false;
     }
-
-    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, imageViews[i].get(), swapchain->getExtent()));
-        if (framebuffer->create() != VK_SUCCESS) {
-            return false;
-        }
-        framebuffers.push_back(framebuffer);
-    }
-
-    commandPool = new CommandPool(device, graphicsFamily);
-    if (commandPool->create() != VK_SUCCESS) {
-        return false;
-    }
-    commandPool->reset();
 
     vertexBuffer = new Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 
@@ -225,12 +222,7 @@ bool Manager::init() {
 
         commandBuffer.end();
     }
-
-    fence = new Fence(device);
-    if (fence->create() != VK_SUCCESS) {
-        return false;
-    }
-
+*/
     imageAvailableSemaphore = new Semaphore(device);
     if (imageAvailableSemaphore->create() != VK_SUCCESS) {
         return false;
@@ -245,8 +237,8 @@ bool Manager::init() {
     graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
     graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
-    graphicsQueue->setCommandBuffersCount(commandBufferCollection->getCount());
-    graphicsQueue->setCommandBuffersData(commandBufferCollection->getData());
+//    graphicsQueue->setCommandBuffersCount(commandBufferCollection->getCount());
+//    graphicsQueue->setCommandBuffersData(commandBufferCollection->getData());
 
     presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
     presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() });

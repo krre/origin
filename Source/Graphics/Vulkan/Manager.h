@@ -62,7 +62,6 @@ private:
     Vulkan::CommandBufferCollection* commandBufferCollection;
     Vulkan::Buffer* vertexBuffer;
     Vulkan::DeviceMemory* vertexMemory;
-    Vulkan::Fence* fence;
     Vulkan::Semaphore* imageAvailableSemaphore;
     Vulkan::Semaphore* renderFinishedSemaphore;
 

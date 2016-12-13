@@ -3,11 +3,11 @@
 #include "../UI/Button.h"
 #include "../UI/LinearLayout.h"
 
-class MainMenuScene : public Scene2D {
+class MenuScene : public Scene2D {
 
 public:
-    MainMenuScene(int width, int height);
-    ~MainMenuScene();
+    MenuScene(int width, int height);
+    ~MenuScene();
     void draw(float dt) override;
 
 private:

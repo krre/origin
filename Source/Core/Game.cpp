@@ -26,11 +26,12 @@ Game::Game() {
     loadDevelopSettings();
 #endif
 
-    create();
+    GameStateManager::get()->setState(GameState::MENU);
+
+//    create();
 }
 
 void Game::create() {
-    SDL_SetRelativeMouseMode(SDL_TRUE);
     TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::get()->getSystem(SystemType::Transform).get());
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
     PhisicsSystem* phisicsSystem = static_cast<PhisicsSystem*>(Engine::get()->getSystem(SystemType::Phisics).get());
@@ -153,8 +154,6 @@ void Game::create() {
     Engine::get()->addEntity(light);
 
     Event::get()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
-
-    GameStateManager::get()->setState(GameState::MENU);
 }
 
 void Game::load() {

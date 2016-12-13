@@ -1,6 +1,6 @@
 #include "SettingsState.h"
 
-SettingsState::SettingsState() : GameState(SETTINGS), menuScene(300, 300) {
+SettingsState::SettingsState() : GameState(SETTINGS), settingsScene(300, 300) {
     isFreezable = true;
 }
 
@@ -21,9 +21,9 @@ void SettingsState::resume() {
 }
 
 void SettingsState::update(float dt) {
-    menuScene.update(dt);
+    settingsScene.update(dt);
 }
 
 void SettingsState::draw(float dt) {
-    menuScene.draw(dt);
+    settingsScene.draw(dt);
 }

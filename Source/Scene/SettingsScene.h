@@ -9,6 +9,7 @@ public:
     SettingsScene(int width, int height);
     ~SettingsScene();
     void draw(float dt) override;
+    void update(float dt) override;
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);

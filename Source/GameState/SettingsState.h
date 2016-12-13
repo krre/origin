@@ -1,6 +1,6 @@
 #pragma once
 #include "GameState.h"
-#include "../Scene/MenuScene.h"
+#include "../Scene/SettingsScene.h"
 
 class SettingsState : public GameState {
 
@@ -16,5 +16,5 @@ public:
     void update(float dt) override;
 
 private:
-    MenuScene menuScene;
+    SettingsScene settingsScene;
 };

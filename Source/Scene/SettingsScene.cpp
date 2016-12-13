@@ -15,6 +15,10 @@ void SettingsScene::draw(float dt) {
 
 }
 
+void SettingsScene::update(float dt) {
+
+}
+
 void SettingsScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         GameStateManager::get()->popState();

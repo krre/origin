@@ -10,6 +10,9 @@ GameStateManager::GameStateManager() {
 }
 
 void GameStateManager::pushState(GameState::Type type) {
+    if (gameStates.size()) {
+        gameStates.back()->pause();
+    }
     gameStates.push_back(createState(type));
     gameStates.back()->init();
     gameStates.back()->resume();

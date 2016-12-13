@@ -78,6 +78,8 @@ void App::init() {
     if (Vulkan::Manager::get()->createInstance() != VK_SUCCESS) {
         SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getInstance()->getResultDescription().c_str(), nullptr);
         return;
+    } else {
+        Vulkan::Manager::get()->init();
     }
 
     SDL_ShowWindow(window);
@@ -85,7 +87,6 @@ void App::init() {
     // Order is important
     new Event;
     new ResourceManager;
-    Vulkan::Manager::get()->init(); // After init resources with shaders
     new Console;
     new DebugHUD;
     new Toast;
@@ -130,7 +131,7 @@ int App::run() {
 
         GameStateManager::get()->update(frameTime);
         GameStateManager::get()->draw(frameTime);
-        Vulkan::Manager::get()->render();
+//        Vulkan::Manager::get()->render();
     }
 
     Vulkan::Manager::get()->getDevice()->waitIdle();

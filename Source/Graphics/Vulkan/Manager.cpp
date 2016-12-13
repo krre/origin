@@ -10,22 +10,22 @@ Manager::Manager() {
 }
 
 Manager::~Manager() {
-    delete presentQueue;
-    delete graphicsQueue;
-    delete renderFinishedSemaphore;
-    delete imageAvailableSemaphore;
-    delete fence;
-    delete commandBufferCollection;
-    delete descriptorSetCollection;
-    delete descriptorPool;
-    delete vertexMemory;
-    delete vertexBuffer;
-    delete commandPool;
-    framebuffers.clear();
-    delete graphicsPipeline;
-    delete pipelineLayout;
-    delete descriptorSetLayout;
-    delete renderPass;
+//    delete presentQueue;
+//    delete graphicsQueue;
+//    delete renderFinishedSemaphore;
+//    delete imageAvailableSemaphore;
+//    delete fence;
+//    delete commandBufferCollection;
+//    delete descriptorSetCollection;
+//    delete descriptorPool;
+//    delete vertexMemory;
+//    delete vertexBuffer;
+//    delete commandPool;
+//    framebuffers.clear();
+//    delete graphicsPipeline;
+//    delete pipelineLayout;
+//    delete descriptorSetLayout;
+//    delete renderPass;
     imageViews.clear();
     delete swapchain;
     delete surface;
@@ -91,6 +91,8 @@ bool Manager::init() {
         }
         imageViews.push_back(imageView);
     }
+
+    return true; // TODO: Move next initing to scenes
 
     renderPass = new RenderPass(device, surface);
     if (renderPass->create() != VK_SUCCESS) {

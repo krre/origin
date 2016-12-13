@@ -9,7 +9,8 @@ public:
         CONSOLE,
         MENU,
         PAUSE,
-        PLAY
+        PLAY,
+        SETTINGS
     };
 
     GameState();

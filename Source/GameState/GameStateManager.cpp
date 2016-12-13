@@ -2,6 +2,7 @@
 #include "PlayState.h"
 #include "PauseState.h"
 #include "MenuState.h"
+#include "SettingsState.h"
 #include "ConsoleState.h"
 
 GameStateManager::GameStateManager() {
@@ -50,8 +51,10 @@ std::shared_ptr<GameState> GameStateManager::createState(GameState::Type type) {
         return std::make_shared<PlayState>();
     case GameState::MENU:
         return std::make_shared<MenuState>();
+    case GameState::SETTINGS:
+        return std::make_shared<MenuState>();
     case GameState::PAUSE:
-        return std::make_shared<PauseState>();
+        return std::make_shared<SettingsState>();
     case GameState::CONSOLE:
         return std::make_shared<ConsoleState>();
     }

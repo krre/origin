@@ -1,6 +1,4 @@
 #include "Manager.h"
-#include "../../Resource/ShaderResource.h"
-#include "../../Resource/ResourceManager.h"
 #include <glm/glm.hpp>
 
 using namespace Vulkan;

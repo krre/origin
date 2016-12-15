@@ -10,6 +10,32 @@ MenuScene::MenuScene(int width, int height) :
     Scene2D(width, height) {
     device = Vulkan::Manager::get()->getDevice();
 
+    vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+
+    const std::vector<glm::vec2> vertices = {
+        { -1.0f,  1.0f },
+        { -1.0f, -1.0f },
+        {  1.0f,  1.0f },
+        {  1.0f, -1.0f },
+    };
+    int verticesSize = sizeof(vertices[0]) * vertices.size();
+    vertexBuffer->setSize(verticesSize);
+    vertexBuffer->create();
+
+    vertexMemory = new Vulkan::DeviceMemory(device);
+    VkMemoryRequirements memRequirements;
+    vkGetBufferMemoryRequirements(device->getHandle(), vertexBuffer->getHandle(), &memRequirements);
+    vertexMemory->setAllocationSize(memRequirements.size);
+//    vertexMemory->setMemoryTypeIndex(physicalDeviceCollection->findMemoryType(mainPhysicalDevice, memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
+    vertexMemory->allocate();
+
+    vkBindBufferMemory(device->getHandle(), vertexBuffer->getHandle(), vertexMemory->getHandle(), 0);
+
+    void* data;
+    vkMapMemory(device->getHandle(), vertexMemory->getHandle(), 0, verticesSize, 0, &data);
+    memcpy(data, vertices.data(), (size_t) verticesSize);
+    vkUnmapMemory(device->getHandle(), vertexMemory->getHandle());
+
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
     descriptorSetLayout->create();
 
@@ -50,6 +76,8 @@ MenuScene::~MenuScene() {
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSetLayout;
+    delete vertexMemory;
+    delete vertexBuffer;
 
     Event::get()->keyPressed.disconnect<MenuScene, &MenuScene::onKeyPressed>(this);
 }

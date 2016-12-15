@@ -105,32 +105,6 @@ bool Manager::init() {
         framebuffers.push_back(framebuffer);
     }
 /*
-    vertexBuffer = new Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
-
-    const std::vector<glm::vec2> vertices = {
-        { -1.0f,  1.0f },
-        { -1.0f, -1.0f },
-        {  1.0f,  1.0f },
-        {  1.0f, -1.0f },
-    };
-    int verticesSize = sizeof(vertices[0]) * vertices.size();
-    vertexBuffer->setSize(verticesSize);
-    vertexBuffer->create();
-
-    vertexMemory = new DeviceMemory(device);
-    VkMemoryRequirements memRequirements;
-    vkGetBufferMemoryRequirements(device->getHandle(), vertexBuffer->getHandle(), &memRequirements);
-    vertexMemory->setAllocationSize(memRequirements.size);
-    vertexMemory->setMemoryTypeIndex(physicalDeviceCollection->findMemoryType(mainPhysicalDevice, memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
-    vertexMemory->allocate();
-
-    vkBindBufferMemory(device->getHandle(), vertexBuffer->getHandle(), vertexMemory->getHandle(), 0);
-
-    void* data;
-    vkMapMemory(device->getHandle(), vertexMemory->getHandle(), 0, verticesSize, 0, &data);
-    memcpy(data, vertices.data(), (size_t) verticesSize);
-    vkUnmapMemory(device->getHandle(), vertexMemory->getHandle());
-
     descriptorPool = new DescriptorPool(device);
     if (descriptorPool->create() != VK_SUCCESS) {
         return false;

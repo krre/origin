@@ -17,8 +17,6 @@
 #include "CommandBuffer.h"
 #include "Collection/CommandBufferCollection.h"
 #include "Semaphore.h"
-#include "Buffer.h"
-#include "DeviceMemory.h"
 #include <string>
 #include <vector>
 
@@ -55,8 +53,6 @@ private:
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
     Vulkan::CommandPool* commandPool;
     Vulkan::CommandBufferCollection* commandBufferCollection;
-    Vulkan::Buffer* vertexBuffer;
-    Vulkan::DeviceMemory* vertexMemory;
     Vulkan::Semaphore* imageAvailableSemaphore;
     Vulkan::Semaphore* renderFinishedSemaphore;
 

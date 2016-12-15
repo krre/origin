@@ -6,6 +6,8 @@
 #include "../Graphics/Vulkan/PipelineLayout.h"
 #include "../Graphics/Vulkan/Device.h"
 #include "../Graphics/Vulkan/DescriptorSetLayout.h"
+#include "../Graphics/Vulkan/Buffer.h"
+#include "../Graphics/Vulkan/DeviceMemory.h"
 
 class MenuScene : public Scene2D {
 
@@ -21,4 +23,6 @@ private:
     Vulkan::DescriptorSetLayout* descriptorSetLayout;
     Vulkan::Pipeline* graphicsPipeline;
     Vulkan::Device* device;
+    Vulkan::Buffer* vertexBuffer;
+    Vulkan::DeviceMemory* vertexMemory;
 };

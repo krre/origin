@@ -15,8 +15,6 @@ Manager::~Manager() {
 //    delete commandBufferCollection;
 //    delete descriptorSetCollection;
 //    delete descriptorPool;
-//    delete vertexMemory;
-//    delete vertexBuffer;
     framebuffers.clear();
     delete renderPass;
     imageViews.clear();

@@ -29,7 +29,6 @@ class Manager : public Singleton<Manager> {
 public:
     Manager();
     ~Manager();
-    VkResult createInstance();
     bool init();
     Vulkan::Instance* getInstance() const { return instance; }
     Vulkan::Device* getDevice() const { return device; }

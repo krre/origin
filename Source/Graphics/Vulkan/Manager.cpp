@@ -27,7 +27,7 @@ Manager::~Manager() {
     delete instance;
 }
 
-VkResult Manager::createInstance() {
+bool Manager::init() {
     instance = new Instance();
     instance->setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
@@ -42,10 +42,10 @@ VkResult Manager::createInstance() {
         "VK_LAYER_GOOGLE_threading",
         "VK_LAYER_LUNARG_standard_validation"
     });
-    return instance->create();
-}
+    if (instance->create() != VK_SUCCESS) {
+        return false;
+    }
 
-bool Manager::init() {
     if (enableValidationLayers) {
         debugCallback = new DebugReportCallback(instance);
         if (debugCallback->create() != VK_SUCCESS) {

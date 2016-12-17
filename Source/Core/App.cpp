@@ -75,11 +75,10 @@ void App::init() {
     }
 
     new Vulkan::Manager;
-    if (Vulkan::Manager::get()->createInstance() != VK_SUCCESS) {
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, Vulkan::Manager::get()->getInstance()->getResultDescription().c_str(), nullptr);
+    if (!Vulkan::Manager::get()->init()) {
+        std::string errorMsg = std::string("Init Vulkan failed\n") + Vulkan::Manager::get()->getInstance()->getResultDescription();
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
         return;
-    } else {
-        Vulkan::Manager::get()->init();
     }
 
     SDL_ShowWindow(window);

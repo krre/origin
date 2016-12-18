@@ -1,5 +1,4 @@
 #pragma once
-#include "../Core/Object.h"
 #include "../ECS/Entity.h"
 #include "Control.h"
 #include <vector>

@@ -12,7 +12,7 @@
 RenderSurface::RenderSurface() {
     ubo.pageBytes = pageBytes;
     ubo.blockInfoEnd = blockInfoEnd;
-    ubo.backgroundColor = glm::vec3(App::get()->getViewport()->getBackgroundColor());
+//    ubo.backgroundColor = glm::vec3(App::get()->getViewport()->getBackgroundColor());
     ubo.pickPixel = glm::vec2(-1, -1);
     ubo.shadeless = true;
     ubo.ambientStrength = 0.1;
@@ -124,7 +124,7 @@ void RenderSurface::draw(float dt) {
     int height = App::get()->getHeight();
 
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
-    Entity* currentCamera = App::get()->getViewport()->getCurrentCamera().get();
+    Entity* currentCamera; // = App::get()->getViewport()->getCurrentCamera().get();
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 

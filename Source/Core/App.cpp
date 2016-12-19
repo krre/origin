@@ -166,7 +166,6 @@ int App::run() {
 void App::windowResize(int width, int height) {
     this->width = width;
     this->height = height;
-    viewport.setRectangle(0, 0, width, height);
 }
 
 void App::quit() {

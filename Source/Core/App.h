@@ -1,7 +1,6 @@
 #pragma once
 #include "../Event/Event.h"
 #include "Singleton.h"
-#include "../UI/Viewport.h"
 #include <SDL_video.h>
 #include <vector>
 
@@ -20,7 +19,6 @@ public:
     int run();
     void quit();
 
-    Viewport* getViewport() { return &viewport; }
     SDL_Window* getWindow() const { return window; }
 
     int getWidth() const { return width; }
@@ -28,7 +26,6 @@ public:
 
 private:
     std::vector<std::string> argv;
-    Viewport viewport;
     bool isRunning = false;
     SDL_Window* window = nullptr;
     SDL_GLContext context;

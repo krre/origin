@@ -40,7 +40,7 @@ void Game::create() {
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
     transformSystem->lookAt(freeCamera.get(), glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     transformSystem->translate(freeCamera.get(), glm::vec3(2.0f, 1.0f, 3.0f));
-    App::get()->getViewport()->setCurrentCamera(freeCamera);
+//    App::get()->getViewport()->setCurrentCamera(freeCamera);
     Engine::get()->addEntity(freeCamera);
 
     // Avatar
@@ -48,7 +48,7 @@ void Game::create() {
     Engine::get()->addEntity(avatar);
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
-    App::get()->getViewport()->setCurrentCamera(avatarCamera);
+//    App::get()->getViewport()->setCurrentCamera(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 2.0f));
 //    transformSystem->setPitch(avatarCamera.get(), -15.0);
 //    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::get()->getSystem(SystemType::Node).get());
@@ -203,7 +203,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 #endif
 #ifdef DEVELOP_MODE
     case SDLK_KP_0:
-        App::get()->getViewport()->switchCamera();
+//        App::get()->getViewport()->switchCamera();
         break;
 #endif
     default:

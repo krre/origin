@@ -29,8 +29,6 @@ void MenuScene::update(float dt) {
 }
 
 void MenuScene::create() {
-    device = Vulkan::Manager::get()->getDevice();
-
     vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 
     const std::vector<glm::vec2> vertices = {

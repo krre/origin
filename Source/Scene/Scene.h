@@ -1,5 +1,6 @@
 #pragma once
 #include "../UI/Viewport.h"
+#include "../Graphics/Vulkan/Device.h"
 
 class Scene : public Viewport {
 
@@ -13,4 +14,5 @@ public:
 protected:
     virtual void onWindowResize(int width, int height) = 0;
     bool isFullScreen = true;
+    Vulkan::Device* device;
 };

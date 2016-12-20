@@ -15,7 +15,7 @@ public:
 private:
     void onContinueButtonClicked();
     void onExitButtonClicked();
-    void onKeyPressed(const SDL_KeyboardEvent& event);
+    void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
     std::shared_ptr<LinearLayout> layout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
     Button continueButton;

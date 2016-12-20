@@ -14,7 +14,7 @@ public:
     uint64_t getSeed() { return seed; }
 
 private:
-    void onKeyPressed(const SDL_KeyboardEvent& event);
+    void onKeyPressed(const SDL_KeyboardEvent& event) override;
     EntityId characterId;
     uint64_t seed;
 };

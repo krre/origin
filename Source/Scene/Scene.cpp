@@ -4,6 +4,6 @@
 
 Scene::Scene() {
     device = Vulkan::Manager::get()->getDevice();
+    Event::get()->keyPressed.disconnect<Scene, &Scene::onKeyPressed>(this);
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 }
-

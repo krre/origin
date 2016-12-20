@@ -16,8 +16,6 @@ MenuScene::~MenuScene() {
     delete descriptorSetLayout;
     delete vertexMemory;
     delete vertexBuffer;
-
-    Event::get()->keyPressed.disconnect<MenuScene, &MenuScene::onKeyPressed>(this);
 }
 
 void MenuScene::draw(float dt) {

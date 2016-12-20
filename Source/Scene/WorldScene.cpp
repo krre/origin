@@ -140,8 +140,6 @@ void WorldScene::create() {
     std::shared_ptr<Entity> light = EntityBuilder::light();
     transformSystem->translate(light.get(), glm::vec3(1.5, 2.5, 1.0));
     Engine::get()->addEntity(light);
-
-    Event::get()->keyPressed.connect<WorldScene, &WorldScene::onKeyPressed>(this);
 }
 
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {

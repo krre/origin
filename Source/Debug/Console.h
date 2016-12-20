@@ -13,7 +13,6 @@ public:
 
 private:
     void onWindowResize(int width, int height);
-
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void execute();
     Text cmdLine;

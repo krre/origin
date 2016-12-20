@@ -13,5 +13,5 @@ public:
     void create() override;
 
 private:
-    void onKeyPressed(const SDL_KeyboardEvent& event);
+    void onKeyPressed(const SDL_KeyboardEvent& event) override;
 };

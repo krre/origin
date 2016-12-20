@@ -20,12 +20,12 @@ void DebugHUD::draw(float dt) {
         accumTime = 0;
         counter = 0;
     }
-    Entity* character = Engine::get()->getEntity(Game::get()->getCharacterId()).get();
-    TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
+//    Entity* character = Engine::get()->getEntity(Game::get()->getCharacterId()).get();
+//    TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
 
-    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));
-    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
-    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
+//    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));
+//    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
+//    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
     Scene2D::draw(dt);
 }
 

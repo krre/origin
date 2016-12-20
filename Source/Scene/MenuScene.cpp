@@ -8,6 +8,28 @@
 
 MenuScene::MenuScene(int width, int height) :
     Scene2D(width, height) {
+    create();
+}
+
+MenuScene::~MenuScene() {
+    delete graphicsPipeline;
+    delete pipelineLayout;
+    delete descriptorSetLayout;
+    delete vertexMemory;
+    delete vertexBuffer;
+
+    Event::get()->keyPressed.disconnect<MenuScene, &MenuScene::onKeyPressed>(this);
+}
+
+void MenuScene::draw(float dt) {
+
+}
+
+void MenuScene::update(float dt) {
+
+}
+
+void MenuScene::create() {
     device = Vulkan::Manager::get()->getDevice();
 
     vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
@@ -70,28 +92,6 @@ MenuScene::MenuScene(int width, int height) :
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
-}
-
-MenuScene::~MenuScene() {
-    delete graphicsPipeline;
-    delete pipelineLayout;
-    delete descriptorSetLayout;
-    delete vertexMemory;
-    delete vertexBuffer;
-
-    Event::get()->keyPressed.disconnect<MenuScene, &MenuScene::onKeyPressed>(this);
-}
-
-void MenuScene::draw(float dt) {
-
-}
-
-void MenuScene::update(float dt) {
-
-}
-
-void MenuScene::create() {
-
 }
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {

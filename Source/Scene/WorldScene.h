@@ -7,4 +7,5 @@ public:
     WorldScene();
     void draw(float dt) override;
     void update(float dt) override;
+    void create() override;
 };

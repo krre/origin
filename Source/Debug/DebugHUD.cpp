@@ -79,6 +79,10 @@ void DebugHUD::update(float dt) {
 
 }
 
+void DebugHUD::create() {
+
+}
+
 void DebugHUD::trigger() {
 //    visible = !visible;
 }

@@ -39,6 +39,10 @@ void PauseScene::update(float dt) {
 
 }
 
+void PauseScene::create() {
+
+}
+
 void PauseScene::onContinueButtonClicked() {
     GameStateManager::get()->popState();
 }

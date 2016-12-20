@@ -10,6 +10,7 @@ public:
     ~PauseScene();
     void draw(float dt) override;
     void update(float dt) override;
+    void create() override;
 
 private:
     void onContinueButtonClicked();

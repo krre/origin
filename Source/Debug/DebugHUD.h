@@ -11,6 +11,7 @@ public:
     DebugHUD();
     void draw(float dt) override;
     void update(float dt) override;
+    void create() override;
     void trigger();
 
 private:

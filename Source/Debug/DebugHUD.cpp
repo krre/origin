@@ -7,6 +7,33 @@
 #include <Gagarin.h>
 
 DebugHUD::DebugHUD() : Scene2D(500, 500) {
+    create();
+}
+
+void DebugHUD::draw(float dt) {
+    accumTime += dt;
+    counter++;
+    if (accumTime >= 0.5) {
+        // Average fps for 0.5 sec (on resize may be > 60, so clamp to 60)
+        int fpsNumber = std::min(int(std::round(counter / accumTime)), 60);
+        fps.setText(std::to_string(fpsNumber) + " fps");
+        accumTime = 0;
+        counter = 0;
+    }
+    Entity* character = Engine::get()->getEntity(Game::get()->getCharacterId()).get();
+    TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
+
+    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));
+    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
+    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
+    Scene2D::draw(dt);
+}
+
+void DebugHUD::update(float dt) {
+
+}
+
+void DebugHUD::create() {
 //    visible = false;
 
     version.resize(100, 10);
@@ -54,33 +81,6 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     setLayout(statisticsLayout);
 
     Event::get()->windowResize.connect<DebugHUD, &DebugHUD::onWindowResize>(this);
-}
-
-void DebugHUD::draw(float dt) {
-    accumTime += dt;
-    counter++;
-    if (accumTime >= 0.5) {
-        // Average fps for 0.5 sec (on resize may be > 60, so clamp to 60)
-        int fpsNumber = std::min(int(std::round(counter / accumTime)), 60);
-        fps.setText(std::to_string(fpsNumber) + " fps");
-        accumTime = 0;
-        counter = 0;
-    }
-    Entity* character = Engine::get()->getEntity(Game::get()->getCharacterId()).get();
-    TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
-
-    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));
-    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
-    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
-    Scene2D::draw(dt);
-}
-
-void DebugHUD::update(float dt) {
-
-}
-
-void DebugHUD::create() {
-
 }
 
 void DebugHUD::trigger() {

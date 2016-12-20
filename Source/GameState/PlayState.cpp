@@ -8,7 +8,7 @@ PlayState::PlayState() : GameState(PLAY) {
 }
 
 void PlayState::init() {
-
+    worldScene.create();
 }
 
 void PlayState::cleanup() {

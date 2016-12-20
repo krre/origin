@@ -8,7 +8,6 @@
 
 MenuScene::MenuScene(int width, int height) :
     Scene2D(width, height) {
-    create();
 }
 
 MenuScene::~MenuScene() {

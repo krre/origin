@@ -8,7 +8,7 @@
 
 
 WorldScene::WorldScene() {
-    create();
+
 }
 
 void WorldScene::draw(float dt) {

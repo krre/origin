@@ -1,7 +1,7 @@
 #pragma once
 #include "ProceduralObject.h"
 
-class Planet : public ProceduralObject {
+class Earth : public ProceduralObject {
 
 public:
 

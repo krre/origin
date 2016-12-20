@@ -62,9 +62,7 @@ void MenuScene::create() {
 
     graphicsPipeline = new Vulkan::Pipeline(Vulkan::PipelineType::Graphics, device);
 
-    ShaderResource* shaderResource;
-
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
+    ShaderResource* shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
     graphicsPipeline->addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");

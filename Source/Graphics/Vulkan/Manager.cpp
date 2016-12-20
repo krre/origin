@@ -14,7 +14,7 @@ Manager::~Manager() {
     delete imageAvailableSemaphore;
 //    delete commandBufferCollection;
 //    delete descriptorSetCollection;
-//    delete descriptorPool;
+    delete descriptorPool;
     framebuffers.clear();
     delete renderPass;
     imageViews.clear();
@@ -102,12 +102,12 @@ bool Manager::init() {
         }
         framebuffers.push_back(framebuffer);
     }
-/*
+
     descriptorPool = new DescriptorPool(device);
     if (descriptorPool->create() != VK_SUCCESS) {
         return false;
     }
-
+/*
     descriptorSetCollection = new DescriptorSetCollection(device, descriptorPool);
     descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
     if (descriptorSetCollection->allocate() != VK_SUCCESS) {

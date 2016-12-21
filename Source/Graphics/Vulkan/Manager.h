@@ -36,6 +36,7 @@ public:
     Swapchain* getSwapchain() const { return swapchain; }
     RenderPass* getRenderPass() const { return renderPass; }
     DescriptorPool* getDescriptorPool() const { return descriptorPool; }
+    CommandPool* getCommandPool() const { return commandPool; }
     void render();
 
 private:

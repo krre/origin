@@ -30,30 +30,30 @@ public:
     Manager();
     ~Manager();
     bool init();
-    Vulkan::Instance* getInstance() const { return instance; }
-    Vulkan::Device* getDevice() const { return device; }
-    Vulkan::Surface* getSurface() const { return surface; }
-    Vulkan::Swapchain* getSwapchain() const { return swapchain; }
-    Vulkan::RenderPass* getRenderPass() const { return renderPass; }
+    Instance* getInstance() const { return instance; }
+    Device* getDevice() const { return device; }
+    Surface* getSurface() const { return surface; }
+    Swapchain* getSwapchain() const { return swapchain; }
+    RenderPass* getRenderPass() const { return renderPass; }
     void render();
 
 private:
-    Vulkan::Instance* instance;
+    Instance* instance;
     VkPhysicalDevice mainPhysicalDevice;
-    Vulkan::DebugReportCallback* debugCallback;
-    Vulkan::PhysicalDeviceCollection* physicalDeviceCollection;
-    Vulkan::Device* device;
-    Vulkan::Surface* surface;
-    Vulkan::Swapchain* swapchain;
-    Vulkan::RenderPass* renderPass;
-    Vulkan::DescriptorPool* descriptorPool;
-    Vulkan::DescriptorSetCollection* descriptorSetCollection;
+    DebugReportCallback* debugCallback;
+    PhysicalDeviceCollection* physicalDeviceCollection;
+    Device* device;
+    Surface* surface;
+    Swapchain* swapchain;
+    RenderPass* renderPass;
+    DescriptorPool* descriptorPool;
+    DescriptorSetCollection* descriptorSetCollection;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
-    Vulkan::CommandPool* commandPool;
-    Vulkan::CommandBufferCollection* commandBufferCollection;
-    Vulkan::Semaphore* imageAvailableSemaphore;
-    Vulkan::Semaphore* renderFinishedSemaphore;
+    CommandPool* commandPool;
+    CommandBufferCollection* commandBufferCollection;
+    Semaphore* imageAvailableSemaphore;
+    Semaphore* renderFinishedSemaphore;
 
     SubmitQueue* graphicsQueue;
     PresentQueue* presentQueue;

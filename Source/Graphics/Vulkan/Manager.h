@@ -35,6 +35,7 @@ public:
     Surface* getSurface() const { return surface; }
     Swapchain* getSwapchain() const { return swapchain; }
     RenderPass* getRenderPass() const { return renderPass; }
+    DescriptorPool* getDescriptorPool() const { return descriptorPool; }
     void render();
 
 private:

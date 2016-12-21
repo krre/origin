@@ -34,10 +34,7 @@ void SubmitQueue::setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers)
     submitInfo.pCommandBuffers = this->commandBuffers.data();
 }
 
-void SubmitQueue::setCommandBuffersCount(uint32_t count) {
+void SubmitQueue::setCommandBuffers(uint32_t count, const VkCommandBuffer* data) {
     submitInfo.commandBufferCount = count;
-}
-
-void SubmitQueue::setCommandBuffersData(const VkCommandBuffer* data) {
     submitInfo.pCommandBuffers = data;
 }

@@ -15,9 +15,7 @@ public:
     void setWaitDstStageMask(std::vector<VkPipelineStageFlags> waitDstStageMask);
 
     void setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers);
-    void setCommandBuffersCount(uint32_t count);
-    void setCommandBuffersData(const VkCommandBuffer* data);
-
+    void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
 
 private:
     VkSubmitInfo submitInfo = {};

@@ -40,25 +40,25 @@ public:
     void render();
 
 private:
-    Instance* instance;
+    Instance* instance = nullptr;
     VkPhysicalDevice mainPhysicalDevice;
-    DebugReportCallback* debugCallback;
-    PhysicalDeviceCollection* physicalDeviceCollection;
-    Device* device;
-    Surface* surface;
-    Swapchain* swapchain;
-    RenderPass* renderPass;
-    DescriptorPool* descriptorPool;
-    DescriptorSetCollection* descriptorSetCollection;
+    DebugReportCallback* debugCallback = nullptr;
+    PhysicalDeviceCollection* physicalDeviceCollection = nullptr;
+    Device* device = nullptr;
+    Surface* surface = nullptr;
+    Swapchain* swapchain = nullptr;
+    RenderPass* renderPass = nullptr;
+    DescriptorPool* descriptorPool = nullptr;
+    DescriptorSetCollection* descriptorSetCollection = nullptr;
     std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
     std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
-    CommandPool* commandPool;
-    CommandBufferCollection* commandBufferCollection;
+    CommandPool* commandPool = nullptr;
+    CommandBufferCollection* commandBufferCollection = nullptr;
     Semaphore* imageAvailableSemaphore;
     Semaphore* renderFinishedSemaphore;
 
-    SubmitQueue* graphicsQueue;
-    PresentQueue* presentQueue;
+    SubmitQueue* graphicsQueue = nullptr;
+    PresentQueue* presentQueue = nullptr;
     uint32_t graphicsFamily;
     uint32_t presentFamily; // TODO: Find and use
     uint32_t swapchainImageIndex;

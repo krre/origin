@@ -35,6 +35,7 @@ public:
     DescriptorPool* getDescriptorPool() const { return descriptorPool; }
     CommandPool* getCommandPool() const { return commandPool; }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
+    PhysicalDeviceCollection* getPhysicalDevices() const { return physicalDeviceCollection; }
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void render();
 

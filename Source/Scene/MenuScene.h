@@ -15,11 +15,11 @@ class MenuScene : public Scene2D {
 
     struct UBOvert {
         glm::mat4 mvp;
-    };
+    } uboVert;
 
     struct UBOfrag {
         glm::vec3 color;
-    };
+    } uboFrag;
 
 public:
     MenuScene(int width, int height);

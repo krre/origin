@@ -105,36 +105,7 @@ bool Manager::init() {
     if (descriptorPool->create() != VK_SUCCESS) {
         return false;
     }
-/*
-    for (size_t i = 0; i < commandBufferCollection->getCount(); i++) {
-        CommandBuffer commandBuffer(commandBufferCollection->at(i));
-        commandBuffer.begin();
 
-        VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
-
-        VkRenderPassBeginInfo renderPassInfo = {};
-        renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-        renderPassInfo.renderPass = renderPass->getHandle();
-        renderPassInfo.framebuffer = framebuffers[i]->getHandle();
-        renderPassInfo.renderArea.offset = { 0, 0 };
-        renderPassInfo.renderArea.extent = swapchain->getExtent();
-        renderPassInfo.clearValueCount = 1;
-        renderPassInfo.pClearValues = &clearColor;
-
-        vkCmdBeginRenderPass(commandBuffer.getHandle(), &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
-
-        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
-
-        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
-        VkDeviceSize offsets[] = { 0 };
-        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
-        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSetCollection->getCount(), descriptorSetCollection->getData(), 0, nullptr);
-        vkCmdDraw(commandBuffer.getHandle(), vertices.size(), 1, 0, 0);
-        vkCmdEndRenderPass(commandBuffer.getHandle());
-
-        commandBuffer.end();
-    }
-*/
     imageAvailableSemaphore = new Semaphore(device);
     if (imageAvailableSemaphore->create() != VK_SUCCESS) {
         return false;
@@ -149,8 +120,6 @@ bool Manager::init() {
     graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
     graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
-//    graphicsQueue->setCommandBuffersCount(commandBufferCollection->getCount());
-//    graphicsQueue->setCommandBuffersData(commandBufferCollection->getData());
 
     presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
     presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() });

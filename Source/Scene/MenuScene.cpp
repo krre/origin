@@ -5,6 +5,7 @@
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
+#include "../Graphics/Vulkan/CommandBuffer.h"
 
 MenuScene::MenuScene(int width, int height) :
     Scene2D(width, height) {
@@ -94,6 +95,37 @@ void MenuScene::create() {
 
     commandBufferCollection = new Vulkan::CommandBufferCollection(device, Vulkan::Manager::get()->getCommandPool());
     commandBufferCollection->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
+
+    for (size_t i = 0; i < commandBufferCollection->getCount(); i++) {
+        Vulkan::CommandBuffer commandBuffer(commandBufferCollection->at(i));
+        commandBuffer.begin();
+
+        VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
+
+        VkRenderPassBeginInfo renderPassInfo = {};
+        renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+        renderPassInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
+        renderPassInfo.framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
+        renderPassInfo.renderArea.offset = { 0, 0 };
+        renderPassInfo.renderArea.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
+        renderPassInfo.clearValueCount = 1;
+        renderPassInfo.pClearValues = &clearColor;
+
+        vkCmdBeginRenderPass(commandBuffer.getHandle(), &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
+
+        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
+        VkDeviceSize offsets[] = { 0 };
+        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
+        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSetCollection->getCount(), descriptorSetCollection->getData(), 0, nullptr);
+        vkCmdDraw(commandBuffer.getHandle(), vertices.size(), 1, 0, 0);
+        vkCmdEndRenderPass(commandBuffer.getHandle());
+
+        commandBuffer.end();
+    }
+
+    Vulkan::Manager::get()->setCommandBuffers(commandBufferCollection->getCount(), commandBufferCollection->getData());
 }
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {

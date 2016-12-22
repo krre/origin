@@ -37,6 +37,6 @@ private:
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::DeviceMemory* vertexMemory = nullptr;
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
-    Vulkan::Uniform uniformVert;
-    Vulkan::Uniform uniformFrag;
+    Vulkan::Uniform* uniformVert = nullptr;
+    Vulkan::Uniform* uniformFrag = nullptr;
 };

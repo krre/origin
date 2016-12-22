@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Uniform::Uniform() {
+Uniform::Uniform(const Device* device) : device(device) {
 
 }
 

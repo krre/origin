@@ -19,6 +19,8 @@ MenuScene::~MenuScene() {
     delete descriptorSetLayout;
     delete vertexMemory;
     delete vertexBuffer;
+    delete uniformVert;
+    delete uniformFrag;
 }
 
 void MenuScene::draw(float dt) {
@@ -55,6 +57,9 @@ void MenuScene::create() {
     vkMapMemory(device->getHandle(), vertexMemory->getHandle(), 0, verticesSize, 0, &data);
     memcpy(data, vertices.data(), (size_t) verticesSize);
     vkUnmapMemory(device->getHandle(), vertexMemory->getHandle());
+
+    uniformVert = new Vulkan::Uniform(device);
+    uniformFrag = new Vulkan::Uniform(device);
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
     descriptorSetLayout->create();

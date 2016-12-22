@@ -51,8 +51,8 @@ private:
     RenderPass* renderPass = nullptr;
     DescriptorPool* descriptorPool = nullptr;
     DescriptorSetCollection* descriptorSetCollection = nullptr;
-    std::vector<std::shared_ptr<Vulkan::ImageView>> imageViews;
-    std::vector<std::shared_ptr<Vulkan::Framebuffer>> framebuffers;
+    std::vector<std::shared_ptr<ImageView>> imageViews;
+    std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     CommandPool* commandPool = nullptr;
     CommandBufferCollection* commandBufferCollection = nullptr;
     Semaphore* imageAvailableSemaphore;

@@ -11,6 +11,7 @@ MenuScene::MenuScene(int width, int height) :
 }
 
 MenuScene::~MenuScene() {
+    delete commandBufferCollection;
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSetCollection;
@@ -90,6 +91,9 @@ void MenuScene::create() {
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
+
+    commandBufferCollection = new Vulkan::CommandBufferCollection(device, Vulkan::Manager::get()->getCommandPool());
+    commandBufferCollection->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
 }
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {

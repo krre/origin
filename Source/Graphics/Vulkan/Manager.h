@@ -14,7 +14,6 @@
 #include "Framebuffer.h"
 #include "CommandPool.h"
 #include "CommandBuffer.h"
-#include "Collection/CommandBufferCollection.h"
 #include "Semaphore.h"
 #include <string>
 #include <vector>
@@ -52,10 +51,8 @@ private:
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     CommandPool* commandPool = nullptr;
-    CommandBufferCollection* commandBufferCollection = nullptr;
     Semaphore* imageAvailableSemaphore;
     Semaphore* renderFinishedSemaphore;
-
     SubmitQueue* graphicsQueue = nullptr;
     PresentQueue* presentQueue = nullptr;
     uint32_t graphicsFamily;

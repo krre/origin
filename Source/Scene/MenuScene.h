@@ -8,6 +8,7 @@
 #include "../Graphics/Vulkan/Collection/DescriptorSetCollection.h"
 #include "../Graphics/Vulkan/Buffer.h"
 #include "../Graphics/Vulkan/DeviceMemory.h"
+#include "../Graphics/Vulkan/Collection/CommandBufferCollection.h"
 
 class MenuScene : public Scene2D {
 
@@ -20,10 +21,11 @@ public:
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
-    Vulkan::PipelineLayout* pipelineLayout;
-    Vulkan::DescriptorSetLayout* descriptorSetLayout;
+    Vulkan::PipelineLayout* pipelineLayout = nullptr;
+    Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;
     Vulkan::DescriptorSetCollection* descriptorSetCollection = nullptr;
-    Vulkan::Pipeline* graphicsPipeline;
-    Vulkan::Buffer* vertexBuffer;
-    Vulkan::DeviceMemory* vertexMemory;
+    Vulkan::Pipeline* graphicsPipeline = nullptr;
+    Vulkan::Buffer* vertexBuffer = nullptr;
+    Vulkan::DeviceMemory* vertexMemory = nullptr;
+    Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
 };

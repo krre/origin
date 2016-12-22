@@ -12,7 +12,6 @@ Manager::~Manager() {
     delete graphicsQueue;
     delete renderFinishedSemaphore;
     delete imageAvailableSemaphore;
-//    delete commandBufferCollection;
     delete descriptorPool;
     framebuffers.clear();
     delete renderPass;
@@ -107,11 +106,6 @@ bool Manager::init() {
         return false;
     }
 /*
-    commandBufferCollection = new CommandBufferCollection(device, commandPool);
-    if (commandBufferCollection->allocate(swapchain->getImageCount()) != VK_SUCCESS) {
-        return false;
-    }
-
     for (size_t i = 0; i < commandBufferCollection->getCount(); i++) {
         CommandBuffer commandBuffer(commandBufferCollection->at(i));
         commandBuffer.begin();

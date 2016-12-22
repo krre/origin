@@ -13,7 +13,6 @@
 #include "DescriptorPool.h"
 #include "Framebuffer.h"
 #include "CommandPool.h"
-#include "CommandBuffer.h"
 #include "Semaphore.h"
 #include <string>
 #include <vector>
@@ -35,6 +34,7 @@ public:
     RenderPass* getRenderPass() const { return renderPass; }
     DescriptorPool* getDescriptorPool() const { return descriptorPool; }
     CommandPool* getCommandPool() const { return commandPool; }
+    Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void render();
 

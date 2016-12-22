@@ -2,7 +2,8 @@
 
 using namespace Vulkan;
 
-MemoryBuffer::MemoryBuffer(const Device* device) : device(device) {
+MemoryBuffer::MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage) :
+    device(device), buffer(device, usage), memory(device) {
 
 }
 

@@ -58,8 +58,8 @@ void MenuScene::create() {
     memcpy(data, vertices.data(), (size_t) verticesSize);
     vkUnmapMemory(device->getHandle(), vertexMemory->getHandle());
 
-    uniformVert = new Vulkan::MemoryBuffer(device);
-    uniformFrag = new Vulkan::MemoryBuffer(device);
+    uniformVert = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
+    uniformFrag = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
     descriptorSetLayout->create();

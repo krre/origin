@@ -46,7 +46,7 @@ void MenuScene::create() {
     VkMemoryRequirements memRequirements;
     vkGetBufferMemoryRequirements(device->getHandle(), vertexBuffer->getHandle(), &memRequirements);
     vertexMemory->setAllocationSize(memRequirements.size);
-//    vertexMemory->setMemoryTypeIndex(physicalDeviceCollection->findMemoryType(mainPhysicalDevice, memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
+    vertexMemory->setMemoryTypeIndex(Vulkan::Manager::get()->getPhysicalDevices()->findMemoryType(device->getPhysicalDevice(), memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
     vertexMemory->allocate();
 
     vkBindBufferMemory(device->getHandle(), vertexBuffer->getHandle(), vertexMemory->getHandle(), 0);

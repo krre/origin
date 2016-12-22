@@ -7,6 +7,7 @@ DescriptorPool::DescriptorPool(const Device* device) : device(device) {
     poolSize.descriptorCount = 1;
 
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+    createInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
     createInfo.poolSizeCount = 1;
     createInfo.pPoolSizes = &poolSize;
     createInfo.maxSets = 1;

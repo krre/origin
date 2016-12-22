@@ -20,3 +20,7 @@ DescriptorSetLayout::~DescriptorSetLayout() {
 VkResult DescriptorSetLayout::create() {
     return checkError(vkCreateDescriptorSetLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor set layout");
 }
+
+void DescriptorSetLayout::setStageFlags(VkShaderStageFlags flags) {
+    uboLayoutBinding.stageFlags = flags;
+}

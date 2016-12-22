@@ -46,5 +46,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Uniform.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Uniform.h
     PARENT_SCOPE
 )

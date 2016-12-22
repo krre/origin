@@ -37,6 +37,7 @@ public:
     RenderPass* getRenderPass() const { return renderPass; }
     DescriptorPool* getDescriptorPool() const { return descriptorPool; }
     CommandPool* getCommandPool() const { return commandPool; }
+    void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void render();
 
 private:

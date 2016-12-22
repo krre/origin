@@ -3,11 +3,11 @@
 
 namespace Vulkan {
 
-class Uniform {
+class MemoryBuffer {
 
 public:
-    Uniform(const Device* device);
-    ~Uniform();
+    MemoryBuffer(const Device* device);
+    ~MemoryBuffer();
 
 private:
     const Device* device;

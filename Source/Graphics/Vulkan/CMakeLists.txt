@@ -12,28 +12,30 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorPool.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Instance.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Fence.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Fence.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Instance.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp
@@ -46,7 +48,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Uniform.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Uniform.h
     PARENT_SCOPE
 )

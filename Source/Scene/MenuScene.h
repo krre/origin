@@ -9,7 +9,7 @@
 #include "../Graphics/Vulkan/Buffer.h"
 #include "../Graphics/Vulkan/DeviceMemory.h"
 #include "../Graphics/Vulkan/Collection/CommandBufferCollection.h"
-#include "../Graphics/Vulkan/Uniform.h"
+#include "../Graphics/Vulkan/MemoryBuffer.h"
 
 class MenuScene : public Scene2D {
 
@@ -37,6 +37,6 @@ private:
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::DeviceMemory* vertexMemory = nullptr;
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
-    Vulkan::Uniform* uniformVert = nullptr;
-    Vulkan::Uniform* uniformFrag = nullptr;
+    Vulkan::MemoryBuffer* uniformVert = nullptr;
+    Vulkan::MemoryBuffer* uniformFrag = nullptr;
 };

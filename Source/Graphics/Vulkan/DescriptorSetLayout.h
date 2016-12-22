@@ -15,7 +15,7 @@ public:
 private:
     const Device* device;
     VkDescriptorSetLayoutCreateInfo createInfo = {};
-    VkDescriptorSetLayoutBinding uboLayoutBinding = {};
+    VkDescriptorSetLayoutBinding bindings = {};
 };
 
 } // Vulkan

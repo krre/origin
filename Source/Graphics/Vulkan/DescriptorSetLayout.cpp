@@ -3,13 +3,13 @@
 using namespace Vulkan;
 
 DescriptorSetLayout::DescriptorSetLayout(const Device* device) : device(device) {
-    uboLayoutBinding.binding = 0;
-    uboLayoutBinding.descriptorCount = 1;
-    uboLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    uboLayoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+    bindings.binding = 0;
+    bindings.descriptorCount = 1;
+    bindings.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    bindings.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
 
     createInfo.bindingCount = 1;
-    createInfo.pBindings = &uboLayoutBinding;
+    createInfo.pBindings = &bindings;
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 }
 
@@ -22,5 +22,5 @@ VkResult DescriptorSetLayout::create() {
 }
 
 void DescriptorSetLayout::setStageFlags(VkShaderStageFlags flags) {
-    uboLayoutBinding.stageFlags = flags;
+    bindings.stageFlags = flags;
 }

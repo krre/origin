@@ -11,7 +11,6 @@
 #include "ImageView.h"
 #include "RenderPass.h"
 #include "DescriptorPool.h"
-#include "Collection/DescriptorSetCollection.h"
 #include "Framebuffer.h"
 #include "CommandPool.h"
 #include "CommandBuffer.h"
@@ -50,7 +49,6 @@ private:
     Swapchain* swapchain = nullptr;
     RenderPass* renderPass = nullptr;
     DescriptorPool* descriptorPool = nullptr;
-    DescriptorSetCollection* descriptorSetCollection = nullptr;
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     CommandPool* commandPool = nullptr;

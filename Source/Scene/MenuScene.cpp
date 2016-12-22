@@ -13,6 +13,7 @@ MenuScene::MenuScene(int width, int height) :
 MenuScene::~MenuScene() {
     delete graphicsPipeline;
     delete pipelineLayout;
+    delete descriptorSetCollection;
     delete descriptorSetLayout;
     delete vertexMemory;
     delete vertexBuffer;
@@ -85,6 +86,10 @@ void MenuScene::create() {
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
+
+    descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, Vulkan::Manager::get()->getDescriptorPool());
+    descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
+    descriptorSetCollection->allocate();
 }
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {

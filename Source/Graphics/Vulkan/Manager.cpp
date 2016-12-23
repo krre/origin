@@ -12,7 +12,6 @@ Manager::~Manager() {
     delete graphicsQueue;
     delete renderFinishedSemaphore;
     delete imageAvailableSemaphore;
-    delete descriptorPool;
     framebuffers.clear();
     delete renderPass;
     imageViews.clear();
@@ -99,11 +98,6 @@ bool Manager::init() {
             return false;
         }
         framebuffers.push_back(framebuffer);
-    }
-
-    descriptorPool = new DescriptorPool(device);
-    if (descriptorPool->create() != VK_SUCCESS) {
-        return false;
     }
 
     imageAvailableSemaphore = new Semaphore(device);

@@ -10,7 +10,6 @@
 #include "Swapchain.h"
 #include "ImageView.h"
 #include "RenderPass.h"
-#include "DescriptorPool.h"
 #include "Framebuffer.h"
 #include "CommandPool.h"
 #include "Semaphore.h"
@@ -32,7 +31,6 @@ public:
     Surface* getSurface() const { return surface; }
     Swapchain* getSwapchain() const { return swapchain; }
     RenderPass* getRenderPass() const { return renderPass; }
-    DescriptorPool* getDescriptorPool() const { return descriptorPool; }
     CommandPool* getCommandPool() const { return commandPool; }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     PhysicalDeviceCollection* getPhysicalDevices() const { return physicalDeviceCollection; }
@@ -48,7 +46,6 @@ private:
     Surface* surface = nullptr;
     Swapchain* swapchain = nullptr;
     RenderPass* renderPass = nullptr;
-    DescriptorPool* descriptorPool = nullptr;
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     CommandPool* commandPool = nullptr;

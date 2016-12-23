@@ -16,6 +16,7 @@ MenuScene::~MenuScene() {
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSetCollection;
+    delete descriptorPool;
     delete descriptorSetLayoutVert;
     delete descriptorSetLayoutFrag;
     delete uniformVert;
@@ -59,7 +60,10 @@ void MenuScene::create() {
     descriptorSetLayoutFrag->setStageFlags(VK_SHADER_STAGE_FRAGMENT_BIT);
     descriptorSetLayoutFrag->create();
 
-    descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, Vulkan::Manager::get()->getDescriptorPool());
+    descriptorPool = new Vulkan::DescriptorPool(device);
+    descriptorPool->create();
+
+    descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);
     descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayoutVert->getHandle(), descriptorSetLayoutFrag->getHandle() });
     descriptorSetCollection->allocate();
     descriptorSetCollection->update({ uniformVert->getBuffer(), uniformFrag->getBuffer() });

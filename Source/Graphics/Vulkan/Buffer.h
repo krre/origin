@@ -11,6 +11,7 @@ public:
     ~Buffer();
     VkResult create() override;
     void setSize(VkDeviceSize size);
+    VkDeviceSize getSize() const { return createInfo.size; }
 
 private:
     const Device* device;

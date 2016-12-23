@@ -2,6 +2,7 @@
 #include "../Base/Collection.h"
 #include "../Device.h"
 #include "../DescriptorPool.h"
+#include "../Buffer.h"
 
 namespace Vulkan {
 
@@ -12,6 +13,7 @@ public:
     ~DescriptorSetCollection();
     bool allocate();
     void setDescriptorSetLayouts(const std::vector<VkDescriptorSetLayout>& setLayouts);
+    void update(const Buffer* buffer);
 
 private:
     const Device* device;

@@ -21,6 +21,7 @@ MenuScene::~MenuScene() {
     delete vertexBuffer;
     delete uniformVert;
     delete uniformFrag;
+    delete vertexMemoryBuffer;
 }
 
 void MenuScene::draw(float dt) {
@@ -32,6 +33,7 @@ void MenuScene::update(float dt) {
 }
 
 void MenuScene::create() {
+    vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
     vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
 
     const std::vector<glm::vec2> vertices = {

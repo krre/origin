@@ -43,7 +43,14 @@ void MenuScene::create() {
     vertexMemoryBuffer->update(vertices.data());
 
     uniformVert = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
+    uniformVert->create(sizeof(uboVert));
+    uboVert.mvp = glm::mat4(1.0);
+    uniformVert->update(&uboVert);
+
     uniformFrag = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
+    uniformFrag->create(sizeof(uboFrag));
+    uboFrag.color = glm::vec3(1.0, 0.0, 0.0);
+    uniformFrag->update(&uboFrag);
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
     descriptorSetLayout->create();

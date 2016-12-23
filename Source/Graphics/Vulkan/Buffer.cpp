@@ -8,11 +8,12 @@ Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage) : device(devic
     createInfo.usage = usage;
     createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
     createInfo.queueFamilyIndexCount = 0;
-    createInfo.pQueueFamilyIndices = nullptr;
 }
 
 Buffer::~Buffer() {
-    vkDestroyBuffer(device->getHandle(), handle, nullptr);
+    if (handle != VK_NULL_HANDLE) {
+        vkDestroyBuffer(device->getHandle(), handle, nullptr);
+    }
 }
 
 VkResult Buffer::create() {

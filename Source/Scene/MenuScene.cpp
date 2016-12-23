@@ -39,7 +39,8 @@ void MenuScene::create() {
     };
 
     vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
-    vertexMemoryBuffer->setData(sizeof(vertices[0]) * vertices.size(), vertices.data());
+    vertexMemoryBuffer->create(sizeof(vertices[0]) * vertices.size());
+    vertexMemoryBuffer->update(vertices.data());
 
     uniformVert = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
     uniformFrag = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);

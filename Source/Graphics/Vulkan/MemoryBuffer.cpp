@@ -13,7 +13,9 @@ MemoryBuffer::~MemoryBuffer() {
 
 }
 
-void MemoryBuffer::setData(size_t size, const void* data) {
+void MemoryBuffer::create(size_t size) {
+    this->size = size;
+
     buffer.setSize(size);
     buffer.create();
 
@@ -24,7 +26,9 @@ void MemoryBuffer::setData(size_t size, const void* data) {
     memory.allocate();
 
     vkBindBufferMemory(device->getHandle(), buffer.getHandle(), memory.getHandle(), 0);
+}
 
+void MemoryBuffer::update(const void* data) {
     void* mapData;
     vkMapMemory(device->getHandle(), memory.getHandle(), 0, size, 0, &mapData);
     memcpy(mapData, data, size);

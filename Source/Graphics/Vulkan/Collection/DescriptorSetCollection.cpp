@@ -30,16 +30,16 @@ void DescriptorSetCollection::update(const std::vector<Buffer*>& buffers) {
     std::vector<VkDescriptorBufferInfo> bufferInfos;
     std::vector<VkWriteDescriptorSet> descriptorWrites;
 
-    for (auto buffer : buffers) {
+    for (int i = 0; i < buffers.size(); i++) {
         VkDescriptorBufferInfo bufferInfo = {};
-        bufferInfo.buffer = buffer->getHandle();
+        bufferInfo.buffer = buffers.at(i)->getHandle();
         bufferInfo.offset = 0;
-        bufferInfo.range = buffer->getSize();
+        bufferInfo.range = buffers.at(i)->getSize();
         bufferInfos.push_back(bufferInfo);
 
         VkWriteDescriptorSet descriptorWrite = {};
         descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-        descriptorWrite.dstSet = *getData();
+        descriptorWrite.dstSet = collection.at(i);
         descriptorWrite.dstBinding = 0;
         descriptorWrite.dstArrayElement = 0;
         descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;

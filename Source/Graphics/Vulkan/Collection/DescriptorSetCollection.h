@@ -13,7 +13,7 @@ public:
     ~DescriptorSetCollection();
     bool allocate();
     void setDescriptorSetLayouts(const std::vector<VkDescriptorSetLayout>& setLayouts);
-    void update(const Buffer* buffer);
+    void update(const std::vector<Buffer*>& buffers);
 
 private:
     const Device* device;

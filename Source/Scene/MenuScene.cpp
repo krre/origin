@@ -16,7 +16,8 @@ MenuScene::~MenuScene() {
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSetCollection;
-    delete descriptorSetLayout;
+    delete descriptorSetLayoutVert;
+    delete descriptorSetLayoutFrag;
     delete uniformVert;
     delete uniformFrag;
     delete vertexMemoryBuffer;
@@ -50,16 +51,21 @@ void MenuScene::create() {
     uniformFrag->create(sizeof(uboFrag));
     uniformFrag->update(&uboFrag);
 
-    descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
-    descriptorSetLayout->create();
+    descriptorSetLayoutVert = new Vulkan::DescriptorSetLayout(device);
+    descriptorSetLayoutVert->setStageFlags(VK_SHADER_STAGE_VERTEX_BIT);
+    descriptorSetLayoutVert->create();
+
+    descriptorSetLayoutFrag = new Vulkan::DescriptorSetLayout(device);
+    descriptorSetLayoutFrag->setStageFlags(VK_SHADER_STAGE_FRAGMENT_BIT);
+    descriptorSetLayoutFrag->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, Vulkan::Manager::get()->getDescriptorPool());
-    descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
+    descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayoutVert->getHandle(), descriptorSetLayoutFrag->getHandle() });
     descriptorSetCollection->allocate();
-    descriptorSetCollection->update(uniformVert->getBuffer());
+    descriptorSetCollection->update({ uniformVert->getBuffer(), uniformFrag->getBuffer() });
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
+    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayoutVert->getHandle(), descriptorSetLayoutFrag->getHandle() });
     pipelineLayout->create();
 
     graphicsPipeline = new Vulkan::Pipeline(Vulkan::PipelineType::Graphics, device);

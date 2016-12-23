@@ -10,6 +10,7 @@ class MemoryBuffer {
 public:
     MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage);
     ~MemoryBuffer();
+    void setSize(VkDeviceSize size);
 
 private:
     const Device* device;

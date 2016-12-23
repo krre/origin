@@ -10,3 +10,7 @@ MemoryBuffer::MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage) :
 MemoryBuffer::~MemoryBuffer() {
 
 }
+
+void MemoryBuffer::setSize(VkDeviceSize size) {
+    buffer.setSize(size);
+}

@@ -1,5 +1,4 @@
 #include "Resulter.h"
-#include <assert.h>
 
 using namespace Vulkan;
 
@@ -45,9 +44,9 @@ VkResult Resulter::checkError(VkResult result, const char* message) {
 
 #ifndef NDEBUG
     if (result != VK_SUCCESS) {
-        error(std::string(message) + ": " + resultToString(result))
+        error(std::string(message) + ": " + resultToString(result) << "\" in " << __FILE__ << " at line " << __LINE__)
+        assert(result == VK_SUCCESS);
     }
-    assert(result == VK_SUCCESS);
 #endif
 
     return result;

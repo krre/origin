@@ -7,7 +7,9 @@ DeviceMemory::DeviceMemory(const Device* device) : device(device) {
 }
 
 DeviceMemory::~DeviceMemory() {
-    vkFreeMemory(device->getHandle(), handle, nullptr);
+    if (handle != VK_NULL_HANDLE) {
+        vkFreeMemory(device->getHandle(), handle, nullptr);
+    }
 }
 
 VkResult DeviceMemory::allocate() {

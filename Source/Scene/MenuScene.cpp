@@ -44,12 +44,10 @@ void MenuScene::create() {
 
     uniformVert = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
     uniformVert->create(sizeof(uboVert));
-    uboVert.mvp = glm::mat4(1.0);
     uniformVert->update(&uboVert);
 
     uniformFrag = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
     uniformFrag->create(sizeof(uboFrag));
-    uboFrag.color = glm::vec3(1.0, 0.0, 0.0);
     uniformFrag->update(&uboFrag);
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
@@ -58,6 +56,7 @@ void MenuScene::create() {
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, Vulkan::Manager::get()->getDescriptorPool());
     descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
     descriptorSetCollection->allocate();
+    descriptorSetCollection->update(uniformVert->getBuffer());
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
     pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });

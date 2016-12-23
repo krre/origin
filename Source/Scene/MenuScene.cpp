@@ -17,8 +17,6 @@ MenuScene::~MenuScene() {
     delete pipelineLayout;
     delete descriptorSetCollection;
     delete descriptorSetLayout;
-    delete vertexMemory;
-    delete vertexBuffer;
     delete uniformVert;
     delete uniformFrag;
     delete vertexMemoryBuffer;
@@ -33,32 +31,15 @@ void MenuScene::update(float dt) {
 }
 
 void MenuScene::create() {
-    vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
-    vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
-
     const std::vector<glm::vec2> vertices = {
         { -1.0f,  1.0f },
         { -1.0f, -1.0f },
         {  1.0f,  1.0f },
         {  1.0f, -1.0f },
     };
-    int verticesSize = sizeof(vertices[0]) * vertices.size();
-    vertexBuffer->setSize(verticesSize);
-    vertexBuffer->create();
 
-    vertexMemory = new Vulkan::DeviceMemory(device);
-    VkMemoryRequirements memRequirements;
-    vkGetBufferMemoryRequirements(device->getHandle(), vertexBuffer->getHandle(), &memRequirements);
-    vertexMemory->setAllocationSize(memRequirements.size);
-    vertexMemory->setMemoryTypeIndex(Vulkan::Manager::get()->getPhysicalDevices()->findMemoryType(device->getPhysicalDevice(), memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
-    vertexMemory->allocate();
-
-    vkBindBufferMemory(device->getHandle(), vertexBuffer->getHandle(), vertexMemory->getHandle(), 0);
-
-    void* data;
-    vkMapMemory(device->getHandle(), vertexMemory->getHandle(), 0, verticesSize, 0, &data);
-    memcpy(data, vertices.data(), (size_t) verticesSize);
-    vkUnmapMemory(device->getHandle(), vertexMemory->getHandle());
+    vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+    vertexMemoryBuffer->setData(sizeof(vertices[0]) * vertices.size(), vertices.data());
 
     uniformVert = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
     uniformFrag = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
@@ -122,7 +103,7 @@ void MenuScene::create() {
 
         vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
 
-        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
+        VkBuffer vertexBuffers[] = { vertexMemoryBuffer->getBuffer()->getHandle() };
         VkDeviceSize offsets[] = { 0 };
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSetCollection->getCount(), descriptorSetCollection->getData(), 0, nullptr);

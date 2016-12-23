@@ -6,8 +6,6 @@
 #include "../Graphics/Vulkan/PipelineLayout.h"
 #include "../Graphics/Vulkan/DescriptorSetLayout.h"
 #include "../Graphics/Vulkan/Collection/DescriptorSetCollection.h"
-#include "../Graphics/Vulkan/Buffer.h"
-#include "../Graphics/Vulkan/DeviceMemory.h"
 #include "../Graphics/Vulkan/Collection/CommandBufferCollection.h"
 #include "../Graphics/Vulkan/MemoryBuffer.h"
 
@@ -35,8 +33,6 @@ private:
     Vulkan::DescriptorSetCollection* descriptorSetCollection = nullptr;
     Vulkan::Pipeline* graphicsPipeline = nullptr;
     Vulkan::MemoryBuffer* vertexMemoryBuffer = nullptr;
-    Vulkan::Buffer* vertexBuffer = nullptr;
-    Vulkan::DeviceMemory* vertexMemory = nullptr;
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
     Vulkan::MemoryBuffer* uniformVert = nullptr;
     Vulkan::MemoryBuffer* uniformFrag = nullptr;

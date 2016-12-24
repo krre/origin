@@ -16,5 +16,5 @@ protected:
     virtual void onWindowResize(int width, int height) = 0;
     virtual void onKeyPressed(const SDL_KeyboardEvent& event) = 0;
     bool isFullScreen = true;
-    Vulkan::Device* device;
+    Vulkan::Device* device = nullptr;
 };

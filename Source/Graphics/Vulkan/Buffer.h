@@ -12,10 +12,12 @@ public:
     VkResult create() override;
     void setSize(VkDeviceSize size);
     VkDeviceSize getSize() const { return createInfo.size; }
+    VkDescriptorBufferInfo* getDescriptorInfo() { return &descriptorInfo; }
 
 private:
     const Device* device;
     VkBufferCreateInfo createInfo = {};
+    VkDescriptorBufferInfo descriptorInfo = {};
 };
 
 } // Vulkan

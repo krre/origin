@@ -27,16 +27,9 @@ void DescriptorSetCollection::setDescriptorSetLayouts(const std::vector<VkDescri
 }
 
 void DescriptorSetCollection::update(const std::vector<Buffer*>& buffers) {
-    std::vector<VkDescriptorBufferInfo> bufferInfos;
     std::vector<VkWriteDescriptorSet> descriptorWrites;
 
     for (int i = 0; i < buffers.size(); i++) {
-        VkDescriptorBufferInfo bufferInfo = {};
-        bufferInfo.buffer = buffers.at(i)->getHandle();
-        bufferInfo.offset = 0;
-        bufferInfo.range = buffers.at(i)->getSize();
-        bufferInfos.push_back(bufferInfo);
-
         VkWriteDescriptorSet descriptorWrite = {};
         descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
         descriptorWrite.dstSet = collection.at(0);
@@ -44,7 +37,7 @@ void DescriptorSetCollection::update(const std::vector<Buffer*>& buffers) {
         descriptorWrite.dstArrayElement = 0;
         descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
         descriptorWrite.descriptorCount = 1;
-        descriptorWrite.pBufferInfo = &bufferInfo;
+        descriptorWrite.pBufferInfo = buffers.at(i)->getDescriptorInfo();
         descriptorWrites.push_back(descriptorWrite);
     }
 

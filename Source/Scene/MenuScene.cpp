@@ -65,6 +65,7 @@ void MenuScene::create() {
     poolSizeUniform.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
     poolSizeUniform.descriptorCount = 2;
     descriptorPool->setPoolSizes({ poolSizeUniform });
+    descriptorPool->setMaxSets(2);
     descriptorPool->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);

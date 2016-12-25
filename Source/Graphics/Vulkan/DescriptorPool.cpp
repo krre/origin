@@ -5,7 +5,6 @@ using namespace Vulkan;
 DescriptorPool::DescriptorPool(const Device* device) : device(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
     createInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
-    createInfo.maxSets = 2;
 }
 
 DescriptorPool::~DescriptorPool() {
@@ -20,4 +19,8 @@ VkResult DescriptorPool::create() {
 
 void DescriptorPool::setPoolSizes(const std::vector<VkDescriptorPoolSize>& poolSizes) {
     this->poolSizes = poolSizes;
+}
+
+void DescriptorPool::setMaxSets(uint32_t maxSets) {
+    createInfo.maxSets = maxSets;
 }

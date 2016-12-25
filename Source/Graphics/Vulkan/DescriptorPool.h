@@ -12,6 +12,7 @@ public:
     ~DescriptorPool();
     VkResult create() override;
     void setPoolSizes(const std::vector<VkDescriptorPoolSize>& poolSizes);
+    void setMaxSets(uint32_t maxSets);
 
 private:
     const Device* device;

@@ -1,0 +1,10 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.h
+    PARENT_SCOPE
+)

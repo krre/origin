@@ -1,5 +1,6 @@
 add_subdirectory(Base)
 add_subdirectory(Collection)
+add_subdirectory(Pipeline)
 add_subdirectory(Queue)
 
 set(SOURCES
@@ -32,12 +33,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineLayout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Semaphore.cpp

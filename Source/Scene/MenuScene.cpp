@@ -20,6 +20,7 @@ MenuScene::~MenuScene() {
     delete descriptorSetLayout;
     delete uniformVert;
     delete uniformFrag;
+    delete indexMemoryBuffer;
     delete vertexMemoryBuffer;
 }
 
@@ -33,15 +34,23 @@ void MenuScene::update(float dt) {
 
 void MenuScene::create() {
     const std::vector<glm::vec2> vertices = {
-        { -1.0f,  1.0f },
-        { -1.0f, -1.0f },
-        {  1.0f,  1.0f },
+        { -1.0f,  -1.0f },
         {  1.0f, -1.0f },
+        {  1.0f,  1.0f },
+        {  -1.0f, 1.0f },
+    };
+
+    const std::vector<uint16_t> indices = {
+        0, 1, 2, 2, 3, 0
     };
 
     vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
     vertexMemoryBuffer->create(sizeof(vertices[0]) * vertices.size());
     vertexMemoryBuffer->update(vertices.data());
+
+    indexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
+    indexMemoryBuffer->create(sizeof(indices[0]) * indices.size());
+    indexMemoryBuffer->update(indices.data());
 
     uniformVert = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
     uniformVert->create(sizeof(uboVert));
@@ -136,8 +145,11 @@ void MenuScene::create() {
         VkBuffer vertexBuffers[] = { vertexMemoryBuffer->getBuffer()->getHandle() };
         VkDeviceSize offsets[] = { 0 };
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
+
+        vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexMemoryBuffer->getBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT16);
+
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSetCollection->getCount(), descriptorSetCollection->getData(), 0, nullptr);
-        vkCmdDraw(commandBuffer.getHandle(), vertices.size(), 1, 0, 0);
+        vkCmdDrawIndexed(commandBuffer.getHandle(), indices.size(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());
 
         commandBuffer.end();

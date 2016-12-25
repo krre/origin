@@ -35,6 +35,7 @@ private:
     Vulkan::DescriptorSetCollection* descriptorSetCollection = nullptr;
     Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;
     Vulkan::MemoryBuffer* vertexMemoryBuffer = nullptr;
+    Vulkan::MemoryBuffer* indexMemoryBuffer = nullptr;
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
     Vulkan::MemoryBuffer* uniformVert = nullptr;
     Vulkan::MemoryBuffer* uniformFrag = nullptr;

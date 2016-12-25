@@ -145,8 +145,16 @@ void MenuScene::create() {
         VkBuffer vertexBuffers[] = { vertexMemoryBuffer->getBuffer()->getHandle() };
         VkDeviceSize offsets[] = { 0 };
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
-
         vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexMemoryBuffer->getBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT16);
+
+        VkViewport viewport = {};
+        viewport.width = Vulkan::Manager::get()->getSwapchain()->getExtent().width;
+        viewport.height = Vulkan::Manager::get()->getSwapchain()->getExtent().height;
+        vkCmdSetViewport(commandBuffer.getHandle(), 0, 1, &viewport);
+
+        VkRect2D scissor = {};
+        scissor.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
+        vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSetCollection->getCount(), descriptorSetCollection->getData(), 0, nullptr);
         vkCmdDrawIndexed(commandBuffer.getHandle(), indices.size(), 1, 0, 0, 0);

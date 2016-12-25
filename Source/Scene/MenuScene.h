@@ -2,7 +2,7 @@
 #include "Scene2D.h"
 #include "../UI/Button.h"
 #include "../UI/LinearLayout.h"
-#include "../Graphics/Vulkan/Pipeline/Pipeline.h"
+#include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../Graphics/Vulkan/DescriptorSetLayout.h"
 #include "../Graphics/Vulkan/Collection/DescriptorSetCollection.h"
@@ -33,7 +33,7 @@ private:
     Vulkan::DescriptorPool* descriptorPool = nullptr;
     Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;
     Vulkan::DescriptorSetCollection* descriptorSetCollection = nullptr;
-    Vulkan::Pipeline* graphicsPipeline = nullptr;
+    Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;
     Vulkan::MemoryBuffer* vertexMemoryBuffer = nullptr;
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
     Vulkan::MemoryBuffer* uniformVert = nullptr;

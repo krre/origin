@@ -39,8 +39,8 @@ void DescriptorSetCollection::update(const std::vector<Buffer*>& buffers) {
 
         VkWriteDescriptorSet descriptorWrite = {};
         descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-        descriptorWrite.dstSet = collection.at(i);
-        descriptorWrite.dstBinding = 0;
+        descriptorWrite.dstSet = collection.at(0);
+        descriptorWrite.dstBinding = i;
         descriptorWrite.dstArrayElement = 0;
         descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
         descriptorWrite.descriptorCount = 1;

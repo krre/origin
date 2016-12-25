@@ -2,7 +2,7 @@
 
 out vec3 fragColor;
 
-layout(std140, binding = 0) uniform UBO {
+layout(std140, binding = 1) uniform UBO {
     vec3 color;
 } ubo;
 

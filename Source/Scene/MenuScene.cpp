@@ -17,8 +17,7 @@ MenuScene::~MenuScene() {
     delete pipelineLayout;
     delete descriptorSetCollection;
     delete descriptorPool;
-    delete descriptorSetLayoutVert;
-    delete descriptorSetLayoutFrag;
+    delete descriptorSetLayout;
     delete uniformVert;
     delete uniformFrag;
     delete vertexMemoryBuffer;
@@ -52,14 +51,6 @@ void MenuScene::create() {
     uniformFrag->create(sizeof(uboFrag));
     uniformFrag->update(&uboFrag);
 
-    descriptorSetLayoutVert = new Vulkan::DescriptorSetLayout(device);
-    descriptorSetLayoutVert->setStageFlags(VK_SHADER_STAGE_VERTEX_BIT);
-    descriptorSetLayoutVert->create();
-
-    descriptorSetLayoutFrag = new Vulkan::DescriptorSetLayout(device);
-    descriptorSetLayoutFrag->setStageFlags(VK_SHADER_STAGE_FRAGMENT_BIT);
-    descriptorSetLayoutFrag->create();
-
     descriptorPool = new Vulkan::DescriptorPool(device);
     VkDescriptorPoolSize poolSizeUniform = {};
     poolSizeUniform.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
@@ -68,13 +59,30 @@ void MenuScene::create() {
     descriptorPool->setMaxSets(2);
     descriptorPool->create();
 
+    descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
+
+    VkDescriptorSetLayoutBinding layoutBingingVert = {};
+    layoutBingingVert.binding = 0;
+    layoutBingingVert.descriptorCount = 1;
+    layoutBingingVert.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    layoutBingingVert.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+
+    VkDescriptorSetLayoutBinding layoutBingingFrag = {};
+    layoutBingingFrag.binding = 1;
+    layoutBingingFrag.descriptorCount = 1;
+    layoutBingingFrag.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    layoutBingingFrag.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+
+    descriptorSetLayout->setBindings({ layoutBingingVert, layoutBingingFrag });
+    descriptorSetLayout->create();
+
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);
-    descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayoutVert->getHandle(), descriptorSetLayoutFrag->getHandle() });
+    descriptorSetCollection->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
     descriptorSetCollection->allocate();
     descriptorSetCollection->update({ uniformVert->getBuffer(), uniformFrag->getBuffer() });
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayoutVert->getHandle(), descriptorSetLayoutFrag->getHandle() });
+    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
     pipelineLayout->create();
 
     graphicsPipeline = new Vulkan::Pipeline(Vulkan::PipelineType::Graphics, device);

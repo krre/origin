@@ -13,16 +13,11 @@ DescriptorPool::~DescriptorPool() {
 }
 
 VkResult DescriptorPool::create() {
-    VkDescriptorPoolSize poolSize1 = {};
-    poolSize1.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    poolSize1.descriptorCount = 1;
-
-    VkDescriptorPoolSize poolSize2 = {};
-    poolSize2.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    poolSize2.descriptorCount = 1;
-
-    VkDescriptorPoolSize poolSizes[] = { poolSize1, poolSize2 };
-    createInfo.poolSizeCount = 2;
-    createInfo.pPoolSizes = poolSizes;
+    createInfo.poolSizeCount = poolSizes.size();
+    createInfo.pPoolSizes = poolSizes.data();
     return checkError(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
+}
+
+void DescriptorPool::setPoolSizes(const std::vector<VkDescriptorPoolSize>& poolSizes) {
+    this->poolSizes = poolSizes;
 }

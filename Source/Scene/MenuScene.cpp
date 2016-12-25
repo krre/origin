@@ -61,6 +61,10 @@ void MenuScene::create() {
     descriptorSetLayoutFrag->create();
 
     descriptorPool = new Vulkan::DescriptorPool(device);
+    VkDescriptorPoolSize poolSizeUniform = {};
+    poolSizeUniform.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+    poolSizeUniform.descriptorCount = 2;
+    descriptorPool->setPoolSizes({ poolSizeUniform });
     descriptorPool->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);

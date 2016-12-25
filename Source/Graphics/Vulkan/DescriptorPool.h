@@ -1,6 +1,7 @@
 #pragma once
 #include "Base/Handle.h"
 #include "Device.h"
+#include <vector>
 
 namespace Vulkan {
 
@@ -10,10 +11,12 @@ public:
     DescriptorPool(const Device* device);
     ~DescriptorPool();
     VkResult create() override;
+    void setPoolSizes(const std::vector<VkDescriptorPoolSize>& poolSizes);
 
 private:
     const Device* device;
     VkDescriptorPoolCreateInfo createInfo = {};
+    std::vector<VkDescriptorPoolSize> poolSizes;
 };
 
 } // Vulkan

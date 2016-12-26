@@ -2,8 +2,28 @@
 #include "Scene3D.h"
 #include "../ECS/Entity.h"
 #include <SDL.h>
+#include <glm/glm.hpp>
 
 class WorldScene : public Scene3D {
+
+    struct UBOfrag {
+        int pageBytes;
+        int blockInfoEnd;
+
+        int frameWidth;
+        int frameHeight;
+
+        glm::vec3 backgroundColor;
+        glm::vec3 lightColor;
+        glm::vec3 lightPos;
+        bool shadeless;
+
+        float ambientStrength;
+        float lod;
+        int transformCount;
+
+        glm::vec2 pickPixel;
+    } uboFrag;
 
 public:
     WorldScene();

@@ -51,11 +51,7 @@ void WorldScene::init() {
     uniformFrag->update();
 
     descriptorPool = new Vulkan::DescriptorPool(device);
-    VkDescriptorPoolSize poolSizeUniform = {};
-    poolSizeUniform.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    poolSizeUniform.descriptorCount = 1;
-    descriptorPool->setPoolSizes({ poolSizeUniform });
-    descriptorPool->setMaxSets(1);
+    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
     descriptorPool->create();
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);

@@ -11,16 +11,27 @@ DescriptorPool::~DescriptorPool() {
     vkDestroyDescriptorPool(device->getHandle(), handle, nullptr);
 }
 
+void DescriptorPool::addPoolSize(VkDescriptorType type, uint32_t count) {
+    VkDescriptorPoolSize poolSize = {};
+    poolSize.type = type;
+    poolSize.descriptorCount = count;
+    poolSizes.push_back(poolSize);
+}
+
 VkResult DescriptorPool::create() {
     createInfo.poolSizeCount = poolSizes.size();
     createInfo.pPoolSizes = poolSizes.data();
+    if (maxSets > 0) {
+        createInfo.maxSets = maxSets;
+    } else {
+        createInfo.maxSets = 0;
+        for (auto& poolSize : poolSizes) {
+            createInfo.maxSets += poolSize.descriptorCount;
+        }
+    }
     return checkError(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
 }
 
-void DescriptorPool::setPoolSizes(const std::vector<VkDescriptorPoolSize>& poolSizes) {
-    this->poolSizes = poolSizes;
-}
-
 void DescriptorPool::setMaxSets(uint32_t maxSets) {
-    createInfo.maxSets = maxSets;
+    this->maxSets = maxSets;
 }

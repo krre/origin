@@ -10,14 +10,15 @@ class DescriptorPool : public Handle<VkDescriptorPool> {
 public:
     DescriptorPool(const Device* device);
     ~DescriptorPool();
+    void addPoolSize(VkDescriptorType type, uint32_t count = 1);
     VkResult create() override;
-    void setPoolSizes(const std::vector<VkDescriptorPoolSize>& poolSizes);
     void setMaxSets(uint32_t maxSets);
 
 private:
     const Device* device;
     VkDescriptorPoolCreateInfo createInfo = {};
     std::vector<VkDescriptorPoolSize> poolSizes;
+    uint32_t maxSets = 0;
 };
 
 } // Vulkan

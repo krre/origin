@@ -7,6 +7,7 @@ class Scene : public Viewport {
 
 public:
     Scene();
+    ~Scene();
     virtual void draw(float dt) = 0;
     virtual void update(float dt) = 0;
     virtual void create() = 0;

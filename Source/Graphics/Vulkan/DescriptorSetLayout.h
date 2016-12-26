@@ -11,7 +11,7 @@ public:
     DescriptorSetLayout(const Device* device);
     ~DescriptorSetLayout();
     VkResult create() override;
-    void setBindings(const std::vector<VkDescriptorSetLayoutBinding>& bindings);
+    void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 
 private:
     const Device* device;

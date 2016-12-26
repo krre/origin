@@ -16,6 +16,6 @@ VkResult DescriptorSetLayout::create() {
     return checkError(vkCreateDescriptorSetLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor set layout");
 }
 
-void DescriptorSetLayout::setBindings(const std::vector<VkDescriptorSetLayoutBinding>& bindings) {
-    this->bindings = bindings;
+void DescriptorSetLayout::addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding) {
+    bindings.push_back(layoutBinding);
 }

@@ -2,6 +2,6 @@
 
 using namespace Vulkan;
 
-Uniform::Uniform() {
+Uniform::Uniform(const Device* device) : memoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT) {
 
 }

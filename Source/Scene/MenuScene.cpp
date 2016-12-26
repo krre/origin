@@ -25,18 +25,6 @@ MenuScene::~MenuScene() {
 }
 
 void MenuScene::init() {
-
-}
-
-void MenuScene::draw(float dt) {
-
-}
-
-void MenuScene::update(float dt) {
-
-}
-
-void MenuScene::create() {
     const std::vector<glm::vec2> vertices = {
         { -1.0f,  -1.0f },
         {  1.0f, -1.0f },
@@ -168,6 +156,18 @@ void MenuScene::create() {
     }
 
     Vulkan::Manager::get()->setCommandBuffers(commandBufferCollection->getCount(), commandBufferCollection->getData());
+}
+
+void MenuScene::draw(float dt) {
+
+}
+
+void MenuScene::update(float dt) {
+
+}
+
+void MenuScene::create() {
+
 }
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {

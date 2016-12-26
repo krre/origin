@@ -14,16 +14,16 @@ DescriptorSetCollection::~DescriptorSetCollection() {
 }
 
 bool DescriptorSetCollection::allocate() {
+    allocateInfo.descriptorSetCount = descriptorSetLayouts.size();
+    allocateInfo.pSetLayouts = descriptorSetLayouts.data();
+
     assert(collection.size() == 0 && allocateInfo.descriptorSetCount > 0);
     collection.resize(allocateInfo.descriptorSetCount);
     return checkError(vkAllocateDescriptorSets(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
 }
 
-void DescriptorSetCollection::setDescriptorSetLayouts(const std::vector<VkDescriptorSetLayout>& setLayouts) {
-    assert(setLayouts.size() > 0);
-    this->descriptorSetLayouts = setLayouts;
-    allocateInfo.descriptorSetCount = setLayouts.size();
-    allocateInfo.pSetLayouts = this->descriptorSetLayouts.data();
+void DescriptorSetCollection::addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout) {
+    descriptorSetLayouts.push_back(descriptorSetLayout->getHandle());
 }
 
 void DescriptorSetCollection::update(const std::vector<Buffer*>& buffers) {

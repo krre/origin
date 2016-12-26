@@ -26,10 +26,10 @@ MenuScene::~MenuScene() {
 
 void MenuScene::init() {
     const std::vector<glm::vec2> vertices = {
-        { -1.0f,  -1.0f },
+        { -1.0f, -1.0f },
         {  1.0f, -1.0f },
         {  1.0f,  1.0f },
-        {  -1.0f, 1.0f },
+        { -1.0f,  1.0f },
     };
 
     const std::vector<uint16_t> indices = {

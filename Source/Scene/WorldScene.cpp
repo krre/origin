@@ -49,9 +49,8 @@ void WorldScene::init() {
     indexMemoryBuffer->create(sizeof(indices[0]) * indices.size());
     indexMemoryBuffer->update(indices.data());
 
-    uniformFrag = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
-    uniformFrag->create(sizeof(uboFrag));
-    uniformFrag->update(&uboFrag);
+    uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, 20, sizeof(uboFrag), &uboFrag);
+    uniformFrag->update();
 
     descriptorPool = new Vulkan::DescriptorPool(device);
     VkDescriptorPoolSize poolSizeUniform = {};
@@ -63,13 +62,7 @@ void WorldScene::init() {
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
 
-    VkDescriptorSetLayoutBinding layoutBingingFrag = {};
-    layoutBingingFrag.binding = 20;
-    layoutBingingFrag.descriptorCount = 1;
-    layoutBingingFrag.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    layoutBingingFrag.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    descriptorSetLayout->setBindings({ layoutBingingFrag });
+    descriptorSetLayout->setBindings({ *uniformFrag->getDescriptorSetLayoutBinding() });
     descriptorSetLayout->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);

@@ -8,6 +8,7 @@
 #include "../Graphics/Vulkan/Collection/CommandBufferCollection.h"
 #include "../Graphics/Vulkan/MemoryBuffer.h"
 #include "../Graphics/Vulkan/DescriptorPool.h"
+#include "../Graphics/Vulkan/Uniform.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 
@@ -52,7 +53,7 @@ private:
     Vulkan::MemoryBuffer* vertexMemoryBuffer = nullptr;
     Vulkan::MemoryBuffer* indexMemoryBuffer = nullptr;
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
-    Vulkan::MemoryBuffer* uniformFrag = nullptr;
+    Vulkan::Uniform* uniformFrag = nullptr;
     EntityId characterId;
     uint64_t seed;
 };

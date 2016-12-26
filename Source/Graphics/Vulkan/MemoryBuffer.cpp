@@ -5,9 +5,8 @@
 using namespace Vulkan;
 
 MemoryBuffer::MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage, size_t size, const void* data) :
-    device(device), buffer(device, usage), memory(device), data(data) {
+    device(device), buffer(device, usage, size), memory(device), data(data) {
 
-    buffer.setSize(size);
     buffer.create();
 
     VkMemoryRequirements memRequirements;

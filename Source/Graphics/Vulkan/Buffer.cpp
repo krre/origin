@@ -2,8 +2,9 @@
 
 using namespace Vulkan;
 
-Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage) : device(device) {
+Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) : device(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+    createInfo.size = size;
     createInfo.usage = usage;
     createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 }
@@ -22,8 +23,4 @@ VkResult Buffer::create() {
     descriptorInfo.range = createInfo.size;
 
     return result;
-}
-
-void Buffer::setSize(VkDeviceSize size) {
-    createInfo.size = size;
 }

@@ -7,10 +7,9 @@ namespace Vulkan {
 class Buffer : public Handle<VkBuffer> {
 
 public:
-    Buffer(const Device* device, VkBufferUsageFlagBits usage);
+    Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size);
     ~Buffer();
     VkResult create() override;
-    void setSize(VkDeviceSize size);
     VkDeviceSize getSize() const { return createInfo.size; }
     VkDescriptorBufferInfo* getDescriptorInfo() { return &descriptorInfo; }
 

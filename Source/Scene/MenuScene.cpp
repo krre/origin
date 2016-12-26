@@ -44,13 +44,11 @@ void MenuScene::init() {
     indexMemoryBuffer->create(sizeof(indices[0]) * indices.size());
     indexMemoryBuffer->update(indices.data());
 
-    uniformVert = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
-    uniformVert->create(sizeof(uboVert));
-    uniformVert->update(&uboVert);
+    uniformVert = new Vulkan::Uniform(device, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(uboVert), &uboVert);
+    uniformVert->update();
 
-    uniformFrag = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT);
-    uniformFrag->create(sizeof(uboFrag));
-    uniformFrag->update(&uboFrag);
+    uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, 1, sizeof(uboFrag), &uboFrag);
+    uniformFrag->update();
 
     descriptorPool = new Vulkan::DescriptorPool(device);
     VkDescriptorPoolSize poolSizeUniform = {};
@@ -62,19 +60,7 @@ void MenuScene::init() {
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
 
-    VkDescriptorSetLayoutBinding layoutBingingVert = {};
-    layoutBingingVert.binding = 0;
-    layoutBingingVert.descriptorCount = 1;
-    layoutBingingVert.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    layoutBingingVert.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
-
-    VkDescriptorSetLayoutBinding layoutBingingFrag = {};
-    layoutBingingFrag.binding = 1;
-    layoutBingingFrag.descriptorCount = 1;
-    layoutBingingFrag.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-    layoutBingingFrag.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-
-    descriptorSetLayout->setBindings({ layoutBingingVert, layoutBingingFrag });
+    descriptorSetLayout->setBindings({ *uniformVert->getDescriptorSetLayoutBinding(), *uniformFrag->getDescriptorSetLayoutBinding() });
     descriptorSetLayout->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);

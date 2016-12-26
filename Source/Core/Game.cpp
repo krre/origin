@@ -20,7 +20,7 @@ Game::Game() {
     loadDevelopSettings();
 #endif
 
-    GameStateManager::get()->setState(GameState::MENU);
+    GameStateManager::get()->setState(GameState::PLAY);
 }
 
 void Game::load() {

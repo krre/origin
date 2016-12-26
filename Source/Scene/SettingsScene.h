@@ -8,6 +8,7 @@ class SettingsScene : public Scene2D {
 public:
     SettingsScene(int width, int height);
     ~SettingsScene();
+    void init() override;
     void draw(float dt) override;
     void update(float dt) override;
     void create() override;

@@ -9,6 +9,7 @@ class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
 
 public:
     DebugHUD();
+    void init() override;
     void draw(float dt) override;
     void update(float dt) override;
     void create() override;

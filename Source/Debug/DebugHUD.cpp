@@ -10,6 +10,10 @@ DebugHUD::DebugHUD() : Scene2D(500, 500) {
     create();
 }
 
+void DebugHUD::init() {
+
+}
+
 void DebugHUD::draw(float dt) {
     accumTime += dt;
     counter++;

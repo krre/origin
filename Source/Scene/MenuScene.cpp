@@ -24,6 +24,10 @@ MenuScene::~MenuScene() {
     delete vertexMemoryBuffer;
 }
 
+void MenuScene::init() {
+
+}
+
 void MenuScene::draw(float dt) {
 
 }

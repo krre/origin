@@ -13,6 +13,10 @@ WorldScene::WorldScene() {
 
 }
 
+void WorldScene::init() {
+
+}
+
 void WorldScene::draw(float dt) {
 
 }

@@ -11,6 +11,10 @@ PauseScene::~PauseScene() {
     Event::get()->keyPressed.disconnect<PauseScene, &PauseScene::onKeyPressed>(this);
 }
 
+void PauseScene::init() {
+
+}
+
 void PauseScene::draw(float dt) {
     layout->setPosition(glm::vec2((App::get()->getWidth() - layout->getWidth()) / 2.0, (App::get()->getHeight() - layout->getHeight()) / 2.0));
     layout->update();

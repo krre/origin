@@ -11,6 +11,10 @@ SettingsScene::~SettingsScene() {
     Event::get()->keyPressed.disconnect<SettingsScene, &SettingsScene::onKeyPressed>(this);
 }
 
+void SettingsScene::init() {
+
+}
+
 void SettingsScene::draw(float dt) {
 
 }

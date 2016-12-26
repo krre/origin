@@ -7,6 +7,7 @@ class WorldScene : public Scene3D {
 
 public:
     WorldScene();
+    void init() override;
     void draw(float dt) override;
     void update(float dt) override;
     void create() override;

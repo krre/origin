@@ -23,6 +23,7 @@ class MenuScene : public Scene2D {
 public:
     MenuScene(int width, int height);
     ~MenuScene();
+    void init() override;
     void draw(float dt) override;
     void update(float dt) override;
     void create() override;

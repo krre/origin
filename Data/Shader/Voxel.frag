@@ -70,7 +70,7 @@ const float epsilon = exp2(-s_max);
 
 uvec2 stack[s_max + 1u]; // Stack of parent voxels
 
-out vec4 color;
+layout (location = 0) out vec4 fragColor;
 
 Ray constructRay(in int index) {
     int offset = int(renderOffsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
@@ -394,9 +394,9 @@ void main() {
     }
 
     if (index != -1) {
-        color = lookupColor(index, outCastRes);
+        fragColor = lookupColor(index, outCastRes);
     } else {
-        color = vec4(ubo.backgroundColor, 1.0);
+        fragColor = vec4(ubo.backgroundColor, 1.0);
     }
 
 //    if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {

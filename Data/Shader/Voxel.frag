@@ -6,30 +6,7 @@
 // https://mediatech.aalto.fi/~samuli/publications/laine2010tr1_paper.pdf
 // http://code.google.com/p/efficient-sparse-voxel-octrees
 
-layout (std430, binding = 0) buffer Octree {
-    int octreeCount;
-    uint octreeData[];
-};
-
-layout (std430, binding = 1) buffer PickResult {
-    vec3 pickPos;
-    uint pickParent;
-    uint pickScale;
-    int pickChildIdx;
-};
-
-layout (std430, binding = 2) buffer RenderList {
-    int renderCount;
-    uint renderOffsets[];
-};
-
-layout (std430, binding = 10) buffer DebugOut {
-    vec4 debugVec;
-    int debugInt;
-    float debugFloat;
-};
-
-layout(std140, binding = 20) uniform UBO {
+layout(std140, binding = 0) uniform UBO {
     int pageBytes;
     int blockInfoEnd;
 
@@ -48,6 +25,31 @@ layout(std140, binding = 20) uniform UBO {
     vec2 pickPixel;
 } ubo;
 
+
+layout (std430, binding = 1) buffer Octree {
+    int octreeCount;
+    uint octreeData[];
+};
+
+layout (std430, binding = 2) buffer RenderList {
+    int renderCount;
+    uint renderOffsets[];
+};
+
+
+layout (std430, binding = 3) buffer PickResult {
+    vec3 pickPos;
+    uint pickParent;
+    uint pickScale;
+    int pickChildIdx;
+};
+
+
+layout (std430, binding = 4) buffer DebugOut {
+    vec4 debugVec;
+    int debugInt;
+    float debugFloat;
+};
 
 struct Ray {
     vec3 origin;

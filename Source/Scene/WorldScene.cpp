@@ -5,6 +5,8 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/Systems.h"
 #include "../Resource/ResourceManager.h"
+#include "../GameState/GameStateManager.h"
+#include "../Event/Input.h"
 
 
 WorldScene::WorldScene() {
@@ -143,5 +145,8 @@ void WorldScene::create() {
 }
 
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
-
+    if (event.keysym.sym == SDLK_ESCAPE) {
+        GameStateManager::get()->pushState(GameState::PAUSE);
+        Input::get()->isKeyAccepted = true;
+    }
 }

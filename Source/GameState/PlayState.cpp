@@ -16,7 +16,9 @@ void PlayState::cleanup() {
 }
 
 void PlayState::pause() {
-
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+    movementControllerSystem->setActive(false);
+    SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 
 void PlayState::resume() {

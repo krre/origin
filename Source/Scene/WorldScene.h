@@ -1,6 +1,13 @@
 #pragma once
 #include "Scene3D.h"
 #include "../ECS/Entity.h"
+#include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
+#include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
+#include "../Graphics/Vulkan/DescriptorSetLayout.h"
+#include "../Graphics/Vulkan/Collection/DescriptorSetCollection.h"
+#include "../Graphics/Vulkan/Collection/CommandBufferCollection.h"
+#include "../Graphics/Vulkan/MemoryBuffer.h"
+#include "../Graphics/Vulkan/DescriptorPool.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 
@@ -27,6 +34,7 @@ class WorldScene : public Scene3D {
 
 public:
     WorldScene();
+    ~WorldScene();
     void init() override;
     void draw(float dt) override;
     void update(float dt) override;
@@ -36,6 +44,15 @@ public:
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
+    Vulkan::PipelineLayout* pipelineLayout = nullptr;
+    Vulkan::DescriptorPool* descriptorPool = nullptr;
+    Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;
+    Vulkan::DescriptorSetCollection* descriptorSetCollection = nullptr;
+    Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;
+    Vulkan::MemoryBuffer* vertexMemoryBuffer = nullptr;
+    Vulkan::MemoryBuffer* indexMemoryBuffer = nullptr;
+    Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
+    Vulkan::MemoryBuffer* uniformFrag = nullptr;
     EntityId characterId;
     uint64_t seed;
 };

@@ -4,7 +4,7 @@
 #include "Text.h"
 #include "../Core/Timer.h"
 
-class Toast : public Singleton<Toast>, public Gagarin::Drawable {
+class Toast : public Singleton<Toast>, public CovenantLand::Drawable {
 
 public:
     Toast();

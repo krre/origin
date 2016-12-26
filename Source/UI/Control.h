@@ -2,7 +2,7 @@
 #include "../Graphics/Drawable.h"
 #include <glm/glm.hpp>
 
-class Control : public Gagarin::Drawable {
+class Control : public CovenantLand::Drawable {
 
 public:
     Control(int width = 0, int height = 0);

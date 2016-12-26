@@ -2,7 +2,7 @@
 #include "../Core/Object.h"
 
 // Use namespace to prevent conflict with Drawable in X11
-namespace Gagarin {
+namespace CovenantLand {
 
 class Drawable : Object {
 
@@ -22,4 +22,4 @@ protected:
     float opacity = 1.0;
 };
 
-} // Gagarin
+} // CovenantLand

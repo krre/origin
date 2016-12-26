@@ -4,7 +4,7 @@
 #include "../ECS/Engine.h"
 #include "../ECS/Components/TransformComponent.h"
 #include <glm/glm.hpp>
-#include <Gagarin.h>
+#include <CovenantLand.h>
 
 DebugHUD::DebugHUD() : Scene2D(500, 500) {
     create();
@@ -42,7 +42,7 @@ void DebugHUD::create() {
 
     version.resize(100, 10);
     version.setZ(1.0f);
-    version.setText("Gagarin " + std::string(VERSION_STRING));
+    version.setText("CovenantLand " + std::string(VERSION_STRING));
 
     vendor.resize(100, 10);
     vendor.setZ(1.0);

@@ -4,7 +4,7 @@
 #include "../UI/Text.h"
 #include <SDL.h>
 
-class Console : public Singleton<Console>, public Gagarin::Drawable {
+class Console : public Singleton<Console>, public CovenantLand::Drawable {
 
 public:
     Console();

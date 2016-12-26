@@ -13,5 +13,5 @@ public:
 
 private:
     RenderSurface renderSurface;
-    std::vector<Gagarin::Drawable*> drawables;
+    std::vector<CovenantLand::Drawable*> drawables;
 };

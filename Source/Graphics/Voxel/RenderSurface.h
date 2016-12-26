@@ -4,7 +4,7 @@
 
 const int LOD_PIXEL_LIMIT = 1;
 
-class RenderSurface : public Gagarin::Drawable {
+class RenderSurface : public CovenantLand::Drawable {
 
 struct Octree {
     int octreeCount;

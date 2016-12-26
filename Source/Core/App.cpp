@@ -13,11 +13,11 @@
 #include "../GameState/GameStateManager.h"
 #include <string>
 #include <SDL_timer.h>
-#include <Gagarin.h>
+#include <CovenantLand.h>
 #include <algorithm>
 #include <experimental/filesystem>
 
-const char* title = "Gagarin";
+const char* title = "CovenantLand";
 
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {

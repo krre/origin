@@ -1,6 +1,6 @@
 #include "Drawable.h"
 
-using namespace Gagarin;
+using namespace CovenantLand;
 
 Drawable::Drawable() {
 

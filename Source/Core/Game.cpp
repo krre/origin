@@ -12,7 +12,7 @@
 #include <glm/ext.hpp>
 #include <ctime>
 #include <lodepng/lodepng.h>
-#include <Gagarin.h>
+#include <CovenantLand.h>
 #include <experimental/filesystem>
 
 Game::Game() {

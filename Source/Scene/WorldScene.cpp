@@ -65,7 +65,7 @@ void WorldScene::init() {
     descriptorSetCollection->update({ uniformFrag->getBuffer() });
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
+    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
     pipelineLayout->create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);

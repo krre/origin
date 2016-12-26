@@ -1,6 +1,7 @@
 #pragma once
 #include "../Base/Handle.h"
 #include "../Device.h"
+#include "../DescriptorSetLayout.h"
 
 namespace Vulkan {
 
@@ -10,8 +11,7 @@ public:
     PipelineLayout(const Device* device);
     ~PipelineLayout();
     VkResult create() override;
-    void setDescriptorSetLayouts(const std::vector<VkDescriptorSetLayout>& setLayouts);
-
+    void addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout);
 
 private:
     const Device* device;

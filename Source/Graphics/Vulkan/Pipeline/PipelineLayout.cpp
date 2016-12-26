@@ -11,12 +11,11 @@ PipelineLayout::~PipelineLayout() {
 }
 
 VkResult PipelineLayout::create() {
+    createInfo.setLayoutCount = descriptorSetLayouts.size();
+    createInfo.pSetLayouts = descriptorSetLayouts.data();
     return checkError(vkCreatePipelineLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create pipeline layout");
 }
 
-void PipelineLayout::setDescriptorSetLayouts(const std::vector<VkDescriptorSetLayout>& setLayouts) {
-    assert(setLayouts.size() > 0);
-    this->descriptorSetLayouts = setLayouts;
-    createInfo.setLayoutCount = setLayouts.size();
-    createInfo.pSetLayouts = this->descriptorSetLayouts.data();
+void PipelineLayout::addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout) {
+    descriptorSetLayouts.push_back(descriptorSetLayout->getHandle());
 }

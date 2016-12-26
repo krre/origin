@@ -63,7 +63,7 @@ void MenuScene::init() {
     descriptorSetCollection->update({ uniformVert->getBuffer(), uniformFrag->getBuffer() });
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->setDescriptorSetLayouts({ descriptorSetLayout->getHandle() });
+    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
     pipelineLayout->create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);

@@ -54,7 +54,7 @@ void MenuScene::init() {
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
 
-    descriptorSetLayout->setBindings({ *uniformVert->getDescriptorSetLayoutBinding(), *uniformFrag->getDescriptorSetLayoutBinding() });
+    descriptorSetLayout->setBindings({ *uniformVert->getLayoutBinding(), *uniformFrag->getLayoutBinding() });
     descriptorSetLayout->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);

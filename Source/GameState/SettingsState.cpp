@@ -5,6 +5,7 @@ SettingsState::SettingsState() : GameState(SETTINGS), settingsScene(300, 300) {
 }
 
 void SettingsState::init() {
+    settingsScene.init();
     settingsScene.create();
 }
 

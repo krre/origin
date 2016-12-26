@@ -8,6 +8,7 @@ PauseState::PauseState() : GameState(PAUSE), pauseScene(300, 200) {
 }
 
 void PauseState::init() {
+    pauseScene.init();
     pauseScene.create();
 }
 

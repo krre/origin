@@ -5,6 +5,7 @@ MenuState::MenuState() : GameState(MENU), menuScene(300, 300) {
 }
 
 void MenuState::init() {
+    menuScene.init();
     menuScene.create();
 }
 

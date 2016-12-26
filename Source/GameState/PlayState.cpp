@@ -8,6 +8,7 @@ PlayState::PlayState() : GameState(PLAY) {
 }
 
 void PlayState::init() {
+    worldScene.init();
     worldScene.create();
 }
 

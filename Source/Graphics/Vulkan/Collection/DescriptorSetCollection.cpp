@@ -26,20 +26,18 @@ void DescriptorSetCollection::addDescriptorSetLayout(const DescriptorSetLayout* 
     descriptorSetLayouts.push_back(descriptorSetLayout->getHandle());
 }
 
-void DescriptorSetCollection::update(const std::vector<Buffer*>& buffers) {
-    std::vector<VkWriteDescriptorSet> descriptorWrites;
+void DescriptorSetCollection::addUniform(Uniform* uniform) {
+    VkWriteDescriptorSet descriptorWrite = {};
+    descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+    descriptorWrite.dstSet = collection.at(0); // TODO: Set meaningful value
+    descriptorWrite.dstBinding = uniform->getLayoutBinding()->binding;
+    descriptorWrite.dstArrayElement = 0;
+    descriptorWrite.descriptorType = uniform->getLayoutBinding()->descriptorType;
+    descriptorWrite.descriptorCount = uniform->getLayoutBinding()->descriptorCount;
+    descriptorWrite.pBufferInfo = uniform->getBuffer()->getDescriptorInfo();
+    descriptorWrites.push_back(descriptorWrite);
+}
 
-    for (int i = 0; i < buffers.size(); i++) {
-        VkWriteDescriptorSet descriptorWrite = {};
-        descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-        descriptorWrite.dstSet = collection.at(0);
-        descriptorWrite.dstBinding = i;
-        descriptorWrite.dstArrayElement = 0;
-        descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-        descriptorWrite.descriptorCount = 1;
-        descriptorWrite.pBufferInfo = buffers.at(i)->getDescriptorInfo();
-        descriptorWrites.push_back(descriptorWrite);
-    }
-
+void DescriptorSetCollection::writeUniforms() {
     vkUpdateDescriptorSets(device->getHandle(), descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
 }

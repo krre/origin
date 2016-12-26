@@ -127,6 +127,10 @@ void Manager::setCommandBuffers(uint32_t count, const VkCommandBuffer* data) {
     graphicsQueue->setCommandBuffers(count, data);
 }
 
+void Manager::setCommandBuffers(const CommandBufferCollection* commandBuffers) {
+    graphicsQueue->setCommandBuffers(commandBuffers->getCount(), commandBuffers->getData());
+}
+
 void Manager::render() {
     vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, &swapchainImageIndex);
     graphicsQueue->submit();

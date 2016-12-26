@@ -135,7 +135,7 @@ void MenuScene::init() {
         commandBuffer.end();
     }
 
-    Vulkan::Manager::get()->setCommandBuffers(commandBufferCollection->getCount(), commandBufferCollection->getData());
+    Vulkan::Manager::get()->setCommandBuffers(commandBufferCollection);
 }
 
 void MenuScene::draw(float dt) {

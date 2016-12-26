@@ -137,7 +137,7 @@ void WorldScene::init() {
         commandBuffer.end();
     }
 
-    Vulkan::Manager::get()->setCommandBuffers(commandBufferCollection->getCount(), commandBufferCollection->getData());
+    Vulkan::Manager::get()->setCommandBuffers(commandBufferCollection);
 }
 
 void WorldScene::draw(float dt) {

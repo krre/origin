@@ -8,17 +8,16 @@ namespace Vulkan {
 class MemoryBuffer {
 
 public:
-    MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage);
+    MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage, size_t size, const void* data);
     ~MemoryBuffer();
-    void create(size_t size);
-    void update(const void* data);
+    void update();
     Buffer* getBuffer() { return &buffer; }
 
 private:
     const Device* device;
     Buffer buffer;
     DeviceMemory memory;
-    size_t size;
+    const void* data;
 };
 
 } // Vulkan

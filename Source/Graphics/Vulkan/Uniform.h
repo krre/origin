@@ -14,7 +14,6 @@ public:
 
 private:
     MemoryBuffer memoryBuffer;
-    const void* data;
     VkDescriptorSetLayoutBinding layoutBinging = {};
 };
 

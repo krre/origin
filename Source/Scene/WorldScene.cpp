@@ -41,13 +41,11 @@ void WorldScene::init() {
         0, 1, 2, 2, 3, 0
     };
 
-    vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
-    vertexMemoryBuffer->create(sizeof(vertices[0]) * vertices.size());
-    vertexMemoryBuffer->update(vertices.data());
+    vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, sizeof(vertices[0]) * vertices.size(), vertices.data());
+    vertexMemoryBuffer->update();
 
-    indexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT);
-    indexMemoryBuffer->create(sizeof(indices[0]) * indices.size());
-    indexMemoryBuffer->update(indices.data());
+    indexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, sizeof(indices[0]) * indices.size(), indices.data());
+    indexMemoryBuffer->update();
 
     uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, 20, sizeof(uboFrag), &uboFrag);
     uniformFrag->update();

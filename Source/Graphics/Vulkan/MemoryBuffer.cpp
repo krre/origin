@@ -4,17 +4,8 @@
 
 using namespace Vulkan;
 
-MemoryBuffer::MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage) :
-    device(device), buffer(device, usage), memory(device) {
-
-}
-
-MemoryBuffer::~MemoryBuffer() {
-
-}
-
-void MemoryBuffer::create(size_t size) {
-    this->size = size;
+MemoryBuffer::MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage, size_t size, const void* data) :
+    device(device), buffer(device, usage), memory(device), data(data) {
 
     buffer.setSize(size);
     buffer.create();
@@ -28,9 +19,13 @@ void MemoryBuffer::create(size_t size) {
     vkBindBufferMemory(device->getHandle(), buffer.getHandle(), memory.getHandle(), 0);
 }
 
-void MemoryBuffer::update(const void* data) {
+MemoryBuffer::~MemoryBuffer() {
+
+}
+
+void MemoryBuffer::update() {
     void* mapData;
-    vkMapMemory(device->getHandle(), memory.getHandle(), 0, size, 0, &mapData);
-    memcpy(mapData, data, size);
+    vkMapMemory(device->getHandle(), memory.getHandle(), 0, buffer.getSize(), 0, &mapData);
+    memcpy(mapData, data, buffer.getSize());
     vkUnmapMemory(device->getHandle(), memory.getHandle());
 }

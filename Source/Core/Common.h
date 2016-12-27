@@ -8,5 +8,5 @@
     #define error(x) std::cerr << x << std::endl;
 #endif
 
-constexpr int pageBytes = 1 << 13; // 8192 (use in OctreeFarm)
+constexpr int PAGE_BYTES = 1 << 13; // 8192 (use in OctreeFarm)
 const int blockInfoEnd = 1;

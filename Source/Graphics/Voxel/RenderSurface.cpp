@@ -10,7 +10,7 @@
 #include "../../Core/Utils.h"
 
 RenderSurface::RenderSurface() {
-    ubo.pageBytes = pageBytes;
+    ubo.pageBytes = PAGE_BYTES;
     ubo.blockInfoEnd = blockInfoEnd;
 //    ubo.backgroundColor = glm::vec3(App::get()->getViewport()->getBackgroundColor());
     ubo.pickPixel = glm::vec2(-1, -1);

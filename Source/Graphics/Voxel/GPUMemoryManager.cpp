@@ -33,7 +33,7 @@ void GPUMemoryManager::addEntity(Entity* entity) {
 
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);
-    endOffset += pageBytes;
+    endOffset += PAGE_BYTES;
 }
 
 void GPUMemoryManager::updateEntityOctree(Entity* entity) {
@@ -55,7 +55,7 @@ void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<g
     }
 
     int size = sizeof(glm::vec4) * transform.size();
-    int offset = octreeOffsets[entity->getId()] + pageBytes - size;
+    int offset = octreeOffsets[entity->getId()] + PAGE_BYTES - size;
 //    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);
 //    memcpy(data, transform.data(), size);
 //    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);

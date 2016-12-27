@@ -9,6 +9,8 @@ Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferU
     layoutBinging.descriptorCount = 1;
     layoutBinging.descriptorType = descriptorType;
     layoutBinging.stageFlags = stage;
+
+    buffer.create();
 }
 
 void Descriptor::update() {

@@ -1,0 +1,12 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Descriptor.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Descriptor.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorPool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorPool.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetCollection.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DescriptorSetLayout.h
+    PARENT_SCOPE
+)

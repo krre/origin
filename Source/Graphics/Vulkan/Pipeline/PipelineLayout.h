@@ -1,7 +1,7 @@
 #pragma once
 #include "../Base/Handle.h"
 #include "../Device.h"
-#include "../DescriptorSetLayout.h"
+#include "../Descriptor/DescriptorSetLayout.h"
 
 namespace Vulkan {
 

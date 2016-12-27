@@ -1,9 +1,9 @@
 #pragma once
 #include "../Base/Collection.h"
 #include "../Device.h"
-#include "../DescriptorPool.h"
-#include "../Descriptor.h"
-#include "../DescriptorSetLayout.h"
+#include "DescriptorPool.h"
+#include "Descriptor.h"
+#include "DescriptorSetLayout.h"
 
 namespace Vulkan {
 

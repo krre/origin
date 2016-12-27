@@ -4,12 +4,12 @@
 #include "../Graphics/Voxel/GPUMemoryManager.h"
 #include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
-#include "../Graphics/Vulkan/DescriptorSetLayout.h"
-#include "../Graphics/Vulkan/Collection/DescriptorSetCollection.h"
+#include "../Graphics/Vulkan/Descriptor/DescriptorSetLayout.h"
+#include "../Graphics/Vulkan/Descriptor/DescriptorSetCollection.h"
 #include "../Graphics/Vulkan/Collection/CommandBufferCollection.h"
 #include "../Graphics/Vulkan/MemoryBuffer.h"
-#include "../Graphics/Vulkan/DescriptorPool.h"
-#include "../Graphics/Vulkan/Descriptor.h"
+#include "../Graphics/Vulkan/Descriptor/DescriptorPool.h"
+#include "../Graphics/Vulkan/Descriptor/Descriptor.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 

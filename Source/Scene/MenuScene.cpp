@@ -37,9 +37,11 @@ void MenuScene::init() {
     };
 
     vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, sizeof(vertices[0]) * vertices.size(), vertices.data());
+    vertexBuffer->create();
     vertexBuffer->update();
 
     indexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, sizeof(indices[0]) * indices.size(), indices.data());
+    indexBuffer->create();
     indexBuffer->update();
 
     uniformVert = new Vulkan::Descriptor(device, VK_SHADER_STAGE_VERTEX_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,

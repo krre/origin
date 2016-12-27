@@ -38,6 +38,11 @@ class WorldScene : public Scene3D {
         uint data[];
     } octreeFrag;
 
+    struct RenderList {
+        int count;
+        uint offsets[];
+    } renderList;
+
 
 public:
     WorldScene();
@@ -61,6 +66,7 @@ private:
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
     Vulkan::Uniform* uniformFrag = nullptr;
     Vulkan::Uniform* octreeBuffer = nullptr;
+    Vulkan::Uniform* renderListBuffer = nullptr;
     EntityId characterId;
     uint64_t seed;
 };

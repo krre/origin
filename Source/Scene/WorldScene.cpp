@@ -220,7 +220,7 @@ void WorldScene::create() {
     OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
     groundOctree->data = ResourceManager::get()->getResource<Octree>("GroundOctree")->data();
     Engine::get()->addEntity(ground);
-    octreeSystem->getGpuMemoryManager()->addEntity(ground.get());
+    octreeSystem->getGpuMemoryManager()->addEntity(ground.get(), octreeBuffer);
 
     // Trees
     std::shared_ptr<Entity> tree1 = EntityBuilder::geometry();
@@ -235,7 +235,7 @@ void WorldScene::create() {
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
     tree1Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
     Engine::get()->addEntity(tree1);
-    octreeSystem->getGpuMemoryManager()->addEntity(tree1.get());
+    octreeSystem->getGpuMemoryManager()->addEntity(tree1.get(), octreeBuffer);
 
     std::shared_ptr<Entity> tree2 = EntityBuilder::geometry();
     transformSystem->setScale(tree2.get(), 0.9);
@@ -249,7 +249,7 @@ void WorldScene::create() {
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
     tree2Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
     Engine::get()->addEntity(tree2);
-    octreeSystem->getGpuMemoryManager()->addEntity(tree2.get());
+    octreeSystem->getGpuMemoryManager()->addEntity(tree2.get(), octreeBuffer);
 
     std::shared_ptr<Entity> tree3 = EntityBuilder::geometry();
     transformSystem->setScale(tree3.get(), 1.1);
@@ -263,7 +263,7 @@ void WorldScene::create() {
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
     tree3Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
     Engine::get()->addEntity(tree3);
-    octreeSystem->getGpuMemoryManager()->addEntity(tree3.get());
+    octreeSystem->getGpuMemoryManager()->addEntity(tree3.get(), octreeBuffer);
 
     // Chamomiles
     std::shared_ptr<Entity> chamomile1 = EntityBuilder::geometry();
@@ -272,7 +272,7 @@ void WorldScene::create() {
     OctreeComponent* chamomile1Octree = static_cast<OctreeComponent*>(chamomile1->components[ComponentType::Octree].get());
     chamomile1Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
     Engine::get()->addEntity(chamomile1);
-    octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get());
+    octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get(), octreeBuffer);
 
     std::shared_ptr<Entity> chamomile2 = EntityBuilder::geometry();
     transformSystem->setScale(chamomile2.get(), 0.04);
@@ -280,7 +280,7 @@ void WorldScene::create() {
     OctreeComponent* chamomile2Octree = static_cast<OctreeComponent*>(chamomile2->components[ComponentType::Octree].get());
     chamomile2Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
     Engine::get()->addEntity(chamomile2);
-    octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get());
+    octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get(), octreeBuffer);
 
     std::shared_ptr<Entity> chamomile3 = EntityBuilder::geometry();
     transformSystem->setScale(chamomile3.get(), 0.04);
@@ -288,7 +288,7 @@ void WorldScene::create() {
     OctreeComponent* chamomile3Octree = static_cast<OctreeComponent*>(chamomile3->components[ComponentType::Octree].get());
     chamomile3Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
     Engine::get()->addEntity(chamomile3);
-    octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get());
+    octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
     octreeSystem->getGpuMemoryManager()->endBatch();
     octreeSystem->getGpuMemoryManager()->updateRenderList();

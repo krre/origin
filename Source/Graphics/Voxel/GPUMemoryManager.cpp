@@ -20,16 +20,10 @@ GPUMemoryManager::GPUMemoryManager() {
 //    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
-void GPUMemoryManager::addEntity(Entity* entity) {
-    if (!batch) {
-        bind();
-    }
-
+void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Uniform* uniform) {
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
     int size = sizeof(uint32_t) * oc->data.get()->size();
-//    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, endOffset, size, GL_MAP_WRITE_BIT);
-//    memcpy(data, oc->data.get()->data(), size);
-//    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
+    uniform->update(endOffset, size);
 
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);

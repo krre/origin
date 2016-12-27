@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Core/Common.h"
 #include "../../ECS/Entity.h"
+#include "../Vulkan/Uniform.h"
 #include <map>
 #include <vector>
 #include <glm/glm.hpp>
@@ -12,7 +13,7 @@ class GPUMemoryManager {
 
 public:
     GPUMemoryManager();
-    void addEntity(Entity* entity);
+    void addEntity(Entity* entity, Vulkan::Uniform* uniform);
     void updateEntityOctree(Entity* entity);
     void updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform);
     void removeEntity(const Entity* entity);

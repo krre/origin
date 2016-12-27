@@ -20,8 +20,8 @@ MenuScene::~MenuScene() {
     delete descriptorSetLayout;
     delete uniformVert;
     delete uniformFrag;
-    delete indexMemoryBuffer;
-    delete vertexMemoryBuffer;
+    delete indexBuffer;
+    delete vertexBuffer;
 }
 
 void MenuScene::init() {
@@ -36,11 +36,11 @@ void MenuScene::init() {
         0, 1, 2, 2, 3, 0
     };
 
-    vertexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, sizeof(vertices[0]) * vertices.size(), vertices.data());
-    vertexMemoryBuffer->update();
+    vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, sizeof(vertices[0]) * vertices.size(), vertices.data());
+    vertexBuffer->update();
 
-    indexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, sizeof(indices[0]) * indices.size(), indices.data());
-    indexMemoryBuffer->update();
+    indexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, sizeof(indices[0]) * indices.size(), indices.data());
+    indexBuffer->update();
 
     uniformVert = new Vulkan::Descriptor(device, VK_SHADER_STAGE_VERTEX_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(uboVert), &uboVert);
@@ -119,10 +119,10 @@ void MenuScene::init() {
 
         vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
 
-        VkBuffer vertexBuffers[] = { vertexMemoryBuffer->getBuffer()->getHandle() };
+        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
         VkDeviceSize offsets[] = { 0 };
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
-        vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexMemoryBuffer->getBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT16);
+        vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT16);
 
         VkViewport viewport = {};
         viewport.width = Vulkan::Manager::get()->getSwapchain()->getExtent().width;

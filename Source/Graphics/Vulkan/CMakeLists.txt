@@ -24,8 +24,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp

@@ -9,4 +9,4 @@
 #endif
 
 constexpr int PAGE_BYTES = 1 << 13; // 8192 (use in OctreeFarm)
-const int blockInfoEnd = 1;
+const int BLOCK_INFO_END = 1;

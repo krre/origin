@@ -11,7 +11,7 @@
 
 RenderSurface::RenderSurface() {
     ubo.pageBytes = PAGE_BYTES;
-    ubo.blockInfoEnd = blockInfoEnd;
+    ubo.blockInfoEnd = BLOCK_INFO_END;
 //    ubo.backgroundColor = glm::vec3(App::get()->getViewport()->getBackgroundColor());
     ubo.pickPixel = glm::vec2(-1, -1);
     ubo.shadeless = true;

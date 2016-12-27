@@ -38,11 +38,11 @@ layout (std430, binding = 2) buffer RenderList {
 
 
 layout (std430, binding = 3) buffer PickResult {
-    vec3 pickPos;
-    uint pickParent;
-    uint pickScale;
-    int pickChildIdx;
-};
+    vec3 pos;
+    uint parent;
+    uint scale;
+    int childIdx;
+} pickResult;
 
 
 layout (std430, binding = 4) buffer DebugOut {
@@ -387,11 +387,11 @@ void main() {
     }
 
     if (gl_FragCoord.y == (ubo.pickPixel.y + 0.5) && gl_FragCoord.x == (ubo.pickPixel.x + 0.5)) { // For OctreeFarm pick node
-        pickParent = outCastRes.node;
-        if (pickParent != 0u) {
-            pickPos = outCastRes.pos;
-            pickScale = outCastRes.scale;
-            pickChildIdx = outCastRes.childIdx;
+        pickResult.parent = outCastRes.node;
+        if (pickResult.parent != 0u) {
+            pickResult.pos = outCastRes.pos;
+            pickResult.scale = outCastRes.scale;
+            pickResult.childIdx = outCastRes.childIdx;
         }
     }
 

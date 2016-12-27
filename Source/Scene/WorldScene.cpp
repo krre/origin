@@ -44,28 +44,30 @@ void WorldScene::init() {
         0, 1, 2, 2, 3, 0
     };
 
-    vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, sizeof(vertices[0]) * vertices.size(), vertices.data());
+    VkDeviceSize size = sizeof(vertices[0]) * vertices.size();
+    vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     vertexBuffer->create();
-    vertexBuffer->update();
+    vertexBuffer->update(0, size, vertices.data());
 
-    indexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, sizeof(indices[0]) * indices.size(), indices.data());
+    size = sizeof(indices[0]) * indices.size();
+    indexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size);
     indexBuffer->create();
-    indexBuffer->update();
+    indexBuffer->update(0, size, indices.data());
 
     uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(ubo), &ubo);
+                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(UBO));
 
     octreeBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, MEMORY_SIZE, &octreeFrag);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, MEMORY_SIZE);
 
     renderListBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, MAX_OCTREE_COUNT, &renderList);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, MAX_OCTREE_COUNT);
 
     pickResultBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3, sizeof(pickResult), &pickResult);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3, sizeof(PickResult));
 
     debugOutBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4, sizeof(debugOut), &debugOut);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4, sizeof(DebugOut));
 
     descriptorPool = new Vulkan::DescriptorPool(device);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
@@ -172,7 +174,7 @@ void WorldScene::draw(float dt) {
 }
 
 void WorldScene::update(float dt) {
-    uniformFrag->update();
+    uniformFrag->update(0, sizeof(UBO), &ubo);
 //    octreeBuffer->update();
 //    renderListBuffer->update();
 }

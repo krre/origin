@@ -7,9 +7,8 @@ namespace Vulkan {
 class Descriptor : public Object {
 
 public:
-    Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferUsageFlagBits usage, VkDescriptorType descriptorType, uint32_t binding, size_t size, const void* data);
-    void update();
-    void update(VkDeviceSize offset, VkDeviceSize size);
+    Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferUsageFlagBits usage, VkDescriptorType descriptorType, uint32_t binding, size_t size);
+    void update(VkDeviceSize offset, VkDeviceSize size, const void* data);
     Buffer* getBuffer() { return &buffer; }
     VkDescriptorSetLayoutBinding* getLayoutBinding() { return &layoutBinging; }
 

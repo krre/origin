@@ -23,7 +23,7 @@ GPUMemoryManager::GPUMemoryManager() {
 void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Descriptor* descriptor) {
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
     int size = sizeof(uint32_t) * oc->data.get()->size();
-    descriptor->update(endOffset, size);
+    descriptor->update(endOffset, size, oc->data->data());
 
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);

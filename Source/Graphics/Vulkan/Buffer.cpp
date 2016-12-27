@@ -4,8 +4,8 @@
 
 using namespace Vulkan;
 
-Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size, const void* data) :
-    device(device), data(data), memory(device) {
+Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) :
+    device(device), memory(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = size;
     createInfo.usage = usage;
@@ -34,11 +34,7 @@ VkResult Buffer::create() {
     return result;
 }
 
-void Buffer::update() {
-    update(0, createInfo.size);
-}
-
-void Buffer::update(VkDeviceSize offset, VkDeviceSize size) {
+void Buffer::update(VkDeviceSize offset, VkDeviceSize size, const void* data) {
     void* mapData;
     vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData);
     memcpy(mapData, data, size);

@@ -2,8 +2,8 @@
 
 using namespace Vulkan;
 
-Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferUsageFlagBits usage, VkDescriptorType descriptorType, uint32_t binding, size_t size, const void* data) :
-    buffer(device, usage, size, data) {
+Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferUsageFlagBits usage, VkDescriptorType descriptorType, uint32_t binding, size_t size) :
+    buffer(device, usage, size) {
 
     layoutBinging.binding = binding;
     layoutBinging.descriptorCount = 1;
@@ -13,10 +13,6 @@ Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferU
     buffer.create();
 }
 
-void Descriptor::update() {
-    buffer.update();
-}
-
-void Descriptor::update(VkDeviceSize offset, VkDeviceSize size) {
-    buffer.update(offset, size);
+void Descriptor::update(VkDeviceSize offset, VkDeviceSize size, const void* data) {
+    buffer.update(offset, size, data);
 }

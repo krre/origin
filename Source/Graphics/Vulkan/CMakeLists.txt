@@ -1,5 +1,4 @@
 add_subdirectory(Base)
-add_subdirectory(Collection)
 add_subdirectory(Command)
 add_subdirectory(Descriptor)
 add_subdirectory(Pipeline)
@@ -27,6 +26,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MemoryBuffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDeviceCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDeviceCollection.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Semaphore.cpp

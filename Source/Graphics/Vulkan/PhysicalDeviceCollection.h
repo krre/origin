@@ -1,6 +1,6 @@
 #pragma once
-#include "../Base/Collection.h"
-#include "../Instance.h"
+#include "Base/Collection.h"
+#include "Instance.h"
 #include <vector>
 #include <map>
 

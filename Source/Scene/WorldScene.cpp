@@ -12,7 +12,6 @@
 #include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 
-
 WorldScene::WorldScene() {
 
 }

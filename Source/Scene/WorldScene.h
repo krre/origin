@@ -33,6 +33,12 @@ class WorldScene : public Scene3D {
         glm::vec2 pickPixel = glm::vec2(-1, -1);
     } uboFrag;
 
+    struct OctreeFrag {
+        int count;
+        uint data[];
+    } octreeFrag;
+
+
 public:
     WorldScene();
     ~WorldScene();

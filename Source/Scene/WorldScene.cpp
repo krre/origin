@@ -53,7 +53,7 @@ void WorldScene::init() {
     uniformFrag->update();
 
     octreeBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, sizeof(uboFrag), &uboFrag);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, sizeof(octreeFrag), &octreeFrag);
 
     descriptorPool = new Vulkan::DescriptorPool(device);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);

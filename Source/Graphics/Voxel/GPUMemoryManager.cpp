@@ -3,21 +3,6 @@
 #include "../../ECS/Components/Components.h"
 
 GPUMemoryManager::GPUMemoryManager() {
-//    voxelShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("VoxelShaderGroup");
-//    program = voxelShaderGroup->getProgram();
-//    voxelShaderGroup->bind();
-
-//    glGenBuffers(1, &octreesSsbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
-//    glBufferData(GL_SHADER_STORAGE_BUFFER, MEMORY_SIZE, nullptr, GL_DYNAMIC_COPY);
-//    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, octreesSsbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-
-//    glGenBuffers(1, &renderListSsbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, renderListSsbo);
-//    glBufferData(GL_SHADER_STORAGE_BUFFER, MAX_OCTREE_COUNT, nullptr, GL_DYNAMIC_COPY);
-//    glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, renderListSsbo);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }
 
 void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Descriptor* descriptor) {
@@ -28,6 +13,8 @@ void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Descriptor* descriptor)
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);
     endOffset += PAGE_BYTES;
+    uint32_t count = renderOffsets.size();
+    descriptor->update(0, sizeof(uint32_t), &count); // TODO: Optimize. Don't update on every adding entity
 }
 
 void GPUMemoryManager::updateEntityOctree(Entity* entity) {

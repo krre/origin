@@ -34,16 +34,6 @@ class WorldScene : public Scene3D {
         glm::vec2 pickPixel = glm::vec2(-1, -1);
     } ubo;
 
-    struct OctreeFrag {
-        int count;
-        uint32_t data[];
-    } octreeFrag;
-
-    struct RenderList {
-        int count;
-        uint32_t offsets[];
-    } renderList;
-
     struct PickResult {
         glm::vec3 pos;
         uint32_t parent;

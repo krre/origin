@@ -27,7 +27,7 @@ private:
     bool batch = false;
 //    GLuint octreesSsbo;
 //    GLuint renderListSsbo;
-    int endOffset = 0;
+    int endOffset = sizeof(uint32_t);
     std::map<EntityId, int> octreeOffsets;
     std::vector<uint32_t> renderOffsets;
 };

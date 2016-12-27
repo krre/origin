@@ -13,6 +13,8 @@
 #include <SDL.h>
 #include <glm/glm.hpp>
 
+const int LOD_PIXEL_LIMIT = 1;
+
 class WorldScene : public Scene3D {
 
     struct UBO {

@@ -174,6 +174,82 @@ void WorldScene::draw(float dt) {
 }
 
 void WorldScene::update(float dt) {
+    int width = App::get()->getWidth();
+    int height = App::get()->getHeight();
+
+    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
+    Entity* currentCamera; // = App::get()->getViewport()->getCurrentCamera().get();
+    CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
+    TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
+
+    TransformComponent* octreeTransform;
+
+    TransformComponent* lightTransform;
+    ubo.lightColor = glm::vec3(0.0);
+    ubo.lightPos = glm::vec3(0.0);
+
+    // TODO: Replace by family
+    for (auto entity : Engine::get()->getEntities()) {
+        OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity.second->components[ComponentType::Octree].get());
+        if (octreeComp) {
+            octreeTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
+        }
+
+        LightComponent* lightComp = static_cast<LightComponent*>(entity.second->components[ComponentType::Light].get());
+        if (lightComp) {
+            lightTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
+            ubo.lightColor = lightComp->color;
+            ubo.lightPos = glm::vec3(lightTransform->objectToWorld[3]);
+        }
+    }
+
+    ubo.transformCount = 0;
+
+    for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
+        std::vector<glm::vec4> transform;
+        Entity* entity = Engine::get()->getEntity(imap.first).get();
+        TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+        transform.push_back(octreeTransform->objectToWorld[0]);
+        transform.push_back(octreeTransform->objectToWorld[1]);
+        transform.push_back(octreeTransform->objectToWorld[2]);
+        transform.push_back(octreeTransform->objectToWorld[3]);
+
+        glm::mat4 cameraToOctree = octreeTransform->worldToObject * cameraTransform->objectToWorld;
+        transform.push_back(cameraToOctree[3]);
+
+        glm::vec4 up = cameraToOctree * cameraComp->up;
+        glm::vec4 look = cameraToOctree * cameraComp->look;
+        glm::vec4 right = cameraToOctree * cameraComp->right;
+
+        // Ray calculation is based on Johns Hopkins presentation:
+        // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
+        glm::vec4 h0 = look - up * glm::tan(cameraComp->fov); // min height vector
+        glm::vec4 h1 = look + up * glm::tan(cameraComp->fov); // max height vector
+        glm::vec4 stepH = (h1 - h0) / height;
+        h0 += stepH / 2;
+
+        glm::vec4 w0 = look - right * glm::tan(cameraComp->fov) * width / height; // min width vector
+        glm::vec4 w1 = look + right * glm::tan(cameraComp->fov) * width / height; // max width vector
+        glm::vec4 stepW = (w1 - w0) / width;
+        w0 += stepW / 2;
+
+        glm::vec4 startCornerPos = w0 + h0;
+
+        transform.push_back(startCornerPos);
+        transform.push_back(stepW);
+        transform.push_back(stepH);
+
+        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform);
+
+        if (!ubo.transformCount) {
+            ubo.transformCount = transform.size();
+        }
+    }
+
+    ubo.frameWidth = width;
+    ubo.frameHeight = height;
+    ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
+
     uniformFrag->update(0, sizeof(UBO), &ubo);
 }
 

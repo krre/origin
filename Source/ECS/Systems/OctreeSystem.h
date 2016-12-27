@@ -1,7 +1,6 @@
 #pragma once
 #include "../System.h"
 #include "../../Graphics/Drawable.h"
-#include "../../Graphics/Voxel/RenderSurface.h"
 #include "../../Graphics/Voxel/SVOBuilder.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
 #include <vector>

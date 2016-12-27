@@ -44,10 +44,10 @@ class WorldScene : public Scene3D {
     } renderList;
 
     struct PickResult {
-        glm::vec3 pickPos;
-        uint pickParent;
-        uint pickScale;
-        int pickChildIdx;
+        glm::vec3 pos;
+        uint parent;
+        uint scale;
+        int childIdx;
     } pickResult;
 
     struct DebugOut {

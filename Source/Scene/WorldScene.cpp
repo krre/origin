@@ -178,7 +178,7 @@ void WorldScene::update(float dt) {
     int height = App::get()->getHeight();
 
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
-    Entity* currentCamera; // = App::get()->getViewport()->getCurrentCamera().get();
+    Entity* currentCamera = viewport.getCurrentCamera().get();
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
@@ -262,7 +262,7 @@ void WorldScene::create() {
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
     transformSystem->lookAt(freeCamera.get(), glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     transformSystem->translate(freeCamera.get(), glm::vec3(2.0f, 1.0f, 3.0f));
-//    App::get()->getViewport()->setCurrentCamera(freeCamera);
+    viewport.setCurrentCamera(freeCamera);
     Engine::get()->addEntity(freeCamera);
 
     // Avatar
@@ -270,11 +270,11 @@ void WorldScene::create() {
     Engine::get()->addEntity(avatar);
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
-//    App::get()->getViewport()->setCurrentCamera(avatarCamera);
+    viewport.setCurrentCamera(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 2.0f));
-//    transformSystem->setPitch(avatarCamera.get(), -15.0);
-//    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::get()->getSystem(SystemType::Node).get());
-//    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
+    transformSystem->setPitch(avatarCamera.get(), -15.0);
+    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::get()->getSystem(SystemType::Node).get());
+    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
     characterId = avatarCamera->getId();
 
     std::shared_ptr<PhisicsComponent> phisicsComponent = std::make_shared<PhisicsComponent>();

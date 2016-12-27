@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene3D.h"
 #include "../ECS/Entity.h"
+#include "../UI/Viewport.h"
 #include "../Graphics/Voxel/GPUMemoryManager.h"
 #include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
@@ -76,4 +77,5 @@ private:
     Vulkan::Descriptor* debugOutBuffer = nullptr;
     EntityId characterId;
     uint64_t seed;
+    Viewport viewport;
 };

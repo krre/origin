@@ -10,7 +10,7 @@
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
-#include "../Graphics/Vulkan/CommandBuffer.h"
+#include "../Graphics/Vulkan/Command/CommandBuffer.h"
 
 
 WorldScene::WorldScene() {

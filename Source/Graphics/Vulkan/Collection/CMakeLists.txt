@@ -1,7 +1,5 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferCollection.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferCollection.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDeviceCollection.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDeviceCollection.h
     PARENT_SCOPE

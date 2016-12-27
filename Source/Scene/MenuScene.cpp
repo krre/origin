@@ -5,7 +5,7 @@
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
-#include "../Graphics/Vulkan/CommandBuffer.h"
+#include "../Graphics/Vulkan/Command/CommandBuffer.h"
 
 MenuScene::MenuScene(int width, int height) :
     Scene2D(width, height) {

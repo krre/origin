@@ -1,0 +1,10 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferCollection.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferCollection.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBuffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.h
+    PARENT_SCOPE
+)

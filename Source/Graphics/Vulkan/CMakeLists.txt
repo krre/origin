@@ -1,5 +1,6 @@
 add_subdirectory(Base)
 add_subdirectory(Collection)
+add_subdirectory(Command)
 add_subdirectory(Descriptor)
 add_subdirectory(Pipeline)
 add_subdirectory(Queue)
@@ -8,10 +9,6 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBuffer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBuffer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp

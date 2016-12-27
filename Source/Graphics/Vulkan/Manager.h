@@ -3,7 +3,7 @@
 #include "Instance.h"
 #include "DebugReportCallback.h"
 #include "Collection/PhysicalDeviceCollection.h"
-#include "Collection/CommandBufferCollection.h"
+#include "Command/CommandBufferCollection.h"
 #include "Device.h"
 #include "Surface.h"
 #include "Queue/PresentQueue.h"
@@ -12,7 +12,7 @@
 #include "ImageView.h"
 #include "RenderPass.h"
 #include "Framebuffer.h"
-#include "CommandPool.h"
+#include "Command/CommandPool.h"
 #include "Semaphore.h"
 #include <string>
 #include <vector>

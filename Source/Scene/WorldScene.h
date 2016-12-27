@@ -54,6 +54,7 @@ private:
     Vulkan::MemoryBuffer* indexMemoryBuffer = nullptr;
     Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
     Vulkan::Uniform* uniformFrag = nullptr;
+    Vulkan::Uniform* octreeBuffer = nullptr;
     EntityId characterId;
     uint64_t seed;
 };

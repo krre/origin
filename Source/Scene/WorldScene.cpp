@@ -24,6 +24,7 @@ WorldScene::~WorldScene() {
     delete descriptorSetCollection;
     delete descriptorPool;
     delete descriptorSetLayout;
+    delete octreeBuffer;
     delete uniformFrag;
     delete indexMemoryBuffer;
     delete vertexMemoryBuffer;
@@ -51,6 +52,9 @@ void WorldScene::init() {
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(uboFrag), &uboFrag);
     uniformFrag->update();
 
+    octreeBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, sizeof(uboFrag), &uboFrag);
+
     descriptorPool = new Vulkan::DescriptorPool(device);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4);
@@ -59,12 +63,14 @@ void WorldScene::init() {
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
 
     descriptorSetLayout->addLayoutBinding(*uniformFrag->getLayoutBinding());
+    descriptorSetLayout->addLayoutBinding(*octreeBuffer->getLayoutBinding());
     descriptorSetLayout->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);
     descriptorSetCollection->addDescriptorSetLayout(descriptorSetLayout);
     descriptorSetCollection->allocate();
     descriptorSetCollection->addUniform(uniformFrag);
+    descriptorSetCollection->addUniform(octreeBuffer);
     descriptorSetCollection->writeUniforms();
 
     pipelineLayout = new Vulkan::PipelineLayout(device);

@@ -26,18 +26,18 @@ void DescriptorSetCollection::addDescriptorSetLayout(const DescriptorSetLayout* 
     descriptorSetLayouts.push_back(descriptorSetLayout->getHandle());
 }
 
-void DescriptorSetCollection::addUniform(Uniform* uniform) {
+void DescriptorSetCollection::addDescriptor(Descriptor* descriptor) {
     VkWriteDescriptorSet descriptorWrite = {};
     descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     descriptorWrite.dstSet = collection.at(0); // TODO: Set meaningful value
-    descriptorWrite.dstBinding = uniform->getLayoutBinding()->binding;
+    descriptorWrite.dstBinding = descriptor->getLayoutBinding()->binding;
     descriptorWrite.dstArrayElement = 0;
-    descriptorWrite.descriptorType = uniform->getLayoutBinding()->descriptorType;
-    descriptorWrite.descriptorCount = uniform->getLayoutBinding()->descriptorCount;
-    descriptorWrite.pBufferInfo = uniform->getBuffer()->getDescriptorInfo();
+    descriptorWrite.descriptorType = descriptor->getLayoutBinding()->descriptorType;
+    descriptorWrite.descriptorCount = descriptor->getLayoutBinding()->descriptorCount;
+    descriptorWrite.pBufferInfo = descriptor->getBuffer()->getDescriptorInfo();
     descriptorWrites.push_back(descriptorWrite);
 }
 
-void DescriptorSetCollection::writeUniforms() {
+void DescriptorSetCollection::writeDescriptors() {
     vkUpdateDescriptorSets(device->getHandle(), descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
 }

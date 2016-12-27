@@ -1,8 +1,8 @@
-#include "Uniform.h"
+#include "Descriptor.h"
 
 using namespace Vulkan;
 
-Uniform::Uniform(const Device* device, VkShaderStageFlags stage, VkBufferUsageFlagBits usage, VkDescriptorType descriptorType, uint32_t binding, size_t size, const void* data) :
+Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferUsageFlagBits usage, VkDescriptorType descriptorType, uint32_t binding, size_t size, const void* data) :
     memoryBuffer(device, usage, size, data) {
 
     layoutBinging.binding = binding;
@@ -11,10 +11,10 @@ Uniform::Uniform(const Device* device, VkShaderStageFlags stage, VkBufferUsageFl
     layoutBinging.stageFlags = stage;
 }
 
-void Uniform::update() {
+void Descriptor::update() {
     memoryBuffer.update();
 }
 
-void Uniform::update(VkDeviceSize offset, VkDeviceSize size) {
+void Descriptor::update(VkDeviceSize offset, VkDeviceSize size) {
     memoryBuffer.update(offset, size);
 }

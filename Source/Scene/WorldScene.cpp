@@ -51,19 +51,19 @@ void WorldScene::init() {
     indexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, sizeof(indices[0]) * indices.size(), indices.data());
     indexMemoryBuffer->update();
 
-    uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+    uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(ubo), &ubo);
 
-    octreeBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
+    octreeBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, MEMORY_SIZE, &octreeFrag);
 
-    renderListBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
+    renderListBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, MAX_OCTREE_COUNT, &renderList);
 
-    pickResultBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
+    pickResultBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3, sizeof(pickResult), &pickResult);
 
-    debugOutBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
+    debugOutBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4, sizeof(debugOut), &debugOut);
 
     descriptorPool = new Vulkan::DescriptorPool(device);
@@ -83,12 +83,12 @@ void WorldScene::init() {
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);
     descriptorSetCollection->addDescriptorSetLayout(descriptorSetLayout);
     descriptorSetCollection->allocate();
-    descriptorSetCollection->addUniform(uniformFrag);
-    descriptorSetCollection->addUniform(octreeBuffer);
-    descriptorSetCollection->addUniform(renderListBuffer);
-    descriptorSetCollection->addUniform(pickResultBuffer);
-    descriptorSetCollection->addUniform(debugOutBuffer);
-    descriptorSetCollection->writeUniforms();
+    descriptorSetCollection->addDescriptor(uniformFrag);
+    descriptorSetCollection->addDescriptor(octreeBuffer);
+    descriptorSetCollection->addDescriptor(renderListBuffer);
+    descriptorSetCollection->addDescriptor(pickResultBuffer);
+    descriptorSetCollection->addDescriptor(debugOutBuffer);
+    descriptorSetCollection->writeDescriptors();
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
     pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);

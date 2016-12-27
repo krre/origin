@@ -2,7 +2,7 @@
 #include "../Base/Collection.h"
 #include "../Device.h"
 #include "../DescriptorPool.h"
-#include "../Uniform.h"
+#include "../Descriptor.h"
 #include "../DescriptorSetLayout.h"
 
 namespace Vulkan {
@@ -14,8 +14,8 @@ public:
     ~DescriptorSetCollection();
     bool allocate();
     void addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout);
-    void addUniform(Uniform* uniform);
-    void writeUniforms();
+    void addDescriptor(Descriptor* descriptor);
+    void writeDescriptors();
 
 private:
     const Device* device;

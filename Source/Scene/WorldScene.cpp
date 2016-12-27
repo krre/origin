@@ -52,7 +52,7 @@ void WorldScene::init() {
     indexMemoryBuffer->update();
 
     uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(uboFrag), &uboFrag);
+                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(ubo), &ubo);
     uniformFrag->update();
 
     octreeBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,

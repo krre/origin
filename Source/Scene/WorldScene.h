@@ -14,7 +14,7 @@
 
 class WorldScene : public Scene3D {
 
-    struct UBOfrag {
+    struct UBO {
         int pageBytes = PAGE_BYTES;
         int blockInfoEnd = BLOCK_INFO_END;
 
@@ -31,7 +31,7 @@ class WorldScene : public Scene3D {
         int transformCount;
 
         glm::vec2 pickPixel = glm::vec2(-1, -1);
-    } uboFrag;
+    } ubo;
 
     struct OctreeFrag {
         int count;

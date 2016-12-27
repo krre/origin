@@ -61,7 +61,7 @@ void WorldScene::init() {
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, MEMORY_SIZE);
 
     renderListBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, MAX_OCTREE_COUNT);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, MAX_OCTREE_COUNT * sizeof(uint32_t));
 
     pickResultBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3, sizeof(PickResult));
@@ -175,8 +175,6 @@ void WorldScene::draw(float dt) {
 
 void WorldScene::update(float dt) {
     uniformFrag->update(0, sizeof(UBO), &ubo);
-//    octreeBuffer->update();
-//    renderListBuffer->update();
 }
 
 void WorldScene::create() {
@@ -291,7 +289,7 @@ void WorldScene::create() {
     Engine::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
-    octreeSystem->getGpuMemoryManager()->updateRenderList();
+    octreeSystem->getGpuMemoryManager()->updateRenderList(renderListBuffer);
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();

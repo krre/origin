@@ -18,15 +18,10 @@ public:
     void updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform);
     void removeEntity(const Entity* entity);
 
-    void updateRenderList();
+    void updateRenderList(Vulkan::Descriptor* descriptor);
     std::map<EntityId, int> getOctreeOffsets() const { return octreeOffsets; }
 
 private:
-//    ShaderGroup* voxelShaderGroup;
-//    GLuint program;
-    bool batch = false;
-//    GLuint octreesSsbo;
-//    GLuint renderListSsbo;
     int endOffset = sizeof(uint32_t);
     std::map<EntityId, int> octreeOffsets;
     std::vector<uint32_t> renderOffsets;

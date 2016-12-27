@@ -39,17 +39,8 @@ void GPUMemoryManager::removeEntity(const Entity* entity) {
 
 }
 
-void GPUMemoryManager::updateRenderList() {
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, renderListSsbo);
-//    // Count
-//    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, 0, sizeof(int), GL_MAP_WRITE_BIT);
-//    int size = renderOffsets.size();
-//    memcpy(data, &size, sizeof(int));
-//    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-//    // Render list
-//    size = sizeof(uint32_t) * renderOffsets.size();
-//    data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, sizeof(int), size, GL_MAP_WRITE_BIT);
-//    memcpy(data, renderOffsets.data(), size);
-//    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+void GPUMemoryManager::updateRenderList(Vulkan::Descriptor* descriptor) {
+    uint32_t count = renderOffsets.size();
+    descriptor->update(0, sizeof(count), &count);
+    descriptor->update(sizeof(count), sizeof(renderOffsets[0]) * renderOffsets.size(), renderOffsets.data());
 }

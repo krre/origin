@@ -17,7 +17,7 @@ WorldScene::WorldScene() {
 }
 
 WorldScene::~WorldScene() {
-    delete commandBufferCollection;
+    delete commandBuffers;
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSets;
@@ -119,11 +119,11 @@ void WorldScene::init() {
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
 
-    commandBufferCollection = new Vulkan::CommandBufferCollection(device, Vulkan::Manager::get()->getCommandPool());
-    commandBufferCollection->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
+    commandBuffers = new Vulkan::CommandBuffers(device, Vulkan::Manager::get()->getCommandPool());
+    commandBuffers->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
 
-    for (size_t i = 0; i < commandBufferCollection->getCount(); i++) {
-        Vulkan::CommandBuffer commandBuffer(commandBufferCollection->at(i));
+    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
+        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
 
         VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
@@ -162,7 +162,7 @@ void WorldScene::init() {
         commandBuffer.end();
     }
 
-    Vulkan::Manager::get()->setCommandBuffers(commandBufferCollection);
+    Vulkan::Manager::get()->setCommandBuffers(commandBuffers);
 }
 
 void WorldScene::draw(float dt) {

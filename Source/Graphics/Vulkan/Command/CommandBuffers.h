@@ -5,11 +5,11 @@
 
 namespace Vulkan {
 
-class CommandBufferCollection : public Collection<VkCommandBuffer> {
+class CommandBuffers : public Collection<VkCommandBuffer> {
 
 public:
-    CommandBufferCollection(const Device* device, const CommandPool* commandPool);
-    ~CommandBufferCollection();
+    CommandBuffers(const Device* device, const CommandPool* commandPool);
+    ~CommandBuffers();
     bool allocate(uint32_t count);
 
 private:

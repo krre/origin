@@ -6,7 +6,7 @@
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorSets.h"
-#include "../Graphics/Vulkan/Command/CommandBufferCollection.h"
+#include "../Graphics/Vulkan/Command/CommandBuffers.h"
 #include "../Graphics/Vulkan/MemoryBuffer.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorPool.h"
 #include "../Graphics/Vulkan/Descriptor/Descriptor.h"
@@ -76,7 +76,7 @@ private:
     Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;
     Vulkan::MemoryBuffer* vertexMemoryBuffer = nullptr;
     Vulkan::MemoryBuffer* indexMemoryBuffer = nullptr;
-    Vulkan::CommandBufferCollection* commandBufferCollection = nullptr;
+    Vulkan::CommandBuffers* commandBuffers = nullptr;
     Vulkan::Descriptor* uniformFrag = nullptr;
     Vulkan::Descriptor* octreeBuffer = nullptr;
     Vulkan::Descriptor* renderListBuffer = nullptr;

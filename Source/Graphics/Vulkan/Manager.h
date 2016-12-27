@@ -3,7 +3,7 @@
 #include "Instance.h"
 #include "DebugReportCallback.h"
 #include "PhysicalDevices.h"
-#include "Command/CommandBufferCollection.h"
+#include "Command/CommandBuffers.h"
 #include "Device.h"
 #include "Surface.h"
 #include "Queue/PresentQueue.h"
@@ -36,7 +36,7 @@ public:
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     PhysicalDevices* getPhysicalDevices() const { return physicalDevices; }
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
-    void setCommandBuffers(const CommandBufferCollection* commandBuffers);
+    void setCommandBuffers(const CommandBuffers* commandBuffers);
     void render();
 
 private:

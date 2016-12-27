@@ -11,9 +11,8 @@ MemoryBuffer::MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage, si
 
     VkMemoryRequirements memRequirements;
     vkGetBufferMemoryRequirements(device->getHandle(), buffer.getHandle(), &memRequirements);
-    memory.setAllocationSize(memRequirements.size);
     memory.setMemoryTypeIndex(Vulkan::Manager::get()->getPhysicalDevices()->findMemoryType(device->getPhysicalDevice(), memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
-    memory.allocate();
+    memory.allocate(memRequirements.size);
 
     vkBindBufferMemory(device->getHandle(), buffer.getHandle(), memory.getHandle(), 0);
 }

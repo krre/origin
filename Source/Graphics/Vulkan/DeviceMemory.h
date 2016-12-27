@@ -10,8 +10,7 @@ public:
     DeviceMemory(const Device* device);
     ~DeviceMemory();
     VkResult create() {}
-    VkResult allocate();
-    void setAllocationSize(VkDeviceSize allocationSize);
+    VkResult allocate(VkDeviceSize size);
     void setMemoryTypeIndex(uint32_t index);
 
 private:

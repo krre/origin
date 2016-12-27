@@ -273,8 +273,8 @@ void WorldScene::create() {
     viewport.setCurrentCamera(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 2.0f));
     transformSystem->setPitch(avatarCamera.get(), -15.0);
-    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::get()->getSystem(SystemType::Node).get());
-    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
+//    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::get()->getSystem(SystemType::Node).get());
+//    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
     characterId = avatarCamera->getId();
 
     std::shared_ptr<PhisicsComponent> phisicsComponent = std::make_shared<PhisicsComponent>();

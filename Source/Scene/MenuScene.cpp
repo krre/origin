@@ -15,7 +15,7 @@ MenuScene::~MenuScene() {
     delete commandBufferCollection;
     delete graphicsPipeline;
     delete pipelineLayout;
-    delete descriptorSetCollection;
+    delete descriptorSets;
     delete descriptorPool;
     delete descriptorSetLayout;
     delete uniformVert;
@@ -60,12 +60,12 @@ void MenuScene::init() {
     descriptorSetLayout->addLayoutBinding(*uniformFrag->getLayoutBinding());
     descriptorSetLayout->create();
 
-    descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);
-    descriptorSetCollection->addDescriptorSetLayout(descriptorSetLayout);
-    descriptorSetCollection->allocate();
-    descriptorSetCollection->addDescriptor(uniformVert);
-    descriptorSetCollection->addDescriptor(uniformFrag);
-    descriptorSetCollection->writeDescriptors();
+    descriptorSets = new Vulkan::DescriptorSets(device, descriptorPool);
+    descriptorSets->addDescriptorSetLayout(descriptorSetLayout);
+    descriptorSets->allocate();
+    descriptorSets->addDescriptor(uniformVert);
+    descriptorSets->addDescriptor(uniformFrag);
+    descriptorSets->writeDescriptors();
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
     pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
@@ -133,7 +133,7 @@ void MenuScene::init() {
         scissor.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
-        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSetCollection->getCount(), descriptorSetCollection->getData(), 0, nullptr);
+        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
         vkCmdDrawIndexed(commandBuffer.getHandle(), indices.size(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());
 

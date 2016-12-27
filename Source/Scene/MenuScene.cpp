@@ -42,10 +42,12 @@ void MenuScene::init() {
     indexMemoryBuffer = new Vulkan::MemoryBuffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, sizeof(indices[0]) * indices.size(), indices.data());
     indexMemoryBuffer->update();
 
-    uniformVert = new Vulkan::Uniform(device, VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(uboVert), &uboVert);
+    uniformVert = new Vulkan::Uniform(device, VK_SHADER_STAGE_VERTEX_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(uboVert), &uboVert);
     uniformVert->update();
 
-    uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, 1, sizeof(uboFrag), &uboFrag);
+    uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, sizeof(uboFrag), &uboFrag);
     uniformFrag->update();
 
     descriptorPool = new Vulkan::DescriptorPool(device);

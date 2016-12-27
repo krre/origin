@@ -21,7 +21,7 @@ class WorldScene : public Scene3D {
         int frameWidth;
         int frameHeight;
 
-        glm::vec3 backgroundColor;
+        glm::vec3 backgroundColor = glm::vec3(0.77, 0.83, 0.83);
         glm::vec3 lightColor;
         glm::vec3 lightPos;
         bool shadeless = true;

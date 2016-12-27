@@ -43,6 +43,12 @@ class WorldScene : public Scene3D {
         uint offsets[];
     } renderList;
 
+    struct PickResult {
+        glm::vec3 pickPos;
+        uint pickParent;
+        uint pickScale;
+        int pickChildIdx;
+    } pickResult;
 
 public:
     WorldScene();
@@ -67,6 +73,7 @@ private:
     Vulkan::Uniform* uniformFrag = nullptr;
     Vulkan::Uniform* octreeBuffer = nullptr;
     Vulkan::Uniform* renderListBuffer = nullptr;
+    Vulkan::Uniform* pickResultBuffer = nullptr;
     EntityId characterId;
     uint64_t seed;
 };

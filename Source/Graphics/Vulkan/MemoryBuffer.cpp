@@ -19,8 +19,12 @@ MemoryBuffer::MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage, si
 }
 
 void MemoryBuffer::update() {
+    update(0, buffer.getSize());
+}
+
+void MemoryBuffer::update(VkDeviceSize offset, VkDeviceSize size) {
     void* mapData;
-    vkMapMemory(device->getHandle(), memory.getHandle(), 0, buffer.getSize(), 0, &mapData);
-    memcpy(mapData, data, buffer.getSize());
+    vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData);
+    memcpy(mapData, data, size);
     vkUnmapMemory(device->getHandle(), memory.getHandle());
 }

@@ -10,6 +10,7 @@ class MemoryBuffer {
 public:
     MemoryBuffer(const Device* device, VkBufferUsageFlagBits usage, size_t size, const void* data);
     void update();
+    void update(VkDeviceSize offset, VkDeviceSize size);
     Buffer* getBuffer() { return &buffer; }
 
 private:

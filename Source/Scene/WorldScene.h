@@ -50,6 +50,12 @@ class WorldScene : public Scene3D {
         int pickChildIdx;
     } pickResult;
 
+    struct DebugOut {
+        glm::vec4 debugVec;
+        int debugInt;
+        float debugFloat;
+    } debugOut;
+
 public:
     WorldScene();
     ~WorldScene();
@@ -74,6 +80,7 @@ private:
     Vulkan::Uniform* octreeBuffer = nullptr;
     Vulkan::Uniform* renderListBuffer = nullptr;
     Vulkan::Uniform* pickResultBuffer = nullptr;
+    Vulkan::Uniform* debugOutBuffer = nullptr;
     EntityId characterId;
     uint64_t seed;
 };

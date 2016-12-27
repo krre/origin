@@ -24,6 +24,7 @@ WorldScene::~WorldScene() {
     delete descriptorSetCollection;
     delete descriptorPool;
     delete descriptorSetLayout;
+    delete debugOutBuffer;
     delete pickResultBuffer;
     delete renderListBuffer;
     delete octreeBuffer;
@@ -63,6 +64,9 @@ void WorldScene::init() {
     pickResultBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3, sizeof(pickResult), &pickResult);
 
+    debugOutBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4, sizeof(debugOut), &debugOut);
+
     descriptorPool = new Vulkan::DescriptorPool(device);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4);
@@ -74,6 +78,7 @@ void WorldScene::init() {
     descriptorSetLayout->addLayoutBinding(*octreeBuffer->getLayoutBinding());
     descriptorSetLayout->addLayoutBinding(*renderListBuffer->getLayoutBinding());
     descriptorSetLayout->addLayoutBinding(*pickResultBuffer->getLayoutBinding());
+    descriptorSetLayout->addLayoutBinding(*debugOutBuffer->getLayoutBinding());
     descriptorSetLayout->create();
 
     descriptorSetCollection = new Vulkan::DescriptorSetCollection(device, descriptorPool);
@@ -83,6 +88,7 @@ void WorldScene::init() {
     descriptorSetCollection->addUniform(octreeBuffer);
     descriptorSetCollection->addUniform(renderListBuffer);
     descriptorSetCollection->addUniform(pickResultBuffer);
+    descriptorSetCollection->addUniform(debugOutBuffer);
     descriptorSetCollection->writeUniforms();
 
     pipelineLayout = new Vulkan::PipelineLayout(device);

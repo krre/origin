@@ -14,3 +14,7 @@ Uniform::Uniform(const Device* device, VkShaderStageFlags stage, VkBufferUsageFl
 void Uniform::update() {
     memoryBuffer.update();
 }
+
+void Uniform::update(VkDeviceSize offset, VkDeviceSize size) {
+    memoryBuffer.update(offset, size);
+}

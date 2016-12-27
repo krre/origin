@@ -53,13 +53,12 @@ void WorldScene::init() {
 
     uniformFrag = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(ubo), &ubo);
-    uniformFrag->update();
 
     octreeBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, sizeof(octreeFrag), &octreeFrag);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, MEMORY_SIZE, &octreeFrag);
 
     renderListBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, sizeof(renderList), &renderList);
+                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, MAX_OCTREE_COUNT, &renderList);
 
     pickResultBuffer = new Vulkan::Uniform(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3, sizeof(pickResult), &pickResult);
@@ -172,7 +171,9 @@ void WorldScene::draw(float dt) {
 }
 
 void WorldScene::update(float dt) {
-
+    uniformFrag->update();
+//    octreeBuffer->update();
+//    renderListBuffer->update();
 }
 
 void WorldScene::create() {

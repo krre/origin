@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene3D.h"
 #include "../ECS/Entity.h"
+#include "../Graphics/Voxel/GPUMemoryManager.h"
 #include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../Graphics/Vulkan/DescriptorSetLayout.h"

@@ -36,18 +36,18 @@ class WorldScene : public Scene3D {
 
     struct OctreeFrag {
         int count;
-        uint data[];
+        uint32_t data[];
     } octreeFrag;
 
     struct RenderList {
         int count;
-        uint offsets[];
+        uint32_t offsets[];
     } renderList;
 
     struct PickResult {
         glm::vec3 pos;
-        uint parent;
-        uint scale;
+        uint32_t parent;
+        uint32_t scale;
         int childIdx;
     } pickResult;
 

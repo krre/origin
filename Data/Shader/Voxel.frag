@@ -32,9 +32,9 @@ layout (std430, binding = 1) buffer Octree {
 } octree;
 
 layout (std430, binding = 2) buffer RenderList {
-    int renderCount;
-    uint renderOffsets[];
-};
+    int count;
+    uint offsets[];
+} renderList;
 
 
 layout (std430, binding = 3) buffer PickResult {
@@ -75,7 +75,7 @@ uvec2 stack[s_max + 1u]; // Stack of parent voxels
 layout (location = 0) out vec4 fragColor;
 
 Ray constructRay(in int index) {
-    int offset = int(renderOffsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
+    int offset = int(renderList.offsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
     offset += 16; // skip octreeToWorld matrix
     Ray ray;
     ray.ray_size_coef = 0;
@@ -138,7 +138,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 //    t_max = min(t_max, 1.0);
 
     // Initialize the current voxel to the first child of the root.
-    uint parent = uint(renderOffsets[index] / 4 + 1);
+    uint parent = uint(renderList.offsets[index] / 4 + 1);
     uint child_descriptor = 0u; // invalid until fetched
     int idx = 0;
     vec3 pos = vec3(1.0);
@@ -311,7 +311,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
 
     uint blockInfo = pageHeader + octree.data[pageHeader];
     int attachData = int(blockInfo) + ubo.blockInfoEnd;
-    uint paletteNode = octree.data[attachData + int(node) - renderOffsets[index] / 4 - 1];
+    uint paletteNode = octree.data[attachData + int(node) - renderList.offsets[index] / 4 - 1];
 
     // While node has no color, loop
     while ((int(paletteNode >> cidx) & 1) != 1) {
@@ -329,7 +329,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         pageHeader = node & 0xFFFFF800; // Clear lower 11 bits.
         blockInfo = pageHeader + int(octree.data[pageHeader]);
         attachData = int(blockInfo) + ubo.blockInfoEnd;
-        paletteNode = octree.data[attachData + int(node) - renderOffsets[index] / 4 - 1];
+        paletteNode = octree.data[attachData + int(node) - renderList.offsets[index] / 4 - 1];
     }
 
     // Found, return it
@@ -345,7 +345,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         return vec4(octreeColor, 1.0);
     }
 
-    int offset = int(renderOffsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
+    int offset = int(renderList.offsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
     float v[16];
     for (int i = 0; i < 16; i++) {
         v[i] = uintBitsToFloat(octree.data[offset++]);
@@ -370,12 +370,12 @@ void main() {
     outCastRes.node = 0u;
     float t = 10000;
     int index = -1;
-    for (int i = 0; i < renderCount; i++) {
+    for (int i = 0; i < renderList.count; i++) {
         Ray ray = constructRay(i);
         // Take near to camera t
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
-            int offset = int(renderOffsets[i] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
+            int offset = int(renderList.offsets[i] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
             float octreeScale = uintBitsToFloat(octree.data[offset]);
             float real_t = castRes.t * octreeScale;
             if (real_t < t) {

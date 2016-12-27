@@ -2,7 +2,7 @@
 #include "../../Core/Singleton.h"
 #include "Instance.h"
 #include "DebugReportCallback.h"
-#include "PhysicalDeviceCollection.h"
+#include "PhysicalDevices.h"
 #include "Command/CommandBufferCollection.h"
 #include "Device.h"
 #include "Surface.h"
@@ -34,7 +34,7 @@ public:
     RenderPass* getRenderPass() const { return renderPass; }
     CommandPool* getCommandPool() const { return commandPool; }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
-    PhysicalDeviceCollection* getPhysicalDevices() const { return physicalDeviceCollection; }
+    PhysicalDevices* getPhysicalDevices() const { return physicalDevices; }
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void setCommandBuffers(const CommandBufferCollection* commandBuffers);
     void render();
@@ -43,7 +43,7 @@ private:
     Instance* instance = nullptr;
     VkPhysicalDevice mainPhysicalDevice;
     DebugReportCallback* debugCallback = nullptr;
-    PhysicalDeviceCollection* physicalDeviceCollection = nullptr;
+    PhysicalDevices* physicalDevices = nullptr;
     Device* device = nullptr;
     Surface* surface = nullptr;
     Swapchain* swapchain = nullptr;

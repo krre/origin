@@ -19,7 +19,7 @@ Manager::~Manager() {
     delete surface;
     delete commandPool;
     delete device;
-    delete physicalDeviceCollection;
+    delete physicalDevices;
     delete debugCallback;
     delete instance;
 }
@@ -50,13 +50,13 @@ bool Manager::init() {
         }
     }
 
-    physicalDeviceCollection = new PhysicalDeviceCollection(instance);
-    mainPhysicalDevice = physicalDeviceCollection->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+    physicalDevices = new PhysicalDevices(instance);
+    mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
     if (mainPhysicalDevice == VK_NULL_HANDLE) {
-        mainPhysicalDevice = physicalDeviceCollection->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+        mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     }
 
-    graphicsFamily = physicalDeviceCollection->findQueue(mainPhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
+    graphicsFamily = physicalDevices->findQueue(mainPhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
 
     device = new Device(mainPhysicalDevice, graphicsFamily);
     if (device->create() != VK_SUCCESS) {

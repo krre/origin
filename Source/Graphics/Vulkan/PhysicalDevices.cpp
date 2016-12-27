@@ -1,8 +1,8 @@
-#include "PhysicalDeviceCollection.h"
+#include "PhysicalDevices.h"
 
 using namespace Vulkan;
 
-PhysicalDeviceCollection::PhysicalDeviceCollection(const Instance* instance) : instance(instance) {
+PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) {
     uint32_t count;
     vkEnumeratePhysicalDevices(instance->getHandle(), &count, nullptr);
     collection.resize(count);
@@ -28,7 +28,7 @@ PhysicalDeviceCollection::PhysicalDeviceCollection(const Instance* instance) : i
     }
 }
 
-VkPhysicalDevice PhysicalDeviceCollection::findDevice(VkPhysicalDeviceType type) {
+VkPhysicalDevice PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
     for (auto device : properties) {
         if (device.second.deviceType == type) {
             return device.first;
@@ -38,7 +38,7 @@ VkPhysicalDevice PhysicalDeviceCollection::findDevice(VkPhysicalDeviceType type)
     return VK_NULL_HANDLE;
 }
 
-uint32_t PhysicalDeviceCollection::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {
+uint32_t PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {
     uint32_t i = 0;
     for (auto familyProperty : queueFamilyProperties[device]) {
         if (familyProperty.queueCount > 0 && (familyProperty.queueFlags & flags)) {
@@ -51,7 +51,7 @@ uint32_t PhysicalDeviceCollection::findQueue(VkPhysicalDevice device, VkQueueFla
     return -1;
 }
 
-uint32_t PhysicalDeviceCollection::findMemoryType(VkPhysicalDevice device, uint32_t typeFilter, VkMemoryPropertyFlags properties) {
+uint32_t PhysicalDevices::findMemoryType(VkPhysicalDevice device, uint32_t typeFilter, VkMemoryPropertyFlags properties) {
     for (uint32_t i = 0; i < memoryProperties[device].memoryTypeCount; i++) {
         if ((typeFilter & (1 << i)) && (memoryProperties[device].memoryTypes[i].propertyFlags & properties) == properties) {
             return i;
@@ -61,7 +61,7 @@ uint32_t PhysicalDeviceCollection::findMemoryType(VkPhysicalDevice device, uint3
     return -1;
 }
 
-void PhysicalDeviceCollection::dumpDevices() {
+void PhysicalDevices::dumpDevices() {
     for (auto device: collection) {
         VkPhysicalDeviceProperties deviceProperties;
         vkGetPhysicalDeviceProperties(device, &deviceProperties);

@@ -6,10 +6,10 @@
 
 namespace Vulkan {
 
-class PhysicalDeviceCollection : public Collection<VkPhysicalDevice> {
+class PhysicalDevices : public Collection<VkPhysicalDevice> {
 
 public:
-    PhysicalDeviceCollection(const Instance* instance);
+    PhysicalDevices(const Instance* instance);
     VkPhysicalDeviceProperties getProperties(VkPhysicalDevice device) { return properties[device]; }
     VkPhysicalDeviceFeatures getFeatures(VkPhysicalDevice device) { return features[device]; }
     VkPhysicalDeviceMemoryProperties getMemoryProperties(VkPhysicalDevice device) { return memoryProperties[device]; }

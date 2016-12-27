@@ -27,9 +27,9 @@ layout(std140, binding = 0) uniform UBO {
 
 
 layout (std430, binding = 1) buffer Octree {
-    int octreeCount;
-    uint octreeData[];
-};
+    int count;
+    uint data[];
+} octree;
 
 layout (std430, binding = 2) buffer RenderList {
     int renderCount;
@@ -83,22 +83,22 @@ Ray constructRay(in int index) {
 
     float v[4];
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(octreeData[offset++]);
+        v[i] = uintBitsToFloat(octree.data[offset++]);
     }
     ray.origin = vec3(v[0], v[1], v[2]);
 
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(octreeData[offset++]);
+        v[i] = uintBitsToFloat(octree.data[offset++]);
     }
     vec3 startCornerPos = vec3(v[0], v[1], v[2]);
 
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(octreeData[offset++]);
+        v[i] = uintBitsToFloat(octree.data[offset++]);
     }
     vec3 stepW = vec3(v[0], v[1], v[2]);
 
     for (int i = 0; i < 4; i++) {
-        v[i] = uintBitsToFloat(octreeData[offset++]);
+        v[i] = uintBitsToFloat(octree.data[offset++]);
     }
     vec3 stepH = vec3(v[0], v[1], v[2]);
 
@@ -154,7 +154,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
     while (scale < s_max) {
         // Fetch child descriptor unless it is already valid.
         if (child_descriptor == 0u) {
-            child_descriptor = octreeData[int(parent)];
+            child_descriptor = octree.data[int(parent)];
         }
 
         // Determine maximum t-value of the cube by evaluating
@@ -309,9 +309,9 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     // so simple do hardcode.
     uint pageHeader = node & 0xFFFFF800;
 
-    uint blockInfo = pageHeader + octreeData[pageHeader];
+    uint blockInfo = pageHeader + octree.data[pageHeader];
     int attachData = int(blockInfo) + ubo.blockInfoEnd;
-    uint paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
+    uint paletteNode = octree.data[attachData + int(node) - renderOffsets[index] / 4 - 1];
 
     // While node has no color, loop
     while ((int(paletteNode >> cidx) & 1) != 1) {
@@ -327,14 +327,14 @@ vec4 lookupColor(in int index, in CastResult castRes) {
         if ((pz & (1 << level)) != 0) cidx |= 4;
 
         pageHeader = node & 0xFFFFF800; // Clear lower 11 bits.
-        blockInfo = pageHeader + int(octreeData[pageHeader]);
+        blockInfo = pageHeader + int(octree.data[pageHeader]);
         attachData = int(blockInfo) + ubo.blockInfoEnd;
-        paletteNode = octreeData[attachData + int(node) - renderOffsets[index] / 4 - 1];
+        paletteNode = octree.data[attachData + int(node) - renderOffsets[index] / 4 - 1];
     }
 
     // Found, return it
     int attachOffset = attachData + int(paletteNode >> 8) + bitCount(paletteNode & (1 << cidx) - 1);
-    int c = int(octreeData[attachOffset]);
+    int c = int(octree.data[attachOffset]);
     int r = (c >> 16) & 0xFF;
     int g = (c >> 8) & 0xFF;
     int b = c & 0xFF;
@@ -348,7 +348,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     int offset = int(renderOffsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
     float v[16];
     for (int i = 0; i < 16; i++) {
-        v[i] = uintBitsToFloat(octreeData[offset++]);
+        v[i] = uintBitsToFloat(octree.data[offset++]);
     }
     vec4 col0 = vec4(v[0], v[1], v[2], v[3]);
     vec4 col1 = vec4(v[4], v[5], v[6], v[7]);
@@ -376,7 +376,7 @@ void main() {
         CastResult castRes;
         if (castRay(i, ray, castRes)) {
             int offset = int(renderOffsets[i] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
-            float octreeScale = uintBitsToFloat(octreeData[offset]);
+            float octreeScale = uintBitsToFloat(octree.data[offset]);
             float real_t = castRes.t * octreeScale;
             if (real_t < t) {
                 t = real_t;

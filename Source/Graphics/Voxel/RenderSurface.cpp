@@ -149,7 +149,6 @@ void RenderSurface::draw(float dt) {
         }
     }
 
-    octreeSystem->getGpuMemoryManager()->beginBatch();
     ubo.transformCount = 0;
 
     for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
@@ -193,7 +192,6 @@ void RenderSurface::draw(float dt) {
         }
     }
 
-    octreeSystem->getGpuMemoryManager()->endBatch();
     ubo.frameWidth = width;
     ubo.frameHeight = height;
     ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);

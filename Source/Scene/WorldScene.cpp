@@ -211,8 +211,6 @@ void WorldScene::create() {
 
     Engine::get()->addEntity(avatarCamera);
 
-    octreeSystem->getGpuMemoryManager()->beginBatch();
-
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
     transformSystem->setScale(ground.get(), 5);
@@ -290,7 +288,6 @@ void WorldScene::create() {
     Engine::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
-    octreeSystem->getGpuMemoryManager()->endBatch();
     octreeSystem->getGpuMemoryManager()->updateRenderList();
 
     // Light

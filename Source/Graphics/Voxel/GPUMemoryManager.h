@@ -19,13 +19,6 @@ public:
     void removeEntity(const Entity* entity);
 
     void updateRenderList();
-
-    void beginBatch();
-    void endBatch();
-
-    void bind();
-    void release();
-
     std::map<EntityId, int> getOctreeOffsets() const { return octreeOffsets; }
 
 private:

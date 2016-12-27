@@ -31,10 +31,6 @@ void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Uniform* uniform) {
 }
 
 void GPUMemoryManager::updateEntityOctree(Entity* entity) {
-    if (!batch) {
-        bind();
-    }
-
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
     int offset = octreeOffsets[entity->getId()];
     int size = sizeof(uint32_t) * oc->data.get()->size();
@@ -44,10 +40,6 @@ void GPUMemoryManager::updateEntityOctree(Entity* entity) {
 }
 
 void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform) {
-    if (!batch) {
-        bind();
-    }
-
     int size = sizeof(glm::vec4) * transform.size();
     int offset = octreeOffsets[entity->getId()] + PAGE_BYTES - size;
 //    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);
@@ -57,9 +49,7 @@ void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<g
 }
 
 void GPUMemoryManager::removeEntity(const Entity* entity) {
-    if (!batch) {
-        bind();
-    }
+
 }
 
 void GPUMemoryManager::updateRenderList() {
@@ -74,23 +64,5 @@ void GPUMemoryManager::updateRenderList() {
 //    data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, sizeof(int), size, GL_MAP_WRITE_BIT);
 //    memcpy(data, renderOffsets.data(), size);
 //    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-}
-
-void GPUMemoryManager::beginBatch() {
-    bind();
-    batch = true;
-}
-
-void GPUMemoryManager::endBatch() {
-    release();
-    batch = false;
-}
-
-void GPUMemoryManager::bind() {
-//    glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
-}
-
-void GPUMemoryManager::release() {
 //    glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 }

@@ -15,8 +15,8 @@
 class WorldScene : public Scene3D {
 
     struct UBOfrag {
-        int pageBytes;
-        int blockInfoEnd;
+        int pageBytes = PAGE_BYTES;
+        int blockInfoEnd = BLOCK_INFO_END;
 
         int frameWidth;
         int frameHeight;
@@ -24,13 +24,13 @@ class WorldScene : public Scene3D {
         glm::vec3 backgroundColor;
         glm::vec3 lightColor;
         glm::vec3 lightPos;
-        bool shadeless;
+        bool shadeless = true;
 
-        float ambientStrength;
+        float ambientStrength = 0.1;
         float lod;
         int transformCount;
 
-        glm::vec2 pickPixel;
+        glm::vec2 pickPixel = glm::vec2(-1, -1);
     } uboFrag;
 
 public:

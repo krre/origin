@@ -13,8 +13,6 @@ void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Descriptor* descriptor)
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);
     endOffset += PAGE_BYTES;
-    uint32_t count = renderOffsets.size();
-    descriptor->update(0, sizeof(uint32_t), &count); // TODO: Optimize. Don't update on every adding entity
 }
 
 void GPUMemoryManager::updateEntityOctree(Entity* entity) {

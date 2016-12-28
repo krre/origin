@@ -27,7 +27,6 @@ layout(std140, binding = 0) uniform UBO {
 
 
 layout (std430, binding = 1) buffer Octree {
-    int count;
     uint data[];
 } octree;
 

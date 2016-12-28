@@ -24,13 +24,10 @@ void GPUMemoryManager::updateEntityOctree(Entity* entity) {
 //    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
 
-void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform) {
+void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform, Vulkan::Descriptor* descriptor) {
     int size = sizeof(glm::vec4) * transform.size();
     int offset = octreeOffsets[entity->getId()] + PAGE_BYTES - size;
-//    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);
-//    memcpy(data, transform.data(), size);
-//    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
-
+    descriptor->update(offset, size, transform.data());
 }
 
 void GPUMemoryManager::removeEntity(const Entity* entity) {

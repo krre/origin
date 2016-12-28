@@ -15,7 +15,7 @@ public:
     GPUMemoryManager();
     void addEntity(Entity* entity, Vulkan::Descriptor* descriptor);
     void updateEntityOctree(Entity* entity);
-    void updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform);
+    void updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform, Vulkan::Descriptor* descriptor);
     void removeEntity(const Entity* entity);
 
     void updateRenderList(Vulkan::Descriptor* descriptor);

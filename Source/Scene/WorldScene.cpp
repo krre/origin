@@ -239,7 +239,7 @@ void WorldScene::update(float dt) {
         transform.push_back(stepW);
         transform.push_back(stepH);
 
-        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform);
+        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, octreeBuffer);
 
         if (!ubo.transformCount) {
             ubo.transformCount = transform.size();

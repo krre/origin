@@ -129,6 +129,7 @@ int App::run() {
         currentTime = newTime;
 
         GameStateManager::get()->update(frameTime);
+        Engine::get()->update(frameTime);
         GameStateManager::get()->draw(frameTime);
         Vulkan::Manager::get()->render();
     }

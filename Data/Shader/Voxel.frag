@@ -7,20 +7,19 @@
 // http://code.google.com/p/efficient-sparse-voxel-octrees
 
 layout(std140, binding = 0) uniform UBO {
+    bool shadeless;
     int pageBytes;
     int blockInfoEnd;
-
     int frameWidth;
     int frameHeight;
+    int transformCount;
+
+    float ambientStrength;
+    float lod;
 
     vec3 backgroundColor;
     vec3 lightColor;
     vec3 lightPos;
-    bool shadeless;
-
-    float ambientStrength;
-    float lod;
-    int transformCount;
 
     vec2 pickPixel;
 } ubo;

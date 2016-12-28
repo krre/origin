@@ -19,20 +19,19 @@ const int LOD_PIXEL_LIMIT = 1;
 class WorldScene : public Scene3D {
 
     struct UBO {
+        bool shadeless = true;
         int pageBytes = PAGE_BYTES;
         int blockInfoEnd = BLOCK_INFO_END;
-
         int frameWidth;
         int frameHeight;
+        int transformCount;
+
+        float ambientStrength = 0.1;
+        float lod;
 
         glm::vec3 backgroundColor = glm::vec3(0.77, 0.83, 0.83);
         glm::vec3 lightColor;
         glm::vec3 lightPos;
-        bool shadeless = true;
-
-        float ambientStrength = 0.1;
-        float lod;
-        int transformCount;
 
         glm::vec2 pickPixel = glm::vec2(-1, -1);
     } ubo;

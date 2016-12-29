@@ -24,7 +24,17 @@ App::App(int argc, char* argv[]) {
 }
 
 App::~App() {
-    clean();
+    SDL_DestroyWindow(window);
+    SDL_Quit();
+    Game::get()->release();
+    SceneManager::get()->release();
+    EntityManager::get()->release();
+    Input::get()->release();
+    ResourceManager::get()->release();
+    Debug::get()->release();
+    Event::get()->release();
+    Vulkan::Manager::get()->release();
+    Logger::get()->release();
 }
 
 std::string App::getCurrentPath() {
@@ -95,20 +105,6 @@ void App::init() {
     Event::get()->windowResize.emit(width, height);
 
     isRunning = true;
-}
-
-void App::clean() {
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-    Game::get()->release();
-    SceneManager::get()->release();
-    EntityManager::get()->release();
-    Input::get()->release();
-    ResourceManager::get()->release();
-    Debug::get()->release();
-    Event::get()->release();
-    Vulkan::Manager::get()->release();
-    Logger::get()->release();
 }
 
 int App::run() {

@@ -30,7 +30,6 @@ void SceneManager::popScene() {
 void SceneManager::setScene(std::shared_ptr<Scene> scene) {
     scenes.clear();
     pushScene(scene);
-    scene->resume();
 }
 
 void SceneManager::update(float dt) {

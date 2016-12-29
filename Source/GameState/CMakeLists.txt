@@ -1,7 +1,5 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/ConsoleState.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ConsoleState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GameState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuState.cpp

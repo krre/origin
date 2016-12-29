@@ -2,7 +2,7 @@
 #include "../Event/Event.h"
 #include "../Core/Game.h"
 #include "../Core/App.h"
-#include "../GameState/GameStateManager.h"
+#include "../Scene/SceneManager.h"
 #include <glm/glm.hpp>
 
 Console::Console() {
@@ -56,6 +56,6 @@ void Console::execute() {
             print("help");
         }
         setVisible(false);
-        GameStateManager::get()->setState(GameState::PLAY);
+        SceneManager::get()->popScene();
     }
 }

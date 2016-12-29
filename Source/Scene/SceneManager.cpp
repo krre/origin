@@ -10,6 +10,7 @@ void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
     }
     scenes.push_back(scene);
     scene->init();
+    scene->create();
     scene->resume();
 }
 

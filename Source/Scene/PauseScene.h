@@ -6,7 +6,7 @@
 class PauseScene : public Scene2D {
 
 public:
-    PauseScene(int width, int height);
+    PauseScene();
     ~PauseScene();
     void init() override;
     void draw(float dt) override;

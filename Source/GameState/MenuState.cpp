@@ -1,6 +1,6 @@
 #include "MenuState.h"
 
-MenuState::MenuState() : GameState(MENU), menuScene(300, 300) {
+MenuState::MenuState() : GameState(MENU) {
     isFreezable = true;
 }
 

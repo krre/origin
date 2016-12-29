@@ -6,7 +6,8 @@
 #include "../UI/Toast.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
-#include "../GameState/GameStateManager.h"
+#include "../Scene/SceneManager.h"
+#include "../Scene/WorldScene.h"
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -20,7 +21,7 @@ Game::Game() {
     loadDevelopSettings();
 #endif
 
-    GameStateManager::get()->setState(GameState::PLAY);
+    SceneManager::get()->setScene(std::make_shared<WorldScene>());
 }
 
 void Game::load() {
@@ -32,18 +33,17 @@ void Game::save() {
 }
 
 void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
-    GameState::Type gameState = GameStateManager::get()->getStateType();
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-        if (Input::get()->isKeyAccepted) break;
-        if (gameState == GameState::PLAY) {
-            GameStateManager::get()->pushState(GameState::PAUSE);
-        } else if (gameState == GameState::CONSOLE) {
+//        if (Input::get()->isKeyAccepted) break;
+//        if (gameState == GameState::PLAY) {
+//            GameStateManager::get()->pushState(GameState::PAUSE);
+//        } else if (gameState == GameState::CONSOLE) {
 //            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
 //            movementControllerSystem->setActive(true);
-            Console::get()->setVisible(false);
-            GameStateManager::get()->popState();
-        }
+//            Console::get()->setVisible(false);
+//            GameStateManager::get()->popState();
+//        }
         break;
 #ifdef DEBUG_HUD_ENABLE
     case SDLK_F5:
@@ -60,12 +60,12 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
         break;
 #ifdef CONSOLE_ENABLE
     case SDLK_SLASH:
-        if (gameState == GameState::PLAY) {
+//        if (gameState == GameState::PLAY) {
 //            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
 //            movementControllerSystem->setActive(false);
-            Console::get()->setVisible(true);
-            GameStateManager::get()->pushState(GameState::CONSOLE);
-        }
+//            Console::get()->setVisible(true);
+//            GameStateManager::get()->pushState(GameState::CONSOLE);
+//        }
         break;
 #endif
 #ifdef DEVELOP_MODE

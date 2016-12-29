@@ -10,7 +10,7 @@
 #include "../Debug/DebugHUD.h"
 #include "../UI/Toast.h"
 #include "../ECS/Engine.h"
-#include "../GameState/GameStateManager.h"
+#include "../Scene/SceneManager.h"
 #include <string>
 #include <SDL_timer.h>
 #include <CovenantLand.h>
@@ -91,7 +91,7 @@ void App::init() {
     new Toast;
     new Input;
     new Engine;
-    new GameStateManager;
+    new SceneManager;
     new Game;
 
     Event::get()->windowResize.connect<App, &App::windowResize>(this);
@@ -105,7 +105,7 @@ void App::clean() {
     SDL_DestroyWindow(window);
     SDL_Quit();
     Game::get()->release();
-    GameStateManager::get()->release();
+    SceneManager::get()->release();
     Engine::get()->release();
     Input::get()->release();
     ResourceManager::get()->release();
@@ -128,9 +128,9 @@ int App::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        GameStateManager::get()->update(frameTime);
+        SceneManager::get()->update(frameTime);
         Engine::get()->update(frameTime);
-        GameStateManager::get()->draw(frameTime);
+        SceneManager::get()->draw(frameTime);
         Vulkan::Manager::get()->render();
     }
 

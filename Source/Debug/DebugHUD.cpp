@@ -6,8 +6,8 @@
 #include <glm/glm.hpp>
 #include <CovenantLand.h>
 
-DebugHUD::DebugHUD() : Scene2D(500, 500) {
-    create();
+DebugHUD::DebugHUD() {
+
 }
 
 void DebugHUD::init() {

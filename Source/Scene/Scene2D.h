@@ -8,7 +8,6 @@ class Scene2D : public Scene {
 
 public:
     Scene2D();
-    Scene2D(int width, int height);
     void draw(float dt) override;
 
     void addControl(std::shared_ptr<Control> control);

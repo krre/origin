@@ -1,14 +1,13 @@
 #include "MenuScene.h"
 #include "../Core/App.h"
-#include "../GameState/GameStateManager.h"
+#include "../Scene/SceneManager.h"
 #include "../Event/Input.h"
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 
-MenuScene::MenuScene(int width, int height) :
-    Scene2D(width, height) {
+MenuScene::MenuScene() {
 }
 
 MenuScene::~MenuScene() {
@@ -163,7 +162,7 @@ void MenuScene::create() {
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
-        GameStateManager::get()->popState();
+        SceneManager::get()->popScene();
         Input::get()->isKeyAccepted = true;
     }
 }

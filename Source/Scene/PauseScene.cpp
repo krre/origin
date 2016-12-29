@@ -1,10 +1,9 @@
 #include "PauseScene.h"
 #include "../Core/App.h"
-#include "../GameState/GameStateManager.h"
+#include "../Scene/SceneManager.h"
 #include "../Event/Input.h"
 
-PauseScene::PauseScene(int width, int height) :
-    Scene2D(width, height) {
+PauseScene::PauseScene() {
 }
 
 PauseScene::~PauseScene() {
@@ -47,7 +46,7 @@ void PauseScene::create() {
 }
 
 void PauseScene::onContinueButtonClicked() {
-    GameStateManager::get()->popState();
+    SceneManager::get()->popScene();
 }
 
 void PauseScene::onExitButtonClicked() {
@@ -57,7 +56,7 @@ void PauseScene::onExitButtonClicked() {
 void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     print("pop")
     if (event.keysym.sym == SDLK_ESCAPE) {
-        GameStateManager::get()->popState();
+        SceneManager::get()->popScene();
         Input::get()->isKeyAccepted = true;
     }
 }

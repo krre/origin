@@ -6,7 +6,7 @@
 class SettingsScene : public Scene2D {
 
 public:
-    SettingsScene(int width, int height);
+    SettingsScene();
     ~SettingsScene();
     void init() override;
     void draw(float dt) override;

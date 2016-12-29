@@ -22,7 +22,7 @@ class MenuScene : public Scene2D {
     } uboFrag;
 
 public:
-    MenuScene(int width, int height);
+    MenuScene();
     ~MenuScene();
     void init() override;
     void draw(float dt) override;

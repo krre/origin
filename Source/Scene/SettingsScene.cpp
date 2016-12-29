@@ -1,10 +1,9 @@
 #include "SettingsScene.h"
 #include "../Core/App.h"
-#include "../GameState/GameStateManager.h"
+#include "../Scene/SceneManager.h"
 #include "../Event/Input.h"
 
-SettingsScene::SettingsScene(int width, int height) :
-    Scene2D(width, height) {
+SettingsScene::SettingsScene() {
 }
 
 SettingsScene::~SettingsScene() {
@@ -29,7 +28,7 @@ void SettingsScene::create() {
 
 void SettingsScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
-        GameStateManager::get()->popState();
+        SceneManager::get()->popScene();
         Input::get()->isKeyAccepted = true;
     }
 }

@@ -5,10 +5,6 @@ Scene2D::Scene2D() {
 
 }
 
-Scene2D::Scene2D(int width, int height) {
-
-}
-
 void Scene2D::draw(float dt) {
     if (layout != nullptr) {
         layout->draw(dt);

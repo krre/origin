@@ -5,7 +5,8 @@
 #include "../ECS/Components/Components.h"
 #include "../ECS/Systems/Systems.h"
 #include "../Resource/ResourceManager.h"
-#include "../GameState/GameStateManager.h"
+#include "../Scene/SceneManager.h"
+#include "../Scene/PauseScene.h"
 #include "../Event/Input.h"
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Resource/ShaderResource.h"
@@ -375,7 +376,7 @@ void WorldScene::create() {
 
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
-        GameStateManager::get()->pushState(GameState::PAUSE);
-//        Input::get()->isKeyAccepted = true;
+        SceneManager::get()->pushScene(std::make_shared<PauseScene>());
+        Input::get()->isKeyAccepted = true;
     }
 }

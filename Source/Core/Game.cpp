@@ -129,7 +129,7 @@ void Game::saveScreenshot() {
     delete[] image;
 
     std::string message = "Screenshot saved to " + filename;
-    Toast::get()->showToast(message);
+//    Toast::get()->showToast(message);
 }
 
 void Game::loadDevelopSettings() {

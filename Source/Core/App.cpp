@@ -7,7 +7,6 @@
 #include "../Resource/ResourceManager.h"
 #include "../Debug/Logger.h"
 #include "../Debug/Debug.h"
-#include "../UI/Toast.h"
 #include "../ECS/Engine.h"
 #include "../Scene/SceneManager.h"
 #include <string>
@@ -86,7 +85,6 @@ void App::init() {
     new Event;
     new ResourceManager;
     new Debug;
-    new Toast;
     new Input;
     new Engine;
     new SceneManager;
@@ -108,7 +106,6 @@ void App::clean() {
     Input::get()->release();
     ResourceManager::get()->release();
     Debug::get()->release();
-    Toast::get()->release();
     Event::get()->release();
     Vulkan::Manager::get()->release();
     Logger::get()->release();

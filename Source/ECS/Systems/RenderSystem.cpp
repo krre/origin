@@ -8,7 +8,6 @@
 
 RenderSystem::RenderSystem() {
     type = SystemType::Render;
-    drawables.push_back(Toast::get());
 }
 
 void RenderSystem::process(float dt) {

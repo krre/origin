@@ -1,10 +1,9 @@
 #pragma once
-#include "../Core/Singleton.h"
 #include "../Graphics/Drawable.h"
 #include "Text.h"
 #include "../Core/Timer.h"
 
-class Toast : public Singleton<Toast>, public CovenantLand::Drawable {
+class Toast : public CovenantLand::Drawable {
 
 public:
     Toast();

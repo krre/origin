@@ -8,7 +8,7 @@ SettingsScene::SettingsScene(int width, int height) :
 }
 
 SettingsScene::~SettingsScene() {
-    Event::get()->keyPressed.disconnect<SettingsScene, &SettingsScene::onKeyPressed>(this);
+
 }
 
 void SettingsScene::init() {

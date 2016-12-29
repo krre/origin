@@ -8,7 +8,7 @@ PauseScene::PauseScene(int width, int height) :
 }
 
 PauseScene::~PauseScene() {
-    Event::get()->keyPressed.disconnect<PauseScene, &PauseScene::onKeyPressed>(this);
+
 }
 
 void PauseScene::init() {
@@ -55,6 +55,7 @@ void PauseScene::onExitButtonClicked() {
 }
 
 void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
+    print("pop")
     if (event.keysym.sym == SDLK_ESCAPE) {
         GameStateManager::get()->popState();
         Input::get()->isKeyAccepted = true;

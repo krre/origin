@@ -13,14 +13,9 @@
 #include <glm/ext.hpp>
 #include <ctime>
 #include <lodepng/lodepng.h>
-#include <Covenantland.h>
 #include <experimental/filesystem>
 
 Game::Game() {
-#ifdef DEVELOP_MODE
-    loadDevelopSettings();
-#endif
-
     SceneManager::get()->setScene(std::make_shared<WorldScene>());
 }
 
@@ -130,15 +125,4 @@ void Game::saveScreenshot() {
 
     std::string message = "Screenshot saved to " + filename;
 //    Toast::get()->showToast(message);
-}
-
-void Game::loadDevelopSettings() {
-    std::string mainDebugPath = App::getCurrentPath() + "/Debug/main.debug";
-    std::string mainDebugText = Utils::readTextFile(mainDebugPath);
-    std::stringstream stream(mainDebugText);
-    std::string line;
-
-    while (std::getline(stream, line, '\n')) {
-//        print(line)
-    }
 }

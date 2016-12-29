@@ -10,5 +10,6 @@ public:
     std::string getValue(const std::string& key) const;
 
 private:
+    void loadValues();
     std::map<std::string, std::string> values;
 };

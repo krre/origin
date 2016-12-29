@@ -13,5 +13,4 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void toggleFullScreen();
     void saveScreenshot();
-    void loadDevelopSettings();
 };

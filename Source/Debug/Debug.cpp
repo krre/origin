@@ -30,6 +30,13 @@ void Debug::loadValues() {
     std::string line;
 
     while (std::getline(stream, line, '\n')) {
-//        print(line)
+        line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
+        std::vector<std::string> pair = Utils::split(line, '=');
+
+        if (pair.size() != 2) {
+            error("Failed to parse main.debug at line: " << line);
+        } else {
+            values[pair.at(0)] = pair.at(1);
+        }
     }
 }

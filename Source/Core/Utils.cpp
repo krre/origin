@@ -139,3 +139,15 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
 
     return data;
 }
+
+std::vector<std::string> Utils::split(const std::string& value, char delim) {
+    std::vector<std::string> elems;
+    std::stringstream ss;
+    ss.str(value);
+    std::string item;
+    while (std::getline(ss, item, delim)) {
+        elems.push_back(item);
+    }
+
+    return elems;
+}

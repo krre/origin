@@ -375,12 +375,14 @@ void WorldScene::create() {
 }
 
 void WorldScene::pause() {
+    Scene::pause();
     MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setActive(false);
     SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 
 void WorldScene::resume() {
+    Scene::resume();
     MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setActive(true);
     SDL_SetRelativeMouseMode(SDL_TRUE);

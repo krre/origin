@@ -376,6 +376,6 @@ void WorldScene::create() {
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         GameStateManager::get()->pushState(GameState::PAUSE);
-        Input::get()->isKeyAccepted = true;
+//        Input::get()->isKeyAccepted = true;
     }
 }

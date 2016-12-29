@@ -8,10 +8,15 @@ class Scene : public Viewport {
 public:
     Scene();
     ~Scene();
-    virtual void init() = 0;
-    virtual void draw(float dt) = 0;
+    virtual void init() {}
+    virtual void create() {}
+    virtual void cleanup() {}
+    virtual void pause() {}
+    virtual void resume() {}
+
     virtual void update(float dt) = 0;
-    virtual void create() = 0;
+    virtual void draw(float dt) = 0;
+
     bool getIsFullScreen() const { return isFullScreen; }
 
 protected:

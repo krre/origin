@@ -1,15 +1,17 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/MenuScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuScene.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/MenuScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Scene.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene2D.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene2D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene3D.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene3D.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Scene.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/WorldScene.cpp

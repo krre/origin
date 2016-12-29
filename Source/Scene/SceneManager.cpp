@@ -7,6 +7,9 @@ SceneManager::SceneManager() {
 void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
     if (scenes.size()) {
         scenes.back()->pause();
+        if (scene->getIsFullScreen()) {
+            scenes.back()->setVisible(false);
+        }
     }
     scenes.push_back(scene);
     scene->init();
@@ -18,6 +21,7 @@ void SceneManager::popScene() {
     if (scenes.size()) {
         scenes.pop_back();
         scenes.back()->resume();
+        scenes.back()->setVisible(true);
     } else {
         // Question dialog about exit from game
     }
@@ -30,17 +34,17 @@ void SceneManager::setScene(std::shared_ptr<Scene> scene) {
 }
 
 void SceneManager::update(float dt) {
-    if (scenes.size() > 1) {
-        for (auto scene : scenes) {
+    for (auto scene : scenes) {
+        if (scene->getVisible()) {
             scene->update(dt);
         }
-    } else {
-        scenes.back()->update(dt);
     }
 }
 
 void SceneManager::draw(float dt) {
     for (auto scene : scenes) {
-        scene->draw(dt);
+        if (scene->getVisible()) {
+            scene->draw(dt);
+        }
     }
 }

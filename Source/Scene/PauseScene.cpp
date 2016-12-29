@@ -4,6 +4,7 @@
 #include "../Event/Input.h"
 
 PauseScene::PauseScene() {
+    isFullScreen = false;
 }
 
 PauseScene::~PauseScene() {
@@ -25,8 +26,6 @@ void PauseScene::update(float dt) {
 }
 
 void PauseScene::create() {
-    isFullScreen = false;
-
     continueButton.setText("Continue");
     continueButton.setZ(0.5f);
 

@@ -25,7 +25,7 @@ void SceneManager::popScene() {
         scenes.back()->resume();
         scenes.back()->setVisible(true);
     } else {
-        // Question dialog about exit from game
+        // TODO: Question dialog about exit from game
     }
 }
 

@@ -56,6 +56,8 @@ public:
     void draw(float dt) override;
     void update(float dt) override;
     void create() override;
+    void pause() override;
+    void resume() override;
     EntityId getCharacterId() { return characterId; }
     uint64_t getSeed() { return seed; }
 

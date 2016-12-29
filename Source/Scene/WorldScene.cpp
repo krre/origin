@@ -374,6 +374,18 @@ void WorldScene::create() {
     Engine::get()->addEntity(light);
 }
 
+void WorldScene::pause() {
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+    movementControllerSystem->setActive(false);
+    SDL_SetRelativeMouseMode(SDL_FALSE);
+}
+
+void WorldScene::resume() {
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+    movementControllerSystem->setActive(true);
+    SDL_SetRelativeMouseMode(SDL_TRUE);
+}
+
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         SceneManager::get()->pushScene(std::make_shared<PauseScene>());

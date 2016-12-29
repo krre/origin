@@ -40,7 +40,6 @@ void PauseScene::create() {
     layout->addControl(&exitButton);
     setLayout(layout);
 
-    Event::get()->keyPressed.connect<PauseScene, &PauseScene::onKeyPressed>(this);
     continueButton.clicked.connect<PauseScene, &PauseScene::onContinueButtonClicked>(this);
     exitButton.clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);
 }
@@ -51,12 +50,4 @@ void PauseScene::onContinueButtonClicked() {
 
 void PauseScene::onExitButtonClicked() {
     App::get()->quit();
-}
-
-void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
-    print("pop")
-    if (event.keysym.sym == SDLK_ESCAPE) {
-        SceneManager::get()->popScene();
-        Input::get()->isKeyAccepted = true;
-    }
 }

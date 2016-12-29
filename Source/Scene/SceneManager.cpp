@@ -15,8 +15,12 @@ void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
 }
 
 void SceneManager::popScene() {
-    scenes.pop_back();
-    scenes.back()->resume();
+    if (scenes.size()) {
+        scenes.pop_back();
+        scenes.back()->resume();
+    } else {
+        // Question dialog about exit from game
+    }
 }
 
 void SceneManager::setScene(std::shared_ptr<Scene> scene) {

@@ -3,7 +3,7 @@
 #include "../UI/Text.h"
 #include <SDL.h>
 
-class Console : public CovenantLand::Drawable {
+class Console : public Covenantland::Drawable {
 
 public:
     Console();

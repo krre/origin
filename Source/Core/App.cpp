@@ -11,11 +11,11 @@
 #include "../Scene/SceneManager.h"
 #include <string>
 #include <SDL_timer.h>
-#include <CovenantLand.h>
+#include <Covenantland.h>
 #include <algorithm>
 #include <experimental/filesystem>
 
-const char* title = "CovenantLand";
+const char* title = "Covenantland";
 
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {

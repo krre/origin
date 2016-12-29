@@ -8,7 +8,7 @@ set(VERSION_PATCH 0)
 
 set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-configure_file(CovenantLand.h.in CovenantLand.h @ONLY)
+configure_file(Covenantland.h.in Covenantland.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(Source)

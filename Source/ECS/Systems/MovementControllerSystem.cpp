@@ -2,7 +2,7 @@
 #include "TransformSystem.h"
 #include "../../Event/Input.h"
 #include "../Components/MovementComponent.h"
-#include "../Engine.h"
+#include "../EntityManager.h"
 
 MovementControllerSystem::MovementControllerSystem() {
     type = SystemType::MovementController;
@@ -19,7 +19,7 @@ void MovementControllerSystem::process(float dt) {
     tc->pitch = glm::clamp(tc->pitch, -80.0f, 80.0f);
 
     glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(tc->yaw), glm::radians(tc->pitch)));
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(engine->getSystem(SystemType::Transform).get());
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(entityManager->getSystem(SystemType::Transform).get());
     transformSystem->setRotation(rotateEntity, rotation);
 
     if (Input::get()->isKeyPressed(SDLK_w)) {

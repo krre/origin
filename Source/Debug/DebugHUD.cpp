@@ -1,7 +1,7 @@
 #include "DebugHUD.h"
 #include "../Core/App.h"
 #include "../Core/Game.h"
-#include "../ECS/Engine.h"
+#include "../ECS/EntityManager.h"
 #include "../ECS/Components/TransformComponent.h"
 #include <glm/glm.hpp>
 #include <CovenantLand.h>
@@ -24,7 +24,7 @@ void DebugHUD::draw(float dt) {
         accumTime = 0;
         counter = 0;
     }
-//    Entity* character = Engine::get()->getEntity(Game::get()->getCharacterId()).get();
+//    Entity* character = EntityManager::get()->getEntity(Game::get()->getCharacterId()).get();
 //    TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
 
 //    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));

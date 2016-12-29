@@ -1,5 +1,5 @@
 #include "WorldScene.h"
-#include "../ECS/Engine.h"
+#include "../ECS/EntityManager.h"
 #include "../ECS/System.h"
 #include "../ECS/EntityBuilder.h"
 #include "../ECS/Components/Components.h"
@@ -178,7 +178,7 @@ void WorldScene::update(float dt) {
     int width = App::get()->getWidth();
     int height = App::get()->getHeight();
 
-    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
+    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(EntityManager::get()->getSystem(SystemType::Octree).get());
     Entity* currentCamera = viewport.getCurrentCamera().get();
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
@@ -190,7 +190,7 @@ void WorldScene::update(float dt) {
     ubo.lightPos = glm::vec3(0.0);
 
     // TODO: Replace by family
-    for (auto entity : Engine::get()->getEntities()) {
+    for (auto entity : EntityManager::get()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity.second->components[ComponentType::Octree].get());
         if (octreeComp) {
             octreeTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
@@ -208,7 +208,7 @@ void WorldScene::update(float dt) {
 
     for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
         std::vector<glm::vec4> transform;
-        Entity* entity = Engine::get()->getEntity(imap.first).get();
+        Entity* entity = EntityManager::get()->getEntity(imap.first).get();
         TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
         transform.push_back(octreeTransform->objectToWorld[0]);
         transform.push_back(octreeTransform->objectToWorld[1]);
@@ -255,39 +255,39 @@ void WorldScene::update(float dt) {
 }
 
 void WorldScene::create() {
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(Engine::get()->getSystem(SystemType::Transform).get());
-    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(Engine::get()->getSystem(SystemType::Octree).get());
-    PhisicsSystem* phisicsSystem = static_cast<PhisicsSystem*>(Engine::get()->getSystem(SystemType::Phisics).get());
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(EntityManager::get()->getSystem(SystemType::Transform).get());
+    OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(EntityManager::get()->getSystem(SystemType::Octree).get());
+    PhisicsSystem* phisicsSystem = static_cast<PhisicsSystem*>(EntityManager::get()->getSystem(SystemType::Phisics).get());
 
     // Free camera
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
     transformSystem->lookAt(freeCamera.get(), glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     transformSystem->translate(freeCamera.get(), glm::vec3(2.0f, 1.0f, 3.0f));
     viewport.setCurrentCamera(freeCamera);
-    Engine::get()->addEntity(freeCamera);
+    EntityManager::get()->addEntity(freeCamera);
 
     // Avatar
     auto avatar = EntityBuilder::avatar();
-    Engine::get()->addEntity(avatar);
+    EntityManager::get()->addEntity(avatar);
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
     viewport.setCurrentCamera(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 2.0f));
     transformSystem->setPitch(avatarCamera.get(), -15.0);
-//    NodeSystem* nodeSystem = static_cast<NodeSystem*>(Engine::get()->getSystem(SystemType::Node).get());
+//    NodeSystem* nodeSystem = static_cast<NodeSystem*>(EntityManager::get()->getSystem(SystemType::Node).get());
 //    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
     characterId = avatarCamera->getId();
 
     std::shared_ptr<PhisicsComponent> phisicsComponent = std::make_shared<PhisicsComponent>();
     phisicsComponent->mass = 1.0;
     phisicsComponent->collisionShape.reset(new btCapsuleShape(0.5, 1.75));
-    Engine::get()->addComponent(avatarCamera.get(), phisicsComponent);
+    EntityManager::get()->addComponent(avatarCamera.get(), phisicsComponent);
     phisicsSystem->createMotionState(avatarCamera.get());
     phisicsSystem->createRigidBody(avatarCamera.get());
     phisicsComponent->rigidBody->setAngularFactor(btVector3(0, 0, 0));
     phisicsSystem->addRigidBody(avatarCamera.get());
 
-    Engine::get()->addEntity(avatarCamera);
+    EntityManager::get()->addEntity(avatarCamera);
 
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
@@ -295,7 +295,7 @@ void WorldScene::create() {
     transformSystem->setPosition(ground.get(), glm::vec3(0.0, 1.0, 0.0));
     OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
     groundOctree->data = ResourceManager::get()->getResource<Octree>("GroundOctree")->data();
-    Engine::get()->addEntity(ground);
+    EntityManager::get()->addEntity(ground);
     octreeSystem->getGpuMemoryManager()->addEntity(ground.get(), octreeBuffer);
 
     // Trees
@@ -310,7 +310,7 @@ void WorldScene::create() {
 
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
     tree1Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
-    Engine::get()->addEntity(tree1);
+    EntityManager::get()->addEntity(tree1);
     octreeSystem->getGpuMemoryManager()->addEntity(tree1.get(), octreeBuffer);
 
     std::shared_ptr<Entity> tree2 = EntityBuilder::geometry();
@@ -324,7 +324,7 @@ void WorldScene::create() {
 
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
     tree2Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
-    Engine::get()->addEntity(tree2);
+    EntityManager::get()->addEntity(tree2);
     octreeSystem->getGpuMemoryManager()->addEntity(tree2.get(), octreeBuffer);
 
     std::shared_ptr<Entity> tree3 = EntityBuilder::geometry();
@@ -338,7 +338,7 @@ void WorldScene::create() {
 
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
     tree3Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
-    Engine::get()->addEntity(tree3);
+    EntityManager::get()->addEntity(tree3);
     octreeSystem->getGpuMemoryManager()->addEntity(tree3.get(), octreeBuffer);
 
     // Chamomiles
@@ -347,7 +347,7 @@ void WorldScene::create() {
     transformSystem->setPosition(chamomile1.get(), glm::vec3(0.2, -0.22, 0.2));
     OctreeComponent* chamomile1Octree = static_cast<OctreeComponent*>(chamomile1->components[ComponentType::Octree].get());
     chamomile1Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
-    Engine::get()->addEntity(chamomile1);
+    EntityManager::get()->addEntity(chamomile1);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get(), octreeBuffer);
 
     std::shared_ptr<Entity> chamomile2 = EntityBuilder::geometry();
@@ -355,7 +355,7 @@ void WorldScene::create() {
     transformSystem->setPosition(chamomile2.get(), glm::vec3(-0.3, -0.22, 1.3));
     OctreeComponent* chamomile2Octree = static_cast<OctreeComponent*>(chamomile2->components[ComponentType::Octree].get());
     chamomile2Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
-    Engine::get()->addEntity(chamomile2);
+    EntityManager::get()->addEntity(chamomile2);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get(), octreeBuffer);
 
     std::shared_ptr<Entity> chamomile3 = EntityBuilder::geometry();
@@ -363,7 +363,7 @@ void WorldScene::create() {
     transformSystem->setPosition(chamomile3.get(), glm::vec3(0.4, -0.22, 1.0));
     OctreeComponent* chamomile3Octree = static_cast<OctreeComponent*>(chamomile3->components[ComponentType::Octree].get());
     chamomile3Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
-    Engine::get()->addEntity(chamomile3);
+    EntityManager::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
     octreeSystem->getGpuMemoryManager()->updateRenderList(renderListBuffer);
@@ -371,19 +371,19 @@ void WorldScene::create() {
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
     transformSystem->translate(light.get(), glm::vec3(1.5, 2.5, 1.0));
-    Engine::get()->addEntity(light);
+    EntityManager::get()->addEntity(light);
 }
 
 void WorldScene::pause() {
     Scene::pause();
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setActive(false);
     SDL_SetRelativeMouseMode(SDL_FALSE);
 }
 
 void WorldScene::resume() {
     Scene::resume();
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setActive(true);
     SDL_SetRelativeMouseMode(SDL_TRUE);
 }

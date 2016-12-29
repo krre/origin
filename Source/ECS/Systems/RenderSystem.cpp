@@ -3,7 +3,7 @@
 #include "../../Debug/DebugHUD.h"
 #include "../../Core/App.h"
 #include "../../UI/Toast.h"
-#include "../../ECS/Engine.h"
+#include "../../ECS/EntityManager.h"
 #include "../../ECS/Components/Components.h"
 
 RenderSystem::RenderSystem() {

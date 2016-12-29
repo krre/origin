@@ -1,6 +1,6 @@
 #include "TransformSystem.h"
 #include "../Components/TransformComponent.h"
-#include "../Engine.h"
+#include "../EntityManager.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
 TransformSystem::TransformSystem() {
@@ -8,7 +8,7 @@ TransformSystem::TransformSystem() {
 }
 
 void TransformSystem::process(float dt) {
-    for (auto entity: engine->getEntities()) {
+    for (auto entity: entityManager->getEntities()) {
         update(entity.second.get());
     }
 }

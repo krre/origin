@@ -7,7 +7,7 @@
 #include "../Resource/ResourceManager.h"
 #include "../Debug/Logger.h"
 #include "../Debug/Debug.h"
-#include "../ECS/Engine.h"
+#include "../ECS/EntityManager.h"
 #include "../Scene/SceneManager.h"
 #include <string>
 #include <SDL_timer.h>
@@ -86,7 +86,7 @@ void App::init() {
     new ResourceManager;
     new Debug;
     new Input;
-    new Engine;
+    new EntityManager;
     new SceneManager;
     new Game;
 
@@ -102,7 +102,7 @@ void App::clean() {
     SDL_Quit();
     Game::get()->release();
     SceneManager::get()->release();
-    Engine::get()->release();
+    EntityManager::get()->release();
     Input::get()->release();
     ResourceManager::get()->release();
     Debug::get()->release();
@@ -123,7 +123,7 @@ int App::run() {
         currentTime = newTime;
 
         SceneManager::get()->update(frameTime);
-        Engine::get()->update(frameTime);
+        EntityManager::get()->update(frameTime);
         SceneManager::get()->draw(frameTime);
         Vulkan::Manager::get()->render();
     }
@@ -148,11 +148,11 @@ int App::run() {
         accumulator += frameTime;
 
         while (accumulator >= dt) {
-            Engine::get()->process(dt, Engine::UPDATE);
+            EntityManager::get()->process(dt, EntityManager::UPDATE);
             accumulator -= dt;
         }
 
-        Engine::get()->process(dt, Engine::RENDER);
+        EntityManager::get()->process(dt, EntityManager::RENDER);
         SDL_GL_SwapWindow(window);
     }
 }

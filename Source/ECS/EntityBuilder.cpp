@@ -1,5 +1,5 @@
 #include "EntityBuilder.h"
-#include "Engine.h"
+#include "EntityManager.h"
 #include "Components/Components.h"
 #include "../Graphics/Voxel/Primitive/Cube.h"
 #include <glm/glm.hpp>
@@ -12,7 +12,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
         ComponentType::Render,
         ComponentType::Phisics,
     };
-    std::shared_ptr<Entity> entity = Engine::get()->createComponents(types);
+    std::shared_ptr<Entity> entity = EntityManager::get()->createComponents(types);
 
     return entity;
 }
@@ -28,7 +28,7 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
         ComponentType::Movement,
         ComponentType::Camera
     };
-    return Engine::get()->createComponents(types);
+    return EntityManager::get()->createComponents(types);
 }
 
 std::shared_ptr<Entity> EntityBuilder::camera() {
@@ -38,7 +38,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
         ComponentType::Movement, // TODO: take from to avatar
         ComponentType::Camera
     };
-    std::shared_ptr<Entity> entity = Engine::get()->createComponents(types);
+    std::shared_ptr<Entity> entity = EntityManager::get()->createComponents(types);
 
     auto movementComponent = static_cast<MovementComponent*>(entity->components[ComponentType::Movement].get());
     movementComponent->moveSpeed = 1.0;
@@ -54,7 +54,7 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
         ComponentType::Movement
     };
 
-    std::shared_ptr<Entity> entity = Engine::get()->createComponents(types);
+    std::shared_ptr<Entity> entity = EntityManager::get()->createComponents(types);
 
     auto movementComponent = static_cast<MovementComponent*>(entity->components[ComponentType::Movement].get());
     movementComponent->moveSpeed = 1.0;
@@ -69,5 +69,5 @@ std::shared_ptr<Entity> EntityBuilder::light() {
         ComponentType::Transform,
         ComponentType::Light,
     };
-    return Engine::get()->createComponents(types);
+    return EntityManager::get()->createComponents(types);
 }

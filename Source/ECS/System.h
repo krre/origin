@@ -15,7 +15,7 @@ enum class SystemType {
     Transform
 };
 
-class Engine;
+class EntityManager;
 
 class System : public Object {
 
@@ -32,5 +32,5 @@ public:
 protected:
     SystemType type = SystemType::None;
     bool active = true;
-    static Engine* engine;
+    static EntityManager* entityManager;
 };

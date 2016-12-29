@@ -39,7 +39,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 //        if (gameState == GameState::PLAY) {
 //            GameStateManager::get()->pushState(GameState::PAUSE);
 //        } else if (gameState == GameState::CONSOLE) {
-//            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+//            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
 //            movementControllerSystem->setActive(true);
 //            Console::get()->setVisible(false);
 //            GameStateManager::get()->popState();
@@ -61,7 +61,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 #ifdef CONSOLE_ENABLE
     case SDLK_SLASH:
 //        if (gameState == GameState::PLAY) {
-//            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+//            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
 //            movementControllerSystem->setActive(false);
 //            Console::get()->setVisible(true);
 //            GameStateManager::get()->pushState(GameState::CONSOLE);

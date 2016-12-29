@@ -1,6 +1,6 @@
 #include "Viewport.h"
 #include "../Event/Event.h"
-#include "../ECS/Engine.h"
+#include "../ECS/EntityManager.h"
 #include "../ECS/Systems/Systems.h"
 #include <SDL_opengl.h>
 #include <algorithm>
@@ -41,7 +41,7 @@ void Viewport::clearCameras() {
 
 void Viewport::setCurrentCamera(std::shared_ptr<Entity> currentCamera) {
     this->currentCamera = currentCamera;
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(Engine::get()->getSystem(SystemType::MovementController).get());
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setMoveEntity(currentCamera.get());
     movementControllerSystem->setRotateEntity(currentCamera.get());
 

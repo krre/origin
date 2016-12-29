@@ -1,11 +1,11 @@
 #include "System.h"
-#include "Engine.h"
+#include "EntityManager.h"
 #include <algorithm>
 
-Engine* System::engine;
+EntityManager* System::entityManager;
 
 System::System() {
-    engine = Engine::get();
+    entityManager = EntityManager::get();
 }
 
 bool System::setActive(bool active) {

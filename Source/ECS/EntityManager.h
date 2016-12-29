@@ -4,10 +4,10 @@
 #include "Entity.h"
 #include <vector>
 
-class Engine : public Singleton<Engine> {
+class EntityManager : public Singleton<EntityManager> {
 
 public:
-    Engine();
+    EntityManager();
 
     // Update system
     template <typename T> void addUpdateSystem() {

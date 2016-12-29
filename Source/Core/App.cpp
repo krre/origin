@@ -5,7 +5,6 @@
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../Resource/ResourceManager.h"
-#include "../Debug/Console.h"
 #include "../Debug/Logger.h"
 #include "../Debug/Debug.h"
 #include "../UI/Toast.h"
@@ -86,7 +85,6 @@ void App::init() {
     // Order is important
     new Event;
     new ResourceManager;
-    new Console;
     new Debug;
     new Toast;
     new Input;
@@ -109,7 +107,6 @@ void App::clean() {
     Engine::get()->release();
     Input::get()->release();
     ResourceManager::get()->release();
-    Console::get()->release();
     Debug::get()->release();
     Toast::get()->release();
     Event::get()->release();

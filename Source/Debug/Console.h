@@ -1,10 +1,9 @@
 #pragma once
-#include "../Core/Singleton.h"
 #include "../Graphics/Drawable.h"
 #include "../UI/Text.h"
 #include <SDL.h>
 
-class Console : public Singleton<Console>, public CovenantLand::Drawable {
+class Console : public CovenantLand::Drawable {
 
 public:
     Console();

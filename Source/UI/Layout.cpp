@@ -21,6 +21,10 @@ void Layout::draw(float dt) {
     }
 }
 
+void Layout::update(float dt) {
+
+}
+
 void Layout::addControl(Control* control) {
     controls.push_back(control);
     updateContentPostion();

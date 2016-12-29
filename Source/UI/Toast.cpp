@@ -13,6 +13,10 @@ void Toast::draw(float dt) {
     text.draw(dt);
 }
 
+void Toast::update(float dt) {
+
+}
+
 void Toast::showToast(const std::string& toastText) {
     text.setText(toastText);
     setVisible(true);

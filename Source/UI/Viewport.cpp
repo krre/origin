@@ -11,7 +11,7 @@ Viewport::Viewport() {
     setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 }
 
-void Viewport::update(double dt) {
+void Viewport::update(float dt) {
 
 }
 

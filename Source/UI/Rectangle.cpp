@@ -22,6 +22,10 @@ void Rectangle::draw(float dt) {
     plane.draw();
 }
 
+void Rectangle::update(float dt) {
+
+}
+
 void Rectangle::setColor(const glm::vec3& color) {
     this->color = color;
 }

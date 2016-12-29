@@ -7,7 +7,7 @@ class Viewport : public Control {
 
 public:
     Viewport();
-    void update(double dt);
+    void update(float dt) override;
     void draw(float dt) override;
 
     void setBackgroundColor(const glm::vec4& backgroundColor);

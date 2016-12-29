@@ -29,6 +29,7 @@ public:
     void setFontSize(int fontSize);
 
     void draw(float dt) override;
+    void update(float dt) override;
 
 private:
     std::string text;

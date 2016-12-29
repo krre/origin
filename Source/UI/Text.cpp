@@ -157,5 +157,9 @@ void Text::draw(float dt) {
 //    }
 
 //    glBindTexture(GL_TEXTURE_2D, 0);
-//    glDisable(GL_BLEND);
+    //    glDisable(GL_BLEND);
+}
+
+void Text::update(float dt) {
+
 }

@@ -9,6 +9,7 @@ class Toast : public Singleton<Toast>, public CovenantLand::Drawable {
 public:
     Toast();
     void draw(float dt) override;
+    void update(float dt) override;
     void showToast(const std::string& toastText);
 
 private:

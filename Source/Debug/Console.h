@@ -9,6 +9,7 @@ class Console : public Singleton<Console>, public CovenantLand::Drawable {
 public:
     Console();
     void draw(float dt) override;
+    void update(float dt) override;
     void setVisible(bool visible) override;
 
 private:

@@ -7,6 +7,7 @@ class Rectangle : public Control {
 public:
     Rectangle(int width, int height);
     void draw(float dt) override;
+    void update(float dt) override;
 
     glm::vec3 getColor() const { return color; }
     void setColor(const glm::vec3& color);

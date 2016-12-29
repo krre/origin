@@ -15,6 +15,10 @@ void Console::draw(float dt) {
     cmdLine.draw(dt);
 }
 
+void Console::update(float dt) {
+
+}
+
 void Console::setVisible(bool visible) {
     this->visible = visible;
     if (visible) {

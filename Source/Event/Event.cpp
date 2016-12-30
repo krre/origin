@@ -48,10 +48,14 @@ void Event::handleEvents() {
             break;
 
         case SDL_KEYDOWN:
-            Input::get()->addKey(event.key.keysym.sym);
-            Input::get()->isKeyAccepted = false;
-            keyPressed.emit(event.key);
-//            print("key down: " << event.key.keysym.sym);
+            // Use keyLock to fix bug on some Linux system, when catch two SDL_KEYDOWN event and one SDL_KEYUP
+            if (!keyLock) {
+                Input::get()->addKey(event.key.keysym.sym);
+                Input::get()->isKeyAccepted = false;
+                keyPressed.emit(event.key);
+//                print("key down: " << event.key.keysym.sym);
+                keyLock = true;
+            }
             break;
 
         case SDL_KEYUP:
@@ -59,7 +63,7 @@ void Event::handleEvents() {
             Input::get()->isKeyAccepted = false;
 //            print("key up: " << event.key.keysym.sym);
             keyRelease.emit(event.key);
-
+            keyLock = false;
         default:
             break;
         }

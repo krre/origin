@@ -18,5 +18,5 @@ public:
     Nano::Signal<void(const SDL_MouseButtonEvent&)> mouseButtonAction;
 
 private:
-
+    bool keyLock = false;
 };

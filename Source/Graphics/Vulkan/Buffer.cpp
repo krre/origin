@@ -41,3 +41,7 @@ void Buffer::write(VkDeviceSize offset, VkDeviceSize size, const void* data) {
     vkUnmapMemory(device->getHandle(), memory.getHandle());
 }
 
+void Buffer::read(VkDeviceSize offset, VkDeviceSize size, const void* data) {
+
+}
+

@@ -48,12 +48,12 @@ void MenuScene::init() {
     size = sizeof(UBOvert);
     uniformVert = new Vulkan::Descriptor(device, VK_SHADER_STAGE_VERTEX_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, size);
-    uniformVert->update(0, size, &uboVert);
+    uniformVert->write(0, size, &uboVert);
 
     size = sizeof(UBOfrag);
     uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, size);
-    uniformFrag->update(0, size, &uboFrag);
+    uniformFrag->write(0, size, &uboFrag);
 
     descriptorPool = new Vulkan::DescriptorPool(device);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 2);

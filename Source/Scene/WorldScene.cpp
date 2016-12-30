@@ -255,7 +255,7 @@ void WorldScene::update(float dt) {
     ubo.frameHeight = height;
     ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
 
-    uniformFrag->update(0, sizeof(UBO), &ubo);
+    uniformFrag->write(0, sizeof(UBO), &ubo);
 }
 
 void WorldScene::create() {

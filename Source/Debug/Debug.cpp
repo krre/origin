@@ -3,12 +3,6 @@
 #include "../Core/Utils.h"
 #include <Covenantland.h>
 
-/*
-Values in main.debug:
-enable = true|false
-scene = menu|world|settings
-*/
-
 Debug::Debug() {
 #ifdef DEVELOP_MODE
     loadValues();

@@ -1,2 +1,5 @@
+# true|false
 enable=true
+
+# menu|world|settings
 scene=world

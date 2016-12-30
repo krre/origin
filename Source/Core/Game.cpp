@@ -34,17 +34,6 @@ void Game::save() {
 
 void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
-    case SDLK_ESCAPE:
-//        if (Input::get()->isKeyAccepted) break;
-//        if (gameState == GameState::PLAY) {
-//            GameStateManager::get()->pushState(GameState::PAUSE);
-//        } else if (gameState == GameState::CONSOLE) {
-//            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
-//            movementControllerSystem->setActive(true);
-//            Console::get()->setVisible(false);
-//            GameStateManager::get()->popState();
-//        }
-        break;
 #ifdef DEBUG_HUD_ENABLE
     case SDLK_F5:
         DebugHUD::get()->trigger();

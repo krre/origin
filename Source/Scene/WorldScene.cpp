@@ -173,7 +173,9 @@ void WorldScene::init() {
 }
 
 void WorldScene::draw(float dt) {
-
+//    debugOutBuffer->read(0, sizeof(DebugOut), &debugOut);
+//    print(glm::to_string(debugOut.debugVec))
+//    print(debugOut.debugInt)
 }
 
 void WorldScene::update(float dt) {
@@ -190,8 +192,8 @@ void WorldScene::update(float dt) {
     TransformComponent* octreeTransform;
 
     TransformComponent* lightTransform;
-    ubo.lightColor = glm::vec3(0.0);
-    ubo.lightPos = glm::vec3(0.0);
+    ubo.lightColor = glm::vec4(0.0);
+    ubo.lightPos = glm::vec4(0.0);
 
     // TODO: Replace by family
     for (auto entity : EntityManager::get()->getEntities()) {
@@ -203,8 +205,8 @@ void WorldScene::update(float dt) {
         LightComponent* lightComp = static_cast<LightComponent*>(entity.second->components[ComponentType::Light].get());
         if (lightComp) {
             lightTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
-            ubo.lightColor = lightComp->color;
-            ubo.lightPos = glm::vec3(lightTransform->objectToWorld[3]);
+            ubo.lightColor = glm::vec4(lightComp->color, 1.0);
+            ubo.lightPos = lightTransform->objectToWorld[3];
         }
     }
 
@@ -254,7 +256,6 @@ void WorldScene::update(float dt) {
     ubo.frameWidth = width;
     ubo.frameHeight = height;
     ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
-
     uniformFrag->write(0, sizeof(UBO), &ubo);
 }
 

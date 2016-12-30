@@ -7,7 +7,7 @@
 // http://code.google.com/p/efficient-sparse-voxel-octrees
 
 layout(std140, binding = 0) uniform UBO {
-    bool shadeless;
+    int shadeless;
     int pageBytes;
     int blockInfoEnd;
     int frameWidth;
@@ -17,11 +17,11 @@ layout(std140, binding = 0) uniform UBO {
     float ambientStrength;
     float lod;
 
-    vec3 backgroundColor;
-    vec3 lightColor;
-    vec3 lightPos;
+    vec4 backgroundColor;
+    vec4 lightColor;
+    vec4 lightPos;
 
-    vec2 pickPixel;
+    vec4 pickPixel;
 } ubo;
 
 
@@ -160,9 +160,9 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
         vec3 t_corner = pos * t_coef - t_bias;
         float tc_max = min(min(t_corner.x, t_corner.y), t_corner.z);
 
-        if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {
-            debugOut.debugVec = vec4(pos, 1.0);
-        }
+//        if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {
+//            debugOut.debugVec = vec4(pos, 1.0);
+//        }
 
         // Process voxel if the corresponding bit in valid mask is set
         // and the active t-span is non-empty.
@@ -339,7 +339,7 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     float d = 255.0; // On Windows division like v.b / 255.0 rises runtime error
     vec3 octreeColor = vec3(r / d, g / d, b / d);
 
-    if (ubo.shadeless) {
+    if (ubo.shadeless == 1) {
         return vec4(octreeColor, 1.0);
     }
 
@@ -354,10 +354,10 @@ vec4 lookupColor(in int index, in CastResult castRes) {
     vec4 col3 = vec4(v[12], v[13], v[14], v[15]);
     mat4 octreeToWorld = mat4(col0, col1, col2, col3);
 
-    vec3 ambient = ubo.ambientStrength * ubo.lightColor;
+    vec3 ambient = ubo.ambientStrength * vec3(ubo.lightColor);
     vec4 hitNormalWorld = normalize(octreeToWorld * castRes.normal);
-    vec3 lightDir = normalize(ubo.lightPos);
-    vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * ubo.lightColor;
+    vec3 lightDir = vec3(normalize(ubo.lightPos));
+    vec3 diffuse = max(dot(vec3(hitNormalWorld), lightDir), 0.0) * vec3(ubo.lightColor);
     vec3 color = (ambient + diffuse) * octreeColor;
 
     return vec4(color, 1.0);
@@ -396,7 +396,7 @@ void main() {
     if (index != -1) {
         fragColor = lookupColor(index, outCastRes);
     } else {
-        fragColor = vec4(ubo.backgroundColor, 1.0);
+        fragColor = ubo.backgroundColor;
     }
 
 //    if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {

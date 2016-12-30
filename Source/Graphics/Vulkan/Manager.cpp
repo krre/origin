@@ -1,4 +1,6 @@
 #include "Manager.h"
+#include "Image.h"
+#include "../../Core/App.h"
 #include <glm/glm.hpp>
 
 using namespace Vulkan;
@@ -139,4 +141,8 @@ void Manager::render() {
 
 void Manager::saveScreenshot(const std::string& filePath) {
     print(filePath)
+    uint32_t width = App::get()->getWidth();
+    uint32_t height = App::get()->getHeight();
+    Image image(device, width, height);
+    image.create();
 }

@@ -136,3 +136,7 @@ void Manager::render() {
     graphicsQueue->submit();
     presentQueue->present();
 }
+
+void Manager::saveScreenshot(const std::string& filePath) {
+    print(filePath)
+}

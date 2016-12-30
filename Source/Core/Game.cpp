@@ -9,6 +9,7 @@
 #include "../Event/Input.h"
 #include "../Scene/SceneManager.h"
 #include "../Scene/MenuScene.h"
+#include "../Graphics/Vulkan/Manager.h"
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -93,31 +94,33 @@ void Game::saveScreenshot() {
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
     std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
 
-    int width = App::get()->getWidth();
-    int height = App::get()->getHeight();
+    Vulkan::Manager::get()->saveScreenshot(filePath);
 
-    unsigned char* image = new unsigned char[width * height * 4];
+//    int width = App::get()->getWidth();
+//    int height = App::get()->getHeight();
+
+//    unsigned char* image = new unsigned char[width * height * 4];
 //    glReadPixels(0, 0, width, height, GL_RGBA, GL_UNSIGNED_BYTE, image);
 
-    // Vertically flip
-    for (unsigned y = 0; y < height / 2; y++) {
-        unsigned swapY = height - y - 1;
-        for(unsigned x = 0; x < width; x++) {
-            unsigned offset = 4 * (x + y * width);
-            unsigned swapOffset = 4 * (x + swapY * width);
-            unsigned char temp;
+//    // Vertically flip
+//    for (unsigned y = 0; y < height / 2; y++) {
+//        unsigned swapY = height - y - 1;
+//        for(unsigned x = 0; x < width; x++) {
+//            unsigned offset = 4 * (x + y * width);
+//            unsigned swapOffset = 4 * (x + swapY * width);
+//            unsigned char temp;
 
-            for (int channel = 0; channel <= 3; channel++ ) {
-                temp = image[offset + channel];
-                image[offset + channel] = image[swapOffset + channel];
-                image[swapOffset + channel] = temp;
-            }
-        }
-    }
+//            for (int channel = 0; channel <= 3; channel++ ) {
+//                temp = image[offset + channel];
+//                image[offset + channel] = image[swapOffset + channel];
+//                image[swapOffset + channel] = temp;
+//            }
+//        }
+//    }
 
-    lodepng::encode(filePath, image, width, height);
+//    lodepng::encode(filePath, image, width, height);
 
-    delete[] image;
+//    delete[] image;
 
     std::string message = "Screenshot saved to " + filename;
 //    Toast::get()->showToast(message);

@@ -38,6 +38,7 @@ public:
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void setCommandBuffers(const CommandBuffers* commandBuffers);
     void render();
+    void saveScreenshot(const std::string& filePath);
 
 private:
     Instance* instance = nullptr;

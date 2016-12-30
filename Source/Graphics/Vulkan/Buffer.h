@@ -13,7 +13,7 @@ public:
     VkResult create() override;
     VkDeviceSize getSize() const { return createInfo.size; }
     void write(VkDeviceSize offset, VkDeviceSize size, const void* data);
-    void read(VkDeviceSize offset, VkDeviceSize size, const void* data);
+    void read(VkDeviceSize offset, VkDeviceSize size, void* data);
     VkDescriptorBufferInfo* getDescriptorInfo() { return &descriptorInfo; }
 
 private:

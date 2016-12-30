@@ -17,6 +17,6 @@ void Descriptor::write(VkDeviceSize offset, VkDeviceSize size, const void* data)
     buffer.write(offset, size, data);
 }
 
-void Descriptor::read(VkDeviceSize offset, VkDeviceSize size, const void* data) {
+void Descriptor::read(VkDeviceSize offset, VkDeviceSize size, void* data) {
     buffer.read(offset, size, data);
 }

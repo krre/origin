@@ -47,7 +47,7 @@ layout (std430, binding = 4) buffer DebugOut {
     vec4 debugVec;
     int debugInt;
     float debugFloat;
-};
+} debugOut;
 
 struct Ray {
     vec3 origin;
@@ -161,7 +161,7 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
         float tc_max = min(min(t_corner.x, t_corner.y), t_corner.z);
 
         if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {
-            debugVec = vec4(pos, 1.0);
+            debugOut.debugVec = vec4(pos, 1.0);
         }
 
         // Process voxel if the corresponding bit in valid mask is set

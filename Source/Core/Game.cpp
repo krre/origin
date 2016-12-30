@@ -22,6 +22,8 @@ Game::Game() {
     } else {
         SceneManager::get()->setScene(std::make_shared<MenuScene>());
     }
+
+    Event::get()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
 }
 
 void Game::load() {

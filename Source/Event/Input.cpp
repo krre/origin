@@ -21,7 +21,7 @@ void Input::setMousePos(const glm::ivec2& pos) {
 }
 
 void Input::setRelMousePos(const glm::ivec2& relPos) {
-        relMousePos += relPos;
+    relMousePos += relPos;
 }
 
 void Input::mouseReset() {

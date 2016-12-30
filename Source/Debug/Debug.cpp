@@ -25,12 +25,15 @@ void Debug::loadValues() {
 
     while (std::getline(stream, line, '\n')) {
         line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
-        std::vector<std::string> pair = Utils::split(line, '=');
 
-        if (pair.size() != 2) {
-            error("Failed to parse main.debug at line: " << line);
-        } else {
-            values[pair.at(0)] = pair.at(1);
+        // Ignore empty strings and strings with first '#' symbol
+        if (line.size() && line.at(0) != '#') {
+            std::vector<std::string> pair = Utils::split(line, '=');
+            if (pair.size() != 2) {
+                error("Failed to parse main.debug at line: " << line);
+            } else {
+                values[pair.at(0)] = pair.at(1);
+            }
         }
     }
 }

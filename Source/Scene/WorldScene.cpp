@@ -50,12 +50,12 @@ void WorldScene::init() {
     VkDeviceSize size = sizeof(vertices[0]) * vertices.size();
     vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     vertexBuffer->create();
-    vertexBuffer->update(0, size, vertices.data());
+    vertexBuffer->write(0, size, vertices.data());
 
     size = sizeof(indices[0]) * indices.size();
     indexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size);
     indexBuffer->create();
-    indexBuffer->update(0, size, indices.data());
+    indexBuffer->write(0, size, indices.data());
 
     uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(UBO));

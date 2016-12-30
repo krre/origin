@@ -14,5 +14,5 @@ Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferU
 }
 
 void Descriptor::update(VkDeviceSize offset, VkDeviceSize size, const void* data) {
-    buffer.update(offset, size, data);
+    buffer.write(offset, size, data);
 }

@@ -34,7 +34,7 @@ VkResult Buffer::create() {
     return result;
 }
 
-void Buffer::update(VkDeviceSize offset, VkDeviceSize size, const void* data) {
+void Buffer::write(VkDeviceSize offset, VkDeviceSize size, const void* data) {
     void* mapData;
     vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData);
     memcpy(mapData, data, size);

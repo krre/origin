@@ -36,4 +36,10 @@ void Debug::loadValues() {
             }
         }
     }
+
+    for (auto value : values) {
+        if (value.first == "enable") {
+            enable = value.second == "true" ? true : false;
+        }
+    }
 }

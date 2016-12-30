@@ -18,14 +18,15 @@ void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
 }
 
 void SceneManager::popScene() {
-    scenes.back()->pause();
-    scenes.back()->cleanup();
-    if (scenes.size()) {
+    if (scenes.size() > 1) {
+        scenes.back()->pause();
+        scenes.back()->cleanup();
         scenes.pop_back();
         scenes.back()->resume();
         scenes.back()->setVisible(true);
     } else {
         // TODO: Question dialog about exit from game
+        print("Exit question dialog")
     }
 }
 

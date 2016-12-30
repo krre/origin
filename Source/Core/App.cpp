@@ -7,7 +7,6 @@
 #include "../Resource/ResourceManager.h"
 #include "../Debug/Logger.h"
 #include "../Debug/Debug.h"
-#include "../ECS/EntityManager.h"
 #include "../Scene/SceneManager.h"
 #include <string>
 #include <SDL_timer.h>
@@ -28,7 +27,6 @@ App::~App() {
     SDL_Quit();
     Game::get()->release();
     SceneManager::get()->release();
-    EntityManager::get()->release();
     Input::get()->release();
     ResourceManager::get()->release();
     Debug::get()->release();
@@ -96,7 +94,6 @@ void App::init() {
     new ResourceManager;
     new Debug;
     new Input;
-    new EntityManager;
     new SceneManager;
     new Game;
 
@@ -119,7 +116,6 @@ int App::run() {
         currentTime = newTime;
 
         SceneManager::get()->update(frameTime);
-        EntityManager::get()->update(frameTime);
         SceneManager::get()->draw(frameTime);
         Vulkan::Manager::get()->render();
     }

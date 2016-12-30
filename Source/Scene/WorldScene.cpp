@@ -14,10 +14,12 @@
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 
 WorldScene::WorldScene() {
-
+    new EntityManager;
 }
 
 WorldScene::~WorldScene() {
+    EntityManager::get()->release();
+
     delete commandBuffers;
     delete graphicsPipeline;
     delete pipelineLayout;
@@ -175,6 +177,8 @@ void WorldScene::draw(float dt) {
 }
 
 void WorldScene::update(float dt) {
+    EntityManager::get()->update(dt);
+
     int width = App::get()->getWidth();
     int height = App::get()->getHeight();
 

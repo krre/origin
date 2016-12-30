@@ -22,7 +22,7 @@ public:
     std::map<EntityId, int> getOctreeOffsets() const { return octreeOffsets; }
 
 private:
-    int endOffset = sizeof(uint32_t);
+    int endOffset = 0;
     std::map<EntityId, int> octreeOffsets;
     std::vector<uint32_t> renderOffsets;
 };

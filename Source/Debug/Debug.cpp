@@ -1,6 +1,10 @@
 #include "Debug.h"
 #include "../Core/App.h"
 #include "../Core/Utils.h"
+#include "../Scene/SceneManager.h"
+#include "../Scene/MenuScene.h"
+#include "../Scene/SettingsScene.h"
+#include "../Scene/WorldScene.h"
 #include <Covenantland.h>
 
 Debug::Debug() {
@@ -15,6 +19,21 @@ void Debug::setValue(const std::string& key, const std::string& value) {
 
 std::string Debug::getValue(const std::string& key) const {
     return values.at(key);
+}
+
+void Debug::setScene() {
+    std::string sceneName = values["scene"];
+    if (sceneName.size()) {
+        if (sceneName == "menu") {
+            SceneManager::get()->setScene(std::make_shared<MenuScene>());
+        } else if (sceneName == "settings") {
+            SceneManager::get()->setScene(std::make_shared<SettingsScene>());
+        } else if (sceneName == "world") {
+            SceneManager::get()->setScene(std::make_shared<WorldScene>());
+        }
+    } else {
+        SceneManager::get()->setScene(std::make_shared<MenuScene>());
+    }
 }
 
 void Debug::loadValues() {

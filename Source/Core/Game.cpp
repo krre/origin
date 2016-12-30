@@ -3,11 +3,12 @@
 #include "Utils.h"
 #include "../Debug/Console.h"
 #include "../Debug/DebugHUD.h"
+#include "../Debug/Debug.h"
 #include "../UI/Toast.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../Scene/SceneManager.h"
-#include "../Scene/WorldScene.h"
+#include "../Scene/MenuScene.h"
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -16,7 +17,11 @@
 #include <experimental/filesystem>
 
 Game::Game() {
-    SceneManager::get()->setScene(std::make_shared<WorldScene>());
+    if (Debug::get()->getEnable()) {
+        Debug::get()->setScene();
+    } else {
+        SceneManager::get()->setScene(std::make_shared<MenuScene>());
+    }
 }
 
 void Game::load() {

@@ -9,6 +9,7 @@ public:
     void setValue(const std::string& key, const std::string& value);
     std::string getValue(const std::string& key) const;
     bool getEnable() const { return enable; }
+    void setScene();
 
 private:
     void loadValues();

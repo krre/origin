@@ -4,7 +4,7 @@
 // Use namespace to prevent conflict with Drawable in X11
 namespace Covenantland {
 
-class Drawable : Object {
+class Drawable : public Object {
 
 public:
     Drawable();

@@ -28,7 +28,7 @@ public:
     void dumpExtensions();
 
 private:
-    VkApplicationInfo appInfo = {};
+    VkApplicationInfo applicationInfo = {};
     VkInstanceCreateInfo createInfo = {};
     std::vector<VkLayerProperties> layers;
     std::vector<const char*> enabledLayers;

@@ -1,6 +1,7 @@
 #include "Manager.h"
 #include "Image.h"
 #include "../../Core/App.h"
+#include "Command/CommandBuffer.h"
 #include <glm/glm.hpp>
 
 using namespace Vulkan;
@@ -141,8 +142,21 @@ void Manager::render() {
 
 void Manager::saveScreenshot(const std::string& filePath) {
     print(filePath)
+
+    VkImage srcImage = swapchain->getImage(swapchainImageIndex);
+
     uint32_t width = App::get()->getWidth();
     uint32_t height = App::get()->getHeight();
     Image image(device, width, height);
     image.create();
+    VkImage dstImage = image.getHandle();
+
+    CommandBuffers commandBuffers(device, commandPool);
+    commandBuffers.allocate(1);
+
+    CommandBuffer commandBuffer(commandBuffers.at(0));
+    commandBuffer.begin();
+
+
+    commandBuffer.end();
 }

@@ -2,7 +2,10 @@
 #include "Image.h"
 #include "../../Core/App.h"
 #include "Command/CommandBuffer.h"
+#include "Fence.h"
 #include <glm/glm.hpp>
+#include <fstream>
+#include <lodepng/lodepng.h>
 
 using namespace Vulkan;
 
@@ -157,6 +160,113 @@ void Manager::saveScreenshot(const std::string& filePath) {
     CommandBuffer commandBuffer(commandBuffers.at(0));
     commandBuffer.begin();
 
+    VkImageSubresourceRange subresourceRange = {};
+    subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    subresourceRange.baseMipLevel = 0;
+    subresourceRange.levelCount = 1;
+    subresourceRange.layerCount = 1;
+
+    VkImageMemoryBarrier memoryBarrier = {};
+    memoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+    memoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    memoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    memoryBarrier.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    memoryBarrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+    memoryBarrier.image = dstImage;
+    memoryBarrier.subresourceRange = subresourceRange;
+    memoryBarrier.srcAccessMask = 0;
+    memoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+    vkCmdPipelineBarrier(commandBuffer.getHandle(), VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, 1, &memoryBarrier);
+
+
+    memoryBarrier.oldLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    memoryBarrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    memoryBarrier.image = srcImage;
+    memoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT | VK_ACCESS_MEMORY_READ_BIT;
+    memoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+    vkCmdPipelineBarrier(commandBuffer.getHandle(), VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, 1, &memoryBarrier);
+
+
+    VkOffset3D blitSize;
+    blitSize.x = width;
+    blitSize.y = height;
+    blitSize.z = 1;
+    VkImageBlit imageBlitRegion = {};
+    imageBlitRegion.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    imageBlitRegion.srcSubresource.layerCount = 1;
+    imageBlitRegion.srcOffsets[1] = blitSize;
+    imageBlitRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    imageBlitRegion.dstSubresource.layerCount = 1;
+    imageBlitRegion.dstOffsets[1] = blitSize;
+
+    // Issue the blit command
+    vkCmdBlitImage(commandBuffer.getHandle(),  srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,  1, &imageBlitRegion,  VK_FILTER_NEAREST);
+
+
+    memoryBarrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+    memoryBarrier.newLayout = VK_IMAGE_LAYOUT_GENERAL;
+    memoryBarrier.image = dstImage;
+    memoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+    memoryBarrier.dstAccessMask = 0;
+    vkCmdPipelineBarrier(commandBuffer.getHandle(), VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, 1, &memoryBarrier);
+
+    memoryBarrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    memoryBarrier.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    memoryBarrier.image = srcImage;
+    memoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+    memoryBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+    vkCmdPipelineBarrier(commandBuffer.getHandle(), VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, 1, &memoryBarrier);
 
     commandBuffer.end();
+
+    Fence fence(device);
+    fence.create();
+
+    VkSubmitInfo submitInfo = {};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submitInfo.commandBufferCount = 1;
+    VkCommandBuffer cmdBuff = commandBuffer.getHandle();
+    submitInfo.pCommandBuffers = &cmdBuff;
+
+    vkQueueSubmit(graphicsQueue->getHandle(), 1, &submitInfo, fence.getHandle());
+
+//    graphicsQueue->setCommandBuffers({ commandBuffer.getHandle() });
+//    graphicsQueue->submit(fence.getHandle());
+
+    VkFence f = fence.getHandle();
+    device->waitForFences(1, &f);
+
+    // Get layout of the image (including row pitch)
+    VkImageSubresource subResource{};
+    subResource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    VkSubresourceLayout subResourceLayout;
+
+    vkGetImageSubresourceLayout(device->getHandle(), dstImage, &subResource, &subResourceLayout);
+
+    // Map image memory so we can start copying from it
+    const unsigned char* data;
+    image.getMemory()->map(VK_WHOLE_SIZE, 0, data);
+    data += subResourceLayout.offset;
+
+    lodepng::encode(filePath, data, width, height);
+
+//    std::ofstream file(filePath, std::ios::out | std::ios::binary);
+
+//    // ppm header
+//    file << "P6\n" << width << "\n" << height << "\n" << 255 << "\n";
+
+//    // ppm binary pixel data
+//    for (uint32_t y = 0; y < height; y++)
+//    {
+//        unsigned int *row = (unsigned int*)data;
+//        for (uint32_t x = 0; x < width; x++)
+//        {
+//            file.write((char*)row, 3);
+//            row++;
+//        }
+//        data += subResourceLayout.rowPitch;
+//    }
+//    file.close();
+
+    image.getMemory()->unmap();
 }

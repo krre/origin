@@ -34,6 +34,10 @@ void Device::waitIdle() {
     }
 }
 
+void Device::waitForFences(uint32_t count, const VkFence* fences) {
+    vkWaitForFences(handle, count, fences, VK_TRUE, DEFAULT_FENCE_TIMEOUT);
+}
+
 VkResult Device::create() {
     return checkError(vkCreateDevice(physicalDevice, &createInfo, nullptr, &handle), "Failed to create device");
 }

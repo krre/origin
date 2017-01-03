@@ -7,8 +7,8 @@ SubmitQueue::SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 }
 
-VkResult SubmitQueue::submit() {
-    return checkError(vkQueueSubmit(handle, 1, &submitInfo, VK_NULL_HANDLE), "Failed to submit draw command buffer");
+VkResult SubmitQueue::submit(VkFence fence) {
+    return checkError(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit draw command buffer");
 }
 
 void SubmitQueue::setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) {

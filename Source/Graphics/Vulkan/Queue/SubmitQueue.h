@@ -1,5 +1,6 @@
 #pragma once
 #include "Queue.h"
+#include "../Fence.h"
 #include <vector>
 
 namespace Vulkan {
@@ -8,7 +9,7 @@ class SubmitQueue : public Queue {
 
 public:
     SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);
-    VkResult submit();
+    VkResult submit(VkFence fence = VK_NULL_HANDLE);
 
     void setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) override;
     void setSignalSemaphores(std::vector<VkSemaphore> signalSemaphores);

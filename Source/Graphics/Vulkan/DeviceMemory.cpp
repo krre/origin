@@ -24,3 +24,7 @@ void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
 void DeviceMemory::map(VkDeviceSize count, VkDeviceSize offset, const char* data) {
     vkMapMemory(device->getHandle(), handle, offset, count, 0, (void**)&data);
 }
+
+void DeviceMemory::unmap() {
+    vkUnmapMemory(device->getHandle(), handle);
+}

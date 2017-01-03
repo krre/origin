@@ -21,7 +21,7 @@ void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
     allocateInfo.memoryTypeIndex = index;
 }
 
-void DeviceMemory::map(VkDeviceSize count, VkDeviceSize offset, const char* data) {
+void DeviceMemory::map(VkDeviceSize count, VkDeviceSize offset, const unsigned char* data) {
     vkMapMemory(device->getHandle(), handle, offset, count, 0, (void**)&data);
 }
 

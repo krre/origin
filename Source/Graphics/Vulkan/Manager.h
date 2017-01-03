@@ -17,8 +17,6 @@
 #include <string>
 #include <vector>
 
-const std::string initError = "Vulkan initialization error:\n";
-
 namespace Vulkan {
 
 class Manager : public Singleton<Manager> {

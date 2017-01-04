@@ -60,6 +60,7 @@ public:
     void resume() override;
     EntityId getCharacterId() { return characterId; }
     uint64_t getSeed() { return seed; }
+    void setSeed(uint64_t seed);
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;

@@ -393,6 +393,10 @@ void WorldScene::resume() {
     SDL_SetRelativeMouseMode(SDL_TRUE);
 }
 
+void WorldScene::setSeed(uint64_t seed) {
+    this->seed = seed;
+}
+
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         SceneManager::get()->pushScene(std::make_shared<PauseScene>());

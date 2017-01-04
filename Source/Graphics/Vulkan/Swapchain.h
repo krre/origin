@@ -19,7 +19,7 @@ public:
 private:
     const Device* device;
     const Surface* surface;
-    VkSwapchainCreateInfoKHR createInfo;
+    VkSwapchainCreateInfoKHR createInfo = {};
     std::vector<VkImage> images;
     VkExtent2D extent;
 };

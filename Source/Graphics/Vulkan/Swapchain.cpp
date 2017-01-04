@@ -10,8 +10,6 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
     result = vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice(), 0, surface->getHandle(), &surfaceSupport);
     if (surfaceSupport) {
         createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-        createInfo.pNext = nullptr;
-        createInfo.flags = 0;
         createInfo.surface = surface->getHandle();
         createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;
         createInfo.imageFormat = surface->getFormat(0).format;
@@ -20,8 +18,6 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
         createInfo.imageArrayLayers = 1;
         createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
         createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
-        createInfo.queueFamilyIndexCount = 0;
-        createInfo.pQueueFamilyIndices = nullptr;
         createInfo.preTransform = surface->getCapabilities().currentTransform;
         createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
         createInfo.presentMode = surface->getPresentMode(0);

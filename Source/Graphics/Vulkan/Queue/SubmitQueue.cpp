@@ -11,6 +11,10 @@ VkResult SubmitQueue::submit(VkFence fence) {
     return checkError(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
 }
 
+VkResult SubmitQueue::waitIdle() {
+    return checkError(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
+}
+
 void SubmitQueue::setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) {
     this->waitSemaphores = waitSemaphores;
     submitInfo.waitSemaphoreCount = waitSemaphores.size();

@@ -10,6 +10,7 @@ class SubmitQueue : public Queue {
 public:
     SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);
     VkResult submit(VkFence fence = VK_NULL_HANDLE);
+    VkResult waitIdle();
 
     void setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) override;
     void setSignalSemaphores(std::vector<VkSemaphore> signalSemaphores);

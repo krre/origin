@@ -8,6 +8,14 @@ namespace Vulkan {
 class Buffer : public Handle<VkBuffer> {
 
 public:
+
+    enum class Type {
+        VERTEX,
+        INDEX,
+        UNIFORM,
+        STORAGE
+    };
+
     Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size);
     ~Buffer();
     VkResult create() override;

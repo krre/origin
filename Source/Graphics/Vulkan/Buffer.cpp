@@ -1,5 +1,7 @@
 #include "Buffer.h"
 #include "Manager.h"
+#include "Command/CommandBuffers.h"
+#include "Command/CommandBuffer.h"
 #include <string.h>
 
 using namespace Vulkan;
@@ -70,4 +72,26 @@ void Buffer::read(VkDeviceSize offset, VkDeviceSize size, void* data) {
     vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData);
     memcpy(data, mapData, size);
     vkUnmapMemory(device->getHandle(), memory.getHandle());
+}
+
+void Buffer::copyToDevice(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
+    CommandBuffers commandBuffers(device, Manager::get()->getCommandPool());
+    commandBuffers.allocate(1);
+
+    CommandBuffer commandBuffer(commandBuffers.at(0));
+    commandBuffer.setFlags(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+    commandBuffer.begin();
+        VkBufferCopy copyRegion = {};
+        copyRegion.size = size;
+        vkCmdCopyBuffer(commandBuffer.getHandle(), srcBuffer, dstBuffer, 1, &copyRegion);
+    commandBuffer.end();
+
+    VkSubmitInfo submitInfo = {};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submitInfo.commandBufferCount = 1;
+    VkCommandBuffer cmdBuff = commandBuffer.getHandle();
+    submitInfo.pCommandBuffers = &cmdBuff;
+
+    vkQueueSubmit(Manager::get()->getGraphicsQueue()->getHandle(), 1, &submitInfo, VK_NULL_HANDLE);
+    vkQueueWaitIdle(Manager::get()->getGraphicsQueue()->getHandle());
 }

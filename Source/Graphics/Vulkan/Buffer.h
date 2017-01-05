@@ -31,6 +31,7 @@ public:
     VkDescriptorBufferInfo* getDescriptorInfo() { return &descriptorInfo; }
 
 private:
+    void copyToDevice(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
     const Device* device;
     DeviceMemory memory;
     VkBufferCreateInfo createInfo = {};

@@ -16,6 +16,11 @@ public:
         STORAGE
     };
 
+    enum class Destination {
+        HOST,
+        DEVICE
+    };
+
     Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size);
     ~Buffer();
     VkResult create() override;

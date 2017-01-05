@@ -178,14 +178,12 @@ void Manager::saveScreenshot(const std::string& filePath) {
     memoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     vkCmdPipelineBarrier(commandBuffer.getHandle(), VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, 1, &memoryBarrier);
 
-
     memoryBarrier.oldLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
     memoryBarrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
     memoryBarrier.image = srcImage;
     memoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT | VK_ACCESS_MEMORY_READ_BIT;
     memoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
     vkCmdPipelineBarrier(commandBuffer.getHandle(), VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, 0, 0, nullptr, 0, nullptr, 1, &memoryBarrier);
-
 
     VkOffset3D blitSize;
     blitSize.x = width;
@@ -201,7 +199,6 @@ void Manager::saveScreenshot(const std::string& filePath) {
 
     // Issue the blit command
     vkCmdBlitImage(commandBuffer.getHandle(),  srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,  1, &imageBlitRegion,  VK_FILTER_NEAREST);
-
 
     memoryBarrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
     memoryBarrier.newLayout = VK_IMAGE_LAYOUT_GENERAL;
@@ -229,10 +226,9 @@ void Manager::saveScreenshot(const std::string& filePath) {
     device->waitForFences({ fence.getHandle() });
 
     // Get layout of the image (including row pitch)
-    VkImageSubresource subResource{};
+    VkImageSubresource subResource = {};
     subResource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     VkSubresourceLayout subResourceLayout;
-
     vkGetImageSubresourceLayout(device->getHandle(), dstImage, &subResource, &subResourceLayout);
 
     // Map image memory so we can start copying from it

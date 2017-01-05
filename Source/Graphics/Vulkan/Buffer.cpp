@@ -75,7 +75,7 @@ void Buffer::read(VkDeviceSize offset, VkDeviceSize size, void* data) {
     vkUnmapMemory(device->getHandle(), memory.getHandle());
 }
 
-void Buffer::copyToDevice(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
+void Buffer::copy(VkBuffer dstBuffer, VkDeviceSize size) {
     CommandBuffers commandBuffers(device, Manager::get()->getCommandPool());
     commandBuffers.allocate(1);
 
@@ -86,7 +86,7 @@ void Buffer::copyToDevice(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize s
 
     VkBufferCopy copyRegion = {};
     copyRegion.size = size;
-    vkCmdCopyBuffer(commandBuffer.getHandle(), srcBuffer, dstBuffer, 1, &copyRegion);
+    vkCmdCopyBuffer(commandBuffer.getHandle(), handle, dstBuffer, 1, &copyRegion);
 
     commandBuffer.end();
 

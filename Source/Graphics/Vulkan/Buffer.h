@@ -29,9 +29,9 @@ public:
     void write(VkDeviceSize offset, VkDeviceSize size, const void* data);
     void read(VkDeviceSize offset, VkDeviceSize size, void* data);
     VkDescriptorBufferInfo* getDescriptorInfo() { return &descriptorInfo; }
+    void copy(VkBuffer dstBuffer, VkDeviceSize size);
 
 private:
-    void copyToDevice(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size);
     const Device* device;
     DeviceMemory memory;
     VkBufferCreateInfo createInfo = {};

@@ -10,6 +10,7 @@ class CommandBuffer : public Handle<VkCommandBuffer> {
 public:
     CommandBuffer(VkCommandBuffer handle);
     VkResult create() override {}
+    void setFlags(VkCommandBufferUsageFlags flags);
     VkResult begin();
     VkResult end();
 

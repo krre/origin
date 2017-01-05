@@ -48,14 +48,22 @@ void WorldScene::init() {
     };
 
     VkDeviceSize size = sizeof(vertices[0]) * vertices.size();
-    vertexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::VERTEX);
+    vertexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
     vertexBuffer->create();
-    vertexBuffer->write(0, size, vertices.data());
+
+    Vulkan::Buffer vertexStageBuffer(device, size, Vulkan::Buffer::Type::TRANSFER_SRC);
+    vertexStageBuffer.create();
+    vertexStageBuffer.write(0, size, vertices.data());
+    vertexStageBuffer.copy(vertexBuffer->getHandle(), size);
 
     size = sizeof(indices[0]) * indices.size();
-    indexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::INDEX);
+    indexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::INDEX, Vulkan::Buffer::Destination::DEVICE);
     indexBuffer->create();
-    indexBuffer->write(0, size, indices.data());
+
+    Vulkan::Buffer indexStageBuffer(device, size, Vulkan::Buffer::Type::TRANSFER_SRC);
+    indexStageBuffer.create();
+    indexStageBuffer.write(0, size, indices.data());
+    indexStageBuffer.copy(indexBuffer->getHandle(), size);
 
     uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(UBO));

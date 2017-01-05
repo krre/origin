@@ -222,16 +222,9 @@ void Manager::saveScreenshot(const std::string& filePath) {
     Fence fence(device);
     fence.create();
 
-    VkSubmitInfo submitInfo = {};
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submitInfo.commandBufferCount = 1;
-    VkCommandBuffer cmdBuff = commandBuffer.getHandle();
-    submitInfo.pCommandBuffers = &cmdBuff;
-
-    vkQueueSubmit(graphicsQueue->getHandle(), 1, &submitInfo, fence.getHandle());
-
-//    graphicsQueue->setCommandBuffers({ commandBuffer.getHandle() });
-//    graphicsQueue->submit(fence.getHandle());
+    SubmitQueue queue(device, graphicsFamily, 0);
+    queue.setCommandBuffers({ commandBuffer.getHandle() });
+    queue.submit(fence.getHandle());
 
     VkFence f = fence.getHandle();
     device->waitForFences(1, &f);

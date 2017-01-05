@@ -80,10 +80,13 @@ void Buffer::copyToDevice(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize s
 
     CommandBuffer commandBuffer(commandBuffers.at(0));
     commandBuffer.setFlags(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+
     commandBuffer.begin();
-        VkBufferCopy copyRegion = {};
-        copyRegion.size = size;
-        vkCmdCopyBuffer(commandBuffer.getHandle(), srcBuffer, dstBuffer, 1, &copyRegion);
+
+    VkBufferCopy copyRegion = {};
+    copyRegion.size = size;
+    vkCmdCopyBuffer(commandBuffer.getHandle(), srcBuffer, dstBuffer, 1, &copyRegion);
+
     commandBuffer.end();
 
     VkSubmitInfo submitInfo = {};

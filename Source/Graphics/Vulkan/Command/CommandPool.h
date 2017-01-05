@@ -14,7 +14,7 @@ public:
 
 private:
     const Device* device;
-    VkCommandPoolCreateInfo createInfo;
+    VkCommandPoolCreateInfo createInfo = {};
 };
 
 } // Vulkan

@@ -33,6 +33,7 @@ public:
     CommandPool* getCommandPool() const { return commandPool; }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     PhysicalDevices* getPhysicalDevices() const { return physicalDevices; }
+    SubmitQueue* getGraphicsQueue() const { return graphicsQueue; }
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void setCommandBuffers(const CommandBuffers* commandBuffers);
     void render();

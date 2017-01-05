@@ -38,6 +38,10 @@ void Device::waitForFences(uint32_t count, const VkFence* fences) {
     vkWaitForFences(handle, count, fences, VK_TRUE, DEFAULT_FENCE_TIMEOUT);
 }
 
+void Device::waitForFences(std::vector<VkFence> fences) {
+    vkWaitForFences(handle, fences.size(), fences.data(), VK_TRUE, DEFAULT_FENCE_TIMEOUT);
+}
+
 VkResult Device::create() {
     return checkError(vkCreateDevice(physicalDevice, &createInfo, nullptr, &handle), "Failed to create device");
 }

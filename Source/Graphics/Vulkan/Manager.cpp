@@ -226,8 +226,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     queue.setCommandBuffers({ commandBuffer.getHandle() });
     queue.submit(fence.getHandle());
 
-    VkFence f = fence.getHandle();
-    device->waitForFences(1, &f);
+    device->waitForFences({ fence.getHandle() });
 
     // Get layout of the image (including row pitch)
     VkImageSubresource subResource{};

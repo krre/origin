@@ -48,12 +48,12 @@ void WorldScene::init() {
     };
 
     VkDeviceSize size = sizeof(vertices[0]) * vertices.size();
-    vertexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+    vertexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::VERTEX);
     vertexBuffer->create();
     vertexBuffer->write(0, size, vertices.data());
 
     size = sizeof(indices[0]) * indices.size();
-    indexBuffer = new Vulkan::Buffer(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size);
+    indexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::INDEX);
     indexBuffer->create();
     indexBuffer->write(0, size, indices.data());
 

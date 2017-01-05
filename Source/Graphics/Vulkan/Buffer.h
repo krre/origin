@@ -22,6 +22,7 @@ public:
     };
 
     Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size);
+    Buffer(const Device* device, VkDeviceSize size, Type type, Destination destination = Destination::HOST);
     ~Buffer();
     VkResult create() override;
     VkDeviceSize getSize() const { return createInfo.size; }
@@ -34,6 +35,7 @@ private:
     DeviceMemory memory;
     VkBufferCreateInfo createInfo = {};
     VkDescriptorBufferInfo descriptorInfo = {};
+    Destination destination;
 };
 
 } // Vulkan

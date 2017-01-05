@@ -12,6 +12,30 @@ Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize s
     createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 }
 
+Buffer::Buffer(const Device* device, VkDeviceSize size, Buffer::Type type, Buffer::Destination destination) :
+    device(device), memory(device), destination(destination) {
+    createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+    createInfo.size = size;
+    createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+
+    switch (type) {
+    case Type::VERTEX:
+        createInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+        break;
+    case Type::INDEX:
+        createInfo.usage = VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
+        break;
+    case Type::UNIFORM:
+        createInfo.usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
+        break;
+    case Type::STORAGE:
+        createInfo.usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
+        break;
+    default:
+        break;
+    }
+}
+
 Buffer::~Buffer() {
     if (handle != VK_NULL_HANDLE) {
         vkDestroyBuffer(device->getHandle(), handle, nullptr);

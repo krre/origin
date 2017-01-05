@@ -34,6 +34,12 @@ Buffer::Buffer(const Device* device, VkDeviceSize size, Buffer::Type type, Buffe
     case Type::STORAGE:
         createInfo.usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
         break;
+    case Type::TRANSFER_SRC:
+        createInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
+        break;
+    case Type::TRANSFER_DST:
+        createInfo.usage = VK_BUFFER_USAGE_TRANSFER_DST_BIT;
+        break;
     default:
         break;
     }

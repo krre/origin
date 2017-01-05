@@ -13,7 +13,9 @@ public:
         VERTEX,
         INDEX,
         UNIFORM,
-        STORAGE
+        STORAGE,
+        TRANSFER_SRC,
+        TRANSFER_DST
     };
 
     enum class Destination {

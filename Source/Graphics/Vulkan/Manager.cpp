@@ -116,7 +116,7 @@ bool Manager::init() {
         return false;
     }
 
-    graphicsQueue = new SubmitQueue(device, graphicsFamily, 0);
+    graphicsQueue = new SubmitQueue(device, graphicsFamily);
     graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
     graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
@@ -222,7 +222,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     Fence fence(device);
     fence.create();
 
-    SubmitQueue queue(device, graphicsFamily, 0);
+    SubmitQueue queue(device, graphicsFamily);
     queue.setCommandBuffers({ commandBuffer.getHandle() });
     queue.submit(fence.getHandle());
 

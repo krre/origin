@@ -1,5 +1,6 @@
 #include "Buffer.h"
 #include "Manager.h"
+#include "Queue/SubmitQueue.h"
 #include "Command/CommandBuffers.h"
 #include "Command/CommandBuffer.h"
 #include <string.h>
@@ -89,12 +90,8 @@ void Buffer::copyToDevice(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize s
 
     commandBuffer.end();
 
-    VkSubmitInfo submitInfo = {};
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submitInfo.commandBufferCount = 1;
-    VkCommandBuffer cmdBuff = commandBuffer.getHandle();
-    submitInfo.pCommandBuffers = &cmdBuff;
-
-    vkQueueSubmit(Manager::get()->getGraphicsQueue()->getHandle(), 1, &submitInfo, VK_NULL_HANDLE);
-    vkQueueWaitIdle(Manager::get()->getGraphicsQueue()->getHandle());
+    SubmitQueue queue(device, Manager::get()->getGraphicsFamily(), 0);
+    queue.setCommandBuffers({ commandBuffers.at(0) });
+    queue.submit();
+    queue.waitIdle();
 }

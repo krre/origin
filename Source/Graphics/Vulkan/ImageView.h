@@ -1,5 +1,5 @@
 #pragma once
-#include "Device.h"
+#include "Device/Device.h"
 #include "Surface.h"
 
 namespace Vulkan {

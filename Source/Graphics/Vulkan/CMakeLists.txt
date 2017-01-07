@@ -1,6 +1,7 @@
 add_subdirectory(Base)
 add_subdirectory(Command)
 add_subdirectory(Descriptor)
+add_subdirectory(Device)
 add_subdirectory(Pipeline)
 add_subdirectory(Queue)
 
@@ -10,10 +11,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Fence.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Fence.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.cpp
@@ -26,8 +23,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Manager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Semaphore.cpp

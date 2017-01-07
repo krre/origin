@@ -1,6 +1,6 @@
 #pragma once
 #include "../UI/Viewport.h"
-#include "../Graphics/Vulkan/Device.h"
+#include "../Graphics/Vulkan/Device/Device.h"
 #include <SDL.h>
 
 class Scene : public Viewport {

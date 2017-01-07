@@ -1,0 +1,10 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Device.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevices.h
+    PARENT_SCOPE
+)

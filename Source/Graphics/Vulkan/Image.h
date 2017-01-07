@@ -1,6 +1,6 @@
 #pragma once
-#include "Device.h"
-#include "DeviceMemory.h"
+#include "Device/Device.h"
+#include "Device/DeviceMemory.h"
 
 namespace Vulkan {
 

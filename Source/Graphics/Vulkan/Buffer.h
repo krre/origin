@@ -1,7 +1,7 @@
 #pragma once
 #include "Base/Handle.h"
-#include "Device.h"
-#include "DeviceMemory.h"
+#include "Device/Device.h"
+#include "Device/DeviceMemory.h"
 
 namespace Vulkan {
 

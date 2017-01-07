@@ -1,6 +1,6 @@
 #pragma once
 #include "../Base/Collection.h"
-#include "../Device.h"
+#include "../Device/Device.h"
 #include "CommandPool.h"
 
 namespace Vulkan {

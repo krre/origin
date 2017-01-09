@@ -45,7 +45,6 @@ uint32_t PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags)
             return i;
         }
         i++;
-
     }
 
     return -1;

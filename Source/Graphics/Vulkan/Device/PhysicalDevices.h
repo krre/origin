@@ -1,6 +1,7 @@
 #pragma once
 #include "../Base/Collection.h"
 #include "../Instance.h"
+#include "PhysicalDevice.h"
 #include <vector>
 #include <map>
 
@@ -22,6 +23,7 @@ public:
 
 private:
     const Instance* instance;
+    std::vector<std::shared_ptr<PhysicalDevice>> devices;
     std::map<VkPhysicalDevice, VkPhysicalDeviceProperties> properties;
     std::map<VkPhysicalDevice, VkPhysicalDeviceFeatures> features;
     std::map<VkPhysicalDevice, VkPhysicalDeviceMemoryProperties> memoryProperties;

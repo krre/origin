@@ -8,7 +8,10 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
     collection.resize(count);
     vkEnumeratePhysicalDevices(instance->getHandle(), &count, collection.data());
 
-    for (auto device: collection) {
+    devices.resize(count);
+    for (auto device : collection) {
+        devices.push_back(std::make_shared<PhysicalDevice>(device));
+
         VkPhysicalDeviceProperties deviceProperties;
         vkGetPhysicalDeviceProperties(device, &deviceProperties);
         properties[device] = deviceProperties;

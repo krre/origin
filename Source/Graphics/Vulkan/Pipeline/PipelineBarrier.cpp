@@ -6,6 +6,10 @@ PipelineBarrier::PipelineBarrier() {
 
 }
 
+void PipelineBarrier::addMemoryBarrier(VkMemoryBarrier memoryBarrier) {
+    memoryBarriers.push_back(memoryBarrier);
+}
+
 void PipelineBarrier::addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier) {
     imageMemoryBarriers.push_back(imageMemoryBarrier);
 }

@@ -12,7 +12,7 @@ public:
     VkResult create() {}
     VkResult allocate(VkDeviceSize size);
     void setMemoryTypeIndex(uint32_t index);
-    VkResult map(VkDeviceSize count, VkDeviceSize offset, const unsigned char* data);
+    VkResult map(VkDeviceSize count, VkDeviceSize offset, void** data);
     void unmap();
 
 private:

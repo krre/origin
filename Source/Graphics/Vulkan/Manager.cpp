@@ -177,7 +177,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     imageMemoryBarrier2.oldLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
     imageMemoryBarrier2.newLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
     imageMemoryBarrier2.image = srcImage;
-    imageMemoryBarrier2.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+    imageMemoryBarrier2.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;
     imageMemoryBarrier2.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
     PipelineBarrier pipelineBarrier2;
     pipelineBarrier2.addImageMemoryBarrier(imageMemoryBarrier2);
@@ -209,7 +209,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     pipelineBarrier3.addImageMemoryBarrier(imageMemoryBarrier3);
     commandBuffer.pipelineBarrier(&pipelineBarrier3, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
-    // Transition back the swap chain image after the blit is done
+    // Transition back the swapchain image after the blit is done
     VkImageMemoryBarrier imageMemoryBarrier4 = PipelineBarrier::createImageMemoryBarrier();
     imageMemoryBarrier4.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
     imageMemoryBarrier4.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
@@ -238,29 +238,11 @@ void Manager::saveScreenshot(const std::string& filePath) {
     vkGetImageSubresourceLayout(device->getHandle(), dstImage, &subResource, &subResourceLayout);
 
     // Map image memory so we can start copying from it
-    const unsigned char* data;
-    image.getMemory()->map(VK_WHOLE_SIZE, 0, data);
+    const char* data;
+    image.getMemory()->map(VK_WHOLE_SIZE, 0, (void**)&data);
     data += subResourceLayout.offset;
 
-    lodepng::encode(filePath, data, width, height);
-
-//    std::ofstream file(filePath, std::ios::out | std::ios::binary);
-
-//    // ppm header
-//    file << "P6\n" << width << "\n" << height << "\n" << 255 << "\n";
-
-//    // ppm binary pixel data
-//    for (uint32_t y = 0; y < height; y++)
-//    {
-//        unsigned int *row = (unsigned int*)data;
-//        for (uint32_t x = 0; x < width; x++)
-//        {
-//            file.write((char*)row, 3);
-//            row++;
-//        }
-//        data += subResourceLayout.rowPitch;
-//    }
-//    file.close();
+    lodepng::encode(filePath, reinterpret_cast<const unsigned char*>(data), width, height);
 
     image.getMemory()->unmap();
 }

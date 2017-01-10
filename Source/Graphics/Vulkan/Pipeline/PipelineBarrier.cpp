@@ -6,6 +6,10 @@ PipelineBarrier::PipelineBarrier() {
 
 }
 
+void PipelineBarrier::addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier) {
+    imageMemoryBarriers.push_back(imageMemoryBarrier);
+}
+
 VkImageMemoryBarrier PipelineBarrier::createImageMemoryBarrier() {
     VkImageSubresourceRange imageSubresourceRange = {};
     imageSubresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;

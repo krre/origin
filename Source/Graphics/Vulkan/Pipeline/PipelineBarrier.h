@@ -8,21 +8,22 @@ class PipelineBarrier {
 
 public:
     PipelineBarrier();
-    uint32_t getMemoryBarrierCount() const { return memoryBarries.size(); }
-    VkMemoryBarrier* getMemoryBarrierData() { return memoryBarries.data(); }
+    uint32_t getMemoryBarrierCount() const { return memoryBarriers.size(); }
+    VkMemoryBarrier* getMemoryBarrierData() { return memoryBarriers.data(); }
 
-    uint32_t getBufferMemoryBarrierCount() const { return bufferMemoryBarries.size(); }
-    VkBufferMemoryBarrier* getBufferMemoryBarrierData() { return bufferMemoryBarries.data(); }
+    uint32_t getBufferMemoryBarrierCount() const { return bufferMemoryBarriers.size(); }
+    VkBufferMemoryBarrier* getBufferMemoryBarrierData() { return bufferMemoryBarriers.data(); }
 
-    uint32_t getImageMemoryBarrierCount() const { return imageMemoryBarries.size(); }
-    VkImageMemoryBarrier* getImageMemoryBarrierData() { return imageMemoryBarries.data(); }
+    void addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier);
+    uint32_t getImageMemoryBarrierCount() const { return imageMemoryBarriers.size(); }
+    VkImageMemoryBarrier* getImageMemoryBarrierData() { return imageMemoryBarriers.data(); }
 
     static VkImageMemoryBarrier createImageMemoryBarrier();
 
 private:
-    std::vector<VkMemoryBarrier> memoryBarries;
-    std::vector<VkBufferMemoryBarrier> bufferMemoryBarries;
-    std::vector<VkImageMemoryBarrier> imageMemoryBarries;
+    std::vector<VkMemoryBarrier> memoryBarriers;
+    std::vector<VkBufferMemoryBarrier> bufferMemoryBarriers;
+    std::vector<VkImageMemoryBarrier> imageMemoryBarriers;
 };
 
 } // Vulkan

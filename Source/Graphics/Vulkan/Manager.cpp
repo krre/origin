@@ -162,26 +162,25 @@ void Manager::saveScreenshot(const std::string& filePath) {
     commandBuffer.begin();
 
     // Transition destination image to transfer destination layout
-    VkImageMemoryBarrier imageMemoryBarrier1 = PipelineBarrier::createImageMemoryBarrier();
-    imageMemoryBarrier1.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    imageMemoryBarrier1.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-    imageMemoryBarrier1.image = dstImage;
-    imageMemoryBarrier1.srcAccessMask = 0;
-    imageMemoryBarrier1.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-    PipelineBarrier pipelineBarrier1;
-    pipelineBarrier1.addImageMemoryBarrier(imageMemoryBarrier1);
-    commandBuffer.pipelineBarrier(&pipelineBarrier1, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
+    VkImageMemoryBarrier imageMemoryBarrier = PipelineBarrier::createImageMemoryBarrier();
+    imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+    imageMemoryBarrier.image = dstImage;
+    imageMemoryBarrier.srcAccessMask = 0;
+    imageMemoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+    PipelineBarrier pipelineBarrier;
+    pipelineBarrier.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.pipelineBarrier(&pipelineBarrier, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     // Transition swapchain image from present to transfer source layout
-    VkImageMemoryBarrier imageMemoryBarrier2 = PipelineBarrier::createImageMemoryBarrier();
-    imageMemoryBarrier2.oldLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-    imageMemoryBarrier2.newLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
-    imageMemoryBarrier2.image = srcImage;
-    imageMemoryBarrier2.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-    imageMemoryBarrier2.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
-    PipelineBarrier pipelineBarrier2;
-    pipelineBarrier2.addImageMemoryBarrier(imageMemoryBarrier2);
-    commandBuffer.pipelineBarrier(&pipelineBarrier2, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
+    imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    imageMemoryBarrier.image = srcImage;
+    imageMemoryBarrier.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+    imageMemoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+    pipelineBarrier.clearImageMemoryBarriers();
+    pipelineBarrier.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.pipelineBarrier(&pipelineBarrier, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     VkOffset3D blitSize;
     blitSize.x = width;
@@ -199,26 +198,24 @@ void Manager::saveScreenshot(const std::string& filePath) {
     vkCmdBlitImage(commandBuffer.getHandle(),  srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,  1, &imageBlitRegion,  VK_FILTER_NEAREST);
 
     // Transition destination image to general layout, which is the required layout for mapping the image memory later on
-    VkImageMemoryBarrier imageMemoryBarrier3 = PipelineBarrier::createImageMemoryBarrier();
-    imageMemoryBarrier3.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
-    imageMemoryBarrier3.newLayout = VK_IMAGE_LAYOUT_GENERAL;
-    imageMemoryBarrier3.image = dstImage;
-    imageMemoryBarrier3.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
-    imageMemoryBarrier3.dstAccessMask = 0;
-    PipelineBarrier pipelineBarrier3;
-    pipelineBarrier3.addImageMemoryBarrier(imageMemoryBarrier3);
-    commandBuffer.pipelineBarrier(&pipelineBarrier3, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
+    imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+    imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_GENERAL;
+    imageMemoryBarrier.image = dstImage;
+    imageMemoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+    imageMemoryBarrier.dstAccessMask = 0;
+    pipelineBarrier.clearImageMemoryBarriers();
+    pipelineBarrier.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.pipelineBarrier(&pipelineBarrier, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     // Transition back the swapchain image after the blit is done
-    VkImageMemoryBarrier imageMemoryBarrier4 = PipelineBarrier::createImageMemoryBarrier();
-    imageMemoryBarrier4.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
-    imageMemoryBarrier4.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
-    imageMemoryBarrier4.image = srcImage;
-    imageMemoryBarrier4.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
-    imageMemoryBarrier4.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-    PipelineBarrier pipelineBarrier4;
-    pipelineBarrier4.addImageMemoryBarrier(imageMemoryBarrier4);
-    commandBuffer.pipelineBarrier(&pipelineBarrier4, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
+    imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
+    imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    imageMemoryBarrier.image = srcImage;
+    imageMemoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+    imageMemoryBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
+    pipelineBarrier.clearImageMemoryBarriers();
+    pipelineBarrier.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.pipelineBarrier(&pipelineBarrier, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     commandBuffer.end();
 

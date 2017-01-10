@@ -238,11 +238,11 @@ void Manager::saveScreenshot(const std::string& filePath) {
     vkGetImageSubresourceLayout(device->getHandle(), dstImage, &subResource, &subResourceLayout);
 
     // Map image memory so we can start copying from it
-    const char* data;
+    const unsigned char* data;
     image.getMemory()->map(VK_WHOLE_SIZE, 0, (void**)&data);
     data += subResourceLayout.offset;
 
-    lodepng::encode(filePath, reinterpret_cast<const unsigned char*>(data), width, height);
+    lodepng::encode(filePath, data, width, height);
 
     image.getMemory()->unmap();
 }

@@ -17,7 +17,7 @@ public:
     uint32_t getImageMemoryBarrierCount() const { return imageMemoryBarries.size(); }
     VkImageMemoryBarrier* getImageMemoryBarrierData() { return imageMemoryBarries.data(); }
 
-    VkImageMemoryBarrier createImageMemoryBarrier();
+    static VkImageMemoryBarrier createImageMemoryBarrier();
 
 private:
     std::vector<VkMemoryBarrier> memoryBarries;

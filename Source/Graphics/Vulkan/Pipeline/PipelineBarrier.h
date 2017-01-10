@@ -8,10 +8,11 @@ class PipelineBarrier {
 
 public:
     PipelineBarrier();
+    void addMemoryBarrier(VkMemoryBarrier memoryBarrier);
     uint32_t getMemoryBarrierCount() const { return memoryBarriers.size(); }
     VkMemoryBarrier* getMemoryBarrierData() { return memoryBarriers.data(); }
 
-    void addMemoryBarrier(VkMemoryBarrier memoryBarrier);
+    void addBufferMemoryBarrier(VkBufferMemoryBarrier bufferMemoryBarrier);
     uint32_t getBufferMemoryBarrierCount() const { return bufferMemoryBarriers.size(); }
     VkBufferMemoryBarrier* getBufferMemoryBarrierData() { return bufferMemoryBarriers.data(); }
 

@@ -17,6 +17,10 @@ void PipelineBarrier::addMemoryBarrier(VkMemoryBarrier memoryBarrier) {
     memoryBarriers.push_back(memoryBarrier);
 }
 
+void PipelineBarrier::clearMemoryBarriers() {
+    memoryBarriers.clear();
+}
+
 VkBufferMemoryBarrier PipelineBarrier::createBufferMemoryBarrier() {
     VkBufferMemoryBarrier bmb = {};
     bmb.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
@@ -30,8 +34,16 @@ void PipelineBarrier::addBufferMemoryBarrier(VkBufferMemoryBarrier bufferMemoryB
     bufferMemoryBarriers.push_back(bufferMemoryBarrier);
 }
 
+void PipelineBarrier::clearBufferMemoryBarriers() {
+    bufferMemoryBarriers.clear();
+}
+
 void PipelineBarrier::addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier) {
     imageMemoryBarriers.push_back(imageMemoryBarrier);
+}
+
+void PipelineBarrier::clearImageMemoryBarriers() {
+    imageMemoryBarriers.clear();
 }
 
 VkImageMemoryBarrier PipelineBarrier::createImageMemoryBarrier() {

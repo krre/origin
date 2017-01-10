@@ -6,6 +6,13 @@ PipelineBarrier::PipelineBarrier() {
 
 }
 
+VkMemoryBarrier PipelineBarrier::createMemoryBarrier() {
+    VkMemoryBarrier mb = {};
+    mb.sType = VK_STRUCTURE_TYPE_MEMORY_BARRIER;
+
+    return mb;
+}
+
 void PipelineBarrier::addMemoryBarrier(VkMemoryBarrier memoryBarrier) {
     memoryBarriers.push_back(memoryBarrier);
 }

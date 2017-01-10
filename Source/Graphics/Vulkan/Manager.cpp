@@ -202,7 +202,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     VkImageMemoryBarrier imageMemoryBarrier3 = PipelineBarrier::createImageMemoryBarrier();
     imageMemoryBarrier3.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
     imageMemoryBarrier3.newLayout = VK_IMAGE_LAYOUT_GENERAL;
-    imageMemoryBarrier3.image = srcImage;
+    imageMemoryBarrier3.image = dstImage;
     imageMemoryBarrier3.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     imageMemoryBarrier3.dstAccessMask = 0;
     PipelineBarrier pipelineBarrier3;

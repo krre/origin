@@ -17,6 +17,15 @@ void PipelineBarrier::addMemoryBarrier(VkMemoryBarrier memoryBarrier) {
     memoryBarriers.push_back(memoryBarrier);
 }
 
+VkBufferMemoryBarrier PipelineBarrier::createBufferMemoryBarrier() {
+    VkBufferMemoryBarrier bmb = {};
+    bmb.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+    bmb.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    bmb.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+
+    return bmb;
+}
+
 void PipelineBarrier::addBufferMemoryBarrier(VkBufferMemoryBarrier bufferMemoryBarrier) {
     bufferMemoryBarriers.push_back(bufferMemoryBarrier);
 }

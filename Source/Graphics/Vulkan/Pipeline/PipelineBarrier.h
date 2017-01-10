@@ -13,6 +13,7 @@ public:
     uint32_t getMemoryBarrierCount() const { return memoryBarriers.size(); }
     VkMemoryBarrier* getMemoryBarrierData() { return memoryBarriers.data(); }
 
+    static VkBufferMemoryBarrier createBufferMemoryBarrier();
     void addBufferMemoryBarrier(VkBufferMemoryBarrier bufferMemoryBarrier);
     uint32_t getBufferMemoryBarrierCount() const { return bufferMemoryBarriers.size(); }
     VkBufferMemoryBarrier* getBufferMemoryBarrierData() { return bufferMemoryBarriers.data(); }

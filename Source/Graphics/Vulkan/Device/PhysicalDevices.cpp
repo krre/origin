@@ -10,24 +10,29 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
 
     devices.resize(count);
     for (auto device : collection) {
-        devices.push_back(std::make_shared<PhysicalDevice>(device));
+        auto physicalDevice = std::make_shared<PhysicalDevice>(device);
+        devices.push_back(physicalDevice);
 
         VkPhysicalDeviceProperties deviceProperties;
         vkGetPhysicalDeviceProperties(device, &deviceProperties);
         properties[device] = deviceProperties;
+        physicalDevice->deviceProperties = deviceProperties;
 
         VkPhysicalDeviceFeatures deviceFeatures;
         vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
         features[device] = deviceFeatures;
+        physicalDevice->deviceFeatures = deviceFeatures;
 
         VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
         vkGetPhysicalDeviceMemoryProperties(device, &deviceMemoryProperties);
         memoryProperties[device] = deviceMemoryProperties;
+        physicalDevice->deviceMemoryProperties = deviceMemoryProperties;
 
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
         std::vector<VkQueueFamilyProperties> familyProperties(count);
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, familyProperties.data());
         queueFamilyProperties[device] = familyProperties;
+        physicalDevice->queueFamilyProperties = familyProperties;
     }
 }
 

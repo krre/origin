@@ -1,5 +1,6 @@
 #pragma once
 #include "../Base/Handle.h"
+#include <vector>
 
 namespace Vulkan {
 
@@ -11,7 +12,10 @@ public:
     VkResult create() override {}
 
 private:
-
+    VkPhysicalDeviceProperties deviceProperties;
+    VkPhysicalDeviceFeatures deviceFeatures;
+    VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
+    std::vector<VkQueueFamilyProperties> queueFamilyProperties;
 };
 
 } // Vulkan

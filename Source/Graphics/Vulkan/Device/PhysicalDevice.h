@@ -17,6 +17,7 @@ public:
     std::vector<VkQueueFamilyProperties>& getQueueFamilyProperties() { return queueFamilyProperties; }
 
     uint32_t findQueue(VkQueueFlags flags);
+    uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
 private:
     VkPhysicalDeviceProperties properties;

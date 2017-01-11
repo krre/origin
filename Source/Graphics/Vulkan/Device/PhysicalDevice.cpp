@@ -17,3 +17,13 @@ uint32_t PhysicalDevice::findQueue(VkQueueFlags flags) {
 
     return -1;
 }
+
+uint32_t PhysicalDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
+    for (uint32_t i = 0; i < memoryProperties.memoryTypeCount; i++) {
+        if ((typeFilter & (1 << i)) && (memoryProperties.memoryTypes[i].propertyFlags & properties) == properties) {
+            return i;
+        }
+    }
+
+    return -1;
+}

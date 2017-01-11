@@ -16,17 +16,17 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
         VkPhysicalDeviceProperties deviceProperties;
         vkGetPhysicalDeviceProperties(device, &deviceProperties);
         properties[device] = deviceProperties;
-        physicalDevice->deviceProperties = deviceProperties;
+        physicalDevice->properties = deviceProperties;
 
         VkPhysicalDeviceFeatures deviceFeatures;
         vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
         features[device] = deviceFeatures;
-        physicalDevice->deviceFeatures = deviceFeatures;
+        physicalDevice->features = deviceFeatures;
 
         VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
         vkGetPhysicalDeviceMemoryProperties(device, &deviceMemoryProperties);
         memoryProperties[device] = deviceMemoryProperties;
-        physicalDevice->deviceMemoryProperties = deviceMemoryProperties;
+        physicalDevice->memoryProperties = deviceMemoryProperties;
 
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
         std::vector<VkQueueFamilyProperties> familyProperties(count);

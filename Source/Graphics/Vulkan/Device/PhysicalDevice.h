@@ -10,11 +10,15 @@ class PhysicalDevice : public Handle<VkPhysicalDevice> {
 public:
     PhysicalDevice(VkPhysicalDevice physicalDevice);
     VkResult create() override {}
+    VkPhysicalDeviceProperties& getProperties() { return properties; }
+    VkPhysicalDeviceFeatures& getFeatures() { return features; }
+    VkPhysicalDeviceMemoryProperties& getMemoryProperties() { return memoryProperties; }
+    std::vector<VkQueueFamilyProperties>& getQueueFamilyProperties() { return queueFamilyProperties; }
 
 private:
-    VkPhysicalDeviceProperties deviceProperties;
-    VkPhysicalDeviceFeatures deviceFeatures;
-    VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
+    VkPhysicalDeviceProperties properties;
+    VkPhysicalDeviceFeatures features;
+    VkPhysicalDeviceMemoryProperties memoryProperties;
     std::vector<VkQueueFamilyProperties> queueFamilyProperties;
 };
 

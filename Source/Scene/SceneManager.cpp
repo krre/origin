@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include "../Debug/DebugHUD.h"
 
 SceneManager::SceneManager() {
 
@@ -45,6 +46,10 @@ void SceneManager::update(float dt) {
             scene->update(dt);
         }
     }
+
+    if (DebugHUD::get()->getVisible()) {
+        DebugHUD::get()->update(dt);
+    }
 }
 
 void SceneManager::draw(float dt) {
@@ -52,5 +57,9 @@ void SceneManager::draw(float dt) {
         if (scene->getVisible()) {
             scene->draw(dt);
         }
+    }
+
+    if (DebugHUD::get()->getVisible()) {
+        DebugHUD::get()->draw(dt);
     }
 }

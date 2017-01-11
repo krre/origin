@@ -7,6 +7,7 @@
 #include "../Resource/ResourceManager.h"
 #include "../Debug/Logger.h"
 #include "../Debug/Debug.h"
+#include "../Debug/DebugHUD.h"
 #include "../Scene/SceneManager.h"
 #include <string>
 #include <SDL_timer.h>
@@ -28,8 +29,9 @@ App::~App() {
     Game::get()->release();
     SceneManager::get()->release();
     Input::get()->release();
-    ResourceManager::get()->release();
+    DebugHUD::get()->release();
     Debug::get()->release();
+    ResourceManager::get()->release();
     Event::get()->release();
     Vulkan::Manager::get()->release();
     Logger::get()->release();
@@ -93,6 +95,7 @@ void App::init() {
     new Event;
     new ResourceManager;
     new Debug;
+    new DebugHUD;
     new Input;
     new SceneManager;
     new Game;

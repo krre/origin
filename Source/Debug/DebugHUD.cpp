@@ -7,7 +7,7 @@
 #include <Covenantland.h>
 
 DebugHUD::DebugHUD() {
-
+    visible = false;
 }
 
 void DebugHUD::init() {
@@ -88,7 +88,7 @@ void DebugHUD::create() {
 }
 
 void DebugHUD::trigger() {
-    //    visible = !visible;
+    visible = !visible;
 }
 
 void DebugHUD::onKeyPressed(const SDL_KeyboardEvent& event) {

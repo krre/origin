@@ -28,7 +28,7 @@ VkResult Image::create() {
 
     VkMemoryRequirements memRequirements;
     vkGetImageMemoryRequirements(device->getHandle(), handle, &memRequirements);
-    memory.setMemoryTypeIndex(Vulkan::Manager::get()->getPhysicalDevices()->findMemoryType(device->getPhysicalDevice()->getHandle(), memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
+    memory.setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
     memory.allocate(memRequirements.size);
 
     vkBindImageMemory(device->getHandle(), handle, memory.getHandle(), 0);

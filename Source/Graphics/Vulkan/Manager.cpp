@@ -63,7 +63,7 @@ bool Manager::init() {
         mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     }
 
-    graphicsFamily = physicalDevices->findQueue(mainPhysicalDevice->getHandle(), VK_QUEUE_GRAPHICS_BIT);
+    graphicsFamily = mainPhysicalDevice->findQueue(VK_QUEUE_GRAPHICS_BIT);
 
     device = new Device(mainPhysicalDevice, graphicsFamily);
     if (device->create() != VK_SUCCESS) {

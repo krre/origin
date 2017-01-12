@@ -12,26 +12,13 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
         auto physicalDevice = std::make_shared<PhysicalDevice>(device);
         devices.push_back(physicalDevice);
 
-        VkPhysicalDeviceProperties deviceProperties;
-        vkGetPhysicalDeviceProperties(device, &deviceProperties);
-        properties[device] = deviceProperties;
-        physicalDevice->properties = deviceProperties;
-
-        VkPhysicalDeviceFeatures deviceFeatures;
-        vkGetPhysicalDeviceFeatures(device, &deviceFeatures);
-        features[device] = deviceFeatures;
-        physicalDevice->features = deviceFeatures;
-
-        VkPhysicalDeviceMemoryProperties deviceMemoryProperties;
-        vkGetPhysicalDeviceMemoryProperties(device, &deviceMemoryProperties);
-        memoryProperties[device] = deviceMemoryProperties;
-        physicalDevice->memoryProperties = deviceMemoryProperties;
+        vkGetPhysicalDeviceProperties(device, &physicalDevice->properties);
+        vkGetPhysicalDeviceFeatures(device, &physicalDevice->features);
+        vkGetPhysicalDeviceMemoryProperties(device, &physicalDevice->memoryProperties);
 
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
-        std::vector<VkQueueFamilyProperties> familyProperties(count);
-        vkGetPhysicalDeviceQueueFamilyProperties(device, &count, familyProperties.data());
-        queueFamilyProperties[device] = familyProperties;
-        physicalDevice->queueFamilyProperties = familyProperties;
+        physicalDevice->queueFamilyProperties.resize(count);
+        vkGetPhysicalDeviceQueueFamilyProperties(device, &count, physicalDevice->queueFamilyProperties.data());
     }
 }
 
@@ -43,28 +30,6 @@ PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
     }
 
     return nullptr;
-}
-
-uint32_t PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {
-    uint32_t i = 0;
-    for (auto familyProperty : queueFamilyProperties[device]) {
-        if (familyProperty.queueCount > 0 && (familyProperty.queueFlags & flags)) {
-            return i;
-        }
-        i++;
-    }
-
-    return -1;
-}
-
-uint32_t PhysicalDevices::findMemoryType(VkPhysicalDevice device, uint32_t typeFilter, VkMemoryPropertyFlags properties) {
-    for (uint32_t i = 0; i < memoryProperties[device].memoryTypeCount; i++) {
-        if ((typeFilter & (1 << i)) && (memoryProperties[device].memoryTypes[i].propertyFlags & properties) == properties) {
-            return i;
-        }
-    }
-
-    return -1;
 }
 
 void PhysicalDevices::dumpDevices() {

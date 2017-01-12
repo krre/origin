@@ -1,13 +1,15 @@
 #pragma once
 #include "../UI/Viewport.h"
 #include "../Graphics/Vulkan/Device/Device.h"
+#include "../Graphics/Vulkan/Command/CommandBuffers.h"
 #include <SDL.h>
 
 class Scene : public Viewport {
 
 public:
     Scene();
-    virtual void init() {}
+    ~Scene();
+    virtual void init();
     virtual void create() {}
     virtual void cleanup() {}
     virtual void pause();
@@ -23,4 +25,5 @@ protected:
     virtual void onKeyPressed(const SDL_KeyboardEvent& event);
     bool isFullScreen = true;
     Vulkan::Device* device = nullptr;
+    Vulkan::CommandBuffers* commandBuffers = nullptr;
 };

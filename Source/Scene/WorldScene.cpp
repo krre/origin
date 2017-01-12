@@ -20,7 +20,6 @@ WorldScene::WorldScene() {
 WorldScene::~WorldScene() {
     EntityManager::get()->release();
 
-    delete commandBuffers;
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSets;
@@ -36,6 +35,8 @@ WorldScene::~WorldScene() {
 }
 
 void WorldScene::init() {
+    Scene::init();
+
     const std::vector<glm::vec2> vertices = {
         { -1.0f, -1.0f },
         {  1.0f, -1.0f },
@@ -133,9 +134,6 @@ void WorldScene::init() {
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
-
-    commandBuffers = new Vulkan::CommandBuffers(device, Vulkan::Manager::get()->getCommandPool());
-    commandBuffers->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
 
     for (size_t i = 0; i < commandBuffers->getCount(); i++) {
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));

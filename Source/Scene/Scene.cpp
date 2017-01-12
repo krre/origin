@@ -9,6 +9,15 @@ Scene::Scene() {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 }
 
+Scene::~Scene() {
+    delete commandBuffers;
+}
+
+void Scene::init() {
+    commandBuffers = new Vulkan::CommandBuffers(device, Vulkan::Manager::get()->getCommandPool());
+    commandBuffers->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
+}
+
 void Scene::pause() {
     Event::get()->keyPressed.disconnect<Scene, &Scene::onKeyPressed>(this);
 }

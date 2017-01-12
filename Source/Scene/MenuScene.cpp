@@ -11,7 +11,6 @@ MenuScene::MenuScene() {
 }
 
 MenuScene::~MenuScene() {
-    delete commandBuffers;
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSets;
@@ -24,6 +23,8 @@ MenuScene::~MenuScene() {
 }
 
 void MenuScene::init() {
+    Scene::init();
+
     const std::vector<glm::vec2> vertices = {
         { -1.0f, -1.0f },
         {  1.0f, -1.0f },
@@ -101,9 +102,6 @@ void MenuScene::init() {
     graphicsPipeline->setPipelineLayout(pipelineLayout);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
-
-    commandBuffers = new Vulkan::CommandBuffers(device, Vulkan::Manager::get()->getCommandPool());
-    commandBuffers->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
 
     for (size_t i = 0; i < commandBuffers->getCount(); i++) {
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));

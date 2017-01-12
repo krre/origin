@@ -33,10 +33,8 @@ PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
 }
 
 void PhysicalDevices::dumpDevices() {
-    for (auto device : collection) {
-        VkPhysicalDeviceProperties deviceProperties;
-        vkGetPhysicalDeviceProperties(device, &deviceProperties);
-        print(deviceProperties.deviceName);
+    for (auto device : devices) {
+        print(device->properties.deviceName);
     }
 }
 

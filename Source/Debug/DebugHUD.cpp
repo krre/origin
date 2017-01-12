@@ -11,7 +11,7 @@ DebugHUD::DebugHUD() {
 }
 
 void DebugHUD::init() {
-
+    Scene::init();
 }
 
 void DebugHUD::draw(float dt) {

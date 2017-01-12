@@ -11,8 +11,6 @@ public:
 
 //    const std::vector<GLfloat>& getVerticles() const { return verticles; }
     const std::vector<int>& getIndices() const { return indices; }
-
-    void setup();
     void draw();
 
 protected:

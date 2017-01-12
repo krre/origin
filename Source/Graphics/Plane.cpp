@@ -12,5 +12,4 @@ Plane::Plane(float width, float height) : width(width), height(height) {
 //    };
 
 //    verticles = std::vector<GLfloat>(vertexData, vertexData + sizeof vertexData / sizeof vertexData[0]);
-    setup();
 }

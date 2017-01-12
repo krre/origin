@@ -12,6 +12,7 @@ public:
 
     void setIndices(const std::vector<uint32_t> indices);
     const std::vector<uint32_t>& getIndices() const { return indices; }
+    uint32_t getIndicesSize() const { return sizeof(indices[0]) * indices.size(); }
 
     void draw();
 

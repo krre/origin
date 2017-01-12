@@ -14,6 +14,7 @@ public:
     void create() override;
 
 private:
+    void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void onContinueButtonClicked();
     void onExitButtonClicked();
 

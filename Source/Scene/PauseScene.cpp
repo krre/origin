@@ -43,6 +43,13 @@ void PauseScene::create() {
     exitButton.clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);
 }
 
+void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
+    if (event.keysym.sym == SDLK_ESCAPE) {
+        SceneManager::get()->popScene();
+        Input::get()->isKeyAccepted = true;
+    }
+}
+
 void PauseScene::onContinueButtonClicked() {
     SceneManager::get()->popScene();
 }

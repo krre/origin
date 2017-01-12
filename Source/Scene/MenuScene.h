@@ -29,6 +29,7 @@ public:
     void create() override;
 
 private:
+    void onKeyPressed(const SDL_KeyboardEvent& event) override;
     Vulkan::PipelineLayout* pipelineLayout = nullptr;
     Vulkan::DescriptorPool* descriptorPool = nullptr;
     Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;

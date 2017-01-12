@@ -25,10 +25,3 @@ void Scene::pause() {
 void Scene::resume() {
     Event::get()->keyPressed.connect<Scene, &Scene::onKeyPressed>(this);
 }
-
-void Scene::onKeyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_ESCAPE) {
-        SceneManager::get()->popScene();
-        Input::get()->isKeyAccepted = true;
-    }
-}

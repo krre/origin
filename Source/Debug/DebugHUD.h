@@ -16,8 +16,6 @@ public:
     void trigger();
 
 private:
-    void onWindowResize(int width, int height) override;
-
     Text fps;
     Text version;
     Text openGL;

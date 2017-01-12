@@ -83,14 +83,8 @@ void DebugHUD::create() {
     statisticsLayout->addControl(&posY);
     statisticsLayout->addControl(&posZ);
     setLayout(statisticsLayout);
-
-    Event::get()->windowResize.connect<DebugHUD, &DebugHUD::onWindowResize>(this);
 }
 
 void DebugHUD::trigger() {
     visible = !visible;
-}
-
-void DebugHUD::onWindowResize(int width, int height) {
-//    resize(width, height);
 }

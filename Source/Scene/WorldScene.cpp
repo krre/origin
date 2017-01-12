@@ -12,6 +12,7 @@
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
+#include "../Graphics/Plane.h"
 
 WorldScene::WorldScene() {
     new EntityManager;
@@ -37,34 +38,23 @@ WorldScene::~WorldScene() {
 void WorldScene::init() {
     Scene::init();
 
-    const std::vector<glm::vec2> vertices = {
-        { -1.0f, -1.0f },
-        {  1.0f, -1.0f },
-        {  1.0f,  1.0f },
-        { -1.0f,  1.0f },
-    };
+    Plane plane;
 
-    const std::vector<uint16_t> indices = {
-        0, 1, 2, 2, 3, 0
-    };
-
-    VkDeviceSize size = sizeof(vertices[0]) * vertices.size();
-    vertexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
+    vertexBuffer = new Vulkan::Buffer(device, plane.getVerticesSize(), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
     vertexBuffer->create();
 
-    Vulkan::Buffer vertexStageBuffer(device, size, Vulkan::Buffer::Type::TRANSFER_SRC);
+    Vulkan::Buffer vertexStageBuffer(device, plane.getVerticesSize(), Vulkan::Buffer::Type::TRANSFER_SRC);
     vertexStageBuffer.create();
-    vertexStageBuffer.write(0, size, vertices.data());
-    vertexStageBuffer.copy(vertexBuffer->getHandle(), size);
+    vertexStageBuffer.write(0, plane.getVerticesSize(), plane.getVertices().data());
+    vertexStageBuffer.copy(vertexBuffer->getHandle(), plane.getVerticesSize());
 
-    size = sizeof(indices[0]) * indices.size();
-    indexBuffer = new Vulkan::Buffer(device, size, Vulkan::Buffer::Type::INDEX, Vulkan::Buffer::Destination::DEVICE);
+    indexBuffer = new Vulkan::Buffer(device, plane.getIndicesSize(), Vulkan::Buffer::Type::INDEX, Vulkan::Buffer::Destination::DEVICE);
     indexBuffer->create();
 
-    Vulkan::Buffer indexStageBuffer(device, size, Vulkan::Buffer::Type::TRANSFER_SRC);
+    Vulkan::Buffer indexStageBuffer(device, plane.getIndicesSize(), Vulkan::Buffer::Type::TRANSFER_SRC);
     indexStageBuffer.create();
-    indexStageBuffer.write(0, size, indices.data());
-    indexStageBuffer.copy(indexBuffer->getHandle(), size);
+    indexStageBuffer.write(0, plane.getIndicesSize(), plane.getIndices().data());
+    indexStageBuffer.copy(indexBuffer->getHandle(), plane.getIndicesSize());
 
     uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(UBO));
@@ -169,7 +159,7 @@ void WorldScene::init() {
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
-        vkCmdDrawIndexed(commandBuffer.getHandle(), indices.size(), 1, 0, 0, 0);
+        vkCmdDrawIndexed(commandBuffer.getHandle(), plane.getIndices().size(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());
 
         commandBuffer.end();

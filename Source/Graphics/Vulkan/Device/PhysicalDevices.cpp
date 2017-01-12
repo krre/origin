@@ -69,7 +69,7 @@ uint32_t PhysicalDevices::findMemoryType(VkPhysicalDevice device, uint32_t typeF
 }
 
 void PhysicalDevices::dumpDevices() {
-    for (auto device: collection) {
+    for (auto device : collection) {
         VkPhysicalDeviceProperties deviceProperties;
         vkGetPhysicalDeviceProperties(device, &deviceProperties);
         print(deviceProperties.deviceName);

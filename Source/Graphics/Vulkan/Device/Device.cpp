@@ -2,11 +2,11 @@
 
 using namespace Vulkan;
 
-Device::Device(VkPhysicalDevice physicalDevice, uint32_t familyIndex) : physicalDevice(physicalDevice) {
+Device::Device(PhysicalDevice* physicalDevice, uint32_t familyIndex) : physicalDevice(physicalDevice) {
     uint32_t count;
-    vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &count, nullptr);
+    vkEnumerateDeviceExtensionProperties(physicalDevice->getHandle(), nullptr, &count, nullptr);
     extensions.resize(count);
-    vkEnumerateDeviceExtensionProperties(physicalDevice, nullptr, &count, extensions.data());
+    vkEnumerateDeviceExtensionProperties(physicalDevice->getHandle(), nullptr, &count, extensions.data());
 
     for (const auto& extension : extensions) {
         enabledExtensions.push_back(extension.extensionName);
@@ -43,7 +43,7 @@ void Device::waitForFences(std::vector<VkFence> fences) {
 }
 
 VkResult Device::create() {
-    return checkError(vkCreateDevice(physicalDevice, &createInfo, nullptr, &handle), "Failed to create device");
+    return checkError(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
 }
 
 void Device::dumpExtensions() {

@@ -2,6 +2,7 @@
 #include "../../Core/Singleton.h"
 #include "Instance.h"
 #include "DebugReportCallback.h"
+#include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Command/CommandBuffers.h"
 #include "Device/Device.h"
@@ -42,7 +43,7 @@ public:
 
 private:
     Instance* instance = nullptr;
-    VkPhysicalDevice mainPhysicalDevice;
+    PhysicalDevice* mainPhysicalDevice;
     DebugReportCallback* debugCallback = nullptr;
     PhysicalDevices* physicalDevices = nullptr;
     Device* device = nullptr;

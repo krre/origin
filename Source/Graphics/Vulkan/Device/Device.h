@@ -1,5 +1,6 @@
 #pragma once
 #include "../Base/Handle.h"
+#include "PhysicalDevice.h"
 #include <vector>
 
 #define DEFAULT_FENCE_TIMEOUT 100000000000
@@ -9,17 +10,17 @@ namespace Vulkan {
 class Device : public Handle<VkDevice> {
 
 public:
-    Device(VkPhysicalDevice physicalDevice, uint32_t familyIndex);
+    Device(PhysicalDevice* physicalDevice, uint32_t familyIndex);
     ~Device();
     void waitIdle();
     void waitForFences(uint32_t count, const VkFence* fences);
     void waitForFences(std::vector<VkFence> fences);
-    VkPhysicalDevice getPhysicalDevice() const { return physicalDevice; }
+    PhysicalDevice* getPhysicalDevice() const { return physicalDevice; }
     VkResult create() override;
     void dumpExtensions();
 
 private:
-    VkPhysicalDevice physicalDevice;
+    PhysicalDevice* physicalDevice;
     VkDeviceCreateInfo createInfo = {};
     VkDeviceQueueCreateInfo queueCreateInfo = {};
 

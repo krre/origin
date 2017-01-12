@@ -7,7 +7,7 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
     surface(surface) {
 
     VkBool32 surfaceSupport;
-    result = vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice(), 0, surface->getHandle(), &surfaceSupport);
+    result = vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice()->getHandle(), 0, surface->getHandle(), &surfaceSupport);
     if (surfaceSupport) {
         createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
         createInfo.surface = surface->getHandle();

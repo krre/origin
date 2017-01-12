@@ -63,7 +63,7 @@ bool Manager::init() {
         mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     }
 
-    graphicsFamily = physicalDevices->findQueue(mainPhysicalDevice, VK_QUEUE_GRAPHICS_BIT);
+    graphicsFamily = physicalDevices->findQueue(mainPhysicalDevice->getHandle(), VK_QUEUE_GRAPHICS_BIT);
 
     device = new Device(mainPhysicalDevice, graphicsFamily);
     if (device->create() != VK_SUCCESS) {
@@ -76,7 +76,7 @@ bool Manager::init() {
     }
     commandPool->reset();
 
-    surface = new Surface(instance, mainPhysicalDevice);
+    surface = new Surface(instance, mainPhysicalDevice->getHandle());
     if (surface->create() != VK_SUCCESS) {
         return false;
     }

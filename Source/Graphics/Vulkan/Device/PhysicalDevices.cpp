@@ -8,7 +8,6 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
     collection.resize(count);
     vkEnumeratePhysicalDevices(instance->getHandle(), &count, collection.data());
 
-    devices.resize(count);
     for (auto device : collection) {
         auto physicalDevice = std::make_shared<PhysicalDevice>(device);
         devices.push_back(physicalDevice);
@@ -36,14 +35,14 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
     }
 }
 
-VkPhysicalDevice PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
-    for (auto device : properties) {
-        if (device.second.deviceType == type) {
-            return device.first;
+PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
+    for (auto device : devices) {
+        if (device->properties.deviceType == type) {
+            return device.get();
         }
     }
 
-    return VK_NULL_HANDLE;
+    return nullptr;
 }
 
 uint32_t PhysicalDevices::findQueue(VkPhysicalDevice device, VkQueueFlags flags) {

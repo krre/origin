@@ -16,7 +16,6 @@ public:
     void trigger();
 
 private:
-    void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void onWindowResize(int width, int height) override;
 
     Text fps;

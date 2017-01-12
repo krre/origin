@@ -91,10 +91,6 @@ void DebugHUD::trigger() {
     visible = !visible;
 }
 
-void DebugHUD::onKeyPressed(const SDL_KeyboardEvent& event) {
-
-}
-
 void DebugHUD::onWindowResize(int width, int height) {
 //    resize(width, height);
 }

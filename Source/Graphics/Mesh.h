@@ -6,18 +6,15 @@ class Mesh : public Object {
 
 public:
     Mesh();
-//    GLuint getVAO() { return vao; }
-//    GLuint getVBO() { return vbo; }
+    void setVertices(const std::vector<float> vertices);
+    const std::vector<float>& getVertices() const { return vertices; }
 
-//    const std::vector<GLfloat>& getVerticles() const { return verticles; }
-    const std::vector<int>& getIndices() const { return indices; }
+    void setIndices(const std::vector<uint32_t> indices);
+    const std::vector<uint32_t>& getIndices() const { return indices; }
+
     void draw();
 
-protected:
-//    std::vector<GLfloat> verticles;
-    std::vector<int> indices;
-
 private:
-//    GLuint vao;
-//    GLuint vbo;
+    std::vector<float> vertices;
+    std::vector<uint32_t> indices;
 };

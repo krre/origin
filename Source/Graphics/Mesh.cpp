@@ -4,11 +4,15 @@
 #include <glm/glm.hpp>
 
 Mesh::Mesh() {
-//    glGenBuffers(1, &vbo);
-//    glGenVertexArrays(1, &vao);
+}
+
+void Mesh::setVertices(const std::vector<float> vertices) {
+    this->vertices = vertices;
+}
+
+void Mesh::setIndices(const std::vector<uint32_t> indices) {
+    this->indices = indices;
 }
 
 void Mesh::draw() {
-//    glBindVertexArray(vao);
-//    glDrawArrays(GL_TRIANGLES, 0, verticles.size() / 6);
 }

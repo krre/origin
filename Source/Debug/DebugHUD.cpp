@@ -87,4 +87,9 @@ void DebugHUD::create() {
 
 void DebugHUD::trigger() {
     visible = !visible;
+    if (visible) {
+        resume();
+    } else {
+        pause();
+    }
 }

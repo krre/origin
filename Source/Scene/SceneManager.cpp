@@ -2,7 +2,8 @@
 #include "../Debug/DebugHUD.h"
 
 SceneManager::SceneManager() {
-
+    DebugHUD::get()->init();
+    DebugHUD::get()->create();
 }
 
 void SceneManager::pushScene(std::shared_ptr<Scene> scene) {

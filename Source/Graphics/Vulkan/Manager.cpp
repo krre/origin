@@ -59,7 +59,7 @@ bool Manager::init() {
 
     physicalDevices = new PhysicalDevices(instance);
     mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
-    if (mainPhysicalDevice == VK_NULL_HANDLE) {
+    if (mainPhysicalDevice == nullptr) {
         mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     }
 

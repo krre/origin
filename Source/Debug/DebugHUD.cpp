@@ -48,9 +48,9 @@ void DebugHUD::create() {
     vendor.setZ(1.0);
 //    vendor.setText("Video driver: " + std::string(reinterpret_cast<const char*>(glGetString(GL_VENDOR))));
 
-    openGL.resize(100, 10);
-    openGL.setZ(1.0);
-//    openGL.setText("OpenGL " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
+    vulkan.resize(100, 10);
+    vulkan.setZ(1.0);
+//    vulkan.setText("Vulkan " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
 
     cpuCount.resize(100, 10);
     cpuCount.setZ(1.0);
@@ -75,7 +75,7 @@ void DebugHUD::create() {
     statisticsLayout->setPosition(glm::vec2(5, 15));
     statisticsLayout->addControl(&version);
     statisticsLayout->addControl(&vendor);
-    statisticsLayout->addControl(&openGL);
+    statisticsLayout->addControl(&vulkan);
     statisticsLayout->addControl(&cpuCount);
     statisticsLayout->addControl(&systemRAM);
     statisticsLayout->addControl(&fps);

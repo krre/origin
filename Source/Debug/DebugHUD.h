@@ -18,7 +18,7 @@ public:
 private:
     Text fps;
     Text version;
-    Text openGL;
+    Text vulkan;
     Text vendor;
     Text cpuCount;
     Text systemRAM;

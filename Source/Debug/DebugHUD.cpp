@@ -10,8 +10,14 @@ DebugHUD::DebugHUD() {
     visible = false;
 }
 
+DebugHUD::~DebugHUD() {
+    delete graphicsPipeline;
+}
+
 void DebugHUD::init() {
     Scene::init();
+
+    graphicsPipeline = new Vulkan::GraphicsPipeline(device);
 }
 
 void DebugHUD::draw(float dt) {

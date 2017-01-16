@@ -5,7 +5,7 @@
 #include "../Scene/MenuScene.h"
 #include "../Scene/SettingsScene.h"
 #include "../Scene/WorldScene.h"
-#include <Covenantland.h>
+#include <Origin.h>
 
 Debug::Debug() {
 #ifdef DEVELOP_MODE

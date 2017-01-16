@@ -3,7 +3,7 @@
 #include "Text.h"
 #include "../Core/Timer.h"
 
-class Toast : public Covenantland::Drawable {
+class Toast : public Origin::Drawable {
 
 public:
     Toast();

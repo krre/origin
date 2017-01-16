@@ -10,5 +10,5 @@ public:
     void process(float dt) override;
 
 private:
-    std::vector<Covenantland::Drawable*> drawables;
+    std::vector<Origin::Drawable*> drawables;
 };

@@ -4,7 +4,7 @@
 #include "../ECS/EntityManager.h"
 #include "../ECS/Components/TransformComponent.h"
 #include <glm/glm.hpp>
-#include <Covenantland.h>
+#include <Origin.h>
 
 DebugHUD::DebugHUD() {
     visible = false;
@@ -48,7 +48,7 @@ void DebugHUD::create() {
 
     version.resize(100, 10);
     version.setZ(1.0f);
-    version.setText("Covenantland " + std::string(VERSION_STRING));
+    version.setText("Origin " + std::string(VERSION_STRING));
 
     vendor.resize(100, 10);
     vendor.setZ(1.0);

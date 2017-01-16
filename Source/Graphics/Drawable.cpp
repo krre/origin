@@ -1,6 +1,6 @@
 #include "Drawable.h"
 
-using namespace Covenantland;
+using namespace Origin;
 
 Drawable::Drawable() {
 

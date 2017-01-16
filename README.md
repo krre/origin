@@ -1,4 +1,4 @@
-# Covenantland
+# Origin
 Procedural world game based on raycast rendering and sparse voxel octree technologies with using Vulkan API
 
 ## Dependencies

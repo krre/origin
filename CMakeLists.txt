@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(covenantland)
+project(origin)
 
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
@@ -8,13 +8,13 @@ set(VERSION_PATCH 0)
 
 set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
-configure_file(Covenantland.h.in Covenantland.h @ONLY)
+configure_file(Origin.h.in Origin.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(Source)
 add_subdirectory(ThirdParty)
 
-set(EXECUTABLE_NAME "covenantland")
+set(EXECUTABLE_NAME "origin")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
 

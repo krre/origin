@@ -39,6 +39,7 @@ public:
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void setCommandBuffers(const CommandBuffers* commandBuffers);
     void renderBegin();
+    void renderEnd();
     void saveScreenshot(const std::string& filePath);
 
 private:

@@ -120,7 +120,7 @@ int App::run() {
 
         SceneManager::get()->update(frameTime);
         SceneManager::get()->draw(frameTime);
-        Vulkan::Manager::get()->render();
+        Vulkan::Manager::get()->renderBegin();
     }
 
     Vulkan::Manager::get()->getDevice()->waitIdle();

@@ -38,7 +38,7 @@ public:
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void setCommandBuffers(const CommandBuffers* commandBuffers);
-    void render();
+    void renderBegin();
     void saveScreenshot(const std::string& filePath);
 
 private:

@@ -152,7 +152,8 @@ void WorldScene::init() {
         VkViewport viewport = {};
         viewport.width = Vulkan::Manager::get()->getSwapchain()->getExtent().width;
         viewport.height = Vulkan::Manager::get()->getSwapchain()->getExtent().height;
-        vkCmdSetViewport(commandBuffer.getHandle(), 0, 1, &viewport);
+        commandBuffer.addViewport(viewport);
+        commandBuffer.setViewport(0);
 
         VkRect2D scissor = {};
         scissor.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();

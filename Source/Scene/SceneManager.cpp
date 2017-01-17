@@ -1,5 +1,6 @@
 #include "SceneManager.h"
 #include "../Debug/DebugHUD.h"
+#include "../Graphics/Vulkan/Manager.h"
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();
@@ -54,6 +55,8 @@ void SceneManager::update(float dt) {
 }
 
 void SceneManager::draw(float dt) {
+    Vulkan::Manager::get()->renderBegin();
+
     for (auto scene : scenes) {
         if (scene->getVisible()) {
             scene->draw(dt);
@@ -63,4 +66,6 @@ void SceneManager::draw(float dt) {
     if (DebugHUD::get()->getVisible()) {
         DebugHUD::get()->draw(dt);
     }
+
+    Vulkan::Manager::get()->renderEnd();
 }

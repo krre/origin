@@ -15,9 +15,11 @@ public:
     void setFlags(VkCommandBufferUsageFlags flags);
     void addViewport(VkViewport viewport);
 
+    // Commands
     VkResult begin();
     VkResult end();
     void pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
+    void setViewport(uint32_t firstViewport);
 
 private:
     VkCommandBufferBeginInfo beginInfo = {};

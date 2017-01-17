@@ -11,6 +11,10 @@ void CommandBuffer::setFlags(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
 }
 
+void CommandBuffer::addViewport(VkViewport viewport) {
+    viewports.push_back(viewport);
+}
+
 VkResult CommandBuffer::begin() {
     return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
 }

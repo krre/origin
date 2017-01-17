@@ -3,6 +3,7 @@
 #include "../Device/Device.h"
 #include "CommandPool.h"
 #include "../Pipeline/PipelineBarrier.h"
+#include <vector>
 
 namespace Vulkan {
 
@@ -12,6 +13,7 @@ public:
     CommandBuffer(VkCommandBuffer handle);
     VkResult create() override {}
     void setFlags(VkCommandBufferUsageFlags flags);
+    void addViewport(VkViewport viewport);
 
     VkResult begin();
     VkResult end();
@@ -19,7 +21,7 @@ public:
 
 private:
     VkCommandBufferBeginInfo beginInfo = {};
-
+    std::vector<VkViewport> viewports;
 };
 
 } // Vulkan

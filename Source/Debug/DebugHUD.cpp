@@ -3,6 +3,7 @@
 #include "../Core/Game.h"
 #include "../ECS/EntityManager.h"
 #include "../ECS/Components/TransformComponent.h"
+#include "../Graphics/Vulkan/Manager.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
 
@@ -36,7 +37,9 @@ void DebugHUD::draw(float dt) {
 //    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));
 //    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
 //    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
-    Scene2D::draw(dt);
+//    Scene2D::draw(dt);
+    Vulkan::Manager::get()->setCommandBuffers(commandBuffers);
+    Vulkan::Manager::get()->submit();
 }
 
 void DebugHUD::update(float dt) {

@@ -140,11 +140,14 @@ void Manager::setCommandBuffers(const CommandBuffers* commandBuffers) {
 
 void Manager::renderBegin() {
     vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, &swapchainImageIndex);
-    graphicsQueue->submit();
 }
 
 void Manager::renderEnd() {
     presentQueue->present();
+}
+
+void Manager::submit() {
+    graphicsQueue->submit();
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {

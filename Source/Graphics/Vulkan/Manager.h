@@ -40,6 +40,7 @@ public:
     void setCommandBuffers(const CommandBuffers* commandBuffers);
     void renderBegin();
     void renderEnd();
+    void submit();
     void saveScreenshot(const std::string& filePath);
 
 private:

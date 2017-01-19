@@ -162,3 +162,7 @@ void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
         Input::get()->isKeyAccepted = true;
     }
 }
+
+void MenuScene::buildCommandBuffers() {
+
+}

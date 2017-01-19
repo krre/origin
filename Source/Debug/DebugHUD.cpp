@@ -102,3 +102,7 @@ void DebugHUD::trigger() {
         pause();
     }
 }
+
+void DebugHUD::buildCommandBuffers() {
+
+}

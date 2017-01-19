@@ -50,6 +50,10 @@ void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     }
 }
 
+void PauseScene::buildCommandBuffers() {
+
+}
+
 void PauseScene::onContinueButtonClicked() {
     SceneManager::get()->popScene();
 }

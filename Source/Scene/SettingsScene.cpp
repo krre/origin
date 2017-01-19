@@ -25,3 +25,7 @@ void SettingsScene::update(float dt) {
 void SettingsScene::create() {
 
 }
+
+void SettingsScene::buildCommandBuffers() {
+
+}

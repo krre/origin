@@ -401,3 +401,7 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
         Input::get()->isKeyAccepted = true;
     }
 }
+
+void WorldScene::buildCommandBuffers() {
+
+}

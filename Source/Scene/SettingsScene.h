@@ -12,4 +12,7 @@ public:
     void draw(float dt) override;
     void update(float dt) override;
     void create() override;
+
+private:
+    void buildCommandBuffers() override;
 };

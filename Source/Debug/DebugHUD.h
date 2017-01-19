@@ -26,6 +26,8 @@ public:
     void trigger();
 
 private:
+    void buildCommandBuffers() override;
+
     Vulkan::PipelineLayout* pipelineLayout = nullptr;
     Vulkan::DescriptorPool* descriptorPool = nullptr;
     Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;

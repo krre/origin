@@ -41,4 +41,5 @@ private:
     Vulkan::Buffer* indexBuffer = nullptr;
     Vulkan::Descriptor* uniformVert = nullptr;
     Vulkan::Descriptor* uniformFrag = nullptr;
+    Plane plane;
 };

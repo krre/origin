@@ -26,8 +26,6 @@ MenuScene::~MenuScene() {
 void MenuScene::init() {
     Scene::init();
 
-    Plane plane;
-
     vertexBuffer = new Vulkan::Buffer(device, plane.getVerticesSize(), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
     vertexBuffer->create();
 
@@ -101,6 +99,30 @@ void MenuScene::init() {
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
 
+    buildCommandBuffers();
+}
+
+void MenuScene::draw(float dt) {
+    Vulkan::Manager::get()->setCommandBuffers(commandBuffers);
+    Vulkan::Manager::get()->submit();
+}
+
+void MenuScene::update(float dt) {
+
+}
+
+void MenuScene::create() {
+
+}
+
+void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
+    if (event.keysym.sym == SDLK_ESCAPE) {
+        SceneManager::get()->popScene();
+        Input::get()->isKeyAccepted = true;
+    }
+}
+
+void MenuScene::buildCommandBuffers() {
     for (size_t i = 0; i < commandBuffers->getCount(); i++) {
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
@@ -141,28 +163,4 @@ void MenuScene::init() {
 
         commandBuffer.end();
     }
-}
-
-void MenuScene::draw(float dt) {
-    Vulkan::Manager::get()->setCommandBuffers(commandBuffers);
-    Vulkan::Manager::get()->submit();
-}
-
-void MenuScene::update(float dt) {
-
-}
-
-void MenuScene::create() {
-
-}
-
-void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_ESCAPE) {
-        SceneManager::get()->popScene();
-        Input::get()->isKeyAccepted = true;
-    }
-}
-
-void MenuScene::buildCommandBuffers() {
-
 }

@@ -3,6 +3,8 @@
 #include "../Core/Game.h"
 #include "../ECS/EntityManager.h"
 #include "../ECS/Components/TransformComponent.h"
+#include "../Resource/ShaderResource.h"
+#include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Manager.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
@@ -19,6 +21,12 @@ void DebugHUD::init() {
     Scene::init();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);
+
+    ShaderResource* shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextVertShader");
+    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+
+    shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
+    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 }
 
 void DebugHUD::draw(float dt) {

@@ -361,20 +361,21 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void WorldScene::buildCommandBuffers() {
+    VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
+
+    VkRenderPassBeginInfo renderPassInfo = {};
+    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    renderPassInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
+    renderPassInfo.renderArea.offset = { 0, 0 };
+    renderPassInfo.renderArea.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
+    renderPassInfo.clearValueCount = 1;
+    renderPassInfo.pClearValues = &clearColor;
+
     for (size_t i = 0; i < commandBuffers->getCount(); i++) {
+        renderPassInfo.framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
+
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
-
-        VkClearValue clearColor = { 0.77, 0.83, 0.83, 1.0 };
-
-        VkRenderPassBeginInfo renderPassInfo = {};
-        renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-        renderPassInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
-        renderPassInfo.framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
-        renderPassInfo.renderArea.offset = { 0, 0 };
-        renderPassInfo.renderArea.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
-        renderPassInfo.clearValueCount = 1;
-        renderPassInfo.pClearValues = &clearColor;
 
         vkCmdBeginRenderPass(commandBuffer.getHandle(), &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 

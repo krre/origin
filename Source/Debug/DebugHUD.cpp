@@ -6,6 +6,7 @@
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Manager.h"
+#include "../Graphics/Vulkan/Command/CommandBuffer.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
 
@@ -27,6 +28,18 @@ void DebugHUD::init() {
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
     graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+
+    pipelineLayout = new Vulkan::PipelineLayout(device);
+//    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
+    pipelineLayout->create();
+
+    graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
+    graphicsPipeline->setPipelineLayout(pipelineLayout);
+    graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
+
+    graphicsPipeline->create();
+
+    buildCommandBuffers();
 }
 
 void DebugHUD::draw(float dt) {
@@ -112,5 +125,47 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::buildCommandBuffers() {
+    VkClearValue clearColor = { 0.0, 0.0, 0.0, 0.0 };
 
+    VkRenderPassBeginInfo renderPassInfo = {};
+    renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    renderPassInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
+    renderPassInfo.renderArea.offset = { 0, 0 };
+    renderPassInfo.renderArea.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
+    renderPassInfo.clearValueCount = 1;
+    renderPassInfo.pClearValues = &clearColor;
+
+    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
+        renderPassInfo.framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
+
+        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
+        commandBuffer.begin();
+
+        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
+
+        VkViewport viewport = {};
+        viewport.width = Vulkan::Manager::get()->getSwapchain()->getExtent().width;
+        viewport.height = Vulkan::Manager::get()->getSwapchain()->getExtent().height;
+        commandBuffer.addViewport(viewport);
+        commandBuffer.setViewport(0);
+
+        VkRect2D scissor = {};
+        scissor.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
+        vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
+
+        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
+
+        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
+        VkDeviceSize offsets[] = { 0 };
+        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
+        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 1, 1, vertexBuffers, offsets);
+
+//        for (uint32_t j = 0; j < numLetters; j++) {
+//            vkCmdDraw(commandBuffer.getHandle(), 4, 1, j * 4, 0);
+//        }
+
+        vkCmdEndRenderPass(commandBuffer.getHandle());
+
+        commandBuffer.end();
+    }
 }

@@ -10,6 +10,7 @@
 #include "../Graphics/Vulkan/Buffer.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorPool.h"
 #include "../Graphics/Vulkan/Descriptor/Descriptor.h"
+#include "../Graphics/Plane.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 
@@ -80,4 +81,5 @@ private:
     EntityId characterId;
     uint64_t seed;
     Viewport viewport;
+    Plane plane;
 };

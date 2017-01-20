@@ -11,6 +11,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Event.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Event.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Fence.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Fence.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.cpp

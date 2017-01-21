@@ -15,6 +15,7 @@ DebugHUD::DebugHUD() {
 }
 
 DebugHUD::~DebugHUD() {
+    delete pipelineLayout;
     delete graphicsPipeline;
 }
 

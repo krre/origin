@@ -15,12 +15,16 @@ DebugHUD::DebugHUD() {
 }
 
 DebugHUD::~DebugHUD() {
+    delete descriptorPool;
     delete pipelineLayout;
     delete graphicsPipeline;
 }
 
 void DebugHUD::init() {
     Scene::init();
+
+    descriptorPool = new Vulkan::DescriptorPool(device);
+    descriptorPool->create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);
 

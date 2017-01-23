@@ -15,6 +15,7 @@ DebugHUD::DebugHUD() {
 }
 
 DebugHUD::~DebugHUD() {
+    delete descriptorSetLayout;
     delete descriptorPool;
     delete pipelineLayout;
     delete graphicsPipeline;
@@ -25,6 +26,9 @@ void DebugHUD::init() {
 
     descriptorPool = new Vulkan::DescriptorPool(device);
     descriptorPool->create();
+
+    descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
+    descriptorSetLayout->create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);
 

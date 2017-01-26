@@ -25,6 +25,7 @@ void DebugHUD::init() {
     Scene::init();
 
     descriptorPool = new Vulkan::DescriptorPool(device);
+    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
     descriptorPool->create();
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);

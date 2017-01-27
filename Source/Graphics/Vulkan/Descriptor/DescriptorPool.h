@@ -10,7 +10,7 @@ class DescriptorPool : public Handle<VkDescriptorPool> {
 public:
     DescriptorPool(const Device* device);
     ~DescriptorPool();
-    void addPoolSize(VkDescriptorType type, uint32_t count = 1);
+    void addPoolSize(VkDescriptorType type, uint32_t count);
     VkResult create() override;
     void setMaxSets(uint32_t maxSets);
 

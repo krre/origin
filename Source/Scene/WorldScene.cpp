@@ -69,7 +69,7 @@ void WorldScene::init() {
                                       VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4, sizeof(DebugOut));
 
     descriptorPool = new Vulkan::DescriptorPool(device);
-    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER);
+    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4);
     descriptorPool->create();
 

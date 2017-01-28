@@ -44,7 +44,7 @@ void DebugHUD::init() {
     graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
-//    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
+    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
     pipelineLayout->create();
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());

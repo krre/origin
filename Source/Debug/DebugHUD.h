@@ -51,5 +51,6 @@ private:
     Text posZ;
     float accumTime = 0.5;
     int counter = 30;
+    uint32_t numLetters;
     std::shared_ptr<LinearLayout> statisticsLayout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
 };

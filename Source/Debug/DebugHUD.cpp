@@ -174,9 +174,9 @@ void DebugHUD::buildCommandBuffers() {
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 1, 1, vertexBuffers, offsets);
 
-//        for (uint32_t j = 0; j < numLetters; j++) {
-//            vkCmdDraw(commandBuffer.getHandle(), 4, 1, j * 4, 0);
-//        }
+        for (uint32_t j = 0; j < numLetters; j++) {
+            vkCmdDraw(commandBuffer.getHandle(), 4, 1, j * 4, 0);
+        }
 
         vkCmdEndRenderPass(commandBuffer.getHandle());
 

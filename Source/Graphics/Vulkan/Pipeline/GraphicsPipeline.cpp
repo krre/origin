@@ -31,6 +31,10 @@ void GraphicsPipeline::setVertexAttributeDescriptions(const std::vector<VkVertex
     vertexInputInfo.pVertexAttributeDescriptions = this->vertexAttributeDescriptions.data();
 }
 
+void GraphicsPipeline::setPipelineCache(PipelineCache* pipelineCache) {
+    this->pipelineCache = pipelineCache;
+}
+
 VkResult GraphicsPipeline::create() {
     VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
     inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -98,5 +102,7 @@ VkResult GraphicsPipeline::create() {
     createInfo.renderPass = renderPass->getHandle();
     createInfo.subpass = 0;
     createInfo.basePipelineHandle = VK_NULL_HANDLE;
-    return checkError(vkCreateGraphicsPipelines(device->getHandle(), VK_NULL_HANDLE, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
+
+    VkPipelineCache pc = pipelineCache != nullptr ? pipelineCache->getHandle() : VK_NULL_HANDLE;
+    return checkError(vkCreateGraphicsPipelines(device->getHandle(), pc, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
 }

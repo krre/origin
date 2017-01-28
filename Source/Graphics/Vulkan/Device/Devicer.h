@@ -1,6 +1,6 @@
 #pragma once
-#include "Handle.h"
-#include "../Device/Device.h"
+#include "../Base/Handle.h"
+#include "Device.h"
 
 namespace Vulkan {
 

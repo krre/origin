@@ -23,7 +23,6 @@ namespace Vulkan {
 class Manager : public Singleton<Manager> {
 
 public:
-    Manager();
     ~Manager();
     bool init();
     Instance* getInstance() const { return instance; }

@@ -10,10 +10,6 @@
 
 using namespace Vulkan;
 
-Manager::Manager() {
-
-}
-
 Manager::~Manager() {
     delete presentQueue;
     delete graphicsQueue;

@@ -7,9 +7,11 @@ DeviceMemory::DeviceMemory(const Device* device) : device(device) {
 }
 
 DeviceMemory::~DeviceMemory() {
-    if (handle != VK_NULL_HANDLE) {
-        vkFreeMemory(device->getHandle(), handle, nullptr);
-    }
+    destroy();
+}
+
+void DeviceMemory::destroy() {
+    VULKAN_DESTROY_HANDLE(vkFreeMemory(device->getHandle(), handle, nullptr))
 }
 
 VkResult DeviceMemory::allocate(VkDeviceSize size) {

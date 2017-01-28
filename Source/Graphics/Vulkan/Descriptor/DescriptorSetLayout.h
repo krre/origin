@@ -11,6 +11,7 @@ public:
     DescriptorSetLayout(const Device* device);
     ~DescriptorSetLayout();
     VkResult create() override;
+    void destroy() override;
     void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 
 private:

@@ -16,7 +16,7 @@ Surface::Surface(const Instance* instance, VkPhysicalDevice physicalDevice) :
 }
 
 Surface::~Surface() {
-    vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult Surface::create() {
@@ -63,4 +63,8 @@ VkResult Surface::create() {
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
 
     return result;
+}
+
+void Surface::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr))
 }

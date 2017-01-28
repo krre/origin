@@ -12,6 +12,7 @@ class CommandBuffer : public Handle<VkCommandBuffer> {
 public:
     CommandBuffer(VkCommandBuffer handle);
     VkResult create() override {}
+    void destroy() override {}
     void setFlags(VkCommandBufferUsageFlags flags);
     void addViewport(VkViewport viewport);
 

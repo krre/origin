@@ -2,6 +2,13 @@
 #include "Resulter.h"
 #include <assert.h>
 
+#define VULKAN_DESTROY_HANDLE(f) { \
+    if (handle != VK_NULL_HANDLE) { \
+            (f); \
+        handle = VK_NULL_HANDLE; \
+    } \
+} \
+
 namespace Vulkan {
 
 template<typename T> class Handle : public Resulter {
@@ -14,6 +21,7 @@ public:
     bool isValid() const { return handle != VK_NULL_HANDLE; }
     T getHandle() const { return handle; }
     virtual VkResult create() = 0;
+    virtual void destroy() = 0;
 
 protected:
     T handle = VK_NULL_HANDLE;

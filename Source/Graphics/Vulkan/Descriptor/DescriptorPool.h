@@ -12,6 +12,7 @@ public:
     ~DescriptorPool();
     void addPoolSize(VkDescriptorType type, uint32_t count);
     VkResult create() override;
+    void destroy() override;
     void setMaxSets(uint32_t maxSets);
 
 private:

@@ -27,7 +27,7 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
 }
 
 Swapchain::~Swapchain() {
-    vkDestroySwapchainKHR(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult Swapchain::create() {
@@ -41,4 +41,8 @@ VkResult Swapchain::create() {
     extent = surface->getCapabilities().currentExtent;
 
     return result;
+}
+
+void Swapchain::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
 }

@@ -12,6 +12,7 @@ class Pipeline : public Handle<VkPipeline> {
 public:
     Pipeline(const Device* device);
     ~Pipeline();
+    void destroy() override;
     VkResult addShaderCode(VkShaderStageFlagBits stage, const char* entryPoint, size_t size, const uint32_t* code);
     void setPipelineLayout(const PipelineLayout* pipelineLayout);
     void setPipelineCache(const PipelineCache* pipelineCache);

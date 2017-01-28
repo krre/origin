@@ -16,6 +16,7 @@ public:
     DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback = debugCallbackDefault);
     ~DebugReportCallback();
     VkResult create() override;
+    void destroy() override;
 
 private:
     const Instance* instance;

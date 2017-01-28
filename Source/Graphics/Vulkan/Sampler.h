@@ -10,6 +10,7 @@ public:
     Sampler(const Device* device);
     ~Sampler();
     VkResult create() override;
+    void destroy() override;
 
 private:
     const Device* device;

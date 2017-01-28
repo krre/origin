@@ -7,7 +7,11 @@ Pipeline::Pipeline(const Device* device) : device(device) {
 }
 
 Pipeline::~Pipeline() {
-    vkDestroyPipeline(device->getHandle(), handle, nullptr);
+    destroy();
+}
+
+void Pipeline::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyPipeline(device->getHandle(), handle, nullptr))
 }
 
 VkResult Pipeline::addShaderCode(VkShaderStageFlagBits stage, const char* entryPoint, size_t size, const uint32_t* code) {

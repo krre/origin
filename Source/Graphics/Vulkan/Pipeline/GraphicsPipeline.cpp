@@ -98,3 +98,4 @@ VkResult GraphicsPipeline::create() {
     VkPipelineCache pc = pipelineCache != nullptr ? pipelineCache->getHandle() : VK_NULL_HANDLE;
     return checkError(vkCreateGraphicsPipelines(device->getHandle(), pc, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
 }
+

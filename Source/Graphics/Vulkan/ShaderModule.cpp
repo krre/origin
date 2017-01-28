@@ -9,9 +9,13 @@ ShaderModule::ShaderModule(const Device* device, size_t codeSize, const uint32_t
 }
 
 ShaderModule::~ShaderModule() {
-    vkDestroyShaderModule(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult ShaderModule::create() {
     return checkError(vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create shader module");
+}
+
+void ShaderModule::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyShaderModule(device->getHandle(), handle, nullptr))
 }

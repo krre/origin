@@ -21,9 +21,13 @@ ImageView::ImageView(const Device* device, const Surface* surface, VkImage image
 }
 
 ImageView::~ImageView() {
-    vkDestroyImageView(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult ImageView::create() {
     return checkError(vkCreateImageView(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image view");
+}
+
+void ImageView::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyImageView(device->getHandle(), handle, nullptr))
 }

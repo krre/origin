@@ -7,13 +7,17 @@ DescriptorSetLayout::DescriptorSetLayout(const Device* device) : device(device) 
 }
 
 DescriptorSetLayout::~DescriptorSetLayout() {
-    vkDestroyDescriptorSetLayout(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult DescriptorSetLayout::create() {
     createInfo.bindingCount = bindings.size();
     createInfo.pBindings = bindings.data();
     return checkError(vkCreateDescriptorSetLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor set layout");
+}
+
+void DescriptorSetLayout::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyDescriptorSetLayout(device->getHandle(), handle, nullptr))
 }
 
 void DescriptorSetLayout::addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding) {

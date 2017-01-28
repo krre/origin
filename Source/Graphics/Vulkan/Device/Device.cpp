@@ -25,7 +25,7 @@ Device::Device(PhysicalDevice* physicalDevice, uint32_t familyIndex) : physicalD
 }
 
 Device::~Device() {
-    vkDestroyDevice(handle, nullptr);
+    destroy();
 }
 
 void Device::waitIdle() {
@@ -44,6 +44,10 @@ void Device::waitForFences(std::vector<VkFence> fences) {
 
 VkResult Device::create() {
     return checkError(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
+}
+
+void Device::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyDevice(handle, nullptr))
 }
 
 void Device::dumpExtensions() {

@@ -29,9 +29,13 @@ RenderPass::RenderPass(const Device* device, const Surface* surface) :
 }
 
 RenderPass::~RenderPass() {
-    vkDestroyRenderPass(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult RenderPass::create() {
     return checkError(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
+}
+
+void RenderPass::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyRenderPass(device->getHandle(), handle, nullptr))
 }

@@ -44,6 +44,10 @@ VkResult Instance::create() {
 
     return checkError(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
 }
+
+void Instance::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyInstance(handle, nullptr))
+}
 void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
     this->enabledLayers = enabledLayers;
 }
@@ -65,5 +69,5 @@ void Instance::dumpExtensions() {
 }
 
 Instance::~Instance() {
-    vkDestroyInstance(handle, nullptr);
+    destroy();
 }

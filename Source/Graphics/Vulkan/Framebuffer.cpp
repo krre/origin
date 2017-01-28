@@ -14,7 +14,7 @@ Framebuffer::Framebuffer(const Device* device, const RenderPass* renderPass, Ima
 }
 
 Framebuffer::~Framebuffer() {
-    vkDestroyFramebuffer(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult Framebuffer::create() {
@@ -25,4 +25,8 @@ VkResult Framebuffer::create() {
     createInfo.pAttachments = attachments;
 
     return checkError(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create framebuffer");
+}
+
+void Framebuffer::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyFramebuffer(device->getHandle(), handle, nullptr))
 }

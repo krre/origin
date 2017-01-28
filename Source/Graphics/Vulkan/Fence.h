@@ -10,6 +10,7 @@ public:
     Fence(const Device* device);
     ~Fence();
     VkResult create() override;
+    void destroy() override;
     VkResult wait(uint32_t count);
     VkResult reset(uint32_t count);
 

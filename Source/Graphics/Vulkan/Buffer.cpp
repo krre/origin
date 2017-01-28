@@ -50,9 +50,7 @@ Buffer::Buffer(const Device* device, VkDeviceSize size, Buffer::Type type, Buffe
 }
 
 Buffer::~Buffer() {
-    if (handle != VK_NULL_HANDLE) {
-        vkDestroyBuffer(device->getHandle(), handle, nullptr);
-    }
+    destroy();
 }
 
 VkResult Buffer::create() {
@@ -72,6 +70,10 @@ VkResult Buffer::create() {
     vkBindBufferMemory(device->getHandle(), handle, memory.getHandle(), 0);
 
     return result;
+}
+
+void Buffer::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyBuffer(device->getHandle(), handle, nullptr))
 }
 
 void Buffer::write(VkDeviceSize offset, VkDeviceSize size, const void* data) {

@@ -17,6 +17,7 @@ public:
     void waitForFences(std::vector<VkFence> fences);
     PhysicalDevice* getPhysicalDevice() const { return physicalDevice; }
     VkResult create() override;
+    void destroy() override;
     void dumpExtensions();
 
 private:

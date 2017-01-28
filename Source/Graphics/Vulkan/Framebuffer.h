@@ -12,6 +12,7 @@ public:
     Framebuffer(const Device* device, const RenderPass* renderPass, ImageView* imageView, VkExtent2D extent);
     ~Framebuffer();
     VkResult create() override;
+    void destroy() override;
 
 private:
     const Device* device;

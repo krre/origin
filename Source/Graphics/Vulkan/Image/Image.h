@@ -10,6 +10,7 @@ public:
     Image(const Device* device, uint32_t width, uint32_t height);
     ~Image();
     VkResult create() override;
+    void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
 
 private:

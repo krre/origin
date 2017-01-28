@@ -8,7 +8,7 @@ DescriptorPool::DescriptorPool(const Device* device) : device(device) {
 }
 
 DescriptorPool::~DescriptorPool() {
-    vkDestroyDescriptorPool(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 void DescriptorPool::addPoolSize(VkDescriptorType type, uint32_t count) {
@@ -30,6 +30,10 @@ VkResult DescriptorPool::create() {
         }
     }
     return checkError(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
+}
+
+void DescriptorPool::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroyDescriptorPool(device->getHandle(), handle, nullptr))
 }
 
 void DescriptorPool::setMaxSets(uint32_t maxSets) {

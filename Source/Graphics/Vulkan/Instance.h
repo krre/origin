@@ -16,7 +16,7 @@ public:
     Instance();
     ~Instance();
     VkResult create() override;
-
+    void destroy() override;
     uint32_t getLayerCount() const { return layers.size(); }
     VkLayerProperties getLayer(int i) const { return layers.at(i); }
     void setEnabledLayers(const std::vector<const char*> enabledLayers);

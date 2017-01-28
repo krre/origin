@@ -10,6 +10,7 @@ public:
     ImageView(const Device* device, const Surface* surface, VkImage image);
     ~ImageView();
     VkResult create() override;
+    void destroy() override;
 
 private:
     const Device* device;

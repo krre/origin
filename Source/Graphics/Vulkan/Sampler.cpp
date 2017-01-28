@@ -18,9 +18,13 @@ Sampler::Sampler(const Device* device) : device(device) {
 }
 
 Sampler::~Sampler() {
-    vkDestroySampler(device->getHandle(), handle, nullptr);
+    destroy();
 }
 
 VkResult Sampler::create() {
     return checkError(vkCreateSampler(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create sampler");
+}
+
+void Sampler::destroy() {
+    VULKAN_DESTROY_HANDLE(vkDestroySampler(device->getHandle(), handle, nullptr))
 }

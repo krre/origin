@@ -10,6 +10,7 @@ public:
     Semaphore(const Device* device);
     ~Semaphore();
     VkResult create() override;
+    void destroy() override;
 
 private:
     const Device* device;

@@ -10,6 +10,7 @@ public:
     PipelineCache(const Device* device);
     ~PipelineCache();
     VkResult create() override;
+    void destroy() override;
 
 private:
     const Device* device;

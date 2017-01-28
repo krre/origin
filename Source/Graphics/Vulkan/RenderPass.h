@@ -11,6 +11,7 @@ public:
     RenderPass(const Device* device, const Surface* surface);
     ~RenderPass();
     VkResult create() override;
+    void destroy() override;
 
 private:
     const Device* device;

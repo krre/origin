@@ -1,10 +1,9 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "Device.h"
+#include "../Base/Devicer.h"
 
 namespace Vulkan {
 
-class DeviceMemory : public Handle<VkDeviceMemory> {
+class DeviceMemory : public Devicer<VkDeviceMemory> {
 
 public:
     DeviceMemory(const Device* device);
@@ -17,7 +16,6 @@ public:
     void unmap();
 
 private:
-    const Device* device;
     VkMemoryAllocateInfo allocateInfo = {};
 };
 

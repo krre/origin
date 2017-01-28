@@ -1,11 +1,10 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 #include "Surface.h"
 
 namespace Vulkan {
 
-class RenderPass : public Handle<VkRenderPass> {
+class RenderPass : public Devicer<VkRenderPass> {
 
 public:
     RenderPass(const Device* device, const Surface* surface);
@@ -14,7 +13,6 @@ public:
     void destroy() override;
 
 private:
-    const Device* device;
     const Surface* surface;
     VkRenderPassCreateInfo createInfo = {};
     VkAttachmentDescription colorAttachment = {};

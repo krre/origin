@@ -1,11 +1,10 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 #include <vector>
 
 namespace Vulkan {
 
-class Queue : public Handle<VkQueue> {
+class Queue : public Devicer<VkQueue> {
 
 public:
     Queue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);
@@ -15,9 +14,6 @@ public:
 
 protected:
     std::vector<VkSemaphore> waitSemaphores;
-
-private:
-    const Device* device;
 };
 
 } // Vulkan

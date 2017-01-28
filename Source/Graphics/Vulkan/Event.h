@@ -1,10 +1,9 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 
 namespace Vulkan {
 
-class Event : public Handle<VkEvent> {
+class Event : public Devicer<VkEvent> {
 
 public:
     Event(const Device* device);
@@ -12,7 +11,6 @@ public:
     VkResult create() override;
 
 private:
-    const Device* device;
     VkEventCreateInfo createInfo = {};
 };
 

@@ -8,7 +8,7 @@
 using namespace Vulkan;
 
 Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) :
-    device(device), memory(device) {
+    Devicer(device), memory(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = size;
     createInfo.usage = usage;
@@ -16,7 +16,7 @@ Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize s
 }
 
 Buffer::Buffer(const Device* device, VkDeviceSize size, Buffer::Type type, Buffer::Destination destination) :
-    device(device), memory(device), destination(destination) {
+    Devicer(device), memory(device), destination(destination) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = size;
     createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;

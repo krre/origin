@@ -1,12 +1,11 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 #include "Surface.h"
 #include <vector>
 
 namespace Vulkan {
 
-class Swapchain : public Handle<VkSwapchainKHR> {
+class Swapchain : public Devicer<VkSwapchainKHR> {
 
 public:
     Swapchain(const Device* device, const Surface* surface);
@@ -18,7 +17,6 @@ public:
     int getImageCount() const { return images.size(); }
 
 private:
-    const Device* device;
     const Surface* surface;
     VkSwapchainCreateInfoKHR createInfo = {};
     std::vector<VkImage> images;

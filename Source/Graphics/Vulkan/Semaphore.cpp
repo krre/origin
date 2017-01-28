@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Semaphore::Semaphore(const Device* device) : device(device) {
+Semaphore::Semaphore(const Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
 }
 

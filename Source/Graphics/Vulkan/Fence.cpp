@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Fence::Fence(const Device* device) : device(device) {
+Fence::Fence(const Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 }
 

@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Event::Event(const Device* device) : device(device) {
+Event::Event(const Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_EVENT_CREATE_INFO;
 }
 

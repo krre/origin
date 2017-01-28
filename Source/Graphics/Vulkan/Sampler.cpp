@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Sampler::Sampler(const Device* device) : device(device) {
+Sampler::Sampler(const Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
     createInfo.magFilter = VK_FILTER_LINEAR;
     createInfo.minFilter = VK_FILTER_LINEAR;

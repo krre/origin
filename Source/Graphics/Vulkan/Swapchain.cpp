@@ -3,7 +3,7 @@
 using namespace Vulkan;
 
 Swapchain::Swapchain(const Device* device, const Surface* surface) :
-    device(device),
+    Devicer(device),
     surface(surface) {
 
     VkBool32 surfaceSupport;

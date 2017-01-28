@@ -3,7 +3,7 @@
 using namespace Vulkan;
 
 ImageView::ImageView(const Device* device, const Surface* surface, VkImage image) :
-    device(device),
+    Devicer(device),
     surface(surface) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     createInfo.image = image;

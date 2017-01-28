@@ -1,10 +1,9 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 
 namespace Vulkan {
 
-class Semaphore : public Handle<VkSemaphore> {
+class Semaphore : public Devicer<VkSemaphore> {
 
 public:
     Semaphore(const Device* device);
@@ -13,7 +12,6 @@ public:
     void destroy() override;
 
 private:
-    const Device* device;
     VkSemaphoreCreateInfo createInfo = {};
 };
 

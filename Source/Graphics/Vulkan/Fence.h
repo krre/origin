@@ -1,10 +1,9 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 
 namespace Vulkan {
 
-class Fence : public Handle<VkFence> {
+class Fence : public Devicer<VkFence> {
 
 public:
     Fence(const Device* device);
@@ -15,7 +14,6 @@ public:
     VkResult reset(uint32_t count);
 
 private:
-    const Device* device;
     VkFenceCreateInfo createInfo = {};
 };
 

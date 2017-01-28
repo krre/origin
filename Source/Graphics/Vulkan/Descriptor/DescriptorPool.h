@@ -1,11 +1,10 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 #include <vector>
 
 namespace Vulkan {
 
-class DescriptorPool : public Handle<VkDescriptorPool> {
+class DescriptorPool : public Devicer<VkDescriptorPool> {
 
 public:
     DescriptorPool(const Device* device);
@@ -16,7 +15,6 @@ public:
     void setMaxSets(uint32_t maxSets);
 
 private:
-    const Device* device;
     VkDescriptorPoolCreateInfo createInfo = {};
     std::vector<VkDescriptorPoolSize> poolSizes;
     uint32_t maxSets = 0;

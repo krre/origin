@@ -3,7 +3,7 @@
 using namespace Vulkan;
 
 RenderPass::RenderPass(const Device* device, const Surface* surface) :
-    device(device),
+    Devicer(device),
     surface(surface) {
     colorAttachment.format = surface->getFormat(0).format;
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;

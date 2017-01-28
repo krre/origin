@@ -1,10 +1,9 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 
 namespace Vulkan {
 
-class ShaderModule : public Handle<VkShaderModule> {
+class ShaderModule : public Devicer<VkShaderModule> {
 
 public:
     ShaderModule(const Device* device, size_t codeSize, const uint32_t* pCode);
@@ -13,7 +12,6 @@ public:
     void destroy() override;
 
 private:
-    const Device* device;
     VkShaderModuleCreateInfo createInfo = {};
 };
 

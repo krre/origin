@@ -1,10 +1,9 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 
 namespace Vulkan {
 
-class PipelineCache : public Handle<VkPipelineCache> {
+class PipelineCache : public Devicer<VkPipelineCache> {
 
 public:
     PipelineCache(const Device* device);
@@ -13,7 +12,6 @@ public:
     void destroy() override;
 
 private:
-    const Device* device;
     VkPipelineCacheCreateInfo createInfo = {};
 };
 

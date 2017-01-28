@@ -4,7 +4,7 @@
 using namespace Vulkan;
 
 Image::Image(const Device* device, uint32_t width, uint32_t height) :
-    device(device), memory(device) {
+    Devicer(device), memory(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     createInfo.imageType = VK_IMAGE_TYPE_2D;
     createInfo.format = VK_FORMAT_R8G8B8A8_UNORM;

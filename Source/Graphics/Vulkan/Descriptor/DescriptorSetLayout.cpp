@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-DescriptorSetLayout::DescriptorSetLayout(const Device* device) : device(device) {
+DescriptorSetLayout::DescriptorSetLayout(const Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 }
 

@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-CommandPool::CommandPool(const Device* device, uint32_t familyIndex) : device(device) {
+CommandPool::CommandPool(const Device* device, uint32_t familyIndex) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
     createInfo.queueFamilyIndex = familyIndex;
 }

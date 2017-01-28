@@ -1,11 +1,10 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 #include "Device/DeviceMemory.h"
 
 namespace Vulkan {
 
-class Buffer : public Handle<VkBuffer> {
+class Buffer : public Devicer<VkBuffer> {
 
 public:
 
@@ -35,7 +34,6 @@ public:
     void copy(VkBuffer dstBuffer, VkDeviceSize size);
 
 private:
-    const Device* device;
     DeviceMemory memory;
     VkBufferCreateInfo createInfo = {};
     VkDescriptorBufferInfo descriptorInfo = {};

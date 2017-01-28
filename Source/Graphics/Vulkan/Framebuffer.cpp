@@ -3,7 +3,7 @@
 using namespace Vulkan;
 
 Framebuffer::Framebuffer(const Device* device, const RenderPass* renderPass, ImageView* imageView, VkExtent2D extent) :
-    device(device),
+    Devicer(device),
     imageView(imageView) {
     createInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     createInfo.renderPass = renderPass->getHandle();

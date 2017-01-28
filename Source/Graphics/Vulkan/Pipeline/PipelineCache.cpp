@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-PipelineCache::PipelineCache(const Device* device) : device(device) {
+PipelineCache::PipelineCache(const Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
 }
 

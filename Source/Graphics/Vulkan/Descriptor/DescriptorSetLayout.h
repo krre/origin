@@ -1,11 +1,10 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 #include <vector>
 
 namespace Vulkan {
 
-class DescriptorSetLayout : public Handle<VkDescriptorSetLayout> {
+class DescriptorSetLayout : public Devicer<VkDescriptorSetLayout> {
 
 public:
     DescriptorSetLayout(const Device* device);
@@ -15,7 +14,6 @@ public:
     void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 
 private:
-    const Device* device;
     VkDescriptorSetLayoutCreateInfo createInfo = {};
     std::vector<VkDescriptorSetLayoutBinding> bindings;
 };

@@ -1,10 +1,10 @@
 #pragma once
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 #include "../Device/DeviceMemory.h"
 
 namespace Vulkan {
 
-class Image : public Handle<VkImage> {
+class Image : public Devicer<VkImage> {
 
 public:
     Image(const Device* device, uint32_t width, uint32_t height);
@@ -14,7 +14,6 @@ public:
     DeviceMemory* getMemory() { return &memory; }
 
 private:
-    const Device* device;
     DeviceMemory memory;
     VkImageCreateInfo createInfo = {};
 };

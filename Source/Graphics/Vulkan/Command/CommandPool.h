@@ -1,10 +1,9 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 
 namespace Vulkan {
 
-class CommandPool : public Handle<VkCommandPool> {
+class CommandPool : public Devicer<VkCommandPool> {
 
 public:
     CommandPool(const Device* device, uint32_t familyIndex);
@@ -14,7 +13,6 @@ public:
     VkResult reset();
 
 private:
-    const Device* device;
     VkCommandPoolCreateInfo createInfo = {};
 };
 

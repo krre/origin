@@ -1,10 +1,10 @@
 #pragma once
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 #include "../Surface.h"
 
 namespace Vulkan {
 
-class ImageView : public Handle<VkImageView> {
+class ImageView : public Devicer<VkImageView> {
 
 public:
     ImageView(const Device* device, const Surface* surface, VkImage image);
@@ -13,7 +13,6 @@ public:
     void destroy() override;
 
 private:
-    const Device* device;
     const Surface* surface;
     VkImageViewCreateInfo createInfo = {};
 };

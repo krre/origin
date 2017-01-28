@@ -1,12 +1,11 @@
 #pragma once
-#include "Base/Handle.h"
-#include "Device/Device.h"
+#include "Device/Devicer.h"
 #include "RenderPass.h"
 #include "Image/ImageView.h"
 
 namespace Vulkan {
 
-class Framebuffer : public Handle<VkFramebuffer> {
+class Framebuffer : public Devicer<VkFramebuffer> {
 
 public:
     Framebuffer(const Device* device, const RenderPass* renderPass, ImageView* imageView, VkExtent2D extent);
@@ -15,7 +14,6 @@ public:
     void destroy() override;
 
 private:
-    const Device* device;
     ImageView* imageView;
     VkFramebufferCreateInfo createInfo = {};
 };

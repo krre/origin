@@ -27,10 +27,6 @@ void GraphicsPipeline::setVertexAttributeDescriptions(const std::vector<VkVertex
     vertexInputInfo.pVertexAttributeDescriptions = this->vertexAttributeDescriptions.data();
 }
 
-void GraphicsPipeline::setPipelineCache(const PipelineCache* pipelineCache) {
-    this->pipelineCache = pipelineCache;
-}
-
 VkResult GraphicsPipeline::create() {
     VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
     inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;

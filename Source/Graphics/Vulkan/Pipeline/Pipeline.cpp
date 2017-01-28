@@ -28,3 +28,7 @@ VkResult Pipeline::addShaderCode(VkShaderStageFlagBits stage, const char* entryP
 void Pipeline::setPipelineLayout(const PipelineLayout* pipelineLayout) {
     this->pipelineLayout = pipelineLayout;
 }
+
+void Pipeline::setPipelineCache(const PipelineCache* pipelineCache) {
+    this->pipelineCache = pipelineCache;
+}

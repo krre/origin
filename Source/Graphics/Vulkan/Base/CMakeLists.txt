@@ -1,6 +1,7 @@
 set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Collection.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Devicer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Handle.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Resulter.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Resulter.h

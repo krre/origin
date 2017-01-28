@@ -11,10 +11,6 @@ void GraphicsPipeline::setExtent(VkExtent2D extent) {
     this->extent = extent;
 }
 
-void GraphicsPipeline::setPipelineLayout(const PipelineLayout* pipelineLayout) {
-    this->pipelineLayout = pipelineLayout;
-}
-
 void GraphicsPipeline::setRenderPass(const RenderPass* renderPass) {
     this->renderPass = renderPass;
 }

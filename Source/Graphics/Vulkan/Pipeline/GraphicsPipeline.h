@@ -10,7 +10,6 @@ class GraphicsPipeline : public Pipeline {
 public:
     GraphicsPipeline(const Device* device);
     void setExtent(VkExtent2D extent);
-    void setPipelineLayout(const PipelineLayout* pipelineLayout);
     void setRenderPass(const RenderPass* renderPass);
     void setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions);
     void setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions);

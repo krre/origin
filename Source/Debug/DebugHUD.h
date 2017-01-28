@@ -6,6 +6,7 @@
 #include "../Event/Event.h"
 #include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
+#include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 #include "../Graphics/Vulkan/Buffer.h"
@@ -33,6 +34,7 @@ private:
     Vulkan::DescriptorPool* descriptorPool = nullptr;
     Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;
     Vulkan::DescriptorSets* descriptorSets = nullptr;
+    Vulkan::PipelineCache* pipelineCache = nullptr;
     Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::Buffer* indexBuffer = nullptr;

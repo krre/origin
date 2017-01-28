@@ -19,6 +19,7 @@ DebugHUD::~DebugHUD() {
     delete descriptorSetLayout;
     delete descriptorPool;
     delete pipelineLayout;
+    delete pipelineCache;
     delete graphicsPipeline;
 }
 
@@ -47,8 +48,12 @@ void DebugHUD::init() {
     pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
     pipelineLayout->create();
 
+    pipelineCache = new Vulkan::PipelineCache(device);
+    pipelineCache->create();
+
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
     graphicsPipeline->setPipelineLayout(pipelineLayout);
+    graphicsPipeline->setPipelineCache(pipelineCache);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
 
     graphicsPipeline->create();

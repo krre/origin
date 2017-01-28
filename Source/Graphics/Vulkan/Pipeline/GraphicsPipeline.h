@@ -14,17 +14,17 @@ public:
     void setRenderPass(const RenderPass* renderPass);
     void setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions);
     void setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions);
-    void setPipelineCache(PipelineCache* pipelineCache);
+    void setPipelineCache(const PipelineCache* pipelineCache);
     VkResult create() override;
 
 private:
-    const RenderPass* renderPass;
+    const RenderPass* renderPass = nullptr;
+    const PipelineCache* pipelineCache = nullptr;
     VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     VkExtent2D extent;
-    PipelineCache* pipelineCache = nullptr;
 };
 
 } // Vulkan

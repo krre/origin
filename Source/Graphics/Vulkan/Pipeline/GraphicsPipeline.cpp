@@ -31,7 +31,7 @@ void GraphicsPipeline::setVertexAttributeDescriptions(const std::vector<VkVertex
     vertexInputInfo.pVertexAttributeDescriptions = this->vertexAttributeDescriptions.data();
 }
 
-void GraphicsPipeline::setPipelineCache(PipelineCache* pipelineCache) {
+void GraphicsPipeline::setPipelineCache(const PipelineCache* pipelineCache) {
     this->pipelineCache = pipelineCache;
 }
 

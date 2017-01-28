@@ -15,6 +15,7 @@ DebugHUD::DebugHUD() {
 }
 
 DebugHUD::~DebugHUD() {
+    delete sampler;
     delete descriptorSetLayout;
     delete descriptorPool;
     delete pipelineLayout;
@@ -23,6 +24,9 @@ DebugHUD::~DebugHUD() {
 
 void DebugHUD::init() {
     Scene::init();
+
+    sampler = new Vulkan::Sampler(device);
+    sampler->create();
 
     descriptorPool = new Vulkan::DescriptorPool(device);
     descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);

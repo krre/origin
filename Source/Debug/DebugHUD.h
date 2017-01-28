@@ -11,6 +11,7 @@
 #include "../Graphics/Vulkan/Buffer.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorPool.h"
 #include "../Graphics/Vulkan/Descriptor/Descriptor.h"
+#include "../Graphics/Vulkan/Sampler.h"
 
 const int MAX_CHAR_COUNT = 2048;
 
@@ -37,6 +38,7 @@ private:
     Vulkan::Buffer* indexBuffer = nullptr;
     Vulkan::Descriptor* uniformVert = nullptr;
     Vulkan::Descriptor* uniformFrag = nullptr;
+    Vulkan::Sampler* sampler = nullptr;
 
     Text fps;
     Text version;

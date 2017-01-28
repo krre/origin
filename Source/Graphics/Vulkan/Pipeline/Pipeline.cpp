@@ -2,10 +2,6 @@
 
 using namespace Vulkan;
 
-Pipeline::Pipeline(const Device* device) : device(device) {
-
-}
-
 Pipeline::~Pipeline() {
     destroy();
 }

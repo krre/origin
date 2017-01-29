@@ -1,10 +1,11 @@
 #pragma once
+#include "../Base/Handle.h"
 #include "../Device/Devicer.h"
 #include <vector>
 
 namespace Vulkan {
 
-class DescriptorSetLayout : public Devicer<VkDescriptorSetLayout> {
+class DescriptorSetLayout : public Handle<VkDescriptorSetLayout>, public Devicer {
 
 public:
     DescriptorSetLayout(const Device* device);

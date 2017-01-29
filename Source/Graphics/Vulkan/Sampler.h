@@ -1,9 +1,10 @@
 #pragma once
+#include "Base/Handle.h"
 #include "Device/Devicer.h"
 
 namespace Vulkan {
 
-class Sampler : public Devicer<VkSampler> {
+class Sampler : public Handle<VkSampler>, public Devicer {
 
 public:
     Sampler(const Device* device);

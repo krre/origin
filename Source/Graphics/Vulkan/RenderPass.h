@@ -1,10 +1,11 @@
 #pragma once
+#include "Base/Handle.h"
 #include "Device/Devicer.h"
 #include "Surface.h"
 
 namespace Vulkan {
 
-class RenderPass : public Devicer<VkRenderPass> {
+class RenderPass : public Handle<VkRenderPass>, public Devicer {
 
 public:
     RenderPass(const Device* device, const Surface* surface);

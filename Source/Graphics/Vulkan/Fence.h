@@ -1,9 +1,10 @@
 #pragma once
+#include "Base/Handle.h"
 #include "Device/Devicer.h"
 
 namespace Vulkan {
 
-class Fence : public Devicer<VkFence> {
+class Fence : public Handle<VkFence>, public Devicer {
 
 public:
     Fence(const Device* device);

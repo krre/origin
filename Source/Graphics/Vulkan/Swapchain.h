@@ -1,11 +1,12 @@
 #pragma once
+#include "Base/Handle.h"
 #include "Device/Devicer.h"
 #include "Surface.h"
 #include <vector>
 
 namespace Vulkan {
 
-class Swapchain : public Devicer<VkSwapchainKHR> {
+class Swapchain : public Handle<VkSwapchainKHR>, public Devicer {
 
 public:
     Swapchain(const Device* device, const Surface* surface);

@@ -1,9 +1,10 @@
 #pragma once
+#include "Base/Handle.h"
 #include "Device/Devicer.h"
 
 namespace Vulkan {
 
-class Event : public Devicer<VkEvent> {
+class Event : public Handle<VkEvent>, public Devicer {
 
 public:
     Event(const Device* device);

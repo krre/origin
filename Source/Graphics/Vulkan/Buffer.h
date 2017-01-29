@@ -1,10 +1,11 @@
 #pragma once
+#include "Base/Handle.h"
 #include "Device/Devicer.h"
 #include "Device/DeviceMemory.h"
 
 namespace Vulkan {
 
-class Buffer : public Devicer<VkBuffer> {
+class Buffer : public Handle<VkBuffer>, public Devicer {
 
 public:
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "../Base/Handle.h"
 #include "../Device/Devicer.h"
 #include "../ShaderModule.h"
 #include "PipelineLayout.h"
@@ -6,7 +7,7 @@
 
 namespace Vulkan {
 
-class Pipeline : public Devicer<VkPipeline> {
+class Pipeline : public Handle<VkPipeline>, public Devicer {
 
 public:
     Pipeline(const Device* device) : Devicer(device) {}

@@ -1,10 +1,11 @@
 #pragma once
+#include "../Base/Handle.h"
 #include "../Device/Devicer.h"
 #include <vector>
 
 namespace Vulkan {
 
-class DescriptorPool : public Devicer<VkDescriptorPool> {
+class DescriptorPool : public Handle<VkDescriptorPool>, public Devicer {
 
 public:
     DescriptorPool(const Device* device);

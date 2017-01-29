@@ -1,13 +1,13 @@
 #pragma once
 #include "../Base/Collection.h"
-#include "../Device/Device.h"
+#include "../Device/Devicer.h"
 #include "DescriptorPool.h"
 #include "Descriptor.h"
 #include "DescriptorSetLayout.h"
 
 namespace Vulkan {
 
-class DescriptorSets : public Collection<VkDescriptorSet> {
+class DescriptorSets : public Collection<VkDescriptorSet>, public Devicer {
 
 public:
     DescriptorSets(const Device* device, const DescriptorPool* descriptorPool);
@@ -18,7 +18,6 @@ public:
     void writeDescriptors();
 
 private:
-    const Device* device;
     const DescriptorPool* descriptorPool;
     VkDescriptorSetAllocateInfo allocateInfo = {};
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;

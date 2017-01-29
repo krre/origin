@@ -4,7 +4,7 @@
 using namespace Vulkan;
 
 DescriptorSets::DescriptorSets(const Device* device, const DescriptorPool* descriptorPool) :
-    device(device), descriptorPool(descriptorPool) {
+    Devicer(device), descriptorPool(descriptorPool) {
     allocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
     allocateInfo.descriptorPool = descriptorPool->getHandle();
 }

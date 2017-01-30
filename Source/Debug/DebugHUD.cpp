@@ -12,13 +12,13 @@
 
 DebugHUD::DebugHUD() :
     sampler(device),
-    descriptorPool(device) {
+    descriptorPool(device),
+    descriptorSetLayout(device),
+    pipelineLayout(device) {
     visible = false;
 }
 
 DebugHUD::~DebugHUD() {
-    delete descriptorSetLayout;
-    delete pipelineLayout;
     delete pipelineCache;
     delete graphicsPipeline;
 }
@@ -31,8 +31,7 @@ void DebugHUD::init() {
     descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
     descriptorPool.create();
 
-    descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
-    descriptorSetLayout->create();
+    descriptorSetLayout.create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);
 
@@ -42,15 +41,14 @@ void DebugHUD::init() {
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
     graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
-    pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
-    pipelineLayout->create();
+    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
+    pipelineLayout.create();
 
     pipelineCache = new Vulkan::PipelineCache(device);
     pipelineCache->create();
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
-    graphicsPipeline->setPipelineLayout(pipelineLayout);
+    graphicsPipeline->setPipelineLayout(&pipelineLayout);
     graphicsPipeline->setPipelineCache(pipelineCache);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
 
@@ -170,7 +168,7 @@ void DebugHUD::buildCommandBuffers() {
         scissor.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
-        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
+        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
 
         VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
         VkDeviceSize offsets[] = { 0 };

@@ -34,8 +34,8 @@ private:
     Vulkan::DescriptorPool descriptorPool;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets* descriptorSets = nullptr;
-    Vulkan::PipelineCache* pipelineCache = nullptr;
-    Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;
+    Vulkan::PipelineCache pipelineCache;
+    Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::Buffer* indexBuffer = nullptr;
     Vulkan::Descriptor* uniformVert = nullptr;

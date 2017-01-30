@@ -14,13 +14,13 @@ DebugHUD::DebugHUD() :
     sampler(device),
     descriptorPool(device),
     descriptorSetLayout(device),
-    pipelineLayout(device) {
+    pipelineLayout(device),
+    pipelineCache(device),
+    graphicsPipeline(device) {
     visible = false;
 }
 
 DebugHUD::~DebugHUD() {
-    delete pipelineCache;
-    delete graphicsPipeline;
 }
 
 void DebugHUD::init() {
@@ -33,26 +33,23 @@ void DebugHUD::init() {
 
     descriptorSetLayout.create();
 
-    graphicsPipeline = new Vulkan::GraphicsPipeline(device);
-
     ShaderResource* shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextVertShader");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
     pipelineLayout.create();
 
-    pipelineCache = new Vulkan::PipelineCache(device);
-    pipelineCache->create();
+    pipelineCache.create();
 
-    graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
-    graphicsPipeline->setPipelineLayout(&pipelineLayout);
-    graphicsPipeline->setPipelineCache(pipelineCache);
-    graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
+    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
+    graphicsPipeline.setPipelineLayout(&pipelineLayout);
+    graphicsPipeline.setPipelineCache(&pipelineCache);
+    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass());
 
-    graphicsPipeline->create();
+    graphicsPipeline.create();
 
     buildCommandBuffers();
 }
@@ -156,7 +153,7 @@ void DebugHUD::buildCommandBuffers() {
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
 
-        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
+        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline.getHandle());
 
         VkViewport viewport = {};
         viewport.width = Vulkan::Manager::get()->getSwapchain()->getExtent().width;

@@ -10,14 +10,14 @@
 #include <glm/glm.hpp>
 #include <Origin.h>
 
-DebugHUD::DebugHUD() {
+DebugHUD::DebugHUD() :
+    sampler(device),
+    descriptorPool(device) {
     visible = false;
 }
 
 DebugHUD::~DebugHUD() {
-    delete sampler;
     delete descriptorSetLayout;
-    delete descriptorPool;
     delete pipelineLayout;
     delete pipelineCache;
     delete graphicsPipeline;
@@ -26,12 +26,10 @@ DebugHUD::~DebugHUD() {
 void DebugHUD::init() {
     Scene::init();
 
-    sampler = new Vulkan::Sampler(device);
-    sampler->create();
+    sampler.create();
 
-    descriptorPool = new Vulkan::DescriptorPool(device);
-    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
-    descriptorPool->create();
+    descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
+    descriptorPool.create();
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
     descriptorSetLayout->create();

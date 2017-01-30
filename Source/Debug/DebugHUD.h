@@ -31,7 +31,7 @@ private:
     void buildCommandBuffers() override;
 
     Vulkan::PipelineLayout* pipelineLayout = nullptr;
-    Vulkan::DescriptorPool* descriptorPool = nullptr;
+    Vulkan::DescriptorPool descriptorPool;
     Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;
     Vulkan::DescriptorSets* descriptorSets = nullptr;
     Vulkan::PipelineCache* pipelineCache = nullptr;
@@ -40,7 +40,7 @@ private:
     Vulkan::Buffer* indexBuffer = nullptr;
     Vulkan::Descriptor* uniformVert = nullptr;
     Vulkan::Descriptor* uniformFrag = nullptr;
-    Vulkan::Sampler* sampler = nullptr;
+    Vulkan::Sampler sampler;
 
     Text fps;
     Text version;

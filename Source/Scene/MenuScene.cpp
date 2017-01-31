@@ -8,14 +8,14 @@
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 #include "../Graphics/Plane.h"
 
-MenuScene::MenuScene() {
+MenuScene::MenuScene() :
+    descriptorPool(device) {
 }
 
 MenuScene::~MenuScene() {
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSets;
-    delete descriptorPool;
     delete descriptorSetLayout;
     delete uniformVert;
     delete uniformFrag;
@@ -52,9 +52,8 @@ void MenuScene::init() {
                                       VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, size);
     uniformFrag->write(0, size, &uboFrag);
 
-    descriptorPool = new Vulkan::DescriptorPool(device);
-    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 2);
-    descriptorPool->create();
+    descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 2);
+    descriptorPool.create();
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
 
@@ -62,7 +61,7 @@ void MenuScene::init() {
     descriptorSetLayout->addLayoutBinding(*uniformFrag->getLayoutBinding());
     descriptorSetLayout->create();
 
-    descriptorSets = new Vulkan::DescriptorSets(device, descriptorPool);
+    descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
     descriptorSets->addDescriptorSetLayout(descriptorSetLayout);
     descriptorSets->allocate();
     descriptorSets->addDescriptor(uniformVert);

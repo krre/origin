@@ -33,7 +33,7 @@ private:
     void buildCommandBuffers() override;
 
     Vulkan::PipelineLayout* pipelineLayout = nullptr;
-    Vulkan::DescriptorPool* descriptorPool = nullptr;
+    Vulkan::DescriptorPool descriptorPool;
     Vulkan::DescriptorSetLayout* descriptorSetLayout = nullptr;
     Vulkan::DescriptorSets* descriptorSets = nullptr;
     Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;

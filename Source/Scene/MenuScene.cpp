@@ -9,14 +9,14 @@
 #include "../Graphics/Plane.h"
 
 MenuScene::MenuScene() :
-    descriptorPool(device) {
+    descriptorPool(device),
+    descriptorSetLayout(device) {
 }
 
 MenuScene::~MenuScene() {
     delete graphicsPipeline;
     delete pipelineLayout;
     delete descriptorSets;
-    delete descriptorSetLayout;
     delete uniformVert;
     delete uniformFrag;
     delete indexBuffer;
@@ -55,21 +55,19 @@ void MenuScene::init() {
     descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 2);
     descriptorPool.create();
 
-    descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
-
-    descriptorSetLayout->addLayoutBinding(*uniformVert->getLayoutBinding());
-    descriptorSetLayout->addLayoutBinding(*uniformFrag->getLayoutBinding());
-    descriptorSetLayout->create();
+    descriptorSetLayout.addLayoutBinding(*uniformVert->getLayoutBinding());
+    descriptorSetLayout.addLayoutBinding(*uniformFrag->getLayoutBinding());
+    descriptorSetLayout.create();
 
     descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
-    descriptorSets->addDescriptorSetLayout(descriptorSetLayout);
+    descriptorSets->addDescriptorSetLayout(&descriptorSetLayout);
     descriptorSets->allocate();
     descriptorSets->addDescriptor(uniformVert);
     descriptorSets->addDescriptor(uniformFrag);
     descriptorSets->writeDescriptors();
 
     pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
+    pipelineLayout->addDescriptorSetLayout(&descriptorSetLayout);
     pipelineLayout->create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);

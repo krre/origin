@@ -10,12 +10,12 @@
 
 MenuScene::MenuScene() :
     descriptorPool(device),
-    descriptorSetLayout(device) {
+    descriptorSetLayout(device),
+    pipelineLayout(device) {
 }
 
 MenuScene::~MenuScene() {
     delete graphicsPipeline;
-    delete pipelineLayout;
     delete descriptorSets;
     delete uniformVert;
     delete uniformFrag;
@@ -66,9 +66,8 @@ void MenuScene::init() {
     descriptorSets->addDescriptor(uniformFrag);
     descriptorSets->writeDescriptors();
 
-    pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->addDescriptorSetLayout(&descriptorSetLayout);
-    pipelineLayout->create();
+    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
+    pipelineLayout.create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);
 
@@ -92,7 +91,7 @@ void MenuScene::init() {
     graphicsPipeline->setVertexAttributeDescriptions({ attributeDescriptions });
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
-    graphicsPipeline->setPipelineLayout(pipelineLayout);
+    graphicsPipeline->setPipelineLayout(&pipelineLayout);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
     graphicsPipeline->create();
 
@@ -156,7 +155,7 @@ void MenuScene::buildCommandBuffers() {
         scissor.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
-        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
+        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
         vkCmdDrawIndexed(commandBuffer.getHandle(), plane.getIndices().size(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());
 

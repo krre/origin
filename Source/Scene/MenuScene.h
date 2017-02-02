@@ -32,7 +32,7 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void buildCommandBuffers() override;
 
-    Vulkan::PipelineLayout* pipelineLayout = nullptr;
+    Vulkan::PipelineLayout pipelineLayout;
     Vulkan::DescriptorPool descriptorPool;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets* descriptorSets = nullptr;

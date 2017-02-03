@@ -11,11 +11,11 @@
 MenuScene::MenuScene() :
     descriptorPool(device),
     descriptorSetLayout(device),
-    pipelineLayout(device) {
+    pipelineLayout(device),
+    graphicsPipeline(device) {
 }
 
 MenuScene::~MenuScene() {
-    delete graphicsPipeline;
     delete descriptorSets;
     delete uniformVert;
     delete uniformFrag;
@@ -69,31 +69,29 @@ void MenuScene::init() {
     pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
     pipelineLayout.create();
 
-    graphicsPipeline = new Vulkan::GraphicsPipeline(device);
-
     ShaderResource* shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseVertShader");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("BaseFragShader");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline->setVertexBindingDescriptions({ bindingDescription });
+    graphicsPipeline.setVertexBindingDescriptions({ bindingDescription });
 
     VkVertexInputAttributeDescription attributeDescriptions = {};
     attributeDescriptions.binding = 0;
     attributeDescriptions.location = 0;
     attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptions.offset = 0;
-    graphicsPipeline->setVertexAttributeDescriptions({ attributeDescriptions });
+    graphicsPipeline.setVertexAttributeDescriptions({ attributeDescriptions });
 
-    graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
-    graphicsPipeline->setPipelineLayout(&pipelineLayout);
-    graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass());
-    graphicsPipeline->create();
+    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
+    graphicsPipeline.setPipelineLayout(&pipelineLayout);
+    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass());
+    graphicsPipeline.create();
 
     buildCommandBuffers();
 }
@@ -138,7 +136,7 @@ void MenuScene::buildCommandBuffers() {
 
         vkCmdBeginRenderPass(commandBuffer.getHandle(), &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
-        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline->getHandle());
+        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline.getHandle());
 
         VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
         VkDeviceSize offsets[] = { 0 };

@@ -4,7 +4,7 @@
 
 #define VULKAN_DESTROY_HANDLE(f) { \
     if (handle != VK_NULL_HANDLE) { \
-            (f); \
+        (f); \
         handle = VK_NULL_HANDLE; \
     } \
 } \

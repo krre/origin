@@ -8,13 +8,13 @@ namespace Vulkan {
 class ImageView : public Handle<VkImageView>, public Devicer {
 
 public:
-    ImageView(const Device* device, const Surface* surface, VkImage image);
+    ImageView(const Device* device, VkImage image);
     ~ImageView();
     VkResult create() override;
     void destroy() override;
+    void setFormat(VkFormat format);
 
 private:
-    const Surface* surface;
     VkImageViewCreateInfo createInfo = {};
 };
 

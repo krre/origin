@@ -83,7 +83,8 @@ bool Manager::init() {
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<ImageView> imageView(new ImageView(device, surface, swapchain->getImage(i)));
+        std::shared_ptr<ImageView> imageView(new ImageView(device, swapchain->getImage(i)));
+        imageView->setFormat(surface->getFormat(0).format);
         if (imageView->create() != VK_SUCCESS) {
             return false;
         }

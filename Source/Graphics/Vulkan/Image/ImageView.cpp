@@ -2,13 +2,11 @@
 
 using namespace Vulkan;
 
-ImageView::ImageView(const Device* device, const Surface* surface, VkImage image) :
-    Devicer(device),
-    surface(surface) {
+ImageView::ImageView(const Device* device, VkImage image) :
+    Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     createInfo.image = image;
     createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
-    createInfo.format = surface->getFormat(0).format;
     createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
     createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
     createInfo.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -30,4 +28,8 @@ VkResult ImageView::create() {
 
 void ImageView::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImageView(device->getHandle(), handle, nullptr))
+}
+
+void ImageView::setFormat(VkFormat format) {
+    createInfo.format = format;
 }

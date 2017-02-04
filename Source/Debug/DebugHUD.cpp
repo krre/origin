@@ -25,10 +25,14 @@ DebugHUD::~DebugHUD() {
     delete samplerFont;
     delete samplerImage;
     delete samplerImageView;
+    delete vertexBuffer;
 }
 
 void DebugHUD::init() {
     Scene::init();
+
+    vertexBuffer = new Vulkan::Buffer(device, MAX_CHAR_COUNT * sizeof(glm::vec4), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
+    vertexBuffer->create();
 
     sampler.create();
 

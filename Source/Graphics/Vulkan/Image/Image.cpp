@@ -40,6 +40,10 @@ void Image::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImage(device->getHandle(), handle, nullptr))
 }
 
+void Image::setFormat(VkFormat format) {
+    createInfo.format = format;
+}
+
 void Image::setSampler(Sampler* sampler) {
     this->sampler = sampler;
     descriptorInfo.sampler = sampler->getHandle();

@@ -35,6 +35,9 @@ void DescriptorSets::addDescriptor(Descriptor* descriptor) {
     descriptorWrite.descriptorType = descriptor->getLayoutBinding()->descriptorType;
     descriptorWrite.descriptorCount = descriptor->getLayoutBinding()->descriptorCount;
     descriptorWrite.pBufferInfo = descriptor->getBuffer()->getDescriptorInfo();
+    if (descriptor->getImage() != nullptr) {
+        descriptorWrite.pImageInfo = descriptor->getImage()->getDescriptorInfo();
+    }
     descriptorWrites.push_back(descriptorWrite);
 }
 

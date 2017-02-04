@@ -40,8 +40,6 @@ private:
     Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::Buffer* indexBuffer = nullptr;
-    Vulkan::Descriptor* uniformVert = nullptr;
-    Vulkan::Descriptor* uniformFrag = nullptr;
     Vulkan::Descriptor* samplerFont = nullptr;
     Vulkan::Sampler sampler;
     Vulkan::ImageView* samplerImageView = nullptr;

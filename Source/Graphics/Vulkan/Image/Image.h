@@ -2,6 +2,7 @@
 #include "../Base/Handle.h"
 #include "../Device/Devicer.h"
 #include "../Device/DeviceMemory.h"
+#include "../Sampler.h"
 
 namespace Vulkan {
 
@@ -14,11 +15,13 @@ public:
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
     VkDescriptorImageInfo* getDescriptorInfo() { return &descriptorInfo; }
+    setSampler(Sampler* sampler);
 
 private:
     DeviceMemory memory;
     VkImageCreateInfo createInfo = {};
     VkDescriptorImageInfo descriptorInfo = {};
+    Sampler* sampler;
 };
 
 } // Vulkan

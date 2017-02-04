@@ -1,4 +1,5 @@
 #include "WorldScene.h"
+#include <Origin.h>
 #include "../ECS/EntityManager.h"
 #include "../ECS/System.h"
 #include "../ECS/EntityBuilder.h"
@@ -358,6 +359,12 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
         SceneManager::get()->pushScene(std::make_shared<PauseScene>());
         Input::get()->isKeyAccepted = true;
     }
+
+#ifdef DEVELOP_MODE
+    if (event.keysym.sym == SDLK_KP_0) {
+        viewport.switchCamera();
+    }
+#endif
 }
 
 void WorldScene::buildCommandBuffers() {

@@ -13,7 +13,10 @@ public:
     void write(VkDeviceSize offset, VkDeviceSize size, const void* data);
     void read(VkDeviceSize offset, VkDeviceSize size, void* data);
     Buffer* getBuffer() { return &buffer; }
+
     Image* getImage() { return image; }
+    void setImage(Image* image);
+
     VkDescriptorSetLayoutBinding* getLayoutBinding() { return &layoutBinging; }
 
 private:

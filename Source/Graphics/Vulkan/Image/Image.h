@@ -13,10 +13,12 @@ public:
     VkResult create() override;
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
+    VkDescriptorImageInfo* getDescriptorInfo() { return &descriptorInfo; }
 
 private:
     DeviceMemory memory;
     VkImageCreateInfo createInfo = {};
+    VkDescriptorImageInfo descriptorInfo = {};
 };
 
 } // Vulkan

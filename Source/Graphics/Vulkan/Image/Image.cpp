@@ -44,3 +44,8 @@ Image::setSampler(Sampler* sampler) {
     this->sampler = sampler;
     descriptorInfo.sampler = sampler->getHandle();
 }
+
+Image::setImageView(ImageView* imageView) {
+    this->imageView = imageView;
+    descriptorInfo.imageView = imageView->getHandle();
+}

@@ -3,6 +3,8 @@
 #include "../Device/Devicer.h"
 #include "../Device/DeviceMemory.h"
 #include "../Sampler.h"
+#include "../Image/ImageView.h"
+
 
 namespace Vulkan {
 
@@ -16,12 +18,14 @@ public:
     DeviceMemory* getMemory() { return &memory; }
     VkDescriptorImageInfo* getDescriptorInfo() { return &descriptorInfo; }
     setSampler(Sampler* sampler);
+    setImageView(ImageView* imageView);
 
 private:
     DeviceMemory memory;
     VkImageCreateInfo createInfo = {};
     VkDescriptorImageInfo descriptorInfo = {};
-    Sampler* sampler;
+    Sampler* sampler = nullptr;
+    ImageView* imageView = nullptr;
 };
 
 } // Vulkan

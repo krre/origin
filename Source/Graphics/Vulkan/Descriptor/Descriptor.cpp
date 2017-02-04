@@ -11,6 +11,16 @@ Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferU
     layoutBinging.stageFlags = stage;
 
     buffer.create();
+
+    if (descriptorType == VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER) {
+        image = new Image(device, 10, 10);
+    }
+}
+
+Descriptor::~Descriptor() {
+    if (image != nullptr) {
+        delete image;
+    }
 }
 
 void Descriptor::write(VkDeviceSize offset, VkDeviceSize size, const void* data) {

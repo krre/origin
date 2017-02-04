@@ -11,7 +11,7 @@ SettingsScene::~SettingsScene() {
 }
 
 void SettingsScene::init() {
-
+    Scene::init();
 }
 
 void SettingsScene::draw(float dt) {

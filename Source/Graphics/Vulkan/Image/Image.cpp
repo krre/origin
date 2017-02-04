@@ -49,3 +49,7 @@ Image::setImageView(ImageView* imageView) {
     this->imageView = imageView;
     descriptorInfo.imageView = imageView->getHandle();
 }
+
+Image::setImageLayout(VkImageLayout imageLayout) {
+    descriptorInfo.imageLayout = imageLayout;
+}

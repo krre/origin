@@ -19,6 +19,7 @@ public:
     VkDescriptorImageInfo* getDescriptorInfo() { return &descriptorInfo; }
     setSampler(Sampler* sampler);
     setImageView(ImageView* imageView);
+    setImageLayout(VkImageLayout imageLayout);
 
 private:
     DeviceMemory memory;

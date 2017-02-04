@@ -8,7 +8,8 @@ SubmitQueue::SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32
 }
 
 VkResult SubmitQueue::submit(VkFence fence) {
-    return checkError(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
+    CHECK_RESULT(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
+    return result;
 }
 
 VkResult SubmitQueue::waitIdle() {

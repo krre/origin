@@ -34,10 +34,10 @@ void DebugHUD::init() {
     descriptorSetLayout.create();
 
     ShaderResource* shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextVertShader");
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, "main", (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
     pipelineLayout.create();

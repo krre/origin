@@ -10,7 +10,7 @@ void Pipeline::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyPipeline(device->getHandle(), handle, nullptr))
 }
 
-VkResult Pipeline::addShaderCode(VkShaderStageFlagBits stage, const char* entryPoint, size_t size, const uint32_t* code) {
+VkResult Pipeline::addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const std::string& entryPoint) {
     std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device, size, code));
     VkResult result = shaderModule->create();
     if (result == VK_SUCCESS) {;
@@ -19,7 +19,7 @@ VkResult Pipeline::addShaderCode(VkShaderStageFlagBits stage, const char* entryP
         shaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
         shaderStageInfo.stage = stage;
         shaderStageInfo.module = shaderModules[stage]->getHandle();
-        shaderStageInfo.pName = entryPoint;
+        shaderStageInfo.pName = entryPoint.c_str();
         shaderStages.push_back(shaderStageInfo);
     }
     return result;

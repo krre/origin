@@ -7,3 +7,5 @@ $validator Surface.vert -o Surface.vert.spv
 $validator Surface.frag -o Surface.frag.spv
 $validator Voxel.vert -o Voxel.vert.spv
 $validator Voxel.frag -o Voxel.frag.spv
+$validator Text.vert -o Text.vert.spv
+$validator Text.frag -o Text.frag.spv

@@ -8,7 +8,7 @@
 #define CHECK_RESULT(f, message) { \
     result = (f); \
     if (result != VK_SUCCESS) { \
-        error(std::string((message)) + ": \"" + resultToString(result) << "\" in " << __FILE__ << " at line " << __LINE__); \
+        ERROR(std::string((message)) + ": \"" + resultToString(result) << "\" in " << __FILE__ << " at line " << __LINE__); \
         assert(result == VK_SUCCESS); \
     } \
 }

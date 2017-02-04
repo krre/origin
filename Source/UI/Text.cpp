@@ -13,14 +13,14 @@ Text::Text() {
     FT_Library ft;
 
     if (FT_Init_FreeType(&ft)) {
-        error("Could not init freetype library");
+        ERROR("Could not init freetype library");
     }
 
     FT_Face face;
 
     std::string fontPath = App::getCurrentPath() + "/Data/Fonts/inconsolatalgc.ttf";
     if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
-        error("Could not open font " << fontPath);
+        ERROR("Could not open font " << fontPath);
     }
 
     FT_Set_Pixel_Sizes(face, 0, fontSize);
@@ -34,7 +34,7 @@ Text::Text() {
     for (GLubyte i = 0; i < 128; i++) {
         // Load character glyph
         if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
-            error("ERROR::FREETYTPE: Failed to load Glyph");
+            ERROR("ERROR::FREETYTPE: Failed to load Glyph");
             continue;
         }
 

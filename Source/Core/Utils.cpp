@@ -28,7 +28,7 @@ std::string Utils::readTextFile(const std::string& filePath) {
         std::string text((std::istreambuf_iterator<char>(in)), (std::istreambuf_iterator<char>()));
         return text;
     } else {
-        error("Failed open file: " << filePath);
+        ERROR("Failed open file: " << filePath);
         return "";
     }
 }

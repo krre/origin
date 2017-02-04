@@ -49,7 +49,7 @@ void Debug::loadValues() {
         if (line.size() && line.at(0) != '#') {
             std::vector<std::string> pair = Utils::split(line, '=');
             if (pair.size() != 2) {
-                error("Failed to parse main.debug at line: " << line);
+                ERROR("Failed to parse main.debug at line: " << line);
             } else {
                 values[pair.at(0)] = pair.at(1);
             }

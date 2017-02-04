@@ -130,8 +130,8 @@ void WorldScene::draw(float dt) {
     Vulkan::Manager::get()->submit();
 
 //    debugOutBuffer->read(0, sizeof(DebugOut), &debugOut);
-//    print(glm::to_string(debugOut.debugVec))
-//    print(debugOut.debugInt)
+//    PRINT(glm::to_string(debugOut.debugVec))
+//    PRINT(debugOut.debugInt)
 }
 
 void WorldScene::update(float dt) {

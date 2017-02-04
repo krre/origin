@@ -148,7 +148,7 @@ void Manager::submit() {
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {
-    print(filePath)
+    PRINT(filePath)
 
     VkImage srcImage = swapchain->getImage(swapchainImageIndex);
 

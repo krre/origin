@@ -57,7 +57,7 @@ void Console::execute() {
         if (command == "exit") {
             App::get()->quit();
         } else if (command == "help") {
-            print("help");
+            PRINT("help");
         }
         setVisible(false);
         SceneManager::get()->popScene();

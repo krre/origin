@@ -29,7 +29,7 @@ void SceneManager::popScene() {
         scenes.back()->setVisible(true);
     } else {
         // TODO: Question dialog about exit from game
-        print("Exit question dialog")
+        PRINT("Exit question dialog")
     }
 }
 

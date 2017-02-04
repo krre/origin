@@ -54,7 +54,7 @@ void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
 
 void Instance::dumpLayers() {
     for (const auto& layer : layers) {
-        print(layer.layerName);
+        PRINT(layer.layerName);
     }
 }
 
@@ -64,7 +64,7 @@ void Instance::setEnabledExtensions(const std::vector<const char*> enabledExtens
 
 void Instance::dumpExtensions() {
     for (const auto& extension : extensions) {
-        print(extension.extensionName);
+        PRINT(extension.extensionName);
     }
 }
 

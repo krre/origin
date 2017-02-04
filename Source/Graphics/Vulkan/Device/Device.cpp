@@ -52,6 +52,6 @@ void Device::destroy() {
 
 void Device::dumpExtensions() {
     for (const auto& extension : extensions) {
-        print(extension.extensionName);
+        PRINT(extension.extensionName);
     }
 }

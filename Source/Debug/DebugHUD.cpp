@@ -59,6 +59,9 @@ void DebugHUD::init() {
     descriptorSetLayout.addLayoutBinding(*samplerFont->getLayoutBinding());
     descriptorSetLayout.create();
 
+    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
+    pipelineLayout.create();
+
     descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
     descriptorSets->addDescriptorSetLayout(&descriptorSetLayout);
     descriptorSets->allocate();
@@ -70,9 +73,6 @@ void DebugHUD::init() {
 
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
-
-    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
-    pipelineLayout.create();
 
     pipelineCache.create();
 

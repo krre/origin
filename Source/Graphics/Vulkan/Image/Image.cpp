@@ -44,6 +44,10 @@ void Image::setFormat(VkFormat format) {
     createInfo.format = format;
 }
 
+void Image::setUsage(VkImageUsageFlags usage) {
+    createInfo.usage = usage;
+}
+
 void Image::setSampler(Sampler* sampler) {
     this->sampler = sampler;
     descriptorInfo.sampler = sampler->getHandle();

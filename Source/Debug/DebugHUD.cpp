@@ -74,6 +74,33 @@ void DebugHUD::init() {
     shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
+    VkVertexInputBindingDescription bindingDescriptionPos = {};
+    bindingDescriptionPos.binding = 0;
+    bindingDescriptionPos.stride = sizeof(glm::vec4);
+    bindingDescriptionPos.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+    VkVertexInputBindingDescription bindingDescriptionUV = {};
+    bindingDescriptionUV.binding = 1;
+    bindingDescriptionUV.stride = sizeof(glm::vec4);
+    bindingDescriptionUV.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+
+    graphicsPipeline.setVertexBindingDescriptions({ bindingDescriptionPos, bindingDescriptionUV });
+
+    VkVertexInputAttributeDescription attributeDescriptionPos = {};
+    attributeDescriptionPos.binding = 0;
+    attributeDescriptionPos.location = 0;
+    attributeDescriptionPos.format = VK_FORMAT_R32G32_SFLOAT;
+    attributeDescriptionPos.offset = 0;
+
+    VkVertexInputAttributeDescription attributeDescriptionUV = {};
+    attributeDescriptionUV.binding = 0;
+    attributeDescriptionUV.location = 1;
+    attributeDescriptionUV.format = VK_FORMAT_R32G32_SFLOAT;
+    attributeDescriptionUV.offset = sizeof(glm::vec2);
+
+    graphicsPipeline.setVertexAttributeDescriptions({ attributeDescriptionPos, attributeDescriptionUV });
+
     pipelineCache.create();
 
     graphicsPipeline.setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());

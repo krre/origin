@@ -17,9 +17,9 @@ public:
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
     VkDescriptorImageInfo* getDescriptorInfo() { return &descriptorInfo; }
-    setSampler(Sampler* sampler);
-    setImageView(ImageView* imageView);
-    setImageLayout(VkImageLayout imageLayout);
+    void setSampler(Sampler* sampler);
+    void setImageView(ImageView* imageView);
+    void setImageLayout(VkImageLayout imageLayout);
 
 private:
     DeviceMemory memory;

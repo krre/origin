@@ -40,16 +40,16 @@ void Image::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImage(device->getHandle(), handle, nullptr))
 }
 
-Image::setSampler(Sampler* sampler) {
+void Image::setSampler(Sampler* sampler) {
     this->sampler = sampler;
     descriptorInfo.sampler = sampler->getHandle();
 }
 
-Image::setImageView(ImageView* imageView) {
+void Image::setImageView(ImageView* imageView) {
     this->imageView = imageView;
     descriptorInfo.imageView = imageView->getHandle();
 }
 
-Image::setImageLayout(VkImageLayout imageLayout) {
+void Image::setImageLayout(VkImageLayout imageLayout) {
     descriptorInfo.imageLayout = imageLayout;
 }

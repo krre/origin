@@ -21,6 +21,7 @@ DebugHUD::DebugHUD() :
 }
 
 DebugHUD::~DebugHUD() {
+    delete samplerFont;
 }
 
 void DebugHUD::init() {
@@ -28,9 +29,13 @@ void DebugHUD::init() {
 
     sampler.create();
 
+    samplerFont = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+                                         VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, MAX_CHAR_COUNT * sizeof(glm::vec4));
+
     descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
     descriptorPool.create();
 
+    descriptorSetLayout.addLayoutBinding(*samplerFont->getLayoutBinding());
     descriptorSetLayout.create();
 
     ShaderResource* shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextVertShader");

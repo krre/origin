@@ -40,6 +40,7 @@ private:
     Vulkan::Buffer* indexBuffer = nullptr;
     Vulkan::Descriptor* uniformVert = nullptr;
     Vulkan::Descriptor* uniformFrag = nullptr;
+    Vulkan::Descriptor* samplerFont = nullptr;
     Vulkan::Sampler sampler;
 
     Text fps;

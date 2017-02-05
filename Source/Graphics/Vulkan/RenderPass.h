@@ -22,7 +22,8 @@ private:
     VkAttachmentDescription colorAttachment = {};
     VkAttachmentDescription depthAttachment = {};
     VkAttachmentReference colorAttachmentRef = {};
-    VkSubpassDescription subPass = {};
+    VkAttachmentReference depthAttachmentRef = {};
+    VkSubpassDescription subPassDescription = {};
     bool depthEnable = false;
 };
 

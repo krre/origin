@@ -38,15 +38,23 @@ VkResult RenderPass::create() {
     colorAttachmentRef.attachment = 0;
     colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
-    subPass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    subPass.colorAttachmentCount = 1;
-    subPass.pColorAttachments = &colorAttachmentRef;
+    if (depthEnable) {
+        depthAttachmentRef.attachment = 1;
+        depthAttachmentRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+    }
+
+    subPassDescription.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+    subPassDescription.colorAttachmentCount = 1;
+    subPassDescription.pColorAttachments = &colorAttachmentRef;
+    if (depthEnable) {
+        subPassDescription.pDepthStencilAttachment = &depthAttachmentRef;
+    }
 
     createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
     createInfo.attachmentCount = attachments.size();
     createInfo.pAttachments = attachments.data();
     createInfo.subpassCount = 1;
-    createInfo.pSubpasses = &subPass;
+    createInfo.pSubpasses = &subPassDescription;
     return checkError(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
 }
 

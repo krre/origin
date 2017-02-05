@@ -19,7 +19,7 @@
 
 Game::Game() {
     if (Debug::get()->getEnable()) {
-        Debug::get()->setScene();
+        Debug::get()->setDebugScene();
     } else {
         SceneManager::get()->setScene(std::make_shared<MenuScene>());
     }

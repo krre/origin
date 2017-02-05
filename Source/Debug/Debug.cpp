@@ -21,7 +21,7 @@ std::string Debug::getValue(const std::string& key) const {
     return values.at(key);
 }
 
-void Debug::setScene() {
+void Debug::setDebugScene() {
     std::string sceneName = values["scene"];
     if (sceneName.size()) {
         if (sceneName == "menu") {

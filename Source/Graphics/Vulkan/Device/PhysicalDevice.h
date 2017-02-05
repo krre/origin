@@ -16,6 +16,7 @@ public:
     VkPhysicalDeviceFeatures& getFeatures() { return features; }
     VkPhysicalDeviceMemoryProperties& getMemoryProperties() { return memoryProperties; }
     std::vector<VkQueueFamilyProperties>& getQueueFamilyProperties() { return queueFamilyProperties; }
+    VkFormat getSupportedDepthFormat();
 
     uint32_t findQueue(VkQueueFlags flags);
     uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);

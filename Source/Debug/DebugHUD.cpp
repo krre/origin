@@ -113,6 +113,7 @@ void DebugHUD::init() {
 
     renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
 //    renderPass.setDepthFormat();
+    renderPass.setOverlayEnable(true);
     renderPass.create();
 
     buildCommandBuffers();

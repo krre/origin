@@ -15,6 +15,7 @@ public:
     void setColorFormat(VkFormat format);
     void setDepthFormat(VkFormat format);
     void setDepthEnable(bool depthEnable);
+    void setOverlayEnable(bool overlayEnable);
 
 
 private:
@@ -25,6 +26,7 @@ private:
     VkAttachmentReference depthAttachmentRef = {};
     VkSubpassDescription subPassDescription = {};
     bool depthEnable = false;
+    bool overlayEnable = false;
 };
 
 } // Vulkan

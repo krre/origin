@@ -4,14 +4,36 @@ using namespace Vulkan;
 
 RenderPass::RenderPass(const Device* device) :
     Devicer(device) {
-    colorAttachment.format;
+}
+
+RenderPass::~RenderPass() {
+    destroy();
+}
+
+VkResult RenderPass::create() {
+    std::vector<VkAttachmentDescription> attachments;
+
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
-    colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    colorAttachment.loadOp = depthEnable ? VK_ATTACHMENT_LOAD_OP_LOAD : VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
     colorAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     colorAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     colorAttachment.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+
+    attachments.push_back(colorAttachment);
+
+    if (depthEnable) {
+        depthAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
+        depthAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+        depthAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+        depthAttachment.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+        depthAttachment.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+        depthAttachment.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+        depthAttachment.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+
+        attachments.push_back(depthAttachment);
+    }
 
     colorAttachmentRef.attachment = 0;
     colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
@@ -21,17 +43,10 @@ RenderPass::RenderPass(const Device* device) :
     subPass.pColorAttachments = &colorAttachmentRef;
 
     createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    createInfo.attachmentCount = 1;
-    createInfo.pAttachments = &colorAttachment;
+    createInfo.attachmentCount = attachments.size();
+    createInfo.pAttachments = attachments.data();
     createInfo.subpassCount = 1;
     createInfo.pSubpasses = &subPass;
-}
-
-RenderPass::~RenderPass() {
-    destroy();
-}
-
-VkResult RenderPass::create() {
     return checkError(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
 }
 
@@ -39,6 +54,14 @@ void RenderPass::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyRenderPass(device->getHandle(), handle, nullptr))
 }
 
-void RenderPass::setFormat(VkFormat format) {
+void RenderPass::setColorFormat(VkFormat format) {
     colorAttachment.format = format;
+}
+
+void RenderPass::setDepthFormat(VkFormat format) {
+    depthAttachment.format = format;
+}
+
+void RenderPass::setDepthEnable(bool depthEnable) {
+    this->depthEnable = depthEnable;
 }

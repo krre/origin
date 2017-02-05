@@ -12,13 +12,18 @@ public:
     ~RenderPass();
     VkResult create() override;
     void destroy() override;
-    void setFormat(VkFormat format);
+    void setColorFormat(VkFormat format);
+    void setDepthFormat(VkFormat format);
+    void setDepthEnable(bool depthEnable);
+
 
 private:
     VkRenderPassCreateInfo createInfo = {};
     VkAttachmentDescription colorAttachment = {};
+    VkAttachmentDescription depthAttachment = {};
     VkAttachmentReference colorAttachmentRef = {};
     VkSubpassDescription subPass = {};
+    bool depthEnable = false;
 };
 
 } // Vulkan

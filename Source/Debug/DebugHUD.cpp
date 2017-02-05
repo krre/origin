@@ -111,7 +111,8 @@ void DebugHUD::init() {
 
     graphicsPipeline.create();
 
-    renderPass.setFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
+    renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
+//    renderPass.setDepthFormat();
     renderPass.create();
 
     buildCommandBuffers();

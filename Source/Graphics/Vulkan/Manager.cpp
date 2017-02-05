@@ -92,7 +92,7 @@ bool Manager::init() {
     }
 
     renderPass = new RenderPass(device);
-    renderPass->setFormat(surface->getFormat(0).format);
+    renderPass->setColorFormat(surface->getFormat(0).format);
     if (renderPass->create() != VK_SUCCESS) {
         return false;
     }

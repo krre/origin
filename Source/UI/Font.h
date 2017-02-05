@@ -18,6 +18,7 @@ public:
     void setSize(int size);
     int getSize() const { return size; }
     void load(const std::string& path) override;
+    Glyph getGlyph(char character) { return characters[character]; }
 
 private:
     int size = 14;

@@ -148,8 +148,6 @@ void Manager::submit() {
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {
-    PRINT(filePath)
-
     VkImage srcImage = swapchain->getImage(swapchainImageIndex);
 
     uint32_t width = App::get()->getWidth();

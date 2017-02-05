@@ -3,16 +3,21 @@
 #include "../Resource/Resource.h"
 #include "../UI/Font.h"
 #include "../Graphics/Voxel/Octree.h"
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <map>
 
 class ResourceManager : public Singleton<ResourceManager> {
 
 public:
     ResourceManager();
+    ~ResourceManager();
 
     template <typename T> T* getResource(const std::string& name) {
         return static_cast<T*>(resources[name].get());
     }
+
+    FT_Library getFreeTypeHandler() { return ft; }
 
 private:
     void loadAll();
@@ -22,4 +27,6 @@ private:
     std::string shaderPath;
     std::string fontPath;
     std::string octreePath;
+
+    FT_Library ft;
 };

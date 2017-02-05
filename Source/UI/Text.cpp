@@ -1,30 +1,21 @@
 #include "Text.h"
 #include "../Core/App.h"
 #include "../Resource/ResourceManager.h"
-#include <ft2build.h>
-#include FT_FREETYPE_H
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 Text::Text() {
-    /*
     color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-
-    FT_Library ft;
-
-    if (FT_Init_FreeType(&ft)) {
-        ERROR("Could not init freetype library");
-    }
 
     FT_Face face;
 
     std::string fontPath = App::getCurrentPath() + "/Data/Fonts/inconsolatalgc.ttf";
-    if (FT_New_Face(ft, fontPath.c_str(), 0, &face)) {
+    if (FT_New_Face(ResourceManager::get()->getFreeTypeHandler(), fontPath.c_str(), 0, &face)) {
         ERROR("Could not open font " << fontPath);
     }
 
     FT_Set_Pixel_Sizes(face, 0, fontSize);
-
+/*
 //    fontShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("FontShaderGroup");
 //    fontShaderGroup->bind();
     // Disable byte-alignment restriction
@@ -70,11 +61,11 @@ Text::Text() {
 //        characters.insert(std::pair<GLchar, Character>(i, character));
         glBindTexture(GL_TEXTURE_2D, 0);
     }
-
+*/
     // Destroy FreeType once we're finished
     FT_Done_Face(face);
-    FT_Done_FreeType(ft);
-*/
+
+
     // Configure VAO/VBO for texture quads
 //    glGenBuffers(1, &vbo);
 //    glBindBuffer(GL_ARRAY_BUFFER, vbo);

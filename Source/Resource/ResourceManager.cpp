@@ -7,7 +7,16 @@ ResourceManager::ResourceManager() {
     shaderPath = dataPath + "/Shader";
     fontPath = dataPath + "/Font";
     octreePath = dataPath + "/Octree";
+
+    if (FT_Init_FreeType(&ft)) {
+        ERROR("Could not init freetype library");
+    }
+
     loadAll();
+}
+
+ResourceManager::~ResourceManager() {
+    FT_Done_FreeType(ft);
 }
 
 void ResourceManager::loadAll() {

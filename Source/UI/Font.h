@@ -5,14 +5,14 @@
 
 class Font : public Resource {
 
-    struct Character {
+public:
+    struct Glyph {
 //        GLuint textureId;   // ID handle of the glyph texture
         glm::ivec2 size;    // Size of glyph
         glm::ivec2 bearing;  // Offset from baseline to left/top of glyph
         uint32_t advance;    // Horizontal offset to advance to next glyph
     };
 
-public:
     Font();
     ~Font();
     void setSize(int size);
@@ -21,5 +21,5 @@ public:
 
 private:
     int size = 14;
-    std::map<char, Character> characters;
+    std::map<char, Glyph> characters;
 };

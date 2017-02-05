@@ -55,13 +55,13 @@ void Font::load(const std::string& path) {
     //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
             // Now store character for later use
-            Character character = {
+            Glyph character = {
     //            texture,
                 glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
                 glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
                 (uint32_t)face->glyph->advance.x
             };
-            characters.insert(std::pair<char, Character>(i, character));
+            characters.insert(std::pair<char, Glyph>(i, character));
     //        glBindTexture(GL_TEXTURE_2D, 0);
         }
 

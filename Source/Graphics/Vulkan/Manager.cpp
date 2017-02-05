@@ -91,7 +91,8 @@ bool Manager::init() {
         imageViews.push_back(imageView);
     }
 
-    renderPass = new RenderPass(device, surface);
+    renderPass = new RenderPass(device);
+    renderPass->setFormat(surface->getFormat(0).format);
     if (renderPass->create() != VK_SUCCESS) {
         return false;
     }

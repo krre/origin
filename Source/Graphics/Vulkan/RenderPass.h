@@ -8,13 +8,13 @@ namespace Vulkan {
 class RenderPass : public Handle<VkRenderPass>, public Devicer {
 
 public:
-    RenderPass(const Device* device, const Surface* surface);
+    RenderPass(const Device* device);
     ~RenderPass();
     VkResult create() override;
     void destroy() override;
+    void setFormat(VkFormat format);
 
 private:
-    const Surface* surface;
     VkRenderPassCreateInfo createInfo = {};
     VkAttachmentDescription colorAttachment = {};
     VkAttachmentReference colorAttachmentRef = {};

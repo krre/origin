@@ -2,10 +2,9 @@
 
 using namespace Vulkan;
 
-RenderPass::RenderPass(const Device* device, const Surface* surface) :
-    Devicer(device),
-    surface(surface) {
-    colorAttachment.format = surface->getFormat(0).format;
+RenderPass::RenderPass(const Device* device) :
+    Devicer(device) {
+    colorAttachment.format;
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;
     colorAttachment.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachment.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -38,4 +37,8 @@ VkResult RenderPass::create() {
 
 void RenderPass::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyRenderPass(device->getHandle(), handle, nullptr))
+}
+
+void RenderPass::setFormat(VkFormat format) {
+    colorAttachment.format = format;
 }

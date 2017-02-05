@@ -1,13 +1,25 @@
 #pragma once
 #include "../Resource/Resource.h"
+#include <map>
+#include <glm/glm.hpp>
 
 class Font : public Resource {
 
+    struct Character {
+//        GLuint textureId;   // ID handle of the glyph texture
+        glm::ivec2 size;    // Size of glyph
+        glm::ivec2 bearing;  // Offset from baseline to left/top of glyph
+        uint32_t advance;    // Horizontal offset to advance to next glyph
+    };
+
 public:
     Font();
+    ~Font();
     void setSize(int size);
     int getSize() const { return size; }
+    void load(const std::string& path) override;
 
 private:
-    int size;
+    int size = 14;
+    std::map<char, Character> characters;
 };

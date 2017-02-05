@@ -6,75 +6,7 @@
 
 Text::Text() {
     color = glm::vec4(1.0, 1.0, 1.0, 1.0);
-
-    FT_Face face;
-
-    std::string fontPath = App::getCurrentPath() + "/Data/Fonts/inconsolatalgc.ttf";
-    if (FT_New_Face(ResourceManager::get()->getFreeTypeHandler(), fontPath.c_str(), 0, &face)) {
-        ERROR("Could not open font " << fontPath);
-    }
-
-    FT_Set_Pixel_Sizes(face, 0, fontSize);
-/*
-//    fontShaderGroup = ResourceManager::get()->getResource<ShaderGroup>("FontShaderGroup");
-//    fontShaderGroup->bind();
-    // Disable byte-alignment restriction
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
-    // Load first 128 characters of ASCII set
-    for (GLubyte i = 0; i < 128; i++) {
-        // Load character glyph
-        if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
-            ERROR("ERROR::FREETYTPE: Failed to load Glyph");
-            continue;
-        }
-
-        // Generate texture
-        GLuint texture;
-        glGenTextures(1, &texture);
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glTexImage2D(
-            GL_TEXTURE_2D,
-            0,
-            GL_RED,
-            face->glyph->bitmap.width,
-            face->glyph->bitmap.rows,
-            0,
-            GL_RED,
-            GL_UNSIGNED_BYTE,
-            face->glyph->bitmap.buffer
-        );
-
-        // Set texture options
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        // Now store character for later use
-        Character character = {
-//            texture,
-            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-            glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-//            (GLuint)face->glyph->advance.x
-        };
-//        characters.insert(std::pair<GLchar, Character>(i, character));
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
-*/
-    // Destroy FreeType once we're finished
-    FT_Done_Face(face);
-
-
-    // Configure VAO/VBO for texture quads
-//    glGenBuffers(1, &vbo);
-//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
-
-//    glGenVertexArrays(1, &vao);
-//    glBindVertexArray(vao);
-//    glEnableVertexAttribArray(0);
-//    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+    setFont(ResourceManager::get()->getResource<Font>("IconsolataFont"));
 }
 
 void Text::setText(const std::string& text) {
@@ -91,10 +23,6 @@ void Text::setColor(const glm::vec4& color) {
 
 void Text::setScale(float scale) {
     this->scale = scale;
-}
-
-void Text::setFontSize(int fontSize) {
-    this->fontSize = fontSize;
 }
 
 void Text::draw(float dt) {

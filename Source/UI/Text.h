@@ -1,16 +1,8 @@
 #pragma once
 #include "Control.h"
 #include "Font.h"
-#include <map>
 
 class Text : public Control {
-
-    struct Character {
-//        GLuint textureId;   // ID handle of the glyph texture
-        glm::ivec2 size;    // Size of glyph
-        glm::ivec2 bearing;  // Offset from baseline to left/top of glyph
-//        GLuint advance;    // Horizontal offset to advance to next glyph
-    };
 
 public:
     Text();
@@ -36,9 +28,4 @@ private:
     Font* font;
     glm::vec4 color;
     float scale = 1.0;
-//    std::map<GLchar, Character> characters;
-//    GLuint vao;
-//    GLuint vbo;
-    int fontSize = 14;
-//    ShaderGroup* fontShaderGroup;
 };

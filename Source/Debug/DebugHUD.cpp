@@ -16,7 +16,8 @@ DebugHUD::DebugHUD() :
     descriptorSetLayout(device),
     pipelineLayout(device),
     pipelineCache(device),
-    graphicsPipeline(device) {
+    graphicsPipeline(device),
+    renderPass(device) {
     visible = false;
 }
 
@@ -110,6 +111,9 @@ void DebugHUD::init() {
 
     graphicsPipeline.create();
 
+    renderPass.setFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
+    renderPass.create();
+
     buildCommandBuffers();
 }
 
@@ -200,7 +204,7 @@ void DebugHUD::buildCommandBuffers() {
 
     VkRenderPassBeginInfo renderPassInfo = {};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    renderPassInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
+    renderPassInfo.renderPass = renderPass.getHandle();
     renderPassInfo.renderArea.offset = { 0, 0 };
     renderPassInfo.renderArea.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
     renderPassInfo.clearValueCount = 1;

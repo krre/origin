@@ -27,6 +27,10 @@ void GraphicsPipeline::setVertexAttributeDescriptions(const std::vector<VkVertex
     vertexInputInfo.pVertexAttributeDescriptions = this->vertexAttributeDescriptions.data();
 }
 
+void GraphicsPipeline::setBlendEnable(bool blendEnable) {
+    this->blendEnable = blendEnable;
+}
+
 VkResult GraphicsPipeline::create() {
     VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
     inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -69,7 +73,17 @@ VkResult GraphicsPipeline::create() {
 
     VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
     colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    colorBlendAttachment.blendEnable = VK_FALSE;
+    if (blendEnable) {
+        colorBlendAttachment.blendEnable = VK_TRUE;
+        colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
+        colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE;
+        colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
+        colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+        colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+        colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+    } else {
+        colorBlendAttachment.blendEnable = VK_FALSE;
+    }
 
     VkPipelineColorBlendStateCreateInfo colorBlending = {};
     colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;

@@ -12,6 +12,7 @@ public:
     void setRenderPass(const RenderPass* renderPass);
     void setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions);
     void setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions);
+    void setBlendEnable(bool blendEnable);
     VkResult create() override;
 
 private:
@@ -21,6 +22,7 @@ private:
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     VkExtent2D extent;
+    bool blendEnable = false;
 };
 
 } // Vulkan

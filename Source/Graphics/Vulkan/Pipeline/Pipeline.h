@@ -13,7 +13,7 @@ public:
     Pipeline(const Device* device) : Devicer(device) {}
     ~Pipeline();
     void destroy() override;
-    VkResult addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const std::string& entryPoint = "main");
+    VkResult addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint = "main");
     void setPipelineLayout(const PipelineLayout* pipelineLayout);
     void setPipelineCache(const PipelineCache* pipelineCache);
 

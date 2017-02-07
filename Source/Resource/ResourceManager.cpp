@@ -1,6 +1,6 @@
+#include "../Core/App.h"
 #include "ResourceManager.h"
 #include "ShaderResource.h"
-#include "../Core/App.h"
 
 ResourceManager::ResourceManager() {
     dataPath = App::getCurrentPath() + "/Data";

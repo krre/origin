@@ -4,6 +4,7 @@
 #include "../UI/Font.h"
 #include "../Graphics/Voxel/Octree.h"
 #include <ft2build.h>
+#undef HAVE_STDINT_H
 #include FT_FREETYPE_H
 #include <map>
 

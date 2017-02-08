@@ -2,6 +2,8 @@
 #include "../Resource/Resource.h"
 #include <map>
 #include <glm/glm.hpp>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 class Font : public Resource {
 
@@ -23,4 +25,5 @@ public:
 private:
     int size = 14;
     std::map<char, Glyph> characters;
+    FT_Face face;
 };

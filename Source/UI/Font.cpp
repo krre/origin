@@ -1,28 +1,20 @@
 #include "Font.h"
 #include "../Resource/ResourceManager.h"
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 Font::Font() {
 
 }
 
 Font::~Font() {
-
+//    FT_Done_Face(face);
 }
 
 void Font::setSize(int size) {
     this->size = size;
-}
-
-void Font::load(const std::string& path) {
-    FT_Face face;
-
-    if (FT_New_Face(ResourceManager::get()->getFreeTypeHandler(), path.c_str(), 0, &face)) {
-        ERROR("Could not open font " << path);
-    }
 
     FT_Set_Pixel_Sizes(face, 0, size);
+
+    characters.clear();
 
         // Load first 128 characters of ASCII set
         for (uint8_t i = 0; i < 128; i++) {
@@ -74,6 +66,14 @@ void Font::load(const std::string& path) {
     //    glBindVertexArray(vao);
     //    glEnableVertexAttribArray(0);
     //    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+}
 
-    FT_Done_Face(face);
+void Font::load(const std::string& path) {
+
+    if (FT_New_Face(ResourceManager::get()->getFreeTypeHandler(), path.c_str(), 0, &face)) {
+        ERROR("Could not open font " << path);
+        return;
+    }
+
+    setSize(14);
 }

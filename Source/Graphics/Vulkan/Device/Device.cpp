@@ -43,7 +43,8 @@ void Device::waitForFences(std::vector<VkFence> fences) {
 }
 
 VkResult Device::create() {
-    return checkError(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
+    CHECK_RESULT(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
+    return result;
 }
 
 void Device::destroy() {

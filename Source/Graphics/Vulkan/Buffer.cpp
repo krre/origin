@@ -54,7 +54,7 @@ Buffer::~Buffer() {
 }
 
 VkResult Buffer::create() {
-    VkResult result = checkError(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create buffer");
+    CHECK_RESULT(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create buffer");
     descriptorInfo.buffer = handle;
     descriptorInfo.offset = 0;
     descriptorInfo.range = createInfo.size;

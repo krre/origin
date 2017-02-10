@@ -12,8 +12,8 @@ public:
     void setFont(Font* font);
     Font* getFont() const { return font; }
 
-    void setColor(const glm::vec4& color);
-    glm::vec4 getColor() const { return color; }
+    void setColor(const glm::vec3& color);
+    glm::vec3 getColor() const { return color; }
 
     void setScale(float scale);
     float getScale() const { return scale; }
@@ -26,6 +26,6 @@ public:
 private:
     std::string text;
     Font* font;
-    glm::vec4 color;
+    glm::vec3 color;
     float scale = 1.0;
 };

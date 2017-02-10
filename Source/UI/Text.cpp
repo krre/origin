@@ -17,7 +17,7 @@ void Text::setFont(Font* font) {
     this->font = font;
 }
 
-void Text::setColor(const glm::vec4& color) {
+void Text::setColor(const glm::vec3& color) {
     this->color = color;
 }
 

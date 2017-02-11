@@ -5,7 +5,6 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Text::Text() {
-    color = glm::vec4(1.0, 1.0, 1.0, 1.0);
     setFont(ResourceManager::get()->getResource<Font>("IconsolataFont"));
 }
 

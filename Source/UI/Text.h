@@ -26,6 +26,6 @@ public:
 private:
     std::string text;
     Font* font;
-    glm::vec3 color;
+    glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
     float scale = 1.0;
 };

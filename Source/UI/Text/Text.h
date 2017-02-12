@@ -1,5 +1,5 @@
 #pragma once
-#include "Control.h"
+#include "../Control.h"
 #include "Font.h"
 
 class Text : public Control {

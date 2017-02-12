@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Singleton.h"
 #include "../Resource/Resource.h"
-#include "../UI/Font.h"
+#include "../UI/Text/Font.h"
 #include "../Graphics/Voxel/Octree.h"
 #include <ft2build.h>
 #undef HAVE_STDINT_H

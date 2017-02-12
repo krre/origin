@@ -1,6 +1,6 @@
 #pragma once
 #include "Rectangle.h"
-#include "Text.h"
+#include "Text/Text.h"
 #include <SDL.h>
 
 class Button : public Rectangle {

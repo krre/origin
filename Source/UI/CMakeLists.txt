@@ -1,19 +1,17 @@
+add_subdirectory(Text)
+
 set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Font.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Font.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Layout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Layout.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Text.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Text.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Viewport.cpp

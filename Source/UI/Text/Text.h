@@ -18,8 +18,6 @@ public:
     void setScale(float scale);
     float getScale() const { return scale; }
 
-    void setFontSize(int fontSize);
-
     void draw(float dt) override;
     void update(float dt) override;
 

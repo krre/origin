@@ -15,6 +15,9 @@ public:
     int getHeight() const { return height; }
     void setHeight(int height);
 
+    void setScale(float scale);
+    float getScale() const { return scale; }
+
     void resize(int width, int height);
 
     float getZ() const { return z; }
@@ -24,5 +27,6 @@ protected:
     glm::vec2 position;
     int width;
     int height;
+    float scale = 1.0;
     float z = 0.0f;
 };

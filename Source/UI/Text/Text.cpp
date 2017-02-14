@@ -20,10 +20,6 @@ void Text::setColor(const glm::vec3& color) {
     this->color = color;
 }
 
-void Text::setScale(float scale) {
-    this->scale = scale;
-}
-
 void Text::draw(float dt) {
 //    glEnable(GL_BLEND);
 //    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

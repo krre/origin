@@ -15,9 +15,6 @@ public:
     void setColor(const glm::vec3& color);
     glm::vec3 getColor() const { return color; }
 
-    void setScale(float scale);
-    float getScale() const { return scale; }
-
     void draw(float dt) override;
     void update(float dt) override;
 
@@ -25,5 +22,4 @@ private:
     std::string text;
     Font* font;
     glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
-    float scale = 1.0;
 };

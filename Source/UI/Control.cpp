@@ -16,6 +16,10 @@ void Control::setHeight(int height) {
     this->height = height;
 }
 
+void Control::setScale(float scale) {
+    this->scale = scale;
+}
+
 void Control::resize(int width, int height) {
     this->width = width;
     this->height = height;

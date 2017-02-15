@@ -10,6 +10,7 @@ Text::Text() {
 
 void Text::setText(const std::string& text) {
     this->text = text;
+    updateTextData();
 }
 
 void Text::setFont(Font* font) {
@@ -75,5 +76,9 @@ void Text::draw(float dt) {
 }
 
 void Text::update(float dt) {
+
+}
+
+void Text::updateTextData() {
 
 }

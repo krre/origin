@@ -1,8 +1,8 @@
 #pragma once
 #include "../Core/Object.h"
 
-class Universe : public Object {
+class World : public Object {
 
 public:
-    Universe();
+    World();
 };

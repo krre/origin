@@ -4,7 +4,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Earth.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ProceduralObject.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ProceduralObject.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Universe.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Universe.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/World.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/World.h
     PARENT_SCOPE
 )

@@ -21,8 +21,8 @@ ResourceManager::~ResourceManager() {
 
 void ResourceManager::loadAll() {
     // Fonts
-    resources["IconsolataFont"] = std::make_shared<Font>();
-    resources["IconsolataFont"]->load(fontPath + "/inconsolatalgc.ttf");
+    resources["InconsolataFont"] = std::make_shared<Font>();
+    resources["InconsolataFont"]->load(fontPath + "/inconsolatalgc.ttf");
 
     // Octrees
     resources["GroundOctree"] = std::make_shared<Octree>();

@@ -7,7 +7,7 @@ add_subdirectory(Process)
 add_subdirectory(Resource)
 add_subdirectory(Scene)
 add_subdirectory(UI)
-add_subdirectory(Universe)
+add_subdirectory(World)
 
 set(SOURCES
     ${SOURCES}

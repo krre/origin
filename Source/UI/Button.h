@@ -9,7 +9,7 @@ public:
     Button();
     ~Button();
     void setText(const std::string& text);
-    std::string getText() const { return text; }
+    std::string getText() const { return labelText.getText(); }
 
     Nano::Signal<void()> clicked;
 
@@ -18,6 +18,5 @@ protected:
 
 private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
-    std::string text;
     Text labelText;
 };

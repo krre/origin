@@ -18,6 +18,8 @@ public:
         return static_cast<T*>(resources[name].get());
     }
 
+    template <typename T> T* load(const std::string& path) {}
+
     FT_Library getFreeTypeHandler() { return ft; }
 
 private:

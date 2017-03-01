@@ -18,7 +18,10 @@ public:
         return static_cast<T*>(resources[name].get());
     }
 
-    template <typename T> T* load(const std::string& path) {}
+    template <typename T> T* load(const std::string& path) {
+        auto fullPath = dataPath + "/" + path;
+
+    }
 
     FT_Library getFreeTypeHandler() { return ft; }
 

@@ -28,9 +28,6 @@ void ResourceManager::loadAll() {
     resources["GroundOctree"] = std::make_shared<Octree>();
     resources["GroundOctree"]->load(octreePath + "/Ground.json");
 
-    resources["ChamomileOctree"] = std::make_shared<Octree>();
-    resources["ChamomileOctree"]->load(octreePath + "/Chamomile.json");
-
     // Shaders
     resources["BaseVertShader"] = std::make_shared<ShaderResource>();
     resources["BaseVertShader"]->load(shaderPath + "/Base.vert.spv");

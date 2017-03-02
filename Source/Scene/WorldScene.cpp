@@ -308,7 +308,7 @@ void WorldScene::create() {
     transformSystem->setScale(chamomile1.get(), 0.04);
     transformSystem->setPosition(chamomile1.get(), glm::vec3(0.2, -0.22, 0.2));
     OctreeComponent* chamomile1Octree = static_cast<OctreeComponent*>(chamomile1->components[ComponentType::Octree].get());
-    chamomile1Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
+    chamomile1Octree->data = ResourceManager::get()->load<Octree>("Octree/Chamomile.json")->data();
     EntityManager::get()->addEntity(chamomile1);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile1.get(), octreeBuffer);
 
@@ -316,7 +316,7 @@ void WorldScene::create() {
     transformSystem->setScale(chamomile2.get(), 0.04);
     transformSystem->setPosition(chamomile2.get(), glm::vec3(-0.3, -0.22, 1.3));
     OctreeComponent* chamomile2Octree = static_cast<OctreeComponent*>(chamomile2->components[ComponentType::Octree].get());
-    chamomile2Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
+    chamomile2Octree->data = ResourceManager::get()->load<Octree>("Octree/Chamomile.json")->data();;
     EntityManager::get()->addEntity(chamomile2);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile2.get(), octreeBuffer);
 
@@ -324,7 +324,7 @@ void WorldScene::create() {
     transformSystem->setScale(chamomile3.get(), 0.04);
     transformSystem->setPosition(chamomile3.get(), glm::vec3(0.4, -0.22, 1.0));
     OctreeComponent* chamomile3Octree = static_cast<OctreeComponent*>(chamomile3->components[ComponentType::Octree].get());
-    chamomile3Octree->data = ResourceManager::get()->getResource<Octree>("ChamomileOctree")->data();
+    chamomile3Octree->data = ResourceManager::get()->load<Octree>("Octree/Chamomile.json")->data();;
     EntityManager::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 

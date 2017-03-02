@@ -28,9 +28,6 @@ void ResourceManager::loadAll() {
     resources["GroundOctree"] = std::make_shared<Octree>();
     resources["GroundOctree"]->load(octreePath + "/Ground.json");
 
-    resources["TreeOctree"] = std::make_shared<Octree>();
-    resources["TreeOctree"]->load(octreePath + "/Tree.json");
-
     resources["ChamomileOctree"] = std::make_shared<Octree>();
     resources["ChamomileOctree"]->load(octreePath + "/Chamomile.json");
 

@@ -271,7 +271,7 @@ void WorldScene::create() {
     phisicsSystem->addRigidBody(tree1.get());
 
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
-    tree1Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
+    tree1Octree->data = ResourceManager::get()->load<Octree>("Octree/Tree.json")->data();
     EntityManager::get()->addEntity(tree1);
     octreeSystem->getGpuMemoryManager()->addEntity(tree1.get(), octreeBuffer);
 
@@ -285,7 +285,7 @@ void WorldScene::create() {
     phisicsSystem->addRigidBody(tree2.get());
 
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
-    tree2Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
+    tree2Octree->data = ResourceManager::get()->getResource<Octree>("Octree/Tree.json")->data();
     EntityManager::get()->addEntity(tree2);
     octreeSystem->getGpuMemoryManager()->addEntity(tree2.get(), octreeBuffer);
 
@@ -299,7 +299,7 @@ void WorldScene::create() {
     phisicsSystem->addRigidBody(tree3.get());
 
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
-    tree3Octree->data = ResourceManager::get()->getResource<Octree>("TreeOctree")->data();
+    tree3Octree->data = ResourceManager::get()->load<Octree>("Octree/Tree.json")->data();
     EntityManager::get()->addEntity(tree3);
     octreeSystem->getGpuMemoryManager()->addEntity(tree3.get(), octreeBuffer);
 

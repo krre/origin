@@ -18,19 +18,5 @@ ResourceManager::~ResourceManager() {
 }
 
 void ResourceManager::loadAll() {
-    // Shaders
-    resources["BaseVertShader"] = std::make_shared<ShaderResource>();
-    resources["BaseVertShader"]->load(shaderPath + "/Base.vert.spv");
-    resources["BaseFragShader"] = std::make_shared<ShaderResource>();
-    resources["BaseFragShader"]->load(shaderPath + "/Base.frag.spv");
 
-    resources["TextVertShader"] = std::make_shared<ShaderResource>();
-    resources["TextVertShader"]->load(shaderPath + "/Text.vert.spv");
-    resources["TextFragShader"] = std::make_shared<ShaderResource>();
-    resources["TextFragShader"]->load(shaderPath + "/Text.frag.spv");
-
-    resources["VoxelVertShader"] = std::make_shared<ShaderResource>();
-    resources["VoxelVertShader"]->load(shaderPath + "/Voxel.vert.spv");
-    resources["VoxelFragShader"] = std::make_shared<ShaderResource>();
-    resources["VoxelFragShader"]->load(shaderPath + "/Voxel.frag.spv");
 }

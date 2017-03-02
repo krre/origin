@@ -69,10 +69,10 @@ void DebugHUD::init() {
     descriptorSets->addDescriptor(samplerFont);
     descriptorSets->writeDescriptors();
 
-    ShaderResource* shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextVertShader");
+    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Text.vert.spv");
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
-    shaderResource = ResourceManager::get()->getResource<ShaderResource>("TextFragShader");
+    shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Text.frag.spv");;
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
 
     VkVertexInputBindingDescription bindingDescriptionPos = {};

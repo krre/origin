@@ -5,7 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Text::Text() {
-    setFont(ResourceManager::get()->getResource<Font>("InconsolataFont"));
+    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf"));
 }
 
 void Text::setText(const std::string& text) {

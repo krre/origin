@@ -19,10 +19,6 @@ ResourceManager::~ResourceManager() {
 }
 
 void ResourceManager::loadAll() {
-    // Fonts
-    resources["InconsolataFont"] = std::make_shared<Font>();
-    resources["InconsolataFont"]->load(fontPath + "/inconsolatalgc.ttf");
-
     // Shaders
     resources["BaseVertShader"] = std::make_shared<ShaderResource>();
     resources["BaseVertShader"]->load(shaderPath + "/Base.vert.spv");

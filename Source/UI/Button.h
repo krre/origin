@@ -1,6 +1,6 @@
 #pragma once
 #include "Rectangle.h"
-#include "Text/Text.h"
+#include "Text/Label.h"
 #include <SDL.h>
 
 class Button : public Rectangle {
@@ -18,5 +18,5 @@ protected:
 
 private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
-    Text labelText;
+    Label labelText;
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include "../Graphics/Drawable.h"
-#include "../UI/Text/Text.h"
+#include "../UI/Text/Label.h"
 #include <SDL.h>
 
 class Console : public Origin::Drawable {
@@ -15,5 +15,5 @@ private:
     void onWindowResize(int width, int height);
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void execute();
-    Text cmdLine;
+    Label cmdLine;
 };

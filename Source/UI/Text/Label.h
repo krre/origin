@@ -2,10 +2,10 @@
 #include "../Control.h"
 #include "Font.h"
 
-class Text : public Control {
+class Label : public Control {
 
 public:
-    Text();
+    Label();
     void setText(const std::string& text);
     std::string getText() const { return text; }
 

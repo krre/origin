@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Singleton.h"
 #include "../Scene/Scene2D.h"
-#include "../UI/Text/Text.h"
+#include "../UI/Text/Label.h"
 #include "../UI/LinearLayout.h"
 #include "../Event/Event.h"
 #include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
@@ -46,15 +46,15 @@ private:
     Vulkan::ImageView* samplerImageView = nullptr;
     Vulkan::Image* samplerImage = nullptr;
 
-    Text fps;
-    Text version;
-    Text vulkan;
-    Text vendor;
-    Text cpuCount;
-    Text systemRAM;
-    Text posX;
-    Text posY;
-    Text posZ;
+    Label fps;
+    Label version;
+    Label vulkan;
+    Label vendor;
+    Label cpuCount;
+    Label systemRAM;
+    Label posX;
+    Label posY;
+    Label posZ;
     float accumTime = 0.5;
     int counter = 30;
     uint32_t numLetters = 0;

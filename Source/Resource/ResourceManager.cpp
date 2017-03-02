@@ -5,7 +5,6 @@
 ResourceManager::ResourceManager() {
     dataPath = App::getCurrentPath() + "/Data";
     shaderPath = dataPath + "/Shader";
-    fontPath = dataPath + "/Fonts";
 
     if (FT_Init_FreeType(&ft)) {
         ERROR("Could not init freetype library");

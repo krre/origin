@@ -36,7 +36,6 @@ private:
     std::map<std::string, std::shared_ptr<Resource>> resources;
     std::string dataPath;
     std::string shaderPath;
-    std::string fontPath;
 
     FT_Library ft;
 };

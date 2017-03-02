@@ -285,7 +285,7 @@ void WorldScene::create() {
     phisicsSystem->addRigidBody(tree2.get());
 
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
-    tree2Octree->data = ResourceManager::get()->getResource<Octree>("Octree/Tree.json")->data();
+    tree2Octree->data = ResourceManager::get()->load<Octree>("Octree/Tree.json")->data();
     EntityManager::get()->addEntity(tree2);
     octreeSystem->getGpuMemoryManager()->addEntity(tree2.get(), octreeBuffer);
 

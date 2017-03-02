@@ -14,10 +14,6 @@ public:
     ResourceManager();
     ~ResourceManager();
 
-    template <typename T> T* getResource(const std::string& name) {
-        return static_cast<T*>(resources[name].get());
-    }
-
     template <typename T> T* load(const std::string& path) {
         auto it = resources.find(path);
         if (it == resources.end()) {

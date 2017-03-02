@@ -256,7 +256,7 @@ void WorldScene::create() {
     transformSystem->setScale(ground.get(), 5);
     transformSystem->setPosition(ground.get(), glm::vec3(0.0, 1.0, 0.0));
     OctreeComponent* groundOctree = static_cast<OctreeComponent*>(ground->components[ComponentType::Octree].get());
-    groundOctree->data = ResourceManager::get()->getResource<Octree>("GroundOctree")->data();
+    groundOctree->data = ResourceManager::get()->load<Octree>("Octree/Ground.json")->data();
     EntityManager::get()->addEntity(ground);
     octreeSystem->getGpuMemoryManager()->addEntity(ground.get(), octreeBuffer);
 

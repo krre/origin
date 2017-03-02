@@ -24,10 +24,6 @@ void ResourceManager::loadAll() {
     resources["InconsolataFont"] = std::make_shared<Font>();
     resources["InconsolataFont"]->load(fontPath + "/inconsolatalgc.ttf");
 
-    // Octrees
-    resources["GroundOctree"] = std::make_shared<Octree>();
-    resources["GroundOctree"]->load(octreePath + "/Ground.json");
-
     // Shaders
     resources["BaseVertShader"] = std::make_shared<ShaderResource>();
     resources["BaseVertShader"]->load(shaderPath + "/Base.vert.spv");

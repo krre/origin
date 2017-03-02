@@ -19,8 +19,13 @@ public:
     }
 
     template <typename T> T* load(const std::string& path) {
-        auto fullPath = dataPath + "/" + path;
+        auto it = resources.find(path);
+        if (it == resources.end()) {
+            resources[path] = std::make_shared<T>();
+            resources[path]->load(dataPath + "/" + path);
+        }
 
+        return static_cast<T*>(resources[path].get());
     }
 
     FT_Library getFreeTypeHandler() { return ft; }

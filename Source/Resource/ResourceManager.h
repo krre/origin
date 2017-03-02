@@ -37,7 +37,6 @@ private:
     std::string dataPath;
     std::string shaderPath;
     std::string fontPath;
-    std::string octreePath;
 
     FT_Library ft;
 };

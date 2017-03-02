@@ -8,14 +8,9 @@ ResourceManager::ResourceManager() {
     if (FT_Init_FreeType(&ft)) {
         ERROR("Could not init freetype library");
     }
-
-    loadAll();
 }
 
 ResourceManager::~ResourceManager() {
     FT_Done_FreeType(ft);
 }
 
-void ResourceManager::loadAll() {
-
-}

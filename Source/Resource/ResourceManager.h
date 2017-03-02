@@ -31,8 +31,6 @@ public:
     FT_Library getFreeTypeHandler() { return ft; }
 
 private:
-    void loadAll();
-
     std::map<std::string, std::shared_ptr<Resource>> resources;
     std::string dataPath;
     FT_Library ft;

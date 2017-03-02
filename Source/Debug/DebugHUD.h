@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Singleton.h"
 #include "../Scene/Scene2D.h"
-#include "../UI/Text/Label.h"
+#include "../UI/Label.h"
 #include "../UI/LinearLayout.h"
 #include "../Event/Event.h"
 #include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"

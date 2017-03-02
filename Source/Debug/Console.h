@@ -1,6 +1,6 @@
 #pragma once
 #include "../Graphics/Drawable.h"
-#include "../UI/Text/Label.h"
+#include "../UI/Label.h"
 #include <SDL.h>
 
 class Console : public Origin::Drawable {

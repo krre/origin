@@ -18,9 +18,10 @@ public:
     VkResult create() override;
     void destroy() override;
 
+    VkDebugReportCallbackCreateInfoEXT createInfo = {};
+
 private:
     const Instance* instance;
-    VkDebugReportCallbackCreateInfoEXT createInfo = {};
     PFN_vkCreateDebugReportCallbackEXT pfnCreateDebugReportCallback;
     PFN_vkDestroyDebugReportCallbackEXT pfnDestroyDebugReportCallback;
 };

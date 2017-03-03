@@ -12,9 +12,10 @@ public:
     ~CommandBuffers();
     bool allocate(uint32_t count);
 
+    VkCommandBufferAllocateInfo allocateInfo = {};
+
 private:
     const CommandPool* commandPool;
-    VkCommandBufferAllocateInfo allocateInfo = {};
 };
 
 } // Vulkan

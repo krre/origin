@@ -10,7 +10,6 @@ public:
     ~ComputePipeline();
     VkResult create() override;
 
-private:
     VkComputePipelineCreateInfo createInfo = {};
 };
 

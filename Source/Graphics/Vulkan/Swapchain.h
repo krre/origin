@@ -17,9 +17,10 @@ public:
     VkExtent2D getExtent() const { return extent; }
     int getImageCount() const { return images.size(); }
 
+    VkSwapchainCreateInfoKHR createInfo = {};
+
 private:
     const Surface* surface;
-    VkSwapchainCreateInfoKHR createInfo = {};
     std::vector<VkImage> images;
     VkExtent2D extent;
 };

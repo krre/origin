@@ -6,5 +6,4 @@ class Resource : public Object {
 public:
     Resource();
     virtual void load(const std::string& path) {}
-    virtual void release() {}
 };

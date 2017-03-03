@@ -17,8 +17,9 @@ public:
     void setDepthEnable(bool depthEnable);
     void setOverlayEnable(bool overlayEnable);
 
-private:
     VkRenderPassCreateInfo createInfo = {};
+
+private:
     VkAttachmentDescription colorAttachment = {};
     VkAttachmentDescription depthAttachment = {};
     VkAttachmentReference colorAttachmentRef = {};

@@ -16,7 +16,6 @@ public:
     VkResult map(VkDeviceSize count, VkDeviceSize offset, void** data);
     void unmap();
 
-private:
     VkMemoryAllocateInfo allocateInfo = {};
 };
 

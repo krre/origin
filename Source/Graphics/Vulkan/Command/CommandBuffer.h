@@ -22,8 +22,9 @@ public:
     void pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
     void setViewport(uint32_t firstViewport);
 
-private:
     VkCommandBufferBeginInfo beginInfo = {};
+
+private:
     std::vector<VkViewport> viewports;
 };
 

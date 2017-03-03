@@ -19,8 +19,9 @@ public:
     void setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers);
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
 
-private:
     VkSubmitInfo submitInfo = {};
+
+private:
     std::vector<VkSemaphore> signalSemaphores;
     std::vector<VkPipelineStageFlags> waitDstStageMask;
     std::vector<VkCommandBuffer> commandBuffers;

@@ -27,9 +27,10 @@ public:
     void setEnabledExtensions(const std::vector<const char*> enabledExtensions);
     void dumpExtensions();
 
-private:
     VkApplicationInfo applicationInfo = {};
     VkInstanceCreateInfo createInfo = {};
+
+private:
     std::vector<VkLayerProperties> layers;
     std::vector<const char*> enabledLayers;
     std::vector<VkExtensionProperties> extensions;

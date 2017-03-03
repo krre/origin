@@ -14,8 +14,9 @@ public:
     void destroy() override;
     void addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout);
 
-private:
     VkPipelineLayoutCreateInfo createInfo = {};
+
+private:
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
 };
 

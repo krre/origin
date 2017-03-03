@@ -14,9 +14,10 @@ public:
     VkResult create() override;
     void destroy() override;
 
+    VkFramebufferCreateInfo createInfo = {};
+
 private:
     ImageView* imageView;
-    VkFramebufferCreateInfo createInfo = {};
 };
 
 } // Vulkan

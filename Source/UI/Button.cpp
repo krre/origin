@@ -11,14 +11,14 @@ Button::~Button() {
 }
 
 void Button::setText(const std::string &text) {
-    labelText.setText(text);
-    labelText.setZ(1.0f);
+    label.setText(text);
+    label.setZ(1.0f);
 }
 
 void Button::draw(float dt) {
     Rectangle::draw(dt);
-    labelText.setPosition(glm::vec2(position.x + 10, position.y + 15));
-    labelText.draw(dt);
+    label.setPosition(glm::vec2(position.x + 10, position.y + 15));
+    label.draw(dt);
 }
 
 void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {

@@ -23,10 +23,11 @@ public:
     void setImageView(ImageView* imageView);
     void setImageLayout(VkImageLayout imageLayout);
 
-private:
-    DeviceMemory memory;
     VkImageCreateInfo createInfo = {};
     VkDescriptorImageInfo descriptorInfo = {};
+
+private:
+    DeviceMemory memory;
     Sampler* sampler = nullptr;
     ImageView* imageView = nullptr;
 };

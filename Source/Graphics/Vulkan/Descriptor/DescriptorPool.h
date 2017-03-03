@@ -15,8 +15,9 @@ public:
     void destroy() override;
     void setMaxSets(uint32_t maxSets);
 
-private:
     VkDescriptorPoolCreateInfo createInfo = {};
+
+private:
     std::vector<VkDescriptorPoolSize> poolSizes;
     uint32_t maxSets = 0;
 };

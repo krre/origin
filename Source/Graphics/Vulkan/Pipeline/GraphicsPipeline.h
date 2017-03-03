@@ -15,9 +15,10 @@ public:
     void setBlendEnable(bool blendEnable);
     VkResult create() override;
 
+    VkGraphicsPipelineCreateInfo createInfo = {};
+
 private:
     const RenderPass* renderPass = nullptr;
-    VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;

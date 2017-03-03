@@ -34,10 +34,11 @@ public:
     VkDescriptorBufferInfo* getDescriptorInfo() { return &descriptorInfo; }
     void copy(VkBuffer dstBuffer, VkDeviceSize size);
 
-private:
-    DeviceMemory memory;
     VkBufferCreateInfo createInfo = {};
     VkDescriptorBufferInfo descriptorInfo = {};
+
+private:
+    DeviceMemory memory;
     Destination destination;
 };
 

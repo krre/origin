@@ -12,7 +12,6 @@ public:
     VkResult create() override;
     void destroy() override;
 
-private:
     VkPipelineCacheCreateInfo createInfo = {};
 };
 

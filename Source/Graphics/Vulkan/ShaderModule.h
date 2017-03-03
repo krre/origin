@@ -12,8 +12,10 @@ public:
     VkResult create() override;
     void destroy() override;
 
-private:
     VkShaderModuleCreateInfo createInfo = {};
+
+private:
+
 };
 
 } // Vulkan

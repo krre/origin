@@ -19,10 +19,11 @@ public:
 
     VkDescriptorSetLayoutBinding* getLayoutBinding() { return &layoutBinging; }
 
+    VkDescriptorSetLayoutBinding layoutBinging = {};
+
 private:
     Buffer buffer;
     Image* image = nullptr;
-    VkDescriptorSetLayoutBinding layoutBinging = {};
 };
 
 } // Vulkan

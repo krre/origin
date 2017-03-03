@@ -17,9 +17,10 @@ public:
     void addDescriptor(Descriptor* descriptor);
     void writeDescriptors();
 
+    VkDescriptorSetAllocateInfo allocateInfo = {};
+
 private:
     const DescriptorPool* descriptorPool;
-    VkDescriptorSetAllocateInfo allocateInfo = {};
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
     std::vector<VkWriteDescriptorSet> descriptorWrites;
 };

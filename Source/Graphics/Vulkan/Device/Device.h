@@ -20,11 +20,11 @@ public:
     void destroy() override;
     void dumpExtensions();
 
-private:
-    PhysicalDevice* physicalDevice;
     VkDeviceCreateInfo createInfo = {};
     VkDeviceQueueCreateInfo queueCreateInfo = {};
 
+private:
+    PhysicalDevice* physicalDevice;
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
     float queuePriority = 1.0f;

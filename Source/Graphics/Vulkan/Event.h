@@ -11,7 +11,6 @@ public:
     ~Event();
     VkResult create() override;
 
-private:
     VkEventCreateInfo createInfo = {};
 };
 

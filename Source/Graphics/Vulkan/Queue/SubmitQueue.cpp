@@ -10,6 +10,8 @@ SubmitQueue::SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32
 VkResult SubmitQueue::submit(VkFence fence) {
     submitInfo.waitSemaphoreCount = waitSemaphores.size();
     submitInfo.pWaitSemaphores = waitSemaphores.data();
+    submitInfo.signalSemaphoreCount = signalSemaphores.size();
+    submitInfo.pSignalSemaphores = signalSemaphores.data();
     CHECK_RESULT(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
     return result;
 }
@@ -18,10 +20,8 @@ VkResult SubmitQueue::waitIdle() {
     return checkError(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
 }
 
-void SubmitQueue::setSignalSemaphores(std::vector<VkSemaphore> signalSemaphores) {
-    this->signalSemaphores = signalSemaphores;
-    submitInfo.signalSemaphoreCount = signalSemaphores.size();
-    submitInfo.pSignalSemaphores = this->signalSemaphores.data();
+void SubmitQueue::addSignalSemaphore(VkSemaphore semaphore) {
+    signalSemaphores.push_back(semaphore);
 }
 
 void SubmitQueue::setWaitDstStageMask(std::vector<VkPipelineStageFlags> waitDstStageMask) {

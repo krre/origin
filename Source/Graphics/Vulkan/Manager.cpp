@@ -116,7 +116,7 @@ bool Manager::init() {
     }
 
     graphicsQueue = new SubmitQueue(device, graphicsFamily);
-    graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
+    graphicsQueue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
     graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle());
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
 

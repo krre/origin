@@ -12,7 +12,7 @@ public:
     VkResult submit(VkFence fence = VK_NULL_HANDLE);
     VkResult waitIdle();
 
-    void setSignalSemaphores(std::vector<VkSemaphore> signalSemaphores);
+    void addSignalSemaphore(VkSemaphore semaphore);
     void setWaitDstStageMask(std::vector<VkPipelineStageFlags> waitDstStageMask);
 
     void setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers);

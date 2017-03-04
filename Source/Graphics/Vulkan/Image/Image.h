@@ -17,7 +17,6 @@ public:
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
     VkDescriptorImageInfo* getDescriptorInfo() { return &descriptorInfo; }
-    void setFormat(VkFormat format);
     void setUsage(VkImageUsageFlags usage);
     void setSampler(Sampler* sampler);
     void setImageView(ImageView* imageView);

@@ -38,7 +38,7 @@ void DebugHUD::init() {
     sampler.create();
 
     samplerImage = new Vulkan::Image(device, 100, 100);
-    samplerImage->setFormat(VK_FORMAT_R8_UNORM);
+    samplerImage->createInfo.format = VK_FORMAT_R8_UNORM;
     samplerImage->setUsage(VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT);
     samplerImage->create();
 

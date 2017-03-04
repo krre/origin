@@ -40,10 +40,6 @@ void Image::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImage(device->getHandle(), handle, nullptr))
 }
 
-void Image::setFormat(VkFormat format) {
-    createInfo.format = format;
-}
-
 void Image::setUsage(VkImageUsageFlags usage) {
     createInfo.usage = usage;
 }

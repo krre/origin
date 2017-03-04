@@ -95,9 +95,7 @@ void Buffer::copy(VkBuffer dstBuffer, VkDeviceSize size) {
     commandBuffers.allocate(1);
 
     CommandBuffer commandBuffer(commandBuffers.at(0));
-    commandBuffer.setFlags(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
-
-    commandBuffer.begin();
+    commandBuffer.begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
 
     VkBufferCopy copyRegion = {};
     copyRegion.size = size;

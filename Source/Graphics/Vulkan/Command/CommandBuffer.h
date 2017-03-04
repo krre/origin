@@ -13,11 +13,10 @@ public:
     CommandBuffer(VkCommandBuffer handle);
     VkResult create() override {}
     void destroy() override {}
-    void setFlags(VkCommandBufferUsageFlags flags);
     void addViewport(VkViewport viewport);
 
     // Commands
-    VkResult begin();
+    VkResult begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
     VkResult end();
     void pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
     void setViewport(uint32_t firstViewport);

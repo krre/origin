@@ -57,7 +57,7 @@ void DebugHUD::init() {
     descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
     descriptorPool.create();
 
-    descriptorSetLayout.addLayoutBinding(samplerFont->layoutBinding);
+    descriptorSetLayout.addLayoutBinding(samplerFont->setLayoutBinding);
     descriptorSetLayout.create();
 
     pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);

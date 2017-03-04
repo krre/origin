@@ -76,11 +76,11 @@ void WorldScene::init() {
 
     descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
 
-    descriptorSetLayout->addLayoutBinding(uniformFrag->layoutBinding);
-    descriptorSetLayout->addLayoutBinding(octreeBuffer->layoutBinding);
-    descriptorSetLayout->addLayoutBinding(renderListBuffer->layoutBinding);
-    descriptorSetLayout->addLayoutBinding(pickResultBuffer->layoutBinding);
-    descriptorSetLayout->addLayoutBinding(debugOutBuffer->layoutBinding);
+    descriptorSetLayout->addLayoutBinding(uniformFrag->setLayoutBinding);
+    descriptorSetLayout->addLayoutBinding(octreeBuffer->setLayoutBinding);
+    descriptorSetLayout->addLayoutBinding(renderListBuffer->setLayoutBinding);
+    descriptorSetLayout->addLayoutBinding(pickResultBuffer->setLayoutBinding);
+    descriptorSetLayout->addLayoutBinding(debugOutBuffer->setLayoutBinding);
     descriptorSetLayout->create();
 
     descriptorSets = new Vulkan::DescriptorSets(device, descriptorPool);

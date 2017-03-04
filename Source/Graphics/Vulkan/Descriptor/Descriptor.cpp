@@ -5,10 +5,10 @@ using namespace Vulkan;
 Descriptor::Descriptor(const Device* device, VkShaderStageFlags stage, VkBufferUsageFlagBits usage, VkDescriptorType descriptorType, uint32_t binding, size_t size) :
     buffer(device, usage, size) {
 
-    layoutBinding.binding = binding;
-    layoutBinding.descriptorCount = 1;
-    layoutBinding.descriptorType = descriptorType;
-    layoutBinding.stageFlags = stage;
+    setLayoutBinding.binding = binding;
+    setLayoutBinding.descriptorCount = 1;
+    setLayoutBinding.descriptorType = descriptorType;
+    setLayoutBinding.stageFlags = stage;
 
     buffer.create();
 }

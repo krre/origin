@@ -40,10 +40,6 @@ void Image::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImage(device->getHandle(), handle, nullptr))
 }
 
-void Image::setUsage(VkImageUsageFlags usage) {
-    createInfo.usage = usage;
-}
-
 void Image::setSampler(Sampler* sampler) {
     this->sampler = sampler;
     descriptorInfo.sampler = sampler->getHandle();

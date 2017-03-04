@@ -16,7 +16,6 @@ public:
     VkResult create() override;
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
-    void setSampler(Sampler* sampler);
     void setImageView(ImageView* imageView);
     void setImageLayout(VkImageLayout imageLayout);
 
@@ -25,7 +24,6 @@ public:
 
 private:
     DeviceMemory memory;
-    Sampler* sampler = nullptr;
     ImageView* imageView = nullptr;
 };
 

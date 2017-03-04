@@ -42,7 +42,8 @@ VkResult Instance::create() {
     createInfo.enabledExtensionCount = enabledExtensions.size();
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 
-    return checkError(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
+    CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
+    return result;
 }
 
 void Instance::destroy() {

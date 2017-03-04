@@ -12,7 +12,7 @@ void ShaderResource::load(const std::string& path) {
         ERROR("Failed to open file: " << path);
     }
 
-    size_t fileSize = (size_t) file.tellg();
+    size_t fileSize = (size_t)file.tellg();
     buffer.resize(fileSize);
 
     file.seekg(0);

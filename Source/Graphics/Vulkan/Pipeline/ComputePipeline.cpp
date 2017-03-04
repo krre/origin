@@ -7,6 +7,5 @@ ComputePipeline::ComputePipeline(const Device* device) : Pipeline(device) {
 }
 
 VkResult ComputePipeline::create() {
-    VkPipelineCache pc = pipelineCache != nullptr ? pipelineCache->getHandle() : VK_NULL_HANDLE;
-    return checkError(vkCreateComputePipelines(device->getHandle(), pc, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
+    return checkError(vkCreateComputePipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
 }

@@ -25,6 +25,6 @@ VkResult Pipeline::addShaderCode(VkShaderStageFlagBits stage, size_t size, const
     return result;
 }
 
-void Pipeline::setPipelineCache(const PipelineCache* pipelineCache) {
+void Pipeline::setPipelineCache(VkPipelineCache pipelineCache) {
     this->pipelineCache = pipelineCache;
 }

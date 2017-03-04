@@ -14,10 +14,10 @@ public:
     ~Pipeline();
     void destroy() override;
     VkResult addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint = "main");
-    void setPipelineCache(const PipelineCache* pipelineCache);
+    void setPipelineCache(VkPipelineCache pipelineCache);
 
 protected:
-    const PipelineCache* pipelineCache = nullptr;
+    VkPipelineCache pipelineCache = VK_NULL_HANDLE;
     std::map<VkShaderStageFlagBits, std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
 };

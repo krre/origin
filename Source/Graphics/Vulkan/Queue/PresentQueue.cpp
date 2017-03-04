@@ -7,13 +7,9 @@ PresentQueue::PresentQueue(const Device* device, uint32_t queueFamilyIndex, uint
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 }
 
-void PresentQueue::setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) {
-    this->waitSemaphores = waitSemaphores;
-    presentInfo.waitSemaphoreCount = waitSemaphores.size();
-    presentInfo.pWaitSemaphores = this->waitSemaphores.data();
-}
-
 VkResult PresentQueue::present() {
+    presentInfo.waitSemaphoreCount = waitSemaphores.size();
+    presentInfo.pWaitSemaphores = waitSemaphores.data();
     return checkError(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
 }
 

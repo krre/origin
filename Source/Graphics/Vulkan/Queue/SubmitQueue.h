@@ -12,7 +12,6 @@ public:
     VkResult submit(VkFence fence = VK_NULL_HANDLE);
     VkResult waitIdle();
 
-    void setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) override;
     void setSignalSemaphores(std::vector<VkSemaphore> signalSemaphores);
     void setWaitDstStageMask(std::vector<VkPipelineStageFlags> waitDstStageMask);
 

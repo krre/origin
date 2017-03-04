@@ -117,11 +117,11 @@ bool Manager::init() {
 
     graphicsQueue = new SubmitQueue(device, graphicsFamily);
     graphicsQueue->setSignalSemaphores({ renderFinishedSemaphore->getHandle() });
-    graphicsQueue->setWaitSemaphores({ imageAvailableSemaphore->getHandle() });
+    graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle());
     graphicsQueue->setWaitDstStageMask({ VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT });
 
     presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
-    presentQueue->setWaitSemaphores({ renderFinishedSemaphore->getHandle() });
+    presentQueue->addWaitSemaphore(renderFinishedSemaphore->getHandle());
     presentQueue->setSwapchains({ swapchain->getHandle() });
     presentQueue->setImageIndices(&swapchainImageIndex);
 

@@ -8,18 +8,14 @@ SubmitQueue::SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32
 }
 
 VkResult SubmitQueue::submit(VkFence fence) {
+    submitInfo.waitSemaphoreCount = waitSemaphores.size();
+    submitInfo.pWaitSemaphores = waitSemaphores.data();
     CHECK_RESULT(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
     return result;
 }
 
 VkResult SubmitQueue::waitIdle() {
     return checkError(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
-}
-
-void SubmitQueue::setWaitSemaphores(std::vector<VkSemaphore> waitSemaphores) {
-    this->waitSemaphores = waitSemaphores;
-    submitInfo.waitSemaphoreCount = waitSemaphores.size();
-    submitInfo.pWaitSemaphores = this->waitSemaphores.data();
 }
 
 void SubmitQueue::setSignalSemaphores(std::vector<VkSemaphore> signalSemaphores) {

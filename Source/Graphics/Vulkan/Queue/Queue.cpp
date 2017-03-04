@@ -6,4 +6,6 @@ Queue::Queue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueInde
     vkGetDeviceQueue(device->getHandle(), queueFamilyIndex, queueIndex, &handle);
 }
 
-
+void Queue::addWaitSemaphore(VkSemaphore semaphore) {
+    waitSemaphores.push_back(semaphore);
+}

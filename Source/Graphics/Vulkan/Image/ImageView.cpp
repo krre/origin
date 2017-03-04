@@ -6,6 +6,7 @@ ImageView::ImageView(const Device* device, VkImage image) :
     Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     createInfo.image = image;
+    createInfo.format = VK_FORMAT_R8G8B8A8_UNORM;
     createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
     createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
     createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
@@ -28,8 +29,4 @@ VkResult ImageView::create() {
 
 void ImageView::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImageView(device->getHandle(), handle, nullptr))
-}
-
-void ImageView::setFormat(VkFormat format) {
-    createInfo.format = format;
 }

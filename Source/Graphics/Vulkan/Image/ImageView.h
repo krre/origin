@@ -12,7 +12,6 @@ public:
     ~ImageView();
     VkResult create() override;
     void destroy() override;
-    void setFormat(VkFormat format);
 
     VkImageViewCreateInfo createInfo = {};
 };

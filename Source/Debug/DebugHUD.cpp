@@ -43,7 +43,7 @@ void DebugHUD::init() {
     samplerImage->create();
 
     samplerImageView = new Vulkan::ImageView(device, samplerImage->getHandle());
-    samplerImageView->setFormat(VK_FORMAT_R8_UNORM);
+    samplerImageView->createInfo.format = VK_FORMAT_R8_UNORM;
     samplerImageView->create();
 
     samplerImage->descriptorInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;

@@ -11,10 +11,6 @@ void GraphicsPipeline::setExtent(VkExtent2D extent) {
     this->extent = extent;
 }
 
-void GraphicsPipeline::setRenderPass(const RenderPass* renderPass) {
-    this->renderPass = renderPass;
-}
-
 void GraphicsPipeline::setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions) {
     this->vertexBindingDescriptions = vertexBindingDescriptions;
     vertexInputInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
@@ -105,7 +101,6 @@ VkResult GraphicsPipeline::create() {
     createInfo.pMultisampleState = &multisampling;
     createInfo.pColorBlendState = &colorBlending;
     createInfo.layout = pipelineLayout->getHandle();
-    createInfo.renderPass = renderPass->getHandle();
     createInfo.subpass = 0;
     createInfo.basePipelineHandle = VK_NULL_HANDLE;
 

@@ -107,7 +107,7 @@ void DebugHUD::init() {
     graphicsPipeline.setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
     graphicsPipeline.setPipelineLayout(&pipelineLayout);
     graphicsPipeline.setPipelineCache(&pipelineCache);
-    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass());
+    graphicsPipeline.createInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
 
     graphicsPipeline.create();
 

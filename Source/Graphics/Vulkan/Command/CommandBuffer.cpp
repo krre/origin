@@ -27,5 +27,6 @@ void CommandBuffer::pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipeline
 }
 
 void CommandBuffer::setViewports(uint32_t firstViewport) {
+    assert(viewports.size() > 0);
     vkCmdSetViewport(handle, firstViewport, viewports.size(), viewports.data());
 }

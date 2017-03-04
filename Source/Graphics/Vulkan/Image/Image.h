@@ -16,7 +16,6 @@ public:
     VkResult create() override;
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
-    void setImageLayout(VkImageLayout imageLayout);
 
     VkImageCreateInfo createInfo = {};
     VkDescriptorImageInfo descriptorInfo = {};

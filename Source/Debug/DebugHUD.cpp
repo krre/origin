@@ -46,7 +46,7 @@ void DebugHUD::init() {
     samplerImageView->setFormat(VK_FORMAT_R8_UNORM);
     samplerImageView->create();
 
-    samplerImage->setImageLayout(VK_IMAGE_LAYOUT_GENERAL);
+    samplerImage->descriptorInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
     samplerImage->descriptorInfo.sampler = sampler.getHandle();
     samplerImage->descriptorInfo.imageView = samplerImageView->getHandle();
 

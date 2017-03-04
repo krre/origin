@@ -39,7 +39,3 @@ VkResult Image::create() {
 void Image::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImage(device->getHandle(), handle, nullptr))
 }
-
-void Image::setImageLayout(VkImageLayout imageLayout) {
-    descriptorInfo.imageLayout = imageLayout;
-}

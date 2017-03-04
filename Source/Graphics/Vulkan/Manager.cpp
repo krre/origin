@@ -122,7 +122,7 @@ bool Manager::init() {
 
     presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
     presentQueue->addWaitSemaphore(renderFinishedSemaphore->getHandle());
-    presentQueue->setSwapchains({ swapchain->getHandle() });
+    presentQueue->addSwapchain(swapchain->getHandle());
     presentQueue->presentInfo.pImageIndices = &swapchainImageIndex;
 
     return true;

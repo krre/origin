@@ -10,12 +10,11 @@ PresentQueue::PresentQueue(const Device* device, uint32_t queueFamilyIndex, uint
 VkResult PresentQueue::present() {
     presentInfo.waitSemaphoreCount = waitSemaphores.size();
     presentInfo.pWaitSemaphores = waitSemaphores.data();
+    presentInfo.swapchainCount = swapchains.size();
+    presentInfo.pSwapchains = swapchains.data();
     return checkError(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
 }
 
-void PresentQueue::setSwapchains(std::vector<VkSwapchainKHR> swapchains) {
-    this->swapchains = swapchains;
-    presentInfo.swapchainCount = swapchains.size();
-    presentInfo.pSwapchains = this->swapchains.data();
+void PresentQueue::addSwapchain(VkSwapchainKHR swapchain) {
+    swapchains.push_back(swapchain);
 }
-

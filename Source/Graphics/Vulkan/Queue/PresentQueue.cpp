@@ -19,6 +19,3 @@ void PresentQueue::setSwapchains(std::vector<VkSwapchainKHR> swapchains) {
     presentInfo.pSwapchains = this->swapchains.data();
 }
 
-void PresentQueue::setImageIndices(const uint32_t* indices) {
-    presentInfo.pImageIndices = indices;
-}

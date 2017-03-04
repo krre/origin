@@ -31,7 +31,6 @@ public:
     VkDeviceSize getSize() const { return createInfo.size; }
     void write(VkDeviceSize offset, VkDeviceSize size, const void* data);
     void read(VkDeviceSize offset, VkDeviceSize size, void* data);
-    VkDescriptorBufferInfo* getDescriptorInfo() { return &descriptorInfo; }
     void copy(VkBuffer dstBuffer, VkDeviceSize size);
 
     VkBufferCreateInfo createInfo = {};

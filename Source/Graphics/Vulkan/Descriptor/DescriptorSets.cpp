@@ -30,10 +30,10 @@ void DescriptorSets::addDescriptor(Descriptor* descriptor) {
     VkWriteDescriptorSet descriptorWrite = {};
     descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
     descriptorWrite.dstSet = collection.at(0); // TODO: Set meaningful value
-    descriptorWrite.dstBinding = descriptor->getLayoutBinding()->binding;
+    descriptorWrite.dstBinding = descriptor->layoutBinding.binding;
     descriptorWrite.dstArrayElement = 0;
-    descriptorWrite.descriptorType = descriptor->getLayoutBinding()->descriptorType;
-    descriptorWrite.descriptorCount = descriptor->getLayoutBinding()->descriptorCount;
+    descriptorWrite.descriptorType = descriptor->layoutBinding.descriptorType;
+    descriptorWrite.descriptorCount = descriptor->layoutBinding.descriptorCount;
     descriptorWrite.pBufferInfo = descriptor->getBuffer()->getDescriptorInfo();
     if (descriptor->getImage() != nullptr) {
         descriptorWrite.pImageInfo = descriptor->getImage()->getDescriptorInfo();

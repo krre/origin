@@ -17,9 +17,7 @@ public:
     Image* getImage() { return image; }
     void setImage(Image* image);
 
-    VkDescriptorSetLayoutBinding* getLayoutBinding() { return &layoutBinging; }
-
-    VkDescriptorSetLayoutBinding layoutBinging = {};
+    VkDescriptorSetLayoutBinding layoutBinding = {};
 
 private:
     Buffer buffer;

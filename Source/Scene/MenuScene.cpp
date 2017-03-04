@@ -55,8 +55,8 @@ void MenuScene::init() {
     descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 2);
     descriptorPool.create();
 
-    descriptorSetLayout.addLayoutBinding(*uniformVert->getLayoutBinding());
-    descriptorSetLayout.addLayoutBinding(*uniformFrag->getLayoutBinding());
+    descriptorSetLayout.addLayoutBinding(uniformVert->layoutBinding);
+    descriptorSetLayout.addLayoutBinding(uniformFrag->layoutBinding);
     descriptorSetLayout.create();
 
     descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);

@@ -26,6 +26,6 @@ void CommandBuffer::pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipeline
                          pipelineBarrier->getImageMemoryBarrierCount(), pipelineBarrier->getImageMemoryBarrierData());
 }
 
-void CommandBuffer::setViewport(uint32_t firstViewport) {
+void CommandBuffer::setViewports(uint32_t firstViewport) {
     vkCmdSetViewport(handle, firstViewport, viewports.size(), viewports.data());
 }

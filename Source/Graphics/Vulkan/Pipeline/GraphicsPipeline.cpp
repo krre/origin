@@ -100,7 +100,6 @@ VkResult GraphicsPipeline::create() {
     createInfo.pRasterizationState = &rasterizer;
     createInfo.pMultisampleState = &multisampling;
     createInfo.pColorBlendState = &colorBlending;
-    createInfo.layout = pipelineLayout->getHandle();
     createInfo.subpass = 0;
     createInfo.basePipelineHandle = VK_NULL_HANDLE;
 

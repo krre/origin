@@ -119,7 +119,7 @@ void WorldScene::init() {
     graphicsPipeline->setVertexAttributeDescriptions({ attributeDescriptions });
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
-    graphicsPipeline->setPipelineLayout(pipelineLayout);
+    graphicsPipeline->createInfo.layout = pipelineLayout->getHandle();
     graphicsPipeline->createInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
     graphicsPipeline->create();
 

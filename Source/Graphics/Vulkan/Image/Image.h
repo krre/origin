@@ -16,7 +16,6 @@ public:
     VkResult create() override;
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
-    void setImageView(ImageView* imageView);
     void setImageLayout(VkImageLayout imageLayout);
 
     VkImageCreateInfo createInfo = {};
@@ -24,7 +23,6 @@ public:
 
 private:
     DeviceMemory memory;
-    ImageView* imageView = nullptr;
 };
 
 } // Vulkan

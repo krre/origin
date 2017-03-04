@@ -48,7 +48,7 @@ void DebugHUD::init() {
 
     samplerImage->setImageLayout(VK_IMAGE_LAYOUT_GENERAL);
     samplerImage->descriptorInfo.sampler = sampler.getHandle();
-    samplerImage->setImageView(samplerImageView);
+    samplerImage->descriptorInfo.imageView = samplerImageView->getHandle();
 
     samplerFont = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
                                          VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, MAX_CHAR_COUNT * sizeof(glm::vec4));

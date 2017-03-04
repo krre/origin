@@ -31,7 +31,6 @@ bool Manager::init() {
     instance = new Instance();
     instance->setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
-        "VK_LAYER_LUNARG_image",
         "VK_LAYER_LUNARG_parameter_validation",
 //        "VK_LAYER_LUNARG_vktrace",
         "VK_LAYER_LUNARG_core_validation",

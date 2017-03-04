@@ -14,8 +14,9 @@ public:
     void setSwapchains(std::vector<VkSwapchainKHR> swapchains);
     void setImageIndices(const uint32_t* indices);
 
-private:
     VkPresentInfoKHR presentInfo = {};
+
+private:
     std::vector<VkSwapchainKHR> swapchains;
 };
 

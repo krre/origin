@@ -1,7 +1,7 @@
 #pragma once
-#include "Scene2D.h"
-#include "../UI/Button.h"
-#include "../UI/LinearLayout.h"
+#include "../Scene2D.h"
+#include "../../UI/Button.h"
+#include "../../UI/LinearLayout.h"
 
 class PauseScene : public Scene2D {
 

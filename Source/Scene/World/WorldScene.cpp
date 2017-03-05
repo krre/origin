@@ -7,7 +7,7 @@
 #include "../../ECS/Systems/Systems.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Scene/SceneManager.h"
-#include "../../Scene/PauseScene.h"
+#include "../../Scene/Pause/PauseScene.h"
 #include "../../Event/Input.h"
 #include "../../Graphics/Vulkan/Manager.h"
 #include "../../Resource/ShaderResource.h"

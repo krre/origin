@@ -1,11 +1,10 @@
 add_subdirectory(World)
 add_subdirectory(Menu)
 add_subdirectory(Settings)
+add_subdirectory(Pause)
 
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene2D.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene2D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene3D.cpp

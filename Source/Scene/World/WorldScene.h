@@ -1,5 +1,6 @@
 #pragma once
 #include "../Scene3D.h"
+#include "WorldShaderProgram.h"
 #include "../../ECS/Entity.h"
 #include "../../UI/Viewport.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
@@ -82,4 +83,5 @@ private:
     uint64_t seed;
     Viewport viewport;
     Plane plane;
+    WorldShaderProgram worldShaderProgram;
 };

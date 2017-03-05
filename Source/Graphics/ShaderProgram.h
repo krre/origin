@@ -1,5 +1,7 @@
 #pragma once
 #include "../Core/Object.h"
+#include "../Resource/ShaderResource.h"
+#include <map>
 
 class ShaderProgram : public Object {
 
@@ -13,4 +15,7 @@ public:
 
     ShaderProgram();
     void addShader(const std::string& path);
+
+protected:
+    std::map<Type, ShaderResource*> shaderResources;
 };

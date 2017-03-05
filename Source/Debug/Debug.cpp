@@ -4,7 +4,7 @@
 #include "../Scene/SceneManager.h"
 #include "../Scene/MenuScene.h"
 #include "../Scene/SettingsScene.h"
-#include "../Scene/WorldScene.h"
+#include "../Scene/World/WorldScene.h"
 #include <Origin.h>
 
 Debug::Debug() {

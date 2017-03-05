@@ -1,12 +1,12 @@
 #include "MenuScene.h"
-#include "../Core/App.h"
-#include "../Scene/SceneManager.h"
-#include "../Event/Input.h"
-#include "../Graphics/Vulkan/Manager.h"
-#include "../Resource/ShaderResource.h"
-#include "../Resource/ResourceManager.h"
-#include "../Graphics/Vulkan/Command/CommandBuffer.h"
-#include "../Graphics/Plane.h"
+#include "../../Core/App.h"
+#include "../../Scene/SceneManager.h"
+#include "../../Event/Input.h"
+#include "../../Graphics/Vulkan/Manager.h"
+#include "../../Resource/ShaderResource.h"
+#include "../../Resource/ResourceManager.h"
+#include "../../Graphics/Vulkan/Command/CommandBuffer.h"
+#include "../../Graphics/Plane.h"
 
 MenuScene::MenuScene() :
     descriptorPool(device),

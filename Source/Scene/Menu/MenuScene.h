@@ -1,14 +1,14 @@
 #pragma once
-#include "Scene2D.h"
-#include "../UI/Button.h"
-#include "../UI/LinearLayout.h"
-#include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
-#include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
-#include "../Graphics/Vulkan/Descriptor/DescriptorSetLayout.h"
-#include "../Graphics/Vulkan/Descriptor/DescriptorSets.h"
-#include "../Graphics/Vulkan/Buffer.h"
-#include "../Graphics/Vulkan/Descriptor/DescriptorPool.h"
-#include "../Graphics/Vulkan/Descriptor/Descriptor.h"
+#include "../Scene2D.h"
+#include "../../UI/Button.h"
+#include "../../UI/LinearLayout.h"
+#include "../../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
+#include "../../Graphics/Vulkan/Pipeline/PipelineLayout.h"
+#include "../../Graphics/Vulkan/Descriptor/DescriptorSetLayout.h"
+#include "../../Graphics/Vulkan/Descriptor/DescriptorSets.h"
+#include "../../Graphics/Vulkan/Buffer.h"
+#include "../../Graphics/Vulkan/Descriptor/DescriptorPool.h"
+#include "../../Graphics/Vulkan/Descriptor/Descriptor.h"
 
 class MenuScene : public Scene2D {
 

@@ -7,7 +7,7 @@
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../Scene/SceneManager.h"
-#include "../Scene/MenuScene.h"
+#include "../Scene/Menu/MenuScene.h"
 #include "../Graphics/Vulkan/Manager.h"
 #include <Origin.h>
 #include <SDL_keycode.h>

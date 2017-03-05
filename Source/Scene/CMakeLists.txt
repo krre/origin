@@ -1,9 +1,8 @@
 add_subdirectory(World)
+add_subdirectory(Menu)
 
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/MenuScene.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/MenuScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PauseScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene2D.cpp

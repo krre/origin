@@ -1,7 +1,7 @@
 #include "SettingsScene.h"
-#include "../Core/App.h"
-#include "../Scene/SceneManager.h"
-#include "../Event/Input.h"
+#include "../../Core/App.h"
+#include "../../Scene/SceneManager.h"
+#include "../../Event/Input.h"
 
 SettingsScene::SettingsScene() {
 }

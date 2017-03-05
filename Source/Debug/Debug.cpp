@@ -3,7 +3,7 @@
 #include "../Core/Utils.h"
 #include "../Scene/SceneManager.h"
 #include "../Scene/Menu/MenuScene.h"
-#include "../Scene/SettingsScene.h"
+#include "../Scene/Settings/SettingsScene.h"
 #include "../Scene/World/WorldScene.h"
 #include <Origin.h>
 

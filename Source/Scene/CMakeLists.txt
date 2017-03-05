@@ -1,5 +1,6 @@
 add_subdirectory(World)
 add_subdirectory(Menu)
+add_subdirectory(Settings)
 
 set(SOURCES
     ${SOURCES}
@@ -13,7 +14,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScene.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScene.h
     PARENT_SCOPE
 )

@@ -5,4 +5,5 @@ class ShaderProgram : public Object {
 
 public:
     ShaderProgram();
+    void addShader(const std::string& path);
 };

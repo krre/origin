@@ -15,6 +15,7 @@ public:
 
     ShaderProgram();
     void addShader(const std::string& path);
+    void createDescriptors();
 
 protected:
     std::map<Type, ShaderResource*> shaderResources;

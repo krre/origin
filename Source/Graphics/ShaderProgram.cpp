@@ -20,3 +20,10 @@ void ShaderProgram::addShader(const std::string& path) {
     }
     shaderResources[enumType] = ResourceManager::get()->load<ShaderResource>(path);
 }
+
+void ShaderProgram::createDescriptors() {
+    for (auto it : shaderResources) {
+        ShaderResource* shaderResource = it.second;
+        PRINT(shaderResource->getSize())
+    }
+}

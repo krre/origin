@@ -1,6 +1,10 @@
 #pragma once
 #include "../Core/Object.h"
+#ifdef __linux__
 #include <vulkan/libspirv.h>
+#elif _WIN32
+#include <spirv-tools/libspirv.h>
+#endif
 
 class SpirvParser : public Object {
 

@@ -24,8 +24,6 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
-include_directories($ENV{VULKAN_SDK}/include)
-
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
 
@@ -41,9 +39,20 @@ target_link_libraries(${EXECUTABLE_NAME}
     stdc++fs)
 
 IF (WIN32)
+    find_package(Vulkan REQUIRED)
+
+    include_directories(${Vulkan_INCLUDE_DIRS})
+    include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
+
+    #SET(SPIRV_TOOLS_LIB "$ENV{VULKAN_SDK}/lib32/shaderc_combined.lib")
+#    SET(SPIRV_TOOLS_LIB D:/program/VulkanSDK/1.0.42.0/lib32/shaderc_combined.lib)
+
     target_link_libraries(${EXECUTABLE_NAME}
-        $ENV{VULKAN_SDK}/lib/vulkan-1.0.dll)
+        ${Vulkan_LIBRARIES}
+        ${SPIRV_TOOLS_LIB})
 ELSE()
+    include_directories($ENV{VULKAN_SDK}/include)
+
     target_link_libraries(${EXECUTABLE_NAME}
         $ENV{VULKAN_SDK}/lib/libvulkan.so
         $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a

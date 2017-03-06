@@ -13,7 +13,7 @@ void ShaderResource::load(const std::string& path) {
     }
 
     size_t fileSize = (size_t)file.tellg();
-    buffer.resize(fileSize);
+    buffer.resize(fileSize / sizeof(uint32_t));
 
     file.seekg(0);
     file.read(reinterpret_cast<char*>(buffer.data()), fileSize);

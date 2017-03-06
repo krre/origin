@@ -24,8 +24,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
-find_package(Vulkan REQUIRED)
-include_directories(${Vulkan_INCLUDE_DIRS})
+include_directories($ENV{VULKAN_SDK}/include)
 
 find_package(Freetype REQUIRED)
 include_directories(${FREETYPE_INCLUDE_DIRS})
@@ -37,16 +36,17 @@ include_directories(ThirdParty)
 
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
-    ${Vulkan_LIBRARIES}
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs)
 
 IF (WIN32)
-
+    target_link_libraries(${EXECUTABLE_NAME}
+        $ENV{VULKAN_SDK}/lib/vulkan-1.0.dll)
 ELSE()
-target_link_libraries(${EXECUTABLE_NAME}
-    X11-xcb)
+    target_link_libraries(${EXECUTABLE_NAME}
+        $ENV{VULKAN_SDK}/lib/libvulkan.so
+        X11-xcb)
 ENDIF()
 
 # Show in QtCreator project tree

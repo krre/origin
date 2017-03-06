@@ -1,6 +1,7 @@
 #include "ShaderProgram.h"
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
+#include "SpirvParser.h"
 
 ShaderProgram::ShaderProgram() {
 
@@ -22,8 +23,10 @@ void ShaderProgram::addShader(const std::string& path) {
 }
 
 void ShaderProgram::createDescriptors() {
+    SpirvParser parser;
+
     for (auto it : shaderResources) {
         ShaderResource* shaderResource = it.second;
-        PRINT(shaderResource->getSize())
+        parser.parse(shaderResource->getData(), shaderResource->getSize());
     }
 }

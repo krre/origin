@@ -46,6 +46,7 @@ IF (WIN32)
 ELSE()
     target_link_libraries(${EXECUTABLE_NAME}
         $ENV{VULKAN_SDK}/lib/libvulkan.so
+        $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
         X11-xcb)
 ENDIF()
 

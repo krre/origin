@@ -27,6 +27,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
     std::vector<std::string> line;
     std::string word;
 
+    // Parse SPIR-V text code to vector of lines
     int i = 0;
     while (i < resultText->length) {
         char c = resultText->str[i++];
@@ -39,10 +40,20 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
         if (c == '\n') {
             document.push_back(line);
             line.clear();
+            word.clear();
             continue;
         }
+
         word += c;
     }
 
     spvTextDestroy(resultText);
+
+    // Fill code structures
+    for (int i = 0; i < document.size(); i++) {
+        std::vector<std::string>& line = document.at(i);
+        if (line.size()) {
+            PRINT(line.at(0))
+        }
+    }
 }

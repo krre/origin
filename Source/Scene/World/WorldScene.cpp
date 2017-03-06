@@ -100,10 +100,10 @@ void WorldScene::init() {
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);
 
     ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Voxel.vert.spv");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getSize(), shaderResource->getData());
 
     shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Voxel.frag.spv");
-    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, (size_t)shaderResource->getSize(), (uint32_t*)shaderResource->getData());
+    graphicsPipeline->addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getSize(), shaderResource->getData());
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;

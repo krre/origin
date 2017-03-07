@@ -24,7 +24,8 @@ public:
     ~SpirvParser();
     void parse(const uint32_t* code, size_t count);
 
+    std::vector<Attributes> descriptors;
+
 private:
     spv_context context;
-    std::vector<Attributes> descriptors;
 };

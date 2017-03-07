@@ -11,6 +11,7 @@ SpirvParser::~SpirvParser() {
 }
 
 void SpirvParser::parse(const uint32_t* code, size_t count) {
+    descriptors.clear();
     spv_diagnostic diagnostic = nullptr;
     spv_text resultText = nullptr;
     spvBinaryToText(context, code, count, 0, &resultText, &diagnostic);
@@ -20,10 +21,11 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
       assert(false);
     }
 
-    PRINT(resultText->str)
-    PRINT("================")
+//    PRINT(resultText->str)
+//    PRINT("================")
 
-    std::vector<std::vector<std::string>> document;
+    std::vector<std::vector<std::string>> OpName;
+    std::vector<std::vector<std::string>> OpDecorate;
     std::vector<std::string> line;
     std::string word;
 
@@ -39,7 +41,11 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
         if (c == '\n') {
             line.push_back(word);
-            document.push_back(line);
+            if (line.at(0) == "OpName") {
+                OpName.push_back(line);
+            } else if (line.at(0) == "OpDecorate") {
+                OpDecorate.push_back(line);
+            }
             line.clear();
             word.clear();
             continue;
@@ -51,11 +57,32 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
     spvTextDestroy(resultText);
 
     // Fill code structures
-    for (int i = 0; i < document.size(); i++) {
-        std::vector<std::string>& line = document.at(i);
-        if (line.size() >= 3) {
-            if (line.at(0) == "OpName") {
-                PRINT("name " << line.at(2));
+    std::string id;
+    std::string name;
+    for (int i = 0; i < OpName.size(); i++) {
+        std::vector<std::string>& nameLine = OpName.at(i);
+        id = nameLine.at(1);
+        name = nameLine.at(2);
+
+        for (int j = 0; j < OpDecorate.size(); j++) {
+            std::vector<std::string>& decorateLine = OpDecorate.at(j);
+            if (decorateLine.at(1) == id) {
+                Attributes attributes = {};
+                attributes.name = name;
+                if (decorateLine.at(2) == "Binding") {
+                    attributes.binding = std::stoi(decorateLine.at(3));
+                    PRINT(name << " binding: " << attributes.binding)
+                }
+
+                if (decorateLine.at(2) == "Location") {
+                    attributes.location = std::stoi(decorateLine.at(3));
+                    PRINT(name << " location: " << attributes.location)
+                }
+
+                if (decorateLine.at(2) == "DescriptorSet") {
+                    attributes.descriptorSet = std::stoi(decorateLine.at(3));
+                    PRINT(name << " descriptorSet: " << attributes.descriptorSet)
+                }
             }
         }
     }

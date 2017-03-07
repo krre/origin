@@ -20,8 +20,8 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
       assert(false);
     }
 
-//    PRINT("================")
     PRINT(resultText->str)
+    PRINT("================")
 
     std::vector<std::vector<std::string>> document;
     std::vector<std::string> line;
@@ -38,6 +38,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
         }
 
         if (c == '\n') {
+            line.push_back(word);
             document.push_back(line);
             line.clear();
             word.clear();
@@ -52,8 +53,10 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
     // Fill code structures
     for (int i = 0; i < document.size(); i++) {
         std::vector<std::string>& line = document.at(i);
-        if (line.size()) {
-            PRINT(line.at(0))
+        if (line.size() >= 3) {
+            if (line.at(0) == "OpName") {
+                PRINT("name " << line.at(2));
+            }
         }
     }
 }

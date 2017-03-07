@@ -7,7 +7,7 @@
 #include <spirv-tools/libspirv.h>
 #endif
 
-#include <map>
+#include <vector>
 
 class SpirvParser : public Object {
 
@@ -25,5 +25,5 @@ public:
 
 private:
     spv_context context;
-    std::map<std::string, Attributes> descriptors;
+    std::vector<Attributes> descriptors;
 };

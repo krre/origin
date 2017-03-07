@@ -38,7 +38,7 @@ public:
 
 private:
     DeviceMemory memory;
-    Destination destination;
+    Destination destination = Destination::HOST;
 };
 
 } // Vulkan

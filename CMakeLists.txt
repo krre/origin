@@ -44,8 +44,8 @@ IF (WIN32)
     include_directories(${Vulkan_INCLUDE_DIRS})
     include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
 
-    #SET(SPIRV_TOOLS_LIB "$ENV{VULKAN_SDK}/lib32/shaderc_combined.lib")
-#    SET(SPIRV_TOOLS_LIB D:/program/VulkanSDK/1.0.42.0/lib32/shaderc_combined.lib)
+    SET(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
+    STRING(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
 
     target_link_libraries(${EXECUTABLE_NAME}
         ${Vulkan_LIBRARIES}

@@ -71,7 +71,7 @@ bool Manager::init() {
     }
     commandPool->reset();
 
-    surface = new Surface(instance, mainPhysicalDevice->getHandle());
+    surface = new Surface(instance->getHandle(), mainPhysicalDevice->getHandle());
     if (surface->create() != VK_SUCCESS) {
         return false;
     }

@@ -13,7 +13,7 @@ namespace Vulkan {
 class Surface : public Handle<VkSurfaceKHR> {
 
 public:
-    Surface(const Instance* instance, VkPhysicalDevice physicalDevice);
+    Surface(VkInstance instance, VkPhysicalDevice physicalDevice);
     ~Surface();
     VkResult create() override;
     void destroy() override;
@@ -27,7 +27,7 @@ public:
     VkSurfaceCapabilitiesKHR getCapabilities() const { return capabilities; }
 
 private:
-    const Instance* instance;
+    VkInstance instance;
     VkPhysicalDevice physicalDevice;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;

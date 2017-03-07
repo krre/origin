@@ -9,7 +9,7 @@
 
 using namespace Vulkan;
 
-Surface::Surface(const Instance* instance, VkPhysicalDevice physicalDevice) :
+Surface::Surface(VkInstance instance, VkPhysicalDevice physicalDevice) :
     instance(instance),
     physicalDevice(physicalDevice) {
 
@@ -33,7 +33,7 @@ VkResult Surface::create() {
         createInfo.flags = 0;
         createInfo.connection = XGetXCBConnection(wminfo.info.x11.display);
         createInfo.window = wminfo.info.x11.window;
-        result = checkError(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
+        result = checkError(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
         break;
     }
 
@@ -44,7 +44,7 @@ VkResult Surface::create() {
         createInfo.flags = 0;
         createInfo.hwnd = wminfo.info.win.window;
         createInfo.hinstance = GetModuleHandle(nullptr);
-        result = checkError(vkCreateWin32SurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create win32 surface");
+        result = checkError(vkCreateWin32SurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create win32 surface");
         break;
     }
 #endif
@@ -66,5 +66,5 @@ VkResult Surface::create() {
 }
 
 void Surface::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance, handle, nullptr))
 }

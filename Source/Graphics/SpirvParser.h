@@ -14,7 +14,7 @@ class SpirvParser : public Object {
 public:
 
     struct Attributes {
-        int set;
+        int descriptorSet;
         int location;
         int binding;
     };

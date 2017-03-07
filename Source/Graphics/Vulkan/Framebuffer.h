@@ -9,15 +9,16 @@ namespace Vulkan {
 class Framebuffer : public Handle<VkFramebuffer>, public Devicer {
 
 public:
-    Framebuffer(const Device* device, const RenderPass* renderPass, ImageView* imageView, VkExtent2D extent);
+    Framebuffer(const Device* device, const RenderPass* renderPass, VkExtent2D extent);
     ~Framebuffer();
     VkResult create() override;
     void destroy() override;
+    void addAttachment(VkImageView attachment);
 
     VkFramebufferCreateInfo createInfo = {};
 
 private:
-    ImageView* imageView;
+    std::vector<VkImageView> attachments;
 };
 
 } // Vulkan

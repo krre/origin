@@ -104,7 +104,7 @@ void DebugHUD::init() {
 
     pipelineCache.create();
 
-    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSwapchain()->getExtent());
+    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline.setPipelineCache(pipelineCache.getHandle());
     graphicsPipeline.createInfo.layout = pipelineLayout.getHandle();
     graphicsPipeline.createInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
@@ -208,7 +208,7 @@ void DebugHUD::buildCommandBuffers() {
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     renderPassInfo.renderPass = renderPass.getHandle();
     renderPassInfo.renderArea.offset = { 0, 0 };
-    renderPassInfo.renderArea.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
+    renderPassInfo.renderArea.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearColor;
 
@@ -223,13 +223,13 @@ void DebugHUD::buildCommandBuffers() {
         vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline.getHandle());
 
         VkViewport viewport = {};
-        viewport.width = Vulkan::Manager::get()->getSwapchain()->getExtent().width;
-        viewport.height = Vulkan::Manager::get()->getSwapchain()->getExtent().height;
+        viewport.width = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent.width;
+        viewport.height = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent.height;
         commandBuffer.addViewport(viewport);
         commandBuffer.setViewports(0);
 
         VkRect2D scissor = {};
-        scissor.extent = Vulkan::Manager::get()->getSwapchain()->getExtent();
+        scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);

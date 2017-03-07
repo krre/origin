@@ -37,7 +37,7 @@ VkResult Swapchain::create() {
     images.resize(count);
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
 
-    extent = surface->getCapabilities().currentExtent;
+//    extent = surface->getCapabilities().currentExtent;
 
     return result;
 }

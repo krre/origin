@@ -68,20 +68,38 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
             std::vector<std::string>& decorateLine = OpDecorate.at(j);
             if (decorateLine.at(1) == id) {
                 Attributes attributes = {};
-                attributes.name = name;
+                bool isDescriptor = false;
                 if (decorateLine.at(2) == "Binding") {
                     attributes.binding = std::stoi(decorateLine.at(3));
-                    PRINT(name << " binding: " << attributes.binding)
+                    isDescriptor = true;
                 }
 
                 if (decorateLine.at(2) == "Location") {
                     attributes.location = std::stoi(decorateLine.at(3));
-                    PRINT(name << " location: " << attributes.location)
+                    isDescriptor = true;
                 }
 
                 if (decorateLine.at(2) == "DescriptorSet") {
                     attributes.descriptorSet = std::stoi(decorateLine.at(3));
-                    PRINT(name << " descriptorSet: " << attributes.descriptorSet)
+                    isDescriptor = true;
+                }
+
+                if (isDescriptor) {
+                    bool isUpdate = false;
+                    for (int k = 0; k < descriptors.size(); k++) {
+                        if (descriptors.at(k).name == name) {
+                            descriptors.at(k).binding = attributes.binding;
+                            descriptors.at(k).location = attributes.location;
+                            descriptors.at(k).descriptorSet = attributes.descriptorSet;
+                            isUpdate = true;
+                            break;
+                        }
+                    }
+
+                    if (!isUpdate) {
+                        attributes.name = name;
+                        descriptors.push_back(attributes);
+                    }
                 }
             }
         }

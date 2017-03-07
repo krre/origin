@@ -28,5 +28,9 @@ void ShaderProgram::createDescriptors() {
     for (auto it : shaderResources) {
         ShaderResource* shaderResource = it.second;
         parser.parse(shaderResource->getData(), shaderResource->getSize());
+
+        for (auto& descriptor : parser.descriptors) {
+            PRINT(descriptor.name << " location: " << descriptor.location  << " descriptorSet: " << descriptor.descriptorSet << " binding: " << descriptor.binding)
+        }
     }
 }

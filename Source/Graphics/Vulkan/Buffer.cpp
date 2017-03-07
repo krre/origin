@@ -78,14 +78,14 @@ void Buffer::destroy() {
 
 void Buffer::write(VkDeviceSize offset, VkDeviceSize size, const void* data) {
     void* mapData;
-    vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData);
+    CHECK_RESULT(vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData), "Failed to map memory for writing");
     memcpy(mapData, data, size);
     vkUnmapMemory(device->getHandle(), memory.getHandle());
 }
 
 void Buffer::read(VkDeviceSize offset, VkDeviceSize size, void* data) {
     void* mapData;
-    vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData);
+    CHECK_RESULT(vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData), "Failed to map memory for reading");
     memcpy(data, mapData, size);
     vkUnmapMemory(device->getHandle(), memory.getHandle());
 }

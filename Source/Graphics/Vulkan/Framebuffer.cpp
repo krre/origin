@@ -2,11 +2,9 @@
 
 using namespace Vulkan;
 
-Framebuffer::Framebuffer(const Device* device, const RenderPass* renderPass, VkExtent2D extent) :
+Framebuffer::Framebuffer(const Device* device, VkExtent2D extent) :
     Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
-    createInfo.renderPass = renderPass->getHandle();
-
     createInfo.width = extent.width;
     createInfo.height = extent.height;
     createInfo.layers = 1;

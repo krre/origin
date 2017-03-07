@@ -97,8 +97,9 @@ bool Manager::init() {
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, renderPass, swapchain->getExtent()));
+        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device, swapchain->getExtent()));
         framebuffer->addAttachment(imageViews.at(i)->getHandle());
+        framebuffer->createInfo.renderPass = renderPass->getHandle();
         if (framebuffer->create() != VK_SUCCESS) {
             return false;
         }

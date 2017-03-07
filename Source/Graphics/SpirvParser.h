@@ -14,6 +14,7 @@ class SpirvParser : public Object {
 public:
 
     struct Attributes {
+        std::string name;
         int descriptorSet;
         int location;
         int binding;

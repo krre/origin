@@ -21,7 +21,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
     }
 
 //    PRINT("================")
-//    PRINT(resultText->str)
+    PRINT(resultText->str)
 
     std::vector<std::vector<std::string>> document;
     std::vector<std::string> line;

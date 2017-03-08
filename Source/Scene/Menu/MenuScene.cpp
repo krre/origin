@@ -86,7 +86,7 @@ void MenuScene::init() {
     attributeDescriptions.location = 0;
     attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptions.offset = 0;
-    graphicsPipeline.setVertexAttributeDescriptions({ attributeDescriptions });
+    graphicsPipeline.addVertexAttributeDescription(attributeDescriptions);
 
     graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline.createInfo.layout = pipelineLayout.getHandle();

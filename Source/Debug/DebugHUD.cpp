@@ -92,14 +92,14 @@ void DebugHUD::init() {
     attributeDescriptionPos.location = 0;
     attributeDescriptionPos.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptionPos.offset = 0;
+    graphicsPipeline.addVertexAttributeDescription(attributeDescriptionPos);
 
     VkVertexInputAttributeDescription attributeDescriptionUV = {};
     attributeDescriptionUV.binding = 0;
     attributeDescriptionUV.location = 1;
     attributeDescriptionUV.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptionUV.offset = sizeof(glm::vec2);
-
-    graphicsPipeline.setVertexAttributeDescriptions({ attributeDescriptionPos, attributeDescriptionUV });
+    graphicsPipeline.addVertexAttributeDescription(attributeDescriptionUV);
 
     pipelineCache.create();
 

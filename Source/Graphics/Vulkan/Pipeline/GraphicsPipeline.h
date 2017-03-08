@@ -10,7 +10,7 @@ public:
     GraphicsPipeline(const Device* device);
     void setExtent(VkExtent2D extent);
     void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
-    void setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions);
+    void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);
     void setBlendEnable(bool blendEnable);
     VkResult create() override;
 

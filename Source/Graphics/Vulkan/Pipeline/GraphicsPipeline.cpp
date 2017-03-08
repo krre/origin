@@ -15,10 +15,8 @@ void GraphicsPipeline::addVertexBindingDescription(VkVertexInputBindingDescripti
     vertexBindingDescriptions.push_back(vertexBindingDescription);
 }
 
-void GraphicsPipeline::setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions) {
-    this->vertexAttributeDescriptions = vertexAttributeDescriptions;
-    vertexInputInfo.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
-    vertexInputInfo.pVertexAttributeDescriptions = this->vertexAttributeDescriptions.data();
+void GraphicsPipeline::addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription) {
+    vertexAttributeDescriptions.push_back(vertexAttributeDescription);
 }
 
 void GraphicsPipeline::setBlendEnable(bool blendEnable) {
@@ -92,6 +90,9 @@ VkResult GraphicsPipeline::create() {
 
     vertexInputInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
     vertexInputInfo.pVertexBindingDescriptions = vertexBindingDescriptions.data();
+
+    vertexInputInfo.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
+    vertexInputInfo.pVertexAttributeDescriptions = vertexAttributeDescriptions.data();
 
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();

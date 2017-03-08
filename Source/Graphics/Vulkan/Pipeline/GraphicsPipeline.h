@@ -13,6 +13,7 @@ public:
     void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
+    void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment);
     void setBlendEnable(bool blendEnable);
     VkResult create() override;
 
@@ -22,6 +23,7 @@ public:
     VkPipelineMultisampleStateCreateInfo multisampling = {};
     VkViewport viewport = {};
     VkRect2D scissor = {};
+    VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
 
 private:
     VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
@@ -29,6 +31,7 @@ private:
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     std::vector<VkViewport> viewports;
     std::vector<VkRect2D> scissors;
+    std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments;
     bool blendEnable = false;
 };
 

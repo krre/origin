@@ -17,6 +17,7 @@ public:
     VkResult create() override;
 
     VkGraphicsPipelineCreateInfo createInfo = {};
+    VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
     VkViewport viewport = {};
     VkRect2D scissor = {};
 

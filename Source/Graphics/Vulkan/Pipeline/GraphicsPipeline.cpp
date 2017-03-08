@@ -6,6 +6,10 @@ GraphicsPipeline::GraphicsPipeline(const Device* device) :  Pipeline(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
+    inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+    inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+    inputAssembly.primitiveRestartEnable = VK_FALSE;
+
     viewport.x = 0.0f;
     viewport.y = 0.0f;
     viewport.minDepth = 0.0f;
@@ -41,11 +45,6 @@ void GraphicsPipeline::setBlendEnable(bool blendEnable) {
 }
 
 VkResult GraphicsPipeline::create() {
-    VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
-    inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-    inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-    inputAssembly.primitiveRestartEnable = VK_FALSE;
-
     if (!viewports.size()) {
         viewports.push_back(viewport);
     }

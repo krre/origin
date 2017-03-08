@@ -85,8 +85,8 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
                     if (typePointers.find(typePointerId) != typePointers.end()) {
                         std::string& descriptorTypeId = typePointers.at(typePointerId);
                         if (descriptorTypes.find(descriptorTypeId) != descriptorTypes.end()) {
-                            VkDescriptorType descriptorType = descriptorTypes.at(descriptorTypeId);
-                            attributes.at(id).type = descriptorType;
+                            attributes.at(id).descriptorType = descriptorTypes.at(descriptorTypeId);
+                            attributes.at(id).variableType = line.at(4);
                         }
                     }
                 }
@@ -102,7 +102,9 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
     }
 
     for (auto& it : attributes) {
-        descriptors[it.second.name] = it.second;
+        if (it.second.variableType != "") {
+            descriptors[it.second.name] = it.second;
+        }
     }
 
     spvTextDestroy(resultText);
@@ -110,6 +112,11 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
 void SpirvParser::dumpDescriptors() {
     for (auto& it : descriptors) {
-        PRINT("name: " << it.second.name << ", location: " << it.second.location  << ", descriptorSet: " << it.second.descriptorSet << ", binding: " << it.second.binding << ", type: " << it.second.type)
+        PRINT("name: " << it.second.name
+              << ", location: " << it.second.location
+              << ", descriptorSet: " << it.second.descriptorSet
+              << ", binding: " << it.second.binding
+              << ", descriptorType: " << it.second.descriptorType
+              << ", variableType: " << it.second.variableType)
     }
 }

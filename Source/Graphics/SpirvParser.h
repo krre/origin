@@ -19,7 +19,8 @@ public:
         int descriptorSet;
         int location;
         int binding;
-        VkDescriptorType type;
+        VkDescriptorType descriptorType;
+        std::string variableType;
     };
 
     SpirvParser();

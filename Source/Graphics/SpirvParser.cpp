@@ -25,9 +25,9 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 //    PRINT(resultText->str)
 //    PRINT("================")
 
-    std::vector<std::vector<std::string>> OpName;
-    std::vector<std::vector<std::string>> OpDecorate;
-    std::map<std::string, std::vector<std::string>> instructions;
+    std::map<std::string, std::string> names;
+    std::map<std::string, VkDescriptorType> types;
+    std::map<std::string, Attributes> attributes;
     std::vector<std::string> line;
     std::string word;
 
@@ -45,13 +45,35 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
             line.push_back(word);
             std::string firstWord = line.at(0);
             if (firstWord == "OpName") {
-                OpName.push_back(line);
+                names[line.at(1)] = line.at(2);
             } else if (firstWord == "OpDecorate") {
-                OpDecorate.push_back(line);
+                std::string& id = line.at(1);
+                std::string& decorateName = line.at(2);
+
+                if (decorateName == "Block") {
+                    types[id] = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+                } else if (decorateName == "BufferBlock") {
+                    types[id] = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+                } else if (decorateName == "Binding") {
+                    if (attributes.find(id) == attributes.end()) {
+                        attributes[id] = {};
+                    }
+                    attributes.at(id).binding = std::stoi(line.at(3));
+                } else if (decorateName == "Location") {
+                    if (attributes.find(id) == attributes.end()) {
+                        attributes[id] = {};
+                    }
+                    attributes.at(id).location = std::stoi(line.at(3));
+                } else if (decorateName == "DescriptorSet") {
+                    if (attributes.find(id) == attributes.end()) {
+                        attributes[id] = {};
+                    }
+                    attributes.at(id).descriptorSet = std::stoi(line.at(3));
+                }
+
+
             } else if (firstWord.at(0) == '%') {
-                // Remove elements from 0 to 1 index (%i and =)
-                line.erase(line.begin(), line.begin() + 1);
-                instructions[firstWord] = line;
+
             }
             line.clear();
             word.clear();
@@ -62,59 +84,10 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
     }
 
     spvTextDestroy(resultText);
-
-    // Fill code structures
-    std::string id;
-    std::string name;
-    for (int i = 0; i < OpName.size(); i++) {
-        std::vector<std::string>& nameLine = OpName.at(i);
-        id = nameLine.at(1);
-        name = nameLine.at(2);
-
-        for (int j = 0; j < OpDecorate.size(); j++) {
-            std::vector<std::string>& decorateLine = OpDecorate.at(j);
-            if (decorateLine.at(1) == id) {
-                Attributes attributes = {};
-                bool isDescriptor = false;
-                if (decorateLine.at(2) == "Binding") {
-                    attributes.binding = std::stoi(decorateLine.at(3));
-                    isDescriptor = true;
-                }
-
-                if (decorateLine.at(2) == "Location") {
-                    attributes.location = std::stoi(decorateLine.at(3));
-                    isDescriptor = true;
-                }
-
-                if (decorateLine.at(2) == "DescriptorSet") {
-                    attributes.descriptorSet = std::stoi(decorateLine.at(3));
-                    isDescriptor = true;
-                }
-
-                if (isDescriptor) {
-                    bool isUpdate = false;
-                    for (int k = 0; k < descriptors.size(); k++) {
-                        if (descriptors.at(k).name == name) {
-                            descriptors.at(k).binding = attributes.binding;
-                            descriptors.at(k).location = attributes.location;
-                            descriptors.at(k).descriptorSet = attributes.descriptorSet;
-                            isUpdate = true;
-                            break;
-                        }
-                    }
-
-                    if (!isUpdate) {
-                        attributes.name = name;
-                        descriptors.push_back(attributes);
-                    }
-                }
-            }
-        }
-    }
 }
 
 void SpirvParser::dumpDescriptors() {
     for (auto& descriptor : descriptors) {
-        PRINT("name: " << descriptor.name << ", location: " << descriptor.location  << ", descriptorSet: " << descriptor.descriptorSet << ", binding: " << descriptor.binding)
+//        PRINT("name: " << descriptor.name << ", location: " << descriptor.location  << ", descriptorSet: " << descriptor.descriptorSet << ", binding: " << descriptor.binding)
     }
 }

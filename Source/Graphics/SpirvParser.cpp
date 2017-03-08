@@ -84,13 +84,15 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
                     std::string& typePointerId = line.at(3);
                     if (typePointers.find(typePointerId) != typePointers.end()) {
                         std::string& descriptorTypeId = typePointers.at(typePointerId);
-                        if (descriptorTypes.find(descriptorTypeId) != descriptorTypes.end()) {
-                            attributes.at(id).descriptorType = descriptorTypes.at(descriptorTypeId);
+                        if (attributes.find(id) != attributes.end()) {
                             attributes.at(id).variableType = line.at(4);
+                            if (descriptorTypes.find(descriptorTypeId) != descriptorTypes.end()) {
+                                attributes.at(id).descriptorType = descriptorTypes.at(descriptorTypeId);
+                            }
                         }
                     }
                 }
-            } else if (line.size() == 3 && line.at(2) == "OpFunction") {
+            } else if (line.size() >= 3 && line.at(2) == "OpFunction") {
                 break;
             }
             line.clear();
@@ -102,7 +104,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
     }
 
     for (auto& it : attributes) {
-        if (it.second.variableType != "") {
+        if (it.second.variableType != "Output") {
             descriptors[it.second.name] = it.second;
         }
     }

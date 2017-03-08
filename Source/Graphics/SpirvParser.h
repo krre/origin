@@ -8,6 +8,7 @@
 #endif
 
 #include <vector>
+#include <vulkan/vulkan.h>
 
 class SpirvParser : public Object {
 
@@ -18,6 +19,7 @@ public:
         int descriptorSet;
         int location;
         int binding;
+        VkDescriptorType type;
     };
 
     SpirvParser();

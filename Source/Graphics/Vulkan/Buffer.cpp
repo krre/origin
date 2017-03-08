@@ -104,7 +104,7 @@ void Buffer::copy(VkBuffer dstBuffer, VkDeviceSize size) {
     commandBuffer.end();
 
     SubmitQueue queue(device, Manager::get()->getGraphicsFamily());
-    queue.setCommandBuffers({ commandBuffers.at(0) });
+    queue.addCommandBuffer(commandBuffers.at(0));
     queue.submit();
     queue.waitIdle();
 }

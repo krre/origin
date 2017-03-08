@@ -14,9 +14,8 @@ public:
 
     void addSignalSemaphore(VkSemaphore semaphore);
     void addWaitDstStageMask(VkPipelineStageFlags waitDstStageMask);
-
-    void setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers);
-    void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
+    void addCommandBuffer(VkCommandBuffer commandBuffer);
+    void clearCommandBuffers();
 
     VkSubmitInfo submitInfo = {};
 

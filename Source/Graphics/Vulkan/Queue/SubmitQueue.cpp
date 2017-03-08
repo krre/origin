@@ -13,6 +13,8 @@ VkResult SubmitQueue::submit(VkFence fence) {
     submitInfo.pWaitSemaphores = waitSemaphores.data();
     submitInfo.signalSemaphoreCount = signalSemaphores.size();
     submitInfo.pSignalSemaphores = signalSemaphores.data();
+    submitInfo.commandBufferCount = commandBuffers.size();
+    submitInfo.pCommandBuffers = commandBuffers.data();
     CHECK_RESULT(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
     return result;
 }
@@ -29,13 +31,10 @@ void SubmitQueue::addWaitDstStageMask(VkPipelineStageFlags waitDstStageMask) {
     waitDstStageMasks.push_back(waitDstStageMask);
 }
 
-void SubmitQueue::setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers) {
-    this->commandBuffers = commandBuffers;
-    submitInfo.commandBufferCount = commandBuffers.size();
-    submitInfo.pCommandBuffers = this->commandBuffers.data();
+void SubmitQueue::addCommandBuffer(VkCommandBuffer commandBuffer) {
+    commandBuffers.push_back(commandBuffer);
 }
 
-void SubmitQueue::setCommandBuffers(uint32_t count, const VkCommandBuffer* data) {
-    submitInfo.commandBufferCount = count;
-    submitInfo.pCommandBuffers = data;
+void SubmitQueue::clearCommandBuffers() {
+    commandBuffers.clear();
 }

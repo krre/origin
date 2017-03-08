@@ -131,12 +131,11 @@ bool Manager::init() {
     return true;
 }
 
-void Manager::setCommandBuffers(uint32_t count, const VkCommandBuffer* data) {
-    graphicsQueue->setCommandBuffers(count, data);
-}
-
 void Manager::setCommandBuffers(const CommandBuffers* commandBuffers) {
-    graphicsQueue->setCommandBuffers(commandBuffers->getCount(), commandBuffers->getData());
+    graphicsQueue->clearCommandBuffers();
+    for (int i = 0; i < commandBuffers->getCount(); i++) {
+        graphicsQueue->addCommandBuffer(commandBuffers->at(i));
+    }
 }
 
 void Manager::renderBegin() {
@@ -228,7 +227,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     fence.create();
 
     SubmitQueue queue(device, graphicsFamily);
-    queue.setCommandBuffers({ commandBuffer.getHandle() });
+    queue.addCommandBuffer(commandBuffer.getHandle());
     queue.submit(fence.getHandle());
 
     device->waitForFences({ fence.getHandle() });

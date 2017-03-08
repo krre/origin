@@ -35,7 +35,6 @@ public:
     PhysicalDevices* getPhysicalDevices() const { return physicalDevices; }
     SubmitQueue* getGraphicsQueue() const { return graphicsQueue; }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
-    void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
     void setCommandBuffers(const CommandBuffers* commandBuffers);
     void renderBegin();
     void renderEnd();

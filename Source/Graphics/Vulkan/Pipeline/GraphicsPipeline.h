@@ -26,7 +26,6 @@ private:
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     std::vector<VkViewport> viewports;
     std::vector<VkRect2D> scissors;
-    VkExtent2D extent;
     bool blendEnable = false;
 };
 

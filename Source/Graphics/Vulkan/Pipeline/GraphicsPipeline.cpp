@@ -15,10 +15,9 @@ GraphicsPipeline::GraphicsPipeline(const Device* device) :  Pipeline(device) {
 }
 
 void GraphicsPipeline::setExtent(VkExtent2D extent) {
-    viewport.width = (float) extent.width;
-    viewport.height = (float) extent.height;
+    viewport.width = (float)extent.width;
+    viewport.height = (float)extent.height;
     scissor.extent = extent;
-    this->extent = extent;
 }
 
 void GraphicsPipeline::addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription) {

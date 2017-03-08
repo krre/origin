@@ -14,7 +14,6 @@ public:
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
     void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment);
-    void setBlendEnable(bool blendEnable);
     VkResult create() override;
 
     VkGraphicsPipelineCreateInfo createInfo = {};
@@ -32,7 +31,6 @@ private:
     std::vector<VkViewport> viewports;
     std::vector<VkRect2D> scissors;
     std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments;
-    bool blendEnable = false;
 };
 
 } // Vulkan

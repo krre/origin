@@ -66,10 +66,6 @@ void GraphicsPipeline::addColorBlendAttachment(VkPipelineColorBlendAttachmentSta
     colorBlendAttachments.push_back(colorBlendAttachment);
 }
 
-void GraphicsPipeline::setBlendEnable(bool blendEnable) {
-    this->blendEnable = blendEnable;
-}
-
 VkResult GraphicsPipeline::create() {
     if (!viewports.size()) {
         viewports.push_back(viewport);

@@ -4,6 +4,12 @@ using namespace Vulkan;
 
 GraphicsPipeline::GraphicsPipeline(const Device* device) :  Pipeline(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+    createInfo.pVertexInputState = &vertexInputInfo;
+    createInfo.pInputAssemblyState = &inputAssembly;
+    createInfo.pRasterizationState = &rasterizer;
+    createInfo.pMultisampleState = &multisampling;
+    createInfo.pColorBlendState = &colorBlending;
+
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
     inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
@@ -89,6 +95,7 @@ VkResult GraphicsPipeline::create() {
     viewportState.pViewports = viewports.data();
     viewportState.scissorCount = scissors.size();
     viewportState.pScissors = scissors.data();
+    createInfo.pViewportState = &viewportState;
 
     if (!colorBlendAttachments.size()) {
         colorBlendAttachments.push_back(colorBlendAttachment);
@@ -105,14 +112,6 @@ VkResult GraphicsPipeline::create() {
 
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();
-    createInfo.pVertexInputState = &vertexInputInfo;
-    createInfo.pInputAssemblyState = &inputAssembly;
-    createInfo.pViewportState = &viewportState;
-    createInfo.pRasterizationState = &rasterizer;
-    createInfo.pMultisampleState = &multisampling;
-    createInfo.pColorBlendState = &colorBlending;
-    createInfo.subpass = 0;
-    createInfo.basePipelineHandle = VK_NULL_HANDLE;
 
     return checkError(vkCreateGraphicsPipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
 }

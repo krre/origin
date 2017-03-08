@@ -23,6 +23,7 @@ public:
     SpirvParser();
     ~SpirvParser();
     void parse(const uint32_t* code, size_t count);
+    void dumpDescriptors();
 
     std::vector<Attributes> descriptors;
 

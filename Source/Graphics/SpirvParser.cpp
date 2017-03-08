@@ -112,3 +112,9 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
         }
     }
 }
+
+void SpirvParser::dumpDescriptors() {
+    for (auto& descriptor : descriptors) {
+        PRINT("name: " << descriptor.name << ", location: " << descriptor.location  << ", descriptorSet: " << descriptor.descriptorSet << ", binding: " << descriptor.binding)
+    }
+}

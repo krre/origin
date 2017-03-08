@@ -19,6 +19,7 @@ public:
     VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
     VkPipelineRasterizationStateCreateInfo rasterizer = {};
+    VkPipelineMultisampleStateCreateInfo multisampling = {};
     VkViewport viewport = {};
     VkRect2D scissor = {};
 

@@ -1,6 +1,7 @@
 #include "SpirvParser.h"
 #include <assert.h>
 #include <vector>
+#include <map>
 
 SpirvParser::SpirvParser() {
     context = spvContextCreate(SPV_ENV_UNIVERSAL_1_0);
@@ -26,6 +27,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
     std::vector<std::vector<std::string>> OpName;
     std::vector<std::vector<std::string>> OpDecorate;
+    std::map<std::string, std::vector<std::string>> instructions;
     std::vector<std::string> line;
     std::string word;
 
@@ -41,10 +43,15 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
         if (c == '\n') {
             line.push_back(word);
-            if (line.at(0) == "OpName") {
+            std::string firstWord = line.at(0);
+            if (firstWord == "OpName") {
                 OpName.push_back(line);
-            } else if (line.at(0) == "OpDecorate") {
+            } else if (firstWord == "OpDecorate") {
                 OpDecorate.push_back(line);
+            } else if (firstWord.at(0) == '%') {
+                // Remove elements from 0 to 1 index (%i and =)
+                line.erase(line.begin(), line.begin() + 1);
+                instructions[firstWord] = line;
             }
             line.clear();
             word.clear();

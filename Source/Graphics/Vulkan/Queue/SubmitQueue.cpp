@@ -8,6 +8,7 @@ SubmitQueue::SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32
 }
 
 VkResult SubmitQueue::submit(VkFence fence) {
+    submitInfo.pWaitDstStageMask = waitDstStageMasks.data();
     submitInfo.waitSemaphoreCount = waitSemaphores.size();
     submitInfo.pWaitSemaphores = waitSemaphores.data();
     submitInfo.signalSemaphoreCount = signalSemaphores.size();
@@ -24,9 +25,8 @@ void SubmitQueue::addSignalSemaphore(VkSemaphore semaphore) {
     signalSemaphores.push_back(semaphore);
 }
 
-void SubmitQueue::setWaitDstStageMask(std::vector<VkPipelineStageFlags> waitDstStageMask) {
-    this->waitDstStageMask = waitDstStageMask;
-    submitInfo.pWaitDstStageMask = this->waitDstStageMask.data();
+void SubmitQueue::addWaitDstStageMask(VkPipelineStageFlags waitDstStageMask) {
+    waitDstStageMasks.push_back(waitDstStageMask);
 }
 
 void SubmitQueue::setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers) {

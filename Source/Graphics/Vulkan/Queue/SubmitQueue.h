@@ -13,7 +13,7 @@ public:
     VkResult waitIdle();
 
     void addSignalSemaphore(VkSemaphore semaphore);
-    void setWaitDstStageMask(std::vector<VkPipelineStageFlags> waitDstStageMask);
+    void addWaitDstStageMask(VkPipelineStageFlags waitDstStageMask);
 
     void setCommandBuffers(std::vector<VkCommandBuffer> commandBuffers);
     void setCommandBuffers(uint32_t count, const VkCommandBuffer* data);
@@ -22,7 +22,7 @@ public:
 
 private:
     std::vector<VkSemaphore> signalSemaphores;
-    std::vector<VkPipelineStageFlags> waitDstStageMask;
+    std::vector<VkPipelineStageFlags> waitDstStageMasks;
     std::vector<VkCommandBuffer> commandBuffers;
 
 };

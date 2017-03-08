@@ -9,7 +9,7 @@ class GraphicsPipeline : public Pipeline {
 public:
     GraphicsPipeline(const Device* device);
     void setExtent(VkExtent2D extent);
-    void setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions);
+    void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
     void setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions);
     void setBlendEnable(bool blendEnable);
     VkResult create() override;

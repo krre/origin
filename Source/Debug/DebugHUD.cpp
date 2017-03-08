@@ -79,14 +79,13 @@ void DebugHUD::init() {
     bindingDescriptionPos.binding = 0;
     bindingDescriptionPos.stride = sizeof(glm::vec4);
     bindingDescriptionPos.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+    graphicsPipeline.addVertexBindingDescription(bindingDescriptionPos);
 
     VkVertexInputBindingDescription bindingDescriptionUV = {};
     bindingDescriptionUV.binding = 1;
     bindingDescriptionUV.stride = sizeof(glm::vec4);
     bindingDescriptionUV.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-
-
-    graphicsPipeline.setVertexBindingDescriptions({ bindingDescriptionPos, bindingDescriptionUV });
+    graphicsPipeline.addVertexBindingDescription(bindingDescriptionUV);
 
     VkVertexInputAttributeDescription attributeDescriptionPos = {};
     attributeDescriptionPos.binding = 0;

@@ -79,7 +79,7 @@ void MenuScene::init() {
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline.setVertexBindingDescriptions({ bindingDescription });
+    graphicsPipeline.addVertexBindingDescription(bindingDescription);
 
     VkVertexInputAttributeDescription attributeDescriptions = {};
     attributeDescriptions.binding = 0;

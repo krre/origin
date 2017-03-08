@@ -11,10 +11,8 @@ void GraphicsPipeline::setExtent(VkExtent2D extent) {
     this->extent = extent;
 }
 
-void GraphicsPipeline::setVertexBindingDescriptions(const std::vector<VkVertexInputBindingDescription>& vertexBindingDescriptions) {
-    this->vertexBindingDescriptions = vertexBindingDescriptions;
-    vertexInputInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
-    vertexInputInfo.pVertexBindingDescriptions = this->vertexBindingDescriptions.data();
+void GraphicsPipeline::addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription) {
+    vertexBindingDescriptions.push_back(vertexBindingDescription);
 }
 
 void GraphicsPipeline::setVertexAttributeDescriptions(const std::vector<VkVertexInputAttributeDescription>& vertexAttributeDescriptions) {
@@ -91,6 +89,9 @@ VkResult GraphicsPipeline::create() {
     colorBlending.blendConstants[1] = 0.0f;
     colorBlending.blendConstants[2] = 0.0f;
     colorBlending.blendConstants[3] = 0.0f;
+
+    vertexInputInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
+    vertexInputInfo.pVertexBindingDescriptions = vertexBindingDescriptions.data();
 
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();

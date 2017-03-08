@@ -10,11 +10,14 @@ GraphicsPipeline::GraphicsPipeline(const Device* device) :  Pipeline(device) {
     viewport.y = 0.0f;
     viewport.minDepth = 0.0f;
     viewport.maxDepth = 1.0f;
+
+    scissor.offset = { 0, 0 };
 }
 
 void GraphicsPipeline::setExtent(VkExtent2D extent) {
     viewport.width = (float) extent.width;
     viewport.height = (float) extent.height;
+    scissor.extent = extent;
     this->extent = extent;
 }
 
@@ -30,6 +33,10 @@ void GraphicsPipeline::addViewport(VkViewport viewport) {
     viewports.push_back(viewport);
 }
 
+void GraphicsPipeline::addScissor(VkRect2D scissor) {
+    scissors.push_back(scissor);
+}
+
 void GraphicsPipeline::setBlendEnable(bool blendEnable) {
     this->blendEnable = blendEnable;
 }
@@ -40,20 +47,20 @@ VkResult GraphicsPipeline::create() {
     inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
     inputAssembly.primitiveRestartEnable = VK_FALSE;
 
-    VkRect2D scissor = {};
-    scissor.offset = { 0, 0 };
-    scissor.extent = extent;
-
     if (!viewports.size()) {
         viewports.push_back(viewport);
+    }
+
+    if (!scissors.size()) {
+        scissors.push_back(scissor);
     }
 
     VkPipelineViewportStateCreateInfo viewportState = {};
     viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
     viewportState.viewportCount = viewports.size();
     viewportState.pViewports = viewports.data();
-    viewportState.scissorCount = 1;
-    viewportState.pScissors = &scissor;
+    viewportState.scissorCount = scissors.size();
+    viewportState.pScissors = scissors.data();
 
     VkPipelineRasterizationStateCreateInfo rasterizer = {};
     rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;

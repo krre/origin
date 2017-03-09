@@ -37,5 +37,5 @@ public:
         float debugFloat;
     } debugOut;
 
-    WorldShaderProgram();
+    WorldShaderProgram(const Vulkan::Device* device);
 };

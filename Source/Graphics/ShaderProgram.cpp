@@ -3,7 +3,9 @@
 #include "../Core/Utils.h"
 #include "SpirvParser.h"
 
-ShaderProgram::ShaderProgram() {
+using namespace Vulkan;
+
+ShaderProgram::ShaderProgram(const Device* device) : device(device) {
 
 }
 

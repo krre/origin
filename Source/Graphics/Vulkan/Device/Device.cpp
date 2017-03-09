@@ -34,10 +34,6 @@ void Device::waitIdle() {
     }
 }
 
-void Device::waitForFences(uint32_t count, const VkFence* fences) {
-    vkWaitForFences(handle, count, fences, VK_TRUE, DEFAULT_FENCE_TIMEOUT);
-}
-
 void Device::waitForFences(std::vector<VkFence> fences) {
     vkWaitForFences(handle, fences.size(), fences.data(), VK_TRUE, DEFAULT_FENCE_TIMEOUT);
 }

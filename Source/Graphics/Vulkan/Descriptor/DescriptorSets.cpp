@@ -10,7 +10,7 @@ DescriptorSets::DescriptorSets(const Device* device, const DescriptorPool* descr
 }
 
 DescriptorSets::~DescriptorSets() {
-    vkFreeDescriptorSets(device->getHandle(), descriptorPool->getHandle(), collection.size(), collection.data());
+    destroy();
 }
 
 bool DescriptorSets::allocate() {
@@ -43,4 +43,8 @@ void DescriptorSets::addDescriptor(Descriptor* descriptor) {
 
 void DescriptorSets::writeDescriptors() {
     vkUpdateDescriptorSets(device->getHandle(), descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
+}
+
+void DescriptorSets::destroy() {
+    VULKAN_DESTROY_COLLECTION(vkFreeDescriptorSets(device->getHandle(), descriptorPool->getHandle(), collection.size(), collection.data()));
 }

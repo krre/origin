@@ -13,6 +13,7 @@ public:
     PhysicalDevices(const Instance* instance);
     PhysicalDevice* findDevice(VkPhysicalDeviceType type);
     void dumpDevices();
+    void destroy() override {}
 
 private:
     const Instance* instance;

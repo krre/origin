@@ -16,6 +16,7 @@ public:
     void addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout);
     void addDescriptor(Descriptor* descriptor);
     void writeDescriptors();
+    void destroy() override;
 
     VkDescriptorSetAllocateInfo allocateInfo = {};
 

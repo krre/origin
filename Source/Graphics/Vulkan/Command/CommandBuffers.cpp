@@ -11,7 +11,7 @@ CommandBuffers::CommandBuffers(const Device* device, const CommandPool* commandP
 }
 
 CommandBuffers::~CommandBuffers() {
-    vkFreeCommandBuffers(device->getHandle(), commandPool->getHandle(), collection.size(), collection.data());
+    destroy();
 }
 
 bool CommandBuffers::allocate(uint32_t count) {
@@ -20,4 +20,8 @@ bool CommandBuffers::allocate(uint32_t count) {
     allocateInfo.commandBufferCount = count;
 
     return checkError(vkAllocateCommandBuffers(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate command buffers");
+}
+
+void CommandBuffers::destroy() {
+    vkFreeCommandBuffers(device->getHandle(), commandPool->getHandle(), collection.size(), collection.data());
 }

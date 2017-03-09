@@ -5,8 +5,17 @@
 
 using namespace Vulkan;
 
-ShaderProgram::ShaderProgram(const Device* device) : device(device) {
+ShaderProgram::ShaderProgram(const Device* device) :
+    device(device),
+    descriptorPool(device),
+    descriptorSetLayout(device),
+    descriptorSets(device, &descriptorPool) {
 
+}
+
+ShaderProgram::~ShaderProgram() {
+    descriptorSets.destroy();
+    descriptorPool.destroy();
 }
 
 void ShaderProgram::addShader(const std::string& path) {

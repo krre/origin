@@ -2,6 +2,9 @@
 #include "../Core/Object.h"
 #include "../Resource/ShaderResource.h"
 #include "Vulkan/Device/Device.h"
+#include "Vulkan/Descriptor/DescriptorPool.h"
+#include "Vulkan/Descriptor/DescriptorSetLayout.h"
+#include "Vulkan/Descriptor/DescriptorSets.h"
 #include <map>
 
 class ShaderProgram : public Object {
@@ -15,6 +18,7 @@ public:
     };
 
     ShaderProgram(const Vulkan::Device* device);
+    ~ShaderProgram();
     void addShader(const std::string& path);
     void createDescriptors();
 
@@ -23,4 +27,7 @@ protected:
 
 private:
     const Vulkan::Device* device;
+    Vulkan::DescriptorPool descriptorPool;
+    Vulkan::DescriptorSetLayout descriptorSetLayout;
+    Vulkan::DescriptorSets descriptorSets;
 };

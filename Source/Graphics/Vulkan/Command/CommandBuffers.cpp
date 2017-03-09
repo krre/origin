@@ -23,5 +23,5 @@ bool CommandBuffers::allocate(uint32_t count) {
 }
 
 void CommandBuffers::destroy() {
-    vkFreeCommandBuffers(device->getHandle(), commandPool->getHandle(), collection.size(), collection.data());
+    VULKAN_DESTROY_COLLECTION(vkFreeCommandBuffers(device->getHandle(), commandPool->getHandle(), collection.size(), collection.data()));
 }

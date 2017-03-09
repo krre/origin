@@ -44,5 +44,8 @@ void ShaderProgram::createDescriptors() {
 }
 
 void ShaderProgram::link(std::string name, UniformBuffer* uniformBuffer, uint32_t size) {
-    PRINT(name << " " << uniformBuffer << " " << size);
+    LinkInfo linkInfo = {};
+    linkInfo.name = name;
+    linkInfo.size = size;
+    uniformLinks[uniformBuffer] = linkInfo;
 }

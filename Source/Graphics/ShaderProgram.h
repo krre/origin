@@ -18,6 +18,11 @@ public:
         COMPUTE
     };
 
+    struct LinkInfo {
+        std::string name;
+        uint32_t size;
+    };
+
     ShaderProgram(const Vulkan::Device* device);
     ~ShaderProgram();
     void addShader(const std::string& path);
@@ -32,4 +37,5 @@ private:
     Vulkan::DescriptorPool descriptorPool;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
+    std::map<UniformBuffer*, LinkInfo> uniformLinks;
 };

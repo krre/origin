@@ -1,12 +1,13 @@
 #pragma once
 #include "../../Graphics/ShaderProgram.h"
+#include "../../Graphics/UniformBuffer.h"
 #include <glm/glm.hpp>
 
 class WorldShaderProgram : public ShaderProgram {
 
 public:
 
-    struct UBO {
+    struct UBO : UniformBuffer {
         int shadeless = 0;
         int pageBytes = PAGE_BYTES;
         int blockInfoEnd = BLOCK_INFO_END;
@@ -24,14 +25,14 @@ public:
         glm::vec4 pickPixel = glm::vec4(-1, -1, 0, 0);
     } ubo;
 
-    struct PickResult {
+    struct PickResult : UniformBuffer {
         glm::vec3 pos;
         uint32_t parent;
         uint32_t scale;
         int childIdx;
     } pickResult;
 
-    struct DebugOut {
+    struct DebugOut : UniformBuffer {
         glm::vec4 debugVec;
         int debugInt;
         float debugFloat;

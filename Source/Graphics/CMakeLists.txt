@@ -18,5 +18,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Texture.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SpirvParser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SpirvParser.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/UniformBuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/UniformBuffer.h
     PARENT_SCOPE
 )

@@ -5,6 +5,7 @@
 #include "Vulkan/Descriptor/DescriptorPool.h"
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
+#include "UniformBuffer.h"
 #include <map>
 
 class ShaderProgram : public Object {
@@ -21,6 +22,7 @@ public:
     ~ShaderProgram();
     void addShader(const std::string& path);
     void createDescriptors();
+    void link(std::string name, UniformBuffer* uniformBuffer, uint32_t size);
 
 protected:
     std::map<Type, ShaderResource*> shaderResources;

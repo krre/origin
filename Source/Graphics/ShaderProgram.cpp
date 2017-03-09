@@ -42,3 +42,7 @@ void ShaderProgram::createDescriptors() {
         parser.dumpDescriptors();
     }
 }
+
+void ShaderProgram::link(std::string name, UniformBuffer* uniformBuffer, uint32_t size) {
+    PRINT(name << " " << uniformBuffer << " " << size);
+}

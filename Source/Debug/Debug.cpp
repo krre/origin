@@ -18,12 +18,16 @@ void Debug::setValue(const std::string& key, const std::string& value) {
 }
 
 std::string Debug::getValue(const std::string& key) const {
-    return values.at(key);
+    if (values.find(key) != values.end()) {
+        return values.at(key);
+    } else {
+        return std::string();
+    }
 }
 
 void Debug::setDebugScene() {
-    std::string sceneName = values["scene"];
-    if (sceneName.size()) {
+    const std::string& sceneName = getValue("scene");
+    if (!sceneName.empty()) {
         if (sceneName == "menu") {
             SceneManager::get()->setScene(std::make_shared<MenuScene>());
         } else if (sceneName == "settings") {
@@ -56,9 +60,5 @@ void Debug::loadValues() {
         }
     }
 
-    for (auto value : values) {
-        if (value.first == "enable") {
-            enable = value.second == "true";
-        }
-    }
+    enable = getValue("enable") == "true";
 }

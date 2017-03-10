@@ -1,5 +1,11 @@
-# true|false
+# Use debug settings
+# true|+false
 enable=true
 
-# menu|world|settings
+# Set scene on startup application
+# +menu|world|settings
 scene=world
+
+# Enable Debug HUD on startup application
+# true|+false
+debugHUD=false

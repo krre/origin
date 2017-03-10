@@ -75,7 +75,7 @@ void ShaderProgram::createDescriptors() {
     descriptorPool.create();
 }
 
-void ShaderProgram::link(std::string name, UniformBuffer* uniformBuffer, uint32_t size) {
+void ShaderProgram::linkBuffer(std::string name, UniformBuffer* uniformBuffer, uint32_t size) {
     LinkInfo linkInfo = {};
     linkInfo.name = name;
     linkInfo.size = size;

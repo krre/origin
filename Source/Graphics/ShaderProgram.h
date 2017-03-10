@@ -31,7 +31,7 @@ public:
     ~ShaderProgram();
     void addShader(const std::string& path);
     void createDescriptors();
-    void link(std::string name, UniformBuffer* uniformBuffer, uint32_t size);
+    void linkBuffer(std::string name, UniformBuffer* uniformBuffer, uint32_t size);
 
 protected:
     std::map<Type, ShaderResource*> shaderResources;

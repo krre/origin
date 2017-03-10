@@ -4,9 +4,9 @@ WorldShaderProgram::WorldShaderProgram(const Vulkan::Device* device) : ShaderPro
     addShader("Shader/Voxel.vert.spv");
     addShader("Shader/Voxel.frag.spv");
 
-    link("ubo", &ubo, sizeof(ubo));
-    link("pickResult", &pickResult, sizeof(pickResult));
-    link("debugOut", &debugOut, sizeof(debugOut));
+    linkBuffer("ubo", &ubo, sizeof(ubo));
+    linkBuffer("pickResult", &pickResult, sizeof(pickResult));
+    linkBuffer("debugOut", &debugOut, sizeof(debugOut));
 
     createDescriptors();
 }

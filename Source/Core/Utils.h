@@ -21,4 +21,5 @@ public:
     static uint32_t binaryStringToUint(const std::string& value);
     static std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source);
     static std::vector<std::string> split(const std::string &value, char delim);
+    static void removeChar(std::string& str, char c);
 };

@@ -64,7 +64,7 @@ void DebugHUD::init() {
     pipelineLayout.create();
 
     descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
-    descriptorSets->addDescriptorSetLayout(&descriptorSetLayout);
+    descriptorSets->addDescriptorSetLayout(descriptorSetLayout.getHandle());
     descriptorSets->allocate();
     descriptorSets->addDescriptor(samplerFont);
     descriptorSets->writeDescriptors();

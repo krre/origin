@@ -60,7 +60,7 @@ void MenuScene::init() {
     descriptorSetLayout.create();
 
     descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
-    descriptorSets->addDescriptorSetLayout(&descriptorSetLayout);
+    descriptorSets->addDescriptorSetLayout(descriptorSetLayout.getHandle());
     descriptorSets->allocate();
     descriptorSets->addDescriptor(uniformVert);
     descriptorSets->addDescriptor(uniformFrag);

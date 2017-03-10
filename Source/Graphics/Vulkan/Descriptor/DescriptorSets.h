@@ -13,7 +13,7 @@ public:
     DescriptorSets(const Device* device, const DescriptorPool* descriptorPool);
     ~DescriptorSets();
     bool allocate();
-    void addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout);
+    void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
     void addDescriptor(Descriptor* descriptor);
     void writeDescriptors();
     void destroy() override;

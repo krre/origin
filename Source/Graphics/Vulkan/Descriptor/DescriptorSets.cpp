@@ -22,8 +22,8 @@ bool DescriptorSets::allocate() {
     return checkError(vkAllocateDescriptorSets(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
 }
 
-void DescriptorSets::addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout) {
-    descriptorSetLayouts.push_back(descriptorSetLayout->getHandle());
+void DescriptorSets::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout) {
+    descriptorSetLayouts.push_back(descriptorSetLayout);
 }
 
 void DescriptorSets::addDescriptor(Descriptor* descriptor) {

@@ -4,8 +4,8 @@ layout(location = 0) in vec3 position;
 
 layout(std140, binding = 0) uniform UBO {
     mat4 mvp;
-} ubo;
+} uboVert;
 
 void main() {
-    gl_Position = ubo.mvp * vec4(position, 1.0);
+    gl_Position = uboVert.mvp * vec4(position, 1.0);
 }

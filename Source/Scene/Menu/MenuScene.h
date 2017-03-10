@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene2D.h"
-#include "MenuShaderProgram.h"
+#include "../../Graphics/ShaderProgram/BaseShaderProgram.h"
 #include "../../UI/Button.h"
 #include "../../UI/LinearLayout.h"
 #include "../../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
@@ -34,5 +34,5 @@ private:
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::Buffer* indexBuffer = nullptr;
     Plane plane;
-    MenuShaderProgram msp;
+    BaseShaderProgram msp;
 };

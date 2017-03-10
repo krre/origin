@@ -1,7 +1,7 @@
-#include "MenuShaderProgram.h"
+#include "BaseShaderProgram.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
 
-MenuShaderProgram::MenuShaderProgram(const Vulkan::Device* device) : ShaderProgram(device) {
+BaseShaderProgram::BaseShaderProgram(const Vulkan::Device* device) : ShaderProgram(device) {
     addShader("Shader/Base.vert.spv");
     addShader("Shader/Base.frag.spv");
 

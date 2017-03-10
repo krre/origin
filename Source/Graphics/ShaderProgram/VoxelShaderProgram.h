@@ -1,8 +1,8 @@
 #pragma once
-#include "../../Graphics/ShaderProgram.h"
+#include "ShaderProgram.h"
 #include <glm/glm.hpp>
 
-class WorldShaderProgram : public ShaderProgram {
+class VoxelShaderProgram : public ShaderProgram {
 
 public:
     friend class WorldScene;
@@ -47,5 +47,5 @@ public:
         float debugFloat;
     } debugOut;
 
-    WorldShaderProgram(const Vulkan::Device* device);
+    VoxelShaderProgram(const Vulkan::Device* device);
 };

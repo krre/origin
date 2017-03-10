@@ -1,7 +1,7 @@
 #include "ShaderProgram.h"
-#include "../Resource/ResourceManager.h"
-#include "../Core/Utils.h"
-#include "SpirvParser.h"
+#include "../../Resource/ResourceManager.h"
+#include "../../Core/Utils.h"
+#include "../SpirvParser.h"
 
 using namespace Vulkan;
 

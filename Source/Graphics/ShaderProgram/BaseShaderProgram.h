@@ -1,8 +1,8 @@
 #pragma once
-#include "../../Graphics/ShaderProgram.h"
+#include "ShaderProgram.h"
 #include <glm/glm.hpp>
 
-class MenuShaderProgram : public ShaderProgram {
+class BaseShaderProgram : public ShaderProgram {
 
 public:
     friend class MenuScene;
@@ -15,5 +15,5 @@ public:
         glm::vec3 color = glm::vec3(1.0, 0.0, 0.0);
     } uboFrag;
 
-    MenuShaderProgram(const Vulkan::Device* device);
+    BaseShaderProgram(const Vulkan::Device* device);
 };

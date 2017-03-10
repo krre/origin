@@ -1,6 +1,7 @@
 add_subdirectory(Light)
 add_subdirectory(Voxel)
 add_subdirectory(Vulkan)
+add_subdirectory(ShaderProgram)
 
 set(SOURCES
     ${SOURCES}
@@ -12,8 +13,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Texture.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SpirvParser.cpp

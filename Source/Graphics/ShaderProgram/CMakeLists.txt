@@ -1,0 +1,10 @@
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/BaseShaderProgram.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/BaseShaderProgram.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/VoxelShaderProgram.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/VoxelShaderProgram.h
+    PARENT_SCOPE
+)

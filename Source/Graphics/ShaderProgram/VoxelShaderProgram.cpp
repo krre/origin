@@ -1,7 +1,7 @@
-#include "WorldShaderProgram.h"
+#include "VoxelShaderProgram.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
 
-WorldShaderProgram::WorldShaderProgram(const Vulkan::Device* device) : ShaderProgram(device) {
+VoxelShaderProgram::VoxelShaderProgram(const Vulkan::Device* device) : ShaderProgram(device) {
     addShader("Shader/Voxel.vert.spv");
     addShader("Shader/Voxel.frag.spv");
 

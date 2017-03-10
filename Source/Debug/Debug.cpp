@@ -5,6 +5,7 @@
 #include "../Scene/Menu/MenuScene.h"
 #include "../Scene/Settings/SettingsScene.h"
 #include "../Scene/World/WorldScene.h"
+#include "../Debug/DebugHUD.h"
 #include <Origin.h>
 
 Debug::Debug() {
@@ -37,6 +38,10 @@ void Debug::setDebugScene() {
         }
     } else {
         SceneManager::get()->setScene(std::make_shared<MenuScene>());
+    }
+
+    if (getValue("debugHUD") == "true") {
+        DebugHUD::get()->setVisible(true);
     }
 }
 

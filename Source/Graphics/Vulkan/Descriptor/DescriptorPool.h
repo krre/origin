@@ -13,13 +13,11 @@ public:
     void addPoolSize(VkDescriptorType type, uint32_t count);
     VkResult create() override;
     void destroy() override;
-    void setMaxSets(uint32_t maxSets);
 
     VkDescriptorPoolCreateInfo createInfo = {};
 
 private:
     std::vector<VkDescriptorPoolSize> poolSizes;
-    uint32_t maxSets = 0;
 };
 
 } // Vulkan

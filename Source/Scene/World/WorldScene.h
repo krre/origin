@@ -40,5 +40,5 @@ private:
     uint64_t seed;
     Viewport viewport;
     Plane plane;
-    VoxelShaderProgram wsp;
+    VoxelShaderProgram vsp;
 };

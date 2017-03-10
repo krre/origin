@@ -104,5 +104,13 @@ void ShaderProgram::write(void* uniform, VkDeviceSize offset, VkDeviceSize size)
 }
 
 void ShaderProgram::write(void* uniform) {
-    write(uniform, 0, uniformLinks.at(uniform).size);
+    uniformLinks.at(uniform).buffer->write(0, uniformLinks.at(uniform).size, uniform);
+}
+
+void ShaderProgram::read(void* uniform, VkDeviceSize offset, VkDeviceSize size) {
+    uniformLinks.at(uniform).buffer->read(offset, size, uniform);
+}
+
+void ShaderProgram::read(void* uniform) {
+    uniformLinks.at(uniform).buffer->read(0, uniformLinks.at(uniform).size, uniform);
 }

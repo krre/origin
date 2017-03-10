@@ -33,6 +33,8 @@ public:
     void linkBuffer(std::string name, void* uniform, uint32_t size);
     void write(void* uniform, VkDeviceSize offset, VkDeviceSize size);
     void write(void* uniform);
+    void read(void* uniform, VkDeviceSize offset, VkDeviceSize size);
+    void read(void* uniform);
 
 protected:
     std::map<Type, ShaderResource*> shaderResources;

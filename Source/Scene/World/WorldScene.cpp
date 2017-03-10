@@ -13,6 +13,7 @@
 #include "../../Resource/ShaderResource.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
+#include "../../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 
 WorldScene::WorldScene() : worldShaderProgram(device) {
     new EntityManager;
@@ -23,14 +24,6 @@ WorldScene::~WorldScene() {
 
     delete graphicsPipeline;
     delete pipelineLayout;
-    delete descriptorSets;
-    delete descriptorPool;
-    delete descriptorSetLayout;
-    delete debugOutBuffer;
-    delete pickResultBuffer;
-    delete renderListBuffer;
-    delete octreeBuffer;
-    delete uniformFrag;
     delete indexBuffer;
     delete vertexBuffer;
 }
@@ -54,47 +47,8 @@ void WorldScene::init() {
     indexStageBuffer.write(0, plane.getIndicesSize(), plane.getIndices().data());
     indexStageBuffer.copy(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, sizeof(UBO));
-
-    octreeBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 1, MEMORY_SIZE);
-
-    renderListBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 2, MAX_OCTREE_COUNT * sizeof(uint32_t));
-
-    pickResultBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 3, sizeof(PickResult));
-
-    debugOutBuffer = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4, sizeof(DebugOut));
-
-    descriptorPool = new Vulkan::DescriptorPool(device);
-    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1);
-    descriptorPool->addPoolSize(VK_DESCRIPTOR_TYPE_STORAGE_BUFFER, 4);
-    descriptorPool->create();
-
-    descriptorSetLayout = new Vulkan::DescriptorSetLayout(device);
-
-    descriptorSetLayout->addLayoutBinding(uniformFrag->setLayoutBinding);
-    descriptorSetLayout->addLayoutBinding(octreeBuffer->setLayoutBinding);
-    descriptorSetLayout->addLayoutBinding(renderListBuffer->setLayoutBinding);
-    descriptorSetLayout->addLayoutBinding(pickResultBuffer->setLayoutBinding);
-    descriptorSetLayout->addLayoutBinding(debugOutBuffer->setLayoutBinding);
-    descriptorSetLayout->create();
-
-    descriptorSets = new Vulkan::DescriptorSets(device, descriptorPool);
-    descriptorSets->addDescriptorSetLayout(descriptorSetLayout->getHandle());
-    descriptorSets->allocate();
-    descriptorSets->addDescriptor(uniformFrag);
-    descriptorSets->addDescriptor(octreeBuffer);
-    descriptorSets->addDescriptor(renderListBuffer);
-    descriptorSets->addDescriptor(pickResultBuffer);
-    descriptorSets->addDescriptor(debugOutBuffer);
-    descriptorSets->writeDescriptors();
-
     pipelineLayout = new Vulkan::PipelineLayout(device);
-    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout);
+    pipelineLayout->addDescriptorSetLayout(&worldShaderProgram.descriptorSetLayout);
     pipelineLayout->create();
 
     graphicsPipeline = new Vulkan::GraphicsPipeline(device);
@@ -149,8 +103,8 @@ void WorldScene::update(float dt) {
     TransformComponent* octreeTransform;
 
     TransformComponent* lightTransform;
-    ubo.lightColor = glm::vec4(0.0);
-    ubo.lightPos = glm::vec4(0.0);
+    worldShaderProgram.ubo.lightColor = glm::vec4(0.0);
+    worldShaderProgram.ubo.lightPos = glm::vec4(0.0);
 
     // TODO: Replace by family
     for (auto entity : EntityManager::get()->getEntities()) {
@@ -162,12 +116,12 @@ void WorldScene::update(float dt) {
         LightComponent* lightComp = static_cast<LightComponent*>(entity.second->components[ComponentType::Light].get());
         if (lightComp) {
             lightTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
-            ubo.lightColor = glm::vec4(lightComp->color, 1.0);
-            ubo.lightPos = lightTransform->objectToWorld[3];
+            worldShaderProgram.ubo.lightColor = glm::vec4(lightComp->color, 1.0);
+            worldShaderProgram.ubo.lightPos = lightTransform->objectToWorld[3];
         }
     }
 
-    ubo.transformCount = 0;
+    worldShaderProgram.ubo.transformCount = 0;
 
     for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
         std::vector<glm::vec4> transform;
@@ -203,17 +157,17 @@ void WorldScene::update(float dt) {
         transform.push_back(stepW);
         transform.push_back(stepH);
 
-        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, octreeBuffer);
+        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, worldShaderProgram.uniformLinks[&worldShaderProgram.octree].buffer);
 
-        if (!ubo.transformCount) {
-            ubo.transformCount = transform.size();
+        if (!worldShaderProgram.ubo.transformCount) {
+            worldShaderProgram.ubo.transformCount = transform.size();
         }
     }
 
-    ubo.frameWidth = width;
-    ubo.frameHeight = height;
-    ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
-    uniformFrag->write(0, sizeof(UBO), &ubo);
+    worldShaderProgram.ubo.frameWidth = width;
+    worldShaderProgram.ubo.frameHeight = height;
+    worldShaderProgram.ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
+    worldShaderProgram.write(&worldShaderProgram.ubo);
 }
 
 void WorldScene::create() {
@@ -250,6 +204,8 @@ void WorldScene::create() {
     phisicsSystem->addRigidBody(avatarCamera.get());
 
     EntityManager::get()->addEntity(avatarCamera);
+
+    Vulkan::Buffer* octreeBuffer = worldShaderProgram.uniformLinks[&worldShaderProgram.octree].buffer;
 
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
@@ -328,7 +284,7 @@ void WorldScene::create() {
     EntityManager::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
-    octreeSystem->getGpuMemoryManager()->updateRenderList(renderListBuffer);
+    octreeSystem->getGpuMemoryManager()->updateRenderList(worldShaderProgram.uniformLinks[&worldShaderProgram.renderList].buffer);
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
@@ -403,6 +359,7 @@ void WorldScene::buildCommandBuffers() {
         scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
+        Vulkan::DescriptorSets* descriptorSets = &worldShaderProgram.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout->getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
         vkCmdDrawIndexed(commandBuffer.getHandle(), plane.getIndices().size(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());

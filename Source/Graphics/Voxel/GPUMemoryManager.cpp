@@ -5,10 +5,10 @@
 GPUMemoryManager::GPUMemoryManager() {
 }
 
-void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Descriptor* descriptor) {
+void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Buffer* buffer) {
     OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
     int size = sizeof(uint32_t) * oc->data.get()->size();
-    descriptor->write(endOffset, size, oc->data->data());
+    buffer->write(endOffset, size, oc->data->data());
 
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);
@@ -24,18 +24,18 @@ void GPUMemoryManager::updateEntityOctree(Entity* entity) {
 //    glUnmapBuffer(GL_SHADER_STORAGE_BUFFER);
 }
 
-void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform, Vulkan::Descriptor* descriptor) {
+void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform, Vulkan::Buffer* buffer) {
     int size = sizeof(glm::vec4) * transform.size();
     int offset = octreeOffsets[entity->getId()] + PAGE_BYTES - size;
-    descriptor->write(offset, size, transform.data());
+    buffer->write(offset, size, transform.data());
 }
 
 void GPUMemoryManager::removeEntity(const Entity* entity) {
 
 }
 
-void GPUMemoryManager::updateRenderList(Vulkan::Descriptor* descriptor) {
+void GPUMemoryManager::updateRenderList(Vulkan::Buffer* buffer) {
     uint32_t count = renderOffsets.size();
-    descriptor->write(0, sizeof(count), &count);
-    descriptor->write(sizeof(count), sizeof(renderOffsets[0]) * renderOffsets.size(), renderOffsets.data());
+    buffer->write(0, sizeof(count), &count);
+    buffer->write(sizeof(count), sizeof(renderOffsets[0]) * renderOffsets.size(), renderOffsets.data());
 }

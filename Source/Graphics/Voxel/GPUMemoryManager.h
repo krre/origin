@@ -13,12 +13,12 @@ class GPUMemoryManager {
 
 public:
     GPUMemoryManager();
-    void addEntity(Entity* entity, Vulkan::Descriptor* descriptor);
+    void addEntity(Entity* entity, Vulkan::Buffer* buffer);
     void updateEntityOctree(Entity* entity);
-    void updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform, Vulkan::Descriptor* descriptor);
+    void updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform, Vulkan::Buffer* buffer);
     void removeEntity(const Entity* entity);
 
-    void updateRenderList(Vulkan::Descriptor* descriptor);
+    void updateRenderList(Vulkan::Buffer* buffer);
     std::map<EntityId, int> getOctreeOffsets() const { return octreeOffsets; }
 
 private:

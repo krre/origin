@@ -36,12 +36,12 @@ public:
 
 protected:
     std::map<Type, ShaderResource*> shaderResources;
+    Vulkan::DescriptorSetLayout descriptorSetLayout;
+    Vulkan::DescriptorSets descriptorSets;
+    std::map<void*, LinkInfo> uniformLinks;
 
 private:
     const Vulkan::Device* device;
     Vulkan::DescriptorPool descriptorPool;
-    Vulkan::DescriptorSetLayout descriptorSetLayout;
-    Vulkan::DescriptorSets descriptorSets;
-    std::map<void*, LinkInfo> uniformLinks;
     std::vector<std::shared_ptr<Vulkan::Buffer>> buffers;
 };

@@ -32,8 +32,8 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void buildCommandBuffers() override;
 
-    Vulkan::PipelineLayout* pipelineLayout = nullptr;
-    Vulkan::GraphicsPipeline* graphicsPipeline = nullptr;
+    Vulkan::PipelineLayout pipelineLayout;
+    Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::Buffer* indexBuffer = nullptr;
     EntityId characterId;

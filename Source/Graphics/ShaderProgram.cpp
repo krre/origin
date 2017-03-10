@@ -35,12 +35,30 @@ void ShaderProgram::addShader(const std::string& path) {
 
 void ShaderProgram::createDescriptors() {
     SpirvParser parser;
+    std::map<VkDescriptorType, uint32_t> descriptorsTypes;
 
     for (auto it : shaderResources) {
         ShaderResource* shaderResource = it.second;
         parser.parse(shaderResource->getData(), shaderResource->getSize());
         parser.dumpDescriptors();
+
+        for (auto& descriptor : parser.descriptors) {
+            if (descriptor.variableType == "Uniform") {
+                if (descriptorsTypes.find(descriptor.descriptorType) == descriptorsTypes.end()) {
+                    descriptorsTypes[descriptor.descriptorType] = 1;
+                } else {
+                    descriptorsTypes[descriptor.descriptorType]++;
+                }
+            }
+        }
     }
+
+    // Descriptor pool
+    for (auto& it : descriptorsTypes) {
+        descriptorPool.addPoolSize(it.first, it.second);
+    }
+
+    descriptorPool.create();
 }
 
 void ShaderProgram::link(std::string name, UniformBuffer* uniformBuffer, uint32_t size) {

@@ -12,7 +12,8 @@ MenuScene::MenuScene() :
     descriptorPool(device),
     descriptorSetLayout(device),
     pipelineLayout(device),
-    graphicsPipeline(device) {
+    graphicsPipeline(device),
+    msp(device) {
 }
 
 MenuScene::~MenuScene() {

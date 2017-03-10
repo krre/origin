@@ -1,5 +1,6 @@
 #pragma once
 #include "../Scene2D.h"
+#include "MenuShaderProgram.h"
 #include "../../UI/Button.h"
 #include "../../UI/LinearLayout.h"
 #include "../../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
@@ -42,4 +43,5 @@ private:
     Vulkan::Descriptor* uniformVert = nullptr;
     Vulkan::Descriptor* uniformFrag = nullptr;
     Plane plane;
+    MenuShaderProgram msp;
 };

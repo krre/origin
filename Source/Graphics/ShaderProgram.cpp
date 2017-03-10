@@ -61,6 +61,23 @@ void ShaderProgram::createDescriptors() {
                 }
 
                 descriptorSetLayout.addLayoutBinding(layoutBinding);
+
+                for (auto& it : uniformLinks) {
+                    if (it.second.name == descriptor.name) {
+                        VkBufferUsageFlagBits usage;
+                        if (descriptor.descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
+                            usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
+                        } else if (descriptor.descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
+                            usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
+                        }
+                        LinkInfo* linkInfo = &it.second;
+                        std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, linkInfo->size);
+                        buffer->create();
+                        buffers.push_back(buffer);
+                        linkInfo->buffer = buffer.get();
+                        break;
+                    }
+                }
             }
         }
     }

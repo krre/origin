@@ -105,7 +105,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
     for (auto& it : attributes) {
         if (it.second.variableType != "Output") {
-            descriptors[it.second.name] = it.second;
+            descriptors.push_back(it.second);
         }
     }
 
@@ -113,12 +113,12 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 }
 
 void SpirvParser::dumpDescriptors() {
-    for (auto& it : descriptors) {
-        PRINT("name: " << it.second.name
-              << ", location: " << it.second.location
-              << ", descriptorSet: " << it.second.descriptorSet
-              << ", binding: " << it.second.binding
-              << ", descriptorType: " << it.second.descriptorType
-              << ", variableType: " << it.second.variableType)
+    for (auto& descriptor : descriptors) {
+        PRINT("name: " << descriptor.name
+              << ", location: " << descriptor.location
+              << ", descriptorSet: " << descriptor.descriptorSet
+              << ", binding: " << descriptor.binding
+              << ", descriptorType: " << descriptor.descriptorType
+              << ", variableType: " << descriptor.variableType)
     }
 }

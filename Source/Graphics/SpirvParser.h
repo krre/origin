@@ -7,7 +7,7 @@
 #include <spirv-tools/libspirv.h>
 #endif
 
-#include <map>
+#include <vector>
 #include <vulkan/vulkan.h>
 
 class SpirvParser : public Object {
@@ -28,7 +28,7 @@ public:
     void parse(const uint32_t* code, size_t count);
     void dumpDescriptors();
 
-    std::map<std::string, Attributes> descriptors;
+    std::vector<Attributes> descriptors;
 
 private:
     spv_context context;

@@ -26,6 +26,10 @@ void DescriptorSets::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetL
     descriptorSetLayouts.push_back(descriptorSetLayout);
 }
 
+void DescriptorSets::addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet) {
+    descriptorWrites.push_back(writeDescriptorSet);
+}
+
 void DescriptorSets::addDescriptor(Descriptor* descriptor) {
     VkWriteDescriptorSet descriptorWrite = {};
     descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;

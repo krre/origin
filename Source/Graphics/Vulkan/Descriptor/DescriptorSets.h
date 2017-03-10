@@ -14,6 +14,7 @@ public:
     ~DescriptorSets();
     bool allocate();
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
+    void addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet);
     void addDescriptor(Descriptor* descriptor);
     void writeDescriptors();
     void destroy() override;

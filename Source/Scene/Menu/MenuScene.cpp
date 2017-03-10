@@ -11,7 +11,7 @@
 MenuScene::MenuScene() :
     pipelineLayout(device),
     graphicsPipeline(device),
-    msp(device) {
+    bsp(device) {
 }
 
 MenuScene::~MenuScene() {
@@ -38,16 +38,16 @@ void MenuScene::init() {
     indexStageBuffer.write(0, plane.getIndicesSize(), plane.getIndices().data());
     indexStageBuffer.copy(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    msp.write(&msp.uboVert);
-    msp.write(&msp.uboFrag);
+    bsp.write(&bsp.uboVert);
+    bsp.write(&bsp.uboFrag);
 
-    pipelineLayout.addDescriptorSetLayout(&msp.descriptorSetLayout);
+    pipelineLayout.addDescriptorSetLayout(&bsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    ShaderResource* shaderResource = msp.shaderResources[ShaderProgram::Type::VERTEX];
+    ShaderResource* shaderResource = bsp.shaderResources[ShaderProgram::Type::VERTEX];
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
 
-    shaderResource = msp.shaderResources[ShaderProgram::Type::FRAGMENT];
+    shaderResource = bsp.shaderResources[ShaderProgram::Type::FRAGMENT];
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
 
     VkVertexInputBindingDescription bindingDescription = {};
@@ -128,7 +128,7 @@ void MenuScene::buildCommandBuffers() {
         scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
-        Vulkan::DescriptorSets* descriptorSets = &msp.descriptorSets;
+        Vulkan::DescriptorSets* descriptorSets = &bsp.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
         vkCmdDrawIndexed(commandBuffer.getHandle(), plane.getIndices().size(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());

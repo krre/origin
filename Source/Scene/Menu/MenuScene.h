@@ -34,5 +34,5 @@ private:
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::Buffer* indexBuffer = nullptr;
     Plane plane;
-    BaseShaderProgram msp;
+    BaseShaderProgram bsp;
 };

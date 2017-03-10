@@ -5,7 +5,6 @@
 #include "Vulkan/Descriptor/DescriptorPool.h"
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
-#include "UniformBuffer.h"
 #include "Vulkan/Buffer.h"
 #include "Vulkan/Image/Image.h"
 #include <map>
@@ -31,7 +30,7 @@ public:
     ~ShaderProgram();
     void addShader(const std::string& path);
     void createDescriptors();
-    void linkBuffer(std::string name, UniformBuffer* uniformBuffer, uint32_t size);
+    void linkBuffer(std::string name, void* uniform, uint32_t size);
 
 protected:
     std::map<Type, ShaderResource*> shaderResources;
@@ -41,6 +40,6 @@ private:
     Vulkan::DescriptorPool descriptorPool;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
-    std::map<UniformBuffer*, LinkInfo> uniformLinks;
+    std::vector<LinkInfo> uniformLinks;
     std::vector<std::shared_ptr<Vulkan::Buffer>> buffers;
 };

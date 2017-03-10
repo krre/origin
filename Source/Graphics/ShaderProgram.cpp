@@ -75,6 +75,17 @@ void ShaderProgram::createDescriptors() {
                         buffer->create();
                         buffers.push_back(buffer);
                         linkInfo->buffer = buffer.get();
+
+                        VkWriteDescriptorSet descriptorWrite = {};
+                        descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+                        descriptorWrite.dstBinding = layoutBinding.binding;
+                        descriptorWrite.dstArrayElement = 0;
+                        descriptorWrite.descriptorType = layoutBinding.descriptorType;
+                        descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
+                        descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
+
+                        descriptorSets.addWriteDescriptorSet(descriptorWrite);
+
                         break;
                     }
                 }
@@ -83,6 +94,7 @@ void ShaderProgram::createDescriptors() {
     }
 
     descriptorSetLayout.create();
+    descriptorSets.addDescriptorSetLayout(descriptorSetLayout.getHandle());
 
     // Descriptor pool
     for (auto& it : descriptorsTypes) {
@@ -90,6 +102,8 @@ void ShaderProgram::createDescriptors() {
     }
 
     descriptorPool.create();
+    descriptorSets.allocate();
+    descriptorSets.writeDescriptors();
 }
 
 void ShaderProgram::linkBuffer(std::string name, void* uniform, uint32_t size) {

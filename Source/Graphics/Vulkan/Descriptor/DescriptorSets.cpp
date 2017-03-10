@@ -6,7 +6,6 @@ using namespace Vulkan;
 DescriptorSets::DescriptorSets(const Device* device, const DescriptorPool* descriptorPool) :
     Devicer(device), descriptorPool(descriptorPool) {
     allocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-    allocateInfo.descriptorPool = descriptorPool->getHandle();
 }
 
 DescriptorSets::~DescriptorSets() {
@@ -14,6 +13,7 @@ DescriptorSets::~DescriptorSets() {
 }
 
 bool DescriptorSets::allocate() {
+    allocateInfo.descriptorPool = descriptorPool->getHandle();
     allocateInfo.descriptorSetCount = descriptorSetLayouts.size();
     allocateInfo.pSetLayouts = descriptorSetLayouts.data();
 
@@ -46,6 +46,9 @@ void DescriptorSets::addDescriptor(Descriptor* descriptor) {
 }
 
 void DescriptorSets::writeDescriptors() {
+    for (auto& it : descriptorWrites) {
+        it.dstSet = collection.at(0); // TODO: Set meaningful value
+    }
     vkUpdateDescriptorSets(device->getHandle(), descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
 }
 

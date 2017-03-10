@@ -9,17 +9,12 @@
 #include "../../Graphics/Plane.h"
 
 MenuScene::MenuScene() :
-    descriptorPool(device),
-    descriptorSetLayout(device),
     pipelineLayout(device),
     graphicsPipeline(device),
     msp(device) {
 }
 
 MenuScene::~MenuScene() {
-    delete descriptorSets;
-    delete uniformVert;
-    delete uniformFrag;
     delete indexBuffer;
     delete vertexBuffer;
 }
@@ -43,37 +38,16 @@ void MenuScene::init() {
     indexStageBuffer.write(0, plane.getIndicesSize(), plane.getIndices().data());
     indexStageBuffer.copy(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    VkDeviceSize size = sizeof(UBOvert);
-    uniformVert = new Vulkan::Descriptor(device, VK_SHADER_STAGE_VERTEX_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 0, size);
-    uniformVert->write(0, size, &uboVert);
+    msp.write(&msp.uboVert);
+    msp.write(&msp.uboFrag);
 
-    size = sizeof(UBOfrag);
-    uniformFrag = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                                      VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 1, size);
-    uniformFrag->write(0, size, &uboFrag);
-
-    descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER, 2);
-    descriptorPool.create();
-
-    descriptorSetLayout.addLayoutBinding(uniformVert->setLayoutBinding);
-    descriptorSetLayout.addLayoutBinding(uniformFrag->setLayoutBinding);
-    descriptorSetLayout.create();
-
-    descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
-    descriptorSets->addDescriptorSetLayout(descriptorSetLayout.getHandle());
-    descriptorSets->allocate();
-    descriptorSets->addDescriptor(uniformVert);
-    descriptorSets->addDescriptor(uniformFrag);
-    descriptorSets->writeDescriptors();
-
-    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
+    pipelineLayout.addDescriptorSetLayout(&msp.descriptorSetLayout);
     pipelineLayout.create();
 
-    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Base.vert.spv");
+    ShaderResource* shaderResource = msp.shaderResources[ShaderProgram::Type::VERTEX];
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
 
-    shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Base.frag.spv");;
+    shaderResource = msp.shaderResources[ShaderProgram::Type::FRAGMENT];
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
 
     VkVertexInputBindingDescription bindingDescription = {};
@@ -154,6 +128,7 @@ void MenuScene::buildCommandBuffers() {
         scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
+        Vulkan::DescriptorSets* descriptorSets = &msp.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
         vkCmdDrawIndexed(commandBuffer.getHandle(), plane.getIndices().size(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());

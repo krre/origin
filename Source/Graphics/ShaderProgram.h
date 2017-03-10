@@ -6,6 +6,8 @@
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
 #include "UniformBuffer.h"
+#include "Vulkan/Buffer.h"
+#include "Vulkan/Image/Image.h"
 #include <map>
 
 class ShaderProgram : public Object {
@@ -21,6 +23,8 @@ public:
     struct LinkInfo {
         std::string name;
         uint32_t size;
+        Vulkan::Buffer* buffer;
+        Vulkan::Image* image;
     };
 
     ShaderProgram(const Vulkan::Device* device);

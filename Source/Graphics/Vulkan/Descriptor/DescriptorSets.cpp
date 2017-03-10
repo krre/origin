@@ -30,21 +30,6 @@ void DescriptorSets::addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorS
     descriptorWrites.push_back(writeDescriptorSet);
 }
 
-void DescriptorSets::addDescriptor(Descriptor* descriptor) {
-    VkWriteDescriptorSet descriptorWrite = {};
-    descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-    descriptorWrite.dstSet = collection.at(0); // TODO: Set meaningful value
-    descriptorWrite.dstBinding = descriptor->setLayoutBinding.binding;
-    descriptorWrite.dstArrayElement = 0;
-    descriptorWrite.descriptorType = descriptor->setLayoutBinding.descriptorType;
-    descriptorWrite.descriptorCount = descriptor->setLayoutBinding.descriptorCount;
-    descriptorWrite.pBufferInfo = &descriptor->getBuffer()->descriptorInfo;
-    if (descriptor->getImage() != nullptr) {
-        descriptorWrite.pImageInfo = &descriptor->getImage()->descriptorInfo;
-    }
-    descriptorWrites.push_back(descriptorWrite);
-}
-
 void DescriptorSets::writeDescriptors() {
     for (auto& it : descriptorWrites) {
         it.dstSet = collection.at(0); // TODO: Set meaningful value

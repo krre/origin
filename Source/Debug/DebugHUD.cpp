@@ -23,7 +23,6 @@ DebugHUD::DebugHUD() :
 
 DebugHUD::~DebugHUD() {
     delete descriptorSets;
-    delete samplerFont;
     delete samplerImage;
     delete samplerImageView;
     delete vertexBuffer;
@@ -50,14 +49,14 @@ void DebugHUD::init() {
     samplerImage->descriptorInfo.sampler = sampler.getHandle();
     samplerImage->descriptorInfo.imageView = samplerImageView->getHandle();
 
-    samplerFont = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-                                         VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, MAX_CHAR_COUNT * sizeof(glm::vec4));
-    samplerFont->setImage(samplerImage);
+//    samplerFont = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
+//                                         VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, MAX_CHAR_COUNT * sizeof(glm::vec4));
+//    samplerFont->setImage(samplerImage);
 
     descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
     descriptorPool.create();
 
-    descriptorSetLayout.addLayoutBinding(samplerFont->setLayoutBinding);
+//    descriptorSetLayout.addLayoutBinding(samplerFont->setLayoutBinding);
     descriptorSetLayout.create();
 
     pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
@@ -66,7 +65,7 @@ void DebugHUD::init() {
     descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
     descriptorSets->addDescriptorSetLayout(descriptorSetLayout.getHandle());
     descriptorSets->allocate();
-    descriptorSets->addDescriptor(samplerFont);
+//    descriptorSets->addDescriptor(samplerFont);
     descriptorSets->writeDescriptors();
 
     ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Text.vert.spv");

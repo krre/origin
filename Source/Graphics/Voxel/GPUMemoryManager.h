@@ -1,7 +1,7 @@
 #pragma once
 #include "../../Core/Common.h"
 #include "../../ECS/Entity.h"
-#include "../Vulkan/Descriptor/Descriptor.h"
+#include "../Vulkan/Buffer.h"
 #include <map>
 #include <vector>
 #include <glm/glm.hpp>

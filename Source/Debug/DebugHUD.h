@@ -11,7 +11,6 @@
 #include "../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 #include "../Graphics/Vulkan/Buffer.h"
 #include "../Graphics/Vulkan/Descriptor/DescriptorPool.h"
-#include "../Graphics/Vulkan/Descriptor/Descriptor.h"
 #include "../Graphics/Vulkan/Sampler.h"
 #include "../Graphics/Vulkan/Image/ImageView.h"
 #include "../Graphics/Vulkan/Image/Image.h"
@@ -41,7 +40,6 @@ private:
     Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::Buffer* vertexBuffer = nullptr;
     Vulkan::Buffer* indexBuffer = nullptr;
-    Vulkan::Descriptor* samplerFont = nullptr;
     Vulkan::Sampler sampler;
     Vulkan::ImageView* samplerImageView = nullptr;
     Vulkan::Image* samplerImage = nullptr;

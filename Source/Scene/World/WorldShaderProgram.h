@@ -5,6 +5,7 @@
 class WorldShaderProgram : public ShaderProgram {
 
 public:
+    friend class WorldScene;
 
     struct UBO {
         int shadeless = 0;

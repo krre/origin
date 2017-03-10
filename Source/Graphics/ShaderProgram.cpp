@@ -37,7 +37,7 @@ void ShaderProgram::createDescriptors() {
     SpirvParser parser;
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
 
-    for (auto it : shaderResources) {
+    for (auto& it : shaderResources) {
         ShaderResource* shaderResource = it.second;
         parser.parse(shaderResource->getData(), shaderResource->getSize());
         parser.dumpDescriptors();
@@ -49,9 +49,23 @@ void ShaderProgram::createDescriptors() {
                 } else {
                     descriptorsTypes[descriptor.descriptorType]++;
                 }
+
+                VkDescriptorSetLayoutBinding layoutBinding = {};
+                layoutBinding.binding = descriptor.binding;
+                layoutBinding.descriptorCount = 1;
+                layoutBinding.descriptorType = descriptor.descriptorType;
+                if (it.first == Type::VERTEX) {
+                    layoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+                } else if (it.first == Type::FRAGMENT) {
+                    layoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+                }
+
+                descriptorSetLayout.addLayoutBinding(layoutBinding);
             }
         }
     }
+
+    descriptorSetLayout.create();
 
     // Descriptor pool
     for (auto& it : descriptorsTypes) {

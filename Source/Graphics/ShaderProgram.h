@@ -40,6 +40,6 @@ private:
     Vulkan::DescriptorPool descriptorPool;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
-    std::vector<LinkInfo> uniformLinks;
+    std::map<void*, LinkInfo> uniformLinks;
     std::vector<std::shared_ptr<Vulkan::Buffer>> buffers;
 };

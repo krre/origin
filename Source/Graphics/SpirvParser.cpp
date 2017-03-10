@@ -1,4 +1,5 @@
 #include "SpirvParser.h"
+#include "../Core/Utils.h"
 #include <assert.h>
 #include <vector>
 #include <map>
@@ -105,6 +106,8 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
     for (auto& it : attributes) {
         if (it.second.variableType != "Output") {
+            char c = '\"';
+            Utils::removeChar(it.second.name, c);
             descriptors.push_back(it.second);
         }
     }

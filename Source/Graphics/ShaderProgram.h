@@ -31,10 +31,8 @@ public:
     void addShader(const std::string& path);
     void createDescriptors();
     void linkBuffer(std::string name, void* uniform, uint32_t size);
-    void write(void* uniform, VkDeviceSize offset, VkDeviceSize size);
-    void write(void* uniform);
-    void read(void* uniform, VkDeviceSize offset, VkDeviceSize size);
-    void read(void* uniform);
+    void write(void* uniform, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
+    void read(void* uniform, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
 protected:
     std::map<Type, ShaderResource*> shaderResources;

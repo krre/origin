@@ -113,18 +113,11 @@ void ShaderProgram::linkBuffer(std::string name, void* uniform, uint32_t size) {
     uniformLinks[uniform] = linkInfo;
 }
 
-void ShaderProgram::write(void* uniform, VkDeviceSize offset, VkDeviceSize size) {
-    uniformLinks.at(uniform).buffer->write(offset, size, uniform);
+void ShaderProgram::write(void* uniform, VkDeviceSize offset, VkDeviceSize size, void* data) {
+    uniformLinks.at(uniform).buffer->write(offset, size ? size : uniformLinks.at(uniform).size, data != nullptr ? data : uniform);
 }
 
-void ShaderProgram::write(void* uniform) {
-    uniformLinks.at(uniform).buffer->write(0, uniformLinks.at(uniform).size, uniform);
+void ShaderProgram::read(void* uniform, VkDeviceSize offset, VkDeviceSize size, void* data) {
+    uniformLinks.at(uniform).buffer->read(offset, size ? size : uniformLinks.at(uniform).size, data != nullptr ? data : uniform);
 }
 
-void ShaderProgram::read(void* uniform, VkDeviceSize offset, VkDeviceSize size) {
-    uniformLinks.at(uniform).buffer->read(offset, size, uniform);
-}
-
-void ShaderProgram::read(void* uniform) {
-    uniformLinks.at(uniform).buffer->read(0, uniformLinks.at(uniform).size, uniform);
-}

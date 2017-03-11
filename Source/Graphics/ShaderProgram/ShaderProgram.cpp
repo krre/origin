@@ -61,19 +61,19 @@ void ShaderProgram::createDescriptors() {
 
             descriptorSetLayout.addLayoutBinding(layoutBinding);
 
-            const auto& linkIt = bufferLinks.find(descriptorIt.first);
-            if (linkIt != bufferLinks.end()) {
+            const auto& bufferIt = bufferInfos.find(descriptorIt.first);
+            if (bufferIt != bufferInfos.end()) {
                 VkBufferUsageFlagBits usage;
                 if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
                     usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
                 } else if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
-                BufferInfo* linkInfo = &linkIt->second;
-                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, linkInfo->size);
+                BufferInfo* bufferInfo = &bufferIt->second;
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, bufferInfo->size);
                 buffer->create();
                 buffers.push_back(buffer);
-                linkInfo->buffer = buffer.get();
+                bufferInfo->buffer = buffer.get();
 
                 VkWriteDescriptorSet descriptorWrite = {};
                 descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -105,14 +105,14 @@ void ShaderProgram::linkBuffer(const std::string& name, uint32_t size, void* uni
     BufferInfo linkInfo = {};
     linkInfo.size = size;
     linkInfo.uniform = uniform;
-    bufferLinks[name] = linkInfo;
+    bufferInfos[name] = linkInfo;
 }
 
 void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    bufferLinks.at(name).buffer->write(offset, size ? size : bufferLinks.at(name).size, data != nullptr ? data : bufferLinks.at(name).uniform);
+    bufferInfos.at(name).buffer->write(offset, size ? size : bufferInfos.at(name).size, data != nullptr ? data : bufferInfos.at(name).uniform);
 }
 
 void ShaderProgram::read(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    bufferLinks.at(name).buffer->read(offset, size ? size : bufferLinks.at(name).size, data != nullptr ? data : bufferLinks.at(name).uniform);
+    bufferInfos.at(name).buffer->read(offset, size ? size : bufferInfos.at(name).size, data != nullptr ? data : bufferInfos.at(name).uniform);
 }
 

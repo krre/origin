@@ -37,7 +37,7 @@ protected:
     std::map<Type, ShaderResource*> shaderResources;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
-    std::map<std::string, BufferInfo> bufferLinks;
+    std::map<std::string, BufferInfo> bufferInfos;
 
 private:
     const Vulkan::Device* device;

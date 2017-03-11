@@ -23,7 +23,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
       assert(false);
     }
 
-//    PRINT(resultText->str)
+    PRINT(resultText->str)
 //    PRINT("================")
 
     std::map<std::string, std::string> names;
@@ -74,7 +74,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
                     if (attributes.find(id) == attributes.end()) {
                         attributes[id] = {};
                     }
-                    attributes.at(id).descriptorSet = std::stoi(line.at(3));
+                    attributes.at(id).set = std::stoi(line.at(3));
                     attributes.at(id).name = names.at(id);
                 }
 
@@ -119,7 +119,7 @@ void SpirvParser::dumpDescriptors() {
     for (auto& descriptor : descriptors) {
         PRINT("name: " << descriptor.name
               << ", location: " << descriptor.location
-              << ", descriptorSet: " << descriptor.descriptorSet
+              << ", set: " << descriptor.set
               << ", binding: " << descriptor.binding
               << ", descriptorType: " << descriptor.descriptorType
               << ", variableType: " << descriptor.variableType)

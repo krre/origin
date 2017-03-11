@@ -16,7 +16,7 @@ public:
 
     struct Descriptor {
         std::string name;
-        int descriptorSet;
+        int set;
         int location;
         int binding;
         VkDescriptorType descriptorType;

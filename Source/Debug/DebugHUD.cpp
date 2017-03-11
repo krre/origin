@@ -17,7 +17,8 @@ DebugHUD::DebugHUD() :
     pipelineLayout(device),
     pipelineCache(device),
     graphicsPipeline(device),
-    renderPass(device) {
+    renderPass(device),
+    tsp(device) {
     visible = false;
 }
 

@@ -1,5 +1,7 @@
+// Base on article https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Text_Rendering_02
 #include "Font.h"
 #include "../../Resource/ResourceManager.h"
+#include <algorithm>
 
 Font::Font() {
 
@@ -14,58 +16,45 @@ void Font::setSize(int size) {
 
     FT_Set_Pixel_Sizes(face, 0, size);
 
-    characters.clear();
+    FT_GlyphSlot glyph = face->glyph;
+    unsigned int w = 0;
+    unsigned int h = 0;
 
-        // Load first 128 characters of ASCII set
-        for (uint8_t i = 0; i < 128; i++) {
-            // Load character glyph
-            if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
-                ERROR("Failed to load Glyph");
-                continue;
-            }
-
-            // Generate texture
-    //        GLuint texture;
-    //        glGenTextures(1, &texture);
-    //        glBindTexture(GL_TEXTURE_2D, texture);
-    //        glTexImage2D(
-    //            GL_TEXTURE_2D,
-    //            0,
-    //            GL_RED,
-    //            face->glyph->bitmap.width,
-    //            face->glyph->bitmap.rows,
-    //            0,
-    //            GL_RED,
-    //            GL_UNSIGNED_BYTE,
-    //            face->glyph->bitmap.buffer
-    //        );
-
-            // Set texture options
-    //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    //        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-            // Now store character for later use
-            Glyph character = {
-    //            texture,
-                glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
-                glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-                (uint32_t)face->glyph->advance.x
-            };
-            characters.insert(std::pair<char, Glyph>(i, character));
-    //        glBindTexture(GL_TEXTURE_2D, 0);
+    // Load first 128 characters of ASCII set
+    for (uint8_t i = 32; i < 128; i++) {
+        if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
+            ERROR("Failed to load Glyph: " << i)
+            continue;
         }
 
-        // Configure VAO/VBO for texture quads
-    //    glGenBuffers(1, &vbo);
-    //    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    //    glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, nullptr, GL_DYNAMIC_DRAW);
+        w += glyph->bitmap.width;
+        h = std::max(h, glyph->bitmap.rows);
 
-    //    glGenVertexArrays(1, &vao);
-    //    glBindVertexArray(vao);
-    //    glEnableVertexAttribArray(0);
-    //    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
+        character[i].ax = glyph->advance.x >> 6;
+        character[i].ay = glyph->advance.y >> 6;
+
+        character[i].bw = glyph->bitmap.width;
+        character[i].bh = glyph->bitmap.rows;
+
+        character[i].bl = glyph->bitmap_left;
+        character[i].bt = glyph->bitmap_top;
+    }
+
+    atlasWidth = w;
+
+    int x = 0;
+
+    for (int i = 32; i < 128; i++) {
+        if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
+            continue;
+        }
+
+//        glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+
+        x += glyph->bitmap.width;
+
+        character[i].tx = (float)x / w;
+    }
 }
 
 void Font::load(const std::string& path) {
@@ -75,4 +64,41 @@ void Font::load(const std::string& path) {
     }
 
     setSize(14);
+}
+
+void Font::renderText(const std::string& text, float x, float y, float sx, float sy) {
+    struct Point {
+        float x;
+        float y;
+        float s;
+        float t;
+    } coords[6 * text.size()];
+
+    int n = 0;
+
+    for (const char *p = text.c_str(); *p; p++) {
+        float x2 = x + character[*p].bl * sx;
+        float y2 = -y - character[*p].bt * sy;
+        float w = character[*p].bw * sx;
+        float h = character[*p].bh * sy;
+
+        // Advance the cursor to the start of the next character
+        x += character[*p].ax * sx;
+        y += character[*p].ay * sy;
+
+        // Skip glyphs that have no pixels
+        if (!w || !h) {
+            continue;
+        }
+
+        coords[n++] = { x2, -y2, character[*p].tx, 0 };
+        coords[n++] = { x2 + w, -y2, character[*p].tx + character[*p].bw / atlasWidth, 0};
+        coords[n++] = { x2, -y2 - h, character[*p].tx, character[*p].bh / atlasHeight }; //remember: each glyph occupies a different amount of vertical space
+        coords[n++] = { x2 + w, -y2, character[*p].tx + character[*p].bw / atlasWidth, 0};
+        coords[n++] = { x2, -y2 - h, character[*p].tx, character[*p].bh / atlasHeight };
+        coords[n++] = { x2 + w, -y2 - h, character[*p].tx + character[*p].bw / atlasWidth, character[*p].bh / atlasHeight };
+    }
+
+//    glBufferData(GL_ARRAY_BUFFER, sizeof coords, coords, GL_DYNAMIC_DRAW);
+//    glDrawArrays(GL_TRIANGLES, 0, n);
 }

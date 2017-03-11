@@ -8,22 +8,30 @@
 class Font : public Resource {
 
 public:
-    struct Glyph {
-//        GLuint textureId;   // ID handle of the glyph texture
-        glm::ivec2 size;    // Size of glyph
-        glm::ivec2 bearing;  // Offset from baseline to left/top of glyph
-        uint32_t advance;    // Horizontal offset to advance to next glyph
-    };
+
+    struct Character {
+      float ax; // advance.x
+      float ay; // advance.y
+
+      float bw; // bitmap.width;
+      float bh; // bitmap.rows;
+
+      float bl; // bitmap_left;
+      float bt; // bitmap_top;
+
+      float tx; // x offset of glyph in texture coordinates
+    } character[128];
 
     Font();
     ~Font();
     void setSize(int size);
     int getSize() const { return size; }
     void load(const std::string& path) override;
-    Glyph getGlyph(char character) { return characters[character]; }
+    void renderText(const std::string& text, float x, float y, float sx, float sy);
 
 private:
     int size = 14;
-    std::map<char, Glyph> characters;
     FT_Face face;
+    int atlasWidth;
+    int atlasHeight;
 };

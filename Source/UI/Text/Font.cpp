@@ -15,8 +15,8 @@ void Font::setSize(int size) {
     this->size = size;
 
     FT_Set_Pixel_Sizes(face, 0, size);
+    glyph = face->glyph;
 
-    FT_GlyphSlot glyph = face->glyph;
     unsigned int w = 0;
     unsigned int h = 0;
 
@@ -38,24 +38,16 @@ void Font::setSize(int size) {
 
         character[i].bl = glyph->bitmap_left;
         character[i].bt = glyph->bitmap_top;
+
+        character[i].tx = w; // preliminary tx
+    }
+
+    for (uint8_t i = 32; i < 128; i++) {
+        character[i].tx /= w; // final tx
     }
 
     atlasWidth = w;
     atlasHeight = h;
-
-    int x = 0;
-
-    for (int i = 32; i < 128; i++) {
-        if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
-            continue;
-        }
-
-//        glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
-
-        x += glyph->bitmap.width;
-
-        character[i].tx = (float)x / w;
-    }
 }
 
 void Font::load(const std::string& path) {
@@ -101,5 +93,26 @@ void Font::renderText(const std::string& text, float x, float y, float sx, float
     }
 
 //    glBufferData(GL_ARRAY_BUFFER, sizeof coords, coords, GL_DYNAMIC_DRAW);
-//    glDrawArrays(GL_TRIANGLES, 0, n);
+    //    glDrawArrays(GL_TRIANGLES, 0, n);
+}
+
+void Font::uploadTexture(Vulkan::DeviceMemory* memory) {
+    int offset = 0;
+    for (int i = 32; i < 128; i++) {
+        if (FT_Load_Char(face, i, FT_LOAD_RENDER)) {
+            continue;
+        }
+
+        int count = glyph->bitmap.rows * glyph->bitmap.width;
+        if (count) {
+            void* mapData;
+            memory->map(count, offset, &mapData);
+            memcpy(mapData, glyph->bitmap.buffer, count);
+            memory->unmap();
+            offset += count;
+        }
+
+//        glTexSubImage2D(GL_TEXTURE_2D, 0, x, 0, g->bitmap.width, g->bitmap.rows, GL_ALPHA, GL_UNSIGNED_BYTE, g->bitmap.buffer);
+
+    }
 }

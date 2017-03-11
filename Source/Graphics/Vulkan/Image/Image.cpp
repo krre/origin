@@ -3,13 +3,11 @@
 
 using namespace Vulkan;
 
-Image::Image(const Device* device, uint32_t width, uint32_t height) :
+Image::Image(const Device* device) :
     Devicer(device), memory(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     createInfo.imageType = VK_IMAGE_TYPE_2D;
     createInfo.format = VK_FORMAT_R8G8B8A8_UNORM;
-    createInfo.extent.width = width;
-    createInfo.extent.height = height;
     createInfo.extent.depth = 1;
     createInfo.arrayLayers = 1;
     createInfo.mipLevels = 1;

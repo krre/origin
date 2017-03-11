@@ -30,6 +30,7 @@ public:
     void addShader(const std::string& path);
     void createDescriptors();
     void linkBuffer(const std::string& name, uint32_t size, void* uniform = nullptr);
+    void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void write(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     void read(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
@@ -38,6 +39,7 @@ protected:
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
     std::map<std::string, BufferInfo> bufferInfos;
+    std::map<std::string, VkDescriptorImageInfo> imageInfos;
 
 private:
     const Vulkan::Device* device;

@@ -61,6 +61,13 @@ void ShaderProgram::createDescriptors() {
 
             descriptorSetLayout.addLayoutBinding(layoutBinding);
 
+            VkWriteDescriptorSet descriptorWrite = {};
+            descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            descriptorWrite.dstBinding = layoutBinding.binding;
+            descriptorWrite.dstArrayElement = 0;
+            descriptorWrite.descriptorType = layoutBinding.descriptorType;
+            descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
+
             const auto& bufferIt = bufferInfos.find(descriptorIt.first);
             if (bufferIt != bufferInfos.end()) {
                 VkBufferUsageFlagBits usage;
@@ -74,15 +81,13 @@ void ShaderProgram::createDescriptors() {
                 buffer->create();
                 buffers.push_back(buffer);
                 bufferInfo->buffer = buffer.get();
-
-                VkWriteDescriptorSet descriptorWrite = {};
-                descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-                descriptorWrite.dstBinding = layoutBinding.binding;
-                descriptorWrite.dstArrayElement = 0;
-                descriptorWrite.descriptorType = layoutBinding.descriptorType;
-                descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
                 descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
+                descriptorSets.addWriteDescriptorSet(descriptorWrite);
+            }
 
+            const auto& imageIt = imageInfos.find(descriptorIt.first);
+            if (imageIt != imageInfos.end()) {
+                descriptorWrite.pImageInfo = &imageIt->second;
                 descriptorSets.addWriteDescriptorSet(descriptorWrite);
             }
         }
@@ -106,6 +111,10 @@ void ShaderProgram::linkBuffer(const std::string& name, uint32_t size, void* uni
     linkInfo.size = size;
     linkInfo.uniform = uniform;
     bufferInfos[name] = linkInfo;
+}
+
+void ShaderProgram::linkImage(const std::__cxx11::string& name, VkDescriptorImageInfo descriptorImageInfo) {
+    imageInfos[name] = descriptorImageInfo;
 }
 
 void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {

@@ -34,7 +34,6 @@ private:
     Vulkan::RenderPass renderPass;
     Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::Buffer* vertexBuffer = nullptr;
-    Vulkan::Buffer* indexBuffer = nullptr;
     Vulkan::Sampler sampler;
     Vulkan::ImageView* samplerImageView = nullptr;
     Vulkan::Image* samplerImage = nullptr;

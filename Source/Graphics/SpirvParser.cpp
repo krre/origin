@@ -28,7 +28,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
     std::map<std::string, std::string> names;
     std::map<std::string, VkDescriptorType> descriptorTypes;
-    std::map<std::string, Attributes> attributes;
+    std::map<std::string, Descriptor> attributes;
     std::map<std::string, std::string> typePointers;
     std::vector<std::string> line;
     std::string word;

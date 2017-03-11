@@ -14,7 +14,7 @@ class SpirvParser : public Object {
 
 public:
 
-    struct Attributes {
+    struct Descriptor {
         std::string name;
         int descriptorSet;
         int location;
@@ -28,7 +28,7 @@ public:
     void parse(const uint32_t* code, size_t count);
     void dumpDescriptors();
 
-    std::vector<Attributes> descriptors;
+    std::vector<Descriptor> descriptors;
 
 private:
     spv_context context;

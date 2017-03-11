@@ -19,18 +19,17 @@ public:
         COMPUTE
     };
 
-    struct LinkInfo {
+    struct BufferInfo {
         uint32_t size;
         void* uniform;
         Vulkan::Buffer* buffer;
-        Vulkan::Image* image;
     };
 
     ShaderProgram(const Vulkan::Device* device);
     ~ShaderProgram();
     void addShader(const std::string& path);
     void createDescriptors();
-    void linkUniform(const std::string& name, void* uniform, uint32_t size);
+    void linkBuffer(const std::string& name, void* uniform, uint32_t size);
     void write(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     void read(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
@@ -38,7 +37,7 @@ protected:
     std::map<Type, ShaderResource*> shaderResources;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
-    std::map<std::string, LinkInfo> uniformLinks;
+    std::map<std::string, BufferInfo> bufferLinks;
 
 private:
     const Vulkan::Device* device;

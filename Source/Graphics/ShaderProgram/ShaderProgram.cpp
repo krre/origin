@@ -61,15 +61,15 @@ void ShaderProgram::createDescriptors() {
 
             descriptorSetLayout.addLayoutBinding(layoutBinding);
 
-            const auto& linkIt = uniformLinks.find(descriptorIt.first);
-            if (linkIt != uniformLinks.end()) {
+            const auto& linkIt = bufferLinks.find(descriptorIt.first);
+            if (linkIt != bufferLinks.end()) {
                 VkBufferUsageFlagBits usage;
                 if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
                     usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
                 } else if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
-                LinkInfo* linkInfo = &linkIt->second;
+                BufferInfo* linkInfo = &linkIt->second;
                 std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, linkInfo->size);
                 buffer->create();
                 buffers.push_back(buffer);
@@ -101,18 +101,18 @@ void ShaderProgram::createDescriptors() {
     descriptorSets.writeDescriptors();
 }
 
-void ShaderProgram::linkUniform(const std::string& name, void* uniform, uint32_t size) {
-    LinkInfo linkInfo = {};
+void ShaderProgram::linkBuffer(const std::string& name, void* uniform, uint32_t size) {
+    BufferInfo linkInfo = {};
     linkInfo.size = size;
     linkInfo.uniform = uniform;
-    uniformLinks[name] = linkInfo;
+    bufferLinks[name] = linkInfo;
 }
 
 void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    uniformLinks.at(name).buffer->write(offset, size ? size : uniformLinks.at(name).size, data != nullptr ? data : uniformLinks.at(name).uniform);
+    bufferLinks.at(name).buffer->write(offset, size ? size : bufferLinks.at(name).size, data != nullptr ? data : bufferLinks.at(name).uniform);
 }
 
 void ShaderProgram::read(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    uniformLinks.at(name).buffer->read(offset, size ? size : uniformLinks.at(name).size, data != nullptr ? data : uniformLinks.at(name).uniform);
+    bufferLinks.at(name).buffer->read(offset, size ? size : bufferLinks.at(name).size, data != nullptr ? data : bufferLinks.at(name).uniform);
 }
 

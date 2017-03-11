@@ -12,8 +12,6 @@
 
 DebugHUD::DebugHUD() :
     sampler(device),
-    descriptorPool(device),
-    descriptorSetLayout(device),
     pipelineLayout(device),
     pipelineCache(device),
     graphicsPipeline(device),
@@ -23,7 +21,6 @@ DebugHUD::DebugHUD() :
 }
 
 DebugHUD::~DebugHUD() {
-    delete descriptorSets;
     delete samplerImage;
     delete samplerImageView;
     delete vertexBuffer;
@@ -54,25 +51,13 @@ void DebugHUD::init() {
 //                                         VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, MAX_CHAR_COUNT * sizeof(glm::vec4));
 //    samplerFont->setImage(samplerImage);
 
-    descriptorPool.addPoolSize(VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 1);
-    descriptorPool.create();
-
-//    descriptorSetLayout.addLayoutBinding(samplerFont->setLayoutBinding);
-    descriptorSetLayout.create();
-
-    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
+    pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    descriptorSets = new Vulkan::DescriptorSets(device, &descriptorPool);
-    descriptorSets->addDescriptorSetLayout(descriptorSetLayout.getHandle());
-    descriptorSets->allocate();
-//    descriptorSets->addDescriptor(samplerFont);
-    descriptorSets->writeDescriptors();
-
-    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Text.vert.spv");
+    ShaderResource* shaderResource = tsp.shaderResources[ShaderProgram::Type::VERTEX];
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
 
-    shaderResource = ResourceManager::get()->load<ShaderResource>("Shader/Text.frag.spv");;
+    shaderResource = tsp.shaderResources[ShaderProgram::Type::FRAGMENT];
     graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
 
     VkVertexInputBindingDescription bindingDescriptionPos = {};
@@ -231,6 +216,7 @@ void DebugHUD::buildCommandBuffers() {
         scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
         vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
 
+        Vulkan::DescriptorSets* descriptorSets = &tsp.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
 
         VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };

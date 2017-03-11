@@ -7,10 +7,7 @@
 #include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
-#include "../Graphics/Vulkan/Descriptor/DescriptorSetLayout.h"
-#include "../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 #include "../Graphics/Vulkan/Buffer.h"
-#include "../Graphics/Vulkan/Descriptor/DescriptorPool.h"
 #include "../Graphics/Vulkan/Sampler.h"
 #include "../Graphics/Vulkan/Image/ImageView.h"
 #include "../Graphics/Vulkan/Image/Image.h"
@@ -33,9 +30,6 @@ private:
     void buildCommandBuffers() override;
 
     Vulkan::PipelineLayout pipelineLayout;
-    Vulkan::DescriptorPool descriptorPool;
-    Vulkan::DescriptorSetLayout descriptorSetLayout;
-    Vulkan::DescriptorSets* descriptorSets = nullptr;
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;
     Vulkan::GraphicsPipeline graphicsPipeline;

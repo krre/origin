@@ -18,7 +18,6 @@ public:
     DeviceMemory* getMemory() { return &memory; }
 
     VkImageCreateInfo createInfo = {};
-    VkDescriptorImageInfo descriptorInfo = {};
 
 private:
     DeviceMemory memory;

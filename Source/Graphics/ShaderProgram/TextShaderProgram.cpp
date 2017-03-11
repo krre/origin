@@ -38,5 +38,4 @@ TextShaderProgram::TextShaderProgram(const Vulkan::Device* device) :
     createDescriptors();
 
     font->uploadTexture(samplerImage.getMemory());
-    font->renderText("Origin", 100, 100, 1.0, 1.0);
 }

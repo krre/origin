@@ -38,8 +38,8 @@ void MenuScene::init() {
     indexStageBuffer.write(0, plane.getIndicesSize(), plane.getIndices().data());
     indexStageBuffer.copy(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    bsp.write(&bsp.uboVert);
-    bsp.write(&bsp.uboFrag);
+    bsp.write("uboVert");
+    bsp.write("uboFrag");
 
     pipelineLayout.addDescriptorSetLayout(&bsp.descriptorSetLayout);
     pipelineLayout.create();

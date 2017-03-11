@@ -155,7 +155,7 @@ void WorldScene::update(float dt) {
         transform.push_back(stepW);
         transform.push_back(stepH);
 
-        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, vsp.uniformLinks[&vsp.octree].buffer);
+        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, vsp.uniformLinks["octree"].buffer);
 
         if (!vsp.ubo.transformCount) {
             vsp.ubo.transformCount = transform.size();
@@ -165,7 +165,7 @@ void WorldScene::update(float dt) {
     vsp.ubo.frameWidth = width;
     vsp.ubo.frameHeight = height;
     vsp.ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
-    vsp.write(&vsp.ubo);
+    vsp.write("ubo");
 }
 
 void WorldScene::create() {
@@ -203,7 +203,7 @@ void WorldScene::create() {
 
     EntityManager::get()->addEntity(avatarCamera);
 
-    Vulkan::Buffer* octreeBuffer = vsp.uniformLinks[&vsp.octree].buffer;
+    Vulkan::Buffer* octreeBuffer = vsp.uniformLinks["octree"].buffer;
 
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
@@ -282,7 +282,7 @@ void WorldScene::create() {
     EntityManager::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
-    octreeSystem->getGpuMemoryManager()->updateRenderList(vsp.uniformLinks[&vsp.renderList].buffer);
+    octreeSystem->getGpuMemoryManager()->updateRenderList(vsp.uniformLinks["renderList"].buffer);
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();

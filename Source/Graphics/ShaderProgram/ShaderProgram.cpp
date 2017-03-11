@@ -10,7 +10,6 @@ ShaderProgram::ShaderProgram(const Device* device) :
     descriptorPool(device),
     descriptorSetLayout(device),
     descriptorSets(device, &descriptorPool) {
-
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -37,57 +36,56 @@ void ShaderProgram::createDescriptors() {
     SpirvParser parser;
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
 
-    for (auto& it : shaderResources) {
-        ShaderResource* shaderResource = it.second;
+    for (auto& shaderIt : shaderResources) {
+        ShaderResource* shaderResource = shaderIt.second;
         parser.parse(shaderResource->getData(), shaderResource->getSize());
-        parser.dumpDescriptors();
+//        parser.dumpDescriptors();
 
-        for (auto& descriptor : parser.descriptors) {
-            if (descriptor.variableType == "Uniform") {
-                if (descriptorsTypes.find(descriptor.descriptorType) == descriptorsTypes.end()) {
-                    descriptorsTypes[descriptor.descriptorType] = 1;
-                } else {
-                    descriptorsTypes[descriptor.descriptorType]++;
-                }
+        for (auto& descriptorIt : parser.descriptors) {
+            SpirvParser::Descriptor* descriptor = &descriptorIt.second;
+            if (descriptorsTypes.find(descriptor->descriptorType) == descriptorsTypes.end()) {
+                descriptorsTypes[descriptor->descriptorType] = 1;
+            } else {
+                descriptorsTypes[descriptor->descriptorType]++;
+            }
 
-                VkDescriptorSetLayoutBinding layoutBinding = {};
-                layoutBinding.binding = descriptor.binding;
-                layoutBinding.descriptorCount = 1;
-                layoutBinding.descriptorType = descriptor.descriptorType;
-                if (it.first == Type::VERTEX) {
-                    layoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
-                } else if (it.first == Type::FRAGMENT) {
-                    layoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
-                }
+            VkDescriptorSetLayoutBinding layoutBinding = {};
+            layoutBinding.binding = descriptor->binding;
+            layoutBinding.descriptorCount = 1;
+            layoutBinding.descriptorType = descriptor->descriptorType;
+            if (shaderIt.first == Type::VERTEX) {
+                layoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+            } else if (shaderIt.first == Type::FRAGMENT) {
+                layoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+            }
 
-                descriptorSetLayout.addLayoutBinding(layoutBinding);
+            descriptorSetLayout.addLayoutBinding(layoutBinding);
 
-                for (auto& it : uniformLinks) {
-                    if (it.second.name == descriptor.name) {
-                        VkBufferUsageFlagBits usage;
-                        if (descriptor.descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
-                            usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
-                        } else if (descriptor.descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
-                            usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
-                        }
-                        LinkInfo* linkInfo = &it.second;
-                        std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, linkInfo->size);
-                        buffer->create();
-                        buffers.push_back(buffer);
-                        linkInfo->buffer = buffer.get();
-
-                        VkWriteDescriptorSet descriptorWrite = {};
-                        descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-                        descriptorWrite.dstBinding = layoutBinding.binding;
-                        descriptorWrite.dstArrayElement = 0;
-                        descriptorWrite.descriptorType = layoutBinding.descriptorType;
-                        descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
-                        descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
-
-                        descriptorSets.addWriteDescriptorSet(descriptorWrite);
-
-                        break;
+            for (auto& linkIt : uniformLinks) {
+                if (linkIt.first == descriptorIt.first) {
+                    VkBufferUsageFlagBits usage;
+                    if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
+                        usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
+                    } else if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
+                        usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                     }
+                    LinkInfo* linkInfo = &linkIt.second;
+                    std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, linkInfo->size);
+                    buffer->create();
+                    buffers.push_back(buffer);
+                    linkInfo->buffer = buffer.get();
+
+                    VkWriteDescriptorSet descriptorWrite = {};
+                    descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+                    descriptorWrite.dstBinding = layoutBinding.binding;
+                    descriptorWrite.dstArrayElement = 0;
+                    descriptorWrite.descriptorType = layoutBinding.descriptorType;
+                    descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
+                    descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
+
+                    descriptorSets.addWriteDescriptorSet(descriptorWrite);
+
+                    break;
                 }
             }
         }
@@ -106,18 +104,18 @@ void ShaderProgram::createDescriptors() {
     descriptorSets.writeDescriptors();
 }
 
-void ShaderProgram::linkBuffer(std::string name, void* uniform, uint32_t size) {
+void ShaderProgram::linkUniform(const std::string& name, void* uniform, uint32_t size) {
     LinkInfo linkInfo = {};
-    linkInfo.name = name;
     linkInfo.size = size;
-    uniformLinks[uniform] = linkInfo;
+    linkInfo.uniform = uniform;
+    uniformLinks[name] = linkInfo;
 }
 
-void ShaderProgram::write(void* uniform, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    uniformLinks.at(uniform).buffer->write(offset, size ? size : uniformLinks.at(uniform).size, data != nullptr ? data : uniform);
+void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
+    uniformLinks.at(name).buffer->write(offset, size ? size : uniformLinks.at(name).size, data != nullptr ? data : uniformLinks.at(name).uniform);
 }
 
-void ShaderProgram::read(void* uniform, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    uniformLinks.at(uniform).buffer->read(offset, size ? size : uniformLinks.at(uniform).size, data != nullptr ? data : uniform);
+void ShaderProgram::read(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
+    uniformLinks.at(name).buffer->read(offset, size ? size : uniformLinks.at(name).size, data != nullptr ? data : uniformLinks.at(name).uniform);
 }
 

@@ -11,6 +11,7 @@ ResourceManager::ResourceManager() {
 }
 
 ResourceManager::~ResourceManager() {
+    resources.clear();
     FT_Done_FreeType(ft);
 }
 

@@ -6,7 +6,7 @@ Font::Font() {
 }
 
 Font::~Font() {
-//    FT_Done_Face(face);
+    FT_Done_Face(face);
 }
 
 void Font::setSize(int size) {
@@ -69,7 +69,6 @@ void Font::setSize(int size) {
 }
 
 void Font::load(const std::string& path) {
-
     if (FT_New_Face(ResourceManager::get()->getFreeTypeHandler(), path.c_str(), 0, &face)) {
         ERROR("Could not open font " << path);
         return;

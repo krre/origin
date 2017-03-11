@@ -11,6 +11,7 @@ public:
     friend class DebugHUD;
 
     TextShaderProgram(const Vulkan::Device* device);
+    Font* getFont() const { return font; }
 
 private:
     Vulkan::Sampler sampler;

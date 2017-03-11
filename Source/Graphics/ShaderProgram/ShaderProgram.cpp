@@ -61,32 +61,29 @@ void ShaderProgram::createDescriptors() {
 
             descriptorSetLayout.addLayoutBinding(layoutBinding);
 
-            for (auto& linkIt : uniformLinks) {
-                if (linkIt.first == descriptorIt.first) {
-                    VkBufferUsageFlagBits usage;
-                    if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
-                        usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
-                    } else if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
-                        usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
-                    }
-                    LinkInfo* linkInfo = &linkIt.second;
-                    std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, linkInfo->size);
-                    buffer->create();
-                    buffers.push_back(buffer);
-                    linkInfo->buffer = buffer.get();
-
-                    VkWriteDescriptorSet descriptorWrite = {};
-                    descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-                    descriptorWrite.dstBinding = layoutBinding.binding;
-                    descriptorWrite.dstArrayElement = 0;
-                    descriptorWrite.descriptorType = layoutBinding.descriptorType;
-                    descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
-                    descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
-
-                    descriptorSets.addWriteDescriptorSet(descriptorWrite);
-
-                    break;
+            const auto& linkIt = uniformLinks.find(descriptorIt.first);
+            if (linkIt != uniformLinks.end()) {
+                VkBufferUsageFlagBits usage;
+                if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
+                    usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
+                } else if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
+                    usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
+                LinkInfo* linkInfo = &linkIt->second;
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, linkInfo->size);
+                buffer->create();
+                buffers.push_back(buffer);
+                linkInfo->buffer = buffer.get();
+
+                VkWriteDescriptorSet descriptorWrite = {};
+                descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+                descriptorWrite.dstBinding = layoutBinding.binding;
+                descriptorWrite.dstArrayElement = 0;
+                descriptorWrite.descriptorType = layoutBinding.descriptorType;
+                descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
+                descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
+
+                descriptorSets.addWriteDescriptorSet(descriptorWrite);
             }
         }
     }

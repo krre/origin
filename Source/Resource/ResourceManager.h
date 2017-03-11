@@ -24,6 +24,8 @@ public:
         return static_cast<T*>(resources[path].get());
     }
 
+    void free(const std::string& path);
+
     FT_Library getFreeTypeHandler() { return ft; }
 
 private:

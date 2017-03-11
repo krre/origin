@@ -14,3 +14,7 @@ ResourceManager::~ResourceManager() {
     FT_Done_FreeType(ft);
 }
 
+void ResourceManager::free(const std::string& path) {
+    resources.erase(path);
+}
+

@@ -28,6 +28,7 @@ public:
     int getSize() const { return size; }
     void load(const std::string& path) override;
     void renderText(const std::string& text, float x, float y, float sx, float sy);
+    glm::vec2 getAtlasSize() { return glm::vec2(atlasWidth, atlasHeight); }
 
 private:
     int size = 14;

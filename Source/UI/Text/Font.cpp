@@ -41,6 +41,7 @@ void Font::setSize(int size) {
     }
 
     atlasWidth = w;
+    atlasHeight = h;
 
     int x = 0;
 

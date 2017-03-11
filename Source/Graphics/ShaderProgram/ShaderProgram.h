@@ -29,7 +29,7 @@ public:
     ~ShaderProgram();
     void addShader(const std::string& path);
     void createDescriptors();
-    void linkBuffer(const std::string& name, void* uniform, uint32_t size);
+    void linkBuffer(const std::string& name, uint32_t size, void* uniform = nullptr);
     void write(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     void read(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 

@@ -25,15 +25,6 @@ public:
         glm::vec4 pickPixel = glm::vec4(-1, -1, 0, 0);
     } ubo;
 
-    struct Octree {
-        uint32_t* data;
-    } octree;
-
-    struct RenderList {
-        int count;
-        uint32_t* offsets;
-    } renderList;
-
     struct PickResult {
         glm::vec3 pos;
         uint32_t parent;

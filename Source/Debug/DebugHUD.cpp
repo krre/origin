@@ -11,7 +11,6 @@
 #include <Origin.h>
 
 DebugHUD::DebugHUD() :
-    sampler(device),
     pipelineLayout(device),
     pipelineCache(device),
     graphicsPipeline(device),
@@ -21,8 +20,6 @@ DebugHUD::DebugHUD() :
 }
 
 DebugHUD::~DebugHUD() {
-    delete samplerImage;
-    delete samplerImageView;
     delete vertexBuffer;
 }
 
@@ -31,27 +28,6 @@ void DebugHUD::init() {
 
     vertexBuffer = new Vulkan::Buffer(device, MAX_CHAR_COUNT * sizeof(glm::vec4), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
     vertexBuffer->create();
-
-    sampler.create();
-
-    samplerImage = new Vulkan::Image(device);
-    samplerImage->createInfo.extent.width = 100;
-    samplerImage->createInfo.extent.height = 100;
-    samplerImage->createInfo.format = VK_FORMAT_R8_UNORM;
-    samplerImage->createInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
-    samplerImage->create();
-
-    samplerImageView = new Vulkan::ImageView(device, samplerImage->getHandle());
-    samplerImageView->createInfo.format = VK_FORMAT_R8_UNORM;
-    samplerImageView->create();
-
-    samplerImage->descriptorInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
-    samplerImage->descriptorInfo.sampler = sampler.getHandle();
-    samplerImage->descriptorInfo.imageView = samplerImageView->getHandle();
-
-//    samplerFont = new Vulkan::Descriptor(device, VK_SHADER_STAGE_FRAGMENT_BIT, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT,
-//                                         VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 0, MAX_CHAR_COUNT * sizeof(glm::vec4));
-//    samplerFont->setImage(samplerImage);
 
     pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);
     pipelineLayout.create();

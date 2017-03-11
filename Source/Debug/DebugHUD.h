@@ -8,9 +8,6 @@
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "../Graphics/Vulkan/Buffer.h"
-#include "../Graphics/Vulkan/Sampler.h"
-#include "../Graphics/Vulkan/Image/ImageView.h"
-#include "../Graphics/Vulkan/Image/Image.h"
 #include "../Graphics/ShaderProgram/TextShaderProgram.h"
 
 const int MAX_CHAR_COUNT = 2048;
@@ -34,9 +31,6 @@ private:
     Vulkan::RenderPass renderPass;
     Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::Buffer* vertexBuffer = nullptr;
-    Vulkan::Sampler sampler;
-    Vulkan::ImageView* samplerImageView = nullptr;
-    Vulkan::Image* samplerImage = nullptr;
     TextShaderProgram tsp;
 
     Label fps;

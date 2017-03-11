@@ -70,6 +70,7 @@ void DebugHUD::init() {
     graphicsPipeline.setPipelineCache(pipelineCache.getHandle());
     graphicsPipeline.createInfo.layout = pipelineLayout.getHandle();
     graphicsPipeline.createInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
+    graphicsPipeline.colorBlendAttachment.blendEnable = VK_TRUE;
 
     graphicsPipeline.create();
 
@@ -77,6 +78,9 @@ void DebugHUD::init() {
     renderPass.setDepthFormat(device->getPhysicalDevice()->getSupportedDepthFormat());
     renderPass.setOverlayEnable(true);
     renderPass.create();
+
+    std::string test = "Origin";
+    tsp.getFont()->renderText(vertexBuffer, test, 100, 100, 1, 1);
 
     buildCommandBuffers();
 }
@@ -164,7 +168,7 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::buildCommandBuffers() {
-    VkClearValue clearColor = { 0.0, 0.0, 0.0, 0.0 };
+    VkClearValue clearColor = { 0.0, 0.0, 1.0, 0.0 };
 
     VkRenderPassBeginInfo renderPassInfo = {};
     renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;

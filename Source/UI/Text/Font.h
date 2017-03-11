@@ -1,6 +1,6 @@
 #pragma once
 #include "../../Resource/Resource.h"
-#include "../../Graphics/Vulkan/Device/DeviceMemory.h"
+#include "../../Graphics/Vulkan/Buffer.h"
 #include <map>
 #include <glm/glm.hpp>
 #include <ft2build.h>
@@ -28,7 +28,7 @@ public:
     void setSize(int size);
     int getSize() const { return size; }
     void load(const std::string& path) override;
-    void renderText(const std::string& text, float x, float y, float sx, float sy);
+    int renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y, float sx, float sy);
     glm::vec2 getAtlasSize() { return glm::vec2(atlasWidth, atlasHeight); }
     void uploadTexture(Vulkan::DeviceMemory* memory);
 

@@ -59,7 +59,7 @@ void Font::load(const std::string& path) {
     setSize(14);
 }
 
-void Font::renderText(const std::string& text, float x, float y, float sx, float sy) {
+int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y, float sx, float sy) {
     struct Point {
         float x;
         float y;
@@ -92,8 +92,12 @@ void Font::renderText(const std::string& text, float x, float y, float sx, float
         coords[n++] = { x2 + w, -y2 - h, character[*p].tx + character[*p].bw / atlasWidth, character[*p].bh / atlasHeight };
     }
 
+    buffer->write(0, sizeof(coords), coords);
+
 //    glBufferData(GL_ARRAY_BUFFER, sizeof coords, coords, GL_DYNAMIC_DRAW);
     //    glDrawArrays(GL_TRIANGLES, 0, n);
+
+    return n;
 }
 
 void Font::uploadTexture(Vulkan::DeviceMemory* memory) {

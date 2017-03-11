@@ -35,6 +35,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
     // Parse SPIR-V text code to vector of lines
     int i = 0;
+    const char quote = '\"';
     while (i < resultText->length) {
         char c = resultText->str[i++];
         if (c == ' ') {
@@ -47,6 +48,7 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
             line.push_back(word);
             std::string firstWord = line.at(0);
             if (firstWord == "OpName") {
+                Utils::removeChar(line.at(2), quote);
                 names[line.at(1)] = line.at(2);
             } else if (firstWord == "OpDecorate") {
                 std::string& id = line.at(1);
@@ -106,8 +108,6 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 
     for (auto& it : attributes) {
         if (it.second.variableType != "Output") {
-            char c = '\"';
-            Utils::removeChar(it.second.name, c);
             descriptors.push_back(it.second);
         }
     }

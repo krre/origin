@@ -80,7 +80,7 @@ void DebugHUD::init() {
     renderPass.create();
 
     std::string test = "Origin";
-    tsp.getFont()->renderText(vertexBuffer, test, 100, 100, 1, 1);
+    numLetters = tsp.getFont()->renderText(vertexBuffer, test, 100, 100, 1, 1);
 
     buildCommandBuffers();
 }

@@ -1,5 +1,6 @@
 #include "Texture.h"
+#include <lodepng/lodepng.h>
 
 Texture::Texture(const std::string& path) {
-    PRINT(path)
+    lodepng::decode(data, width, height, path);
 }

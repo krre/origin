@@ -30,5 +30,5 @@ public:
 private:
     int size = 14;
     glm::vec2 atlasSize = glm::vec2();
-    std::vector<Character> characters;
+    std::map<int, Character> characters;
 };

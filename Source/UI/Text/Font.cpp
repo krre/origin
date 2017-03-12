@@ -2,7 +2,6 @@
 #include "Font.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Core/Utils.h"
-#include <algorithm>
 #include <fstream>
 
 Font::Font() {
@@ -24,6 +23,7 @@ void Font::load(const std::string& path) {
 
     assert(istream.good());
 
+    // Parse fnt file
     while (!istream.eof()) {
         std::string line;
         std::getline(istream, line);
@@ -44,9 +44,6 @@ void Font::load(const std::string& path) {
                     atlasSize.y = std::stoi(pair.at(1));
                 }
             }
-        } else if (head == "chars") {
-            std::vector<std::string> pair = Utils::split(words.at(1), '=');
-            characters.resize(std::stoi(pair.at(1)));
         } else if (head == "char") {
             Character character = {};
             int id;
@@ -76,6 +73,9 @@ void Font::load(const std::string& path) {
             characters[id] = character;
         }
     }
+
+    // Load png texture
+
 }
 
 int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y, float sx, float sy) {

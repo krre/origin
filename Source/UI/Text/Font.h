@@ -19,7 +19,7 @@ public:
       float bt; // bitmap_top;
 
       float tx; // x offset of glyph in texture coordinates
-    } character[128];
+    } character;
 
     Font();
     ~Font();
@@ -33,4 +33,5 @@ public:
 private:
     int size = 14;
     glm::vec2 atlasSize = glm::vec2();
+    std::vector<Character> characters;
 };

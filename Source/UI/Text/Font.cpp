@@ -45,7 +45,8 @@ void Font::load(const std::string& path) {
                 }
             }
         } else if (head == "chars") {
-
+            std::vector<std::string> pair = Utils::split(words.at(1), '=');
+            characters.resize(std::stoi(pair.at(1)));
         } else if (head == "char") {
 
         }

@@ -2,6 +2,7 @@
 #include "App.h"
 #include "Utils.h"
 #include <experimental/filesystem>
+#include <fstream>
 
 namespace fs = std::experimental::filesystem;
 
@@ -17,5 +18,11 @@ Settings::~Settings() {
 }
 
 void Settings::saveAll() {
-    PRINT("Save all")
+    std::ofstream out(path);
+    std::string line;
+    for (auto& it : storage) {
+        line = it.first + " = " + it.second;
+        out << line;
+    }
+    out.close();
 }

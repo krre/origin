@@ -36,6 +36,15 @@ void Settings::setValue(const std::string& name, const std::string& value) {
     storage[name] = value;
 }
 
+std::string Settings::getValue(const std::string& name) {
+    const auto it = storage.find(name);
+    if (it != storage.end()) {
+        return it->second;
+    } else {
+        return std::string();
+    }
+}
+
 void Settings::saveAll() {
     std::ofstream out(path);
     std::string line;

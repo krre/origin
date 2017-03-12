@@ -7,6 +7,7 @@ class Settings : public Singleton<Settings> {
 public:
     Settings(const std::string& name);
     ~Settings();
+    void setValue(const std::string& name, const std::string& value);
     void saveAll();
 
 private:

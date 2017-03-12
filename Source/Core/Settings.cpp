@@ -32,6 +32,10 @@ Settings::~Settings() {
     saveAll();
 }
 
+void Settings::setValue(const std::string& name, const std::string& value) {
+    storage[name] = value;
+}
+
 void Settings::saveAll() {
     std::ofstream out(path);
     std::string line;

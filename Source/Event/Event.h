@@ -12,6 +12,7 @@ public:
     Nano::Signal<void()> render;
     Nano::Signal<void(double)> update;
     Nano::Signal<void(int, int)> windowResize;
+    Nano::Signal<void(int, int)> windowMove;
     Nano::Signal<void(int, int)> mouseMove;
     Nano::Signal<void(const SDL_KeyboardEvent&)> keyPressed;
     Nano::Signal<void(const SDL_KeyboardEvent&)> keyRelease;

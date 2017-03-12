@@ -21,6 +21,10 @@ void Event::handleEvents() {
                 windowResize.emit(event.window.data1, event.window.data2);
 //                PRINT("window resize: " << event.window.data1 << " " << event.window.data2);
                 break;
+            case SDL_WINDOWEVENT_MOVED:
+                windowMove.emit(event.window.data1, event.window.data2);
+//                PRINT("window move: " << event.window.data1 << " " << event.window.data2);
+                break;
             default:
                 break;
             }

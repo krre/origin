@@ -9,7 +9,22 @@ namespace fs = std::experimental::filesystem;
 Settings::Settings(const std::string& name) {
     path = App::getCurrentPath() + Utils::getPathSeparator() + name;
     if (fs::exists(path)) {
-        PRINT("Load settings")
+        std::string text = Utils::readTextFile(path);
+        std::stringstream stream(text);
+        std::string line;
+
+        while (std::getline(stream, line, '\n')) {
+            line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
+
+            if (line.size()) {
+                std::vector<std::string> pair = Utils::split(line, '=');
+                if (pair.size() != 2) {
+                    ERROR("Failed to parse settings file at line: " << line);
+                } else {
+                    storage[pair.at(0)] = pair.at(1);
+                }
+            }
+        }
     }
 }
 
@@ -21,7 +36,7 @@ void Settings::saveAll() {
     std::ofstream out(path);
     std::string line;
     for (auto& it : storage) {
-        line = it.first + " = " + it.second;
+        line = it.first + " = " + it.second + "\n";
         out << line;
     }
     out.close();

@@ -11,3 +11,11 @@ Settings::Settings(const std::string& name) {
         PRINT("Load settings")
     }
 }
+
+Settings::~Settings() {
+    saveAll();
+}
+
+void Settings::saveAll() {
+    PRINT("Save all")
+}

@@ -146,7 +146,9 @@ std::vector<std::string> Utils::split(const std::string& value, char delim) {
     ss.str(value);
     std::string item;
     while (std::getline(ss, item, delim)) {
-        elems.push_back(item);
+        if (item.size()) {
+            elems.push_back(item);
+        }
     }
 
     return elems;

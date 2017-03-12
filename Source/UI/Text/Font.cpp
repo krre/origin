@@ -48,6 +48,7 @@ void Font::load(const std::string& path) {
                 }
             }
         } else if (head == "page") {
+            // Load png texture
             std::vector<std::string> pair = Utils::split(words.at(2), '=');
             std::string& textureName = pair.at(1);
             const char quote = '\"';
@@ -84,9 +85,6 @@ void Font::load(const std::string& path) {
             characters[id] = character;
         }
     }
-
-    // Load png texture
-
 }
 
 int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y, float sx, float sy) {

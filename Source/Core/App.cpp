@@ -158,6 +158,8 @@ int App::run() {
 void App::windowResize(int width, int height) {
     this->width = width;
     this->height = height;
+    Settings::get()->setValue("width", std::to_string(width));
+    Settings::get()->setValue("heigth", std::to_string(height));
 }
 
 void App::quit() {

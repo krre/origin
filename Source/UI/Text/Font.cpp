@@ -78,7 +78,7 @@ void Font::load(const std::string& path) {
     }
 }
 
-int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y, float sx, float sy) {
+int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y) {
 
 
     return 0;

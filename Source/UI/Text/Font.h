@@ -24,7 +24,7 @@ public:
     void setSize(int size);
     int getSize() const { return size; }
     void load(const std::string& path) override;
-    int renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y, float sx, float sy);
+    int renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y);
     void uploadTexture(Vulkan::DeviceMemory* memory);
 
 private:

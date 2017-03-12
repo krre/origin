@@ -44,7 +44,7 @@ std::string App::getCurrentPath() {
 }
 
 void App::init() {
-    new Settings;
+    new Settings("origin.ini");
     new Logger;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {

@@ -4,8 +4,8 @@
 class Settings : public Singleton<Settings> {
 
 public:
-    Settings();
+    Settings(const std::string& name);
 
 private:
-
+    std::string path;
 };

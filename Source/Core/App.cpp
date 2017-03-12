@@ -74,8 +74,11 @@ void App::init() {
         screenWidth /= 2;
     }
 
-    int x = (screenWidth - WIDTH) / 2;
-    int y = (screenHeight - HEIGHT) / 2;
+    std::string settingsX = Settings::get()->getValue("x");
+    std::string settingsY = Settings::get()->getValue("y");
+
+    int x = settingsX.empty() ? (screenWidth - WIDTH) / 2 : std::stoi(settingsX);
+    int y = settingsY.empty() ? (screenHeight - HEIGHT) / 2 : std::stoi(settingsY);
 
     window = SDL_CreateWindow(title, x, y, WIDTH, HEIGHT, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
 

@@ -3,8 +3,6 @@
 #include "../../Graphics/Vulkan/Buffer.h"
 #include <map>
 #include <glm/glm.hpp>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 class Font : public Resource {
 
@@ -33,9 +31,7 @@ public:
     void uploadTexture(Vulkan::DeviceMemory* memory);
 
 private:
-    FT_GlyphSlot glyph;
     int size = 14;
-    FT_Face face;
     int atlasWidth;
     int atlasHeight;
 };

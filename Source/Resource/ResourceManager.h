@@ -3,9 +3,6 @@
 #include "../Resource/Resource.h"
 #include "../UI/Text/Font.h"
 #include "../Graphics/Voxel/Octree.h"
-#include <ft2build.h>
-#undef HAVE_STDINT_H
-#include FT_FREETYPE_H
 #include <map>
 
 class ResourceManager : public Singleton<ResourceManager> {
@@ -26,10 +23,7 @@ public:
 
     void free(const std::string& path);
 
-    FT_Library getFreeTypeHandler() { return ft; }
-
 private:
     std::map<std::string, std::shared_ptr<Resource>> resources;
     std::string dataPath;
-    FT_Library ft;
 };

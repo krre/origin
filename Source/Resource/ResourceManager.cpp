@@ -4,18 +4,12 @@
 
 ResourceManager::ResourceManager() {
     dataPath = App::getCurrentPath() + "/Data";
-
-    if (FT_Init_FreeType(&ft)) {
-        ERROR("Could not init freetype library");
-    }
 }
 
 ResourceManager::~ResourceManager() {
     resources.clear();
-    FT_Done_FreeType(ft);
 }
 
 void ResourceManager::free(const std::string& path) {
     resources.erase(path);
 }
-

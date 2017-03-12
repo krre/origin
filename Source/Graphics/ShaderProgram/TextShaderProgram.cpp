@@ -11,7 +11,7 @@ TextShaderProgram::TextShaderProgram(const Vulkan::Device* device) :
     addShader("Shader/Text.vert.spv");
     addShader("Shader/Text.frag.spv");
 
-    font = ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf");
+    font = ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt");
     glm::vec2 atlasSize = font->getAtlasSize();
 
     sampler.create();

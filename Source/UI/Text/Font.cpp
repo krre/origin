@@ -85,9 +85,9 @@ int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, f
         }
 
         coords[n++] = { x2, -y2, character[*p].tx, 0 };
-        coords[n++] = { x2 + w, -y2, character[*p].tx + character[*p].bw / atlasWidth, 0};
+        coords[n++] = { x2 + w, -y2, character[*p].tx + character[*p].bw / atlasWidth, 0 };
         coords[n++] = { x2, -y2 - h, character[*p].tx, character[*p].bh / atlasHeight }; //remember: each glyph occupies a different amount of vertical space
-        coords[n++] = { x2 + w, -y2, character[*p].tx + character[*p].bw / atlasWidth, 0};
+        coords[n++] = { x2 + w, -y2, character[*p].tx + character[*p].bw / atlasWidth, 0 };
         coords[n++] = { x2, -y2 - h, character[*p].tx, character[*p].bh / atlasHeight };
         coords[n++] = { x2 + w, -y2 - h, character[*p].tx + character[*p].bw / atlasWidth, character[*p].bh / atlasHeight };
     }

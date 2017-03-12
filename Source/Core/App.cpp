@@ -76,11 +76,15 @@ void App::init() {
 
     std::string settingsX = Settings::get()->getValue("x");
     std::string settingsY = Settings::get()->getValue("y");
+    std::string settingsWidth = Settings::get()->getValue("width");
+    std::string settingsHeigth = Settings::get()->getValue("height");
 
     int x = settingsX.empty() ? (screenWidth - WIDTH) / 2 : std::stoi(settingsX);
     int y = settingsY.empty() ? (screenHeight - HEIGHT) / 2 : std::stoi(settingsY);
+    width = settingsWidth.empty() ? WIDTH : std::stoi(settingsWidth);
+    height = settingsHeigth.empty() ? HEIGHT : std::stoi(settingsHeigth);
 
-    window = SDL_CreateWindow(title, x, y, WIDTH, HEIGHT, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow(title, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
 
     if (window == nullptr) {
         std::string errorMsg = std::string("Window could not be created\n") + SDL_GetError();
@@ -163,7 +167,7 @@ void App::windowResize(int width, int height) {
     this->width = width;
     this->height = height;
     Settings::get()->setValue("width", std::to_string(width));
-    Settings::get()->setValue("heigth", std::to_string(height));
+    Settings::get()->setValue("height", std::to_string(height));
 }
 
 void App::windowMove(int x, int y) {

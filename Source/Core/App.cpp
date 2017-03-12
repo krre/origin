@@ -9,6 +9,7 @@
 #include "../Debug/Debug.h"
 #include "../Debug/DebugHUD.h"
 #include "../Scene/SceneManager.h"
+#include "Settings.h"
 #include <string>
 #include <SDL_timer.h>
 #include <Origin.h>
@@ -35,6 +36,7 @@ App::~App() {
     Event::get()->release();
     Vulkan::Manager::get()->release();
     Logger::get()->release();
+    Settings::get()->release();
 }
 
 std::string App::getCurrentPath() {
@@ -42,6 +44,7 @@ std::string App::getCurrentPath() {
 }
 
 void App::init() {
+    new Settings;
     new Logger;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {

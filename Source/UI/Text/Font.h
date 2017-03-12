@@ -25,12 +25,10 @@ public:
     int getSize() const { return size; }
     void load(const std::string& path) override;
     int renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y, float sx, float sy);
-    glm::vec2 getAtlasSize() const { return atlasSize; }
     void uploadTexture(Vulkan::DeviceMemory* memory);
 
 private:
     int size = 14;
-    glm::vec2 atlasSize = glm::vec2();
     std::map<int, Character> characters;
     std::shared_ptr<Texture> texture;
 };

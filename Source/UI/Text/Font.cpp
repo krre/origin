@@ -38,16 +38,7 @@ void Font::load(const std::string& path) {
 
         std::string& head = words.at(0);
 
-        if (head == "common") {
-            for (int i = 1; i < words.size(); i++) {
-                std::vector<std::string> pair = Utils::split(words.at(i), '=');
-                if (pair.at(0) == "scaleW") {
-                    atlasSize.x = std::stoi(pair.at(1));
-                } else if (pair.at(0) == "scaleH") {
-                    atlasSize.y = std::stoi(pair.at(1));
-                }
-            }
-        } else if (head == "page") {
+        if (head == "page") {
             // Load png texture
             std::vector<std::string> pair = Utils::split(words.at(2), '=');
             std::string& textureName = pair.at(1);

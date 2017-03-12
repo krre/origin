@@ -12,12 +12,11 @@ TextShaderProgram::TextShaderProgram(const Vulkan::Device* device) :
     addShader("Shader/Text.frag.spv");
 
     font = ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt");
-    glm::vec2 atlasSize = font->getAtlasSize();
 
     sampler.create();
 
-    samplerImage.createInfo.extent.width = atlasSize.x;
-    samplerImage.createInfo.extent.height = atlasSize.y;
+    samplerImage.createInfo.extent.width = 1;
+    samplerImage.createInfo.extent.height = 1;
     samplerImage.createInfo.format = VK_FORMAT_R8_UNORM;
     samplerImage.createInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_SAMPLED_BIT;
     samplerImage.createInfo.initialLayout = VK_IMAGE_LAYOUT_PREINITIALIZED; // TODO: Better VK_IMAGE_LAYOUT_GENERAL

@@ -103,6 +103,7 @@ void App::init() {
     new SceneManager;
     new Game;
 
+    Event::get()->windowMove.connect<App, &App::windowMove>(this);
     Event::get()->windowResize.connect<App, &App::windowResize>(this);
     Event::get()->quit.connect<App, &App::quit>(this);
     Event::get()->windowResize.emit(width, height);
@@ -160,6 +161,11 @@ void App::windowResize(int width, int height) {
     this->height = height;
     Settings::get()->setValue("width", std::to_string(width));
     Settings::get()->setValue("heigth", std::to_string(height));
+}
+
+void App::windowMove(int x, int y) {
+    Settings::get()->setValue("x", std::to_string(x));
+    Settings::get()->setValue("y", std::to_string(y));
 }
 
 void App::quit() {

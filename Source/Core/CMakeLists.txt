@@ -14,5 +14,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Utils.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Version.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Version.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Settings.h
     PARENT_SCOPE
 )

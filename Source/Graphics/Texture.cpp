@@ -1,5 +1,5 @@
 #include "Texture.h"
 
-Texture::Texture() {
-
+Texture::Texture(const std::string& path) {
+    PRINT(path)
 }

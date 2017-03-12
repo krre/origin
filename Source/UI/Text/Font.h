@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Resource/Resource.h"
 #include "../../Graphics/Vulkan/Buffer.h"
+#include "../../Graphics/Texture.h"
 #include <map>
 #include <glm/glm.hpp>
 
@@ -31,4 +32,5 @@ private:
     int size = 14;
     glm::vec2 atlasSize = glm::vec2();
     std::map<int, Character> characters;
+    std::shared_ptr<Texture> texture;
 };

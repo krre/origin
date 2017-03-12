@@ -3,6 +3,9 @@
 #include "../../Resource/ResourceManager.h"
 #include "../../Core/Utils.h"
 #include <fstream>
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
 
 Font::Font() {
 
@@ -44,6 +47,14 @@ void Font::load(const std::string& path) {
                     atlasSize.y = std::stoi(pair.at(1));
                 }
             }
+        } else if (head == "page") {
+            std::vector<std::string> pair = Utils::split(words.at(2), '=');
+            std::string& textureName = pair.at(1);
+            const char quote = '\"';
+            Utils::removeChar(textureName, quote);
+            fs::path fontPath(path);
+            std::string texturePath = fontPath.parent_path().string() + Utils::getPathSeparator() + textureName;
+            texture = std::make_shared<Texture>(texturePath);
         } else if (head == "char") {
             Character character = {};
             int id;

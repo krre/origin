@@ -4,7 +4,7 @@
 class Texture : public Object {
 
 public:
-    Texture();
+    Texture(const std::string& path);
 
 private:
 

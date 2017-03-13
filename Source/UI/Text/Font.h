@@ -25,7 +25,7 @@ public:
     int getSize() const { return size; }
     void load(const std::string& path) override;
     int renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y);
-    void uploadTexture(Vulkan::DeviceMemory* memory);
+    Texture* getTexture() const { return texture.get(); }
 
 private:
     int size = 14;

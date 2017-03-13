@@ -46,7 +46,7 @@ void Font::load(const std::string& path) {
             Utils::removeChar(textureName, quote);
             fs::path fontPath(path);
             std::string texturePath = fontPath.parent_path().string() + Utils::getPathSeparator() + textureName;
-            texture = std::make_shared<Texture>(texturePath);
+            texture = std::make_shared<Texture>(texturePath, VK_FORMAT_R8_UNORM);
         } else if (head == "char") {
             Character character = {};
             int id;
@@ -82,8 +82,4 @@ int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, f
 
 
     return 0;
-}
-
-void Font::uploadTexture(Vulkan::DeviceMemory* memory) {
-
 }

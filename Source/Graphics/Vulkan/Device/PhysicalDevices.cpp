@@ -8,7 +8,7 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
     collection.resize(count);
     vkEnumeratePhysicalDevices(instance->getHandle(), &count, collection.data());
 
-    for (auto device : collection) {
+    for (auto& device : collection) {
         auto physicalDevice = std::make_shared<PhysicalDevice>(device);
         devices.push_back(physicalDevice);
 
@@ -23,7 +23,7 @@ PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) 
 }
 
 PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
-    for (auto device : devices) {
+    for (auto& device : devices) {
         if (device->properties.deviceType == type) {
             return device.get();
         }
@@ -33,7 +33,7 @@ PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
 }
 
 void PhysicalDevices::dumpDevices() {
-    for (auto device : devices) {
+    for (auto& device : devices) {
         PRINT(device->properties.deviceName);
     }
 }

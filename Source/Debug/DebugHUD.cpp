@@ -20,14 +20,18 @@ DebugHUD::DebugHUD() :
 }
 
 DebugHUD::~DebugHUD() {
+    delete indexBuffer;
     delete vertexBuffer;
 }
 
 void DebugHUD::init() {
     Scene::init();
 
-    vertexBuffer = new Vulkan::Buffer(device, MAX_CHAR_COUNT * sizeof(glm::vec4), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
+    vertexBuffer = new Vulkan::Buffer(device, MAX_CHAR_COUNT * sizeof(Font::Vertex), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
     vertexBuffer->create();
+
+    indexBuffer = new Vulkan::Buffer(device, MAX_CHAR_COUNT * sizeof(uint32_t), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
+    indexBuffer->create();
 
     pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);
     pipelineLayout.create();
@@ -80,7 +84,7 @@ void DebugHUD::init() {
     renderPass.create();
 
     std::string test = "Origin";
-    numLetters = tsp.getFont()->renderText(vertexBuffer, test, 100, 100);
+    numLetters = tsp.getFont()->renderText(vertexBuffer, indexBuffer, test, 100, 100);
 
     buildCommandBuffers();
 }
@@ -203,13 +207,10 @@ void DebugHUD::buildCommandBuffers() {
 
         VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
         VkDeviceSize offsets[] = { 0 };
+
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
-        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 1, 1, vertexBuffers, offsets);
-
-        for (uint32_t j = 0; j < numLetters; j++) {
-            vkCmdDraw(commandBuffer.getHandle(), 4, 1, j * 4, 0);
-        }
-
+        vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT32);
+        vkCmdDrawIndexed(commandBuffer.getHandle(), tsp.getFont()->getIndexCount(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());
 
         commandBuffer.end();

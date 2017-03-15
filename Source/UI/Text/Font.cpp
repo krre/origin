@@ -63,7 +63,7 @@ void Font::load(const std::string& path) {
                 } else if (name == "width") {
                     character.width = value;
                 } else if (name == "height") {
-                    character.heigth = value;
+                    character.height = value;
                 } else if (name == "xoffset") {
                     character.xoffset = value;
                 } else if (name == "yoffset") {
@@ -78,8 +78,64 @@ void Font::load(const std::string& path) {
     }
 }
 
-int Font::renderText(Vulkan::Buffer* buffer, const std::string& text, float x, float y) {
+int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text, float x, float y) {
 
+    std::vector<Vertex> vertices;
+    std::vector<uint32_t> indices;
+    uint32_t indexOffset = 0;
+
+    float w = texture->getWidth();
+
+    float posx = 0.0f;
+    float posy = 0.0f;
+
+    for (uint32_t i = 0; i < text.size(); i++) {
+        Character *character = &characters[(int)text[i]];
+
+        if (character->width == 0)
+            character->width = 36;
+
+        float charw = ((float)(character->width) / 36.0f);
+        float dimx = 1.0f * charw;
+        float charh = ((float)(character->height) / 36.0f);
+        float dimy = 1.0f * charh;
+        posy = 1.0f - charh;
+
+        float us = character->x / w;
+        float ue = (character->x + character->width) / w;
+        float ts = character->y / w;
+        float te = (character->y + character->height) / w;
+
+        float xo = character->xoffset / 36.0f;
+        float yo = character->yoffset / 36.0f;
+
+        vertices.push_back({ { posx + dimx + xo,  posy + dimy, 0.0f }, { ue, te } });
+        vertices.push_back({ { posx + xo,         posy + dimy, 0.0f }, { us, te } });
+        vertices.push_back({ { posx + xo,         posy,        0.0f }, { us, ts } });
+        vertices.push_back({ { posx + dimx + xo,  posy,        0.0f }, { ue, ts } });
+
+        std::array<uint32_t, 6> letterIndices = { 0,1,2, 2,3,0 };
+
+        for (auto& index : letterIndices) {
+            indices.push_back(indexOffset + index);
+        }
+
+        indexOffset += 4;
+
+        float advance = ((float)(character->xadvance) / 36.0f);
+        posx += advance;
+    }
+
+    indexCount = indices.size();
+
+    // Center
+    for (auto& v : vertices) {
+        v.pos[0] -= posx / 2.0f;
+        v.pos[1] -= 0.5f;
+    }
+
+    vertexBuffer->write(0, vertices.size() * sizeof(Vertex),vertices.data() );
+    indexBuffer->write(0, indices.size() * sizeof(uint32_t), indices.data());
 
     return 0;
 }

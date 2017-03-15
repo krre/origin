@@ -15,4 +15,10 @@ Texture::Texture(const std::string& path, VkFormat format) :
     imageView.createInfo.image = image.getHandle();
     imageView.createInfo.format = image.createInfo.format;
     imageView.create();
+
+    int size = image.createInfo.extent.width * image.createInfo.extent.height;
+    void* mapData;
+    image.getMemory()->map(size, 0, &mapData);
+    memcpy(mapData, data.data(), size);
+    image.getMemory()->unmap();
 }

@@ -21,11 +21,20 @@ public:
         VkDescriptorType descriptorType;
     };
 
+    struct Input {
+        int location;
+        std::string shaderType;
+        std::string variableType;
+        std::string valueType;
+        int vectorCount;
+    };
+
     SpirvParser();
     ~SpirvParser();
     void parse(const uint32_t* code, size_t count);
     void dumpDescriptors();
 
+    std::map<std::string, Input> inputs;
     std::map<std::string, Descriptor> descriptors;
 
 private:

@@ -72,6 +72,10 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
                 } else if (decorateName == "Binding") {
                     std::string& name = names.at(id);
                     descriptors.at(name).binding = std::stoi(line.at(3));
+                } else if (decorateName == "Location") {
+                    std::string& name = names.at(id);
+                    inputs[name] = {};
+                    inputs.at(name).location = std::stoi(line.at(3));
                 }
             } else if (firstWord.at(0) == '%') {
                 std::string& id = firstWord;
@@ -81,30 +85,42 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
                 // %10 = OpTypeSampledImage %9
                 // %11 = OpTypePointer UniformConstant %10
                 // %12 = OpVariable %11 UniformConstant
-                if (line.size() == 5 && line.at(2) == "OpVariable" && line.at(4) == "UniformConstant") {
+                if (line.size() == 5 && line.at(2) == "OpVariable") {
                     std::string& name = names.at(id);
                     std::string& pointerId = line.at(3);
                     std::string& typeId = instructions.at(pointerId).at(4);
                     std::string& type = instructions.at(typeId).at(2);
-                    if (type == "OpTypeImage") {
-                        if (instructions.at(typeId).at(4) == "Buffer") {
-                            descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
-                        } else {
-                            if (instructions.at(typeId).at(9) == "Unknown") {
-                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
+
+                    if (line.at(4) == "UniformConstant") {
+                        if (type == "OpTypeImage") {
+                            if (instructions.at(typeId).at(4) == "Buffer") {
+                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
                             } else {
-                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+                                if (instructions.at(typeId).at(9) == "Unknown") {
+                                    descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
+                                } else {
+                                    descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+                                }
+                            }
+                        } else if (type == "OpTypeSampler") {
+                            descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
+                        } else if (type == "OpTypeSampledImage") {
+                            std::string& typeId2 = instructions.at(typeId).at(3);
+                            std::string& type2 = instructions.at(typeId2).at(4);
+                            if (type2 == "Buffer") {
+                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
+                            } else {
+                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
                             }
                         }
-                    } else if (type == "OpTypeSampler") {
-                        descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
-                    } else if (type == "OpTypeSampledImage") {
-                        std::string& typeId2 = instructions.at(typeId).at(3);
-                        std::string& type2 = instructions.at(typeId2).at(4);
-                        if (type2 == "Buffer") {
-                            descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
-                        } else {
-                            descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+                    } else if (line.at(4) == "Input") {
+                        if (inputs.find(name) != inputs.end()) {
+                            inputs.at(name).variableType = type;
+                            if (type == "OpTypeVector") {
+                                inputs.at(name).vectorCount = std::stoi(instructions.at(typeId).at(4));
+                                std::string& vectorTypeId = instructions.at(typeId).at(3);
+                                inputs.at(name).valueType = instructions.at(vectorTypeId).at(2);
+                            }
                         }
                     }
                 }

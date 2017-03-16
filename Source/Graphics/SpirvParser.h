@@ -18,6 +18,7 @@ public:
         int set;
         int location;
         int binding;
+        std::string shaderType;
         VkDescriptorType descriptorType;
     };
 

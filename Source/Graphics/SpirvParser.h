@@ -18,13 +18,11 @@ public:
         int set;
         int location;
         int binding;
-        std::string shaderType;
         VkDescriptorType descriptorType;
     };
 
     struct Input {
         int location;
-        std::string shaderType;
         std::string variableType;
         std::string valueType;
         int vectorCount;

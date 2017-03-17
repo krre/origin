@@ -20,7 +20,6 @@ Surface::~Surface() {
 }
 
 VkResult Surface::create() {
-    VkResult result;
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(App::get()->getWindow(), &wminfo);

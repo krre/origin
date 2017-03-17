@@ -28,6 +28,8 @@ public:
     struct InputInfo {
         Type type;
         Vulkan::Buffer* buffer;
+        VkVertexInputBindingDescription vertexInputBindingDescription;
+        VkVertexInputAttributeDescription vertexInputAttributeDescription;
     };
 
     ShaderProgram(const Vulkan::Device* device);
@@ -46,8 +48,6 @@ protected:
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, InputInfo> inputInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
-    std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
-    std::vector<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
 
 private:
     const Vulkan::Device* device;

@@ -5,12 +5,10 @@ using namespace Vulkan;
 
 RenderPass::RenderPass(const Device* device) :
     Devicer(device) {
-    VkClearValue clearColor = { 0.0, 0.0, 1.0, 0.0 };
     beginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     beginInfo.renderArea.offset = { 0, 0 };
     beginInfo.renderArea.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
-    beginInfo.clearValueCount = 1;
-    beginInfo.pClearValues = &clearColor;
+    beginInfo.pClearValues = clearValues.data();
 }
 
 RenderPass::~RenderPass() {
@@ -116,4 +114,9 @@ void RenderPass::setDepthEnable(bool depthEnable) {
 
 void RenderPass::setOverlayEnable(bool overlayEnable) {
     this->overlayEnable = overlayEnable;
+}
+
+void RenderPass::addClearValue(VkClearValue clearValue) {
+    clearValues.push_back(clearValue);
+    beginInfo.clearValueCount = clearValues.size();
 }

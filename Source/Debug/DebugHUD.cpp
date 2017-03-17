@@ -48,12 +48,6 @@ void DebugHUD::init() {
     bindingDescriptionPos.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     graphicsPipeline.addVertexBindingDescription(bindingDescriptionPos);
 
-    VkVertexInputBindingDescription bindingDescriptionUV = {};
-    bindingDescriptionUV.binding = 1;
-    bindingDescriptionUV.stride = sizeof(glm::vec4);
-    bindingDescriptionUV.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline.addVertexBindingDescription(bindingDescriptionUV);
-
     VkVertexInputAttributeDescription attributeDescriptionPos = {};
     attributeDescriptionPos.binding = 0;
     attributeDescriptionPos.location = 0;
@@ -61,8 +55,14 @@ void DebugHUD::init() {
     attributeDescriptionPos.offset = 0;
     graphicsPipeline.addVertexAttributeDescription(attributeDescriptionPos);
 
+    VkVertexInputBindingDescription bindingDescriptionUV = {};
+    bindingDescriptionUV.binding = 1;
+    bindingDescriptionUV.stride = sizeof(glm::vec4);
+    bindingDescriptionUV.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+    graphicsPipeline.addVertexBindingDescription(bindingDescriptionUV);
+
     VkVertexInputAttributeDescription attributeDescriptionUV = {};
-    attributeDescriptionUV.binding = 0;
+    attributeDescriptionUV.binding = 1;
     attributeDescriptionUV.location = 1;
     attributeDescriptionUV.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptionUV.offset = sizeof(glm::vec2);
@@ -205,10 +205,10 @@ void DebugHUD::buildCommandBuffers() {
         Vulkan::DescriptorSets* descriptorSets = &tsp.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
 
-        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
+        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() , indexBuffer->getHandle() };
         VkDeviceSize offsets[] = { 0 };
 
-        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
+        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 2, vertexBuffers, offsets);
         vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT32);
         vkCmdDrawIndexed(commandBuffer.getHandle(), tsp.getFont()->getIndexCount(), 1, 0, 0, 0);
         vkCmdEndRenderPass(commandBuffer.getHandle());

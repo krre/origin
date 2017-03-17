@@ -18,6 +18,7 @@ public:
     DeviceMemory* getMemory() { return &memory; }
 
     VkImageCreateInfo createInfo = {};
+    VkMemoryRequirements memRequirements;
 
 private:
     DeviceMemory memory;

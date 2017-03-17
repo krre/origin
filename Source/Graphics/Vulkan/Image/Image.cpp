@@ -24,7 +24,6 @@ Image::~Image() {
 VkResult Image::create() {
     VkResult result = checkError(vkCreateImage(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image");
 
-    VkMemoryRequirements memRequirements;
     vkGetImageMemoryRequirements(device->getHandle(), handle, &memRequirements);
     memory.setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
     memory.allocate(memRequirements.size);

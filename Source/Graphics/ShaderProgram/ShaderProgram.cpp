@@ -41,7 +41,7 @@ void ShaderProgram::createDescriptors() {
         ShaderResource* shaderResource = shaderIt.second;
         parser.parse(shaderResource->getData(), shaderResource->getSize());
 //        parser.dumpDescriptors();
-        parser.dumpInputs();
+//        parser.dumpInputs();
 
         for (auto& descriptorIt : parser.descriptors) {
             SpirvParser::Descriptor* descriptor = &descriptorIt.second;
@@ -95,9 +95,13 @@ void ShaderProgram::createDescriptors() {
         }
 
         for (auto& inputIt : parser.inputs) {
-            SpirvParser::Input* input = &inputIt.second;
-            if (input->variableType == "OpTypeVector") {
+            const auto& inputInfoIt = inputInfos.find(inputIt.first);
+            if (inputInfoIt != inputInfos.end()) {
+                SpirvParser::Input* input = &inputIt.second;
+                InputInfo* inputInfo = &inputInfoIt->second;
+                if (input->variableType == "OpTypeVector") {
 
+                }
             }
         }
     }
@@ -122,11 +126,11 @@ void ShaderProgram::linkBuffer(const std::string& name, uint32_t size, void* uni
     bufferInfos[name] = linkInfo;
 }
 
-void ShaderProgram::linkImage(const std::__cxx11::string& name, VkDescriptorImageInfo descriptorImageInfo) {
+void ShaderProgram::linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
     imageInfos[name] = descriptorImageInfo;
 }
 
-void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, ShaderProgram::Type type, Buffer::Destination destination) {
+void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, Buffer::Type type, Buffer::Destination destination) {
     InputInfo inputInfo = {};
     inputInfo.size = size;
     inputInfo.type = type;

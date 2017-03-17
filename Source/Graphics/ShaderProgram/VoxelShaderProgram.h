@@ -1,5 +1,6 @@
 #pragma once
 #include "ShaderProgram.h"
+#include "../Plane.h"
 #include <glm/glm.hpp>
 
 class VoxelShaderProgram : public ShaderProgram {
@@ -38,5 +39,8 @@ public:
         float debugFloat;
     } debugOut;
 
-    VoxelShaderProgram(const Vulkan::Device* device);
+    VoxelShaderProgram(const Vulkan::Device* device, Plane* plane);
+
+private:
+    Plane* plane;
 };

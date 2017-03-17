@@ -18,7 +18,7 @@
 WorldScene::WorldScene() :
     pipelineLayout(device),
     graphicsPipeline(device),
-    vsp(device) {
+    vsp(device, &plane) {
     new EntityManager;
 }
 

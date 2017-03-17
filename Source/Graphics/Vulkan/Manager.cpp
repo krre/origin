@@ -101,8 +101,8 @@ bool Manager::init() {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device));
         framebuffer->addAttachment(imageViews.at(i)->getHandle());
         framebuffer->createInfo.renderPass = renderPass->getHandle();
-        framebuffer->createInfo.width = surface->getCapabilities().currentExtent.width;
-        framebuffer->createInfo.height = surface->getCapabilities().currentExtent.height;
+        framebuffer->createInfo.width = surface->getWidth();
+        framebuffer->createInfo.height = surface->getHeight();
         if (framebuffer->create() != VK_SUCCESS) {
             return false;
         }

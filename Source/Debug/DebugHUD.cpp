@@ -193,8 +193,8 @@ void DebugHUD::buildCommandBuffers() {
         vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline.getHandle());
 
         VkViewport viewport = {};
-        viewport.width = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent.width;
-        viewport.height = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent.height;
+        viewport.width = Vulkan::Manager::get()->getSurface()->getWidth();
+        viewport.height = Vulkan::Manager::get()->getSurface()->getHeight();
         commandBuffer.addViewport(viewport);
         commandBuffer.setViewports(0);
 

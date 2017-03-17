@@ -345,8 +345,8 @@ void WorldScene::buildCommandBuffers() {
         vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT16);
 
         VkViewport viewport = {};
-        viewport.width = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent.width;
-        viewport.height = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent.height;
+        viewport.width = Vulkan::Manager::get()->getSurface()->getWidth();
+        viewport.height = Vulkan::Manager::get()->getSurface()->getHeight();
         commandBuffer.addViewport(viewport);
         commandBuffer.setViewports(0);
 

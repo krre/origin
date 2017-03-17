@@ -140,10 +140,22 @@ void SpirvParser::parse(const uint32_t* code, size_t count) {
 }
 
 void SpirvParser::dumpDescriptors() {
+    PRINT("Dump SPIR-V descriptors:")
     for (auto& descriptor : descriptors) {
         PRINT("name: " << descriptor.first
               << ", set: " << descriptor.second.set
               << ", binding: " << descriptor.second.binding
               << ", descriptorType: " << descriptor.second.descriptorType)
+    }
+}
+
+void SpirvParser::dumpInputs() {
+    PRINT("Dump SPIR-V inputs:")
+    for (auto& input : inputs) {
+        PRINT("name: " << input.first
+              << ", location: " << input.second.location
+              << ", variableType: " << input.second.variableType
+              << ", valueType: " << input.second.valueType
+              << ", vectorCount: " << input.second.vectorCount)
     }
 }

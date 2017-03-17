@@ -32,6 +32,7 @@ public:
     ~SpirvParser();
     void parse(const uint32_t* code, size_t count);
     void dumpDescriptors();
+    void dumpInputs();
 
     std::map<std::string, Input> inputs;
     std::map<std::string, Descriptor> descriptors;

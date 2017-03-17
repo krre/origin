@@ -27,6 +27,8 @@ public:
 
     struct InputInfo {
         Type type;
+        uint32_t size;
+        Vulkan::Buffer::Destination destination;
         Vulkan::Buffer* buffer;
         VkVertexInputBindingDescription vertexInputBindingDescription;
         VkVertexInputAttributeDescription vertexInputAttributeDescription;
@@ -38,6 +40,7 @@ public:
     void createDescriptors();
     void linkBuffer(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
+    void linkInput(const std::string& name, VkDeviceSize size, Type type, Vulkan::Buffer::Destination destination);
     void write(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     void read(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 

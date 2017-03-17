@@ -35,11 +35,13 @@ void ShaderProgram::addShader(const std::string& path) {
 void ShaderProgram::createDescriptors() {
     SpirvParser parser;
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
+    int vertexBindingCount = 0;
 
     for (auto& shaderIt : shaderResources) {
         ShaderResource* shaderResource = shaderIt.second;
         parser.parse(shaderResource->getData(), shaderResource->getSize());
 //        parser.dumpDescriptors();
+        parser.dumpInputs();
 
         for (auto& descriptorIt : parser.descriptors) {
             SpirvParser::Descriptor* descriptor = &descriptorIt.second;
@@ -91,6 +93,13 @@ void ShaderProgram::createDescriptors() {
                 descriptorSets.addWriteDescriptorSet(descriptorWrite);
             }
         }
+
+        for (auto& inputIt : parser.inputs) {
+            SpirvParser::Input* input = &inputIt.second;
+            if (input->variableType == "OpTypeVector") {
+
+            }
+        }
     }
 
     descriptorSetLayout.create();
@@ -115,6 +124,14 @@ void ShaderProgram::linkBuffer(const std::string& name, uint32_t size, void* uni
 
 void ShaderProgram::linkImage(const std::__cxx11::string& name, VkDescriptorImageInfo descriptorImageInfo) {
     imageInfos[name] = descriptorImageInfo;
+}
+
+void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, ShaderProgram::Type type, Buffer::Destination destination) {
+    InputInfo inputInfo = {};
+    inputInfo.size = size;
+    inputInfo.type = type;
+    inputInfo.destination = destination;
+    inputInfos[name] = inputInfo;
 }
 
 void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {

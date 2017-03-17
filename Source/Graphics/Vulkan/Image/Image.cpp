@@ -36,3 +36,11 @@ VkResult Image::create() {
 void Image::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImage(device->getHandle(), handle, nullptr))
 }
+
+void Image::setWidth(uint32_t width) {
+    createInfo.extent.width = width;
+}
+
+void Image::setHeight(uint32_t height) {
+    createInfo.extent.height = height;
+}

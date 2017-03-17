@@ -3,9 +3,14 @@
 #include "Vulkan/Manager.h"
 
 Texture::Texture(const std::string& path, VkFormat format) :
-    image(Vulkan::Manager::get()->getDevice()),
-    imageView(Vulkan::Manager::get()->getDevice()) {
-    lodepng::decode(data, image.createInfo.extent.width, image.createInfo.extent.height, path);
+        image(Vulkan::Manager::get()->getDevice()),
+        imageView(Vulkan::Manager::get()->getDevice()) {
+    uint32_t width;
+    uint32_t height;
+    lodepng::decode(data, width, height, path);
+
+    image.setWidth(width);
+    image.setHeight(height);
     image.createInfo.format = format;
     image.createInfo.usage = VK_IMAGE_USAGE_SAMPLED_BIT;
     image.createInfo.initialLayout = VK_IMAGE_LAYOUT_PREINITIALIZED; // TODO: Better VK_IMAGE_LAYOUT_GENERAL

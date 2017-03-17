@@ -16,6 +16,8 @@ public:
     VkResult create() override;
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
+    void setWidth(uint32_t width);
+    void setHeight(uint32_t height);
 
     VkImageCreateInfo createInfo = {};
     VkMemoryRequirements memRequirements;

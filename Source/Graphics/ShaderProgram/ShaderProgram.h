@@ -40,6 +40,8 @@ protected:
     Vulkan::DescriptorSets descriptorSets;
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
+    std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
+    std::vector<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
 
 private:
     const Vulkan::Device* device;

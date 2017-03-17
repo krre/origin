@@ -25,6 +25,11 @@ public:
         Vulkan::Buffer* buffer;
     };
 
+    struct InputInfo {
+        Type type;
+        Vulkan::Buffer* buffer;
+    };
+
     ShaderProgram(const Vulkan::Device* device);
     ~ShaderProgram();
     void addShader(const std::string& path);
@@ -39,6 +44,7 @@ protected:
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
     std::map<std::string, BufferInfo> bufferInfos;
+    std::map<std::string, InputInfo> inputInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;

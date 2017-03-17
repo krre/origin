@@ -18,6 +18,7 @@ public:
     void setOverlayEnable(bool overlayEnable);
 
     VkRenderPassCreateInfo createInfo = {};
+    VkRenderPassBeginInfo beginInfo = {};
 
 private:
     VkAttachmentDescription colorAttachment = {};

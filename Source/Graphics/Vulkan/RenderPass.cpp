@@ -1,9 +1,16 @@
 #include "RenderPass.h"
+#include "Manager.h"
 
 using namespace Vulkan;
 
 RenderPass::RenderPass(const Device* device) :
     Devicer(device) {
+    VkClearValue clearColor = { 0.0, 0.0, 1.0, 0.0 };
+    beginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    beginInfo.renderArea.offset = { 0, 0 };
+    beginInfo.renderArea.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
+    beginInfo.clearValueCount = 1;
+    beginInfo.pClearValues = &clearColor;
 }
 
 RenderPass::~RenderPass() {
@@ -87,6 +94,7 @@ VkResult RenderPass::create() {
     createInfo.dependencyCount = subpassDependencies.size();
     createInfo.pDependencies = subpassDependencies.data();
     CHECK_RESULT(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
+    beginInfo.renderPass = handle;
     return result;
 }
 

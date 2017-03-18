@@ -337,9 +337,9 @@ void WorldScene::buildCommandBuffers() {
         commandBuffer.beginRenderPass(&renderPassInfo);
         commandBuffer.bindPipeline(&graphicsPipeline);
 
-        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() };
-        VkDeviceSize offsets[] = { 0 };
-        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 1, vertexBuffers, offsets);
+        commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
+        commandBuffer.bindVertexBuffers();
+
         vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT16);
 
         VkViewport viewport = {};

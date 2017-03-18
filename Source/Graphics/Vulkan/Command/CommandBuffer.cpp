@@ -47,3 +47,8 @@ void CommandBuffer::setViewport(uint32_t firstViewport) {
 void CommandBuffer::bindPipeline(const Pipeline* pipeline) {
     vkCmdBindPipeline(handle, pipeline->getBindPoint(), pipeline->getHandle());
 }
+
+void CommandBuffer::bindVertexBuffers(uint32_t firstBinding) {
+    assert(vertexBuffers.size() > 0);
+    vkCmdBindVertexBuffers(handle, firstBinding, vertexBuffers.size(), vertexBuffers.data(), vertexBufferOffsets.data());
+}

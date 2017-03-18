@@ -190,6 +190,10 @@ void DebugHUD::buildCommandBuffers() {
         commandBuffer.beginRenderPass(&renderPassInfo);
         commandBuffer.bindPipeline(&graphicsPipeline);
 
+        commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
+        commandBuffer.addVertexBuffer(indexBuffer->getHandle()); // WRONG!!!
+        commandBuffer.bindVertexBuffers();
+
         VkViewport viewport = {};
         viewport.width = Vulkan::Manager::get()->getSurface()->getWidth();
         viewport.height = Vulkan::Manager::get()->getSurface()->getHeight();
@@ -202,11 +206,6 @@ void DebugHUD::buildCommandBuffers() {
 
         Vulkan::DescriptorSets* descriptorSets = &tsp.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
-
-        VkBuffer vertexBuffers[] = { vertexBuffer->getHandle() , indexBuffer->getHandle() };
-        VkDeviceSize offsets[] = { 0 };
-
-        vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 2, vertexBuffers, offsets);
         vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT32);
         vkCmdDrawIndexed(commandBuffer.getHandle(), tsp.getFont()->getIndexCount(), 1, 0, 0, 0);
 

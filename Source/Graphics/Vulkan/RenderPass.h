@@ -18,6 +18,7 @@ public:
     void setDepthEnable(bool depthEnable);
     void setOverlayEnable(bool overlayEnable);
     void addClearValue(VkClearValue clearValue);
+    void setClearValue(VkClearValue clearValue);
 
     VkRenderPassCreateInfo createInfo = {};
     VkRenderPassBeginInfo beginInfo = {};

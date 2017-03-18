@@ -120,3 +120,8 @@ void RenderPass::addClearValue(VkClearValue clearValue) {
     clearValues.push_back(clearValue);
     beginInfo.clearValueCount = clearValues.size();
 }
+
+void RenderPass::setClearValue(VkClearValue clearValue) {
+    clearValues.clear();
+    addClearValue(clearValue);
+}

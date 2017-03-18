@@ -8,7 +8,6 @@ RenderPass::RenderPass(const Device* device) :
     beginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     beginInfo.renderArea.offset = { 0, 0 };
     beginInfo.renderArea.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
-    beginInfo.pClearValues = clearValues.data();
 }
 
 RenderPass::~RenderPass() {
@@ -119,6 +118,7 @@ void RenderPass::setOverlayEnable(bool overlayEnable) {
 void RenderPass::addClearValue(VkClearValue clearValue) {
     clearValues.push_back(clearValue);
     beginInfo.clearValueCount = clearValues.size();
+    beginInfo.pClearValues = clearValues.data();
 }
 
 void RenderPass::setClearValue(VkClearValue clearValue) {

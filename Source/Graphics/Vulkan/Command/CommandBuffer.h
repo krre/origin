@@ -25,6 +25,7 @@ public:
     void setViewport(uint32_t firstViewport);
     void bindPipeline(const Pipeline* pipeline);
     void bindVertexBuffers(uint32_t firstBinding = 0);
+    void bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset = 0);
 
     VkCommandBufferBeginInfo beginInfo = {};
 

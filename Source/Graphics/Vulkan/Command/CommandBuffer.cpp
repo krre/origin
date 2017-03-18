@@ -83,3 +83,7 @@ void CommandBuffer::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, Vk
     assert(blitRegions.size());
     vkCmdBlitImage(handle, srcImage, srcImageLayout, dstImage, dstImageLayout, blitRegions.size(), blitRegions.data(), filter);
 }
+
+void CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance) {
+    vkCmdDrawIndexed(handle, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+}

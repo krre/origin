@@ -4,18 +4,17 @@
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Event/Input.h"
 
-Scene::Scene() {
-    device = Vulkan::Manager::get()->getDevice();
+Scene::Scene() :
+        device(Vulkan::Manager::get()->getDevice()),
+        commandBuffers(device, Vulkan::Manager::get()->getCommandPool()) {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 }
 
 Scene::~Scene() {
-    delete commandBuffers;
 }
 
 void Scene::init() {
-    commandBuffers = new Vulkan::CommandBuffers(device, Vulkan::Manager::get()->getCommandPool());
-    commandBuffers->allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
+    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
 }
 
 void Scene::pause() {

@@ -71,7 +71,7 @@ void MenuScene::init() {
 }
 
 void MenuScene::draw(float dt) {
-    Vulkan::Manager::get()->setCommandBuffers(commandBuffers);
+    Vulkan::Manager::get()->setCommandBuffers(&commandBuffers);
     Vulkan::Manager::get()->submit();
 }
 
@@ -94,10 +94,10 @@ void MenuScene::buildCommandBuffers() {
     Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
 
-    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
+    for (size_t i = 0; i < commandBuffers.getCount(); i++) {
         renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
 
-        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
+        Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
         commandBuffer.bindPipeline(&graphicsPipeline);

@@ -105,7 +105,7 @@ void DebugHUD::draw(float dt) {
 //    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
 //    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
 //    Scene2D::draw(dt);
-    Vulkan::Manager::get()->setCommandBuffers(commandBuffers);
+    Vulkan::Manager::get()->setCommandBuffers(&commandBuffers);
     Vulkan::Manager::get()->submit();
 }
 
@@ -174,10 +174,10 @@ void DebugHUD::buildCommandBuffers() {
     Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.0, 0.0, 1.0, 0.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
 
-    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
+    for (size_t i = 0; i < commandBuffers.getCount(); i++) {
         renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
 
-        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
+        Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
         commandBuffer.bindPipeline(&graphicsPipeline);

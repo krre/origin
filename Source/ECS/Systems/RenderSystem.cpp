@@ -5,7 +5,7 @@ RenderSystem::RenderSystem() {
 }
 
 void RenderSystem::process(float dt) {
-    for (auto drawable : drawables) {
+    for (auto& drawable : drawables) {
         if (drawable->getVisible()) {
             drawable->draw(dt);
         }

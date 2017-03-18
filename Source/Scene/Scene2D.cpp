@@ -10,7 +10,7 @@ void Scene2D::draw(float dt) {
         layout->draw(dt);
     }
 
-    for (auto control : controls) {
+    for (auto& control : controls) {
         control->draw(dt);
     }
 }

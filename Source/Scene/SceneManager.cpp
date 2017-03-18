@@ -34,7 +34,7 @@ void SceneManager::popScene() {
 }
 
 void SceneManager::setScene(std::shared_ptr<Scene> scene) {
-    for (auto scene : scenes) {
+    for (auto& scene : scenes) {
         scene->pause();
         scene->cleanup();
     }
@@ -43,7 +43,7 @@ void SceneManager::setScene(std::shared_ptr<Scene> scene) {
 }
 
 void SceneManager::update(float dt) {
-    for (auto scene : scenes) {
+    for (auto& scene : scenes) {
         if (scene->getVisible()) {
             scene->update(dt);
         }
@@ -57,7 +57,7 @@ void SceneManager::update(float dt) {
 void SceneManager::draw(float dt) {
     Vulkan::Manager::get()->renderBegin();
 
-    for (auto scene : scenes) {
+    for (auto& scene : scenes) {
         if (scene->getVisible()) {
             scene->draw(dt);
         }

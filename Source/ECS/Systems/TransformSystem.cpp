@@ -8,7 +8,7 @@ TransformSystem::TransformSystem() {
 }
 
 void TransformSystem::process(float dt) {
-    for (auto entity: entityManager->getEntities()) {
+    for (auto& entity: entityManager->getEntities()) {
         update(entity.second.get());
     }
 }

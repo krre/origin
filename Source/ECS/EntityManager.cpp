@@ -88,7 +88,7 @@ Component* EntityManager::createComponent(Entity* entity, ComponentType type) {
 
 std::shared_ptr<Entity> EntityManager::createComponents(std::vector<ComponentType> types) {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
-    for (auto type : types) {
+    for (auto& type : types) {
         createComponent(entity.get(), type);
     }
 
@@ -104,7 +104,7 @@ void EntityManager::removeComponent(Entity* entity, ComponentType type) {
 }
 
 void EntityManager::update(float dt) {
-    for (auto system : updateSystems) {
+    for (auto& system : updateSystems) {
         if (system.second->getActive()) {
             system.second->process(dt);
         }
@@ -112,7 +112,7 @@ void EntityManager::update(float dt) {
 }
 
 void EntityManager::draw(float dt) {
-    for (auto system : drawSystems) {
+    for (auto& system : drawSystems) {
         if (system.second->getActive()) {
             system.second->process(dt);
         }

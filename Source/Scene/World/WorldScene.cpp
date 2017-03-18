@@ -102,7 +102,7 @@ void WorldScene::update(float dt) {
     vsp.ubo.lightPos = glm::vec4(0.0);
 
     // TODO: Replace by family
-    for (auto entity : EntityManager::get()->getEntities()) {
+    for (auto& entity : EntityManager::get()->getEntities()) {
         OctreeComponent* octreeComp = static_cast<OctreeComponent*>(entity.second->components[ComponentType::Octree].get());
         if (octreeComp) {
             octreeTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
@@ -118,7 +118,7 @@ void WorldScene::update(float dt) {
 
     vsp.ubo.transformCount = 0;
 
-    for (auto imap: octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
+    for (auto& imap : octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
         std::vector<glm::vec4> transform;
         Entity* entity = EntityManager::get()->getEntity(imap.first).get();
         TransformComponent* octreeTransform = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());

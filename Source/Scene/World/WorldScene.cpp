@@ -335,7 +335,10 @@ void WorldScene::buildCommandBuffers() {
         commandBuffer.bindIndexBuffer(indexBuffer->getHandle(), VK_INDEX_TYPE_UINT16);
 
         Vulkan::DescriptorSets* descriptorSets = &vsp.descriptorSets;
-        vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
+        for (int i = 0; i < descriptorSets->getCount(); i++) {
+            commandBuffer.addDescriptorSet(descriptorSets->at(i));
+        }
+        commandBuffer.bindDescriptorSets(&graphicsPipeline, pipelineLayout.getHandle());
         commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

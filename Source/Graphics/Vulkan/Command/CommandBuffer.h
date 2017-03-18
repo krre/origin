@@ -18,6 +18,8 @@ public:
     void addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset = 0);
     void addCopyRegion(VkBufferCopy copyRegion);
     void addBlitRegion(VkImageBlit blitRegion);
+    void addDynamicOffset(uint32_t dynamicOffset);
+    void addDescriptorSet(VkDescriptorSet descriptorSet);
 
     // Commands
     VkResult begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
@@ -33,6 +35,7 @@ public:
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);
     void blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter = VK_FILTER_NEAREST);
     void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance);
+    void bindDescriptorSets(const Pipeline* pipeline, VkPipelineLayout layout, uint32_t firstSet = 0);
 
     VkCommandBufferBeginInfo beginInfo = {};
 
@@ -43,6 +46,8 @@ private:
     std::vector<VkDeviceSize> vertexBufferOffsets;
     std::vector<VkBufferCopy> copyRegions;
     std::vector<VkImageBlit> blitRegions;
+    std::vector<uint32_t> dynamicOffsets;
+    std::vector<VkDescriptorSet> descriptorSets;
 };
 
 } // Vulkan

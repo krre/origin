@@ -27,6 +27,14 @@ void CommandBuffer::addBlitRegion(VkImageBlit blitRegion) {
     blitRegions.push_back(blitRegion);
 }
 
+void CommandBuffer::addDynamicOffset(uint32_t dynamicOffset) {
+    dynamicOffsets.push_back(dynamicOffset);
+}
+
+void CommandBuffer::addDescriptorSet(VkDescriptorSet descriptorSet) {
+    descriptorSets.push_back(descriptorSet);
+}
+
 VkResult CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
     return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
@@ -86,4 +94,8 @@ void CommandBuffer::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, Vk
 
 void CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance) {
     vkCmdDrawIndexed(handle, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+}
+
+void CommandBuffer::bindDescriptorSets(const Pipeline* pipeline, VkPipelineLayout layout, uint32_t firstSet) {
+    vkCmdBindDescriptorSets(handle, pipeline->getBindPoint(), layout, firstSet, descriptorSets.size(), descriptorSets.data(), dynamicOffsets.size(), dynamicOffsets.data());
 }

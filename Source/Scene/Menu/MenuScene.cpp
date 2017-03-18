@@ -15,14 +15,13 @@ MenuScene::MenuScene() :
 }
 
 MenuScene::~MenuScene() {
-    delete indexBuffer;
-    delete vertexBuffer;
+
 }
 
 void MenuScene::init() {
     Scene::init();
 
-    vertexBuffer = new Vulkan::Buffer(device, plane.getVerticesSize(), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
+    vertexBuffer = std::make_shared<Vulkan::Buffer>(device, plane.getVerticesSize(), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
     vertexBuffer->create();
 
     Vulkan::Buffer vertexStageBuffer(device, plane.getVerticesSize(), Vulkan::Buffer::Type::TRANSFER_SRC);
@@ -30,7 +29,7 @@ void MenuScene::init() {
     vertexStageBuffer.write(0, plane.getVerticesSize(), plane.getVertices().data());
     vertexStageBuffer.copy(vertexBuffer->getHandle(), plane.getVerticesSize());
 
-    indexBuffer = new Vulkan::Buffer(device, plane.getIndicesSize(), Vulkan::Buffer::Type::INDEX, Vulkan::Buffer::Destination::DEVICE);
+    indexBuffer = std::make_shared<Vulkan::Buffer>(device, plane.getIndicesSize(), Vulkan::Buffer::Type::INDEX, Vulkan::Buffer::Destination::DEVICE);
     indexBuffer->create();
 
     Vulkan::Buffer indexStageBuffer(device, plane.getIndicesSize(), Vulkan::Buffer::Type::TRANSFER_SRC);

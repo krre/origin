@@ -30,8 +30,8 @@ private:
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;
     Vulkan::GraphicsPipeline graphicsPipeline;
-    Vulkan::Buffer* vertexBuffer = nullptr;
-    Vulkan::Buffer* indexBuffer = nullptr;
+    std::shared_ptr<Vulkan::Buffer> vertexBuffer;
+    std::shared_ptr<Vulkan::Buffer> indexBuffer;
     TextShaderProgram tsp;
 
     Label fps;

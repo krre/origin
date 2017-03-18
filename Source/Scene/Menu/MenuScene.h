@@ -31,8 +31,8 @@ private:
 
     Vulkan::PipelineLayout pipelineLayout;
     Vulkan::GraphicsPipeline graphicsPipeline;
-    Vulkan::Buffer* vertexBuffer = nullptr;
-    Vulkan::Buffer* indexBuffer = nullptr;
+    std::shared_ptr<Vulkan::Buffer> vertexBuffer;
+    std::shared_ptr<Vulkan::Buffer> indexBuffer;
     Plane plane;
     BaseShaderProgram bsp;
 };

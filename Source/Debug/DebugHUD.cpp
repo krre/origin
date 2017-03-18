@@ -20,17 +20,16 @@ DebugHUD::DebugHUD() :
 }
 
 DebugHUD::~DebugHUD() {
-    delete indexBuffer;
-    delete vertexBuffer;
+
 }
 
 void DebugHUD::init() {
     Scene::init();
 
-    vertexBuffer = new Vulkan::Buffer(device, MAX_CHAR_COUNT * sizeof(Font::Vertex), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
+    vertexBuffer = std::make_shared<Vulkan::Buffer>(device, MAX_CHAR_COUNT * sizeof(Font::Vertex), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
     vertexBuffer->create();
 
-    indexBuffer = new Vulkan::Buffer(device, MAX_CHAR_COUNT * sizeof(uint32_t), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
+    indexBuffer = std::make_shared<Vulkan::Buffer>(device, MAX_CHAR_COUNT * sizeof(uint32_t), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
     indexBuffer->create();
 
     pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);
@@ -84,7 +83,7 @@ void DebugHUD::init() {
     renderPass.create();
 
     std::string test = "Origin";
-    numLetters = tsp.getFont()->renderText(vertexBuffer, indexBuffer, test, 100, 100);
+    numLetters = tsp.getFont()->renderText(vertexBuffer.get(), indexBuffer.get(), test, 100, 100);
 
     buildCommandBuffers();
 }

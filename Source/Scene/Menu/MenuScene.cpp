@@ -114,17 +114,6 @@ void MenuScene::buildCommandBuffers() {
         commandBuffer.bindVertexBuffers();
         commandBuffer.bindIndexBuffer(indexBuffer->getHandle(), VK_INDEX_TYPE_UINT16);
 
-        VkViewport viewport = {};
-        viewport.width = Vulkan::Manager::get()->getSurface()->getWidth();
-        viewport.height = Vulkan::Manager::get()->getSurface()->getHeight();
-        commandBuffer.addViewport(viewport);
-        commandBuffer.setViewport(0);
-
-        VkRect2D scissor = {};
-        scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
-        commandBuffer.addScissor(scissor);
-        commandBuffer.setScissor(0);
-
         Vulkan::DescriptorSets* descriptorSets = &bsp.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);
         vkCmdDrawIndexed(commandBuffer.getHandle(), plane.getIndices().size(), 1, 0, 0, 0);

@@ -187,10 +187,8 @@ void DebugHUD::buildCommandBuffers() {
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
-
         commandBuffer.beginRenderPass(&renderPassInfo);
-
-        vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline.getHandle());
+        commandBuffer.bindPipeline(&graphicsPipeline);
 
         VkViewport viewport = {};
         viewport.width = Vulkan::Manager::get()->getSurface()->getWidth();

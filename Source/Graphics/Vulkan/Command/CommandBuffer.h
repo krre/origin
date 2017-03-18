@@ -21,6 +21,7 @@ public:
     void beginRenderPass(const VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents = VK_SUBPASS_CONTENTS_INLINE);
     void pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
     void setViewport(uint32_t firstViewport);
+    void bindPipeline(const Pipeline* pipeline);
 
     VkCommandBufferBeginInfo beginInfo = {};
 

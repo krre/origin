@@ -19,6 +19,10 @@ VkResult CommandBuffer::end() {
     return checkError(vkEndCommandBuffer(handle), "Failed to end command buffer");
 }
 
+void CommandBuffer::beginRenderPass(const VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents) {
+    vkCmdBeginRenderPass(handle, renderPassBeginInfo, contents);
+}
+
 void CommandBuffer::pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) {
     vkCmdPipelineBarrier(handle, srcStageMask, dstStageMask, dependencyFlags,
                          pipelineBarrier->getMemoryBarrierCount(), pipelineBarrier->getMemoryBarrierData(),

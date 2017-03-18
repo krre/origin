@@ -102,14 +102,13 @@ void MenuScene::buildCommandBuffers() {
     renderPassInfo.clearValueCount = 1;
     renderPassInfo.pClearValues = &clearColor;
 
-
     for (size_t i = 0; i < commandBuffers->getCount(); i++) {
         renderPassInfo.framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
 
-        vkCmdBeginRenderPass(commandBuffer.getHandle(), &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+        commandBuffer.beginRenderPass(&renderPassInfo);
 
         vkCmdBindPipeline(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline.getHandle());
 

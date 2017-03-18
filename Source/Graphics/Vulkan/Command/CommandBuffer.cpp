@@ -10,6 +10,10 @@ void CommandBuffer::addViewport(VkViewport viewport) {
     viewports.push_back(viewport);
 }
 
+void CommandBuffer::addScissor(VkRect2D scissor) {
+    scissors.push_back(scissor);
+}
+
 void CommandBuffer::addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset) {
     vertexBuffers.push_back(vertexBuffer);
     vertexBufferOffsets.push_back(offset);
@@ -42,6 +46,11 @@ void CommandBuffer::pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipeline
 void CommandBuffer::setViewport(uint32_t firstViewport) {
     assert(viewports.size() > 0);
     vkCmdSetViewport(handle, firstViewport, viewports.size(), viewports.data());
+}
+
+void CommandBuffer::setScissor(uint32_t firstScissor) {
+    assert(scissors.size() > 0);
+    vkCmdSetScissor(handle, firstScissor, scissors.size(), scissors.data());
 }
 
 void CommandBuffer::bindPipeline(const Pipeline* pipeline) {

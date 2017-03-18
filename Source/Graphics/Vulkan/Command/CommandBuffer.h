@@ -14,6 +14,7 @@ public:
     VkResult create() override {}
     void destroy() override {}
     void addViewport(VkViewport viewport);
+    void addScissor(VkRect2D scissor);
     void addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset = 0);
 
     // Commands
@@ -23,6 +24,7 @@ public:
     void endRenderPass();
     void pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
     void setViewport(uint32_t firstViewport);
+    void setScissor(uint32_t firstScissor);
     void bindPipeline(const Pipeline* pipeline);
     void bindVertexBuffers(uint32_t firstBinding = 0);
     void bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset = 0);
@@ -31,6 +33,7 @@ public:
 
 private:
     std::vector<VkViewport> viewports;
+    std::vector<VkRect2D> scissors;
     std::vector<VkBuffer> vertexBuffers;
     std::vector<VkDeviceSize> vertexBufferOffsets;
 };

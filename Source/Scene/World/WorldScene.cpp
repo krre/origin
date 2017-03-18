@@ -349,7 +349,8 @@ void WorldScene::buildCommandBuffers() {
 
         VkRect2D scissor = {};
         scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;
-        vkCmdSetScissor(commandBuffer.getHandle(), 0, 1, &scissor);
+        commandBuffer.addScissor(scissor);
+        commandBuffer.setScissor(0);
 
         Vulkan::DescriptorSets* descriptorSets = &vsp.descriptorSets;
         vkCmdBindDescriptorSets(commandBuffer.getHandle(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout.getHandle(), 0, descriptorSets->getCount(), descriptorSets->getData(), 0, nullptr);

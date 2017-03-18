@@ -47,7 +47,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 //        toggleFullScreen();
         break;
 
-    case SDLK_F12:
+    case SDLK_F11:
         saveScreenshot();
         break;
 #ifdef CONSOLE_ENABLE

@@ -2,7 +2,10 @@
 
 using namespace Vulkan;
 
-GraphicsPipeline::GraphicsPipeline(const Device* device) :  Pipeline(device) {
+GraphicsPipeline::GraphicsPipeline(const Device* device) :
+        Pipeline(device) {
+    pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+
     createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     createInfo.pVertexInputState = &vertexInputInfo;
     createInfo.pInputAssemblyState = &inputAssembly;

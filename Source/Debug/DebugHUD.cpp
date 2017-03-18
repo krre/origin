@@ -209,8 +209,8 @@ void DebugHUD::buildCommandBuffers() {
         vkCmdBindVertexBuffers(commandBuffer.getHandle(), 0, 2, vertexBuffers, offsets);
         vkCmdBindIndexBuffer(commandBuffer.getHandle(), indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT32);
         vkCmdDrawIndexed(commandBuffer.getHandle(), tsp.getFont()->getIndexCount(), 1, 0, 0, 0);
-        vkCmdEndRenderPass(commandBuffer.getHandle());
 
+        commandBuffer.endRenderPass();
         commandBuffer.end();
     }
 }

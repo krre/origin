@@ -23,6 +23,10 @@ void CommandBuffer::beginRenderPass(const VkRenderPassBeginInfo* renderPassBegin
     vkCmdBeginRenderPass(handle, renderPassBeginInfo, contents);
 }
 
+void CommandBuffer::endRenderPass() {
+    vkCmdEndRenderPass(handle);
+}
+
 void CommandBuffer::pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) {
     vkCmdPipelineBarrier(handle, srcStageMask, dstStageMask, dependencyFlags,
                          pipelineBarrier->getMemoryBarrierCount(), pipelineBarrier->getMemoryBarrierData(),

@@ -196,7 +196,7 @@ void DebugHUD::buildCommandBuffers() {
         viewport.width = Vulkan::Manager::get()->getSurface()->getWidth();
         viewport.height = Vulkan::Manager::get()->getSurface()->getHeight();
         commandBuffer.addViewport(viewport);
-        commandBuffer.setViewports(0);
+        commandBuffer.setViewport(0);
 
         VkRect2D scissor = {};
         scissor.extent = Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent;

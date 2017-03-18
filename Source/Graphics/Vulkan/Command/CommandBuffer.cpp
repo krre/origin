@@ -10,6 +10,11 @@ void CommandBuffer::addViewport(VkViewport viewport) {
     viewports.push_back(viewport);
 }
 
+void CommandBuffer::addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset) {
+    vertexBuffers.push_back(vertexBuffer);
+    vertexBufferOffsets.push_back(offset);
+}
+
 VkResult CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
     return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");

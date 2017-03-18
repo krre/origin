@@ -14,6 +14,7 @@ public:
     VkResult create() override {}
     void destroy() override {}
     void addViewport(VkViewport viewport);
+    void addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset = 0);
 
     // Commands
     VkResult begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
@@ -28,6 +29,8 @@ public:
 
 private:
     std::vector<VkViewport> viewports;
+    std::vector<VkBuffer> vertexBuffers;
+    std::vector<VkDeviceSize> vertexBufferOffsets;
 };
 
 } // Vulkan

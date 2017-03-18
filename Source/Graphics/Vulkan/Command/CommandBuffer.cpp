@@ -23,6 +23,10 @@ void CommandBuffer::addCopyRegion(VkBufferCopy copyRegion) {
     copyRegions.push_back(copyRegion);
 }
 
+void CommandBuffer::addBlitRegion(VkImageBlit blitRegion) {
+    blitRegions.push_back(blitRegion);
+}
+
 VkResult CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
     return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
@@ -73,4 +77,9 @@ void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDe
 void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
     assert(copyRegions.size() > 0);
     vkCmdCopyBuffer(handle, srcBuffer, dstBuffer, copyRegions.size(), copyRegions.data());
+}
+
+void CommandBuffer::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter) {
+    assert(blitRegions.size());
+    vkCmdBlitImage(handle, srcImage, srcImageLayout, dstImage, dstImageLayout, blitRegions.size(), blitRegions.data(), filter);
 }

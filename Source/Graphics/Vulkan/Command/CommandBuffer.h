@@ -17,6 +17,7 @@ public:
     void addScissor(VkRect2D scissor);
     void addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset = 0);
     void addCopyRegion(VkBufferCopy copyRegion);
+    void addBlitRegion(VkImageBlit blitRegion);
 
     // Commands
     VkResult begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
@@ -30,6 +31,7 @@ public:
     void bindVertexBuffers(uint32_t firstBinding = 0);
     void bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset = 0);
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);
+    void blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter = VK_FILTER_NEAREST);
 
     VkCommandBufferBeginInfo beginInfo = {};
 
@@ -39,6 +41,7 @@ private:
     std::vector<VkBuffer> vertexBuffers;
     std::vector<VkDeviceSize> vertexBufferOffsets;
     std::vector<VkBufferCopy> copyRegions;
+    std::vector<VkImageBlit> blitRegions;
 };
 
 } // Vulkan

@@ -189,6 +189,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     pipelineBarrier.addImageMemoryBarrier(imageMemoryBarrier);
     commandBuffer.pipelineBarrier(&pipelineBarrier, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
+    // Issue the blit command
     VkOffset3D blitSize;
     blitSize.x = width;
     blitSize.y = height;
@@ -200,9 +201,8 @@ void Manager::saveScreenshot(const std::string& filePath) {
     imageBlitRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     imageBlitRegion.dstSubresource.layerCount = 1;
     imageBlitRegion.dstOffsets[1] = blitSize;
-
-    // Issue the blit command
-    vkCmdBlitImage(commandBuffer.getHandle(),  srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL,  1, &imageBlitRegion,  VK_FILTER_NEAREST);
+    commandBuffer.addBlitRegion(imageBlitRegion);
+    commandBuffer.blitImage(srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
 
     // Transition destination image to general layout, which is the required layout for mapping the image memory later on
     imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;

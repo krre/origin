@@ -19,6 +19,10 @@ void CommandBuffer::addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset) 
     vertexBufferOffsets.push_back(offset);
 }
 
+void CommandBuffer::addCopyRegion(VkBufferCopy copyRegion) {
+    copyRegions.push_back(copyRegion);
+}
+
 VkResult CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
     return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
@@ -64,4 +68,9 @@ void CommandBuffer::bindVertexBuffers(uint32_t firstBinding) {
 
 void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset) {
     vkCmdBindIndexBuffer(handle, buffer, offset, indexType);
+}
+
+void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
+    assert(copyRegions.size() > 0);
+    vkCmdCopyBuffer(handle, srcBuffer, dstBuffer, copyRegions.size(), copyRegions.data());
 }

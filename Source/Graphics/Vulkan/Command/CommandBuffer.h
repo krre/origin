@@ -16,6 +16,7 @@ public:
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
     void addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset = 0);
+    void addCopyRegion(VkBufferCopy copyRegion);
 
     // Commands
     VkResult begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
@@ -28,6 +29,7 @@ public:
     void bindPipeline(const Pipeline* pipeline);
     void bindVertexBuffers(uint32_t firstBinding = 0);
     void bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset = 0);
+    void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);
 
     VkCommandBufferBeginInfo beginInfo = {};
 
@@ -36,6 +38,7 @@ private:
     std::vector<VkRect2D> scissors;
     std::vector<VkBuffer> vertexBuffers;
     std::vector<VkDeviceSize> vertexBufferOffsets;
+    std::vector<VkBufferCopy> copyRegions;
 };
 
 } // Vulkan

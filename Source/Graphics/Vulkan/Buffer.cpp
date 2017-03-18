@@ -99,7 +99,8 @@ void Buffer::copy(VkBuffer dstBuffer, VkDeviceSize size) {
 
     VkBufferCopy copyRegion = {};
     copyRegion.size = size;
-    vkCmdCopyBuffer(commandBuffer.getHandle(), handle, dstBuffer, 1, &copyRegion);
+    commandBuffer.addCopyRegion(copyRegion);
+    commandBuffer.copyBuffer(handle, dstBuffer);
 
     commandBuffer.end();
 

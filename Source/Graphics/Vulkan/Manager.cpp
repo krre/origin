@@ -12,7 +12,6 @@ using namespace Vulkan;
 
 Manager::~Manager() {
     delete presentQueue;
-    delete graphicsQueue;
     framebuffers.clear();
     imageViews.clear();
 }
@@ -108,7 +107,7 @@ bool Manager::init() {
         return false;
     }
 
-    graphicsQueue = new SubmitQueue(device.get(), graphicsFamily);
+    graphicsQueue = std::make_shared<SubmitQueue>(device.get(), graphicsFamily);
     graphicsQueue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
     graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle());
     graphicsQueue->addWaitDstStageMask(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);

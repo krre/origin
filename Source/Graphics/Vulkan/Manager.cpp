@@ -21,7 +21,6 @@ Manager::~Manager() {
     delete swapchain;
     delete surface;
     delete commandPool;
-    delete device;
 }
 
 bool Manager::init() {
@@ -56,12 +55,12 @@ bool Manager::init() {
 
     graphicsFamily = mainPhysicalDevice->findQueue(VK_QUEUE_GRAPHICS_BIT);
 
-    device = new Device(mainPhysicalDevice, graphicsFamily);
+    device = std::make_shared<Device>(mainPhysicalDevice, graphicsFamily);
     if (device->create() != VK_SUCCESS) {
         return false;
     }
 
-    commandPool = new CommandPool(device, graphicsFamily);
+    commandPool = new CommandPool(device.get(), graphicsFamily);
     if (commandPool->create() != VK_SUCCESS) {
         return false;
     }
@@ -72,13 +71,13 @@ bool Manager::init() {
         return false;
     }
 
-    swapchain = new Swapchain(device, surface);
+    swapchain = new Swapchain(device.get(), surface);
     if (swapchain->create() != VK_SUCCESS) {
         return false;
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device);
+        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device.get());
         imageView->createInfo.image = swapchain->getImage(i);
         imageView->createInfo.format = surface->getFormat(0).format;
         if (imageView->create() != VK_SUCCESS) {
@@ -87,14 +86,14 @@ bool Manager::init() {
         imageViews.push_back(imageView);
     }
 
-    renderPass = new RenderPass(device);
+    renderPass = new RenderPass(device.get());
     renderPass->setColorFormat(surface->getFormat(0).format);
     if (renderPass->create() != VK_SUCCESS) {
         return false;
     }
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device));
+        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get()));
         framebuffer->addAttachment(imageViews.at(i)->getHandle());
         framebuffer->createInfo.renderPass = renderPass->getHandle();
         framebuffer->createInfo.width = surface->getWidth();
@@ -105,22 +104,22 @@ bool Manager::init() {
         framebuffers.push_back(framebuffer);
     }
 
-    imageAvailableSemaphore = new Semaphore(device);
+    imageAvailableSemaphore = new Semaphore(device.get());
     if (imageAvailableSemaphore->create() != VK_SUCCESS) {
         return false;
     }
 
-    renderFinishedSemaphore = new Semaphore(device);
+    renderFinishedSemaphore = new Semaphore(device.get());
     if (renderFinishedSemaphore->create() != VK_SUCCESS) {
         return false;
     }
 
-    graphicsQueue = new SubmitQueue(device, graphicsFamily);
+    graphicsQueue = new SubmitQueue(device.get(), graphicsFamily);
     graphicsQueue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
     graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle());
     graphicsQueue->addWaitDstStageMask(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
 
-    presentQueue = new PresentQueue(device, 0, 0); // TODO: Set family index and queue index
+    presentQueue = new PresentQueue(device.get(), 0, 0); // TODO: Set family index and queue index
     presentQueue->addWaitSemaphore(renderFinishedSemaphore->getHandle());
     presentQueue->addSwapchain(swapchain->getHandle());
     presentQueue->presentInfo.pImageIndices = &swapchainImageIndex;
@@ -152,13 +151,13 @@ void Manager::saveScreenshot(const std::string& filePath) {
 
     uint32_t width = App::get()->getWidth();
     uint32_t height = App::get()->getHeight();
-    Image image(device);
+    Image image(device.get());
     image.setWidth(width);
     image.setHeight(height);
     image.create();
     VkImage dstImage = image.getHandle();
 
-    CommandBuffers commandBuffers(device, commandPool);
+    CommandBuffers commandBuffers(device.get(), commandPool);
     commandBuffers.allocate(1);
 
     CommandBuffer commandBuffer(commandBuffers.at(0));
@@ -222,10 +221,10 @@ void Manager::saveScreenshot(const std::string& filePath) {
 
     commandBuffer.end();
 
-    Fence fence(device);
+    Fence fence(device.get());
     fence.create();
 
-    SubmitQueue queue(device, graphicsFamily);
+    SubmitQueue queue(device.get(), graphicsFamily);
     queue.addCommandBuffer(commandBuffer.getHandle());
     queue.submit(fence.getHandle());
 

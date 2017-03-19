@@ -26,7 +26,7 @@ public:
     ~Manager();
     bool init();
     const Instance* getInstance() const { return &instance; }
-    Device* getDevice() const { return device; }
+    Device* getDevice() const { return device.get(); }
     Surface* getSurface() const { return surface; }
     Swapchain* getSwapchain() const { return swapchain; }
     RenderPass* getRenderPass() const { return renderPass; }
@@ -46,7 +46,7 @@ private:
     PhysicalDevice* mainPhysicalDevice;
     std::shared_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;
-    Device* device = nullptr;
+    std::shared_ptr<Device> device;
     Surface* surface = nullptr;
     Swapchain* swapchain = nullptr;
     RenderPass* renderPass = nullptr;

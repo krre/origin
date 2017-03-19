@@ -1,5 +1,4 @@
 #pragma once
-#include "../Event/Event.h"
 #include "Singleton.h"
 #include <SDL_video.h>
 #include <vector>

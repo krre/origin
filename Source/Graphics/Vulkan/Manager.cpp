@@ -24,12 +24,10 @@ Manager::~Manager() {
     delete device;
     delete physicalDevices;
     delete debugCallback;
-    delete instance;
 }
 
 bool Manager::init() {
-    instance = new Instance();
-    instance->setEnabledLayers({
+    instance.setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
         "VK_LAYER_LUNARG_parameter_validation",
 //        "VK_LAYER_LUNARG_vktrace",
@@ -41,18 +39,18 @@ bool Manager::init() {
         "VK_LAYER_GOOGLE_threading",
         "VK_LAYER_LUNARG_standard_validation"
     });
-    if (instance->create() != VK_SUCCESS) {
+    if (instance.create() != VK_SUCCESS) {
         return false;
     }
 
     if (enableValidationLayers) {
-        debugCallback = new DebugReportCallback(instance);
+        debugCallback = new DebugReportCallback(&instance);
         if (debugCallback->create() != VK_SUCCESS) {
             return false;
         }
     }
 
-    physicalDevices = new PhysicalDevices(instance);
+    physicalDevices = new PhysicalDevices(&instance);
     mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
     if (mainPhysicalDevice == nullptr) {
         mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
@@ -71,7 +69,7 @@ bool Manager::init() {
     }
     commandPool->reset();
 
-    surface = new Surface(instance->getHandle(), mainPhysicalDevice->getHandle());
+    surface = new Surface(instance.getHandle(), mainPhysicalDevice->getHandle());
     if (surface->create() != VK_SUCCESS) {
         return false;
     }

@@ -25,7 +25,7 @@ class Manager : public Singleton<Manager> {
 public:
     ~Manager();
     bool init();
-    Instance* getInstance() const { return instance; }
+    const Instance* getInstance() const { return &instance; }
     Device* getDevice() const { return device; }
     Surface* getSurface() const { return surface; }
     Swapchain* getSwapchain() const { return swapchain; }
@@ -42,7 +42,7 @@ public:
     void saveScreenshot(const std::string& filePath);
 
 private:
-    Instance* instance = nullptr;
+    Instance instance;
     PhysicalDevice* mainPhysicalDevice;
     DebugReportCallback* debugCallback = nullptr;
     PhysicalDevices* physicalDevices = nullptr;

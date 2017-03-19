@@ -101,7 +101,7 @@ void Manager::setCommandBuffers(const CommandBuffers* commandBuffers) {
 }
 
 void Manager::renderBegin() {
-    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(swapchainIndex));
+    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(swapchain->getIndex()));
 }
 
 void Manager::renderEnd() {
@@ -113,7 +113,7 @@ void Manager::submit() {
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {
-    VkImage srcImage = swapchain->getImage(*presentQueue->getImageIndex(swapchainIndex));
+    VkImage srcImage = swapchain->getImage(*presentQueue->getImageIndex(swapchain->getIndex()));
 
     uint32_t width = App::get()->getWidth();
     uint32_t height = App::get()->getHeight();

@@ -2,6 +2,8 @@
 
 using namespace Vulkan;
 
+int Swapchain::indexCounter = 0;
+
 Swapchain::Swapchain(const Device* device, const Surface* surface) :
     Devicer(device),
     surface(surface) {
@@ -36,6 +38,8 @@ VkResult Swapchain::create() {
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);
     images.resize(count);
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
+
+    index = indexCounter++;
 
     return result;
 }

@@ -57,7 +57,6 @@ private:
     std::shared_ptr<SubmitQueue> graphicsQueue;
     std::shared_ptr<PresentQueue> presentQueue;
     uint32_t graphicsFamily;
-    uint32_t swapchainIndex = 0; // Only one
 };
 
 } // Vulkan

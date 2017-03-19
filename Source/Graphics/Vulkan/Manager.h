@@ -27,7 +27,7 @@ public:
     bool init();
     const Instance* getInstance() const { return &instance; }
     Device* getDevice() const { return device.get(); }
-    Surface* getSurface() const { return surface; }
+    Surface* getSurface() const { return surface.get(); }
     Swapchain* getSwapchain() const { return swapchain; }
     RenderPass* getRenderPass() const { return renderPass; }
     CommandPool* getCommandPool() const { return commandPool; }
@@ -47,12 +47,13 @@ private:
     std::shared_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;
     std::shared_ptr<Device> device;
-    Surface* surface = nullptr;
+    CommandPool* commandPool = nullptr;
+    std::shared_ptr<Surface> surface;
     Swapchain* swapchain = nullptr;
     RenderPass* renderPass = nullptr;
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
-    CommandPool* commandPool = nullptr;
+
     Semaphore* imageAvailableSemaphore;
     Semaphore* renderFinishedSemaphore;
     SubmitQueue* graphicsQueue = nullptr;

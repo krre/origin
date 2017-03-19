@@ -19,7 +19,6 @@ Manager::~Manager() {
     delete renderPass;
     imageViews.clear();
     delete swapchain;
-    delete surface;
     delete commandPool;
 }
 
@@ -60,18 +59,18 @@ bool Manager::init() {
         return false;
     }
 
+    surface = std::make_shared<Surface>(instance.getHandle(), mainPhysicalDevice->getHandle());
+    if (surface->create() != VK_SUCCESS) {
+        return false;
+    }
+
     commandPool = new CommandPool(device.get(), graphicsFamily);
     if (commandPool->create() != VK_SUCCESS) {
         return false;
     }
     commandPool->reset();
 
-    surface = new Surface(instance.getHandle(), mainPhysicalDevice->getHandle());
-    if (surface->create() != VK_SUCCESS) {
-        return false;
-    }
-
-    swapchain = new Swapchain(device.get(), surface);
+    swapchain = new Swapchain(device.get(), surface.get());
     if (swapchain->create() != VK_SUCCESS) {
         return false;
     }

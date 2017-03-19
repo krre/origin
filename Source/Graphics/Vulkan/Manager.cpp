@@ -23,7 +23,6 @@ Manager::~Manager() {
     delete commandPool;
     delete device;
     delete physicalDevices;
-    delete debugCallback;
 }
 
 bool Manager::init() {
@@ -44,7 +43,7 @@ bool Manager::init() {
     }
 
     if (enableValidationLayers) {
-        debugCallback = new DebugReportCallback(&instance);
+        debugCallback = std::make_shared<DebugReportCallback>(&instance);
         if (debugCallback->create() != VK_SUCCESS) {
             return false;
         }

@@ -44,7 +44,7 @@ public:
 private:
     Instance instance;
     PhysicalDevice* mainPhysicalDevice;
-    DebugReportCallback* debugCallback = nullptr;
+    std::shared_ptr<DebugReportCallback> debugCallback;
     PhysicalDevices* physicalDevices = nullptr;
     Device* device = nullptr;
     Surface* surface = nullptr;

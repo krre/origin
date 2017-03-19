@@ -32,7 +32,7 @@ public:
     RenderPass* getRenderPass() const { return renderPass; }
     CommandPool* getCommandPool() const { return commandPool; }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
-    PhysicalDevices* getPhysicalDevices() const { return physicalDevices; }
+    const PhysicalDevices* getPhysicalDevices() const { return physicalDevices.get(); }
     SubmitQueue* getGraphicsQueue() const { return graphicsQueue; }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
     void setCommandBuffers(const CommandBuffers* commandBuffers);
@@ -45,7 +45,7 @@ private:
     Instance instance;
     PhysicalDevice* mainPhysicalDevice;
     std::shared_ptr<DebugReportCallback> debugCallback;
-    PhysicalDevices* physicalDevices = nullptr;
+    std::shared_ptr<PhysicalDevices> physicalDevices;
     Device* device = nullptr;
     Surface* surface = nullptr;
     Swapchain* swapchain = nullptr;

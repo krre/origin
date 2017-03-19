@@ -22,7 +22,6 @@ Manager::~Manager() {
     delete surface;
     delete commandPool;
     delete device;
-    delete physicalDevices;
 }
 
 bool Manager::init() {
@@ -49,7 +48,7 @@ bool Manager::init() {
         }
     }
 
-    physicalDevices = new PhysicalDevices(&instance);
+    physicalDevices = std::make_shared<PhysicalDevices>(&instance);
     mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
     if (mainPhysicalDevice == nullptr) {
         mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);

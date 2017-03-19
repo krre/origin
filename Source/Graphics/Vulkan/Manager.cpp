@@ -18,7 +18,6 @@ Manager::~Manager() {
     framebuffers.clear();
     delete renderPass;
     imageViews.clear();
-    delete swapchain;
 }
 
 bool Manager::init() {
@@ -69,7 +68,7 @@ bool Manager::init() {
     }
     commandPool->reset();
 
-    swapchain = new Swapchain(device.get(), surface.get());
+    swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
     if (swapchain->create() != VK_SUCCESS) {
         return false;
     }

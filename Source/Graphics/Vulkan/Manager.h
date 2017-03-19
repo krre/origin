@@ -28,7 +28,7 @@ public:
     const Instance* getInstance() const { return &instance; }
     Device* getDevice() const { return device.get(); }
     Surface* getSurface() const { return surface.get(); }
-    Swapchain* getSwapchain() const { return swapchain; }
+    Swapchain* getSwapchain() const { return swapchain.get(); }
     RenderPass* getRenderPass() const { return renderPass; }
     CommandPool* getCommandPool() const { return commandPool.get(); }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
@@ -49,7 +49,7 @@ private:
     std::shared_ptr<Device> device;
     std::shared_ptr<Surface> surface;
     std::shared_ptr<CommandPool> commandPool;
-    Swapchain* swapchain = nullptr;
+    std::shared_ptr<Swapchain> swapchain;
     RenderPass* renderPass = nullptr;
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;

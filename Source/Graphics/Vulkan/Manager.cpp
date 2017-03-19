@@ -10,11 +10,6 @@
 
 using namespace Vulkan;
 
-Manager::~Manager() {
-    framebuffers.clear();
-    imageViews.clear();
-}
-
 bool Manager::init() {
     instance.setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",

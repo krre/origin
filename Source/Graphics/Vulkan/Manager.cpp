@@ -29,9 +29,7 @@ bool Manager::init() {
 
     if (enableValidationLayers) {
         debugCallback = std::make_shared<DebugReportCallback>(&instance);
-        if (debugCallback->create() != VK_SUCCESS) {
-            return false;
-        }
+        debugCallback->create();
     }
 
     physicalDevices = std::make_shared<PhysicalDevices>(&instance);
@@ -43,41 +41,29 @@ bool Manager::init() {
     graphicsFamily = mainPhysicalDevice->findQueue(VK_QUEUE_GRAPHICS_BIT);
 
     device = std::make_shared<Device>(mainPhysicalDevice, graphicsFamily);
-    if (device->create() != VK_SUCCESS) {
-        return false;
-    }
+    device->create();
 
     surface = std::make_shared<Surface>(instance.getHandle(), mainPhysicalDevice->getHandle());
-    if (surface->create() != VK_SUCCESS) {
-        return false;
-    }
+    surface->create();
 
     commandPool = std::make_shared<CommandPool>(device.get(), graphicsFamily);
-    if (commandPool->create() != VK_SUCCESS) {
-        return false;
-    }
+    commandPool->create();
     commandPool->reset();
 
     swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
-    if (swapchain->create() != VK_SUCCESS) {
-        return false;
-    }
+    swapchain->create();
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device.get());
         imageView->createInfo.image = swapchain->getImage(i);
         imageView->createInfo.format = surface->getFormat(0).format;
-        if (imageView->create() != VK_SUCCESS) {
-            return false;
-        }
+        imageView->create();
         imageViews.push_back(imageView);
     }
 
     renderPass = std::make_shared<RenderPass>(device.get());
     renderPass->setColorFormat(surface->getFormat(0).format);
-    if (renderPass->create() != VK_SUCCESS) {
-        return false;
-    }
+    renderPass->create();
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get()));
@@ -85,21 +71,15 @@ bool Manager::init() {
         framebuffer->createInfo.renderPass = renderPass->getHandle();
         framebuffer->createInfo.width = surface->getWidth();
         framebuffer->createInfo.height = surface->getHeight();
-        if (framebuffer->create() != VK_SUCCESS) {
-            return false;
-        }
+        framebuffer->create();
         framebuffers.push_back(framebuffer);
     }
 
     imageAvailableSemaphore = std::make_shared<Semaphore>(device.get());
-    if (imageAvailableSemaphore->create() != VK_SUCCESS) {
-        return false;
-    }
+    imageAvailableSemaphore->create();
 
     renderFinishedSemaphore = std::make_shared<Semaphore>(device.get());
-    if (renderFinishedSemaphore->create() != VK_SUCCESS) {
-        return false;
-    }
+    renderFinishedSemaphore->create();
 
     graphicsQueue = std::make_shared<SubmitQueue>(device.get(), graphicsFamily);
     graphicsQueue->addSignalSemaphore(renderFinishedSemaphore->getHandle());

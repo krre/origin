@@ -54,7 +54,7 @@ private:
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     std::shared_ptr<Semaphore> imageAvailableSemaphore;
-    Semaphore* renderFinishedSemaphore;
+    std::shared_ptr<Semaphore> renderFinishedSemaphore;
     SubmitQueue* graphicsQueue = nullptr;
     PresentQueue* presentQueue = nullptr;
     uint32_t graphicsFamily;

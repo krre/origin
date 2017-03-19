@@ -13,7 +13,6 @@ using namespace Vulkan;
 Manager::~Manager() {
     delete presentQueue;
     delete graphicsQueue;
-    delete renderFinishedSemaphore;
     framebuffers.clear();
     imageViews.clear();
 }
@@ -104,7 +103,7 @@ bool Manager::init() {
         return false;
     }
 
-    renderFinishedSemaphore = new Semaphore(device.get());
+    renderFinishedSemaphore = std::make_shared<Semaphore>(device.get());
     if (renderFinishedSemaphore->create() != VK_SUCCESS) {
         return false;
     }

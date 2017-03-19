@@ -56,7 +56,7 @@ private:
     std::shared_ptr<Semaphore> imageAvailableSemaphore;
     std::shared_ptr<Semaphore> renderFinishedSemaphore;
     std::shared_ptr<SubmitQueue> graphicsQueue;
-    PresentQueue* presentQueue = nullptr;
+    std::shared_ptr<PresentQueue> presentQueue;
     uint32_t graphicsFamily;
     uint32_t presentFamily; // TODO: Find and use
     uint32_t swapchainImageIndex;

@@ -11,7 +11,6 @@
 using namespace Vulkan;
 
 Manager::~Manager() {
-    delete presentQueue;
     framebuffers.clear();
     imageViews.clear();
 }
@@ -112,7 +111,7 @@ bool Manager::init() {
     graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle());
     graphicsQueue->addWaitDstStageMask(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
 
-    presentQueue = new PresentQueue(device.get(), 0, 0); // TODO: Set family index and queue index
+    presentQueue = std::make_shared<PresentQueue>(device.get(), 0, 0); // TODO: Set family index and queue index
     presentQueue->addWaitSemaphore(renderFinishedSemaphore->getHandle());
     presentQueue->addSwapchain(swapchain->getHandle());
     presentQueue->presentInfo.pImageIndices = &swapchainImageIndex;

@@ -155,8 +155,8 @@ void Manager::saveScreenshot(const std::string& filePath) {
     uint32_t width = App::get()->getWidth();
     uint32_t height = App::get()->getHeight();
     Image image(device);
-    image.createInfo.extent.width = width;
-    image.createInfo.extent.height = height;
+    image.setWidth(width);
+    image.setHeight(height);
     image.create();
     VkImage dstImage = image.getHandle();
 

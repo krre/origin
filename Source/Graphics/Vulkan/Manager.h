@@ -53,8 +53,7 @@ private:
     std::shared_ptr<RenderPass> renderPass;
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
-
-    Semaphore* imageAvailableSemaphore;
+    std::shared_ptr<Semaphore> imageAvailableSemaphore;
     Semaphore* renderFinishedSemaphore;
     SubmitQueue* graphicsQueue = nullptr;
     PresentQueue* presentQueue = nullptr;

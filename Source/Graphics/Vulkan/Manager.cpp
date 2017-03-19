@@ -14,7 +14,6 @@ Manager::~Manager() {
     delete presentQueue;
     delete graphicsQueue;
     delete renderFinishedSemaphore;
-    delete imageAvailableSemaphore;
     framebuffers.clear();
     imageViews.clear();
 }
@@ -100,7 +99,7 @@ bool Manager::init() {
         framebuffers.push_back(framebuffer);
     }
 
-    imageAvailableSemaphore = new Semaphore(device.get());
+    imageAvailableSemaphore = std::make_shared<Semaphore>(device.get());
     if (imageAvailableSemaphore->create() != VK_SUCCESS) {
         return false;
     }

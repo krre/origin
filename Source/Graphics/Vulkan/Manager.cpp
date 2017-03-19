@@ -16,7 +16,6 @@ Manager::~Manager() {
     delete renderFinishedSemaphore;
     delete imageAvailableSemaphore;
     framebuffers.clear();
-    delete renderPass;
     imageViews.clear();
 }
 
@@ -83,7 +82,7 @@ bool Manager::init() {
         imageViews.push_back(imageView);
     }
 
-    renderPass = new RenderPass(device.get());
+    renderPass = std::make_shared<RenderPass>(device.get());
     renderPass->setColorFormat(surface->getFormat(0).format);
     if (renderPass->create() != VK_SUCCESS) {
         return false;

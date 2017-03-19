@@ -89,7 +89,6 @@ bool Manager::init() {
     presentQueue = std::make_shared<PresentQueue>(device.get(), graphicsFamily);
     presentQueue->addWaitSemaphore(renderFinishedSemaphore->getHandle());
     presentQueue->addSwapchain(swapchain->getHandle());
-    presentQueue->presentInfo.pImageIndices = &swapchainImageIndex;
 
     return true;
 }
@@ -102,7 +101,7 @@ void Manager::setCommandBuffers(const CommandBuffers* commandBuffers) {
 }
 
 void Manager::renderBegin() {
-    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, &swapchainImageIndex);
+    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(swapchainIndex));
 }
 
 void Manager::renderEnd() {
@@ -114,7 +113,7 @@ void Manager::submit() {
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {
-    VkImage srcImage = swapchain->getImage(swapchainImageIndex);
+    VkImage srcImage = swapchain->getImage(*presentQueue->getImageIndex(swapchainIndex));
 
     uint32_t width = App::get()->getWidth();
     uint32_t height = App::get()->getHeight();

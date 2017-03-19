@@ -30,7 +30,7 @@ public:
     Surface* getSurface() const { return surface.get(); }
     Swapchain* getSwapchain() const { return swapchain; }
     RenderPass* getRenderPass() const { return renderPass; }
-    CommandPool* getCommandPool() const { return commandPool; }
+    CommandPool* getCommandPool() const { return commandPool.get(); }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     const PhysicalDevices* getPhysicalDevices() const { return physicalDevices.get(); }
     SubmitQueue* getGraphicsQueue() const { return graphicsQueue; }
@@ -47,8 +47,8 @@ private:
     std::shared_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;
     std::shared_ptr<Device> device;
-    CommandPool* commandPool = nullptr;
     std::shared_ptr<Surface> surface;
+    std::shared_ptr<CommandPool> commandPool;
     Swapchain* swapchain = nullptr;
     RenderPass* renderPass = nullptr;
     std::vector<std::shared_ptr<ImageView>> imageViews;

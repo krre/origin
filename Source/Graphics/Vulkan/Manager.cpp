@@ -19,7 +19,6 @@ Manager::~Manager() {
     delete renderPass;
     imageViews.clear();
     delete swapchain;
-    delete commandPool;
 }
 
 bool Manager::init() {
@@ -64,7 +63,7 @@ bool Manager::init() {
         return false;
     }
 
-    commandPool = new CommandPool(device.get(), graphicsFamily);
+    commandPool = std::make_shared<CommandPool>(device.get(), graphicsFamily);
     if (commandPool->create() != VK_SUCCESS) {
         return false;
     }
@@ -156,7 +155,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     image.create();
     VkImage dstImage = image.getHandle();
 
-    CommandBuffers commandBuffers(device.get(), commandPool);
+    CommandBuffers commandBuffers(device.get(), commandPool.get());
     commandBuffers.allocate(1);
 
     CommandBuffer commandBuffer(commandBuffers.at(0));

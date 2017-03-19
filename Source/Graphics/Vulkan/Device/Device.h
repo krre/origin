@@ -10,7 +10,7 @@ namespace Vulkan {
 class Device : public Handle<VkDevice> {
 
 public:
-    Device(PhysicalDevice* physicalDevice, uint32_t familyIndex);
+    Device(PhysicalDevice* physicalDevice);
     ~Device();
     void waitIdle();
     void waitForFences(std::vector<VkFence> fences);
@@ -18,15 +18,16 @@ public:
     VkResult create() override;
     void destroy() override;
     void dumpExtensions();
+    void addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> queuePriorities);
 
     VkDeviceCreateInfo createInfo = {};
-    VkDeviceQueueCreateInfo queueCreateInfo = {};
 
 private:
     PhysicalDevice* physicalDevice;
+    std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
+    std::vector<float> queuePriorities;
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
-    float queuePriority = 1.0f;
 };
 
 } // Vulkan

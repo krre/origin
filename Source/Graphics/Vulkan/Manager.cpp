@@ -40,7 +40,8 @@ bool Manager::init() {
 
     graphicsFamily = mainPhysicalDevice->findQueue(VK_QUEUE_GRAPHICS_BIT);
 
-    device = std::make_shared<Device>(mainPhysicalDevice, graphicsFamily);
+    device = std::make_shared<Device>(mainPhysicalDevice);
+    device->addQueueCreateInfo(graphicsFamily, { 1.0 });
     device->create();
 
     surface = std::make_shared<Surface>(instance.getHandle(), mainPhysicalDevice->getHandle());

@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Device::Device(PhysicalDevice* physicalDevice, uint32_t familyIndex) : physicalDevice(physicalDevice) {
+Device::Device(PhysicalDevice* physicalDevice) : physicalDevice(physicalDevice) {
     uint32_t count;
     vkEnumerateDeviceExtensionProperties(physicalDevice->getHandle(), nullptr, &count, nullptr);
     extensions.resize(count);
@@ -12,14 +12,7 @@ Device::Device(PhysicalDevice* physicalDevice, uint32_t familyIndex) : physicalD
         enabledExtensions.push_back(extension.extensionName);
     }
 
-    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-    queueCreateInfo.queueCount = 1;
-    queueCreateInfo.pQueuePriorities = &queuePriority;
-    queueCreateInfo.queueFamilyIndex = familyIndex;
-
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.queueCreateInfoCount = 1;
-    createInfo.pQueueCreateInfos = &queueCreateInfo;
     createInfo.enabledExtensionCount = enabledExtensions.size();
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 }
@@ -39,6 +32,8 @@ void Device::waitForFences(std::vector<VkFence> fences) {
 }
 
 VkResult Device::create() {
+    createInfo.queueCreateInfoCount = queueCreateInfos.size();
+    createInfo.pQueueCreateInfos = queueCreateInfos.data();
     CHECK_RESULT(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
     return result;
 }
@@ -51,4 +46,21 @@ void Device::dumpExtensions() {
     for (const auto& extension : extensions) {
         PRINT(extension.extensionName);
     }
+}
+
+void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> queuePriorities) {
+    int offset = this->queuePriorities.size();
+
+    // Append new priorities with queueFamilyIndex to common storage for all queueCreateInfos
+    for (auto& queuePriority : queuePriorities) {
+        this->queuePriorities.push_back(queuePriority);
+    }
+
+    VkDeviceQueueCreateInfo queueCreateInfo = {};
+    queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+    queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
+    queueCreateInfo.queueCount = queuePriorities.size();
+    queueCreateInfo.pQueuePriorities = &queuePriorities[offset];
+
+    queueCreateInfos.push_back(queueCreateInfo);
 }

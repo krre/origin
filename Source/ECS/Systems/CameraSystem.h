@@ -1,6 +1,5 @@
 #pragma once
 #include "../System.h"
-#include "../Entity.h"
 #include <glm/glm.hpp>
 
 class CameraSystem : public System {

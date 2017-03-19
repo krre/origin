@@ -2,10 +2,11 @@
 
 using namespace Vulkan;
 
-ImageView::ImageView(const Device* device) :
-    Devicer(device) {
+ImageView::ImageView(const Device* device, VkImage image) :
+        Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     createInfo.format = VK_FORMAT_R8G8B8A8_UNORM;
+    createInfo.image = image;
     createInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
     createInfo.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
     createInfo.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;

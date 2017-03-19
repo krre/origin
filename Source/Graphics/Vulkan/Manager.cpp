@@ -54,8 +54,7 @@ bool Manager::init() {
     swapchain->create();
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device.get());
-        imageView->createInfo.image = swapchain->getImage(i);
+        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device.get(), swapchain->getImage(i));
         imageView->createInfo.format = surface->getFormat(0).format;
         imageView->create();
         imageViews.push_back(imageView);

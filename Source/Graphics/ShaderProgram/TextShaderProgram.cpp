@@ -15,7 +15,7 @@ TextShaderProgram::TextShaderProgram(const Vulkan::Device* device) :
 
     VkDescriptorImageInfo descriptorImageInfo = {};
     descriptorImageInfo.sampler = sampler.getHandle();
-    descriptorImageInfo.imageView = font->getTexture()->getImageView().getHandle();
+    descriptorImageInfo.imageView = font->getTexture()->getImageView()->getHandle();
     descriptorImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 
     linkImage("samplerFont", descriptorImageInfo);

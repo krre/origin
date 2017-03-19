@@ -11,10 +11,10 @@ public:
     uint32_t getWidth() const { return image.createInfo.extent.width; }
     uint32_t getHeight() const { return image.createInfo.extent.height; }
     const Vulkan::Image& getImage() const { return image; }
-    const Vulkan::ImageView& getImageView() const { return imageView; }
+    const Vulkan::ImageView* getImageView() const { return imageView.get(); }
 
 private:
     std::vector<unsigned char> data;
     Vulkan::Image image;
-    Vulkan::ImageView imageView;
+    std::shared_ptr<Vulkan::ImageView> imageView;
 };

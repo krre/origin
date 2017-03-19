@@ -1,6 +1,7 @@
 #pragma once
 #include "Control.h"
-#include "Text/Font.h"
+
+class Font;
 
 class Label : public Control {
 

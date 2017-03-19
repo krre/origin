@@ -19,7 +19,7 @@ VkResult PresentQueue::present() {
 
 void PresentQueue::addSwapchain(VkSwapchainKHR swapchain) {
     swapchains.push_back(swapchain);
-    imageIndices.push_back(0); // Any uint32_t value
+    imageIndices.resize(swapchains.size());
 }
 
 uint32_t* PresentQueue::getImageIndex(int i) {

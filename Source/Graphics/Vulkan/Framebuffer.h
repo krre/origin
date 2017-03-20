@@ -16,10 +16,10 @@ public:
     void addAttachment(VkImageView attachment);
     void setWidth(uint32_t width);
     void setHeight(uint32_t height);
-
-    VkFramebufferCreateInfo createInfo = {};
+    void setRenderPass(VkRenderPass renderPass);
 
 private:
+    VkFramebufferCreateInfo createInfo = {};
     std::vector<VkImageView> attachments;
 };
 

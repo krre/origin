@@ -68,7 +68,7 @@ bool Manager::init() {
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get()));
         framebuffer->addAttachment(imageViews.at(i)->getHandle());
-        framebuffer->createInfo.renderPass = renderPass->getHandle();
+        framebuffer->setRenderPass(renderPass->getHandle());
         framebuffer->setWidth(surface->getWidth());
         framebuffer->setHeight(surface->getHeight());
         framebuffer->create();

@@ -34,3 +34,7 @@ void Framebuffer::setWidth(uint32_t width) {
 void Framebuffer::setHeight(uint32_t height) {
     createInfo.height = height;
 }
+
+void Framebuffer::setRenderPass(VkRenderPass renderPass) {
+    createInfo.renderPass = renderPass;
+}

@@ -14,6 +14,8 @@ public:
     VkResult create() override;
     void destroy() override;
     void addAttachment(VkImageView attachment);
+    void setWidth(uint32_t width);
+    void setHeight(uint32_t height);
 
     VkFramebufferCreateInfo createInfo = {};
 

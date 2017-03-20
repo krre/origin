@@ -69,8 +69,8 @@ bool Manager::init() {
         std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get()));
         framebuffer->addAttachment(imageViews.at(i)->getHandle());
         framebuffer->createInfo.renderPass = renderPass->getHandle();
-        framebuffer->createInfo.width = surface->getWidth();
-        framebuffer->createInfo.height = surface->getHeight();
+        framebuffer->setWidth(surface->getWidth());
+        framebuffer->setHeight(surface->getHeight());
         framebuffer->create();
         framebuffers.push_back(framebuffer);
     }

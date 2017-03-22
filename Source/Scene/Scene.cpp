@@ -15,6 +15,7 @@ Scene::Scene() :
 }
 
 Scene::~Scene() {
+    queue->waitIdle();
 }
 
 void Scene::init() {

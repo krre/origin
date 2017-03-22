@@ -8,7 +8,7 @@ PresentQueue::PresentQueue(const Device* device, uint32_t queueFamilyIndex, uint
 }
 
 VkResult PresentQueue::present() {
-    assert(swapchains.size() > 0);
+    assert(!swapchains.empty());
     presentInfo.waitSemaphoreCount = waitSemaphores.size();
     presentInfo.pWaitSemaphores = waitSemaphores.data();
     presentInfo.swapchainCount = swapchains.size();
@@ -23,6 +23,6 @@ void PresentQueue::addSwapchain(VkSwapchainKHR swapchain) {
 }
 
 uint32_t* PresentQueue::getImageIndex(int i) {
-    assert(imageIndices.size() > 0 && i < imageIndices.size());
+    assert(!imageIndices.empty() && i < imageIndices.size());
     return &imageIndices[i];
 }

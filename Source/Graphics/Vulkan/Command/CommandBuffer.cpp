@@ -60,12 +60,12 @@ void CommandBuffer::pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipeline
 }
 
 void CommandBuffer::setViewport(uint32_t firstViewport) {
-    assert(viewports.size() > 0);
+    assert(!viewports.empty());
     vkCmdSetViewport(handle, firstViewport, viewports.size(), viewports.data());
 }
 
 void CommandBuffer::setScissor(uint32_t firstScissor) {
-    assert(scissors.size() > 0);
+    assert(!scissors.empty());
     vkCmdSetScissor(handle, firstScissor, scissors.size(), scissors.data());
 }
 
@@ -74,7 +74,7 @@ void CommandBuffer::bindPipeline(const Pipeline* pipeline) {
 }
 
 void CommandBuffer::bindVertexBuffers(uint32_t firstBinding) {
-    assert(vertexBuffers.size() > 0);
+    assert(!vertexBuffers.empty());
     vkCmdBindVertexBuffers(handle, firstBinding, vertexBuffers.size(), vertexBuffers.data(), vertexBufferOffsets.data());
 }
 
@@ -83,7 +83,7 @@ void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDe
 }
 
 void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
-    assert(copyRegions.size() > 0);
+    assert(!copyRegions.empty());
     vkCmdCopyBuffer(handle, srcBuffer, dstBuffer, copyRegions.size(), copyRegions.data());
 }
 

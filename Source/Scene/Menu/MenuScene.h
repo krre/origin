@@ -23,9 +23,9 @@ public:
     void init() override;
     void draw(float dt) override;
     void update(float dt) override;
-    void create() override;
 
 private:
+    void create();
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void buildCommandBuffers() override;
 

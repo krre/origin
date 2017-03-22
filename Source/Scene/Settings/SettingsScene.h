@@ -11,8 +11,8 @@ public:
     void init() override;
     void draw(float dt) override;
     void update(float dt) override;
-    void create() override;
 
 private:
+    void create();
     void buildCommandBuffers() override;
 };

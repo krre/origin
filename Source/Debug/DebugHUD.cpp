@@ -86,6 +86,8 @@ void DebugHUD::init() {
     numLetters = tsp.getFont()->renderText(vertexBuffer.get(), indexBuffer.get(), test, 100, 100);
 
     buildCommandBuffers();
+
+    create();
 }
 
 void DebugHUD::draw(float dt) {

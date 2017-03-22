@@ -20,10 +20,10 @@ public:
     void init() override;
     void draw(float dt) override;
     void update(float dt) override;
-    void create() override;
     void trigger();
 
 private:
+    void create();
     void buildCommandBuffers() override;
 
     Vulkan::PipelineLayout pipelineLayout;

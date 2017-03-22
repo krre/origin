@@ -4,7 +4,6 @@
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();
-    DebugHUD::get()->create();
 }
 
 void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
@@ -16,7 +15,6 @@ void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
     }
     scenes.push_back(scene);
     scene->init();
-    scene->create();
     scene->resume();
 }
 

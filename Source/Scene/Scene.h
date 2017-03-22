@@ -12,7 +12,6 @@ public:
     Scene();
     ~Scene();
     virtual void init();
-    virtual void create() {}
     virtual void cleanup() {}
     virtual void pause();
     virtual void resume();

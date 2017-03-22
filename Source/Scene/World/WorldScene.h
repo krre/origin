@@ -21,7 +21,6 @@ public:
     void init() override;
     void draw(float dt) override;
     void update(float dt) override;
-    void create() override;
     void pause() override;
     void resume() override;
     EntityId getCharacterId() { return characterId; }
@@ -29,6 +28,7 @@ public:
     void setSeed(uint64_t seed);
 
 private:
+    void create();
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void buildCommandBuffers() override;
 

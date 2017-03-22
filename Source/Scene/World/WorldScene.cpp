@@ -73,6 +73,8 @@ void WorldScene::init() {
     graphicsPipeline.create();
 
     buildCommandBuffers();
+
+    create();
 }
 
 void WorldScene::draw(float dt) {

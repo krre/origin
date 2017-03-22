@@ -12,7 +12,7 @@ PauseScene::~PauseScene() {
 }
 
 void PauseScene::init() {
-
+    create();
 }
 
 void PauseScene::draw(float dt) {

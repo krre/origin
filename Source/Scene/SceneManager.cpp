@@ -21,7 +21,6 @@ void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
 void SceneManager::popScene() {
     if (scenes.size() > 1) {
         scenes.back()->pause();
-        scenes.back()->cleanup();
         scenes.pop_back();
         scenes.back()->resume();
         scenes.back()->setVisible(true);
@@ -34,7 +33,6 @@ void SceneManager::popScene() {
 void SceneManager::setScene(std::shared_ptr<Scene> scene) {
     for (auto& scene : scenes) {
         scene->pause();
-        scene->cleanup();
     }
     scenes.clear();
     pushScene(scene);

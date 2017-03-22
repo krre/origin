@@ -32,6 +32,12 @@ void SubmitQueue::addWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags w
     waitDstStageMasks.push_back(waitDstStageMask);
 }
 
+void SubmitQueue::setWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask) {
+    waitSemaphores.clear();
+    waitDstStageMasks.clear();
+    addWaitSemaphore(semaphore, waitDstStageMask);
+}
+
 void SubmitQueue::addCommandBuffer(VkCommandBuffer commandBuffer) {
     commandBuffers.push_back(commandBuffer);
 }

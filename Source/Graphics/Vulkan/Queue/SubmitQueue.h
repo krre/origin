@@ -14,6 +14,7 @@ public:
 
     void addSignalSemaphore(VkSemaphore semaphore);
     void addWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask);
+    void setWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask);
     void addCommandBuffer(VkCommandBuffer commandBuffer);
     void clearCommandBuffers();
 

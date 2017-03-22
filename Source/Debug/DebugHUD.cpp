@@ -173,6 +173,7 @@ void DebugHUD::trigger() {
 void DebugHUD::buildCommandBuffers() {
     Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.0, 0.0, 1.0, 0.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
+    queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
         renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
@@ -196,5 +197,7 @@ void DebugHUD::buildCommandBuffers() {
 
         commandBuffer.endRenderPass();
         commandBuffer.end();
+
+        queue->addCommandBuffer(commandBuffer.getHandle());
     }
 }

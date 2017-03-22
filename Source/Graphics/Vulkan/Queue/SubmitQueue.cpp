@@ -27,7 +27,8 @@ void SubmitQueue::addSignalSemaphore(VkSemaphore semaphore) {
     signalSemaphores.push_back(semaphore);
 }
 
-void SubmitQueue::addWaitDstStageMask(VkPipelineStageFlags waitDstStageMask) {
+void SubmitQueue::addWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask) {
+    waitSemaphores.push_back(semaphore);
     waitDstStageMasks.push_back(waitDstStageMask);
 }
 

@@ -13,7 +13,7 @@ public:
     VkResult waitIdle();
 
     void addSignalSemaphore(VkSemaphore semaphore);
-    void addWaitDstStageMask(VkPipelineStageFlags waitDstStageMask);
+    void addWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask);
     void addCommandBuffer(VkCommandBuffer commandBuffer);
     void clearCommandBuffers();
 

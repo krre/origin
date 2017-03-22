@@ -83,8 +83,7 @@ bool Manager::init() {
 
     graphicsQueue = std::make_shared<SubmitQueue>(device.get(), graphicsFamily);
     graphicsQueue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
-    graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle());
-    graphicsQueue->addWaitDstStageMask(VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
+    graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
 
     presentQueue = std::make_shared<PresentQueue>(device.get(), graphicsFamily);
     presentQueue->addWaitSemaphore(renderFinishedSemaphore->getHandle());

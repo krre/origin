@@ -9,6 +9,8 @@ Scene::Scene() :
         commandBuffers(device, Vulkan::Manager::get()->getCommandPool()) {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
     queue = std::make_shared<Vulkan::SubmitQueue>(device, Vulkan::Manager::get()->getGraphicsFamily());
+    renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>(device);
+    renderFinishedSemaphore->create();
 }
 
 Scene::~Scene() {

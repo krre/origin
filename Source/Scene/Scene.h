@@ -2,6 +2,7 @@
 #include "../UI/Viewport.h"
 #include "../Graphics/Vulkan/Device/Device.h"
 #include "../Graphics/Vulkan/Command/CommandBuffers.h"
+#include "../Graphics/Vulkan/Queue/SubmitQueue.h"
 #include <SDL.h>
 
 class Scene : public Viewport {
@@ -21,6 +22,7 @@ public:
     virtual void buildCommandBuffers() = 0;
 
     bool getIsFullScreen() const { return isFullScreen; }
+    Vulkan::SubmitQueue* getQueue() const { return queue.get(); }
 
 protected:
     virtual void onWindowResize(int width, int height) = 0;
@@ -28,4 +30,5 @@ protected:
     bool isFullScreen = true;
     Vulkan::Device* device;
     Vulkan::CommandBuffers commandBuffers;
+    std::shared_ptr<Vulkan::SubmitQueue> queue;
 };

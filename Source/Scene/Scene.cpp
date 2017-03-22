@@ -8,6 +8,7 @@ Scene::Scene() :
         device(Vulkan::Manager::get()->getDevice()),
         commandBuffers(device, Vulkan::Manager::get()->getCommandPool()) {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
+    queue = std::make_shared<Vulkan::SubmitQueue>(device, Vulkan::Manager::get()->getGraphicsFamily());
 }
 
 Scene::~Scene() {

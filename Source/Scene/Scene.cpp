@@ -11,6 +11,7 @@ Scene::Scene() :
     queue = std::make_shared<Vulkan::SubmitQueue>(device, Vulkan::Manager::get()->getGraphicsFamily());
     renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();
+    queue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
 }
 
 Scene::~Scene() {

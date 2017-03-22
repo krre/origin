@@ -17,9 +17,8 @@ public:
     void addCommandBuffer(VkCommandBuffer commandBuffer);
     void clearCommandBuffers();
 
-    VkSubmitInfo submitInfo = {};
-
 private:
+    VkSubmitInfo submitInfo = {};
     std::vector<VkSemaphore> signalSemaphores;
     std::vector<VkPipelineStageFlags> waitDstStageMasks;
     std::vector<VkCommandBuffer> commandBuffers;

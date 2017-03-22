@@ -14,6 +14,8 @@ public:
     void update(float dt);
     void draw(float dt);
 
+    void updateSemaphores();
+
 private:
     std::vector<std::shared_ptr<Scene>> scenes;
 };

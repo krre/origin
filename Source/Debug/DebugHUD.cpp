@@ -107,8 +107,7 @@ void DebugHUD::draw(float dt) {
 //    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
 //    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
 //    Scene2D::draw(dt);
-    Vulkan::Manager::get()->setCommandBuffers(&commandBuffers);
-    Vulkan::Manager::get()->submit();
+    queue->submit();
 }
 
 void DebugHUD::update(float dt) {

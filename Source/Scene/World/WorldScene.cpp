@@ -78,8 +78,7 @@ void WorldScene::init() {
 }
 
 void WorldScene::draw(float dt) {
-    Vulkan::Manager::get()->setCommandBuffers(&commandBuffers);
-    Vulkan::Manager::get()->submit();
+    queue->submit();
 
 //    debugOutBuffer->read(0, sizeof(DebugOut), &debugOut);
 //    PRINT(glm::to_string(debugOut.debugVec))

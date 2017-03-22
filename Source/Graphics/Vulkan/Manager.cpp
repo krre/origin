@@ -78,25 +78,10 @@ bool Manager::init() {
     imageAvailableSemaphore = std::make_shared<Semaphore>(device.get());
     imageAvailableSemaphore->create();
 
-    renderFinishedSemaphore = std::make_shared<Semaphore>(device.get());
-    renderFinishedSemaphore->create();
-
-    graphicsQueue = std::make_shared<SubmitQueue>(device.get(), graphicsFamily);
-    graphicsQueue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
-    graphicsQueue->addWaitSemaphore(imageAvailableSemaphore->getHandle(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
-
     presentQueue = std::make_shared<PresentQueue>(device.get(), graphicsFamily);
-    presentQueue->addWaitSemaphore(renderFinishedSemaphore->getHandle());
     presentQueue->addSwapchain(swapchain->getHandle());
 
     return true;
-}
-
-void Manager::setCommandBuffers(const CommandBuffers* commandBuffers) {
-    graphicsQueue->clearCommandBuffers();
-    for (int i = 0; i < commandBuffers->getCount(); i++) {
-        graphicsQueue->addCommandBuffer(commandBuffers->at(i));
-    }
 }
 
 void Manager::renderBegin() {
@@ -105,10 +90,6 @@ void Manager::renderBegin() {
 
 void Manager::renderEnd() {
     presentQueue->present();
-}
-
-void Manager::submit() {
-    graphicsQueue->submit();
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {

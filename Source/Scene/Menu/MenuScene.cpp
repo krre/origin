@@ -71,8 +71,7 @@ void MenuScene::init() {
 }
 
 void MenuScene::draw(float dt) {
-    Vulkan::Manager::get()->setCommandBuffers(&commandBuffers);
-    Vulkan::Manager::get()->submit();
+    queue->submit();
 }
 
 void MenuScene::update(float dt) {

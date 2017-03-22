@@ -16,6 +16,8 @@ void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
     scenes.push_back(scene);
     scene->init();
     scene->resume();
+
+    updateSemaphores();
 }
 
 void SceneManager::popScene() {
@@ -24,6 +26,8 @@ void SceneManager::popScene() {
         scenes.pop_back();
         scenes.back()->resume();
         scenes.back()->setVisible(true);
+
+        updateSemaphores();
     } else {
         // TODO: Question dialog about exit from game
         PRINT("Exit question dialog")
@@ -64,4 +68,29 @@ void SceneManager::draw(float dt) {
     }
 
     Vulkan::Manager::get()->renderEnd();
+}
+
+void SceneManager::updateSemaphores() {
+    std::vector<Scene*> visibleScenes;
+    for (auto& scene : scenes) {
+        if (scene->getVisible()) {
+            visibleScenes.push_back(scene.get());
+        }
+    }
+
+    if (DebugHUD::get()->getVisible()) {
+        visibleScenes.push_back(DebugHUD::get());
+    }
+
+    Scene* firstScene = visibleScenes.front();
+    firstScene->getQueue()->setWaitSemaphore(Vulkan::Manager::get()->getImageAvailableSemaphore()->getHandle(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
+
+    Scene* lastScene = visibleScenes.back();
+    Vulkan::Manager::get()->getPresentQueue()->setWaitSemaphore(lastScene->getRenderFinishedSemaphore()->getHandle());
+
+    for (int i = 0; i < visibleScenes.size(); i++) {
+        if (i < visibleScenes.size() - 1) {
+            visibleScenes.at(i + 1)->getQueue()->setWaitSemaphore(visibleScenes.at(i)->getRenderFinishedSemaphore()->getHandle(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
+        }
+    }
 }

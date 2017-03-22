@@ -32,12 +32,11 @@ public:
     CommandPool* getCommandPool() const { return commandPool.get(); }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     const PhysicalDevices* getPhysicalDevices() const { return physicalDevices.get(); }
-    SubmitQueue* getGraphicsQueue() const { return graphicsQueue.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
-    void setCommandBuffers(const CommandBuffers* commandBuffers);
+    Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
+    PresentQueue* getPresentQueue() const { return presentQueue.get(); }
     void renderBegin();
     void renderEnd();
-    void submit();
     void saveScreenshot(const std::string& filePath);
 
 private:
@@ -53,8 +52,6 @@ private:
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     std::shared_ptr<Semaphore> imageAvailableSemaphore;
-    std::shared_ptr<Semaphore> renderFinishedSemaphore;
-    std::shared_ptr<SubmitQueue> graphicsQueue;
     std::shared_ptr<PresentQueue> presentQueue;
     uint32_t graphicsFamily;
 };

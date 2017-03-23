@@ -21,12 +21,30 @@ public:
     void addDynamicOffset(uint32_t dynamicOffset);
     void addDescriptorSet(VkDescriptorSet descriptorSet);
 
+    static VkMemoryBarrier createMemoryBarrier();
+    void addMemoryBarrier(VkMemoryBarrier memoryBarrier);
+    uint32_t getMemoryBarrierCount() const { return memoryBarriers.size(); }
+    VkMemoryBarrier* getMemoryBarrierData() { return memoryBarriers.data(); }
+    void clearMemoryBarriers();
+
+    static VkBufferMemoryBarrier createBufferMemoryBarrier();
+    void addBufferMemoryBarrier(VkBufferMemoryBarrier bufferMemoryBarrier);
+    uint32_t getBufferMemoryBarrierCount() const { return bufferMemoryBarriers.size(); }
+    VkBufferMemoryBarrier* getBufferMemoryBarrierData() { return bufferMemoryBarriers.data(); }
+    void clearBufferMemoryBarriers();
+
+    static VkImageMemoryBarrier createImageMemoryBarrier();
+    void addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier);
+    uint32_t getImageMemoryBarrierCount() const { return imageMemoryBarriers.size(); }
+    VkImageMemoryBarrier* getImageMemoryBarrierData() { return imageMemoryBarriers.data(); }
+    void clearImageMemoryBarriers();
+
     // Commands
     VkResult begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
     VkResult end();
     void beginRenderPass(const VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents = VK_SUBPASS_CONTENTS_INLINE);
     void endRenderPass();
-    void pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
+    void pipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
     void setViewport(uint32_t firstViewport);
     void setScissor(uint32_t firstScissor);
     void bindPipeline(const Pipeline* pipeline);
@@ -47,6 +65,10 @@ private:
     std::vector<VkImageBlit> blitRegions;
     std::vector<uint32_t> dynamicOffsets;
     std::vector<VkDescriptorSet> descriptorSets;
+
+    std::vector<VkMemoryBarrier> memoryBarriers;
+    std::vector<VkBufferMemoryBarrier> bufferMemoryBarriers;
+    std::vector<VkImageMemoryBarrier> imageMemoryBarriers;
 };
 
 } // Vulkan

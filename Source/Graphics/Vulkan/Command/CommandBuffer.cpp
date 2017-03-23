@@ -35,6 +35,61 @@ void CommandBuffer::addDescriptorSet(VkDescriptorSet descriptorSet) {
     descriptorSets.push_back(descriptorSet);
 }
 
+VkMemoryBarrier CommandBuffer::createMemoryBarrier() {
+    VkMemoryBarrier mb = {};
+    mb.sType = VK_STRUCTURE_TYPE_MEMORY_BARRIER;
+
+    return mb;
+}
+
+void CommandBuffer::addMemoryBarrier(VkMemoryBarrier memoryBarrier) {
+    memoryBarriers.push_back(memoryBarrier);
+}
+
+void CommandBuffer::clearMemoryBarriers() {
+    memoryBarriers.clear();
+}
+
+VkBufferMemoryBarrier CommandBuffer::createBufferMemoryBarrier() {
+    VkBufferMemoryBarrier bmb = {};
+    bmb.sType = VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER;
+    bmb.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    bmb.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+
+    return bmb;
+}
+
+void CommandBuffer::addBufferMemoryBarrier(VkBufferMemoryBarrier bufferMemoryBarrier) {
+    bufferMemoryBarriers.push_back(bufferMemoryBarrier);
+}
+
+void CommandBuffer::clearBufferMemoryBarriers() {
+    bufferMemoryBarriers.clear();
+}
+
+void CommandBuffer::addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier) {
+    imageMemoryBarriers.push_back(imageMemoryBarrier);
+}
+
+void CommandBuffer::clearImageMemoryBarriers() {
+    imageMemoryBarriers.clear();
+}
+
+VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
+    VkImageMemoryBarrier imb = {};
+    imb.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+    imb.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+    imb.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+
+    imb.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    imb.subresourceRange.baseMipLevel = 0;
+    imb.subresourceRange.levelCount = 1;
+    imb.subresourceRange.layerCount = 1;
+
+    return imb;
+}
+
+
 VkResult CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
     return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
@@ -52,11 +107,11 @@ void CommandBuffer::endRenderPass() {
     vkCmdEndRenderPass(handle);
 }
 
-void CommandBuffer::pipelineBarrier(PipelineBarrier* pipelineBarrier, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) {
+void CommandBuffer::pipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) {
     vkCmdPipelineBarrier(handle, srcStageMask, dstStageMask, dependencyFlags,
-                         pipelineBarrier->getMemoryBarrierCount(), pipelineBarrier->getMemoryBarrierData(),
-                         pipelineBarrier->getBufferMemoryBarrierCount(), pipelineBarrier->getBufferMemoryBarrierData(),
-                         pipelineBarrier->getImageMemoryBarrierCount(), pipelineBarrier->getImageMemoryBarrierData());
+                         memoryBarriers.size(), memoryBarriers.data(),
+                         bufferMemoryBarriers.size(), bufferMemoryBarriers.data(),
+                         imageMemoryBarriers.size(), imageMemoryBarriers.data());
 }
 
 void CommandBuffer::setViewport(uint32_t firstViewport) {

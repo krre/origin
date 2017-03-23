@@ -2,7 +2,6 @@
 #include "Image/Image.h"
 #include "../../Core/App.h"
 #include "Command/CommandBuffer.h"
-#include "Pipeline/PipelineBarrier.h"
 #include "Fence.h"
 #include <glm/glm.hpp>
 #include <fstream>
@@ -110,7 +109,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     commandBuffer.begin();
 
     // Transition destination image to transfer destination layout
-    VkImageMemoryBarrier imageMemoryBarrier = PipelineBarrier::createImageMemoryBarrier();
+    VkImageMemoryBarrier imageMemoryBarrier = CommandBuffer::createImageMemoryBarrier();
     imageMemoryBarrier.oldLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     imageMemoryBarrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
     imageMemoryBarrier.image = dstImage;

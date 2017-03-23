@@ -4,8 +4,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/ComputePipeline.h
     ${CMAKE_CURRENT_SOURCE_DIR}/GraphicsPipeline.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GraphicsPipeline.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineBarrier.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PipelineBarrier.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PipelineCache.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Pipeline.cpp

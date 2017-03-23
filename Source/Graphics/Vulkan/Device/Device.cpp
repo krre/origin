@@ -60,7 +60,7 @@ void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> qu
     queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
     queueCreateInfo.queueCount = queuePriorities.size();
-    queueCreateInfo.pQueuePriorities = &queuePriorities[offset];
+    queueCreateInfo.pQueuePriorities = &this->queuePriorities[offset];
 
     queueCreateInfos.push_back(queueCreateInfo);
 }

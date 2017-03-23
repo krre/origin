@@ -37,9 +37,8 @@ public:
     void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance);
     void bindDescriptorSets(const Pipeline* pipeline, VkPipelineLayout layout, uint32_t firstSet = 0);
 
-    VkCommandBufferBeginInfo beginInfo = {};
-
 private:
+    VkCommandBufferBeginInfo beginInfo = {};
     std::vector<VkViewport> viewports;
     std::vector<VkRect2D> scissors;
     std::vector<VkBuffer> vertexBuffers;

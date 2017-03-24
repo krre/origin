@@ -18,6 +18,7 @@ public:
     void setHeight(uint32_t height);
     void setFormat(VkFormat format);
     void setUsage(VkImageUsageFlags usage);
+    void setInitialLayout(VkImageLayout initialLayout);
     VkFormat getFormat() const { return createInfo.format; }
 
     VkImageCreateInfo createInfo = {};

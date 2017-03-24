@@ -12,7 +12,7 @@ Texture::Texture(const std::string& path, VkFormat format) :
     image.setHeight(height);
     image.setFormat(format);
     image.setUsage(VK_IMAGE_USAGE_SAMPLED_BIT);
-    image.createInfo.initialLayout = VK_IMAGE_LAYOUT_PREINITIALIZED; // TODO: Better VK_IMAGE_LAYOUT_GENERAL
+    image.setInitialLayout(VK_IMAGE_LAYOUT_PREINITIALIZED);
     image.create();
 
     imageView = std::make_shared<Vulkan::ImageView>(Vulkan::Manager::get()->getDevice(), image.getHandle());

@@ -52,3 +52,7 @@ void Image::setFormat(VkFormat format) {
 void Image::setUsage(VkImageUsageFlags usage) {
     createInfo.usage = usage;
 }
+
+void Image::setInitialLayout(VkImageLayout initialLayout) {
+    createInfo.initialLayout = initialLayout;
+}

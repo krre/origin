@@ -7,44 +7,14 @@
 
 using namespace Vulkan;
 
-Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) :
-    Devicer(device), memory(device) {
+Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice) :
+        Devicer(device), memory(device), moveToDevice(moveToDevice) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = size;
     createInfo.usage = usage;
     createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-}
 
-Buffer::Buffer(const Device* device, VkDeviceSize size, Buffer::Type type, Buffer::Destination destination) :
-    Devicer(device), memory(device), destination(destination) {
-    createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
-    createInfo.size = size;
-    createInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
-
-    switch (type) {
-    case Type::VERTEX:
-        createInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
-        break;
-    case Type::INDEX:
-        createInfo.usage = VK_BUFFER_USAGE_INDEX_BUFFER_BIT;
-        break;
-    case Type::UNIFORM:
-        createInfo.usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
-        break;
-    case Type::STORAGE:
-        createInfo.usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
-        break;
-    case Type::TRANSFER_SRC:
-        createInfo.usage = VK_BUFFER_USAGE_TRANSFER_SRC_BIT;
-        break;
-    case Type::TRANSFER_DST:
-        createInfo.usage = VK_BUFFER_USAGE_TRANSFER_DST_BIT;
-        break;
-    default:
-        break;
-    }
-
-    if (destination == Destination::DEVICE) {
+    if (moveToDevice) {
         createInfo.usage |= VK_BUFFER_USAGE_TRANSFER_DST_BIT;
     }
 }
@@ -61,7 +31,7 @@ void Buffer::create() {
 
     VkMemoryRequirements memRequirements;
     vkGetBufferMemoryRequirements(device->getHandle(), handle, &memRequirements);
-    VkMemoryPropertyFlags properties = destination == Destination::HOST ?
+    VkMemoryPropertyFlags properties = !moveToDevice ?
                 (VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) :
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
     memory.setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));

@@ -29,18 +29,18 @@ WorldScene::~WorldScene() {
 void WorldScene::init() {
     Scene::init();
 
-    vertexBuffer = std::make_shared<Vulkan::Buffer>(device, plane.getVerticesSize(), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
+    vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize());
     vertexBuffer->create();
 
-    Vulkan::Buffer vertexStageBuffer(device, plane.getVerticesSize(), Vulkan::Buffer::Type::TRANSFER_SRC);
+    Vulkan::Buffer vertexStageBuffer(device, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, plane.getVerticesSize(), false);
     vertexStageBuffer.create();
     vertexStageBuffer.write(0, plane.getVerticesSize(), plane.getVertices().data());
     vertexStageBuffer.copy(vertexBuffer->getHandle(), plane.getVerticesSize());
 
-    indexBuffer = std::make_shared<Vulkan::Buffer>(device, plane.getIndicesSize(), Vulkan::Buffer::Type::INDEX, Vulkan::Buffer::Destination::DEVICE);
+    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, plane.getIndicesSize());
     indexBuffer->create();
 
-    Vulkan::Buffer indexStageBuffer(device, plane.getIndicesSize(), Vulkan::Buffer::Type::TRANSFER_SRC);
+    Vulkan::Buffer indexStageBuffer(device, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, plane.getIndicesSize(), false);
     indexStageBuffer.create();
     indexStageBuffer.write(0, plane.getIndicesSize(), plane.getIndices().data());
     indexStageBuffer.copy(indexBuffer->getHandle(), plane.getIndicesSize());

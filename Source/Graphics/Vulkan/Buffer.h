@@ -9,22 +9,7 @@ class Buffer : public Handle<VkBuffer>, public Devicer {
 
 public:
 
-    enum class Type {
-        VERTEX,
-        INDEX,
-        UNIFORM,
-        STORAGE,
-        TRANSFER_SRC,
-        TRANSFER_DST
-    };
-
-    enum class Destination {
-        HOST,
-        DEVICE
-    };
-
-    Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size);
-    Buffer(const Device* device, VkDeviceSize size, Type type, Destination destination = Destination::HOST);
+    Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice = true);
     ~Buffer();
     void create() override;
     void destroy() override;
@@ -38,7 +23,7 @@ public:
 private:
     VkBufferCreateInfo createInfo = {};
     DeviceMemory memory;
-    Destination destination = Destination::HOST;
+    bool moveToDevice;
 };
 
 } // Vulkan

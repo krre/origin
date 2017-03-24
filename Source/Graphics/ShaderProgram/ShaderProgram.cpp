@@ -79,7 +79,7 @@ void ShaderProgram::createDescriptors() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, bufferInfo->size);
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, bufferInfo->size, false);
                 buffer->create();
                 buffers.push_back(buffer);
                 bufferInfo->buffer = buffer.get();
@@ -130,11 +130,11 @@ void ShaderProgram::linkImage(const std::string& name, VkDescriptorImageInfo des
     imageInfos[name] = descriptorImageInfo;
 }
 
-void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, Buffer::Type type, Buffer::Destination destination) {
+void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice) {
     InputInfo inputInfo = {};
     inputInfo.size = size;
-    inputInfo.type = type;
-    inputInfo.destination = destination;
+    inputInfo.usage = usage;
+    inputInfo.moveToDevice = moveToDevice;
     inputInfos[name] = inputInfo;
 }
 

@@ -26,10 +26,10 @@ DebugHUD::~DebugHUD() {
 void DebugHUD::init() {
     Scene::init();
 
-    vertexBuffer = std::make_shared<Vulkan::Buffer>(device, MAX_CHAR_COUNT * sizeof(Font::Vertex), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
+    vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(Font::Vertex), false);
     vertexBuffer->create();
 
-    indexBuffer = std::make_shared<Vulkan::Buffer>(device, MAX_CHAR_COUNT * sizeof(uint32_t), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::HOST);
+    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(uint32_t), false);
     indexBuffer->create();
 
     pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);

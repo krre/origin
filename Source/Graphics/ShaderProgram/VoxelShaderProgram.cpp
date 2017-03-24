@@ -13,7 +13,7 @@ VoxelShaderProgram::VoxelShaderProgram(const Vulkan::Device* device, Plane* plan
     linkBuffer("pickResult", sizeof(pickResult), &pickResult);
     linkBuffer("debugOut", sizeof(debugOut), &debugOut);
 
-    linkInput("position", plane->getVerticesSize(), Vulkan::Buffer::Type::VERTEX, Vulkan::Buffer::Destination::DEVICE);
+    linkInput("position", plane->getVerticesSize(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, true);
 
     createDescriptors();
 }

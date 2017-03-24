@@ -139,7 +139,7 @@ void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, VkBuff
 }
 
 void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    bufferInfos.at(name).buffer->write(offset, size ? size : bufferInfos.at(name).size, data != nullptr ? data : bufferInfos.at(name).uniform);
+    bufferInfos.at(name).buffer->write(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }
 
 void ShaderProgram::read(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {

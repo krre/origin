@@ -134,8 +134,8 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
         v.pos[1] -= 0.5f;
     }
 
-    vertexBuffer->write(0, vertices.size() * sizeof(Vertex),vertices.data() );
-    indexBuffer->write(0, indices.size() * sizeof(uint32_t), indices.data());
+    vertexBuffer->write(vertices.data(), vertices.size() * sizeof(Vertex));
+    indexBuffer->write(indices.data(), indices.size() * sizeof(uint32_t));
 
     return 0;
 }

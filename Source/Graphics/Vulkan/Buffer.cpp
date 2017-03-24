@@ -44,7 +44,7 @@ void Buffer::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyBuffer(device->getHandle(), handle, nullptr))
 }
 
-void Buffer::write(VkDeviceSize offset, VkDeviceSize size, const void* data) {
+void Buffer::write(const void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
     memory.map(size, offset, &mapData);
     memcpy(mapData, data, size);

@@ -34,7 +34,7 @@ void WorldScene::init() {
 
     Vulkan::Buffer vertexStageBuffer(device, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, plane.getVerticesSize(), false);
     vertexStageBuffer.create();
-    vertexStageBuffer.write(0, plane.getVerticesSize(), plane.getVertices().data());
+    vertexStageBuffer.write(plane.getVertices().data(), plane.getVerticesSize());
     vertexStageBuffer.copyToBuffer(vertexBuffer->getHandle(), plane.getVerticesSize());
 
     indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, plane.getIndicesSize());
@@ -42,7 +42,7 @@ void WorldScene::init() {
 
     Vulkan::Buffer indexStageBuffer(device, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, plane.getIndicesSize(), false);
     indexStageBuffer.create();
-    indexStageBuffer.write(0, plane.getIndicesSize(), plane.getIndices().data());
+    indexStageBuffer.write(plane.getIndices().data(), plane.getIndicesSize());
     indexStageBuffer.copyToBuffer(indexBuffer->getHandle(), plane.getIndicesSize());
 
     pipelineLayout.addDescriptorSetLayout(&vsp.descriptorSetLayout);

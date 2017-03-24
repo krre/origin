@@ -24,10 +24,9 @@ public:
     VkFormat getFormat() const { return createInfo.format; }
     void write(void* data, VkDeviceSize count, VkDeviceSize offset = 0);
 
-    VkMemoryRequirements memRequirements;
-
 private:
     VkImageCreateInfo createInfo = {};
+    VkMemoryRequirements memRequirements;
     DeviceMemory memory;
 };
 

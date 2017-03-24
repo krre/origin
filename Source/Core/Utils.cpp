@@ -28,9 +28,10 @@ std::string Utils::readTextFile(const std::string& filePath) {
         std::string text((std::istreambuf_iterator<char>(in)), (std::istreambuf_iterator<char>()));
         return text;
     } else {
-        ERROR("Failed open file: " << filePath);
-        return "";
+        throw std::runtime_error("Failed open file: " + filePath);
     }
+
+    return "";
 }
 
 uint32_t Utils::floatToUint(float value) {

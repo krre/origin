@@ -10,7 +10,7 @@ Octree::Octree() {
 void Octree::load(const std::string& path) {
     std::ifstream file(path);
     if (!file.is_open()) {
-        ERROR("Failed open file: " << path);
+        throw std::runtime_error("Failed open file: " + path);
         return;
     }
 

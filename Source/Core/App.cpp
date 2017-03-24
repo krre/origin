@@ -48,7 +48,7 @@ void App::init() {
     new Logger;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        ERROR("SDL could not initialize! SDL_Error: " << SDL_GetError());
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL could not initialize! SDL_Error: %1", SDL_GetError());
         return;
     }
 

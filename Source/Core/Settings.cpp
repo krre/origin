@@ -19,7 +19,7 @@ Settings::Settings(const std::string& name) {
             if (line.size()) {
                 std::vector<std::string> pair = Utils::split(line, '=');
                 if (pair.size() != 2) {
-                    ERROR("Failed to parse settings file at line: " << line);
+                    throw std::runtime_error("Failed to parse settings file at line: " + line);
                 } else {
                     storage[pair.at(0)] = pair.at(1);
                 }

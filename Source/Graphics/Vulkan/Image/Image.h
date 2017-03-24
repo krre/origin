@@ -23,10 +23,10 @@ public:
     void setInitialLayout(VkImageLayout initialLayout);
     VkFormat getFormat() const { return createInfo.format; }
 
-    VkImageCreateInfo createInfo = {};
     VkMemoryRequirements memRequirements;
 
 private:
+    VkImageCreateInfo createInfo = {};
     DeviceMemory memory;
 };
 

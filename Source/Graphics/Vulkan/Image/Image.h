@@ -22,7 +22,7 @@ public:
     void setUsage(VkImageUsageFlags usage);
     void setInitialLayout(VkImageLayout initialLayout);
     VkFormat getFormat() const { return createInfo.format; }
-    void write(void* data, VkDeviceSize count, VkDeviceSize offset = 0);
+    void write(void* data, VkDeviceSize size, VkDeviceSize offset = 0);
 
 private:
     VkImageCreateInfo createInfo = {};

@@ -57,9 +57,9 @@ void Image::setInitialLayout(VkImageLayout initialLayout) {
     createInfo.initialLayout = initialLayout;
 }
 
-void Image::write(void* data, VkDeviceSize count, VkDeviceSize offset) {
+void Image::write(void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
-    memory.map(count, offset, &mapData);
-    memcpy(mapData, data, count);
+    memory.map(size, offset, &mapData);
+    memcpy(mapData, data, size);
     memory.unmap();
 }

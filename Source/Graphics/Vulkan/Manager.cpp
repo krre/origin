@@ -9,7 +9,7 @@
 
 using namespace Vulkan;
 
-bool Manager::init() {
+void Manager::init() {
     instance.setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
         "VK_LAYER_LUNARG_parameter_validation",
@@ -78,8 +78,6 @@ bool Manager::init() {
 
     presentQueue = std::make_shared<PresentQueue>(device.get(), graphicsFamily);
     presentQueue->addSwapchain(swapchain->getHandle());
-
-    return true;
 }
 
 void Manager::renderBegin() {

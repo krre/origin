@@ -33,10 +33,10 @@ public:
     void read(VkDeviceSize offset, VkDeviceSize size, void* data);
     void copy(VkBuffer dstBuffer, VkDeviceSize size);
 
-    VkBufferCreateInfo createInfo = {};
     VkDescriptorBufferInfo descriptorInfo = {};
 
 private:
+    VkBufferCreateInfo createInfo = {};
     DeviceMemory memory;
     Destination destination = Destination::HOST;
 };

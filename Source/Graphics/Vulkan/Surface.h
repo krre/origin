@@ -25,7 +25,7 @@ public:
     const VkSurfaceFormatKHR& getFormat(size_t i) const { return formats.at(i); }
 
     int getPresentModeCount() const { return presentModes.size(); }
-    VkPresentModeKHR getPresentMode(size_t i) const { return presentModes.at(i); }
+    const VkPresentModeKHR& getPresentMode(size_t i) const { return presentModes.at(i); }
 
     VkSurfaceCapabilitiesKHR getCapabilities() const { return capabilities; }
 

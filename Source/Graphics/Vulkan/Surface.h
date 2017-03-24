@@ -27,7 +27,7 @@ public:
     int getPresentModeCount() const { return presentModes.size(); }
     const VkPresentModeKHR& getPresentMode(size_t i) const { return presentModes.at(i); }
 
-    VkSurfaceCapabilitiesKHR getCapabilities() const { return capabilities; }
+    const VkSurfaceCapabilitiesKHR& getCapabilities() const { return capabilities; }
 
 private:
     VkInstance instance;

@@ -6,7 +6,10 @@ Texture::Texture(const std::string& path, VkFormat format) :
         image(Vulkan::Manager::get()->getDevice()) {
     uint32_t width;
     uint32_t height;
-    lodepng::decode(data, width, height, path);
+    unsigned result = lodepng::decode(data, width, height, path);
+    if (result) {
+        throw std::runtime_error("Failed to decode image " + path);
+    }
 
     image.setWidth(width);
     image.setHeight(height);

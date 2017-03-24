@@ -14,7 +14,7 @@ public:
     VkResult allocate(VkDeviceSize size);
     void setMemoryTypeIndex(uint32_t index);
     VkDeviceSize getSize() const { return allocateInfo.allocationSize; }
-    VkResult map(VkDeviceSize count, VkDeviceSize offset, void** data);
+    VkResult map(void** data, VkDeviceSize size, VkDeviceSize offset = 0);
     void unmap();
 
 private:

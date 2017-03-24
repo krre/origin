@@ -177,7 +177,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
 
     // Map image memory so we can start copying from it
     const unsigned char* data;
-    image.getMemory()->map(VK_WHOLE_SIZE, 0, (void**)&data);
+    image.getMemory()->map((void**)&data, VK_WHOLE_SIZE);
     data += subResourceLayout.offset;
 
     lodepng::encode(filePath, data, width, height);

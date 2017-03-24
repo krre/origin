@@ -46,14 +46,14 @@ void Buffer::destroy() {
 
 void Buffer::write(const void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
-    memory.map(size, offset, &mapData);
+    memory.map(&mapData, size, offset);
     memcpy(mapData, data, size);
     memory.unmap();
 }
 
 void Buffer::read(void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
-    memory.map(size, offset, &mapData);
+    memory.map(&mapData, size, offset);
     memcpy(data, mapData, size);
     memory.unmap();
 }

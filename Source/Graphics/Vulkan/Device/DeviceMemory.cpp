@@ -23,8 +23,8 @@ void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
     allocateInfo.memoryTypeIndex = index;
 }
 
-VkResult DeviceMemory::map(VkDeviceSize count, VkDeviceSize offset, void** data) {
-    CHECK_RESULT(vkMapMemory(device->getHandle(), handle, offset, count, 0, data), "Failed to map device memory");
+VkResult DeviceMemory::map(void** data, VkDeviceSize size, VkDeviceSize offset) {
+    CHECK_RESULT(vkMapMemory(device->getHandle(), handle, offset, size, 0, data), "Failed to map device memory");
 }
 
 void DeviceMemory::unmap() {

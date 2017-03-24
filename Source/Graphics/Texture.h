@@ -8,8 +8,8 @@ class Texture : public Object {
 
 public:
     Texture(const std::string& path, VkFormat format = VK_FORMAT_R8G8B8A8_UNORM);
-    uint32_t getWidth() const { return image.createInfo.extent.width; }
-    uint32_t getHeight() const { return image.createInfo.extent.height; }
+    uint32_t getWidth() const { return image.getWidth(); }
+    uint32_t getHeight() const { return image.getHeight(); }
     const Vulkan::Image& getImage() const { return image; }
     const Vulkan::ImageView* getImageView() const { return imageView.get(); }
 

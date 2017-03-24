@@ -15,6 +15,8 @@ public:
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
     void setWidth(uint32_t width);
+    uint32_t getWidth() const { return createInfo.extent.width; }
+    uint32_t getHeight() const { return createInfo.extent.height; }
     void setHeight(uint32_t height);
     void setFormat(VkFormat format);
     void setUsage(VkImageUsageFlags usage);

@@ -26,7 +26,7 @@ VkResult DescriptorPool::create() {
             createInfo.maxSets += poolSize.descriptorCount;
         }
     }
-    return checkError(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
+    CHECK_RESULT(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
 }
 
 void DescriptorPool::destroy() {

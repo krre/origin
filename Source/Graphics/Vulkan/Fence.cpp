@@ -11,7 +11,7 @@ Fence::~Fence() {
 }
 
 VkResult Fence::create() {
-    return checkError(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create fence");
+    CHECK_RESULT(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create fence");
 }
 
 void Fence::destroy() {

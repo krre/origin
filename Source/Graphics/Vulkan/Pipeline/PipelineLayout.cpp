@@ -13,7 +13,7 @@ PipelineLayout::~PipelineLayout() {
 VkResult PipelineLayout::create() {
     createInfo.setLayoutCount = descriptorSetLayouts.size();
     createInfo.pSetLayouts = descriptorSetLayouts.data();
-    return checkError(vkCreatePipelineLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create pipeline layout");
+    CHECK_RESULT(vkCreatePipelineLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create pipeline layout");
 }
 
 void PipelineLayout::destroy() {

@@ -92,7 +92,6 @@ VkResult RenderPass::create() {
     createInfo.pDependencies = subpassDependencies.data();
     CHECK_RESULT(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
     beginInfo.renderPass = handle;
-    return result;
 }
 
 void RenderPass::destroy() {

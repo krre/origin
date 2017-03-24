@@ -32,7 +32,7 @@ VkResult Surface::create() {
         createInfo.flags = 0;
         createInfo.connection = XGetXCBConnection(wminfo.info.x11.display);
         createInfo.window = wminfo.info.x11.window;
-        result = checkError(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
+        CHECK_RESULT(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
         break;
     }
 
@@ -60,8 +60,6 @@ VkResult Surface::create() {
     vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, handle, &count, presentModes.data());
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
-
-    return result;
 }
 
 void Surface::destroy() {

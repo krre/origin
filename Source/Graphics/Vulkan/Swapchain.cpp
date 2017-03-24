@@ -33,7 +33,7 @@ Swapchain::~Swapchain() {
 }
 
 VkResult Swapchain::create() {
-    VkResult result = checkError(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
+    CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);
@@ -41,8 +41,6 @@ VkResult Swapchain::create() {
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
 
     index = indexCounter++;
-
-    return result;
 }
 
 void Swapchain::destroy() {

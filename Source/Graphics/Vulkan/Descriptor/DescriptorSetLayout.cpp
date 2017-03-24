@@ -13,7 +13,7 @@ DescriptorSetLayout::~DescriptorSetLayout() {
 VkResult DescriptorSetLayout::create() {
     createInfo.bindingCount = bindings.size();
     createInfo.pBindings = bindings.data();
-    return checkError(vkCreateDescriptorSetLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor set layout");
+    CHECK_RESULT(vkCreateDescriptorSetLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor set layout");
 }
 
 void DescriptorSetLayout::destroy() {

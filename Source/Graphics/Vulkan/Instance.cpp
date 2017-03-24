@@ -43,7 +43,6 @@ VkResult Instance::create() {
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 
     CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
-    return result;
 }
 
 void Instance::destroy() {

@@ -116,5 +116,5 @@ VkResult GraphicsPipeline::create() {
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();
 
-    return checkError(vkCreateGraphicsPipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
+    CHECK_RESULT(vkCreateGraphicsPipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
 }

@@ -1,5 +1,6 @@
 #pragma once
-#include "Resulter.h"
+#include "Result.h"
+#include "../../../Core/Common.h"
 #include <assert.h>
 
 #define VULKAN_DESTROY_HANDLE(f) { \
@@ -11,7 +12,7 @@
 
 namespace Vulkan {
 
-template<typename T> class Handle : public Resulter {
+template<typename T> class Handle {
 
 public:
     Handle() = default;

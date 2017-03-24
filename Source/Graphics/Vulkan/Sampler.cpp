@@ -22,7 +22,7 @@ Sampler::~Sampler() {
 }
 
 VkResult Sampler::create() {
-    return checkError(vkCreateSampler(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create sampler");
+    CHECK_RESULT(vkCreateSampler(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create sampler");
 }
 
 void Sampler::destroy() {

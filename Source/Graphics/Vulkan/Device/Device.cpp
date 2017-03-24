@@ -1,4 +1,5 @@
 #include "Device.h"
+#include "../../../Core/Common.h"
 
 using namespace Vulkan;
 
@@ -35,7 +36,6 @@ VkResult Device::create() {
     createInfo.queueCreateInfoCount = queueCreateInfos.size();
     createInfo.pQueueCreateInfos = queueCreateInfos.data();
     CHECK_RESULT(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
-    return result;
 }
 
 void Device::destroy() {

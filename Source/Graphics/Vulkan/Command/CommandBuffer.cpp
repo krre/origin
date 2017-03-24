@@ -97,11 +97,11 @@ VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
 
 VkResult CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
-    return checkError(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
+    CHECK_RESULT(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
 }
 
 VkResult CommandBuffer::end() {
-    return checkError(vkEndCommandBuffer(handle), "Failed to end command buffer");
+    CHECK_RESULT(vkEndCommandBuffer(handle), "Failed to end command buffer");
 }
 
 void CommandBuffer::beginRenderPass(const VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents) {

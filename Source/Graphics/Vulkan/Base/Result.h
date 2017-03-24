@@ -1,12 +1,9 @@
-#include "Resulter.h"
+#pragma once
+#include <vulkan/vulkan.h>
+#include <string>
+#include <stdexcept>
 
-using namespace Vulkan;
-
-std::string Resulter::getResultDescription() const {
-    resultToString(result);
-}
-
-std::string Resulter::resultToString(VkResult result) const {
+static std::string resultToString(VkResult result) {
     switch (result) {
         case VK_SUCCESS: return "Success";
         case VK_NOT_READY: return "Not ready";
@@ -39,15 +36,10 @@ std::string Resulter::resultToString(VkResult result) const {
     }
 }
 
-VkResult Resulter::checkError(VkResult result, const char* message) {
-    this->result = result;
-
-#ifndef NDEBUG
-    if (result != VK_SUCCESS) {
-        ERROR(std::string(message) + ": " + resultToString(result) << "\" in " << __FILE__ << " at line " << __LINE__)
-        assert(result == VK_SUCCESS);
-    }
-#endif
-
-    return result;
+#define CHECK_RESULT(f, message) { \
+    VkResult result = (f); \
+    if (result != VK_SUCCESS) { \
+        std::string errorMessage = std::string(message) + ": " + resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
+        throw std::runtime_error(errorMessage); \
+    } \
 }

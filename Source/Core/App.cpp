@@ -94,8 +94,8 @@ void App::init() {
 
     new Vulkan::Manager;
     if (!Vulkan::Manager::get()->init()) {
-        std::string errorMsg = std::string("Init Vulkan failed\n") + Vulkan::Manager::get()->getInstance()->getResultDescription();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
+//        std::string errorMsg = std::string("Init Vulkan failed\n") + Vulkan::Manager::get()->getInstance()->getResultDescription();
+//        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
         return;
     }
 

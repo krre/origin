@@ -24,7 +24,7 @@ DebugReportCallback::~DebugReportCallback() {
 }
 
 VkResult DebugReportCallback::create() {
-    return checkError(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create debug report callback");
+    CHECK_RESULT(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create debug report callback");
 }
 
 void DebugReportCallback::destroy() {

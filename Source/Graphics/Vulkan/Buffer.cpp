@@ -68,8 +68,6 @@ VkResult Buffer::create() {
     memory.allocate(memRequirements.size);
 
     vkBindBufferMemory(device->getHandle(), handle, memory.getHandle(), 0);
-
-    return result;
 }
 
 void Buffer::destroy() {

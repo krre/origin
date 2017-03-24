@@ -4,6 +4,8 @@
 #include "../ShaderModule.h"
 #include "PipelineLayout.h"
 #include "PipelineCache.h"
+#include <map>
+#include <memory>
 
 namespace Vulkan {
 

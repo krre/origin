@@ -11,5 +11,5 @@ Event::~Event() {
 }
 
 VkResult Event::create() {
-    return checkError(vkCreateEvent(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create event");
+    CHECK_RESULT(vkCreateEvent(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create event");
 }

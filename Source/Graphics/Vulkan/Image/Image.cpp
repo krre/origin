@@ -30,8 +30,6 @@ VkResult Image::create() {
     memory.allocate(memRequirements.size);
 
     vkBindImageMemory(device->getHandle(), handle, memory.getHandle(), 0);
-
-    return result;
 }
 
 void Image::destroy() {

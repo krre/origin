@@ -16,7 +16,7 @@ void DeviceMemory::destroy() {
 
 VkResult DeviceMemory::allocate(VkDeviceSize size) {
     allocateInfo.allocationSize = size;
-    return checkError(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
+    CHECK_RESULT(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
 }
 
 void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
@@ -24,7 +24,7 @@ void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
 }
 
 VkResult DeviceMemory::map(VkDeviceSize count, VkDeviceSize offset, void** data) {
-    return checkError(vkMapMemory(device->getHandle(), handle, offset, count, 0, data), "Failed to map device memory");
+    CHECK_RESULT(vkMapMemory(device->getHandle(), handle, offset, count, 0, data), "Failed to map device memory");
 }
 
 void DeviceMemory::unmap() {

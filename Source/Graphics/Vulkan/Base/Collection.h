@@ -1,6 +1,6 @@
 #pragma once
-#include "Resulter.h"
 #include <vector>
+#include <stdlib.h>
 
 #define VULKAN_DESTROY_COLLECTION(f) { \
     if (collection.size()) { \
@@ -11,7 +11,7 @@
 
 namespace Vulkan {
 
-template<typename T> class Collection : public Resulter {
+template<typename T> class Collection {
 
 public:
     Collection() = default;

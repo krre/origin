@@ -53,9 +53,9 @@ void Buffer::write(VkDeviceSize offset, VkDeviceSize size, const void* data) {
 
 void Buffer::read(VkDeviceSize offset, VkDeviceSize size, void* data) {
     void* mapData;
-    CHECK_RESULT(vkMapMemory(device->getHandle(), memory.getHandle(), offset, size, 0, &mapData), "Failed to map memory for reading");
+    memory.map(size, offset, &mapData);
     memcpy(data, mapData, size);
-    vkUnmapMemory(device->getHandle(), memory.getHandle());
+    memory.unmap();
 }
 
 void Buffer::copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size) {

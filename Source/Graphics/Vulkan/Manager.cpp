@@ -22,9 +22,8 @@ bool Manager::init() {
         "VK_LAYER_GOOGLE_threading",
         "VK_LAYER_LUNARG_standard_validation"
     });
-    if (instance.create() != VK_SUCCESS) {
-        return false;
-    }
+
+    instance.create();
 
     if (enableValidationLayers) {
         debugCallback = std::make_shared<DebugReportCallback>(&instance);

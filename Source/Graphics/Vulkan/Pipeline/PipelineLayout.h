@@ -10,7 +10,7 @@ class PipelineLayout : public Handle<VkPipelineLayout>, public Devicer {
 public:
     PipelineLayout(const Device* device);
     ~PipelineLayout();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     void addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout);
 

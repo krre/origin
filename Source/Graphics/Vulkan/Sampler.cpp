@@ -21,7 +21,7 @@ Sampler::~Sampler() {
     destroy();
 }
 
-VkResult Sampler::create() {
+void Sampler::create() {
     CHECK_RESULT(vkCreateSampler(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create sampler");
 }
 

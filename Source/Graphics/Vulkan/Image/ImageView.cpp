@@ -23,7 +23,7 @@ ImageView::~ImageView() {
     destroy();
 }
 
-VkResult ImageView::create() {
+void ImageView::create() {
     CHECK_RESULT(vkCreateImageView(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image view");
 }
 

@@ -14,7 +14,7 @@ public:
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
     void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment);
-    VkResult create() override;
+    void create() override;
 
     VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};

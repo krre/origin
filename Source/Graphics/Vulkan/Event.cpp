@@ -10,6 +10,6 @@ Event::~Event() {
     vkDestroyEvent(device->getHandle(), handle, nullptr);
 }
 
-VkResult Event::create() {
+void Event::create() {
     CHECK_RESULT(vkCreateEvent(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create event");
 }

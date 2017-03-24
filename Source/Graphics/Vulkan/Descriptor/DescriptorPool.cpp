@@ -18,7 +18,7 @@ void DescriptorPool::addPoolSize(VkDescriptorType type, uint32_t count) {
     poolSizes.push_back(poolSize);
 }
 
-VkResult DescriptorPool::create() {
+void DescriptorPool::create() {
     createInfo.poolSizeCount = poolSizes.size();
     createInfo.pPoolSizes = poolSizes.data();
     if (!createInfo.maxSets) {

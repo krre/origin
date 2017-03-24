@@ -15,7 +15,7 @@ public:
     void waitIdle();
     void waitForFences(std::vector<VkFence> fences);
     PhysicalDevice* getPhysicalDevice() const { return physicalDevice; }
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     void dumpExtensions();
     void addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> queuePriorities);

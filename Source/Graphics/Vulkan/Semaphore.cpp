@@ -10,7 +10,7 @@ Semaphore::~Semaphore() {
     destroy();
 }
 
-VkResult Semaphore::create() {
+void Semaphore::create() {
     CHECK_RESULT(vkCreateSemaphore(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create semaphore");
 }
 

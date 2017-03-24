@@ -9,7 +9,7 @@ class ShaderModule : public Handle<VkShaderModule>, public Devicer {
 public:
     ShaderModule(const Device* device, size_t codeSize, const uint32_t* pCode);
     ~ShaderModule();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
 
     VkShaderModuleCreateInfo createInfo = {};

@@ -12,7 +12,7 @@ ShaderModule::~ShaderModule() {
     destroy();
 }
 
-VkResult ShaderModule::create() {
+void ShaderModule::create() {
     CHECK_RESULT(vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create shader module");
 }
 

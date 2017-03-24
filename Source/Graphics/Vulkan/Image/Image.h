@@ -11,7 +11,7 @@ class Image : public Handle<VkImage>, public Devicer {
 public:
     Image(const Device* device);
     ~Image();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     DeviceMemory* getMemory() { return &memory; }
     void setWidth(uint32_t width);

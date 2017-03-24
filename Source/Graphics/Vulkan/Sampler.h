@@ -9,7 +9,7 @@ class Sampler : public Handle<VkSampler>, public Devicer {
 public:
     Sampler(const Device* device);
     ~Sampler();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
 
     VkSamplerCreateInfo createInfo = {};

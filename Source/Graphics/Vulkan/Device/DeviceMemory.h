@@ -9,7 +9,7 @@ class DeviceMemory : public Handle<VkDeviceMemory>, public Devicer {
 public:
     DeviceMemory(const Device* device);
     ~DeviceMemory();
-    VkResult create() override {}
+    void create() override {}
     void destroy() override;
     VkResult allocate(VkDeviceSize size);
     void setMemoryTypeIndex(uint32_t index);

@@ -9,7 +9,7 @@ class PhysicalDevice : public Handle<VkPhysicalDevice> {
 
 public:
     PhysicalDevice(VkPhysicalDevice physicalDevice);
-    VkResult create() override {}
+    void create() override {}
     void destroy() override {}
 
     VkPhysicalDeviceProperties& getProperties() { return properties; }

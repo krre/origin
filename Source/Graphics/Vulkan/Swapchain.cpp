@@ -32,7 +32,7 @@ Swapchain::~Swapchain() {
     destroy();
 }
 
-VkResult Swapchain::create() {
+void Swapchain::create() {
     CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;

@@ -11,7 +11,7 @@ class RenderPass : public Handle<VkRenderPass>, public Devicer {
 public:
     RenderPass(const Device* device);
     ~RenderPass();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     void setColorFormat(VkFormat format);
     void setDepthFormat(VkFormat format);

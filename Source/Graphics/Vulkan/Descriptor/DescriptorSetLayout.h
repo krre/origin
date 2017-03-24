@@ -10,7 +10,7 @@ class DescriptorSetLayout : public Handle<VkDescriptorSetLayout>, public Devicer
 public:
     DescriptorSetLayout(const Device* device);
     ~DescriptorSetLayout();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 

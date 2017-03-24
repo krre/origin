@@ -22,7 +22,7 @@ Image::~Image() {
     destroy();
 }
 
-VkResult Image::create() {
+void Image::create() {
     CHECK_RESULT(vkCreateImage(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image");
 
     vkGetImageMemoryRequirements(device->getHandle(), handle, &memRequirements);

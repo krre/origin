@@ -11,7 +11,7 @@ CommandPool::~CommandPool() {
     destroy();
 }
 
-VkResult CommandPool::create() {
+void CommandPool::create() {
     CHECK_RESULT(vkCreateCommandPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create command pool")
 }
 

@@ -11,7 +11,7 @@ class CommandBuffer : public Handle<VkCommandBuffer> {
 
 public:
     CommandBuffer(VkCommandBuffer handle);
-    VkResult create() override {}
+    void create() override {}
     void destroy() override {}
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);

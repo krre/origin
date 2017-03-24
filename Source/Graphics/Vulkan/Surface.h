@@ -15,7 +15,7 @@ class Surface : public Handle<VkSurfaceKHR> {
 public:
     Surface(VkInstance instance, VkPhysicalDevice physicalDevice);
     ~Surface();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
 
     uint32_t getWidth() const { return capabilities.currentExtent.width; }

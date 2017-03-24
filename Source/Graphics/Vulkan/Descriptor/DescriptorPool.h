@@ -11,7 +11,7 @@ public:
     DescriptorPool(const Device* device);
     ~DescriptorPool();
     void addPoolSize(VkDescriptorType type, uint32_t count);
-    VkResult create() override;
+    void create() override;
     void destroy() override;
 
     VkDescriptorPoolCreateInfo createInfo = {};

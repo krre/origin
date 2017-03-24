@@ -9,7 +9,7 @@ class Semaphore : public Handle<VkSemaphore>, public Devicer {
 public:
     Semaphore(const Device* device);
     ~Semaphore();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
 
     VkSemaphoreCreateInfo createInfo = {};

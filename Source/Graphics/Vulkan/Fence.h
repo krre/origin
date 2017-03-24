@@ -9,7 +9,7 @@ class Fence : public Handle<VkFence>, public Devicer {
 public:
     Fence(const Device* device);
     ~Fence();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     VkResult wait(uint32_t count);
     VkResult reset(uint32_t count);

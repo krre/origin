@@ -23,7 +23,7 @@ DebugReportCallback::~DebugReportCallback() {
     destroy();
 }
 
-VkResult DebugReportCallback::create() {
+void DebugReportCallback::create() {
     CHECK_RESULT(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create debug report callback");
 }
 

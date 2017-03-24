@@ -10,7 +10,7 @@ Fence::~Fence() {
     destroy();
 }
 
-VkResult Fence::create() {
+void Fence::create() {
     CHECK_RESULT(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create fence");
 }
 

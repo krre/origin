@@ -19,7 +19,7 @@ Surface::~Surface() {
     destroy();
 }
 
-VkResult Surface::create() {
+void Surface::create() {
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(App::get()->getWindow(), &wminfo);

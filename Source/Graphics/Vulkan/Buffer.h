@@ -26,7 +26,7 @@ public:
     Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size);
     Buffer(const Device* device, VkDeviceSize size, Type type, Destination destination = Destination::HOST);
     ~Buffer();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     VkDeviceSize getSize() const { return createInfo.size; }
     void write(VkDeviceSize offset, VkDeviceSize size, const void* data);

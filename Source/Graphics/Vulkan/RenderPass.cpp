@@ -14,7 +14,7 @@ RenderPass::~RenderPass() {
     destroy();
 }
 
-VkResult RenderPass::create() {
+void RenderPass::create() {
     std::vector<VkAttachmentDescription> attachments;
 
     colorAttachment.samples = VK_SAMPLE_COUNT_1_BIT;

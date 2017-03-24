@@ -9,7 +9,7 @@ class Event : public Handle<VkEvent>, public Devicer {
 public:
     Event(const Device* device);
     ~Event();
-    VkResult create() override;
+    void create() override;
 
     VkEventCreateInfo createInfo = {};
 };

@@ -9,7 +9,7 @@ class CommandPool : public Handle<VkCommandPool>, public Devicer {
 public:
     CommandPool(const Device* device, uint32_t familyIndex);
     ~CommandPool();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     VkResult reset();
 

@@ -8,7 +8,7 @@ class ComputePipeline : public Pipeline {
 public:
     ComputePipeline(const Device* device);
     ~ComputePipeline();
-    VkResult create() override;
+    void create() override;
 
     VkComputePipelineCreateInfo createInfo = {};
 };

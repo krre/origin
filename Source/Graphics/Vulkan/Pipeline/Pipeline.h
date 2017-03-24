@@ -15,7 +15,7 @@ public:
     Pipeline(const Device* device) : Devicer(device) {}
     ~Pipeline();
     void destroy() override;
-    VkResult addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint = "main");
+    void addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint = "main");
     void setPipelineCache(VkPipelineCache pipelineCache);
     VkPipelineBindPoint getBindPoint() const { return pipelineBindPoint; }
 

@@ -12,7 +12,7 @@ Framebuffer::~Framebuffer() {
     destroy();
 }
 
-VkResult Framebuffer::create() {
+void Framebuffer::create() {
     createInfo.attachmentCount = attachments.size();
     createInfo.pAttachments = attachments.data();
 

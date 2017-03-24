@@ -11,7 +11,7 @@ class Framebuffer : public Handle<VkFramebuffer>, public Devicer {
 public:
     Framebuffer(const Device* device);
     ~Framebuffer();
-    VkResult create() override;
+    void create() override;
     void destroy() override;
     void addAttachment(VkImageView attachment);
     void setWidth(uint32_t width);

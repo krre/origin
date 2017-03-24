@@ -116,7 +116,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     imageMemoryBarrier.srcAccessMask = 0;
     imageMemoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
 
-    commandBuffer.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.setImageMemoryBarrier(imageMemoryBarrier);
     commandBuffer.pipelineBarrier(VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     // Transition swapchain image from present to transfer source layout
@@ -125,8 +125,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     imageMemoryBarrier.image = srcImage;
     imageMemoryBarrier.srcAccessMask = VK_ACCESS_MEMORY_READ_BIT;
     imageMemoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
-    commandBuffer.clearImageMemoryBarriers();
-    commandBuffer.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.setImageMemoryBarrier(imageMemoryBarrier);
     commandBuffer.pipelineBarrier(VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     // Issue the blit command
@@ -150,8 +149,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     imageMemoryBarrier.image = dstImage;
     imageMemoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
     imageMemoryBarrier.dstAccessMask = 0;
-    commandBuffer.clearImageMemoryBarriers();
-    commandBuffer.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.setImageMemoryBarrier(imageMemoryBarrier);
     commandBuffer.pipelineBarrier(VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     // Transition back the swapchain image after the blit is done
@@ -160,8 +158,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     imageMemoryBarrier.image = srcImage;
     imageMemoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
     imageMemoryBarrier.dstAccessMask = VK_ACCESS_MEMORY_READ_BIT;
-    commandBuffer.clearImageMemoryBarriers();
-    commandBuffer.addImageMemoryBarrier(imageMemoryBarrier);
+    commandBuffer.setImageMemoryBarrier(imageMemoryBarrier);
     commandBuffer.pipelineBarrier(VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
 
     commandBuffer.end();

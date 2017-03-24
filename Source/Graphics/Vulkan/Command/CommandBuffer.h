@@ -35,6 +35,7 @@ public:
 
     static VkImageMemoryBarrier createImageMemoryBarrier();
     void addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier);
+    void setImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier);
     uint32_t getImageMemoryBarrierCount() const { return imageMemoryBarriers.size(); }
     VkImageMemoryBarrier* getImageMemoryBarrierData() { return imageMemoryBarriers.data(); }
     void clearImageMemoryBarriers();

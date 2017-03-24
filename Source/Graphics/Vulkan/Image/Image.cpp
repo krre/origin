@@ -56,3 +56,10 @@ void Image::setUsage(VkImageUsageFlags usage) {
 void Image::setInitialLayout(VkImageLayout initialLayout) {
     createInfo.initialLayout = initialLayout;
 }
+
+void Image::write(void* data, VkDeviceSize count, VkDeviceSize offset) {
+    void* mapData;
+    memory.map(memRequirements.size, offset, &mapData);
+    memcpy(mapData, data, count);
+    memory.unmap();
+}

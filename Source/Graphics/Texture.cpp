@@ -15,12 +15,9 @@ Texture::Texture(const std::string& path, VkFormat format) :
     image.setInitialLayout(VK_IMAGE_LAYOUT_PREINITIALIZED);
     image.create();
 
+    image.write(data.data(), data.size());
+
     imageView = std::make_shared<Vulkan::ImageView>(Vulkan::Manager::get()->getDevice(), image.getHandle());
     imageView->createInfo.format = image.getFormat();
     imageView->create();
-
-    void* mapData;
-    image.getMemory()->map(image.memRequirements.size, 0, &mapData);
-    memcpy(mapData, data.data(), data.size());
-    image.getMemory()->unmap();
 }

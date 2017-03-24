@@ -10,13 +10,13 @@ Texture::Texture(const std::string& path, VkFormat format) :
 
     image.setWidth(width);
     image.setHeight(height);
-    image.createInfo.format = format;
+    image.setFormat(format);
     image.createInfo.usage = VK_IMAGE_USAGE_SAMPLED_BIT;
     image.createInfo.initialLayout = VK_IMAGE_LAYOUT_PREINITIALIZED; // TODO: Better VK_IMAGE_LAYOUT_GENERAL
     image.create();
 
     imageView = std::make_shared<Vulkan::ImageView>(Vulkan::Manager::get()->getDevice(), image.getHandle());
-    imageView->createInfo.format = image.createInfo.format;
+    imageView->createInfo.format = image.getFormat();
     imageView->create();
 
     void* mapData;

@@ -44,3 +44,7 @@ void Image::setWidth(uint32_t width) {
 void Image::setHeight(uint32_t height) {
     createInfo.extent.height = height;
 }
+
+void Image::setFormat(VkFormat format) {
+    createInfo.format = format;
+}

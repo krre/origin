@@ -16,6 +16,8 @@ public:
     DeviceMemory* getMemory() { return &memory; }
     void setWidth(uint32_t width);
     void setHeight(uint32_t height);
+    void setFormat(VkFormat format);
+    VkFormat getFormat() const { return createInfo.format; }
 
     VkImageCreateInfo createInfo = {};
     VkMemoryRequirements memRequirements;

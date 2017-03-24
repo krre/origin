@@ -315,6 +315,9 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 #ifdef DEVELOP_MODE
     if (event.keysym.sym == SDLK_KP_0) {
         viewport.switchCamera();
+    } else if (event.keysym.sym == SDLK_BACKQUOTE) {
+        SDL_bool mode = SDL_GetRelativeMouseMode();
+        SDL_SetRelativeMouseMode(mode == SDL_TRUE ? SDL_FALSE : SDL_TRUE);
     }
 #endif
 }

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 #define VULKAN_DESTROY_COLLECTION(f) { \
-    if (collection.size()) { \
+    if (!collection.empty()) { \
         (f); \
         collection.clear(); \
     } \

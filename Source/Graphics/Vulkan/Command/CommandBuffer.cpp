@@ -148,7 +148,7 @@ void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
 }
 
 void CommandBuffer::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter) {
-    assert(blitRegions.size());
+    assert(!blitRegions.empty());
     vkCmdBlitImage(handle, srcImage, srcImageLayout, dstImage, dstImageLayout, blitRegions.size(), blitRegions.data(), filter);
 }
 

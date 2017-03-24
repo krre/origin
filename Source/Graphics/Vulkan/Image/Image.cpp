@@ -48,3 +48,7 @@ void Image::setHeight(uint32_t height) {
 void Image::setFormat(VkFormat format) {
     createInfo.format = format;
 }
+
+void Image::setUsage(VkImageUsageFlags usage) {
+    createInfo.usage = usage;
+}

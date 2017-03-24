@@ -26,7 +26,6 @@ public:
 
 private:
     VkImageCreateInfo createInfo = {};
-    VkMemoryRequirements memRequirements;
     DeviceMemory memory;
 };
 

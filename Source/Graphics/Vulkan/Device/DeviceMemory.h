@@ -13,6 +13,7 @@ public:
     void destroy() override;
     VkResult allocate(VkDeviceSize size);
     void setMemoryTypeIndex(uint32_t index);
+    VkDeviceSize getSize() const { return allocateInfo.allocationSize; }
     VkResult map(VkDeviceSize count, VkDeviceSize offset, void** data);
     void unmap();
 

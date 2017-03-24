@@ -15,7 +15,7 @@ public:
     void destroy() override;
     VkDeviceSize getSize() const { return createInfo.size; }
     void write(const void* data, VkDeviceSize size, VkDeviceSize offset = 0);
-    void read(VkDeviceSize offset, VkDeviceSize size, void* data);
+    void read(void* data, VkDeviceSize size, VkDeviceSize offset = 0);
     void copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size);
 
     VkDescriptorBufferInfo descriptorInfo = {};

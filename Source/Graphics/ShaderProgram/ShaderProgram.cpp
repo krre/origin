@@ -143,6 +143,6 @@ void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDevice
 }
 
 void ShaderProgram::read(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    bufferInfos.at(name).buffer->read(offset, size ? size : bufferInfos.at(name).size, data != nullptr ? data : bufferInfos.at(name).uniform);
+    bufferInfos.at(name).buffer->read(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }
 

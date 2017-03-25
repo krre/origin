@@ -89,6 +89,26 @@ void Manager::renderEnd() {
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {
+    // Get format properties for the swapchain color format
+    VkFormatProperties formatProps;
+    bool supportsBlit = true;
+
+    // Check blit support for source and destination
+
+    // Check if the device supports blitting from optimal images (the swapchain images are in optimal format)
+    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), swapchain->createInfo.imageFormat, &formatProps);
+    if (!(formatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT)) {
+//        std::cerr << "Device does not support blitting from optimal tiled images, using copy instead of blit!" << std::endl;
+        supportsBlit = false;
+    }
+
+    // Check if the device supports blitting to linear images
+    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
+    if (!(formatProps.linearTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT)) {
+//        std::cerr << "Device does not support blitting to linear tiled images, using copy instead of blit!" << std::endl;
+        supportsBlit = false;
+    }
+
     VkImage srcImage = swapchain->getImage(*presentQueue->getImageIndex(swapchain->getIndex()));
 
     uint32_t width = App::get()->getWidth();
@@ -111,37 +131,41 @@ void Manager::saveScreenshot(const std::string& filePath) {
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
                      VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
 
-    VkImageCopy imageCopy;
-    imageCopy.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-    imageCopy.srcSubresource.mipLevel = 0;
-    imageCopy.srcSubresource.baseArrayLayer = 0;
-    imageCopy.srcSubresource.layerCount = 1;
-    imageCopy.srcOffset = {};
-    imageCopy.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-    imageCopy.dstSubresource.mipLevel = 0;
-    imageCopy.dstSubresource.baseArrayLayer = 0;
-    imageCopy.dstSubresource.layerCount = 1;
-    imageCopy.dstOffset = {};
-    imageCopy.extent.width = width;
-    imageCopy.extent.height = height;
-    imageCopy.extent.depth = 1;
+    if (supportsBlit) {
+        VkOffset3D blitSize;
+        blitSize.x = width;
+        blitSize.y = height;
+        blitSize.z = 1;
 
-    commandBuffer.addImageCopy(imageCopy);
-    commandBuffer.copyImage(srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+        VkImageBlit imageBlitRegion = {};
+        imageBlitRegion.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageBlitRegion.srcSubresource.layerCount = 1;
+        imageBlitRegion.srcOffsets[1] = blitSize;
+        imageBlitRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageBlitRegion.dstSubresource.layerCount = 1;
+        imageBlitRegion.dstOffsets[1] = blitSize;
 
-//    VkOffset3D blitSize;
-//    blitSize.x = width;
-//    blitSize.y = height;
-//    blitSize.z = 1;
-//    VkImageBlit imageBlitRegion = {};
-//    imageBlitRegion.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-//    imageBlitRegion.srcSubresource.layerCount = 1;
-//    imageBlitRegion.srcOffsets[1] = blitSize;
-//    imageBlitRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-//    imageBlitRegion.dstSubresource.layerCount = 1;
-//    imageBlitRegion.dstOffsets[1] = blitSize;
-//    commandBuffer.addBlitRegion(imageBlitRegion);
-//    commandBuffer.blitImage(srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+        commandBuffer.addBlitRegion(imageBlitRegion);
+        commandBuffer.blitImage(srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    } else {
+        VkImageCopy imageCopy;
+        imageCopy.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageCopy.srcSubresource.mipLevel = 0;
+        imageCopy.srcSubresource.baseArrayLayer = 0;
+        imageCopy.srcSubresource.layerCount = 1;
+        imageCopy.srcOffset = {};
+        imageCopy.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageCopy.dstSubresource.mipLevel = 0;
+        imageCopy.dstSubresource.baseArrayLayer = 0;
+        imageCopy.dstSubresource.layerCount = 1;
+        imageCopy.dstOffset = {};
+        imageCopy.extent.width = width;
+        imageCopy.extent.height = height;
+        imageCopy.extent.depth = 1;
+
+        commandBuffer.addImageCopy(imageCopy);
+        commandBuffer.copyImage(srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    }
 
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_GENERAL,
                      VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_HOST_BIT);

@@ -28,7 +28,7 @@ void Device::waitIdle() {
     }
 }
 
-void Device::waitForFences(std::vector<VkFence> fences) {
+VkResult Device::waitForFences(std::vector<VkFence> fences) {
     vkWaitForFences(handle, fences.size(), fences.data(), VK_TRUE, DEFAULT_FENCE_TIMEOUT);
 }
 

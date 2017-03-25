@@ -19,8 +19,12 @@ void CommandBuffer::addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset) 
     vertexBufferOffsets.push_back(offset);
 }
 
-void CommandBuffer::addCopyRegion(VkBufferCopy copyRegion) {
-    copyRegions.push_back(copyRegion);
+void CommandBuffer::addBufferCopy(VkBufferCopy bufferCopy) {
+    bufferCopies.push_back(bufferCopy);
+}
+
+void CommandBuffer::addImageCopy(VkImageCopy imageCopy) {
+    imageCopies.push_back(imageCopy);
 }
 
 void CommandBuffer::addBlitRegion(VkImageBlit blitRegion) {
@@ -143,13 +147,18 @@ void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDe
 }
 
 void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
-    assert(!copyRegions.empty());
-    vkCmdCopyBuffer(handle, srcBuffer, dstBuffer, copyRegions.size(), copyRegions.data());
+    assert(!bufferCopies.empty());
+    vkCmdCopyBuffer(handle, srcBuffer, dstBuffer, bufferCopies.size(), bufferCopies.data());
 }
 
 void CommandBuffer::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter) {
     assert(!blitRegions.empty());
     vkCmdBlitImage(handle, srcImage, srcImageLayout, dstImage, dstImageLayout, blitRegions.size(), blitRegions.data(), filter);
+}
+
+void CommandBuffer::copyImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout) {
+    assert(!imageCopies.empty());
+    vkCmdCopyImage(handle, srcImage, srcImageLayout, dstImage, dstImageLayout, imageCopies.size(), imageCopies.data());
 }
 
 void CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance) {

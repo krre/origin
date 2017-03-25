@@ -16,7 +16,8 @@ public:
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
     void addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset = 0);
-    void addCopyRegion(VkBufferCopy copyRegion);
+    void addBufferCopy(VkBufferCopy bufferCopy);
+    void addImageCopy(VkImageCopy imageCopy);
     void addBlitRegion(VkImageBlit blitRegion);
     void addDynamicOffset(uint32_t dynamicOffset);
     void addDescriptorSet(VkDescriptorSet descriptorSet);
@@ -47,6 +48,7 @@ public:
     void bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset = 0);
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);
     void blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter = VK_FILTER_NEAREST);
+    void copyImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout);
     void drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance);
     void bindDescriptorSets(const Pipeline* pipeline, VkPipelineLayout layout, uint32_t firstSet = 0);
     void setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStages, VkPipelineStageFlags destStages);
@@ -57,7 +59,8 @@ private:
     std::vector<VkRect2D> scissors;
     std::vector<VkBuffer> vertexBuffers;
     std::vector<VkDeviceSize> vertexBufferOffsets;
-    std::vector<VkBufferCopy> copyRegions;
+    std::vector<VkBufferCopy> bufferCopies;
+    std::vector<VkImageCopy> imageCopies;
     std::vector<VkImageBlit> blitRegions;
     std::vector<uint32_t> dynamicOffsets;
     std::vector<VkDescriptorSet> descriptorSets;

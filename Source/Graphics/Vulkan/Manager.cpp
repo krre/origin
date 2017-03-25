@@ -89,26 +89,6 @@ void Manager::renderEnd() {
 }
 
 void Manager::saveScreenshot(const std::string& filePath) {
-    // Get format properties for the swapchain color format
-    VkFormatProperties formatProps;
-    bool supportsBlit = true;
-
-    // Check blit support for source and destination
-
-    // Check if the device supports blitting from optimal images (the swapchain images are in optimal format)
-    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), swapchain->createInfo.imageFormat, &formatProps);
-    if (!(formatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT)) {
-//        std::cerr << "Device does not support blitting from optimal tiled images, using copy instead of blit!" << std::endl;
-        supportsBlit = false;
-    }
-
-    // Check if the device supports blitting to linear images
-    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
-    if (!(formatProps.linearTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT)) {
-//        std::cerr << "Device does not support blitting to linear tiled images, using copy instead of blit!" << std::endl;
-        supportsBlit = false;
-    }
-
     VkImage srcImage = swapchain->getImage(*presentQueue->getImageIndex(swapchain->getIndex()));
 
     uint32_t width = App::get()->getWidth();
@@ -131,6 +111,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
                      VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
 
+    bool supportsBlit = device->getPhysicalDevice()->getSupportBlit();
     if (supportsBlit) {
         VkOffset3D blitSize;
         blitSize.x = width;

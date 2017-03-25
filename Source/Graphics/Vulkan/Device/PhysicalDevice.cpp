@@ -1,4 +1,5 @@
 #include "PhysicalDevice.h"
+#include "../Manager.h"
 
 using namespace Vulkan;
 
@@ -27,6 +28,30 @@ VkFormat PhysicalDevice::getSupportedDepthFormat() {
     }
 
     return VK_FORMAT_UNDEFINED;
+}
+
+bool PhysicalDevice::getSupportBlit() {
+    // Get format properties for the swapchain color format
+    VkFormatProperties formatProps;
+    bool supportsBlit = true;
+
+    // Check blit support for source and destination
+
+    // Check if the device supports blitting from optimal images (the swapchain images are in optimal format)
+    vkGetPhysicalDeviceFormatProperties(handle, Manager::get()->getSwapchain()->createInfo.imageFormat, &formatProps);
+    if (!(formatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT)) {
+//        std::cerr << "Device does not support blitting from optimal tiled images, using copy instead of blit!" << std::endl;
+        supportsBlit = false;
+    }
+
+    // Check if the device supports blitting to linear images
+    vkGetPhysicalDeviceFormatProperties(handle, VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
+    if (!(formatProps.linearTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT)) {
+//        std::cerr << "Device does not support blitting to linear tiled images, using copy instead of blit!" << std::endl;
+        supportsBlit = false;
+    }
+
+    return supportsBlit;
 }
 
 uint32_t PhysicalDevice::findQueue(VkQueueFlags flags) {

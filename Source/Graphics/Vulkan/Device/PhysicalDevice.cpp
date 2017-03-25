@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice)  {
+PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
     handle = physicalDevice;
 }
 
@@ -17,7 +17,7 @@ VkFormat PhysicalDevice::getSupportedDepthFormat() {
         VK_FORMAT_D16_UNORM
     };
 
-    for (auto& format : depthFormats)     {
+    for (auto& format : depthFormats) {
         VkFormatProperties formatProps;
         vkGetPhysicalDeviceFormatProperties(handle, format, &formatProps);
         // Format must support depth stencil attachment for optimal tiling

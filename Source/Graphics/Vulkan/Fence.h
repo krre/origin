@@ -14,9 +14,8 @@ public:
     VkResult wait(uint32_t count);
     VkResult reset(uint32_t count);
 
-    VkFenceCreateInfo createInfo = {};
-
 private:
+    VkFenceCreateInfo createInfo = {};
 };
 
 } // Vulkan

@@ -3,8 +3,8 @@
 #include <SDL_video.h>
 #include <vector>
 
-constexpr int WIDTH = 800;
-constexpr int HEIGHT = 480;
+const int WINDOW_WIDTH = 800;
+const int WINDOW_HEIGHT = 480;
 
 class App : public Singleton<App> {
 
@@ -29,8 +29,8 @@ private:
     SDL_Window* window = nullptr;
     SDL_GLContext context;
 
-    int width = WIDTH;
-    int height = HEIGHT;
+    int width = WINDOW_WIDTH;
+    int height = WINDOW_HEIGHT;
 
     void clean();
     void windowResize(int width, int height);

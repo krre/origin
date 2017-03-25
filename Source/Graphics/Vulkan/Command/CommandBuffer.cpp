@@ -90,8 +90,8 @@ VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
     imb.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
     imb.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
 
+    imb.subresourceRange = {};
     imb.subresourceRange.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
-    imb.subresourceRange.baseMipLevel = 0;
     imb.subresourceRange.levelCount = 1;
     imb.subresourceRange.layerCount = 1;
 
@@ -169,22 +169,12 @@ void CommandBuffer::bindDescriptorSets(const Pipeline* pipeline, VkPipelineLayou
     vkCmdBindDescriptorSets(handle, pipeline->getBindPoint(), layout, firstSet, descriptorSets.size(), descriptorSets.data(), dynamicOffsets.size(), dynamicOffsets.data());
 }
 
-void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStages, VkPipelineStageFlags destStages) {
-    VkImageMemoryBarrier imageMemoryBarrier = {};
-    imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
-    imageMemoryBarrier.pNext = NULL;
-    imageMemoryBarrier.srcAccessMask = 0;
-    imageMemoryBarrier.dstAccessMask = 0;
+void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {
+    VkImageMemoryBarrier imageMemoryBarrier = createImageMemoryBarrier();
     imageMemoryBarrier.oldLayout = oldImageLayout;
     imageMemoryBarrier.newLayout = newImageLayout;
-    imageMemoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
-    imageMemoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
     imageMemoryBarrier.image = image;
     imageMemoryBarrier.subresourceRange.aspectMask = aspectMask;
-    imageMemoryBarrier.subresourceRange.baseMipLevel = 0;
-    imageMemoryBarrier.subresourceRange.levelCount = 1;
-    imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
-    imageMemoryBarrier.subresourceRange.layerCount = 1;
 
     switch (oldImageLayout) {
         case VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL:
@@ -232,5 +222,6 @@ void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask,
             break;
     }
 
-    vkCmdPipelineBarrier(handle, srcStages, destStages, 0, 0, NULL, 0, NULL, 1, &imageMemoryBarrier);
+    setImageMemoryBarrier(imageMemoryBarrier);
+    pipelineBarrier(srcStageMask, dstStageMask);
 }

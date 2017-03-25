@@ -192,7 +192,29 @@ void Manager::saveScreenshot(const std::string& filePath) {
     image.getMemory()->map((void**)&data, VK_WHOLE_SIZE);
     data += subResourceLayout.offset;
 
-    lodepng::encode(filePath, data, width, height);
+    if (supportsBlit) {
+        lodepng::encode(filePath, data, width, height);
+    } else {
+        std::vector<unsigned char> output;
+        output.resize(width * height * 4);
+        // Convert from BGR to RGB
+        uint32_t offset = 0;
+        for (uint32_t y = 0; y < height; y++) {
+            unsigned int *row = (unsigned int*)data;
+            for (uint32_t x = 0; x < width; x++) {
+                output[offset++] = *((char*)row + 2);
+                output[offset++] = *((char*)row + 1);
+                output[offset++] = *((char*)row);
+                output[offset++] = *((char*)row + 3);
+
+                row++;
+            }
+
+            data += subResourceLayout.rowPitch;
+        }
+
+        lodepng::encode(filePath, output.data(), width, height);
+    }
 
     image.getMemory()->unmap();
 }

@@ -26,12 +26,7 @@ public:
 
     void setUsage(VkImageUsageFlags usage);
     void setInitialLayout(VkImageLayout initialLayout);
-<<<<<<< 67cab65c53d7afdf1ee9f956a75123c841d9bc22
-    VkFormat getFormat() const { return createInfo.format; }
     void write(void* data, VkDeviceSize size, VkDeviceSize offset = 0);
-=======
-    void write(void* data, VkDeviceSize count, VkDeviceSize offset = 0);
->>>>>>> Reformat code in Image.h
 
 private:
     VkImageCreateInfo createInfo = {};

@@ -34,7 +34,9 @@ Texture::Texture(const std::string& path, VkFormat format) :
     /* See if we can use a linear tiled image for a texture, if not, we will
      * need a staging image for the texture data */
     bool needStaging = (!(formatProps.linearTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT)) ? true : false;
-    PRINT(needStaging)
+    if (needStaging) {
+
+    }
 
     Vulkan::CommandBuffers commandBuffers(image.getDevice(), Vulkan::Manager::get()->getCommandPool());
     commandBuffers.allocate(1);

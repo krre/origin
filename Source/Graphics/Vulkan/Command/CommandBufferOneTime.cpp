@@ -41,3 +41,7 @@ void CommandBufferOneTime::setImageLayout(VkImage image, VkImageAspectFlags aspe
 void CommandBufferOneTime::addBlitRegion(VkImageBlit blitRegion) {
     commandBuffer->addBlitRegion(blitRegion);
 }
+
+void CommandBufferOneTime::addImageCopy(VkImageCopy imageCopy) {
+    commandBuffer->addImageCopy(imageCopy);
+}

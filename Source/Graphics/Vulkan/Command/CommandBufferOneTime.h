@@ -10,6 +10,7 @@ public:
     CommandBufferOneTime(Device* device);
     void setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask);
     void addBlitRegion(VkImageBlit blitRegion);
+    void addImageCopy(VkImageCopy imageCopy);
     void apply();
 
     // Commands

@@ -21,3 +21,19 @@ void CommandBufferOneTime::apply() {
 
     device->waitForFences({ fence.getHandle() });
 }
+
+void CommandBufferOneTime::begin() {
+    commandBuffer->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+}
+
+void CommandBufferOneTime::end() {
+    commandBuffer->end();
+}
+
+void CommandBufferOneTime::setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {
+    commandBuffer->setImageLayout(image, aspectMask, oldImageLayout, newImageLayout, srcStageMask, dstStageMask);
+}
+
+void CommandBufferOneTime::addBlitRegion(VkImageBlit blitRegion) {
+    commandBuffer->addBlitRegion(blitRegion);
+}

@@ -4,12 +4,6 @@
 #include <map>
 #include <vulkan/vulkan.h>
 
-#ifdef __linux__
-#include <vulkan/libspirv.h>
-#elif _WIN32
-#include <spirv-tools/libspirv.h>
-#endif
-
 class ShaderResource : public Resource {
 
 public:
@@ -29,7 +23,6 @@ public:
     };
 
     ShaderResource();
-    ~ShaderResource();
     void load(const std::string& path) override;
     const uint32_t* getData() const { return buffer.data(); }
     size_t getSize() const { return buffer.size(); }
@@ -38,7 +31,6 @@ public:
     void dumpInputs();
 
 private:
-    spv_context context;
     std::vector<uint32_t> buffer;
     std::map<std::string, Input> inputs;
     std::map<std::string, Descriptor> descriptors;

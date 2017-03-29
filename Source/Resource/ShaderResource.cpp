@@ -3,12 +3,13 @@
 #include "../Core/Utils.h"
 #include <assert.h>
 
-ShaderResource::ShaderResource() {
-    context = spvContextCreate(SPV_ENV_UNIVERSAL_1_0);
-}
+#ifdef __linux__
+#include <vulkan/libspirv.h>
+#elif _WIN32
+#include <spirv-tools/libspirv.h>
+#endif
 
-ShaderResource::~ShaderResource() {
-    spvContextDestroy(context);
+ShaderResource::ShaderResource() {
 }
 
 void ShaderResource::load(const std::string& path) {
@@ -32,6 +33,8 @@ void ShaderResource::load(const std::string& path) {
 }
 
 void ShaderResource::parse(const uint32_t* code, size_t count) {
+    spv_context context = spvContextCreate(SPV_ENV_UNIVERSAL_1_0);
+
     descriptors.clear();
     spv_diagnostic diagnostic = nullptr;
     spv_text resultText = nullptr;
@@ -156,6 +159,7 @@ void ShaderResource::parse(const uint32_t* code, size_t count) {
     }
 
     spvTextDestroy(resultText);
+    spvContextDestroy(context);
 }
 
 void ShaderResource::dumpDescriptors() {

@@ -5,8 +5,8 @@ BaseShaderProgram::BaseShaderProgram(const Vulkan::Device* device) : ShaderProgr
     addShader("Shader/Base.vert.spv");
     addShader("Shader/Base.frag.spv");
 
-    linkBuffer("uboVert", sizeof(uboVert), &uboVert);
-    linkBuffer("uboFrag", sizeof(uboFrag), &uboFrag);
+    linkUniform("uboVert", sizeof(uboVert), &uboVert);
+    linkUniform("uboFrag", sizeof(uboFrag), &uboFrag);
 
     createResources();
 }

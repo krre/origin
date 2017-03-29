@@ -120,7 +120,7 @@ void ShaderProgram::createResources() {
     descriptorSets.writeDescriptors();
 }
 
-void ShaderProgram::linkBuffer(const std::string& name, uint32_t size, void* uniform) {
+void ShaderProgram::linkUniform(const std::string& name, uint32_t size, void* uniform) {
     BufferInfo linkInfo = {};
     linkInfo.size = size;
     linkInfo.uniform = uniform;

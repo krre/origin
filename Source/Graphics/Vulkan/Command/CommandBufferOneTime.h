@@ -17,6 +17,7 @@ public:
                         VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {
         commandBuffer->setImageLayout(image, aspectMask, oldImageLayout, newImageLayout, srcStageMask, dstStageMask);
     }
+    void addBlitRegion(VkImageBlit blitRegion) { commandBuffer->addBlitRegion(blitRegion); }
 
 private:
     Device* device;

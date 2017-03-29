@@ -24,14 +24,14 @@ public:
 
     ShaderResource();
     void load(const std::string& path) override;
-    const uint32_t* getData() const { return buffer.data(); }
-    size_t getSize() const { return buffer.size(); }
+    const uint32_t* getCodeData() const { return code.data(); }
+    size_t getCodeSize() const { return code.size(); }
 
     void dumpDescriptors();
     void dumpInputs();
 
 private:
-    std::vector<uint32_t> buffer;
+    std::vector<uint32_t> code;
     std::map<std::string, Input> inputs;
     std::map<std::string, Descriptor> descriptors;
 

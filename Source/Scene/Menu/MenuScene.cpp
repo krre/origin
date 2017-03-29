@@ -44,10 +44,10 @@ void MenuScene::init() {
     pipelineLayout.create();
 
     ShaderResource* shaderResource = bsp.shaderResources[ShaderProgram::Type::VERTEX];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
 
     shaderResource = bsp.shaderResources[ShaderProgram::Type::FRAGMENT];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getSize() * sizeof(uint32_t), shaderResource->getData());
+    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;

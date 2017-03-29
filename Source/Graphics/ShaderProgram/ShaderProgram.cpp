@@ -40,7 +40,7 @@ void ShaderProgram::createResources() {
 
     for (auto& shaderIt : shaderResources) {
         ShaderResource* shaderResource = shaderIt.second;
-        parser.parse(shaderResource->getData(), shaderResource->getSize());
+        parser.parse(shaderResource->getCodeData(), shaderResource->getCodeSize());
 //        parser.dumpDescriptors();
 //        parser.dumpInputs();
 

@@ -4,8 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/CommandBuffers.h
     ${CMAKE_CURRENT_SOURCE_DIR}/CommandBuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CommandBuffer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferSingle.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferSingle.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferOneTime.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/CommandBufferOneTime.h
     ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/CommandPool.h
     PARENT_SCOPE

@@ -1,17 +1,17 @@
-#include "CommandBufferSingle.h"
+#include "CommandBufferOneTime.h"
 #include "../Manager.h"
 #include "../Fence.h"
 
 using namespace Vulkan;
 
-CommandBufferSingle::CommandBufferSingle(Device* device) :
+CommandBufferOneTime::CommandBufferOneTime(Device* device) :
         device(device) {
     commandBuffers = std::make_shared<CommandBuffers>(device, Manager::get()->getCommandPool());
     commandBuffers->allocate(1);
     commandBuffer = std::make_shared<CommandBuffer>(commandBuffers->at(0));
 }
 
-void CommandBufferSingle::apply() {
+void CommandBufferOneTime::apply() {
     Fence fence(device);
     fence.create();
 

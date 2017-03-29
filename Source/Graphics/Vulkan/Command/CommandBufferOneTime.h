@@ -4,10 +4,10 @@
 
 namespace Vulkan {
 
-class CommandBufferSingle {
+class CommandBufferOneTime {
 
 public:
-    CommandBufferSingle(Device* device);
+    CommandBufferOneTime(Device* device);
     void apply();
 
     void begin() { commandBuffer->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); }

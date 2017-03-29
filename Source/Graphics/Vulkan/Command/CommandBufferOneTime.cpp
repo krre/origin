@@ -30,6 +30,10 @@ void CommandBufferOneTime::end() {
     commandBuffer->end();
 }
 
+void CommandBufferOneTime::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter) {
+    commandBuffer->blitImage(srcImage, srcImageLayout, dstImage, dstImageLayout, filter);
+}
+
 void CommandBufferOneTime::setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {
     commandBuffer->setImageLayout(image, aspectMask, oldImageLayout, newImageLayout, srcStageMask, dstStageMask);
 }

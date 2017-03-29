@@ -24,6 +24,7 @@ public:
 
     ShaderResource();
     void load(const std::string& path) override;
+    VkShaderStageFlagBits getStage() const { return stage; }
     const uint32_t* getCodeData() const { return code.data(); }
     size_t getCodeSize() const { return code.size(); }
 
@@ -31,6 +32,7 @@ public:
     void dumpInputs();
 
 private:
+    VkShaderStageFlagBits stage;
     std::vector<uint32_t> code;
     std::map<std::string, Input> inputs;
     std::map<std::string, Descriptor> descriptors;

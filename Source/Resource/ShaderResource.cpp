@@ -69,7 +69,16 @@ void ShaderResource::parse() {
         if (c == '\n') {
             line.push_back(word);
             std::string& firstWord = line.at(0);
-            if (firstWord == "OpName") {
+            if (firstWord == "OpEntryPoint") {
+                std::string& shaderType = line.at(1);
+                if (shaderType == "Vertex") {
+                    stage = VK_SHADER_STAGE_VERTEX_BIT;
+                } else if (shaderType == "Fragment") {
+                    stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+                } else {
+                    assert(0 && "Unknown shader type");
+                }
+            } else if (firstWord == "OpName") {
                 // Example:
                 // OpName %44 "ubo"
                 Utils::removeChar(line.at(2), quote);

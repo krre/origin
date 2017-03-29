@@ -6,6 +6,8 @@
 
 class ShaderResource : public Resource {
 
+    friend class ShaderProgram;
+
 public:
 
     struct Descriptor {

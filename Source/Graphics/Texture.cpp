@@ -1,7 +1,7 @@
 #include "Texture.h"
 #include <lodepng/lodepng.h>
 #include "Vulkan/Manager.h"
-#include "Vulkan/Command/CommandBuffer.h"
+#include "Vulkan/Command/CommandBufferOneTime.h"
 #include "Vulkan/Fence.h"
 #include "Vulkan/Queue/SubmitQueue.h"
 
@@ -38,23 +38,9 @@ Texture::Texture(const std::string& path, VkFormat format) :
 
     }
 
-    Vulkan::CommandBuffers commandBuffers(image.getDevice(), Vulkan::Manager::get()->getCommandPool());
-    commandBuffers.allocate(1);
-
-    Vulkan::CommandBuffer commandBuffer(commandBuffers.at(0));
+    Vulkan::CommandBufferOneTime commandBuffer(Vulkan::Manager::get()->getDevice());
     commandBuffer.begin();
-
     commandBuffer.setImageLayout(image.getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
-
     commandBuffer.end();
-
-    Vulkan::Fence fence(device);
-    fence.create();
-
-    Vulkan::SubmitQueue queue(device, Vulkan::Manager::get()->getGraphicsFamily());
-    queue.addCommandBuffer(commandBuffer.getHandle());
-    queue.submit(fence.getHandle());
-
-    device->waitForFences({ fence.getHandle() });
-
+    commandBuffer.apply();
 }

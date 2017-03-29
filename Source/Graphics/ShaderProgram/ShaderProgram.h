@@ -14,12 +14,6 @@ class ShaderProgram : public Object {
 
 public:
 
-    enum class Type {
-        VERTEX,
-        FRAGMENT,
-        COMPUTE
-    };
-
     struct BufferInfo {
         uint32_t size;
         void* uniform;
@@ -40,7 +34,6 @@ public:
     void addShader(const std::string& path);
     const Vulkan::GraphicsPipeline* getGraphicsPipeline() const { return &graphicsPipeline; }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
-    ShaderResource* getShaderResource(Type type) { return shaderResources[type]; }
     void createResources();
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
@@ -49,7 +42,7 @@ public:
     void read(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
 protected:
-    std::map<Type, ShaderResource*> shaderResources;
+    std::vector<ShaderResource*> shaderResources;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
     std::map<std::string, BufferInfo> bufferInfos;

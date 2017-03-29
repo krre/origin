@@ -48,11 +48,9 @@ void WorldScene::init() {
     pipelineLayout.addDescriptorSetLayout(&vsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    ShaderResource* shaderResource = vsp.shaderResources[ShaderProgram::Type::VERTEX];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
-
-    shaderResource = vsp.shaderResources[ShaderProgram::Type::FRAGMENT];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    for (auto& shaderResource : vsp.shaderResources) {
+        graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    }
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;

@@ -35,11 +35,9 @@ void DebugHUD::init() {
     pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    ShaderResource* shaderResource = tsp.shaderResources[ShaderProgram::Type::VERTEX];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
-
-    shaderResource = tsp.shaderResources[ShaderProgram::Type::FRAGMENT];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    for (auto& shaderResource : tsp.shaderResources) {
+        graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    }
 
     VkVertexInputBindingDescription bindingDescriptionPos = {};
     bindingDescriptionPos.binding = 0;

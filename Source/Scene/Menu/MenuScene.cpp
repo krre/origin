@@ -43,11 +43,9 @@ void MenuScene::init() {
     pipelineLayout.addDescriptorSetLayout(&bsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    ShaderResource* shaderResource = bsp.shaderResources[ShaderProgram::Type::VERTEX];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_VERTEX_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
-
-    shaderResource = bsp.shaderResources[ShaderProgram::Type::FRAGMENT];
-    graphicsPipeline.addShaderCode(VK_SHADER_STAGE_FRAGMENT_BIT, shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    for (auto& shaderResource : bsp.shaderResources) {
+        graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    }
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;

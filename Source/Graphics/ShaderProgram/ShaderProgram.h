@@ -5,6 +5,7 @@
 #include "../Vulkan/Descriptor/DescriptorPool.h"
 #include "../Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "../Vulkan/Descriptor/DescriptorSets.h"
+#include "../Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Vulkan/Buffer.h"
 #include "../Vulkan/Image/Image.h"
 #include <map>
@@ -37,6 +38,7 @@ public:
     ShaderProgram(const Vulkan::Device* device);
     ~ShaderProgram();
     void addShader(const std::string& path);
+    const Vulkan::GraphicsPipeline* getGraphicsPipeline() const { return &graphicsPipeline; }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
     ShaderResource* getShaderResource(Type type) { return shaderResources[type]; }
     void createResources();
@@ -56,6 +58,7 @@ protected:
 
 private:
     const Vulkan::Device* device;
+    Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::DescriptorPool descriptorPool;
     std::vector<std::shared_ptr<Vulkan::Buffer>> buffers;
 };

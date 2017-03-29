@@ -1,21 +1,22 @@
 #pragma once
 #include "CommandBuffers.h"
 #include "CommandBuffer.h"
-#include "../Fence.h"
 
 namespace Vulkan {
 
-class CommandBufferSingle : public Devicer {
+class CommandBufferSingle {
 
 public:
-    CommandBufferSingle(const Device* device);
+    CommandBufferSingle(Device* device);
+    void apply();
+
     void begin() { commandBuffer->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT); }
     void end() { commandBuffer->end(); }
 
 private:
+    Device* device;
     std::shared_ptr<CommandBuffers> commandBuffers;
     std::shared_ptr<CommandBuffer> commandBuffer;
-    Fence fence;
 };
 
 } // Vulkan

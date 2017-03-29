@@ -1,6 +1,7 @@
 #pragma once
 #include "CommandBuffers.h"
 #include "CommandBuffer.h"
+#include "../Fence.h"
 
 namespace Vulkan {
 
@@ -14,6 +15,7 @@ public:
 private:
     std::shared_ptr<CommandBuffers> commandBuffers;
     std::shared_ptr<CommandBuffer> commandBuffer;
+    Fence fence;
 };
 
 } // Vulkan

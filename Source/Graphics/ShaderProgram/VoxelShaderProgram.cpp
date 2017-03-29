@@ -15,5 +15,5 @@ VoxelShaderProgram::VoxelShaderProgram(const Vulkan::Device* device, Plane* plan
 
     linkInput("position", plane->getVerticesSize(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, true);
 
-    createDescriptors();
+    createResources();
 }

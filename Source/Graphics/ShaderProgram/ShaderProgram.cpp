@@ -32,7 +32,7 @@ void ShaderProgram::addShader(const std::string& path) {
     shaderResources[enumType] = ResourceManager::get()->load<ShaderResource>(path);
 }
 
-void ShaderProgram::createDescriptors() {
+void ShaderProgram::createResources() {
     SpirvParser parser;
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
     int vertexBindingCount = 0;

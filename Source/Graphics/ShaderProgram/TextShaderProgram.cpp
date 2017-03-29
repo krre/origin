@@ -20,5 +20,5 @@ TextShaderProgram::TextShaderProgram(const Vulkan::Device* device) :
 
     linkImage("samplerFont", descriptorImageInfo);
 
-    createDescriptors();
+    createResources();
 }

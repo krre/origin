@@ -39,7 +39,7 @@ public:
     void addShader(const std::string& path);
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
     ShaderResource* getShaderResource(Type type) { return shaderResources[type]; }
-    void createDescriptors();
+    void createResources();
     void linkBuffer(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice);

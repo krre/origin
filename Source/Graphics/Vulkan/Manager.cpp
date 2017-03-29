@@ -22,6 +22,14 @@ void Manager::init() {
         "VK_LAYER_LUNARG_standard_validation"
     });
 
+#ifdef __linux__
+    instance.setEnabledExtensions({
+        "VK_KHR_surface",
+        "VK_KHR_xcb_surface",
+        "VK_EXT_debug_report"
+    });
+#endif
+
     instance.create();
 
     if (enableValidationLayers) {

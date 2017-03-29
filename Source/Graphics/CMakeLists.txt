@@ -15,7 +15,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Texture.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/SpirvParser.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/SpirvParser.h
     PARENT_SCOPE
 )

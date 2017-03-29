@@ -1,7 +1,6 @@
 #include "ShaderProgram.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Core/Utils.h"
-#include "../SpirvParser.h"
 
 using namespace Vulkan;
 
@@ -23,7 +22,6 @@ void ShaderProgram::addShader(const std::string& path) {
 }
 
 void ShaderProgram::createResources() {
-    SpirvParser parser;
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
     int vertexBindingCount = 0;
 
@@ -78,10 +76,10 @@ void ShaderProgram::createResources() {
             }
         }
 
-        for (auto& inputIt : parser.inputs) {
+        for (auto& inputIt : shaderResource->inputs) {
             const auto& inputInfoIt = inputInfos.find(inputIt.first);
             if (inputInfoIt != inputInfos.end()) {
-                SpirvParser::Input* input = &inputIt.second;
+                ShaderResource::Input* input = &inputIt.second;
                 InputInfo* inputInfo = &inputInfoIt->second;
                 if (input->variableType == "OpTypeVector") {
 

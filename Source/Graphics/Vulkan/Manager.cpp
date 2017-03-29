@@ -1,8 +1,7 @@
 #include "Manager.h"
 #include "Image/Image.h"
 #include "../../Core/App.h"
-#include "Command/CommandBuffer.h"
-#include "Fence.h"
+#include "Command/CommandBufferOneTime.h"
 #include <glm/glm.hpp>
 #include <fstream>
 #include <lodepng/lodepng.h>
@@ -99,10 +98,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
     image.create();
     VkImage dstImage = image.getHandle();
 
-    CommandBuffers commandBuffers(device.get(), commandPool.get());
-    commandBuffers.allocate(1);
-
-    CommandBuffer commandBuffer(commandBuffers.at(0));
+    CommandBufferOneTime commandBuffer(device.get());
     commandBuffer.begin();
 
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
@@ -152,15 +148,7 @@ void Manager::saveScreenshot(const std::string& filePath) {
                      VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_HOST_BIT);
 
     commandBuffer.end();
-
-    Fence fence(device.get());
-    fence.create();
-
-    SubmitQueue queue(device.get(), graphicsFamily);
-    queue.addCommandBuffer(commandBuffer.getHandle());
-    queue.submit(fence.getHandle());
-
-    device->waitForFences({ fence.getHandle() });
+    commandBuffer.apply();
 
     // Get layout of the image (including row pitch)
     VkImageSubresource subResource = {};

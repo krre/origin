@@ -39,8 +39,6 @@ Texture::Texture(const std::string& path, VkFormat format) :
     }
 
     Vulkan::CommandBufferOneTime commandBuffer(Vulkan::Manager::get()->getDevice());
-    commandBuffer.begin();
     commandBuffer.setImageLayout(image.getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
-    commandBuffer.end();
     commandBuffer.apply();
 }

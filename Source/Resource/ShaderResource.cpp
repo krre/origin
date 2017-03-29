@@ -28,17 +28,18 @@ void ShaderResource::load(const std::string& path) {
     file.close();
 
     if (!code.empty()) {
-        parse(code.data(), code.size());
+        parse();
     }
 }
 
-void ShaderResource::parse(const uint32_t* code, size_t count) {
-    spv_context context = spvContextCreate(SPV_ENV_UNIVERSAL_1_0);
+void ShaderResource::parse() {
+    assert(descriptors.empty());
+    assert(inputs.empty());
 
-    descriptors.clear();
+    spv_context context = spvContextCreate(SPV_ENV_UNIVERSAL_1_0);
     spv_diagnostic diagnostic = nullptr;
     spv_text resultText = nullptr;
-    spvBinaryToText(context, code, count, 0, &resultText, &diagnostic);
+    spvBinaryToText(context, code.data(), code.size(), 0, &resultText, &diagnostic);
     if (diagnostic) {
       spvDiagnosticPrint(diagnostic);
       spvDiagnosticDestroy(diagnostic);

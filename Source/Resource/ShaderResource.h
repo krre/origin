@@ -35,5 +35,5 @@ private:
     std::map<std::string, Input> inputs;
     std::map<std::string, Descriptor> descriptors;
 
-    void parse(const uint32_t* code, size_t count);
+    void parse();
 };

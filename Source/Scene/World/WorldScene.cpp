@@ -16,7 +16,6 @@
 #include "../../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 
 WorldScene::WorldScene() :
-    pipelineLayout(device),
     vsp(device, &plane) {
     new EntityManager;
 }
@@ -46,9 +45,6 @@ void WorldScene::init() {
     indexStageBuffer.write(plane.getIndices().data(), plane.getIndicesSize());
     indexStageBuffer.copyToBuffer(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    pipelineLayout.addDescriptorSetLayout(&vsp.descriptorSetLayout);
-    pipelineLayout.create();
-
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
@@ -63,7 +59,6 @@ void WorldScene::init() {
     graphicsPipeline->addVertexAttributeDescription(attributeDescriptions);
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline->setPipelineLayout(pipelineLayout.getHandle());
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
     graphicsPipeline->create();
 
@@ -338,7 +333,7 @@ void WorldScene::buildCommandBuffers() {
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(vsp.getGraphicsPipeline(), pipelineLayout.getHandle());
+        commandBuffer.bindDescriptorSets(vsp.getGraphicsPipeline(), vsp.getPipelineLayout()->getHandle());
         commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

@@ -34,6 +34,7 @@ public:
     void addShader(const std::string& path);
     Vulkan::GraphicsPipeline* getGraphicsPipeline() { return &graphicsPipeline; }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
+    const Vulkan::PipelineLayout* getPipelineLayout() const { return &pipelineLayout; }
     void createResources();
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
@@ -52,6 +53,7 @@ protected:
 private:
     const Vulkan::Device* device;
     Vulkan::GraphicsPipeline graphicsPipeline;
+    Vulkan::PipelineLayout pipelineLayout;
     Vulkan::DescriptorPool descriptorPool;
     std::vector<std::shared_ptr<Vulkan::Buffer>> buffers;
 };

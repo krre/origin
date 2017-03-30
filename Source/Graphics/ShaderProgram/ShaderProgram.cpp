@@ -7,6 +7,7 @@ using namespace Vulkan;
 ShaderProgram::ShaderProgram(const Device* device) :
     device(device),
     graphicsPipeline(device),
+    pipelineLayout(device),
     descriptorPool(device),
     descriptorSetLayout(device),
     descriptorSets(device, &descriptorPool) {
@@ -92,6 +93,9 @@ void ShaderProgram::createResources() {
 
     descriptorSetLayout.create();
     descriptorSets.addDescriptorSetLayout(descriptorSetLayout.getHandle());
+    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
+    pipelineLayout.create();
+    graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
 
     // Descriptor pool
     for (auto& it : descriptorsTypes) {

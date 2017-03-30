@@ -4,7 +4,6 @@
 #include "../../ECS/Entity.h"
 #include "../../UI/Viewport.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
-#include "../../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../../Graphics/Vulkan/Buffer.h"
 #include "../../Graphics/Plane.h"
 #include <SDL.h>
@@ -31,7 +30,6 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void buildCommandBuffers() override;
 
-    Vulkan::PipelineLayout pipelineLayout;
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
     std::shared_ptr<Vulkan::Buffer> indexBuffer;
     EntityId characterId;

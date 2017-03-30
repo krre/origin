@@ -155,7 +155,7 @@ void WorldScene::update(float dt) {
         transform.push_back(stepW);
         transform.push_back(stepH);
 
-        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, shaderProgram.bufferInfos["octree"].buffer);
+        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, shaderProgram.bufferInfos["octree"].buffer.get());
 
         if (!ubo.transformCount) {
             ubo.transformCount = transform.size();
@@ -203,7 +203,7 @@ void WorldScene::create() {
 
     EntityManager::get()->addEntity(avatarCamera);
 
-    Vulkan::Buffer* octreeBuffer = shaderProgram.bufferInfos["octree"].buffer;
+    Vulkan::Buffer* octreeBuffer = shaderProgram.bufferInfos["octree"].buffer.get();
 
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
@@ -282,7 +282,7 @@ void WorldScene::create() {
     EntityManager::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
-    octreeSystem->getGpuMemoryManager()->updateRenderList(shaderProgram.bufferInfos["renderList"].buffer);
+    octreeSystem->getGpuMemoryManager()->updateRenderList(shaderProgram.bufferInfos["renderList"].buffer.get());
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();

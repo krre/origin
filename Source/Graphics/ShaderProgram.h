@@ -17,7 +17,7 @@ public:
     struct BufferInfo {
         uint32_t size;
         void* uniform;
-        Vulkan::Buffer* buffer;
+        std::shared_ptr<Vulkan::Buffer> buffer;
     };
 
     struct InputInfo {
@@ -56,5 +56,4 @@ private:
     Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::PipelineLayout pipelineLayout;
     Vulkan::DescriptorPool descriptorPool;
-    std::vector<std::shared_ptr<Vulkan::Buffer>> buffers;
 };

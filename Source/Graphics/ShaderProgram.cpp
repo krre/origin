@@ -66,8 +66,7 @@ void ShaderProgram::createResources() {
                 BufferInfo* bufferInfo = &bufferIt->second;
                 std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, bufferInfo->size, false);
                 buffer->create();
-                buffers.push_back(buffer);
-                bufferInfo->buffer = buffer.get();
+                bufferInfo->buffer = buffer;
                 descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
                 descriptorSets.addWriteDescriptorSet(descriptorWrite);
             }

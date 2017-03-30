@@ -36,7 +36,7 @@ public:
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
     const Vulkan::DescriptorSets* getDescriptorSets() const { return &descriptorSets; }
     const Vulkan::PipelineLayout* getPipelineLayout() const { return &pipelineLayout; }
-    void createResources();
+    void createPipeline();
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice);

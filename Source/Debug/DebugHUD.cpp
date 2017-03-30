@@ -88,7 +88,7 @@ void DebugHUD::init() {
     std::string test = "Origin";
     numLetters = font->renderText(vertexBuffer.get(), indexBuffer.get(), test, 100, 100);
 
-    shaderProgram.createResources();
+    shaderProgram.createPipeline();
 
     buildCommandBuffers();
 

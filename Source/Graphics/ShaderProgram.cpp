@@ -24,7 +24,7 @@ void ShaderProgram::addShader(const std::string& path) {
     graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
 }
 
-void ShaderProgram::createResources() {
+void ShaderProgram::createPipeline() {
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
     int vertexBindingCount = 0;
 

@@ -41,9 +41,9 @@ void ShaderResource::parse() {
     spv_text resultText = nullptr;
     spvBinaryToText(context, code.data(), code.size(), 0, &resultText, &diagnostic);
     if (diagnostic) {
-      spvDiagnosticPrint(diagnostic);
-      spvDiagnosticDestroy(diagnostic);
-      assert(false);
+        spvDiagnosticPrint(diagnostic);
+        spvDiagnosticDestroy(diagnostic);
+        assert(false);
     }
 
 //    PRINT(resultText->str)

@@ -105,6 +105,8 @@ void ShaderProgram::createResources() {
     descriptorPool.create();
     descriptorSets.allocate();
     descriptorSets.writeDescriptors();
+
+    graphicsPipeline.create();
 }
 
 void ShaderProgram::linkUniform(const std::string& name, uint32_t size, void* uniform) {

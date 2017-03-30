@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene3D.h"
-#include "../../Graphics/ShaderProgram/VoxelShaderProgram.h"
+#include "../../Graphics/ShaderProgram/ShaderProgram.h"
 #include "../../ECS/Entity.h"
 #include "../../UI/Viewport.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
@@ -12,6 +12,37 @@
 const int LOD_PIXEL_LIMIT = 1;
 
 class WorldScene : public Scene3D {
+
+    struct UBO {
+        int shadeless = 0;
+        int pageBytes = PAGE_BYTES;
+        int blockInfoEnd = BLOCK_INFO_END;
+        int frameWidth;
+        int frameHeight;
+        int transformCount;
+
+        float ambientStrength = 0.1;
+        float lod;
+
+        glm::vec4 backgroundColor = glm::vec4(0.77, 0.83, 0.83, 1.0);
+        glm::vec4 lightColor;
+        glm::vec4 lightPos;
+
+        glm::vec4 pickPixel = glm::vec4(-1, -1, 0, 0);
+    } ubo;
+
+    struct PickResult {
+        glm::vec3 pos;
+        uint32_t parent;
+        uint32_t scale;
+        int childIdx;
+    } pickResult;
+
+    struct DebugOut {
+        glm::vec4 debugVec;
+        int debugInt;
+        float debugFloat;
+    } debugOut;
 
 public:
     WorldScene();
@@ -36,5 +67,5 @@ private:
     uint64_t seed;
     Viewport viewport;
     Plane plane;
-    VoxelShaderProgram vsp;
+    ShaderProgram shaderProgram;
 };

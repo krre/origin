@@ -65,8 +65,6 @@ void DebugHUD::init() {
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
     graphicsPipeline->colorBlendAttachment.blendEnable = VK_TRUE;
 
-    graphicsPipeline->create();
-
     renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
     renderPass.setDepthFormat(device->getPhysicalDevice()->getSupportedDepthFormat());
     renderPass.setOverlayEnable(true);
@@ -74,6 +72,8 @@ void DebugHUD::init() {
 
     std::string test = "Origin";
     numLetters = tsp.getFont()->renderText(vertexBuffer.get(), indexBuffer.get(), test, 100, 100);
+
+    tsp.createResources();
 
     buildCommandBuffers();
 

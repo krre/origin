@@ -16,7 +16,7 @@
 #include "../../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 
 WorldScene::WorldScene() :
-    vsp(device, &plane) {
+    shaderProgram(device) {
     new EntityManager;
 }
 
@@ -27,7 +27,18 @@ WorldScene::~WorldScene() {
 void WorldScene::init() {
     Scene::init();
 
-    Vulkan::GraphicsPipeline* graphicsPipeline = vsp.getGraphicsPipeline();
+    shaderProgram.addShader("Shader/Voxel.vert.spv");
+    shaderProgram.addShader("Shader/Voxel.frag.spv");
+
+    shaderProgram.linkUniform("ubo", sizeof(ubo), &ubo);
+    shaderProgram.linkUniform("octree", MEMORY_SIZE);
+    shaderProgram.linkUniform("renderList", MAX_OCTREE_COUNT * sizeof(uint32_t));
+    shaderProgram.linkUniform("pickResult", sizeof(pickResult), &pickResult);
+    shaderProgram.linkUniform("debugOut", sizeof(debugOut), &debugOut);
+
+    shaderProgram.linkInput("position", plane.getVerticesSize(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, true);
+
+    Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize());
     vertexBuffer->create();
@@ -60,7 +71,8 @@ void WorldScene::init() {
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
-    graphicsPipeline->create();
+
+    shaderProgram.createResources();
 
     buildCommandBuffers();
 
@@ -89,8 +101,8 @@ void WorldScene::update(float dt) {
     TransformComponent* octreeTransform;
 
     TransformComponent* lightTransform;
-    vsp.ubo.lightColor = glm::vec4(0.0);
-    vsp.ubo.lightPos = glm::vec4(0.0);
+    ubo.lightColor = glm::vec4(0.0);
+    ubo.lightPos = glm::vec4(0.0);
 
     // TODO: Replace by family
     for (auto& entity : EntityManager::get()->getEntities()) {
@@ -102,12 +114,12 @@ void WorldScene::update(float dt) {
         LightComponent* lightComp = static_cast<LightComponent*>(entity.second->components[ComponentType::Light].get());
         if (lightComp) {
             lightTransform = static_cast<TransformComponent*>(entity.second->components[ComponentType::Transform].get());
-            vsp.ubo.lightColor = glm::vec4(lightComp->color, 1.0);
-            vsp.ubo.lightPos = lightTransform->objectToWorld[3];
+            ubo.lightColor = glm::vec4(lightComp->color, 1.0);
+            ubo.lightPos = lightTransform->objectToWorld[3];
         }
     }
 
-    vsp.ubo.transformCount = 0;
+    ubo.transformCount = 0;
 
     for (auto& imap : octreeSystem->getGpuMemoryManager()->getOctreeOffsets()) {
         std::vector<glm::vec4> transform;
@@ -143,17 +155,17 @@ void WorldScene::update(float dt) {
         transform.push_back(stepW);
         transform.push_back(stepH);
 
-        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, vsp.bufferInfos["octree"].buffer);
+        octreeSystem->getGpuMemoryManager()->updateEntityTransform(entity, transform, shaderProgram.bufferInfos["octree"].buffer);
 
-        if (!vsp.ubo.transformCount) {
-            vsp.ubo.transformCount = transform.size();
+        if (!ubo.transformCount) {
+            ubo.transformCount = transform.size();
         }
     }
 
-    vsp.ubo.frameWidth = width;
-    vsp.ubo.frameHeight = height;
-    vsp.ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
-    vsp.write("ubo");
+    ubo.frameWidth = width;
+    ubo.frameHeight = height;
+    ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
+    shaderProgram.write("ubo");
 }
 
 void WorldScene::create() {
@@ -191,7 +203,7 @@ void WorldScene::create() {
 
     EntityManager::get()->addEntity(avatarCamera);
 
-    Vulkan::Buffer* octreeBuffer = vsp.bufferInfos["octree"].buffer;
+    Vulkan::Buffer* octreeBuffer = shaderProgram.bufferInfos["octree"].buffer;
 
     // Ground
     std::shared_ptr<Entity> ground = EntityBuilder::geometry();
@@ -270,7 +282,7 @@ void WorldScene::create() {
     EntityManager::get()->addEntity(chamomile3);
     octreeSystem->getGpuMemoryManager()->addEntity(chamomile3.get(), octreeBuffer);
 
-    octreeSystem->getGpuMemoryManager()->updateRenderList(vsp.bufferInfos["renderList"].buffer);
+    octreeSystem->getGpuMemoryManager()->updateRenderList(shaderProgram.bufferInfos["renderList"].buffer);
 
     // Light
     std::shared_ptr<Entity> light = EntityBuilder::light();
@@ -323,17 +335,17 @@ void WorldScene::buildCommandBuffers() {
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
-        commandBuffer.bindPipeline(vsp.getGraphicsPipeline());
+        commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();
         commandBuffer.bindIndexBuffer(indexBuffer->getHandle(), VK_INDEX_TYPE_UINT16);
 
-        Vulkan::DescriptorSets* descriptorSets = &vsp.descriptorSets;
+        const Vulkan::DescriptorSets* descriptorSets = shaderProgram.getDescriptorSets();
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(vsp.getGraphicsPipeline(), vsp.getPipelineLayout()->getHandle());
+        commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline(), shaderProgram.getPipelineLayout()->getHandle());
         commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

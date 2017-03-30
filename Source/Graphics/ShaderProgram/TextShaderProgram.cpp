@@ -19,6 +19,4 @@ TextShaderProgram::TextShaderProgram(const Vulkan::Device* device) :
     descriptorImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 
     linkImage("samplerFont", descriptorImageInfo);
-
-    createResources();
 }

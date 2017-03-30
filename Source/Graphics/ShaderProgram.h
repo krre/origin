@@ -24,7 +24,7 @@ public:
         VkBufferUsageFlagBits usage;
         uint32_t size;
         bool moveToDevice;
-        Vulkan::Buffer* buffer;
+        std::shared_ptr<Vulkan::Buffer> buffer;
         VkVertexInputBindingDescription vertexInputBindingDescription;
         VkVertexInputAttributeDescription vertexInputAttributeDescription;
     };

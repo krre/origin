@@ -132,7 +132,7 @@ void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, V
     bufferInfos.at(name).buffer->write(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }
 
-void ShaderProgram::read(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
+void ShaderProgram::readUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
     bufferInfos.at(name).buffer->read(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }
 

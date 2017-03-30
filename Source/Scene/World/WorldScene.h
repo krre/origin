@@ -33,7 +33,6 @@ private:
     void buildCommandBuffers() override;
 
     Vulkan::PipelineLayout pipelineLayout;
-    Vulkan::GraphicsPipeline graphicsPipeline;
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
     std::shared_ptr<Vulkan::Buffer> indexBuffer;
     EntityId characterId;

@@ -32,7 +32,7 @@ public:
     ShaderProgram(const Vulkan::Device* device);
     ~ShaderProgram();
     void addShader(const std::string& path);
-    const Vulkan::GraphicsPipeline* getGraphicsPipeline() const { return &graphicsPipeline; }
+    Vulkan::GraphicsPipeline* getGraphicsPipeline() { return &graphicsPipeline; }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
     void createResources();
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);

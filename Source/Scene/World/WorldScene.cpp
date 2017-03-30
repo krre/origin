@@ -17,7 +17,6 @@
 
 WorldScene::WorldScene() :
     pipelineLayout(device),
-    graphicsPipeline(device),
     vsp(device, &plane) {
     new EntityManager;
 }
@@ -28,6 +27,8 @@ WorldScene::~WorldScene() {
 
 void WorldScene::init() {
     Scene::init();
+
+    Vulkan::GraphicsPipeline* graphicsPipeline = vsp.getGraphicsPipeline();
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize());
     vertexBuffer->create();
@@ -48,27 +49,23 @@ void WorldScene::init() {
     pipelineLayout.addDescriptorSetLayout(&vsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    for (auto& shaderResource : vsp.shaderResources) {
-        graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
-    }
-
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline.addVertexBindingDescription(bindingDescription);
+    graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     VkVertexInputAttributeDescription attributeDescriptions = {};
     attributeDescriptions.binding = 0;
     attributeDescriptions.location = 0;
     attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptions.offset = 0;
-    graphicsPipeline.addVertexAttributeDescription(attributeDescriptions);
+    graphicsPipeline->addVertexAttributeDescription(attributeDescriptions);
 
-    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
-    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
-    graphicsPipeline.create();
+    graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline->setPipelineLayout(pipelineLayout.getHandle());
+    graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
+    graphicsPipeline->create();
 
     buildCommandBuffers();
 
@@ -331,7 +328,7 @@ void WorldScene::buildCommandBuffers() {
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
-        commandBuffer.bindPipeline(&graphicsPipeline);
+        commandBuffer.bindPipeline(vsp.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();
@@ -341,7 +338,7 @@ void WorldScene::buildCommandBuffers() {
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(&graphicsPipeline, pipelineLayout.getHandle());
+        commandBuffer.bindDescriptorSets(vsp.getGraphicsPipeline(), pipelineLayout.getHandle());
         commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

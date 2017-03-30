@@ -40,7 +40,7 @@ public:
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice);
-    void write(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
+    void writeUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     void read(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     std::map<std::string, BufferInfo> bufferInfos; // TODO: Move to private section
 

@@ -43,8 +43,8 @@ void MenuScene::init() {
     indexStageBuffer.write(plane.getIndices().data(), plane.getIndicesSize());
     indexStageBuffer.copyToBuffer(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    shaderProgram.write("uboVert");
-    shaderProgram.write("uboFrag");
+    shaderProgram.writeUniform("uboVert");
+    shaderProgram.writeUniform("uboFrag");
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;

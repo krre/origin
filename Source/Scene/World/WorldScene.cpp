@@ -165,7 +165,7 @@ void WorldScene::update(float dt) {
     ubo.frameWidth = width;
     ubo.frameHeight = height;
     ubo.lod = glm::tan(LOD_PIXEL_LIMIT * cameraComp->fov / height);
-    shaderProgram.write("ubo");
+    shaderProgram.writeUniform("ubo");
 }
 
 void WorldScene::create() {

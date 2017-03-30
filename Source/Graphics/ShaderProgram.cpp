@@ -128,7 +128,7 @@ void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, VkBuff
     inputInfos[name] = inputInfo;
 }
 
-void ShaderProgram::write(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
+void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
     bufferInfos.at(name).buffer->write(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }
 

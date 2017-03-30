@@ -4,7 +4,6 @@ using namespace Vulkan;
 
 ComputePipeline::ComputePipeline(const Device* device) :
         Pipeline(device) {
-    pipelineBindPoint = VK_PIPELINE_BIND_POINT_COMPUTE;
     createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
 }
 

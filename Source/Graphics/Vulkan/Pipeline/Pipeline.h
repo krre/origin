@@ -17,10 +17,9 @@ public:
     void destroy() override;
     void addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint = "main");
     void setPipelineCache(VkPipelineCache pipelineCache);
-    VkPipelineBindPoint getBindPoint() const { return pipelineBindPoint; }
+    virtual VkPipelineBindPoint getBindPoint() const = 0;
 
 protected:
-    VkPipelineBindPoint pipelineBindPoint;
     VkPipelineCache pipelineCache = VK_NULL_HANDLE;
     std::map<VkShaderStageFlagBits, std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages;

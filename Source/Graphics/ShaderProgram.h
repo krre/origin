@@ -36,13 +36,13 @@ public:
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
     const Vulkan::DescriptorSets* getDescriptorSets() const { return &descriptorSets; }
     const Vulkan::PipelineLayout* getPipelineLayout() const { return &pipelineLayout; }
+    Vulkan::Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
     void createPipeline();
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice);
     void writeUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     void readUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
-    std::map<std::string, BufferInfo> bufferInfos; // TODO: Move to private section
 
 private:
     const Vulkan::Device* device;
@@ -52,6 +52,7 @@ private:
     std::vector<ShaderResource*> shaderResources;
     Vulkan::DescriptorSetLayout descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
+    std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, InputInfo> inputInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
 };

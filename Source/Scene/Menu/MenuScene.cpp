@@ -43,9 +43,6 @@ void MenuScene::init() {
     indexStageBuffer.write(plane.getIndices().data(), plane.getIndicesSize());
     indexStageBuffer.copyToBuffer(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    shaderProgram.writeUniform("uboVert");
-    shaderProgram.writeUniform("uboFrag");
-
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
@@ -65,6 +62,9 @@ void MenuScene::init() {
     shaderProgram.createPipeline();
 
     buildCommandBuffers();
+
+    shaderProgram.writeUniform("uboVert");
+    shaderProgram.writeUniform("uboFrag");
 }
 
 void MenuScene::draw(float dt) {

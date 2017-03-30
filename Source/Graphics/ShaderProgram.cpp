@@ -86,8 +86,16 @@ void ShaderProgram::createPipeline() {
             if (inputInfoIt != inputInfos.end()) {
                 ShaderResource::Input* input = &inputIt.second;
                 InputInfo* inputInfo = &inputInfoIt->second;
+                inputInfo->vertexInputAttributeDescription.location = input->location;
+                inputInfo->vertexInputAttributeDescription.binding = vertexBindingCount;
+                inputInfo->vertexInputBindingDescription.binding = vertexBindingCount;
+                vertexBindingCount++;
                 if (input->variableType == "OpTypeVector") {
-
+                    if (input->valueType == "OpTypeFloat") {
+                        if (input->vectorCount == 2) {
+                            inputInfo->vertexInputAttributeDescription.format = VK_FORMAT_R32G32_SFLOAT;
+                        }
+                    }
                 }
             }
         }
@@ -124,6 +132,7 @@ void ShaderProgram::linkImage(const std::string& name, VkDescriptorImageInfo des
 
 void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice) {
     InputInfo inputInfo = {};
+    inputInfo.vertexInputBindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     inputInfo.size = size;
     inputInfo.usage = usage;
     inputInfo.moveToDevice = moveToDevice;

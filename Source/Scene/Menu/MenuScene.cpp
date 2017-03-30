@@ -10,7 +10,6 @@
 
 MenuScene::MenuScene() :
     pipelineLayout(device),
-    graphicsPipeline(device),
     bsp(device) {
 }
 
@@ -20,6 +19,8 @@ MenuScene::~MenuScene() {
 
 void MenuScene::init() {
     Scene::init();
+
+    Vulkan::GraphicsPipeline* graphicsPipeline = bsp.getGraphicsPipeline();
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize());
     vertexBuffer->create();
@@ -43,27 +44,23 @@ void MenuScene::init() {
     pipelineLayout.addDescriptorSetLayout(&bsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    for (auto& shaderResource : bsp.shaderResources) {
-        graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
-    }
-
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline.addVertexBindingDescription(bindingDescription);
+    graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     VkVertexInputAttributeDescription attributeDescriptions = {};
     attributeDescriptions.binding = 0;
     attributeDescriptions.location = 0;
     attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptions.offset = 0;
-    graphicsPipeline.addVertexAttributeDescription(attributeDescriptions);
+    graphicsPipeline->addVertexAttributeDescription(attributeDescriptions);
 
-    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
-    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
-    graphicsPipeline.create();
+    graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline->setPipelineLayout(pipelineLayout.getHandle());
+    graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
+    graphicsPipeline->create();
 
     buildCommandBuffers();
 }
@@ -98,7 +95,7 @@ void MenuScene::buildCommandBuffers() {
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
-        commandBuffer.bindPipeline(&graphicsPipeline);
+        commandBuffer.bindPipeline(bsp.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();
@@ -108,7 +105,7 @@ void MenuScene::buildCommandBuffers() {
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(&graphicsPipeline, pipelineLayout.getHandle());
+        commandBuffer.bindDescriptorSets(bsp.getGraphicsPipeline(), pipelineLayout.getHandle());
         commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

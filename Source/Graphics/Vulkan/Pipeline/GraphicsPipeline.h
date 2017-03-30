@@ -18,7 +18,6 @@ public:
     void setRenderPass(VkRenderPass renderPass);
     void create() override;
 
-    VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
     VkPipelineRasterizationStateCreateInfo rasterizer = {};
     VkPipelineMultisampleStateCreateInfo multisampling = {};
@@ -28,6 +27,7 @@ public:
     VkPipelineColorBlendStateCreateInfo colorBlending = {};
 
 private:
+    VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;

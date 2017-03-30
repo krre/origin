@@ -13,7 +13,8 @@
 DebugHUD::DebugHUD() :
     pipelineCache(device),
     renderPass(device),
-    tsp(device) {
+    sampler(device),
+    shaderProgram(device) {
     visible = false;
 }
 
@@ -24,7 +25,21 @@ DebugHUD::~DebugHUD() {
 void DebugHUD::init() {
     Scene::init();
 
-    Vulkan::GraphicsPipeline* graphicsPipeline = tsp.getGraphicsPipeline();
+    shaderProgram.addShader("Shader/Text.vert.spv");
+    shaderProgram.addShader("Shader/Text.frag.spv");
+
+    font = ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt");
+
+    sampler.create();
+
+    VkDescriptorImageInfo descriptorImageInfo = {};
+    descriptorImageInfo.sampler = sampler.getHandle();
+    descriptorImageInfo.imageView = font->getTexture()->getImageView()->getHandle();
+    descriptorImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
+
+    shaderProgram.linkImage("samplerFont", descriptorImageInfo);
+
+    Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(Font::Vertex), false);
     vertexBuffer->create();
@@ -71,9 +86,9 @@ void DebugHUD::init() {
     renderPass.create();
 
     std::string test = "Origin";
-    numLetters = tsp.getFont()->renderText(vertexBuffer.get(), indexBuffer.get(), test, 100, 100);
+    numLetters = font->renderText(vertexBuffer.get(), indexBuffer.get(), test, 100, 100);
 
-    tsp.createResources();
+    shaderProgram.createResources();
 
     buildCommandBuffers();
 
@@ -172,19 +187,19 @@ void DebugHUD::buildCommandBuffers() {
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
-        commandBuffer.bindPipeline(tsp.getGraphicsPipeline());
+        commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.addVertexBuffer(indexBuffer->getHandle()); // WRONG!!!
         commandBuffer.bindVertexBuffers();
         commandBuffer.bindIndexBuffer(indexBuffer->getHandle(), VK_INDEX_TYPE_UINT32);
 
-        Vulkan::DescriptorSets* descriptorSets = &tsp.descriptorSets;
+        const Vulkan::DescriptorSets* descriptorSets = shaderProgram.getDescriptorSets();
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(tsp.getGraphicsPipeline(), tsp.getPipelineLayout()->getHandle());
-        commandBuffer.drawIndexed(tsp.getFont()->getIndexCount(), 1, 0, 0, 0);
+        commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline(), shaderProgram.getPipelineLayout()->getHandle());
+        commandBuffer.drawIndexed(font->getIndexCount(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();
         commandBuffer.end();

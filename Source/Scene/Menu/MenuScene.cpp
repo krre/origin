@@ -62,7 +62,7 @@ void MenuScene::init() {
 
     graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
-    graphicsPipeline.createInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
+    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
     graphicsPipeline.create();
 
     buildCommandBuffers();

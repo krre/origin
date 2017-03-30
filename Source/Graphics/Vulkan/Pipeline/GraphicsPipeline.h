@@ -15,6 +15,7 @@ public:
     void addScissor(VkRect2D scissor);
     void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment);
     void setPipelineLayout(VkPipelineLayout layout);
+    void setRenderPass(VkRenderPass renderPass);
     void create() override;
 
     VkGraphicsPipelineCreateInfo createInfo = {};

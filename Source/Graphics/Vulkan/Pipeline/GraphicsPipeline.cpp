@@ -87,6 +87,10 @@ void GraphicsPipeline::setPipelineLayout(VkPipelineLayout layout) {
     createInfo.layout = layout;
 }
 
+void GraphicsPipeline::setRenderPass(VkRenderPass renderPass) {
+    createInfo.renderPass = renderPass;
+}
+
 void GraphicsPipeline::create() {
     if (!viewports.size()) {
         viewports.push_back(viewport);

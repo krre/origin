@@ -44,16 +44,14 @@ public:
     void readUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
     std::map<std::string, BufferInfo> bufferInfos; // TODO: Move to private section
 
-protected:
-    std::vector<ShaderResource*> shaderResources;
-    Vulkan::DescriptorSetLayout descriptorSetLayout;
-    Vulkan::DescriptorSets descriptorSets;
-    std::map<std::string, InputInfo> inputInfos;
-    std::map<std::string, VkDescriptorImageInfo> imageInfos;
-
 private:
     const Vulkan::Device* device;
     Vulkan::GraphicsPipeline graphicsPipeline;
     Vulkan::PipelineLayout pipelineLayout;
     Vulkan::DescriptorPool descriptorPool;
+    std::vector<ShaderResource*> shaderResources;
+    Vulkan::DescriptorSetLayout descriptorSetLayout;
+    Vulkan::DescriptorSets descriptorSets;
+    std::map<std::string, InputInfo> inputInfos;
+    std::map<std::string, VkDescriptorImageInfo> imageInfos;
 };

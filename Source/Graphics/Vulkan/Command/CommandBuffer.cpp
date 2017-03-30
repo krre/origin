@@ -142,7 +142,7 @@ void CommandBuffer::bindVertexBuffers(uint32_t firstBinding) {
     vkCmdBindVertexBuffers(handle, firstBinding, vertexBuffers.size(), vertexBuffers.data(), vertexBufferOffsets.data());
 }
 
-void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset) {
+void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkDeviceSize offset, VkIndexType indexType) {
     vkCmdBindIndexBuffer(handle, buffer, offset, indexType);
 }
 

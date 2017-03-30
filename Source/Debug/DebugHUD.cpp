@@ -190,7 +190,7 @@ void DebugHUD::buildCommandBuffers() {
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.addVertexBuffer(indexBuffer->getHandle()); // WRONG!!!
         commandBuffer.bindVertexBuffers();
-        commandBuffer.bindIndexBuffer(indexBuffer->getHandle(), VK_INDEX_TYPE_UINT32);
+        commandBuffer.bindIndexBuffer(indexBuffer->getHandle());
 
         for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
             commandBuffer.addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

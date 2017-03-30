@@ -45,7 +45,7 @@ public:
     void setScissor(uint32_t firstScissor);
     void bindPipeline(const Pipeline* pipeline);
     void bindVertexBuffers(uint32_t firstBinding = 0);
-    void bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset = 0);
+    void bindIndexBuffer(VkBuffer buffer, VkDeviceSize offset = 0, VkIndexType indexType = VK_INDEX_TYPE_UINT16);
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);
     void blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter = VK_FILTER_NEAREST);
     void copyImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout);

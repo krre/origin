@@ -18,7 +18,9 @@ ShaderProgram::~ShaderProgram() {
 }
 
 void ShaderProgram::addShader(const std::string& path) {
-    shaderResources.push_back(ResourceManager::get()->load<ShaderResource>(path));
+    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>(path);
+    shaderResources.push_back(shaderResource);
+    graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
 }
 
 void ShaderProgram::createResources() {

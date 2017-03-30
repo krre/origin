@@ -11,10 +11,10 @@
 #include <Origin.h>
 
 DebugHUD::DebugHUD() :
-    pipelineCache(device),
-    renderPass(device),
-    sampler(device),
-    shaderProgram(device) {
+        pipelineCache(device),
+        renderPass(device),
+        sampler(device),
+        shaderProgram(device) {
     visible = false;
 }
 
@@ -75,9 +75,7 @@ void DebugHUD::init() {
 
     pipelineCache.create();
 
-    graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
-    graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
     graphicsPipeline->colorBlendAttachment.blendEnable = VK_TRUE;
 
     renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);

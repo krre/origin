@@ -1,16 +1,19 @@
 #include "ShaderProgram.h"
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
+#include "../Graphics/Vulkan/Manager.h"
 
 using namespace Vulkan;
 
 ShaderProgram::ShaderProgram(const Device* device) :
-    device(device),
-    graphicsPipeline(device),
-    pipelineLayout(device),
-    descriptorPool(device),
-    descriptorSetLayout(device),
-    descriptorSets(device, &descriptorPool) {
+        device(device),
+        graphicsPipeline(device),
+        pipelineLayout(device),
+        descriptorPool(device),
+        descriptorSetLayout(device),
+        descriptorSets(device, &descriptorPool) {
+    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
 }
 
 ShaderProgram::~ShaderProgram() {

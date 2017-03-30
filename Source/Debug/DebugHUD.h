@@ -4,7 +4,6 @@
 #include "../UI/Label.h"
 #include "../UI/LinearLayout.h"
 #include "../Event/Event.h"
-#include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "../Graphics/Vulkan/Buffer.h"
 #include "../Graphics/ShaderProgram/TextShaderProgram.h"
@@ -25,7 +24,6 @@ private:
     void create();
     void buildCommandBuffers() override;
 
-    Vulkan::PipelineLayout pipelineLayout;
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;

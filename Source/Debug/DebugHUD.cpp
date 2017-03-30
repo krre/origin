@@ -11,7 +11,6 @@
 #include <Origin.h>
 
 DebugHUD::DebugHUD() :
-    pipelineLayout(device),
     pipelineCache(device),
     renderPass(device),
     tsp(device) {
@@ -32,9 +31,6 @@ void DebugHUD::init() {
 
     indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(uint32_t), false);
     indexBuffer->create();
-
-    pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);
-    pipelineLayout.create();
 
     VkVertexInputBindingDescription bindingDescriptionPos = {};
     bindingDescriptionPos.binding = 0;
@@ -66,7 +62,6 @@ void DebugHUD::init() {
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
-    graphicsPipeline->setPipelineLayout(pipelineLayout.getHandle());
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
     graphicsPipeline->colorBlendAttachment.blendEnable = VK_TRUE;
 
@@ -188,7 +183,7 @@ void DebugHUD::buildCommandBuffers() {
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(tsp.getGraphicsPipeline(), pipelineLayout.getHandle());
+        commandBuffer.bindDescriptorSets(tsp.getGraphicsPipeline(), tsp.getPipelineLayout()->getHandle());
         commandBuffer.drawIndexed(tsp.getFont()->getIndexCount(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

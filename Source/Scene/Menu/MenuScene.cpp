@@ -9,7 +9,6 @@
 #include "../../Graphics/Plane.h"
 
 MenuScene::MenuScene() :
-    pipelineLayout(device),
     bsp(device) {
 }
 
@@ -41,9 +40,6 @@ void MenuScene::init() {
     bsp.write("uboVert");
     bsp.write("uboFrag");
 
-    pipelineLayout.addDescriptorSetLayout(&bsp.descriptorSetLayout);
-    pipelineLayout.create();
-
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
@@ -58,7 +54,6 @@ void MenuScene::init() {
     graphicsPipeline->addVertexAttributeDescription(attributeDescriptions);
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline->setPipelineLayout(pipelineLayout.getHandle());
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
     graphicsPipeline->create();
 
@@ -105,7 +100,7 @@ void MenuScene::buildCommandBuffers() {
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(bsp.getGraphicsPipeline(), pipelineLayout.getHandle());
+        commandBuffer.bindDescriptorSets(bsp.getGraphicsPipeline(), bsp.getPipelineLayout()->getHandle());
         commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

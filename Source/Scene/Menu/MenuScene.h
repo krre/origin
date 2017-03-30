@@ -3,7 +3,6 @@
 #include "../../Graphics/ShaderProgram/BaseShaderProgram.h"
 #include "../../UI/Button.h"
 #include "../../UI/LinearLayout.h"
-#include "../../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../../Graphics/Vulkan/Buffer.h"
 
 class MenuScene : public Scene2D {
@@ -28,7 +27,6 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void buildCommandBuffers() override;
 
-    Vulkan::PipelineLayout pipelineLayout;
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
     std::shared_ptr<Vulkan::Buffer> indexBuffer;
     Plane plane;

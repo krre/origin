@@ -3,7 +3,6 @@
 #include "../../Graphics/ShaderProgram/BaseShaderProgram.h"
 #include "../../UI/Button.h"
 #include "../../UI/LinearLayout.h"
-#include "../../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../../Graphics/Vulkan/Buffer.h"
 

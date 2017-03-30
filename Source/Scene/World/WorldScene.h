@@ -4,7 +4,6 @@
 #include "../../ECS/Entity.h"
 #include "../../UI/Viewport.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
-#include "../../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../../Graphics/Vulkan/Buffer.h"
 #include "../../Graphics/Plane.h"

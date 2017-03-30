@@ -4,7 +4,6 @@
 #include "../UI/Label.h"
 #include "../UI/LinearLayout.h"
 #include "../Event/Event.h"
-#include "../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineLayout.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "../Graphics/Vulkan/Buffer.h"

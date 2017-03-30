@@ -29,7 +29,6 @@ private:
     Vulkan::PipelineLayout pipelineLayout;
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;
-    Vulkan::GraphicsPipeline graphicsPipeline;
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
     std::shared_ptr<Vulkan::Buffer> indexBuffer;
     TextShaderProgram tsp;

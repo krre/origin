@@ -13,7 +13,6 @@
 DebugHUD::DebugHUD() :
     pipelineLayout(device),
     pipelineCache(device),
-    graphicsPipeline(device),
     renderPass(device),
     tsp(device) {
     visible = false;
@@ -26,6 +25,8 @@ DebugHUD::~DebugHUD() {
 void DebugHUD::init() {
     Scene::init();
 
+    Vulkan::GraphicsPipeline* graphicsPipeline = tsp.getGraphicsPipeline();
+
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(Font::Vertex), false);
     vertexBuffer->create();
 
@@ -35,45 +36,41 @@ void DebugHUD::init() {
     pipelineLayout.addDescriptorSetLayout(&tsp.descriptorSetLayout);
     pipelineLayout.create();
 
-    for (auto& shaderResource : tsp.shaderResources) {
-        graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
-    }
-
     VkVertexInputBindingDescription bindingDescriptionPos = {};
     bindingDescriptionPos.binding = 0;
     bindingDescriptionPos.stride = sizeof(glm::vec4);
     bindingDescriptionPos.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline.addVertexBindingDescription(bindingDescriptionPos);
+    graphicsPipeline->addVertexBindingDescription(bindingDescriptionPos);
 
     VkVertexInputAttributeDescription attributeDescriptionPos = {};
     attributeDescriptionPos.binding = 0;
     attributeDescriptionPos.location = 0;
     attributeDescriptionPos.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptionPos.offset = 0;
-    graphicsPipeline.addVertexAttributeDescription(attributeDescriptionPos);
+    graphicsPipeline->addVertexAttributeDescription(attributeDescriptionPos);
 
     VkVertexInputBindingDescription bindingDescriptionUV = {};
     bindingDescriptionUV.binding = 1;
     bindingDescriptionUV.stride = sizeof(glm::vec4);
     bindingDescriptionUV.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline.addVertexBindingDescription(bindingDescriptionUV);
+    graphicsPipeline->addVertexBindingDescription(bindingDescriptionUV);
 
     VkVertexInputAttributeDescription attributeDescriptionUV = {};
     attributeDescriptionUV.binding = 1;
     attributeDescriptionUV.location = 1;
     attributeDescriptionUV.format = VK_FORMAT_R32G32_SFLOAT;
     attributeDescriptionUV.offset = sizeof(glm::vec2);
-    graphicsPipeline.addVertexAttributeDescription(attributeDescriptionUV);
+    graphicsPipeline->addVertexAttributeDescription(attributeDescriptionUV);
 
     pipelineCache.create();
 
-    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline.setPipelineCache(pipelineCache.getHandle());
-    graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
-    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
-    graphicsPipeline.colorBlendAttachment.blendEnable = VK_TRUE;
+    graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
+    graphicsPipeline->setPipelineLayout(pipelineLayout.getHandle());
+    graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
+    graphicsPipeline->colorBlendAttachment.blendEnable = VK_TRUE;
 
-    graphicsPipeline.create();
+    graphicsPipeline->create();
 
     renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
     renderPass.setDepthFormat(device->getPhysicalDevice()->getSupportedDepthFormat());
@@ -180,7 +177,7 @@ void DebugHUD::buildCommandBuffers() {
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
-        commandBuffer.bindPipeline(&graphicsPipeline);
+        commandBuffer.bindPipeline(tsp.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.addVertexBuffer(indexBuffer->getHandle()); // WRONG!!!
@@ -191,7 +188,7 @@ void DebugHUD::buildCommandBuffers() {
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(&graphicsPipeline, pipelineLayout.getHandle());
+        commandBuffer.bindDescriptorSets(tsp.getGraphicsPipeline(), pipelineLayout.getHandle());
         commandBuffer.drawIndexed(tsp.getFont()->getIndexCount(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

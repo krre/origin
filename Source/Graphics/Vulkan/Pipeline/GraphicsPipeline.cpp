@@ -83,6 +83,10 @@ void GraphicsPipeline::addColorBlendAttachment(VkPipelineColorBlendAttachmentSta
     colorBlendAttachments.push_back(colorBlendAttachment);
 }
 
+void GraphicsPipeline::setPipelineLayout(VkPipelineLayout layout) {
+    createInfo.layout = layout;
+}
+
 void GraphicsPipeline::create() {
     if (!viewports.size()) {
         viewports.push_back(viewport);

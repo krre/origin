@@ -69,7 +69,7 @@ void DebugHUD::init() {
 
     graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline.setPipelineCache(pipelineCache.getHandle());
-    graphicsPipeline.createInfo.layout = pipelineLayout.getHandle();
+    graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
     graphicsPipeline.createInfo.renderPass = Vulkan::Manager::get()->getRenderPass()->getHandle();
     graphicsPipeline.colorBlendAttachment.blendEnable = VK_TRUE;
 

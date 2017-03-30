@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene2D.h"
-#include "../../Graphics/ShaderProgram/BaseShaderProgram.h"
+#include "../../Graphics/ShaderProgram/ShaderProgram.h"
 #include "../../UI/Button.h"
 #include "../../UI/LinearLayout.h"
 #include "../../Graphics/Vulkan/Buffer.h"
@@ -30,5 +30,5 @@ private:
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
     std::shared_ptr<Vulkan::Buffer> indexBuffer;
     Plane plane;
-    BaseShaderProgram bsp;
+    ShaderProgram shaderProgram;
 };

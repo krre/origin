@@ -2,8 +2,6 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/BaseShaderProgram.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/BaseShaderProgram.h
     ${CMAKE_CURRENT_SOURCE_DIR}/TextShaderProgram.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/TextShaderProgram.h
     PARENT_SCOPE

@@ -9,7 +9,7 @@
 #include "../../Graphics/Plane.h"
 
 MenuScene::MenuScene() :
-    bsp(device) {
+    shaderProgram(device) {
 }
 
 MenuScene::~MenuScene() {
@@ -19,7 +19,13 @@ MenuScene::~MenuScene() {
 void MenuScene::init() {
     Scene::init();
 
-    Vulkan::GraphicsPipeline* graphicsPipeline = bsp.getGraphicsPipeline();
+    shaderProgram.addShader("Shader/Base.vert.spv");
+    shaderProgram.addShader("Shader/Base.frag.spv");
+
+    shaderProgram.linkUniform("uboVert", sizeof(uboVert), &uboVert);
+    shaderProgram.linkUniform("uboFrag", sizeof(uboFrag), &uboFrag);
+
+    Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize());
     vertexBuffer->create();
@@ -37,8 +43,8 @@ void MenuScene::init() {
     indexStageBuffer.write(plane.getIndices().data(), plane.getIndicesSize());
     indexStageBuffer.copyToBuffer(indexBuffer->getHandle(), plane.getIndicesSize());
 
-    bsp.write("uboVert");
-    bsp.write("uboFrag");
+    shaderProgram.write("uboVert");
+    shaderProgram.write("uboFrag");
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
@@ -55,7 +61,8 @@ void MenuScene::init() {
 
     graphicsPipeline->setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline->setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
-    graphicsPipeline->create();
+
+    shaderProgram.createResources();
 
     buildCommandBuffers();
 }
@@ -90,17 +97,17 @@ void MenuScene::buildCommandBuffers() {
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
-        commandBuffer.bindPipeline(bsp.getGraphicsPipeline());
+        commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();
         commandBuffer.bindIndexBuffer(indexBuffer->getHandle(), VK_INDEX_TYPE_UINT16);
 
-        Vulkan::DescriptorSets* descriptorSets = &bsp.descriptorSets;
+        const Vulkan::DescriptorSets* descriptorSets = shaderProgram.getDescriptorSets();
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(bsp.getGraphicsPipeline(), bsp.getPipelineLayout()->getHandle());
+        commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline(), shaderProgram.getPipelineLayout()->getHandle());
         commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

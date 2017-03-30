@@ -196,7 +196,7 @@ void DebugHUD::buildCommandBuffers() {
         for (int i = 0; i < descriptorSets->getCount(); i++) {
             commandBuffer.addDescriptorSet(descriptorSets->at(i));
         }
-        commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline(), shaderProgram.getPipelineLayout()->getHandle());
+        commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
         commandBuffer.drawIndexed(font->getIndexCount(), 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();

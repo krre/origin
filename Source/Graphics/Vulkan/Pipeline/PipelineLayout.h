@@ -12,7 +12,7 @@ public:
     ~PipelineLayout();
     void create() override;
     void destroy() override;
-    void addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout);
+    void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
 
     VkPipelineLayoutCreateInfo createInfo = {};
 

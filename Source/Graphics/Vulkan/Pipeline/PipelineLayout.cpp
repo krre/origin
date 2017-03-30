@@ -20,6 +20,6 @@ void PipelineLayout::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyPipelineLayout(device->getHandle(), handle, nullptr))
 }
 
-void PipelineLayout::addDescriptorSetLayout(const DescriptorSetLayout* descriptorSetLayout) {
-    descriptorSetLayouts.push_back(descriptorSetLayout->getHandle());
+void PipelineLayout::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout) {
+    descriptorSetLayouts.push_back(descriptorSetLayout);
 }

@@ -93,7 +93,7 @@ void ShaderProgram::createResources() {
 
     descriptorSetLayout.create();
     descriptorSets.addDescriptorSetLayout(descriptorSetLayout.getHandle());
-    pipelineLayout.addDescriptorSetLayout(&descriptorSetLayout);
+    pipelineLayout.addDescriptorSetLayout(descriptorSetLayout.getHandle());
     pipelineLayout.create();
     graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
 

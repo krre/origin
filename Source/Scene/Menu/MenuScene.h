@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene2D.h"
-#include "../../Graphics/ShaderProgram/ShaderProgram.h"
+#include "../../Graphics/ShaderProgram.h"
 #include "../../UI/Button.h"
 #include "../../UI/LinearLayout.h"
 #include "../../Graphics/Vulkan/Buffer.h"

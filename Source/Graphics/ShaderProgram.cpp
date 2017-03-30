@@ -1,6 +1,6 @@
 #include "ShaderProgram.h"
-#include "../../Resource/ResourceManager.h"
-#include "../../Core/Utils.h"
+#include "../Resource/ResourceManager.h"
+#include "../Core/Utils.h"
 
 using namespace Vulkan;
 

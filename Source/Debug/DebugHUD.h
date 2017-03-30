@@ -6,7 +6,7 @@
 #include "../Event/Event.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "../Graphics/Vulkan/Buffer.h"
-#include "../Graphics/ShaderProgram/ShaderProgram.h"
+#include "../Graphics/ShaderProgram.h"
 #include "../Graphics/Vulkan/Sampler.h"
 #include "../UI/Text/Font.h"
 

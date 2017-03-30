@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene3D.h"
-#include "../../Graphics/ShaderProgram/ShaderProgram.h"
+#include "../../Graphics/ShaderProgram.h"
 #include "../../ECS/Entity.h"
 #include "../../UI/Viewport.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"

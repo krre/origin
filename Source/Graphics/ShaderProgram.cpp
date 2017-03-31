@@ -113,6 +113,11 @@ void ShaderProgram::createPipeline() {
     graphicsPipeline.create();
 }
 
+void ShaderProgram::createIndexBuffer(VkDeviceSize size) {
+    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size);
+    indexBuffer->create();
+}
+
 void ShaderProgram::linkUniform(const std::string& name, uint32_t size, void* uniform) {
     BufferInfo linkInfo = {};
     linkInfo.size = size;

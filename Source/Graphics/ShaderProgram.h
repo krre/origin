@@ -38,6 +38,8 @@ public:
     const Vulkan::PipelineLayout* getPipelineLayout() const { return &pipelineLayout; }
     Vulkan::Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
     void createPipeline();
+    void createIndexBuffer(VkDeviceSize size);
+    Vulkan::Buffer* getIndexBuffer() const { return indexBuffer.get(); }
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice);
@@ -55,6 +57,7 @@ private:
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, InputInfo> inputInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
+    std::shared_ptr<Vulkan::Buffer> indexBuffer;
 
     VkFormat getFormat(ShaderResource::Input* input);
 };

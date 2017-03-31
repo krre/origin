@@ -14,6 +14,11 @@ const int MAX_CHAR_COUNT = 2048;
 
 class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
 
+    struct UBO {
+        glm::mat4 projection;
+        glm::mat4 model;
+    } ubo;
+
 public:
     DebugHUD();
     ~DebugHUD();

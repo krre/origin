@@ -18,8 +18,7 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
     vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice()->getHandle(), 0, surface->getHandle(), &surfaceSupport);
     if (surfaceSupport) {
         createInfo.surface = surface->getHandle();
-        const uint32_t desirableImageCount = 3; // Triple buffering
-        createInfo.minImageCount = std::min(surface->getCapabilities().maxImageCount, desirableImageCount);
+        createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;
         createInfo.imageFormat = surface->getFormat(0).format;
         createInfo.imageColorSpace = surface->getFormat(0).colorSpace;
         createInfo.imageExtent = surface->getCapabilities().currentExtent;

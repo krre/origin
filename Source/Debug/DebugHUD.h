@@ -29,7 +29,6 @@ private:
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
-    std::shared_ptr<Vulkan::Buffer> indexBuffer;
     ShaderProgram shaderProgram;
     Vulkan::Sampler sampler;
     Font* font;

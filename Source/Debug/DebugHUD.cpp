@@ -44,8 +44,7 @@ void DebugHUD::init() {
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(Font::Vertex), false);
     vertexBuffer->create();
 
-    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(uint32_t), false);
-    indexBuffer->create();
+    shaderProgram.createIndexBuffer(MAX_CHAR_COUNT * sizeof(uint32_t));
 
     VkVertexInputBindingDescription bindingDescriptionPos = {};
     bindingDescriptionPos.binding = 0;
@@ -84,7 +83,7 @@ void DebugHUD::init() {
     renderPass.create();
 
     std::string test = "Origin";
-    numLetters = font->renderText(vertexBuffer.get(), indexBuffer.get(), test, 100, 100);
+    numLetters = font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), test, 100, 100);
 
     shaderProgram.createPipeline();
 
@@ -188,9 +187,9 @@ void DebugHUD::buildCommandBuffers() {
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
-        commandBuffer.addVertexBuffer(indexBuffer->getHandle()); // WRONG!!!
+        commandBuffer.addVertexBuffer(vertexBuffer->getHandle()); // WRONG!!!
         commandBuffer.bindVertexBuffers();
-        commandBuffer.bindIndexBuffer(indexBuffer->getHandle());
+        commandBuffer.bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
 
         for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
             commandBuffer.addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

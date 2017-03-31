@@ -36,8 +36,6 @@ void Instance::create() {
     if (enableValidationLayers) {
         createInfo.enabledLayerCount = enabledLayers.size();
         createInfo.ppEnabledLayerNames = enabledLayers.data();
-    } else {
-        createInfo.enabledLayerCount = 0;
     }
     createInfo.enabledExtensionCount = enabledExtensions.size();
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();

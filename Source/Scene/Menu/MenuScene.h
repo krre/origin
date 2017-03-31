@@ -28,7 +28,6 @@ private:
     void buildCommandBuffers() override;
 
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
-    std::shared_ptr<Vulkan::Buffer> indexBuffer;
     Plane plane;
     ShaderProgram shaderProgram;
 };

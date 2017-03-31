@@ -91,6 +91,8 @@ void ShaderProgram::createPipeline() {
                 inputInfo->vertexInputBindingDescription.binding = vertexBindingCount;
                 vertexBindingCount++;
                 inputInfo->vertexInputAttributeDescription.format = getFormat(input);
+                graphicsPipeline.addVertexBindingDescription(inputInfo->vertexInputBindingDescription);
+                graphicsPipeline.addVertexAttributeDescription(inputInfo->vertexInputAttributeDescription);
             }
         }
     }
@@ -129,12 +131,11 @@ void ShaderProgram::linkImage(const std::string& name, VkDescriptorImageInfo des
     imageInfos[name] = descriptorImageInfo;
 }
 
-void ShaderProgram::linkInput(const std::string& name, VkDeviceSize size, VkBufferUsageFlagBits usage, bool moveToDevice) {
+void ShaderProgram::linkInput(const std::string& name, uint32_t stride, uint32_t offset) {
     InputInfo inputInfo = {};
     inputInfo.vertexInputBindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    inputInfo.size = size;
-    inputInfo.usage = usage;
-    inputInfo.moveToDevice = moveToDevice;
+    inputInfo.vertexInputBindingDescription.stride = stride;
+    inputInfo.vertexInputAttributeDescription.offset = offset;
     inputInfos[name] = inputInfo;
 }
 

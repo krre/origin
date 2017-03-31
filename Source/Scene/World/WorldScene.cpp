@@ -36,9 +36,7 @@ void WorldScene::init() {
     shaderProgram.linkUniform("pickResult", sizeof(pickResult), &pickResult);
     shaderProgram.linkUniform("debugOut", sizeof(debugOut), &debugOut);
 
-    shaderProgram.linkInput("position", plane.getVerticesSize(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, true);
-
-    Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
+    shaderProgram.linkInput("position", sizeof(glm::vec2));
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
     vertexBuffer->create();
@@ -46,19 +44,6 @@ void WorldScene::init() {
 
     shaderProgram.createIndexBuffer(plane.getIndicesSize());
     shaderProgram.getIndexBuffer()->write(plane.getIndices().data(), plane.getIndicesSize());
-
-    VkVertexInputBindingDescription bindingDescription = {};
-    bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(glm::vec2);
-    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline->addVertexBindingDescription(bindingDescription);
-
-    VkVertexInputAttributeDescription attributeDescriptions = {};
-    attributeDescriptions.binding = 0;
-    attributeDescriptions.location = 0;
-    attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
-    attributeDescriptions.offset = 0;
-    graphicsPipeline->addVertexAttributeDescription(attributeDescriptions);
 
     shaderProgram.createPipeline();
 

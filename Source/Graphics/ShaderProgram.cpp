@@ -114,7 +114,7 @@ void ShaderProgram::createPipeline() {
 }
 
 void ShaderProgram::createIndexBuffer(VkDeviceSize size) {
-    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size);
+    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size, false);
     indexBuffer->create();
 }
 

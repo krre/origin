@@ -39,7 +39,7 @@ void DebugHUD::init() {
     descriptorImageInfo.imageView = font->getTexture()->getImageView()->getHandle();
     descriptorImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 
-    shaderProgram.linkImage("samplerFont", descriptorImageInfo);
+    shaderProgram.linkImage("samplerColor", descriptorImageInfo);
 
     Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
@@ -64,6 +64,8 @@ void DebugHUD::init() {
     shaderProgram.createPipeline();
 
     buildCommandBuffers();
+
+    shaderProgram.writeUniform("ubo");
 
     create();
 }

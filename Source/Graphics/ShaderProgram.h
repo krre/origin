@@ -55,4 +55,6 @@ private:
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, InputInfo> inputInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
+
+    VkFormat getFormat(ShaderResource::Input* input);
 };

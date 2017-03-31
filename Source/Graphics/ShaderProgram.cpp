@@ -90,13 +90,7 @@ void ShaderProgram::createPipeline() {
                 inputInfo->vertexInputAttributeDescription.binding = vertexBindingCount;
                 inputInfo->vertexInputBindingDescription.binding = vertexBindingCount;
                 vertexBindingCount++;
-                if (input->variableType == "OpTypeVector") {
-                    if (input->valueType == "OpTypeFloat") {
-                        if (input->vectorCount == 2) {
-                            inputInfo->vertexInputAttributeDescription.format = VK_FORMAT_R32G32_SFLOAT;
-                        }
-                    }
-                }
+                inputInfo->vertexInputAttributeDescription.format = getFormat(input);
             }
         }
     }
@@ -145,5 +139,17 @@ void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, V
 
 void ShaderProgram::readUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
     bufferInfos.at(name).buffer->read(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
+}
+
+VkFormat ShaderProgram::getFormat(ShaderResource::Input* input) {
+    if (input->variableType == "OpTypeVector") {
+        if (input->valueType == "OpTypeFloat") {
+            if (input->vectorCount == 2) {
+                return VK_FORMAT_R32G32_SFLOAT;
+            }
+        }
+    }
+
+    assert(0);
 }
 

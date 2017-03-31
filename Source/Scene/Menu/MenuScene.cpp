@@ -29,11 +29,7 @@ void MenuScene::init() {
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
     vertexBuffer->create();
-
-    Vulkan::Buffer vertexStageBuffer(device, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, plane.getVerticesSize());
-    vertexStageBuffer.create();
-    vertexStageBuffer.write(plane.getVertices().data(), plane.getVerticesSize());
-    vertexStageBuffer.copyToBuffer(vertexBuffer->getHandle(), plane.getVerticesSize());
+    vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
 
     shaderProgram.createIndexBuffer(plane.getIndicesSize());
     shaderProgram.getIndexBuffer()->write(plane.getIndices().data(), plane.getIndicesSize());

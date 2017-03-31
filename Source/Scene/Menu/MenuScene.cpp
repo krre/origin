@@ -25,7 +25,7 @@ void MenuScene::init() {
     shaderProgram.linkUniform("uboVert", sizeof(uboVert), &uboVert);
     shaderProgram.linkUniform("uboFrag", sizeof(uboFrag), &uboFrag);
 
-    Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
+    shaderProgram.linkInput("position", sizeof(glm::vec2));
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
     vertexBuffer->create();
@@ -33,19 +33,6 @@ void MenuScene::init() {
 
     shaderProgram.createIndexBuffer(plane.getIndicesSize());
     shaderProgram.getIndexBuffer()->write(plane.getIndices().data(), plane.getIndicesSize());
-
-    VkVertexInputBindingDescription bindingDescription = {};
-    bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(glm::vec2);
-    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline->addVertexBindingDescription(bindingDescription);
-
-    VkVertexInputAttributeDescription attributeDescriptions = {};
-    attributeDescriptions.binding = 0;
-    attributeDescriptions.location = 0;
-    attributeDescriptions.format = VK_FORMAT_R32G32_SFLOAT;
-    attributeDescriptions.offset = 0;
-    graphicsPipeline->addVertexAttributeDescription(attributeDescriptions);
 
     shaderProgram.createPipeline();
 

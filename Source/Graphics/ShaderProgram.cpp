@@ -152,6 +152,8 @@ VkFormat ShaderProgram::getFormat(ShaderResource::Input* input) {
         if (input->valueType == "OpTypeFloat") {
             if (input->vectorCount == 2) {
                 return VK_FORMAT_R32G32_SFLOAT;
+            } else if (input->vectorCount == 3) {
+                return VK_FORMAT_R32G32_SFLOAT; // TODO: Check!!!
             }
         }
     }

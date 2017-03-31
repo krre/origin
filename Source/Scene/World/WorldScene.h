@@ -62,7 +62,6 @@ private:
     void buildCommandBuffers() override;
 
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
-    std::shared_ptr<Vulkan::Buffer> indexBuffer;
     EntityId characterId;
     uint64_t seed;
     Viewport viewport;

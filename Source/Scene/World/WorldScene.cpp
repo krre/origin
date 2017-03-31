@@ -48,13 +48,8 @@ void WorldScene::init() {
     vertexStageBuffer.write(plane.getVertices().data(), plane.getVerticesSize());
     vertexStageBuffer.copyToBuffer(vertexBuffer->getHandle(), plane.getVerticesSize());
 
-    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, plane.getIndicesSize());
-    indexBuffer->create();
-
-    Vulkan::Buffer indexStageBuffer(device, VK_BUFFER_USAGE_TRANSFER_SRC_BIT, plane.getIndicesSize(), false);
-    indexStageBuffer.create();
-    indexStageBuffer.write(plane.getIndices().data(), plane.getIndicesSize());
-    indexStageBuffer.copyToBuffer(indexBuffer->getHandle(), plane.getIndicesSize());
+    shaderProgram.createIndexBuffer(plane.getIndicesSize());
+    shaderProgram.getIndexBuffer()->write(plane.getIndices().data(), plane.getIndicesSize());
 
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = 0;
@@ -335,7 +330,8 @@ void WorldScene::buildCommandBuffers() {
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();
-        commandBuffer.bindIndexBuffer(indexBuffer->getHandle());
+
+        commandBuffer.bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
 
         for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
             commandBuffer.addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

@@ -19,11 +19,6 @@ class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
         glm::mat4 model = glm::mat4(1.0);
     } ubo;
 
-    struct Vertex {
-        glm::vec3 pos;
-        glm::vec2 uv;
-    };
-
 public:
     DebugHUD();
     ~DebugHUD();

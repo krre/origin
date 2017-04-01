@@ -5,7 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 Label::Label() {
-    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf"));
+    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt"));
 }
 
 void Label::setText(const std::string& text) {

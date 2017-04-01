@@ -90,8 +90,8 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
     float posx = 0.0f;
     float posy = 0.0f;
 
-    for (uint32_t i = 0; i < text.size(); i++) {
-        Character *character = &characters[(int)text[i]];
+    for (auto& sign : text) {
+        Character *character = &characters[(int)sign];
 
         if (character->width == 0)
             character->width = 36;

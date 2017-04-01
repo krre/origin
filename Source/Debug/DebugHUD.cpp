@@ -62,10 +62,10 @@ void DebugHUD::init() {
     renderPass.setOverlayEnable(true);
     renderPass.create();
 
+    shaderProgram.createPipeline();
+
     std::string test = "Origin";
     numLetters = font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), test, 100, 100);
-
-    shaderProgram.createPipeline();
 
     buildCommandBuffers();
 
@@ -170,7 +170,7 @@ void DebugHUD::buildCommandBuffers() {
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();
-        commandBuffer.bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
+        commandBuffer.bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT32);
 
         for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
             commandBuffer.addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

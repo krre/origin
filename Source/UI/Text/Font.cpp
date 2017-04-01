@@ -109,9 +109,9 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
             character->width = avarageCharacterWidth;
         }
 
-        float charw = ((float)(character->width) / 36.0f);
+        float charw = ((float)(character->width) / maxCharacterWidth);
         float dimx = 1.0f * charw;
-        float charh = ((float)(character->height) / 36.0f);
+        float charh = ((float)(character->height) / maxCharacterWidth);
         float dimy = 1.0f * charh;
         posy = 1.0f - charh;
 
@@ -120,8 +120,8 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
         float ts = character->y / heigth;
         float te = (character->y + character->height) / heigth;
 
-        float xo = character->xoffset / 36.0f;
-        float yo = character->yoffset / 36.0f;
+        float xo = character->xoffset / maxCharacterWidth;
+        float yo = character->yoffset / maxCharacterWidth;
 
         vertices.push_back({ { posx + dimx + xo,  posy + dimy, 0.0f }, { ue, te } });
         vertices.push_back({ { posx + xo,         posy + dimy, 0.0f }, { us, te } });
@@ -136,7 +136,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
 
         indexOffset += verticesPerCharacter;
 
-        float advance = ((float)(character->xadvance) / 36.0f);
+        float advance = ((float)(character->xadvance) / maxCharacterWidth);
         posx += advance;
     }
 

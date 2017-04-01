@@ -99,8 +99,8 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
     float width = texture->getWidth();
     float heigth = texture->getHeight();
 
-    float posx = 0.0f;
-    float posy = 0.0f;
+    int posx = 0;
+    int posy = 0;
 
     for (auto& sign : text) {
         Character *character = &characters[(int)sign];
@@ -109,22 +109,18 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
             character->width = avarageCharacterWidth;
         }
 
-        float charw = ((float)(character->width) / maxCharacterWidth);
-        float charh = ((float)(character->height) / maxCharacterWidth);
-        posy = 1.0f - charh;
-
         float us = character->x / width;
         float ue = (character->x + character->width) / width;
         float ts = character->y / heigth;
         float te = (character->y + character->height) / heigth;
 
-        float xo = character->xoffset / maxCharacterWidth;
-        float yo = character->yoffset / maxCharacterWidth;
+        int xo = character->xoffset;
+        int yo = character->yoffset;
 
-        vertices.push_back({ { posx + charw + xo, posy + charh, 0.0f }, { ue, te } });
-        vertices.push_back({ { posx + xo, posy + charh, 0.0f }, { us, te } });
-        vertices.push_back({ { posx + xo, posy, 0.0f }, { us, ts } });
-        vertices.push_back({ { posx + charw + xo, posy, 0.0f }, { ue, ts } });
+        vertices.push_back({ { posx + character->width + xo, posy + character->height + yo, 0.0f }, { ue, te } });
+        vertices.push_back({ { posx + xo, posy + character->height + yo, 0.0f }, { us, te } });
+        vertices.push_back({ { posx + xo, posy + yo, 0.0f }, { us, ts } });
+        vertices.push_back({ { posx + character->width + xo, posy + yo, 0.0f }, { ue, ts } });
 
         std::vector<uint32_t> characterIndices = { 0, 1, 2, 2, 3, 0 };
 
@@ -133,9 +129,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
         }
 
         indexOffset += verticesPerCharacter;
-
-        float advance = ((float)(character->xadvance) / maxCharacterWidth);
-        posx += advance;
+        posx += character->xadvance;
     }
 
     indexCount = indices.size();

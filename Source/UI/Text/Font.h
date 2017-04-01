@@ -41,4 +41,6 @@ private:
     uint32_t indexCount;
     int maxCharacterWidth = 0;
     int avarageCharacterWidth = 0;
+    int lineHeight;
+    int base;
 };

@@ -41,7 +41,10 @@ void Font::load(const std::string& path) {
 
         std::string& head = words.at(0);
 
-        if (head == "page") {
+        if (head == "common") {
+            lineHeight = std::stoi(Utils::split(words.at(1), '=').at(1));
+            base = std::stoi(Utils::split(words.at(2), '=').at(1));
+        } if (head == "page") {
             // Load png texture
             std::vector<std::string> pair = Utils::split(words.at(2), '=');
             std::string& textureName = pair.at(1);
@@ -100,7 +103,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
     float heigth = texture->getHeight();
 
     int posx = 0;
-    int posy = 0;
+    int posy = base - lineHeight;
 
     for (auto& sign : text) {
         Character* character = &characters[(int)sign];

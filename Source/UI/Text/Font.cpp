@@ -131,8 +131,8 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
 
     // Center
     for (auto& v : vertices) {
-        v.pos[0] -= posx / 2.0f;
-        v.pos[1] -= 0.5f;
+        v.pos.x -= posx / 2.0f;
+        v.pos.y -= 0.5f;
     }
 
     vertexBuffer->write(vertices.data(), vertices.size() * sizeof(Vertex));

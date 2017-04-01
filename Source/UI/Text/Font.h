@@ -20,8 +20,8 @@ public:
     } character;
 
     struct Vertex {
-        float pos[3];
-        float uv[2];
+        glm::vec3 pos;
+        glm::vec2 uv;
     };
 
     Font();

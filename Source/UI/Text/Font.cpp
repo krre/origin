@@ -84,7 +84,8 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
     std::vector<uint32_t> indices;
     uint32_t indexOffset = 0;
 
-    float w = texture->getWidth();
+    float width = texture->getWidth();
+    float heigth = texture->getHeight();
 
     float posx = 0.0f;
     float posy = 0.0f;
@@ -101,10 +102,10 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
         float dimy = 1.0f * charh;
         posy = 1.0f - charh;
 
-        float us = character->x / w;
-        float ue = (character->x + character->width) / w;
-        float ts = character->y / w;
-        float te = (character->y + character->height) / w;
+        float us = character->x / width;
+        float ue = (character->x + character->width) / width;
+        float ts = character->y / heigth;
+        float te = (character->y + character->height) / heigth;
 
         float xo = character->xoffset / 36.0f;
         float yo = character->yoffset / 36.0f;
@@ -114,7 +115,7 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
         vertices.push_back({ { posx + xo,         posy,        0.0f }, { us, ts } });
         vertices.push_back({ { posx + dimx + xo,  posy,        0.0f }, { ue, ts } });
 
-        std::array<uint32_t, 6> letterIndices = { 0,1,2, 2,3,0 };
+        std::array<uint32_t, 6> letterIndices = { 0, 1, 2, 2, 3, 0 };
 
         for (auto& index : letterIndices) {
             indices.push_back(indexOffset + index);

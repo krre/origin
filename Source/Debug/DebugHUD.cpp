@@ -69,6 +69,7 @@ void DebugHUD::init() {
 
     buildCommandBuffers();
 
+    ubo.model = glm::scale(ubo.model, glm::vec3(0.2, 0.2, 0.2));
     shaderProgram.writeUniform("ubo");
 
     create();

@@ -94,7 +94,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
     uint32_t indexOffset = 0;
-    const int verticesInPolygon = 4;
+    const int verticesPerCharacter = 4;
 
     float width = texture->getWidth();
     float heigth = texture->getHeight();
@@ -134,7 +134,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
             indices.push_back(indexOffset + index);
         }
 
-        indexOffset += verticesInPolygon;
+        indexOffset += verticesPerCharacter;
 
         float advance = ((float)(character->xadvance) / 36.0f);
         posx += advance;

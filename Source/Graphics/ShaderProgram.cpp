@@ -31,8 +31,8 @@ void ShaderProgram::createPipeline() {
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
 
     for (auto& shaderResource : shaderResources) {
-//        parser.dumpDescriptors();
-//        parser.dumpInputs();
+//        shaderResource->dumpDescriptors();
+//        shaderResource->dumpInputs();
 
         for (auto& descriptorIt : shaderResource->descriptors) {
             ShaderResource::Descriptor* descriptor = &descriptorIt.second;

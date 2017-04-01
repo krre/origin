@@ -1,5 +1,6 @@
 #include "WorldScene.h"
 #include <Origin.h>
+#include "../../Core/Game.h"
 #include "../../ECS/EntityManager.h"
 #include "../../ECS/System.h"
 #include "../../ECS/EntityBuilder.h"
@@ -18,9 +19,13 @@
 WorldScene::WorldScene() :
     shaderProgram(device) {
     new EntityManager;
+    Game::get()->setWorldScene(this);
 }
 
 WorldScene::~WorldScene() {
+    if (Game::exists()) {
+        Game::get()->setWorldScene(nullptr);
+    }
     EntityManager::get()->release();
 }
 

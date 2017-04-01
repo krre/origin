@@ -35,6 +35,10 @@ void Game::save() {
 
 }
 
+void Game::setWorldScene(WorldScene* worldScene) {
+    this->worldScene = worldScene;
+}
+
 void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
 #ifdef DEBUG_HUD_ENABLE

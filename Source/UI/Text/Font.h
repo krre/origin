@@ -39,4 +39,6 @@ private:
     std::map<int, Character> characters;
     std::shared_ptr<Texture> texture;
     uint32_t indexCount;
+    int maxCharacterWidth = 0;
+    int avarageCharacterWidth = 0;
 };

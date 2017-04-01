@@ -26,6 +26,9 @@ void Font::load(const std::string& path) {
 
     assert(istream.good());
 
+    int charactersCount = 0;
+    int charactersWidthSum = 0;
+
     // Parse fnt file
     while (!istream.eof()) {
         std::string line;
@@ -62,6 +65,11 @@ void Font::load(const std::string& path) {
                     character.y = value;
                 } else if (name == "width") {
                     character.width = value;
+                    if (value) {
+                        charactersWidthSum += value;
+                        charactersCount++;
+                        maxCharacterWidth = std::max(maxCharacterWidth, value);
+                    }
                 } else if (name == "height") {
                     character.height = value;
                 } else if (name == "xoffset") {
@@ -76,6 +84,10 @@ void Font::load(const std::string& path) {
             characters[id] = character;
         }
     }
+
+    assert(!characters.empty());
+
+    avarageCharacterWidth = charactersWidthSum / charactersCount;
 }
 
 void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text) {

@@ -93,8 +93,9 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
     for (auto& sign : text) {
         Character *character = &characters[(int)sign];
 
-        if (character->width == 0)
+        if (character->width == 0) {
             character->width = 36;
+        }
 
         float charw = ((float)(character->width) / 36.0f);
         float dimx = 1.0f * charw;

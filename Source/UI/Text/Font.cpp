@@ -128,7 +128,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
         vertices.push_back({ { posx + xo,         posy,        0.0f }, { us, ts } });
         vertices.push_back({ { posx + dimx + xo,  posy,        0.0f }, { ue, ts } });
 
-        std::array<uint32_t, 6> characterIndices = { 0, 1, 2, 2, 3, 0 };
+        std::vector<uint32_t> characterIndices = { 0, 1, 2, 2, 3, 0 };
 
         for (auto& index : characterIndices) {
             indices.push_back(indexOffset + index);

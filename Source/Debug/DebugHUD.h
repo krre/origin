@@ -38,7 +38,6 @@ private:
     Vulkan::Sampler sampler;
     Font* font;
 
-    Label fps;
     Label version;
     Label vulkan;
     Label vendor;
@@ -49,5 +48,6 @@ private:
     Label posZ;
     float accumTime = 0.5;
     int counter = 30;
+    int fps = 0;
     std::shared_ptr<LinearLayout> statisticsLayout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
 };

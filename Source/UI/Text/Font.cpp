@@ -108,6 +108,12 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
     for (auto& sign : text) {
         Character* character = &characters[(int)sign];
 
+        if (sign == '\n') {
+            posx = 0;
+            posy += base;
+            continue;
+        }
+
         if (character->width == 0) {
             character->width = maxCharacterWidth / 2;
         }

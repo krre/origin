@@ -64,7 +64,12 @@ void DebugHUD::init() {
 
     shaderProgram.createPipeline();
 
-    font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), "Origin");
+    std::string text =
+        "Origin " + std::string(VERSION_STRING) + "\n"
+        "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
+        "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
+
+    font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), text);
 
     buildCommandBuffers();
 

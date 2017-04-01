@@ -49,6 +49,7 @@ void ShaderResource::parse() {
 //    PRINT(resultText->str)
 //    PRINT("================")
 
+    std::string shaderType;
     std::map<std::string, std::string> names;
     std::map<std::string, std::vector<std::string>> instructions;
     std::vector<std::string> line;
@@ -70,7 +71,7 @@ void ShaderResource::parse() {
             line.push_back(word);
             std::string& firstWord = line.at(0);
             if (firstWord == "OpEntryPoint") {
-                std::string& shaderType = line.at(1);
+                shaderType = line.at(1);
                 if (shaderType == "Vertex") {
                     stage = VK_SHADER_STAGE_VERTEX_BIT;
                 } else if (shaderType == "Fragment") {
@@ -104,7 +105,7 @@ void ShaderResource::parse() {
                 } else if (decorateName == "Binding") {
                     std::string& name = names.at(id);
                     descriptors.at(name).binding = std::stoi(line.at(3));
-                } else if (decorateName == "Location") {
+                } else if (decorateName == "Location" && shaderType == "Vertex") {
                     std::string& name = names.at(id);
                     inputs[name] = {};
                     inputs.at(name).location = std::stoi(line.at(3));
@@ -145,7 +146,7 @@ void ShaderResource::parse() {
                                 descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
                             }
                         }
-                    } else if (line.at(4) == "Input") {
+                    } else if (line.at(4) == "Input" && shaderType == "Vertex") {
                         if (inputs.find(name) != inputs.end()) {
                             inputs.at(name).variableType = type;
                             if (type == "OpTypeVector") {

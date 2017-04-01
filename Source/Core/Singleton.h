@@ -18,6 +18,10 @@ public:
         return instance;
     }
 
+    static bool exists() {
+        return instance != nullptr;
+    }
+
     void release() {
         if (this) {
             delete this;

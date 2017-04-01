@@ -89,15 +89,18 @@ void DebugHUD::draw(float dt) {
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
 
-    font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), text);
-//    buildCommandBuffers();
-//    Entity* character = EntityManager::get()->getEntity(Game::get()->getCharacterId()).get();
-//    TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
+    if (Game::get()->getWorldScene()) {
+        Entity* character = EntityManager::get()->getEntity(Game::get()->getWorldScene()->getCharacterId()).get();
+        TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
+        std::string pos = "\n"
+        "Position X: " + std::to_string(tc->position.x) + "\n"
+        "Position Y: " + std::to_string(tc->position.y) + "\n"
+        "Position Z: " + std::to_string(tc->position.z);
 
-//    posX.setText(std::string("Position X: ") + std::to_string(tc->position.x));
-//    posY.setText(std::string("Position Y: ") + std::to_string(tc->position.y));
-//    posZ.setText(std::string("Position Z: ") + std::to_string(tc->position.z));
-//    Scene2D::draw(dt);
+        text += pos;
+    }
+
+    font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), text);
     queue->submit();
 }
 
@@ -128,24 +131,12 @@ void DebugHUD::create() {
     systemRAM.setZ(1.0);
     systemRAM.setText("System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB");
 
-    posX.resize(100, 10);
-    posX.setZ(1.0f);
-
-    posY.resize(100, 10);
-    posY.setZ(1.0f);
-
-    posZ.resize(100, 10);
-    posZ.setZ(1.0f);
-
     statisticsLayout->setPosition(glm::vec2(5, 15));
     statisticsLayout->addControl(&version);
     statisticsLayout->addControl(&vendor);
     statisticsLayout->addControl(&vulkan);
     statisticsLayout->addControl(&cpuCount);
     statisticsLayout->addControl(&systemRAM);
-    statisticsLayout->addControl(&posX);
-    statisticsLayout->addControl(&posY);
-    statisticsLayout->addControl(&posZ);
     setLayout(statisticsLayout);
 }
 
@@ -180,7 +171,7 @@ void DebugHUD::buildCommandBuffers() {
         }
         commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
 
-        commandBuffer.drawIndexed(1000, 1, 0, 0, 0);
+        commandBuffer.drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
         commandBuffer.endRenderPass();
         commandBuffer.end();

@@ -110,9 +110,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
         }
 
         float charw = ((float)(character->width) / maxCharacterWidth);
-        float dimx = 1.0f * charw;
         float charh = ((float)(character->height) / maxCharacterWidth);
-        float dimy = 1.0f * charh;
         posy = 1.0f - charh;
 
         float us = character->x / width;
@@ -123,10 +121,10 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
         float xo = character->xoffset / maxCharacterWidth;
         float yo = character->yoffset / maxCharacterWidth;
 
-        vertices.push_back({ { posx + dimx + xo,  posy + dimy, 0.0f }, { ue, te } });
-        vertices.push_back({ { posx + xo,         posy + dimy, 0.0f }, { us, te } });
+        vertices.push_back({ { posx + charw + xo,  posy + charh, 0.0f }, { ue, te } });
+        vertices.push_back({ { posx + xo,         posy + charh, 0.0f }, { us, te } });
         vertices.push_back({ { posx + xo,         posy,        0.0f }, { us, ts } });
-        vertices.push_back({ { posx + dimx + xo,  posy,        0.0f }, { ue, ts } });
+        vertices.push_back({ { posx + charw + xo,  posy,        0.0f }, { ue, ts } });
 
         std::vector<uint32_t> characterIndices = { 0, 1, 2, 2, 3, 0 };
 

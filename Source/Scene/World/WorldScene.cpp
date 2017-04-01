@@ -36,7 +36,8 @@ void WorldScene::init() {
     shaderProgram.linkUniform("pickResult", sizeof(pickResult), &pickResult);
     shaderProgram.linkUniform("debugOut", sizeof(debugOut), &debugOut);
 
-    shaderProgram.linkInput("position", sizeof(glm::vec2));
+    int binding = shaderProgram.createVertexInputBindingDescription(sizeof(glm::vec2));
+    shaderProgram.linkInput("position", binding);
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
     vertexBuffer->create();

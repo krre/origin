@@ -29,7 +29,6 @@ void ShaderProgram::addShader(const std::string& path) {
 
 void ShaderProgram::createPipeline() {
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
-    int vertexBindingCount = 0;
 
     for (auto& shaderResource : shaderResources) {
 //        parser.dumpDescriptors();
@@ -82,17 +81,13 @@ void ShaderProgram::createPipeline() {
         }
 
         for (auto& inputIt : shaderResource->inputs) {
-            const auto& inputInfoIt = inputInfos.find(inputIt.first);
+            const std::string& name = inputIt.first;
+            const auto& inputInfoIt = inputInfos.find(name);
             if (inputInfoIt != inputInfos.end()) {
                 ShaderResource::Input* input = &inputIt.second;
-                InputInfo* inputInfo = &inputInfoIt->second;
-                inputInfo->vertexInputAttributeDescription.location = input->location;
-                inputInfo->vertexInputAttributeDescription.binding = vertexBindingCount;
-                inputInfo->vertexInputBindingDescription.binding = vertexBindingCount;
-                vertexBindingCount++;
-                inputInfo->vertexInputAttributeDescription.format = getFormat(input);
-                graphicsPipeline.addVertexBindingDescription(inputInfo->vertexInputBindingDescription);
-                graphicsPipeline.addVertexAttributeDescription(inputInfo->vertexInputAttributeDescription);
+                inputInfos.at(name).location = input->location;
+                inputInfos.at(name).format = getFormat(input);
+                graphicsPipeline.addVertexAttributeDescription(inputInfos.at(name));
             }
         }
     }
@@ -120,6 +115,15 @@ void ShaderProgram::createIndexBuffer(VkDeviceSize size) {
     indexBuffer->create();
 }
 
+int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate) {
+    VkVertexInputBindingDescription bindingDescription = {};
+    bindingDescription.binding = vertexBindingCount++;
+    bindingDescription.inputRate = inputRate;
+    bindingDescription.stride = stride;
+    graphicsPipeline.addVertexBindingDescription(bindingDescription);
+    return bindingDescription.binding;
+}
+
 void ShaderProgram::linkUniform(const std::string& name, uint32_t size, void* uniform) {
     BufferInfo linkInfo = {};
     linkInfo.size = size;
@@ -131,12 +135,9 @@ void ShaderProgram::linkImage(const std::string& name, VkDescriptorImageInfo des
     imageInfos[name] = descriptorImageInfo;
 }
 
-void ShaderProgram::linkInput(const std::string& name, uint32_t stride, uint32_t offset) {
-    InputInfo inputInfo = {};
-    inputInfo.vertexInputBindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    inputInfo.vertexInputBindingDescription.stride = stride;
-    inputInfo.vertexInputAttributeDescription.offset = offset;
-    inputInfos[name] = inputInfo;
+void ShaderProgram::linkInput(const std::string& name, uint32_t binding, uint32_t offset) {
+    inputInfos[name].binding = binding;
+    inputInfos[name].offset = offset;
 }
 
 void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
@@ -153,7 +154,7 @@ VkFormat ShaderProgram::getFormat(ShaderResource::Input* input) {
             if (input->vectorCount == 2) {
                 return VK_FORMAT_R32G32_SFLOAT;
             } else if (input->vectorCount == 3) {
-                return VK_FORMAT_R32G32_SFLOAT; // TODO: Check!!!
+                return VK_FORMAT_R32G32B32_SFLOAT;
             }
         }
     }

@@ -41,6 +41,10 @@ void DebugHUD::init() {
 
     shaderProgram.linkImage("samplerColor", descriptorImageInfo);
 
+    int binding = shaderProgram.createVertexInputBindingDescription(sizeof(Vertex));
+    shaderProgram.linkInput("inPos", binding);
+    shaderProgram.linkInput("inUV", binding, sizeof(Vertex::pos));
+
     Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
     vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, MAX_CHAR_COUNT * sizeof(Font::Vertex), false);

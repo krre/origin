@@ -106,7 +106,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
         Character *character = &characters[(int)sign];
 
         if (character->width == 0) {
-            character->width = 36;
+            character->width = avarageCharacterWidth;
         }
 
         float charw = ((float)(character->width) / 36.0f);

@@ -68,7 +68,6 @@ void DebugHUD::init() {
 
     buildCommandBuffers();
 
-    float scale = 0.7;
     ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
     ubo.model = glm::scale(ubo.model, glm::vec3(scale, scale, scale));
     shaderProgram.writeUniform("ubo");
@@ -158,7 +157,7 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::buildCommandBuffers() {
-    Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.0, 0.0, 1.0, 0.0 });
+    Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.0, 0.0, 0.0, 0.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
     queue->clearCommandBuffers();
 

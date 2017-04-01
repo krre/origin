@@ -130,12 +130,6 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
 
     indexCount = indices.size();
 
-    // Center
-    for (auto& v : vertices) {
-        v.pos.x -= posx / 2.0f;
-        v.pos.y -= 0.5f;
-    }
-
     vertexBuffer->write(vertices.data(), vertices.size() * sizeof(Vertex));
     indexBuffer->write(indices.data(), indices.size() * sizeof(uint32_t));
 }

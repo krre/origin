@@ -78,11 +78,11 @@ void Font::load(const std::string& path) {
     }
 }
 
-int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text) {
-
+void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text) {
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
     uint32_t indexOffset = 0;
+    const int verticesInPolygon = 4;
 
     float width = texture->getWidth();
     float heigth = texture->getHeight();
@@ -122,7 +122,7 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
             indices.push_back(indexOffset + index);
         }
 
-        indexOffset += 4;
+        indexOffset += verticesInPolygon;
 
         float advance = ((float)(character->xadvance) / 36.0f);
         posx += advance;
@@ -138,6 +138,4 @@ int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, 
 
     vertexBuffer->write(vertices.data(), vertices.size() * sizeof(Vertex));
     indexBuffer->write(indices.data(), indices.size() * sizeof(uint32_t));
-
-    return 0;
 }

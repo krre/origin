@@ -29,7 +29,7 @@ public:
     void setSize(int size);
     int getSize() const { return size; }
     void load(const std::string& path) override;
-    int renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text);
+    void renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text);
     Texture* getTexture() const { return texture.get(); }
     uint32_t getIndexCount() const { return indexCount; }
 

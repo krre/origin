@@ -64,7 +64,7 @@ void DebugHUD::init() {
 
     shaderProgram.createPipeline();
 
-    numLetters = font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), "Origin");
+    font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), "Origin");
 
     buildCommandBuffers();
 

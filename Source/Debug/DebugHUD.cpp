@@ -69,8 +69,6 @@ void DebugHUD::init() {
     ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
     ubo.model = glm::scale(ubo.model, glm::vec3(scale, scale, scale));
     shaderProgram.writeUniform("ubo");
-
-    create();
 }
 
 void DebugHUD::draw(float dt) {
@@ -86,6 +84,8 @@ void DebugHUD::draw(float dt) {
     std::string text =
         "Origin " + std::string(VERSION_STRING) + "\n" +
         std::to_string(fps) + " fps\n"
+        "Video driver: Unknown\n"
+        "Vulkan version: Unknown\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
 
@@ -106,38 +106,6 @@ void DebugHUD::draw(float dt) {
 
 void DebugHUD::update(float dt) {
 
-}
-
-void DebugHUD::create() {
-//    visible = false;
-
-    version.resize(100, 10);
-    version.setZ(1.0f);
-    version.setText("Origin " + std::string(VERSION_STRING));
-
-    vendor.resize(100, 10);
-    vendor.setZ(1.0);
-//    vendor.setText("Video driver: " + std::string(reinterpret_cast<const char*>(glGetString(GL_VENDOR))));
-
-    vulkan.resize(100, 10);
-    vulkan.setZ(1.0);
-//    vulkan.setText("Vulkan " + std::string(reinterpret_cast<const char*>(glGetString(GL_VERSION))));
-
-    cpuCount.resize(100, 10);
-    cpuCount.setZ(1.0);
-    cpuCount.setText("CPU count: " + std::to_string(SDL_GetCPUCount()));
-
-    systemRAM.resize(100, 10);
-    systemRAM.setZ(1.0);
-    systemRAM.setText("System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB");
-
-    statisticsLayout->setPosition(glm::vec2(5, 15));
-    statisticsLayout->addControl(&version);
-    statisticsLayout->addControl(&vendor);
-    statisticsLayout->addControl(&vulkan);
-    statisticsLayout->addControl(&cpuCount);
-    statisticsLayout->addControl(&systemRAM);
-    setLayout(statisticsLayout);
 }
 
 void DebugHUD::trigger() {

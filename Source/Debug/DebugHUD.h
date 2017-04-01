@@ -1,8 +1,6 @@
 #pragma once
 #include "../Core/Singleton.h"
 #include "../Scene/Scene2D.h"
-#include "../UI/Label.h"
-#include "../UI/LinearLayout.h"
 #include "../Event/Event.h"
 #include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "../Graphics/Vulkan/Buffer.h"
@@ -37,14 +35,7 @@ private:
     ShaderProgram shaderProgram;
     Vulkan::Sampler sampler;
     Font* font;
-
-    Label version;
-    Label vulkan;
-    Label vendor;
-    Label cpuCount;
-    Label systemRAM;
     float accumTime = 0.5;
     int counter = 30;
     int fps = 0;
-    std::shared_ptr<LinearLayout> statisticsLayout = std::make_shared<LinearLayout>(LinearLayout::VERICAL);
 };

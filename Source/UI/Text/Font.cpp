@@ -103,10 +103,10 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
     int posy = 0;
 
     for (auto& sign : text) {
-        Character *character = &characters[(int)sign];
+        Character* character = &characters[(int)sign];
 
         if (character->width == 0) {
-            character->width = avarageCharacterWidth;
+            character->width = maxCharacterWidth / 2;
         }
 
         float us = character->x / width;
@@ -129,7 +129,7 @@ void Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer,
         }
 
         indexOffset += verticesPerCharacter;
-        posx += character->xadvance;
+        posx += character->width + xo;
     }
 
     indexCount = indices.size();

@@ -78,7 +78,7 @@ void Font::load(const std::string& path) {
     }
 }
 
-int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text, float x, float y) {
+int Font::renderText(Vulkan::Buffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text) {
 
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;

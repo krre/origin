@@ -33,6 +33,10 @@ void CommandBufferOneTime::copyImage(VkImage srcImage, VkImageLayout srcImageLay
     commandBuffer->copyImage(srcImage, srcImageLayout, dstImage, dstImageLayout);
 }
 
+void CommandBufferOneTime::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
+    commandBuffer->copyBuffer(srcBuffer, dstBuffer);
+}
+
 void CommandBufferOneTime::setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {
     commandBuffer->setImageLayout(image, aspectMask, oldImageLayout, newImageLayout, srcStageMask, dstStageMask);
 }
@@ -43,4 +47,8 @@ void CommandBufferOneTime::addBlitRegion(VkImageBlit blitRegion) {
 
 void CommandBufferOneTime::addImageCopy(VkImageCopy imageCopy) {
     commandBuffer->addImageCopy(imageCopy);
+}
+
+void CommandBufferOneTime::addBufferCopy(VkBufferCopy bufferCopy) {
+    commandBuffer->addBufferCopy(bufferCopy);
 }

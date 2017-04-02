@@ -16,6 +16,12 @@ DebugHUD::DebugHUD() :
         sampler(device),
         shaderProgram(device) {
     visible = false;
+
+    int apiVersionNumber = device->getPhysicalDevice()->getProperties().apiVersion;
+    int major = (apiVersionNumber >> 22) & 0x3FF;
+    int minor = (apiVersionNumber >> 12) & 0x3FF;
+    int patch = apiVersionNumber & 0xFFF;
+    vulkanApiVersion = std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
 }
 
 DebugHUD::~DebugHUD() {
@@ -85,7 +91,7 @@ void DebugHUD::draw(float dt) {
         "Origin " + std::string(VERSION_STRING) + "\n" +
         std::to_string(fps) + " fps\n"
         "Video driver: " + device->getPhysicalDevice()->getProperties().deviceName + "\n"
-        "Vulkan version: Unknown\n"
+        "Vulkan API: " + vulkanApiVersion + "\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
 

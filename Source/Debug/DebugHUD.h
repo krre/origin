@@ -38,4 +38,5 @@ private:
     float accumTime = 0.5;
     int counter = 30;
     int fps = 0;
+    std::string vulkanApiVersion;
 };

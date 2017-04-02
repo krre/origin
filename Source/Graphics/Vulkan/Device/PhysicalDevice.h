@@ -12,10 +12,10 @@ public:
     void create() override {}
     void destroy() override {}
 
-    VkPhysicalDeviceProperties& getProperties() { return properties; }
-    VkPhysicalDeviceFeatures& getFeatures() { return features; }
-    VkPhysicalDeviceMemoryProperties& getMemoryProperties() { return memoryProperties; }
-    std::vector<VkQueueFamilyProperties>& getQueueFamilyProperties() { return queueFamilyProperties; }
+    const VkPhysicalDeviceProperties& getProperties() const { return properties; }
+    const VkPhysicalDeviceFeatures& getFeatures() const { return features; }
+    const VkPhysicalDeviceMemoryProperties& getMemoryProperties() const { return memoryProperties; }
+    const std::vector<VkQueueFamilyProperties>& getQueueFamilyProperties() const { return queueFamilyProperties; }
     VkFormat getSupportedDepthFormat();
     bool getSupportBlit();
 

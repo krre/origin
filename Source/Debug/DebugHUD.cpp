@@ -84,7 +84,7 @@ void DebugHUD::draw(float dt) {
     std::string text =
         "Origin " + std::string(VERSION_STRING) + "\n" +
         std::to_string(fps) + " fps\n"
-        "Video driver: Unknown\n"
+        "Video driver: " + device->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan version: Unknown\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";

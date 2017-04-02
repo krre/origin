@@ -1,8 +1,7 @@
 #include "Buffer.h"
 #include "Manager.h"
 #include "Queue/SubmitQueue.h"
-#include "Command/CommandBuffers.h"
-#include "Command/CommandBuffer.h"
+#include "Command/CommandBufferOneTime.h"
 #include <string.h>
 
 using namespace Vulkan;
@@ -59,21 +58,12 @@ void Buffer::read(void* data, VkDeviceSize size, VkDeviceSize offset) {
 }
 
 void Buffer::copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size) {
-    CommandBuffers commandBuffers(device, Manager::get()->getCommandPool());
-    commandBuffers.allocate(1);
-
-    CommandBuffer commandBuffer(commandBuffers.at(0));
-    commandBuffer.begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
+    CommandBufferOneTime commandBuffer(const_cast<Device*>(device));
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;
     commandBuffer.addBufferCopy(bufferCopy);
     commandBuffer.copyBuffer(handle, dstBuffer);
 
-    commandBuffer.end();
-
-    SubmitQueue queue(device, Manager::get()->getGraphicsFamily());
-    queue.addCommandBuffer(commandBuffers.at(0));
-    queue.submit();
-    queue.waitIdle();
+    commandBuffer.apply();
 }

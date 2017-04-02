@@ -8,7 +8,5 @@ set validator=%VULKAN_SDK%\bin\glslangValidator -V -t
 %validator% Surface.frag -o Surface.frag.spv
 %validator% Voxel.vert -o Voxel.vert.spv
 %validator% Voxel.frag -o Voxel.frag.spv
-%validator% Text.vert -o Text.vert.spv
-%validator% Text.frag -o Text.frag.spv
 %validator% SDF.vert -o SDF.vert.spv
 %validator% SDF.frag -o SDF.frag.spv

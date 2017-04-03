@@ -54,6 +54,8 @@ void RenderPass::create() {
         subPassDescription.pDepthStencilAttachment = &depthAttachmentRef;
     }
 
+    subpassDescriptions.push_back(subPassDescription);
+
     // Use subpass dependencies for image layout transitions
     if (overlayEnable) {
         // Transition from final to initial (VK_SUBPASS_EXTERNAL refers to all commmands executed outside of the actual renderpass)
@@ -84,8 +86,8 @@ void RenderPass::create() {
     createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
     createInfo.attachmentCount = attachments.size();
     createInfo.pAttachments = attachments.data();
-    createInfo.subpassCount = 1;
-    createInfo.pSubpasses = &subPassDescription;
+    createInfo.subpassCount = subpassDescriptions.size();
+    createInfo.pSubpasses = subpassDescriptions.data();
     createInfo.dependencyCount = subpassDependencies.size();
     createInfo.pDependencies = subpassDependencies.data();
     CHECK_RESULT(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");

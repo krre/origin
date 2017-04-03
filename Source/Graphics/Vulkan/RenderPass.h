@@ -31,6 +31,7 @@ private:
     VkSubpassDescription subPassDescription = {};
     std::vector<VkClearValue> clearValues;
     std::vector<VkSubpassDependency> subpassDependencies;
+    std::vector<VkSubpassDescription> subpassDescriptions;
     bool depthEnable = false;
     bool overlayEnable = false;
 };

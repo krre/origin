@@ -10,6 +10,7 @@ GraphicsPipeline::GraphicsPipeline(const Device* device) :
     createInfo.pRasterizationState = &rasterizer;
     createInfo.pMultisampleState = &multisampling;
     createInfo.pColorBlendState = &colorBlending;
+    createInfo.pDepthStencilState = &depthStencilState;
 
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
@@ -53,6 +54,13 @@ GraphicsPipeline::GraphicsPipeline(const Device* device) :
     colorBlending.blendConstants[1] = 0.0f;
     colorBlending.blendConstants[2] = 0.0f;
     colorBlending.blendConstants[3] = 0.0f;
+
+    depthStencilState.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    depthStencilState.depthTestEnable = VK_TRUE;
+    depthStencilState.depthWriteEnable = VK_TRUE;
+    depthStencilState.depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL;
+    depthStencilState.front = depthStencilState.back;
+    depthStencilState.back.compareOp = VK_COMPARE_OP_ALWAYS;
 }
 
 void GraphicsPipeline::setExtent(VkExtent2D extent) {

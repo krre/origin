@@ -15,8 +15,6 @@ RenderPass::~RenderPass() {
 }
 
 void RenderPass::create() {
-    std::vector<VkAttachmentDescription> attachments;
-
     colorAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
     colorAttachmentDescription.loadOp = depthEnable ? VK_ATTACHMENT_LOAD_OP_LOAD : VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachmentDescription.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -25,7 +23,7 @@ void RenderPass::create() {
     colorAttachmentDescription.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
     colorAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
-    attachments.push_back(colorAttachmentDescription);
+    attachmentDescriptions.push_back(colorAttachmentDescription);
 
     if (depthEnable) {
         depthAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
@@ -36,7 +34,7 @@ void RenderPass::create() {
         depthAttachmentDescription.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
         depthAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-        attachments.push_back(depthAttachmentDescription);
+        attachmentDescriptions.push_back(depthAttachmentDescription);
     }
 
     colorAttachmentReference.attachment = 0;
@@ -84,8 +82,8 @@ void RenderPass::create() {
     }
 
     createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    createInfo.attachmentCount = attachments.size();
-    createInfo.pAttachments = attachments.data();
+    createInfo.attachmentCount = attachmentDescriptions.size();
+    createInfo.pAttachments = attachmentDescriptions.data();
     createInfo.subpassCount = subpassDescriptions.size();
     createInfo.pSubpasses = subpassDescriptions.data();
     createInfo.dependencyCount = subpassDependencies.size();

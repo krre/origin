@@ -32,6 +32,7 @@ private:
     std::vector<VkClearValue> clearValues;
     std::vector<VkSubpassDependency> subpassDependencies;
     std::vector<VkSubpassDescription> subpassDescriptions;
+    std::vector<VkAttachmentDescription> attachmentDescriptions;
     bool depthEnable = false;
     bool overlayEnable = false;
 };

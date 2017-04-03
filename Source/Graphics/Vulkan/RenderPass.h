@@ -30,6 +30,7 @@ private:
     VkAttachmentReference depthAttachmentRef = {};
     VkSubpassDescription subPassDescription = {};
     std::vector<VkClearValue> clearValues;
+    std::vector<VkSubpassDependency> subpassDependencies;
     bool depthEnable = false;
     bool overlayEnable = false;
 };

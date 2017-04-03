@@ -55,8 +55,6 @@ void RenderPass::create() {
     }
 
     // Use subpass dependencies for image layout transitions
-    std::vector<VkSubpassDependency> subpassDependencies;
-
     if (overlayEnable) {
         // Transition from final to initial (VK_SUBPASS_EXTERNAL refers to all commmands executed outside of the actual renderpass)
         VkSubpassDependency subpassDependency0;

@@ -5,14 +5,14 @@ using namespace Vulkan;
 GraphicsPipeline::GraphicsPipeline(const Device* device) :
         Pipeline(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-    createInfo.pVertexInputState = &vertexInputInfo;
+    createInfo.pVertexInputState = &vertexInputState;
     createInfo.pInputAssemblyState = &inputAssembly;
     createInfo.pRasterizationState = &rasterizer;
     createInfo.pMultisampleState = &multisampling;
     createInfo.pColorBlendState = &colorBlendState;
     createInfo.pDepthStencilState = &depthStencilState;
 
-    vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+    vertexInputState.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
     inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
     inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
@@ -125,11 +125,11 @@ void GraphicsPipeline::create() {
     colorBlendState.attachmentCount = colorBlendAttachments.size();
     colorBlendState.pAttachments = colorBlendAttachments.data();
 
-    vertexInputInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
-    vertexInputInfo.pVertexBindingDescriptions = vertexBindingDescriptions.data();
+    vertexInputState.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
+    vertexInputState.pVertexBindingDescriptions = vertexBindingDescriptions.data();
 
-    vertexInputInfo.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
-    vertexInputInfo.pVertexAttributeDescriptions = vertexAttributeDescriptions.data();
+    vertexInputState.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
+    vertexInputState.pVertexAttributeDescriptions = vertexAttributeDescriptions.data();
 
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();

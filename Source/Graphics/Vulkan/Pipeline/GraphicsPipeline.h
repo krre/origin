@@ -31,7 +31,7 @@ public:
 
 private:
     VkGraphicsPipelineCreateInfo createInfo = {};
-    VkPipelineVertexInputStateCreateInfo vertexInputInfo = {};
+    VkPipelineVertexInputStateCreateInfo vertexInputState = {};
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     std::vector<VkViewport> viewports;

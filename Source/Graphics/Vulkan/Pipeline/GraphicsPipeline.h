@@ -16,6 +16,7 @@ public:
     void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment);
     void setPipelineLayout(VkPipelineLayout layout);
     void setRenderPass(VkRenderPass renderPass);
+    void setBlendEnable(VkBool32 blendEnable);
     VkPipelineBindPoint getBindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
     void create() override;
 

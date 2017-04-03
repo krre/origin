@@ -89,6 +89,10 @@ void GraphicsPipeline::setRenderPass(VkRenderPass renderPass) {
     createInfo.renderPass = renderPass;
 }
 
+void GraphicsPipeline::setBlendEnable(VkBool32 blendEnable) {
+    colorBlendAttachment.blendEnable = blendEnable;
+}
+
 void GraphicsPipeline::create() {
     if (!viewports.size()) {
         viewports.push_back(viewport);

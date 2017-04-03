@@ -61,7 +61,7 @@ void DebugHUD::init() {
     pipelineCache.create();
 
     graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
-    graphicsPipeline->colorBlendAttachment.blendEnable = VK_TRUE;
+    graphicsPipeline->setBlendEnable(VK_TRUE);
 
     renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
     renderPass.setDepthFormat(device->getPhysicalDevice()->getSupportedDepthFormat());

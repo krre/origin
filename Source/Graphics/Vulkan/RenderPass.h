@@ -24,7 +24,7 @@ public:
     VkRenderPassBeginInfo beginInfo = {};
 
 private:
-    VkAttachmentDescription colorAttachment = {};
+    VkAttachmentDescription colorAttachmentDescription = {};
     VkAttachmentDescription depthAttachment = {};
     VkAttachmentReference colorAttachmentRef = {};
     VkAttachmentReference depthAttachmentRef = {};

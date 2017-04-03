@@ -25,8 +25,6 @@ App::App(int argc, char* argv[]) {
 }
 
 App::~App() {
-    SDL_DestroyWindow(window);
-    SDL_Quit();
     Game::get()->release();
     SceneManager::get()->release();
     Input::get()->release();
@@ -37,6 +35,8 @@ App::~App() {
     Vulkan::Manager::get()->release();
     Logger::get()->release();
     Settings::get()->release();
+    SDL_DestroyWindow(window);
+    SDL_Quit();
 }
 
 std::string App::getCurrentPath() {

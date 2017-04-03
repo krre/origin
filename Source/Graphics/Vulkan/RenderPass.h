@@ -26,7 +26,7 @@ public:
 private:
     VkAttachmentDescription colorAttachmentDescription = {};
     VkAttachmentDescription depthAttachmentDescription = {};
-    VkAttachmentReference colorAttachmentRef = {};
+    VkAttachmentReference colorAttachmentReference = {};
     VkAttachmentReference depthAttachmentRef = {};
     VkSubpassDescription subpassDescription = {};
     std::vector<VkClearValue> clearValues;

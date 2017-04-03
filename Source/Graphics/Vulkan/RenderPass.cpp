@@ -39,8 +39,8 @@ void RenderPass::create() {
         attachments.push_back(depthAttachmentDescription);
     }
 
-    colorAttachmentRef.attachment = 0;
-    colorAttachmentRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+    colorAttachmentReference.attachment = 0;
+    colorAttachmentReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
     if (depthEnable) {
         depthAttachmentRef.attachment = 1;
@@ -49,7 +49,7 @@ void RenderPass::create() {
 
     subpassDescription.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     subpassDescription.colorAttachmentCount = 1;
-    subpassDescription.pColorAttachments = &colorAttachmentRef;
+    subpassDescription.pColorAttachments = &colorAttachmentReference;
     if (depthEnable) {
         subpassDescription.pDepthStencilAttachment = &depthAttachmentRef;
     }

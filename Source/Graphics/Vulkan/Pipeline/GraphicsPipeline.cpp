@@ -118,7 +118,7 @@ void GraphicsPipeline::create() {
     viewportState.pScissors = scissors.data();
     createInfo.pViewportState = &viewportState;
 
-    if (!colorBlendAttachments.size()) {
+    if (colorBlendAttachments.empty()) {
         colorBlendAttachments.push_back(colorBlendAttachment);
     }
 

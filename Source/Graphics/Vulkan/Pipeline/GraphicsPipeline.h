@@ -26,7 +26,7 @@ public:
     VkViewport viewport = {};
     VkRect2D scissor = {};
     VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
-    VkPipelineColorBlendStateCreateInfo colorBlending = {};
+    VkPipelineColorBlendStateCreateInfo colorBlendState = {};
     VkPipelineDepthStencilStateCreateInfo depthStencilState = {};
 
 private:

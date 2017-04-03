@@ -9,7 +9,7 @@ GraphicsPipeline::GraphicsPipeline(const Device* device) :
     createInfo.pInputAssemblyState = &inputAssembly;
     createInfo.pRasterizationState = &rasterizer;
     createInfo.pMultisampleState = &multisampling;
-    createInfo.pColorBlendState = &colorBlending;
+    createInfo.pColorBlendState = &colorBlendState;
     createInfo.pDepthStencilState = &depthStencilState;
 
     vertexInputInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
@@ -47,13 +47,13 @@ GraphicsPipeline::GraphicsPipeline(const Device* device) :
     colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
     colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
 
-    colorBlending.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-    colorBlending.logicOpEnable = VK_FALSE;
-    colorBlending.logicOp = VK_LOGIC_OP_COPY;
-    colorBlending.blendConstants[0] = 0.0f;
-    colorBlending.blendConstants[1] = 0.0f;
-    colorBlending.blendConstants[2] = 0.0f;
-    colorBlending.blendConstants[3] = 0.0f;
+    colorBlendState.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+    colorBlendState.logicOpEnable = VK_FALSE;
+    colorBlendState.logicOp = VK_LOGIC_OP_COPY;
+    colorBlendState.blendConstants[0] = 0.0f;
+    colorBlendState.blendConstants[1] = 0.0f;
+    colorBlendState.blendConstants[2] = 0.0f;
+    colorBlendState.blendConstants[3] = 0.0f;
 
     depthStencilState.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
     depthStencilState.depthTestEnable = VK_TRUE;
@@ -122,8 +122,8 @@ void GraphicsPipeline::create() {
         colorBlendAttachments.push_back(colorBlendAttachment);
     }
 
-    colorBlending.attachmentCount = colorBlendAttachments.size();
-    colorBlending.pAttachments = colorBlendAttachments.data();
+    colorBlendState.attachmentCount = colorBlendAttachments.size();
+    colorBlendState.pAttachments = colorBlendAttachments.data();
 
     vertexInputInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
     vertexInputInfo.pVertexBindingDescriptions = vertexBindingDescriptions.data();

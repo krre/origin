@@ -25,7 +25,7 @@ public:
 
 private:
     VkAttachmentDescription colorAttachmentDescription = {};
-    VkAttachmentDescription depthAttachment = {};
+    VkAttachmentDescription depthAttachmentDescription = {};
     VkAttachmentReference colorAttachmentRef = {};
     VkAttachmentReference depthAttachmentRef = {};
     VkSubpassDescription subpassDescription = {};

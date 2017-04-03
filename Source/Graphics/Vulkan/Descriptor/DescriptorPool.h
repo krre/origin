@@ -14,9 +14,8 @@ public:
     void create() override;
     void destroy() override;
 
-    VkDescriptorPoolCreateInfo createInfo = {};
-
 private:
+    VkDescriptorPoolCreateInfo createInfo = {};
     std::vector<VkDescriptorPoolSize> poolSizes;
 };
 

@@ -54,7 +54,6 @@ void Manager::init() {
 
     commandPool = std::make_shared<CommandPool>(device.get(), graphicsFamily);
     commandPool->create();
-    commandPool->reset();
 
     swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
     swapchain->create();

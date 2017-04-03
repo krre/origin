@@ -71,7 +71,7 @@ void Manager::init() {
     renderPass->create();
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<Framebuffer> framebuffer(new Framebuffer(device.get()));
+        std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device.get());
         framebuffer->addAttachment(imageViews.at(i)->getHandle());
         framebuffer->setRenderPass(renderPass->getHandle());
         framebuffer->setWidth(surface->getWidth());

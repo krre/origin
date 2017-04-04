@@ -64,7 +64,7 @@ void DebugHUD::init() {
     graphicsPipeline->setBlendEnable(VK_TRUE);
 
     renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
-    renderPass.setOverlayEnable(true);
+    renderPass.setBlendEnable(true);
     renderPass.create();
 
     shaderProgram.createPipeline();

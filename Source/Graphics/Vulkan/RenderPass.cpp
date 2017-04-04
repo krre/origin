@@ -16,7 +16,7 @@ RenderPass::~RenderPass() {
 
 void RenderPass::create() {
     colorAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
-    colorAttachmentDescription.loadOp = overlayEnable ? VK_ATTACHMENT_LOAD_OP_LOAD : VK_ATTACHMENT_LOAD_OP_CLEAR;
+    colorAttachmentDescription.loadOp = blendEnable ? VK_ATTACHMENT_LOAD_OP_LOAD : VK_ATTACHMENT_LOAD_OP_CLEAR;
     colorAttachmentDescription.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
     colorAttachmentDescription.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachmentDescription.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
@@ -55,7 +55,7 @@ void RenderPass::create() {
     subpassDescriptions.push_back(subpassDescription);
 
     // Use subpass dependencies for image layout transitions
-    if (overlayEnable) {
+    if (blendEnable) {
         // Transition from final to initial (VK_SUBPASS_EXTERNAL refers to all commmands executed outside of the actual renderpass)
         VkSubpassDependency subpassDependency0;
         subpassDependency0.srcSubpass = VK_SUBPASS_EXTERNAL;
@@ -108,8 +108,8 @@ void RenderPass::setDepthEnable(bool depthEnable) {
     this->depthEnable = depthEnable;
 }
 
-void RenderPass::setOverlayEnable(bool overlayEnable) {
-    this->overlayEnable = overlayEnable;
+void RenderPass::setBlendEnable(bool overlayEnable) {
+    this->blendEnable = overlayEnable;
 }
 
 void RenderPass::addClearValue(VkClearValue clearValue) {

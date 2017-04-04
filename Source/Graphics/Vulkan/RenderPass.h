@@ -16,7 +16,7 @@ public:
     void setColorFormat(VkFormat format);
     void setDepthFormat(VkFormat format);
     void setDepthEnable(bool depthEnable);
-    void setOverlayEnable(bool overlayEnable);
+    void setBlendEnable(bool blendEnable);
     void addClearValue(VkClearValue clearValue);
     void setClearValue(VkClearValue clearValue);
 
@@ -34,7 +34,7 @@ private:
     std::vector<VkSubpassDescription> subpassDescriptions;
     std::vector<VkAttachmentDescription> attachmentDescriptions;
     bool depthEnable = false;
-    bool overlayEnable = false;
+    bool blendEnable = false;
 };
 
 } // Vulkan

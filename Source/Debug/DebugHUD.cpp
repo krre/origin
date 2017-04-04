@@ -64,7 +64,6 @@ void DebugHUD::init() {
     graphicsPipeline->setBlendEnable(VK_TRUE);
 
     renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
-    renderPass.setDepthFormat(device->getPhysicalDevice()->getSupportedDepthFormat());
     renderPass.setOverlayEnable(true);
     renderPass.create();
 
@@ -124,16 +123,14 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::buildCommandBuffers() {
-    Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.0, 0.0, 0.0, 0.0 });
-    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
     queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
-        renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
+        renderPass.beginInfo.framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();
-        commandBuffer.beginRenderPass(renderPassBeginInfo);
+        commandBuffer.beginRenderPass(&renderPass.beginInfo);
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());

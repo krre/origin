@@ -20,10 +20,10 @@ public:
     void addClearValue(VkClearValue clearValue);
     void setClearValue(VkClearValue clearValue);
 
-    VkRenderPassCreateInfo createInfo = {};
     VkRenderPassBeginInfo beginInfo = {};
 
 private:
+    VkRenderPassCreateInfo createInfo = {};
     VkAttachmentDescription colorAttachmentDescription = {};
     VkAttachmentDescription depthAttachmentDescription = {};
     VkAttachmentReference colorAttachmentReference = {};

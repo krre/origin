@@ -51,21 +51,8 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
         // TODO: Incorrect work
 //        toggleFullScreen();
         break;
-
     case SDLK_F11:
         saveScreenshot();
-        break;
-#ifdef CONSOLE_ENABLE
-    case SDLK_SLASH:
-//        if (gameState == GameState::PLAY) {
-//            MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
-//            movementControllerSystem->setActive(false);
-//            Console::get()->setVisible(true);
-//            GameStateManager::get()->pushState(GameState::CONSOLE);
-//        }
-        break;
-#endif
-    default:
         break;
     }
 }

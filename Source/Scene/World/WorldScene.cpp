@@ -288,18 +288,30 @@ void WorldScene::setSeed(uint64_t seed) {
 }
 
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_ESCAPE) {
-        SceneManager::get()->pushScene(std::make_shared<PauseScene>());
-        Input::get()->isKeyAccepted = true;
-    }
+    switch (event.keysym.sym) {
+    case SDLK_ESCAPE:
+            SceneManager::get()->pushScene(std::make_shared<PauseScene>());
+            Input::get()->isKeyAccepted = true;
+            break;
+
+#ifdef CONSOLE_ENABLE
+    case SDLK_SLASH:
+//        MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
+//        movementControllerSystem->setActive(false);
+//        Console::get()->setVisible(true);
+//        GameStateManager::get()->pushState(GameState::CONSOLE);
+        break;
+#endif
 
 #ifdef DEVELOP_MODE
-    if (event.keysym.sym == SDLK_KP_0) {
+    case SDLK_KP_0:
         viewport.switchCamera();
-    } else if (event.keysym.sym == SDLK_BACKQUOTE) {
+        break;
+    case SDLK_BACKQUOTE:
         SDL_SetRelativeMouseMode(SDL_GetRelativeMouseMode() == SDL_TRUE ? SDL_FALSE : SDL_TRUE);
-    }
+        break;
 #endif
+    }
 }
 
 void WorldScene::buildCommandBuffers() {

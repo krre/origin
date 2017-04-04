@@ -6,6 +6,7 @@
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
 #include "../../Graphics/Vulkan/Buffer.h"
 #include "../../Graphics/Plane.h"
+#include "../../Debug/Console.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 
@@ -62,6 +63,7 @@ private:
     void buildCommandBuffers() override;
 
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
+    std::shared_ptr<Console> console;
     EntityId characterId;
     uint64_t seed;
     Viewport viewport;

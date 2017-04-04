@@ -50,6 +50,10 @@ void Console::onKeyPressed(const SDL_KeyboardEvent& event) {
     }
 }
 
+void Console::buildCommandBuffers() {
+
+}
+
 void Console::execute() {
     std::string command = cmdLine.getText();
     if (command.length() > 0 && command.substr(0, 1) == "/") {

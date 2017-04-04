@@ -19,6 +19,7 @@
 WorldScene::WorldScene() :
     shaderProgram(device) {
     new EntityManager;
+    console = std::make_shared<Console>();
     Game::get()->setWorldScene(this);
 }
 
@@ -290,16 +291,16 @@ void WorldScene::setSeed(uint64_t seed) {
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-            SceneManager::get()->pushScene(std::make_shared<PauseScene>());
-            Input::get()->isKeyAccepted = true;
-            break;
+        SceneManager::get()->pushScene(std::make_shared<PauseScene>());
+        Input::get()->isKeyAccepted = true;
+        break;
 
 #ifdef CONSOLE_ENABLE
     case SDLK_SLASH:
 //        MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
 //        movementControllerSystem->setActive(false);
 //        Console::get()->setVisible(true);
-//        GameStateManager::get()->pushState(GameState::CONSOLE);
+        SceneManager::get()->pushScene(console);
         break;
 #endif
 

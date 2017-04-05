@@ -38,7 +38,7 @@ bool PhysicalDevice::getSupportBlit() {
     // Check blit support for source and destination
 
     // Check if the device supports blitting from optimal images (the swapchain images are in optimal format)
-    vkGetPhysicalDeviceFormatProperties(handle, Manager::get()->getSwapchain()->createInfo.imageFormat, &formatProps);
+    vkGetPhysicalDeviceFormatProperties(handle, Manager::get()->getSwapchain()->getImageFormat(), &formatProps);
     if (!(formatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT)) {
 //        std::cerr << "Device does not support blitting from optimal tiled images, using copy instead of blit!" << std::endl;
         supportsBlit = false;

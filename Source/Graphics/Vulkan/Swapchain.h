@@ -16,12 +16,12 @@ public:
     void destroy() override;
     VkImage getImage(int i) const { return images.at(i); }
     VkImageView getImageView(int i) const { return imageViews.at(i)->getHandle(); }
+    VkFormat getImageFormat() const { return createInfo.imageFormat; }
     int getImageCount() const { return images.size(); }
     int getIndex() const { return index; }
 
-    VkSwapchainCreateInfoKHR createInfo = {};
-
 private:
+    VkSwapchainCreateInfoKHR createInfo = {};
     const Surface* surface;
     std::vector<VkImage> images;
     std::vector<std::shared_ptr<ImageView>> imageViews;

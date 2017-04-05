@@ -50,11 +50,11 @@ void Manager::init() {
     device->addQueueCreateInfo(graphicsFamily, { 1.0 });
     device->create();
 
-    surface = std::make_shared<Surface>(instance.getHandle(), mainPhysicalDevice->getHandle());
-    surface->create();
-
     commandPool = std::make_shared<CommandPool>(device.get(), graphicsFamily);
     commandPool->create();
+
+    surface = std::make_shared<Surface>(instance.getHandle(), mainPhysicalDevice->getHandle());
+    surface->create();
 
     swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
     swapchain->create();

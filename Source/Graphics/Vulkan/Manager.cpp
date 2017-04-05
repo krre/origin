@@ -179,24 +179,17 @@ void Manager::saveScreenshot(const std::string& filePath) {
 }
 
 void Manager::createFramebuffers() {
-    imageViews.clear();
     framebuffers.clear();
 
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device.get(), swapchain->getImage(i));
-        imageView->createInfo.format = surface->getFormat(0).format;
-        imageView->create();
-        imageViews.push_back(imageView);
-
         std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device.get());
-        framebuffer->addAttachment(imageViews.at(i)->getHandle());
+        framebuffer->addAttachment(swapchain->getImageView(i));
         framebuffer->setRenderPass(renderPass->getHandle());
         framebuffer->setWidth(surface->getWidth());
         framebuffer->setHeight(surface->getHeight());
         framebuffer->create();
         framebuffers.push_back(framebuffer);
     }
-
 }
 
 void Manager::onWindowResize(int width, int height) {

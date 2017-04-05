@@ -58,32 +58,17 @@ void Manager::init() {
     swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
     swapchain->create();
 
-    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device.get(), swapchain->getImage(i));
-        imageView->createInfo.format = surface->getFormat(0).format;
-        imageView->create();
-        imageViews.push_back(imageView);
-    }
-
     renderPass = std::make_shared<RenderPass>(device.get());
     renderPass->setColorFormat(surface->getFormat(0).format);
     renderPass->create();
-
-    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device.get());
-        framebuffer->addAttachment(imageViews.at(i)->getHandle());
-        framebuffer->setRenderPass(renderPass->getHandle());
-        framebuffer->setWidth(surface->getWidth());
-        framebuffer->setHeight(surface->getHeight());
-        framebuffer->create();
-        framebuffers.push_back(framebuffer);
-    }
 
     imageAvailableSemaphore = std::make_shared<Semaphore>(device.get());
     imageAvailableSemaphore->create();
 
     presentQueue = std::make_shared<PresentQueue>(device.get(), graphicsFamily);
     presentQueue->addSwapchain(swapchain->getHandle());
+
+    createFramebuffers();
 }
 
 void Manager::renderBegin() {
@@ -188,4 +173,25 @@ void Manager::saveScreenshot(const std::string& filePath) {
     }
 
     image.getMemory()->unmap();
+}
+
+void Manager::createFramebuffers() {
+    imageViews.clear();
+    framebuffers.clear();
+
+    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
+        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device.get(), swapchain->getImage(i));
+        imageView->createInfo.format = surface->getFormat(0).format;
+        imageView->create();
+        imageViews.push_back(imageView);
+
+        std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device.get());
+        framebuffer->addAttachment(imageViews.at(i)->getHandle());
+        framebuffer->setRenderPass(renderPass->getHandle());
+        framebuffer->setWidth(surface->getWidth());
+        framebuffer->setHeight(surface->getHeight());
+        framebuffer->create();
+        framebuffers.push_back(framebuffer);
+    }
+
 }

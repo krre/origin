@@ -40,6 +40,8 @@ public:
     void saveScreenshot(const std::string& filePath);
 
 private:
+    void createFramebuffers();
+
     Instance instance;
     PhysicalDevice* mainPhysicalDevice;
     std::shared_ptr<DebugReportCallback> debugCallback;

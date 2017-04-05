@@ -31,8 +31,8 @@ App::~App() {
     DebugHUD::get()->release();
     Debug::get()->release();
     ResourceManager::get()->release();
-    Event::get()->release();
     Vulkan::Manager::get()->release();
+    Event::get()->release();
     Logger::get()->release();
     Settings::get()->release();
     SDL_DestroyWindow(window);
@@ -46,6 +46,7 @@ std::string App::getCurrentPath() {
 void App::init() {
     new Settings("origin.ini");
     new Logger;
+    new Event;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL could not initialize! SDL_Error: %1", SDL_GetError());
@@ -100,7 +101,6 @@ void App::init() {
     SDL_ShowWindow(window);
 
     // Order is important
-    new Event;
     new ResourceManager;
     new Debug;
     new DebugHUD;

@@ -2,6 +2,7 @@
 #include "Image/Image.h"
 #include "../../Core/App.h"
 #include "Command/CommandBufferOneTime.h"
+#include "../../Event/Event.h"
 #include <glm/glm.hpp>
 #include <fstream>
 #include <lodepng/lodepng.h>
@@ -69,6 +70,8 @@ void Manager::init() {
     presentQueue->addSwapchain(swapchain->getHandle());
 
     createFramebuffers();
+
+    Event::get()->windowResize.connect<Manager, &Manager::onWindowResize>(this);
 }
 
 void Manager::renderBegin() {
@@ -193,5 +196,9 @@ void Manager::createFramebuffers() {
         framebuffer->create();
         framebuffers.push_back(framebuffer);
     }
+
+}
+
+void Manager::onWindowResize(int width, int height) {
 
 }

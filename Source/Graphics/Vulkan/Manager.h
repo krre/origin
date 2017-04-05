@@ -41,6 +41,7 @@ public:
 
 private:
     void createFramebuffers();
+    void onWindowResize(int width, int height);
 
     Instance instance;
     PhysicalDevice* mainPhysicalDevice;

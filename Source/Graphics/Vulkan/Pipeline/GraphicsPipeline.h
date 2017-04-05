@@ -20,7 +20,6 @@ public:
     VkPipelineBindPoint getBindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
     void create() override;
 
-    VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
     VkPipelineRasterizationStateCreateInfo rasterizer = {};
     VkPipelineMultisampleStateCreateInfo multisampling = {};
     VkViewport viewport = {};
@@ -37,6 +36,7 @@ private:
     std::vector<VkViewport> viewports;
     std::vector<VkRect2D> scissors;
     std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments;
+    VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
 };
 
 } // Vulkan

@@ -23,6 +23,8 @@ public:
     int getWidth() const { return width; }
     int getHeight() const { return height; }
 
+    bool getIsRunning() const { return isRunning; }
+
 private:
     std::vector<std::string> argv;
     bool isRunning = false;

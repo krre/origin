@@ -26,7 +26,7 @@ public:
 
     const VkSurfaceCapabilitiesKHR& getCapabilities() const { return capabilities; }
 
-    VkExtent2D getCurrentExtent();
+    VkExtent2D getCurrentExtent() const;
 
 private:
     VkInstance instance;

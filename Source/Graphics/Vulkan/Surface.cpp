@@ -66,7 +66,8 @@ void Surface::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance, handle, nullptr))
 }
 
-VkExtent2D Surface::getCurrentExtent() {
+VkExtent2D Surface::getCurrentExtent() const {
+    VkSurfaceCapabilitiesKHR capabilities;
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
     return capabilities.currentExtent;
 }

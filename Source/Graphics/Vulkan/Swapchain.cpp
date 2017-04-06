@@ -1,4 +1,5 @@
 #include "Swapchain.h"
+#include "Manager.h"
 
 using namespace Vulkan;
 
@@ -51,4 +52,19 @@ void Swapchain::create() {
 
 void Swapchain::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
+}
+
+void Swapchain::buildFramebuffers() {
+    framebuffers.clear();
+
+    VkExtent2D extent = surface->getCurrentExtent();
+    for (uint32_t i = 0; i < getImageCount(); i++) {
+        std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device);
+        framebuffer->addAttachment(getImageView(i));
+        framebuffer->setRenderPass(Manager::get()->getRenderPass()->getHandle());
+        framebuffer->setWidth(extent.width);
+        framebuffer->setHeight(extent.height);
+        framebuffer->create();
+        framebuffers.push_back(framebuffer);
+    }
 }

@@ -56,20 +56,19 @@ void Manager::init() {
     surface = std::make_shared<Surface>(instance.getHandle(), mainPhysicalDevice->getHandle());
     surface->create();
 
-    swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
-    swapchain->create();
-
     renderPass = std::make_shared<RenderPass>(device.get());
     renderPass->setColorFormat(surface->getFormat(0).format);
     renderPass->create();
+
+    swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
+    swapchain->create();
+    swapchain->buildFramebuffers();
 
     imageAvailableSemaphore = std::make_shared<Semaphore>(device.get());
     imageAvailableSemaphore->create();
 
     presentQueue = std::make_shared<PresentQueue>(device.get(), graphicsFamily);
     presentQueue->addSwapchain(swapchain->getHandle());
-
-    createFramebuffers();
 
     Event::get()->windowResize.connect<Manager, &Manager::onWindowResize>(this);
 }
@@ -176,21 +175,6 @@ void Manager::saveScreenshot(const std::string& filePath) {
     }
 
     image.getMemory()->unmap();
-}
-
-void Manager::createFramebuffers() {
-    framebuffers.clear();
-
-    VkExtent2D extent = surface->getCurrentExtent();
-    for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
-        std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device.get());
-        framebuffer->addAttachment(swapchain->getImageView(i));
-        framebuffer->setRenderPass(renderPass->getHandle());
-        framebuffer->setWidth(extent.width);
-        framebuffer->setHeight(extent.height);
-        framebuffer->create();
-        framebuffers.push_back(framebuffer);
-    }
 }
 
 void Manager::onWindowResize(int width, int height) {

@@ -128,7 +128,7 @@ void DebugHUD::buildCommandBuffers() {
     queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
-        renderPass.beginInfo.framebuffer = Vulkan::Manager::get()->getFramebuffer(i)->getHandle();
+        renderPass.beginInfo.framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();

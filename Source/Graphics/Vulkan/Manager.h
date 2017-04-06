@@ -12,7 +12,6 @@
 #include "Swapchain.h"
 #include "Image/ImageView.h"
 #include "RenderPass.h"
-#include "Framebuffer.h"
 #include "Command/CommandPool.h"
 #include "Semaphore.h"
 #include <string>
@@ -30,7 +29,6 @@ public:
     Swapchain* getSwapchain() const { return swapchain.get(); }
     RenderPass* getRenderPass() const { return renderPass.get(); }
     CommandPool* getCommandPool() const { return commandPool.get(); }
-    Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     const PhysicalDevices* getPhysicalDevices() const { return physicalDevices.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
     Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
@@ -40,7 +38,6 @@ public:
     void saveScreenshot(const std::string& filePath);
 
 private:
-    void createFramebuffers();
     void onWindowResize(int width, int height);
 
     Instance instance;
@@ -53,7 +50,6 @@ private:
     std::shared_ptr<Swapchain> swapchain;
     std::shared_ptr<RenderPass> renderPass;
     std::vector<std::shared_ptr<ImageView>> imageViews;
-    std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     std::shared_ptr<Semaphore> imageAvailableSemaphore;
     std::shared_ptr<PresentQueue> presentQueue;
     uint32_t graphicsFamily;

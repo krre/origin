@@ -17,7 +17,6 @@ public:
     void destroy() override;
     VkImage getImage(int i) const { return images.at(i); }
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
-    VkImageView getImageView(int i) const { return imageViews.at(i)->getHandle(); }
     VkFormat getImageFormat() const { return createInfo.imageFormat; }
     int getCount() const { return images.size(); }
     int getIndex() const { return index; }

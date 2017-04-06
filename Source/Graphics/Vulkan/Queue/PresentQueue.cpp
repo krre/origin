@@ -22,6 +22,11 @@ void PresentQueue::addSwapchain(VkSwapchainKHR swapchain) {
     imageIndices.resize(swapchains.size());
 }
 
+void PresentQueue::clearSwapchain() {
+    swapchains.clear();
+    imageIndices.clear();
+}
+
 uint32_t* PresentQueue::getImageIndex(int i) {
     assert(!imageIndices.empty() && i < imageIndices.size());
     return &imageIndices[i];

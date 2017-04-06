@@ -171,4 +171,7 @@ void DebugHUD::buildCommandBuffers() {
 
         queue->addCommandBuffer(commandBuffer.getHandle());
     }
+
+    ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
+    shaderProgram.writeUniform("ubo");
 }

@@ -1,6 +1,6 @@
 #pragma once
 #include "../Scene/Scene2D.h"
-#include "../UI/Label.h"
+#include "../UI/Text/Label.h"
 #include <SDL.h>
 
 class Console : public Scene2D {

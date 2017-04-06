@@ -6,8 +6,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Label.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Label.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Layout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Layout.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.h

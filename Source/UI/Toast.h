@@ -1,6 +1,6 @@
 #pragma once
 #include "../Graphics/Drawable.h"
-#include "Label.h"
+#include "Text/Label.h"
 #include "../Core/Timer.h"
 
 class Toast : public Origin::Drawable {

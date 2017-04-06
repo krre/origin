@@ -125,7 +125,18 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::buildCommandBuffers() {
-    renderPass.beginInfo.renderArea.extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
+    VkExtent2D extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
+    renderPass.beginInfo.renderArea.extent = extent;
+
+    VkViewport viewport = {};
+    viewport.width = extent.width;
+    viewport.height = extent.height;
+    viewport.maxDepth = 1.0;
+
+    VkRect2D scissor = {};
+    scissor.offset = { 0, 0 };
+    scissor.extent = extent;
+
     queue->clearCommandBuffers();
     commandBuffers.destroy();
     commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
@@ -137,6 +148,12 @@ void DebugHUD::buildCommandBuffers() {
         commandBuffer.begin();
         commandBuffer.beginRenderPass(&renderPass.beginInfo);
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
+
+        commandBuffer.addViewport(viewport);
+        commandBuffer.setViewport(0);
+
+        commandBuffer.addScissor(scissor);
+        commandBuffer.setScissor(0);
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();

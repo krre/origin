@@ -9,11 +9,8 @@ public:
     void setPosition(const glm::vec2& position);
     glm::vec2 getPosition() const { return position; }
 
-    int getWidth() const { return width; }
-    void setWidth(int width);
-
-    int getHeight() const { return height; }
-    void setHeight(int height);
+    glm::vec2 getSize() const { return size; }
+    void setSize(int width, int height);
 
     void setScale(float scale);
     float getScale() const { return scale; }
@@ -25,8 +22,7 @@ public:
 
 protected:
     glm::vec2 position;
-    int width;
-    int height;
+    glm::vec2 size;
     float scale = 1.0;
     float z = 0.0f;
 };

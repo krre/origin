@@ -19,7 +19,7 @@ void PauseScene::init() {
 }
 
 void PauseScene::draw(float dt) {
-    layout->setPosition(glm::vec2((App::get()->getWidth() - layout->getWidth()) / 2.0, (App::get()->getHeight() - layout->getHeight()) / 2.0));
+    layout->setPosition(glm::vec2((App::get()->getWidth() - layout->getSize().x) / 2.0, (App::get()->getHeight() - layout->getSize().y) / 2.0));
     layout->update();
 //    Scene2D::draw(dt);
     queue->submit();
@@ -36,8 +36,7 @@ void PauseScene::create() {
     exitButton.setText("Exit");
     exitButton.setZ(0.5f);
 
-    layout->setWidth(100);
-    layout->setHeight(50);
+    layout->setSize(100, 25);
     layout->setSpacing(25); // TODO: Fix - abnormally!
     layout->addControl(&continueButton);
     layout->addControl(&exitButton);

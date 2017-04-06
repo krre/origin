@@ -22,10 +22,11 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
         createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;
         createInfo.imageFormat = surface->getFormat(0).format;
         createInfo.imageColorSpace = surface->getFormat(0).colorSpace;
-        createInfo.imageExtent = surface->getCapabilities().currentExtent;
         createInfo.preTransform = surface->getCapabilities().currentTransform;
         createInfo.presentMode = VK_PRESENT_MODE_FIFO_KHR;
     }
+
+    index = indexCounter++;
 }
 
 Swapchain::~Swapchain() {
@@ -33,6 +34,8 @@ Swapchain::~Swapchain() {
 }
 
 void Swapchain::create() {
+    VkExtent2D extent = surface->getCurrentExtent();
+    createInfo.imageExtent = extent;
     CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;
@@ -45,26 +48,24 @@ void Swapchain::create() {
         imageView->createInfo.format = surface->getFormat(0).format;
         imageView->create();
         imageViews.push_back(imageView);
-    }
 
-    index = indexCounter++;
-}
-
-void Swapchain::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
-}
-
-void Swapchain::buildFramebuffers() {
-    framebuffers.clear();
-
-    VkExtent2D extent = surface->getCurrentExtent();
-    for (uint32_t i = 0; i < getCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device);
-        framebuffer->addAttachment(imageViews.at(i)->getHandle());
+        framebuffer->addAttachment(imageView->getHandle());
         framebuffer->setRenderPass(Manager::get()->getRenderPass()->getHandle());
         framebuffer->setWidth(extent.width);
         framebuffer->setHeight(extent.height);
         framebuffer->create();
         framebuffers.push_back(framebuffer);
     }
+}
+
+void Swapchain::destroy() {
+    imageViews.clear();
+    framebuffers.clear();
+    VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
+}
+
+void Swapchain::rebuild() {
+    destroy();
+    create();
 }

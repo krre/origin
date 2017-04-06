@@ -318,7 +318,10 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 void WorldScene::buildCommandBuffers() {
     Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
+    renderPassBeginInfo->renderArea.extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
     queue->clearCommandBuffers();
+    commandBuffers.destroy();
+    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
         renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
@@ -330,7 +333,6 @@ void WorldScene::buildCommandBuffers() {
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();
-
         commandBuffer.bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
 
         for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {

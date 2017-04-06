@@ -3,6 +3,7 @@
 #include "../../Core/App.h"
 #include "Command/CommandBufferOneTime.h"
 #include "../../Event/Event.h"
+#include "../../Scene/SceneManager.h"
 #include <glm/glm.hpp>
 #include <fstream>
 #include <lodepng/lodepng.h>
@@ -62,7 +63,6 @@ void Manager::init() {
 
     swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
     swapchain->create();
-    swapchain->buildFramebuffers();
 
     imageAvailableSemaphore = std::make_shared<Semaphore>(device.get());
     imageAvailableSemaphore->create();
@@ -178,5 +178,12 @@ void Manager::saveScreenshot(const std::string& filePath) {
 }
 
 void Manager::onWindowResize(int width, int height) {
-
+    if (App::get()->getIsRunning()) {
+        device->waitIdle();
+        swapchain->rebuild();
+        presentQueue->clearSwapchain();
+        presentQueue->addSwapchain(swapchain->getHandle());
+        commandPool->reset();
+        SceneManager::get()->rebuild();
+    }
 }

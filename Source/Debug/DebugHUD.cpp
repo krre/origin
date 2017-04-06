@@ -125,7 +125,10 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::buildCommandBuffers() {
+    renderPass.beginInfo.renderArea.extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
     queue->clearCommandBuffers();
+    commandBuffers.destroy();
+    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
         renderPass.beginInfo.framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();

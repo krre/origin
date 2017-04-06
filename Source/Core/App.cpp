@@ -49,7 +49,7 @@ void App::init() {
     new Event;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL could not initialize! SDL_Error: %1", SDL_GetError());
+        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL could not initialize! SDL_Error: %s", SDL_GetError());
         return;
     }
 

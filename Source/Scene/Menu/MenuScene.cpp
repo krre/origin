@@ -64,7 +64,18 @@ void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 void MenuScene::buildCommandBuffers() {
     Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
-    renderPassBeginInfo->renderArea.extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
+    VkExtent2D extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
+    renderPassBeginInfo->renderArea.extent = extent;
+
+    VkViewport viewport = {};
+    viewport.width = extent.width;
+    viewport.height = extent.height;
+    viewport.maxDepth = 1.0;
+
+    VkRect2D scissor = {};
+    scissor.offset = { 0, 0 };
+    scissor.extent = extent;
+
     queue->clearCommandBuffers();
     commandBuffers.destroy();
     commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
@@ -76,6 +87,12 @@ void MenuScene::buildCommandBuffers() {
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
+
+        commandBuffer.addViewport(viewport);
+        commandBuffer.setViewport(0);
+
+        commandBuffer.addScissor(scissor);
+        commandBuffer.setScissor(0);
 
         commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer.bindVertexBuffers();

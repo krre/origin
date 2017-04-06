@@ -24,10 +24,10 @@ public:
     void draw(float dt) override;
     void update(float dt) override;
     void trigger();
+    void buildCommandBuffers() override;
 
 private:
     void create();
-    void buildCommandBuffers() override;
 
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;

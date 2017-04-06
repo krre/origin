@@ -74,6 +74,8 @@ void SceneManager::rebuild() {
     for (auto& scene : scenes) {
         scene->buildCommandBuffers();
     }
+
+    DebugHUD::get()->buildCommandBuffers();
 }
 
 void SceneManager::updateSemaphores() {

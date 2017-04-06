@@ -181,12 +181,13 @@ void Manager::saveScreenshot(const std::string& filePath) {
 void Manager::createFramebuffers() {
     framebuffers.clear();
 
+    VkExtent2D extent = surface->getCurrentExtent();
     for (uint32_t i = 0; i < swapchain->getImageCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device.get());
         framebuffer->addAttachment(swapchain->getImageView(i));
         framebuffer->setRenderPass(renderPass->getHandle());
-        framebuffer->setWidth(surface->getWidth());
-        framebuffer->setHeight(surface->getHeight());
+        framebuffer->setWidth(extent.width);
+        framebuffer->setHeight(extent.height);
         framebuffer->create();
         framebuffers.push_back(framebuffer);
     }

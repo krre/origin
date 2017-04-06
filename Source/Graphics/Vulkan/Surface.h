@@ -18,9 +18,6 @@ public:
     void create() override;
     void destroy() override;
 
-    uint32_t getWidth() const { return capabilities.currentExtent.width; }
-    uint32_t getHeight() const { return capabilities.currentExtent.height; }
-
     int getFormatCount() const { return formats.size(); }
     const VkSurfaceFormatKHR& getFormat(size_t i) const { return formats.at(i); }
 

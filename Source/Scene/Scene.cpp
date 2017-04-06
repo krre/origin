@@ -21,7 +21,7 @@ Scene::~Scene() {
 }
 
 void Scene::init() {
-    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getImageCount());
+    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
 }
 
 void Scene::pause() {

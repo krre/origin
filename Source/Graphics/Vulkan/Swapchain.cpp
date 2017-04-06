@@ -58,7 +58,7 @@ void Swapchain::buildFramebuffers() {
     framebuffers.clear();
 
     VkExtent2D extent = surface->getCurrentExtent();
-    for (uint32_t i = 0; i < getImageCount(); i++) {
+    for (uint32_t i = 0; i < getCount(); i++) {
         std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device);
         framebuffer->addAttachment(getImageView(i));
         framebuffer->setRenderPass(Manager::get()->getRenderPass()->getHandle());

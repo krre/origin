@@ -19,7 +19,7 @@ public:
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     VkImageView getImageView(int i) const { return imageViews.at(i)->getHandle(); }
     VkFormat getImageFormat() const { return createInfo.imageFormat; }
-    int getImageCount() const { return images.size(); }
+    int getCount() const { return images.size(); }
     int getIndex() const { return index; }
     void buildFramebuffers();
 

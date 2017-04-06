@@ -49,7 +49,7 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 #endif
     case SDLK_F10:
         // TODO: Incorrect work
-//        toggleFullScreen();
+        toggleFullScreen();
         break;
     case SDLK_F11:
         saveScreenshot();

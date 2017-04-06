@@ -70,6 +70,12 @@ void SceneManager::draw(float dt) {
     Vulkan::Manager::get()->renderEnd();
 }
 
+void SceneManager::rebuild() {
+    for (auto& scene : scenes) {
+        scene->buildCommandBuffers();
+    }
+}
+
 void SceneManager::updateSemaphores() {
     std::vector<Scene*> visibleScenes;
     for (auto& scene : scenes) {

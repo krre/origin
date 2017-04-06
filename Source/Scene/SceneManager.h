@@ -14,6 +14,8 @@ public:
     void update(float dt);
     void draw(float dt);
 
+    void rebuild();
+
     void updateSemaphores();
 
 private:

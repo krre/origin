@@ -180,7 +180,8 @@ void Manager::saveScreenshot(const std::string& filePath) {
 void Manager::onWindowResize(int width, int height) {
     if (App::get()->getIsRunning()) {
         device->waitIdle();
-        swapchain->rebuild();
+        swapchain->destroy();
+        swapchain->create();
         presentQueue->clearSwapchain();
         presentQueue->addSwapchain(swapchain->getHandle());
         commandPool->reset();

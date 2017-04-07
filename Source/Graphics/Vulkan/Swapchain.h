@@ -20,7 +20,6 @@ public:
     VkFormat getImageFormat() const { return createInfo.imageFormat; }
     int getCount() const { return images.size(); }
     int getIndex() const { return index; }
-    void rebuild();
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};

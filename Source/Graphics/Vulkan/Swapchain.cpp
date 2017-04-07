@@ -64,8 +64,3 @@ void Swapchain::destroy() {
     framebuffers.clear();
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
 }
-
-void Swapchain::rebuild() {
-    destroy();
-    create();
-}

@@ -52,8 +52,6 @@ layout (std430, binding = 4) buffer DebugOut {
 struct Ray {
     vec3 origin;
     vec3 direction;
-    float ray_size_coef;
-    float ray_size_bias;
 };
 
 struct CastResult {
@@ -103,8 +101,6 @@ Ray constructRay(in int index) {
 }
 
 bool castRay(in int index, in Ray ray, out CastResult castRes) {
-    float ray_size_coef = 0;
-    float ray_size_bias = 0;
      // Shift origin at (1.5, 1.5, 1.5) to follow reside octree at [1, 2]
     vec3 origin = ray.origin + vec3(1.5);
 
@@ -169,10 +165,6 @@ bool castRay(in int index, in Ray ray, out CastResult castRes) {
 
         if ((child_masks & 0x8000u) != 0u && t_min <= t_max) {
             // Terminate if the voxel is small enough.
-//            if (tc_max * ray_size_coef + ray_size_bias >= scale_exp2) {
-//            if (gl_FragCoord.x == ubo.frameWidth / 2 + 0.5 && gl_FragCoord.y == ubo.frameHeight / 2 + 0.5) {
-//                debugFloat = ubo.lod * tc_max;
-//            }
             if (ubo.lod * tc_max  >= scale_exp2) {
                 break; // at t_min
             }

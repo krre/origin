@@ -76,8 +76,6 @@ Ray constructRay(in int index) {
     int offset = int(renderList.offsets[index] + ubo.pageBytes) / 4 - ubo.transformCount * 4;
     offset += 16; // skip octreeToWorld matrix
     Ray ray;
-    ray.ray_size_coef = 0;
-    ray.ray_size_bias = 0;
 
     float v[4];
     for (int i = 0; i < 4; i++) {

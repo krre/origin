@@ -8,7 +8,7 @@
 #include "../../ECS/Systems/Systems.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Scene/SceneManager.h"
-#include "../../Scene/Pause/PauseScene.h"
+#include "../../UI/Dialog/PauseDialog.h"
 #include "../../Event/Input.h"
 #include "../../Graphics/Vulkan/Manager.h"
 #include "../../Resource/ShaderResource.h"
@@ -292,7 +292,7 @@ void WorldScene::setSeed(uint64_t seed) {
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-        SceneManager::get()->pushScene(std::make_shared<PauseScene>());
+        SceneManager::get()->pushScene(std::make_shared<PauseDialog>());
         Input::get()->isKeyAccepted = true;
         break;
 

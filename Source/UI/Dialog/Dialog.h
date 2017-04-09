@@ -7,5 +7,5 @@ public:
     Dialog();
 
 private:
-
+    void onKeyPressed(const SDL_KeyboardEvent& event) override;
 };

@@ -5,7 +5,12 @@
 
 Dialog::Dialog() {
     SDL_SetRelativeMouseMode(SDL_FALSE);
-    SDL_WarpMouseInWindow(App::get()->getWindow(), App::get()->getWidth() / 2, App::get()->getHeight() / 2);
+    int centerX = App::get()->getWidth() / 2;
+    int centerY = App::get()->getHeight() / 2;
+    SDL_WarpMouseInWindow(App::get()->getWindow(), centerX, centerY);
+    int posX = centerX - getSize().x / 2;
+    int posY = centerY - getSize().y / 2;
+    setPosition(glm::vec2(posX, posY));
 }
 
 void Dialog::close() {

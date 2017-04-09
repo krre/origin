@@ -8,9 +8,13 @@ Dialog::Dialog() {
     SDL_WarpMouseInWindow(App::get()->getWindow(), App::get()->getWidth() / 2, App::get()->getHeight() / 2);
 }
 
+void Dialog::close() {
+    SceneManager::get()->popScene();
+}
+
 void Dialog::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
-        SceneManager::get()->popScene();
         Input::get()->isKeyAccepted = true;
+        close();
     }
 }

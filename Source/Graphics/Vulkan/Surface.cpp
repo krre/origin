@@ -12,7 +12,6 @@ using namespace Vulkan;
 Surface::Surface(VkInstance instance, VkPhysicalDevice physicalDevice) :
     instance(instance),
     physicalDevice(physicalDevice) {
-
 }
 
 Surface::~Surface() {
@@ -35,7 +34,6 @@ void Surface::create() {
         CHECK_RESULT(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
         break;
     }
-
 #elif _WIN32
     case SDL_SYSWM_WINDOWS: {
         VkWin32SurfaceCreateInfoKHR createInfo = {};
@@ -47,7 +45,6 @@ void Surface::create() {
         break;
     }
 #endif
-
     }
 
     uint32_t count;

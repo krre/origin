@@ -33,7 +33,7 @@ static std::string resultToString(VkResult result) {
         case VK_ERROR_VALIDATION_FAILED_EXT: return "Validation failed";
         case VK_ERROR_INVALID_SHADER_NV: return "Invalid shader";
 
-        return "Unknown result code";
+        return std::string("Unknown result code: ") + std::to_string(result);
     }
 }
 

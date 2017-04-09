@@ -1,3 +1,4 @@
+add_subdirectory(Dialog)
 add_subdirectory(Text)
 
 set(SOURCES

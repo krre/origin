@@ -13,7 +13,7 @@ CommandPool::~CommandPool() {
 }
 
 void CommandPool::create() {
-    CHECK_RESULT(vkCreateCommandPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create command pool")
+    VULKAN_CHECK_RESULT(vkCreateCommandPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create command pool")
 }
 
 void CommandPool::destroy() {
@@ -21,5 +21,5 @@ void CommandPool::destroy() {
 }
 
 VkResult CommandPool::reset() {
-    CHECK_RESULT(vkResetCommandPool(device->getHandle(), handle, VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT), "Failed to reset command pool");
+    VULKAN_CHECK_RESULT(vkResetCommandPool(device->getHandle(), handle, VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT), "Failed to reset command pool");
 }

@@ -16,7 +16,7 @@ void DeviceMemory::destroy() {
 
 VkResult DeviceMemory::allocate(VkDeviceSize size) {
     allocateInfo.allocationSize = size;
-    CHECK_RESULT(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
+    VULKAN_CHECK_RESULT(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
 }
 
 void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
@@ -24,7 +24,7 @@ void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
 }
 
 VkResult DeviceMemory::map(void** data, VkDeviceSize size, VkDeviceSize offset) {
-    CHECK_RESULT(vkMapMemory(device->getHandle(), handle, offset, size, 0, data), "Failed to map device memory");
+    VULKAN_CHECK_RESULT(vkMapMemory(device->getHandle(), handle, offset, size, 0, data), "Failed to map device memory");
 }
 
 void DeviceMemory::unmap() {

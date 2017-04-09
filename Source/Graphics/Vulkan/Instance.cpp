@@ -40,7 +40,7 @@ void Instance::create() {
     createInfo.enabledExtensionCount = enabledExtensions.size();
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 
-    CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
+    VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
 }
 
 void Instance::destroy() {

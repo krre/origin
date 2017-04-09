@@ -24,7 +24,7 @@ ImageView::~ImageView() {
 }
 
 void ImageView::create() {
-    CHECK_RESULT(vkCreateImageView(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image view");
+    VULKAN_CHECK_RESULT(vkCreateImageView(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image view");
 }
 
 void ImageView::destroy() {

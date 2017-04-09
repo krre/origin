@@ -23,7 +23,7 @@ Image::~Image() {
 }
 
 void Image::create() {
-    CHECK_RESULT(vkCreateImage(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image");
+    VULKAN_CHECK_RESULT(vkCreateImage(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image");
 
     VkMemoryRequirements memRequirements;
     vkGetImageMemoryRequirements(device->getHandle(), handle, &memRequirements);

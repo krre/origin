@@ -35,7 +35,7 @@ VkResult Device::waitForFences(std::vector<VkFence> fences) {
 void Device::create() {
     createInfo.queueCreateInfoCount = queueCreateInfos.size();
     createInfo.pQueueCreateInfos = queueCreateInfos.data();
-    CHECK_RESULT(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
+    VULKAN_CHECK_RESULT(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
 }
 
 void Device::destroy() {

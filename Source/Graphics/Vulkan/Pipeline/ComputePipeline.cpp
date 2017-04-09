@@ -8,5 +8,5 @@ ComputePipeline::ComputePipeline(const Device* device) :
 }
 
 void ComputePipeline::create() {
-    CHECK_RESULT(vkCreateComputePipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
+    VULKAN_CHECK_RESULT(vkCreateComputePipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
 }

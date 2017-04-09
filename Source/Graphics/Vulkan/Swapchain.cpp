@@ -36,7 +36,7 @@ Swapchain::~Swapchain() {
 void Swapchain::create() {
     VkExtent2D extent = surface->getCurrentExtent();
     createInfo.imageExtent = extent;
-    CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
+    VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);

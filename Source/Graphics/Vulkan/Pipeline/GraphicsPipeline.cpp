@@ -134,5 +134,5 @@ void GraphicsPipeline::create() {
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();
 
-    CHECK_RESULT(vkCreateGraphicsPipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
+    VULKAN_CHECK_RESULT(vkCreateGraphicsPipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
 }

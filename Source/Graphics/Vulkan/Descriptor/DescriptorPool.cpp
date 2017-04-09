@@ -26,7 +26,7 @@ void DescriptorPool::create() {
             createInfo.maxSets += poolSize.descriptorCount;
         }
     }
-    CHECK_RESULT(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
+    VULKAN_CHECK_RESULT(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
 }
 
 void DescriptorPool::destroy() {

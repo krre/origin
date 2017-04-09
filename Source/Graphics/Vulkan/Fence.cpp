@@ -11,7 +11,7 @@ Fence::~Fence() {
 }
 
 void Fence::create() {
-    CHECK_RESULT(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create fence");
+    VULKAN_CHECK_RESULT(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create fence");
 }
 
 void Fence::destroy() {

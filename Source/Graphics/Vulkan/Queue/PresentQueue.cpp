@@ -14,7 +14,7 @@ VkResult PresentQueue::present() {
     presentInfo.swapchainCount = swapchains.size();
     presentInfo.pSwapchains = swapchains.data();
     presentInfo.pImageIndices = imageIndices.data();
-    CHECK_RESULT(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
+    VULKAN_CHECK_RESULT(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
 }
 
 void PresentQueue::addSwapchain(VkSwapchainKHR swapchain) {

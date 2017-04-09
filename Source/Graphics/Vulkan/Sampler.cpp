@@ -23,7 +23,7 @@ Sampler::~Sampler() {
 }
 
 void Sampler::create() {
-    CHECK_RESULT(vkCreateSampler(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create sampler");
+    VULKAN_CHECK_RESULT(vkCreateSampler(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create sampler");
 }
 
 void Sampler::destroy() {

@@ -15,11 +15,11 @@ VkResult SubmitQueue::submit(VkFence fence) {
     submitInfo.pSignalSemaphores = signalSemaphores.data();
     submitInfo.commandBufferCount = commandBuffers.size();
     submitInfo.pCommandBuffers = commandBuffers.data();
-    CHECK_RESULT(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
+    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
 }
 
 VkResult SubmitQueue::waitIdle() {
-    CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
+    VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
 }
 
 void SubmitQueue::addSignalSemaphore(VkSemaphore semaphore) {

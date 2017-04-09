@@ -11,5 +11,5 @@ Event::~Event() {
 }
 
 void Event::create() {
-    CHECK_RESULT(vkCreateEvent(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create event");
+    VULKAN_CHECK_RESULT(vkCreateEvent(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create event");
 }

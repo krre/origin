@@ -31,7 +31,7 @@ void Surface::create() {
         createInfo.flags = 0;
         createInfo.connection = XGetXCBConnection(wminfo.info.x11.display);
         createInfo.window = wminfo.info.x11.window;
-        CHECK_RESULT(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
+        VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
         break;
     }
 #elif _WIN32
@@ -41,7 +41,7 @@ void Surface::create() {
         createInfo.flags = 0;
         createInfo.hwnd = wminfo.info.win.window;
         createInfo.hinstance = GetModuleHandle(nullptr);
-        CHECK_RESULT(vkCreateWin32SurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create win32 surface");
+        VULKAN_CHECK_RESULT(vkCreateWin32SurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create win32 surface");
         break;
     }
 #endif

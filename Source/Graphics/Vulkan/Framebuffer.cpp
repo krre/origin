@@ -16,7 +16,7 @@ void Framebuffer::create() {
     createInfo.attachmentCount = attachments.size();
     createInfo.pAttachments = attachments.data();
 
-    CHECK_RESULT(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create framebuffer");
+    VULKAN_CHECK_RESULT(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create framebuffer");
 }
 
 void Framebuffer::destroy() {

@@ -88,7 +88,7 @@ void RenderPass::create() {
     createInfo.pSubpasses = subpassDescriptions.data();
     createInfo.dependencyCount = subpassDependencies.size();
     createInfo.pDependencies = subpassDependencies.data();
-    CHECK_RESULT(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
+    VULKAN_CHECK_RESULT(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
     beginInfo.renderPass = handle;
 }
 

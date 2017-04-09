@@ -19,7 +19,7 @@ bool CommandBuffers::allocate(uint32_t count) {
     collection.resize(count);
     allocateInfo.commandBufferCount = count;
 
-    CHECK_RESULT(vkAllocateCommandBuffers(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate command buffers");
+    VULKAN_CHECK_RESULT(vkAllocateCommandBuffers(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate command buffers");
 }
 
 void CommandBuffers::destroy() {

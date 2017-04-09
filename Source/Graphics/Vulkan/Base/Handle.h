@@ -37,7 +37,7 @@ static std::string resultToString(VkResult result) {
     }
 }
 
-#define CHECK_RESULT(f, message) { \
+#define VULKAN_CHECK_RESULT(f, message) { \
     VkResult result = (f); \
     if (result != VK_SUCCESS) { \
         std::string errorMessage = std::string(message) + ": " + resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \

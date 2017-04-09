@@ -24,7 +24,7 @@ DebugReportCallback::~DebugReportCallback() {
 }
 
 void DebugReportCallback::create() {
-    CHECK_RESULT(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create debug report callback");
+    VULKAN_CHECK_RESULT(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create debug report callback");
 }
 
 void DebugReportCallback::destroy() {

@@ -225,3 +225,7 @@ void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask,
     setImageMemoryBarrier(imageMemoryBarrier);
     pipelineBarrier(srcStageMask, dstStageMask);
 }
+
+void CommandBuffer::reset() {
+    vkResetCommandBuffer(handle, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
+}

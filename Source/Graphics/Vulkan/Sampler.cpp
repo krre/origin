@@ -14,6 +14,7 @@ Sampler::Sampler(const Device* device) : Devicer(device) {
     createInfo.compareOp = VK_COMPARE_OP_NEVER;
     createInfo.minLod = 0.0f;
     createInfo.maxLod = 1.0f;
+    createInfo.maxAnisotropy = 1.0;
     createInfo.borderColor = VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE;
 }
 

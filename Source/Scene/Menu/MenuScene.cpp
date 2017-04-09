@@ -36,6 +36,7 @@ void MenuScene::init() {
 
     shaderProgram.createPipeline();
 
+    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
     buildCommandBuffers();
 
     shaderProgram.writeUniform("uboVert");
@@ -77,13 +78,12 @@ void MenuScene::buildCommandBuffers() {
     scissor.extent = extent;
 
     queue->clearCommandBuffers();
-    commandBuffers.destroy();
-    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
         renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
+        commandBuffer.reset();
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());

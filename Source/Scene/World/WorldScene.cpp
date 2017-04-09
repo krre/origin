@@ -316,7 +316,7 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void WorldScene::buildCommandBuffers() {
-    Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
+    Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.0, 0.0, 0.0, 0.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
     VkExtent2D extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
     renderPassBeginInfo->renderArea.extent = extent;

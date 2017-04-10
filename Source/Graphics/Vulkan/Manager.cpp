@@ -64,7 +64,7 @@ void Manager::init() {
     surface->create();
 
     renderPass = std::make_shared<RenderPass>(device.get());
-    renderPass->setColorFormat(surface->getFormat(0).format);
+    renderPass->setColorFormat(surface->getFormats().at(0).format);
     renderPass->create();
 
     swapchain = std::make_shared<Swapchain>(device.get(), surface.get());

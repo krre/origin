@@ -63,7 +63,7 @@ void DebugHUD::init() {
     graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
     graphicsPipeline->setBlendEnable(VK_TRUE);
 
-    renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormat(0).format);
+    renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormats().at(0).format);
     renderPass.setBlendEnable(true);
     renderPass.create();
 

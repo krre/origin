@@ -20,8 +20,8 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
     if (surfaceSupport) {
         createInfo.surface = surface->getHandle();
         createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;
-        createInfo.imageFormat = surface->getFormat(0).format;
-        createInfo.imageColorSpace = surface->getFormat(0).colorSpace;
+        createInfo.imageFormat = surface->getFormats().at(0).format;
+        createInfo.imageColorSpace = surface->getFormats().at(0).colorSpace;
         createInfo.preTransform = surface->getCapabilities().currentTransform;
         createInfo.presentMode = VK_PRESENT_MODE_FIFO_KHR;
     }
@@ -45,7 +45,7 @@ void Swapchain::create() {
 
     for (auto& image : images) {
         std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device, image);
-        imageView->createInfo.format = surface->getFormat(0).format;
+        imageView->createInfo.format = surface->getFormats().at(0).format;
         imageView->create();
         imageViews.push_back(imageView);
 

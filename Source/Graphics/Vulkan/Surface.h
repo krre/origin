@@ -18,8 +18,7 @@ public:
     void create() override;
     void destroy() override;
 
-    int getFormatCount() const { return formats.size(); }
-    const VkSurfaceFormatKHR& getFormat(size_t i) const { return formats.at(i); }
+    const std::vector<VkSurfaceFormatKHR>& getFormats() const { return formats; }
 
     int getPresentModeCount() const { return presentModes.size(); }
     const VkPresentModeKHR& getPresentMode(size_t i) const { return presentModes.at(i); }

@@ -17,12 +17,12 @@ public:
     ~Instance();
     void create() override;
     void destroy() override;
+
     const std::vector<VkLayerProperties>& getLayers() const { return layers; }
     void setEnabledLayers(const std::vector<const char*> enabledLayers);
     void dumpLayers();
 
-    uint32_t getExtensionCount() const { return extensions.size(); }
-    VkExtensionProperties getExtension(int i) const { return extensions.at(i); }
+    const std::vector<VkExtensionProperties>& getExtensions() const { return extensions; }
     void setEnabledExtensions(const std::vector<const char*> enabledExtensions);
     void dumpExtensions();
 

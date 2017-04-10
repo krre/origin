@@ -144,7 +144,6 @@ void DebugHUD::buildCommandBuffers() {
         renderPass.beginInfo.framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
-        commandBuffer.reset();
         commandBuffer.begin();
         commandBuffer.beginRenderPass(&renderPass.beginInfo);
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());

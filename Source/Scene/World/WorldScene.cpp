@@ -337,7 +337,6 @@ void WorldScene::buildCommandBuffers() {
         renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
-        commandBuffer.reset();
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());

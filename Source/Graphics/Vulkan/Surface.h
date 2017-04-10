@@ -19,12 +19,8 @@ public:
     void destroy() override;
 
     const std::vector<VkSurfaceFormatKHR>& getFormats() const { return formats; }
-
-    int getPresentModeCount() const { return presentModes.size(); }
-    const VkPresentModeKHR& getPresentMode(size_t i) const { return presentModes.at(i); }
-
+    const std::vector<VkPresentModeKHR>& getPresentModes() const { return presentModes; }
     const VkSurfaceCapabilitiesKHR& getCapabilities() const { return capabilities; }
-
     VkExtent2D getCurrentExtent() const;
 
 private:

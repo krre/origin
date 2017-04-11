@@ -1,5 +1,8 @@
 #include "Swapchain.h"
 #include "Manager.h"
+#include "Image/Image.h"
+#include "Command/CommandBufferOneTime.h"
+#include <lodepng/lodepng.h>
 
 using namespace Vulkan;
 
@@ -63,4 +66,102 @@ void Swapchain::destroy() {
     imageViews.clear();
     framebuffers.clear();
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
+}
+
+void Swapchain::saveImage(const std::string& filePath) {
+    PresentQueue* pq = Manager::get()->getPresentQueue();
+    VkImage srcImage = images.at(*pq->getImageIndex(index));
+
+    uint32_t width = framebuffers.at(index)->getWidth();
+    uint32_t height = framebuffers.at(index)->getHeight();
+
+    Image image(device);
+    image.setWidth(width);
+    image.setHeight(height);
+    image.create();
+    VkImage dstImage = image.getHandle();
+
+    CommandBufferOneTime commandBuffer(device);
+    commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
+                     VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
+    commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
+                     VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
+
+    bool supportsBlit = device->getPhysicalDevice()->getSupportBlit();
+    if (supportsBlit) {
+        VkOffset3D blitSize;
+        blitSize.x = width;
+        blitSize.y = height;
+        blitSize.z = 1;
+
+        VkImageBlit imageBlitRegion = {};
+        imageBlitRegion.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageBlitRegion.srcSubresource.layerCount = 1;
+        imageBlitRegion.srcOffsets[1] = blitSize;
+        imageBlitRegion.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageBlitRegion.dstSubresource.layerCount = 1;
+        imageBlitRegion.dstOffsets[1] = blitSize;
+
+        commandBuffer.addBlitRegion(imageBlitRegion);
+        commandBuffer.blitImage(srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    } else {
+        VkImageCopy imageCopy;
+        imageCopy.srcSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageCopy.srcSubresource.mipLevel = 0;
+        imageCopy.srcSubresource.baseArrayLayer = 0;
+        imageCopy.srcSubresource.layerCount = 1;
+        imageCopy.srcOffset = {};
+        imageCopy.dstSubresource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+        imageCopy.dstSubresource.mipLevel = 0;
+        imageCopy.dstSubresource.baseArrayLayer = 0;
+        imageCopy.dstSubresource.layerCount = 1;
+        imageCopy.dstOffset = {};
+        imageCopy.extent.width = width;
+        imageCopy.extent.height = height;
+        imageCopy.extent.depth = 1;
+
+        commandBuffer.addImageCopy(imageCopy);
+        commandBuffer.copyImage(srcImage, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, dstImage, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL);
+    }
+
+    commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_IMAGE_LAYOUT_GENERAL,
+                     VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_HOST_BIT);
+    commandBuffer.apply();
+
+    // Get layout of the image (including row pitch)
+    VkImageSubresource subResource = {};
+    subResource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
+    VkSubresourceLayout subResourceLayout;
+    vkGetImageSubresourceLayout(device->getHandle(), dstImage, &subResource, &subResourceLayout);
+
+    // Map image memory so we can start copying from it
+    const unsigned char* data;
+    image.getMemory()->map((void**)&data, VK_WHOLE_SIZE);
+    data += subResourceLayout.offset;
+
+    if (supportsBlit) {
+        lodepng::encode(filePath, data, width, height);
+    } else {
+        std::vector<unsigned char> output;
+        output.resize(width * height * 4);
+        // Convert from BGR to RGB
+        uint32_t offset = 0;
+        for (uint32_t y = 0; y < height; y++) {
+            unsigned int *row = (unsigned int*)data;
+            for (uint32_t x = 0; x < width; x++) {
+                output[offset++] = *((char*)row + 2);
+                output[offset++] = *((char*)row + 1);
+                output[offset++] = *((char*)row);
+                output[offset++] = *((char*)row + 3);
+
+                row++;
+            }
+
+            data += subResourceLayout.rowPitch;
+        }
+
+        lodepng::encode(filePath, output.data(), width, height);
+    }
+
+    image.getMemory()->unmap();
 }

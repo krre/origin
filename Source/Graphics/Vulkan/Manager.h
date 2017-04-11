@@ -26,7 +26,6 @@ public:
     PresentQueue* getPresentQueue() const { return presentQueue.get(); }
     void renderBegin();
     void renderEnd();
-    void saveScreenshot(const std::string& filePath);
 
 private:
     void onWindowResize(int width, int height);

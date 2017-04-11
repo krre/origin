@@ -81,7 +81,7 @@ void Game::saveScreenshot() {
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
     std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
 
-    Vulkan::Manager::get()->saveScreenshot(filePath);
+    Vulkan::Manager::get()->getSwapchain()->saveImage(filePath);
 
     std::string message = "Screenshot saved to " + filename;
 //    Toast::get()->showToast(message);

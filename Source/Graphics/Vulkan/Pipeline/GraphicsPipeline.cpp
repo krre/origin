@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-GraphicsPipeline::GraphicsPipeline(const Device* device) :
+GraphicsPipeline::GraphicsPipeline(Device* device) :
         Pipeline(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
     createInfo.pVertexInputState = &vertexInputState;

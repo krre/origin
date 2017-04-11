@@ -20,7 +20,7 @@ public:
         std::shared_ptr<Vulkan::Buffer> buffer;
     };
 
-    ShaderProgram(const Vulkan::Device* device);
+    ShaderProgram(Vulkan::Device* device = nullptr);
     ~ShaderProgram();
     void addShader(const std::string& path);
     Vulkan::GraphicsPipeline* getGraphicsPipeline() { return &graphicsPipeline; }

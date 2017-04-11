@@ -28,7 +28,7 @@ void MenuScene::init() {
 
     shaderProgram.linkInput("position", sizeof(glm::vec2));
 
-    vertexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
+    vertexBuffer = std::make_shared<Vulkan::Buffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
     vertexBuffer->create();
     vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
 

@@ -9,7 +9,7 @@ namespace Vulkan {
 class DescriptorSets : public Collection<VkDescriptorSet>, public Devicer {
 
 public:
-    DescriptorSets(const Device* device, const DescriptorPool* descriptorPool);
+    DescriptorSets(const DescriptorPool* descriptorPool, Device* device = nullptr);
     ~DescriptorSets();
     bool allocate();
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);

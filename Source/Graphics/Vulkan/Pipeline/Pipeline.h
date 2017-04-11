@@ -12,7 +12,7 @@ namespace Vulkan {
 class Pipeline : public Handle<VkPipeline>, public Devicer {
 
 public:
-    Pipeline(const Device* device) : Devicer(device) {}
+    Pipeline(Device* device = nullptr) : Devicer(device) {}
     ~Pipeline();
     void destroy() override;
     void addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint = "main");

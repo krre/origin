@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-PipelineLayout::PipelineLayout(const Device* device) : Devicer(device) {
+PipelineLayout::PipelineLayout(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 }
 

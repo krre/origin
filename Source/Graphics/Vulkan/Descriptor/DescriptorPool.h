@@ -8,7 +8,7 @@ namespace Vulkan {
 class DescriptorPool : public Handle<VkDescriptorPool>, public Devicer {
 
 public:
-    DescriptorPool(const Device* device);
+    DescriptorPool(Device* device = nullptr);
     ~DescriptorPool();
     void addPoolSize(VkDescriptorType type, uint32_t count);
     void create() override;

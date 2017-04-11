@@ -5,7 +5,7 @@ using namespace Vulkan;
 
 int Swapchain::indexCounter = 0;
 
-Swapchain::Swapchain(const Device* device, const Surface* surface) :
+Swapchain::Swapchain(const Surface* surface, Device* device) :
     Devicer(device),
     surface(surface) {
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
@@ -16,7 +16,7 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
     createInfo.clipped = VK_TRUE;
 
     VkBool32 surfaceSupport;
-    vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice()->getHandle(), 0, surface->getHandle(), &surfaceSupport);
+    vkGetPhysicalDeviceSurfaceSupportKHR(this->device->getPhysicalDevice()->getHandle(), 0, surface->getHandle(), &surfaceSupport);
     if (surfaceSupport) {
         createInfo.surface = surface->getHandle();
         createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;
@@ -44,7 +44,7 @@ void Swapchain::create() {
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
 
     for (auto& image : images) {
-        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device, image);
+        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(image);
         imageView->createInfo.format = surface->getFormats().at(0).format;
         imageView->create();
         imageViews.push_back(imageView);

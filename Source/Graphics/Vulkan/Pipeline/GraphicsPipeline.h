@@ -7,7 +7,7 @@ namespace Vulkan {
 class GraphicsPipeline : public Pipeline {
 
 public:
-    GraphicsPipeline(const Device* device);
+    GraphicsPipeline(Device* device = nullptr);
     void setExtent(VkExtent2D extent);
     void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
     void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);

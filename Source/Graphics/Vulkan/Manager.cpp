@@ -26,20 +26,20 @@ void Manager::init() {
 
     device = instance->getDefaultDevice();
 
-    commandPool = std::make_shared<CommandPool>(device, instance->getGraphicsFamily());
+    commandPool = std::make_shared<CommandPool>(instance->getGraphicsFamily());
     commandPool->create();
 
     renderPass = std::make_shared<RenderPass>(device);
     renderPass->setColorFormat(instance->getSurface()->getFormats().at(0).format);
     renderPass->create();
 
-    swapchain = std::make_shared<Swapchain>(device, instance->getSurface());
+    swapchain = std::make_shared<Swapchain>(instance->getSurface());
     swapchain->create();
 
     imageAvailableSemaphore = std::make_shared<Semaphore>(device);
     imageAvailableSemaphore->create();
 
-    presentQueue = std::make_shared<PresentQueue>(device, instance->getGraphicsFamily());
+    presentQueue = std::make_shared<PresentQueue>(instance->getGraphicsFamily());
     presentQueue->addSwapchain(swapchain->getHandle());
 
     Event::get()->windowResize.connect<Manager, &Manager::onWindowResize>(this);

@@ -9,7 +9,7 @@ namespace Vulkan {
 class Framebuffer : public Handle<VkFramebuffer>, public Devicer {
 
 public:
-    Framebuffer(const Device* device);
+    Framebuffer(Device* device = nullptr);
     ~Framebuffer();
     void create() override;
     void destroy() override;

@@ -7,7 +7,7 @@ namespace Vulkan {
 class ShaderModule : public Handle<VkShaderModule>, public Devicer {
 
 public:
-    ShaderModule(const Device* device, size_t codeSize, const uint32_t* pCode);
+    ShaderModule(size_t codeSize, const uint32_t* pCode, Device* device = nullptr);
     ~ShaderModule();
     void create() override;
     void destroy() override;

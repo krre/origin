@@ -7,13 +7,13 @@
 
 Scene::Scene() :
         device(Vulkan::Instance::get()->getDefaultDevice()),
-        commandBuffers(device, Vulkan::Manager::get()->getCommandPool()) {
+        commandBuffers(Vulkan::Manager::get()->getCommandPool()) {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
     renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();
 
-    queue = std::make_shared<Vulkan::SubmitQueue>(device, Vulkan::Instance::get()->getGraphicsFamily());
+    queue = std::make_shared<Vulkan::SubmitQueue>(Vulkan::Instance::get()->getGraphicsFamily());
     queue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
 }
 

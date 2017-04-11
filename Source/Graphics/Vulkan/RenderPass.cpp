@@ -3,7 +3,7 @@
 
 using namespace Vulkan;
 
-RenderPass::RenderPass(const Device* device) :
+RenderPass::RenderPass(Device* device) :
     Devicer(device) {
     beginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     beginInfo.renderArea.offset = { 0, 0 };

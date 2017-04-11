@@ -8,7 +8,7 @@ using namespace Vulkan;
 
 CommandBufferOneTime::CommandBufferOneTime(Device* device) :
         device(device) {
-    commandBuffers = std::make_shared<CommandBuffers>(device, Manager::get()->getCommandPool());
+    commandBuffers = std::make_shared<CommandBuffers>(Manager::get()->getCommandPool());
     commandBuffers->allocate(1);
     commandBuffer = std::make_shared<CommandBuffer>(commandBuffers->at(0));
     commandBuffer->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
@@ -20,7 +20,7 @@ void CommandBufferOneTime::apply() {
     Fence fence(device);
     fence.create();
 
-    SubmitQueue queue(device, Instance::get()->getGraphicsFamily());
+    SubmitQueue queue(Instance::get()->getGraphicsFamily(), 0, device);
     queue.addCommandBuffer(commandBuffer->getHandle());
     queue.submit(fence.getHandle());
 

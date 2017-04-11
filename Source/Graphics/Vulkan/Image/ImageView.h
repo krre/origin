@@ -8,7 +8,7 @@ namespace Vulkan {
 class ImageView : public Handle<VkImageView>, public Devicer {
 
 public:
-    ImageView(const Device* device, VkImage image);
+    ImageView(VkImage image, Device* device = nullptr);
     ~ImageView();
     void create() override;
     void destroy() override;

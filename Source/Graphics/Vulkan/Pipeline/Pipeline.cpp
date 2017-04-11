@@ -11,7 +11,7 @@ void Pipeline::destroy() {
 }
 
 void Pipeline::addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint) {
-    std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(device, size, code));
+    std::shared_ptr<ShaderModule> shaderModule(new ShaderModule(size, code));
     shaderModule->create();
     shaderModules[stage] = shaderModule;
     VkPipelineShaderStageCreateInfo shaderStageInfo = {};

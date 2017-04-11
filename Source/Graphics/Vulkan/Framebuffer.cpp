@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-Framebuffer::Framebuffer(const Device* device) :
+Framebuffer::Framebuffer(Device* device) :
     Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
     createInfo.layers = 1;

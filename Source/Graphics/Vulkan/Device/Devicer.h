@@ -6,13 +6,13 @@ namespace Vulkan {
 class Devicer {
 
 public:
-    Devicer(const Device* device);
+    Devicer(Device* device = nullptr);
     Devicer() = delete;
 
-    const Device* getDevice() const { return device; }
+    Device* getDevice() const { return device; }
 
 protected:
-    const Device* device = nullptr;
+    Device* device;
 };
 
 } // Vulkan

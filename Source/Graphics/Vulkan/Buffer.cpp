@@ -6,7 +6,7 @@
 
 using namespace Vulkan;
 
-Buffer::Buffer(const Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice) :
+Buffer::Buffer(VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice, Device* device) :
         Devicer(device), memory(device), moveToDevice(moveToDevice) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = size;

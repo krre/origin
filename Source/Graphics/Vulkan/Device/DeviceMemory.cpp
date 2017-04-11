@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-DeviceMemory::DeviceMemory(const Device* device) : Devicer(device) {
+DeviceMemory::DeviceMemory(Device* device) : Devicer(device) {
     allocateInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 }
 

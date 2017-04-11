@@ -9,7 +9,7 @@ namespace Vulkan {
 class Image : public Handle<VkImage>, public Devicer {
 
 public:
-    Image(const Device* device);
+    Image(Device* device = nullptr);
     ~Image();
     void create() override;
     void destroy() override;

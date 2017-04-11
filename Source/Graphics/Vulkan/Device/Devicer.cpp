@@ -1,7 +1,11 @@
 #include "Devicer.h"
+#include "../Instance.h"
+
 
 using namespace Vulkan;
 
-Devicer::Devicer(const Device* device) : device(device) {
-
+Devicer::Devicer(Device* device) : device(device) {
+    if (this->device == nullptr) {
+        this->device = Instance::get()->getDefaultDevice();
+    }
 }

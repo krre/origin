@@ -4,7 +4,7 @@
 
 using namespace Vulkan;
 
-Image::Image(const Device* device) :
+Image::Image(Device* device) :
     Devicer(device), memory(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     createInfo.imageType = VK_IMAGE_TYPE_2D;

@@ -6,13 +6,13 @@
 
 using namespace Vulkan;
 
-ShaderProgram::ShaderProgram(const Device* device) :
+ShaderProgram::ShaderProgram(Device* device) :
         device(device),
         graphicsPipeline(device),
         pipelineLayout(device),
         descriptorPool(device),
         descriptorSetLayout(device),
-        descriptorSets(device, &descriptorPool) {
+        descriptorSets(&descriptorPool) {
     graphicsPipeline.setExtent(Vulkan::Instance::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
 }
@@ -67,7 +67,7 @@ void ShaderProgram::createPipeline() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, bufferInfo->size, false);
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(usage, bufferInfo->size, false);
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
@@ -112,7 +112,7 @@ void ShaderProgram::createPipeline() {
 }
 
 void ShaderProgram::createIndexBuffer(VkDeviceSize size) {
-    indexBuffer = std::make_shared<Vulkan::Buffer>(device, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size, false);
+    indexBuffer = std::make_shared<Vulkan::Buffer>(VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size, false);
     indexBuffer->create();
 }
 

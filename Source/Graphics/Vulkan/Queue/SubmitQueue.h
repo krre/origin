@@ -8,7 +8,7 @@ namespace Vulkan {
 class SubmitQueue : public Queue {
 
 public:
-    SubmitQueue(const Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
+    SubmitQueue(uint32_t queueFamilyIndex, uint32_t queueIndex = 0, Device* device = nullptr);
     VkResult submit(VkFence fence = VK_NULL_HANDLE);
     VkResult waitIdle();
 

@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-DescriptorPool::DescriptorPool(const Device* device) : Devicer(device) {
+DescriptorPool::DescriptorPool(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
     createInfo.flags = VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT;
 }

@@ -11,7 +11,7 @@ namespace Vulkan {
 class Swapchain : public Handle<VkSwapchainKHR>, public Devicer {
 
 public:
-    Swapchain(const Device* device, const Surface* surface);
+    Swapchain(const Surface* surface, Device* device = nullptr);
     ~Swapchain();
     void create() override;
     void destroy() override;

@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-ComputePipeline::ComputePipeline(const Device* device) :
+ComputePipeline::ComputePipeline(Device* device) :
         Pipeline(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
 }

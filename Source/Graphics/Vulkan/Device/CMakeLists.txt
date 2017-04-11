@@ -4,6 +4,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Device.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DeviceMemory.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Devicer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Devicer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevice.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/PhysicalDevice.h

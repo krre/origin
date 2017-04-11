@@ -40,7 +40,7 @@ void Manager::init() {
     });
 #endif
 
-    Instance::get()->create();
+    instance->create();
 
     if (enableValidationLayers) {
         debugCallback = std::make_shared<DebugReportCallback>(instance);

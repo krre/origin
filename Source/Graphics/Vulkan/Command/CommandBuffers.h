@@ -13,9 +13,8 @@ public:
     bool allocate(uint32_t count);
     void destroy() override;
 
-    VkCommandBufferAllocateInfo allocateInfo = {};
-
 private:
+    VkCommandBufferAllocateInfo allocateInfo = {};
     const CommandPool* commandPool;
 };
 

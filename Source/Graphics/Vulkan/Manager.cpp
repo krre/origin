@@ -11,7 +11,9 @@
 using namespace Vulkan;
 
 void Manager::init() {
-    instance.setEnabledLayers({
+    new Instance();
+    Instance* instance = Instance::get();
+    instance->setEnabledLayers({
 //        "VK_LAYER_LUNARG_api_dump",
         "VK_LAYER_LUNARG_parameter_validation",
 //        "VK_LAYER_LUNARG_vktrace",
@@ -25,27 +27,27 @@ void Manager::init() {
     });
 
 #ifdef __linux__
-    instance.setEnabledExtensions({
+    instance->setEnabledExtensions({
         "VK_KHR_surface",
         "VK_KHR_xcb_surface",
         "VK_EXT_debug_report"
     });
 #elif _WIN32
-    instance.setEnabledExtensions({
+    instance->setEnabledExtensions({
         "VK_KHR_surface",
         "VK_KHR_win32_surface",
         "VK_EXT_debug_report"
     });
 #endif
 
-    instance.create();
+    Instance::get()->create();
 
     if (enableValidationLayers) {
-        debugCallback = std::make_shared<DebugReportCallback>(&instance);
+        debugCallback = std::make_shared<DebugReportCallback>(instance);
         debugCallback->create();
     }
 
-    physicalDevices = std::make_shared<PhysicalDevices>(&instance);
+    physicalDevices = std::make_shared<PhysicalDevices>(instance);
     mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
     if (mainPhysicalDevice == nullptr) {
         mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
@@ -57,10 +59,12 @@ void Manager::init() {
     device->addQueueCreateInfo(graphicsFamily, { 1.0 });
     device->create();
 
+    instance->setDefaultDevice(device.get());
+
     commandPool = std::make_shared<CommandPool>(device.get(), graphicsFamily);
     commandPool->create();
 
-    surface = std::make_shared<Surface>(instance.getHandle(), mainPhysicalDevice->getHandle());
+    surface = std::make_shared<Surface>(instance->getHandle(), mainPhysicalDevice->getHandle());
     surface->create();
 
     renderPass = std::make_shared<RenderPass>(device.get());

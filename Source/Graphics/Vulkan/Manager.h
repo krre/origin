@@ -23,7 +23,6 @@ class Manager : public Singleton<Manager> {
 
 public:
     void init();
-    const Instance* getInstance() const { return &instance; }
     Device* getDevice() const { return device.get(); }
     Surface* getSurface() const { return surface.get(); }
     Swapchain* getSwapchain() const { return swapchain.get(); }
@@ -40,7 +39,6 @@ public:
 private:
     void onWindowResize(int width, int height);
 
-    Instance instance;
     PhysicalDevice* mainPhysicalDevice;
     std::shared_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;

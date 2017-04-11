@@ -1,5 +1,6 @@
 #pragma once
 #include "Base/Handle.h"
+#include "../../Core/Singleton.h"
 #include <vector>
 
 namespace Vulkan {
@@ -12,7 +13,7 @@ namespace Vulkan {
 
 class Device;
 
-class Instance : public Handle<VkInstance> {
+class Instance : public Handle<VkInstance>, public Singleton<Instance> {
 
 public:
     Instance();

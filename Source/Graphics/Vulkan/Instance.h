@@ -10,6 +10,8 @@ namespace Vulkan {
     const bool enableValidationLayers = true;
 #endif
 
+class Device;
+
 class Instance : public Handle<VkInstance> {
 
 public:
@@ -26,6 +28,9 @@ public:
     void setEnabledExtensions(const std::vector<const char*> enabledExtensions);
     void dumpExtensions();
 
+    void setDefaultDevice(Device* device);
+    Device* getDefaultDevice() const { return defaultDevice; }
+
 private:
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};
@@ -33,6 +38,8 @@ private:
     std::vector<const char*> enabledLayers;
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
+    Device* defaultDevice;
+
 };
 
 } // Vulkan

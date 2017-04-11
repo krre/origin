@@ -66,6 +66,10 @@ void Instance::dumpExtensions() {
     }
 }
 
+void Instance::setDefaultDevice(Device* device) {
+    defaultDevice = device;
+}
+
 Instance::~Instance() {
     destroy();
 }

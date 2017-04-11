@@ -23,7 +23,7 @@ Swapchain::Swapchain(const Device* device, const Surface* surface) :
         createInfo.imageFormat = surface->getFormats().at(0).format;
         createInfo.imageColorSpace = surface->getFormats().at(0).colorSpace;
         createInfo.preTransform = surface->getCapabilities().currentTransform;
-        createInfo.presentMode = VK_PRESENT_MODE_FIFO_KHR;
+        createInfo.presentMode = VK_PRESENT_MODE_MAILBOX_KHR;
     }
 
     index = indexCounter++;

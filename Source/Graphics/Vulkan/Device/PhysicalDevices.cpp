@@ -2,11 +2,11 @@
 
 using namespace Vulkan;
 
-PhysicalDevices::PhysicalDevices(const Instance* instance) : instance(instance) {
+PhysicalDevices::PhysicalDevices(VkInstance instance) {
     uint32_t count;
-    vkEnumeratePhysicalDevices(instance->getHandle(), &count, nullptr);
+    vkEnumeratePhysicalDevices(instance, &count, nullptr);
     collection.resize(count);
-    vkEnumeratePhysicalDevices(instance->getHandle(), &count, collection.data());
+    vkEnumeratePhysicalDevices(instance, &count, collection.data());
 
     for (auto& device : collection) {
         auto physicalDevice = std::make_shared<PhysicalDevice>(device);

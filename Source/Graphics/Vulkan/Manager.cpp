@@ -17,8 +17,6 @@ Manager::~Manager() {
     renderPass.reset();
     surface.reset();
     commandPool.reset();
-    device.reset();
-    physicalDevices.reset();
     Instance::get()->release();
 }
 
@@ -27,37 +25,25 @@ void Manager::init() {
     Instance* instance = Instance::get();
     instance->create();
 
-    physicalDevices = std::make_shared<PhysicalDevices>(instance);
-    mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
-    if (mainPhysicalDevice == nullptr) {
-        mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
-    }
+    device = instance->getDefaultDevice();
 
-    graphicsFamily = mainPhysicalDevice->findQueue(VK_QUEUE_GRAPHICS_BIT);
-
-    device = std::make_shared<Device>(mainPhysicalDevice);
-    device->addQueueCreateInfo(graphicsFamily, { 1.0 });
-    device->create();
-
-    instance->setDefaultDevice(device.get());
-
-    commandPool = std::make_shared<CommandPool>(device.get(), graphicsFamily);
+    commandPool = std::make_shared<CommandPool>(device, instance->getGraphicsFamily());
     commandPool->create();
 
-    surface = std::make_shared<Surface>(instance->getHandle(), mainPhysicalDevice->getHandle());
+    surface = std::make_shared<Surface>(instance->getHandle(), instance->getDefaultDevice()->getPhysicalDevice()->getHandle());
     surface->create();
 
-    renderPass = std::make_shared<RenderPass>(device.get());
+    renderPass = std::make_shared<RenderPass>(device);
     renderPass->setColorFormat(surface->getFormats().at(0).format);
     renderPass->create();
 
-    swapchain = std::make_shared<Swapchain>(device.get(), surface.get());
+    swapchain = std::make_shared<Swapchain>(device, surface.get());
     swapchain->create();
 
-    imageAvailableSemaphore = std::make_shared<Semaphore>(device.get());
+    imageAvailableSemaphore = std::make_shared<Semaphore>(device);
     imageAvailableSemaphore->create();
 
-    presentQueue = std::make_shared<PresentQueue>(device.get(), graphicsFamily);
+    presentQueue = std::make_shared<PresentQueue>(device, instance->getGraphicsFamily());
     presentQueue->addSwapchain(swapchain->getHandle());
 
     Event::get()->windowResize.connect<Manager, &Manager::onWindowResize>(this);
@@ -76,13 +62,13 @@ void Manager::saveScreenshot(const std::string& filePath) {
 
     uint32_t width = App::get()->getWidth();
     uint32_t height = App::get()->getHeight();
-    Image image(device.get());
+    Image image(device);
     image.setWidth(width);
     image.setHeight(height);
     image.create();
     VkImage dstImage = image.getHandle();
 
-    CommandBufferOneTime commandBuffer(device.get());
+    CommandBufferOneTime commandBuffer(device);
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,

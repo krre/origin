@@ -10,13 +10,12 @@ namespace Vulkan {
 class PhysicalDevices : public Collection<VkPhysicalDevice> {
 
 public:
-    PhysicalDevices(const Instance* instance);
+    PhysicalDevices(VkInstance instance);
     PhysicalDevice* findDevice(VkPhysicalDeviceType type);
     void dumpDevices();
     void destroy() override {}
 
 private:
-    const Instance* instance;
     std::vector<std::shared_ptr<PhysicalDevice>> devices;
 };
 

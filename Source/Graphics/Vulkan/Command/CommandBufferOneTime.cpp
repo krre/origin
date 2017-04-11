@@ -1,6 +1,8 @@
 #include "CommandBufferOneTime.h"
-#include "../Manager.h"
+#include "../Instance.h"
 #include "../Fence.h"
+#include "../Queue/SubmitQueue.h"
+#include "../Manager.h"
 
 using namespace Vulkan;
 
@@ -18,7 +20,7 @@ void CommandBufferOneTime::apply() {
     Fence fence(device);
     fence.create();
 
-    SubmitQueue queue(device, Manager::get()->getGraphicsFamily());
+    SubmitQueue queue(device, Instance::get()->getGraphicsFamily());
     queue.addCommandBuffer(commandBuffer->getHandle());
     queue.submit(fence.getHandle());
 

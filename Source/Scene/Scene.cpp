@@ -2,17 +2,18 @@
 #include "../Event/Event.h"
 #include "SceneManager.h"
 #include "../Graphics/Vulkan/Manager.h"
+#include "../Graphics/Vulkan/Instance.h"
 #include "../Event/Input.h"
 
 Scene::Scene() :
-        device(Vulkan::Manager::get()->getDevice()),
+        device(Vulkan::Instance::get()->getDefaultDevice()),
         commandBuffers(device, Vulkan::Manager::get()->getCommandPool()) {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
     renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();
 
-    queue = std::make_shared<Vulkan::SubmitQueue>(device, Vulkan::Manager::get()->getGraphicsFamily());
+    queue = std::make_shared<Vulkan::SubmitQueue>(device, Vulkan::Instance::get()->getGraphicsFamily());
     queue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
 }
 

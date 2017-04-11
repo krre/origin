@@ -13,6 +13,7 @@ namespace Vulkan {
 #endif
 
 class Device;
+class PhysicalDevices;
 
 class Instance : public Handle<VkInstance>, public Singleton<Instance> {
 
@@ -33,6 +34,8 @@ public:
     void setDefaultDevice(Device* device);
     Device* getDefaultDevice() const { return defaultDevice; }
 
+    uint32_t getGraphicsFamily() const { return graphicsFamily; }
+
 private:
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};
@@ -41,7 +44,10 @@ private:
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
     Device* defaultDevice;
+    uint32_t graphicsFamily;
     std::shared_ptr<DebugReportCallback> debugCallback;
+    std::shared_ptr<PhysicalDevices> physicalDevices;
+    std::vector<std::shared_ptr<Device>> devices;
 };
 
 } // Vulkan

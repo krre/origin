@@ -1,4 +1,7 @@
 #include "Instance.h"
+#include "Device/PhysicalDevice.h"
+#include "Device/PhysicalDevices.h"
+#include "Device/Device.h"
 
 using namespace Vulkan;
 
@@ -53,6 +56,8 @@ Instance::Instance() {
 
 Instance::~Instance() {
     debugCallback.reset();
+    physicalDevices.reset();
+    devices.clear();
     destroy();
 }
 
@@ -70,6 +75,21 @@ void Instance::create() {
         debugCallback = std::make_shared<DebugReportCallback>(handle);
         debugCallback->create();
     }
+
+    physicalDevices = std::make_shared<PhysicalDevices>(handle);
+    PhysicalDevice* defaultPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+    if (defaultPhysicalDevice == nullptr) {
+        defaultPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+    }
+
+    graphicsFamily = defaultPhysicalDevice->findQueue(VK_QUEUE_GRAPHICS_BIT);
+
+    std::shared_ptr<Device> device = std::make_shared<Device>(defaultPhysicalDevice);
+    devices.push_back(device);
+    device->addQueueCreateInfo(graphicsFamily, { 1.0 });
+    device->create();
+
+    defaultDevice = device.get();
 }
 
 void Instance::destroy() {

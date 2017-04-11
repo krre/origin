@@ -131,7 +131,7 @@ int App::run() {
         SceneManager::get()->draw(frameTime);
     }
 
-    Vulkan::Manager::get()->getDevice()->waitIdle();
+    Vulkan::Instance::get()->getDefaultDevice()->waitIdle();
 }
 
 /*

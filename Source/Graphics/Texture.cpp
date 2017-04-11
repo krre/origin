@@ -1,13 +1,13 @@
 #include "Texture.h"
 #include <lodepng/lodepng.h>
-#include "Vulkan/Manager.h"
+#include "Vulkan/Instance.h"
 #include "Vulkan/Command/CommandBufferOneTime.h"
 #include "Vulkan/Fence.h"
 #include "Vulkan/Queue/SubmitQueue.h"
 
 Texture::Texture(const std::string& path, VkFormat format) :
-        image(Vulkan::Manager::get()->getDevice()) {
-    Vulkan::Device* device = Vulkan::Manager::get()->getDevice();
+        image(Vulkan::Instance::get()->getDefaultDevice()) {
+    Vulkan::Device* device = Vulkan::Instance::get()->getDefaultDevice();
     uint32_t width;
     uint32_t height;
     unsigned result = lodepng::decode(data, width, height, path);
@@ -38,7 +38,7 @@ Texture::Texture(const std::string& path, VkFormat format) :
 
     }
 
-    Vulkan::CommandBufferOneTime commandBuffer(Vulkan::Manager::get()->getDevice());
+    Vulkan::CommandBufferOneTime commandBuffer(device);
     commandBuffer.setImageLayout(image.getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
     commandBuffer.apply();
 }

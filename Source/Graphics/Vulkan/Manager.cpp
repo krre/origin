@@ -15,7 +15,6 @@ Manager::~Manager() {
     imageAvailableSemaphore.reset();
     swapchain.reset();
     renderPass.reset();
-    surface.reset();
     commandPool.reset();
     Instance::get()->release();
 }
@@ -30,14 +29,11 @@ void Manager::init() {
     commandPool = std::make_shared<CommandPool>(device, instance->getGraphicsFamily());
     commandPool->create();
 
-    surface = std::make_shared<Surface>(instance->getHandle(), instance->getDefaultDevice()->getPhysicalDevice()->getHandle());
-    surface->create();
-
     renderPass = std::make_shared<RenderPass>(device);
-    renderPass->setColorFormat(surface->getFormats().at(0).format);
+    renderPass->setColorFormat(instance->getSurface()->getFormats().at(0).format);
     renderPass->create();
 
-    swapchain = std::make_shared<Swapchain>(device, surface.get());
+    swapchain = std::make_shared<Swapchain>(device, instance->getSurface());
     swapchain->create();
 
     imageAvailableSemaphore = std::make_shared<Semaphore>(device);

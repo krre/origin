@@ -2,7 +2,6 @@
 #include "../../Core/Singleton.h"
 #include "Instance.h"
 #include "Command/CommandBuffers.h"
-#include "Surface.h"
 #include "Queue/PresentQueue.h"
 #include "Queue/SubmitQueue.h"
 #include "Swapchain.h"
@@ -20,7 +19,6 @@ class Manager : public Singleton<Manager> {
 public:
     ~Manager();
     void init();
-    Surface* getSurface() const { return surface.get(); }
     Swapchain* getSwapchain() const { return swapchain.get(); }
     RenderPass* getRenderPass() const { return renderPass.get(); }
     CommandPool* getCommandPool() const { return commandPool.get(); }
@@ -33,7 +31,6 @@ public:
 private:
     void onWindowResize(int width, int height);
 
-    std::shared_ptr<Surface> surface;
     std::shared_ptr<CommandPool> commandPool;
     std::shared_ptr<Swapchain> swapchain;
     std::shared_ptr<RenderPass> renderPass;

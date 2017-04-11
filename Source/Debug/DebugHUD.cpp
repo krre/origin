@@ -6,6 +6,8 @@
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Manager.h"
+#include "../Graphics/Vulkan/Instance.h"
+#include "../Graphics/Vulkan/Instance.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
@@ -63,7 +65,7 @@ void DebugHUD::init() {
     graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
     graphicsPipeline->setBlendEnable(VK_TRUE);
 
-    renderPass.setColorFormat(Vulkan::Manager::get()->getSurface()->getFormats().at(0).format);
+    renderPass.setColorFormat(Vulkan::Instance::get()->getSurface()->getFormats().at(0).format);
     renderPass.setBlendEnable(true);
     renderPass.create();
 
@@ -126,7 +128,7 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::buildCommandBuffers() {
-    VkExtent2D extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
+    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
     renderPass.beginInfo.renderArea.extent = extent;
 
     VkViewport viewport = {};

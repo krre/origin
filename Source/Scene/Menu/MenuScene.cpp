@@ -3,6 +3,7 @@
 #include "../../Scene/SceneManager.h"
 #include "../../Event/Input.h"
 #include "../../Graphics/Vulkan/Manager.h"
+#include "../../Graphics/Vulkan/Instance.h"
 #include "../../Resource/ShaderResource.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
@@ -65,7 +66,7 @@ void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 void MenuScene::buildCommandBuffers() {
     Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
-    VkExtent2D extent = Vulkan::Manager::get()->getSurface()->getCurrentExtent();
+    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
     renderPassBeginInfo->renderArea.extent = extent;
 
     VkViewport viewport = {};

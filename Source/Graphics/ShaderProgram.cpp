@@ -2,6 +2,7 @@
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
 #include "../Graphics/Vulkan/Manager.h"
+#include "../Graphics/Vulkan/Instance.h"
 
 using namespace Vulkan;
 
@@ -12,7 +13,7 @@ ShaderProgram::ShaderProgram(const Device* device) :
         descriptorPool(device),
         descriptorSetLayout(device),
         descriptorSets(device, &descriptorPool) {
-    graphicsPipeline.setExtent(Vulkan::Manager::get()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline.setExtent(Vulkan::Instance::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
 }
 

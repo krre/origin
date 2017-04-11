@@ -2,6 +2,7 @@
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
+#include "Surface.h"
 
 using namespace Vulkan;
 
@@ -58,6 +59,7 @@ Instance::~Instance() {
     debugCallback.reset();
     physicalDevices.reset();
     devices.clear();
+    surface.reset();
     destroy();
 }
 
@@ -90,6 +92,9 @@ void Instance::create() {
     device->create();
 
     defaultDevice = device.get();
+
+    surface = std::make_shared<Surface>(handle, defaultPhysicalDevice->getHandle());
+    surface->create();
 }
 
 void Instance::destroy() {

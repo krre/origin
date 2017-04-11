@@ -14,6 +14,7 @@ namespace Vulkan {
 
 class Device;
 class PhysicalDevices;
+class Surface;
 
 class Instance : public Handle<VkInstance>, public Singleton<Instance> {
 
@@ -35,6 +36,7 @@ public:
     Device* getDefaultDevice() const { return defaultDevice; }
 
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
+    Surface* getSurface() const { return surface.get(); }
 
 private:
     VkInstanceCreateInfo createInfo = {};
@@ -48,6 +50,7 @@ private:
     std::shared_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;
     std::vector<std::shared_ptr<Device>> devices;
+    std::shared_ptr<Surface> surface;
 };
 
 } // Vulkan

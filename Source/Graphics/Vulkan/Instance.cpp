@@ -9,19 +9,38 @@ Instance::Instance() {
     layers.resize(layerCount);
     vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
 
-    enabledLayers = {
-        "VK_LAYER_LUNARG_standard_validation"
-    };
-
     // Get extensions
     uint32_t extensionCount;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
     extensions.resize(extensionCount);
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
 
-    for (const auto& extension : extensions) {
-        enabledExtensions.push_back(extension.extensionName);
-    }
+    enabledLayers = {
+//        "VK_LAYER_LUNARG_api_dump",
+        "VK_LAYER_LUNARG_parameter_validation",
+//        "VK_LAYER_LUNARG_vktrace",
+        "VK_LAYER_LUNARG_core_validation",
+        "VK_LAYER_LUNARG_screenshot",
+        "VK_LAYER_LUNARG_swapchain",
+        "VK_LAYER_LUNARG_object_tracker",
+        "VK_LAYER_GOOGLE_unique_objects",
+        "VK_LAYER_GOOGLE_threading",
+        "VK_LAYER_LUNARG_standard_validation"
+    };
+
+#ifdef __linux__
+    enabledExtensions = {
+        "VK_KHR_surface",
+        "VK_KHR_xcb_surface",
+        "VK_EXT_debug_report"
+    };
+#elif _WIN32
+    enabledExtensions = {
+        "VK_KHR_surface",
+        "VK_KHR_win32_surface",
+        "VK_EXT_debug_report"
+    };
+#endif
 
     applicationInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
     applicationInfo.pApplicationName = "Application";

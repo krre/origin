@@ -22,6 +22,7 @@ namespace Vulkan {
 class Manager : public Singleton<Manager> {
 
 public:
+    ~Manager();
     void init();
     Device* getDevice() const { return device.get(); }
     Surface* getSurface() const { return surface.get(); }

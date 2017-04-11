@@ -32,6 +32,10 @@ Instance::Instance() {
     createInfo.pApplicationInfo = &applicationInfo;
 }
 
+Instance::~Instance() {
+    destroy();
+}
+
 void Instance::create() {
     if (enableValidationLayers) {
         createInfo.enabledLayerCount = enabledLayers.size();
@@ -68,8 +72,4 @@ void Instance::dumpExtensions() {
 
 void Instance::setDefaultDevice(Device* device) {
     defaultDevice = device;
-}
-
-Instance::~Instance() {
-    destroy();
 }

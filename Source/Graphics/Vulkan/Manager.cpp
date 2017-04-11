@@ -10,6 +10,19 @@
 
 using namespace Vulkan;
 
+Manager::~Manager() {
+    presentQueue.reset();
+    imageAvailableSemaphore.reset();
+    swapchain.reset();
+    renderPass.reset();
+    surface.reset();
+    commandPool.reset();
+    device.reset();
+    physicalDevices.reset();
+    debugCallback.reset();
+    Instance::get()->release();
+}
+
 void Manager::init() {
     new Instance();
     Instance* instance = Instance::get();

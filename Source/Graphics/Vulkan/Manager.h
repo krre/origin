@@ -1,7 +1,6 @@
 #pragma once
 #include "../../Core/Singleton.h"
 #include "Instance.h"
-#include "DebugReportCallback.h"
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Command/CommandBuffers.h"
@@ -41,7 +40,6 @@ private:
     void onWindowResize(int width, int height);
 
     PhysicalDevice* mainPhysicalDevice;
-    std::shared_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;
     std::shared_ptr<Device> device;
     std::shared_ptr<Surface> surface;

@@ -1,6 +1,5 @@
 #pragma once
 #include "Base/Handle.h"
-#include "Instance.h"
 
 namespace Vulkan {
 
@@ -13,13 +12,13 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT
 class DebugReportCallback : public Handle<VkDebugReportCallbackEXT> {
 
 public:
-    DebugReportCallback(const Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback = debugCallbackDefault);
+    DebugReportCallback(VkInstance instance, PFN_vkDebugReportCallbackEXT debugCallback = debugCallbackDefault);
     ~DebugReportCallback();
     void create() override;
     void destroy() override;
 
 private:
-    const Instance* instance;
+    VkInstance instance;
     VkDebugReportCallbackCreateInfoEXT createInfo = {};
     PFN_vkCreateDebugReportCallbackEXT pfnCreateDebugReportCallback;
     PFN_vkDestroyDebugReportCallbackEXT pfnDestroyDebugReportCallback;

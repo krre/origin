@@ -19,7 +19,6 @@ Manager::~Manager() {
     commandPool.reset();
     device.reset();
     physicalDevices.reset();
-    debugCallback.reset();
     Instance::get()->release();
 }
 
@@ -54,11 +53,6 @@ void Manager::init() {
 #endif
 
     instance->create();
-
-    if (enableValidationLayers) {
-        debugCallback = std::make_shared<DebugReportCallback>(instance);
-        debugCallback->create();
-    }
 
     physicalDevices = std::make_shared<PhysicalDevices>(instance);
     mainPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Base/Handle.h"
+#include "DebugReportCallback.h"
 #include "../../Core/Singleton.h"
 #include <vector>
 
@@ -40,7 +41,7 @@ private:
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
     Device* defaultDevice;
-
+    std::shared_ptr<DebugReportCallback> debugCallback;
 };
 
 } // Vulkan

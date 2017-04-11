@@ -33,6 +33,7 @@ Instance::Instance() {
 }
 
 Instance::~Instance() {
+    debugCallback.reset();
     destroy();
 }
 
@@ -45,6 +46,11 @@ void Instance::create() {
     createInfo.ppEnabledExtensionNames = enabledExtensions.data();
 
     VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
+
+    if (enableValidationLayers) {
+        debugCallback = std::make_shared<DebugReportCallback>(handle);
+        debugCallback->create();
+    }
 }
 
 void Instance::destroy() {

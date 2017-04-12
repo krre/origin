@@ -18,6 +18,7 @@
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffers.h"
 #include "../../Graphics/Vulkan/Descriptor/DescriptorSets.h"
+#include "../../Graphics/Vulkan/Queue/SubmitQueue.h"
 
 WorldScene::WorldScene() :
     shaderProgram(device) {

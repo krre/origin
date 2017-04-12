@@ -10,6 +10,7 @@
 #include "../Graphics/Vulkan/Framebuffer.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 #include "../Graphics/Vulkan/Command/CommandBuffers.h"
+#include "../Graphics/Vulkan/Queue/SubmitQueue.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
 

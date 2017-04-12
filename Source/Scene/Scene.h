@@ -1,12 +1,12 @@
 #pragma once
 #include "../UI/Viewport.h"
-#include "../Graphics/Vulkan/Queue/SubmitQueue.h"
-#include "../Graphics/Vulkan/Semaphore.h"
 #include <SDL.h>
 
 namespace Vulkan {
     class Device;
     class CommandBuffers;
+    class Semaphore;
+    class SubmitQueue;
 }
 
 class Scene : public Viewport {

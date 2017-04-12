@@ -4,7 +4,9 @@
 #include "../Graphics/Vulkan/Instance.h"
 #include "../Graphics/Vulkan/Surface.h"
 #include "../Graphics/Vulkan/Swapchain.h"
+#include "../Graphics/Vulkan/Semaphore.h"
 #include "../Graphics/Vulkan/Command/CommandBuffers.h"
+#include "../Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "../Event/Input.h"
 
 Scene::Scene() :

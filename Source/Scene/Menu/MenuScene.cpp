@@ -10,6 +10,7 @@
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffers.h"
 #include "../../Graphics/Plane.h"
+#include "../../Graphics/Vulkan/Queue/SubmitQueue.h"
 
 MenuScene::MenuScene() :
     shaderProgram(device) {

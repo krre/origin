@@ -15,6 +15,7 @@ namespace Vulkan {
 class Device;
 class PhysicalDevices;
 class Surface;
+class CommandPool;
 
 class Instance : public Handle<VkInstance>, public Singleton<Instance> {
 
@@ -37,6 +38,7 @@ public:
 
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
     Surface* getSurface() const { return surface.get(); }
+    CommandPool* getCommandPool() const { return commandPool.get(); }
 
 private:
     VkInstanceCreateInfo createInfo = {};
@@ -51,6 +53,7 @@ private:
     std::shared_ptr<PhysicalDevices> physicalDevices;
     std::vector<std::shared_ptr<Device>> devices;
     std::shared_ptr<Surface> surface;
+    std::shared_ptr<CommandPool> commandPool;
 };
 
 } // Vulkan

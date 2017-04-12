@@ -3,6 +3,7 @@
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
 #include "Surface.h"
+#include "Command/CommandPool.h"
 
 using namespace Vulkan;
 
@@ -56,10 +57,11 @@ Instance::Instance() {
 }
 
 Instance::~Instance() {
-    debugCallback.reset();
-    physicalDevices.reset();
-    devices.clear();
+    commandPool.reset();
     surface.reset();
+    devices.clear();
+    physicalDevices.reset();
+    debugCallback.reset();
     destroy();
 }
 
@@ -95,6 +97,9 @@ void Instance::create() {
 
     surface = std::make_shared<Surface>(handle, defaultPhysicalDevice->getHandle());
     surface->create();
+
+    commandPool = std::make_shared<CommandPool>(graphicsFamily);
+    commandPool->create();
 }
 
 void Instance::destroy() {

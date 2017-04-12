@@ -7,7 +7,7 @@
 
 Scene::Scene() :
         device(Vulkan::Instance::get()->getDefaultDevice()),
-        commandBuffers(Vulkan::Manager::get()->getCommandPool()) {
+        commandBuffers(Vulkan::Instance::get()->getCommandPool()) {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
     renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>(device);

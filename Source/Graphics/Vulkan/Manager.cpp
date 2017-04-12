@@ -8,7 +8,6 @@ using namespace Vulkan;
 Manager::~Manager() {
     swapchain.reset();
     renderPass.reset();
-    commandPool.reset();
     Instance::get()->release();
 }
 
@@ -18,9 +17,6 @@ void Manager::init() {
     instance->create();
 
     device = instance->getDefaultDevice();
-
-    commandPool = std::make_shared<CommandPool>(instance->getGraphicsFamily());
-    commandPool->create();
 
     renderPass = std::make_shared<RenderPass>(device);
     renderPass->setColorFormat(instance->getSurface()->getFormats().at(0).format);
@@ -36,7 +32,7 @@ void Manager::onWindowResize(int width, int height) {
     if (App::get()->getIsRunning()) {
         device->waitIdle();
         swapchain->rebuild();
-        commandPool->reset();
+        Instance::get()->getCommandPool()->reset();
         SceneManager::get()->rebuild();
     }
 }

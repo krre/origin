@@ -8,7 +8,7 @@ using namespace Vulkan;
 
 CommandBufferOneTime::CommandBufferOneTime(Device* device) :
         device(device) {
-    commandBuffers = std::make_shared<CommandBuffers>(Manager::get()->getCommandPool());
+    commandBuffers = std::make_shared<CommandBuffers>(Instance::get()->getCommandPool());
     commandBuffers->allocate(1);
     commandBuffer = std::make_shared<CommandBuffer>(commandBuffers->at(0));
     commandBuffer->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);

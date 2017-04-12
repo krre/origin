@@ -1,7 +1,6 @@
 #include "App.h"
 #include "Game.h"
 #include "Utils.h"
-#include "../Graphics/Vulkan/Manager.h"
 #include "../Event/Event.h"
 #include "../Event/Input.h"
 #include "../Resource/ResourceManager.h"
@@ -31,7 +30,7 @@ App::~App() {
     DebugHUD::get()->release();
     Debug::get()->release();
     ResourceManager::get()->release();
-    Vulkan::Manager::get()->release();
+    Vulkan::Instance::get()->release();
     Event::get()->release();
     Logger::get()->release();
     Settings::get()->release();
@@ -93,8 +92,8 @@ void App::init() {
         return;
     }
 
-    new Vulkan::Manager;
-    Vulkan::Manager::get()->init();
+    new Vulkan::Instance;
+    Vulkan::Instance::get()->create();
 //        std::string errorMsg = std::string("Init Vulkan failed\n") + Vulkan::Manager::get()->getInstance()->getResultDescription();
 //        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
 

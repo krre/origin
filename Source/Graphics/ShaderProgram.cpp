@@ -1,7 +1,6 @@
 #include "ShaderProgram.h"
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
-#include "../Graphics/Vulkan/Manager.h"
 #include "../Graphics/Vulkan/Instance.h"
 #include "../Graphics/Vulkan/Swapchain.h"
 

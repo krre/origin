@@ -1,5 +1,4 @@
 #include "PhysicalDevice.h"
-#include "../Manager.h"
 #include "../Swapchain.h"
 
 using namespace Vulkan;

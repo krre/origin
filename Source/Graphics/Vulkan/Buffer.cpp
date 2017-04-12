@@ -1,5 +1,4 @@
 #include "Buffer.h"
-#include "Manager.h"
 #include "Queue/SubmitQueue.h"
 #include "Command/CommandBufferOneTime.h"
 #include <string.h>

@@ -10,7 +10,6 @@
 #include "../../Scene/SceneManager.h"
 #include "../../UI/Dialog/PauseDialog.h"
 #include "../../Event/Input.h"
-#include "../../Graphics/Vulkan/Manager.h"
 #include "../../Graphics/Vulkan/Instance.h"
 #include "../../Graphics/Vulkan/Swapchain.h"
 #include "../../Resource/ShaderResource.h"

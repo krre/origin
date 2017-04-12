@@ -1,5 +1,4 @@
 #include "Swapchain.h"
-#include "Manager.h"
 #include "Instance.h"
 #include "Image/Image.h"
 #include "Command/CommandBufferOneTime.h"

@@ -5,7 +5,6 @@
 #include "../ECS/Components/TransformComponent.h"
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
-#include "../Graphics/Vulkan/Manager.h"
 #include "../Graphics/Vulkan/Instance.h"
 #include "../Graphics/Vulkan/Swapchain.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"

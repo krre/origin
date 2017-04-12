@@ -1,5 +1,4 @@
 #include "Image.h"
-#include "../Manager.h"
 #include <string.h>
 
 using namespace Vulkan;

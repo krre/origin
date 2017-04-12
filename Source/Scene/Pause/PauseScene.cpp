@@ -2,7 +2,6 @@
 #include "../../Core/App.h"
 #include "../../Scene/SceneManager.h"
 #include "../../Event/Input.h"
-#include "../../Graphics/Vulkan/Manager.h"
 #include "../../Graphics/Vulkan/Swapchain.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
 

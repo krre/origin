@@ -1,6 +1,5 @@
 #include "SceneManager.h"
 #include "../Debug/DebugHUD.h"
-#include "../Graphics/Vulkan/Manager.h"
 #include "../Graphics/Vulkan/Swapchain.h"
 
 SceneManager::SceneManager() {

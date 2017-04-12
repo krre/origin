@@ -1,7 +1,6 @@
 #include "Scene.h"
 #include "../Event/Event.h"
 #include "SceneManager.h"
-#include "../Graphics/Vulkan/Manager.h"
 #include "../Graphics/Vulkan/Instance.h"
 #include "../Event/Input.h"
 

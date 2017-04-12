@@ -2,7 +2,6 @@
 #include "../Instance.h"
 #include "../Fence.h"
 #include "../Queue/SubmitQueue.h"
-#include "../Manager.h"
 
 using namespace Vulkan;
 

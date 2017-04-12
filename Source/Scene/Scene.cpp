@@ -42,10 +42,12 @@ void Scene::resume() {
 }
 
 void Scene::buildCommandBuffers() {
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->setClearValue({ 0.0, 0.0, 0.0, 0.0 });
-    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
+    if (renderPass == nullptr) {
+        renderPass = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass();
+        renderPass->setClearValue({ 0.0, 0.0, 0.0, 0.0 });
+    }
+
     VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
-    renderPassBeginInfo->renderArea.extent = extent;
 
     VkViewport viewport = {};
     viewport.width = extent.width;
@@ -59,11 +61,10 @@ void Scene::buildCommandBuffers() {
     queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers->getCount(); i++) {
-        renderPassBeginInfo->framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
+        renderPass->beginInfo.framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
-        commandBuffer.beginRenderPass(renderPassBeginInfo);
 
         commandBuffer.addViewport(viewport);
         commandBuffer.setViewport(0);
@@ -73,9 +74,12 @@ void Scene::buildCommandBuffers() {
 
         writeCommands(&commandBuffer);
 
-        commandBuffer.endRenderPass();
         commandBuffer.end();
 
         queue->addCommandBuffer(commandBuffer.getHandle());
     }
+}
+
+void Scene::setRenderPass(Vulkan::RenderPass* renderPass) {
+    this->renderPass = renderPass;
 }

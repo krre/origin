@@ -71,6 +71,8 @@ void DebugHUD::init() {
     renderPass.setBlendEnable(true);
     renderPass.create();
 
+    setRenderPass(&renderPass);
+
     shaderProgram.createPipeline();
 
     buildCommandBuffers();
@@ -129,6 +131,10 @@ void DebugHUD::trigger() {
 }
 
 void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
+    renderPass.beginInfo.renderArea.extent = extent;
+    commandBuffer->beginRenderPass(&renderPass.beginInfo);
+
     commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
@@ -139,6 +145,8 @@ void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     }
     commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
     commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
+
+    commandBuffer->endRenderPass();
 
     ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
     shaderProgram.writeUniform("ubo");

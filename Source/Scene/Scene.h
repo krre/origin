@@ -8,6 +8,7 @@ namespace Vulkan {
     class CommandBuffers;
     class Semaphore;
     class SubmitQueue;
+    class RenderPass;
 }
 
 class Scene : public Viewport {
@@ -27,6 +28,7 @@ public:
     bool getIsFullScreen() const { return isFullScreen; }
     Vulkan::SubmitQueue* getQueue() const { return queue.get(); }
     Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
+    void setRenderPass(Vulkan::RenderPass* renderPass);
 
 protected:
     virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
@@ -37,4 +39,7 @@ protected:
     std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
     std::shared_ptr<Vulkan::SubmitQueue> queue;
     std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
+
+private:
+    Vulkan::RenderPass* renderPass = nullptr;
 };

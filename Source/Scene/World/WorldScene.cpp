@@ -275,6 +275,11 @@ void WorldScene::create() {
 }
 
 void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
+    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
+    renderPassBeginInfo->renderArea.extent = extent;
+    commandBuffer->beginRenderPass(renderPassBeginInfo);
+
     commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
@@ -283,9 +288,11 @@ void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
         commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
     }
-    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
 
+    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
     commandBuffer->drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
+
+    commandBuffer->endRenderPass();
 }
 
 void WorldScene::pause() {

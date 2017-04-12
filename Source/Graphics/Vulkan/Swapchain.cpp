@@ -1,8 +1,10 @@
 #include "Swapchain.h"
 #include "Manager.h"
+#include "Instance.h"
 #include "Image/Image.h"
 #include "Command/CommandBufferOneTime.h"
 #include <lodepng/lodepng.h>
+#include <limits>
 
 using namespace Vulkan;
 
@@ -33,6 +35,8 @@ Swapchain::Swapchain(const Surface* surface, Device* device) :
 }
 
 Swapchain::~Swapchain() {
+    presentQueue.reset();
+    imageAvailableSemaphore.reset();
     destroy();
 }
 
@@ -60,6 +64,12 @@ void Swapchain::create() {
         framebuffer->create();
         framebuffers.push_back(framebuffer);
     }
+
+    imageAvailableSemaphore = std::make_shared<Semaphore>(device);
+    imageAvailableSemaphore->create();
+
+    presentQueue = std::make_shared<PresentQueue>(Instance::get()->getGraphicsFamily());
+    presentQueue->addSwapchain(handle);
 }
 
 void Swapchain::destroy() {
@@ -69,8 +79,7 @@ void Swapchain::destroy() {
 }
 
 void Swapchain::saveImage(const std::string& filePath) {
-    PresentQueue* pq = Manager::get()->getPresentQueue();
-    VkImage srcImage = images.at(*pq->getImageIndex(index));
+    VkImage srcImage = images.at(*presentQueue->getImageIndex(index));
 
     uint32_t width = framebuffers.at(index)->getWidth();
     uint32_t height = framebuffers.at(index)->getHeight();
@@ -164,4 +173,8 @@ void Swapchain::saveImage(const std::string& filePath) {
     }
 
     image.getMemory()->unmap();
+}
+
+void Swapchain::acquireNextImage() {
+    vkAcquireNextImageKHR(device->getHandle(), handle, std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
 }

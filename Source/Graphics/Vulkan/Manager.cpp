@@ -2,14 +2,10 @@
 #include "../../Core/App.h"
 #include "../../Event/Event.h"
 #include "../../Scene/SceneManager.h"
-#include <glm/glm.hpp>
-#include <fstream>
 
 using namespace Vulkan;
 
 Manager::~Manager() {
-    presentQueue.reset();
-    imageAvailableSemaphore.reset();
     swapchain.reset();
     renderPass.reset();
     commandPool.reset();
@@ -33,21 +29,7 @@ void Manager::init() {
     swapchain = std::make_shared<Swapchain>(instance->getSurface());
     swapchain->create();
 
-    imageAvailableSemaphore = std::make_shared<Semaphore>(device);
-    imageAvailableSemaphore->create();
-
-    presentQueue = std::make_shared<PresentQueue>(instance->getGraphicsFamily());
-    presentQueue->addSwapchain(swapchain->getHandle());
-
     Event::get()->windowResize.connect<Manager, &Manager::onWindowResize>(this);
-}
-
-void Manager::renderBegin() {
-    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(swapchain->getIndex()));
-}
-
-void Manager::renderEnd() {
-    presentQueue->present();
 }
 
 void Manager::onWindowResize(int width, int height) {
@@ -55,8 +37,8 @@ void Manager::onWindowResize(int width, int height) {
         device->waitIdle();
         swapchain->destroy();
         swapchain->create();
-        presentQueue->clearSwapchain();
-        presentQueue->addSwapchain(swapchain->getHandle());
+        swapchain->getPresentQueue()->clearSwapchain();
+        swapchain->getPresentQueue()->addSwapchain(swapchain->getHandle());
         commandPool->reset();
         SceneManager::get()->rebuild();
     }

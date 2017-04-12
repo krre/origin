@@ -4,6 +4,8 @@
 #include "Surface.h"
 #include "Framebuffer.h"
 #include "Image/ImageView.h"
+#include "Queue/PresentQueue.h"
+#include "Semaphore.h"
 #include <vector>
 
 namespace Vulkan {
@@ -21,6 +23,9 @@ public:
     int getCount() const { return images.size(); }
     int getIndex() const { return index; }
     void saveImage(const std::string& filePath);
+    void acquireNextImage();
+    Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
+    PresentQueue* getPresentQueue() const { return presentQueue.get(); }
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};
@@ -28,6 +33,8 @@ private:
     std::vector<VkImage> images;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     std::vector<std::shared_ptr<ImageView>> imageViews;
+    std::shared_ptr<Semaphore> imageAvailableSemaphore;
+    std::shared_ptr<PresentQueue> presentQueue;
     int index = -1;
     static int indexCounter;
 };

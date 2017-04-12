@@ -40,9 +40,9 @@ public:
     Surface* getSurface() const { return surface.get(); }
     CommandPool* getCommandPool() const { return commandPool.get(); }
 
-private:
-    void onWindowResize(int width, int height);
+    void windowResize(int width, int height);
 
+private:
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};
     std::vector<VkLayerProperties> layers;

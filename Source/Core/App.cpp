@@ -165,6 +165,11 @@ void App::windowResize(int width, int height) {
     this->height = height;
     Settings::get()->setValue("width", std::to_string(width));
     Settings::get()->setValue("height", std::to_string(height));
+
+    if (isRunning) {
+        Vulkan::Instance::get()->windowResize(width, height);
+        SceneManager::get()->rebuild();
+    }
 }
 
 void App::windowMove(int x, int y) {

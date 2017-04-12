@@ -6,6 +6,7 @@
 #include "Image/ImageView.h"
 #include "Queue/PresentQueue.h"
 #include "Semaphore.h"
+#include "RenderPass.h"
 #include <vector>
 
 namespace Vulkan {
@@ -26,6 +27,7 @@ public:
     void acquireNextImage();
     Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
     PresentQueue* getPresentQueue() const { return presentQueue.get(); }
+    RenderPass* getRenderPass() const { return renderPass.get(); }
     void rebuild();
 
 private:
@@ -36,6 +38,7 @@ private:
     std::vector<std::shared_ptr<ImageView>> imageViews;
     std::shared_ptr<Semaphore> imageAvailableSemaphore;
     std::shared_ptr<PresentQueue> presentQueue;
+    std::shared_ptr<RenderPass> renderPass;
     int index = -1;
     static int indexCounter;
 };

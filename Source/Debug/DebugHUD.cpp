@@ -7,7 +7,7 @@
 #include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Graphics/Vulkan/Instance.h"
-#include "../Graphics/Vulkan/Instance.h"
+#include "../Graphics/Vulkan/Swapchain.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
@@ -71,7 +71,7 @@ void DebugHUD::init() {
 
     shaderProgram.createPipeline();
 
-    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
+    commandBuffers.allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
     buildCommandBuffers();
 
     ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
@@ -143,7 +143,7 @@ void DebugHUD::buildCommandBuffers() {
     queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
-        renderPass.beginInfo.framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
+        renderPass.beginInfo.framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();

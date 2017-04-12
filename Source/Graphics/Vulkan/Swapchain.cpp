@@ -37,6 +37,7 @@ Swapchain::Swapchain(const Surface* surface, Device* device) :
 Swapchain::~Swapchain() {
     presentQueue.reset();
     imageAvailableSemaphore.reset();
+    renderPass.reset();
     destroy();
 }
 
@@ -44,6 +45,10 @@ void Swapchain::create() {
     VkExtent2D extent = surface->getCurrentExtent();
     createInfo.imageExtent = extent;
     VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
+
+    renderPass = std::make_shared<RenderPass>(device);
+    renderPass->setColorFormat(surface->getFormats().at(0).format);
+    renderPass->create();
 
     uint32_t count;
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);
@@ -58,7 +63,7 @@ void Swapchain::create() {
 
         std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device);
         framebuffer->addAttachment(imageView->getHandle());
-        framebuffer->setRenderPass(Manager::get()->getRenderPass()->getHandle());
+        framebuffer->setRenderPass(renderPass->getHandle());
         framebuffer->setWidth(extent.width);
         framebuffer->setHeight(extent.height);
         framebuffer->create();

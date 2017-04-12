@@ -3,6 +3,7 @@
 #include "../../Scene/SceneManager.h"
 #include "../../Event/Input.h"
 #include "../../Graphics/Vulkan/Manager.h"
+#include "../../Graphics/Vulkan/Swapchain.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
 
 PauseScene::PauseScene() {
@@ -54,12 +55,12 @@ void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void PauseScene::buildCommandBuffers() {
-    Vulkan::Manager::get()->getRenderPass()->setClearValue({ 1.0, 0.0, 0.0, 1.0 });
-    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
+    Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->setClearValue({ 1.0, 0.0, 0.0, 1.0 });
+    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
     queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
-        renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
+        renderPassBeginInfo->framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();

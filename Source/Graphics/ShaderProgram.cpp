@@ -3,6 +3,7 @@
 #include "../Core/Utils.h"
 #include "../Graphics/Vulkan/Manager.h"
 #include "../Graphics/Vulkan/Instance.h"
+#include "../Graphics/Vulkan/Swapchain.h"
 
 using namespace Vulkan;
 
@@ -14,7 +15,7 @@ ShaderProgram::ShaderProgram(Device* device) :
         descriptorSetLayout(device),
         descriptorSets(&descriptorPool) {
     graphicsPipeline.setExtent(Vulkan::Instance::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline.setRenderPass(Vulkan::Manager::get()->getRenderPass()->getHandle());
+    graphicsPipeline.setRenderPass(Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
 }
 
 ShaderProgram::~ShaderProgram() {

@@ -4,6 +4,7 @@
 #include "../../Event/Input.h"
 #include "../../Graphics/Vulkan/Manager.h"
 #include "../../Graphics/Vulkan/Instance.h"
+#include "../../Graphics/Vulkan/Swapchain.h"
 #include "../../Resource/ShaderResource.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
@@ -37,7 +38,7 @@ void MenuScene::init() {
 
     shaderProgram.createPipeline();
 
-    commandBuffers.allocate(Vulkan::Manager::get()->getSwapchain()->getCount());
+    commandBuffers.allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
     buildCommandBuffers();
 
     shaderProgram.writeUniform("uboVert");
@@ -64,8 +65,8 @@ void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void MenuScene::buildCommandBuffers() {
-    Vulkan::Manager::get()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
-    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Manager::get()->getRenderPass()->beginInfo;
+    Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
+    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
     VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
     renderPassBeginInfo->renderArea.extent = extent;
 
@@ -81,7 +82,7 @@ void MenuScene::buildCommandBuffers() {
     queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers.getCount(); i++) {
-        renderPassBeginInfo->framebuffer = Vulkan::Manager::get()->getSwapchain()->getFramebuffer(i)->getHandle();
+        renderPassBeginInfo->framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
         commandBuffer.begin();

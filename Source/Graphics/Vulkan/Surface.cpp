@@ -1,5 +1,6 @@
 #include "Surface.h"
 #include "../../Core/App.h"
+#include "Swapchain.h"
 #include <SDL_syswm.h>
 #ifdef __linux__
     #include <X11/Xlib-xcb.h>
@@ -15,6 +16,7 @@ Surface::Surface(VkInstance instance, VkPhysicalDevice physicalDevice) :
 }
 
 Surface::~Surface() {
+    swapchain.reset();
     destroy();
 }
 
@@ -57,6 +59,9 @@ void Surface::create() {
     vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, handle, &count, presentModes.data());
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
+
+    swapchain = std::make_shared<Swapchain>(this);
+    swapchain->create();
 }
 
 void Surface::destroy() {

@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "../Debug/DebugHUD.h"
 #include "../Graphics/Vulkan/Manager.h"
+#include "../Graphics/Vulkan/Swapchain.h"
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();
@@ -55,7 +56,7 @@ void SceneManager::update(float dt) {
 }
 
 void SceneManager::draw(float dt) {
-    Vulkan::Manager::get()->getSwapchain()->acquireNextImage();
+    Vulkan::Instance::get()->getSurface()->getSwapchain()->acquireNextImage();
 
     for (auto& scene : scenes) {
         if (scene->getVisible()) {
@@ -67,7 +68,7 @@ void SceneManager::draw(float dt) {
         DebugHUD::get()->draw(dt);
     }
 
-    Vulkan::Manager::get()->getSwapchain()->getPresentQueue()->present();
+    Vulkan::Instance::get()->getSurface()->getSwapchain()->getPresentQueue()->present();
 }
 
 void SceneManager::rebuild() {
@@ -91,10 +92,10 @@ void SceneManager::updateSemaphores() {
     }
 
     Scene* firstScene = visibleScenes.front();
-    firstScene->getQueue()->setWaitSemaphore(Vulkan::Manager::get()->getSwapchain()->getImageAvailableSemaphore()->getHandle(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
+    firstScene->getQueue()->setWaitSemaphore(Vulkan::Instance::get()->getSurface()->getSwapchain()->getImageAvailableSemaphore()->getHandle(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT);
 
     Scene* lastScene = visibleScenes.back();
-    Vulkan::Manager::get()->getSwapchain()->getPresentQueue()->setWaitSemaphore(lastScene->getRenderFinishedSemaphore()->getHandle());
+    Vulkan::Instance::get()->getSurface()->getSwapchain()->getPresentQueue()->setWaitSemaphore(lastScene->getRenderFinishedSemaphore()->getHandle());
 
     for (int i = 0; i < visibleScenes.size(); i++) {
         if (i < visibleScenes.size() - 1) {

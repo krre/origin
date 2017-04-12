@@ -1,15 +1,16 @@
 #pragma once
 #include "Base/Handle.h"
 #include "Device/Devicer.h"
-#include "Surface.h"
-#include "Framebuffer.h"
-#include "Image/ImageView.h"
-#include "Queue/PresentQueue.h"
-#include "Semaphore.h"
-#include "RenderPass.h"
 #include <vector>
 
 namespace Vulkan {
+
+class Surface;
+class Framebuffer;
+class Semaphore;
+class ImageView;
+class PresentQueue;
+class RenderPass;
 
 class Swapchain : public Handle<VkSwapchainKHR>, public Devicer {
 

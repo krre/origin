@@ -1,4 +1,6 @@
 #include "PhysicalDevice.h"
+#include "../Instance.h"
+#include "../Surface.h"
 #include "../Swapchain.h"
 
 using namespace Vulkan;

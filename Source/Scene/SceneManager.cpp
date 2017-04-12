@@ -1,6 +1,7 @@
 #include "SceneManager.h"
 #include "../Debug/DebugHUD.h"
 #include "../Graphics/Vulkan/Swapchain.h"
+#include "../Graphics/Vulkan/Queue/PresentQueue.h"
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();

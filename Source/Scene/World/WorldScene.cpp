@@ -12,6 +12,7 @@
 #include "../../Event/Input.h"
 #include "../../Graphics/Vulkan/Instance.h"
 #include "../../Graphics/Vulkan/Swapchain.h"
+#include "../../Graphics/Vulkan/Framebuffer.h"
 #include "../../Resource/ShaderResource.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"

@@ -7,6 +7,7 @@
 #include "../Resource/ResourceManager.h"
 #include "../Graphics/Vulkan/Instance.h"
 #include "../Graphics/Vulkan/Swapchain.h"
+#include "../Graphics/Vulkan/Framebuffer.h"
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 #include <glm/glm.hpp>
 #include <Origin.h>

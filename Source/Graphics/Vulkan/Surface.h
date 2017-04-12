@@ -6,7 +6,7 @@
 #endif
 
 #include "Base/Handle.h"
-#include "Instance.h"
+#include <vector>
 
 namespace Vulkan {
 

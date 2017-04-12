@@ -4,6 +4,7 @@
 #include "../../Event/Input.h"
 #include "../../Graphics/Vulkan/Swapchain.h"
 #include "../../Graphics/Vulkan/Framebuffer.h"
+#include "../../Graphics/Vulkan/Instance.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
 
 PauseScene::PauseScene() {

@@ -9,6 +9,7 @@
 #include "../Debug/DebugHUD.h"
 #include "../Scene/SceneManager.h"
 #include "Settings.h"
+#include "../Graphics/Vulkan/Instance.h"
 #include <string>
 #include <SDL_timer.h>
 #include <Origin.h>

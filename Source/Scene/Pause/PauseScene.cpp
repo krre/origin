@@ -57,26 +57,6 @@ void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     }
 }
 
-void PauseScene::buildCommandBuffers() {
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->setClearValue({ 1.0, 0.0, 0.0, 1.0 });
-    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
-    queue->clearCommandBuffers();
-
-    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
-        renderPassBeginInfo->framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
-
-        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
-        commandBuffer.begin();
-        commandBuffer.beginRenderPass(renderPassBeginInfo);
-
-
-        commandBuffer.endRenderPass();
-        commandBuffer.end();
-
-        queue->addCommandBuffer(commandBuffer.getHandle());
-    }
-}
-
 void PauseScene::onContinueButtonClicked() {
     SceneManager::get()->popScene();
 }

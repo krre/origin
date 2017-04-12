@@ -22,7 +22,7 @@ public:
     virtual void update(float dt) = 0;
     virtual void draw(float dt) = 0;
 
-    virtual void buildCommandBuffers() = 0;
+    void buildCommandBuffers();
 
     bool getIsFullScreen() const { return isFullScreen; }
     Vulkan::SubmitQueue* getQueue() const { return queue.get(); }

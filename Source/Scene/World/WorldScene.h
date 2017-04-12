@@ -61,7 +61,6 @@ private:
     void create();
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
-    void buildCommandBuffers() override;
 
     std::shared_ptr<Vulkan::Buffer> vertexBuffer;
     std::shared_ptr<Console> console;

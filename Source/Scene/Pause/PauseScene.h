@@ -15,7 +15,6 @@ public:
 private:
     void create();
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
-    void buildCommandBuffers() override;
     void onContinueButtonClicked();
     void onExitButtonClicked();
 

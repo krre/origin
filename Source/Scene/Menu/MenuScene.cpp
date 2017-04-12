@@ -59,62 +59,22 @@ void MenuScene::create() {
 }
 
 void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
+    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+    commandBuffer->bindVertexBuffers();
+    commandBuffer->bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
 
+    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
+        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
+    }
+
+    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
+    commandBuffer->drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
 }
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         SceneManager::get()->popScene();
         Input::get()->isKeyAccepted = true;
-    }
-}
-
-void MenuScene::buildCommandBuffers() {
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->setClearValue({ 0.77, 0.83, 0.83, 1.0 });
-    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
-    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
-    renderPassBeginInfo->renderArea.extent = extent;
-
-    VkViewport viewport = {};
-    viewport.width = extent.width;
-    viewport.height = extent.height;
-    viewport.maxDepth = 1.0;
-
-    VkRect2D scissor = {};
-    scissor.offset = { 0, 0 };
-    scissor.extent = extent;
-
-    queue->clearCommandBuffers();
-
-    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
-        renderPassBeginInfo->framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
-
-        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
-        commandBuffer.begin();
-        commandBuffer.beginRenderPass(renderPassBeginInfo);
-        commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
-
-        commandBuffer.addViewport(viewport);
-        commandBuffer.setViewport(0);
-
-        commandBuffer.addScissor(scissor);
-        commandBuffer.setScissor(0);
-
-        commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
-        commandBuffer.bindVertexBuffers();
-
-        commandBuffer.bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
-
-        for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
-            commandBuffer.addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
-        }
-        commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
-
-        commandBuffer.drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
-
-        commandBuffer.endRenderPass();
-        commandBuffer.end();
-
-        queue->addCommandBuffer(commandBuffer.getHandle());
     }
 }

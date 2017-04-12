@@ -128,56 +128,18 @@ void DebugHUD::trigger() {
     }
 }
 
-void DebugHUD::buildCommandBuffers() {
-    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
-    renderPass.beginInfo.renderArea.extent = extent;
+void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
+    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+    commandBuffer->bindVertexBuffers();
+    commandBuffer->bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT32);
 
-    VkViewport viewport = {};
-    viewport.width = extent.width;
-    viewport.height = extent.height;
-    viewport.maxDepth = 1.0;
-
-    VkRect2D scissor = {};
-    scissor.offset = { 0, 0 };
-    scissor.extent = extent;
-
-    queue->clearCommandBuffers();
-
-    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
-        renderPass.beginInfo.framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
-
-        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
-        commandBuffer.begin();
-        commandBuffer.beginRenderPass(&renderPass.beginInfo);
-        commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());
-
-        commandBuffer.addViewport(viewport);
-        commandBuffer.setViewport(0);
-
-        commandBuffer.addScissor(scissor);
-        commandBuffer.setScissor(0);
-
-        commandBuffer.addVertexBuffer(vertexBuffer->getHandle());
-        commandBuffer.bindVertexBuffers();
-        commandBuffer.bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT32);
-
-        for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
-            commandBuffer.addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
-        }
-        commandBuffer.bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
-
-        commandBuffer.drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
-
-        commandBuffer.endRenderPass();
-        commandBuffer.end();
-
-        queue->addCommandBuffer(commandBuffer.getHandle());
+    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
+        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
     }
+    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
+    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
     ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
     shaderProgram.writeUniform("ubo");
-}
-
-void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
-
 }

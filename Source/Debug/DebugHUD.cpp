@@ -71,7 +71,6 @@ void DebugHUD::init() {
 
     shaderProgram.createPipeline();
 
-    commandBuffers.allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
     buildCommandBuffers();
 
     ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());

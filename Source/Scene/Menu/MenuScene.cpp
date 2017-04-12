@@ -38,7 +38,6 @@ void MenuScene::init() {
 
     shaderProgram.createPipeline();
 
-    commandBuffers.allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
     buildCommandBuffers();
 
     shaderProgram.writeUniform("uboVert");

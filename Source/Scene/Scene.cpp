@@ -2,12 +2,16 @@
 #include "../Event/Event.h"
 #include "SceneManager.h"
 #include "../Graphics/Vulkan/Instance.h"
+#include "../Graphics/Vulkan/Surface.h"
+#include "../Graphics/Vulkan/Swapchain.h"
 #include "../Event/Input.h"
 
 Scene::Scene() :
         device(Vulkan::Instance::get()->getDefaultDevice()),
         commandBuffers(Vulkan::Instance::get()->getCommandPool()) {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
+
+    commandBuffers.allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
 
     renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();

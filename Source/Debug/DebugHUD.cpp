@@ -14,14 +14,10 @@
 #include <glm/glm.hpp>
 #include <Origin.h>
 
-DebugHUD::DebugHUD() :
-        pipelineCache(device),
-        renderPass(device),
-        sampler(device),
-        shaderProgram(device) {
+DebugHUD::DebugHUD() {
     visible = false;
 
-    int apiVersionNumber = device->getPhysicalDevice()->getProperties().apiVersion;
+    int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
     int major = (apiVersionNumber >> 22) & 0x3FF;
     int minor = (apiVersionNumber >> 12) & 0x3FF;
     int patch = apiVersionNumber & 0xFFF;
@@ -97,7 +93,7 @@ void DebugHUD::draw(float dt) {
     std::string text =
         "Origin " + std::string(VERSION_STRING) + "\n" +
         std::to_string(fps) + " fps\n"
-        "Video driver: " + device->getPhysicalDevice()->getProperties().deviceName + "\n"
+        "Video driver: " + Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan API: " + vulkanApiVersion + "\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";

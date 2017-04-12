@@ -12,14 +12,13 @@
 #include "../Graphics/Vulkan/Framebuffer.h"
 #include "../Event/Input.h"
 
-Scene::Scene() :
-        device(Vulkan::Instance::get()->getDefaultDevice()) {
+Scene::Scene() {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
     commandBuffers = std::make_shared<Vulkan::CommandBuffers>(Vulkan::Instance::get()->getCommandPool());
     commandBuffers->allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
 
-    renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>(device);
+    renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>();
     renderFinishedSemaphore->create();
 
     queue = std::make_shared<Vulkan::SubmitQueue>(Vulkan::Instance::get()->getGraphicsFamily());

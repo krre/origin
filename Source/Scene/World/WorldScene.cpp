@@ -20,8 +20,7 @@
 #include "../../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 #include "../../Graphics/Vulkan/Queue/SubmitQueue.h"
 
-WorldScene::WorldScene() :
-    shaderProgram(device) {
+WorldScene::WorldScene() {
     new EntityManager;
     console = std::make_shared<Console>();
     Game::get()->setWorldScene(this);

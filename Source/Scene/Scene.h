@@ -35,7 +35,6 @@ protected:
     virtual void onWindowResize(int width, int height) = 0;
     virtual void onKeyPressed(const SDL_KeyboardEvent& event) {}
     bool isFullScreen = true;
-    Vulkan::Device* device;
     std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
     std::shared_ptr<Vulkan::SubmitQueue> queue;
     std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;

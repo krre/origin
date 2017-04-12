@@ -12,8 +12,7 @@
 #include "../../Graphics/Plane.h"
 #include "../../Graphics/Vulkan/Queue/SubmitQueue.h"
 
-MenuScene::MenuScene() :
-    shaderProgram(device) {
+MenuScene::MenuScene() {
 }
 
 MenuScene::~MenuScene() {

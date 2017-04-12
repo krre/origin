@@ -1,6 +1,7 @@
 #include "WorldScene.h"
 #include <Origin.h>
 #include "../../Core/Game.h"
+#include "../../Debug/Console.h"
 #include "../../ECS/EntityManager.h"
 #include "../../ECS/System.h"
 #include "../../ECS/EntityBuilder.h"

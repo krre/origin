@@ -6,11 +6,12 @@
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
 #include "../../Graphics/Vulkan/Buffer.h"
 #include "../../Graphics/Plane.h"
-#include "../../Debug/Console.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 
 const int LOD_PIXEL_LIMIT = 1;
+
+class Console;
 
 class WorldScene : public Scene3D {
 

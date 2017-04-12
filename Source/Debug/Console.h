@@ -12,6 +12,7 @@ public:
     void setVisible(bool visible) override;
 
 private:
+    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onWindowResize(int width, int height);
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void buildCommandBuffers() override;

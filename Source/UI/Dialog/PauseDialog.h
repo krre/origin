@@ -10,5 +10,6 @@ public:
     void update(float dt) override;
 
 private:
+    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void buildCommandBuffers() override;
 };

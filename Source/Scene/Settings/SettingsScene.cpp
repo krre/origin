@@ -26,6 +26,10 @@ void SettingsScene::create() {
 
 }
 
+void SettingsScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+
+}
+
 void SettingsScene::buildCommandBuffers() {
 
 }

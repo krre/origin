@@ -29,6 +29,10 @@ void Console::setVisible(bool visible) {
     }
 }
 
+void Console::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+
+}
+
 void Console::onWindowResize(int width, int height) {
     cmdLine.setPosition(glm::vec2(5, height - 5));
 }

@@ -274,6 +274,10 @@ void WorldScene::create() {
     EntityManager::get()->addEntity(light);
 }
 
+void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+
+}
+
 void WorldScene::pause() {
     Scene::pause();
     MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());

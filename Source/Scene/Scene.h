@@ -4,6 +4,7 @@
 
 namespace Vulkan {
     class Device;
+    class CommandBuffer;
     class CommandBuffers;
     class Semaphore;
     class SubmitQueue;
@@ -28,6 +29,7 @@ public:
     Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
 
 protected:
+    virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
     virtual void onWindowResize(int width, int height) = 0;
     virtual void onKeyPressed(const SDL_KeyboardEvent& event) {}
     bool isFullScreen = true;

@@ -177,3 +177,7 @@ void DebugHUD::buildCommandBuffers() {
     ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
     shaderProgram.writeUniform("ubo");
 }
+
+void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+
+}

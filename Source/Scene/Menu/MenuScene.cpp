@@ -58,6 +58,10 @@ void MenuScene::create() {
 
 }
 
+void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+
+}
+
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         SceneManager::get()->popScene();

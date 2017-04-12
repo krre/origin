@@ -128,10 +128,27 @@ void DebugHUD::trigger() {
 
 void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
+
+    VkViewport viewport = {};
+    viewport.width = extent.width;
+    viewport.height = extent.height;
+    viewport.maxDepth = 1.0;
+
+    VkRect2D scissor = {};
+    scissor.offset = { 0, 0 };
+    scissor.extent = extent;
+
     renderPass.beginInfo.renderArea.extent = extent;
     commandBuffer->beginRenderPass(&renderPass.beginInfo);
 
     commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
+
+    commandBuffer->addViewport(viewport);
+    commandBuffer->setViewport(0);
+
+    commandBuffer->addScissor(scissor);
+    commandBuffer->setScissor(0);
+
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
     commandBuffer->bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT32);

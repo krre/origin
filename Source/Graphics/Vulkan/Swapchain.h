@@ -26,6 +26,7 @@ public:
     void acquireNextImage();
     Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
     PresentQueue* getPresentQueue() const { return presentQueue.get(); }
+    void rebuild();
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};

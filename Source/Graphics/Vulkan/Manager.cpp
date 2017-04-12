@@ -35,10 +35,7 @@ void Manager::init() {
 void Manager::onWindowResize(int width, int height) {
     if (App::get()->getIsRunning()) {
         device->waitIdle();
-        swapchain->destroy();
-        swapchain->create();
-        swapchain->getPresentQueue()->clearSwapchain();
-        swapchain->getPresentQueue()->addSwapchain(swapchain->getHandle());
+        swapchain->rebuild();
         commandPool->reset();
         SceneManager::get()->rebuild();
     }

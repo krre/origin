@@ -178,3 +178,10 @@ void Swapchain::saveImage(const std::string& filePath) {
 void Swapchain::acquireNextImage() {
     vkAcquireNextImageKHR(device->getHandle(), handle, std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
 }
+
+void Swapchain::rebuild() {
+    destroy();
+    create();
+    presentQueue->clearSwapchain();
+    presentQueue->addSwapchain(handle);
+}

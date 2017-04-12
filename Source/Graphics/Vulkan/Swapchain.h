@@ -22,7 +22,6 @@ public:
     Framebuffer* getFramebuffer(int i) { return framebuffers.at(i).get(); }
     VkFormat getImageFormat() const { return createInfo.imageFormat; }
     int getCount() const { return images.size(); }
-    int getIndex() const { return index; }
     void saveImage(const std::string& filePath);
     void acquireNextImage();
     Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }

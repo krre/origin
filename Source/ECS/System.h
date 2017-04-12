@@ -10,7 +10,7 @@ enum class SystemType {
     Node,
     None,
     Octree,
-    Phisics,
+    Physics,
     Render,
     Transform
 };

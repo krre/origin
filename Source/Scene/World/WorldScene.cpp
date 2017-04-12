@@ -155,7 +155,7 @@ void WorldScene::update(float dt) {
 void WorldScene::create() {
     TransformSystem* transformSystem = static_cast<TransformSystem*>(EntityManager::get()->getSystem(SystemType::Transform).get());
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(EntityManager::get()->getSystem(SystemType::Octree).get());
-    PhisicsSystem* phisicsSystem = static_cast<PhisicsSystem*>(EntityManager::get()->getSystem(SystemType::Phisics).get());
+    PhysicsSystem* physicsSystem = static_cast<PhysicsSystem*>(EntityManager::get()->getSystem(SystemType::Physics).get());
 
     // Free camera
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
@@ -176,14 +176,14 @@ void WorldScene::create() {
 //    nodeSystem->addChild(avatar->getId(), avatarCamera->getId());
     characterId = avatarCamera->getId();
 
-    std::shared_ptr<PhisicsComponent> phisicsComponent = std::make_shared<PhisicsComponent>();
-    phisicsComponent->mass = 1.0;
-    phisicsComponent->collisionShape.reset(new btCapsuleShape(0.5, 1.75));
-    EntityManager::get()->addComponent(avatarCamera.get(), phisicsComponent);
-    phisicsSystem->createMotionState(avatarCamera.get());
-    phisicsSystem->createRigidBody(avatarCamera.get());
-    phisicsComponent->rigidBody->setAngularFactor(btVector3(0, 0, 0));
-    phisicsSystem->addRigidBody(avatarCamera.get());
+    std::shared_ptr<PhysicsComponent> physicsComponent = std::make_shared<PhysicsComponent>();
+    physicsComponent->mass = 1.0;
+    physicsComponent->collisionShape.reset(new btCapsuleShape(0.5, 1.75));
+    EntityManager::get()->addComponent(avatarCamera.get(), physicsComponent);
+    physicsSystem->createMotionState(avatarCamera.get());
+    physicsSystem->createRigidBody(avatarCamera.get());
+    physicsComponent->rigidBody->setAngularFactor(btVector3(0, 0, 0));
+    physicsSystem->addRigidBody(avatarCamera.get());
 
     EntityManager::get()->addEntity(avatarCamera);
 
@@ -203,10 +203,10 @@ void WorldScene::create() {
     transformSystem->setScale(tree1.get(), 1.2);
     transformSystem->setPosition(tree1.get(), glm::vec3(1.0, 0.15, 0.0));
 
-    phisicsSystem->createCollisionShape(tree1.get());
-    phisicsSystem->createMotionState(tree1.get());
-    phisicsSystem->createRigidBody(tree1.get());
-    phisicsSystem->addRigidBody(tree1.get());
+    physicsSystem->createCollisionShape(tree1.get());
+    physicsSystem->createMotionState(tree1.get());
+    physicsSystem->createRigidBody(tree1.get());
+    physicsSystem->addRigidBody(tree1.get());
 
     OctreeComponent* tree1Octree = static_cast<OctreeComponent*>(tree1->components[ComponentType::Octree].get());
     tree1Octree->data = ResourceManager::get()->load<Octree>("Octree/Tree.json")->data();
@@ -217,10 +217,10 @@ void WorldScene::create() {
     transformSystem->setScale(tree2.get(), 0.9);
     transformSystem->setPosition(tree2.get(), glm::vec3(-0.7, 0.15, 1.2));
 
-    phisicsSystem->createCollisionShape(tree2.get());
-    phisicsSystem->createMotionState(tree2.get());
-    phisicsSystem->createRigidBody(tree2.get());
-    phisicsSystem->addRigidBody(tree2.get());
+    physicsSystem->createCollisionShape(tree2.get());
+    physicsSystem->createMotionState(tree2.get());
+    physicsSystem->createRigidBody(tree2.get());
+    physicsSystem->addRigidBody(tree2.get());
 
     OctreeComponent* tree2Octree = static_cast<OctreeComponent*>(tree2->components[ComponentType::Octree].get());
     tree2Octree->data = ResourceManager::get()->load<Octree>("Octree/Tree.json")->data();
@@ -231,10 +231,10 @@ void WorldScene::create() {
     transformSystem->setScale(tree3.get(), 1.1);
     transformSystem->setPosition(tree3.get(), glm::vec3(-0.3, 0.15, -1.8));
 
-    phisicsSystem->createCollisionShape(tree3.get());
-    phisicsSystem->createMotionState(tree3.get());
-    phisicsSystem->createRigidBody(tree3.get());
-    phisicsSystem->addRigidBody(tree3.get());
+    physicsSystem->createCollisionShape(tree3.get());
+    physicsSystem->createMotionState(tree3.get());
+    physicsSystem->createRigidBody(tree3.get());
+    physicsSystem->addRigidBody(tree3.get());
 
     OctreeComponent* tree3Octree = static_cast<OctreeComponent*>(tree3->components[ComponentType::Octree].get());
     tree3Octree->data = ResourceManager::get()->load<Octree>("Octree/Tree.json")->data();

@@ -11,7 +11,7 @@ enum class ComponentType {
     Movement,
     Node,
     Octree,
-    Phisics,
+    Physics,
     Render,
     Transform
 };

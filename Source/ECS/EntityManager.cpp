@@ -44,7 +44,7 @@ void EntityManager::initSystems() {
     addUpdateSystem<CameraSystem>();
     addUpdateSystem<TransformSystem>();
     addUpdateSystem<NodeSystem>();
-    addUpdateSystem<PhisicsSystem>();
+    addUpdateSystem<PhysicsSystem>();
     addUpdateSystem<OctreeSystem>();
     addDrawSystem<RenderSystem>();
 }
@@ -69,8 +69,8 @@ Component* EntityManager::createComponent(Entity* entity, ComponentType type) {
     case ComponentType::Render:
         entity->components[type] = std::make_shared<RenderComponent>();
         break;
-    case ComponentType::Phisics:
-        entity->components[type] = std::make_shared<PhisicsComponent>();
+    case ComponentType::Physics:
+        entity->components[type] = std::make_shared<PhysicsComponent>();
         break;
     case ComponentType::Transform:
         entity->components[type] = std::make_shared<TransformComponent>();

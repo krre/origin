@@ -1,8 +1,8 @@
-#include "PhisicsSystem.h"
+#include "PhysicsSystem.h"
 #include "../Components/Components.h"
 
-PhisicsSystem::PhisicsSystem() {
-    type = SystemType::Phisics;
+PhysicsSystem::PhysicsSystem() {
+    type = SystemType::Physics;
 
     collisionConfiguration.reset(new btDefaultCollisionConfiguration);
     dispatcher.reset(new btCollisionDispatcher(collisionConfiguration.get()));
@@ -13,7 +13,7 @@ PhisicsSystem::PhisicsSystem() {
     dynamicsWorld->setGravity(btVector3(0, -10, 0));
 }
 
-PhisicsSystem::~PhisicsSystem() {
+PhysicsSystem::~PhysicsSystem() {
     dynamicsWorld.release();
     solver.release();
     overlappingPairCache.release();
@@ -21,29 +21,29 @@ PhisicsSystem::~PhisicsSystem() {
     collisionConfiguration.release();
 }
 
-void PhisicsSystem::process(float dt) {
+void PhysicsSystem::process(float dt) {
 //    dynamicsWorld->stepSimulation(dt, 10);
 }
 
-void PhisicsSystem::addRigidBody(Entity* entity) {
-    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+void PhysicsSystem::addRigidBody(Entity* entity) {
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
     dynamicsWorld->addRigidBody(pc->rigidBody.get());
 }
 
-void PhisicsSystem::createRigidBody(Entity* entity) {
-    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+void PhysicsSystem::createRigidBody(Entity* entity) {
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
     pc->rigidBody.reset(new btRigidBody(pc->mass, pc->motionState.get(), pc->collisionShape.get()));
 }
 
-void PhisicsSystem::createCollisionShape(Entity* entity) {
-    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+void PhysicsSystem::createCollisionShape(Entity* entity) {
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     btScalar scale = btScalar(tc->scale) / 2.0;
     pc->collisionShape.reset(new btBoxShape(btVector3(scale, scale, scale)));
 }
 
-void PhisicsSystem::createMotionState(Entity* entity) {
-    PhisicsComponent* pc = static_cast<PhisicsComponent*>(entity->components[ComponentType::Phisics].get());
+void PhysicsSystem::createMotionState(Entity* entity) {
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
     btTransform transform;
     transform.setIdentity();

@@ -8,7 +8,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/MovementComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/NodeComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OctreeComponent.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PhisicsComponent.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PhysicsComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderComponent.h
     ${CMAKE_CURRENT_SOURCE_DIR}/TransformComponent.h
     PARENT_SCOPE

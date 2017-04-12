@@ -6,6 +6,6 @@
 #include "MovementControllerComponent.h"
 #include "NodeComponent.h"
 #include "OctreeComponent.h"
-#include "PhisicsComponent.h"
+#include "PhysicsComponent.h"
 #include "RenderComponent.h"
 #include "TransformComponent.h"

@@ -2,10 +2,10 @@
 #include "../Component.h"
 #include <btBulletDynamicsCommon.h>
 
-class PhisicsComponent : public Component {
+class PhysicsComponent : public Component {
 
 public:
-    PhisicsComponent() { type = ComponentType::Phisics; }
+    PhysicsComponent() { type = ComponentType::Physics; }
     std::unique_ptr<btRigidBody> rigidBody;
     std::unique_ptr<btCollisionShape> collisionShape;
     std::unique_ptr<btDefaultMotionState> motionState;

@@ -1,10 +1,13 @@
 #pragma once
 #include "../UI/Viewport.h"
-#include "../Graphics/Vulkan/Device/Device.h"
-#include "../Graphics/Vulkan/Command/CommandBuffers.h"
 #include "../Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "../Graphics/Vulkan/Semaphore.h"
 #include <SDL.h>
+
+namespace Vulkan {
+    class Device;
+    class CommandBuffers;
+}
 
 class Scene : public Viewport {
 
@@ -29,7 +32,7 @@ protected:
     virtual void onKeyPressed(const SDL_KeyboardEvent& event) {}
     bool isFullScreen = true;
     Vulkan::Device* device;
-    Vulkan::CommandBuffers commandBuffers;
+    std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
     std::shared_ptr<Vulkan::SubmitQueue> queue;
     std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
 };

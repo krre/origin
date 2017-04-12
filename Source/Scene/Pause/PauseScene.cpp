@@ -6,6 +6,7 @@
 #include "../../Graphics/Vulkan/Framebuffer.h"
 #include "../../Graphics/Vulkan/Instance.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
+#include "../../Graphics/Vulkan/Command/CommandBuffers.h"
 
 PauseScene::PauseScene() {
     isFullScreen = false;
@@ -60,10 +61,10 @@ void PauseScene::buildCommandBuffers() {
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
     queue->clearCommandBuffers();
 
-    for (size_t i = 0; i < commandBuffers.getCount(); i++) {
+    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
         renderPassBeginInfo->framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
 
-        Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
+        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
 

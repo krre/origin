@@ -16,6 +16,7 @@
 #include "../../Resource/ShaderResource.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"
+#include "../../Graphics/Vulkan/Command/CommandBuffers.h"
 #include "../../Graphics/Vulkan/Descriptor/DescriptorSets.h"
 
 WorldScene::WorldScene() :
@@ -334,10 +335,10 @@ void WorldScene::buildCommandBuffers() {
 
     queue->clearCommandBuffers();
 
-    for (size_t i = 0; i < commandBuffers.getCount(); i++) {
+    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
         renderPassBeginInfo->framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
 
-        Vulkan::CommandBuffer commandBuffer(commandBuffers.at(i));
+        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();
         commandBuffer.beginRenderPass(renderPassBeginInfo);
         commandBuffer.bindPipeline(shaderProgram.getGraphicsPipeline());

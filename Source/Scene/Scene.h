@@ -3,7 +3,6 @@
 #include <SDL.h>
 
 namespace Vulkan {
-    class Device;
     class CommandBuffer;
     class CommandBuffers;
     class Semaphore;

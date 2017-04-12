@@ -7,7 +7,6 @@ RenderPass::RenderPass(Device* device) :
     Devicer(device) {
     beginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
     beginInfo.renderArea.offset = { 0, 0 };
-    beginInfo.renderArea.extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
 }
 
 RenderPass::~RenderPass() {

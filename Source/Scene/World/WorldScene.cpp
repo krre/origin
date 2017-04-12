@@ -276,8 +276,6 @@ void WorldScene::create() {
 
 void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
-    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
-    renderPassBeginInfo->renderArea.extent = extent;
     commandBuffer->beginRenderPass(renderPassBeginInfo);
 
     commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());

@@ -34,23 +34,30 @@ Swapchain::Swapchain(const Surface* surface, Device* device) :
     }
 
     index = indexCounter++;
+
+    imageAvailableSemaphore = std::make_shared<Semaphore>();
+    imageAvailableSemaphore->create();
+
+    presentQueue = std::make_shared<PresentQueue>(Instance::get()->getGraphicsFamily());
+
+    renderPass = std::make_shared<RenderPass>();
+    renderPass->setColorFormat(surface->getFormats().at(0).format);
+    renderPass->create();
 }
 
 Swapchain::~Swapchain() {
+    renderPass.reset();
     presentQueue.reset();
     imageAvailableSemaphore.reset();
-    renderPass.reset();
     destroy();
 }
 
 void Swapchain::create() {
     VkExtent2D extent = surface->getCurrentExtent();
+    renderPass->beginInfo.renderArea.extent = extent;
+
     createInfo.imageExtent = extent;
     VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
-
-    renderPass = std::make_shared<RenderPass>(device);
-    renderPass->setColorFormat(surface->getFormats().at(0).format);
-    renderPass->create();
 
     uint32_t count;
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);
@@ -72,16 +79,10 @@ void Swapchain::create() {
         framebuffers.push_back(framebuffer);
     }
 
-    imageAvailableSemaphore = std::make_shared<Semaphore>(device);
-    imageAvailableSemaphore->create();
-
-    presentQueue = std::make_shared<PresentQueue>(Instance::get()->getGraphicsFamily());
     presentQueue->addSwapchain(handle);
 }
 
 void Swapchain::destroy() {
-    imageViews.clear();
-    framebuffers.clear();
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
 }
 
@@ -187,6 +188,8 @@ void Swapchain::acquireNextImage() {
 }
 
 void Swapchain::rebuild() {
+    imageViews.clear();
+    framebuffers.clear();
     destroy();
     create();
     presentQueue->clearSwapchain();

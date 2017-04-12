@@ -1,6 +1,5 @@
 #pragma once
 #include "Base/Handle.h"
-#include "DebugReportCallback.h"
 #include "../../Core/Singleton.h"
 #include <vector>
 
@@ -16,6 +15,7 @@ class Device;
 class PhysicalDevices;
 class Surface;
 class CommandPool;
+class DebugReportCallback;
 
 class Instance : public Handle<VkInstance>, public Singleton<Instance> {
 

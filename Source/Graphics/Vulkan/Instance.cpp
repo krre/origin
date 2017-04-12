@@ -1,4 +1,5 @@
 #include "Instance.h"
+#include "DebugReportCallback.h"
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"

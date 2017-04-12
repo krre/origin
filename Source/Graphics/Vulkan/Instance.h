@@ -41,6 +41,8 @@ public:
     CommandPool* getCommandPool() const { return commandPool.get(); }
 
 private:
+    void onWindowResize(int width, int height);
+
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};
     std::vector<VkLayerProperties> layers;

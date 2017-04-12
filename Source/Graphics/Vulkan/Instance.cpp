@@ -3,7 +3,11 @@
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
 #include "Surface.h"
+#include "Swapchain.h"
 #include "Command/CommandPool.h"
+#include "../../Core/App.h"
+#include "../../Event/Event.h"
+#include "../../Scene/SceneManager.h"
 
 using namespace Vulkan;
 
@@ -100,6 +104,8 @@ void Instance::create() {
 
     commandPool = std::make_shared<CommandPool>(graphicsFamily);
     commandPool->create();
+
+    Event::get()->windowResize.connect<Instance, &Instance::onWindowResize>(this);
 }
 
 void Instance::destroy() {
@@ -127,4 +133,13 @@ void Instance::dumpExtensions() {
 
 void Instance::setDefaultDevice(Device* device) {
     defaultDevice = device;
+}
+
+void Instance::onWindowResize(int width, int height) {
+    if (App::get()->getIsRunning()) {
+        defaultDevice->waitIdle();
+        surface->getSwapchain()->rebuild();
+        commandPool->reset();
+        SceneManager::get()->rebuild();
+    }
 }

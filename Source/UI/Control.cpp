@@ -4,6 +4,15 @@ Control::Control(int width, int height) : size(width, height) {
 
 }
 
+void Control::addControl(std::shared_ptr<Control> control) {
+    children.push_back(control);
+    control->setParent(this);
+}
+
+void Control::setParent(Control* parent) {
+    this->parent = parent;
+}
+
 void Control::setPosition(const glm::vec2& position) {
     this->position = position;
 }

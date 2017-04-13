@@ -1,11 +1,16 @@
 #pragma once
 #include "../Graphics/Drawable.h"
 #include <glm/glm.hpp>
+#include <vector>
 
 class Control : public Origin::Drawable {
 
 public:
     Control(int width = 0, int height = 0);
+
+    void addControl(std::shared_ptr<Control> control);
+    void setParent(Control* parent);
+
     void setPosition(const glm::vec2& position);
     glm::vec2 getPosition() const { return position; }
 
@@ -25,4 +30,8 @@ protected:
     glm::vec2 size;
     float scale = 1.0;
     float z = 0.0f;
+
+private:
+    Control* parent;
+    std::vector<std::shared_ptr<Control>> children;
 };

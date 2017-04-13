@@ -10,11 +10,6 @@ class Scene2D : public Scene {
 public:
     Scene2D();
     void draw(float dt) override;
-
-    void addControl(std::shared_ptr<Control> control);
-    void removeControl(std::shared_ptr<Control> control);
-    void clearControls();
-
     void setLayout(std::shared_ptr<Layout> layout);
     void setRoot(std::shared_ptr<Control> root);
 

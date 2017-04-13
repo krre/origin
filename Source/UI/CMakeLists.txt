@@ -3,6 +3,8 @@ add_subdirectory(Text)
 
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Batch2D.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Batch2D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.cpp

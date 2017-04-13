@@ -28,13 +28,18 @@ public:
     float getZ() const { return z; }
     void setZ(float z);
 
+    void markDirty();
+    void clearDirty();
+
 protected:
+
     glm::vec2 position;
     glm::vec2 size;
     float scale = 1.0;
     float z = 0.0f;
 
 private:
-    Control* parent;
+    Control* parent = nullptr;
     std::vector<std::shared_ptr<Control>> children;
+    bool dirty = false;
 };

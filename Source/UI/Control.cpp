@@ -42,3 +42,14 @@ void Control::setScale(float scale) {
 void Control::setZ(float z) {
     this->z = z;
 }
+
+void Control::markDirty() {
+    dirty = true;
+    if (parent != nullptr) {
+        parent->markDirty();
+    }
+}
+
+void Control::clearDirty() {
+    dirty = false;
+}

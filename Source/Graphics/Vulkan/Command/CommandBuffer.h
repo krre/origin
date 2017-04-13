@@ -1,11 +1,10 @@
 #pragma once
 #include "../Base/Handle.h"
-#include "../Device/Device.h"
-#include "CommandPool.h"
-#include "../Pipeline/Pipeline.h"
 #include <vector>
 
 namespace Vulkan {
+
+class Pipeline;
 
 class CommandBuffer : public Handle<VkCommandBuffer> {
 

@@ -1,4 +1,5 @@
 #include "CommandBuffer.h"
+#include "../Pipeline/Pipeline.h"
 
 using namespace Vulkan;
 

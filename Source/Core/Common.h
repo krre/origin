@@ -14,3 +14,13 @@ struct Size {
     int width;
     int height;
 };
+
+struct Pos2 {
+    int x;
+    int y;
+};
+
+struct Pos2F {
+    float x;
+    float y;
+};

@@ -1,4 +1,5 @@
 #include "Scene2D.h"
+#include "../UI/Layout.h"
 #include <algorithm>
 
 Scene2D::Scene2D() {
@@ -29,7 +30,11 @@ void Scene2D::clearControls() {
 
 void Scene2D::setLayout(std::shared_ptr<Layout> layout) {
     this->layout = layout;
-//    this->layout->setParent(this);
+    //    this->layout->setParent(this);
+}
+
+void Scene2D::setRoot(std::shared_ptr<Control> root) {
+    this->root = root;
 }
 
 void Scene2D::onWindowResize(int width, int height) {

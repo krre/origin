@@ -1,8 +1,9 @@
 #pragma once
 #include "Scene.h"
-#include "../UI/Control.h"
-#include "../UI/Layout.h"
 #include <vector>
+
+class Control;
+class Layout;
 
 class Scene2D : public Scene {
 
@@ -15,10 +16,12 @@ public:
     void clearControls();
 
     void setLayout(std::shared_ptr<Layout> layout);
+    void setRoot(std::shared_ptr<Control> root);
 
 private:
     void onWindowResize(int width, int height) override;
 
+    std::shared_ptr<Control> root;
     std::vector<std::shared_ptr<Control>> controls;
     std::shared_ptr<Layout> layout;
 };

@@ -9,6 +9,7 @@ public:
     Control(int width = 0, int height = 0);
 
     void addControl(std::shared_ptr<Control> control);
+    void removeControl(std::shared_ptr<Control> control);
     void setParent(Control* parent);
 
     void setPosition(const glm::vec2& position);

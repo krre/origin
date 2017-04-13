@@ -1,4 +1,5 @@
 #include "Control.h"
+#include <algorithm>
 
 Control::Control(int width, int height) : size(width, height) {
 
@@ -7,6 +8,10 @@ Control::Control(int width, int height) : size(width, height) {
 void Control::addControl(std::shared_ptr<Control> control) {
     children.push_back(control);
     control->setParent(this);
+}
+
+void Control::removeControl(std::shared_ptr<Control> control) {
+    children.erase(std::remove(children.begin(), children.end(), control), children.end());
 }
 
 void Control::setParent(Control* parent) {

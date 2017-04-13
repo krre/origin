@@ -10,7 +10,6 @@ class Scene2D : public Scene {
 public:
     Scene2D();
     void draw(float dt) override;
-    void setLayout(std::shared_ptr<Layout> layout);
     void setRoot(std::shared_ptr<Control> root);
 
 private:
@@ -18,5 +17,4 @@ private:
 
     std::shared_ptr<Control> root;
     std::vector<std::shared_ptr<Control>> controls;
-    std::shared_ptr<Layout> layout;
 };

@@ -1,6 +1,10 @@
 #include "Control.h"
 #include <algorithm>
 
+Control::Control() {
+
+}
+
 Control::Control(int width, int height) : size(width, height) {
 
 }

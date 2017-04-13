@@ -14,6 +14,10 @@ void Control::removeControl(std::shared_ptr<Control> control) {
     children.erase(std::remove(children.begin(), children.end(), control), children.end());
 }
 
+void Control::clearControls() {
+    children.clear();
+}
+
 void Control::setParent(Control* parent) {
     this->parent = parent;
 }

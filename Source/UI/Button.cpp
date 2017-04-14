@@ -15,6 +15,10 @@ void Button::setText(const std::string &text) {
     label.setZ(1.0f);
 }
 
+void Button::setLabelColor(const Color& labelColor) {
+    label.setColor(labelColor);
+}
+
 void Button::draw(float dt) {
     Rectangle::draw(dt);
     label.setPosition({ position.x + 10, position.y + 15 });

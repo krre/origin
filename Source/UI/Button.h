@@ -11,6 +11,9 @@ public:
     void setText(const std::string& text);
     std::string getText() const { return label.getText(); }
 
+    void setLabelColor(const Color& labelColor);
+    const Color& getLabelColor() const { return label.getColor(); }
+
     Nano::Signal<void()> clicked;
 
 protected:

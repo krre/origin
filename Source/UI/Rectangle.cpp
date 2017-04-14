@@ -12,6 +12,10 @@ Rectangle::Rectangle(const Pos2& position, const Size& size) {
     this->size = size;
 }
 
+void Rectangle::setColor(const Color& color) {
+    this->color = color;
+}
+
 void Rectangle::draw(float dt) {
 }
 

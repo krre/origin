@@ -26,6 +26,14 @@ void Control::setParent(Control* parent) {
     this->parent = parent;
 }
 
+void Control::setX(int x) {
+    position.x = x;
+}
+
+void Control::setY(int y) {
+    position.y = y;
+}
+
 void Control::setPosition(const glm::vec2& position) {
     this->position = position;
 }

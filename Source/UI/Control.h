@@ -14,6 +14,9 @@ public:
     void clearControls();
     void setParent(Control* parent);
 
+    void setX(int x);
+    void setY(int y);
+
     void setPosition(const glm::vec2& position);
     glm::vec2 getPosition() const { return position; }
 

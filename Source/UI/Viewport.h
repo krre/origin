@@ -27,6 +27,5 @@ private:
     std::shared_ptr<Entity> currentCamera;
     std::shared_ptr<Entity> switchCameras[2];
     glm::vec4 backgroundColor;
-    glm::vec4 rectangle;
     std::vector<std::shared_ptr<Entity>> cameras;
 };

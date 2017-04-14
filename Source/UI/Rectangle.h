@@ -21,7 +21,7 @@ public:
     void update(float dt) override;
 
 private:
-    Color color = { 1.0, 1.0, 1.0 };
-    Color borderColor = { 0.5, 0.5, 0.5 };
+    Color color = Color::WHITE;
+    Color borderColor = Color::GRAY;
     uint32_t borderWidth = 0;
 };

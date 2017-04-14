@@ -24,5 +24,5 @@ private:
     void updateTextData();
     std::string text;
     Font* font;
-    Color color = { 1.0, 1.0, 1.0 };
+    Color color = { 0.0, 0.0, 0.0 };
 };

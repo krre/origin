@@ -3,8 +3,7 @@
 #include "../Resource/ResourceManager.h"
 #include <glm/ext.hpp>
 
-Rectangle::Rectangle(int width, int height) :
-    Control(width, height) {
+Rectangle::Rectangle(const Size& size) : Control(size) {
 }
 
 void Rectangle::draw(float dt) {

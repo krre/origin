@@ -5,7 +5,7 @@ Control::Control() {
 
 }
 
-Control::Control(int width, int height) : size({ width, height }) {
+Control::Control(const Size& size) : size(size) {
 
 }
 

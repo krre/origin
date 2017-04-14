@@ -4,7 +4,7 @@
 class Rectangle : public Control {
 
 public:
-    Rectangle(int width, int height);
+    Rectangle(const Size& size);
     void draw(float dt) override;
     void update(float dt) override;
 };

@@ -7,7 +7,7 @@ class Control : public Origin::Drawable {
 
 public:
     Control();
-    Control(int width, int height);
+    Control(const Size& size);
 
     void addControl(std::shared_ptr<Control> control);
     void removeControl(std::shared_ptr<Control> control);

@@ -9,10 +9,10 @@ public:
     Button();
     ~Button();
     void setText(const std::string& text);
-    std::string getText() const { return label.getText(); }
+    std::string getText() const { return label->getText(); }
 
     void setLabelColor(const Color& labelColor);
-    const Color& getLabelColor() const { return label.getColor(); }
+    const Color& getLabelColor() const { return label->getColor(); }
 
     Nano::Signal<void()> clicked;
 
@@ -21,5 +21,5 @@ protected:
 
 private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
-    Label label;
+    std::shared_ptr<Label> label;
 };

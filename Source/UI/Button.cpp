@@ -3,6 +3,11 @@
 
 Button::Button() : Rectangle({ 100, 20 }) {
     setColor({ 0.6, 0.6, 0.6 });
+
+    label = std::make_shared<Label>();
+    addControl(label);
+    label->setCenterControl(this);
+
     Event::get()->mouseButtonAction.connect<Button, &Button::onMouseButtonAction>(this);
 }
 
@@ -11,18 +16,16 @@ Button::~Button() {
 }
 
 void Button::setText(const std::string &text) {
-    label.setText(text);
-    label.setZ(1.0f);
+    label->setText(text);
+    label->setZ(1.0f);
 }
 
 void Button::setLabelColor(const Color& labelColor) {
-    label.setColor(labelColor);
+    label->setColor(labelColor);
 }
 
 void Button::draw(float dt) {
-    Rectangle::draw(dt);
-    label.setPosition({ position.x + 10, position.y + 15 });
-    label.draw(dt);
+
 }
 
 void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {

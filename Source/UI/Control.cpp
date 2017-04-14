@@ -5,10 +5,6 @@ Control::Control() {
 
 }
 
-Control::Control(const Size& size) : size(size) {
-
-}
-
 Control::Control(const Pos2& position, const Size& size) : position(position), size(size) {
 
 }

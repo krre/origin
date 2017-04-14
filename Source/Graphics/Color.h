@@ -10,6 +10,12 @@ public:
     glm::vec4 getRgba() const { return glm::vec4(red, green, blue, alpha); }
     glm::vec3 getRgb() const { return glm::vec3(red, green, blue); }
 
+    static const Color BLACK;
+    static const Color WHITE;
+    static const Color RED;
+    static const Color GREEN;
+    static const Color BLUE;
+
 private:
     float red = 0;
     float green = 0;

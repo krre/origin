@@ -16,6 +16,10 @@ void Rectangle::setColor(const Color& color) {
     this->color = color;
 }
 
+void Rectangle::setBorder(uint32_t border) {
+    this->border = border;
+}
+
 void Rectangle::draw(float dt) {
 }
 

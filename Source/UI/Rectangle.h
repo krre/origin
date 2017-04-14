@@ -11,9 +11,13 @@ public:
     void setColor(const Color& color);
     const Color& getColor() const { return color; }
 
+    void setBorder(uint32_t border);
+    uint32_t getBorder() const { return border; }
+
     void draw(float dt) override;
     void update(float dt) override;
 
 private:
     Color color = { 1.0, 1.0, 1.0 };
+    uint16_t border = 0;
 };

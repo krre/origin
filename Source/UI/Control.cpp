@@ -51,12 +51,12 @@ void Control::setZ(float z) {
 }
 
 void Control::markDirty() {
-    dirty = true;
+    isDirty = true;
     if (parent != nullptr) {
         parent->markDirty();
     }
 }
 
 void Control::clearDirty() {
-    dirty = false;
+    isDirty = false;
 }

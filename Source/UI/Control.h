@@ -43,5 +43,5 @@ protected:
 private:
     Control* parent = nullptr;
     std::vector<std::shared_ptr<Control>> children;
-    bool dirty = false;
+    bool isDirty = false;
 };

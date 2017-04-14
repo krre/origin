@@ -1,9 +1,10 @@
 #include "Color.h"
 
-Color::Color() : color(glm::vec4(1.0, 1.0, 1.0, 1.0)) {
+Color::Color() {
 
 }
 
-Color::Color(float r, float g, float b, float a) : color(glm::vec4(r, g, b, a)) {
+Color::Color(float red, float green, float blue, float alpha) :
+    red(red), green(green), blue(blue), alpha(alpha) {
 
 }

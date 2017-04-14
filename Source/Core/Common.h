@@ -17,11 +17,15 @@ struct Size {
 struct Pos2 {
     int x;
     int y;
+
+    Pos2 operator+(const Pos2& pos) const { return { pos.x + x, pos.y + y }; }
 };
 
 struct Pos2F {
     float x;
     float y;
+
+    Pos2F operator+(const Pos2F& pos) const { return { pos.x + x, pos.y + y }; }
 };
 
 struct Rect {

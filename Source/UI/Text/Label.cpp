@@ -17,7 +17,7 @@ void Label::setFont(Font* font) {
     this->font = font;
 }
 
-void Label::setColor(const glm::vec3& color) {
+void Label::setColor(const Color& color) {
     this->color = color;
 }
 

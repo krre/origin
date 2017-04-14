@@ -10,8 +10,8 @@ Rectangle::Rectangle(int width, int height) :
 }
 
 void Rectangle::draw(float dt) {
-    glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0), glm::vec3(position.x + size.y / 2.0f, z, position.y + size.y / 2.0f - App::get()->getHeight()));
-    glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(size.x, 1.0, size.y));
+    glm::mat4 translationMatrix = glm::translate(glm::mat4(1.0), glm::vec3(position.x + size.width / 2.0f, z, position.y + size.height / 2.0f - App::get()->getHeight()));
+    glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(size.width, 1.0, size.height));
     glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), glm::radians(90.0f), glm::vec3(1.0, 0.0, 0.0));
     glm::mat4 model = rotationMatrix * translationMatrix * scaleMatrix;
 //    glm::mat4 projection = glm::ortho(0.0f, static_cast<GLfloat>(App::get()->getWidth()), 0.0f, static_cast<GLfloat>(App::get()->getHeight()));

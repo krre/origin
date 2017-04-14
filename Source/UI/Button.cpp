@@ -26,7 +26,7 @@ void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
         int mouseX = event.x;
         int mouseY = event.y;
 
-        if (mouseX > position.x && mouseX < (position.x + size.x) && mouseY > position.y && mouseY < (position.y + size.y)) {
+        if (mouseX > position.x && mouseX < (position.x + size.width) && mouseY > position.y && mouseY < (position.y + size.height)) {
             clicked.emit();
         }
     }

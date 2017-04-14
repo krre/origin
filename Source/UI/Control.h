@@ -20,8 +20,8 @@ public:
     void setPosition(const Pos2& position);
     const Pos2& getPosition() const { return position; }
 
-    glm::vec2 getSize() const { return size; }
-    void setSize(int width, int height);
+    const Size& getSize() const { return size; }
+    void setSize(const Size& size);
 
     void setScale(float scale);
     float getScale() const { return scale; }
@@ -36,7 +36,7 @@ public:
 
 protected:
     Pos2 position;
-    glm::vec2 size;
+    Size size;
     float scale = 1.0;
     float z = 0.0f;
 

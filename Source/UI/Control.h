@@ -19,6 +19,7 @@ public:
 
     void setPosition(const Pos2& position);
     const Pos2& getPosition() const { return position; }
+    const Pos2& getAbsolutePosition() const { return absolutePosition; }
 
     const Size& getSize() const { return size; }
     void setSize(const Size& size);
@@ -39,6 +40,7 @@ public:
 
 protected:
     Pos2 position;
+    Pos2 absolutePosition;
     Size size;
     float scale = 1.0;
     float z = 0.0f;

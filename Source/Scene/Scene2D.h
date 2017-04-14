@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "../UI/Batch2D.h"
 #include <vector>
 
 class Control;

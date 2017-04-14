@@ -14,8 +14,8 @@ public:
     void setBorderColor(const Color& borderColor);
     const Color& getBorderColor() const { return borderColor; }
 
-    void setBorder(uint32_t border);
-    uint32_t getBorder() const { return border; }
+    void setBorderWidth(uint32_t borderWidth);
+    uint32_t getBorderWidth() const { return borderWidth; }
 
     void draw(float dt) override;
     void update(float dt) override;
@@ -23,5 +23,5 @@ public:
 private:
     Color color = { 1.0, 1.0, 1.0 };
     Color borderColor = { 0.5, 0.5, 0.5 };
-    uint16_t border = 0;
+    uint32_t borderWidth = 0;
 };

@@ -20,8 +20,8 @@ void Rectangle::setBorderColor(const Color& borderColor) {
     this->borderColor = borderColor;
 }
 
-void Rectangle::setBorder(uint32_t border) {
-    this->border = border;
+void Rectangle::setBorderWidth(uint32_t border) {
+    this->borderWidth = border;
 }
 
 void Rectangle::draw(float dt) {

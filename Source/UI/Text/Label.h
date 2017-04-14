@@ -8,7 +8,7 @@ class Label : public Control {
 public:
     Label();
     void setText(const std::string& text);
-    std::string getText() const { return text; }
+    const std::string& getText() const { return text; }
 
     void setFont(Font* font);
     Font* getFont() const { return font; }

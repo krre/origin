@@ -2,7 +2,7 @@
 #include "../Event/Event.h"
 
 Button::Button() : Rectangle({ 100, 20 }) {
-//    setColor(glm::vec3(0.6, 0.6, 0.6));
+    setColor({ 0.6, 0.6, 0.6 });
     Event::get()->mouseButtonAction.connect<Button, &Button::onMouseButtonAction>(this);
 }
 

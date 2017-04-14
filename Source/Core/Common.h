@@ -24,3 +24,17 @@ struct Pos2F {
     float x;
     float y;
 };
+
+struct Rect {
+    int x;
+    int y;
+    int width;
+    int height;
+};
+
+struct RectF {
+    float x;
+    float y;
+    float width;
+    float height;
+};

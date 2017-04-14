@@ -34,7 +34,7 @@ void Control::setY(int y) {
     position.y = y;
 }
 
-void Control::setPosition(const glm::vec2& position) {
+void Control::setPosition(const Pos2& position) {
     this->position = position;
 }
 

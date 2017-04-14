@@ -17,7 +17,7 @@ void Button::setText(const std::string &text) {
 
 void Button::draw(float dt) {
     Rectangle::draw(dt);
-    label.setPosition(glm::vec2(position.x + 10, position.y + 15));
+    label.setPosition({ position.x + 10, position.y + 15 });
     label.draw(dt);
 }
 

@@ -17,8 +17,8 @@ public:
     void setX(int x);
     void setY(int y);
 
-    void setPosition(const glm::vec2& position);
-    glm::vec2 getPosition() const { return position; }
+    void setPosition(const Pos2& position);
+    const Pos2& getPosition() const { return position; }
 
     glm::vec2 getSize() const { return size; }
     void setSize(int width, int height);
@@ -35,8 +35,7 @@ public:
     void clearDirty();
 
 protected:
-
-    glm::vec2 position;
+    Pos2 position;
     glm::vec2 size;
     float scale = 1.0;
     float z = 0.0f;

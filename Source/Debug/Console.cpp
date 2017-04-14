@@ -34,7 +34,7 @@ void Console::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 }
 
 void Console::onWindowResize(int width, int height) {
-    cmdLine.setPosition(glm::vec2(5, height - 5));
+    cmdLine.setPosition({ 5, height - 5 });
 }
 
 void Console::onKeyPressed(const SDL_KeyboardEvent& event) {

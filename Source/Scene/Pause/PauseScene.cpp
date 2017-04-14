@@ -23,7 +23,7 @@ void PauseScene::init() {
 }
 
 void PauseScene::draw(float dt) {
-    layout->setPosition(glm::vec2((App::get()->getWidth() - layout->getSize().x) / 2.0, (App::get()->getHeight() - layout->getSize().y) / 2.0));
+    layout->setPosition({ (App::get()->getWidth() - layout->getSize().x) / 2, (App::get()->getHeight() - layout->getSize().y) / 2 });
     layout->update();
 //    Scene2D::draw(dt);
     queue->submit();

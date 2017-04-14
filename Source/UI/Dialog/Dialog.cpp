@@ -10,7 +10,7 @@ Dialog::Dialog() {
     SDL_WarpMouseInWindow(App::get()->getWindow(), centerX, centerY);
     int posX = centerX - getSize().x / 2;
     int posY = centerY - getSize().y / 2;
-    setPosition(glm::vec2(posX, posY));
+    setPosition({ posX, posY });
 }
 
 void Dialog::close() {

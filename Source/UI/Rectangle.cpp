@@ -7,6 +7,11 @@ Rectangle::Rectangle(const Size& size) {
     this->size = size;
 }
 
+Rectangle::Rectangle(const Pos2& position, const Size& size) {
+    this->position = position;
+    this->size = size;
+}
+
 void Rectangle::draw(float dt) {
 }
 

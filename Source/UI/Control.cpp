@@ -5,10 +5,6 @@ Control::Control() {
 
 }
 
-Control::Control(const Pos2& position, const Size& size) : position(position), size(size) {
-
-}
-
 void Control::addControl(std::shared_ptr<Control> control) {
     children.push_back(control);
     control->setParent(this);

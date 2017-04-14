@@ -26,6 +26,9 @@ public:
     void setScale(float scale);
     float getScale() const { return scale; }
 
+    void setFillControl(Control* fillControl);
+    void setCenterControl(Control* centerControl);
+
     void resize(int width, int height);
 
     float getZ() const { return z; }
@@ -42,6 +45,8 @@ protected:
 
 private:
     Control* parent = nullptr;
+    Control* fillControl = nullptr;
+    Control* centerControl = nullptr;
     std::vector<std::shared_ptr<Control>> children;
     bool isDirty = false;
 };

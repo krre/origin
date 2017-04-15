@@ -76,7 +76,6 @@ void Scene::setRenderPass(Vulkan::RenderPass* renderPass) {
 
 void Scene::setBackgroundColor(const glm::vec4& backgroundColor) {
     this->backgroundColor = backgroundColor;
-//    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 }
 
 void Scene::addCamera(std::shared_ptr<Entity> camera) {

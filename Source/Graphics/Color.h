@@ -10,6 +10,7 @@ public:
     glm::vec4 getRgba() const { return glm::vec4(red, green, blue, alpha); }
     glm::vec3 getRgb() const { return glm::vec3(red, green, blue); }
 
+    static const Color TRANSPARENT;
     static const Color BLACK;
     static const Color WHITE;
     static const Color GRAY;

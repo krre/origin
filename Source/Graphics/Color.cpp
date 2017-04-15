@@ -1,5 +1,6 @@
 #include "Color.h"
 
+const Color Color::TRANSPARENT = { 0.0, 0.0, 0.0, 0.0 };
 const Color Color::BLACK = { 0.0, 0.0, 0.0 };
 const Color Color::WHITE = { 1.0, 1.0, 1.0 };
 const Color Color::GRAY =  { 0.5, 0.5, 0.5 };

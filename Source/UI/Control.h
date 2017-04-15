@@ -44,8 +44,8 @@ public:
     virtual void prepareBatch(Batch2D* batch) = 0;
 
 protected:
-    Pos2 position;
-    Pos2 absolutePosition;
+    Pos2 position = { 0, 0 };
+    Pos2 absolutePosition = { 0, 0 };
     Size size;
     float scale = 1.0;
     float z = 0.0f;

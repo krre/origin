@@ -1,4 +1,5 @@
 #include "Control.h"
+#include "Batch2D.h"
 #include <algorithm>
 
 Control::Control() {
@@ -75,6 +76,10 @@ void Control::clearDirty() {
 }
 
 void Control::getBatches(std::vector<std::shared_ptr<Batch2D>>& batches) {
+    std::shared_ptr<Batch2D> batch = std::make_shared<Batch2D>();
+    prepareBatch(batch.get());
+    batches.push_back(batch);
+
     for (auto& control : children) {
         control->getBatches(batches);
     }

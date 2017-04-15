@@ -70,7 +70,7 @@ void Layout::update() {
     updateContentPostion();
 }
 
-void Layout::prepareBatch(Batch2D& batch) {
+void Layout::prepareBatch(Batch2D* batch) {
 
 }
 

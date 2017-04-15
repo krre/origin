@@ -41,7 +41,7 @@ public:
     void clearDirty();
 
     void getBatches(std::vector<std::shared_ptr<Batch2D>>& batches);
-    virtual void prepareBatch(Batch2D& batch) = 0;
+    virtual void prepareBatch(Batch2D* batch) = 0;
 
 protected:
     Pos2 position;

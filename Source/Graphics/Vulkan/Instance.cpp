@@ -123,7 +123,7 @@ void Instance::setEnabledExtensions(const std::vector<const char*> enabledExtens
 
 void Instance::dumpExtensions() {
     for (const auto& extension : extensions) {
-        PRINT(extension.extensionName);
+        PRINT(extension.extensionName << " (spec. ver. " << extension.specVersion << ")");
     }
 }
 

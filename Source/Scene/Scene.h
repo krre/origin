@@ -48,10 +48,19 @@ public:
     virtual void setVisible(bool visible);
     bool getVisible() const { return visible; }
 
+    void setPosition(const Pos2& position);
+    const Pos2& getPosition() const { return position; }
+
+    const Size& getSize() const { return size; }
+    void setSize(const Size& size);
+
 protected:
     virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
     virtual void onWindowResize(int width, int height) = 0;
     virtual void onKeyPressed(const SDL_KeyboardEvent& event) {}
+
+    Pos2 position = { 0, 0 };
+    Size size;
     bool isFullScreen = true;
     bool visible = true;
     std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;

@@ -110,3 +110,11 @@ void Scene::setVisible(bool visible) {
     this->visible = visible;
 }
 
+void Scene::setPosition(const Pos2& position) {
+    this->position = position;
+}
+
+void Scene::setSize(const Size& size) {
+    this->size = size;
+}
+

@@ -10,6 +10,8 @@
 
 const int MAX_CHAR_COUNT = 2048;
 
+class Label;
+
 class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
 
     struct UBO {
@@ -38,4 +40,5 @@ private:
     int counter = 30;
     int fps = 0;
     std::string vulkanApiVersion;
+    std::shared_ptr<Label> displayLabel;
 };

@@ -11,6 +11,7 @@
 #include "../Graphics/Vulkan/Command/CommandBuffer.h"
 #include "../Graphics/Vulkan/Command/CommandBuffers.h"
 #include "../Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "../UI/Text/Label.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
 
@@ -29,6 +30,10 @@ DebugHUD::~DebugHUD() {
 }
 
 void DebugHUD::init() {
+    displayLabel = std::make_shared<Label>();
+    displayLabel->setPosition({ 7, 5 });
+    setRoot(displayLabel);
+
     shaderProgram.addShader("Shader/SDF.vert.spv");
     shaderProgram.addShader("Shader/SDF.frag.spv");
 
@@ -108,6 +113,8 @@ void DebugHUD::update(float dt) {
     }
 
     font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), text);
+
+    displayLabel->setText(text);
 }
 
 void DebugHUD::trigger() {

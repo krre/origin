@@ -17,9 +17,6 @@
 #include <algorithm>
 
 Scene::Scene() {
-    switchCameras[0] = nullptr;
-    switchCameras[1] = nullptr;
-
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
     commandBuffers = std::make_shared<Vulkan::CommandBuffers>(Vulkan::Instance::get()->getCommandPool());

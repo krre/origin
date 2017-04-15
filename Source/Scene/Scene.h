@@ -70,7 +70,7 @@ protected:
 private:
     Vulkan::RenderPass* renderPass = nullptr;
     std::shared_ptr<Entity> currentCamera;
-    std::shared_ptr<Entity> switchCameras[2];
+    std::shared_ptr<Entity> switchCameras[2] = { nullptr, nullptr };
     Color backgroundColor = Color::WHITE;
     std::vector<std::shared_ptr<Entity>> cameras;
 };

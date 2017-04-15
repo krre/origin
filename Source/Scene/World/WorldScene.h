@@ -67,7 +67,6 @@ private:
     std::shared_ptr<Console> console;
     EntityId characterId;
     uint64_t seed;
-    Viewport viewport;
     Plane plane;
     ShaderProgram shaderProgram;
 };

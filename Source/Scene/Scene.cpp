@@ -11,8 +11,16 @@
 #include "../Graphics/Vulkan/RenderPass.h"
 #include "../Graphics/Vulkan/Framebuffer.h"
 #include "../Event/Input.h"
+#include "../ECS/Systems/Systems.h"
+#include "../ECS/EntityManager.h"
+#include "../ECS/Entity.h"
+#include <algorithm>
 
 Scene::Scene() {
+    switchCameras[0] = nullptr;
+    switchCameras[1] = nullptr;
+    setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
+
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
     commandBuffers = std::make_shared<Vulkan::CommandBuffers>(Vulkan::Instance::get()->getCommandPool());
@@ -65,3 +73,45 @@ void Scene::buildCommandBuffers() {
 void Scene::setRenderPass(Vulkan::RenderPass* renderPass) {
     this->renderPass = renderPass;
 }
+
+void Scene::setBackgroundColor(const glm::vec4& backgroundColor) {
+    this->backgroundColor = backgroundColor;
+//    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
+}
+
+void Scene::setRectangle(int x, int y, int width, int height) {
+//    glViewport(x, y, width, height);
+}
+
+void Scene::addCamera(std::shared_ptr<Entity> camera) {
+    cameras.push_back(camera);
+}
+
+void Scene::removeCamera(std::shared_ptr<Entity> camera) {
+    cameras.erase(std::remove(cameras.begin(), cameras.end(), camera), cameras.end());
+}
+
+void Scene::clearCameras() {
+    cameras.clear();
+}
+
+void Scene::setCurrentCamera(std::shared_ptr<Entity> currentCamera) {
+    this->currentCamera = currentCamera;
+    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
+    movementControllerSystem->setMoveEntity(currentCamera.get());
+    movementControllerSystem->setRotateEntity(currentCamera.get());
+
+    switchCameras[1] = switchCameras[0];
+    switchCameras[0] = currentCamera;
+}
+
+void Scene::switchCamera() {
+    if (switchCameras[1] != nullptr) {
+        setCurrentCamera(switchCameras[1]);
+    }
+}
+
+void Scene::setVisible(bool visible) {
+    this->visible = visible;
+}
+

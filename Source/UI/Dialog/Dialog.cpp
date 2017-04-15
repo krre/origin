@@ -8,9 +8,9 @@ Dialog::Dialog() {
     int centerX = App::get()->getWidth() / 2;
     int centerY = App::get()->getHeight() / 2;
     SDL_WarpMouseInWindow(App::get()->getWindow(), centerX, centerY);
-    int posX = centerX - getSize().width / 2;
-    int posY = centerY - getSize().height / 2;
-    setPosition({ posX, posY });
+//    int posX = centerX - getSize().width / 2;
+//    int posY = centerY - getSize().height / 2;
+//    setPosition({ posX, posY });
 }
 
 void Dialog::close() {

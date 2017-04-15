@@ -76,7 +76,7 @@ void WorldScene::update(float dt) {
     int height = App::get()->getHeight();
 
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(EntityManager::get()->getSystem(SystemType::Octree).get());
-    Entity* currentCamera = viewport.getCurrentCamera().get();
+    Entity* currentCamera = getCurrentCamera().get();
     CameraComponent* cameraComp = static_cast<CameraComponent*>(currentCamera->components[ComponentType::Camera].get());
     TransformComponent* cameraTransform = static_cast<TransformComponent*>(currentCamera->components[ComponentType::Transform].get());
 
@@ -159,7 +159,7 @@ void WorldScene::create() {
     std::shared_ptr<Entity> freeCamera = EntityBuilder::freeCamera();
     transformSystem->lookAt(freeCamera.get(), glm::vec3(3.0f, 0.0f, 0.0f), glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
     transformSystem->translate(freeCamera.get(), glm::vec3(2.0f, 1.0f, 3.0f));
-    viewport.setCurrentCamera(freeCamera);
+    setCurrentCamera(freeCamera);
     EntityManager::get()->addEntity(freeCamera);
 
     // Avatar
@@ -167,7 +167,7 @@ void WorldScene::create() {
     EntityManager::get()->addEntity(avatar);
 
     std::shared_ptr<Entity> avatarCamera = EntityBuilder::camera();
-    viewport.setCurrentCamera(avatarCamera);
+    setCurrentCamera(avatarCamera);
     transformSystem->translate(avatarCamera.get(), glm::vec3(0.0f, 0.0f, 2.0f));
     transformSystem->setPitch(avatarCamera.get(), -15.0);
 //    NodeSystem* nodeSystem = static_cast<NodeSystem*>(EntityManager::get()->getSystem(SystemType::Node).get());
@@ -345,7 +345,7 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 
 #ifdef DEVELOP_MODE
     case SDLK_KP_0:
-        viewport.switchCamera();
+        switchCamera();
         break;
     case SDLK_BACKQUOTE:
         SDL_SetRelativeMouseMode(SDL_GetRelativeMouseMode() == SDL_TRUE ? SDL_FALSE : SDL_TRUE);

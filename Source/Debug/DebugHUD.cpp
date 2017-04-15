@@ -18,6 +18,7 @@
 
 DebugHUD::DebugHUD() {
     visible = false;
+    setBackgroundColor(Color::TRANSPARENT);
 
     int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
     int major = (apiVersionNumber >> 22) & 0x3FF;

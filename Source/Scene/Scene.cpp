@@ -79,10 +79,6 @@ void Scene::setBackgroundColor(const glm::vec4& backgroundColor) {
 //    glClearColor(backgroundColor.r, backgroundColor.g, backgroundColor.b, backgroundColor.a);
 }
 
-void Scene::setRectangle(int x, int y, int width, int height) {
-//    glViewport(x, y, width, height);
-}
-
 void Scene::addCamera(std::shared_ptr<Entity> camera) {
     cameras.push_back(camera);
 }

@@ -30,7 +30,6 @@ public:
 
     void setBackgroundColor(const glm::vec4& backgroundColor);
     glm::vec4 getBackgroundColor() const { return backgroundColor; }
-    void setRectangle(int x, int y, int width, int height);
 
     void addCamera(std::shared_ptr<Entity> camera);
     void removeCamera(std::shared_ptr<Entity> camera);

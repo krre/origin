@@ -1,7 +1,8 @@
 #pragma once
 #include "Singleton.h"
 #include <SDL.h>
-#include "../Scene/World/WorldScene.h"
+
+class WorldScene;
 
 class Game : public Singleton<Game> {
 

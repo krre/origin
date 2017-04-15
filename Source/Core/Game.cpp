@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "App.h"
 #include "Utils.h"
+#include "../Scene/World/WorldScene.h"
 #include "../Debug/DebugHUD.h"
 #include "../Debug/Debug.h"
 #include "../UI/Toast.h"

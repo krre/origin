@@ -1,6 +1,7 @@
 #include "DebugHUD.h"
 #include "../Core/App.h"
 #include "../Core/Game.h"
+#include "../Scene/World/WorldScene.h"
 #include "../ECS/EntityManager.h"
 #include "../ECS/Components/TransformComponent.h"
 #include "../Resource/ShaderResource.h"

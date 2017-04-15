@@ -2,7 +2,6 @@
 #include "../Scene3D.h"
 #include "../../Graphics/ShaderProgram.h"
 #include "../../ECS/Entity.h"
-#include "../../UI/Viewport.h"
 #include "../../Graphics/Voxel/GPUMemoryManager.h"
 #include "../../Graphics/Vulkan/Buffer.h"
 #include "../../Graphics/Plane.h"

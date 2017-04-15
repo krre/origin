@@ -43,10 +43,6 @@ void MenuScene::init() {
     shaderProgram.writeUniform("uboFrag");
 }
 
-void MenuScene::draw(float dt) {
-    queue->submit();
-}
-
 void MenuScene::update(float dt) {
 
 }

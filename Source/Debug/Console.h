@@ -7,7 +7,6 @@ class Console : public Scene2D {
 
 public:
     Console();
-    void draw(float dt) override;
     void update(float dt) override;
     void setVisible(bool visible) override;
 

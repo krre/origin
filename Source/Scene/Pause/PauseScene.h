@@ -9,7 +9,6 @@ public:
     PauseScene();
     ~PauseScene();
     void init() override;
-    void draw(float dt) override;
     void update(float dt) override;
 
 private:

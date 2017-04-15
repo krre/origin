@@ -21,7 +21,6 @@ public:
     DebugHUD();
     ~DebugHUD();
     void init() override;
-    void draw(float dt) override;
     void update(float dt) override;
     void trigger();
 

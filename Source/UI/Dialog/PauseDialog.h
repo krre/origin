@@ -6,7 +6,6 @@ class PauseDialog : public Dialog {
 public:
     PauseDialog();
     void init() override;
-    void draw(float dt) override;
     void update(float dt) override;
 
 private:

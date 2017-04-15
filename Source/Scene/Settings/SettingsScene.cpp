@@ -13,10 +13,6 @@ SettingsScene::~SettingsScene() {
 void SettingsScene::init() {
 }
 
-void SettingsScene::draw(float dt) {
-
-}
-
 void SettingsScene::update(float dt) {
 
 }

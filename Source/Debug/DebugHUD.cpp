@@ -78,7 +78,7 @@ void DebugHUD::init() {
     shaderProgram.writeUniform("ubo");
 }
 
-void DebugHUD::draw(float dt) {
+void DebugHUD::update(float dt) {
     accumTime += dt;
     counter++;
     if (accumTime >= 0.5) {
@@ -108,11 +108,6 @@ void DebugHUD::draw(float dt) {
     }
 
     font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), text);
-    queue->submit();
-}
-
-void DebugHUD::update(float dt) {
-
 }
 
 void DebugHUD::trigger() {

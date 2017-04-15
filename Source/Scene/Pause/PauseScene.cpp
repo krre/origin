@@ -22,15 +22,9 @@ void PauseScene::init() {
     create();
 }
 
-void PauseScene::draw(float dt) {
+void PauseScene::update(float dt) {
     layout->setPosition({ (App::get()->getWidth() - layout->getSize().width) / 2, (App::get()->getHeight() - layout->getSize().height) / 2 });
     layout->update();
-//    Scene2D::draw(dt);
-    queue->submit();
-}
-
-void PauseScene::update(float dt) {
-
 }
 
 void PauseScene::create() {

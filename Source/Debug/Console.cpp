@@ -11,12 +11,8 @@ Console::Console() {
     visible = false;
 }
 
-void Console::draw(float dt) {
-    cmdLine.draw(dt);
-}
-
 void Console::update(float dt) {
-
+    cmdLine.draw(dt);
 }
 
 void Console::setVisible(bool visible) {

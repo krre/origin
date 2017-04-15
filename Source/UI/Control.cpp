@@ -73,3 +73,9 @@ void Control::markDirty() {
 void Control::clearDirty() {
     isDirty = false;
 }
+
+void Control::getBatches(std::vector<std::shared_ptr<Batch2D>>& batches) {
+    for (auto& control : children) {
+        control->getBatches(batches);
+    }
+}

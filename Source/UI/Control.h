@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+class Batch2D;
+
 class Control : public Origin::Drawable {
 
 public:
@@ -37,6 +39,8 @@ public:
 
     void markDirty();
     void clearDirty();
+
+    void getBatches(std::vector<std::shared_ptr<Batch2D>>& batches);
 
 protected:
     Pos2 position;

@@ -14,6 +14,8 @@ public:
     void setLabelColor(const Color& labelColor);
     const Color& getLabelColor() const { return label->getColor(); }
 
+    void prepareBatch(Batch2D& batch) override;
+
     Nano::Signal<void()> clicked;
 
 protected:

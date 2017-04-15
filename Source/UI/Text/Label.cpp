@@ -29,6 +29,10 @@ void Label::update(float dt) {
 
 }
 
+void Label::prepareBatch(Batch2D& batch) {
+
+}
+
 void Label::updateTextData() {
 
 }

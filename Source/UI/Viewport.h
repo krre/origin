@@ -23,6 +23,8 @@ public:
     // Swap last to cameras
     void switchCamera();
 
+    void prepareBatch(Batch2D& batch) override {}
+
 private:
     std::shared_ptr<Entity> currentCamera;
     std::shared_ptr<Entity> switchCameras[2];

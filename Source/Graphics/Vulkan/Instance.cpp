@@ -113,7 +113,9 @@ void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
 
 void Instance::dumpLayers() {
     for (const auto& layer : layers) {
-        PRINT(layer.layerName);
+        PRINT(layer.layerName << " - " << layer.description
+              << " (spec. ver. " << apiToString(layer.specVersion)
+              << ", impl. ver. " << layer.implementationVersion << ")");
     }
 }
 

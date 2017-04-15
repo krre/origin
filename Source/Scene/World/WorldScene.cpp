@@ -35,8 +35,6 @@ WorldScene::~WorldScene() {
 }
 
 void WorldScene::init() {
-    Scene::init();
-
     shaderProgram.addShader("Shader/Voxel.vert.spv");
     shaderProgram.addShader("Shader/Voxel.frag.spv");
 

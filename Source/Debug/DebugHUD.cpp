@@ -29,8 +29,6 @@ DebugHUD::~DebugHUD() {
 }
 
 void DebugHUD::init() {
-    Scene::init();
-
     shaderProgram.addShader("Shader/SDF.vert.spv");
     shaderProgram.addShader("Shader/SDF.frag.spv");
 

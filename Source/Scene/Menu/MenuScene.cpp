@@ -20,8 +20,6 @@ MenuScene::~MenuScene() {
 }
 
 void MenuScene::init() {
-    Scene::init();
-
     shaderProgram.addShader("Shader/Base.vert.spv");
     shaderProgram.addShader("Shader/Base.frag.spv");
 

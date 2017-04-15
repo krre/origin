@@ -1,7 +1,6 @@
 #include "Scene2D.h"
-#include "../UI/Layout.h"
+#include "../UI/Control.h"
 #include "../Graphics/Vulkan/Queue/SubmitQueue.h"
-#include <algorithm>
 
 Scene2D::Scene2D() {
 

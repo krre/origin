@@ -8,14 +8,8 @@ SubmitQueue::SubmitQueue(uint32_t queueFamilyIndex, uint32_t queueIndex, Device*
 }
 
 VkResult SubmitQueue::submit(VkFence fence) {
-    submitInfo.pWaitDstStageMask = waitDstStageMasks.data();
-    submitInfo.waitSemaphoreCount = waitSemaphores.size();
-    submitInfo.pWaitSemaphores = waitSemaphores.data();
-    submitInfo.signalSemaphoreCount = signalSemaphores.size();
-    submitInfo.pSignalSemaphores = signalSemaphores.data();
-    submitInfo.commandBufferCount = commandBuffers.size();
-    submitInfo.pCommandBuffers = commandBuffers.data();
-    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, 1, &submitInfo, fence), "Failed to submit queue");
+    append();
+    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence), "Failed to submit queue");
 }
 
 VkResult SubmitQueue::waitIdle() {
@@ -43,4 +37,18 @@ void SubmitQueue::addCommandBuffer(VkCommandBuffer commandBuffer) {
 
 void SubmitQueue::clearCommandBuffers() {
     commandBuffers.clear();
+}
+
+void SubmitQueue::append() {
+    submitInfos.clear();
+
+    submitInfo.pWaitDstStageMask = waitDstStageMasks.data();
+    submitInfo.waitSemaphoreCount = waitSemaphores.size();
+    submitInfo.pWaitSemaphores = waitSemaphores.data();
+    submitInfo.signalSemaphoreCount = signalSemaphores.size();
+    submitInfo.pSignalSemaphores = signalSemaphores.data();
+    submitInfo.commandBufferCount = commandBuffers.size();
+    submitInfo.pCommandBuffers = commandBuffers.data();
+
+    submitInfos.push_back(submitInfo);
 }

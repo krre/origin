@@ -17,12 +17,14 @@ public:
     void setWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask);
     void addCommandBuffer(VkCommandBuffer commandBuffer);
     void clearCommandBuffers();
+    void append();
 
 private:
     VkSubmitInfo submitInfo = {};
     std::vector<VkSemaphore> signalSemaphores;
     std::vector<VkPipelineStageFlags> waitDstStageMasks;
     std::vector<VkCommandBuffer> commandBuffers;
+    std::vector<VkSubmitInfo> submitInfos;
 
 };
 

@@ -136,3 +136,10 @@ void Instance::windowResize(int width, int height) {
     surface->getSwapchain()->rebuild();
     commandPool->reset();
 }
+
+std::string Instance::apiToString(int api) {
+    int major = (api >> 22) & 0x3FF;
+    int minor = (api >> 12) & 0x3FF;
+    int patch = api & 0xFFF;
+    return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+}

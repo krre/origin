@@ -21,10 +21,7 @@ DebugHUD::DebugHUD() {
     setBackgroundColor(Color::TRANSPARENT);
 
     int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
-    int major = (apiVersionNumber >> 22) & 0x3FF;
-    int minor = (apiVersionNumber >> 12) & 0x3FF;
-    int patch = apiVersionNumber & 0xFFF;
-    vulkanApiVersion = std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
+    vulkanApiVersion = Vulkan::Instance::apiToString(apiVersionNumber);
 }
 
 DebugHUD::~DebugHUD() {

@@ -42,6 +42,8 @@ public:
 
     void windowResize(int width, int height);
 
+    static std::string apiToString(int api);
+
 private:
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};

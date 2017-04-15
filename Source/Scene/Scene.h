@@ -1,7 +1,7 @@
 #pragma once
 #include "../Core/Object.h"
+#include "../Graphics/Color.h"
 #include <SDL.h>
-#include <glm/glm.hpp>
 #include <vector>
 
 namespace Vulkan {
@@ -28,8 +28,8 @@ public:
 
     void buildCommandBuffers();
 
-    void setBackgroundColor(const glm::vec4& backgroundColor);
-    glm::vec4 getBackgroundColor() const { return backgroundColor; }
+    void setBackgroundColor(const Color& backgroundColor);
+    const Color& getBackgroundColor() const { return backgroundColor; }
 
     void addCamera(std::shared_ptr<Entity> camera);
     void removeCamera(std::shared_ptr<Entity> camera);
@@ -71,6 +71,6 @@ private:
     Vulkan::RenderPass* renderPass = nullptr;
     std::shared_ptr<Entity> currentCamera;
     std::shared_ptr<Entity> switchCameras[2];
-    glm::vec4 backgroundColor;
+    Color backgroundColor = Color::WHITE;
     std::vector<std::shared_ptr<Entity>> cameras;
 };

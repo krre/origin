@@ -19,7 +19,6 @@
 Scene::Scene() {
     switchCameras[0] = nullptr;
     switchCameras[1] = nullptr;
-    setBackgroundColor(glm::vec4(0.77, 0.83, 0.83, 1.0));
 
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
@@ -74,7 +73,7 @@ void Scene::setRenderPass(Vulkan::RenderPass* renderPass) {
     this->renderPass = renderPass;
 }
 
-void Scene::setBackgroundColor(const glm::vec4& backgroundColor) {
+void Scene::setBackgroundColor(const Color& backgroundColor) {
     this->backgroundColor = backgroundColor;
 }
 

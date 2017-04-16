@@ -10,6 +10,7 @@
 #include "../Scene/SceneManager.h"
 #include "Settings.h"
 #include "../Graphics/Vulkan/Instance.h"
+#include "../Graphics/Renderer.h"
 #include <string>
 #include <SDL_timer.h>
 #include <Origin.h>
@@ -31,6 +32,7 @@ App::~App() {
     DebugHUD::get()->release();
     Debug::get()->release();
     ResourceManager::get()->release();
+    Renderer::get()->release();
     Vulkan::Instance::get()->release();
     Event::get()->release();
     Logger::get()->release();
@@ -101,6 +103,7 @@ void App::init() {
     SDL_ShowWindow(window);
 
     // Order is important
+    new Renderer;
     new ResourceManager;
     new Debug;
     new DebugHUD;

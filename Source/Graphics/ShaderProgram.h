@@ -1,15 +1,15 @@
 #pragma once
 #include "../Core/Object.h"
 #include "../Resource/ShaderResource.h"
-#include "Vulkan/Descriptor/DescriptorSets.h"
 #include <map>
 
 namespace Vulkan {
-    class Device;
     class GraphicsPipeline;
     class PipelineLayout;
     class DescriptorSetLayout;
     class Buffer;
+    class DescriptorSets;
+    class DescriptorPool;
 }
 
 class ShaderProgram : public Object {
@@ -22,12 +22,12 @@ public:
         std::shared_ptr<Vulkan::Buffer> buffer;
     };
 
-    ShaderProgram(Vulkan::Device* device = nullptr);
+    ShaderProgram();
     ~ShaderProgram();
     void addShader(const std::string& path);
     Vulkan::GraphicsPipeline* getGraphicsPipeline() { return graphicsPipeline.get(); }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return descriptorSetLayout.get(); }
-    const Vulkan::DescriptorSets* getDescriptorSets() const { return &descriptorSets; }
+    const Vulkan::DescriptorSets* getDescriptorSets() const { return descriptorSets.get(); }
     const Vulkan::PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
     Vulkan::Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
     void createPipeline();
@@ -41,19 +41,18 @@ public:
     void readUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
 private:
-    const Vulkan::Device* device;
+    VkFormat getFormat(ShaderResource::Input* input);
+
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
-    Vulkan::DescriptorPool descriptorPool;
+    std::unique_ptr<Vulkan::DescriptorPool> descriptorPool;
     std::vector<ShaderResource*> shaderResources;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
     std::unique_ptr<Vulkan::DescriptorSetLayout> descriptorSetLayout;
-    Vulkan::DescriptorSets descriptorSets;
+    std::unique_ptr<Vulkan::DescriptorSets> descriptorSets;
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, VkVertexInputAttributeDescription> inputInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
     std::shared_ptr<Vulkan::Buffer> indexBuffer;
     int vertexBindingCount = 0;
-
-    VkFormat getFormat(ShaderResource::Input* input);
 };

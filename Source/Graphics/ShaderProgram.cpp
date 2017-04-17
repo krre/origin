@@ -3,6 +3,7 @@
 #include "Vulkan/Pipeline/GraphicsPipeline.h"
 #include "Vulkan/Descriptor/DescriptorPool.h"
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
+#include "Vulkan/Descriptor/DescriptorSets.h"
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
 #include "Vulkan/Instance.h"
@@ -11,21 +12,21 @@
 
 using namespace Vulkan;
 
-ShaderProgram::ShaderProgram(Device* device) :
-        device(device),
-        descriptorPool(device),
-        descriptorSets(&descriptorPool) {
-    graphicsPipeline = std::unique_ptr<Vulkan::GraphicsPipeline>(new Vulkan::GraphicsPipeline());
-    graphicsPipeline->setExtent(Vulkan::Instance::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline->setRenderPass(Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
+ShaderProgram::ShaderProgram() {
+    descriptorPool = std::unique_ptr<DescriptorPool>(new DescriptorPool);
+    descriptorSets = std::unique_ptr<DescriptorSets>(new DescriptorSets(descriptorPool.get()));
 
-    pipelineLayout = std::unique_ptr<Vulkan::PipelineLayout>(new Vulkan::PipelineLayout);
-    descriptorSetLayout = std::unique_ptr<Vulkan::DescriptorSetLayout>(new Vulkan::DescriptorSetLayout);
+    graphicsPipeline = std::unique_ptr<GraphicsPipeline>(new GraphicsPipeline());
+    graphicsPipeline->setExtent(Instance::get()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline->setRenderPass(Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
+
+    pipelineLayout = std::unique_ptr<PipelineLayout>(new PipelineLayout);
+    descriptorSetLayout = std::unique_ptr<DescriptorSetLayout>(new DescriptorSetLayout);
 }
 
 ShaderProgram::~ShaderProgram() {
-    descriptorSets.destroy();
-    descriptorPool.destroy();
+    descriptorSets->destroy();
+    descriptorPool->destroy();
 }
 
 void ShaderProgram::addShader(const std::string& path) {
@@ -77,13 +78,13 @@ void ShaderProgram::createPipeline() {
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 descriptorWrite.pBufferInfo = buffer->getDescriptorInfo();
-                descriptorSets.addWriteDescriptorSet(descriptorWrite);
+                descriptorSets->addWriteDescriptorSet(descriptorWrite);
             }
 
             const auto& imageIt = imageInfos.find(descriptorIt.first);
             if (imageIt != imageInfos.end()) {
                 descriptorWrite.pImageInfo = &imageIt->second;
-                descriptorSets.addWriteDescriptorSet(descriptorWrite);
+                descriptorSets->addWriteDescriptorSet(descriptorWrite);
             }
         }
 
@@ -100,25 +101,25 @@ void ShaderProgram::createPipeline() {
     }
 
     descriptorSetLayout->create();
-    descriptorSets.addDescriptorSetLayout(descriptorSetLayout->getHandle());
+    descriptorSets->addDescriptorSetLayout(descriptorSetLayout->getHandle());
     pipelineLayout->addDescriptorSetLayout(descriptorSetLayout->getHandle());
     pipelineLayout->create();
     graphicsPipeline->setPipelineLayout(pipelineLayout->getHandle());
 
     // Descriptor pool
     for (auto& it : descriptorsTypes) {
-        descriptorPool.addPoolSize(it.first, it.second);
+        descriptorPool->addPoolSize(it.first, it.second);
     }
 
-    descriptorPool.create();
-    descriptorSets.allocate();
-    descriptorSets.writeDescriptors();
+    descriptorPool->create();
+    descriptorSets->allocate();
+    descriptorSets->writeDescriptors();
 
     graphicsPipeline->create();
 }
 
 void ShaderProgram::createIndexBuffer(VkDeviceSize size) {
-    indexBuffer = std::make_shared<Vulkan::Buffer>(VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size, false);
+    indexBuffer = std::make_shared<Buffer>(VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size, false);
     indexBuffer->create();
 }
 

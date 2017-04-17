@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Object.h"
+#include "../../Core/Object.h"
 
 namespace Vulkan {
     class Buffer;
@@ -8,7 +8,7 @@ namespace Vulkan {
 class HardwareBuffer : public Object {
 
 public:
-    HardwareBuffer() = delete;
+//    HardwareBuffer() = delete;
 
 protected:
     std::shared_ptr<Vulkan::Buffer> buffer;

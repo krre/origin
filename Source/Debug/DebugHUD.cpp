@@ -13,6 +13,7 @@
 #include "../Graphics/Vulkan/Command/CommandBuffers.h"
 #include "../Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "../UI/Text/Label.h"
+#include "../UI/Rectangle.h"
 #include <glm/glm.hpp>
 #include <Origin.h>
 
@@ -29,9 +30,13 @@ DebugHUD::~DebugHUD() {
 }
 
 void DebugHUD::init() {
+    std::shared_ptr<Rectangle> rect = std::make_shared<Rectangle>(Size(300, 200));
+    rect->setColor(Color(0.0, 0.0, 0.0, 0.5));
+    setRoot(rect);
+
     displayLabel = std::make_shared<Label>();
     displayLabel->setPosition({ 7, 5 });
-    setRoot(displayLabel);
+    rect->addControl(displayLabel);
 
     shaderProgram.addShader("Shader/SDF.vert.spv");
     shaderProgram.addShader("Shader/SDF.frag.spv");

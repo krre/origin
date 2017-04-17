@@ -8,11 +8,13 @@ namespace Vulkan {
 class HardwareBuffer : public Object {
 
 public:
-//    HardwareBuffer() = delete;
+    HardwareBuffer();
+    ~HardwareBuffer();
 
 protected:
-    std::shared_ptr<Vulkan::Buffer> buffer;
+    std::unique_ptr<Vulkan::Buffer> buffer;
+    std::unique_ptr<Vulkan::Buffer> stageBuffer; // TODO: Use for staging
 
 private:
-    std::shared_ptr<Vulkan::Buffer> stageBuffer; // TODO: Use for staging
+
 };

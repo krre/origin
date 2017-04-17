@@ -75,12 +75,13 @@ void Control::clearDirty() {
     isDirty = false;
 }
 
-void Control::getBatches(std::vector<std::shared_ptr<Batch2D>>& batches) {
-    std::shared_ptr<Batch2D> batch = std::make_shared<Batch2D>();
+void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches) {
+    std::unique_ptr<Batch2D> batch = std::unique_ptr<Batch2D>(new Batch2D);
     prepareBatch(batch.get());
-    batches.push_back(batch);
 
     for (auto& control : children) {
         control->getBatches(batches);
     }
+
+    batches.push_back(std::move(batch));
 }

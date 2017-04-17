@@ -24,7 +24,7 @@ private:
 
     std::shared_ptr<Control> root;
     std::vector<std::shared_ptr<Control>> controls;
-    std::vector<std::shared_ptr<Batch2D>> batches;
+    std::vector<std::unique_ptr<Batch2D>> batches;
     std::unique_ptr<VertexBuffer> vertexBuffer;
     std::unique_ptr<IndexBuffer> indexBuffer;
 };

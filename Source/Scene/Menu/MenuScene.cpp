@@ -5,6 +5,7 @@
 #include "../../Graphics/Vulkan/Instance.h"
 #include "../../Graphics/Vulkan/Swapchain.h"
 #include "../../Graphics/Vulkan/Framebuffer.h"
+#include "../../Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "../../Resource/ShaderResource.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Graphics/Vulkan/Command/CommandBuffer.h"

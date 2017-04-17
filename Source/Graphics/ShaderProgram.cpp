@@ -1,4 +1,7 @@
 #include "ShaderProgram.h"
+#include "Vulkan/Pipeline/PipelineLayout.h"
+#include "Vulkan/Pipeline/GraphicsPipeline.h"
+#include "Vulkan/Descriptor/DescriptorPool.h"
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
 #include "../Graphics/Vulkan/Instance.h"
@@ -8,13 +11,14 @@ using namespace Vulkan;
 
 ShaderProgram::ShaderProgram(Device* device) :
         device(device),
-        graphicsPipeline(device),
-        pipelineLayout(device),
         descriptorPool(device),
         descriptorSetLayout(device),
         descriptorSets(&descriptorPool) {
-    graphicsPipeline.setExtent(Vulkan::Instance::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline.setRenderPass(Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
+    graphicsPipeline = std::unique_ptr<Vulkan::GraphicsPipeline>(new Vulkan::GraphicsPipeline());
+    graphicsPipeline->setExtent(Vulkan::Instance::get()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline->setRenderPass(Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
+
+    pipelineLayout = std::unique_ptr<Vulkan::PipelineLayout>(new Vulkan::PipelineLayout);
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -25,7 +29,7 @@ ShaderProgram::~ShaderProgram() {
 void ShaderProgram::addShader(const std::string& path) {
     ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>(path);
     shaderResources.push_back(shaderResource);
-    graphicsPipeline.addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    graphicsPipeline->addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
 }
 
 void ShaderProgram::createPipeline() {
@@ -88,16 +92,16 @@ void ShaderProgram::createPipeline() {
                 ShaderResource::Input* input = &inputIt.second;
                 inputInfos.at(name).location = input->location;
                 inputInfos.at(name).format = getFormat(input);
-                graphicsPipeline.addVertexAttributeDescription(inputInfos.at(name));
+                graphicsPipeline->addVertexAttributeDescription(inputInfos.at(name));
             }
         }
     }
 
     descriptorSetLayout.create();
     descriptorSets.addDescriptorSetLayout(descriptorSetLayout.getHandle());
-    pipelineLayout.addDescriptorSetLayout(descriptorSetLayout.getHandle());
-    pipelineLayout.create();
-    graphicsPipeline.setPipelineLayout(pipelineLayout.getHandle());
+    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout.getHandle());
+    pipelineLayout->create();
+    graphicsPipeline->setPipelineLayout(pipelineLayout->getHandle());
 
     // Descriptor pool
     for (auto& it : descriptorsTypes) {
@@ -108,7 +112,7 @@ void ShaderProgram::createPipeline() {
     descriptorSets.allocate();
     descriptorSets.writeDescriptors();
 
-    graphicsPipeline.create();
+    graphicsPipeline->create();
 }
 
 void ShaderProgram::createIndexBuffer(VkDeviceSize size) {
@@ -121,7 +125,7 @@ int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertex
     bindingDescription.binding = vertexBindingCount++;
     bindingDescription.inputRate = inputRate;
     bindingDescription.stride = stride;
-    graphicsPipeline.addVertexBindingDescription(bindingDescription);
+    graphicsPipeline->addVertexBindingDescription(bindingDescription);
     return bindingDescription.binding;
 }
 

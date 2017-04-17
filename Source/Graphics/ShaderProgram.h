@@ -1,16 +1,16 @@
 #pragma once
 #include "../Core/Object.h"
 #include "../Resource/ShaderResource.h"
-#include "Vulkan/Descriptor/DescriptorPool.h"
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
-#include "Vulkan/Pipeline/GraphicsPipeline.h"
 #include "Vulkan/Buffer.h"
 #include "Vulkan/Image/Image.h"
 #include <map>
 
 namespace Vulkan {
     class Device;
+    class GraphicsPipeline;
+    class PipelineLayout;
 }
 
 class ShaderProgram : public Object {
@@ -26,10 +26,10 @@ public:
     ShaderProgram(Vulkan::Device* device = nullptr);
     ~ShaderProgram();
     void addShader(const std::string& path);
-    Vulkan::GraphicsPipeline* getGraphicsPipeline() { return &graphicsPipeline; }
+    Vulkan::GraphicsPipeline* getGraphicsPipeline() { return graphicsPipeline.get(); }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
     const Vulkan::DescriptorSets* getDescriptorSets() const { return &descriptorSets; }
-    const Vulkan::PipelineLayout* getPipelineLayout() const { return &pipelineLayout; }
+    const Vulkan::PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
     Vulkan::Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
     void createPipeline();
     void createIndexBuffer(VkDeviceSize size);
@@ -43,8 +43,8 @@ public:
 
 private:
     const Vulkan::Device* device;
-    Vulkan::GraphicsPipeline graphicsPipeline;
-    Vulkan::PipelineLayout pipelineLayout;
+    std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
+    std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     Vulkan::DescriptorPool descriptorPool;
     std::vector<ShaderResource*> shaderResources;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;

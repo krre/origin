@@ -5,6 +5,7 @@
 #include "../Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "../Graphics/ShaderProgram.h"
 #include "../Graphics/Vulkan/Sampler.h"
+#include "../Graphics/Vulkan/RenderPass.h"
 #include "../UI/Text/Font.h"
 
 const int MAX_CHAR_COUNT = 2048;

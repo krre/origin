@@ -32,7 +32,7 @@ private:
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;
     VkSurfaceCapabilitiesKHR capabilities;
-    std::shared_ptr<Swapchain> swapchain;
+    std::unique_ptr<Swapchain> swapchain;
 };
 
 } // Vulkan

@@ -6,6 +6,7 @@
 #include "../ECS/Components/TransformComponent.h"
 #include "../Resource/ShaderResource.h"
 #include "../Resource/ResourceManager.h"
+#include "../Graphics/Texture.h"
 #include "../Graphics/Vulkan/Instance.h"
 #include "../Graphics/Vulkan/Swapchain.h"
 #include "../Graphics/Vulkan/Framebuffer.h"

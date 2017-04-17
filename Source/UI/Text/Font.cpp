@@ -2,6 +2,7 @@
 #include "Font.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Core/Utils.h"
+#include "../../Graphics/Texture.h"
 #include <fstream>
 #include <experimental/filesystem>
 
@@ -52,7 +53,7 @@ void Font::load(const std::string& path) {
             Utils::removeChar(textureName, quote);
             fs::path fontPath(path);
             std::string texturePath = fontPath.parent_path().string() + Utils::getPathSeparator() + textureName;
-            texture = std::make_shared<Texture>(texturePath);
+            texture = std::unique_ptr<Texture>(new Texture(texturePath));
         } else if (head == "char") {
             Character character = {};
             int id;

@@ -2,6 +2,7 @@
 #include "Vulkan/Pipeline/PipelineLayout.h"
 #include "Vulkan/Pipeline/GraphicsPipeline.h"
 #include "Vulkan/Descriptor/DescriptorPool.h"
+#include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
 #include "../Graphics/Vulkan/Instance.h"
@@ -12,13 +13,13 @@ using namespace Vulkan;
 ShaderProgram::ShaderProgram(Device* device) :
         device(device),
         descriptorPool(device),
-        descriptorSetLayout(device),
         descriptorSets(&descriptorPool) {
     graphicsPipeline = std::unique_ptr<Vulkan::GraphicsPipeline>(new Vulkan::GraphicsPipeline());
     graphicsPipeline->setExtent(Vulkan::Instance::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline->setRenderPass(Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
 
     pipelineLayout = std::unique_ptr<Vulkan::PipelineLayout>(new Vulkan::PipelineLayout);
+    descriptorSetLayout = std::unique_ptr<Vulkan::DescriptorSetLayout>(new Vulkan::DescriptorSetLayout);
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -53,7 +54,7 @@ void ShaderProgram::createPipeline() {
             layoutBinding.descriptorType = descriptor->descriptorType;
             layoutBinding.stageFlags = shaderResource->stage;
 
-            descriptorSetLayout.addLayoutBinding(layoutBinding);
+            descriptorSetLayout->addLayoutBinding(layoutBinding);
 
             VkWriteDescriptorSet descriptorWrite = {};
             descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
@@ -97,9 +98,9 @@ void ShaderProgram::createPipeline() {
         }
     }
 
-    descriptorSetLayout.create();
-    descriptorSets.addDescriptorSetLayout(descriptorSetLayout.getHandle());
-    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout.getHandle());
+    descriptorSetLayout->create();
+    descriptorSets.addDescriptorSetLayout(descriptorSetLayout->getHandle());
+    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout->getHandle());
     pipelineLayout->create();
     graphicsPipeline->setPipelineLayout(pipelineLayout->getHandle());
 

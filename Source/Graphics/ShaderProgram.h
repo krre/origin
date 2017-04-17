@@ -1,7 +1,6 @@
 #pragma once
 #include "../Core/Object.h"
 #include "../Resource/ShaderResource.h"
-#include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
 #include "Vulkan/Buffer.h"
 #include "Vulkan/Image/Image.h"
@@ -11,6 +10,7 @@ namespace Vulkan {
     class Device;
     class GraphicsPipeline;
     class PipelineLayout;
+    class DescriptorSetLayout;
 }
 
 class ShaderProgram : public Object {
@@ -27,7 +27,7 @@ public:
     ~ShaderProgram();
     void addShader(const std::string& path);
     Vulkan::GraphicsPipeline* getGraphicsPipeline() { return graphicsPipeline.get(); }
-    const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return &descriptorSetLayout; }
+    const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return descriptorSetLayout.get(); }
     const Vulkan::DescriptorSets* getDescriptorSets() const { return &descriptorSets; }
     const Vulkan::PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
     Vulkan::Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
@@ -48,7 +48,7 @@ private:
     Vulkan::DescriptorPool descriptorPool;
     std::vector<ShaderResource*> shaderResources;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
-    Vulkan::DescriptorSetLayout descriptorSetLayout;
+    std::unique_ptr<Vulkan::DescriptorSetLayout> descriptorSetLayout;
     Vulkan::DescriptorSets descriptorSets;
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, VkVertexInputAttributeDescription> inputInfos;

@@ -1,11 +1,11 @@
 #pragma once
 #include "../Base/Collection.h"
-#include "../Instance.h"
-#include "PhysicalDevice.h"
+#include <vulkan/vulkan.hpp>
 #include <vector>
-#include <map>
 
 namespace Vulkan {
+
+class PhysicalDevice;
 
 class PhysicalDevices : public Collection<VkPhysicalDevice> {
 
@@ -16,7 +16,7 @@ public:
     void destroy() override {}
 
 private:
-    std::vector<std::shared_ptr<PhysicalDevice>> devices;
+    std::vector<std::unique_ptr<PhysicalDevice>> devices;
 };
 
 } // Vulkan

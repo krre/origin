@@ -1,4 +1,5 @@
 #include "PhysicalDevices.h"
+#include "PhysicalDevice.h"
 
 using namespace Vulkan;
 
@@ -9,8 +10,7 @@ PhysicalDevices::PhysicalDevices(VkInstance instance) {
     vkEnumeratePhysicalDevices(instance, &count, collection.data());
 
     for (auto& device : collection) {
-        auto physicalDevice = std::make_shared<PhysicalDevice>(device);
-        devices.push_back(physicalDevice);
+        std::unique_ptr<PhysicalDevice> physicalDevice = std::unique_ptr<PhysicalDevice>(new PhysicalDevice(device));
 
         vkGetPhysicalDeviceProperties(device, &physicalDevice->properties);
         vkGetPhysicalDeviceFeatures(device, &physicalDevice->features);
@@ -19,6 +19,8 @@ PhysicalDevices::PhysicalDevices(VkInstance instance) {
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
         physicalDevice->queueFamilyProperties.resize(count);
         vkGetPhysicalDeviceQueueFamilyProperties(device, &count, physicalDevice->queueFamilyProperties.data());
+
+        devices.push_back(std::move(physicalDevice));
     }
 }
 

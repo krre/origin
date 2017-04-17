@@ -2,7 +2,6 @@
 #include "../Core/Object.h"
 #include "../Resource/ShaderResource.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
-#include "Vulkan/Image/Image.h"
 #include <map>
 
 namespace Vulkan {

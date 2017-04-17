@@ -24,8 +24,9 @@ Buffer::~Buffer() {
 void Buffer::create() {
     VULKAN_CHECK_RESULT(vkCreateBuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create buffer");
     descriptorInfo.buffer = handle;
-    descriptorInfo.offset = 0;
-    descriptorInfo.range = createInfo.size;
+    if (!descriptorInfo.range) {
+        descriptorInfo.range = createInfo.size;
+    }
 
     VkMemoryRequirements memRequirements;
     vkGetBufferMemoryRequirements(device->getHandle(), handle, &memRequirements);

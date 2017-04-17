@@ -2,14 +2,20 @@
 #include "Scene.h"
 #include <vector>
 
+static const uint32_t MAX_VERTEX_BUFFER_SIZE = 1000000;
+static const uint32_t MAX_INDEX_COUNT = 10000;
+
 class Control;
 class Layout;
 class Batch2D;
+class VertexBuffer;
+class IndexBuffer;
 
 class Scene2D : public Scene {
 
 public:
     Scene2D();
+    ~Scene2D();
     void draw(float dt) override final;
     void setRoot(std::shared_ptr<Control> root);
 
@@ -19,4 +25,6 @@ private:
     std::shared_ptr<Control> root;
     std::vector<std::shared_ptr<Control>> controls;
     std::vector<std::shared_ptr<Batch2D>> batches;
+    std::unique_ptr<VertexBuffer> vertexBuffer;
+    std::unique_ptr<IndexBuffer> indexBuffer;
 };

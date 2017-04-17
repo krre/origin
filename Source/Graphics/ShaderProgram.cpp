@@ -5,8 +5,9 @@
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "../Resource/ResourceManager.h"
 #include "../Core/Utils.h"
-#include "../Graphics/Vulkan/Instance.h"
-#include "../Graphics/Vulkan/Swapchain.h"
+#include "Vulkan/Instance.h"
+#include "Vulkan/Swapchain.h"
+#include "Vulkan/Buffer.h"
 
 using namespace Vulkan;
 

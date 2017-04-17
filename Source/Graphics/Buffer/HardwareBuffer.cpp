@@ -10,3 +10,7 @@ HardwareBuffer::~HardwareBuffer()
 {
 
 }
+
+VkBuffer HardwareBuffer::getHandle() const {
+    return buffer->getHandle();
+}

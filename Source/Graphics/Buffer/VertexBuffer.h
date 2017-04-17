@@ -4,5 +4,5 @@
 class VertexBuffer : public HardwareBuffer {
 
 public:
-    VertexBuffer();
+    VertexBuffer(uint64_t size);
 };

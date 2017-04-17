@@ -3,3 +3,7 @@
 Renderer::Renderer() {
 
 }
+
+void Renderer::render() {
+
+}

@@ -5,4 +5,5 @@ class Renderer : public Singleton<Renderer> {
 
 public:
     Renderer();
+    void render();
 };

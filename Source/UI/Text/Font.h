@@ -1,10 +1,13 @@
 #pragma once
 #include "../../Resource/Resource.h"
-#include "../../Graphics/Vulkan/Buffer.h"
 #include <map>
 #include <glm/glm.hpp>
 
 class Texture;
+
+namespace Vulkan {
+    class Buffer;
+}
 
 class Font : public Resource {
 

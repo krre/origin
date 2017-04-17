@@ -1,8 +1,8 @@
-// Base on article https://en.wikibooks.org/wiki/OpenGL_Programming/Modern_OpenGL_Tutorial_Text_Rendering_02
 #include "Font.h"
 #include "../../Resource/ResourceManager.h"
 #include "../../Core/Utils.h"
 #include "../../Graphics/Texture.h"
+#include "../../Graphics/Vulkan/Buffer.h"
 #include <fstream>
 #include <experimental/filesystem>
 

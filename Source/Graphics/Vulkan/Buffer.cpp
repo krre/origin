@@ -1,4 +1,5 @@
 #include "Buffer.h"
+#include "Device/DeviceMemory.h"
 #include "Queue/SubmitQueue.h"
 #include "Command/CommandBufferOneTime.h"
 #include <string.h>
@@ -6,7 +7,9 @@
 using namespace Vulkan;
 
 Buffer::Buffer(VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice, Device* device) :
-        Devicer(device), memory(device), moveToDevice(moveToDevice) {
+        Devicer(device), moveToDevice(moveToDevice) {
+    memory = std::unique_ptr<DeviceMemory>(new DeviceMemory(device));
+
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     createInfo.size = size;
     createInfo.usage = usage;
@@ -33,10 +36,10 @@ void Buffer::create() {
     VkMemoryPropertyFlags properties = !moveToDevice ?
                 (VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) :
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
-    memory.setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
-    memory.allocate(memRequirements.size);
+    memory->setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
+    memory->allocate(memRequirements.size);
 
-    vkBindBufferMemory(device->getHandle(), handle, memory.getHandle(), 0);
+    vkBindBufferMemory(device->getHandle(), handle, memory->getHandle(), 0);
 }
 
 void Buffer::destroy() {
@@ -45,16 +48,16 @@ void Buffer::destroy() {
 
 void Buffer::write(const void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
-    memory.map(&mapData, size, offset);
+    memory->map(&mapData, size, offset);
     memcpy(mapData, data, size);
-    memory.unmap();
+    memory->unmap();
 }
 
 void Buffer::read(void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
-    memory.map(&mapData, size, offset);
+    memory->map(&mapData, size, offset);
     memcpy(data, mapData, size);
-    memory.unmap();
+    memory->unmap();
 }
 
 void Buffer::copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size) {

@@ -1,9 +1,10 @@
 #pragma once
 #include "Base/Handle.h"
 #include "Device/Devicer.h"
-#include "Device/DeviceMemory.h"
 
 namespace Vulkan {
+
+class DeviceMemory;
 
 class Buffer : public Handle<VkBuffer>, public Devicer {
 
@@ -22,7 +23,7 @@ public:
 private:
     VkBufferCreateInfo createInfo = {};
     VkDescriptorBufferInfo descriptorInfo = {};
-    DeviceMemory memory;
+    std::unique_ptr<DeviceMemory> memory;
     bool moveToDevice;
 };
 

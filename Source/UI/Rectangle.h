@@ -19,6 +19,7 @@ public:
 
     void draw(float dt) override;
     void update(float dt) override;
+    void prepareBatch(Batch2D* batch) override;
 
 private:
     Color color = Color::WHITE;

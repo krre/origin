@@ -30,3 +30,7 @@ void Rectangle::draw(float dt) {
 void Rectangle::update(float dt) {
 
 }
+
+void Rectangle::prepareBatch(Batch2D* batch) {
+
+}

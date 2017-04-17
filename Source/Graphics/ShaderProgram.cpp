@@ -70,7 +70,7 @@ void ShaderProgram::createPipeline() {
                 std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(usage, bufferInfo->size, false);
                 buffer->create();
                 bufferInfo->buffer = buffer;
-                descriptorWrite.pBufferInfo = &buffer->descriptorInfo;
+                descriptorWrite.pBufferInfo = buffer->getDescriptorInfo();
                 descriptorSets.addWriteDescriptorSet(descriptorWrite);
             }
 

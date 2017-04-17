@@ -17,11 +17,11 @@ public:
     void write(const void* data, VkDeviceSize size, VkDeviceSize offset = 0);
     void read(void* data, VkDeviceSize size, VkDeviceSize offset = 0);
     void copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size);
-
-    VkDescriptorBufferInfo descriptorInfo = {};
+    const VkDescriptorBufferInfo* getDescriptorInfo() const { return &descriptorInfo; }
 
 private:
     VkBufferCreateInfo createInfo = {};
+    VkDescriptorBufferInfo descriptorInfo = {};
     DeviceMemory memory;
     bool moveToDevice;
 };

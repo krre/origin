@@ -1,7 +1,11 @@
 #pragma once
 #include "ECS/System.h"
-#include "Graphics/Drawable.h"
 #include <vector>
+
+namespace Origin {
+    class Drawable;
+}
+
 
 class RenderSystem : public System {
 

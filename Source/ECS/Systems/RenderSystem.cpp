@@ -1,4 +1,5 @@
 #include "RenderSystem.h"
+#include "Graphics/Drawable.h"
 
 RenderSystem::RenderSystem() {
     type = SystemType::Render;

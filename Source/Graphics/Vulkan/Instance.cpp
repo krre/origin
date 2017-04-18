@@ -136,7 +136,6 @@ void Instance::setDefaultDevice(Device* device) {
 void Instance::windowResize(int width, int height) {
     defaultDevice->waitIdle();
     surface->getSwapchain()->rebuild();
-    commandPool->reset();
 }
 
 std::string Instance::apiToString(int api) {

@@ -1,5 +1,5 @@
 #include "Toast.h"
-#include "../Core/App.h"
+#include "Core/App.h"
 #include <glm/glm.hpp>
 
 Toast::Toast() {

@@ -1,6 +1,6 @@
 #include "Rectangle.h"
-#include "../Core/App.h"
-#include "../Resource/ResourceManager.h"
+#include "Core/App.h"
+#include "Resource/ResourceManager.h"
 #include <glm/ext.hpp>
 
 Rectangle::Rectangle(const Size& size) {

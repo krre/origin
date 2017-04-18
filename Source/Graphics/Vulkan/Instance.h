@@ -1,6 +1,6 @@
 #pragma once
 #include "Base/Handle.h"
-#include "../../Core/Singleton.h"
+#include "Core/Singleton.h"
 #include <vector>
 
 namespace Vulkan {

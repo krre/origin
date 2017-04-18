@@ -1,9 +1,9 @@
 #include "CameraSystem.h"
-#include "../../Event/Event.h"
+#include "Event/Event.h"
 #include "TransformSystem.h"
-#include "../../ECS/EntityManager.h"
-#include "../Components/CameraComponent.h"
-#include "../Components/TransformComponent.h"
+#include "ECS/EntityManager.h"
+#include "ECS/Components/CameraComponent.h"
+#include "ECS/Components/TransformComponent.h"
 
 CameraSystem::CameraSystem() {
     type = SystemType::Camera;

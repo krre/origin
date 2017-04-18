@@ -1,5 +1,5 @@
 #include "HardwareBuffer.h"
-#include "../Vulkan/Buffer.h"
+#include "Graphics/Vulkan/Buffer.h"
 
 HardwareBuffer::HardwareBuffer()
 {

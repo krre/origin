@@ -1,5 +1,5 @@
 #pragma once
-#include "../Scene/Scene2D.h"
+#include "Scene/Scene2D.h"
 #include <SDL.h>
 
 class Label;

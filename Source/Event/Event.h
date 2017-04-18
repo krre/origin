@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Singleton.h"
+#include "Core/Singleton.h"
 #include <SDL.h>
 
 class Event : public Singleton<Event> {

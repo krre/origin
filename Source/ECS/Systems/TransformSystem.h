@@ -1,5 +1,5 @@
 #pragma once
-#include "../System.h"
+#include "ECS/System.h"
 #include <glm/ext.hpp>
 
 class TransformSystem : public System {

@@ -1,7 +1,7 @@
 #include "PhysicalDevice.h"
-#include "../Instance.h"
-#include "../Surface.h"
-#include "../Swapchain.h"
+#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Surface.h"
+#include "Graphics/Vulkan/Swapchain.h"
 
 using namespace Vulkan;
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Component.h"
+#include "ECS/Component.h"
 #include <glm/ext.hpp>
 
 class TransformComponent : public Component {

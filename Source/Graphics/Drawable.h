@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Object.h"
+#include "Core/Object.h"
 
 // Use namespace to prevent conflict with Drawable in X11
 namespace Origin {

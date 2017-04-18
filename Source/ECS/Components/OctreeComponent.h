@@ -1,6 +1,6 @@
 #pragma once
-#include "../Component.h"
-#include "../../Graphics/Voxel/Octree.h"
+#include "ECS/Component.h"
+#include "Graphics/Voxel/Octree.h"
 #include <vector>
 
 class OctreeComponent : public Component {

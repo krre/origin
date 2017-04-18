@@ -27,6 +27,7 @@ include_directories(${SDL2_INCLUDE_DIR})
 find_package(Bullet REQUIRED)
 include_directories(${BULLET_INCLUDE_DIRS})
 
+include_directories(Source)
 include_directories(ThirdParty)
 
 target_link_libraries(${EXECUTABLE_NAME}

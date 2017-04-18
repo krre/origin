@@ -1,7 +1,7 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "../Device/Devicer.h"
-#include "../Surface.h"
+#include "Graphics/Vulkan/Base/Handle.h"
+#include "Graphics/Vulkan/Device/Devicer.h"
+#include "Graphics/Vulkan/Surface.h"
 
 namespace Vulkan {
 

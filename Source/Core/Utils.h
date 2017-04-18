@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Object.h"
+#include "Core/Object.h"
 #include <glm/glm.hpp>
 #include <vector>
 #include <json/json.hpp>

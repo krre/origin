@@ -1,6 +1,6 @@
 #pragma once
-#include "../Component.h"
-#include "../Entity.h"
+#include "ECS/Component.h"
+#include "ECS/Entity.h"
 
 class MovementControllerComponent : public Component {
 

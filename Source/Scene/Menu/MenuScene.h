@@ -1,10 +1,10 @@
 #pragma once
-#include "../Scene2D.h"
-#include "../../Graphics/ShaderProgram.h"
-#include "../../UI/Button.h"
-#include "../../UI/LinearLayout.h"
-#include "../../Graphics/Vulkan/Buffer.h"
-#include "../../Graphics/Plane.h"
+#include "Scene/Scene2D.h"
+#include "Graphics/ShaderProgram.h"
+#include "UI/Button.h"
+#include "UI/LinearLayout.h"
+#include "Graphics/Vulkan/Buffer.h"
+#include "Graphics/Plane.h"
 
 class MenuScene : public Scene2D {
 

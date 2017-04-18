@@ -1,6 +1,6 @@
 #pragma once
-#include "../System.h"
-#include "../../Graphics/Drawable.h"
+#include "ECS/System.h"
+#include "Graphics/Drawable.h"
 #include <vector>
 
 class RenderSystem : public System {

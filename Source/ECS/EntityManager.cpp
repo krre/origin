@@ -1,5 +1,5 @@
 #include "EntityManager.h"
-#include "../ECS/Systems/Systems.h"
+#include "ECS/Systems/Systems.h"
 #include "Components/Components.h"
 #include <algorithm>
 

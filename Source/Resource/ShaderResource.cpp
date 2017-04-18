@@ -1,6 +1,6 @@
 #include "ShaderResource.h"
 #include <fstream>
-#include "../Core/Utils.h"
+#include "Core/Utils.h"
 #include <assert.h>
 
 #ifdef __linux__

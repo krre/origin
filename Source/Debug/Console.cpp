@@ -1,9 +1,9 @@
 #include "Console.h"
-#include "../Event/Event.h"
-#include "../Core/Game.h"
-#include "../Core/App.h"
-#include "../Scene/SceneManager.h"
-#include "../UI/Text/Label.h"
+#include "Event/Event.h"
+#include "Core/Game.h"
+#include "Core/App.h"
+#include "Scene/SceneManager.h"
+#include "UI/Text/Label.h"
 #include <glm/glm.hpp>
 
 Console::Console() {

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Graphics/Drawable.h"
+#include "Graphics/Drawable.h"
 #include <glm/glm.hpp>
 #include <vector>
 

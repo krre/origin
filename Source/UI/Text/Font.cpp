@@ -1,8 +1,8 @@
 #include "Font.h"
-#include "../../Resource/ResourceManager.h"
-#include "../../Core/Utils.h"
-#include "../../Graphics/Texture.h"
-#include "../../Graphics/Vulkan/Buffer.h"
+#include "Resource/ResourceManager.h"
+#include "Core/Utils.h"
+#include "Graphics/Texture.h"
+#include "Graphics/Vulkan/Buffer.h"
 #include <fstream>
 #include <experimental/filesystem>
 

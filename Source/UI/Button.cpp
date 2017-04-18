@@ -1,5 +1,5 @@
 #include "Button.h"
-#include "../Event/Event.h"
+#include "Event/Event.h"
 
 Button::Button() : Rectangle({ 100, 20 }) {
     setColor({ 0.6, 0.6, 0.6 });

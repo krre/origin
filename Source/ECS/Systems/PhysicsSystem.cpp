@@ -1,5 +1,5 @@
 #include "PhysicsSystem.h"
-#include "../Components/Components.h"
+#include "ECS/Components/Components.h"
 
 PhysicsSystem::PhysicsSystem() {
     type = SystemType::Physics;

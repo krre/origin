@@ -1,9 +1,9 @@
 #include "Scene2D.h"
-#include "../UI/Control.h"
-#include "../Graphics/Vulkan/Queue/SubmitQueue.h"
-#include "../Graphics/Buffer/VertexBuffer.h"
-#include "../Graphics/Buffer/IndexBuffer.h"
-#include "../UI/Batch2D.h"
+#include "UI/Control.h"
+#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Buffer/IndexBuffer.h"
+#include "UI/Batch2D.h"
 
 Scene2D::Scene2D() {
     vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(MAX_VERTEX_BUFFER_SIZE));

@@ -1,5 +1,5 @@
 #pragma once
-#include "../Control.h"
+#include "UI/Control.h"
 
 class TextEdit : public Control {
 

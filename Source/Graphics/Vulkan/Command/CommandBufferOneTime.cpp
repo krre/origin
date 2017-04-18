@@ -1,7 +1,7 @@
 #include "CommandBufferOneTime.h"
-#include "../Instance.h"
-#include "../Fence.h"
-#include "../Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Fence.h"
+#include "Graphics/Vulkan/Queue/SubmitQueue.h"
 
 using namespace Vulkan;
 

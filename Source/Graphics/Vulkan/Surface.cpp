@@ -1,5 +1,5 @@
 #include "Surface.h"
-#include "../../Core/App.h"
+#include "Core/App.h"
 #include "Swapchain.h"
 #include <SDL_syswm.h>
 #ifdef __linux__

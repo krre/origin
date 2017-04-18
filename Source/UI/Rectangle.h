@@ -1,6 +1,6 @@
 #pragma once
 #include "Control.h"
-#include "../Graphics/Color.h"
+#include "Graphics/Color.h"
 
 class Rectangle : public Control {
 

@@ -1,10 +1,10 @@
 #pragma once
-#include "../Scene3D.h"
-#include "../../Graphics/ShaderProgram.h"
-#include "../../ECS/Entity.h"
-#include "../../Graphics/Voxel/GPUMemoryManager.h"
-#include "../../Graphics/Vulkan/Buffer.h"
-#include "../../Graphics/Plane.h"
+#include "Scene/Scene3D.h"
+#include "Graphics/ShaderProgram.h"
+#include "ECS/Entity.h"
+#include "Graphics/Voxel/GPUMemoryManager.h"
+#include "Graphics/Vulkan/Buffer.h"
+#include "Graphics/Plane.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 

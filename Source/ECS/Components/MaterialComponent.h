@@ -1,5 +1,5 @@
 #pragma once
-#include "../Component.h"
+#include "ECS/Component.h"
 #include <glm/glm.hpp>
 
 class MaterialComponent : public Component {

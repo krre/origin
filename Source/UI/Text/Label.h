@@ -1,6 +1,6 @@
 #pragma once
-#include "../Control.h"
-#include "../../Graphics/Color.h"
+#include "UI/Control.h"
+#include "Graphics/Color.h"
 
 class Font;
 

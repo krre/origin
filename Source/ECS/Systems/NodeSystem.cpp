@@ -1,6 +1,6 @@
 #include "NodeSystem.h"
-#include "../Components/NodeComponent.h"
-#include "../EntityManager.h"
+#include "ECS/Components/NodeComponent.h"
+#include "ECS/EntityManager.h"
 #include <algorithm>
 
 NodeSystem::NodeSystem() {

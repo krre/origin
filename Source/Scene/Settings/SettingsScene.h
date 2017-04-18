@@ -1,7 +1,7 @@
 #pragma once
-#include "../Scene2D.h"
-#include "../../UI/Button.h"
-#include "../../UI/LinearLayout.h"
+#include "Scene/Scene2D.h"
+#include "UI/Button.h"
+#include "UI/LinearLayout.h"
 
 class SettingsScene : public Scene2D {
 

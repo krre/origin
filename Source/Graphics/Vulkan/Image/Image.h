@@ -1,8 +1,8 @@
 #pragma once
-#include "../Base/Handle.h"
-#include "../Device/Devicer.h"
-#include "../Device/DeviceMemory.h"
-#include "../Sampler.h"
+#include "Graphics/Vulkan/Base/Handle.h"
+#include "Graphics/Vulkan/Device/Devicer.h"
+#include "Graphics/Vulkan/Device/DeviceMemory.h"
+#include "Graphics/Vulkan/Sampler.h"
 
 namespace Vulkan {
 

@@ -1,6 +1,6 @@
 #pragma once
-#include "../Core/Object.h"
-#include "../Resource/ShaderResource.h"
+#include "Core/Object.h"
+#include "Resource/ShaderResource.h"
 #include <map>
 
 namespace Vulkan {

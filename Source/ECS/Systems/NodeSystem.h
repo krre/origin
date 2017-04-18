@@ -1,6 +1,6 @@
 #pragma once
-#include "../System.h"
-#include "../Entity.h"
+#include "ECS/System.h"
+#include "ECS/Entity.h"
 
 class NodeSystem : public System {
 

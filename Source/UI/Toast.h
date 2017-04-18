@@ -1,7 +1,7 @@
 #pragma once
-#include "../Graphics/Drawable.h"
+#include "Graphics/Drawable.h"
 #include "Text/Label.h"
-#include "../Core/Timer.h"
+#include "Core/Timer.h"
 
 class Toast : public Origin::Drawable {
 

@@ -1,11 +1,11 @@
 #include "Debug.h"
-#include "../Core/App.h"
-#include "../Core/Utils.h"
-#include "../Scene/SceneManager.h"
-#include "../Scene/Menu/MenuScene.h"
-#include "../Scene/Settings/SettingsScene.h"
-#include "../Scene/World/WorldScene.h"
-#include "../Debug/DebugHUD.h"
+#include "Core/App.h"
+#include "Core/Utils.h"
+#include "Scene/SceneManager.h"
+#include "Scene/Menu/MenuScene.h"
+#include "Scene/Settings/SettingsScene.h"
+#include "Scene/World/WorldScene.h"
+#include "Debug/DebugHUD.h"
 #include <Origin.h>
 
 Debug::Debug() {

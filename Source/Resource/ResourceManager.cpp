@@ -1,4 +1,4 @@
-#include "../Core/App.h"
+#include "Core/App.h"
 #include "ResourceManager.h"
 #include "ShaderResource.h"
 

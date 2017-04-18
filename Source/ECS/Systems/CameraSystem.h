@@ -1,5 +1,5 @@
 #pragma once
-#include "../System.h"
+#include "ECS/System.h"
 #include <glm/glm.hpp>
 
 class CameraSystem : public System {

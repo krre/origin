@@ -1,5 +1,5 @@
 #pragma once
-#include "../Core/Object.h"
+#include "Core/Object.h"
 
 class Batch2D : public Object {
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../Resource/Resource.h"
+#include "Resource/Resource.h"
 #include <map>
 #include <glm/glm.hpp>
 

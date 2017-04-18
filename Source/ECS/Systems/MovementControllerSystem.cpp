@@ -1,8 +1,8 @@
 #include "MovementControllerSystem.h"
 #include "TransformSystem.h"
-#include "../../Event/Input.h"
-#include "../Components/MovementComponent.h"
-#include "../EntityManager.h"
+#include "Event/Input.h"
+#include "ECS/Components/MovementComponent.h"
+#include "ECS/EntityManager.h"
 
 MovementControllerSystem::MovementControllerSystem() {
     type = SystemType::MovementController;

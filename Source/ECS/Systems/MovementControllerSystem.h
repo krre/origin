@@ -1,7 +1,7 @@
 #pragma once
 #include "ECS/System.h"
-#include "ECS/Entity.h"
-#include "ECS/Components/TransformComponent.h"
+
+class Entity;
 
 class MovementControllerSystem : public System {
 

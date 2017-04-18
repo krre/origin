@@ -1,6 +1,5 @@
 #pragma once
 #include "Queue.h"
-#include "Graphics/Vulkan/Fence.h"
 #include <vector>
 
 namespace Vulkan {

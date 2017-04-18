@@ -3,8 +3,6 @@
 #include "Component.h"
 #include <map>
 
-using EntityId = uint64_t;
-
 class Entity : public Object {
 
 public:

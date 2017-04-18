@@ -1,8 +1,11 @@
 #pragma once
 #include "Core/Singleton.h"
 #include "System.h"
-#include "Entity.h"
+#include "Component.h"
 #include <vector>
+#include <map>
+
+class Entity;
 
 class EntityManager : public Singleton<EntityManager> {
 

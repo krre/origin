@@ -2,6 +2,7 @@
 #include "Event/Event.h"
 #include "TransformSystem.h"
 #include "ECS/EntityManager.h"
+#include "ECS/Entity.h"
 #include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/TransformComponent.h"
 

@@ -1,6 +1,7 @@
 #include "TransformSystem.h"
 #include "ECS/Components/TransformComponent.h"
 #include "ECS/EntityManager.h"
+#include "ECS/Entity.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
 TransformSystem::TransformSystem() {

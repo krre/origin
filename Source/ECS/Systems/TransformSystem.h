@@ -2,6 +2,8 @@
 #include "ECS/System.h"
 #include <glm/ext.hpp>
 
+class Entity;
+
 class TransformSystem : public System {
 
 public:

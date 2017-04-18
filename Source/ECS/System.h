@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Object.h"
-#include "Entity.h"
 #include <vector>
 
 enum class SystemType {

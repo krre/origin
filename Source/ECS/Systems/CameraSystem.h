@@ -2,6 +2,8 @@
 #include "ECS/System.h"
 #include <glm/glm.hpp>
 
+class Entity;
+
 class CameraSystem : public System {
 
 public:

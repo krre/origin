@@ -20,6 +20,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Framebuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/QueryPool.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/QueryPool.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Sampler.cpp

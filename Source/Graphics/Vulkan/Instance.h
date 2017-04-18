@@ -53,7 +53,7 @@ private:
     std::vector<const char*> enabledExtensions;
     Device* defaultDevice;
     uint32_t graphicsFamily;
-    std::shared_ptr<DebugReportCallback> debugCallback;
+    std::unique_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;
     std::vector<std::shared_ptr<Device>> devices;
     std::shared_ptr<Surface> surface;

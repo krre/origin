@@ -5,7 +5,7 @@
 #include "Event/Input.h"
 #include "Resource/ResourceManager.h"
 #include "Debug/Logger.h"
-#include "Debug/Debug.h"
+#include "Debug/DebugEnvironment.h"
 #include "Debug/DebugHUD.h"
 #include "Scene/SceneManager.h"
 #include "Core/Settings.h"
@@ -30,7 +30,7 @@ App::~App() {
     SceneManager::get()->release();
     Input::get()->release();
     DebugHUD::get()->release();
-    Debug::get()->release();
+    DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     Renderer::get()->release();
     Vulkan::Instance::get()->release();
@@ -105,7 +105,7 @@ void App::init() {
     // Order is important
     new Renderer;
     new ResourceManager;
-    new Debug;
+    new DebugEnvironment;
     new DebugHUD;
     new Input;
     new SceneManager;

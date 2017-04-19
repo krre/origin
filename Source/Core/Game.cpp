@@ -3,7 +3,7 @@
 #include "Utils.h"
 #include "Scene/World/WorldScene.h"
 #include "Debug/DebugHUD.h"
-#include "Debug/Debug.h"
+#include "Debug/DebugEnvironment.h"
 #include "UI/Toast.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
@@ -20,8 +20,8 @@
 #include <experimental/filesystem>
 
 Game::Game() {
-    if (Debug::get()->getEnable()) {
-        Debug::get()->setDebugScene();
+    if (DebugEnvironment::get()->getEnable()) {
+        DebugEnvironment::get()->setDebugScene();
     } else {
         SceneManager::get()->setScene(std::make_shared<MenuScene>());
     }

@@ -2,10 +2,10 @@
 #include "Core/Singleton.h"
 #include <map>
 
-class Debug : public Singleton<Debug> {
+class DebugEnvironment : public Singleton<DebugEnvironment> {
 
 public:
-    Debug();
+    DebugEnvironment();
     void setValue(const std::string& key, const std::string& value);
     std::string getValue(const std::string& key) const;
     bool getEnable() const { return enable; }

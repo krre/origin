@@ -1,4 +1,4 @@
-#include "Debug.h"
+#include "DebugEnvironment.h"
 #include "Core/App.h"
 #include "Core/Utils.h"
 #include "Scene/SceneManager.h"
@@ -8,17 +8,17 @@
 #include "Debug/DebugHUD.h"
 #include <Origin.h>
 
-Debug::Debug() {
+DebugEnvironment::DebugEnvironment() {
 #ifdef DEVELOP_MODE
     loadValues();
 #endif
 }
 
-void Debug::setValue(const std::string& key, const std::string& value) {
+void DebugEnvironment::setValue(const std::string& key, const std::string& value) {
     values[key] = value;
 }
 
-std::string Debug::getValue(const std::string& key) const {
+std::string DebugEnvironment::getValue(const std::string& key) const {
     if (values.find(key) != values.end()) {
         return values.at(key);
     } else {
@@ -26,7 +26,7 @@ std::string Debug::getValue(const std::string& key) const {
     }
 }
 
-void Debug::setDebugScene() {
+void DebugEnvironment::setDebugScene() {
     const std::string& sceneName = getValue("scene");
     if (!sceneName.empty()) {
         if (sceneName == "menu") {
@@ -45,7 +45,7 @@ void Debug::setDebugScene() {
     }
 }
 
-void Debug::loadValues() {
+void DebugEnvironment::loadValues() {
     std::string mainDebugPath = App::getCurrentPath() + "/Debug/main.debug";
     std::string mainDebugText = Utils::readTextFile(mainDebugPath);
     std::stringstream stream(mainDebugText);

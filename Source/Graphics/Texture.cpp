@@ -4,6 +4,7 @@
 #include "Vulkan/Command/CommandBufferOneTime.h"
 #include "Vulkan/Fence.h"
 #include "Vulkan/Queue/SubmitQueue.h"
+#include "Vulkan/Image/ImageView.h"
 
 Texture::Texture(const std::string& path, VkFormat format) :
         image(Vulkan::Instance::get()->getDefaultDevice()) {

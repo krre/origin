@@ -1,8 +1,12 @@
 #pragma once
 #include "Core/Object.h"
-#include "Vulkan/Image/ImageView.h"
 #include "Vulkan/Image/Image.h"
 #include <vector>
+
+namespace Vulkan {
+    class ImageView;
+}
+
 
 class Texture : public Object {
 

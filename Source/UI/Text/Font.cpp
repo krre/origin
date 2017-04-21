@@ -3,6 +3,7 @@
 #include "Core/Utils.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Vulkan/Buffer.h"
+#include "Graphics/Vulkan/Image/Image.h"
 #include <fstream>
 #include <experimental/filesystem>
 

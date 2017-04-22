@@ -20,9 +20,8 @@ public:
     void dumpExtensions();
     void addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> queuePriorities);
 
-    VkDeviceCreateInfo createInfo = {};
-
 private:
+    VkDeviceCreateInfo createInfo = {};
     PhysicalDevice* physicalDevice;
     std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
     std::vector<float> queuePriorities;

@@ -4,6 +4,7 @@
 #include "Graphics/Texture.h"
 #include "Graphics/Vulkan/Buffer.h"
 #include "Graphics/Vulkan/Image/Image.h"
+#include "Graphics/Vulkan/Image/ImageView.h"
 #include <fstream>
 #include <experimental/filesystem>
 

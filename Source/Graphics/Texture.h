@@ -21,5 +21,5 @@ public:
 private:
     std::vector<unsigned char> data;
     std::unique_ptr<Vulkan::Image> image;
-    std::shared_ptr<Vulkan::ImageView> imageView;
+    std::unique_ptr<Vulkan::ImageView> imageView;
 };

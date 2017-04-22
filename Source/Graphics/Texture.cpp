@@ -27,7 +27,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
 
     image->write(data.data(), data.size());
 
-    imageView = std::make_shared<Vulkan::ImageView>(image->getHandle());
+    imageView = std::unique_ptr<Vulkan::ImageView>(new Vulkan::ImageView(image->getHandle()));
     imageView->createInfo.format = image->getFormat();
     imageView->create();
 

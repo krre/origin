@@ -9,7 +9,6 @@
 #include "Debug/DebugHUD.h"
 #include "Scene/SceneManager.h"
 #include "Core/Settings.h"
-#include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Renderer.h"
 #include <string>
 #include <SDL_timer.h>
@@ -33,7 +32,6 @@ App::~App() {
     DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     Renderer::get()->release();
-    Vulkan::Instance::get()->release();
     Event::get()->release();
     Logger::get()->release();
     Settings::get()->release();
@@ -95,15 +93,11 @@ void App::init() {
         return;
     }
 
-    new Vulkan::Instance;
-    Vulkan::Instance::get()->create();
-//        std::string errorMsg = std::string("Init Vulkan failed\n") + Vulkan::Manager::get()->getInstance()->getResultDescription();
-//        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
+    new Renderer; // TODO: Catch exception on failure Vulkan initialization
 
     SDL_ShowWindow(window);
 
     // Order is important
-    new Renderer;
     new ResourceManager;
     new DebugEnvironment;
     new DebugHUD;

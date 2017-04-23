@@ -1,6 +1,5 @@
 #pragma once
 #include "Base/Handle.h"
-#include "Core/Singleton.h"
 #include <vector>
 
 namespace Vulkan {
@@ -17,7 +16,7 @@ class Surface;
 class CommandPool;
 class DebugReportCallback;
 
-class Instance : public Handle<VkInstance>, public Singleton<Instance> {
+class Instance : public Handle<VkInstance> {
 
 public:
     Instance();

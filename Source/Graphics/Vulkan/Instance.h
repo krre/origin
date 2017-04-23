@@ -22,6 +22,8 @@ class Instance : public Handle<VkInstance>, public Singleton<Instance> {
 public:
     Instance();
     ~Instance();
+    static Instance* get() { return instance; }
+
     void create() override;
     void destroy() override;
 
@@ -45,6 +47,7 @@ public:
     static std::string apiToString(int api);
 
 private:
+    static Instance* instance;
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};
     std::vector<VkLayerProperties> layers;

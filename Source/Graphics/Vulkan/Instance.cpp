@@ -9,7 +9,12 @@
 
 using namespace Vulkan;
 
+Instance* Instance::instance = nullptr;
+
 Instance::Instance() {
+    assert(instance == nullptr && "Instance object should be initialized only once");
+    instance = this;
+
     // Get layers
     uint32_t layerCount;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
@@ -65,6 +70,7 @@ Instance::~Instance() {
     physicalDevices.reset();
     debugCallback.reset();
     destroy();
+    instance = nullptr;
 }
 
 void Instance::create() {

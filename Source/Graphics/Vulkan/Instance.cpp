@@ -103,7 +103,7 @@ void Instance::create() {
 
     defaultDevice = device.get();
 
-    surface = std::make_shared<Surface>(handle, defaultPhysicalDevice->getHandle());
+    surface = std::make_shared<Surface>(defaultPhysicalDevice->getHandle());
     surface->create();
 
     commandPool = std::make_shared<CommandPool>(graphicsFamily);

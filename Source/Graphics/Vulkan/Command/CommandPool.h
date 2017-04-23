@@ -13,6 +13,7 @@ public:
     void destroy() override;
     VkResult reset();
 
+private:
     VkCommandPoolCreateInfo createInfo = {};
 };
 

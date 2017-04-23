@@ -6,7 +6,7 @@ template <typename T> class Singleton : public Object {
 
 public:
     Singleton() {
-        assert(instance == 0 && "Singleton object should be initialized only once");
+        assert(instance == nullptr && "Singleton object should be initialized only once");
         instance = static_cast<T*>(this);
     }
 

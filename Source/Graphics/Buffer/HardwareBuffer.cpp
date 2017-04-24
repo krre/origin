@@ -1,13 +1,11 @@
 #include "HardwareBuffer.h"
 #include "Graphics/Vulkan/Buffer.h"
 
-HardwareBuffer::HardwareBuffer()
-{
+HardwareBuffer::HardwareBuffer() {
 
 }
 
-HardwareBuffer::~HardwareBuffer()
-{
+HardwareBuffer::~HardwareBuffer() {
 
 }
 

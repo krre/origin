@@ -11,7 +11,7 @@ class HardwareBuffer : public Object {
 public:
     HardwareBuffer();
     ~HardwareBuffer();
-    VkBuffer getHandle() const; // TODO: Hide from common access
+    VkBuffer getHandle() const;
 
 protected:
     std::unique_ptr<Vulkan::Buffer> buffer;

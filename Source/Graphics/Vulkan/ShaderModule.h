@@ -12,9 +12,8 @@ public:
     void create() override;
     void destroy() override;
 
-    VkShaderModuleCreateInfo createInfo = {};
-
 private:
+    VkShaderModuleCreateInfo createInfo = {};
 
 };
 

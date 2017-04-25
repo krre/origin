@@ -12,6 +12,7 @@ const int MAX_CHAR_COUNT = 2048;
 
 class Label;
 class VertexBuffer;
+class IndexBuffer;
 
 class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
 
@@ -34,6 +35,7 @@ private:
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;
     std::unique_ptr<VertexBuffer> vertexBuffer;
+    std::unique_ptr<IndexBuffer> indexBuffer;
     ShaderProgram shaderProgram;
     Vulkan::Sampler sampler;
     Font* font;

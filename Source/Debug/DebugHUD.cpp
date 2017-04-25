@@ -8,6 +8,7 @@
 #include "Resource/ResourceManager.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Framebuffer.h"
@@ -65,8 +66,7 @@ void DebugHUD::init() {
     Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
     vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(MAX_CHAR_COUNT * sizeof(Font::Vertex)));
-
-    shaderProgram.createIndexBuffer(MAX_CHAR_COUNT * sizeof(uint32_t));
+    indexBuffer = std::unique_ptr<IndexBuffer>(new IndexBuffer(MAX_CHAR_COUNT * sizeof(uint32_t)));
 
     pipelineCache.create();
 
@@ -158,7 +158,7 @@ void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle(), 0, VK_INDEX_TYPE_UINT32);
+    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT32);
 
     for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
         commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

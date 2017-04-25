@@ -11,3 +11,18 @@ enum class SystemType {
     Render,
     Transform
 };
+
+enum class ComponentType {
+    Camera,
+    Empty,
+    Light,
+    Material,
+    Mesh,
+    MovementController,
+    Movement,
+    Node,
+    Octree,
+    Physics,
+    Render,
+    Transform
+};

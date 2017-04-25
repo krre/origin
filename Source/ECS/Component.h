@@ -1,20 +1,6 @@
 #pragma once
 #include "Core/Object.h"
-
-enum class ComponentType {
-    Camera,
-    Empty,
-    Light,
-    Material,
-    Mesh,
-    MovementController,
-    Movement,
-    Node,
-    Octree,
-    Physics,
-    Render,
-    Transform
-};
+#include "ECSTypes.h"
 
 class Component : public Object {
 

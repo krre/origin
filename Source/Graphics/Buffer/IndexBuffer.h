@@ -1,18 +1,13 @@
 #pragma once
 #include "HardwareBuffer.h"
+#include "Graphics/GraphicsTypes.h"
 
 class IndexBuffer : public HardwareBuffer {
 
 public:
-
-    enum class Type {
-        UINT16,
-        UINT32
-    };
-
-    IndexBuffer(uint64_t count, Type type = Type::UINT32);
+    IndexBuffer(uint64_t count, IndexBufferBits bits = IndexBufferBits::UINT32);
 
 private:
-    Type type;
+    IndexBufferBits bits;
 
 };

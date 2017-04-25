@@ -8,5 +8,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/StorageBuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VertexBuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VertexBuffer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/UniformBuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/UniformBuffer.h
     PARENT_SCOPE
 )

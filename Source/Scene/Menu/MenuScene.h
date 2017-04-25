@@ -3,8 +3,10 @@
 #include "Graphics/ShaderProgram.h"
 #include "UI/Button.h"
 #include "UI/LinearLayout.h"
-#include "Graphics/Vulkan/Buffer.h"
 #include "Graphics/Plane.h"
+
+class VertexBuffer;
+class IndexBuffer;
 
 class MenuScene : public Scene2D {
 
@@ -27,7 +29,8 @@ private:
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
-    std::shared_ptr<Vulkan::Buffer> vertexBuffer;
+    std::unique_ptr<VertexBuffer> vertexBuffer;
+    std::unique_ptr<IndexBuffer> indexBuffer;
     Plane plane;
     ShaderProgram shaderProgram;
 };

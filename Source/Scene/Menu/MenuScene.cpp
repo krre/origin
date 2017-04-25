@@ -2,6 +2,8 @@
 #include "Core/App.h"
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
+#include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Framebuffer.h"
@@ -30,12 +32,11 @@ void MenuScene::init() {
 
     shaderProgram.linkInput("position", sizeof(glm::vec2));
 
-    vertexBuffer = std::make_shared<Vulkan::Buffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
-    vertexBuffer->create();
+    vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(plane.getVerticesSize()));
     vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
 
-    shaderProgram.createIndexBuffer(plane.getIndicesSize());
-    shaderProgram.getIndexBuffer()->write(plane.getIndices().data(), plane.getIndicesSize());
+    indexBuffer = std::unique_ptr<IndexBuffer>(new IndexBuffer(plane.getIndicesSize()));
+    indexBuffer->write(plane.getIndices().data(), plane.getIndicesSize());
 
     shaderProgram.createPipeline();
 
@@ -78,7 +79,7 @@ void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
+    commandBuffer->bindIndexBuffer(indexBuffer->getHandle());
 
     for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
         commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

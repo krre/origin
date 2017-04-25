@@ -31,9 +31,7 @@ public:
     const Vulkan::PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
     Vulkan::Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
     void createPipeline();
-    void createIndexBuffer(VkDeviceSize size);
     int createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate = VK_VERTEX_INPUT_RATE_VERTEX);
-    Vulkan::Buffer* getIndexBuffer() const { return indexBuffer.get(); }
     void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void linkInput(const std::string& name, uint32_t binding, uint32_t offset = 0);
@@ -53,6 +51,5 @@ private:
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, VkVertexInputAttributeDescription> inputInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
-    std::shared_ptr<Vulkan::Buffer> indexBuffer;
     int vertexBindingCount = 0;
 };

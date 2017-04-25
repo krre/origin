@@ -119,7 +119,7 @@ void DebugHUD::update(float dt) {
         text += pos;
     }
 
-    font->renderText(vertexBuffer.get(), shaderProgram.getIndexBuffer(), text);
+    font->renderText(vertexBuffer.get(), indexBuffer.get(), text);
 
     displayLabel->setText(text);
 }

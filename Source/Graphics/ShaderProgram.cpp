@@ -118,11 +118,6 @@ void ShaderProgram::createPipeline() {
     graphicsPipeline->create();
 }
 
-void ShaderProgram::createIndexBuffer(VkDeviceSize size) {
-    indexBuffer = std::make_shared<Buffer>(VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size, false);
-    indexBuffer->create();
-}
-
 int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate) {
     VkVertexInputBindingDescription bindingDescription = {};
     bindingDescription.binding = vertexBindingCount++;

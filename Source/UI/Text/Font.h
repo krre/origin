@@ -5,6 +5,7 @@
 
 class Texture;
 class VertexBuffer;
+class IndexBuffer;
 
 namespace Vulkan {
     class Buffer;
@@ -34,7 +35,7 @@ public:
     void setSize(int size);
     int getSize() const { return size; }
     void load(const std::string& path) override;
-    void renderText(VertexBuffer* vertexBuffer, Vulkan::Buffer* indexBuffer, const std::string& text);
+    void renderText(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, const std::string& text);
     Texture* getTexture() const { return texture.get(); }
     uint32_t getIndexCount() const { return indexCount; }
 

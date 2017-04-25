@@ -13,6 +13,7 @@ public:
     ~HardwareBuffer();
     VkBuffer getHandle() const;
     void write(const void* data, uint64_t size, uint64_t offset = 0);
+    void read(void* data, uint64_t size, uint64_t offset = 0);
 
 protected:
     std::unique_ptr<Vulkan::Buffer> buffer;

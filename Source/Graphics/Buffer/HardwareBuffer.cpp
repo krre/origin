@@ -16,3 +16,7 @@ VkBuffer HardwareBuffer::getHandle() const {
 void HardwareBuffer::write(const void* data, uint64_t size, uint64_t offset) {
     buffer->write(data, size, offset);
 }
+
+void HardwareBuffer::read(void* data, uint64_t size, uint64_t offset) {
+    buffer->read(data, size, offset);
+}

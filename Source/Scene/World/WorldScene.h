@@ -11,6 +11,7 @@ const int LOD_PIXEL_LIMIT = 1;
 
 class Console;
 class VertexBuffer;
+class IndexBuffer;
 
 class WorldScene : public Scene3D {
 
@@ -63,6 +64,7 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
     std::unique_ptr<VertexBuffer> vertexBuffer;
+    std::unique_ptr<IndexBuffer> indexBuffer;
     std::shared_ptr<Console> console;
     EntityId characterId;
     uint64_t seed;

@@ -16,6 +16,7 @@
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "Graphics/Buffer/VertexBuffer.h"
+#include "Graphics/Buffer/IndexBuffer.h"
 #include "Resource/ShaderResource.h"
 #include "Resource/ResourceManager.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
@@ -52,8 +53,8 @@ void WorldScene::init() {
     vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(plane.getVerticesSize()));
     vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
 
-    shaderProgram.createIndexBuffer(plane.getIndicesSize());
-    shaderProgram.getIndexBuffer()->write(plane.getIndices().data(), plane.getIndicesSize());
+    indexBuffer = std::unique_ptr<IndexBuffer>(new IndexBuffer(plane.getIndicesSize()));
+    indexBuffer->write(plane.getIndices().data(), plane.getIndicesSize());
 
     shaderProgram.createPipeline();
 
@@ -298,7 +299,7 @@ void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(shaderProgram.getIndexBuffer()->getHandle());
+    commandBuffer->bindIndexBuffer(indexBuffer->getHandle());
 
     for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
         commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

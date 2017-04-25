@@ -1,18 +1,7 @@
 #pragma once
 #include "Core/Object.h"
+#include "ECSTypes.h"
 #include <vector>
-
-enum class SystemType {
-    Camera,
-    Input,
-    MovementController,
-    Node,
-    None,
-    Octree,
-    Physics,
-    Render,
-    Transform
-};
 
 class EntityManager;
 

@@ -15,6 +15,7 @@
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
+#include "Graphics/Buffer/VertexBuffer.h"
 #include "Resource/ShaderResource.h"
 #include "Resource/ResourceManager.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
@@ -48,8 +49,7 @@ void WorldScene::init() {
     int binding = shaderProgram.createVertexInputBindingDescription(sizeof(glm::vec2));
     shaderProgram.linkInput("position", binding);
 
-    vertexBuffer = std::make_shared<Vulkan::Buffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.getVerticesSize(), false);
-    vertexBuffer->create();
+    vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(plane.getVerticesSize()));
     vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
 
     shaderProgram.createIndexBuffer(plane.getIndicesSize());

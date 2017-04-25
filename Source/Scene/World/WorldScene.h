@@ -3,7 +3,6 @@
 #include "Graphics/ShaderProgram.h"
 #include "ECS/Entity.h"
 #include "Graphics/Voxel/GPUMemoryManager.h"
-#include "Graphics/Vulkan/Buffer.h"
 #include "Graphics/Plane.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
@@ -11,6 +10,7 @@
 const int LOD_PIXEL_LIMIT = 1;
 
 class Console;
+class VertexBuffer;
 
 class WorldScene : public Scene3D {
 
@@ -62,7 +62,7 @@ private:
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
-    std::shared_ptr<Vulkan::Buffer> vertexBuffer;
+    std::unique_ptr<VertexBuffer> vertexBuffer;
     std::shared_ptr<Console> console;
     EntityId characterId;
     uint64_t seed;

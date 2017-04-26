@@ -79,11 +79,9 @@ void DebugHUD::init() {
 
     buildCommandBuffers();
 
-    ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
     ubo.model = glm::translate(ubo.model, glm::vec3(7, 5, 0));
     float scale = 0.5;
     ubo.model = glm::scale(ubo.model, glm::vec3(scale, scale, scale));
-    shaderProgram.writeUniform("ubo");
 }
 
 void DebugHUD::update(float dt) {
@@ -163,7 +161,9 @@ void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
     commandBuffer->endRenderPass();
+}
 
-    ubo.projection = glm::ortho(0.0f, (float)App::get()->getWidth(), 0.0f, (float)App::get()->getHeight());
+void DebugHUD::onWindowResize(int width, int height) {
+    ubo.projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
     shaderProgram.writeUniform("ubo");
 }

@@ -28,6 +28,7 @@ public:
 private:
     void create();
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
+    void onWindowResize(int width, int height) override;
 
     Vulkan::PipelineCache pipelineCache;
     Vulkan::RenderPass renderPass;

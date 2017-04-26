@@ -84,4 +84,6 @@ void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexB
     }
 
     batches.push_back(std::move(batch));
+
+    clearDirty();
 }

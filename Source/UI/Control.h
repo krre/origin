@@ -57,5 +57,5 @@ private:
     Control* fillControl = nullptr;
     Control* centerControl = nullptr;
     std::vector<std::shared_ptr<Control>> children;
-    bool isDirty = false;
+    bool isDirty = true;
 };

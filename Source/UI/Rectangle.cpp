@@ -31,6 +31,6 @@ void Rectangle::update(float dt) {
 
 }
 
-void Rectangle::prepareBatch(Batch2D* batch) {
+void Rectangle::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
 
 }

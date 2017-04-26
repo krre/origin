@@ -24,7 +24,7 @@ void Button::setLabelColor(const Color& labelColor) {
     label->setColor(labelColor);
 }
 
-void Button::prepareBatch(Batch2D* batch) {
+void Button::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
 
 }
 

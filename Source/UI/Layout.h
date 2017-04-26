@@ -24,7 +24,7 @@ public:
     void setParent(Control* parent);
     void update();
 
-    void prepareBatch(Batch2D* batch) override;
+    void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
 
 protected:
     virtual void updateContentPostion() = 0;

@@ -43,7 +43,7 @@ public:
     void clearDirty();
 
     void getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
-    virtual void prepareBatch(Batch2D* batch) = 0;
+    virtual void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) = 0;
 
 protected:
     Pos2 position = { 0, 0 };

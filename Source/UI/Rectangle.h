@@ -19,7 +19,7 @@ public:
 
     void draw(float dt) override;
     void update(float dt) override;
-    void prepareBatch(Batch2D* batch) override;
+    void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
 
 private:
     Color color = Color::WHITE;

@@ -77,7 +77,7 @@ void Control::clearDirty() {
 
 void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
     std::unique_ptr<Batch2D> batch = std::unique_ptr<Batch2D>(new Batch2D);
-    prepareBatch(batch.get());
+    prepareBatch(batch.get(), vertexBuffer, indexBuffer);
 
     for (auto& control : children) {
         control->getBatches(batches, vertexBuffer, indexBuffer);

@@ -17,7 +17,7 @@ Scene2D::~Scene2D() {
 void Scene2D::draw(float dt) {
     batches.clear();
     if (root) {
-        root->getBatches(batches);
+        root->getBatches(batches, vertexBuffer.get(), indexBuffer.get());
     }
 
     queue->submit();

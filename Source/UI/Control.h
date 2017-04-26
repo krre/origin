@@ -4,6 +4,8 @@
 #include <vector>
 
 class Batch2D;
+class VertexBuffer;
+class IndexBuffer;
 
 class Control : public Origin::Drawable {
 
@@ -40,7 +42,7 @@ public:
     void markDirty();
     void clearDirty();
 
-    void getBatches(std::vector<std::unique_ptr<Batch2D>>& batches);
+    void getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
     virtual void prepareBatch(Batch2D* batch) = 0;
 
 protected:

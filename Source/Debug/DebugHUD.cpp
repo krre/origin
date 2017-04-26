@@ -64,9 +64,6 @@ void DebugHUD::init() {
 
     Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
-    vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(MAX_CHAR_COUNT * sizeof(Font::Vertex)));
-    indexBuffer = std::unique_ptr<IndexBuffer>(new IndexBuffer(MAX_CHAR_COUNT * sizeof(uint32_t)));
-
     pipelineCache.create();
 
     graphicsPipeline->setPipelineCache(pipelineCache.getHandle());

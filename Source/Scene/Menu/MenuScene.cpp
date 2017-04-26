@@ -32,10 +32,7 @@ void MenuScene::init() {
 
     shaderProgram.linkInput("position", sizeof(glm::vec2));
 
-    vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(plane.getVerticesSize()));
     vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
-
-    indexBuffer = std::unique_ptr<IndexBuffer>(new IndexBuffer(plane.getIndicesSize()));
     indexBuffer->write(plane.getIndices().data(), plane.getIndicesSize());
 
     shaderProgram.createPipeline();

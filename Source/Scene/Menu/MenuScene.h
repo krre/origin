@@ -5,9 +5,6 @@
 #include "UI/LinearLayout.h"
 #include "Graphics/Plane.h"
 
-class VertexBuffer;
-class IndexBuffer;
-
 class MenuScene : public Scene2D {
 
     struct UBOvert {
@@ -29,8 +26,6 @@ private:
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
-    std::unique_ptr<VertexBuffer> vertexBuffer;
-    std::unique_ptr<IndexBuffer> indexBuffer;
     Plane plane;
     ShaderProgram shaderProgram;
 };

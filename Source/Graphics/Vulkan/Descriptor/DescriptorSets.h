@@ -17,10 +17,9 @@ public:
     void writeDescriptors();
     void destroy() override;
 
-    VkDescriptorSetAllocateInfo allocateInfo = {};
-
 private:
     const DescriptorPool* descriptorPool;
+    VkDescriptorSetAllocateInfo allocateInfo = {};
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
     std::vector<VkWriteDescriptorSet> descriptorWrites;
 };

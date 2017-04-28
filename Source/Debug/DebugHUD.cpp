@@ -56,7 +56,7 @@ void DebugHUD::init() {
     descriptorImageInfo.imageView = font->getTexture()->getImageView()->getHandle();
     descriptorImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 
-    shaderProgram.linkImage("samplerColor", descriptorImageInfo);
+    shaderProgram.bindImage("samplerColor", descriptorImageInfo);
 
     int binding = shaderProgram.createVertexInputBindingDescription(sizeof(Font::Vertex));
     shaderProgram.bindInput("inPos", binding);

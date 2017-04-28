@@ -136,7 +136,7 @@ void ShaderProgram::bindUniform(const std::string& name, uint32_t size, void* un
     bufferInfos[name] = linkInfo;
 }
 
-void ShaderProgram::linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
+void ShaderProgram::bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
     imageInfos[name] = descriptorImageInfo;
 }
 

@@ -30,11 +30,15 @@ void DescriptorSets::addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorS
     descriptorWrites.push_back(writeDescriptorSet);
 }
 
+void DescriptorSets::addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet) {
+    copyDescriptorSets.push_back(copyDescriptorSet);
+}
+
 void DescriptorSets::writeDescriptors() {
     for (auto& it : descriptorWrites) {
         it.dstSet = collection.at(0); // TODO: Set meaningful value
     }
-    vkUpdateDescriptorSets(device->getHandle(), descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
+    vkUpdateDescriptorSets(device->getHandle(), descriptorWrites.size(), descriptorWrites.data(), copyDescriptorSets.size(), copyDescriptorSets.data());
 }
 
 void DescriptorSets::destroy() {

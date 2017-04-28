@@ -14,6 +14,7 @@ public:
     bool allocate();
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
     void addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet);
+    void addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet);
     void writeDescriptors();
     void destroy() override;
 
@@ -22,6 +23,7 @@ private:
     VkDescriptorSetAllocateInfo allocateInfo = {};
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
     std::vector<VkWriteDescriptorSet> descriptorWrites;
+    std::vector<VkCopyDescriptorSet> copyDescriptorSets;
 };
 
 } // Vulkan

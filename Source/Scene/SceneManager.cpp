@@ -5,6 +5,7 @@
 #include "Graphics/Vulkan/Queue/PresentQueue.h"
 #include "Graphics/Vulkan/Semaphore.h"
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Surface.h"
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();

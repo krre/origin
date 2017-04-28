@@ -11,6 +11,7 @@
 #include "Scene/Menu/MenuScene.h"
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Surface.h"
 #include <Origin.h>
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>

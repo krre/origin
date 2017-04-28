@@ -10,7 +10,7 @@ public:
     GraphicsPipeline(Device* device = nullptr);
     void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
     void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);
-    void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachmentState);
+    void addColorBlendAttachmentState(VkPipelineColorBlendAttachmentState colorBlendAttachmentState);
 
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);

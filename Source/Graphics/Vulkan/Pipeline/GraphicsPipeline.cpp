@@ -85,7 +85,7 @@ void GraphicsPipeline::addScissor(VkRect2D scissor) {
     scissors.push_back(scissor);
 }
 
-void GraphicsPipeline::addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment) {
+void GraphicsPipeline::addColorBlendAttachmentState(VkPipelineColorBlendAttachmentState colorBlendAttachment) {
     colorBlendAttachmentStates.push_back(colorBlendAttachment);
 }
 

@@ -1,10 +1,10 @@
 #pragma once
 #include "Graphics/Vulkan/Base/Collection.h"
 #include "Graphics/Vulkan/Device/Devicer.h"
-#include "DescriptorPool.h"
-#include "DescriptorSetLayout.h"
 
 namespace Vulkan {
+
+class DescriptorPool;
 
 class DescriptorSets : public Collection<VkDescriptorSet>, public Devicer {
 

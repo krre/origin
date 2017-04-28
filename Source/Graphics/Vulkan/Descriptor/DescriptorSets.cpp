@@ -1,4 +1,5 @@
 #include "DescriptorSets.h"
+#include "DescriptorPool.h"
 #include <assert.h>
 
 using namespace Vulkan;

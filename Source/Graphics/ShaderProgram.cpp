@@ -129,7 +129,7 @@ int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertex
     return bindingDescription.binding;
 }
 
-void ShaderProgram::linkUniform(const std::string& name, uint32_t size, void* uniform) {
+void ShaderProgram::bindUniform(const std::string& name, uint32_t size, void* uniform) {
     BufferInfo linkInfo = {};
     linkInfo.size = size;
     linkInfo.uniform = uniform;

@@ -27,8 +27,8 @@ void MenuScene::init() {
     shaderProgram.addShader("Shader/Base.vert.spv");
     shaderProgram.addShader("Shader/Base.frag.spv");
 
-    shaderProgram.linkUniform("uboVert", sizeof(uboVert), &uboVert);
-    shaderProgram.linkUniform("uboFrag", sizeof(uboFrag), &uboFrag);
+    shaderProgram.bindUniform("uboVert", sizeof(uboVert), &uboVert);
+    shaderProgram.bindUniform("uboFrag", sizeof(uboFrag), &uboFrag);
 
     shaderProgram.bindInput("position", sizeof(glm::vec2));
 

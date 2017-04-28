@@ -35,7 +35,7 @@ public:
     Vulkan::Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
     void createPipeline();
     int createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate = VK_VERTEX_INPUT_RATE_VERTEX);
-    void linkUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
+    void bindUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
     void linkImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
     void bindInput(const std::string& name, uint32_t binding, uint32_t offset = 0);
     void writeUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);

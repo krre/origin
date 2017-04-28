@@ -41,11 +41,11 @@ void WorldScene::init() {
     shaderProgram.addShader("Shader/Voxel.vert.spv");
     shaderProgram.addShader("Shader/Voxel.frag.spv");
 
-    shaderProgram.linkUniform("ubo", sizeof(ubo), &ubo);
-    shaderProgram.linkUniform("octree", MEMORY_SIZE);
-    shaderProgram.linkUniform("renderList", MAX_OCTREE_COUNT * sizeof(uint32_t));
-    shaderProgram.linkUniform("pickResult", sizeof(pickResult), &pickResult);
-    shaderProgram.linkUniform("debugOut", sizeof(debugOut), &debugOut);
+    shaderProgram.bindUniform("ubo", sizeof(ubo), &ubo);
+    shaderProgram.bindUniform("octree", MEMORY_SIZE);
+    shaderProgram.bindUniform("renderList", MAX_OCTREE_COUNT * sizeof(uint32_t));
+    shaderProgram.bindUniform("pickResult", sizeof(pickResult), &pickResult);
+    shaderProgram.bindUniform("debugOut", sizeof(debugOut), &debugOut);
 
     int binding = shaderProgram.createVertexInputBindingDescription(sizeof(glm::vec2));
     shaderProgram.bindInput("position", binding);

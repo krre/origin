@@ -45,7 +45,7 @@ void DebugHUD::init() {
     shaderProgram.addShader("Shader/SDF.vert.spv");
     shaderProgram.addShader("Shader/SDF.frag.spv");
 
-    shaderProgram.linkUniform("ubo", sizeof(ubo), &ubo);
+    shaderProgram.bindUniform("ubo", sizeof(ubo), &ubo);
 
     font = ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt");
 

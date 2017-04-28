@@ -27,7 +27,7 @@ void DescriptorSets::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetL
 }
 
 void DescriptorSets::addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet) {
-    descriptorWrites.push_back(writeDescriptorSet);
+    writeDescriptorSets.push_back(writeDescriptorSet);
 }
 
 void DescriptorSets::addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet) {
@@ -35,10 +35,10 @@ void DescriptorSets::addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet)
 }
 
 void DescriptorSets::writeDescriptors() {
-    for (auto& it : descriptorWrites) {
+    for (auto& it : writeDescriptorSets) {
         it.dstSet = collection.at(0); // TODO: Set meaningful value
     }
-    vkUpdateDescriptorSets(device->getHandle(), descriptorWrites.size(), descriptorWrites.data(), copyDescriptorSets.size(), copyDescriptorSets.data());
+    vkUpdateDescriptorSets(device->getHandle(), writeDescriptorSets.size(), writeDescriptorSets.data(), copyDescriptorSets.size(), copyDescriptorSets.data());
 }
 
 void DescriptorSets::destroy() {

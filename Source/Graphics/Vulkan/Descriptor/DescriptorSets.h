@@ -22,7 +22,7 @@ private:
     const DescriptorPool* descriptorPool;
     VkDescriptorSetAllocateInfo allocateInfo = {};
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
-    std::vector<VkWriteDescriptorSet> descriptorWrites;
+    std::vector<VkWriteDescriptorSet> writeDescriptorSets;
     std::vector<VkCopyDescriptorSet> copyDescriptorSets;
 };
 

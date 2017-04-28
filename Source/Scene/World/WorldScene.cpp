@@ -299,7 +299,7 @@ void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(indexBuffer->getHandle());
+    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
     for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
         commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

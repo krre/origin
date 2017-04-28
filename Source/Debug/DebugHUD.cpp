@@ -152,7 +152,7 @@ void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), 0, VK_INDEX_TYPE_UINT32);
+    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
     for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
         commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

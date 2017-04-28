@@ -5,8 +5,3 @@ enum class PipelinePreset {
     SDF,
     VOXEL,
 };
-
-enum class IndexBufferBits {
-    UINT16,
-    UINT32
-};

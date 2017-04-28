@@ -11,6 +11,7 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
     createInfo.pMultisampleState = &multisampleStateCreateInfo;
     createInfo.pColorBlendState = &colorBlendStateCreateInfo;
     createInfo.pDepthStencilState = &depthStencilStateCreateInfo;
+    createInfo.pViewportState = &viewportStateCreateInfo;
 
     vertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
@@ -30,6 +31,8 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
     multisampleStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     multisampleStateCreateInfo.sampleShadingEnable = VK_FALSE;
     multisampleStateCreateInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+
+    viewportStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 
     viewport.x = 0.0f;
     viewport.y = 0.0f;
@@ -110,13 +113,10 @@ void GraphicsPipeline::create() {
         scissors.push_back(scissor);
     }
 
-    VkPipelineViewportStateCreateInfo viewportState = {};
-    viewportState.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-    viewportState.viewportCount = viewports.size();
-    viewportState.pViewports = viewports.data();
-    viewportState.scissorCount = scissors.size();
-    viewportState.pScissors = scissors.data();
-    createInfo.pViewportState = &viewportState;
+    viewportStateCreateInfo.viewportCount = viewports.size();
+    viewportStateCreateInfo.pViewports = viewports.data();
+    viewportStateCreateInfo.scissorCount = scissors.size();
+    viewportStateCreateInfo.pScissors = scissors.data();
 
     if (colorBlendAttachmentStates.empty()) {
         colorBlendAttachmentStates.push_back(colorBlendAttachmentState);

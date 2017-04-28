@@ -32,6 +32,7 @@ private:
     VkPipelineColorBlendStateCreateInfo colorBlendStateCreateInfo = {};
     VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo = {};
     VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo = {};
+    VkPipelineViewportStateCreateInfo viewportStateCreateInfo = {};
 
     VkPipelineColorBlendAttachmentState colorBlendAttachmentState = {};
 

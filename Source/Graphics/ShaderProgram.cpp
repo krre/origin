@@ -115,7 +115,7 @@ void ShaderProgram::createPipeline() {
 
     descriptorPool->create();
     descriptorSets->allocate();
-    descriptorSets->writeDescriptors();
+    descriptorSets->updateDescriptorSets();
 
     graphicsPipeline->create();
 }

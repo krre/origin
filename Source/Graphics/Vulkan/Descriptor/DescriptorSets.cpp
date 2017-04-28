@@ -35,7 +35,7 @@ void DescriptorSets::addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet)
     copyDescriptorSets.push_back(copyDescriptorSet);
 }
 
-void DescriptorSets::writeDescriptors() {
+void DescriptorSets::updateDescriptorSets() {
     for (auto& it : writeDescriptorSets) {
         it.dstSet = collection.at(0); // TODO: Set meaningful value
     }

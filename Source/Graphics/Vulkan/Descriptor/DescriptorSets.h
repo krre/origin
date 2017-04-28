@@ -15,7 +15,7 @@ public:
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
     void addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet);
     void addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet);
-    void writeDescriptors();
+    void updateDescriptorSets();
     void destroy() override;
 
 private:

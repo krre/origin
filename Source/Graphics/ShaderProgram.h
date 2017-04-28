@@ -1,7 +1,8 @@
 #pragma once
 #include "Core/Object.h"
-#include "Resource/ShaderResource.h"
+#include <vulkan/vulkan.h>
 #include <map>
+#include <vector>
 
 namespace Vulkan {
     class GraphicsPipeline;
@@ -11,6 +12,8 @@ namespace Vulkan {
     class DescriptorSets;
     class DescriptorPool;
 }
+
+class ShaderResource;
 
 class ShaderProgram : public Object {
 
@@ -39,8 +42,6 @@ public:
     void readUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
 private:
-    VkFormat getFormat(ShaderResource::Input* input);
-
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::unique_ptr<Vulkan::DescriptorPool> descriptorPool;

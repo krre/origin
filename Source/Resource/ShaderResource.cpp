@@ -32,6 +32,20 @@ void ShaderResource::load(const std::string& path) {
     }
 }
 
+VkFormat ShaderResource::getFormat(Input* input) {
+    if (input->variableType == "OpTypeVector") {
+        if (input->valueType == "OpTypeFloat") {
+            if (input->vectorCount == 2) {
+                return VK_FORMAT_R32G32_SFLOAT;
+            } else if (input->vectorCount == 3) {
+                return VK_FORMAT_R32G32B32_SFLOAT;
+            }
+        }
+    }
+
+    assert(0);
+}
+
 void ShaderResource::parse() {
     assert(descriptors.empty());
     assert(inputs.empty());

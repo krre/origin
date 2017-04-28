@@ -29,6 +29,7 @@ public:
     VkShaderStageFlagBits getStage() const { return stage; }
     const uint32_t* getCodeData() const { return code.data(); }
     size_t getCodeSize() const { return code.size(); }
+    static VkFormat getFormat(Input* input);
 
     void dumpDescriptors();
     void dumpInputs();

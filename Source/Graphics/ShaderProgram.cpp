@@ -5,6 +5,7 @@
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
 #include "Resource/ResourceManager.h"
+#include "Resource/ShaderResource.h"
 #include "Core/Utils.h"
 #include "Vulkan/Instance.h"
 #include "Vulkan/Swapchain.h"
@@ -94,7 +95,7 @@ void ShaderProgram::createPipeline() {
             if (inputInfoIt != inputInfos.end()) {
                 ShaderResource::Input* input = &inputIt.second;
                 inputInfos.at(name).location = input->location;
-                inputInfos.at(name).format = getFormat(input);
+                inputInfos.at(name).format = ShaderResource::getFormat(input);
                 graphicsPipeline->addVertexAttributeDescription(inputInfos.at(name));
             }
         }
@@ -150,18 +151,3 @@ void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, V
 void ShaderProgram::readUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
     bufferInfos.at(name).buffer->read(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }
-
-VkFormat ShaderProgram::getFormat(ShaderResource::Input* input) {
-    if (input->variableType == "OpTypeVector") {
-        if (input->valueType == "OpTypeFloat") {
-            if (input->vectorCount == 2) {
-                return VK_FORMAT_R32G32_SFLOAT;
-            } else if (input->vectorCount == 3) {
-                return VK_FORMAT_R32G32B32_SFLOAT;
-            }
-        }
-    }
-
-    assert(0);
-}
-

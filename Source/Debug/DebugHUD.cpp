@@ -59,8 +59,8 @@ void DebugHUD::init() {
     shaderProgram.linkImage("samplerColor", descriptorImageInfo);
 
     int binding = shaderProgram.createVertexInputBindingDescription(sizeof(Font::Vertex));
-    shaderProgram.linkInput("inPos", binding);
-    shaderProgram.linkInput("inUV", binding, sizeof(Font::Vertex::pos));
+    shaderProgram.bindInput("inPos", binding);
+    shaderProgram.bindInput("inUV", binding, sizeof(Font::Vertex::pos));
 
     Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 

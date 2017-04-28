@@ -30,7 +30,7 @@ void MenuScene::init() {
     shaderProgram.linkUniform("uboVert", sizeof(uboVert), &uboVert);
     shaderProgram.linkUniform("uboFrag", sizeof(uboFrag), &uboFrag);
 
-    shaderProgram.linkInput("position", sizeof(glm::vec2));
+    shaderProgram.bindInput("position", sizeof(glm::vec2));
 
     vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
     indexBuffer->write(plane.getIndices().data(), plane.getIndicesSize());

@@ -140,7 +140,7 @@ void ShaderProgram::linkImage(const std::string& name, VkDescriptorImageInfo des
     imageInfos[name] = descriptorImageInfo;
 }
 
-void ShaderProgram::linkInput(const std::string& name, uint32_t binding, uint32_t offset) {
+void ShaderProgram::bindInput(const std::string& name, uint32_t binding, uint32_t offset) {
     inputInfos[name].binding = binding;
     inputInfos[name].offset = offset;
 }

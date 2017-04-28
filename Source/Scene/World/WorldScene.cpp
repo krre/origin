@@ -48,7 +48,7 @@ void WorldScene::init() {
     shaderProgram.linkUniform("debugOut", sizeof(debugOut), &debugOut);
 
     int binding = shaderProgram.createVertexInputBindingDescription(sizeof(glm::vec2));
-    shaderProgram.linkInput("position", binding);
+    shaderProgram.bindInput("position", binding);
 
     vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(plane.getVerticesSize()));
     vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());

@@ -12,10 +12,13 @@ public:
     void create() override;
     void destroy() override;
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
+    void addPushConstantRange(VkPushConstantRange pushConstantRange);
 
 private:
     VkPipelineLayoutCreateInfo createInfo = {};
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
+    std::vector<VkPushConstantRange> pushConstantRanges;
+
 };
 
 } // Vulkan

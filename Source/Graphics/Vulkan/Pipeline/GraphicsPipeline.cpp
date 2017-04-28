@@ -5,31 +5,31 @@ using namespace Vulkan;
 GraphicsPipeline::GraphicsPipeline(Device* device) :
         Pipeline(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
-    createInfo.pVertexInputState = &vertexInputState;
-    createInfo.pInputAssemblyState = &inputAssembly;
-    createInfo.pRasterizationState = &rasterizer;
-    createInfo.pMultisampleState = &multisampling;
-    createInfo.pColorBlendState = &colorBlendState;
-    createInfo.pDepthStencilState = &depthStencilState;
+    createInfo.pVertexInputState = &vertexInputStateCreateInfo;
+    createInfo.pInputAssemblyState = &inputAssemblyStateCreateInfo;
+    createInfo.pRasterizationState = &rasterizationStateCreateInfo;
+    createInfo.pMultisampleState = &multisampleStateCreateInfo;
+    createInfo.pColorBlendState = &colorBlendStateCreateInfo;
+    createInfo.pDepthStencilState = &depthStencilStateCreateInfo;
 
-    vertexInputState.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+    vertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
-    inputAssembly.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-    inputAssembly.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-    inputAssembly.primitiveRestartEnable = VK_FALSE;
+    inputAssemblyStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+    inputAssemblyStateCreateInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+    inputAssemblyStateCreateInfo.primitiveRestartEnable = VK_FALSE;
 
-    rasterizer.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-    rasterizer.depthClampEnable = VK_FALSE;
-    rasterizer.rasterizerDiscardEnable = VK_FALSE;
-    rasterizer.polygonMode = VK_POLYGON_MODE_FILL;
-    rasterizer.lineWidth = 1.0f;
-    rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
-    rasterizer.frontFace = VK_FRONT_FACE_CLOCKWISE;
-    rasterizer.depthBiasEnable = VK_FALSE;
+    rasterizationStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+    rasterizationStateCreateInfo.depthClampEnable = VK_FALSE;
+    rasterizationStateCreateInfo.rasterizerDiscardEnable = VK_FALSE;
+    rasterizationStateCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
+    rasterizationStateCreateInfo.lineWidth = 1.0f;
+    rasterizationStateCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
+    rasterizationStateCreateInfo.frontFace = VK_FRONT_FACE_CLOCKWISE;
+    rasterizationStateCreateInfo.depthBiasEnable = VK_FALSE;
 
-    multisampling.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-    multisampling.sampleShadingEnable = VK_FALSE;
-    multisampling.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+    multisampleStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+    multisampleStateCreateInfo.sampleShadingEnable = VK_FALSE;
+    multisampleStateCreateInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
 
     viewport.x = 0.0f;
     viewport.y = 0.0f;
@@ -38,29 +38,29 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
 
     scissor.offset = { 0, 0 };
 
-    colorBlendAttachment.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-    colorBlendAttachment.blendEnable = VK_FALSE;
-    colorBlendAttachment.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
-    colorBlendAttachment.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-    colorBlendAttachment.colorBlendOp = VK_BLEND_OP_ADD;
-    colorBlendAttachment.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-    colorBlendAttachment.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-    colorBlendAttachment.alphaBlendOp = VK_BLEND_OP_ADD;
+    colorBlendAttachmentState.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+    colorBlendAttachmentState.blendEnable = VK_FALSE;
+    colorBlendAttachmentState.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
+    colorBlendAttachmentState.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
+    colorBlendAttachmentState.colorBlendOp = VK_BLEND_OP_ADD;
+    colorBlendAttachmentState.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+    colorBlendAttachmentState.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+    colorBlendAttachmentState.alphaBlendOp = VK_BLEND_OP_ADD;
 
-    colorBlendState.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-    colorBlendState.logicOpEnable = VK_FALSE;
-    colorBlendState.logicOp = VK_LOGIC_OP_COPY;
-    colorBlendState.blendConstants[0] = 0.0f;
-    colorBlendState.blendConstants[1] = 0.0f;
-    colorBlendState.blendConstants[2] = 0.0f;
-    colorBlendState.blendConstants[3] = 0.0f;
+    colorBlendStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+    colorBlendStateCreateInfo.logicOpEnable = VK_FALSE;
+    colorBlendStateCreateInfo.logicOp = VK_LOGIC_OP_COPY;
+    colorBlendStateCreateInfo.blendConstants[0] = 0.0f;
+    colorBlendStateCreateInfo.blendConstants[1] = 0.0f;
+    colorBlendStateCreateInfo.blendConstants[2] = 0.0f;
+    colorBlendStateCreateInfo.blendConstants[3] = 0.0f;
 
-    depthStencilState.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-    depthStencilState.depthTestEnable = VK_TRUE;
-    depthStencilState.depthWriteEnable = VK_TRUE;
-    depthStencilState.depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL;
-    depthStencilState.front = depthStencilState.back;
-    depthStencilState.back.compareOp = VK_COMPARE_OP_ALWAYS;
+    depthStencilStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+    depthStencilStateCreateInfo.depthTestEnable = VK_TRUE;
+    depthStencilStateCreateInfo.depthWriteEnable = VK_TRUE;
+    depthStencilStateCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL;
+    depthStencilStateCreateInfo.front = depthStencilStateCreateInfo.back;
+    depthStencilStateCreateInfo.back.compareOp = VK_COMPARE_OP_ALWAYS;
 }
 
 void GraphicsPipeline::setExtent(VkExtent2D extent) {
@@ -86,7 +86,7 @@ void GraphicsPipeline::addScissor(VkRect2D scissor) {
 }
 
 void GraphicsPipeline::addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment) {
-    colorBlendAttachments.push_back(colorBlendAttachment);
+    colorBlendAttachmentStates.push_back(colorBlendAttachment);
 }
 
 void GraphicsPipeline::setPipelineLayout(VkPipelineLayout layout) {
@@ -98,7 +98,7 @@ void GraphicsPipeline::setRenderPass(VkRenderPass renderPass) {
 }
 
 void GraphicsPipeline::setBlendEnable(VkBool32 blendEnable) {
-    colorBlendAttachment.blendEnable = blendEnable;
+    colorBlendAttachmentState.blendEnable = blendEnable;
 }
 
 void GraphicsPipeline::create() {
@@ -118,18 +118,18 @@ void GraphicsPipeline::create() {
     viewportState.pScissors = scissors.data();
     createInfo.pViewportState = &viewportState;
 
-    if (colorBlendAttachments.empty()) {
-        colorBlendAttachments.push_back(colorBlendAttachment);
+    if (colorBlendAttachmentStates.empty()) {
+        colorBlendAttachmentStates.push_back(colorBlendAttachmentState);
     }
 
-    colorBlendState.attachmentCount = colorBlendAttachments.size();
-    colorBlendState.pAttachments = colorBlendAttachments.data();
+    colorBlendStateCreateInfo.attachmentCount = colorBlendAttachmentStates.size();
+    colorBlendStateCreateInfo.pAttachments = colorBlendAttachmentStates.data();
 
-    vertexInputState.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
-    vertexInputState.pVertexBindingDescriptions = vertexBindingDescriptions.data();
+    vertexInputStateCreateInfo.vertexBindingDescriptionCount = vertexBindingDescriptions.size();
+    vertexInputStateCreateInfo.pVertexBindingDescriptions = vertexBindingDescriptions.data();
 
-    vertexInputState.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
-    vertexInputState.pVertexAttributeDescriptions = vertexAttributeDescriptions.data();
+    vertexInputStateCreateInfo.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
+    vertexInputStateCreateInfo.pVertexAttributeDescriptions = vertexAttributeDescriptions.data();
 
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();

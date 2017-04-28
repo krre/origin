@@ -8,34 +8,41 @@ class GraphicsPipeline : public Pipeline {
 
 public:
     GraphicsPipeline(Device* device = nullptr);
-    void setExtent(VkExtent2D extent);
     void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
     void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);
+    void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachmentState);
+
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
-    void addColorBlendAttachment(VkPipelineColorBlendAttachmentState colorBlendAttachment);
+
     void setPipelineLayout(VkPipelineLayout layout);
     void setRenderPass(VkRenderPass renderPass);
     void setBlendEnable(VkBool32 blendEnable);
+    void setExtent(VkExtent2D extent);
+
     VkPipelineBindPoint getBindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
     void create() override;
 
 private:
     VkGraphicsPipelineCreateInfo createInfo = {};
-    VkPipelineRasterizationStateCreateInfo rasterizer = {};
-    VkPipelineMultisampleStateCreateInfo multisampling = {};
+
+    VkPipelineRasterizationStateCreateInfo rasterizationStateCreateInfo = {};
+    VkPipelineMultisampleStateCreateInfo multisampleStateCreateInfo = {};
+    VkPipelineInputAssemblyStateCreateInfo inputAssemblyStateCreateInfo = {};
+    VkPipelineColorBlendStateCreateInfo colorBlendStateCreateInfo = {};
+    VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo = {};
+    VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo = {};
+
+    VkPipelineColorBlendAttachmentState colorBlendAttachmentState = {};
+
     VkViewport viewport = {};
     VkRect2D scissor = {};
-    VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
-    VkPipelineColorBlendStateCreateInfo colorBlendState = {};
-    VkPipelineDepthStencilStateCreateInfo depthStencilState = {};
-    VkPipelineVertexInputStateCreateInfo vertexInputState = {};
+
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
+    std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachmentStates;
     std::vector<VkViewport> viewports;
     std::vector<VkRect2D> scissors;
-    std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachments;
-    VkPipelineInputAssemblyStateCreateInfo inputAssembly = {};
 };
 
 } // Vulkan

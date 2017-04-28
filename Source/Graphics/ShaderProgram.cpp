@@ -60,12 +60,12 @@ void ShaderProgram::createPipeline() {
 
             descriptorSetLayout->addLayoutBinding(layoutBinding);
 
-            VkWriteDescriptorSet descriptorWrite = {};
-            descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            descriptorWrite.dstBinding = layoutBinding.binding;
-            descriptorWrite.dstArrayElement = 0;
-            descriptorWrite.descriptorType = layoutBinding.descriptorType;
-            descriptorWrite.descriptorCount = layoutBinding.descriptorCount;
+            VkWriteDescriptorSet writeDescriptorSet = {};
+            writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            writeDescriptorSet.dstBinding = layoutBinding.binding;
+            writeDescriptorSet.dstArrayElement = 0;
+            writeDescriptorSet.descriptorType = layoutBinding.descriptorType;
+            writeDescriptorSet.descriptorCount = layoutBinding.descriptorCount;
 
             const auto& bufferIt = bufferInfos.find(descriptorIt.first);
             if (bufferIt != bufferInfos.end()) {
@@ -79,14 +79,14 @@ void ShaderProgram::createPipeline() {
                 std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(usage, bufferInfo->size, false);
                 buffer->create();
                 bufferInfo->buffer = buffer;
-                descriptorWrite.pBufferInfo = buffer->getDescriptorInfo();
-                descriptorSets->addWriteDescriptorSet(descriptorWrite);
+                writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();
+                descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
             }
 
             const auto& imageIt = imageInfos.find(descriptorIt.first);
             if (imageIt != imageInfos.end()) {
-                descriptorWrite.pImageInfo = &imageIt->second;
-                descriptorSets->addWriteDescriptorSet(descriptorWrite);
+                writeDescriptorSet.pImageInfo = &imageIt->second;
+                descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
             }
         }
 

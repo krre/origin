@@ -18,7 +18,7 @@ ShaderProgram::ShaderProgram() {
     descriptorPool = std::unique_ptr<DescriptorPool>(new DescriptorPool);
     descriptorSets = std::unique_ptr<DescriptorSets>(new DescriptorSets(descriptorPool.get()));
 
-    graphicsPipeline = std::unique_ptr<GraphicsPipeline>(new GraphicsPipeline());
+    graphicsPipeline = std::unique_ptr<GraphicsPipeline>(new GraphicsPipeline);
     graphicsPipeline->setExtent(Instance::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline->setRenderPass(Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
 

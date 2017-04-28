@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "Vulkan/Instance.h"
 #include "GraphicsTypes.h"
 #include <map>
 

@@ -20,6 +20,8 @@ public:
     VkPipelineBindPoint getBindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
     void create() override;
 
+private:
+    VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineRasterizationStateCreateInfo rasterizer = {};
     VkPipelineMultisampleStateCreateInfo multisampling = {};
     VkViewport viewport = {};
@@ -27,9 +29,6 @@ public:
     VkPipelineColorBlendAttachmentState colorBlendAttachment = {};
     VkPipelineColorBlendStateCreateInfo colorBlendState = {};
     VkPipelineDepthStencilStateCreateInfo depthStencilState = {};
-
-private:
-    VkGraphicsPipelineCreateInfo createInfo = {};
     VkPipelineVertexInputStateCreateInfo vertexInputState = {};
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;

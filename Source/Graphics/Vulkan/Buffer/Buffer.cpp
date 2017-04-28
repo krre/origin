@@ -1,7 +1,7 @@
 #include "Buffer.h"
-#include "Device/DeviceMemory.h"
-#include "Queue/SubmitQueue.h"
-#include "Command/CommandBufferOneTime.h"
+#include "Graphics/Vulkan/Device/DeviceMemory.h"
+#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include <string.h>
 
 using namespace Vulkan;

@@ -1,5 +1,5 @@
 #include "IndexBuffer.h"
-#include "Graphics/Vulkan/Buffer.h"
+#include "Graphics/Vulkan/Buffer/Buffer.h"
 
 IndexBuffer::IndexBuffer(uint64_t count) {
     VkDeviceSize size = count * (indexType == VK_INDEX_TYPE_UINT16 ? sizeof(uint16_t) : sizeof(uint32_t));

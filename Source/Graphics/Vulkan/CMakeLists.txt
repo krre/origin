@@ -1,4 +1,5 @@
 add_subdirectory(Base)
+add_subdirectory(Buffer)
 add_subdirectory(Command)
 add_subdirectory(Descriptor)
 add_subdirectory(Device)
@@ -8,8 +9,6 @@ add_subdirectory(Queue)
 
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Buffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Event.cpp

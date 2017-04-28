@@ -9,7 +9,7 @@
 #include "Core/Utils.h"
 #include "Vulkan/Instance.h"
 #include "Vulkan/Swapchain.h"
-#include "Vulkan/Buffer.h"
+#include "Vulkan/Buffer/Buffer.h"
 #include "Vulkan/Surface.h"
 
 using namespace Vulkan;

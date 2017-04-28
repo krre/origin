@@ -13,6 +13,7 @@ public:
     void addPoolSize(VkDescriptorType type, uint32_t count);
     void create() override;
     void destroy() override;
+    void reset();
 
 private:
     VkDescriptorPoolCreateInfo createInfo = {};

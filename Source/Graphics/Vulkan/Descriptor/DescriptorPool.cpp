@@ -32,3 +32,7 @@ void DescriptorPool::create() {
 void DescriptorPool::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyDescriptorPool(device->getHandle(), handle, nullptr))
 }
+
+void DescriptorPool::reset() {
+    vkResetDescriptorPool(device->getHandle(), handle, 0);
+}

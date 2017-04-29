@@ -12,7 +12,6 @@ public:
 
     struct Descriptor {
         int set;
-        int location;
         int binding;
         VkDescriptorType descriptorType;
     };

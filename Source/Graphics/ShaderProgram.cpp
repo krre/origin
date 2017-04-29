@@ -42,7 +42,7 @@ void ShaderProgram::createPipeline() {
 
     for (auto& shaderResource : shaderResources) {
 //        shaderResource->dumpBindings();
-//        shaderResource->dumpInputs();
+//        shaderResource->dumpLocations();
 
         for (auto& bindingIt : shaderResource->bindings) {
             ShaderResource::Binding* binding = &bindingIt.second;

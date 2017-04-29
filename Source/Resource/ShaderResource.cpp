@@ -197,7 +197,7 @@ void ShaderResource::dumpBindings() {
     }
 }
 
-void ShaderResource::dumpInputs() {
+void ShaderResource::dumpLocations() {
     PRINT("Dump SPIR-V inputs:")
     for (auto& input : locations) {
         PRINT("name: " << input.first

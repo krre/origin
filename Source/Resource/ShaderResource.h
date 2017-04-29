@@ -31,7 +31,7 @@ public:
     static VkFormat getFormat(Location* input);
 
     void dumpBindings();
-    void dumpInputs();
+    void dumpLocations();
 
 private:
     VkShaderStageFlagBits stage;

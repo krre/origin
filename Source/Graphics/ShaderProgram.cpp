@@ -90,14 +90,14 @@ void ShaderProgram::createPipeline() {
             }
         }
 
-        for (auto& inputIt : shaderResource->inputs) {
-            const std::string& name = inputIt.first;
-            const auto& inputInfoIt = inputInfos.find(name);
-            if (inputInfoIt != inputInfos.end()) {
-                ShaderResource::Input* input = &inputIt.second;
-                inputInfos.at(name).location = input->location;
-                inputInfos.at(name).format = ShaderResource::getFormat(input);
-                graphicsPipeline->addVertexAttributeDescription(inputInfos.at(name));
+        for (auto& location : shaderResource->locations) {
+            const std::string& name = location.first;
+            const auto& inputInfoIt = locationInfos.find(name);
+            if (inputInfoIt != locationInfos.end()) {
+                ShaderResource::Location* input = &location.second;
+                locationInfos.at(name).location = input->location;
+                locationInfos.at(name).format = ShaderResource::getFormat(input);
+                graphicsPipeline->addVertexAttributeDescription(locationInfos.at(name));
             }
         }
     }
@@ -141,8 +141,8 @@ void ShaderProgram::bindImage(const std::string& name, VkDescriptorImageInfo des
 }
 
 void ShaderProgram::bindInput(const std::string& name, uint32_t binding, uint32_t offset) {
-    inputInfos[name].binding = binding;
-    inputInfos[name].offset = offset;
+    locationInfos[name].binding = binding;
+    locationInfos[name].offset = offset;
 }
 
 void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {

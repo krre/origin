@@ -50,7 +50,7 @@ private:
     std::unique_ptr<Vulkan::DescriptorSetLayout> descriptorSetLayout;
     std::unique_ptr<Vulkan::DescriptorSets> descriptorSets;
     std::map<std::string, BufferInfo> bufferInfos;
-    std::map<std::string, VkVertexInputAttributeDescription> inputInfos;
+    std::map<std::string, VkVertexInputAttributeDescription> locationInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
     int vertexBindingCount = 0;
 };

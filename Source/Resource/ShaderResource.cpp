@@ -32,7 +32,7 @@ void ShaderResource::load(const std::string& path) {
     }
 }
 
-VkFormat ShaderResource::getFormat(Input* input) {
+VkFormat ShaderResource::getFormat(Location* input) {
     if (input->variableType == "OpTypeVector") {
         if (input->valueType == "OpTypeFloat") {
             if (input->vectorCount == 2) {
@@ -48,7 +48,7 @@ VkFormat ShaderResource::getFormat(Input* input) {
 
 void ShaderResource::parse() {
     assert(descriptors.empty());
-    assert(inputs.empty());
+    assert(locations.empty());
 
     spv_context context = spvContextCreate(SPV_ENV_UNIVERSAL_1_0);
     spv_diagnostic diagnostic = nullptr;
@@ -121,8 +121,8 @@ void ShaderResource::parse() {
                     descriptors.at(name).binding = std::stoi(line.at(3));
                 } else if (decorateName == "Location" && shaderType == "Vertex") {
                     std::string& name = names.at(id);
-                    inputs[name] = {};
-                    inputs.at(name).location = std::stoi(line.at(3));
+                    locations[name] = {};
+                    locations.at(name).location = std::stoi(line.at(3));
                 }
             } else if (firstWord.at(0) == '%') {
                 std::string& id = firstWord;
@@ -161,12 +161,12 @@ void ShaderResource::parse() {
                             }
                         }
                     } else if (line.at(4) == "Input" && shaderType == "Vertex") {
-                        if (inputs.find(name) != inputs.end()) {
-                            inputs.at(name).variableType = type;
+                        if (locations.find(name) != locations.end()) {
+                            locations.at(name).variableType = type;
                             if (type == "OpTypeVector") {
-                                inputs.at(name).vectorCount = std::stoi(instructions.at(typeId).at(4));
+                                locations.at(name).vectorCount = std::stoi(instructions.at(typeId).at(4));
                                 std::string& vectorTypeId = instructions.at(typeId).at(3);
-                                inputs.at(name).valueType = instructions.at(vectorTypeId).at(2);
+                                locations.at(name).valueType = instructions.at(vectorTypeId).at(2);
                             }
                         }
                     }
@@ -199,7 +199,7 @@ void ShaderResource::dumpDescriptors() {
 
 void ShaderResource::dumpInputs() {
     PRINT("Dump SPIR-V inputs:")
-    for (auto& input : inputs) {
+    for (auto& input : locations) {
         PRINT("name: " << input.first
               << ", location: " << input.second.location
               << ", variableType: " << input.second.variableType

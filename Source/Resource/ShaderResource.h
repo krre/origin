@@ -16,7 +16,7 @@ public:
         VkDescriptorType descriptorType;
     };
 
-    struct Input {
+    struct Location {
         int location;
         std::string variableType;
         std::string valueType;
@@ -28,7 +28,7 @@ public:
     VkShaderStageFlagBits getStage() const { return stage; }
     const uint32_t* getCodeData() const { return code.data(); }
     size_t getCodeSize() const { return code.size(); }
-    static VkFormat getFormat(Input* input);
+    static VkFormat getFormat(Location* input);
 
     void dumpDescriptors();
     void dumpInputs();
@@ -36,7 +36,7 @@ public:
 private:
     VkShaderStageFlagBits stage;
     std::vector<uint32_t> code;
-    std::map<std::string, Input> inputs;
+    std::map<std::string, Location> locations;
     std::map<std::string, Descriptor> descriptors;
 
     void parse();

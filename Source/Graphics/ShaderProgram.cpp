@@ -44,18 +44,18 @@ void ShaderProgram::createPipeline() {
 //        shaderResource->dumpDescriptors();
 //        shaderResource->dumpInputs();
 
-        for (auto& descriptorIt : shaderResource->descriptors) {
-            ShaderResource::Descriptor* descriptor = &descriptorIt.second;
-            if (descriptorsTypes.find(descriptor->descriptorType) == descriptorsTypes.end()) {
-                descriptorsTypes[descriptor->descriptorType] = 1;
+        for (auto& bindingIt : shaderResource->bindings) {
+            ShaderResource::Binding* binding = &bindingIt.second;
+            if (descriptorsTypes.find(binding->descriptorType) == descriptorsTypes.end()) {
+                descriptorsTypes[binding->descriptorType] = 1;
             } else {
-                descriptorsTypes[descriptor->descriptorType]++;
+                descriptorsTypes[binding->descriptorType]++;
             }
 
             VkDescriptorSetLayoutBinding layoutBinding = {};
-            layoutBinding.binding = descriptor->binding;
+            layoutBinding.binding = binding->binding;
             layoutBinding.descriptorCount = 1;
-            layoutBinding.descriptorType = descriptor->descriptorType;
+            layoutBinding.descriptorType = binding->descriptorType;
             layoutBinding.stageFlags = shaderResource->stage;
 
             descriptorSetLayout->addLayoutBinding(layoutBinding);
@@ -67,12 +67,12 @@ void ShaderProgram::createPipeline() {
             writeDescriptorSet.descriptorType = layoutBinding.descriptorType;
             writeDescriptorSet.descriptorCount = layoutBinding.descriptorCount;
 
-            const auto& bufferIt = bufferInfos.find(descriptorIt.first);
+            const auto& bufferIt = bufferInfos.find(bindingIt.first);
             if (bufferIt != bufferInfos.end()) {
                 VkBufferUsageFlagBits usage;
-                if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
+                if (binding->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
                     usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
-                } else if (descriptor->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
+                } else if (binding->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
@@ -83,7 +83,7 @@ void ShaderProgram::createPipeline() {
                 descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
             }
 
-            const auto& imageIt = imageInfos.find(descriptorIt.first);
+            const auto& imageIt = imageInfos.find(bindingIt.first);
             if (imageIt != imageInfos.end()) {
                 writeDescriptorSet.pImageInfo = &imageIt->second;
                 descriptorSets->addWriteDescriptorSet(writeDescriptorSet);

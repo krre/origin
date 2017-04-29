@@ -47,7 +47,7 @@ VkFormat ShaderResource::getFormat(Location* input) {
 }
 
 void ShaderResource::parse() {
-    assert(descriptors.empty());
+    assert(bindings.empty());
     assert(locations.empty());
 
     spv_context context = spvContextCreate(SPV_ENV_UNIVERSAL_1_0);
@@ -113,12 +113,12 @@ void ShaderResource::parse() {
                     blockType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
                 } else if (decorateName == "DescriptorSet") {
                     std::string& name = names.at(id);
-                    descriptors[name] = {};
-                    descriptors.at(name).set = std::stoi(line.at(3));
-                    descriptors.at(name).descriptorType = blockType; // from previous line
+                    bindings[name] = {};
+                    bindings.at(name).set = std::stoi(line.at(3));
+                    bindings.at(name).descriptorType = blockType; // from previous line
                 } else if (decorateName == "Binding") {
                     std::string& name = names.at(id);
-                    descriptors.at(name).binding = std::stoi(line.at(3));
+                    bindings.at(name).binding = std::stoi(line.at(3));
                 } else if (decorateName == "Location" && shaderType == "Vertex") {
                     std::string& name = names.at(id);
                     locations[name] = {};
@@ -141,23 +141,23 @@ void ShaderResource::parse() {
                     if (line.at(4) == "UniformConstant") {
                         if (type == "OpTypeImage") {
                             if (instructions.at(typeId).at(4) == "Buffer") {
-                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
+                                bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
                             } else {
                                 if (instructions.at(typeId).at(9) == "Unknown") {
-                                    descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
+                                    bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
                                 } else {
-                                    descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+                                    bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
                                 }
                             }
                         } else if (type == "OpTypeSampler") {
-                            descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
+                            bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
                         } else if (type == "OpTypeSampledImage") {
                             std::string& typeId2 = instructions.at(typeId).at(3);
                             std::string& type2 = instructions.at(typeId2).at(4);
                             if (type2 == "Buffer") {
-                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
+                                bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
                             } else {
-                                descriptors.at(name).descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+                                bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
                             }
                         }
                     } else if (line.at(4) == "Input" && shaderType == "Vertex") {
@@ -189,7 +189,7 @@ void ShaderResource::parse() {
 
 void ShaderResource::dumpDescriptors() {
     PRINT("Dump SPIR-V descriptors:")
-    for (auto& descriptor : descriptors) {
+    for (auto& descriptor : bindings) {
         PRINT("name: " << descriptor.first
               << ", set: " << descriptor.second.set
               << ", binding: " << descriptor.second.binding

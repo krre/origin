@@ -10,7 +10,7 @@ class ShaderResource : public Resource {
 
 public:
 
-    struct Descriptor {
+    struct Binding {
         int set;
         int binding;
         VkDescriptorType descriptorType;
@@ -37,7 +37,7 @@ private:
     VkShaderStageFlagBits stage;
     std::vector<uint32_t> code;
     std::map<std::string, Location> locations;
-    std::map<std::string, Descriptor> descriptors;
+    std::map<std::string, Binding> bindings;
 
     void parse();
 };

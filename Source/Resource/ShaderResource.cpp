@@ -187,7 +187,7 @@ void ShaderResource::parse() {
     spvContextDestroy(context);
 }
 
-void ShaderResource::dumpDescriptors() {
+void ShaderResource::dumpBindings() {
     PRINT("Dump SPIR-V descriptors:")
     for (auto& descriptor : bindings) {
         PRINT("name: " << descriptor.first

@@ -30,7 +30,7 @@ public:
     size_t getCodeSize() const { return code.size(); }
     static VkFormat getFormat(Location* input);
 
-    void dumpDescriptors();
+    void dumpBindings();
     void dumpInputs();
 
 private:

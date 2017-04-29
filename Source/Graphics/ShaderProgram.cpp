@@ -41,7 +41,7 @@ void ShaderProgram::createPipeline() {
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
 
     for (auto& shaderResource : shaderResources) {
-//        shaderResource->dumpDescriptors();
+//        shaderResource->dumpBindings();
 //        shaderResource->dumpInputs();
 
         for (auto& bindingIt : shaderResource->bindings) {

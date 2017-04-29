@@ -96,7 +96,7 @@ void ShaderProgram::createPipeline() {
             if (inputInfoIt != locationInfos.end()) {
                 ShaderResource::Location* input = &location.second;
                 locationInfos.at(name).location = input->location;
-                locationInfos.at(name).format = ShaderResource::getFormat(input);
+                locationInfos.at(name).format = input->format;
                 graphicsPipeline->addVertexAttributeDescription(locationInfos.at(name));
             }
         }

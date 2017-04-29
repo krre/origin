@@ -32,12 +32,12 @@ void ShaderResource::load(const std::string& path) {
     }
 }
 
-VkFormat ShaderResource::getFormat(Location* input) {
-    if (input->variableType == "OpTypeVector") {
-        if (input->valueType == "OpTypeFloat") {
-            if (input->vectorCount == 2) {
+VkFormat ShaderResource::getFormat(const std::string& variableType, const std::string& valueType, int vectorCount) {
+    if (variableType == "OpTypeVector") {
+        if (valueType == "OpTypeFloat") {
+            if (vectorCount == 2) {
                 return VK_FORMAT_R32G32_SFLOAT;
-            } else if (input->vectorCount == 3) {
+            } else if (vectorCount == 3) {
                 return VK_FORMAT_R32G32B32_SFLOAT;
             }
         }
@@ -162,11 +162,11 @@ void ShaderResource::parse() {
                         }
                     } else if (line.at(4) == "Input" && shaderType == "Vertex") {
                         if (locations.find(name) != locations.end()) {
-                            locations.at(name).variableType = type;
                             if (type == "OpTypeVector") {
-                                locations.at(name).vectorCount = std::stoi(instructions.at(typeId).at(4));
+                                int vectorCount = std::stoi(instructions.at(typeId).at(4));
                                 std::string& vectorTypeId = instructions.at(typeId).at(3);
-                                locations.at(name).valueType = instructions.at(vectorTypeId).at(2);
+                                std::string valueType = instructions.at(vectorTypeId).at(2);
+                                locations.at(name).format = getFormat(type, valueType, vectorCount);
                             }
                         }
                     }
@@ -202,8 +202,6 @@ void ShaderResource::dumpLocations() {
     for (auto& input : locations) {
         PRINT("name: " << input.first
               << ", location: " << input.second.location
-              << ", variableType: " << input.second.variableType
-              << ", valueType: " << input.second.valueType
-              << ", vectorCount: " << input.second.vectorCount)
+              << ", format: " << input.second.format)
     }
 }

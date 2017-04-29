@@ -18,9 +18,7 @@ public:
 
     struct Location {
         int location;
-        std::string variableType;
-        std::string valueType;
-        int vectorCount;
+        VkFormat format;
     };
 
     ShaderResource();
@@ -28,12 +26,13 @@ public:
     VkShaderStageFlagBits getStage() const { return stage; }
     const uint32_t* getCodeData() const { return code.data(); }
     size_t getCodeSize() const { return code.size(); }
-    static VkFormat getFormat(Location* input);
 
     void dumpBindings();
     void dumpLocations();
 
 private:
+    VkFormat getFormat(const std::string& variableType, const std::string& OpTypeFloat, int vectorCount = 0);
+
     VkShaderStageFlagBits stage;
     std::vector<uint32_t> code;
     std::map<std::string, Location> locations;

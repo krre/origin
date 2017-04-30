@@ -46,33 +46,27 @@ void ShaderProgram::createPipeline() {
 
         for (auto& bindingIt : shaderResource->bindings) {
             ShaderResource::Binding* binding = &bindingIt.second;
-            if (descriptorsTypes.find(binding->descriptorType) == descriptorsTypes.end()) {
-                descriptorsTypes[binding->descriptorType] = 1;
+            if (descriptorsTypes.find(binding->layoutBinding.descriptorType) == descriptorsTypes.end()) {
+                descriptorsTypes[binding->layoutBinding.descriptorType] = 1;
             } else {
-                descriptorsTypes[binding->descriptorType]++;
+                descriptorsTypes[binding->layoutBinding.descriptorType]++;
             }
 
-            VkDescriptorSetLayoutBinding layoutBinding = {};
-            layoutBinding.binding = binding->binding;
-            layoutBinding.descriptorCount = 1;
-            layoutBinding.descriptorType = binding->descriptorType;
-            layoutBinding.stageFlags = shaderResource->stage;
-
-            descriptorSetLayout->addLayoutBinding(layoutBinding);
+            descriptorSetLayout->addLayoutBinding(binding->layoutBinding);
 
             VkWriteDescriptorSet writeDescriptorSet = {};
             writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            writeDescriptorSet.dstBinding = layoutBinding.binding;
+            writeDescriptorSet.dstBinding = binding->layoutBinding.binding;
             writeDescriptorSet.dstArrayElement = 0;
-            writeDescriptorSet.descriptorType = layoutBinding.descriptorType;
-            writeDescriptorSet.descriptorCount = layoutBinding.descriptorCount;
+            writeDescriptorSet.descriptorType = binding->layoutBinding.descriptorType;
+            writeDescriptorSet.descriptorCount = binding->layoutBinding.descriptorCount;
 
             const auto& bufferIt = bufferInfos.find(bindingIt.first);
             if (bufferIt != bufferInfos.end()) {
                 VkBufferUsageFlagBits usage;
-                if (binding->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
+                if (binding->layoutBinding.descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
                     usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
-                } else if (binding->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
+                } else if (binding->layoutBinding.descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;

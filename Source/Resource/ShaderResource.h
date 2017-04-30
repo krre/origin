@@ -12,8 +12,7 @@ public:
 
     struct Binding {
         int set;
-        int binding;
-        VkDescriptorType descriptorType;
+        VkDescriptorSetLayoutBinding layoutBinding;
     };
 
     struct Location {

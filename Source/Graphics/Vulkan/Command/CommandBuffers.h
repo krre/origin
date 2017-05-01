@@ -1,9 +1,10 @@
 #pragma once
 #include "Graphics/Vulkan/Base/Collection.h"
 #include "Graphics/Vulkan/Device/Devicer.h"
-#include "CommandPool.h"
 
 namespace Vulkan {
+
+class CommandPool;
 
 class CommandBuffers : public Collection<VkCommandBuffer>, public Devicer {
 

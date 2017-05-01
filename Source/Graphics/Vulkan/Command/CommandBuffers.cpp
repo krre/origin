@@ -1,4 +1,5 @@
 #include "CommandBuffers.h"
+#include "CommandPool.h"
 #include <assert.h>
 
 using namespace Vulkan;

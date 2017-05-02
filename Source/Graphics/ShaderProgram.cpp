@@ -38,7 +38,7 @@ void ShaderProgram::addShader(const std::string& path) {
 }
 
 void ShaderProgram::createPipeline() {
-    std::map<VkDescriptorType, uint32_t> descriptorsTypes;
+    assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
 
     for (auto& shaderResource : shaderResources) {
 //        shaderResource->dumpBindings();

@@ -52,5 +52,6 @@ private:
     std::map<std::string, BufferInfo> bufferInfos;
     std::map<std::string, VkVertexInputAttributeDescription> locationInfos;
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
+    std::map<VkDescriptorType, uint32_t> descriptorsTypes;
     int vertexBindingCount = 0;
 };

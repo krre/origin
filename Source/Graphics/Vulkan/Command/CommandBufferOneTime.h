@@ -1,8 +1,12 @@
 #pragma once
-#include "CommandBuffers.h"
-#include "CommandBuffer.h"
+#include <memory>
+#include <vulkan/vulkan.h>
 
 namespace Vulkan {
+
+class Device;
+class CommandBuffers;
+class CommandBuffer;
 
 class CommandBufferOneTime {
 

@@ -14,6 +14,7 @@
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Framebuffer.h"
+#include "Graphics/Vulkan/Surface.h"
 #include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"

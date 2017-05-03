@@ -2,6 +2,7 @@
 #include "Instance.h"
 #include "Framebuffer.h"
 #include "Semaphore.h"
+#include "Surface.h"
 #include "Queue/PresentQueue.h"
 #include "Image/Image.h"
 #include "Command/CommandBufferOneTime.h"

@@ -7,6 +7,7 @@
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Framebuffer.h"
+#include "Graphics/Vulkan/Surface.h"
 #include "Graphics/Vulkan/Descriptor/DescriptorSets.h"
 #include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "Resource/ShaderResource.h"

@@ -2,7 +2,6 @@
 #include "Graphics/Vulkan/Base/Handle.h"
 #include "Graphics/Vulkan/Device/Devicer.h"
 #include "Graphics/Vulkan/Device/DeviceMemory.h"
-#include "Graphics/Vulkan/Sampler.h"
 
 namespace Vulkan {
 

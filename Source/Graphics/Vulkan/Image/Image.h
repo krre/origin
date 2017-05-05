@@ -1,9 +1,10 @@
 #pragma once
 #include "Graphics/Vulkan/Base/Handle.h"
 #include "Graphics/Vulkan/Device/Devicer.h"
-#include "Graphics/Vulkan/Device/DeviceMemory.h"
 
 namespace Vulkan {
+
+class DeviceMemory;
 
 class Image : public Handle<VkImage>, public Devicer {
 
@@ -12,7 +13,7 @@ public:
     ~Image();
     void create() override;
     void destroy() override;
-    DeviceMemory* getMemory() { return &memory; }
+    DeviceMemory* getMemory() { return memory.get(); }
 
     void setWidth(uint32_t width);
     uint32_t getWidth() const { return createInfo.extent.width; }
@@ -29,7 +30,7 @@ public:
 
 private:
     VkImageCreateInfo createInfo = {};
-    DeviceMemory memory;
+    std::unique_ptr<DeviceMemory> memory;
 };
 
 } // Vulkan

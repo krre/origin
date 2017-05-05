@@ -1,10 +1,13 @@
 #include "Image.h"
+#include "Graphics/Vulkan/Device/DeviceMemory.h"
 #include <string.h>
 
 using namespace Vulkan;
 
 Image::Image(Device* device) :
-    Devicer(device), memory(device) {
+    Devicer(device) {
+    memory = std::unique_ptr<DeviceMemory>(new DeviceMemory());
+
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     createInfo.imageType = VK_IMAGE_TYPE_2D;
     createInfo.format = VK_FORMAT_R8G8B8A8_UNORM;
@@ -26,10 +29,10 @@ void Image::create() {
 
     VkMemoryRequirements memRequirements;
     vkGetImageMemoryRequirements(device->getHandle(), handle, &memRequirements);
-    memory.setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
-    memory.allocate(memRequirements.size);
+    memory->setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
+    memory->allocate(memRequirements.size);
 
-    vkBindImageMemory(device->getHandle(), handle, memory.getHandle(), 0);
+    vkBindImageMemory(device->getHandle(), handle, memory->getHandle(), 0);
 }
 
 void Image::destroy() {
@@ -58,7 +61,7 @@ void Image::setInitialLayout(VkImageLayout initialLayout) {
 
 void Image::write(void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
-    memory.map(&mapData, size, offset);
+    memory->map(&mapData, size, offset);
     memcpy(mapData, data, size);
-    memory.unmap();
+    memory->unmap();
 }

@@ -4,6 +4,7 @@
 #include "Semaphore.h"
 #include "Surface.h"
 #include "Queue/PresentQueue.h"
+#include "Device/DeviceMemory.h"
 #include "Image/Image.h"
 #include "Command/CommandBufferOneTime.h"
 #include <lodepng/lodepng.h>

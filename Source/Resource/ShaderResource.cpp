@@ -129,7 +129,7 @@ void ShaderResource::parse() {
                 }
             } else if (firstWord.at(0) == '%') {
                 std::string& id = firstWord;
-                // Set descriptor for samplers and texel buffers
+                // Set descriptor for uniforms, samplers and texel buffers
                 // Example:
                 // %9 = OpTypeImage %6 2D 0 0 0 1 Unknown
                 // %10 = OpTypeSampledImage %9

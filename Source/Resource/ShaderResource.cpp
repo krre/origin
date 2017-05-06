@@ -135,7 +135,7 @@ void ShaderResource::parse() {
                 // %10 = OpTypeSampledImage %9
                 // %11 = OpTypePointer UniformConstant %10
                 // %12 = OpVariable %11 UniformConstant
-                if (line.size() == 5 && line.at(2) == "OpVariable") {
+                if (line.at(2) == "OpVariable") {
                     std::string& name = names.at(id);
                     std::string& pointerId = line.at(3);
                     std::string& typeId = instructions.at(pointerId).at(4);

@@ -24,7 +24,6 @@ void ShaderResource::load(const std::string& path) {
 
     file.seekg(0);
     file.read(reinterpret_cast<char*>(code.data()), fileSize);
-
     file.close();
 
     if (!code.empty()) {

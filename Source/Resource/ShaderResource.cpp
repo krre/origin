@@ -115,12 +115,12 @@ void ShaderResource::parse() {
                 } else if (decorateName == "DescriptorSet") {
                     std::string& name = names.at(id);
                     bindings[name] = {};
-                    bindings.at(name).set = std::stoi(line.at(3));
-                    bindings.at(name).layoutBinding.descriptorType = blockType; // from previous line of SPIR-V code
-                    bindings.at(name).layoutBinding.stageFlags = stage;
+//                    bindings.at(name).set = std::stoi(line.at(3));
+                    bindings.at(name).descriptorType = blockType; // from previous line of SPIR-V code
+                    bindings.at(name).stageFlags = stage;
                 } else if (decorateName == "Binding") {
                     std::string& name = names.at(id);
-                    bindings.at(name).layoutBinding.binding = std::stoi(line.at(3));
+                    bindings.at(name).binding = std::stoi(line.at(3));
                 } else if (decorateName == "Location" && shaderType == "Vertex") {
                     std::string& name = names.at(id);
                     locations[name] = {};
@@ -153,29 +153,29 @@ void ShaderResource::parse() {
                     }
 
                     if (bindings.find(name) != bindings.end()) {
-                        bindings.at(name).layoutBinding.descriptorCount = descriptorCount;
+                        bindings.at(name).descriptorCount = descriptorCount;
                     }
 
                     if (storageClass == "UniformConstant") {
                         if (type == "OpTypeImage") {
                             if (instructions.at(typeId).at(4) == "Buffer") {
-                                bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
+                                bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
                             } else {
                                 if (instructions.at(typeId).at(9) == "Unknown") {
-                                    bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
+                                    bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
                                 } else {
-                                    bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+                                    bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
                                 }
                             }
                         } else if (type == "OpTypeSampler") {
-                            bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
+                            bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
                         } else if (type == "OpTypeSampledImage") {
                             std::string& typeId2 = instructions.at(typeId).at(3);
                             std::string& type2 = instructions.at(typeId2).at(4);
                             if (type2 == "Buffer") {
-                                bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
+                                bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
                             } else {
-                                bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+                                bindings.at(name).descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
                             }
                         }
                     } else if (storageClass == "Uniform") {
@@ -213,9 +213,8 @@ void ShaderResource::dumpBindings() {
     PRINT("Dump SPIR-V descriptors:")
     for (auto& binding : bindings) {
         PRINT("name: " << binding.first
-              << ", set: " << binding.second.set
-              << ", binding: " << binding.second.layoutBinding.binding
-              << ", descriptorType: " << binding.second.layoutBinding.descriptorType)
+              << ", binding: " << binding.second.binding
+              << ", descriptorType: " << binding.second.descriptorType)
     }
 }
 

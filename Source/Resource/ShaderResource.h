@@ -10,11 +10,6 @@ class ShaderResource : public Resource {
 
 public:
 
-    struct Binding {
-        int set;
-        VkDescriptorSetLayoutBinding layoutBinding;
-    };
-
     struct Location {
         int location;
         VkFormat format;
@@ -35,7 +30,7 @@ private:
     VkShaderStageFlagBits stage;
     std::vector<uint32_t> code;
     std::map<std::string, Location> locations;
-    std::map<std::string, Binding> bindings;
+    std::map<std::string, VkDescriptorSetLayoutBinding> bindings;
 
     void parse();
 };

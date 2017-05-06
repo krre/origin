@@ -137,11 +137,12 @@ void ShaderResource::parse() {
                 // %12 = OpVariable %11 UniformConstant
                 if (line.at(2) == "OpVariable") {
                     std::string& name = names.at(id);
+                    std::string& storageClass = line.at(4);
                     std::string& pointerId = line.at(3);
                     std::string& typeId = instructions.at(pointerId).at(4);
                     std::string& type = instructions.at(typeId).at(2);
 
-                    if (line.at(4) == "UniformConstant") {
+                    if (storageClass == "UniformConstant") {
                         if (type == "OpTypeImage") {
                             if (instructions.at(typeId).at(4) == "Buffer") {
                                 bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
@@ -163,7 +164,7 @@ void ShaderResource::parse() {
                                 bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
                             }
                         }
-                    } else if (line.at(4) == "Input" && shaderType == "Vertex") {
+                    } else if (storageClass == "Input" && shaderType == "Vertex") {
                         if (locations.find(name) != locations.end()) {
                             if (type == "OpTypeVector") {
                                 int vectorCount = std::stoi(instructions.at(typeId).at(4));

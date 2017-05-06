@@ -89,6 +89,8 @@ void ShaderResource::parse() {
                     stage = VK_SHADER_STAGE_VERTEX_BIT;
                 } else if (shaderType == "Fragment") {
                     stage = VK_SHADER_STAGE_FRAGMENT_BIT;
+                } else if (shaderType == "GLCompute") {
+                    stage = VK_SHADER_STAGE_COMPUTE_BIT;
                 } else {
                     assert(0 && "Unknown shader type");
                 }

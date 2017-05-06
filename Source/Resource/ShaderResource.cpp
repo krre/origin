@@ -116,7 +116,6 @@ void ShaderResource::parse() {
                     std::string& name = names.at(id);
                     bindings[name] = {};
                     bindings.at(name).set = std::stoi(line.at(3));
-                    bindings.at(name).layoutBinding.descriptorCount = 1;
                     bindings.at(name).layoutBinding.descriptorType = blockType; // from previous line of SPIR-V code
                     bindings.at(name).layoutBinding.stageFlags = stage;
                 } else if (decorateName == "Binding") {
@@ -140,6 +139,22 @@ void ShaderResource::parse() {
                     std::string& storageClass = line.at(4);
                     std::string& typeId = instructions.at(line.at(3)).at(4);
                     std::string& type = instructions.at(typeId).at(2);
+
+                    uint32_t descriptorCount = 1;
+                    // Find count of array elements.
+                    // Example:
+                    // %24 = OpConstant %14 13
+                    // %25 = OpTypeArray %23 %24
+                    // %26 = OpTypePointer Uniform %25
+                    // %27 = OpVariable %26 Uniform
+                    if (type == "OpTypeArray") {
+                        std::string& lengthId = instructions.at(typeId).at(4);
+                        descriptorCount = std::stoi(instructions.at(lengthId).at(4));
+                    }
+
+                    if (bindings.find(name) != bindings.end()) {
+                        bindings.at(name).layoutBinding.descriptorCount = descriptorCount;
+                    }
 
                     if (storageClass == "UniformConstant") {
                         if (type == "OpTypeImage") {

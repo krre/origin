@@ -116,7 +116,7 @@ void ShaderResource::parse() {
                     bindings[name] = {};
                     bindings.at(name).set = std::stoi(line.at(3));
                     bindings.at(name).layoutBinding.descriptorCount = 1;
-                    bindings.at(name).layoutBinding.descriptorType = blockType; // from previous line
+                    bindings.at(name).layoutBinding.descriptorType = blockType; // from previous line of SPIR-V code
                     bindings.at(name).layoutBinding.stageFlags = stage;
                 } else if (decorateName == "Binding") {
                     std::string& name = names.at(id);

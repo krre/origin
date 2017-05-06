@@ -164,6 +164,10 @@ void ShaderResource::parse() {
                                 bindings.at(name).layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
                             }
                         }
+                    } else if (storageClass == "Uniform") {
+                        // TODO: Add code
+                    } else if (storageClass == "PushConstant") {
+                        // TODO: Add code
                     } else if (storageClass == "Input" && shaderType == "Vertex") {
                         if (locations.find(name) != locations.end()) {
                             if (type == "OpTypeVector") {

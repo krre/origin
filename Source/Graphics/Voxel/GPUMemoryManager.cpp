@@ -1,6 +1,7 @@
 #include "GPUMemoryManager.h"
 #include "Resource/ResourceManager.h"
 #include "ECS/Components/Components.h"
+#include "ECS/Entity.h"
 
 GPUMemoryManager::GPUMemoryManager() {
 }

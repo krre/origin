@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Common.h"
-#include "ECS/Entity.h"
 #include "Graphics/Vulkan/Buffer/Buffer.h"
 #include <map>
 #include <vector>
@@ -8,6 +7,8 @@
 
 constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
 const int MAX_OCTREE_COUNT = 100;
+
+class Entity;
 
 class GPUMemoryManager {
 

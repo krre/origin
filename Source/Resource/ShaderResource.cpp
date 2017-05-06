@@ -138,8 +138,7 @@ void ShaderResource::parse() {
                 if (line.at(2) == "OpVariable") {
                     std::string& name = names.at(id);
                     std::string& storageClass = line.at(4);
-                    std::string& pointerId = line.at(3);
-                    std::string& typeId = instructions.at(pointerId).at(4);
+                    std::string& typeId = instructions.at(line.at(3)).at(4);
                     std::string& type = instructions.at(typeId).at(2);
 
                     if (storageClass == "UniformConstant") {

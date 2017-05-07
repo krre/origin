@@ -31,6 +31,7 @@ private:
     std::vector<uint32_t> code;
     std::map<std::string, Location> locations;
     std::map<std::string, VkDescriptorSetLayoutBinding> bindings;
+    int set = 0;
 
     void parse();
 };

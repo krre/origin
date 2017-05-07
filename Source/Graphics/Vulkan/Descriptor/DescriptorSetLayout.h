@@ -14,9 +14,8 @@ public:
     void destroy() override;
     void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 
-    VkDescriptorSetLayoutCreateInfo createInfo = {};
-
 private:
+    VkDescriptorSetLayoutCreateInfo createInfo = {};
     std::vector<VkDescriptorSetLayoutBinding> bindings;
 };
 

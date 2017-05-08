@@ -30,3 +30,7 @@ void ImageView::create() {
 void ImageView::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyImageView(device->getHandle(), handle, nullptr))
 }
+
+void ImageView::setFormat(VkFormat format) {
+    createInfo.format = format;
+}

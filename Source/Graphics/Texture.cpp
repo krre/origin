@@ -28,7 +28,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
     image->write(data.data(), data.size());
 
     imageView = std::unique_ptr<Vulkan::ImageView>(new Vulkan::ImageView(image->getHandle()));
-    imageView->createInfo.format = image->getFormat();
+    imageView->setFormat(image->getFormat());
     imageView->create();
 
     VkFormatProperties formatProps;

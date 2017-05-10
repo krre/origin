@@ -68,7 +68,7 @@ void Swapchain::create() {
 
     for (auto& image : images) {
         std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(image);
-        imageView->createInfo.format = surface->getFormats().at(0).format;
+        imageView->setFormat(surface->getFormats().at(0).format);
         imageView->create();
         imageViews.push_back(imageView);
 

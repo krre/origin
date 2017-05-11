@@ -13,6 +13,7 @@ public:
     void destroy() override;
     void setFormat(VkFormat format);
 
+private:
     VkImageViewCreateInfo createInfo = {};
 };
 

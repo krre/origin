@@ -2,6 +2,7 @@
 #include "Graphics/Vulkan/Device/DeviceMemory.h"
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
+#include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include <string.h>
 
 using namespace Vulkan;

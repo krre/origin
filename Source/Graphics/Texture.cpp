@@ -6,6 +6,7 @@
 #include "Vulkan/Queue/SubmitQueue.h"
 #include "Vulkan/Image/ImageView.h"
 #include "Vulkan/Image/Image.h"
+#include "Vulkan/Device/PhysicalDevice.h"
 
 Texture::Texture(const std::string& path, VkFormat format) {
     Vulkan::Device* device = Vulkan::Instance::get()->getDefaultDevice();

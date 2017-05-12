@@ -1,5 +1,6 @@
 #include "Device.h"
 #include "Core/Common.h"
+#include "PhysicalDevice.h"
 
 using namespace Vulkan;
 

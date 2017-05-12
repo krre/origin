@@ -17,6 +17,7 @@
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
 #include "Graphics/Vulkan/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include "UI/Text/Label.h"
 #include "UI/Rectangle.h"
 #include <glm/glm.hpp>

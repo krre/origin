@@ -1,12 +1,15 @@
 #pragma once
 #include "Core/Common.h"
-#include "Graphics/Vulkan/Buffer/Buffer.h"
 #include <map>
 #include <vector>
 #include <glm/glm.hpp>
 
 constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
 const int MAX_OCTREE_COUNT = 100;
+
+namespace Vulkan {
+    class Buffer;
+}
 
 class Entity;
 

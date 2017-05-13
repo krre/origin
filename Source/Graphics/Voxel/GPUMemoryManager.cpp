@@ -2,6 +2,7 @@
 #include "Resource/ResourceManager.h"
 #include "ECS/Components/Components.h"
 #include "ECS/Entity.h"
+#include "Graphics/Vulkan/Buffer/Buffer.h"
 
 GPUMemoryManager::GPUMemoryManager() {
 }

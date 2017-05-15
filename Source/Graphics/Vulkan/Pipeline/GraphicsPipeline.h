@@ -1,6 +1,5 @@
 #pragma once
 #include "Pipeline.h"
-#include "Graphics/Vulkan/RenderPass.h"
 
 namespace Vulkan {
 

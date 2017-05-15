@@ -4,6 +4,7 @@
 #include "Vulkan/Descriptor/DescriptorPool.h"
 #include "Vulkan/Descriptor/DescriptorSetLayout.h"
 #include "Vulkan/Descriptor/DescriptorSets.h"
+#include "Vulkan/RenderPass.h"
 #include "Resource/ResourceManager.h"
 #include "Resource/ShaderResource.h"
 #include "Core/Utils.h"

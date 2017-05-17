@@ -2,6 +2,7 @@
 #include "Core/App.h"
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
+#include "UI/LinearLayout.h"
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Instance.h"

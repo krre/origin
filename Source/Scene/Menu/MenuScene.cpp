@@ -3,6 +3,7 @@
 #include "Graphics/Plane.h"
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
+#include "Graphics/ShaderProgram.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Vulkan/Instance.h"
@@ -20,6 +21,7 @@
 
 MenuScene::MenuScene() {
     plane = std::unique_ptr<Plane>();
+    shaderProgram = std::unique_ptr<ShaderProgram>();
 }
 
 MenuScene::~MenuScene() {
@@ -27,23 +29,23 @@ MenuScene::~MenuScene() {
 }
 
 void MenuScene::init() {
-    shaderProgram.addShader("Shader/Base.vert.spv");
-    shaderProgram.addShader("Shader/Base.frag.spv");
+    shaderProgram->addShader("Shader/Base.vert.spv");
+    shaderProgram->addShader("Shader/Base.frag.spv");
 
-    shaderProgram.bindUniform("uboVert", sizeof(uboVert), &uboVert);
-    shaderProgram.bindUniform("uboFrag", sizeof(uboFrag), &uboFrag);
+    shaderProgram->bindUniform("uboVert", sizeof(uboVert), &uboVert);
+    shaderProgram->bindUniform("uboFrag", sizeof(uboFrag), &uboFrag);
 
-    shaderProgram.bindInput("position", sizeof(glm::vec2));
+    shaderProgram->bindInput("position", sizeof(glm::vec2));
 
     vertexBuffer->write(plane->getVertices().data(), plane->getVerticesSize());
     indexBuffer->write(plane->getIndices().data(), plane->getIndicesSize());
 
-    shaderProgram.createPipeline();
+    shaderProgram->createPipeline();
 
     buildCommandBuffers();
 
-    shaderProgram.writeUniform("uboVert");
-    shaderProgram.writeUniform("uboFrag");
+    shaderProgram->writeUniform("uboVert");
+    shaderProgram->writeUniform("uboFrag");
 }
 
 void MenuScene::update(float dt) {
@@ -69,7 +71,7 @@ void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
     commandBuffer->beginRenderPass(renderPassBeginInfo);
 
-    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
+    commandBuffer->bindPipeline(shaderProgram->getGraphicsPipeline());
 
     commandBuffer->addViewport(viewport);
     commandBuffer->setViewport(0);
@@ -81,11 +83,11 @@ void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     commandBuffer->bindVertexBuffers();
     commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
-    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
-        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
+    for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
+        commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
     }
 
-    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
+    commandBuffer->bindDescriptorSets(shaderProgram->getGraphicsPipeline()->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
     commandBuffer->drawIndexed(plane->getIndices().size(), 1, 0, 0, 0);
 
     commandBuffer->endRenderPass();

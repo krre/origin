@@ -1,8 +1,8 @@
 #pragma once
 #include "Scene/Scene2D.h"
-#include "Graphics/ShaderProgram.h"
 
 class Plane;
+class ShaderProgram;
 
 class MenuScene : public Scene2D {
 
@@ -26,5 +26,5 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
     std::unique_ptr<Plane> plane;
-    ShaderProgram shaderProgram;
+    std::unique_ptr<ShaderProgram> shaderProgram;
 };

@@ -1,9 +1,7 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "UI/Text/Font.h"
+#include "Resource/Resource.h"
 #include <map>
-
-class Resource;
 
 class ResourceManager : public Singleton<ResourceManager> {
 

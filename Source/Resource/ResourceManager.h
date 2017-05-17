@@ -1,9 +1,10 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "Resource/Resource.h"
 #include "UI/Text/Font.h"
 #include "Graphics/Voxel/Octree.h"
 #include <map>
+
+class Resource;
 
 class ResourceManager : public Singleton<ResourceManager> {
 

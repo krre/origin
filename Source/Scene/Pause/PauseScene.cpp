@@ -3,6 +3,7 @@
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "UI/LinearLayout.h"
+#include "UI/Button.h"
 #include "Graphics/Vulkan/Swapchain.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Instance.h"
@@ -11,6 +12,8 @@
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
 
 PauseScene::PauseScene() {
+    continueButton = std::unique_ptr<Button>();
+    exitButton = std::unique_ptr<Button>();
     isFullScreen = false;
 }
 
@@ -29,20 +32,20 @@ void PauseScene::update(float dt) {
 }
 
 void PauseScene::create() {
-    continueButton.setText("Continue");
-    continueButton.setZ(0.5f);
+    continueButton->setText("Continue");
+    continueButton->setZ(0.5f);
 
-    exitButton.setText("Exit");
-    exitButton.setZ(0.5f);
+    exitButton->setText("Exit");
+    exitButton->setZ(0.5f);
 
     layout->setSize({ 100, 25 });
     layout->setSpacing(25); // TODO: Fix - abnormally!
-    layout->addControl(&continueButton);
-    layout->addControl(&exitButton);
+    layout->addControl(continueButton.get());
+    layout->addControl(exitButton.get());
     setRoot(layout);
 
-    continueButton.clicked.connect<PauseScene, &PauseScene::onContinueButtonClicked>(this);
-    exitButton.clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);
+    continueButton->clicked.connect<PauseScene, &PauseScene::onContinueButtonClicked>(this);
+    exitButton->clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);
 }
 
 void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {

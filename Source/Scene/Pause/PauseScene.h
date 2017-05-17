@@ -1,9 +1,9 @@
 #pragma once
 #include "Scene/Scene2D.h"
-#include "UI/Button.h"
 #include "UI/UITypes.h"
 
 class LinearLayout;
+class Button;
 
 class PauseScene : public Scene2D {
 
@@ -20,6 +20,6 @@ private:
     void onExitButtonClicked();
 
     std::shared_ptr<LinearLayout> layout = std::make_shared<LinearLayout>(Direction::VERICAL);
-    Button continueButton;
-    Button exitButton;
+    std::unique_ptr<Button> continueButton;
+    std::unique_ptr<Button> exitButton;
 };

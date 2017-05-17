@@ -20,8 +20,8 @@
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
 
 MenuScene::MenuScene() {
-    plane = std::unique_ptr<Plane>();
-    shaderProgram = std::unique_ptr<ShaderProgram>();
+    plane = std::unique_ptr<Plane>(new Plane);
+    shaderProgram = std::unique_ptr<ShaderProgram>(new ShaderProgram);
 }
 
 MenuScene::~MenuScene() {

@@ -3,6 +3,7 @@
 #include "Core/Game.h"
 #include "Scene/World/WorldScene.h"
 #include "ECS/EntityManager.h"
+#include "ECS/Entity.h"
 #include "ECS/Components/TransformComponent.h"
 #include "Resource/ShaderResource.h"
 #include "Resource/ResourceManager.h"

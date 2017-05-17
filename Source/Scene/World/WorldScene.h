@@ -1,8 +1,6 @@
 #pragma once
 #include "Scene/Scene3D.h"
 #include "Graphics/ShaderProgram.h"
-#include "ECS/Entity.h"
-#include "Graphics/Voxel/GPUMemoryManager.h"
 #include "Graphics/Plane.h"
 #include <SDL.h>
 #include <glm/glm.hpp>

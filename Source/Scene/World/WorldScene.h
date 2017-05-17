@@ -1,13 +1,13 @@
 #pragma once
 #include "Scene/Scene3D.h"
-#include "Graphics/ShaderProgram.h"
-#include "Graphics/Plane.h"
 #include <SDL.h>
 #include <glm/glm.hpp>
 
 const int LOD_PIXEL_LIMIT = 1;
 
 class Console;
+class Plane;
+class ShaderProgram;
 class VertexBuffer;
 class IndexBuffer;
 
@@ -66,6 +66,6 @@ private:
     std::shared_ptr<Console> console;
     EntityId characterId;
     uint64_t seed;
-    Plane plane;
-    ShaderProgram shaderProgram;
+    std::unique_ptr<Plane> plane;
+    std::unique_ptr<ShaderProgram> shaderProgram;
 };

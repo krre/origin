@@ -1,7 +1,8 @@
 #pragma once
 #include "Scene/Scene2D.h"
 #include "Graphics/ShaderProgram.h"
-#include "Graphics/Plane.h"
+
+class Plane;
 
 class MenuScene : public Scene2D {
 
@@ -24,6 +25,6 @@ private:
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
-    Plane plane;
+    std::unique_ptr<Plane> plane;
     ShaderProgram shaderProgram;
 };

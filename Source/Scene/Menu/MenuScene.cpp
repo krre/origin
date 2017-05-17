@@ -1,5 +1,6 @@
 #include "MenuScene.h"
 #include "Core/App.h"
+#include "Graphics/Plane.h"
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "Graphics/Buffer/VertexBuffer.h"
@@ -18,6 +19,7 @@
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
 
 MenuScene::MenuScene() {
+    plane = std::unique_ptr<Plane>();
 }
 
 MenuScene::~MenuScene() {
@@ -33,8 +35,8 @@ void MenuScene::init() {
 
     shaderProgram.bindInput("position", sizeof(glm::vec2));
 
-    vertexBuffer->write(plane.getVertices().data(), plane.getVerticesSize());
-    indexBuffer->write(plane.getIndices().data(), plane.getIndicesSize());
+    vertexBuffer->write(plane->getVertices().data(), plane->getVerticesSize());
+    indexBuffer->write(plane->getIndices().data(), plane->getIndicesSize());
 
     shaderProgram.createPipeline();
 
@@ -84,7 +86,7 @@ void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     }
 
     commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
-    commandBuffer->drawIndexed(plane.getIndices().size(), 1, 0, 0, 0);
+    commandBuffer->drawIndexed(plane->getIndices().size(), 1, 0, 0, 0);
 
     commandBuffer->endRenderPass();
 }

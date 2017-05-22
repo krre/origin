@@ -40,7 +40,7 @@ void SceneManager::popScene() {
 }
 
 void SceneManager::setScene(std::shared_ptr<Scene> scene) {
-    for (auto& scene : scenes) {
+    for (const auto& scene : scenes) {
         scene->pause();
     }
     scenes.clear();
@@ -48,7 +48,7 @@ void SceneManager::setScene(std::shared_ptr<Scene> scene) {
 }
 
 void SceneManager::update(float dt) {
-    for (auto& scene : scenes) {
+    for (const auto& scene : scenes) {
         if (scene->getVisible()) {
             scene->update(dt);
         }
@@ -62,7 +62,7 @@ void SceneManager::update(float dt) {
 void SceneManager::draw(float dt) {
     Vulkan::Instance::get()->getSurface()->getSwapchain()->acquireNextImage();
 
-    for (auto& scene : scenes) {
+    for (const auto& scene : scenes) {
         if (scene->getVisible()) {
             scene->draw(dt);
         }
@@ -76,7 +76,7 @@ void SceneManager::draw(float dt) {
 }
 
 void SceneManager::rebuild() {
-    for (auto& scene : scenes) {
+    for (const auto& scene : scenes) {
         scene->buildCommandBuffers();
     }
 
@@ -85,7 +85,7 @@ void SceneManager::rebuild() {
 
 void SceneManager::updateSemaphores() {
     std::vector<Scene*> visibleScenes;
-    for (auto& scene : scenes) {
+    for (const auto& scene : scenes) {
         if (scene->getVisible()) {
             visibleScenes.push_back(scene.get());
         }

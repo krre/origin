@@ -41,7 +41,7 @@ void ShaderProgram::addShader(const std::string& path) {
 void ShaderProgram::createPipeline() {
     assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
 
-    for (auto& shaderResource : shaderResources) {
+    for (const auto& shaderResource : shaderResources) {
 //        shaderResource->dumpBindings();
 //        shaderResource->dumpLocations();
 
@@ -104,7 +104,7 @@ void ShaderProgram::createPipeline() {
     graphicsPipeline->setPipelineLayout(pipelineLayout->getHandle());
 
     // Descriptor pool
-    for (auto& it : descriptorsTypes) {
+    for (const auto& it : descriptorsTypes) {
         descriptorPool->addPoolSize(it.first, it.second);
     }
 

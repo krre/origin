@@ -48,7 +48,7 @@ std::string Settings::getValue(const std::string& name) {
 void Settings::saveAll() {
     std::ofstream out(path);
     std::string line;
-    for (auto& it : storage) {
+    for (const auto& it : storage) {
         line = it.first + " = " + it.second + "\n";
         out << line;
     }

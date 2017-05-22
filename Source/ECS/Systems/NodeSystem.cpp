@@ -8,7 +8,7 @@ NodeSystem::NodeSystem() {
 }
 
 void NodeSystem::process(float dt) {
-    for (auto& entity : entityManager->getEntities()) {
+    for (const auto& entity : entityManager->getEntities()) {
         NodeComponent* nc = static_cast<NodeComponent*>(entity.second->components[ComponentType::Node].get());
         if (nc) {
 
@@ -17,11 +17,11 @@ void NodeSystem::process(float dt) {
 }
 
 void NodeSystem::addChild(EntityId parent, EntityId child) {
-    for (auto& parentEntity : entityManager->getEntities()) {
+    for (const auto& parentEntity : entityManager->getEntities()) {
         if (parentEntity.first == parent) {
             NodeComponent* ncParent = static_cast<NodeComponent*>(parentEntity.second->components[ComponentType::Node].get());
             ncParent->children.push_back(child);
-            for (auto& childEntity: entityManager->getEntities()) {
+            for (const auto& childEntity: entityManager->getEntities()) {
                 NodeComponent* ncChild = static_cast<NodeComponent*>(childEntity.second->components[ComponentType::Node].get());
                 ncChild->parent = parent;
                 break;
@@ -32,11 +32,11 @@ void NodeSystem::addChild(EntityId parent, EntityId child) {
 }
 
 void NodeSystem::removeChild(EntityId parent, EntityId child) {
-    for (auto& parentEntity : entityManager->getEntities()) {
+    for (const auto& parentEntity : entityManager->getEntities()) {
         if (parentEntity.first == parent) {
             NodeComponent* ncParent = static_cast<NodeComponent*>(parentEntity.second->components[ComponentType::Node].get());
             ncParent->children.erase(std::remove(ncParent->children.begin(), ncParent->children.end(), child), ncParent->children.end());
-            for (auto& childEntity: entityManager->getEntities()) {
+            for (const auto& childEntity: entityManager->getEntities()) {
                 NodeComponent* ncChild = static_cast<NodeComponent*>(childEntity.second->components[ComponentType::Node].get());
                 ncChild->parent = 0;
                 break;
@@ -47,10 +47,10 @@ void NodeSystem::removeChild(EntityId parent, EntityId child) {
 }
 
 void NodeSystem::removeChildren(EntityId parent) {
-    for (auto& parentEntity : entityManager->getEntities()) {
+    for (const auto& parentEntity : entityManager->getEntities()) {
         if (parentEntity.first == parent) {
             NodeComponent* ncParent = static_cast<NodeComponent*>(parentEntity.second->components[ComponentType::Node].get());
-            for (auto& child: ncParent->children) {
+            for (const auto& child: ncParent->children) {
                 removeChild(parent, child);
             }
             break;

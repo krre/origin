@@ -212,7 +212,7 @@ void ShaderResource::parse() {
 
 void ShaderResource::dumpBindings() {
     PRINT("Dump SPIR-V descriptors:")
-    for (auto& binding : bindings) {
+    for (const auto& binding : bindings) {
         PRINT("name: " << binding.first
               << ", binding: " << binding.second.binding
               << ", descriptorType: " << binding.second.descriptorType)
@@ -221,7 +221,7 @@ void ShaderResource::dumpBindings() {
 
 void ShaderResource::dumpLocations() {
     PRINT("Dump SPIR-V inputs:")
-    for (auto& input : locations) {
+    for (const auto& input : locations) {
         PRINT("name: " << input.first
               << ", location: " << input.second.location
               << ", format: " << input.second.format)

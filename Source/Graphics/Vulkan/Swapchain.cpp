@@ -67,7 +67,7 @@ void Swapchain::create() {
     images.resize(count);
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
 
-    for (auto& image : images) {
+    for (const auto& image : images) {
         std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(image);
         imageView->setFormat(surface->getFormats().at(0).format);
         imageView->create();

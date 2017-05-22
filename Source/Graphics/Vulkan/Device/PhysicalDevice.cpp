@@ -20,7 +20,7 @@ VkFormat PhysicalDevice::getSupportedDepthFormat() {
         VK_FORMAT_D16_UNORM
     };
 
-    for (auto& format : depthFormats) {
+    for (const auto& format : depthFormats) {
         VkFormatProperties formatProps;
         vkGetPhysicalDeviceFormatProperties(handle, format, &formatProps);
         // Format must support depth stencil attachment for optimal tiling
@@ -58,7 +58,7 @@ bool PhysicalDevice::getSupportBlit() {
 
 uint32_t PhysicalDevice::findQueue(VkQueueFlags flags) {
     uint32_t i = 0;
-    for (auto& familyProperty : queueFamilyProperties) {
+    for (const auto& familyProperty : queueFamilyProperties) {
         if (familyProperty.queueCount > 0 && (familyProperty.queueFlags & flags)) {
             return i;
         }

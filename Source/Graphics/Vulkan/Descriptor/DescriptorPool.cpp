@@ -22,7 +22,7 @@ void DescriptorPool::create() {
     createInfo.poolSizeCount = poolSizes.size();
     createInfo.pPoolSizes = poolSizes.data();
     if (!createInfo.maxSets) {
-        for (auto& poolSize : poolSizes) {
+        for (const auto& poolSize : poolSizes) {
             createInfo.maxSets += poolSize.descriptorCount;
         }
     }

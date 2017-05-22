@@ -109,7 +109,7 @@ void Font::renderText(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, cons
     int posx = 0;
     int posy = base - lineHeight;
 
-    for (auto& sign : text) {
+    for (const auto& sign : text) {
         Character* character = &characters[(int)sign];
 
         if (sign == '\n') {
@@ -137,7 +137,7 @@ void Font::renderText(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, cons
 
         std::vector<uint32_t> characterIndices = { 0, 1, 2, 2, 3, 0 };
 
-        for (auto& index : characterIndices) {
+        for (const auto& index : characterIndices) {
             indices.push_back(indexOffset + index);
         }
 

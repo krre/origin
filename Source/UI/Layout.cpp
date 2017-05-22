@@ -6,17 +6,17 @@ Layout::Layout() {
 }
 
 void Layout::resize(int width, int height) {
-    for (auto& layout : layouts) {
+    for (const auto& layout : layouts) {
         layout->resize(width, height);
     }
 }
 
 void Layout::draw(float dt) {
-    for (auto& layout : layouts) {
+    for (const auto& layout : layouts) {
         layout->draw(dt);
     }
 
-    for (auto& control : controls) {
+    for (const auto& control : controls) {
         control->draw(dt);
     }
 }
@@ -52,7 +52,7 @@ void Layout::removeLayout(std::shared_ptr<Layout> layout) {
 }
 
 void Layout::clearLayouts() {
-    for (auto& layout : layouts) {
+    for (const auto& layout : layouts) {
         layout->setParent(nullptr);
     }
     layouts.clear();

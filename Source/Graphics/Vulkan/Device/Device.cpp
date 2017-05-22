@@ -53,7 +53,7 @@ void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> qu
     int offset = this->queuePriorities.size();
 
     // Append new priorities with queueFamilyIndex to common storage for all queueCreateInfos
-    for (auto& queuePriority : queuePriorities) {
+    for (const auto& queuePriority : queuePriorities) {
         this->queuePriorities.push_back(queuePriority);
     }
 

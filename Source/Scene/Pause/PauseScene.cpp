@@ -42,7 +42,7 @@ void PauseScene::create() {
     layout->setSpacing(25); // TODO: Fix - abnormally!
     layout->addControl(continueButton.get());
     layout->addControl(exitButton.get());
-    setRoot(layout);
+    setRootControl(layout);
 
     continueButton->clicked.connect<PauseScene, &PauseScene::onContinueButtonClicked>(this);
     exitButton->clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);

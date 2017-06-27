@@ -40,7 +40,7 @@ DebugHUD::~DebugHUD() {
 void DebugHUD::init() {
     std::shared_ptr<Rectangle> rect = std::make_shared<Rectangle>(Size(300, 200));
     rect->setColor(Color(0.0, 0.0, 0.0, 0.5));
-    setRoot(rect);
+    setRootControl(rect);
 
     displayLabel = std::make_shared<Label>();
     displayLabel->setPosition({ 7, 5 });

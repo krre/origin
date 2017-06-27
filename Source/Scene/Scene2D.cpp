@@ -25,8 +25,10 @@ void Scene2D::draw(float dt) {
 
 void Scene2D::setRootControl(std::shared_ptr<Control> root) {
     this->root = root;
+    this->root->setSize(size);
 }
 
 void Scene2D::onWindowResize(int width, int height) {
-
+    size = Size(width, height);
+    root->setSize(size);
 }

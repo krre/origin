@@ -1,5 +1,4 @@
 #include "MenuScene.h"
-#include "Core/App.h"
 #include "Graphics/Plane.h"
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
@@ -8,16 +7,11 @@
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Swapchain.h"
-#include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Surface.h"
+#include "Graphics/Vulkan/RenderPass.h"
 #include "Graphics/Vulkan/Descriptor/DescriptorSets.h"
 #include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
-#include "Resource/ShaderResource.h"
-#include "Resource/ResourceManager.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
-#include "Graphics/Vulkan/Command/CommandBuffers.h"
-#include "Graphics/Plane.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
 
 MenuScene::MenuScene() {
     plane = std::unique_ptr<Plane>(new Plane);

@@ -1,7 +1,6 @@
 #include "Devicer.h"
 #include "Graphics/Vulkan/Instance.h"
 
-
 using namespace Vulkan;
 
 Devicer::Devicer(Device* device) : device(device) {

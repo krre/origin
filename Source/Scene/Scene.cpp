@@ -74,11 +74,11 @@ void Scene::setBackgroundColor(const Color& backgroundColor) {
     this->backgroundColor = backgroundColor;
 }
 
-void Scene::addCamera(std::shared_ptr<Entity> camera) {
+void Scene::addCamera(const std::shared_ptr<Entity>& camera) {
     cameras.push_back(camera);
 }
 
-void Scene::removeCamera(std::shared_ptr<Entity> camera) {
+void Scene::removeCamera(const std::shared_ptr<Entity>& camera) {
     cameras.erase(std::remove(cameras.begin(), cameras.end(), camera), cameras.end());
 }
 
@@ -86,7 +86,7 @@ void Scene::clearCameras() {
     cameras.clear();
 }
 
-void Scene::setCurrentCamera(std::shared_ptr<Entity> currentCamera) {
+void Scene::setCurrentCamera(const std::shared_ptr<Entity>& currentCamera) {
     this->currentCamera = currentCamera;
     MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
     movementControllerSystem->setMoveEntity(currentCamera.get());

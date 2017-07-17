@@ -11,7 +11,7 @@ SceneManager::SceneManager() {
     DebugHUD::get()->init();
 }
 
-void SceneManager::pushScene(std::shared_ptr<Scene> scene) {
+void SceneManager::pushScene(const std::shared_ptr<Scene>& scene) {
     if (!scenes.empty()) {
         scenes.back()->pause();
         if (scene->getIsFullScreen()) {
@@ -39,7 +39,7 @@ void SceneManager::popScene() {
     }
 }
 
-void SceneManager::setScene(std::shared_ptr<Scene> scene) {
+void SceneManager::setScene(const std::shared_ptr<Scene>& scene) {
     for (const auto& scene : scenes) {
         scene->pause();
     }

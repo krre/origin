@@ -7,9 +7,9 @@ class SceneManager : public Singleton<SceneManager> {
 
 public:
     SceneManager();
-    void pushScene(std::shared_ptr<Scene> scene);
+    void pushScene(const std::shared_ptr<Scene>& scene);
     void popScene();
-    void setScene(std::shared_ptr<Scene> scene);
+    void setScene(const std::shared_ptr<Scene>& scene);
 
     void update(float dt);
     void draw(float dt);

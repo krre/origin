@@ -39,13 +39,13 @@ void Layout::clearControls() {
     controls.clear();
 }
 
-void Layout::addLayout(std::shared_ptr<Layout> layout) {
+void Layout::addLayout(const std::shared_ptr<Layout>& layout) {
     layouts.push_back(layout);
     layout->setParent(this);
     updateContentPostion();
 }
 
-void Layout::removeLayout(std::shared_ptr<Layout> layout) {
+void Layout::removeLayout(const std::shared_ptr<Layout>& layout) {
     layouts.erase(std::remove(layouts.begin(), layouts.end(), layout), layouts.end());
     layout->setParent(nullptr);
     updateContentPostion();

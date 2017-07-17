@@ -17,7 +17,7 @@ public:
     Scene2D();
     ~Scene2D();
     void draw(float dt) override final;
-    void setRootControl(std::shared_ptr<Control> root);
+    void setRootControl(const std::shared_ptr<Control>& root);
 
 protected:
     std::unique_ptr<VertexBuffer> vertexBuffer;

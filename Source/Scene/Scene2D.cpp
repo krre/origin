@@ -23,7 +23,7 @@ void Scene2D::draw(float dt) {
     queue->submit();
 }
 
-void Scene2D::setRootControl(std::shared_ptr<Control> root) {
+void Scene2D::setRootControl(const std::shared_ptr<Control>& root) {
     this->root = root;
     this->root->setSize(size);
 }

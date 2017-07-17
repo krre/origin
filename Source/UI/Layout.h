@@ -14,8 +14,8 @@ public:
     void removeControl(Control* control);
     void clearControls();
 
-    void addLayout(std::shared_ptr<Layout> layout);
-    void removeLayout(std::shared_ptr<Layout> layout);
+    void addLayout(const std::shared_ptr<Layout>& layout);
+    void removeLayout(const std::shared_ptr<Layout>& layout);
     void clearLayouts();
 
     int getSpacing() const { return spacing; }

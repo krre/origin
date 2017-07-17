@@ -21,11 +21,11 @@ std::shared_ptr<System> EntityManager::getSystem(SystemType type) {
     return system;
 }
 
-void EntityManager::addEntity(std::shared_ptr<Entity> entity) {
+void EntityManager::addEntity(const std::shared_ptr<Entity>& entity) {
     entities[entity->getId()] = entity;
 }
 
-void EntityManager::removeEntity(std::shared_ptr<Entity> entity) {
+void EntityManager::removeEntity(const std::shared_ptr<Entity>& entity) {
 //    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 }
 

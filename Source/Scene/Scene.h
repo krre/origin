@@ -31,11 +31,11 @@ public:
     void setBackgroundColor(const Color& backgroundColor);
     const Color& getBackgroundColor() const { return backgroundColor; }
 
-    void addCamera(std::shared_ptr<Entity> camera);
-    void removeCamera(std::shared_ptr<Entity> camera);
+    void addCamera(const std::shared_ptr<Entity>& camera);
+    void removeCamera(const std::shared_ptr<Entity>& camera);
     void clearCameras();
 
-    void setCurrentCamera(std::shared_ptr<Entity> currentCamera);
+    void setCurrentCamera(const std::shared_ptr<Entity>& currentCamera);
     std::shared_ptr<Entity> getCurrentCamera() const { return currentCamera; }
     // Swap last to cameras
     void switchCamera();

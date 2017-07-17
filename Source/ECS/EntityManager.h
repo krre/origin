@@ -29,8 +29,8 @@ public:
     void clearSystems();
 
     // Entity
-    void addEntity(std::shared_ptr<Entity> entity);
-    void removeEntity(std::shared_ptr<Entity> entity);
+    void addEntity(const std::shared_ptr<Entity>& entity);
+    void removeEntity(const std::shared_ptr<Entity>& entity);
     std::shared_ptr<Entity> getEntity(EntityId id);
     void clearEntities();
     std::map<EntityId, std::shared_ptr<Entity>> getEntities() { return entities; }

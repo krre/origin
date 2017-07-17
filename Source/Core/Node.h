@@ -8,6 +8,10 @@ public:
     Node();
     void addChild(const std::shared_ptr<Node>& child);
 
+    void setParent(Node* parent);
+    Node* getParent() const;
+
 private:
     std::vector<std::shared_ptr<Node>> children;
+    Node* parent = nullptr;
 };

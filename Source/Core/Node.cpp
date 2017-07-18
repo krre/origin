@@ -21,6 +21,10 @@ std::shared_ptr<Node> Node::getChild(size_t i) const {
     return children.at(i);
 }
 
+size_t Node::count() const {
+    return children.size();
+}
+
 void Node::setParent(Node* parent) {
     this->parent = parent;
 }

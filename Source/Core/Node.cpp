@@ -17,6 +17,10 @@ void Node::clearChildren() {
     children.clear();
 }
 
+std::shared_ptr<Node> Node::getChild(size_t i) const {
+    return children.at(i);
+}
+
 void Node::setParent(Node* parent) {
     this->parent = parent;
 }

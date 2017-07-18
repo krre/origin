@@ -8,6 +8,7 @@ public:
     Node();
     void addChild(const std::shared_ptr<Node>& child);
     void removeChild(const std::shared_ptr<Node>& child);
+    void clearChildren();
 
     void setParent(Node* parent);
     Node* getParent() const;

@@ -7,6 +7,7 @@ class Node : public Object {
 public:
     Node();
     void addChild(const std::shared_ptr<Node>& child);
+    void removeChild(const std::shared_ptr<Node>& child);
 
     void setParent(Node* parent);
     Node* getParent() const;

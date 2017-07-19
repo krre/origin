@@ -7,6 +7,7 @@ Node::Node() {
 
 void Node::addChild(const std::shared_ptr<Node>& child) {
     children.push_back(child);
+    child->setParent(this);
 }
 
 void Node::removeChild(const std::shared_ptr<Node>& child) {

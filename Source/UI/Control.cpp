@@ -21,7 +21,7 @@ void Control::setY(int y) {
 void Control::setPosition(const Pos2& position) {
     this->position = position;
     if (parent != nullptr) {
-        absolutePosition = parent->absolutePosition + position;
+        absolutePosition = static_cast<Control*>(parent)->absolutePosition + position;
     } else {
         absolutePosition = position;
     }
@@ -50,7 +50,7 @@ void Control::setZ(float z) {
 void Control::markDirty() {
     isDirty = true;
     if (parent != nullptr) {
-        parent->markDirty();
+        static_cast<Control*>(parent)->markDirty();
     }
 }
 
@@ -62,8 +62,8 @@ void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexB
     std::unique_ptr<Batch2D> batch = std::unique_ptr<Batch2D>(new Batch2D);
     prepareBatch(batch.get(), vertexBuffer, indexBuffer);
 
-    for (const auto& control : children) {
-        control->getBatches(batches, vertexBuffer, indexBuffer);
+    for (const auto& child : children) {
+        static_cast<Control*>(child.get())->getBatches(batches, vertexBuffer, indexBuffer);
     }
 
     batches.push_back(std::move(batch));

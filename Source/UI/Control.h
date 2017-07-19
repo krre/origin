@@ -49,9 +49,7 @@ protected:
     float z = 0.0f;
 
 private:
-    Control* parent = nullptr;
     Control* fillControl = nullptr;
     Control* centerControl = nullptr;
-    std::vector<std::shared_ptr<Control>> children;
     bool isDirty = true;
 };

@@ -2,10 +2,7 @@
 #include "ECS/System.h"
 #include <vector>
 
-namespace Origin {
-    class Drawable;
-}
-
+class Drawable;
 
 class RenderSystem : public System {
 
@@ -14,5 +11,5 @@ public:
     void process(float dt) override;
 
 private:
-    std::vector<Origin::Drawable*> drawables;
+    std::vector<Drawable*> drawables;
 };

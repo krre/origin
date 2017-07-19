@@ -8,7 +8,7 @@ class Batch2D;
 class VertexBuffer;
 class IndexBuffer;
 
-class Control : public Origin::Drawable, public Node {
+class Control : public Drawable, public Node {
 
 public:
     Control(const Pos2& position = {});

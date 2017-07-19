@@ -3,7 +3,7 @@
 #include "Text/Label.h"
 #include "Core/Timer.h"
 
-class Toast : public Origin::Drawable {
+class Toast : public Drawable {
 
 public:
     Toast();

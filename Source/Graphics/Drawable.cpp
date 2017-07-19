@@ -1,7 +1,5 @@
 #include "Drawable.h"
 
-using namespace Origin;
-
 Drawable::Drawable() {
 
 }

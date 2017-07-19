@@ -11,8 +11,7 @@ class IndexBuffer;
 class Control : public Origin::Drawable, public Node {
 
 public:
-    Control();
-    Control(const Pos2& position);
+    Control(const Pos2& position = {});
 
     void setX(int x);
     void setY(int y);

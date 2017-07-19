@@ -2,10 +2,6 @@
 #include "Batch2D.h"
 #include <algorithm>
 
-Control::Control() {
-
-}
-
 Control::Control(const Pos2& position) : position(position) {
 
 }

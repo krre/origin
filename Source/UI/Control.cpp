@@ -10,23 +10,6 @@ Control::Control(const Pos2& position) : position(position) {
 
 }
 
-void Control::addControl(const std::shared_ptr<Control>& control) {
-    children.push_back(control);
-    control->setParent(this);
-}
-
-void Control::removeControl(const std::shared_ptr<Control>& control) {
-    children.erase(std::remove(children.begin(), children.end(), control), children.end());
-}
-
-void Control::clearControls() {
-    children.clear();
-}
-
-void Control::setParent(Control* parent) {
-    this->parent = parent;
-}
-
 void Control::setX(int x) {
     position.x = x;
 }

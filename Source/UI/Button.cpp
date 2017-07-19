@@ -6,7 +6,7 @@ Button::Button() : Rectangle({ 100, 20 }) {
     setColor({ 0.6, 0.6, 0.6 });
 
     label = std::make_shared<Label>();
-    addControl(label);
+    addChild(label);
     label->setCenterControl(this);
 
     Event::get()->mouseButtonAction.connect<Button, &Button::onMouseButtonAction>(this);

@@ -1,5 +1,6 @@
 #pragma once
 #include "Graphics/Drawable.h"
+#include "Core/Node.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -7,16 +8,11 @@ class Batch2D;
 class VertexBuffer;
 class IndexBuffer;
 
-class Control : public Origin::Drawable {
+class Control : public Origin::Drawable, public Node {
 
 public:
     Control();
     Control(const Pos2& position);
-
-    void addControl(const std::shared_ptr<Control>& control);
-    void removeControl(const std::shared_ptr<Control>& control);
-    void clearControls();
-    void setParent(Control* parent);
 
     void setX(int x);
     void setY(int y);

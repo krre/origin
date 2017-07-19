@@ -44,7 +44,7 @@ void DebugHUD::init() {
 
     displayLabel = std::make_shared<Label>();
     displayLabel->setPosition({ 7, 5 });
-    rect->addControl(displayLabel);
+    rect->addChild(displayLabel);
 
     shaderProgram.addShader("Shader/SDF.vert.spv");
     shaderProgram.addShader("Shader/SDF.frag.spv");

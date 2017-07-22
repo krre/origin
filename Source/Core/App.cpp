@@ -1,4 +1,5 @@
 #include "App.h"
+#include "Window.h"
 #include "Game.h"
 #include "Utils.h"
 #include "Event/Event.h"
@@ -97,6 +98,13 @@ void App::init() {
     new Renderer; // TODO: Catch exception on failure Vulkan initialization
 
     SDL_ShowWindow(window);
+
+    try {
+        win = std::unique_ptr<Window>(new Window);
+        win->show();
+    } catch (const std::exception& ex) {
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, win->getTitle().c_str(), ex.what(), nullptr);
+    }
 
     // Order is important
     new ResourceManager;

@@ -6,6 +6,8 @@
 const int WINDOW_WIDTH = 800;
 const int WINDOW_HEIGHT = 480;
 
+class Window;
+
 class App : public Singleton<App> {
 
 public:
@@ -29,6 +31,7 @@ private:
     std::vector<std::string> argv;
     bool isRunning = false;
     SDL_Window* window = nullptr;
+    std::unique_ptr<Window> win;
 
     int width = WINDOW_WIDTH;
     int height = WINDOW_HEIGHT;

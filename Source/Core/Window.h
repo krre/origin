@@ -21,6 +21,8 @@ public:
     void setTitle(const std::string& title) { this->title = title; }
     std::string getTitle() const { return title; }
 
+    void show();
+
 private:
     SDL_Window* handle = nullptr;
     int x = 0;

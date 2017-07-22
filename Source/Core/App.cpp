@@ -1,4 +1,5 @@
 #include "App.h"
+#include "SDLWrapper.h"
 #include "Window.h"
 #include "Game.h"
 #include "Utils.h"
@@ -34,6 +35,7 @@ App::~App() {
     DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     Renderer::get()->release();
+    SDLWrapper::get()->release();
     Event::get()->release();
     Logger::get()->release();
     Settings::get()->release();
@@ -49,6 +51,7 @@ void App::init() {
     new Settings("origin.ini");
     new Logger;
     new Event;
+    new SDLWrapper;
 
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL could not initialize! SDL_Error: %s", SDL_GetError());

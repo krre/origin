@@ -6,8 +6,8 @@
 
 namespace fs = std::experimental::filesystem;
 
-Settings::Settings(const std::string& name) {
-    path = App::getCurrentPath() + Utils::getPathSeparator() + name;
+Settings::Settings() {
+    path = App::getCurrentPath() + Utils::getPathSeparator() + SETTINGS_FILENAME;
     if (fs::exists(path)) {
         std::string text = Utils::readTextFile(path);
         std::stringstream stream(text);

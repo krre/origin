@@ -46,7 +46,7 @@ std::string App::getCurrentPath() {
 }
 
 void App::init() {
-    new Settings("origin.ini");
+    new Settings;
     new Logger;
     new Event;
     new SDLWrapper;

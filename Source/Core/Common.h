@@ -6,6 +6,8 @@
     #define PRINT(x) std::cout << x << std::endl;
 #endif
 
+const std::string GAME_NAME = "Origin";
+
 constexpr int PAGE_BYTES = 1 << 13; // 8192 (use in OctreeFarm)
 const int BLOCK_INFO_END = 1;
 

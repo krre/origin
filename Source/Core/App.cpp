@@ -19,8 +19,6 @@
 #include <algorithm>
 #include <experimental/filesystem>
 
-const char* title = "Origin";
-
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);
@@ -74,11 +72,11 @@ void App::init() {
     width = settingsWidth.empty() ? WINDOW_WIDTH : std::stoi(settingsWidth);
     height = settingsHeigth.empty() ? WINDOW_HEIGHT : std::stoi(settingsHeigth);
 
-    window = SDL_CreateWindow(title, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
+    window = SDL_CreateWindow(GAME_NAME.c_str(), x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
 
     if (window == nullptr) {
         std::string errorMsg = std::string("Window could not be created\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
+        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, GAME_NAME.c_str(), errorMsg.c_str(), nullptr);
         return;
     }
 

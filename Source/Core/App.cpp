@@ -33,12 +33,11 @@ App::~App() {
     DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     Renderer::get()->release();
+    SDL_DestroyWindow(window);
     SDLWrapper::get()->release();
     Event::get()->release();
     Logger::get()->release();
     Settings::get()->release();
-    SDL_DestroyWindow(window);
-    SDL_Quit();
 }
 
 std::string App::getCurrentPath() {

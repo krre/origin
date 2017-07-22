@@ -6,6 +6,10 @@ SDLWrapper::SDLWrapper() {
 
 }
 
+SDLWrapper::~SDLWrapper() {
+    SDL_Quit();
+}
+
 void SDLWrapper::init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::runtime_error("SDL could not initialize!\nSDL_Error: " + getError());

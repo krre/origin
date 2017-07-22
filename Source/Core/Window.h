@@ -11,10 +11,10 @@ public:
     int getX() const { return x; }
     int getY() const { return y; }
 
-    void setWidth(int width);
-    void setHeight(int height);
-    int getWidth() const;
-    int getHeight() const;
+    void setWidth(int width) { this->width = width; }
+    void setHeight(int height) { this->height = height; }
+    int getWidth() const { return width; }
+    int getHeight() const { return height; }
 
 private:
     int x = 0;

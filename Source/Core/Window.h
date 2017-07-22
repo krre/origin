@@ -19,9 +19,6 @@ public:
     int getWidth() const { return width; }
     int getHeight() const { return height; }
 
-    void setTitle(const std::string& title) { this->title = title; }
-    std::string getTitle() const { return title; }
-
     void show();
 
 private:
@@ -30,7 +27,6 @@ private:
     int y = 100;
     int width = 800;
     int height = 600;
-    std::string title = "Untitled";
 
     void create();
 };

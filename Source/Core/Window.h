@@ -1,5 +1,6 @@
 #pragma once
 #include <SDL.h>
+#include <string>
 
 class Window {
 
@@ -16,9 +17,13 @@ public:
     int getWidth() const { return width; }
     int getHeight() const { return height; }
 
+    void setTitle(const std::string& title) { this->title = title; }
+    std::string getTitle() const { return title; }
+
 private:
     int x = 0;
     int y = 0;
     int width = 100;
     int height = 100;
+    std::string title = "Untitled";
 };

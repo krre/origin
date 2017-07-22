@@ -13,9 +13,9 @@ Window::~Window() {
 void Window::show() {
     if (handle == nullptr) {
         create();
-    } else {
-        SDL_ShowWindow(handle);
     }
+
+    SDL_ShowWindow(handle);
 }
 
 void Window::create() {

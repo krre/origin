@@ -53,32 +53,16 @@ void App::init() {
     new Event;
     new SDLWrapper;
 
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        SDL_LogError(SDL_LOG_CATEGORY_ERROR, "SDL could not initialize! SDL_Error: %s", SDL_GetError());
-        return;
-    }
+    SDLWrapper::get()->init();
 
-    SDL_DisplayMode mode;
-    if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
-        std::string errorMsg = std::string("SDL_GetDesktopDisplayMode failed\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
-        return;
-    }
-
-    if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
-        std::string errorMsg = std::string("SDL_GetDisplayMode failed\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, title, errorMsg.c_str(), nullptr);
-        return;
-    }
-
-    int screenWidth = mode.w;
-    int screenHeight = mode.h;
+    int screenWidth = SDLWrapper::get()->getScreenSize().width;
+    int screenHeight = SDLWrapper::get()->getScreenSize().height;
 
     // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
     // then divide it on 2
-    if (screenWidth > mode.w) {
-        screenWidth /= 2;
-    }
+//    if (screenWidth > mode.w) {
+//        screenWidth /= 2;
+//    }
 
     std::string settingsX = Settings::get()->getValue("x");
     std::string settingsY = Settings::get()->getValue("y");

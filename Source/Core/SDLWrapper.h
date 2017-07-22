@@ -7,6 +7,7 @@ public:
     SDLWrapper();
     void init();
     const Size& getScreenSize() const { return screenSize; }
+    std::string getError() const;
 
 private:
     Size screenSize;

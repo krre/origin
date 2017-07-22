@@ -1,6 +1,7 @@
 #pragma once
-#include <SDL.h>
 #include <string>
+
+struct SDL_Window;
 
 class Window {
 
@@ -21,9 +22,12 @@ public:
     std::string getTitle() const { return title; }
 
 private:
+    SDL_Window* handle = nullptr;
     int x = 0;
     int y = 0;
     int width = 100;
     int height = 100;
     std::string title = "Untitled";
+
+    void create();
 };

@@ -29,7 +29,6 @@ private:
     std::vector<std::string> argv;
     bool isRunning = false;
     SDL_Window* window = nullptr;
-    SDL_GLContext context;
 
     int width = WINDOW_WIDTH;
     int height = WINDOW_HEIGHT;

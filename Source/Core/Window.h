@@ -7,6 +7,7 @@ class Window {
 
 public:
     Window();
+    ~Window();
 
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
@@ -27,8 +28,8 @@ private:
     SDL_Window* handle = nullptr;
     int x = 0;
     int y = 0;
-    int width = 100;
-    int height = 100;
+    int width = 800;
+    int height = 600;
     std::string title = "Untitled";
 
     void create();

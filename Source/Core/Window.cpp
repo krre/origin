@@ -6,6 +6,10 @@ Window::Window() {
 
 }
 
+Window::~Window() {
+    SDL_DestroyWindow(handle);
+}
+
 void Window::show() {
     if (handle == nullptr) {
         create();

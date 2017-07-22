@@ -31,3 +31,7 @@ void SDLWrapper::init() {
 std::string SDLWrapper::getError() const {
     return std::string(SDL_GetError());
 }
+
+void SDLWrapper::showErrorMessageBox(const char* message) {
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, GAME_NAME.c_str(), message, nullptr);
+}

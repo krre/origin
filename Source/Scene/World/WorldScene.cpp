@@ -76,8 +76,8 @@ void WorldScene::draw(float dt) {
 void WorldScene::update(float dt) {
     EntityManager::get()->update(dt);
 
-    int width = App::get()->getWidth();
-    int height = App::get()->getHeight();
+    int width = App::get()->getWindow()->getWidth();
+    int height = App::get()->getWindow()->getHeight();
 
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(EntityManager::get()->getSystem(SystemType::Octree).get());
     Entity* currentCamera = getCurrentCamera().get();

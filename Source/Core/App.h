@@ -1,10 +1,6 @@
 #pragma once
 #include "Singleton.h"
-#include <SDL_video.h>
 #include <vector>
-
-const int WINDOW_WIDTH = 800;
-const int WINDOW_HEIGHT = 480;
 
 class Window;
 
@@ -20,21 +16,14 @@ public:
     int run();
     void quit();
 
-    SDL_Window* getWindow() const { return window; }
-
-    int getWidth() const { return width; }
-    int getHeight() const { return height; }
+    Window* getWindow() const { return window.get(); }
 
     bool getIsRunning() const { return isRunning; }
 
 private:
     std::vector<std::string> argv;
     bool isRunning = false;
-    SDL_Window* window = nullptr;
-    std::unique_ptr<Window> win;
-
-    int width = WINDOW_WIDTH;
-    int height = WINDOW_HEIGHT;
+    std::unique_ptr<Window> window;
 
     void clean();
     void windowResize(int width, int height);

@@ -20,6 +20,9 @@ public:
     int getHeight() const { return height; }
 
     void show();
+    void create();
+
+    SDL_Window* getHandle() { return handle; }
 
 private:
     SDL_Window* handle = nullptr;
@@ -27,6 +30,4 @@ private:
     int y = 100;
     int width = 800;
     int height = 600;
-
-    void create();
 };

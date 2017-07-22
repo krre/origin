@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "App.h"
+#include "Window.h"
 #include "Utils.h"
 #include "Scene/World/WorldScene.h"
 #include "Debug/DebugHUD.h"
@@ -61,8 +62,8 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void Game::toggleFullScreen() {
-    bool isFullscreen = SDL_GetWindowFlags(App::get()->getWindow()) & SDL_WINDOW_FULLSCREEN;
-    SDL_SetWindowFullscreen(App::get()->getWindow(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+    bool isFullscreen = SDL_GetWindowFlags(App::get()->getWindow()->getHandle()) & SDL_WINDOW_FULLSCREEN;
+    SDL_SetWindowFullscreen(App::get()->getWindow()->getHandle(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
     SDL_ShowCursor(isFullscreen);
 }
 

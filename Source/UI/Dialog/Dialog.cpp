@@ -2,12 +2,13 @@
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "Core/App.h"
+#include "Core/Window.h"
 
 Dialog::Dialog() {
     SDL_SetRelativeMouseMode(SDL_FALSE);
-    int centerX = App::get()->getWidth() / 2;
-    int centerY = App::get()->getHeight() / 2;
-    SDL_WarpMouseInWindow(App::get()->getWindow(), centerX, centerY);
+    int centerX = App::get()->getWindow()->getWidth() / 2;
+    int centerY = App::get()->getWindow()->getHeight() / 2;
+    SDL_WarpMouseInWindow(App::get()->getWindow()->getHandle(), centerX, centerY);
 //    int posX = centerX - getSize().width / 2;
 //    int posY = centerY - getSize().height / 2;
 //    setPosition({ posX, posY });

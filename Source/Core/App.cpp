@@ -33,7 +33,7 @@ App::~App() {
     DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     Renderer::get()->release();
-    SDL_DestroyWindow(window);
+    window.reset();
     SDLWrapper::get()->release();
     Event::get()->release();
     Logger::get()->release();
@@ -52,43 +52,14 @@ void App::init() {
 
     SDLWrapper::get()->init();
 
-    int screenWidth = SDLWrapper::get()->getScreenSize().width;
-    int screenHeight = SDLWrapper::get()->getScreenSize().height;
-
-    // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
-    // then divide it on 2
-//    if (screenWidth > mode.w) {
-//        screenWidth /= 2;
-//    }
-
-    std::string settingsX = Settings::get()->getValue("x");
-    std::string settingsY = Settings::get()->getValue("y");
-    std::string settingsWidth = Settings::get()->getValue("width");
-    std::string settingsHeigth = Settings::get()->getValue("height");
-
-    int x = settingsX.empty() ? (screenWidth - WINDOW_WIDTH) / 2 : std::stoi(settingsX);
-    int y = settingsY.empty() ? (screenHeight - WINDOW_HEIGHT) / 2 : std::stoi(settingsY);
-    width = settingsWidth.empty() ? WINDOW_WIDTH : std::stoi(settingsWidth);
-    height = settingsHeigth.empty() ? WINDOW_HEIGHT : std::stoi(settingsHeigth);
-
-    window = SDL_CreateWindow(GAME_NAME.c_str(), x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
-
-    if (window == nullptr) {
-        std::string errorMsg = std::string("Window could not be created\n") + SDL_GetError();
-        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, GAME_NAME.c_str(), errorMsg.c_str(), nullptr);
-        return;
+    try {
+        window = std::unique_ptr<Window>(new Window);
+        window->create();
+    } catch (const std::exception& ex) {
+        SDLWrapper::get()->showErrorMessageBox(ex.what());
     }
 
     new Renderer; // TODO: Catch exception on failure Vulkan initialization
-
-    SDL_ShowWindow(window);
-
-//    try {
-//        win = std::unique_ptr<Window>(new Window);
-//        win->show();
-//    } catch (const std::exception& ex) {
-//        SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, win->getTitle().c_str(), ex.what(), nullptr);
-//    }
 
     // Order is important
     new ResourceManager;
@@ -101,7 +72,9 @@ void App::init() {
     Event::get()->windowMove.connect<App, &App::windowMove>(this);
     Event::get()->windowResize.connect<App, &App::windowResize>(this);
     Event::get()->quit.connect<App, &App::quit>(this);
-    Event::get()->windowResize.emit(width, height);
+    Event::get()->windowResize.emit(window->getWidth(), window->getHeight());
+
+    window->show();
 
     isRunning = true;
 }
@@ -152,8 +125,6 @@ int App::run() {
 */
 
 void App::windowResize(int width, int height) {
-    this->width = width;
-    this->height = height;
     Settings::get()->setValue("width", std::to_string(width));
     Settings::get()->setValue("height", std::to_string(height));
 

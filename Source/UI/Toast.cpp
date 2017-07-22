@@ -1,5 +1,6 @@
 #include "Toast.h"
 #include "Core/App.h"
+#include "Core/Window.h"
 #include <glm/glm.hpp>
 
 Toast::Toast() {
@@ -9,7 +10,7 @@ Toast::Toast() {
 }
 
 void Toast::draw(float dt) {
-    text.setPosition({ 5, App::get()->getHeight() / 2 });
+    text.setPosition({ 5, App::get()->getWindow()->getHeight() / 2 });
     text.draw(dt);
 }
 

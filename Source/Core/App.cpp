@@ -51,11 +51,7 @@ void App::init() {
         new Event;
         new SDLWrapper;
         SDLWrapper::get()->init();
-    } catch (const std::exception& ex) {
-        ERROR(ex.what());
-    }
 
-    try {
         window = std::unique_ptr<Window>(new Window);
         window->create();
 
@@ -68,7 +64,11 @@ void App::init() {
         new SceneManager;
         new Game;
     } catch (const std::exception& ex) {
-        SDLWrapper::get()->showErrorMessageBox(ex.what());
+        if (SDLWrapper::exists() && SDLWrapper::get()->getIsInited()) {
+            SDLWrapper::get()->showErrorMessageBox(ex.what());
+        } else {
+            ERROR(ex.what());
+        }
     }
 
     Event::get()->windowMove.connect<App, &App::windowMove>(this);

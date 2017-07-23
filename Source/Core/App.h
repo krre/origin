@@ -17,7 +17,6 @@ public:
     void quit();
 
     Window* getWindow() const { return window.get(); }
-
     bool getIsRunning() const { return isRunning; }
 
 private:
@@ -26,5 +25,4 @@ private:
     std::unique_ptr<Window> window;
 
     void clean();
-    void windowResize(int width, int height);
 };

@@ -32,4 +32,5 @@ private:
     int height = 600;
 
     void onMove(int x, int y);
+    void onResize(int width, int height);
 };

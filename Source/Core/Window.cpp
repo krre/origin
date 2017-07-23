@@ -1,8 +1,11 @@
 #include "Window.h"
 #include "Common.h"
+#include "App.h"
 #include "SDLWrapper.h"
 #include "Settings.h"
 #include "Event/Event.h"
+#include "Scene/SceneManager.h"
+#include "Graphics/Vulkan/Instance.h"
 #include <SDL_video.h>
 #include <stdexcept>
 
@@ -27,6 +30,7 @@ Window::Window() {
 //    }
 
     Event::get()->windowMove.connect<Window, &Window::onMove>(this);
+    Event::get()->windowResize.connect<Window, &Window::onResize>(this);
 }
 
 Window::~Window() {
@@ -51,4 +55,14 @@ void Window::create() {
 void Window::onMove(int x, int y) {
     Settings::get()->setValue("x", std::to_string(x));
     Settings::get()->setValue("y", std::to_string(y));
+}
+
+void Window::onResize(int width, int height) {
+    Settings::get()->setValue("width", std::to_string(width));
+    Settings::get()->setValue("height", std::to_string(height));
+
+    if (App::get()->getIsRunning()) {
+        Vulkan::Instance::get()->windowResize(width, height);
+        SceneManager::get()->rebuild();
+    }
 }

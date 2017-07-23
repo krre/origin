@@ -26,6 +26,8 @@ void SDLWrapper::init() {
     if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
         std::runtime_error("SDL_GetDisplayMode failed\nSDL_Error: " + getError());
     }
+
+    isInited = true;
 }
 
 std::string SDLWrapper::getError() const {

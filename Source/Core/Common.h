@@ -4,6 +4,7 @@
 #ifndef QT_VERSION
     #include <nano-signal-slot/nano_signal_slot.hpp>
     #define PRINT(x) std::cout << x << std::endl;
+    #define ERROR(x) std::cerr << x << std::endl;
 #endif
 
 const std::string GAME_NAME = "Origin";

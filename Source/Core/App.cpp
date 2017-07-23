@@ -45,29 +45,31 @@ std::string App::getCurrentPath() {
 }
 
 void App::init() {
-    new Settings;
-    new Logger;
-    new Event;
-    new SDLWrapper;
-
-    SDLWrapper::get()->init();
+    try {
+        new Settings;
+        new Logger;
+        new Event;
+        new SDLWrapper;
+        SDLWrapper::get()->init();
+    } catch (const std::exception& ex) {
+        ERROR(ex.what());
+    }
 
     try {
         window = std::unique_ptr<Window>(new Window);
         window->create();
+
+        // Order is important
+        new Renderer;
+        new ResourceManager;
+        new DebugEnvironment;
+        new DebugHUD;
+        new Input;
+        new SceneManager;
+        new Game;
     } catch (const std::exception& ex) {
         SDLWrapper::get()->showErrorMessageBox(ex.what());
     }
-
-    new Renderer; // TODO: Catch exception on failure Vulkan initialization
-
-    // Order is important
-    new ResourceManager;
-    new DebugEnvironment;
-    new DebugHUD;
-    new Input;
-    new SceneManager;
-    new Game;
 
     Event::get()->windowMove.connect<App, &App::windowMove>(this);
     Event::get()->windowResize.connect<App, &App::windowResize>(this);

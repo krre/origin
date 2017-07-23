@@ -27,5 +27,4 @@ private:
 
     void clean();
     void windowResize(int width, int height);
-    void windowMove(int x, int y);
 };

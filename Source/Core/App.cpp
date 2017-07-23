@@ -71,7 +71,7 @@ void App::init() {
         }
     }
 
-    Event::get()->windowMove.connect<App, &App::windowMove>(this);
+
     Event::get()->windowResize.connect<App, &App::windowResize>(this);
     Event::get()->quit.connect<App, &App::quit>(this);
     Event::get()->windowResize.emit(window->getWidth(), window->getHeight());
@@ -134,11 +134,6 @@ void App::windowResize(int width, int height) {
         Vulkan::Instance::get()->windowResize(width, height);
         SceneManager::get()->rebuild();
     }
-}
-
-void App::windowMove(int x, int y) {
-    Settings::get()->setValue("x", std::to_string(x));
-    Settings::get()->setValue("y", std::to_string(y));
 }
 
 void App::quit() {

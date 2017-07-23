@@ -30,4 +30,6 @@ private:
     int y = 100;
     int width = 800;
     int height = 600;
+
+    void onMove(int x, int y);
 };

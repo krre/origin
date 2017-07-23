@@ -2,6 +2,7 @@
 #include "Common.h"
 #include "SDLWrapper.h"
 #include "Settings.h"
+#include "Event/Event.h"
 #include <SDL_video.h>
 #include <stdexcept>
 
@@ -24,6 +25,8 @@ Window::Window() {
 //    if (screenWidth > mode.w) {
 //        screenWidth /= 2;
 //    }
+
+    Event::get()->windowMove.connect<Window, &Window::onMove>(this);
 }
 
 Window::~Window() {
@@ -43,4 +46,9 @@ void Window::create() {
     if (handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }
+}
+
+void Window::onMove(int x, int y) {
+    Settings::get()->setValue("x", std::to_string(x));
+    Settings::get()->setValue("y", std::to_string(y));
 }

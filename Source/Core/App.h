@@ -23,6 +23,4 @@ private:
     std::vector<std::string> argv;
     bool isRunning = false;
     std::unique_ptr<GameWindow> window;
-
-    void clean();
 };

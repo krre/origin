@@ -1,7 +1,7 @@
 #include "Surface.h"
 #include "Instance.h"
 #include "Core/App.h"
-#include "Core/Window.h"
+#include "Core/GameWindow.h"
 #include "Swapchain.h"
 #include <SDL_syswm.h>
 #ifdef __linux__

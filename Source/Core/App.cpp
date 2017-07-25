@@ -1,6 +1,6 @@
 #include "App.h"
 #include "SDLWrapper.h"
-#include "Window.h"
+#include "GameWindow.h"
 #include "Game.h"
 #include "Utils.h"
 #include "Event/Event.h"
@@ -52,7 +52,7 @@ void App::init() {
         new SDLWrapper;
         SDLWrapper::get()->init();
 
-        window = std::unique_ptr<Window>(new Window);
+        window = std::unique_ptr<GameWindow>(new GameWindow);
         window->create();
 
         // Order is important

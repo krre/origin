@@ -2,7 +2,7 @@
 #include "Singleton.h"
 #include <vector>
 
-class Window;
+class GameWindow;
 
 class App : public Singleton<App> {
 
@@ -16,13 +16,13 @@ public:
     int run();
     void quit();
 
-    Window* getWindow() const { return window.get(); }
+    GameWindow* getWindow() const { return window.get(); }
     bool getIsRunning() const { return isRunning; }
 
 private:
     std::vector<std::string> argv;
     bool isRunning = false;
-    std::unique_ptr<Window> window;
+    std::unique_ptr<GameWindow> window;
 
     void clean();
 };

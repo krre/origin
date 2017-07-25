@@ -1,4 +1,4 @@
-#include "Window.h"
+#include "GameWindow.h"
 #include "Common.h"
 #include "App.h"
 #include "SDLWrapper.h"
@@ -9,7 +9,7 @@
 #include <SDL_video.h>
 #include <stdexcept>
 
-Window::Window() {
+GameWindow::GameWindow() {
     int screenWidth = SDLWrapper::get()->getScreenSize().width;
     int screenHeight = SDLWrapper::get()->getScreenSize().height;
 
@@ -29,15 +29,15 @@ Window::Window() {
 //        screenWidth /= 2;
 //    }
 
-    Event::get()->windowMove.connect<Window, &Window::onMove>(this);
-    Event::get()->windowResize.connect<Window, &Window::onResize>(this);
+    Event::get()->windowMove.connect<GameWindow, &GameWindow::onMove>(this);
+    Event::get()->windowResize.connect<GameWindow, &GameWindow::onResize>(this);
 }
 
-Window::~Window() {
+GameWindow::~GameWindow() {
     SDL_DestroyWindow(handle);
 }
 
-void Window::show() {
+void GameWindow::show() {
     if (handle == nullptr) {
         create();
     }
@@ -45,19 +45,19 @@ void Window::show() {
     SDL_ShowWindow(handle);
 }
 
-void Window::create() {
+void GameWindow::create() {
     handle = SDL_CreateWindow(GAME_NAME.c_str(), x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
     if (handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }
 }
 
-void Window::onMove(int x, int y) {
+void GameWindow::onMove(int x, int y) {
     Settings::get()->setValue("x", std::to_string(x));
     Settings::get()->setValue("y", std::to_string(y));
 }
 
-void Window::onResize(int width, int height) {
+void GameWindow::onResize(int width, int height) {
     Settings::get()->setValue("width", std::to_string(width));
     Settings::get()->setValue("height", std::to_string(height));
 

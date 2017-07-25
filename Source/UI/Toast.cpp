@@ -1,6 +1,6 @@
 #include "Toast.h"
 #include "Core/App.h"
-#include "Core/Window.h"
+#include "Core/GameWindow.h"
 #include <glm/glm.hpp>
 
 Toast::Toast() {

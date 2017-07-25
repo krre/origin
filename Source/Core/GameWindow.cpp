@@ -38,10 +38,7 @@ GameWindow::~GameWindow() {
 }
 
 void GameWindow::show() {
-    if (handle == nullptr) {
-        create();
-    }
-
+    assert(handle != nullptr);
     SDL_ShowWindow(handle);
 }
 

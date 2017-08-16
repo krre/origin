@@ -23,7 +23,7 @@ public:
     }
 
     void release() {
-        if (this) {
+        if (instance != nullptr) {
             delete this;
             instance = nullptr;
         }

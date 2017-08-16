@@ -31,6 +31,7 @@ static std::string resultToString(VkResult result) {
         case VK_ERROR_INCOMPATIBLE_DISPLAY_KHR: return "Incompatible display";
         case VK_ERROR_VALIDATION_FAILED_EXT: return "Validation failed";
         case VK_ERROR_INVALID_SHADER_NV: return "Invalid shader";
+        case VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR: return "Invalid external handle";
 
         return std::string("Unknown result code: ") + std::to_string(result);
     }

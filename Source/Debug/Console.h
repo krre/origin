@@ -12,8 +12,8 @@ public:
 
 private:
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
-    void onWindowResize(int width, int height);
-    void onKeyPressed(const SDL_KeyboardEvent& event);
+    void onWindowResize(int width, int height) override;
+    void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void execute();
     std::shared_ptr<Label> cmdLine;
 };

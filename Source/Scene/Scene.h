@@ -40,7 +40,6 @@ public:
     // Swap last to cameras
     void switchCamera();
 
-    bool getIsFullScreen() const { return isFullScreen; }
     Vulkan::SubmitQueue* getQueue() const { return queue.get(); }
     Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
     void setRenderPass(Vulkan::RenderPass* renderPass);
@@ -61,7 +60,6 @@ protected:
 
     Pos2 position = { 0, 0 };
     Size size;
-    bool isFullScreen = true;
     bool visible = true;
     std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
     std::shared_ptr<Vulkan::SubmitQueue> queue;

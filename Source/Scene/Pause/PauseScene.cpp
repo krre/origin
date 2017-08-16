@@ -15,7 +15,6 @@
 PauseScene::PauseScene() {
     continueButton = std::unique_ptr<Button>();
     exitButton = std::unique_ptr<Button>();
-    isFullScreen = false;
 }
 
 PauseScene::~PauseScene() {

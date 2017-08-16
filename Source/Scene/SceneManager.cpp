@@ -14,9 +14,6 @@ SceneManager::SceneManager() {
 void SceneManager::pushScene(const std::shared_ptr<Scene>& scene) {
     if (!scenes.empty()) {
         scenes.back()->pause();
-        if (scene->getIsFullScreen()) {
-            scenes.back()->setVisible(false);
-        }
     }
     scenes.push_back(scene);
     scene->init();

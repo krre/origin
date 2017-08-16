@@ -7,7 +7,7 @@ PresentQueue::PresentQueue(uint32_t queueFamilyIndex, uint32_t queueIndex, Devic
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 }
 
-VkResult PresentQueue::present() {
+void PresentQueue::present() {
     assert(!swapchains.empty());
     presentInfo.waitSemaphoreCount = waitSemaphores.size();
     presentInfo.pWaitSemaphores = waitSemaphores.data();

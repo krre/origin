@@ -8,7 +8,7 @@ class PresentQueue : public Queue {
 
 public:
     PresentQueue(uint32_t queueFamilyIndex, uint32_t queueIndex = 0, Device* device = nullptr);
-    VkResult present();
+    void present();
     void addSwapchain(VkSwapchainKHR swapchain);
     void clearSwapchain();
     uint32_t* getImageIndex(int i);

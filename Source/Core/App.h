@@ -17,7 +17,7 @@ public:
     static std::string getCurrentPath();
 
     void init();
-    int run();
+    void run();
     void quit();
 
     GameWindow* getWindow() const { return window.get(); }

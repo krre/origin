@@ -84,7 +84,7 @@ void App::init() {
     isRunning = true;
 }
 
-int App::run() {
+void App::run() {
     Uint64 frequency = SDL_GetPerformanceFrequency();
     Uint64 currentTime = SDL_GetPerformanceCounter();
 

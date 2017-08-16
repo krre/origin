@@ -26,7 +26,6 @@
 #include <Origin.h>
 
 DebugHUD::DebugHUD() {
-    visible = false;
     setBackgroundColor(Color::TRANSPARENT);
 
     int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
@@ -123,12 +122,12 @@ void DebugHUD::update(float dt) {
 }
 
 void DebugHUD::trigger() {
-    visible = !visible;
-    if (visible) {
-        resume();
-    } else {
-        pause();
-    }
+//    visible = !visible;
+//    if (visible) {
+//        resume();
+//    } else {
+//        pause();
+//    }
 }
 
 void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {

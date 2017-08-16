@@ -10,22 +10,20 @@ Console::Console() {
     Event::get()->windowResize.connect<Console, &Console::onWindowResize>(this);
     cmdLine = std::make_shared<Label>();
     cmdLine->setZ(1.0f);
-    visible = false;
 }
 
 void Console::update(float dt) {
     cmdLine->draw(dt);
 }
 
-void Console::setVisible(bool visible) {
-    this->visible = visible;
-    if (visible) {
-        cmdLine->setText("/");
-        Event::get()->keyPressed.connect<Console, &Console::onKeyPressed>(this);
-    } else {
-        Event::get()->keyPressed.disconnect<Console, &Console::onKeyPressed>(this);
-    }
-}
+//void Console::setVisible(bool visible) {
+//    if (visible) {
+//        cmdLine->setText("/");
+//        Event::get()->keyPressed.connect<Console, &Console::onKeyPressed>(this);
+//    } else {
+//        Event::get()->keyPressed.disconnect<Console, &Console::onKeyPressed>(this);
+//    }
+//}
 
 void Console::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
@@ -61,7 +59,6 @@ void Console::execute() {
         } else if (command == "help") {
             PRINT("help");
         }
-        setVisible(false);
         SceneManager::get()->popScene();
     }
 }

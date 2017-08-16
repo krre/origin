@@ -9,7 +9,6 @@ class Console : public Scene2D {
 public:
     Console();
     void update(float dt) override;
-    void setVisible(bool visible) override;
 
 private:
     void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;

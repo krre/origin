@@ -44,9 +44,6 @@ public:
     Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
     void setRenderPass(Vulkan::RenderPass* renderPass);
 
-    virtual void setVisible(bool visible);
-    bool getVisible() const { return visible; }
-
     void setPosition(const Pos2& position);
     const Pos2& getPosition() const { return position; }
 
@@ -60,7 +57,6 @@ protected:
 
     Pos2 position = { 0, 0 };
     Size size;
-    bool visible = true;
     std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
     std::shared_ptr<Vulkan::SubmitQueue> queue;
     std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;

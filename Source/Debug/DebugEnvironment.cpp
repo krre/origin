@@ -41,7 +41,7 @@ void DebugEnvironment::setDebugScene() {
     }
 
     if (getValue("debugHUD") == "true") {
-        DebugHUD::get()->setVisible(true);
+//        DebugHUD::get()->setVisible(true);
     }
 }
 

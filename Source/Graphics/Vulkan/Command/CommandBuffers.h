@@ -11,7 +11,7 @@ class CommandBuffers : public Collection<VkCommandBuffer>, public Devicer {
 public:
     CommandBuffers(const CommandPool* commandPool, VkCommandBufferLevel level = VK_COMMAND_BUFFER_LEVEL_PRIMARY, Device* device = nullptr);
     ~CommandBuffers();
-    bool allocate(uint32_t count);
+    void allocate(uint32_t count);
     void destroy() override;
 
 private:

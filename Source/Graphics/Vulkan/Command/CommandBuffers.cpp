@@ -15,7 +15,7 @@ CommandBuffers::~CommandBuffers() {
     destroy();
 }
 
-bool CommandBuffers::allocate(uint32_t count) {
+void CommandBuffers::allocate(uint32_t count) {
     assert(collection.size() == 0 && count > 0);
     collection.resize(count);
     allocateInfo.commandBufferCount = count;

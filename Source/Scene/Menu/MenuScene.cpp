@@ -62,7 +62,7 @@ void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     scissor.offset = { 0, 0 };
     scissor.extent = extent;
 
-    VkRenderPassBeginInfo* renderPassBeginInfo = &Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->beginInfo;
+    const VkRenderPassBeginInfo* renderPassBeginInfo = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getBeginInfo();
     commandBuffer->beginRenderPass(renderPassBeginInfo);
 
     commandBuffer->bindPipeline(shaderProgram->getGraphicsPipeline());

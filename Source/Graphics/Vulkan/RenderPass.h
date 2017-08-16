@@ -18,11 +18,13 @@ public:
     void setBlendEnable(bool blendEnable);
     void addClearValue(VkClearValue clearValue);
     void setClearValue(VkClearValue clearValue);
-
-    VkRenderPassBeginInfo beginInfo = {};
+    void setExtent(VkExtent2D extent);
+    const VkRenderPassBeginInfo* getBeginInfo() const { return &beginInfo; }
+    void setFramebuffer(VkFramebuffer framebuffer);
 
 private:
     VkRenderPassCreateInfo createInfo = {};
+    VkRenderPassBeginInfo beginInfo = {};
     VkAttachmentDescription colorAttachmentDescription = {};
     VkAttachmentDescription depthAttachmentDescription = {};
     VkAttachmentReference colorAttachmentReference = {};

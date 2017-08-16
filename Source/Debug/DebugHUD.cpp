@@ -143,8 +143,8 @@ void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
     scissor.offset = { 0, 0 };
     scissor.extent = extent;
 
-    renderPass.beginInfo.renderArea.extent = extent;
-    commandBuffer->beginRenderPass(&renderPass.beginInfo);
+    renderPass.setExtent(extent);
+    commandBuffer->beginRenderPass(renderPass.getBeginInfo());
 
     commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
 

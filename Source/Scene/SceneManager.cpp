@@ -83,6 +83,10 @@ void SceneManager::rebuild() {
     DebugHUD::get()->buildCommandBuffers();
 }
 
+void SceneManager::wait() {
+    Vulkan::Instance::get()->getDefaultDevice()->waitIdle();
+}
+
 void SceneManager::updateSemaphores() {
     std::vector<Scene*> visibleScenes;
     for (const auto& scene : scenes) {

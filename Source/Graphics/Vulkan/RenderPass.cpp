@@ -121,3 +121,11 @@ void RenderPass::setClearValue(VkClearValue clearValue) {
     clearValues.clear();
     addClearValue(clearValue);
 }
+
+void RenderPass::setExtent(VkExtent2D extent) {
+    beginInfo.renderArea.extent = extent;
+}
+
+void RenderPass::setFramebuffer(VkFramebuffer framebuffer) {
+    beginInfo.framebuffer = framebuffer;
+}

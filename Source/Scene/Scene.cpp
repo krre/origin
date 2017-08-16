@@ -53,7 +53,7 @@ void Scene::buildCommandBuffers() {
     queue->clearCommandBuffers();
 
     for (size_t i = 0; i < commandBuffers->getCount(); i++) {
-        renderPass->beginInfo.framebuffer = Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle();
+        renderPass->setFramebuffer(Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle());
 
         Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.begin();

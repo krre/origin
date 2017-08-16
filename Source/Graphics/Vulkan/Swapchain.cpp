@@ -57,7 +57,7 @@ Swapchain::~Swapchain() {
 
 void Swapchain::create() {
     VkExtent2D extent = surface->getCurrentExtent();
-    renderPass->beginInfo.renderArea.extent = extent;
+    renderPass->setExtent(extent);
 
     createInfo.imageExtent = extent;
     VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");

@@ -15,8 +15,9 @@ public:
     void draw(float dt);
 
     void rebuild();
-
+    void wait();
     void updateSemaphores();
+
 
 private:
     std::vector<std::shared_ptr<Scene>> scenes;

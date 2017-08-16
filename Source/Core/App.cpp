@@ -12,6 +12,7 @@
 #include "Scene/SceneManager.h"
 #include "Core/Settings.h"
 #include "Graphics/Renderer.h"
+#include "Graphics/Vulkan/Instance.h"
 #include <string>
 #include <SDL_timer.h>
 #include <Origin.h>
@@ -33,6 +34,7 @@ App::~App() {
     ResourceManager::get()->release();
     Renderer::get()->release();
     window.reset();
+    vulkan.reset();
     SDLWrapper::get()->release();
     Event::get()->release();
     Logger::get()->release();
@@ -45,16 +47,20 @@ std::string App::getCurrentPath() {
 
 void App::init() {
     try {
+        // Order is important
         new Settings;
         new Logger;
         new Event;
+
         new SDLWrapper;
         SDLWrapper::get()->init();
 
         window = std::unique_ptr<GameWindow>(new GameWindow);
         window->create();
 
-        // Order is important
+        vulkan = std::unique_ptr<Vulkan::Instance>(new Vulkan::Instance());
+        vulkan->create();
+
         new Renderer;
         new ResourceManager;
         new DebugEnvironment;

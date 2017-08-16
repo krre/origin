@@ -4,7 +4,6 @@
 #include <map>
 
 namespace Vulkan {
-    class Instance;
     class GraphicsPipeline;
 }
 
@@ -16,6 +15,5 @@ public:
     Vulkan::GraphicsPipeline* getPipeline(PipelinePreset preset) const { return pipelines.at(preset).get(); }
 
 private:
-    std::unique_ptr<Vulkan::Instance> vulkan;
     std::map<PipelinePreset, std::shared_ptr<Vulkan::GraphicsPipeline>> pipelines;
 };

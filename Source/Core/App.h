@@ -4,6 +4,10 @@
 
 class GameWindow;
 
+namespace Vulkan {
+    class Instance;
+}
+
 class App : public Singleton<App> {
 
 public:
@@ -23,4 +27,5 @@ private:
     std::vector<std::string> argv;
     bool isRunning = false;
     std::unique_ptr<GameWindow> window;
+    std::unique_ptr<Vulkan::Instance> vulkan;
 };

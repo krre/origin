@@ -23,8 +23,7 @@ static std::string resultToString(VkResult result) {
         case VK_ERROR_INCOMPATIBLE_DRIVER: return "Incompatible driver";
         case VK_ERROR_TOO_MANY_OBJECTS: return "Too many objects";
         case VK_ERROR_FORMAT_NOT_SUPPORTED: return "Format not supported";
-        // VK_ERROR_FRAGMENTED_POOL absent on Linux
-    //    case VK_ERROR_FRAGMENTED_POOL: return "Fragmented pool";
+        case VK_ERROR_FRAGMENTED_POOL: return "Fragmented pool";
         case VK_ERROR_SURFACE_LOST_KHR: return "Surface lost";
         case VK_ERROR_NATIVE_WINDOW_IN_USE_KHR: return "Native window in use";
         case VK_SUBOPTIMAL_KHR: return "Suboptimal";

@@ -48,7 +48,6 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 #ifdef DEBUG_HUD_ENABLE
     case SDLK_F5:
         DebugHUD::get()->trigger();
-        SceneManager::get()->updateSemaphores();
         break;
 #endif
     case SDLK_F10:

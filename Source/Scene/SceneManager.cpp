@@ -18,8 +18,6 @@ void SceneManager::pushScene(const std::shared_ptr<Scene>& scene) {
     scenes.push_back(scene);
     scene->init();
     scene->resume();
-
-    updateSemaphores();
 }
 
 void SceneManager::popScene() {
@@ -27,8 +25,6 @@ void SceneManager::popScene() {
         scenes.back()->pause();
         scenes.pop_back();
         scenes.back()->resume();
-
-        updateSemaphores();
     } else {
         // TODO: Question dialog about exit from game
         PRINT("Exit question dialog")
@@ -73,8 +69,4 @@ void SceneManager::rebuild() {
 
 void SceneManager::wait() {
     Vulkan::Instance::get()->getDefaultDevice()->waitIdle();
-}
-
-void SceneManager::updateSemaphores() {
-
 }

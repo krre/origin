@@ -1,16 +1,16 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "GraphicsTypes.h"
+#include "Graphics/GraphicsTypes.h"
 #include <map>
 
 namespace Vulkan {
     class GraphicsPipeline;
 }
 
-class Renderer : public Singleton<Renderer> {
+class RendererSet : public Singleton<RendererSet> {
 
 public:
-    Renderer();
+    RendererSet();
     void render();
     Vulkan::GraphicsPipeline* getPipeline(PipelinePreset preset) const { return pipelines.at(preset).get(); }
 

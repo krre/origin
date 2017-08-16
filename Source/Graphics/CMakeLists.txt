@@ -15,8 +15,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp

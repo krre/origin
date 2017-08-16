@@ -11,7 +11,7 @@
 #include "Debug/DebugHUD.h"
 #include "Scene/SceneManager.h"
 #include "Core/Settings.h"
-#include "Graphics/Renderer.h"
+#include "Graphics/Render/RendererSet.h"
 #include "Graphics/Vulkan/Instance.h"
 #include <string>
 #include <SDL_timer.h>
@@ -32,7 +32,7 @@ App::~App() {
     DebugHUD::get()->release();
     DebugEnvironment::get()->release();
     ResourceManager::get()->release();
-    Renderer::get()->release();
+    RendererSet::get()->release();
     window.reset();
     vulkan.reset();
     SDLWrapper::get()->release();
@@ -61,7 +61,7 @@ void App::init() {
         vulkan = std::unique_ptr<Vulkan::Instance>(new Vulkan::Instance());
         vulkan->create();
 
-        new Renderer;
+        new RendererSet;
         new ResourceManager;
         new DebugEnvironment;
         new DebugHUD;

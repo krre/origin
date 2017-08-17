@@ -81,7 +81,10 @@ Component* EntityManager::createComponent(Entity* entity, ComponentType type) {
     case ComponentType::Octree:
         entity->components[type] = std::make_shared<OctreeComponent>();
         break;
+    case ComponentType::Mesh: break;
+    case ComponentType::Empty: break;
     }
+
 
     return entity->components[type].get();
 }

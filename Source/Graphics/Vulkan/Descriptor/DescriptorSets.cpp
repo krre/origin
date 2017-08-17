@@ -13,7 +13,7 @@ DescriptorSets::~DescriptorSets() {
     destroy();
 }
 
-bool DescriptorSets::allocate() {
+void DescriptorSets::allocate() {
     allocateInfo.descriptorPool = descriptorPool->getHandle();
     allocateInfo.descriptorSetCount = descriptorSetLayouts.size();
     allocateInfo.pSetLayouts = descriptorSetLayouts.data();

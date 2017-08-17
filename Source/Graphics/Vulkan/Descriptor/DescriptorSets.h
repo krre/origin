@@ -11,7 +11,7 @@ class DescriptorSets : public Collection<VkDescriptorSet>, public Devicer {
 public:
     DescriptorSets(const DescriptorPool* descriptorPool, Device* device = nullptr);
     ~DescriptorSets();
-    bool allocate();
+    void allocate();
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
     void addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet);
     void addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet);

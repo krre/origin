@@ -8,8 +8,8 @@ class SubmitQueue : public Queue {
 
 public:
     SubmitQueue(uint32_t queueFamilyIndex, uint32_t queueIndex = 0, Device* device = nullptr);
-    VkResult submit(VkFence fence = VK_NULL_HANDLE);
-    VkResult waitIdle();
+    void submit(VkFence fence = VK_NULL_HANDLE);
+    void waitIdle();
 
     void addSignalSemaphore(VkSemaphore semaphore);
     void addWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask);

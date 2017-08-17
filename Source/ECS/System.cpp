@@ -8,6 +8,6 @@ System::System() {
     entityManager = EntityManager::get();
 }
 
-bool System::setActive(bool active) {
+void System::setActive(bool active) {
     this->active = active;
 }

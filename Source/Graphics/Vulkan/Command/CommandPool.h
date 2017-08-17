@@ -11,7 +11,7 @@ public:
     ~CommandPool();
     void create() override;
     void destroy() override;
-    VkResult reset();
+    void reset();
 
 private:
     VkCommandPoolCreateInfo createInfo = {};

@@ -7,12 +7,12 @@ SubmitQueue::SubmitQueue(uint32_t queueFamilyIndex, uint32_t queueIndex, Device*
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 }
 
-VkResult SubmitQueue::submit(VkFence fence) {
+void SubmitQueue::submit(VkFence fence) {
     append();
     VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence), "Failed to submit queue");
 }
 
-VkResult SubmitQueue::waitIdle() {
+void SubmitQueue::waitIdle() {
     VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
 }
 

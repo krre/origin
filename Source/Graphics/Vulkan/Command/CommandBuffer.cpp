@@ -100,12 +100,12 @@ VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
 }
 
 
-VkResult CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
+void CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
     VULKAN_CHECK_RESULT(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
 }
 
-VkResult CommandBuffer::end() {
+void CommandBuffer::end() {
     VULKAN_CHECK_RESULT(vkEndCommandBuffer(handle), "Failed to end command buffer");
 }
 

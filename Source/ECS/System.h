@@ -14,7 +14,7 @@ public:
 
     SystemType getType() const { return type; }
 
-    bool setActive(bool active);
+    void setActive(bool active);
     bool getActive() const { return active; }
 
 protected:

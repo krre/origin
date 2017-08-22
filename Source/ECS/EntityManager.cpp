@@ -89,7 +89,7 @@ Component* EntityManager::createComponent(Entity* entity, ComponentType type) {
     return entity->components[type].get();
 }
 
-std::shared_ptr<Entity> EntityManager::createComponents(std::vector<ComponentType> types) {
+std::shared_ptr<Entity> EntityManager::createComponents(const std::vector<ComponentType>& types) {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
     for (const auto& type : types) {
         createComponent(entity.get(), type);

@@ -37,7 +37,7 @@ public:
 
     // Component
     Component* createComponent(Entity* entity, ComponentType type);
-    std::shared_ptr<Entity> createComponents(std::vector<ComponentType> types);
+    std::shared_ptr<Entity> createComponents(const std::vector<ComponentType>& types);
     void addComponent(Entity* entity, std::shared_ptr<Component> component);
     void removeComponent(Entity* entity, ComponentType type);
 

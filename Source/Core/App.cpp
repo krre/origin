@@ -55,10 +55,10 @@ void App::init() {
         new SDLWrapper;
         SDLWrapper::get()->init();
 
-        window = std::unique_ptr<GameWindow>(new GameWindow);
+        window = std::make_unique<GameWindow>();
         window->create();
 
-        vulkan = std::unique_ptr<Vulkan::Instance>(new Vulkan::Instance());
+        vulkan = std::make_unique<Vulkan::Instance>();
         vulkan->create();
 
         new RendererSet;

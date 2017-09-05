@@ -26,8 +26,8 @@
 
 WorldScene::WorldScene() {
     new EntityManager;
-    plane = std::unique_ptr<Plane>(new Plane);
-    shaderProgram = std::unique_ptr<ShaderProgram>(new ShaderProgram);
+    plane = std::make_unique<Plane>();
+    shaderProgram = std::make_unique<ShaderProgram>();
     console = std::make_shared<Console>();
     Game::get()->setWorldScene(this);
 }
@@ -52,10 +52,10 @@ void WorldScene::init() {
     int binding = shaderProgram->createVertexInputBindingDescription(sizeof(glm::vec2));
     shaderProgram->bindInput("position", binding);
 
-    vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(plane->getVerticesSize()));
+    vertexBuffer = std::make_unique<VertexBuffer>(plane->getVerticesSize());
     vertexBuffer->write(plane->getVertices().data(), plane->getVerticesSize());
 
-    indexBuffer = std::unique_ptr<IndexBuffer>(new IndexBuffer(plane->getIndicesSize()));
+    indexBuffer = std::make_unique<IndexBuffer>(plane->getIndicesSize());
     indexBuffer->write(plane->getIndices().data(), plane->getIndicesSize());
 
     shaderProgram->createPipeline();

@@ -17,7 +17,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
         throw std::runtime_error("Failed to decode image " + path);
     }
 
-    image = std::unique_ptr<Vulkan::Image>(new Vulkan::Image());
+    image = std::make_unique<Vulkan::Image>();
 
     image->setWidth(width);
     image->setHeight(height);
@@ -28,7 +28,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
 
     image->write(data.data(), data.size());
 
-    imageView = std::unique_ptr<Vulkan::ImageView>(new Vulkan::ImageView(image->getHandle()));
+    imageView = std::make_unique<Vulkan::ImageView>(image->getHandle());
     imageView->setFormat(image->getFormat());
     imageView->create();
 

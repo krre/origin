@@ -10,7 +10,7 @@ PhysicalDevices::PhysicalDevices(VkInstance instance) {
     vkEnumeratePhysicalDevices(instance, &count, collection.data());
 
     for (const auto& device : collection) {
-        std::unique_ptr<PhysicalDevice> physicalDevice = std::unique_ptr<PhysicalDevice>(new PhysicalDevice(device));
+        auto physicalDevice = std::make_unique<PhysicalDevice>(device);
 
         vkGetPhysicalDeviceProperties(device, &physicalDevice->properties);
         vkGetPhysicalDeviceFeatures(device, &physicalDevice->features);

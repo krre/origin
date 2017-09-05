@@ -6,8 +6,8 @@
 #include "UI/Batch2D.h"
 
 Scene2D::Scene2D() {
-    vertexBuffer = std::unique_ptr<VertexBuffer>(new VertexBuffer(MAX_VERTEX_BUFFER_SIZE));
-    indexBuffer = std::unique_ptr<IndexBuffer>(new IndexBuffer(MAX_INDEX_COUNT));
+    vertexBuffer = std::make_unique<VertexBuffer>(MAX_VERTEX_BUFFER_SIZE);
+    indexBuffer = std::make_unique<IndexBuffer>(MAX_INDEX_COUNT);
 }
 
 Scene2D::~Scene2D() {

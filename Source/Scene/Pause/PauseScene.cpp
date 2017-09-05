@@ -13,8 +13,8 @@
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
 
 PauseScene::PauseScene() {
-    continueButton = std::unique_ptr<Button>();
-    exitButton = std::unique_ptr<Button>();
+    continueButton = std::make_unique<Button>();
+    exitButton = std::make_unique<Button>();
 }
 
 PauseScene::~PauseScene() {

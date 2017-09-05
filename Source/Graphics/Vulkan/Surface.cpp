@@ -61,7 +61,7 @@ void Surface::create() {
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
 
-    swapchain = std::unique_ptr<Swapchain>(new Swapchain(this));
+    swapchain = std::make_unique<Swapchain>(this);
     swapchain->create();
 }
 

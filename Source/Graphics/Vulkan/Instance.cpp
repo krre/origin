@@ -84,7 +84,7 @@ void Instance::create() {
     VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
 
     if (enableValidationLayers) {
-        debugCallback = std::unique_ptr<DebugReportCallback>(new DebugReportCallback(handle));
+        debugCallback = std::make_unique<DebugReportCallback>(handle);
         debugCallback->create();
     }
 

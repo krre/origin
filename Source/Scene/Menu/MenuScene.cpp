@@ -14,8 +14,8 @@
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
 
 MenuScene::MenuScene() {
-    plane = std::unique_ptr<Plane>(new Plane);
-    shaderProgram = std::unique_ptr<ShaderProgram>(new ShaderProgram);
+    plane = std::make_unique<Plane>();
+    shaderProgram = std::make_unique<ShaderProgram>();
 }
 
 MenuScene::~MenuScene() {

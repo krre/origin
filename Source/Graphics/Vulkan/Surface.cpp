@@ -31,7 +31,6 @@ void Surface::create() {
     case SDL_SYSWM_X11: {
         VkXcbSurfaceCreateInfoKHR createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
-        createInfo.flags = 0;
         createInfo.connection = XGetXCBConnection(wminfo.info.x11.display);
         createInfo.window = wminfo.info.x11.window;
         VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(Instance::get()->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
@@ -41,7 +40,6 @@ void Surface::create() {
     case SDL_SYSWM_WINDOWS: {
         VkWin32SurfaceCreateInfoKHR createInfo = {};
         createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-        createInfo.flags = 0;
         createInfo.hwnd = wminfo.info.win.window;
         createInfo.hinstance = GetModuleHandle(nullptr);
         VULKAN_CHECK_RESULT(vkCreateWin32SurfaceKHR(Instance::get()->getHandle(), &createInfo, nullptr, &handle), "Failed to create win32 surface");

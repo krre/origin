@@ -2,7 +2,13 @@ add_subdirectory(Buffer)
 add_subdirectory(Light)
 add_subdirectory(Render)
 add_subdirectory(Voxel)
-add_subdirectory(Vulkan)
+
+if(VULKAN_BACKEND)
+    add_subdirectory(Vulkan)
+    message("Vulkan backend enabled")
+else()
+    message("Vulkan backend disabled")
+endif()
 
 set(SOURCES
     ${SOURCES}

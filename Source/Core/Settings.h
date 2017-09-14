@@ -12,6 +12,8 @@ public:
     void saveAll();
 
 private:
+    void setDefaultSettings();
+
     std::string path;
     std::map<std::string, std::string> storage;
 };

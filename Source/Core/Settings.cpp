@@ -25,6 +25,8 @@ Settings::Settings() {
                 }
             }
         }
+    } else {
+        setDefaultSettings();
     }
 }
 
@@ -53,4 +55,8 @@ void Settings::saveAll() {
         out << line;
     }
     out.close();
+}
+
+void Settings::setDefaultSettings() {
+    storage["gfx_backend"] = "opengl";
 }

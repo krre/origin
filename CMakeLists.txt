@@ -6,11 +6,11 @@ set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 
+set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-
-set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 configure_file(Origin.h.in Origin.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
@@ -20,7 +20,7 @@ add_subdirectory(ThirdParty)
 
 set(EXECUTABLE_NAME "origin")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
-target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
+#target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 
@@ -39,31 +39,31 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${BULLET_LIBRARIES}
     stdc++fs)
 
-IF (WIN32)
+if(WIN32)
     find_package(Vulkan REQUIRED)
 
     include_directories(${Vulkan_INCLUDE_DIRS})
     include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
 
-    SET(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
-    STRING(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
+    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
+    string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
 
     target_link_libraries(${EXECUTABLE_NAME}
         ${Vulkan_LIBRARIES}
         ${SPIRV_TOOLS_LIB})
-ELSE()
+else()
     include_directories($ENV{VULKAN_SDK}/include)
 
     target_link_libraries(${EXECUTABLE_NAME}
         $ENV{VULKAN_SDK}/lib/libvulkan.so
         $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
         X11-xcb)
-ENDIF()
+endif()
 
 # Show in QtCreator project tree
-FILE(GLOB_RECURSE Markdown "*.md")
-FILE(GLOB_RECURSE Data "Data/*.*")
-FILE(GLOB_RECURSE Debug "Debug/*.*")
+file(GLOB_RECURSE Markdown "*.md")
+file(GLOB_RECURSE Data "Data/*.*")
+file(GLOB_RECURSE Debug "Debug/*.*")
 add_custom_target(markdown SOURCES ${Markdown})
 add_custom_target(data SOURCES ${Data})
 add_custom_target(debug SOURCES ${Debug})

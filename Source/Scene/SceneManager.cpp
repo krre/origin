@@ -6,9 +6,11 @@
 #include "Graphics/Vulkan/Semaphore.h"
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Surface.h"
+#include "Graphics/Render/RenderManager.h"
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();
+    renderManager = std::make_unique<RenderManager>();
 }
 
 void SceneManager::pushScene(const std::shared_ptr<Scene>& scene) {

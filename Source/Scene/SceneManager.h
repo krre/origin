@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include <vector>
 
+class RenderManager;
+
 class SceneManager : public Singleton<SceneManager> {
 
 public:
@@ -19,4 +21,5 @@ public:
 
 private:
     std::vector<std::shared_ptr<Scene>> scenes;
+    std::unique_ptr<RenderManager> renderManager;
 };

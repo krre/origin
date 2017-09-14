@@ -1,6 +1,7 @@
 #pragma once
 
 #cmakedefine VERSION_STRING "@VERSION_STRING@"
+#cmakedefine VULKAN_BACKEND
 
 #define DEVELOP_MODE
 

@@ -1,6 +1,6 @@
 #include "App.h"
 #include "SDLWrapper.h"
-#include "GameWindow.h"
+#include "RenderWindow.h"
 #include "Game.h"
 #include "Utils.h"
 #include "Event/Event.h"
@@ -55,7 +55,7 @@ void App::init() {
         new SDLWrapper;
         SDLWrapper::get()->init();
 
-        window = std::make_unique<GameWindow>();
+        window = std::make_unique<RenderWindow>();
         window->create();
 
         vulkan = std::make_unique<Vulkan::Instance>();

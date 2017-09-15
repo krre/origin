@@ -1,7 +1,7 @@
 #pragma once
 #include "ECS/Component.h"
 #include "Core/App.h"
-#include "Core/GameWindow.h"
+#include "Core/RenderWindow.h"
 #include <glm/ext.hpp>
 
 class CameraComponent : public Component {

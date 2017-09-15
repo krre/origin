@@ -2,7 +2,7 @@
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "Core/App.h"
-#include "Core/GameWindow.h"
+#include "Core/RenderWindow.h"
 
 Dialog::Dialog() {
     SDL_SetRelativeMouseMode(SDL_FALSE);

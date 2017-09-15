@@ -2,7 +2,7 @@
 #include "Singleton.h"
 #include <vector>
 
-class GameWindow;
+class RenderWindow;
 
 namespace Vulkan {
     class Instance;
@@ -20,12 +20,12 @@ public:
     void run();
     void quit();
 
-    GameWindow* getWindow() const { return window.get(); }
+    RenderWindow* getWindow() const { return window.get(); }
     bool getIsRunning() const { return isRunning; }
 
 private:
     std::vector<std::string> argv;
     bool isRunning = false;
-    std::unique_ptr<GameWindow> window;
+    std::unique_ptr<RenderWindow> window;
     std::unique_ptr<Vulkan::Instance> vulkan;
 };

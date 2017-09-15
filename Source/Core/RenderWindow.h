@@ -3,11 +3,11 @@
 
 struct SDL_Window;
 
-class GameWindow {
+class RenderWindow {
 
 public:
-    GameWindow();
-    ~GameWindow();
+    RenderWindow();
+    ~RenderWindow();
 
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }

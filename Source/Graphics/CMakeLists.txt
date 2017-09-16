@@ -3,10 +3,6 @@ add_subdirectory(Light)
 add_subdirectory(Render)
 add_subdirectory(Voxel)
 
-if(ENABLE_VULKAN)
-    add_subdirectory(Vulkan)
-endif()
-
 set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Color.cpp

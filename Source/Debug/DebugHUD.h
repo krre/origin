@@ -1,10 +1,10 @@
 #pragma once
 #include "Core/Singleton.h"
 #include "Scene/Scene2D.h"
-#include "Graphics/Vulkan/Wrapper/Pipeline/PipelineCache.h"
+#include "Graphics/Render/Vulkan/Wrapper/Pipeline/PipelineCache.h"
 #include "Graphics/ShaderProgram.h"
-#include "Graphics/Vulkan/Wrapper/Sampler.h"
-#include "Graphics/Vulkan/Wrapper/RenderPass.h"
+#include "Graphics/Render/Vulkan/Wrapper/Sampler.h"
+#include "Graphics/Render/Vulkan/Wrapper/RenderPass.h"
 
 const int MAX_CHAR_COUNT = 2048;
 

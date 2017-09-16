@@ -1,11 +1,11 @@
 #include "SceneManager.h"
 #include "Debug/DebugHUD.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
-#include "Graphics/Vulkan/Wrapper/Swapchain.h"
-#include "Graphics/Vulkan/Wrapper/Queue/PresentQueue.h"
-#include "Graphics/Vulkan/Wrapper/Semaphore.h"
-#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
-#include "Graphics/Vulkan/Wrapper/Surface.h"
+#include "Graphics/Render/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Render/Vulkan/Wrapper/Swapchain.h"
+#include "Graphics/Render/Vulkan/Wrapper/Queue/PresentQueue.h"
+#include "Graphics/Render/Vulkan/Wrapper/Semaphore.h"
+#include "Graphics/Render/Vulkan/Wrapper/Queue/SubmitQueue.h"
+#include "Graphics/Render/Vulkan/Wrapper/Surface.h"
 #include "Graphics/Render/RenderManager.h"
 
 SceneManager::SceneManager() {

@@ -10,9 +10,9 @@
 #include "Event/Input.h"
 #include "Scene/SceneManager.h"
 #include "Scene/Menu/MenuScene.h"
-#include "Graphics/Vulkan/Wrapper/Swapchain.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
-#include "Graphics/Vulkan/Wrapper/Surface.h"
+#include "Graphics/Render/Vulkan/Wrapper/Swapchain.h"
+#include "Graphics/Render/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Render/Vulkan/Wrapper/Surface.h"
 #include <Origin.h>
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>

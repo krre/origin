@@ -5,12 +5,12 @@
 #include "Event/Input.h"
 #include "UI/LinearLayout.h"
 #include "UI/Button.h"
-#include "Graphics/Vulkan/Swapchain.h"
-#include "Graphics/Vulkan/Framebuffer.h"
-#include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Command/CommandBuffer.h"
-#include "Graphics/Vulkan/Command/CommandBuffers.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Wrapper/Swapchain.h"
+#include "Graphics/Vulkan/Wrapper/Framebuffer.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBuffer.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBuffers.h"
+#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
 PauseScene::PauseScene() {
     continueButton = std::make_unique<Button>();

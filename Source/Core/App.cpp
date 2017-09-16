@@ -12,7 +12,7 @@
 #include "Scene/SceneManager.h"
 #include "Core/Settings.h"
 #include "Graphics/Render/RendererSet.h"
-#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include <string>
 #include <SDL_timer.h>
 #include <Origin.h>

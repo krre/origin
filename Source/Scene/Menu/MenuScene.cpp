@@ -5,13 +5,13 @@
 #include "Graphics/ShaderProgram.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
-#include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Swapchain.h"
-#include "Graphics/Vulkan/Surface.h"
-#include "Graphics/Vulkan/RenderPass.h"
-#include "Graphics/Vulkan/Descriptor/DescriptorSets.h"
-#include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
-#include "Graphics/Vulkan/Command/CommandBuffer.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Swapchain.h"
+#include "Graphics/Vulkan/Wrapper/Surface.h"
+#include "Graphics/Vulkan/Wrapper/RenderPass.h"
+#include "Graphics/Vulkan/Wrapper/Descriptor/DescriptorSets.h"
+#include "Graphics/Vulkan/Wrapper/Pipeline/GraphicsPipeline.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBuffer.h"
 
 MenuScene::MenuScene() {
     plane = std::make_unique<Plane>();

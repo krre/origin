@@ -1,12 +1,12 @@
 #include "Texture.h"
 #include <lodepng/lodepng.h>
-#include "Vulkan/Instance.h"
-#include "Vulkan/Command/CommandBufferOneTime.h"
-#include "Vulkan/Fence.h"
-#include "Vulkan/Queue/SubmitQueue.h"
-#include "Vulkan/Image/ImageView.h"
-#include "Vulkan/Image/Image.h"
-#include "Vulkan/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
+#include "Graphics/Vulkan/Wrapper/Fence.h"
+#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
+#include "Graphics/Vulkan/Wrapper/Image/Image.h"
+#include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 
 Texture::Texture(const std::string& path, VkFormat format) {
     Vulkan::Device* device = Vulkan::Instance::get()->getDefaultDevice();

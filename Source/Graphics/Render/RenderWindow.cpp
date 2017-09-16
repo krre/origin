@@ -5,7 +5,7 @@
 #include "Core/Settings.h"
 #include "Event/Event.h"
 #include "Scene/SceneManager.h"
-#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include <SDL_video.h>
 #include <stdexcept>
 

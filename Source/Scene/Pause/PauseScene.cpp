@@ -27,7 +27,7 @@ void PauseScene::init() {
 }
 
 void PauseScene::update(float dt) {
-    layout->setPosition({ (App::get()->getWindow()->getWidth() - layout->getSize().width) / 2, (App::get()->getWindow()->getHeight() - layout->getSize().height) / 2 });
+    layout->setPosition({ ((int)App::get()->getWindow()->getWidth() - layout->getSize().width) / 2, ((int)App::get()->getWindow()->getHeight() - layout->getSize().height) / 2 });
     layout->update();
 }
 

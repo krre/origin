@@ -10,7 +10,7 @@ Toast::Toast() {
 }
 
 void Toast::draw(float dt) {
-    text.setPosition({ 5, App::get()->getWindow()->getHeight() / 2 });
+    text.setPosition({ 5, (int)App::get()->getWindow()->getHeight() / 2 });
     text.draw(dt);
 }
 

@@ -13,15 +13,17 @@ RenderWindow::RenderWindow() {
     int screenWidth = SDLWrapper::get()->getScreenSize().width;
     int screenHeight = SDLWrapper::get()->getScreenSize().height;
 
-    std::string settingsX = Settings::get()->getValue("x");
-    std::string settingsY = Settings::get()->getValue("y");
     std::string settingsWidth = Settings::get()->getValue("width");
     std::string settingsHeigth = Settings::get()->getValue("height");
 
+    width = settingsWidth.empty() ? WINDOW_WIDTH : std::stoi(settingsWidth);
+    height = settingsHeigth.empty() ? WINDOW_HEIGHT : std::stoi(settingsHeigth);
+
+    std::string settingsX = Settings::get()->getValue("x");
+    std::string settingsY = Settings::get()->getValue("y");
+
     x = settingsX.empty() ? (screenWidth - width) / 2 : std::stoi(settingsX);
     y = settingsY.empty() ? (screenHeight - height) / 2 : std::stoi(settingsY);
-    width = settingsWidth.empty() ? width : std::stoi(settingsWidth);
-    height = settingsHeigth.empty() ? height : std::stoi(settingsHeigth);
 
     // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
     // then divide it on 2

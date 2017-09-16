@@ -2,6 +2,9 @@
 #include <string>
 #include "Graphics/Render/RenderTarget.h"
 
+const uint32_t WINDOW_WIDTH = 800;
+const uint32_t WINDOW_HEIGHT = 600;
+
 struct SDL_Window;
 
 class RenderWindow : public RenderTarget {
@@ -15,11 +18,6 @@ public:
     int getX() const { return x; }
     int getY() const { return y; }
 
-    void setWidth(int width) { this->width = width; }
-    void setHeight(int height) { this->height = height; }
-    int getWidth() const { return width; }
-    int getHeight() const { return height; }
-
     void show();
     void create();
 
@@ -29,8 +27,6 @@ private:
     SDL_Window* handle = nullptr;
     int x = 100;
     int y = 100;
-    int width = 800;
-    int height = 600;
 
     void onMove(int x, int y);
     void onResize(int width, int height);

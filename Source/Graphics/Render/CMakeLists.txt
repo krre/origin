@@ -1,3 +1,7 @@
+if(ENABLE_OPENGL)
+    add_subdirectory(OpenGL)
+endif()
+
 set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderManager.cpp

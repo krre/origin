@@ -4,5 +4,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RendererSet.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RendererSet.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/RenderTarget.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RenderTarget.h
     PARENT_SCOPE
 )

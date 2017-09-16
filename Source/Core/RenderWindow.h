@@ -1,9 +1,10 @@
 #pragma once
 #include <string>
+#include "Graphics/Render/RenderTarget.h"
 
 struct SDL_Window;
 
-class RenderWindow {
+class RenderWindow : public RenderTarget {
 
 public:
     RenderWindow();

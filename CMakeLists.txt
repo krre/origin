@@ -63,9 +63,5 @@ else()
 endif()
 
 # Show in QtCreator project tree
-file(GLOB_RECURSE Markdown "*.md")
-file(GLOB_RECURSE Data "Data/*.*")
-file(GLOB_RECURSE Debug "Debug/*.*")
-add_custom_target(markdown SOURCES ${Markdown})
-add_custom_target(data SOURCES ${Data})
-add_custom_target(debug SOURCES ${Debug})
+file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*")
+add_custom_target(root SOURCES ${Root})

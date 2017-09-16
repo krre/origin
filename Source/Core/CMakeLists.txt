@@ -9,8 +9,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Node.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderWindow.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderWindow.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SDLWrapper.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SDLWrapper.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Settings.cpp

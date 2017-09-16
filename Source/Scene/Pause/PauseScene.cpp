@@ -1,6 +1,6 @@
 #include "PauseScene.h"
 #include "Core/App.h"
-#include "Core/RenderWindow.h"
+#include "Graphics/Render/RenderWindow.h"
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "UI/LinearLayout.h"

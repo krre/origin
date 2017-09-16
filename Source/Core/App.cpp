@@ -1,6 +1,6 @@
 #include "App.h"
 #include "SDLWrapper.h"
-#include "RenderWindow.h"
+#include "Graphics/Render/RenderWindow.h"
 #include "Game.h"
 #include "Utils.h"
 #include "Event/Event.h"

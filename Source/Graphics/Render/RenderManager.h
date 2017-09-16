@@ -12,5 +12,5 @@ public:
 
 private:
     std::vector<GraphicsBackend> backends;
-    GraphicsBackend currentBackend = GraphicsBackend::OPENGL;
+    GraphicsBackend currentBackend = GraphicsBackend::NONE;
 };

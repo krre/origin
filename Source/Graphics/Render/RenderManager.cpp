@@ -4,8 +4,11 @@
 #include <algorithm>
 
 RenderManager::RenderManager() {
+#ifdef ENABLE_OPENGL
     backends.push_back(GraphicsBackend::OPENGL);
-#ifdef VULKAN_BACKEND
+#endif
+
+#ifdef ENABLE_VULKAN
     backends.push_back(GraphicsBackend::VULKAN);
 #endif
 
@@ -17,8 +20,7 @@ RenderManager::RenderManager() {
     }
 
     if (std::find(backends.begin(), backends.end(), currentBackend) == backends.end()) {
-        PRINT(std::string("Graphics backend ") + backend + " is not supported. Set to OpenGL");
-        currentBackend = GraphicsBackend::OPENGL;
+        throw std::runtime_error(std::string("Graphics backend ") + backend + " is not supported");
     }
 }
 

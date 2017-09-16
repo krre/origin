@@ -8,5 +8,6 @@ enum class PipelinePreset {
 
 enum class GraphicsBackend {
     OPENGL,
-    VULKAN
+    VULKAN,
+    NONE
 };

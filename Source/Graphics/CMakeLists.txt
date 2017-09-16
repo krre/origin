@@ -3,11 +3,8 @@ add_subdirectory(Light)
 add_subdirectory(Render)
 add_subdirectory(Voxel)
 
-if(VULKAN_BACKEND)
+if(ENABLE_VULKAN)
     add_subdirectory(Vulkan)
-    message("Vulkan backend enabled")
-else()
-    message("Vulkan backend disabled")
 endif()
 
 set(SOURCES

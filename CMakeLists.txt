@@ -12,7 +12,12 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(VULKAN_BACKEND "Enable Vulkan backend")
+option(ENABLE_OPENGL "Enable OpenGL backend" ON)
+option(ENABLE_VULKAN "Enable Vulkan backend")
+
+if(NOT (${ENABLE_OPENGL} OR ${ENABLE_VULKAN}))
+    message(FATAL_ERROR "Graphics backend don't selected!")
+endif()
 
 configure_file(Origin.h.in Origin.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})

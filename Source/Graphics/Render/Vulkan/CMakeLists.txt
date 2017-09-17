@@ -2,5 +2,7 @@ add_subdirectory(Wrapper)
 
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderWindow.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderWindow.h
     PARENT_SCOPE
 )

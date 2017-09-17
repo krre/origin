@@ -1,5 +1,6 @@
 #include "App.h"
 #include "Origin.h"
+#include "Core/Context.h"
 #include "SDLWrapper.h"
 #include "Game.h"
 #include "Utils.h"
@@ -44,6 +45,7 @@ App::~App() {
     window.reset();
     vulkan.reset();
     SDLWrapper::get()->release();
+    Context::get()->release();
     Event::get()->release();
     Logger::get()->release();
     Settings::get()->release();
@@ -59,6 +61,7 @@ void App::init() {
         new Settings;
         new Logger;
         new Event;
+        new Context;
 
         new SDLWrapper;
         SDLWrapper::get()->init();

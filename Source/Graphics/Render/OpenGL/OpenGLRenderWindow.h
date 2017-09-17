@@ -5,4 +5,5 @@ class OpenGLRenderWindow : public RenderWindow {
 
 public:
     OpenGLRenderWindow();
+    void swapBuffers() override;
 };

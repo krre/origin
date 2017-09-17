@@ -1,6 +1,6 @@
 #include "App.h"
+#include "Origin.h"
 #include "SDLWrapper.h"
-#include "Graphics/Render/RenderWindow.h"
 #include "Game.h"
 #include "Utils.h"
 #include "Event/Event.h"
@@ -18,6 +18,14 @@
 #include <Origin.h>
 #include <algorithm>
 #include <experimental/filesystem>
+
+#ifdef ENABLE_OPENGL
+    #include "Graphics/Render/OpenGL/OpenGLRenderWindow.h"
+#endif
+
+#ifdef ENABLE_VULKAN
+    #include "Graphics/Render/Vulkan/VulkanRenderWindow.h"
+#endif
 
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
@@ -55,7 +63,7 @@ void App::init() {
         new SDLWrapper;
         SDLWrapper::get()->init();
 
-        window = std::make_unique<RenderWindow>();
+        window = std::make_unique<VulkanRenderWindow>();
         window->create();
 
         vulkan = std::make_unique<Vulkan::Instance>();

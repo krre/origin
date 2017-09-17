@@ -21,6 +21,8 @@ public:
     void show();
     void create();
 
+    virtual void swapBuffers() = 0;
+
     SDL_Window* getHandle() { return handle; }
 
 private:

@@ -3,3 +3,7 @@
 VulkanRenderWindow::VulkanRenderWindow() {
 
 }
+
+void VulkanRenderWindow::swapBuffers() {
+
+}

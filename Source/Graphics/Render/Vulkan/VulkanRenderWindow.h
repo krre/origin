@@ -5,4 +5,5 @@ class VulkanRenderWindow : public RenderWindow {
 
 public:
     VulkanRenderWindow();
+    void swapBuffers() override;
 };

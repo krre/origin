@@ -3,3 +3,7 @@
 OpenGLRenderWindow::OpenGLRenderWindow() {
 
 }
+
+void OpenGLRenderWindow::swapBuffers() {
+
+}

@@ -66,7 +66,12 @@ void App::init() {
         new SDLWrapper;
         SDLWrapper::get()->init();
 
-        window = std::make_unique<VulkanRenderWindow>();
+        GraphicsBackend gfxBackend = Context::get()->getCurrentBackend();
+        if (gfxBackend == GraphicsBackend::OPENGL) {
+            window = std::make_unique<OpenGLRenderWindow>();
+        } else if (gfxBackend == GraphicsBackend::VULKAN) {
+            window = std::make_unique<VulkanRenderWindow>();
+        }
         window->create();
 
         vulkan = std::make_unique<Vulkan::Instance>();

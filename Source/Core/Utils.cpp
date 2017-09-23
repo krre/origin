@@ -158,3 +158,14 @@ std::vector<std::string> Utils::split(const std::string& value, char delim) {
 void Utils::removeChar(std::string& str, char c) {
     str.erase(remove(str.begin(), str.end(), c), str.end());
 }
+
+std::string Utils::graphicsBackendToString(GraphicsBackend backend) {
+    switch (backend) {
+    case GraphicsBackend::OPENGL:
+        return "OpenGL";
+    case GraphicsBackend::VULKAN:
+        return "Vulkan";
+    default:
+        return "None";
+    }
+}

@@ -22,6 +22,7 @@ public:
 
     RenderWindow* getWindow() const { return window.get(); }
     bool getIsRunning() const { return isRunning; }
+    const std::vector<std::string>& getArgv() const { return argv; }
 
 private:
     std::vector<std::string> argv;

@@ -13,7 +13,7 @@
 #include "Scene/SceneManager.h"
 #include "Core/Settings.h"
 #include "Graphics/Render/RendererSet.h"
-#include "Graphics/Render/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include <string>
 #include <SDL_timer.h>
 #include <Origin.h>
@@ -21,11 +21,11 @@
 #include <experimental/filesystem>
 
 #ifdef ENABLE_OPENGL
-    #include "Graphics/Render/OpenGL/OpenGLRenderWindow.h"
+    #include "Graphics/OpenGL/OpenGLRenderWindow.h"
 #endif
 
 #ifdef ENABLE_VULKAN
-    #include "Graphics/Render/Vulkan/VulkanRenderWindow.h"
+    #include "Graphics/Vulkan/VulkanRenderWindow.h"
 #endif
 
 App::App(int argc, char* argv[]) {

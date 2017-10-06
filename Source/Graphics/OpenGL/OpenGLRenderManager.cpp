@@ -2,7 +2,7 @@
 #include "OpenGLRenderWindow.h"
 
 OpenGLRenderManager::OpenGLRenderManager() {
-
+    setName("OpenGLRenderManager");
 }
 
 RenderWindow* OpenGLRenderManager::createRenderWindow() {

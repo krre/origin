@@ -22,10 +22,12 @@
 
 #ifdef ENABLE_OPENGL
     #include "Graphics/OpenGL/OpenGLRenderWindow.h"
+    #include "Graphics/OpenGL/OpenGLRenderManager.h"
 #endif
 
 #ifdef ENABLE_VULKAN
     #include "Graphics/Vulkan/VulkanRenderWindow.h"
+    #include "Graphics/Vulkan/VulkanRenderManager.h"
 #endif
 
 App::App(int argc, char* argv[]) {
@@ -44,6 +46,7 @@ App::~App() {
     RendererSet::get()->release();
     window.reset();
     vulkan.reset();
+    RenderManager::get()->release();
     SDLWrapper::get()->release();
     Context::get()->release();
     Event::get()->release();
@@ -68,9 +71,15 @@ void App::init() {
 
         GraphicsBackend gfxBackend = Context::get()->getCurrentBackend();
         if (gfxBackend == GraphicsBackend::OPENGL) {
+#ifdef ENABLE_OPENGL
             window = std::make_unique<OpenGLRenderWindow>();
+            new OpenGLRenderManager;
+#endif
         } else if (gfxBackend == GraphicsBackend::VULKAN) {
+#ifdef ENABLE_VULKAN
             window = std::make_unique<VulkanRenderWindow>();
+            new VulkanRenderManager;
+#endif
         }
         window->create();
 
@@ -91,6 +100,8 @@ void App::init() {
             ERROR(ex.what());
         }
     }
+
+    PRINT(RenderManager::get()->getName())
 
     Event::get()->quit.connect<App, &App::quit>(this);
     Event::get()->windowResize.emit(window->getWidth(), window->getHeight());

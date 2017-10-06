@@ -2,7 +2,7 @@
 #include "VulkanRenderWindow.h"
 
 VulkanRenderManager::VulkanRenderManager() {
-
+    setName("VulkanRenderManager");
 }
 
 RenderWindow* VulkanRenderManager::createRenderWindow() {

@@ -10,7 +10,7 @@
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();
-    renderManager = std::make_unique<RenderManager>();
+//    renderManager = std::make_unique<RenderManager>();
 }
 
 void SceneManager::pushScene(const std::shared_ptr<Scene>& scene) {

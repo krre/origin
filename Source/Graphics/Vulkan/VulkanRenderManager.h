@@ -5,4 +5,5 @@ class VulkanRenderManager : public RenderManager {
 
 public:
     VulkanRenderManager();
+    RenderWindow* createRenderWindow() override;
 };

@@ -8,6 +8,8 @@
 #include "Base/Handle.h"
 #include <vector>
 
+class RenderWindow;
+
 namespace Vulkan {
 
 class Swapchain;
@@ -15,7 +17,7 @@ class Swapchain;
 class Surface : public Handle<VkSurfaceKHR> {
 
 public:
-    Surface(VkPhysicalDevice physicalDevice);
+    Surface(VkPhysicalDevice physicalDevice, RenderWindow* window);
     ~Surface();
     void create() override;
     void destroy() override;
@@ -27,6 +29,7 @@ public:
     Swapchain* getSwapchain() const { return swapchain.get(); }
 
 private:
+    RenderWindow* window;
     VkPhysicalDevice physicalDevice;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;

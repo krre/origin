@@ -4,10 +4,6 @@
 
 class RenderWindow;
 
-namespace Vulkan {
-    class Instance;
-}
-
 class App : public Singleton<App> {
 
 public:
@@ -28,5 +24,4 @@ private:
     std::vector<std::string> argv;
     bool isRunning = false;
     RenderWindow* window;
-    std::unique_ptr<Vulkan::Instance> vulkan;
 };

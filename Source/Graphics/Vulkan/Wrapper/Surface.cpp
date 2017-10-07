@@ -12,8 +12,9 @@
 
 using namespace Vulkan;
 
-Surface::Surface(VkPhysicalDevice physicalDevice) :
-    physicalDevice(physicalDevice) {
+Surface::Surface(VkPhysicalDevice physicalDevice, RenderWindow* window) :
+    physicalDevice(physicalDevice),
+    window(window) {
 }
 
 Surface::~Surface() {
@@ -24,7 +25,7 @@ Surface::~Surface() {
 void Surface::create() {
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
-    SDL_GetWindowWMInfo(App::get()->getWindow()->getHandle(), &wminfo);
+    SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
 
     switch (wminfo.subsystem) {
 #ifdef __linux__

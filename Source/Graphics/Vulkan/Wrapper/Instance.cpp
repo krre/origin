@@ -103,15 +103,17 @@ void Instance::create() {
 
     defaultDevice = device.get();
 
-    surface = std::make_shared<Surface>(defaultPhysicalDevice->getHandle());
-    surface->create();
-
     commandPool = std::make_shared<CommandPool>(graphicsFamily);
     commandPool->create();
 }
 
 void Instance::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyInstance(handle, nullptr))
+}
+
+void Instance::createSurface(RenderWindow* window) {
+    surface = std::make_shared<Surface>(defaultDevice->getPhysicalDevice()->getHandle(), window);
+    surface->create();
 }
 void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
     this->enabledLayers = enabledLayers;

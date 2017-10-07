@@ -14,7 +14,6 @@
 #include "Core/Settings.h"
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include <string>
 #include <SDL_timer.h>
 #include <algorithm>
@@ -43,7 +42,6 @@ App::~App() {
     ResourceManager::get()->release();
     RendererSet::get()->release();
     delete window;
-    vulkan.reset();
     RenderManager::get()->release();
     SDLWrapper::get()->release();
     Context::get()->release();
@@ -78,10 +76,6 @@ void App::init() {
 #endif
         }
         window = RenderManager::get()->createRenderWindow();
-        window->create();
-
-        vulkan = std::make_unique<Vulkan::Instance>();
-        vulkan->create();
 
         new RendererSet;
         new ResourceManager;

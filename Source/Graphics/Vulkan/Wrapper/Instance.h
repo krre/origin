@@ -2,6 +2,8 @@
 #include "Base/Handle.h"
 #include <vector>
 
+class RenderWindow;
+
 namespace Vulkan {
 
 #ifdef NDEBUG
@@ -25,6 +27,8 @@ public:
 
     void create() override;
     void destroy() override;
+    // TODO: Temporary.
+    void createSurface(RenderWindow* window);
 
     const std::vector<VkLayerProperties>& getLayers() const { return layers; }
     void setEnabledLayers(const std::vector<const char*> enabledLayers);

@@ -2,11 +2,9 @@
 #include "Core/App.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Debug/DebugHUD.h"
-#include "Graphics/Render/RenderManager.h"
 
 SceneManager::SceneManager() {
     DebugHUD::get()->init();
-//    renderManager = std::make_unique<RenderManager>();
 }
 
 void SceneManager::pushScene(const std::shared_ptr<Scene>& scene) {

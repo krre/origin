@@ -1,9 +1,8 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "Scene.h"
 #include <vector>
 
-class RenderManager;
+class Scene;
 
 class SceneManager : public Singleton<SceneManager> {
 
@@ -20,5 +19,4 @@ public:
 
 private:
     std::vector<std::shared_ptr<Scene>> scenes;
-    std::unique_ptr<RenderManager> renderManager;
 };

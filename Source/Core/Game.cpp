@@ -11,9 +11,6 @@
 #include "Event/Input.h"
 #include "Scene/SceneManager.h"
 #include "Scene/Menu/MenuScene.h"
-#include "Graphics/Vulkan/Wrapper/Swapchain.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
-#include "Graphics/Vulkan/Wrapper/Surface.h"
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -84,7 +81,7 @@ void Game::saveScreenshot() {
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
     std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
 
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->saveImage(filePath);
+    App::get()->getWindow()->saveImage(filePath);
 
     std::string message = "Screenshot saved to " + filename;
 //    Toast::get()->showToast(message);

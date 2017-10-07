@@ -1,9 +1,9 @@
 #include "App.h"
-#include "Origin.h"
 #include "Core/Context.h"
 #include "SDLWrapper.h"
 #include "Game.h"
 #include "Utils.h"
+#include "Defines.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "Resource/ResourceManager.h"
@@ -17,7 +17,6 @@
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include <string>
 #include <SDL_timer.h>
-#include <Origin.h>
 #include <algorithm>
 #include <experimental/filesystem>
 

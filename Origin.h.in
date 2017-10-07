@@ -1,13 +1,4 @@
 #pragma once
-
 #cmakedefine VERSION_STRING "@VERSION_STRING@"
 #cmakedefine ENABLE_OPENGL
 #cmakedefine ENABLE_VULKAN
-
-#define DEVELOP_MODE
-
-#ifdef DEVELOP_MODE
-    #define CONSOLE_ENABLE
-    #define DEBUG_HUD_ENABLE
-    #define DEVELOP_GAME_STATE
-#endif

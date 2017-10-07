@@ -1,7 +1,7 @@
 #include "WorldScene.h"
-#include <Origin.h>
 #include "Core/Game.h"
 #include "Core/App.h"
+#include "Core/Defines.h"
 #include "Debug/Console.h"
 #include "ECS/EntityManager.h"
 #include "ECS/EntityBuilder.h"

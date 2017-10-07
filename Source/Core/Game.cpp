@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "App.h"
+#include "Defines.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Utils.h"
 #include "Scene/World/WorldScene.h"
@@ -13,7 +14,6 @@
 #include "Graphics/Vulkan/Wrapper/Swapchain.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Surface.h"
-#include <Origin.h>
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>

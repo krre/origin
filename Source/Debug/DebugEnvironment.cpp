@@ -1,12 +1,12 @@
 #include "DebugEnvironment.h"
 #include "Core/App.h"
+#include "Core/Defines.h"
 #include "Core/Utils.h"
 #include "Scene/SceneManager.h"
 #include "Scene/Menu/MenuScene.h"
 #include "Scene/Settings/SettingsScene.h"
 #include "Scene/World/WorldScene.h"
 #include "Debug/DebugHUD.h"
-#include <Origin.h>
 
 DebugEnvironment::DebugEnvironment() {
 #ifdef DEVELOP_MODE

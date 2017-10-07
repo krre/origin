@@ -30,5 +30,7 @@ void Scene2D::setRootControl(const std::shared_ptr<Control>& root) {
 
 void Scene2D::onWindowResize(int width, int height) {
     size = Size(width, height);
-    root->setSize(size);
+    if (root) {
+        root->setSize(size);
+    }
 }

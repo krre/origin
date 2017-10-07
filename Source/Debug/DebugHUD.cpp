@@ -1,6 +1,7 @@
 #include "DebugHUD.h"
 #include "Core/App.h"
 #include "Core/Game.h"
+#include "Core/Defines.h"
 #include "Scene/World/WorldScene.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"
@@ -23,7 +24,6 @@
 #include "UI/Text/Font.h"
 #include "UI/Rectangle.h"
 #include <glm/glm.hpp>
-#include <Origin.h>
 
 DebugHUD::DebugHUD() {
     setBackgroundColor(Color::TRANSPARENT);
@@ -98,7 +98,7 @@ void DebugHUD::update(float dt) {
     }
 
     std::string text =
-        "Origin " + std::string(VERSION_STRING) + "\n" +
+        std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
         std::to_string(fps) + " fps\n"
         "Video driver: " + Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan API: " + vulkanApiVersion + "\n"

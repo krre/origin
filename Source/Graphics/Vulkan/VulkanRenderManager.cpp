@@ -5,12 +5,12 @@
 VulkanRenderManager::VulkanRenderManager() {
     setName("VulkanRenderManager");
     vulkan = std::make_unique<Vulkan::Instance>();
+    vulkan->create();
 }
 
 RenderWindow* VulkanRenderManager::createRenderWindow() {
     VulkanRenderWindow* window = new VulkanRenderWindow;
     window->create();
-    vulkan->create();
     vulkan->createSurface(window);
     return window;
 }

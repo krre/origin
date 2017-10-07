@@ -88,9 +88,9 @@ void Scene::clearCameras() {
 
 void Scene::setCurrentCamera(const std::shared_ptr<Entity>& currentCamera) {
     this->currentCamera = currentCamera;
-    MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
-    movementControllerSystem->setMoveEntity(currentCamera.get());
-    movementControllerSystem->setRotateEntity(currentCamera.get());
+    MovementControllerSystem* mcs = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
+    mcs->setMoveEntity(currentCamera.get());
+    mcs->setRotateEntity(currentCamera.get());
 
     switchCameras[1] = switchCameras[0];
     switchCameras[0] = currentCamera;

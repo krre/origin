@@ -20,13 +20,13 @@ public:
     void run();
     void quit();
 
-    RenderWindow* getWindow() const { return window.get(); }
+    RenderWindow* getWindow() const { return window; }
     bool getIsRunning() const { return isRunning; }
     const std::vector<std::string>& getArgv() const { return argv; }
 
 private:
     std::vector<std::string> argv;
     bool isRunning = false;
-    std::unique_ptr<RenderWindow> window;
+    RenderWindow* window;
     std::unique_ptr<Vulkan::Instance> vulkan;
 };

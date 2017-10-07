@@ -13,6 +13,7 @@
 #include "Scene/SceneManager.h"
 #include "Core/Settings.h"
 #include "Graphics/Render/RendererSet.h"
+#include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include <string>
 #include <SDL_timer.h>
@@ -21,12 +22,10 @@
 #include <experimental/filesystem>
 
 #ifdef ENABLE_OPENGL
-    #include "Graphics/OpenGL/OpenGLRenderWindow.h"
     #include "Graphics/OpenGL/OpenGLRenderManager.h"
 #endif
 
 #ifdef ENABLE_VULKAN
-    #include "Graphics/Vulkan/VulkanRenderWindow.h"
     #include "Graphics/Vulkan/VulkanRenderManager.h"
 #endif
 
@@ -44,7 +43,7 @@ App::~App() {
     DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     RendererSet::get()->release();
-    window.reset();
+    delete window;
     vulkan.reset();
     RenderManager::get()->release();
     SDLWrapper::get()->release();
@@ -72,15 +71,14 @@ void App::init() {
         GraphicsBackend gfxBackend = Context::get()->getCurrentBackend();
         if (gfxBackend == GraphicsBackend::OPENGL) {
 #ifdef ENABLE_OPENGL
-            window = std::make_unique<OpenGLRenderWindow>();
             new OpenGLRenderManager;
 #endif
         } else if (gfxBackend == GraphicsBackend::VULKAN) {
 #ifdef ENABLE_VULKAN
-            window = std::make_unique<VulkanRenderWindow>();
             new VulkanRenderManager;
 #endif
         }
+        window = RenderManager::get()->createRenderWindow();
         window->create();
 
         vulkan = std::make_unique<Vulkan::Instance>();

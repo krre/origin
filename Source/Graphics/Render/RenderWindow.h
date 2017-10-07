@@ -22,6 +22,7 @@ public:
     void create();
 
     virtual void swapBuffers() = 0;
+    virtual void saveImage(const std::string& filePath) = 0;
 
     SDL_Window* getHandle() { return handle; }
 

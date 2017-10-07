@@ -1,11 +1,7 @@
 #include "SceneManager.h"
+#include "Core/App.h"
+#include "Graphics/Render/RenderWindow.h"
 #include "Debug/DebugHUD.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
-#include "Graphics/Vulkan/Wrapper/Swapchain.h"
-#include "Graphics/Vulkan/Wrapper/Queue/PresentQueue.h"
-#include "Graphics/Vulkan/Wrapper/Semaphore.h"
-#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
-#include "Graphics/Vulkan/Wrapper/Surface.h"
 #include "Graphics/Render/RenderManager.h"
 
 SceneManager::SceneManager() {
@@ -50,15 +46,13 @@ void SceneManager::update(float dt) {
 }
 
 void SceneManager::draw(float dt) {
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->acquireNextImage();
-
     scenes.back()->draw(dt);
 
 //    if (DebugHUD::get()->getVisible()) {
 //        DebugHUD::get()->draw(dt);
 //    }
 
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->getPresentQueue()->present();
+    App::get()->getWindow()->swapBuffers();
 }
 
 void SceneManager::rebuild() {

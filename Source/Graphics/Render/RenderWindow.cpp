@@ -1,6 +1,6 @@
 #include "RenderWindow.h"
-#include "Core/Common.h"
 #include "Core/App.h"
+#include "Core/Defines.h"
 #include "Core/SDLWrapper.h"
 #include "Core/Settings.h"
 #include "Event/Event.h"
@@ -45,7 +45,7 @@ void RenderWindow::show() {
 }
 
 void RenderWindow::create() {
-    handle = SDL_CreateWindow(GAME_NAME.c_str(), x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
+    handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
     if (handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }

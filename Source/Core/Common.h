@@ -7,9 +7,6 @@
     #define ERROR(x) std::cerr << x << std::endl;
 #endif
 
-const std::string GAME_NAME = "Origin";
-const std::string SETTINGS_FILENAME = "origin.ini";
-
 constexpr int PAGE_BYTES = 1 << 13; // 8192 (use in OctreeFarm)
 const int BLOCK_INFO_END = 1;
 

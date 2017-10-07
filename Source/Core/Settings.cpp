@@ -1,5 +1,6 @@
 #include "Settings.h"
 #include "App.h"
+#include "Defines.h"
 #include "Utils.h"
 #include <experimental/filesystem>
 #include <fstream>
@@ -7,7 +8,7 @@
 namespace fs = std::experimental::filesystem;
 
 Settings::Settings() {
-    path = App::getCurrentPath() + Utils::getPathSeparator() + SETTINGS_FILENAME;
+    path = App::getCurrentPath() + Utils::getPathSeparator() + APP_SETTINGS_NAME;
     if (fs::exists(path)) {
         std::string text = Utils::readTextFile(path);
         std::stringstream stream(text);

@@ -1,4 +1,5 @@
 #include "SDLWrapper.h"
+#include "Defines.h"
 #include <SDL.h>
 #include <stdexcept>
 
@@ -35,5 +36,5 @@ std::string SDLWrapper::getError() const {
 }
 
 void SDLWrapper::showErrorMessageBox(const char* message) {
-    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, GAME_NAME.c_str(), message, nullptr);
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, APP_VERSION_STR, message, nullptr);
 }

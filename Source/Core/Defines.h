@@ -4,7 +4,7 @@
 #define APP_NAME "Origin"
 #define APP_VERSION_STR VERSION_STRING
 #define APP_URL "https://github.com/krre/origin"
-#define SETTINGS_NAME "origin.ini"
+#define APP_SETTINGS_NAME "origin.ini"
 
 #define DEVELOP_MODE
 

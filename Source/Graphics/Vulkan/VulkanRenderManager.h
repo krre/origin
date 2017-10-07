@@ -9,6 +9,7 @@ class VulkanRenderManager : public RenderManager {
 
 public:
     VulkanRenderManager();
+    ~VulkanRenderManager();
     RenderWindow* createRenderWindow() override;
 
 private:

@@ -17,7 +17,6 @@ public:
     void draw(float dt);
 
     void rebuild();
-    void wait();
 
 private:
     std::vector<std::shared_ptr<Scene>> scenes;

@@ -68,7 +68,3 @@ void SceneManager::rebuild() {
 
     DebugHUD::get()->buildCommandBuffers();
 }
-
-void SceneManager::wait() {
-    Vulkan::Instance::get()->getDefaultDevice()->waitIdle();
-}

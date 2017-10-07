@@ -116,8 +116,6 @@ void App::run() {
         SceneManager::get()->update(frameTime);
         SceneManager::get()->draw(frameTime);
     }
-
-    SceneManager::get()->wait();
 }
 
 /*

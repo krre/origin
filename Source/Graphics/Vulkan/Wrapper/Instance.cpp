@@ -120,7 +120,10 @@ void Instance::createSurface(RenderWindow* window) {
 
 #ifdef _WIN32
     surface = std::make_shared<SurfaceWin32>(defaultDevice->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
+#elif __linux__
+    surface = std::make_shared<SurfaceWin32>(defaultDevice->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.win.window);
 #endif
+
     surface->create();
 }
 void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {

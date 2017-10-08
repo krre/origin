@@ -2,11 +2,6 @@
 #include "../Instance.h"
 #include "Core/App.h"
 #include "Swapchain.h"
-#ifdef __linux__
-    #include <X11/Xlib-xcb.h>
-#elif _WIN32
-
-#endif
 
 using namespace Vulkan;
 

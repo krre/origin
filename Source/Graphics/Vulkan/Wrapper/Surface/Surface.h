@@ -1,8 +1,4 @@
 #pragma once
-#ifdef __linux__
-    #define VK_USE_PLATFORM_XCB_KHR
-#endif
-
 #include "../Base/Handle.h"
 #include <vector>
 

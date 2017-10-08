@@ -5,8 +5,8 @@ if(WIN32)
     )
 else()
     set(SURFACE_PLATFORM_SOURCE
-        ${CMAKE_CURRENT_SOURCE_DIR}/SurfaceXcb.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/SurfaceXcb.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/XcbSurface.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/XcbSurface.h
     )
 endif()
 

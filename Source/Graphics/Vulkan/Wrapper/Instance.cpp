@@ -3,8 +3,8 @@
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
-#include "Surface.h"
-#include "Swapchain.h"
+#include "Surface/Surface.h"
+#include "Surface/Swapchain.h"
 #include "Command/CommandPool.h"
 
 using namespace Vulkan;

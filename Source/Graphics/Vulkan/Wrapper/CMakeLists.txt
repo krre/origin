@@ -6,6 +6,7 @@ add_subdirectory(Device)
 add_subdirectory(Image)
 add_subdirectory(Pipeline)
 add_subdirectory(Queue)
+add_subdirectory(Surface)
 
 set(SOURCES
     ${SOURCES}
@@ -29,9 +30,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Semaphore.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Surface.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
     PARENT_SCOPE
 )

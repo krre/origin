@@ -13,7 +13,7 @@
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Framebuffer.h"
-#include "Graphics/Vulkan/Wrapper/Surface.h"
+#include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Graphics/Vulkan/Wrapper/Descriptor/DescriptorSets.h"
 #include "Graphics/Vulkan/Wrapper/Pipeline/GraphicsPipeline.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffer.h"

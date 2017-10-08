@@ -9,9 +9,9 @@
 #include "Resource/ShaderResource.h"
 #include "Core/Utils.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
-#include "Graphics/Vulkan/Wrapper/Swapchain.h"
+#include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
-#include "Graphics/Vulkan/Wrapper/Surface.h"
+#include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 
 using namespace Vulkan;
 

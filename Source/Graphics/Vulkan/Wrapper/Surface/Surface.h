@@ -1,14 +1,10 @@
 #pragma once
 #ifdef __linux__
     #define VK_USE_PLATFORM_XCB_KHR
-#elif _WIN32
-    #define VK_USE_PLATFORM_WIN32_KHR
 #endif
 
 #include "../Base/Handle.h"
 #include <vector>
-
-class RenderWindow;
 
 namespace Vulkan {
 
@@ -17,7 +13,7 @@ class Swapchain;
 class Surface : public Handle<VkSurfaceKHR> {
 
 public:
-    Surface(VkPhysicalDevice physicalDevice, RenderWindow* window);
+    Surface(VkPhysicalDevice physicalDevice);
     ~Surface();
     void create() override;
     void destroy() override;
@@ -28,8 +24,10 @@ public:
     VkExtent2D getCurrentExtent() const;
     Swapchain* getSwapchain() const { return swapchain.get(); }
 
+protected:
+    virtual void platformCreateHandle() = 0;
+
 private:
-    RenderWindow* window;
     VkPhysicalDevice physicalDevice;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;

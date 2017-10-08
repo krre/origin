@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Surface.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SurfaceWin32.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SurfaceWin32.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Swapchain.h
     PARENT_SCOPE

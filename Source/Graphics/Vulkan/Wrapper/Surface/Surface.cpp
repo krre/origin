@@ -1,9 +1,7 @@
 #include "Surface.h"
 #include "../Instance.h"
 #include "Core/App.h"
-#include "Graphics/Render/RenderWindow.h"
 #include "Swapchain.h"
-#include <SDL_syswm.h>
 #ifdef __linux__
     #include <X11/Xlib-xcb.h>
 #elif _WIN32
@@ -12,9 +10,8 @@
 
 using namespace Vulkan;
 
-Surface::Surface(VkPhysicalDevice physicalDevice, RenderWindow* window) :
-    physicalDevice(physicalDevice),
-    window(window) {
+Surface::Surface(VkPhysicalDevice physicalDevice) :
+    physicalDevice(physicalDevice) {
 }
 
 Surface::~Surface() {
@@ -23,6 +20,7 @@ Surface::~Surface() {
 }
 
 void Surface::create() {
+    /*
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
@@ -37,17 +35,10 @@ void Surface::create() {
         VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(Instance::get()->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
         break;
     }
-#elif _WIN32
-    case SDL_SYSWM_WINDOWS: {
-        VkWin32SurfaceCreateInfoKHR createInfo = {};
-        createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-        createInfo.hwnd = wminfo.info.win.window;
-        createInfo.hinstance = GetModuleHandle(nullptr);
-        VULKAN_CHECK_RESULT(vkCreateWin32SurfaceKHR(Instance::get()->getHandle(), &createInfo, nullptr, &handle), "Failed to create win32 surface");
-        break;
-    }
 #endif
     }
+*/
+    platformCreateHandle();
 
     uint32_t count;
     vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice, handle, &count, nullptr);

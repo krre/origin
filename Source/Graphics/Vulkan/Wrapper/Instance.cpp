@@ -3,9 +3,11 @@
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
-#include "Surface/Surface.h"
+#include "Surface/SurfaceWin32.h"
 #include "Surface/Swapchain.h"
 #include "Command/CommandPool.h"
+#include "../../Render/RenderWindow.h"
+#include <SDL_syswm.h>
 
 using namespace Vulkan;
 
@@ -112,7 +114,13 @@ void Instance::destroy() {
 }
 
 void Instance::createSurface(RenderWindow* window) {
-    surface = std::make_shared<Surface>(defaultDevice->getPhysicalDevice()->getHandle(), window);
+    SDL_SysWMinfo wminfo;
+    SDL_VERSION(&wminfo.version);
+    SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
+
+#ifdef _WIN32
+    surface = std::make_shared<SurfaceWin32>(defaultDevice->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
+#endif
     surface->create();
 }
 void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {

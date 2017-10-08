@@ -1,7 +1,7 @@
 if(WIN32)
     set(SURFACE_PLATFORM_SOURCE
-        ${CMAKE_CURRENT_SOURCE_DIR}/SurfaceWin32.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/SurfaceWin32.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/Win32Surface.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/Win32Surface.h
     )
 else()
     set(SURFACE_PLATFORM_SOURCE

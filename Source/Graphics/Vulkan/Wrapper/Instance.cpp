@@ -3,7 +3,7 @@
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
-#include "Surface/SurfaceWin32.h"
+#include "Surface/Win32Surface.h"
 #include "Surface/Swapchain.h"
 #include "Command/CommandPool.h"
 #include "../../Render/RenderWindow.h"
@@ -119,9 +119,9 @@ void Instance::createSurface(RenderWindow* window) {
     SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
 
 #ifdef _WIN32
-    surface = std::make_shared<SurfaceWin32>(defaultDevice->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_shared<Win32Surface>(defaultDevice->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif __linux__
-    surface = std::make_shared<SurfaceWin32>(defaultDevice->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.win.window);
+    surface = std::make_shared<Win32Surface>(defaultDevice->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.win.window);
 #endif
 
     surface->create();

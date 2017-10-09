@@ -14,4 +14,3 @@ public:
 private:
     std::unique_ptr<Vulkan::Surface> surface;
 };
-

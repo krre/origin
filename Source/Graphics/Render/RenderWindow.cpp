@@ -33,6 +33,11 @@ RenderWindow::RenderWindow() {
 
     Event::get()->windowMove.connect<RenderWindow, &RenderWindow::onMove>(this);
     Event::get()->windowResize.connect<RenderWindow, &RenderWindow::onResize>(this);
+
+    handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
+    if (handle == nullptr) {
+        throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
+    }
 }
 
 RenderWindow::~RenderWindow() {
@@ -42,13 +47,6 @@ RenderWindow::~RenderWindow() {
 void RenderWindow::show() {
     assert(handle != nullptr);
     SDL_ShowWindow(handle);
-}
-
-void RenderWindow::create() {
-    handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
-    if (handle == nullptr) {
-        throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
-    }
 }
 
 void RenderWindow::onMove(int x, int y) {

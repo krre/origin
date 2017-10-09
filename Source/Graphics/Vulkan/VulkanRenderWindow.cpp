@@ -15,19 +15,6 @@
 #include <SDL_syswm.h>
 
 VulkanRenderWindow::VulkanRenderWindow() {
-
-}
-
-void VulkanRenderWindow::swapBuffers() {
-    surface.get()->getSwapchain()->getPresentQueue()->present();
-    surface.get()->getSwapchain()->acquireNextImage();
-}
-
-void VulkanRenderWindow::saveImage(const std::string& filePath) {
-    surface.get()->getSwapchain()->saveImage(filePath);
-}
-
-void VulkanRenderWindow::createSurface() {
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(handle, &wminfo);
@@ -40,4 +27,13 @@ void VulkanRenderWindow::createSurface() {
 
     surface->create();
     Vulkan::Instance::get()->setSurface(surface.get());
+}
+
+void VulkanRenderWindow::swapBuffers() {
+    surface.get()->getSwapchain()->getPresentQueue()->present();
+    surface.get()->getSwapchain()->acquireNextImage();
+}
+
+void VulkanRenderWindow::saveImage(const std::string& filePath) {
+    surface.get()->getSwapchain()->saveImage(filePath);
 }

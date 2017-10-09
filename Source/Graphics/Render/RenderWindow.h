@@ -19,11 +19,9 @@ public:
     int getY() const { return y; }
 
     void show();
-    void create();
 
     virtual void swapBuffers() = 0;
     virtual void saveImage(const std::string& filePath) = 0;
-    virtual void createSurface() {}
 
     SDL_Window* getHandle() { return handle; }
 

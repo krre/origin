@@ -11,7 +11,6 @@ public:
     VulkanRenderWindow();
     void swapBuffers() override;
     void saveImage(const std::string& filePath) override;
-    void createSurface() override;
 
     Vulkan::Surface* getSurface() const { return surface.get(); }
 

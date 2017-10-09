@@ -18,12 +18,12 @@ VulkanRenderWindow::VulkanRenderWindow() {
 }
 
 void VulkanRenderWindow::swapBuffers() {
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->getPresentQueue()->present();
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->acquireNextImage();
+    surface.get()->getSwapchain()->getPresentQueue()->present();
+    surface.get()->getSwapchain()->acquireNextImage();
 }
 
 void VulkanRenderWindow::saveImage(const std::string& filePath) {
-    Vulkan::Instance::get()->getSurface()->getSwapchain()->saveImage(filePath);
+    surface.get()->getSwapchain()->saveImage(filePath);
 }
 
 void VulkanRenderWindow::createSurface() {

@@ -125,7 +125,7 @@ void Instance::createSurface(RenderWindow* window) {
 #ifdef _WIN32
     surface = std::make_shared<Win32Surface>(defaultDevice->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif __linux__
-    surface = std::make_shared<XcbSurface>(defaultDevice->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.win.window);
+    surface = std::make_shared<XcbSurface>(defaultDevice->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 
     surface->create();

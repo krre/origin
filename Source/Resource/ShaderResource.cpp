@@ -1,12 +1,13 @@
 #include "ShaderResource.h"
+#include "Core/Defines.h"
 #include <fstream>
 #include "Core/Utils.h"
 #include <assert.h>
 
-#ifdef __linux__
-#include <vulkan/libspirv.h>
-#elif _WIN32
-#include <spirv-tools/libspirv.h>
+#ifdef WIN_OS
+    #include <spirv-tools/libspirv.h>
+#elif LINUX_OS
+    #include <vulkan/libspirv.h>
 #endif
 
 ShaderResource::ShaderResource() {

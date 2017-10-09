@@ -2,3 +2,5 @@
 #cmakedefine VERSION_STRING "@VERSION_STRING@"
 #cmakedefine ENABLE_OPENGL
 #cmakedefine ENABLE_VULKAN
+#cmakedefine WIN32
+#cmakedefine UNIX

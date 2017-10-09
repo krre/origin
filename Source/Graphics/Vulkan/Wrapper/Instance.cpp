@@ -1,4 +1,5 @@
 #include "Instance.h"
+#include "Core/Defines.h"
 #include "DebugReportCallback.h"
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
@@ -39,16 +40,16 @@ Instance::Instance() {
 //        "VK_LAYER_LUNARG_standard_validation"
     };
 
-#ifdef __linux__
-    enabledExtensions = {
-        "VK_KHR_surface",
-        "VK_KHR_xcb_surface",
-        "VK_EXT_debug_report"
-    };
-#elif _WIN32
+#ifdef WIN_OS
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_win32_surface",
+        "VK_EXT_debug_report"
+    };
+#elif LINUX_OS
+    enabledExtensions = {
+        "VK_KHR_surface",
+        "VK_KHR_xcb_surface",
         "VK_EXT_debug_report"
     };
 #endif

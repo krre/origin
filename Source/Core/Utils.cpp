@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include "Defines.h"
 #include <fstream>
 #include <bitset>
 
@@ -11,9 +12,9 @@ std::string Utils::zeroFill(const std::string& number) {
 }
 
 std::string Utils::getPathSeparator() {
-#ifdef _WIN32
+#ifdef WIN_OS
     return "\\";
-#else
+#elif LINUX_OS
     return "/";
 #endif
 }

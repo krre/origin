@@ -5,6 +5,6 @@ OpenGLRenderManager::OpenGLRenderManager() {
     setName("OpenGLRenderManager");
 }
 
-RenderWindow* OpenGLRenderManager::createRenderWindow() {
-    return new OpenGLRenderWindow;
+std::shared_ptr<RenderWindow> OpenGLRenderManager::createRenderWindow() {
+    return std::make_shared<OpenGLRenderWindow>();
 }

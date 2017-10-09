@@ -41,7 +41,7 @@ App::~App() {
     DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     RendererSet::get()->release();
-    delete window;
+    window.reset();
     RenderManager::get()->release();
     SDLWrapper::get()->release();
     Context::get()->release();

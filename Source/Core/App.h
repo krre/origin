@@ -16,12 +16,12 @@ public:
     void run();
     void quit();
 
-    RenderWindow* getWindow() const { return window; }
+    RenderWindow* getWindow() const { return window.get(); }
     bool getIsRunning() const { return isRunning; }
     const std::vector<std::string>& getArgv() const { return argv; }
 
 private:
     std::vector<std::string> argv;
     bool isRunning = false;
-    RenderWindow* window;
+    std::shared_ptr<RenderWindow> window;
 };

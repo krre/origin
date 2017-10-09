@@ -1,9 +1,6 @@
 #pragma once
 #include "Graphics/Render/RenderWindow.h"
-
-namespace Vulkan {
-    class Surface;
-}
+#include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 
 class VulkanRenderWindow : public RenderWindow {
 
@@ -17,3 +14,4 @@ public:
 private:
     std::unique_ptr<Vulkan::Surface> surface;
 };
+

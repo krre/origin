@@ -10,7 +10,7 @@ class VulkanRenderManager : public RenderManager {
 public:
     VulkanRenderManager();
     ~VulkanRenderManager();
-    RenderWindow* createRenderWindow() override;
+    std::shared_ptr<RenderWindow> createRenderWindow() override;
 
 private:
     std::unique_ptr<Vulkan::Instance> vulkan;

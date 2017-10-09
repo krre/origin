@@ -13,6 +13,6 @@ VulkanRenderManager::~VulkanRenderManager() {
     vulkan->getDefaultDevice()->waitIdle();
 }
 
-RenderWindow* VulkanRenderManager::createRenderWindow() {
-    return new VulkanRenderWindow;
+std::shared_ptr<RenderWindow> VulkanRenderManager::createRenderWindow() {
+    return std::make_shared<VulkanRenderWindow>();
 }

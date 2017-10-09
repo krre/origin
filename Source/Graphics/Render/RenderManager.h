@@ -7,5 +7,5 @@ class RenderManager : public Singleton<RenderManager> {
 
 public:
     RenderManager();
-    virtual RenderWindow* createRenderWindow() = 0;
+    virtual std::shared_ptr<RenderWindow> createRenderWindow() = 0;
 };

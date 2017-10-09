@@ -1,7 +1,7 @@
 #include "VulkanRenderWindow.h"
+#include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Core/Defines.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
-#include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Wrapper/Queue/PresentQueue.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"

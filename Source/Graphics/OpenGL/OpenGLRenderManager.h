@@ -7,5 +7,5 @@ class OpenGLRenderManager : public RenderManager {
 
 public:
     OpenGLRenderManager();
-    RenderWindow* createRenderWindow() override;
+    std::shared_ptr<RenderWindow> createRenderWindow() override;
 };

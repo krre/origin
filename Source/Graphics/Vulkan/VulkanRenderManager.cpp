@@ -16,6 +16,6 @@ VulkanRenderManager::~VulkanRenderManager() {
 RenderWindow* VulkanRenderManager::createRenderWindow() {
     VulkanRenderWindow* window = new VulkanRenderWindow;
     window->create();
-    vulkan->createSurface(window);
+    window->createSurface();
     return window;
 }

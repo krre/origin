@@ -23,11 +23,14 @@ public:
 
     virtual void swapBuffers() = 0;
     virtual void saveImage(const std::string& filePath) = 0;
+    virtual void createSurface() {}
 
     SDL_Window* getHandle() { return handle; }
 
-private:
+protected:
     SDL_Window* handle = nullptr;
+
+private:
     int x = 100;
     int y = 100;
 

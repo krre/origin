@@ -3,15 +3,8 @@
 #include "Device/PhysicalDevice.h"
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
-#ifdef _WIN32
-#include "Surface/Win32Surface.h"
-#elif __linux__
-#include "Surface/XcbSurface.h"
-#endif
 #include "Surface/Swapchain.h"
 #include "Command/CommandPool.h"
-#include "../../Render/RenderWindow.h"
-#include <SDL_syswm.h>
 
 using namespace Vulkan;
 
@@ -71,7 +64,6 @@ Instance::Instance() {
 
 Instance::~Instance() {
     commandPool.reset();
-    surface.reset();
     devices.clear();
     physicalDevices.reset();
     debugCallback.reset();
@@ -117,19 +109,6 @@ void Instance::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyInstance(handle, nullptr))
 }
 
-void Instance::createSurface(RenderWindow* window) {
-    SDL_SysWMinfo wminfo;
-    SDL_VERSION(&wminfo.version);
-    SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
-
-#ifdef _WIN32
-    surface = std::make_shared<Win32Surface>(defaultDevice->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
-#elif __linux__
-    surface = std::make_shared<XcbSurface>(defaultDevice->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
-#endif
-
-    surface->create();
-}
 void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
     this->enabledLayers = enabledLayers;
 }
@@ -158,7 +137,6 @@ void Instance::setDefaultDevice(Device* device) {
 
 void Instance::windowResize(int width, int height) {
     defaultDevice->waitIdle();
-    surface->getSwapchain()->rebuild();
 }
 
 std::string Instance::apiToString(int api) {

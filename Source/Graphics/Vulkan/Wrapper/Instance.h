@@ -14,9 +14,9 @@ namespace Vulkan {
 
 class Device;
 class PhysicalDevices;
-class Surface;
 class CommandPool;
 class DebugReportCallback;
+class Surface;
 
 class Instance : public Handle<VkInstance> {
 
@@ -27,8 +27,6 @@ public:
 
     void create() override;
     void destroy() override;
-    // TODO: Temporary.
-    void createSurface(RenderWindow* window);
 
     const std::vector<VkLayerProperties>& getLayers() const { return layers; }
     void setEnabledLayers(const std::vector<const char*> enabledLayers);
@@ -41,8 +39,10 @@ public:
     void setDefaultDevice(Device* device);
     Device* getDefaultDevice() const { return defaultDevice; }
 
+    void setSurface(Surface* surface) { this->surface = surface; }
+    Surface* getSurface() const { return surface; }
+
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
-    Surface* getSurface() const { return surface.get(); }
     CommandPool* getCommandPool() const { return commandPool.get(); }
 
     void windowResize(int width, int height);
@@ -62,8 +62,8 @@ private:
     std::unique_ptr<DebugReportCallback> debugCallback;
     std::shared_ptr<PhysicalDevices> physicalDevices;
     std::vector<std::shared_ptr<Device>> devices;
-    std::shared_ptr<Surface> surface;
     std::shared_ptr<CommandPool> commandPool;
+    Surface* surface;
 };
 
 } // Vulkan

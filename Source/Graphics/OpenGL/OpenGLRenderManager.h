@@ -1,5 +1,5 @@
 #pragma once
-#include "Graphics/render/RenderManager.h"
+#include "Graphics/Render/RenderManager.h"
 
 class RenderWindow;
 

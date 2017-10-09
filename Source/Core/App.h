@@ -12,7 +12,6 @@ public:
     // Path to application directory
     static std::string getCurrentPath();
 
-    void init();
     void run();
     void quit();
 
@@ -21,6 +20,8 @@ public:
     const std::vector<std::string>& getArgv() const { return argv; }
 
 private:
+    void init();
+
     std::vector<std::string> argv;
     bool isRunning = false;
     std::shared_ptr<RenderWindow> window;

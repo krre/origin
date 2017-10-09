@@ -31,6 +31,8 @@ App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);
     }
+
+    init();
 }
 
 App::~App() {

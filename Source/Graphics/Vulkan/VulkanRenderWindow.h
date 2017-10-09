@@ -16,5 +16,5 @@ public:
     Vulkan::Surface* getSurface() const { return surface.get(); }
 
 private:
-    std::shared_ptr<Vulkan::Surface> surface;
+    std::unique_ptr<Vulkan::Surface> surface;
 };

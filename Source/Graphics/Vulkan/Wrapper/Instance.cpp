@@ -40,13 +40,13 @@ Instance::Instance() {
 //        "VK_LAYER_LUNARG_standard_validation"
     };
 
-#ifdef WIN_OS
+#ifdef OS_WIN
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_win32_surface",
         "VK_EXT_debug_report"
     };
-#elif LINUX_OS
+#elif OS_LINUX
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_xcb_surface",

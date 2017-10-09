@@ -6,9 +6,9 @@
 #include "Graphics/Vulkan/Wrapper/Queue/PresentQueue.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 
-#ifdef WIN_OS
+#ifdef OS_WIN
     #include "Graphics/Vulkan/Wrapper/Surface/Win32Surface.h"
-#elif LINUX_OS
+#elif OS_LINUX
     #include "Graphics/Vulkan/Wrapper/Surface/XcbSurface.h"
 #endif
 
@@ -32,9 +32,9 @@ void VulkanRenderWindow::createSurface() {
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(handle, &wminfo);
 
-#ifdef WIN_OS
+#ifdef OS_WIN
     surface = std::make_unique<Win32Surface>(Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
-#elif LINUX_OS
+#elif OS_LINUX
     surface = std::make_unique<Vulkan::XcbSurface>(Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 

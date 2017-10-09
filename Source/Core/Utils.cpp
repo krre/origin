@@ -12,9 +12,9 @@ std::string Utils::zeroFill(const std::string& number) {
 }
 
 std::string Utils::getPathSeparator() {
-#ifdef WIN_OS
+#ifdef OS_WIN
     return "\\";
-#elif LINUX_OS
+#elif OS_LINUX
     return "/";
 #endif
 }

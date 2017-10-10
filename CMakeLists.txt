@@ -38,34 +38,50 @@ include_directories(${SDL2_INCLUDE_DIR})
 find_package(Bullet REQUIRED)
 include_directories(${BULLET_INCLUDE_DIRS})
 
+if(${ENABLE_OPENGL})
+    find_package(OpenGL)
+    find_package(GLEW REQUIRED)
+    include_directories(${GLEW_INCLUDE_DIRS})
+
+    target_link_libraries(${EXECUTABLE_NAME}
+        ${OPENGL_LIBRARIES}
+        ${GLEW_LIBRARIES}
+    )
+endif()
+
+if(${ENABLE_VULKAN})
+    if(WIN32)
+        find_package(Vulkan REQUIRED)
+
+        include_directories(${Vulkan_INCLUDE_DIRS})
+        include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
+
+        set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
+        string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
+
+        target_link_libraries(${EXECUTABLE_NAME}
+            ${Vulkan_LIBRARIES}
+            ${SPIRV_TOOLS_LIB}
+        )
+    else()
+        include_directories($ENV{VULKAN_SDK}/include)
+
+        target_link_libraries(${EXECUTABLE_NAME}
+            $ENV{VULKAN_SDK}/lib/libvulkan.so
+            $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
+            X11-xcb
+        )
+    endif()
+endif()
+
 include_directories(Source)
 include_directories(ThirdParty)
 
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
     ${BULLET_LIBRARIES}
-    stdc++fs)
-
-if(WIN32)
-    find_package(Vulkan REQUIRED)
-
-    include_directories(${Vulkan_INCLUDE_DIRS})
-    include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
-
-    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
-    string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
-
-    target_link_libraries(${EXECUTABLE_NAME}
-        ${Vulkan_LIBRARIES}
-        ${SPIRV_TOOLS_LIB})
-else()
-    include_directories($ENV{VULKAN_SDK}/include)
-
-    target_link_libraries(${EXECUTABLE_NAME}
-        $ENV{VULKAN_SDK}/lib/libvulkan.so
-        $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
-        X11-xcb)
-endif()
+    stdc++fs
+)
 
 # Show in QtCreator project tree
 file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*")

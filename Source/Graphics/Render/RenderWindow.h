@@ -27,11 +27,10 @@ public:
 
 protected:
     SDL_Window* handle = nullptr;
-
-private:
     int x = 100;
     int y = 100;
 
+private:
     void onMove(int x, int y);
     void onResize(int width, int height);
 };

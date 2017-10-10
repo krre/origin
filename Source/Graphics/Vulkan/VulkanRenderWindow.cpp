@@ -15,6 +15,11 @@
 #include <SDL_syswm.h>
 
 VulkanRenderWindow::VulkanRenderWindow() {
+    handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
+    if (handle == nullptr) {
+        throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
+    }
+
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(handle, &wminfo);

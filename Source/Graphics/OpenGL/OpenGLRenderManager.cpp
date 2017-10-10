@@ -20,3 +20,7 @@ std::shared_ptr<RenderWindow> OpenGLRenderManager::createRenderWindow() {
 void OpenGLRenderManager::setClearColor(const Color& color) {
     glClearColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0);
 }
+
+void OpenGLRenderManager::clear() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}

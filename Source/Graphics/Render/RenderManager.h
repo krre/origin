@@ -10,4 +10,5 @@ public:
     RenderManager();
     virtual std::shared_ptr<RenderWindow> createRenderWindow() = 0;
     virtual void setClearColor(const Color& color) = 0;
+    virtual void clear() = 0;
 };

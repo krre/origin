@@ -23,6 +23,7 @@ public:
     const Color& getColor() const { return color; }
 
     void show();
+    void clear();
 
     virtual void swapBuffers() = 0;
     virtual void saveImage(const std::string& filePath) = 0;

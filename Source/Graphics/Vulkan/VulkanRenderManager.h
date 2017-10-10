@@ -12,6 +12,7 @@ public:
     ~VulkanRenderManager();
     std::shared_ptr<RenderWindow> createRenderWindow() override;
     void setClearColor(const Color& color) override;
+    void clear() override;
 
 private:
     std::unique_ptr<Vulkan::Instance> vulkan;

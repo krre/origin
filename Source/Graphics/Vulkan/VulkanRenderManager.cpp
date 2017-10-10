@@ -20,3 +20,7 @@ std::shared_ptr<RenderWindow> VulkanRenderManager::createRenderWindow() {
 void VulkanRenderManager::setClearColor(const Color& color) {
 
 }
+
+void VulkanRenderManager::clear() {
+
+}

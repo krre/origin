@@ -48,6 +48,10 @@ void RenderWindow::show() {
     SDL_ShowWindow(handle);
 }
 
+void RenderWindow::clear() {
+    RenderManager::get()->clear();
+}
+
 void RenderWindow::onMove(int x, int y) {
     Settings::get()->setValue("x", std::to_string(x));
     Settings::get()->setValue("y", std::to_string(y));

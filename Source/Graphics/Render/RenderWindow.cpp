@@ -4,7 +4,7 @@
 #include "Core/Settings.h"
 #include "Event/Event.h"
 #include "Scene/SceneManager.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Render/RenderManager.h"
 #include <SDL_video.h>
 #include <stdexcept>
 
@@ -40,6 +40,7 @@ RenderWindow::~RenderWindow() {
 
 void RenderWindow::setColor(const Color& color) {
     this->color = color;
+    RenderManager::get()->setClearColor(color);
 }
 
 void RenderWindow::show() {
@@ -57,7 +58,6 @@ void RenderWindow::onResize(int width, int height) {
     Settings::get()->setValue("height", std::to_string(height));
 
     if (App::get()->getIsRunning()) {
-        Vulkan::Instance::get()->windowResize(width, height);
         SceneManager::get()->rebuild();
     }
 }

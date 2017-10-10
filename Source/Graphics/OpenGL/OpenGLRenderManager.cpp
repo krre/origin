@@ -18,5 +18,5 @@ std::shared_ptr<RenderWindow> OpenGLRenderManager::createRenderWindow() {
 }
 
 void OpenGLRenderManager::setClearColor(const Color& color) {
-
+    glClearColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0);
 }

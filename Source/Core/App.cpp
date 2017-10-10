@@ -78,6 +78,7 @@ void App::init() {
 #endif
         }
         window = RenderManager::get()->createRenderWindow();
+        window->setColor(Color::GREEN); // TODO: Temporary for debug
 
         new RendererSet;
         new ResourceManager;

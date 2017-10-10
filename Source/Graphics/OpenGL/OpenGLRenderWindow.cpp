@@ -21,7 +21,7 @@ OpenGLRenderWindow::OpenGLRenderWindow() {
 }
 
 void OpenGLRenderWindow::swapBuffers() {
-
+    SDL_GL_SwapWindow(handle);
 }
 
 void OpenGLRenderWindow::saveImage(const std::string& filePath) {

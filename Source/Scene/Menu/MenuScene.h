@@ -22,9 +22,9 @@ public:
 
 private:
     void create();
-    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
+//    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
     std::unique_ptr<Plane> plane;
-    std::unique_ptr<ShaderProgram> shaderProgram;
+//    std::unique_ptr<ShaderProgram> shaderProgram;
 };

@@ -28,8 +28,8 @@
 DebugHUD::DebugHUD() {
     setBackgroundColor(Color::TRANSPARENT);
 
-    int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
-    vulkanApiVersion = Vulkan::Instance::apiToString(apiVersionNumber);
+//    int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
+//    vulkanApiVersion = Vulkan::Instance::apiToString(apiVersionNumber);
 }
 
 DebugHUD::~DebugHUD() {
@@ -37,50 +37,50 @@ DebugHUD::~DebugHUD() {
 }
 
 void DebugHUD::init() {
-    std::shared_ptr<Rectangle> rect = std::make_shared<Rectangle>(Size(300, 200));
-    rect->setColor(Color(0.0, 0.0, 0.0, 0.5));
-    setRootControl(rect);
+//    std::shared_ptr<Rectangle> rect = std::make_shared<Rectangle>(Size(300, 200));
+//    rect->setColor(Color(0.0, 0.0, 0.0, 0.5));
+//    setRootControl(rect);
 
-    displayLabel = std::make_shared<Label>();
-    displayLabel->setPosition({ 7, 5 });
-    rect->addChild(displayLabel);
+//    displayLabel = std::make_shared<Label>();
+//    displayLabel->setPosition({ 7, 5 });
+//    rect->addChild(displayLabel);
 
-    shaderProgram.addShader("Shader/SDF.vert.spv");
-    shaderProgram.addShader("Shader/SDF.frag.spv");
+//    shaderProgram.addShader("Shader/SDF.vert.spv");
+//    shaderProgram.addShader("Shader/SDF.frag.spv");
 
-    shaderProgram.bindUniform("ubo", sizeof(ubo), &ubo);
+//    shaderProgram.bindUniform("ubo", sizeof(ubo), &ubo);
 
-    font = ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt");
+//    font = ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt");
 
-    sampler.create();
+//    sampler.create();
 
-    VkDescriptorImageInfo descriptorImageInfo = {};
-    descriptorImageInfo.sampler = sampler.getHandle();
-    descriptorImageInfo.imageView = font->getTexture()->getImageView()->getHandle();
-    descriptorImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
+//    VkDescriptorImageInfo descriptorImageInfo = {};
+//    descriptorImageInfo.sampler = sampler.getHandle();
+//    descriptorImageInfo.imageView = font->getTexture()->getImageView()->getHandle();
+//    descriptorImageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
 
-    shaderProgram.bindImage("samplerColor", descriptorImageInfo);
+//    shaderProgram.bindImage("samplerColor", descriptorImageInfo);
 
-    int binding = shaderProgram.createVertexInputBindingDescription(sizeof(Font::Vertex));
-    shaderProgram.bindInput("inPos", binding);
-    shaderProgram.bindInput("inUV", binding, sizeof(Font::Vertex::pos));
+//    int binding = shaderProgram.createVertexInputBindingDescription(sizeof(Font::Vertex));
+//    shaderProgram.bindInput("inPos", binding);
+//    shaderProgram.bindInput("inUV", binding, sizeof(Font::Vertex::pos));
 
-    Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
+//    Vulkan::GraphicsPipeline* graphicsPipeline = shaderProgram.getGraphicsPipeline();
 
-    pipelineCache.create();
+//    pipelineCache.create();
 
-    graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
-    graphicsPipeline->setBlendEnable(VK_TRUE);
+//    graphicsPipeline->setPipelineCache(pipelineCache.getHandle());
+//    graphicsPipeline->setBlendEnable(VK_TRUE);
 
-    renderPass.setColorFormat(Vulkan::Instance::get()->getSurface()->getFormats().at(0).format);
-    renderPass.setBlendEnable(true);
-    renderPass.create();
+//    renderPass.setColorFormat(Vulkan::Instance::get()->getSurface()->getFormats().at(0).format);
+//    renderPass.setBlendEnable(true);
+//    renderPass.create();
 
-    setRenderPass(&renderPass);
+//    setRenderPass(&renderPass);
 
-    shaderProgram.createPipeline();
+//    shaderProgram.createPipeline();
 
-    buildCommandBuffers();
+//    buildCommandBuffers();
 
     ubo.model = glm::translate(ubo.model, glm::vec3(7, 5, 0));
     float scale = 0.5;
@@ -130,43 +130,43 @@ void DebugHUD::trigger() {
 //    }
 }
 
-void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
-    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
+//void DebugHUD::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+//    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
 
-    VkViewport viewport = {};
-    viewport.width = extent.width;
-    viewport.height = extent.height;
-    viewport.maxDepth = 1.0;
+//    VkViewport viewport = {};
+//    viewport.width = extent.width;
+//    viewport.height = extent.height;
+//    viewport.maxDepth = 1.0;
 
-    VkRect2D scissor = {};
-    scissor.offset = { 0, 0 };
-    scissor.extent = extent;
+//    VkRect2D scissor = {};
+//    scissor.offset = { 0, 0 };
+//    scissor.extent = extent;
 
-    renderPass.setExtent(extent);
-    commandBuffer->beginRenderPass(renderPass.getBeginInfo());
+//    renderPass.setExtent(extent);
+//    commandBuffer->beginRenderPass(renderPass.getBeginInfo());
 
-    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
+//    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
 
-    commandBuffer->addViewport(viewport);
-    commandBuffer->setViewport(0);
+//    commandBuffer->addViewport(viewport);
+//    commandBuffer->setViewport(0);
 
-    commandBuffer->addScissor(scissor);
-    commandBuffer->setScissor(0);
+//    commandBuffer->addScissor(scissor);
+//    commandBuffer->setScissor(0);
 
-    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
-    commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
+//    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+//    commandBuffer->bindVertexBuffers();
+//    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
-    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
-        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
-    }
-    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
-    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
+//    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
+//        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
+//    }
+//    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
+//    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
-    commandBuffer->endRenderPass();
-}
+//    commandBuffer->endRenderPass();
+//}
 
 void DebugHUD::onWindowResize(int width, int height) {
     ubo.projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
-    shaderProgram.writeUniform("ubo");
+//    shaderProgram.writeUniform("ubo");
 }

@@ -11,5 +11,5 @@ public:
 
 private:
     void create();
-    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
+//    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
 };

@@ -4,13 +4,13 @@
 #include <SDL.h>
 #include <vector>
 
-namespace Vulkan {
-    class CommandBuffer;
-    class CommandBuffers;
-    class Semaphore;
-    class SubmitQueue;
-    class RenderPass;
-}
+//namespace Vulkan {
+//    class CommandBuffer;
+//    class CommandBuffers;
+//    class Semaphore;
+//    class SubmitQueue;
+//    class RenderPass;
+//}
 
 class Entity;
 
@@ -40,9 +40,9 @@ public:
     // Swap last to cameras
     void switchCamera();
 
-    Vulkan::SubmitQueue* getQueue() const { return queue.get(); }
-    Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
-    void setRenderPass(Vulkan::RenderPass* renderPass);
+//    Vulkan::SubmitQueue* getQueue() const { return queue.get(); }
+//    Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
+//    void setRenderPass(Vulkan::RenderPass* renderPass);
 
     void setPosition(const Pos2& position);
     const Pos2& getPosition() const { return position; }
@@ -51,18 +51,18 @@ public:
     void setSize(const Size& size);
 
 protected:
-    virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
+//    virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
     virtual void onWindowResize(int width, int height) = 0;
     virtual void onKeyPressed(const SDL_KeyboardEvent& event) {}
 
     Pos2 position = { 0, 0 };
     Size size;
-    std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
-    std::shared_ptr<Vulkan::SubmitQueue> queue;
-    std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
+//    std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
+//    std::shared_ptr<Vulkan::SubmitQueue> queue;
+//    std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
 
 private:
-    Vulkan::RenderPass* renderPass = nullptr;
+//    Vulkan::RenderPass* renderPass = nullptr;
     std::shared_ptr<Entity> currentCamera;
     std::shared_ptr<Entity> switchCameras[2] = { nullptr, nullptr };
     Color backgroundColor = Color::WHITE;

@@ -66,7 +66,7 @@ void WorldScene::init() {
 }
 
 void WorldScene::draw(float dt) {
-    queue->submit();
+//    queue->submit();
 
 //    debugOutBuffer->read(0, sizeof(DebugOut), &debugOut);
 //    PRINT(glm::to_string(debugOut.debugVec))
@@ -276,42 +276,42 @@ void WorldScene::create() {
     EntityManager::get()->addEntity(light);
 }
 
-void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
-    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
+//void WorldScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+//    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
 
-    VkViewport viewport = {};
-    viewport.width = extent.width;
-    viewport.height = extent.height;
-    viewport.maxDepth = 1.0;
+//    VkViewport viewport = {};
+//    viewport.width = extent.width;
+//    viewport.height = extent.height;
+//    viewport.maxDepth = 1.0;
 
-    VkRect2D scissor = {};
-    scissor.offset = { 0, 0 };
-    scissor.extent = extent;
+//    VkRect2D scissor = {};
+//    scissor.offset = { 0, 0 };
+//    scissor.extent = extent;
 
-    const VkRenderPassBeginInfo* renderPassBeginInfo = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getBeginInfo();
-    commandBuffer->beginRenderPass(renderPassBeginInfo);
+//    const VkRenderPassBeginInfo* renderPassBeginInfo = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getBeginInfo();
+//    commandBuffer->beginRenderPass(renderPassBeginInfo);
 
-    commandBuffer->bindPipeline(shaderProgram->getGraphicsPipeline());
+//    commandBuffer->bindPipeline(shaderProgram->getGraphicsPipeline());
 
-    commandBuffer->addViewport(viewport);
-    commandBuffer->setViewport(0);
+//    commandBuffer->addViewport(viewport);
+//    commandBuffer->setViewport(0);
 
-    commandBuffer->addScissor(scissor);
-    commandBuffer->setScissor(0);
+//    commandBuffer->addScissor(scissor);
+//    commandBuffer->setScissor(0);
 
-    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
-    commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
+//    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+//    commandBuffer->bindVertexBuffers();
+//    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
-    for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
-        commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
-    }
+//    for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
+//        commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
+//    }
 
-    commandBuffer->bindDescriptorSets(shaderProgram->getGraphicsPipeline()->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
-    commandBuffer->drawIndexed(plane->getIndices().size(), 1, 0, 0, 0);
+//    commandBuffer->bindDescriptorSets(shaderProgram->getGraphicsPipeline()->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
+//    commandBuffer->drawIndexed(plane->getIndices().size(), 1, 0, 0, 0);
 
-    commandBuffer->endRenderPass();
-}
+//    commandBuffer->endRenderPass();
+//}
 
 void WorldScene::pause() {
     Scene::pause();

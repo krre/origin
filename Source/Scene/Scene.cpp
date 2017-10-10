@@ -19,18 +19,18 @@
 Scene::Scene() {
     Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
 
-    commandBuffers = std::make_shared<Vulkan::CommandBuffers>(Vulkan::Instance::get()->getCommandPool());
-    commandBuffers->allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
+//    commandBuffers = std::make_shared<Vulkan::CommandBuffers>(Vulkan::Instance::get()->getCommandPool());
+//    commandBuffers->allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
 
-    renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>();
-    renderFinishedSemaphore->create();
+//    renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>();
+//    renderFinishedSemaphore->create();
 
-    queue = std::make_shared<Vulkan::SubmitQueue>(Vulkan::Instance::get()->getGraphicsFamily());
-    queue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
+//    queue = std::make_shared<Vulkan::SubmitQueue>(Vulkan::Instance::get()->getGraphicsFamily());
+//    queue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
 }
 
 Scene::~Scene() {
-    queue->waitIdle();
+//    queue->waitIdle();
 }
 
 void Scene::init() {
@@ -45,30 +45,30 @@ void Scene::resume() {
 }
 
 void Scene::buildCommandBuffers() {
-    if (renderPass == nullptr) {
-        renderPass = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass();
-        renderPass->setClearValue({ 0.0, 0.0, 0.0, 0.0 });
-    }
+//    if (renderPass == nullptr) {
+//        renderPass = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass();
+//        renderPass->setClearValue({ 0.0, 0.0, 0.0, 0.0 });
+//    }
 
-    queue->clearCommandBuffers();
+//    queue->clearCommandBuffers();
 
-    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
-        renderPass->setFramebuffer(Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle());
+//    for (size_t i = 0; i < commandBuffers->getCount(); i++) {
+//        renderPass->setFramebuffer(Vulkan::Instance::get()->getSurface()->getSwapchain()->getFramebuffer(i)->getHandle());
 
-        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
-        commandBuffer.begin();
+//        Vulkan::CommandBuffer commandBuffer(commandBuffers->at(i));
+//        commandBuffer.begin();
 
-        writeCommands(&commandBuffer);
+//        writeCommands(&commandBuffer);
 
-        commandBuffer.end();
+//        commandBuffer.end();
 
-        queue->addCommandBuffer(commandBuffer.getHandle());
-    }
+//        queue->addCommandBuffer(commandBuffer.getHandle());
+//    }
 }
 
-void Scene::setRenderPass(Vulkan::RenderPass* renderPass) {
-    this->renderPass = renderPass;
-}
+//void Scene::setRenderPass(Vulkan::RenderPass* renderPass) {
+//    this->renderPass = renderPass;
+//}
 
 void Scene::setBackgroundColor(const Color& backgroundColor) {
     this->backgroundColor = backgroundColor;

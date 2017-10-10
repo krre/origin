@@ -15,7 +15,7 @@
 
 MenuScene::MenuScene() {
     plane = std::make_unique<Plane>();
-    shaderProgram = std::make_unique<ShaderProgram>();
+//    shaderProgram = std::make_unique<ShaderProgram>();
 }
 
 MenuScene::~MenuScene() {
@@ -23,23 +23,23 @@ MenuScene::~MenuScene() {
 }
 
 void MenuScene::init() {
-    shaderProgram->addShader("Shader/Base.vert.spv");
-    shaderProgram->addShader("Shader/Base.frag.spv");
+//    shaderProgram->addShader("Shader/Base.vert.spv");
+//    shaderProgram->addShader("Shader/Base.frag.spv");
 
-    shaderProgram->bindUniform("uboVert", sizeof(uboVert), &uboVert);
-    shaderProgram->bindUniform("uboFrag", sizeof(uboFrag), &uboFrag);
+//    shaderProgram->bindUniform("uboVert", sizeof(uboVert), &uboVert);
+//    shaderProgram->bindUniform("uboFrag", sizeof(uboFrag), &uboFrag);
 
-    shaderProgram->bindInput("position", sizeof(glm::vec2));
+//    shaderProgram->bindInput("position", sizeof(glm::vec2));
 
-    vertexBuffer->write(plane->getVertices().data(), plane->getVerticesSize());
-    indexBuffer->write(plane->getIndices().data(), plane->getIndicesSize());
+//    vertexBuffer->write(plane->getVertices().data(), plane->getVerticesSize());
+//    indexBuffer->write(plane->getIndices().data(), plane->getIndicesSize());
 
-    shaderProgram->createPipeline();
+//    shaderProgram->createPipeline();
 
-    buildCommandBuffers();
+//    buildCommandBuffers();
 
-    shaderProgram->writeUniform("uboVert");
-    shaderProgram->writeUniform("uboFrag");
+//    shaderProgram->writeUniform("uboVert");
+//    shaderProgram->writeUniform("uboFrag");
 }
 
 void MenuScene::update(float dt) {
@@ -50,42 +50,42 @@ void MenuScene::create() {
 
 }
 
-void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
-    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
+//void MenuScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+//    VkExtent2D extent = Vulkan::Instance::get()->getSurface()->getCurrentExtent();
 
-    VkViewport viewport = {};
-    viewport.width = extent.width;
-    viewport.height = extent.height;
-    viewport.maxDepth = 1.0;
+//    VkViewport viewport = {};
+//    viewport.width = extent.width;
+//    viewport.height = extent.height;
+//    viewport.maxDepth = 1.0;
 
-    VkRect2D scissor = {};
-    scissor.offset = { 0, 0 };
-    scissor.extent = extent;
+//    VkRect2D scissor = {};
+//    scissor.offset = { 0, 0 };
+//    scissor.extent = extent;
 
-    const VkRenderPassBeginInfo* renderPassBeginInfo = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getBeginInfo();
-    commandBuffer->beginRenderPass(renderPassBeginInfo);
+//    const VkRenderPassBeginInfo* renderPassBeginInfo = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getBeginInfo();
+//    commandBuffer->beginRenderPass(renderPassBeginInfo);
 
-    commandBuffer->bindPipeline(shaderProgram->getGraphicsPipeline());
+//    commandBuffer->bindPipeline(shaderProgram->getGraphicsPipeline());
 
-    commandBuffer->addViewport(viewport);
-    commandBuffer->setViewport(0);
+//    commandBuffer->addViewport(viewport);
+//    commandBuffer->setViewport(0);
 
-    commandBuffer->addScissor(scissor);
-    commandBuffer->setScissor(0);
+//    commandBuffer->addScissor(scissor);
+//    commandBuffer->setScissor(0);
 
-    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
-    commandBuffer->bindVertexBuffers();
-    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
+//    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+//    commandBuffer->bindVertexBuffers();
+//    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
-    for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
-        commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
-    }
+//    for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
+//        commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
+//    }
 
-    commandBuffer->bindDescriptorSets(shaderProgram->getGraphicsPipeline()->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
-    commandBuffer->drawIndexed(plane->getIndices().size(), 1, 0, 0, 0);
+//    commandBuffer->bindDescriptorSets(shaderProgram->getGraphicsPipeline()->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
+//    commandBuffer->drawIndexed(plane->getIndices().size(), 1, 0, 0, 0);
 
-    commandBuffer->endRenderPass();
-}
+//    commandBuffer->endRenderPass();
+//}
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {

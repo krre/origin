@@ -13,6 +13,6 @@ void PauseDialog::update(float dt) {
 
 }
 
-void PauseDialog::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+//void PauseDialog::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
-}
+//}

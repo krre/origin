@@ -27,13 +27,13 @@ public:
 
 private:
     void create();
-    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
+//    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onWindowResize(int width, int height) override;
 
-    Vulkan::PipelineCache pipelineCache;
-    Vulkan::RenderPass renderPass;
-    ShaderProgram shaderProgram;
-    Vulkan::Sampler sampler;
+//    Vulkan::PipelineCache pipelineCache;
+//    Vulkan::RenderPass renderPass;
+//    ShaderProgram shaderProgram;
+//    Vulkan::Sampler sampler;
     Font* font;
     float accumTime = 0.5;
     int counter = 30;

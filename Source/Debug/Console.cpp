@@ -25,9 +25,9 @@ void Console::update(float dt) {
 //    }
 //}
 
-void Console::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
+//void Console::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
-}
+//}
 
 void Console::onWindowResize(int width, int height) {
     cmdLine->setPosition({ 5, height - 5 });

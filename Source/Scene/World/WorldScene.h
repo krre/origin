@@ -58,7 +58,7 @@ public:
 
 private:
     void create();
-    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
+//    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
     std::unique_ptr<VertexBuffer> vertexBuffer;

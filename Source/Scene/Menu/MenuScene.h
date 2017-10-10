@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene/Scene2D.h"
+#include <glm/glm.hpp>
 
 class Plane;
 class ShaderProgram;

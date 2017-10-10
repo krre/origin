@@ -26,8 +26,6 @@
 #include <glm/glm.hpp>
 
 DebugHUD::DebugHUD() {
-    setBackgroundColor(Color::TRANSPARENT);
-
 //    int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
 //    vulkanApiVersion = Vulkan::Instance::apiToString(apiVersionNumber);
 }

@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Object.h"
-#include "Graphics/Color.h"
 #include <SDL.h>
 #include <vector>
 
@@ -27,9 +26,6 @@ public:
     virtual void draw(float dt) = 0;
 
     void buildCommandBuffers();
-
-    void setBackgroundColor(const Color& backgroundColor);
-    const Color& getBackgroundColor() const { return backgroundColor; }
 
     void addCamera(const std::shared_ptr<Entity>& camera);
     void removeCamera(const std::shared_ptr<Entity>& camera);
@@ -65,6 +61,5 @@ private:
 //    Vulkan::RenderPass* renderPass = nullptr;
     std::shared_ptr<Entity> currentCamera;
     std::shared_ptr<Entity> switchCameras[2] = { nullptr, nullptr };
-    Color backgroundColor = Color::WHITE;
     std::vector<std::shared_ptr<Entity>> cameras;
 };

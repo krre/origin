@@ -1,6 +1,7 @@
 #pragma once
-#include <string>
 #include "Graphics/Render/RenderTarget.h"
+#include "Graphics/Color.h"
+#include <string>
 
 const uint32_t WINDOW_WIDTH = 800;
 const uint32_t WINDOW_HEIGHT = 600;
@@ -18,6 +19,9 @@ public:
     int getX() const { return x; }
     int getY() const { return y; }
 
+    void setColor(const Color& color);
+    const Color& getColor() const { return color; }
+
     void show();
 
     virtual void swapBuffers() = 0;
@@ -33,4 +37,6 @@ protected:
 private:
     void onMove(int x, int y);
     void onResize(int width, int height);
+
+    Color color = Color::WHITE;
 };

@@ -70,10 +70,6 @@ void Scene::buildCommandBuffers() {
 //    this->renderPass = renderPass;
 //}
 
-void Scene::setBackgroundColor(const Color& backgroundColor) {
-    this->backgroundColor = backgroundColor;
-}
-
 void Scene::addCamera(const std::shared_ptr<Entity>& camera) {
     cameras.push_back(camera);
 }

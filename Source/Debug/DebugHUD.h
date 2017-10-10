@@ -5,6 +5,7 @@
 #include "Graphics/ShaderProgram.h"
 #include "Graphics/Vulkan/Wrapper/Sampler.h"
 #include "Graphics/Vulkan/Wrapper/RenderPass.h"
+#include <glm/glm.hpp>
 
 const int MAX_CHAR_COUNT = 2048;
 

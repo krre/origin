@@ -9,7 +9,7 @@ class Swapchain;
 class Surface : public Handle<VkSurfaceKHR> {
 
 public:
-    Surface(VkPhysicalDevice physicalDevice);
+    Surface(VkInstance instance, VkPhysicalDevice physicalDevice);
     ~Surface();
     void create() override;
     void destroy() override;
@@ -24,6 +24,7 @@ protected:
     virtual void platformCreateHandle() = 0;
 
 private:
+    VkInstance instance;
     VkPhysicalDevice physicalDevice;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;

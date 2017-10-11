@@ -4,8 +4,8 @@
 
 using namespace Vulkan;
 
-Win32Surface::Win32Surface(VkPhysicalDevice physicalDevice, HINSTANCE hinstance, HWND hwnd) :
-    Surface(physicalDevice),
+Win32Surface::Win32Surface(VkInstance instance, VkPhysicalDevice physicalDevice, HINSTANCE hinstance, HWND hwnd) :
+    Surface(instance, physicalDevice),
     hinstance(hinstance),
     hwnd(hwnd) {
 }

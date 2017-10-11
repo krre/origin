@@ -1,10 +1,10 @@
 #include "Surface.h"
-#include "../Instance.h"
 #include "Swapchain.h"
 
 using namespace Vulkan;
 
-Surface::Surface(VkPhysicalDevice physicalDevice) :
+Surface::Surface(VkInstance instance, VkPhysicalDevice physicalDevice) :
+    instance(instance),
     physicalDevice(physicalDevice) {
 }
 
@@ -32,7 +32,7 @@ void Surface::create() {
 }
 
 void Surface::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(Instance::get()->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance, handle, nullptr))
 }
 
 VkExtent2D Surface::getCurrentExtent() const {

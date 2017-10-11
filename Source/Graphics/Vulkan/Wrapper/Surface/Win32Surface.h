@@ -7,7 +7,7 @@ namespace Vulkan {
 class Win32Surface : public Surface {
 
 public:
-    Win32Surface(VkPhysicalDevice physicalDevice, HINSTANCE hinstance, HWND hwnd);
+    Win32Surface(VkInstance instance, VkPhysicalDevice physicalDevice, HINSTANCE hinstance, HWND hwnd);
 
 private:
     HINSTANCE hinstance;

@@ -7,7 +7,7 @@ namespace Vulkan {
 class XcbSurface : public Surface {
 
 public:
-    XcbSurface(VkPhysicalDevice physicalDevice, xcb_connection_t* connection, xcb_window_t window);
+    XcbSurface(VkInstance instance, VkPhysicalDevice physicalDevice, xcb_connection_t* connection, xcb_window_t window);
 
 private:
     xcb_connection_t* connection;

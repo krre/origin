@@ -5,12 +5,12 @@
 
 VulkanRenderManager::VulkanRenderManager() {
     setName("VulkanRenderManager");
-    vulkan = std::make_unique<Vulkan::Instance>();
-    vulkan->create();
+    vulkanInstance = std::make_unique<Vulkan::Instance>();
+    vulkanInstance->create();
 }
 
 VulkanRenderManager::~VulkanRenderManager() {
-    vulkan->getDefaultDevice()->waitIdle();
+    vulkanInstance->getDefaultDevice()->waitIdle();
 }
 
 std::shared_ptr<RenderWindow> VulkanRenderManager::createRenderWindow() {

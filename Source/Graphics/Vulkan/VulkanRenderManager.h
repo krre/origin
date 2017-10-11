@@ -14,6 +14,8 @@ public:
     void setClearColor(const Color& color) override;
     void clear() override;
 
+    Vulkan::Instance* getVulkanInstance() const { return vulkanInstance.get(); }
+
 private:
-    std::unique_ptr<Vulkan::Instance> vulkan;
+    std::unique_ptr<Vulkan::Instance> vulkanInstance;
 };

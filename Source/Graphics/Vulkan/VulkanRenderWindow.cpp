@@ -1,4 +1,5 @@
 #include "VulkanRenderWindow.h"
+#include "VulkanRenderManager.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Core/Defines.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
@@ -24,14 +25,16 @@ VulkanRenderWindow::VulkanRenderWindow() {
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(handle, &wminfo);
 
+    vulkanInstance = static_cast<VulkanRenderManager*>(RenderManager::get())->getVulkanInstance();
+
 #ifdef OS_WIN
-    surface = std::make_unique<Vulkan::Win32Surface>(Vulkan::Instance::get()->getHandle(), Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_unique<Vulkan::Win32Surface>(vulkanInstance->getHandle(), vulkanInstance->getDefaultDevice()->getPhysicalDevice()->getHandle(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif OS_LINUX
-    surface = std::make_unique<Vulkan::XcbSurface>(Vulkan::Instance::get()->getHandle(), Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+    surface = std::make_unique<Vulkan::XcbSurface>(vulkanInstance->getHandle(), vulkanInstance->getDefaultDevice()->getPhysicalDevice()->getHandle(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 
     surface->create();
-    Vulkan::Instance::get()->setSurface(surface.get());
+    vulkanInstance->setSurface(surface.get());
 }
 
 void VulkanRenderWindow::swapBuffers() {

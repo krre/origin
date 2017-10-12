@@ -100,10 +100,6 @@ void Instance::dumpExtensions() {
     }
 }
 
-void Instance::windowResize(int width, int height) {
-
-}
-
 std::string Instance::apiToString(int api) {
     int major = (api >> 22) & 0x3FF;
     int minor = (api >> 12) & 0x3FF;

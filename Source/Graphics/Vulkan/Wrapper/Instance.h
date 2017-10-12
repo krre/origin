@@ -35,8 +35,6 @@ public:
     void setSurface(Surface* surface) { this->surface = surface; }
     Surface* getSurface() const { return surface; }
 
-    void windowResize(int width, int height);
-
     static std::string apiToString(int api);
 
 private:

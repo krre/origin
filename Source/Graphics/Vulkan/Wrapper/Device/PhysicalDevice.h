@@ -19,7 +19,7 @@ public:
     VkFormat getSupportedDepthFormat();
     bool getSupportBlit();
 
-    uint32_t findQueue(VkQueueFlags flags);
+    uint32_t findQueueFamily(VkQueueFlags flags);
     uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
 private:

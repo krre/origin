@@ -56,7 +56,7 @@ bool PhysicalDevice::getSupportBlit() {
     return supportsBlit;
 }
 
-uint32_t PhysicalDevice::findQueue(VkQueueFlags flags) {
+uint32_t PhysicalDevice::findQueueFamily(VkQueueFlags flags) {
     uint32_t i = 0;
     for (const auto& familyProperty : queueFamilyProperties) {
         if (familyProperty.queueCount > 0 && (familyProperty.queueFlags & flags)) {

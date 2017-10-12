@@ -18,7 +18,7 @@ VulkanCore::VulkanCore() {
     }
 
     graphicsDevice = std::make_unique<Vulkan::Device>(gpd);
-    graphicsFamily = gpd->findQueue(VK_QUEUE_GRAPHICS_BIT);
+    graphicsFamily = gpd->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
     graphicsDevice->addQueueCreateInfo(graphicsFamily, { 1.0 });
     graphicsDevice->create();
 
@@ -29,7 +29,7 @@ VulkanCore::VulkanCore() {
     }
 
     computeDevice = std::make_unique<Vulkan::Device>(gpd);
-    computeFamily = gpd->findQueue(VK_QUEUE_COMPUTE_BIT);
+    computeFamily = gpd->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
     computeDevice->addQueueCreateInfo(computeFamily, { 1.0 });
     computeDevice->create();
 

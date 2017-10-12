@@ -22,7 +22,7 @@ void CommandBufferOneTime::apply() {
     Fence fence(device);
     fence.create();
 
-    SubmitQueue queue(commandPool->getQueueFamilyIndex(), 0, device);
+    SubmitQueue queue(device, commandPool->getQueueFamilyIndex(), 0);
     queue.addCommandBuffer(commandBuffer->getHandle());
     queue.submit(fence.getHandle());
 

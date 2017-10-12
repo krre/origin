@@ -2,8 +2,8 @@
 
 using namespace Vulkan;
 
-SubmitQueue::SubmitQueue(uint32_t queueFamilyIndex, uint32_t queueIndex, Device* device) :
-    Queue(queueFamilyIndex, queueIndex, device) {
+SubmitQueue::SubmitQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) :
+    Queue(device, queueFamilyIndex, queueIndex) {
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 }
 

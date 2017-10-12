@@ -8,7 +8,7 @@ namespace Vulkan {
 class Queue : public Handle<VkQueue>, public Devicer {
 
 public:
-    Queue(uint32_t queueFamilyIndex, uint32_t queueIndex, Device* device = nullptr);
+    Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);
     void addWaitSemaphore(VkSemaphore semaphore);
     void setWaitSemaphore(VkSemaphore semaphore);
     void create() override {}

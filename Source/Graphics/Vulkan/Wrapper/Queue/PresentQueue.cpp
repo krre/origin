@@ -2,8 +2,8 @@
 
 using namespace Vulkan;
 
-PresentQueue::PresentQueue(uint32_t queueFamilyIndex, uint32_t queueIndex, Device* device) :
-    Queue(queueFamilyIndex, queueIndex, device) {
+PresentQueue::PresentQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) :
+    Queue(device, queueFamilyIndex, queueIndex) {
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 }
 

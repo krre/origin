@@ -16,6 +16,7 @@ public:
     ~VulkanCore();
     Vulkan::Instance* getInstance() const { return instance.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
+    uint32_t getComputeFamily() const { return computeFamily; }
     Vulkan::Device* getGraphicsDevice() const { return graphicsDevice.get(); }
     Vulkan::Device* getComputeDevice() const { return computeDevice.get(); }
     Vulkan::CommandPool* getCommandPool() const { return commandPool.get(); }
@@ -30,5 +31,6 @@ private:
     std::unique_ptr<Vulkan::Device> computeDevice;
     std::shared_ptr<Vulkan::CommandPool> commandPool;
     uint32_t graphicsFamily;
+    uint32_t computeFamily;
     Vulkan::Surface* surface;
 };

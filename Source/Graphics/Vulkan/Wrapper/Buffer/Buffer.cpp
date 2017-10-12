@@ -63,7 +63,7 @@ void Buffer::read(void* data, VkDeviceSize size, VkDeviceSize offset) {
 }
 
 void Buffer::copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size) {
-    CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getCommandPool());
+    CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getGraphicsCommandPool());
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;

@@ -11,7 +11,7 @@ VulkanCore::VulkanCore() {
 
     physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance->getHandle());
 
-    // Create graphics logical device
+    // Create graphics logical device and command pool
     Vulkan::PhysicalDevice* gpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
     if (gpd == nullptr) {
         gpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
@@ -22,7 +22,10 @@ VulkanCore::VulkanCore() {
     graphicsDevice->addQueueCreateInfo(graphicsFamily, { 1.0 });
     graphicsDevice->create();
 
-    // Create compute logical device
+    graphicsCommandPool = std::make_shared<Vulkan::CommandPool>(graphicsDevice.get(), graphicsFamily);
+    graphicsCommandPool->create();
+
+    // Create compute logical device and command pool
     Vulkan::PhysicalDevice* cpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
     if (cpd == nullptr) {
         cpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
@@ -33,8 +36,8 @@ VulkanCore::VulkanCore() {
     computeDevice->addQueueCreateInfo(computeFamily, { 1.0 });
     computeDevice->create();
 
-    commandPool = std::make_shared<Vulkan::CommandPool>(graphicsDevice.get(), graphicsFamily);
-    commandPool->create();
+    computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
+    computeCommandPool->create();
 }
 
 VulkanCore::~VulkanCore() {

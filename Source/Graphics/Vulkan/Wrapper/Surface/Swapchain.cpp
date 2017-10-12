@@ -103,7 +103,7 @@ void Swapchain::saveImage(const std::string& filePath) {
     image.create();
     VkImage dstImage = image.getHandle();
 
-    CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getCommandPool());
+    CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getGraphicsCommandPool());
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,

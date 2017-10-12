@@ -22,7 +22,7 @@ VulkanCore::VulkanCore() {
 
     // TODO: Create compute device;
 
-    commandPool = std::make_shared<Vulkan::CommandPool>(graphicsFamily);
+    commandPool = std::make_shared<Vulkan::CommandPool>(graphicsDevice.get(), graphicsFamily);
     commandPool->create();
 }
 

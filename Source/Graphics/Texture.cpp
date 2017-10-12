@@ -1,5 +1,6 @@
 #include "Texture.h"
 #include <lodepng/lodepng.h>
+#include "Graphics/Vulkan/VulkanCore.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Graphics/Vulkan/Wrapper/Fence.h"
@@ -9,7 +10,7 @@
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 
 Texture::Texture(const std::string& path, VkFormat format) {
-    Vulkan::Device* device = Vulkan::Instance::get()->getDefaultDevice();
+    Vulkan::Device* device = VulkanCore::get()->getInstance()->getDefaultDevice();
     uint32_t width;
     uint32_t height;
     unsigned result = lodepng::decode(data, width, height, path);

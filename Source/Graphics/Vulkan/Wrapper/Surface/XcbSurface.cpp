@@ -15,5 +15,5 @@ void Vulkan::XcbSurface::platformCreateHandle() {
     createInfo.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
     createInfo.connection = connection;
     createInfo.window = window;
-    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(Instance::get()->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
+    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
 }

@@ -1,4 +1,5 @@
 #include "Swapchain.h"
+#include "Graphics/Vulkan/VulkanCore.h"
 #include "../Instance.h"
 #include "../Framebuffer.h"
 #include "../Semaphore.h"
@@ -41,7 +42,7 @@ Swapchain::Swapchain(const Surface* surface, Device* device) :
     imageAvailableSemaphore = std::make_shared<Semaphore>();
     imageAvailableSemaphore->create();
 
-    presentQueue = std::make_shared<PresentQueue>(Instance::get()->getGraphicsFamily());
+    presentQueue = std::make_shared<PresentQueue>(VulkanCore::get()->getInstance()->getGraphicsFamily());
 
     renderPass = std::make_shared<RenderPass>();
     renderPass->setColorFormat(surface->getFormats().at(0).format);

@@ -1,4 +1,5 @@
 #include "ShaderProgram.h"
+#include "Graphics/Vulkan/VulkanCore.h"
 #include "Graphics/Vulkan/Wrapper/Pipeline/PipelineLayout.h"
 #include "Graphics/Vulkan/Wrapper/Pipeline/GraphicsPipeline.h"
 #include "Graphics/Vulkan/Wrapper/Descriptor/DescriptorPool.h"
@@ -20,8 +21,8 @@ ShaderProgram::ShaderProgram() {
     descriptorSets = std::make_unique<DescriptorSets>(descriptorPool.get());
 
     graphicsPipeline = std::make_unique<GraphicsPipeline>();
-    graphicsPipeline->setExtent(Instance::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline->setRenderPass(Instance::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
+    graphicsPipeline->setExtent(VulkanCore::get()->getInstance()->getSurface()->getCapabilities().currentExtent);
+    graphicsPipeline->setRenderPass(VulkanCore::get()->getInstance()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
 
     pipelineLayout = std::make_unique<PipelineLayout>();
     descriptorSetLayout = std::make_unique<DescriptorSetLayout>();

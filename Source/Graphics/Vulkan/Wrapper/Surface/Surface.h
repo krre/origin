@@ -22,9 +22,9 @@ public:
 
 protected:
     virtual void platformCreateHandle() = 0;
+    VkInstance instance;
 
 private:
-    VkInstance instance;
     VkPhysicalDevice physicalDevice;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;

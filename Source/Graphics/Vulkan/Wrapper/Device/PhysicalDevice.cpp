@@ -6,8 +6,7 @@
 
 using namespace Vulkan;
 
-PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) {
-    handle = physicalDevice;
+PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) : Handle(physicalDevice) {
 }
 
 VkFormat PhysicalDevice::getSupportedDepthFormat() {

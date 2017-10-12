@@ -6,6 +6,6 @@ using namespace Vulkan;
 
 Devicer::Devicer(Device* device) : device(device) {
     if (this->device == nullptr) {
-        this->device = VulkanCore::get()->getInstance()->getDefaultDevice();
+        this->device = VulkanCore::get()->getGraphicsDevice();
     }
 }

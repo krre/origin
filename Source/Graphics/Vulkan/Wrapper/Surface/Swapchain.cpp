@@ -42,7 +42,7 @@ Swapchain::Swapchain(const Surface* surface, Device* device) :
     imageAvailableSemaphore = std::make_shared<Semaphore>();
     imageAvailableSemaphore->create();
 
-    presentQueue = std::make_shared<PresentQueue>(VulkanCore::get()->getInstance()->getGraphicsFamily());
+    presentQueue = std::make_shared<PresentQueue>(VulkanCore::get()->getGraphicsFamily());
 
     renderPass = std::make_shared<RenderPass>();
     renderPass->setColorFormat(surface->getFormats().at(0).format);

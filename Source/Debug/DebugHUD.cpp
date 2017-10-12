@@ -99,7 +99,7 @@ void DebugHUD::update(float dt) {
     std::string text =
         std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
         std::to_string(fps) + " fps\n"
-        "Video driver: " + VulkanCore::get()->getInstance()->getDefaultDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
+        "Video driver: " + VulkanCore::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan API: " + vulkanApiVersion + "\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";

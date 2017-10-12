@@ -10,7 +10,7 @@
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 
 Texture::Texture(const std::string& path, VkFormat format) {
-    Vulkan::Device* device = VulkanCore::get()->getInstance()->getDefaultDevice();
+    Vulkan::Device* device = VulkanCore::get()->getGraphicsDevice();
     uint32_t width;
     uint32_t height;
     unsigned result = lodepng::decode(data, width, height, path);

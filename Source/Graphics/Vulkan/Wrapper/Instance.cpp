@@ -5,6 +5,7 @@
 #include "Device/PhysicalDevices.h"
 #include "Device/Device.h"
 #include "Command/CommandPool.h"
+#include "Graphics/Vulkan/VulkanCore.h"
 
 using namespace Vulkan;
 
@@ -59,8 +60,6 @@ Instance::Instance() {
 
 Instance::~Instance() {
     commandPool.reset();
-    devices.clear();
-    physicalDevices.reset();
     debugCallback.reset();
     destroy();
 }
@@ -80,22 +79,7 @@ void Instance::create() {
         debugCallback->create();
     }
 
-    physicalDevices = std::make_shared<PhysicalDevices>(handle);
-    PhysicalDevice* defaultPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
-    if (defaultPhysicalDevice == nullptr) {
-        defaultPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
-    }
-
-    graphicsFamily = defaultPhysicalDevice->findQueue(VK_QUEUE_GRAPHICS_BIT);
-
-    std::shared_ptr<Device> device = std::make_shared<Device>(defaultPhysicalDevice);
-    devices.push_back(device);
-    device->addQueueCreateInfo(graphicsFamily, { 1.0 });
-    device->create();
-
-    defaultDevice = device.get();
-
-    commandPool = std::make_shared<CommandPool>(graphicsFamily);
+    commandPool = std::make_shared<CommandPool>(VulkanCore::get()->getGraphicsFamily());
     commandPool->create();
 }
 
@@ -125,12 +109,8 @@ void Instance::dumpExtensions() {
     }
 }
 
-void Instance::setDefaultDevice(Device* device) {
-    defaultDevice = device;
-}
-
 void Instance::windowResize(int width, int height) {
-    defaultDevice->waitIdle();
+
 }
 
 std::string Instance::apiToString(int api) {

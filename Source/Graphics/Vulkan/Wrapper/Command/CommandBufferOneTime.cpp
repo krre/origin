@@ -22,7 +22,7 @@ void CommandBufferOneTime::apply() {
     Fence fence(device);
     fence.create();
 
-    SubmitQueue queue(VulkanCore::get()->getInstance()->getGraphicsFamily(), 0, device);
+    SubmitQueue queue(VulkanCore::get()->getGraphicsFamily(), 0, device);
     queue.addCommandBuffer(commandBuffer->getHandle());
     queue.submit(fence.getHandle());
 

@@ -7,13 +7,14 @@ namespace Vulkan {
 
 class PhysicalDevice;
 
-class PhysicalDevices : public Collection<VkPhysicalDevice> {
+class PhysicalDevices {
 
 public:
     PhysicalDevices(VkInstance instance);
+    size_t getCount() const { return devices.size(); }
+    PhysicalDevice* getPhysicalDevice(size_t i) const { return devices.at(i).get(); }
     PhysicalDevice* findDevice(VkPhysicalDeviceType type);
     void dumpDevices();
-    void destroy() override {}
 
 private:
     std::vector<std::unique_ptr<PhysicalDevice>> devices;

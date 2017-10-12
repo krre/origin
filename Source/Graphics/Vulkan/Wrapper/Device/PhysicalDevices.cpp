@@ -6,19 +6,19 @@ using namespace Vulkan;
 PhysicalDevices::PhysicalDevices(VkInstance instance) {
     uint32_t count;
     vkEnumeratePhysicalDevices(instance, &count, nullptr);
-    collection.resize(count);
-    vkEnumeratePhysicalDevices(instance, &count, collection.data());
+    std::vector<VkPhysicalDevice> handlers(count);
+    vkEnumeratePhysicalDevices(instance, &count, handlers.data());
 
-    for (const auto& device : collection) {
-        auto physicalDevice = std::make_unique<PhysicalDevice>(device);
+    for (const auto& handler : handlers) {
+        auto physicalDevice = std::make_unique<PhysicalDevice>(handler);
 
-        vkGetPhysicalDeviceProperties(device, &physicalDevice->properties);
-        vkGetPhysicalDeviceFeatures(device, &physicalDevice->features);
-        vkGetPhysicalDeviceMemoryProperties(device, &physicalDevice->memoryProperties);
+        vkGetPhysicalDeviceProperties(handler, &physicalDevice->properties);
+        vkGetPhysicalDeviceFeatures(handler, &physicalDevice->features);
+        vkGetPhysicalDeviceMemoryProperties(handler, &physicalDevice->memoryProperties);
 
-        vkGetPhysicalDeviceQueueFamilyProperties(device, &count, nullptr);
+        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, nullptr);
         physicalDevice->queueFamilyProperties.resize(count);
-        vkGetPhysicalDeviceQueueFamilyProperties(device, &count, physicalDevice->queueFamilyProperties.data());
+        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, physicalDevice->queueFamilyProperties.data());
 
         devices.push_back(std::move(physicalDevice));
     }
@@ -39,4 +39,3 @@ void PhysicalDevices::dumpDevices() {
         PRINT(device->properties.deviceName);
     }
 }
-

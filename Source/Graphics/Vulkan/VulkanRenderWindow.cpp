@@ -33,7 +33,7 @@ VulkanRenderWindow::VulkanRenderWindow() {
 #endif
 
     surface->create();
-    VulkanCore::get()->getInstance()->setSurface(surface.get());
+    VulkanCore::get()->setSurface(surface.get());
 }
 
 void VulkanRenderWindow::swapBuffers() {

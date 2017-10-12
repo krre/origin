@@ -13,7 +13,6 @@ namespace Vulkan {
 #endif
 
 class DebugReportCallback;
-class Surface;
 
 class Instance : public Handle<VkInstance> {
 
@@ -32,9 +31,6 @@ public:
     void setEnabledExtensions(const std::vector<const char*> enabledExtensions);
     void dumpExtensions();
 
-    void setSurface(Surface* surface) { this->surface = surface; }
-    Surface* getSurface() const { return surface; }
-
     static std::string apiToString(int api);
 
 private:
@@ -45,7 +41,6 @@ private:
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
     std::unique_ptr<DebugReportCallback> debugCallback;
-    Surface* surface;
 };
 
 } // Vulkan

@@ -12,7 +12,6 @@ namespace Vulkan {
     const bool enableValidationLayers = true;
 #endif
 
-class CommandPool;
 class DebugReportCallback;
 class Surface;
 
@@ -36,8 +35,6 @@ public:
     void setSurface(Surface* surface) { this->surface = surface; }
     Surface* getSurface() const { return surface; }
 
-    CommandPool* getCommandPool() const { return commandPool.get(); }
-
     void windowResize(int width, int height);
 
     static std::string apiToString(int api);
@@ -50,7 +47,6 @@ private:
     std::vector<VkExtensionProperties> extensions;
     std::vector<const char*> enabledExtensions;
     std::unique_ptr<DebugReportCallback> debugCallback;
-    std::shared_ptr<CommandPool> commandPool;
     Surface* surface;
 };
 

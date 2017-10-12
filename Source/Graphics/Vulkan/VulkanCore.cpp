@@ -3,6 +3,7 @@
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevices.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Wrapper/Device/Device.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandPool.h"
 
 VulkanCore::VulkanCore() {
     instance = std::make_unique<Vulkan::Instance>();
@@ -20,6 +21,9 @@ VulkanCore::VulkanCore() {
     graphicsDevice->create();
 
     // TODO: Create compute device;
+
+    commandPool = std::make_shared<Vulkan::CommandPool>(graphicsFamily);
+    commandPool->create();
 }
 
 VulkanCore::~VulkanCore() {

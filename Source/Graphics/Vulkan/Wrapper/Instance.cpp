@@ -1,11 +1,6 @@
 #include "Instance.h"
 #include "Core/Defines.h"
 #include "DebugReportCallback.h"
-#include "Device/PhysicalDevice.h"
-#include "Device/PhysicalDevices.h"
-#include "Device/Device.h"
-#include "Command/CommandPool.h"
-#include "Graphics/Vulkan/VulkanCore.h"
 
 using namespace Vulkan;
 
@@ -59,7 +54,6 @@ Instance::Instance() {
 }
 
 Instance::~Instance() {
-    commandPool.reset();
     debugCallback.reset();
     destroy();
 }
@@ -78,9 +72,6 @@ void Instance::create() {
         debugCallback = std::make_unique<DebugReportCallback>(handle);
         debugCallback->create();
     }
-
-    commandPool = std::make_shared<CommandPool>(VulkanCore::get()->getGraphicsFamily());
-    commandPool->create();
 }
 
 void Instance::destroy() {

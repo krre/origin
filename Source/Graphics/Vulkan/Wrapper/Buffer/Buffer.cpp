@@ -3,6 +3,7 @@
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/VulkanCore.h"
 #include <string.h>
 
 using namespace Vulkan;
@@ -62,7 +63,7 @@ void Buffer::read(void* data, VkDeviceSize size, VkDeviceSize offset) {
 }
 
 void Buffer::copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size) {
-    CommandBufferOneTime commandBuffer(const_cast<Device*>(device));
+    CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getCommandPool());
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;

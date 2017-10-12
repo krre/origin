@@ -1,17 +1,18 @@
 #pragma once
+#include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 #include <memory>
-#include <vulkan/vulkan.h>
 
 namespace Vulkan {
 
 class Device;
 class CommandBuffers;
 class CommandBuffer;
+class CommandPool;
 
-class CommandBufferOneTime {
+class CommandBufferOneTime : Devicer {
 
 public:
-    CommandBufferOneTime(Device* device);
+    CommandBufferOneTime(Device* device, CommandPool* commandPool);
     void setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask);
     void addBlitRegion(VkImageBlit blitRegion);
     void addImageCopy(VkImageCopy imageCopy);
@@ -24,9 +25,9 @@ public:
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);
 
 private:
-    Device* device;
     std::shared_ptr<CommandBuffers> commandBuffers;
     std::shared_ptr<CommandBuffer> commandBuffer;
+    CommandPool* commandPool;
 };
 
 } // Vulkan

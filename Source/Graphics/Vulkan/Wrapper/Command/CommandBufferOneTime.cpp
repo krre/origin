@@ -1,16 +1,16 @@
 #include "CommandBufferOneTime.h"
 #include "CommandBuffers.h"
 #include "CommandBuffer.h"
-#include "Graphics/Vulkan/VulkanCore.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandPool.h"
 #include "Graphics/Vulkan/Wrapper/Fence.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
 using namespace Vulkan;
 
-CommandBufferOneTime::CommandBufferOneTime(Device* device) :
-        device(device) {
-    commandBuffers = std::make_shared<CommandBuffers>(VulkanCore::get()->getCommandPool());
+CommandBufferOneTime::CommandBufferOneTime(Device* device, CommandPool* commandPool) :
+        Devicer(device),
+        commandPool(commandPool) {
+    commandBuffers = std::make_shared<CommandBuffers>(commandPool);
     commandBuffers->allocate(1);
     commandBuffer = std::make_shared<CommandBuffer>(commandBuffers->at(0));
     commandBuffer->begin(VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT);
@@ -22,7 +22,7 @@ void CommandBufferOneTime::apply() {
     Fence fence(device);
     fence.create();
 
-    SubmitQueue queue(VulkanCore::get()->getGraphicsFamily(), 0, device);
+    SubmitQueue queue(commandPool->getQueueFamilyIndex(), 0, device);
     queue.addCommandBuffer(commandBuffer->getHandle());
     queue.submit(fence.getHandle());
 

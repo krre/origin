@@ -8,6 +8,7 @@
 #include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
 #include "Graphics/Vulkan/Wrapper/Image/Image.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/VulkanCore.h"
 
 Texture::Texture(const std::string& path, VkFormat format) {
     Vulkan::Device* device = VulkanCore::get()->getGraphicsDevice();
@@ -43,7 +44,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
 
     }
 
-    Vulkan::CommandBufferOneTime commandBuffer(device);
+    Vulkan::CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getCommandPool());
     commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
     commandBuffer.apply();
 }

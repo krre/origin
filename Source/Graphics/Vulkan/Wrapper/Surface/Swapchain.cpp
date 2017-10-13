@@ -8,7 +8,9 @@
 #include "../Device/DeviceMemory.h"
 #include "../Device/PhysicalDevice.h"
 #include "../Image/Image.h"
+#include "../Image/ImageView.h"
 #include "../Command/CommandBufferOneTime.h"
+#include "../RenderPass.h"
 #include "Graphics/Vulkan/VulkanCore.h"
 #include <lodepng/lodepng.h>
 #include <limits>
@@ -76,8 +78,8 @@ void Swapchain::create() {
         imageViews.push_back(imageView);
 
         std::shared_ptr<Framebuffer> framebuffer = std::make_shared<Framebuffer>(device);
-        framebuffer->addAttachment(imageView->getHandle());
-        framebuffer->setRenderPass(renderPass->getHandle());
+        framebuffer->addAttachment(imageView.get());
+        framebuffer->setRenderPass(renderPass.get());
         framebuffer->setWidth(extent.width);
         framebuffer->setHeight(extent.height);
         framebuffer->create();

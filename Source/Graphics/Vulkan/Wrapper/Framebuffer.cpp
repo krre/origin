@@ -1,4 +1,6 @@
 #include "Framebuffer.h"
+#include "RenderPass.h"
+#include "Image/ImageView.h"
 
 using namespace Vulkan;
 
@@ -23,8 +25,8 @@ void Framebuffer::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyFramebuffer(device->getHandle(), handle, nullptr))
 }
 
-void Framebuffer::addAttachment(VkImageView attachment) {
-    attachments.push_back(attachment);
+void Framebuffer::addAttachment(ImageView* attachment) {
+    attachments.push_back(attachment->getHandle());
 }
 
 void Framebuffer::setWidth(uint32_t width) {
@@ -35,6 +37,6 @@ void Framebuffer::setHeight(uint32_t height) {
     createInfo.height = height;
 }
 
-void Framebuffer::setRenderPass(VkRenderPass renderPass) {
-    createInfo.renderPass = renderPass;
+void Framebuffer::setRenderPass(RenderPass* renderPass) {
+    createInfo.renderPass = renderPass->getHandle();
 }

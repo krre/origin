@@ -84,7 +84,7 @@ void Swapchain::create() {
         framebuffers.push_back(framebuffer);
     }
 
-    presentQueue->addSwapchain(handle);
+    presentQueue->addSwapchain(this);
 }
 
 void Swapchain::destroy() {
@@ -198,5 +198,5 @@ void Swapchain::rebuild() {
     destroy();
     create();
     presentQueue->clearSwapchain();
-    presentQueue->addSwapchain(handle);
+    presentQueue->addSwapchain(this);
 }

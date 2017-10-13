@@ -1,4 +1,5 @@
 #include "PresentQueue.h"
+#include "../Surface/Swapchain.h"
 
 using namespace Vulkan;
 
@@ -17,8 +18,8 @@ void PresentQueue::present() {
     VULKAN_CHECK_RESULT(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
 }
 
-void PresentQueue::addSwapchain(VkSwapchainKHR swapchain) {
-    swapchains.push_back(swapchain);
+void PresentQueue::addSwapchain(Swapchain* swapchain) {
+    swapchains.push_back(swapchain->getHandle());
     imageIndices.resize(swapchains.size());
 }
 

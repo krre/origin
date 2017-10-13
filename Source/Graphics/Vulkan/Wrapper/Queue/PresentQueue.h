@@ -4,12 +4,14 @@
 
 namespace Vulkan {
 
+class Swapchain;
+
 class PresentQueue : public Queue {
 
 public:
     PresentQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
     void present();
-    void addSwapchain(VkSwapchainKHR swapchain);
+    void addSwapchain(Swapchain* swapchain);
     void clearSwapchain();
     uint32_t* getImageIndex(int i);
 

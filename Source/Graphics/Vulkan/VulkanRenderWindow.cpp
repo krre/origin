@@ -41,8 +41,8 @@ VulkanRenderWindow::VulkanRenderWindow() {
 }
 
 void VulkanRenderWindow::swapBuffers() {
-//    surface.get()->getSwapchain()->getPresentQueue()->present();
-//    surface.get()->getSwapchain()->acquireNextImage();
+    swapchain->getPresentQueue()->present();
+    swapchain->acquireNextImage();
 }
 
 void VulkanRenderWindow::saveImage(const std::string& filePath) {

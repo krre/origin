@@ -4,7 +4,7 @@
 
 using namespace Vulkan;
 
-XcbSurface::XcbSurface(Instance* instance, VkPhysicalDevice physicalDevice, xcb_connection_t* connection, xcb_window_t window) :
+XcbSurface::XcbSurface(Instance* instance, PhysicalDevice* physicalDevice, xcb_connection_t* connection, xcb_window_t window) :
     Surface(instance, physicalDevice),
     connection(connection),
     window(window) {

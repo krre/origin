@@ -15,7 +15,7 @@ class RenderPass;
 class Swapchain : public Handle<VkSwapchainKHR>, public Devicer {
 
 public:
-    Swapchain(const Surface* surface, Device* device = nullptr);
+    Swapchain(Device* device, Surface* surface);
     ~Swapchain();
     void create() override;
     void destroy() override;

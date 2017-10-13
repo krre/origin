@@ -17,9 +17,9 @@ using namespace Vulkan;
 
 int Swapchain::indexCounter = 0;
 
-Swapchain::Swapchain(const Surface* surface, Device* device) :
-    Devicer(device),
-    surface(surface) {
+Swapchain::Swapchain(Device* device, Surface* surface) :
+        Devicer(device),
+        surface(surface) {
     createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
     createInfo.imageArrayLayers = 1;
     createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;

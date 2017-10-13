@@ -35,7 +35,7 @@ VulkanRenderWindow::VulkanRenderWindow() {
     surface->create();
     VulkanCore::get()->setSurface(surface.get());
 
-    swapchain = std::make_unique<Vulkan::Swapchain>(surface.get());
+    swapchain = std::make_unique<Vulkan::Swapchain>(VulkanCore::get()->getGraphicsDevice(), surface.get());
     swapchain->create();
     VulkanCore::get()->setSwapchain(swapchain.get());
 }

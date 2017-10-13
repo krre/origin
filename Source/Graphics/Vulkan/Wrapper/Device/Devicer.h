@@ -6,7 +6,7 @@ namespace Vulkan {
 class Devicer {
 
 public:
-    Devicer(Device* device = nullptr);
+    Devicer(Device* device);
     Devicer() = delete;
 
     Device* getDevice() const { return device; }

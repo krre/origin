@@ -32,7 +32,7 @@ public:
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};
-    const Surface* surface;
+    Surface* surface;
     std::vector<VkImage> images;
     std::vector<std::shared_ptr<Framebuffer>> framebuffers;
     std::vector<std::shared_ptr<ImageView>> imageViews;

@@ -7,7 +7,7 @@ namespace Vulkan {
 class Event : public Handle<VkEvent>, public Devicer {
 
 public:
-    Event(Device* device = nullptr);
+    Event(Device* device);
     ~Event();
     void create() override;
 

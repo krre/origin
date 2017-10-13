@@ -7,7 +7,7 @@ using namespace Vulkan;
 
 Image::Image(Device* device) :
     Devicer(device) {
-    memory = std::make_unique<DeviceMemory>();
+    memory = std::make_unique<DeviceMemory>(device);
 
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     createInfo.imageType = VK_IMAGE_TYPE_2D;

@@ -7,7 +7,7 @@ namespace Vulkan {
 class DeviceMemory : public Handle<VkDeviceMemory>, public Devicer {
 
 public:
-    DeviceMemory(Device* device = nullptr);
+    DeviceMemory(Device* device);
     ~DeviceMemory();
     void create() override {}
     void destroy() override;

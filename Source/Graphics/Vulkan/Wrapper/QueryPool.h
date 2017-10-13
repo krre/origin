@@ -7,7 +7,7 @@ namespace Vulkan {
 class QueryPool : public Handle<VkQueryPool>, public Devicer {
 
 public:
-    QueryPool(Device* device = nullptr);
+    QueryPool(Device* device);
     ~QueryPool();
     void create() override;
     void destroy() override;

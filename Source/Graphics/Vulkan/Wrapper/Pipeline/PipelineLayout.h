@@ -7,7 +7,7 @@ namespace Vulkan {
 class PipelineLayout : public Handle<VkPipelineLayout>, public Devicer {
 
 public:
-    PipelineLayout(Device* device = nullptr);
+    PipelineLayout(Device* device);
     ~PipelineLayout();
     void create() override;
     void destroy() override;

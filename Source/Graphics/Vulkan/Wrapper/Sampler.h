@@ -7,7 +7,7 @@ namespace Vulkan {
 class Sampler : public Handle<VkSampler>, public Devicer {
 
 public:
-    Sampler(Device* device = nullptr);
+    Sampler(Device* device);
     ~Sampler();
     void create() override;
     void destroy() override;

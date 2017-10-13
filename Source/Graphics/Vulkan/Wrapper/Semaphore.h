@@ -7,7 +7,7 @@ namespace Vulkan {
 class Semaphore : public Handle<VkSemaphore>, public Devicer {
 
 public:
-    Semaphore(Device* device = nullptr);
+    Semaphore(Device* device);
     ~Semaphore();
     void create() override;
     void destroy() override;

@@ -7,7 +7,7 @@ namespace Vulkan {
 class PipelineCache : public Handle<VkPipelineCache>, public Devicer {
 
 public:
-    PipelineCache(Device* device = nullptr);
+    PipelineCache(Device* device);
     ~PipelineCache();
     void create() override;
     void destroy() override;

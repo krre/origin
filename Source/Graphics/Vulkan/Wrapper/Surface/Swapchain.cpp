@@ -40,12 +40,12 @@ Swapchain::Swapchain(Device* device, Surface* surface) :
 
     index = indexCounter++;
 
-    imageAvailableSemaphore = std::make_shared<Semaphore>();
+    imageAvailableSemaphore = std::make_shared<Semaphore>(device);
     imageAvailableSemaphore->create();
 
     presentQueue = std::make_shared<PresentQueue>(device, VulkanCore::get()->getGraphicsFamily());
 
-    renderPass = std::make_shared<RenderPass>();
+    renderPass = std::make_shared<RenderPass>(device);
     renderPass->setColorFormat(surface->getFormats().at(0).format);
     renderPass->create();
 }
@@ -70,7 +70,7 @@ void Swapchain::create() {
     vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
 
     for (const auto& image : images) {
-        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(image);
+        std::shared_ptr<ImageView> imageView = std::make_shared<ImageView>(device, image);
         imageView->setFormat(surface->getFormats().at(0).format);
         imageView->create();
         imageViews.push_back(imageView);

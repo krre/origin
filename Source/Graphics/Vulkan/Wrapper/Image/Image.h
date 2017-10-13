@@ -9,7 +9,7 @@ class DeviceMemory;
 class Image : public Handle<VkImage>, public Devicer {
 
 public:
-    Image(Device* device = nullptr);
+    Image(Device* device);
     ~Image();
     void create() override;
     void destroy() override;

@@ -11,7 +11,6 @@
 #include "Graphics/Vulkan/VulkanCore.h"
 
 Texture::Texture(const std::string& path, VkFormat format) {
-    Vulkan::Device* device = VulkanCore::get()->getGraphicsDevice();
     uint32_t width;
     uint32_t height;
     unsigned result = lodepng::decode(data, width, height, path);
@@ -19,7 +18,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
         throw std::runtime_error("Failed to decode image " + path);
     }
 
-    image = std::make_unique<Vulkan::Image>();
+    image = std::make_unique<Vulkan::Image>(VulkanCore::get()->getGraphicsDevice());
 
     image->setWidth(width);
     image->setHeight(height);
@@ -30,12 +29,12 @@ Texture::Texture(const std::string& path, VkFormat format) {
 
     image->write(data.data(), data.size());
 
-    imageView = std::make_unique<Vulkan::ImageView>(image->getHandle());
+    imageView = std::make_unique<Vulkan::ImageView>(VulkanCore::get()->getGraphicsDevice(), image->getHandle());
     imageView->setFormat(image->getFormat());
     imageView->create();
 
     VkFormatProperties formatProps;
-    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
+    vkGetPhysicalDeviceFormatProperties(VulkanCore::get()->getGraphicsDevice()->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
 
     /* See if we can use a linear tiled image for a texture, if not, we will
      * need a staging image for the texture data */
@@ -44,7 +43,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
 
     }
 
-    Vulkan::CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getGraphicsCommandPool());
+    Vulkan::CommandBufferOneTime commandBuffer(VulkanCore::get()->getGraphicsDevice(), VulkanCore::get()->getGraphicsCommandPool());
     commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
     commandBuffer.apply();
 }

@@ -18,15 +18,15 @@
 using namespace Vulkan;
 
 ShaderProgram::ShaderProgram() {
-    descriptorPool = std::make_unique<DescriptorPool>();
-    descriptorSets = std::make_unique<DescriptorSets>(descriptorPool.get());
+    descriptorPool = std::make_unique<DescriptorPool>(VulkanCore::get()->getGraphicsDevice());
+    descriptorSets = std::make_unique<DescriptorSets>(VulkanCore::get()->getGraphicsDevice(), descriptorPool.get());
 
-    graphicsPipeline = std::make_unique<GraphicsPipeline>();
+    graphicsPipeline = std::make_unique<GraphicsPipeline>(VulkanCore::get()->getGraphicsDevice());
     graphicsPipeline->setExtent(VulkanCore::get()->getSurface()->getCapabilities().currentExtent);
     graphicsPipeline->setRenderPass(VulkanCore::get()->getSwapchain()->getRenderPass()->getHandle());
 
-    pipelineLayout = std::make_unique<PipelineLayout>();
-    descriptorSetLayout = std::make_unique<DescriptorSetLayout>();
+    pipelineLayout = std::make_unique<PipelineLayout>(VulkanCore::get()->getGraphicsDevice());
+    descriptorSetLayout = std::make_unique<DescriptorSetLayout>(VulkanCore::get()->getGraphicsDevice());
 }
 
 ShaderProgram::~ShaderProgram() {

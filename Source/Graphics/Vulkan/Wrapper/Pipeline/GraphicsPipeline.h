@@ -6,7 +6,7 @@ namespace Vulkan {
 class GraphicsPipeline : public Pipeline {
 
 public:
-    GraphicsPipeline(Device* device = nullptr);
+    GraphicsPipeline(Device* device);
     void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
     void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);
     void addColorBlendAttachmentState(VkPipelineColorBlendAttachmentState colorBlendAttachmentState);

@@ -2,7 +2,7 @@
 
 using namespace Vulkan;
 
-BufferView::BufferView(VkBuffer buffer, Device* device) :
+BufferView::BufferView(Device* device, VkBuffer buffer) :
         Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO;
     createInfo.buffer = buffer;

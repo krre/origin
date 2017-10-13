@@ -8,7 +8,7 @@ namespace Vulkan {
 class RenderPass : public Handle<VkRenderPass>, public Devicer {
 
 public:
-    RenderPass(Device* device = nullptr);
+    RenderPass(Device* device);
     ~RenderPass();
     void create() override;
     void destroy() override;

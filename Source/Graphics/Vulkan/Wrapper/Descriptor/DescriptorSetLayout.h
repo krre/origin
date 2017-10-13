@@ -8,7 +8,7 @@ namespace Vulkan {
 class DescriptorSetLayout : public Handle<VkDescriptorSetLayout>, public Devicer {
 
 public:
-    DescriptorSetLayout(Device* device = nullptr);
+    DescriptorSetLayout(Device* device);
     ~DescriptorSetLayout();
     void create() override;
     void destroy() override;

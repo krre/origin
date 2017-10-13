@@ -7,7 +7,7 @@ namespace Vulkan {
 class Fence : public Handle<VkFence>, public Devicer {
 
 public:
-    Fence(Device* device = nullptr);
+    Fence(Device* device);
     ~Fence();
     void create() override;
     void destroy() override;

@@ -9,7 +9,7 @@ class DescriptorPool;
 class DescriptorSets : public Collection<VkDescriptorSet>, public Devicer {
 
 public:
-    DescriptorSets(const DescriptorPool* descriptorPool, Device* device = nullptr);
+    DescriptorSets(Device* device, DescriptorPool* descriptorPool);
     ~DescriptorSets();
     void allocate();
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
@@ -19,7 +19,7 @@ public:
     void destroy() override;
 
 private:
-    const DescriptorPool* descriptorPool;
+    DescriptorPool* descriptorPool;
     VkDescriptorSetAllocateInfo allocateInfo = {};
     std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
     std::vector<VkWriteDescriptorSet> writeDescriptorSets;

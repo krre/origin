@@ -1,5 +1,6 @@
 #include "OpenGLRenderWindow.h"
 #include "Core/Defines.h"
+#include <GL/glew.h>
 
 OpenGLRenderWindow::OpenGLRenderWindow() {
     handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_OPENGL);
@@ -20,10 +21,18 @@ OpenGLRenderWindow::OpenGLRenderWindow() {
     }
 }
 
+void OpenGLRenderWindow::clear() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
 void OpenGLRenderWindow::swapBuffers() {
     SDL_GL_SwapWindow(handle);
 }
 
 void OpenGLRenderWindow::saveImage(const std::string& filePath) {
 
+}
+
+void OpenGLRenderWindow::setColorBackend(const Color& color) {
+    glClearColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0);
 }

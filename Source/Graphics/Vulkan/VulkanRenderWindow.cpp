@@ -40,11 +40,19 @@ VulkanRenderWindow::VulkanRenderWindow() {
     VulkanCore::get()->setSwapchain(swapchain.get());
 }
 
+void VulkanRenderWindow::clear() {
+
+}
+
 void VulkanRenderWindow::swapBuffers() {
-    swapchain->getPresentQueue()->present();
-    swapchain->acquireNextImage();
+//    swapchain->getPresentQueue()->present();
+//    swapchain->acquireNextImage();
 }
 
 void VulkanRenderWindow::saveImage(const std::string& filePath) {
     swapchain->saveImage(filePath);
+}
+
+void VulkanRenderWindow::setColorBackend(const Color& color) {
+
 }

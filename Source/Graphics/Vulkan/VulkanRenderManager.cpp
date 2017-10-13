@@ -14,11 +14,3 @@ VulkanRenderManager::~VulkanRenderManager() {
 std::shared_ptr<RenderWindow> VulkanRenderManager::createRenderWindow() {
     return std::make_shared<VulkanRenderWindow>();
 }
-
-void VulkanRenderManager::setClearColor(const Color& color) {
-
-}
-
-void VulkanRenderManager::clear() {
-
-}

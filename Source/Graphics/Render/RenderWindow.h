@@ -23,14 +23,15 @@ public:
     const Color& getColor() const { return color; }
 
     void show();
-    void clear();
 
+    virtual void clear() = 0;
     virtual void swapBuffers() = 0;
     virtual void saveImage(const std::string& filePath) = 0;
 
     SDL_Window* getHandle() { return handle; }
 
 protected:
+    virtual void setColorBackend(const Color& color) = 0;
     SDL_Window* handle = nullptr;
     int x = 100;
     int y = 100;

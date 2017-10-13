@@ -7,6 +7,8 @@ class VulkanRenderWindow : public RenderWindow {
 
 public:
     VulkanRenderWindow();
+
+    void clear() override;
     void swapBuffers() override;
     void saveImage(const std::string& filePath) override;
 
@@ -14,6 +16,8 @@ public:
     Vulkan::Swapchain* getSwapchain() const { return swapchain.get(); }
 
 private:
+    void setColorBackend(const Color& color) override;
+
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
 };

@@ -7,6 +7,4 @@ public:
     VulkanRenderManager();
     ~VulkanRenderManager();
     std::shared_ptr<RenderWindow> createRenderWindow() override;
-    void setClearColor(const Color& color) override;
-    void clear() override;
 };

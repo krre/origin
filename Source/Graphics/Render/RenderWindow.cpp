@@ -40,16 +40,12 @@ RenderWindow::~RenderWindow() {
 
 void RenderWindow::setColor(const Color& color) {
     this->color = color;
-    RenderManager::get()->setClearColor(color);
+    setColorBackend(color);
 }
 
 void RenderWindow::show() {
     assert(handle != nullptr);
     SDL_ShowWindow(handle);
-}
-
-void RenderWindow::clear() {
-    RenderManager::get()->clear();
 }
 
 void RenderWindow::onMove(int x, int y) {

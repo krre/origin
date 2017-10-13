@@ -15,7 +15,7 @@ template<typename T> class Collection {
 
 public:
     Collection() = default;
-    int getCount() const { return collection.size(); }
+    size_t getCount() const { return collection.size(); }
     T at(size_t i) const { return collection.at(i); }
     const T* getData() const { return collection.data(); }
     virtual void destroy() = 0;

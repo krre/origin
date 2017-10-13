@@ -5,12 +5,14 @@
 
 namespace Vulkan {
 
+class Semaphore;
+
 class Queue : public Handle<VkQueue>, public Devicer {
 
 public:
     Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex);
-    void addWaitSemaphore(VkSemaphore semaphore);
-    void setWaitSemaphore(VkSemaphore semaphore);
+    void addWaitSemaphore(Semaphore* semaphore);
+    void setWaitSemaphore(Semaphore* semaphore);
     void create() override {}
     void destroy() override {}
 

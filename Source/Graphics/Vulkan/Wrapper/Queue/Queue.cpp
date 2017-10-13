@@ -1,4 +1,5 @@
 #include "Queue.h"
+#include "../Semaphore.h"
 
 using namespace Vulkan;
 
@@ -6,11 +7,11 @@ Queue::Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) : D
     vkGetDeviceQueue(device->getHandle(), queueFamilyIndex, queueIndex, &handle);
 }
 
-void Queue::addWaitSemaphore(VkSemaphore semaphore) {
-    waitSemaphores.push_back(semaphore);
+void Queue::addWaitSemaphore(Semaphore* semaphore) {
+    waitSemaphores.push_back(semaphore->getHandle());
 }
 
-void Queue::setWaitSemaphore(VkSemaphore semaphore) {
+void Queue::setWaitSemaphore(Semaphore* semaphore) {
     waitSemaphores.clear();
     addWaitSemaphore(semaphore);
 }

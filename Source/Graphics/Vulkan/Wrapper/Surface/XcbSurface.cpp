@@ -4,7 +4,7 @@
 
 using namespace Vulkan;
 
-XcbSurface::XcbSurface(VkInstance instance, VkPhysicalDevice physicalDevice, xcb_connection_t* connection, xcb_window_t window) :
+XcbSurface::XcbSurface(Instance* instance, VkPhysicalDevice physicalDevice, xcb_connection_t* connection, xcb_window_t window) :
     Surface(instance, physicalDevice),
     connection(connection),
     window(window) {
@@ -15,5 +15,5 @@ void Vulkan::XcbSurface::platformCreateHandle() {
     createInfo.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
     createInfo.connection = connection;
     createInfo.window = window;
-    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance, &createInfo, nullptr, &handle), "Failed to create Xcb surface");
+    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
 }

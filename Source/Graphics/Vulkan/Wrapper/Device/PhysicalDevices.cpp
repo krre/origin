@@ -1,13 +1,14 @@
 #include "PhysicalDevices.h"
 #include "PhysicalDevice.h"
+#include "../Instance.h"
 
 using namespace Vulkan;
 
-PhysicalDevices::PhysicalDevices(VkInstance instance) {
+PhysicalDevices::PhysicalDevices(Instance* instance) {
     uint32_t count;
-    vkEnumeratePhysicalDevices(instance, &count, nullptr);
+    vkEnumeratePhysicalDevices(instance->getHandle(), &count, nullptr);
     std::vector<VkPhysicalDevice> handlers(count);
-    vkEnumeratePhysicalDevices(instance, &count, handlers.data());
+    vkEnumeratePhysicalDevices(instance->getHandle(), &count, handlers.data());
 
     for (const auto& handler : handlers) {
         auto physicalDevice = std::make_unique<PhysicalDevice>(handler);

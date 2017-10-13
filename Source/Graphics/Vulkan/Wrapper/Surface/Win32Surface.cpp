@@ -1,9 +1,10 @@
 #define VK_USE_PLATFORM_WIN32_KHR
 #include "Win32Surface.h"
+#include "../Instance.h"
 
 using namespace Vulkan;
 
-Win32Surface::Win32Surface(VkInstance instance, VkPhysicalDevice physicalDevice, HINSTANCE hinstance, HWND hwnd) :
+Win32Surface::Win32Surface(Instance* instance, VkPhysicalDevice physicalDevice, HINSTANCE hinstance, HWND hwnd) :
     Surface(instance, physicalDevice),
     hinstance(hinstance),
     hwnd(hwnd) {

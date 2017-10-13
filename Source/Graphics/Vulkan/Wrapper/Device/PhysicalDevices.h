@@ -5,12 +5,13 @@
 
 namespace Vulkan {
 
+class Instance;
 class PhysicalDevice;
 
 class PhysicalDevices {
 
 public:
-    PhysicalDevices(VkInstance instance);
+    PhysicalDevices(Instance* instance);
     size_t getCount() const { return devices.size(); }
     PhysicalDevice* getPhysicalDevice(size_t i) const { return devices.at(i).get(); }
     PhysicalDevice* findDevice(VkPhysicalDeviceType type);

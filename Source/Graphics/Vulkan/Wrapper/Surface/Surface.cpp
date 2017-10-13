@@ -1,8 +1,9 @@
 #include "Surface.h"
+#include "../Instance.h"
 
 using namespace Vulkan;
 
-Surface::Surface(VkInstance instance, VkPhysicalDevice physicalDevice) :
+Surface::Surface(Instance* instance, VkPhysicalDevice physicalDevice) :
     instance(instance),
     physicalDevice(physicalDevice) {
 }
@@ -27,7 +28,7 @@ void Surface::create() {
 }
 
 void Surface::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance, handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr))
 }
 
 VkExtent2D Surface::getCurrentExtent() const {

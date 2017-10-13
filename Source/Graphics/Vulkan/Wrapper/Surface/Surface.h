@@ -4,10 +4,12 @@
 
 namespace Vulkan {
 
+class Instance;
+
 class Surface : public Handle<VkSurfaceKHR> {
 
 public:
-    Surface(VkInstance instance, VkPhysicalDevice physicalDevice);
+    Surface(Instance* instance, VkPhysicalDevice physicalDevice);
     ~Surface();
     void create() override;
     void destroy() override;
@@ -19,7 +21,7 @@ public:
 
 protected:
     virtual void platformCreateHandle() = 0;
-    VkInstance instance;
+    Instance* instance;
 
 private:
     VkPhysicalDevice physicalDevice;

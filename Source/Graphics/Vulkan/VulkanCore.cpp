@@ -9,7 +9,7 @@ VulkanCore::VulkanCore() {
     instance = std::make_unique<Vulkan::Instance>();
     instance->create();
 
-    physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance->getHandle());
+    physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance.get());
 
     // Create graphics logical device and command pool
     Vulkan::PhysicalDevice* gpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);

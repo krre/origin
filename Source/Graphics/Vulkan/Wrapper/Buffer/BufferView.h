@@ -4,10 +4,12 @@
 
 namespace Vulkan {
 
+class Buffer;
+
 class BufferView : public Handle<VkBufferView>, public Devicer {
 
 public:
-    BufferView(Device* device, VkBuffer buffer);
+    BufferView(Device* device, Buffer* buffer);
     ~BufferView();
     void create() override;
     void destroy() override;

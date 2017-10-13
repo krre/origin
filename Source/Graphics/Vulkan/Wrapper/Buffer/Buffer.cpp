@@ -62,13 +62,13 @@ void Buffer::read(void* data, VkDeviceSize size, VkDeviceSize offset) {
     memory->unmap();
 }
 
-void Buffer::copyToBuffer(VkBuffer dstBuffer, VkDeviceSize size) {
+void Buffer::copyToBuffer(Buffer* dstBuffer, VkDeviceSize size) {
     CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getGraphicsCommandPool());
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;
     commandBuffer.addBufferCopy(bufferCopy);
-    commandBuffer.copyBuffer(handle, dstBuffer);
+    commandBuffer.copyBuffer(handle, dstBuffer->getHandle());
 
     commandBuffer.apply();
 }

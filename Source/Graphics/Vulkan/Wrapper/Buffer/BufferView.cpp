@@ -1,11 +1,12 @@
 #include "BufferView.h"
+#include "Buffer.h"
 
 using namespace Vulkan;
 
-BufferView::BufferView(Device* device, VkBuffer buffer) :
+BufferView::BufferView(Device* device, Buffer* buffer) :
         Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_VIEW_CREATE_INFO;
-    createInfo.buffer = buffer;
+    createInfo.buffer = buffer->getHandle();
 }
 
 BufferView::~BufferView() {

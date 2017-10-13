@@ -22,7 +22,7 @@ ShaderProgram::ShaderProgram() {
 
     graphicsPipeline = std::make_unique<GraphicsPipeline>();
     graphicsPipeline->setExtent(VulkanCore::get()->getSurface()->getCapabilities().currentExtent);
-    graphicsPipeline->setRenderPass(VulkanCore::get()->getSurface()->getSwapchain()->getRenderPass()->getHandle());
+    graphicsPipeline->setRenderPass(VulkanCore::get()->getSwapchain()->getRenderPass()->getHandle());
 
     pipelineLayout = std::make_unique<PipelineLayout>();
     descriptorSetLayout = std::make_unique<DescriptorSetLayout>();

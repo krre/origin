@@ -1,5 +1,4 @@
 #include "Surface.h"
-#include "Swapchain.h"
 
 using namespace Vulkan;
 
@@ -9,7 +8,6 @@ Surface::Surface(VkInstance instance, VkPhysicalDevice physicalDevice) :
 }
 
 Surface::~Surface() {
-    swapchain.reset();
     destroy();
 }
 
@@ -26,9 +24,6 @@ void Surface::create() {
     vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice, handle, &count, presentModes.data());
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice, handle, &capabilities);
-
-    swapchain = std::make_unique<Swapchain>(this);
-    swapchain->create();
 }
 
 void Surface::destroy() {

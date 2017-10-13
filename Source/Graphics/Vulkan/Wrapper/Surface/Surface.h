@@ -4,8 +4,6 @@
 
 namespace Vulkan {
 
-class Swapchain;
-
 class Surface : public Handle<VkSurfaceKHR> {
 
 public:
@@ -18,7 +16,6 @@ public:
     const std::vector<VkPresentModeKHR>& getPresentModes() const { return presentModes; }
     const VkSurfaceCapabilitiesKHR& getCapabilities() const { return capabilities; }
     VkExtent2D getCurrentExtent() const;
-    Swapchain* getSwapchain() const { return swapchain.get(); }
 
 protected:
     virtual void platformCreateHandle() = 0;
@@ -29,7 +26,6 @@ private:
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;
     VkSurfaceCapabilitiesKHR capabilities;
-    std::unique_ptr<Swapchain> swapchain;
 };
 
 } // Vulkan

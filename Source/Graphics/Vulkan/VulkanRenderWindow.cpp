@@ -34,6 +34,10 @@ VulkanRenderWindow::VulkanRenderWindow() {
 
     surface->create();
     VulkanCore::get()->setSurface(surface.get());
+
+    swapchain = std::make_unique<Vulkan::Swapchain>(surface.get());
+    swapchain->create();
+    VulkanCore::get()->setSwapchain(swapchain.get());
 }
 
 void VulkanRenderWindow::swapBuffers() {
@@ -42,5 +46,5 @@ void VulkanRenderWindow::swapBuffers() {
 }
 
 void VulkanRenderWindow::saveImage(const std::string& filePath) {
-    surface.get()->getSwapchain()->saveImage(filePath);
+    swapchain->saveImage(filePath);
 }

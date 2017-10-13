@@ -28,7 +28,7 @@ Swapchain::Swapchain(Device* device, Surface* surface) :
     createInfo.clipped = VK_TRUE;
 
     VkBool32 surfaceSupport;
-    vkGetPhysicalDeviceSurfaceSupportKHR(this->device->getPhysicalDevice()->getHandle(), 0, surface->getHandle(), &surfaceSupport);
+    vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice()->getHandle(), 0, surface->getHandle(), &surfaceSupport);
     if (surfaceSupport) {
         createInfo.surface = surface->getHandle();
         createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;

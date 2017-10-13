@@ -4,17 +4,21 @@
 
 namespace Vulkan {
 
+class Fence;
+class Semaphore;
+class CommandBuffer;
+
 class SubmitQueue : public Queue {
 
 public:
     SubmitQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
-    void submit(VkFence fence = VK_NULL_HANDLE);
+    void submit(Fence* fence = nullptr);
     void waitIdle();
 
-    void addSignalSemaphore(VkSemaphore semaphore);
-    void addWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask);
-    void setWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask);
-    void addCommandBuffer(VkCommandBuffer commandBuffer);
+    void addSignalSemaphore(Semaphore* semaphore);
+    void addWaitSemaphore(Semaphore* semaphore, VkPipelineStageFlags waitDstStageMask);
+    void setWaitSemaphore(Semaphore* semaphore, VkPipelineStageFlags waitDstStageMask);
+    void addCommandBuffer(CommandBuffer* commandBuffer);
     void clearCommandBuffers();
     void append();
 

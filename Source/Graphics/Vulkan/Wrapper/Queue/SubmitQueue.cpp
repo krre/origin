@@ -1,4 +1,7 @@
 #include "SubmitQueue.h"
+#include "../Fence.h"
+#include "../Semaphore.h"
+#include "../Command/CommandBuffer.h"
 
 using namespace Vulkan;
 
@@ -7,32 +10,32 @@ SubmitQueue::SubmitQueue(Device* device, uint32_t queueFamilyIndex, uint32_t que
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
 }
 
-void SubmitQueue::submit(VkFence fence) {
+void SubmitQueue::submit(Fence* fence) {
     append();
-    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence), "Failed to submit queue");
+    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence == nullptr ? VK_NULL_HANDLE : fence->getHandle()), "Failed to submit queue");
 }
 
 void SubmitQueue::waitIdle() {
     VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
 }
 
-void SubmitQueue::addSignalSemaphore(VkSemaphore semaphore) {
-    signalSemaphores.push_back(semaphore);
+void SubmitQueue::addSignalSemaphore(Semaphore* semaphore) {
+    signalSemaphores.push_back(semaphore->getHandle());
 }
 
-void SubmitQueue::addWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask) {
-    waitSemaphores.push_back(semaphore);
+void SubmitQueue::addWaitSemaphore(Semaphore* semaphore, VkPipelineStageFlags waitDstStageMask) {
+    waitSemaphores.push_back(semaphore->getHandle());
     waitDstStageMasks.push_back(waitDstStageMask);
 }
 
-void SubmitQueue::setWaitSemaphore(VkSemaphore semaphore, VkPipelineStageFlags waitDstStageMask) {
+void SubmitQueue::setWaitSemaphore(Semaphore* semaphore, VkPipelineStageFlags waitDstStageMask) {
     waitSemaphores.clear();
     waitDstStageMasks.clear();
     addWaitSemaphore(semaphore, waitDstStageMask);
 }
 
-void SubmitQueue::addCommandBuffer(VkCommandBuffer commandBuffer) {
-    commandBuffers.push_back(commandBuffer);
+void SubmitQueue::addCommandBuffer(CommandBuffer* commandBuffer) {
+    commandBuffers.push_back(commandBuffer->getHandle());
 }
 
 void SubmitQueue::clearCommandBuffers() {

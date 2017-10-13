@@ -10,7 +10,7 @@ class Buffer : public Handle<VkBuffer>, public Devicer {
 
 public:
 
-    Buffer(VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice = true, Device* device = nullptr);
+    Buffer(Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice = true);
     ~Buffer();
     void create() override;
     void destroy() override;

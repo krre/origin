@@ -13,6 +13,7 @@
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
+#include "Graphics/Vulkan/VulkanCore.h"
 
 using namespace Vulkan;
 
@@ -72,7 +73,7 @@ void ShaderProgram::createPipeline() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(usage, bufferInfo->size, false);
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(VulkanCore::get()->getGraphicsDevice(), usage, bufferInfo->size, false);
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();

@@ -8,7 +8,7 @@
 
 using namespace Vulkan;
 
-Buffer::Buffer(VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice, Device* device) :
+Buffer::Buffer(Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size, bool moveToDevice) :
         Devicer(device), moveToDevice(moveToDevice) {
     memory = std::make_unique<DeviceMemory>(device);
 

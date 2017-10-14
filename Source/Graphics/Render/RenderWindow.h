@@ -31,6 +31,7 @@ public:
     SDL_Window* getHandle() { return handle; }
 
 protected:
+    virtual void resize(int width, int height) = 0;
     virtual void setColorImpl(const Color& color) = 0;
     SDL_Window* handle = nullptr;
     int x = 100;

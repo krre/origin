@@ -33,6 +33,10 @@ void OpenGLRenderWindow::saveImage(const std::string& filePath) {
 
 }
 
+void OpenGLRenderWindow::resize(int width, int height) {
+
+}
+
 void OpenGLRenderWindow::setColorImpl(const Color& color) {
     glClearColor(color.getRed(), color.getGreen(), color.getBlue(), 1.0);
 }

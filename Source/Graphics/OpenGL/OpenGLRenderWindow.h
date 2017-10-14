@@ -11,6 +11,7 @@ public:
     void saveImage(const std::string& filePath) override;
 
 private:
+    void resize(int width, int height) override;
     void setColorImpl(const Color& color) override;
 
     SDL_GLContext context;

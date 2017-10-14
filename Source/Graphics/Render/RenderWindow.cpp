@@ -54,10 +54,12 @@ void RenderWindow::onMove(int x, int y) {
 }
 
 void RenderWindow::onResize(int width, int height) {
-    Settings::get()->setValue("width", std::to_string(width));
-    Settings::get()->setValue("height", std::to_string(height));
+    resize(width, height);
 
     if (App::get()->getIsRunning()) {
         SceneManager::get()->rebuild();
     }
+
+    Settings::get()->setValue("width", std::to_string(width));
+    Settings::get()->setValue("height", std::to_string(height));
 }

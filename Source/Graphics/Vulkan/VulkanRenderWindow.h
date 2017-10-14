@@ -32,6 +32,7 @@ public:
     void rebuild();
 
 private:
+    void resize(int width, int height) override;
     void setColorImpl(const Color& color) override;
 
     Vulkan::Device* device;

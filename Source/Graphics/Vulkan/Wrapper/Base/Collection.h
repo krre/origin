@@ -15,6 +15,7 @@ template<typename T> class Collection {
 
 public:
     Collection() = default;
+    bool getIsOwner() const { return isOwner; }
     size_t getCount() const { return collection.size(); }
     T at(size_t i) const { return collection.at(i); }
     const T* getData() const { return collection.data(); }
@@ -22,6 +23,7 @@ public:
 
 protected:
     std::vector<T> collection;
+    bool isOwner = true; // Always true for collections
 };
 
 } // Vulkan

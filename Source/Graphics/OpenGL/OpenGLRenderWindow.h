@@ -11,7 +11,7 @@ public:
     void saveImage(const std::string& filePath) override;
 
 private:
-    void setColorBackend(const Color& color) override;
+    void setColorImpl(const Color& color) override;
 
     SDL_GLContext context;
 };

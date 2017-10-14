@@ -31,7 +31,7 @@ public:
     void rebuild();
 
 private:
-    void setColorBackend(const Color& color) override;
+    void setColorImpl(const Color& color) override;
 
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::Swapchain> swapchain;

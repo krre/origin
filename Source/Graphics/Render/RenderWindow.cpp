@@ -40,7 +40,7 @@ RenderWindow::~RenderWindow() {
 
 void RenderWindow::setColor(const Color& color) {
     this->color = color;
-    setColorBackend(color);
+    setColorImpl(color);
 }
 
 void RenderWindow::show() {

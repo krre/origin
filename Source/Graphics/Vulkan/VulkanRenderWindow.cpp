@@ -198,6 +198,6 @@ void VulkanRenderWindow::rebuild() {
     presentQueue->addSwapchain(swapchain.get());
 }
 
-void VulkanRenderWindow::setColorBackend(const Color& color) {
+void VulkanRenderWindow::setColorImpl(const Color& color) {
 
 }

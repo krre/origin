@@ -21,6 +21,11 @@ Image::Image(Device* device) :
     createInfo.usage = VK_IMAGE_USAGE_TRANSFER_DST_BIT;
 }
 
+Image::Image(Device* device, VkImage image) :
+        Devicer(device),
+        Handle(image) {
+}
+
 Image::~Image() {
     destroy();
 }

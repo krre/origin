@@ -10,6 +10,7 @@ class Image : public Handle<VkImage>, public Devicer {
 
 public:
     Image(Device* device);
+    Image(Device* device, VkImage image);
     ~Image();
     void create() override;
     void destroy() override;

@@ -3,6 +3,7 @@
 #include <vector>
 
 namespace Vulkan {
+    class Device;
     class Surface;
     class Swapchain;
     class RenderPass;
@@ -33,6 +34,7 @@ public:
 private:
     void setColorImpl(const Color& color) override;
 
+    Vulkan::Device* device;
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
     std::unique_ptr<Vulkan::RenderPass> renderPass;

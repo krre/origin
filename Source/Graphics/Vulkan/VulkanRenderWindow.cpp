@@ -36,12 +36,12 @@ VulkanRenderWindow::VulkanRenderWindow() {
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(handle, &wminfo);
 
-    Vulkan::Device* device = VulkanCore::get()->getGraphicsDevice();
+    device = VulkanCore::get()->getGraphicsDevice();
 
 #ifdef OS_WIN
-    surface = std::make_unique<Vulkan::Win32Surface>(VulkanCore::get()->getInstance(), VulkanCore::get()->getGraphicsDevice()->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_unique<Vulkan::Win32Surface>(VulkanCore::get()->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif OS_LINUX
-    surface = std::make_unique<Vulkan::XcbSurface>(VulkanCore::get()->getInstance(), VulkanCore::get()->getGraphicsDevice()->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+    surface = std::make_unique<Vulkan::XcbSurface>(VulkanCore::get()->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 
     surface->create();
@@ -92,7 +92,6 @@ void VulkanRenderWindow::swapBuffers() {
 }
 
 void VulkanRenderWindow::saveImage(const std::string& filePath) {
-    Vulkan::Device* device = swapchain->getDevice();
     VkImage srcImage = swapchain->getImages().at(*presentQueue->getImageIndex(index));
 
     uint32_t width = framebuffers.at(index)->getWidth();
@@ -190,7 +189,7 @@ void VulkanRenderWindow::saveImage(const std::string& filePath) {
 }
 
 void VulkanRenderWindow::acquireNextImage() {
-    vkAcquireNextImageKHR(swapchain->getDevice()->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
+    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
 }
 
 void VulkanRenderWindow::rebuild() {

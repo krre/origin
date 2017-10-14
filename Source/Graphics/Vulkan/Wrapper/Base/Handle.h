@@ -66,7 +66,7 @@ public:
         assert(handle != VK_NULL_HANDLE);
         isOwner = false;
     }
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
+    bool getIsValid() const { return handle != VK_NULL_HANDLE; }
     bool getIsOwner() const { return isOwner; }
     T getHandle() const { return handle; }
     virtual void create() = 0;

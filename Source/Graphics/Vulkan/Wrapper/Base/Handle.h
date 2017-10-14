@@ -40,7 +40,7 @@ static std::string resultToString(VkResult result) {
 }
 
 #define VULKAN_CHECK_RESULT(f, message) { \
-    assert(isOwner && "Object is not owner of handle"); \
+    if (!isOwner) return; \
     VkResult result = (f); \
     if (result != VK_SUCCESS) { \
         std::string errorMessage = std::string(message) + ": " + resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
@@ -49,7 +49,7 @@ static std::string resultToString(VkResult result) {
 }
 
 #define VULKAN_DESTROY_HANDLE(f) { \
-    assert(isOwner && "Object is not owner of handle"); \
+    if (!isOwner) return; \
     if (handle != VK_NULL_HANDLE) { \
         (f); \
         handle = VK_NULL_HANDLE; \

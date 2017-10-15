@@ -24,8 +24,6 @@
 
 #include <SDL_syswm.h>
 
-int VulkanRenderWindow::indexCounter = 0;
-
 VulkanRenderWindow::VulkanRenderWindow() {
     handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
     if (handle == nullptr) {
@@ -75,8 +73,6 @@ VulkanRenderWindow::VulkanRenderWindow() {
         imageViews.push_back(std::move(imageView));
         framebuffers.push_back(std::move(framebuffer));
     }
-
-    index = indexCounter++;
 
     imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     imageAvailableSemaphore->create();

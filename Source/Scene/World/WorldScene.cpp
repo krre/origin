@@ -69,8 +69,6 @@ void WorldScene::draw(float dt) {
 //    queue->submit();
 
 //    debugOutBuffer->read(0, sizeof(DebugOut), &debugOut);
-//    PRINT(glm::to_string(debugOut.debugVec))
-//    PRINT(debugOut.debugInt)
 }
 
 void WorldScene::update(float dt) {

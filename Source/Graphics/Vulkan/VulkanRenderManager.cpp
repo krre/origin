@@ -11,7 +11,6 @@
 #include "Graphics/Vulkan/Wrapper/Queue/PresentQueue.h"
 
 VulkanRenderManager::VulkanRenderManager() {
-    setName("VulkanRenderManager");
     new VulkanCore;
 }
 

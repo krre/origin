@@ -78,8 +78,6 @@ void App::init() {
         }
     }
 
-    PRINT(RenderManager::get()->getName())
-
     Event::get()->quit.connect<App, &App::quit>(this);
     Event::get()->windowResize.emit(window->getWidth(), window->getHeight());
 

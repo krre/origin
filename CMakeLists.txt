@@ -12,13 +12,6 @@ set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(ENABLE_OPENGL "Enable OpenGL backend" ON)
-option(ENABLE_VULKAN "Enable Vulkan backend")
-
-if(NOT (${ENABLE_OPENGL} OR ${ENABLE_VULKAN}))
-    message(FATAL_ERROR "Graphics backend don't selected!")
-endif()
-
 configure_file(Origin.h.in Origin.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
@@ -27,7 +20,6 @@ add_subdirectory(ThirdParty)
 
 set(EXECUTABLE_NAME "origin")
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
-#target_compile_features(${EXECUTABLE_NAME} PRIVATE cxx_range_for)
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 
@@ -38,40 +30,27 @@ include_directories(${SDL2_INCLUDE_DIR})
 find_package(Bullet REQUIRED)
 include_directories(${BULLET_INCLUDE_DIRS})
 
-if(${ENABLE_OPENGL})
-    find_package(OpenGL)
-    find_package(GLEW REQUIRED)
-    include_directories(${GLEW_INCLUDE_DIRS})
+if(WIN32)
+    find_package(Vulkan REQUIRED)
+
+    include_directories(${Vulkan_INCLUDE_DIRS})
+    include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
+
+    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
+    string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
 
     target_link_libraries(${EXECUTABLE_NAME}
-        ${OPENGL_LIBRARIES}
-        ${GLEW_LIBRARIES}
+        ${Vulkan_LIBRARIES}
+        ${SPIRV_TOOLS_LIB}
     )
-endif()
+else()
+    include_directories($ENV{VULKAN_SDK}/include)
 
-if(${ENABLE_VULKAN})
-    if(WIN32)
-        find_package(Vulkan REQUIRED)
-
-        include_directories(${Vulkan_INCLUDE_DIRS})
-        include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
-
-        set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
-        string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
-
-        target_link_libraries(${EXECUTABLE_NAME}
-            ${Vulkan_LIBRARIES}
-            ${SPIRV_TOOLS_LIB}
-        )
-    else()
-        include_directories($ENV{VULKAN_SDK}/include)
-
-        target_link_libraries(${EXECUTABLE_NAME}
-            $ENV{VULKAN_SDK}/lib/libvulkan.so
-            $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
-            X11-xcb
-        )
-    endif()
+    target_link_libraries(${EXECUTABLE_NAME}
+        $ENV{VULKAN_SDK}/lib/libvulkan.so
+        $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
+        X11-xcb
+    )
 endif()
 
 include_directories(Source)

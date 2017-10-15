@@ -59,5 +59,4 @@ void Settings::saveAll() {
 }
 
 void Settings::setDefaultSettings() {
-    storage["gfx_backend"] = "opengl";
 }

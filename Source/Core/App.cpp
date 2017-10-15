@@ -18,14 +18,7 @@
 #include <SDL_timer.h>
 #include <algorithm>
 #include <experimental/filesystem>
-
-#ifdef ENABLE_OPENGL
-    #include "Graphics/OpenGL/OpenGLRenderManager.h"
-#endif
-
-#ifdef ENABLE_VULKAN
-    #include "Graphics/Vulkan/VulkanRenderManager.h"
-#endif
+#include "Graphics/Vulkan/VulkanRenderManager.h"
 
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
@@ -66,17 +59,7 @@ void App::init() {
 
         new SDLWrapper;
         SDLWrapper::get()->init();
-
-        GraphicsBackend gfxBackend = Context::get()->getCurrentBackend();
-        if (gfxBackend == GraphicsBackend::OPENGL) {
-#ifdef ENABLE_OPENGL
-            new OpenGLRenderManager;
-#endif
-        } else if (gfxBackend == GraphicsBackend::VULKAN) {
-#ifdef ENABLE_VULKAN
-            new VulkanRenderManager;
-#endif
-        }
+        new VulkanRenderManager;
         window = RenderManager::get()->createRenderWindow();
         window->setColor(Color::GREEN); // TODO: Temporary for debug
 

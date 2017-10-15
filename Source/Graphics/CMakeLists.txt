@@ -2,14 +2,7 @@ add_subdirectory(Buffer)
 add_subdirectory(Light)
 add_subdirectory(Render)
 add_subdirectory(Voxel)
-
-if(ENABLE_OPENGL)
-    add_subdirectory(OpenGL)
-endif()
-
-if(ENABLE_VULKAN)
-    add_subdirectory(Vulkan)
-endif()
+add_subdirectory(Vulkan)
 
 set(SOURCES
     ${SOURCES}

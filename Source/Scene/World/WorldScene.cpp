@@ -64,7 +64,7 @@ void WorldScene::init() {
     create();
 }
 
-void WorldScene::draw(float dt) {
+void WorldScene::render(float dt) {
 //    queue->submit();
 
 //    debugOutBuffer->read(0, sizeof(DebugOut), &debugOut);

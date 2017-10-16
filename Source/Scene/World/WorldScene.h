@@ -48,7 +48,7 @@ public:
     WorldScene();
     ~WorldScene();
     void init() override;
-    void draw(float dt) override;
+    void render(float dt) override;
     void update(float dt) override;
     void pause() override;
     void resume() override;

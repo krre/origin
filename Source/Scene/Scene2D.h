@@ -16,7 +16,7 @@ class Scene2D : public Scene {
 public:
     Scene2D();
     ~Scene2D();
-    void draw(float dt) override final;
+    void render(float dt) override final;
     void setRootControl(const std::shared_ptr<Control>& root);
 
 protected:

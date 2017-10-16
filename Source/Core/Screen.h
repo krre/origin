@@ -1,5 +1,8 @@
 #pragma once
 #include "Common.h"
+#include <vector>
+
+class Scene;
 
 class Screen {
 
@@ -10,7 +13,15 @@ public:
     virtual void resume();
     virtual void show();
 
-    virtual void update(float dt) = 0;
-    virtual void render(float dt) = 0;
+    void update(float dt);
+    void render(float dt);
     virtual void resize(uint32_t width, uint32_t height) = 0;
+
+    void pushScene(const std::shared_ptr<Scene>& scene);
+    void popScene();
+    Scene* getCurrentScene() const { return currentScene; }
+
+private:
+    std::vector<std::shared_ptr<Scene>> scenes;
+    Scene* currentScene = nullptr;
 };

@@ -15,7 +15,7 @@ public:
 
     void update(float dt);
     void render(float dt);
-    virtual void resize(uint32_t width, uint32_t height) = 0;
+    void resize(uint32_t width, uint32_t height);
 
     void pushScene(const std::shared_ptr<Scene>& scene);
     void popScene();

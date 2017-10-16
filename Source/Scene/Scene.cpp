@@ -43,6 +43,10 @@ void Scene::resume() {
     Event::get()->keyPressed.connect<Scene, &Scene::onKeyPressed>(this);
 }
 
+void Scene::resize(uint32_t width, uint32_t height) {
+
+}
+
 void Scene::buildCommandBuffers() {
 //    if (renderPass == nullptr) {
 //        renderPass = Vulkan::Instance::get()->getSurface()->getSwapchain()->getRenderPass();

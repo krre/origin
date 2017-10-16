@@ -25,6 +25,8 @@ public:
     virtual void update(float dt) = 0;
     virtual void render(float dt) = 0;
 
+    void resize(uint32_t width, uint32_t height);
+
     void buildCommandBuffers();
 
     void addCamera(const std::shared_ptr<Entity>& camera);

@@ -1,7 +1,7 @@
 #include "Console.h"
 #include "Event/Event.h"
 #include "Core/Game.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Scene/SceneManager.h"
 #include "UI/Text/Label.h"
 #include <glm/glm.hpp>
@@ -55,7 +55,7 @@ void Console::execute() {
     if (command.length() > 0 && command.substr(0, 1) == "/") {
         command = command.substr(1, command.length() - 1);
         if (command == "exit") {
-            App::get()->quit();
+            Application::get()->quit();
         } else if (command == "help") {
             PRINT("help");
         }

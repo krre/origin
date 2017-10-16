@@ -1,10 +1,10 @@
 ﻿#include <stdlib.h>
-#include "Core/App.h"
+#include "Core/Application.h"
 #undef main // fix SDL error: undefined reference to `WinMain@16'
 
 int main(int argc, char* argv[]) {
-    new App(argc, argv);
-    App::get()->run();
-    App::get()->release();
+    new Application(argc, argv);
+    Application::get()->run();
+    Application::get()->release();
     return EXIT_SUCCESS;
 }

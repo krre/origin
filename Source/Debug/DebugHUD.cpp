@@ -1,5 +1,5 @@
 #include "DebugHUD.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Core/Game.h"
 #include "Core/Defines.h"
 #include "Scene/World/WorldScene.h"

@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "App.h"
+#include "Application.h"
 #include "Defines.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Utils.h"
@@ -58,13 +58,13 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void Game::toggleFullScreen() {
-    bool isFullscreen = SDL_GetWindowFlags(App::get()->getWindow()->getHandle()) & SDL_WINDOW_FULLSCREEN;
-    SDL_SetWindowFullscreen(App::get()->getWindow()->getHandle(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+    bool isFullscreen = SDL_GetWindowFlags(Application::get()->getWindow()->getHandle()) & SDL_WINDOW_FULLSCREEN;
+    SDL_SetWindowFullscreen(Application::get()->getWindow()->getHandle(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
     SDL_ShowCursor(isFullscreen);
 }
 
 void Game::saveScreenshot() {
-    std::string directoryPath = App::getCurrentPath() + Utils::getPathSeparator() + "Screenshot";
+    std::string directoryPath = Application::getCurrentPath() + Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;
     if (!fs::exists(directoryPath)) {
         fs::create_directory(directoryPath);
@@ -81,7 +81,7 @@ void Game::saveScreenshot() {
             Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
     std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
 
-    App::get()->getWindow()->saveImage(filePath);
+    Application::get()->getWindow()->saveImage(filePath);
 
     std::string message = "Screenshot saved to " + filename;
 //    Toast::get()->showToast(message);

@@ -1,5 +1,5 @@
 #include "Rectangle.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Resource/ResourceManager.h"
 #include <glm/ext.hpp>
 

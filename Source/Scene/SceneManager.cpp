@@ -1,5 +1,5 @@
 #include "SceneManager.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Debug/DebugHUD.h"
 
@@ -50,7 +50,7 @@ void SceneManager::draw(float dt) {
 //        DebugHUD::get()->draw(dt);
 //    }
 
-    App::get()->getWindow()->swapBuffers();
+    Application::get()->getWindow()->swapBuffers();
 }
 
 void SceneManager::rebuild() {

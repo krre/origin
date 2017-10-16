@@ -1,5 +1,5 @@
 #include "DebugEnvironment.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Core/Defines.h"
 #include "Core/Utils.h"
 #include "Scene/SceneManager.h"
@@ -46,7 +46,7 @@ void DebugEnvironment::setDebugScene() {
 }
 
 void DebugEnvironment::loadValues() {
-    std::string mainDebugPath = App::getCurrentPath() + "/Debug/main.debug";
+    std::string mainDebugPath = Application::getCurrentPath() + "/Debug/main.debug";
     std::string mainDebugText = Utils::readTextFile(mainDebugPath);
     std::stringstream stream(mainDebugText);
     std::string line;

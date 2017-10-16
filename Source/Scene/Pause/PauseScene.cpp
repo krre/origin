@@ -1,5 +1,5 @@
 #include "PauseScene.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Scene/SceneManager.h"
 #include "Event/Input.h"
@@ -27,7 +27,7 @@ void PauseScene::init() {
 }
 
 void PauseScene::update(float dt) {
-    layout->setPosition({ ((int)App::get()->getWindow()->getWidth() - layout->getSize().width) / 2, ((int)App::get()->getWindow()->getHeight() - layout->getSize().height) / 2 });
+    layout->setPosition({ ((int)Application::get()->getWindow()->getWidth() - layout->getSize().width) / 2, ((int)Application::get()->getWindow()->getHeight() - layout->getSize().height) / 2 });
     layout->update();
 }
 
@@ -60,5 +60,5 @@ void PauseScene::onContinueButtonClicked() {
 }
 
 void PauseScene::onExitButtonClicked() {
-    App::get()->quit();
+    Application::get()->quit();
 }

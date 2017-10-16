@@ -1,6 +1,6 @@
 #include "WorldScene.h"
 #include "Core/Game.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Core/Defines.h"
 #include "Debug/Console.h"
 #include "ECS/EntityManager.h"
@@ -74,8 +74,8 @@ void WorldScene::draw(float dt) {
 void WorldScene::update(float dt) {
     EntityManager::get()->update(dt);
 
-    int width = App::get()->getWindow()->getWidth();
-    int height = App::get()->getWindow()->getHeight();
+    int width = Application::get()->getWindow()->getWidth();
+    int height = Application::get()->getWindow()->getHeight();
 
     OctreeSystem* octreeSystem = static_cast<OctreeSystem*>(EntityManager::get()->getSystem(SystemType::Octree).get());
     Entity* currentCamera = getCurrentCamera().get();

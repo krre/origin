@@ -1,6 +1,6 @@
 #pragma once
 #include "ECS/Component.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
 #include <glm/ext.hpp>
 
@@ -9,8 +9,8 @@ class CameraComponent : public Component {
 public:
     CameraComponent() {
         type = ComponentType::Camera;
-        int width = App::get()->getWindow()->getWidth();
-        int height = App::get()->getWindow()->getHeight();
+        int width = Application::get()->getWindow()->getWidth();
+        int height = Application::get()->getWindow()->getHeight();
         aspect = width * 1.0f / height;
         projection = glm::perspective(fov, aspect, near, far);
     }

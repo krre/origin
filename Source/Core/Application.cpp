@@ -1,4 +1,4 @@
-#include "App.h"
+#include "Application.h"
 #include "Core/Context.h"
 #include "SDLWrapper.h"
 #include "Game.h"
@@ -21,7 +21,7 @@
 #include <algorithm>
 #include <experimental/filesystem>
 
-App::App(int argc, char* argv[]) {
+Application::Application(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);
     }
@@ -29,7 +29,7 @@ App::App(int argc, char* argv[]) {
     init();
 }
 
-App::~App() {
+Application::~Application() {
     Game::get()->release();
     SceneManager::get()->release();
     Input::get()->release();
@@ -47,11 +47,11 @@ App::~App() {
     Settings::get()->release();
 }
 
-std::string App::getCurrentPath() {
+std::string Application::getCurrentPath() {
     return std::experimental::filesystem::current_path().string();
 }
 
-void App::init() {
+void Application::init() {
     try {
         // Order is important
         new Settings;
@@ -83,7 +83,7 @@ void App::init() {
         }
     }
 
-    Event::get()->quit.connect<App, &App::quit>(this);
+    Event::get()->quit.connect<Application, &Application::quit>(this);
     Event::get()->windowResize.emit(window->getWidth(), window->getHeight());
 
     window->show();
@@ -91,7 +91,7 @@ void App::init() {
     isRunning = true;
 }
 
-void App::run() {
+void Application::run() {
     Uint64 frequency = SDL_GetPerformanceFrequency();
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
@@ -108,7 +108,7 @@ void App::run() {
 }
 
 /*
-int App::run() {
+int Application::run() {
     // Game loop is based on article http://gafferongames.com/game-physics/fix-your-timestep/
     const double dt = 0.01;
     Uint64 frequency = SDL_GetPerformanceFrequency();
@@ -134,6 +134,6 @@ int App::run() {
 }
 */
 
-void App::quit() {
+void Application::quit() {
     isRunning = false;
 }

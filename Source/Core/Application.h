@@ -4,12 +4,12 @@
 
 class RenderWindow;
 
-class App : public Singleton<App> {
+class Application : public Singleton<Application> {
 
 public:
-    App(int argc, char* argv[]);
-    ~App();
-    // Path to application directory
+    Application(int argc, char* argv[]);
+    ~Application();
+    // Path to Application directory
     static std::string getCurrentPath();
 
     void run();

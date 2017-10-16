@@ -1,5 +1,5 @@
 #include "RenderWindow.h"
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "Core/SDLWrapper.h"
 #include "Core/Settings.h"
 #include "Core/Defines.h"
@@ -128,7 +128,7 @@ void RenderWindow::onMove(int x, int y) {
 }
 
 void RenderWindow::onResize(int width, int height) {
-    if (App::get()->getIsRunning()) {
+    if (Application::get()->getIsRunning()) {
         SceneManager::get()->rebuild();
     }
 

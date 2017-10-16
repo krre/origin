@@ -1,8 +1,8 @@
-#include "Core/App.h"
+#include "Core/Application.h"
 #include "ResourceManager.h"
 
 ResourceManager::ResourceManager() {
-    dataPath = App::getCurrentPath() + "/Data";
+    dataPath = Application::getCurrentPath() + "/Data";
 }
 
 ResourceManager::~ResourceManager() {

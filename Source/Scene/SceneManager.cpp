@@ -44,7 +44,6 @@ void SceneManager::update(float dt) {
 }
 
 void SceneManager::draw(float dt) {
-    App::get()->getWindow()->clear();
     scenes.back()->draw(dt);
 
 //    if (DebugHUD::get()->getVisible()) {

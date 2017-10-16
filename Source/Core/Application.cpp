@@ -101,6 +101,7 @@ void Application::run() {
 
         Game::get()->update(frameTime);
         Game::get()->render(frameTime);
+        window->swapBuffers();
     }
 }
 

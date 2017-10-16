@@ -48,7 +48,6 @@ public:
     Vulkan::PresentQueue* getPresentQueue() const { return presentQueue.get(); }
     void rebuild();
 
-
     SDL_Window* getHandle() { return handle; }
 
 protected:

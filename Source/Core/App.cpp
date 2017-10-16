@@ -14,11 +14,11 @@
 #include "Core/Settings.h"
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
+#include "Graphics/Vulkan/VulkanRenderWindow.h"
 #include <string>
 #include <SDL_timer.h>
 #include <algorithm>
 #include <experimental/filesystem>
-#include "Graphics/Vulkan/VulkanRenderManager.h"
 
 App::App(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
@@ -37,7 +37,6 @@ App::~App() {
     ResourceManager::get()->release();
     RendererSet::get()->release();
     window.reset();
-    RenderManager::get()->release();
     SDLWrapper::get()->release();
     Context::get()->release();
     Event::get()->release();
@@ -59,8 +58,7 @@ void App::init() {
 
         new SDLWrapper;
         SDLWrapper::get()->init();
-        new VulkanRenderManager;
-        window = RenderManager::get()->createRenderWindow();
+        window = std::make_unique<VulkanRenderWindow>();
         window->setColor(Color::GREEN); // TODO: Temporary for debug
 
         new RendererSet;

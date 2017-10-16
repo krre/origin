@@ -24,5 +24,5 @@ private:
 
     std::vector<std::string> argv;
     bool isRunning = false;
-    std::shared_ptr<RenderWindow> window;
+    std::unique_ptr<RenderWindow> window;
 };

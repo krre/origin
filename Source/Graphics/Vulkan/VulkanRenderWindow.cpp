@@ -83,8 +83,11 @@ void VulkanRenderWindow::clear() {
 }
 
 void VulkanRenderWindow::swapBuffers() {
+    // TODO: Temporaty disable on Linux.
+#ifndef OS_LINUX
     presentQueue->present();
     acquireNextImage();
+#endif
 }
 
 void VulkanRenderWindow::saveImage(const std::string& filePath) {

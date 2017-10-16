@@ -104,16 +104,16 @@ void DebugHUD::update(float dt) {
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
 
-    if (Game::get()->getWorldScene()) {
-        Entity* character = EntityManager::get()->getEntity(Game::get()->getWorldScene()->getCharacterId()).get();
-        TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
-        std::string pos = "\n"
-        "Position X: " + std::to_string(tc->position.x) + "\n"
-        "Position Y: " + std::to_string(tc->position.y) + "\n"
-        "Position Z: " + std::to_string(tc->position.z);
+//    if (Game::get()->getWorldScene()) {
+//        Entity* character = EntityManager::get()->getEntity(Game::get()->getWorldScene()->getCharacterId()).get();
+//        TransformComponent* tc = static_cast<TransformComponent*>(character->components[ComponentType::Transform].get());
+//        std::string pos = "\n"
+//        "Position X: " + std::to_string(tc->position.x) + "\n"
+//        "Position Y: " + std::to_string(tc->position.y) + "\n"
+//        "Position Z: " + std::to_string(tc->position.z);
 
-        text += pos;
-    }
+//        text += pos;
+//    }
 
     font->renderText(vertexBuffer.get(), indexBuffer.get(), text);
 

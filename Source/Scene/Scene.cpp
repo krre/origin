@@ -1,6 +1,5 @@
 #include "Scene.h"
 #include "Event/Event.h"
-#include "SceneManager.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"

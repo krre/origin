@@ -17,7 +17,6 @@
 #include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Event/Event.h"
-#include "Scene/SceneManager.h"
 #include "Graphics/Render/RenderManager.h"
 #include <SDL_video.h>
 #include <stdexcept>
@@ -129,7 +128,7 @@ void RenderWindow::onMove(int x, int y) {
 
 void RenderWindow::onResize(int width, int height) {
     if (Application::get()->getIsRunning()) {
-        SceneManager::get()->rebuild();
+//        SceneManager::get()->rebuild();
     }
 
     Settings::get()->setValue("width", std::to_string(width));

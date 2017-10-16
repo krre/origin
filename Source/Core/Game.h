@@ -1,22 +1,28 @@
 #pragma once
 #include "Singleton.h"
 #include <SDL.h>
+#include <vector>
 
-class WorldScene;
+class Screen;
 
 class Game : public Singleton<Game> {
 
 public:
     Game();
+    void pushScreen(const std::shared_ptr<Screen>& screen);
+    void popScreen();
+    void setScreen(const std::shared_ptr<Screen>& screen);
+
+    void update(float dt);
+    void render(float dt);
+
     void load();
     void save();
-    void setWorldScene(WorldScene* worldScene);
-    WorldScene* getWorldScene() const { return worldScene; }
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void toggleFullScreen();
     void saveScreenshot();
 
-    WorldScene* worldScene = nullptr;
+    std::vector<std::shared_ptr<Screen>> screens;
 };

@@ -8,7 +8,6 @@
 #include "ECS/Components/Components.h"
 #include "ECS/Systems/Systems.h"
 #include "Resource/ResourceManager.h"
-#include "Scene/SceneManager.h"
 #include "UI/Dialog/PauseDialog.h"
 #include "Event/Input.h"
 #include "Graphics/ShaderProgram.h"
@@ -29,12 +28,12 @@ WorldScene::WorldScene() {
     plane = std::make_unique<Plane>();
     shaderProgram = std::make_unique<ShaderProgram>();
     console = std::make_shared<Console>();
-    Game::get()->setWorldScene(this);
+//    Game::get()->setWorldScene(this);
 }
 
 WorldScene::~WorldScene() {
     if (Game::exists()) {
-        Game::get()->setWorldScene(nullptr);
+//        Game::get()->setWorldScene(nullptr);
     }
     EntityManager::get()->release();
 }
@@ -332,7 +331,7 @@ void WorldScene::setSeed(uint64_t seed) {
 void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
     case SDLK_ESCAPE:
-        SceneManager::get()->pushScene(std::make_shared<PauseDialog>());
+//        SceneManager::get()->pushScene(std::make_shared<PauseDialog>());
         Input::get()->isKeyAccepted = true;
         break;
 
@@ -341,7 +340,7 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 //        MovementControllerSystem* movementControllerSystem = static_cast<MovementControllerSystem*>(EntityManager::get()->getSystem(SystemType::MovementController).get());
 //        movementControllerSystem->setActive(false);
 //        Console::get()->setVisible(true);
-        SceneManager::get()->pushScene(console);
+//        SceneManager::get()->pushScene(console);
         break;
 #endif
 

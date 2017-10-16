@@ -3,14 +3,12 @@
 #include "Defines.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Utils.h"
-#include "Scene/World/WorldScene.h"
 #include "Debug/DebugHUD.h"
 #include "Debug/DebugEnvironment.h"
+#include "Screen/MenuScreen.h"
 #include "UI/Toast.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
-#include "Scene/SceneManager.h"
-#include "Scene/Menu/MenuScene.h"
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 #include <glm/ext.hpp>
@@ -20,12 +18,47 @@
 
 Game::Game() {
     if (DebugEnvironment::get()->getEnable()) {
-        DebugEnvironment::get()->setDebugScene();
+        DebugEnvironment::get()->setDebugScreen();
     } else {
-        SceneManager::get()->setScene(std::make_shared<MenuScene>());
+        setScreen(std::make_shared<MenuScreen>());
     }
 
     Event::get()->keyPressed.connect<Game, &Game::onKeyPressed>(this);
+}
+
+void Game::pushScreen(const std::shared_ptr<Screen>& screen) {
+    if (!screens.empty()) {
+        screens.back()->pause();
+    }
+    screens.push_back(screen);
+    screen->resume();
+}
+
+void Game::popScreen() {
+    if (screens.size() > 1) {
+        screens.back()->pause();
+        screens.pop_back();
+        screens.back()->resume();
+    } else {
+        // TODO: Question dialog about exit from game
+        PRINT("Exit question dialog")
+    }
+}
+
+void Game::setScreen(const std::shared_ptr<Screen>& screen) {
+    for (const auto& screen : screens) {
+        screen->pause();
+    }
+    screens.clear();
+    pushScreen(screen);
+}
+
+void Game::update(float dt) {
+    screens.back()->update(dt);
+}
+
+void Game::render(float dt) {
+    screens.back()->render(dt);
 }
 
 void Game::load() {
@@ -34,10 +67,6 @@ void Game::load() {
 
 void Game::save() {
 
-}
-
-void Game::setWorldScene(WorldScene* worldScene) {
-    this->worldScene = worldScene;
 }
 
 void Game::onKeyPressed(const SDL_KeyboardEvent& event) {

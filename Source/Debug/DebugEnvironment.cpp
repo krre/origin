@@ -1,12 +1,10 @@
 #include "DebugEnvironment.h"
 #include "Core/Application.h"
+#include "Core/Game.h"
 #include "Core/Defines.h"
 #include "Core/Utils.h"
-#include "Scene/SceneManager.h"
-#include "Scene/Menu/MenuScene.h"
-#include "Scene/Settings/SettingsScene.h"
-#include "Scene/World/WorldScene.h"
 #include "Debug/DebugHUD.h"
+#include "Screen/MenuScreen.h"
 
 DebugEnvironment::DebugEnvironment() {
 #ifdef DEVELOP_MODE
@@ -26,18 +24,18 @@ std::string DebugEnvironment::getValue(const std::string& key) const {
     }
 }
 
-void DebugEnvironment::setDebugScene() {
-    const std::string& sceneName = getValue("scene");
-    if (!sceneName.empty()) {
-        if (sceneName == "menu") {
-            SceneManager::get()->setScene(std::make_shared<MenuScene>());
-        } else if (sceneName == "settings") {
-            SceneManager::get()->setScene(std::make_shared<SettingsScene>());
-        } else if (sceneName == "world") {
-            SceneManager::get()->setScene(std::make_shared<WorldScene>());
+void DebugEnvironment::setDebugScreen() {
+    const std::string& screenName = getValue("screen");
+    if (!screenName.empty()) {
+        if (screenName == "menu") {
+            Game::get()->setScreen(std::make_shared<MenuScreen>());
+        } else if (screenName == "settings") {
+//            Game::get()->setScreen(std::make_shared<SettingsScreen>());
+        } else if (screenName == "world") {
+//            Game::get()->setScreen(std::make_shared<WorldScreen>());
         }
     } else {
-        SceneManager::get()->setScene(std::make_shared<MenuScene>());
+        Game::get()->setScreen(std::make_shared<MenuScreen>());
     }
 
     if (getValue("debugHUD") == "true") {

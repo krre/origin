@@ -10,7 +10,6 @@
 #include "Debug/Logger.h"
 #include "Debug/DebugEnvironment.h"
 #include "Debug/DebugHUD.h"
-#include "Scene/SceneManager.h"
 #include "Core/Settings.h"
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
@@ -31,7 +30,6 @@ Application::Application(int argc, char* argv[]) {
 
 Application::~Application() {
     Game::get()->release();
-    SceneManager::get()->release();
     Input::get()->release();
     DebugHUD::get()->release();
     DebugEnvironment::get()->release();
@@ -73,7 +71,6 @@ void Application::init() {
         new DebugEnvironment;
         new DebugHUD;
         new Input;
-        new SceneManager;
         new Game;
     } catch (const std::exception& ex) {
         if (SDLWrapper::exists() && SDLWrapper::get()->getIsInited()) {
@@ -102,8 +99,8 @@ void Application::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        SceneManager::get()->update(frameTime);
-        SceneManager::get()->draw(frameTime);
+        Game::get()->update(frameTime);
+        Game::get()->render(frameTime);
     }
 }
 

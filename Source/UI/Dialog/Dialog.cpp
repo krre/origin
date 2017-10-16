@@ -1,5 +1,4 @@
 #include "Dialog.h"
-#include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
@@ -15,7 +14,7 @@ Dialog::Dialog() {
 }
 
 void Dialog::close() {
-    SceneManager::get()->popScene();
+//    SceneManager::get()->popScene();
 }
 
 void Dialog::onKeyPressed(const SDL_KeyboardEvent& event) {

@@ -1,7 +1,6 @@
 #include "PauseScene.h"
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
-#include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "UI/LinearLayout.h"
 #include "UI/Button.h"
@@ -50,13 +49,13 @@ void PauseScene::create() {
 
 void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
-        SceneManager::get()->popScene();
+//        SceneManager::get()->popScene();
         Input::get()->isKeyAccepted = true;
     }
 }
 
 void PauseScene::onContinueButtonClicked() {
-    SceneManager::get()->popScene();
+//    SceneManager::get()->popScene();
 }
 
 void PauseScene::onExitButtonClicked() {

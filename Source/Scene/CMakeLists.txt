@@ -11,7 +11,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene3D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/SceneManager.h
     PARENT_SCOPE
 )

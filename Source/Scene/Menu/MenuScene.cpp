@@ -1,6 +1,5 @@
 #include "MenuScene.h"
 #include "Graphics/Plane.h"
-#include "Scene/SceneManager.h"
 #include "Event/Input.h"
 #include "Graphics/ShaderProgram.h"
 #include "Graphics/Buffer/VertexBuffer.h"
@@ -89,7 +88,7 @@ void MenuScene::create() {
 
 void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
-        SceneManager::get()->popScene();
+//        SceneManager::get()->popScene();
         Input::get()->isKeyAccepted = true;
     }
 }

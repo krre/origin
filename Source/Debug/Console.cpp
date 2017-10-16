@@ -2,7 +2,6 @@
 #include "Event/Event.h"
 #include "Core/Game.h"
 #include "Core/Application.h"
-#include "Scene/SceneManager.h"
 #include "UI/Text/Label.h"
 #include <glm/glm.hpp>
 
@@ -59,6 +58,6 @@ void Console::execute() {
         } else if (command == "help") {
             PRINT("help");
         }
-        SceneManager::get()->popScene();
+//        SceneManager::get()->popScene();
     }
 }

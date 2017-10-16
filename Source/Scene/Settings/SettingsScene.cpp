@@ -1,6 +1,5 @@
 #include "SettingsScene.h"
 #include "Core/Application.h"
-#include "Scene/SceneManager.h"
 #include "Event/Input.h"
 
 SettingsScene::SettingsScene() {

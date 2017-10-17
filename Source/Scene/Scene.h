@@ -42,6 +42,7 @@ public:
     void setSize(const Size& size);
 
     void setRootControl(const std::shared_ptr<Control>& root);
+    Control* getRootControl() const { return root ? root.get() : nullptr; }
 
 protected:
 //    virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;

@@ -1,6 +1,6 @@
 #pragma once
-#include "Layout.h"
 #include "UITypes.h"
+#include "Layout.h"
 
 class LinearLayout : public Layout {
 

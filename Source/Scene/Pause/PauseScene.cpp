@@ -12,6 +12,7 @@
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
 PauseScene::PauseScene() {
+    layout = std::make_shared<LinearLayout>(Direction::VERICAL);
     continueButton = std::make_unique<Button>();
     exitButton = std::make_unique<Button>();
 }

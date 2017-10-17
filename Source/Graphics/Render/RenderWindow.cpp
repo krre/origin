@@ -17,7 +17,6 @@
 #include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Event/Event.h"
-#include "Graphics/Render/RenderManager.h"
 #include <SDL_video.h>
 #include <stdexcept>
 #include <lodepng/lodepng.h>

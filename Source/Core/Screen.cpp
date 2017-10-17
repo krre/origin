@@ -1,5 +1,6 @@
 #include "Screen.h"
 #include "Scene/Scene.h"
+#include "Graphics/Render/RenderManager.h"
 
 Screen::Screen() {
 
@@ -30,6 +31,8 @@ void Screen::update(float dt) {
 }
 
 void Screen::render(float dt) {
+    RenderManager::get()->clearScreen(this);
+
     for (const auto& scene : scenes) {
         scene->render(dt);
     }

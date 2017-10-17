@@ -64,7 +64,6 @@ void Application::init() {
         new RenderManager;
 
         window = std::make_unique<RenderWindow>();
-        window->setColor(Color::GREEN); // TODO: Temporary for debug
 
         new RendererSet;
         new ResourceManager;

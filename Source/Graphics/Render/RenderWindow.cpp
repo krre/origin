@@ -111,10 +111,6 @@ RenderWindow::~RenderWindow() {
     SDL_DestroyWindow(handle);
 }
 
-void RenderWindow::setColor(const Color& color) {
-    this->color = color;
-}
-
 void RenderWindow::show() {
     assert(handle != nullptr);
     SDL_ShowWindow(handle);

@@ -32,9 +32,6 @@ public:
     int getX() const { return x; }
     int getY() const { return y; }
 
-    void setColor(const Color& color);
-    const Color& getColor() const { return color; }
-
     void show();
 
     void swapBuffers();
@@ -69,6 +66,4 @@ private:
     SDL_Window* handle = nullptr;
     int x = 100;
     int y = 100;
-
-    Color color = Color::WHITE;
 };

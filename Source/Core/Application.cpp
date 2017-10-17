@@ -100,7 +100,7 @@ void Application::run() {
         currentTime = newTime;
 
         Game::get()->update(frameTime);
-        Game::get()->render(frameTime);
+        Game::get()->render();
         window->swapBuffers();
     }
 }

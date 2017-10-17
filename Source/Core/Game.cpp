@@ -57,8 +57,8 @@ void Game::update(float dt) {
     screens.back()->update(dt);
 }
 
-void Game::render(float dt) {
-    screens.back()->render(dt);
+void Game::render() {
+    screens.back()->render();
 }
 
 void Game::load() {

@@ -14,7 +14,7 @@ public:
     void setScreen(const std::shared_ptr<Screen>& screen);
 
     void update(float dt);
-    void render(float dt);
+    void render();
 
     void load();
     void save();

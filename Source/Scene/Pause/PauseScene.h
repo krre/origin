@@ -11,7 +11,7 @@ public:
     PauseScene();
     ~PauseScene();
     void init() override;
-    void update(float dt) override;
+    void update(float dt);
 
 private:
     void create();

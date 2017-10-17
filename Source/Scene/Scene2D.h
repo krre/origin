@@ -16,7 +16,7 @@ class Scene2D : public Scene {
 public:
     Scene2D();
     ~Scene2D();
-    void render(float dt) override final;
+    void render(float dt);
 
 protected:
     std::unique_ptr<VertexBuffer> vertexBuffer;

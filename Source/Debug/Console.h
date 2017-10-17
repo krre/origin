@@ -8,7 +8,7 @@ class Console : public Scene2D {
 
 public:
     Console();
-    void update(float dt) override;
+    void update(float dt);
 
 private:
 //    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;

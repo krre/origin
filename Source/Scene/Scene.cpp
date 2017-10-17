@@ -43,6 +43,14 @@ void Scene::resume() {
     Event::get()->keyPressed.connect<Scene, &Scene::onKeyPressed>(this);
 }
 
+void Scene::update(float dt) {
+
+}
+
+void Scene::render(float dt) {
+
+}
+
 void Scene::resize(uint32_t width, uint32_t height) {
 
 }

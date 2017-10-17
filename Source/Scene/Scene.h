@@ -3,14 +3,6 @@
 #include <SDL.h>
 #include <vector>
 
-//namespace Vulkan {
-//    class CommandBuffer;
-//    class CommandBuffers;
-//    class Semaphore;
-//    class SubmitQueue;
-//    class RenderPass;
-//}
-
 class Entity;
 class Control;
 
@@ -23,8 +15,8 @@ public:
     virtual void pause();
     virtual void resume();
 
-    virtual void update(float dt) = 0;
-    virtual void render(float dt) = 0;
+    void update(float dt);
+    void render(float dt);
 
     void resize(uint32_t width, uint32_t height);
 
@@ -53,7 +45,7 @@ public:
 
 protected:
 //    virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
-    virtual void onWindowResize(int width, int height) = 0;
+    virtual void onWindowResize(int width, int height) {}
     virtual void onKeyPressed(const SDL_KeyboardEvent& event) {}
 
     Pos2 position = { 0, 0 };

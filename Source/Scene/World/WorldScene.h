@@ -48,8 +48,8 @@ public:
     WorldScene();
     ~WorldScene();
     void init() override;
-    void render(float dt) override;
-    void update(float dt) override;
+    void render(float dt);
+    void update(float dt);
     void pause() override;
     void resume() override;
     EntityId getCharacterId() { return characterId; }

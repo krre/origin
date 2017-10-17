@@ -23,7 +23,7 @@ public:
     DebugHUD();
     ~DebugHUD();
     void init() override;
-    void update(float dt) override;
+    void update(float dt);
     void trigger();
 
 private:

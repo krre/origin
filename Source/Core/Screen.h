@@ -24,4 +24,5 @@ public:
 private:
     std::vector<std::shared_ptr<Scene>> scenes;
     Scene* currentScene = nullptr;
+    bool isPaused = true;
 };

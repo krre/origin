@@ -10,11 +10,11 @@ void Screen::hide() {
 }
 
 void Screen::pause() {
-
+    isPaused = true;
 }
 
 void Screen::resume() {
-
+    isPaused = false;
 }
 
 void Screen::show() {
@@ -22,8 +22,10 @@ void Screen::show() {
 }
 
 void Screen::update(float dt) {
-    for (const auto& scene : scenes) {
-        scene->update(dt);
+    if (!isPaused) {
+        for (const auto& scene : scenes) {
+            scene->update(dt);
+        }
     }
 }
 

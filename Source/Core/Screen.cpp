@@ -34,7 +34,7 @@ void Screen::render(float dt) {
     RenderManager::get()->clearScreen(this);
 
     for (const auto& scene : scenes) {
-        scene->render(dt);
+        RenderManager::get()->renderScene(scene.get());
     }
 }
 

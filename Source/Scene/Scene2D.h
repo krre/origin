@@ -17,7 +17,6 @@ public:
     Scene2D();
     ~Scene2D();
     void render(float dt) override final;
-    void setRootControl(const std::shared_ptr<Control>& root);
 
 protected:
     std::unique_ptr<VertexBuffer> vertexBuffer;
@@ -26,7 +25,6 @@ protected:
 private:
     void onWindowResize(int width, int height) override;
 
-    std::shared_ptr<Control> root;
     std::vector<std::shared_ptr<Control>> controls;
     std::vector<std::unique_ptr<Batch2D>> batches;
 };

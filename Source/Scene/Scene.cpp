@@ -109,3 +109,6 @@ void Scene::setSize(const Size& size) {
     this->size = size;
 }
 
+void Scene::setRootControl(const std::shared_ptr<Control>& root) {
+    this->root = root;
+}

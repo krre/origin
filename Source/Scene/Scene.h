@@ -12,6 +12,7 @@
 //}
 
 class Entity;
+class Control;
 
 class Scene : public Object {
 
@@ -48,6 +49,8 @@ public:
     const Size& getSize() const { return size; }
     void setSize(const Size& size);
 
+    void setRootControl(const std::shared_ptr<Control>& root);
+
 protected:
 //    virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
     virtual void onWindowResize(int width, int height) = 0;
@@ -60,6 +63,7 @@ protected:
 //    std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
 
 private:
+    std::shared_ptr<Control> root;
 //    Vulkan::RenderPass* renderPass = nullptr;
     std::shared_ptr<Entity> currentCamera;
     std::shared_ptr<Entity> switchCameras[2] = { nullptr, nullptr };

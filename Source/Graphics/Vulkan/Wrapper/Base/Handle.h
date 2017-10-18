@@ -40,7 +40,7 @@ static std::string resultToString(VkResult result) {
 }
 
 #define VULKAN_CHECK_RESULT(f, message) { \
-    if (!isOwner) return; \
+    if (!owner) return; \
     VkResult result = (f); \
     if (result != VK_SUCCESS) { \
         std::string errorMessage = std::string(message) + ": " + resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
@@ -49,7 +49,7 @@ static std::string resultToString(VkResult result) {
 }
 
 #define VULKAN_DESTROY_HANDLE(f) { \
-    if (!isOwner) return; \
+    if (!owner) return; \
     if (handle != VK_NULL_HANDLE) { \
         (f); \
         handle = VK_NULL_HANDLE; \
@@ -64,17 +64,17 @@ public:
     Handle() = default;
     Handle(T handle) : handle(handle) {
         assert(handle != VK_NULL_HANDLE);
-        isOwner = false;
+        owner = false;
     }
     bool getIsValid() const { return handle != VK_NULL_HANDLE; }
-    bool getIsOwner() const { return isOwner; }
+    bool isOwner() const { return owner; }
     T getHandle() const { return handle; }
     virtual void create() = 0;
     virtual void destroy() = 0;
 
 protected:
     T handle = VK_NULL_HANDLE;
-    bool isOwner = true;
+    bool owner = true;
 };
 
 } // Vulkan

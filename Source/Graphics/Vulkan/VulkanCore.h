@@ -7,7 +7,6 @@ namespace Vulkan {
     class Device;
     class CommandPool;
     class Surface;
-    class Swapchain;
 }
 
 class VulkanCore : public Singleton<VulkanCore> {
@@ -26,9 +25,6 @@ public:
     void setSurface(Vulkan::Surface* surface) { this->surface = surface; }
     Vulkan::Surface* getSurface() const { return surface; }
 
-    void setSwapchain(Vulkan::Swapchain* swapchain) { this->swapchain = swapchain; }
-    Vulkan::Swapchain* getSwapchain() const { return swapchain; }
-
 private:
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
@@ -39,5 +35,4 @@ private:
     uint32_t graphicsFamily;
     uint32_t computeFamily;
     Vulkan::Surface* surface;
-    Vulkan::Swapchain* swapchain;
 };

@@ -79,7 +79,6 @@ RenderWindow::RenderWindow() {
 
     swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
     swapchain->create();
-    VulkanCore::get()->setSwapchain(swapchain.get());
 
     presentQueue = std::make_unique<Vulkan::PresentQueue>(device, VulkanCore::get()->getGraphicsFamily());
     presentQueue->addSwapchain(swapchain.get());
@@ -156,7 +155,7 @@ void RenderWindow::saveImage(const std::string& filePath) {
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
                      VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
 
-    bool supportsBlit = device->getPhysicalDevice()->getSupportBlit();
+    bool supportsBlit = device->getPhysicalDevice()->getSupportBlit(swapchain->getImageFormat());
     if (supportsBlit) {
         VkOffset3D blitSize;
         blitSize.x = width;

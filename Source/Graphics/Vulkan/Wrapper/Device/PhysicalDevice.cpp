@@ -1,8 +1,5 @@
 #include "PhysicalDevice.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
-#include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
-#include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
-#include "Graphics/Vulkan/VulkanCore.h"
 
 using namespace Vulkan;
 
@@ -32,7 +29,7 @@ VkFormat PhysicalDevice::getSupportedDepthFormat() {
     return VK_FORMAT_UNDEFINED;
 }
 
-bool PhysicalDevice::getSupportBlit() {
+bool PhysicalDevice::getSupportBlit(VkFormat format) {
     // Get format properties for the swapchain color format
     VkFormatProperties formatProps;
     bool supportsBlit = true;
@@ -40,7 +37,7 @@ bool PhysicalDevice::getSupportBlit() {
     // Check blit support for source and destination
 
     // Check if the device supports blitting from optimal images (the swapchain images are in optimal format)
-    vkGetPhysicalDeviceFormatProperties(handle, VulkanCore::get()->getSwapchain()->getImageFormat(), &formatProps);
+    vkGetPhysicalDeviceFormatProperties(handle, format, &formatProps);
     if (!(formatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT)) {
 //        std::cerr << "Device does not support blitting from optimal tiled images, using copy instead of blit!" << std::endl;
         supportsBlit = false;

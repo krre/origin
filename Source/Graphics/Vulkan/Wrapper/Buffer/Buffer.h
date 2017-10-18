@@ -5,6 +5,7 @@
 namespace Vulkan {
 
 class DeviceMemory;
+class CommandPool;
 
 class Buffer : public Handle<VkBuffer>, public Devicer {
 
@@ -17,7 +18,7 @@ public:
     VkDeviceSize getSize() const { return createInfo.size; }
     void write(const void* data, VkDeviceSize size, VkDeviceSize offset = 0);
     void read(void* data, VkDeviceSize size, VkDeviceSize offset = 0);
-    void copyToBuffer(Buffer* dstBuffer, VkDeviceSize size);
+    void copyToBuffer(CommandPool* commandPool, Buffer* dstBuffer, VkDeviceSize size);
     const VkDescriptorBufferInfo* getDescriptorInfo() const { return &descriptorInfo; }
 
 private:

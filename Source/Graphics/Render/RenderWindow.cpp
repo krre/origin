@@ -69,7 +69,7 @@ RenderWindow::RenderWindow() {
 #endif
 
     surface->create();
-    VulkanCore::get()->setSurface(surface.get());
+
     VkExtent2D currentExtent = surface->getCurrentExtent();
 
     renderPass = std::make_unique<Vulkan::RenderPass>(device);

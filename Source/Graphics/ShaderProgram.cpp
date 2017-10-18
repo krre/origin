@@ -9,11 +9,12 @@
 #include "Resource/ResourceManager.h"
 #include "Resource/ShaderResource.h"
 #include "Core/Utils.h"
+#include "Core/Application.h"
+#include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
-#include "Graphics/Vulkan/VulkanCore.h"
 
 using namespace Vulkan;
 
@@ -22,8 +23,7 @@ ShaderProgram::ShaderProgram() {
     descriptorSets = std::make_unique<DescriptorSets>(VulkanCore::get()->getGraphicsDevice(), descriptorPool.get());
 
     graphicsPipeline = std::make_unique<GraphicsPipeline>(VulkanCore::get()->getGraphicsDevice());
-    graphicsPipeline->setExtent(VulkanCore::get()->getSurface()->getCapabilities().currentExtent);
-//    graphicsPipeline->setRenderPass(VulkanCore::get()->getSwapchain()->getRenderPass()->getHandle());
+    graphicsPipeline->setExtent(Application::get()->getWindow()->getSurface()->getCapabilities().currentExtent);
 
     pipelineLayout = std::make_unique<PipelineLayout>(VulkanCore::get()->getGraphicsDevice());
     descriptorSetLayout = std::make_unique<DescriptorSetLayout>(VulkanCore::get()->getGraphicsDevice());

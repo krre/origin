@@ -6,7 +6,6 @@ namespace Vulkan {
     class PhysicalDevices;
     class Device;
     class CommandPool;
-    class Surface;
 }
 
 class VulkanCore : public Singleton<VulkanCore> {
@@ -22,9 +21,6 @@ public:
     Vulkan::CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }
     Vulkan::CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
 
-    void setSurface(Vulkan::Surface* surface) { this->surface = surface; }
-    Vulkan::Surface* getSurface() const { return surface; }
-
 private:
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
@@ -34,5 +30,4 @@ private:
     std::shared_ptr<Vulkan::CommandPool> computeCommandPool;
     uint32_t graphicsFamily;
     uint32_t computeFamily;
-    Vulkan::Surface* surface;
 };

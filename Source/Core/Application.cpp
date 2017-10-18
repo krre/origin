@@ -84,14 +84,14 @@ void Application::init() {
 
     window->show();
 
-    isRunning = true;
+    running = true;
 }
 
 void Application::run() {
     Uint64 frequency = SDL_GetPerformanceFrequency();
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
-    while (isRunning) {
+    while (running) {
         Event::get()->handleEvents();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
@@ -132,5 +132,5 @@ int Application::run() {
 */
 
 void Application::quit() {
-    isRunning = false;
+    running = false;
 }

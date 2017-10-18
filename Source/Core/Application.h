@@ -16,13 +16,13 @@ public:
     void quit();
 
     RenderWindow* getWindow() const { return window.get(); }
-    bool getIsRunning() const { return isRunning; }
+    bool isRunning() const { return running; }
     const std::vector<std::string>& getArgv() const { return argv; }
 
 private:
     void init();
 
     std::vector<std::string> argv;
-    bool isRunning = false;
+    bool running = false;
     std::unique_ptr<RenderWindow> window;
 };

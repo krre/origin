@@ -122,7 +122,7 @@ void RenderWindow::onMove(int x, int y) {
 }
 
 void RenderWindow::onResize(int width, int height) {
-    if (Application::get()->getIsRunning()) {
+    if (Application::get()->isRunning()) {
 //        SceneManager::get()->rebuild();
     }
 

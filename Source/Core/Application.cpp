@@ -72,7 +72,7 @@ void Application::init() {
         new Input;
         new Game;
     } catch (const std::exception& ex) {
-        if (SDLWrapper::exists() && SDLWrapper::get()->getIsInited()) {
+        if (SDLWrapper::exists() && SDLWrapper::get()->isInited()) {
             SDLWrapper::get()->showErrorMessageBox(ex.what());
         } else {
             ERROR(ex.what());

@@ -10,9 +10,9 @@ public:
     const Size& getScreenSize() const { return screenSize; }
     std::string getError() const;
     void showErrorMessageBox(const char* message);
-    bool getIsInited() const { return isInited; }
+    bool isInited() const { return inited; }
 
 private:
     Size screenSize;
-    bool isInited = false;
+    bool inited = false;
 };

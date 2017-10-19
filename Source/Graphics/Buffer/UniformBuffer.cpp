@@ -1,5 +1,5 @@
 #include "UniformBuffer.h"
-#include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
+#include "Graphics/Vulkan/Buffer/Buffer.h"
 #include "Graphics/Vulkan/VulkanCore.h"
 
 UniformBuffer::UniformBuffer(uint64_t size) {

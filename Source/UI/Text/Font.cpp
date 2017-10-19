@@ -4,8 +4,8 @@
 #include "Graphics/Texture.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
-#include "Graphics/Vulkan/Wrapper/Image/Image.h"
-#include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
+#include "Graphics/Vulkan/Image/Image.h"
+#include "Graphics/Vulkan/Image/ImageView.h"
 #include <fstream>
 #include <experimental/filesystem>
 

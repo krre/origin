@@ -2,17 +2,17 @@
 #include "Core/Singleton.h"
 
 namespace Vulkan {
-    class Instance;
-    class PhysicalDevices;
-    class Device;
-    class CommandPool;
-}
 
-class VulkanCore : public Singleton<VulkanCore> {
+class Instance;
+class PhysicalDevices;
+class Device;
+class CommandPool;
+
+class Context : public Singleton<Context> {
 
 public:
-    VulkanCore();
-    ~VulkanCore();
+    Context();
+    ~Context();
     Vulkan::Instance* getInstance() const { return instance.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
     uint32_t getComputeFamily() const { return computeFamily; }
@@ -31,3 +31,5 @@ private:
     uint32_t graphicsFamily;
     uint32_t computeFamily;
 };
+
+} // Vulkan

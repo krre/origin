@@ -10,6 +10,8 @@ add_subdirectory(Surface)
 
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Context.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Context.h
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugReportCallback.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Event.cpp
@@ -30,7 +32,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Semaphore.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderModule.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanCore.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanCore.h
     PARENT_SCOPE
 )

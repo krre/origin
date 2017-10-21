@@ -1,11 +1,13 @@
-#include "VulkanCore.h"
+#include "Context.h"
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Device/PhysicalDevices.h"
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Device/Device.h"
 #include "Graphics/Vulkan/Command/CommandPool.h"
 
-VulkanCore::VulkanCore() {
+using namespace Vulkan;
+
+Context::Context() {
     instance = std::make_unique<Vulkan::Instance>();
     instance->create();
 
@@ -40,7 +42,7 @@ VulkanCore::VulkanCore() {
     computeCommandPool->create();
 }
 
-VulkanCore::~VulkanCore() {
+Context::~Context() {
     if (graphicsDevice) {
         graphicsDevice->waitIdle();
     }

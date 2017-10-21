@@ -3,7 +3,7 @@
 #include "Core/SDLWrapper.h"
 #include "Core/Settings.h"
 #include "Core/Defines.h"
-#include "Graphics/Vulkan/VulkanCore.h"
+#include "Graphics/Vulkan/Context.h"
 #include "Graphics/Vulkan/Surface/Surface.h"
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Surface/Swapchain.h"
@@ -60,12 +60,12 @@ RenderWindow::RenderWindow() {
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(handle, &wminfo);
 
-    device = VulkanCore::get()->getGraphicsDevice();
+    device = Vulkan::Context::get()->getGraphicsDevice();
 
 #ifdef OS_WIN
-    surface = std::make_unique<Vulkan::Win32Surface>(VulkanCore::get()->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_unique<Vulkan::Win32Surface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif OS_LINUX
-    surface = std::make_unique<Vulkan::XcbSurface>(VulkanCore::get()->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+    surface = std::make_unique<Vulkan::XcbSurface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 
     surface->create();
@@ -80,7 +80,7 @@ RenderWindow::RenderWindow() {
     swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
     swapchain->create();
 
-    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, VulkanCore::get()->getGraphicsFamily());
+    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
     presentQueue->addSwapchain(swapchain.get());
 
     for (const auto& image : swapchain->getImages()) {
@@ -149,7 +149,7 @@ void RenderWindow::saveImage(const std::string& filePath) {
     image.create();
     VkImage dstImage = image.getHandle();
 
-    Vulkan::CommandBufferOneTime commandBuffer(device, VulkanCore::get()->getGraphicsCommandPool());
+    Vulkan::CommandBufferOneTime commandBuffer(device, Vulkan::Context::get()->getGraphicsCommandPool());
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,

@@ -14,7 +14,7 @@
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Render/RenderManager.h"
-#include "Graphics/Vulkan/VulkanCore.h"
+#include "Graphics/Vulkan/Context.h"
 #include <string>
 #include <SDL_timer.h>
 #include <algorithm>
@@ -37,7 +37,7 @@ Application::~Application() {
     RendererSet::get()->release();
     window.reset();
     RenderManager::get()->release();
-    VulkanCore::get()->release();
+    Vulkan::Context::get()->release();
     SDLWrapper::get()->release();
     Context::get()->release();
     Event::get()->release();
@@ -60,7 +60,7 @@ void Application::init() {
         new SDLWrapper;
         SDLWrapper::get()->init();
 
-        new VulkanCore;
+        new Vulkan::Context;
         new RenderManager;
 
         window = std::make_unique<RenderWindow>();

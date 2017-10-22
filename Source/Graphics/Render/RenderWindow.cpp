@@ -129,14 +129,6 @@ void RenderWindow::onResize(int width, int height) {
     Settings::get()->setValue("height", std::to_string(height));
 }
 
-void RenderWindow::swapBuffers() {
-    // TODO: Temporaty disable on Linux.
-#ifndef OS_LINUX
-    presentQueue->present();
-    acquireNextImage();
-#endif
-}
-
 void RenderWindow::saveImage(const std::string& filePath) {
     VkImage srcImage = swapchain->getImages().at(*presentQueue->getImageIndex(index));
 
@@ -236,6 +228,13 @@ void RenderWindow::saveImage(const std::string& filePath) {
 
 void RenderWindow::acquireNextImage() {
     vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
+}
+
+void RenderWindow::present() {
+    // TODO: Temporaty disable on Linux.
+#ifndef OS_LINUX
+    presentQueue->present();
+#endif
 }
 
 void RenderWindow::rebuild() {

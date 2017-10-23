@@ -226,7 +226,11 @@ void RenderWindow::saveImage(const std::string& filePath) {
 }
 
 void RenderWindow::acquireNextImage() {
-    swapchain->acquireNextImage(imageAvailableSemaphore.get(), presentQueue->getImageIndex(index));
+    try {
+        swapchain->acquireNextImage(imageAvailableSemaphore.get(), presentQueue->getImageIndex(index));
+    } catch (const std::exception& ex) {
+        rebuild();
+    }
 }
 
 void RenderWindow::present() {

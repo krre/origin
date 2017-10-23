@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics/Vulkan/Base/Collection.h"
-#include <vulkan/vulkan.hpp>
+#include <vulkan/vulkan.h>
 #include <vector>
+#include <memory>
 
 namespace Vulkan {
 

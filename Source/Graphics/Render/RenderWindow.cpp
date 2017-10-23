@@ -18,7 +18,6 @@
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include "Event/Event.h"
 #include <SDL_video.h>
-#include <stdexcept>
 #include <lodepng/lodepng.h>
 
 #ifdef OS_WIN
@@ -227,7 +226,7 @@ void RenderWindow::saveImage(const std::string& filePath) {
 }
 
 void RenderWindow::acquireNextImage() {
-    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), UINT64_MAX, imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
+    swapchain->acquireNextImage(imageAvailableSemaphore.get(), presentQueue->getImageIndex(index));
 }
 
 void RenderWindow::present() {

@@ -1,6 +1,7 @@
 #include "Swapchain.h"
 #include "Surface.h"
 #include "../Device/PhysicalDevice.h"
+#include "../Semaphore.h"
 
 using namespace Vulkan;
 
@@ -42,4 +43,8 @@ void Swapchain::create() {
 
 void Swapchain::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
+}
+
+void Swapchain::acquireNextImage(Semaphore* semaphore, uint32_t* imageIndex) {
+    VULKAN_CHECK_RESULT(vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, imageIndex), "Failed to acquire next image")
 }

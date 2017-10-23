@@ -6,6 +6,7 @@
 namespace Vulkan {
 
 class Surface;
+class Semaphore;
 
 class Swapchain : public Handle<VkSwapchainKHR>, public Devicer {
 
@@ -18,8 +19,8 @@ public:
     size_t getCount() const { return images.size(); }
     VkImage getImage(size_t i) const { return images.at(i); }
     const std::vector<VkImage>& getImages() const { return images; }
-
     VkFormat getImageFormat() const { return createInfo.imageFormat; }
+    void acquireNextImage(Semaphore* semaphore, uint32_t* imageIndex);
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};

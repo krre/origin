@@ -13,6 +13,7 @@ public:
     ~Device();
     void waitIdle();
     void waitForFences(std::vector<VkFence> fences);
+    void resetFences(std::vector<VkFence> fences);
     PhysicalDevice* getPhysicalDevice() const { return physicalDevice; }
     void create() override;
     void destroy() override;

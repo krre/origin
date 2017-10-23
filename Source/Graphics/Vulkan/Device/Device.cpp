@@ -33,6 +33,10 @@ void Device::waitForFences(std::vector<VkFence> fences) {
     VULKAN_CHECK_RESULT(vkWaitForFences(handle, fences.size(), fences.data(), VK_TRUE, UINT64_MAX), "Failed wait for fences");
 }
 
+void Device::resetFences(std::vector<VkFence> fences) {
+    VULKAN_CHECK_RESULT(vkResetFences(handle, fences.size(), fences.data()), "Failed to reset fences")
+}
+
 void Device::create() {
     createInfo.queueCreateInfoCount = queueCreateInfos.size();
     createInfo.pQueueCreateInfos = queueCreateInfos.data();

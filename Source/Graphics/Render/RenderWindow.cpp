@@ -227,7 +227,7 @@ void RenderWindow::saveImage(const std::string& filePath) {
 }
 
 void RenderWindow::acquireNextImage() {
-    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), std::numeric_limits<uint64_t>::max(), imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
+    vkAcquireNextImageKHR(device->getHandle(), swapchain->getHandle(), UINT64_MAX, imageAvailableSemaphore->getHandle(), VK_NULL_HANDLE, presentQueue->getImageIndex(index));
 }
 
 void RenderWindow::present() {

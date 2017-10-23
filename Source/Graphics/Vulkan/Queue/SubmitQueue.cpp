@@ -15,10 +15,6 @@ void SubmitQueue::submit(Fence* fence) {
     VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence == nullptr ? VK_NULL_HANDLE : fence->getHandle()), "Failed to submit queue");
 }
 
-void SubmitQueue::waitIdle() {
-    VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
-}
-
 void SubmitQueue::addSignalSemaphore(Semaphore* semaphore) {
     signalSemaphores.push_back(semaphore->getHandle());
 }

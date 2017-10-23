@@ -13,7 +13,6 @@ class SubmitQueue : public Queue {
 public:
     SubmitQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
     void submit(Fence* fence = nullptr);
-    void waitIdle();
 
     void addSignalSemaphore(Semaphore* semaphore);
     void addWaitSemaphore(Semaphore* semaphore, VkPipelineStageFlags waitDstStageMask);

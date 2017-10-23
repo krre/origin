@@ -10,3 +10,7 @@ Queue::Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) : D
 void Queue::addWaitSemaphore(Semaphore* semaphore) {
     waitSemaphores.push_back(semaphore->getHandle());
 }
+
+void Queue::waitIdle() {
+    VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
+}

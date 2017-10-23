@@ -30,7 +30,7 @@ void Device::waitIdle() {
 }
 
 void Device::waitForFences(std::vector<VkFence> fences) {
-    VULKAN_CHECK_RESULT(vkWaitForFences(handle, fences.size(), fences.data(), VK_TRUE, DEFAULT_FENCE_TIMEOUT), "Failed wait for fences");
+    VULKAN_CHECK_RESULT(vkWaitForFences(handle, fences.size(), fences.data(), VK_TRUE, UINT64_MAX), "Failed wait for fences");
 }
 
 void Device::create() {

@@ -2,8 +2,6 @@
 #include "Graphics/Vulkan/Base/Handle.h"
 #include <vector>
 
-#define DEFAULT_FENCE_TIMEOUT 100000000000
-
 namespace Vulkan {
 
 class PhysicalDevice;

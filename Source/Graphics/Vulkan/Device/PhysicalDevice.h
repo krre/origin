@@ -4,6 +4,8 @@
 
 namespace Vulkan {
 
+class Surface;
+
 class PhysicalDevice : public Handle<VkPhysicalDevice> {
     friend class PhysicalDevices;
 
@@ -18,6 +20,7 @@ public:
     const std::vector<VkQueueFamilyProperties>& getQueueFamilyProperties() const { return queueFamilyProperties; }
     VkFormat getSupportedDepthFormat();
     bool getSupportBlit(VkFormat format);
+    bool getSupportSurface(Surface* surface, uint32_t queueFamilyIndex);
 
     uint32_t findQueueFamily(VkQueueFlags flags);
     uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);

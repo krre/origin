@@ -1,5 +1,6 @@
 #include "PhysicalDevice.h"
 #include "Graphics/Vulkan/Instance.h"
+#include "../Surface/Surface.h"
 
 using namespace Vulkan;
 
@@ -51,6 +52,12 @@ bool PhysicalDevice::getSupportBlit(VkFormat format) {
     }
 
     return supportsBlit;
+}
+
+bool PhysicalDevice::getSupportSurface(Surface* surface, uint32_t queueFamilyIndex) {
+    VkBool32 support;
+    VULKAN_CHECK_RESULT(vkGetPhysicalDeviceSurfaceSupportKHR(handle, queueFamilyIndex, surface->getHandle(), &support), "Failed getting physical device surface support")
+    return static_cast<bool>(support);
 }
 
 uint32_t PhysicalDevice::findQueueFamily(VkQueueFlags flags) {

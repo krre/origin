@@ -15,8 +15,8 @@ Swapchain::Swapchain(Device* device, Surface* surface) :
     createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
     createInfo.clipped = VK_TRUE;
 
-    VkBool32 surfaceSupport;
-    vkGetPhysicalDeviceSurfaceSupportKHR(device->getPhysicalDevice()->getHandle(), 0, surface->getHandle(), &surfaceSupport);
+    uint32_t queueFamilyIndex = 0; // TODO: Use real index
+    bool surfaceSupport = device->getPhysicalDevice()->getSupportSurface(surface, queueFamilyIndex);
     if (surfaceSupport) {
         createInfo.surface = surface->getHandle();
         createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;

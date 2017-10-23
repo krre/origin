@@ -40,7 +40,6 @@ static std::string resultToString(VkResult result) {
 }
 
 #define VULKAN_CHECK_RESULT(f, message) { \
-    if (!owner) return; \
     VkResult result = (f); \
     if (result != VK_SUCCESS) { \
         std::string errorMessage = std::string(message) + ": " + resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
@@ -49,7 +48,6 @@ static std::string resultToString(VkResult result) {
 }
 
 #define VULKAN_DESTROY_HANDLE(f) { \
-    if (!owner) return; \
     if (handle != VK_NULL_HANDLE) { \
         (f); \
         handle = VK_NULL_HANDLE; \

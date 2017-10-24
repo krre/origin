@@ -73,7 +73,7 @@ void ShaderProgram::createPipeline() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(Vulkan::Context::get()->getGraphicsDevice(), usage, bufferInfo->size, false);
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(Vulkan::Context::get()->getGraphicsDevice(), usage, bufferInfo->size);
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();
@@ -143,9 +143,9 @@ void ShaderProgram::bindInput(const std::string& name, uint32_t binding, uint32_
 }
 
 void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    bufferInfos.at(name).buffer->write(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
+//    bufferInfos.at(name).buffer->write(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }
 
 void ShaderProgram::readUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-    bufferInfos.at(name).buffer->read(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
+//    bufferInfos.at(name).buffer->read(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
 }

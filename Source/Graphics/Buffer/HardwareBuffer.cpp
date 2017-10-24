@@ -4,6 +4,7 @@
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
+#include <string.h>
 
 HardwareBuffer::HardwareBuffer() {
 

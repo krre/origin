@@ -1,6 +1,11 @@
 #pragma once
 #include "Control.h"
 
+namespace Vulkan {
+    class Device;
+    class Semaphore;
+}
+
 class Scene;
 
 class View : public Control {
@@ -12,8 +17,14 @@ public:
     void draw(float dt);
     void render(float dt);
     Scene* getScene() const { return scene.get(); }
+    Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
     void resize(uint32_t width, uint32_t height);
+
+protected:
+    Vulkan::Device* device;
 
 private:
     std::shared_ptr<Scene> scene;
+
+    std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
 };

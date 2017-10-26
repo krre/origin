@@ -130,7 +130,7 @@ void RenderWindow::onResize(int width, int height) {
 
 void RenderWindow::saveImage(const std::string& filePath) {
     uint32_t imageIndex = *presentQueue->getImageIndex(swapchain->getSwapchainIndex());
-    VkImage srcImage = swapchain->getImages().at(imageIndex);
+    VkImage srcImage = swapchain->getImage(imageIndex);
 
     uint32_t width = framebuffers.at(imageIndex)->getWidth();
     uint32_t height = framebuffers.at(imageIndex)->getHeight();

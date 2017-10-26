@@ -225,6 +225,12 @@ void RenderWindow::saveImage(const std::string& filePath) {
     image.getMemory()->unmap();
 }
 
+void RenderWindow::toggleFullScreen() {
+    bool isFullscreen = SDL_GetWindowFlags(handle) & SDL_WINDOW_FULLSCREEN;
+    SDL_SetWindowFullscreen(handle, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+    SDL_ShowCursor(isFullscreen);
+}
+
 void RenderWindow::acquireNextImage() {
     try {
         swapchain->acquireNextImage(imageAvailableSemaphore.get());

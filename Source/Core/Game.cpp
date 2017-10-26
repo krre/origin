@@ -77,19 +77,12 @@ void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
         break;
 #endif
     case SDLK_F10:
-        // TODO: Incorrect work
-        toggleFullScreen();
+        Application::get()->getWindow()->toggleFullScreen();
         break;
     case SDLK_F11:
         saveScreenshot();
         break;
     }
-}
-
-void Game::toggleFullScreen() {
-    bool isFullscreen = SDL_GetWindowFlags(Application::get()->getWindow()->getHandle()) & SDL_WINDOW_FULLSCREEN;
-    SDL_SetWindowFullscreen(Application::get()->getWindow()->getHandle(), isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
-    SDL_ShowCursor(isFullscreen);
 }
 
 void Game::saveScreenshot() {

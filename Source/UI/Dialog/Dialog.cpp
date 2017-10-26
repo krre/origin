@@ -7,7 +7,7 @@ Dialog::Dialog() {
     SDL_SetRelativeMouseMode(SDL_FALSE);
     int centerX = Application::get()->getWindow()->getWidth() / 2;
     int centerY = Application::get()->getWindow()->getHeight() / 2;
-    SDL_WarpMouseInWindow(Application::get()->getWindow()->getHandle(), centerX, centerY);
+//    SDL_WarpMouseInWindow(Application::get()->getWindow()->getHandle(), centerX, centerY);
 //    int posX = centerX - getSize().width / 2;
 //    int posY = centerY - getSize().height / 2;
 //    setPosition({ posX, posY });

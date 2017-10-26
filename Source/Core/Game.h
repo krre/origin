@@ -21,7 +21,6 @@ public:
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
-    void toggleFullScreen();
     void saveScreenshot();
 
     std::vector<std::shared_ptr<Screen>> screens;

@@ -38,17 +38,14 @@ public:
     void present();
 
     void saveImage(const std::string& filePath);
+    void toggleFullScreen();
 
     Vulkan::Surface* getSurface() const { return surface.get(); }
     Vulkan::Swapchain* getSwapchain() const { return swapchain.get(); }
-//    Vulkan::RenderPass* getRenderPass() const { return renderPass.get(); }
+    Vulkan::RenderPass* getRenderPass() const { return renderPass.get(); }
     Vulkan::Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
     Vulkan::PresentQueue* getPresentQueue() const { return presentQueue.get(); }
     void rebuild();
-
-    SDL_Window* getHandle() { return handle; }
-
-protected:
 
 private:
     void onMove(int x, int y);

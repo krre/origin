@@ -76,11 +76,6 @@ void CommandBuffer::addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrie
     imageMemoryBarriers.push_back(imageMemoryBarrier);
 }
 
-void CommandBuffer::setImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier) {
-    imageMemoryBarriers.clear();
-    imageMemoryBarriers.push_back(imageMemoryBarrier);
-}
-
 void CommandBuffer::clearImageMemoryBarriers() {
     imageMemoryBarriers.clear();
 }
@@ -223,7 +218,8 @@ void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask,
             break;
     }
 
-    setImageMemoryBarrier(imageMemoryBarrier);
+    clearImageMemoryBarriers();
+    addImageMemoryBarrier(imageMemoryBarrier);
     pipelineBarrier(srcStageMask, dstStageMask);
 }
 

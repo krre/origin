@@ -31,7 +31,6 @@ public:
 
     static VkImageMemoryBarrier createImageMemoryBarrier();
     void addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier);
-    void setImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier);
     void clearImageMemoryBarriers();
 
     // Commands

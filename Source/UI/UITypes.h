@@ -7,5 +7,6 @@ enum class Direction {
 
 enum class ControlType {
     USUAL,
+    VIEW2D,
     VIEW3D
 };

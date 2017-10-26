@@ -25,6 +25,5 @@ protected:
 
 private:
     std::shared_ptr<Scene> scene;
-
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
 };

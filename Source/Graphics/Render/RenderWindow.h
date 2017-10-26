@@ -62,7 +62,6 @@ private:
     std::vector<std::unique_ptr<Vulkan::ImageView>> imageViews;
     std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Vulkan::PresentQueue> presentQueue;
-    uint32_t index = 0; // Game has only one window with index 0
 
     SDL_Window* handle = nullptr;
     int x = 100;

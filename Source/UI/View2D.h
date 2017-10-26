@@ -1,7 +1,7 @@
 #pragma once
-#include "Control.h"
+#include "View.h"
 
-class View2D : public Control {
+class View2D : public View {
 
 public:
     View2D();

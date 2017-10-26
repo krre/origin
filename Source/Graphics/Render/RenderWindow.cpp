@@ -129,7 +129,7 @@ void RenderWindow::onResize(int width, int height) {
 }
 
 void RenderWindow::saveImage(const std::string& filePath) {
-    uint32_t imageIndex = *presentQueue->getImageIndex(swapchain->getIndex());
+    uint32_t imageIndex = *presentQueue->getImageIndex(swapchain->getSwapchainIndex());
     VkImage srcImage = swapchain->getImages().at(imageIndex);
 
     uint32_t width = framebuffers.at(imageIndex)->getWidth();
@@ -228,7 +228,7 @@ void RenderWindow::saveImage(const std::string& filePath) {
 
 void RenderWindow::acquireNextImage() {
     try {
-        uint32_t* imageIndex = presentQueue->getImageIndex(swapchain->getIndex());
+        uint32_t* imageIndex = presentQueue->getImageIndex(swapchain->getSwapchainIndex());
         swapchain->acquireNextImage(imageAvailableSemaphore.get(), imageIndex);
     } catch (const std::exception& ex) {
         rebuild();

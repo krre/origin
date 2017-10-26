@@ -5,7 +5,7 @@
 
 using namespace Vulkan;
 
-uint32_t Swapchain::indexCounter = 0;
+uint32_t Swapchain::swapchainCounter = 0;
 
 Swapchain::Swapchain(Device* device, Surface* surface) :
         Devicer(device),
@@ -28,8 +28,8 @@ Swapchain::Swapchain(Device* device, Surface* surface) :
         createInfo.presentMode = VK_PRESENT_MODE_MAILBOX_KHR;
     }
 
-    index = indexCounter;
-    indexCounter++;
+    swapchainIndex = swapchainCounter;
+    swapchainCounter++;
 }
 
 Swapchain::~Swapchain() {

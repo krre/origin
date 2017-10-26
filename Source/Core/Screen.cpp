@@ -31,8 +31,8 @@ void Screen::update(float dt) {
 }
 
 void Screen::render() {
-    for (const auto& view : views) {
-        RenderManager::get()->renderView(view.get());
+    for (const auto& renderView : renderViews) {
+        RenderManager::get()->renderView(renderView);
     }
 }
 
@@ -45,9 +45,19 @@ void Screen::resize(uint32_t width, uint32_t height) {
 void Screen::pushView(const std::shared_ptr<View>& view) {
     views.push_back(view);
     currentView = view.get();
+    updateRenderViews();
 }
 
 void Screen::popView() {
     views.pop_back();
     currentView = views.size() ? views.back().get() : nullptr;
+    updateRenderViews();
+}
+
+void Screen::updateRenderViews() {
+    for (const auto& view : views) {
+        for (const auto& innerView : view->getInnerViews()) {
+            renderViews.push_back(innerView);
+        }
+    }
 }

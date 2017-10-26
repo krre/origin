@@ -22,7 +22,10 @@ public:
     View* getCurrentView() const { return currentView; }
 
 private:
+    void updateRenderViews();
+
     std::vector<std::shared_ptr<View>> views;
+    std::vector<View*> renderViews;
     View* currentView = nullptr;
     bool isPaused = true;
 };

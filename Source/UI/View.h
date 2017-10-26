@@ -21,11 +21,13 @@ public:
     Scene* getScene() const { return scene.get(); }
     Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
     void resize(uint32_t width, uint32_t height);
+    const std::vector<View*> getInnerViews();
 
 protected:
     Vulkan::Device* device;
 
 private:
+    std::vector<View*> innerViews;
     std::unique_ptr<Scene> scene;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
     std::unique_ptr<Vulkan::SubmitQueue> submitQueue;

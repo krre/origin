@@ -243,6 +243,6 @@ void RenderWindow::present() {
 }
 
 void RenderWindow::rebuild() {
-    presentQueue->clearSwapchain();
+    presentQueue->clearSwapchains();
     presentQueue->addSwapchain(swapchain.get());
 }

@@ -23,7 +23,7 @@ void PresentQueue::addSwapchain(Swapchain* swapchain) {
     imageIndices.resize(swapchains.size());
 }
 
-void PresentQueue::clearSwapchain() {
+void PresentQueue::clearSwapchains() {
     swapchains.clear();
     imageIndices.clear();
 }

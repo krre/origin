@@ -12,7 +12,7 @@ public:
     PresentQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
     void present();
     void addSwapchain(Swapchain* swapchain);
-    void clearSwapchain();
+    void clearSwapchains();
     uint32_t* getImageIndex(int i);
 
 private:

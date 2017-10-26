@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Screen.h"
 
-class Scene;
+class View2D;
 
 class MenuScreen : public Screen {
 
@@ -9,5 +9,5 @@ public:
     MenuScreen();
 
 private:
-    std::shared_ptr<Scene> menuScene;
+    std::shared_ptr<View2D> menuView;
 };

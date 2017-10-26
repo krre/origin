@@ -2,11 +2,11 @@
 #include "Core/Singleton.h"
 
 class Screen;
-class Scene;
+class View;
 
 class RenderManager : public Singleton<RenderManager> {
 
 public:
     RenderManager();
-    void renderScene(Scene* scene);
+    void renderView(View* view);
 };

@@ -1,5 +1,5 @@
 #include "Screen.h"
-#include "Scene/Scene.h"
+#include "UI/View.h"
 #include "Graphics/Render/RenderManager.h"
 
 Screen::Screen() {
@@ -24,30 +24,30 @@ void Screen::show() {
 
 void Screen::update(float dt) {
     if (!isPaused) {
-        for (const auto& scene : scenes) {
-            scene->update(dt);
+        for (const auto& view : views) {
+            view->update(dt);
         }
     }
 }
 
 void Screen::render() {
-    for (const auto& scene : scenes) {
-        RenderManager::get()->renderScene(scene.get());
+    for (const auto& view : views) {
+        RenderManager::get()->renderView(view.get());
     }
 }
 
 void Screen::resize(uint32_t width, uint32_t height) {
-    for (const auto& scene : scenes) {
-        scene->resize(width, height);
+    for (const auto& view : views) {
+        view->resize(width, height);
     }
 }
 
-void Screen::pushScene(const std::shared_ptr<Scene>& scene) {
-    scenes.push_back(scene);
-    currentScene = scene.get();
+void Screen::pushView(const std::shared_ptr<View>& view) {
+    views.push_back(view);
+    currentView = view.get();
 }
 
-void Screen::popScene() {
-    scenes.pop_back();
-    currentScene = scenes.size() ? scenes.back().get() : nullptr;
+void Screen::popView() {
+    views.pop_back();
+    currentView = views.size() ? views.back().get() : nullptr;
 }

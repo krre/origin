@@ -2,7 +2,7 @@
 #include "Common.h"
 #include <vector>
 
-class Scene;
+class View;
 
 class Screen {
 
@@ -17,12 +17,12 @@ public:
     void render();
     void resize(uint32_t width, uint32_t height);
 
-    void pushScene(const std::shared_ptr<Scene>& scene);
-    void popScene();
-    Scene* getCurrentScene() const { return currentScene; }
+    void pushView(const std::shared_ptr<View>& view);
+    void popView();
+    View* getCurrentView() const { return currentView; }
 
 private:
-    std::vector<std::shared_ptr<Scene>> scenes;
-    Scene* currentScene = nullptr;
+    std::vector<std::shared_ptr<View>> views;
+    View* currentView = nullptr;
     bool isPaused = true;
 };

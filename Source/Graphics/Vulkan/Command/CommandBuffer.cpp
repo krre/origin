@@ -109,7 +109,7 @@ void CommandBuffer::end() {
     VULKAN_CHECK_RESULT(vkEndCommandBuffer(handle), "Failed to end command buffer");
 }
 
-void CommandBuffer::beginRenderPass(const VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents) {
+void CommandBuffer::beginRenderPass(VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents) {
     vkCmdBeginRenderPass(handle, renderPassBeginInfo, contents);
 }
 
@@ -134,7 +134,7 @@ void CommandBuffer::setScissor(uint32_t firstScissor) {
     vkCmdSetScissor(handle, firstScissor, scissors.size(), scissors.data());
 }
 
-void CommandBuffer::bindPipeline(const Pipeline* pipeline) {
+void CommandBuffer::bindPipeline(Pipeline* pipeline) {
     vkCmdBindPipeline(handle, pipeline->getBindPoint(), pipeline->getHandle());
 }
 

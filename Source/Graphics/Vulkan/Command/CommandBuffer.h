@@ -38,12 +38,12 @@ public:
     void begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
     void end();
     void reset();
-    void beginRenderPass(const VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents = VK_SUBPASS_CONTENTS_INLINE);
+    void beginRenderPass(VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents = VK_SUBPASS_CONTENTS_INLINE);
     void endRenderPass();
     void pipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags = 0);
     void setViewport(uint32_t firstViewport);
     void setScissor(uint32_t firstScissor);
-    void bindPipeline(const Pipeline* pipeline);
+    void bindPipeline(Pipeline* pipeline);
     void bindVertexBuffers(uint32_t firstBinding = 0);
     void bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset = 0);
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);

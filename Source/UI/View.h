@@ -26,8 +26,8 @@ protected:
     Vulkan::Device* device;
 
 private:
-    std::shared_ptr<Scene> scene; // TODO: Use unique_ptr
+    std::unique_ptr<Scene> scene;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
     std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
-    std::shared_ptr<Vulkan::CommandBuffers> commandBuffers; // TODO: Use unique_ptr
+    std::unique_ptr<Vulkan::CommandBuffers> commandBuffers;
 };

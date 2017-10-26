@@ -9,10 +9,10 @@
 #include "Graphics/Vulkan/Command/CommandBuffers.h"
 
 View::View() {
-    scene = std::make_shared<Scene>();
+    scene = std::make_unique<Scene>();
     device = Vulkan::Context::get()->getGraphicsDevice();
 
-    commandBuffers = std::make_shared<Vulkan::CommandBuffers>(device, Vulkan::Context::get()->getGraphicsCommandPool());
+    commandBuffers = std::make_unique<Vulkan::CommandBuffers>(device, Vulkan::Context::get()->getGraphicsCommandPool());
     commandBuffers->allocate(Application::get()->getWindow()->getSwapchain()->getCount());
 
     renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);

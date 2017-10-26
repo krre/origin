@@ -13,16 +13,11 @@ class SubmitQueue : public Queue {
 public:
     SubmitQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
     void submit(Fence* fence = nullptr);
-
-    void addSignalSemaphore(Semaphore* semaphore);
-    void addWaitSemaphore(Semaphore* semaphore, VkPipelineStageFlags waitDstStageMask);
-    void setWaitSemaphore(Semaphore* semaphore, VkPipelineStageFlags waitDstStageMask);
+    void addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* signalSemaphore, Semaphore* waitSemaphore, VkPipelineStageFlags waitDstStageMask);
     void addCommandBuffer(CommandBuffer* commandBuffer);
     void clearCommandBuffers();
-    void append();
 
 private:
-    VkSubmitInfo submitInfo = {};
     std::vector<VkSemaphore> signalSemaphores;
     std::vector<VkPipelineStageFlags> waitDstStageMasks;
     std::vector<VkCommandBuffer> commandBuffers;

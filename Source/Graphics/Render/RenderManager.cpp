@@ -9,10 +9,6 @@ RenderManager::RenderManager() {
 
 }
 
-void RenderManager::clearScreen(Screen* screen) {
-
-}
-
 void RenderManager::renderScene(Scene* scene) {
     if (scene->getRootControl() == nullptr) return;
 

@@ -31,8 +31,6 @@ void Screen::update(float dt) {
 }
 
 void Screen::render() {
-    RenderManager::get()->clearScreen(this);
-
     for (const auto& scene : scenes) {
         RenderManager::get()->renderScene(scene.get());
     }

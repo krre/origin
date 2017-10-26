@@ -5,8 +5,6 @@
 
 using namespace Vulkan;
 
-uint32_t Swapchain::swapchainCounter = 0;
-
 Swapchain::Swapchain(Device* device, Surface* surface) :
         Devicer(device),
         surface(surface) {
@@ -27,9 +25,6 @@ Swapchain::Swapchain(Device* device, Surface* surface) :
         createInfo.preTransform = surface->getCapabilities().currentTransform;
         createInfo.presentMode = VK_PRESENT_MODE_MAILBOX_KHR;
     }
-
-    swapchainIndex = swapchainCounter;
-    swapchainCounter++;
 }
 
 Swapchain::~Swapchain() {
@@ -50,6 +45,10 @@ void Swapchain::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
 }
 
-void Swapchain::acquireNextImage(Semaphore* semaphore, uint32_t* imageIndex) {
-    VULKAN_CHECK_RESULT(vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, imageIndex), "Failed to acquire next image")
+void Swapchain::acquireNextImage(Semaphore* semaphore) {
+    VULKAN_CHECK_RESULT(vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, pImageIndex), "Failed to acquire next image")
+}
+
+void Swapchain::setImageIndexPtr(uint32_t* pImageIndex) {
+    this->pImageIndex = pImageIndex;
 }

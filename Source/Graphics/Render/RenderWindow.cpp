@@ -129,11 +129,10 @@ void RenderWindow::onResize(int width, int height) {
 }
 
 void RenderWindow::saveImage(const std::string& filePath) {
-    uint32_t imageIndex = *presentQueue->getImageIndex(swapchain->getSwapchainIndex());
-    VkImage srcImage = swapchain->getImage(imageIndex);
+    VkImage srcImage = swapchain->getCurrentImage();
 
-    uint32_t width = framebuffers.at(imageIndex)->getWidth();
-    uint32_t height = framebuffers.at(imageIndex)->getHeight();
+    uint32_t width = surface->getCurrentExtent().width;
+    uint32_t height = surface->getCurrentExtent().height;
 
     Vulkan::Image image(device);
     image.setWidth(width);
@@ -228,8 +227,7 @@ void RenderWindow::saveImage(const std::string& filePath) {
 
 void RenderWindow::acquireNextImage() {
     try {
-        uint32_t* imageIndex = presentQueue->getImageIndex(swapchain->getSwapchainIndex());
-        swapchain->acquireNextImage(imageAvailableSemaphore.get(), imageIndex);
+        swapchain->acquireNextImage(imageAvailableSemaphore.get());
     } catch (const std::exception& ex) {
         rebuild();
     }

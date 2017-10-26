@@ -20,15 +20,15 @@ public:
     VkImage getImage(size_t i) const { return images.at(i); }
     const std::vector<VkImage>& getImages() const { return images; }
     VkFormat getImageFormat() const { return createInfo.imageFormat; }
-    void acquireNextImage(Semaphore* semaphore, uint32_t* imageIndex);
-    uint32_t getSwapchainIndex() const { return swapchainIndex; }
+    void acquireNextImage(Semaphore* semaphore);
+    void setImageIndexPtr(uint32_t* pImageIndex);
+    VkImage getCurrentImage() const { return images.at(*pImageIndex); }
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};
     Surface* surface;
     std::vector<VkImage> images;
-    static uint32_t swapchainCounter;
-    uint32_t swapchainIndex;
+    uint32_t* pImageIndex;
 };
 
 } // Vulkan

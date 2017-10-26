@@ -9,26 +9,27 @@ PresentQueue::PresentQueue(Device* device, uint32_t queueFamilyIndex, uint32_t q
 }
 
 void PresentQueue::present() {
-    assert(!swapchains.empty());
+    assert(!swapchainHandles.empty());
     presentInfo.waitSemaphoreCount = waitSemaphores.size();
     presentInfo.pWaitSemaphores = waitSemaphores.data();
-    presentInfo.swapchainCount = swapchains.size();
-    presentInfo.pSwapchains = swapchains.data();
+    presentInfo.swapchainCount = swapchainHandles.size();
+    presentInfo.pSwapchains = swapchainHandles.data();
     presentInfo.pImageIndices = imageIndices.data();
     VULKAN_CHECK_RESULT(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
 }
 
 void PresentQueue::addSwapchain(Swapchain* swapchain) {
-    swapchains.push_back(swapchain->getHandle());
-    imageIndices.resize(swapchains.size());
+    swapchainHandles.push_back(swapchain->getHandle());
+    swapchains.push_back(swapchain);
+    imageIndices.resize(swapchainHandles.size());
+
+    for (int i = 0; i < swapchains.size(); i++) {
+        swapchains.at(i)->setImageIndexPtr(&imageIndices.at(i));
+    }
 }
 
 void PresentQueue::clearSwapchains() {
+    swapchainHandles.clear();
     swapchains.clear();
     imageIndices.clear();
-}
-
-uint32_t* PresentQueue::getImageIndex(int i) {
-    assert(!imageIndices.empty() && i < imageIndices.size());
-    return &imageIndices[i];
 }

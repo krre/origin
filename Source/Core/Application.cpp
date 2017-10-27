@@ -98,10 +98,8 @@ void Application::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        window->acquireNextImage();
         Game::get()->update(frameTime);
         Game::get()->render();
-        window->present();
     }
 }
 

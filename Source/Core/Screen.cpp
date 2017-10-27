@@ -1,6 +1,8 @@
 #include "Screen.h"
 #include "UI/View.h"
 #include "Graphics/Render/RenderManager.h"
+#include "Core/Application.h"
+#include "Graphics/Render/RenderWindow.h"
 
 Screen::Screen() {
 
@@ -31,9 +33,13 @@ void Screen::update(float dt) {
 }
 
 void Screen::render() {
+    Application::get()->getWindow()->acquireNextImage();
+
     for (const auto& renderView : renderViews) {
         RenderManager::get()->renderView(renderView);
     }
+
+    Application::get()->getWindow()->present();
 }
 
 void Screen::resize(uint32_t width, uint32_t height) {
@@ -55,9 +61,13 @@ void Screen::popView() {
 }
 
 void Screen::updateRenderViews() {
-    for (const auto& view : views) {
+    for (const auto view : views) {
         for (const auto& innerView : view->getInnerViews()) {
             renderViews.push_back(innerView);
         }
+    }
+
+    for (auto* renderView : renderViews) {
+        PRINT(renderView)
     }
 }

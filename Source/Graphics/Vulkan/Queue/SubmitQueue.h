@@ -13,7 +13,7 @@ class SubmitQueue : public Queue {
 public:
     SubmitQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
     void submit(Fence* fence = nullptr);
-    void addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* signalSemaphore, Semaphore* waitSemaphore, VkPipelineStageFlags waitDstStageMask);
+    void addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* waitSemaphore, VkPipelineStageFlags waitDstStageMask, Semaphore* signalSemaphore);
     void addCommandBuffer(CommandBuffer* commandBuffer);
     void clearCommandBuffers();
 

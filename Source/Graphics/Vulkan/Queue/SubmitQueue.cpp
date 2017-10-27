@@ -13,7 +13,7 @@ void SubmitQueue::submit(Fence* fence) {
     VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence == nullptr ? VK_NULL_HANDLE : fence->getHandle()), "Failed to submit queue");
 }
 
-void SubmitQueue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* signalSemaphore, Semaphore* waitSemaphore, VkPipelineStageFlags waitDstStageMask) {
+void SubmitQueue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* waitSemaphore, VkPipelineStageFlags waitDstStageMask, Semaphore* signalSemaphore) {
     commandBuffers.push_back(commandBuffer->getHandle());
     signalSemaphores.push_back(signalSemaphore->getHandle());
     waitSemaphores.push_back(waitSemaphore->getHandle());

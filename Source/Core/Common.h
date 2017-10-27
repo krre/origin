@@ -14,9 +14,9 @@ using EntityId = uint64_t;
 
 struct Size {
     Size() = default;
-    Size(int width, int height) : width(width), height(height) {}
-    int width;
-    int height;
+    Size(uint32_t width, uint32_t height) : width(width), height(height) {}
+    uint32_t width;
+    uint32_t height;
 };
 
 struct Pos2 {

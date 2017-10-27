@@ -9,10 +9,10 @@ void LinearLayout::updateContentPostion() {
     int i = 0;
     for (const auto& control : controls) {
         if (direction == Direction::VERICAL) {
-            control->setPosition({ position.x, position.y + i * (control->getSize().width + spacing) });
+            control->setPosition({ position.x, position.y + i * ((int)control->getSize().width + spacing) });
             i++;
         } else {
-            control->setPosition({ position.x + i * (control->getSize().height + spacing), position.y });
+            control->setPosition({ position.x + i * ((int)control->getSize().height + spacing), position.y });
             i++;
         }
     }

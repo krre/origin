@@ -35,7 +35,7 @@ DebugHUD::~DebugHUD() {
 
 }
 
-void DebugHUD::init() {
+//void DebugHUD::init() {
 //    std::shared_ptr<Rectangle> rect = std::make_shared<Rectangle>(Size(300, 200));
 //    rect->setColor(Color(0.0, 0.0, 0.0, 0.5));
 //    setRootControl(rect);
@@ -81,10 +81,10 @@ void DebugHUD::init() {
 
 //    buildCommandBuffers();
 
-    ubo.model = glm::translate(ubo.model, glm::vec3(7, 5, 0));
-    float scale = 0.5;
-    ubo.model = glm::scale(ubo.model, glm::vec3(scale, scale, scale));
-}
+//    ubo.model = glm::translate(ubo.model, glm::vec3(7, 5, 0));
+//    float scale = 0.5;
+//    ubo.model = glm::scale(ubo.model, glm::vec3(scale, scale, scale));
+//}
 
 void DebugHUD::update(float dt) {
     accumTime += dt;
@@ -115,7 +115,7 @@ void DebugHUD::update(float dt) {
 //        text += pos;
 //    }
 
-    font->renderText(vertexBuffer.get(), indexBuffer.get(), text);
+//    font->renderText(vertexBuffer.get(), indexBuffer.get(), text);
 
     displayLabel->setText(text);
 }
@@ -165,7 +165,7 @@ void DebugHUD::trigger() {
 //    commandBuffer->endRenderPass();
 //}
 
-void DebugHUD::onWindowResize(int width, int height) {
-    ubo.projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
+//void DebugHUD::onWindowResize(int width, int height) {
+//    ubo.projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 //    shaderProgram.writeUniform("ubo");
-}
+//}

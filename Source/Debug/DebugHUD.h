@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "Scene/Scene2D.h"
+#include "UI/View2D.h"
 #include "Graphics/Vulkan/Pipeline/PipelineCache.h"
 #include "Graphics/ShaderProgram.h"
 #include "Graphics/Vulkan/Sampler.h"
@@ -12,7 +12,7 @@ const int MAX_CHAR_COUNT = 2048;
 class Label;
 class Font;
 
-class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
+class DebugHUD : public Singleton<DebugHUD>, public View2D {
 
     struct UBO {
         glm::mat4 projection = glm::mat4(1.0);
@@ -22,14 +22,13 @@ class DebugHUD : public Singleton<DebugHUD>, public Scene2D {
 public:
     DebugHUD();
     ~DebugHUD();
-    void init() override;
     void update(float dt);
     void trigger();
 
 private:
     void create();
 //    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
-    void onWindowResize(int width, int height) override;
+//    void onWindowResize(int width, int height) override;
 
 //    Vulkan::PipelineCache pipelineCache;
 //    Vulkan::RenderPass renderPass;

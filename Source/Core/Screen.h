@@ -3,6 +3,7 @@
 #include <vector>
 
 class View;
+class RenderWindow;
 
 namespace Vulkan {
     class Device;
@@ -38,6 +39,7 @@ private:
     std::vector<View*> renderViews;
     View* currentView = nullptr;
     bool isPaused = true;
+    RenderWindow* window = nullptr;
 
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;

@@ -9,12 +9,14 @@
 #include "Graphics/Vulkan/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
+#include "Graphics/Vulkan/Queue/PresentQueue.h"
 
 Screen::Screen() {
+    window = Application::get()->getWindow();
     device = Vulkan::Context::get()->getGraphicsDevice();
 
     commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, Vulkan::Context::get()->getGraphicsCommandPool());
-    commandBufferHandlers->allocate(Application::get()->getWindow()->getSwapchain()->getCount());
+    commandBufferHandlers->allocate(window->getSwapchain()->getCount());
 
     for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
         auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
@@ -23,9 +25,11 @@ Screen::Screen() {
 
     renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();
+    window->getPresentQueue()->addWaitSemaphore(renderFinishedSemaphore.get());
 
     submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
     submitQueue->create();
+    submitQueue->addWaitSemaphore(window->getImageAvailableSemaphore());
 }
 
 Screen::~Screen() {
@@ -55,14 +59,14 @@ void Screen::update(float dt) {
 }
 
 void Screen::render() {
-    Application::get()->getWindow()->acquireNextImage();
+    window->acquireNextImage();
 
     submitQueue->clearCommandBuffers();
-    uint32_t imageIndex = Application::get()->getWindow()->getSwapchain()->getImageIndex();
-    submitQueue->addCommandBuffer(commandBuffers.at(imageIndex).get());
+    uint32_t imageIndex = window->getSwapchain()->getImageIndex();
+    submitQueue->addCommandBuffer(commandBuffers.at(imageIndex).get(), renderFinishedSemaphore.get(), Application::get()->getWindow()->getImageAvailableSemaphore(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
 //    submitQueue->submit();
 
-    Application::get()->getWindow()->present();
+    window->present();
 }
 
 void Screen::resize(uint32_t width, uint32_t height) {

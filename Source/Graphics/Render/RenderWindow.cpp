@@ -240,10 +240,7 @@ void RenderWindow::acquireNextImage() {
 }
 
 void RenderWindow::present() {
-    // TODO: Temporaty disable on Linux.
-#ifndef OS_LINUX
     presentQueue->present();
-#endif
 }
 
 void RenderWindow::rebuild() {

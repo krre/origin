@@ -88,6 +88,7 @@ void Screen::popView() {
 }
 
 void Screen::updateRenderViews() {
+    renderViews.clear();
     for (const auto view : views) {
         for (const auto& innerView : view->getInnerViews()) {
             renderViews.push_back(innerView);

@@ -3,6 +3,7 @@
 
 namespace Vulkan {
     class Device;
+    class CommandBuffer;
 }
 
 class Scene;
@@ -18,6 +19,7 @@ public:
     Scene* getScene() const { return scene.get(); }
     void resize(uint32_t width, uint32_t height);
     const std::vector<View*> getInnerViews();
+    virtual void writeCommands(Vulkan::CommandBuffer* commandBuffer) = 0;
 
 protected:
     Vulkan::Device* device;

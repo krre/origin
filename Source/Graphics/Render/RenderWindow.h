@@ -45,6 +45,7 @@ public:
     Vulkan::RenderPass* getRenderPass() const { return renderPass.get(); }
     Vulkan::Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
     Vulkan::PresentQueue* getPresentQueue() const { return presentQueue.get(); }
+    Vulkan::Framebuffer* getFrameBuffer(size_t i) { return framebuffers.at(i).get(); }
     void rebuild();
 
 private:

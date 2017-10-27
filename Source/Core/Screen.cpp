@@ -10,6 +10,8 @@
 #include "Graphics/Vulkan/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
 #include "Graphics/Vulkan/Queue/PresentQueue.h"
+#include "Graphics/Vulkan/RenderPass.h"
+#include "Graphics/Vulkan/Framebuffer.h"
 
 Screen::Screen() {
     window = Application::get()->getWindow();
@@ -33,7 +35,7 @@ Screen::Screen() {
 }
 
 Screen::~Screen() {
-
+    submitQueue->waitIdle();
 }
 
 void Screen::hide() {
@@ -95,7 +97,54 @@ void Screen::updateRenderViews() {
         }
     }
 
+    Vulkan::RenderPass* renderPass = window->getRenderPass();
+    renderPass->setClearValue({ 1.0, 0.0, 0.0, 0.0 });
+
     for (auto* renderView : renderViews) {
-        PRINT(renderView)
+        for (int i = 0; i < commandBuffers.size(); i++) {
+            renderPass->setFramebuffer(window->getFrameBuffer(i)->getHandle());
+
+            Vulkan::CommandBuffer* commandBuffer = commandBuffers.at(i).get();
+            commandBuffer->reset();
+            commandBuffer->begin();
+
+            VkExtent2D extent = { renderView->getSize().width, renderView->getSize().height };
+
+            VkViewport viewport = {};
+            viewport.width = extent.width;
+            viewport.height = extent.height;
+            viewport.maxDepth = 1.0;
+
+            VkRect2D scissor = {};
+            scissor.offset = { 0, 0 };
+            scissor.extent = extent;
+
+            renderPass->setExtent(extent);
+            commandBuffer->beginRenderPass(renderPass->getBeginInfo());
+
+            //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
+
+            commandBuffer->addViewport(viewport);
+            commandBuffer->setViewport(0);
+
+            commandBuffer->addScissor(scissor);
+            commandBuffer->setScissor(0);
+
+            //    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+            //    commandBuffer->bindVertexBuffers();
+            //    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
+
+            //    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
+            //        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
+            //    }
+            //    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
+            //    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
+
+            commandBuffer->endRenderPass();
+
+            renderView->writeCommands(commandBuffer);
+
+            commandBuffer->end();
+        }
     }
 }

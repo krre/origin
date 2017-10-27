@@ -19,7 +19,7 @@ public:
     void addClearValue(VkClearValue clearValue);
     void setClearValue(VkClearValue clearValue);
     void setExtent(VkExtent2D extent);
-    const VkRenderPassBeginInfo* getBeginInfo() const { return &beginInfo; }
+    VkRenderPassBeginInfo* getBeginInfo() { return &beginInfo; }
     void setFramebuffer(VkFramebuffer framebuffer);
 
 private:

@@ -4,10 +4,20 @@
 
 class View;
 
+namespace Vulkan {
+    class Device;
+    class Semaphore;
+    class SubmitQueue;
+    class CommandBuffer;
+    class CommandBuffers;
+}
+
+
 class Screen {
 
 public:
     Screen();
+    ~Screen();
     virtual void hide();
     virtual void pause();
     virtual void resume();
@@ -28,4 +38,10 @@ private:
     std::vector<View*> renderViews;
     View* currentView = nullptr;
     bool isPaused = true;
+
+    Vulkan::Device* device;
+    std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
+    std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
+    std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;
+    std::vector<std::unique_ptr<Vulkan::CommandBuffer>> commandBuffers;
 };

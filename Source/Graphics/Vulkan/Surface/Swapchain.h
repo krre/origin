@@ -23,6 +23,7 @@ public:
     void acquireNextImage(Semaphore* semaphore);
     void setImageIndexPtr(uint32_t* pImageIndex);
     VkImage getCurrentImage() const { return images.at(*pImageIndex); }
+    uint32_t getImageIndex() const { return *pImageIndex; }
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};

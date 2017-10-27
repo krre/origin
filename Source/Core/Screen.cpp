@@ -25,10 +25,8 @@ void Screen::show() {
 }
 
 void Screen::update(float dt) {
-    if (!isPaused) {
-        for (const auto& view : views) {
-            view->update(dt);
-        }
+    for (auto* renderView : renderViews) {
+        renderView->update(dt);
     }
 }
 

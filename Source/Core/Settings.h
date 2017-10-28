@@ -1,6 +1,9 @@
 #pragma once
 #include "Singleton.h"
 #include <map>
+#include <json/json.hpp>
+
+using json = nlohmann::json;
 
 class Settings : public Singleton<Settings> {
 
@@ -15,5 +18,5 @@ private:
     void setDefaultSettings();
 
     std::string path;
-    std::map<std::string, std::string> storage;
+    json storage;
 };

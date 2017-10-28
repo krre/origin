@@ -15,6 +15,7 @@
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Graphics/Vulkan/Context.h"
+#include "Graphics/Vulkan/Instance.h"
 #include <string>
 #include <SDL_timer.h>
 #include <algorithm>
@@ -32,7 +33,6 @@ Application::~Application() {
     Game::get()->release();
     Input::get()->release();
     DebugHUD::get()->release();
-    DebugEnvironment::get()->release();
     ResourceManager::get()->release();
     RendererSet::get()->release();
     window.reset();
@@ -41,6 +41,7 @@ Application::~Application() {
     SDLWrapper::get()->release();
     Context::get()->release();
     Event::get()->release();
+    DebugEnvironment::get()->release();
     Logger::get()->release();
     Settings::get()->release();
 }
@@ -54,20 +55,36 @@ void Application::init() {
         // Order is important
         new Settings;
         new Logger;
+        new DebugEnvironment;
         new Event;
         new Context;
 
         new SDLWrapper;
         SDLWrapper::get()->init();
 
-        new Vulkan::Context;
+        if (DebugEnvironment::get()->getEnable()) {
+            Vulkan::ContextProperties properties = {};
+
+            new Vulkan::Context(properties);
+            bool dumpLayers = DebugEnvironment::get()->getVulkanSettings()["dumpLayers"];
+            if(dumpLayers) {
+                Vulkan::Context::get()->getInstance()->dumpLayers();
+            }
+
+            bool dumpExtensions = DebugEnvironment::get()->getVulkanSettings()["dumpExtensions"];
+            if(dumpExtensions) {
+                Vulkan::Context::get()->getInstance()->dumpExtensions();
+            }
+        } else {
+            new Vulkan::Context;
+        }
+
         new RenderManager;
 
         window = std::make_unique<RenderWindow>();
 
         new RendererSet;
         new ResourceManager;
-        new DebugEnvironment;
         new DebugHUD;
         new Input;
         new Game;

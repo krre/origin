@@ -12,8 +12,8 @@ public:
     std::string getValue(const std::string& key) const;
     bool getEnable() const { return enable; }
     void setDebugScreen();
-    const getMainSettings() const { return mainSettings; }
-    const getVulkanSettings() const { return vulkanSettings; }
+    const json& getMainSettings() const { return mainSettings; }
+    const json& getVulkanSettings() const { return vulkanSettings; }
 
 private:
     void loadValues();

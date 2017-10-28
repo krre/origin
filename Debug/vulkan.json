@@ -1,4 +1,4 @@
 {
-    "dumpLayers" : "false",
-    "dumpExtensions" : "false"
+    "dumpLayers" : false,
+    "dumpExtensions" : false
 }

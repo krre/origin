@@ -1,4 +1,6 @@
 {
     "dumpLayers" : false,
-    "dumpExtensions" : false
+    "dumpExtensions" : false,
+    "layers": ["VK_LAYER_LUNARG_core_validation"],
+    "extensions": []
 }

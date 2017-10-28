@@ -64,6 +64,13 @@ void Application::init() {
 
         if (DebugEnvironment::get()->getEnable()) {
             Vulkan::ContextProperties properties = {};
+            for (auto& layer : DebugEnvironment::get()->getVulkan()["layers"]) {
+                properties.layers.push_back(layer.get<std::string>().c_str());
+            }
+
+            for (auto& layer : DebugEnvironment::get()->getVulkan()["extensions"]) {
+                properties.extensions.push_back(layer.get<std::string>().c_str());
+            }
 
             new Vulkan::Context(properties);
             bool dumpLayers = DebugEnvironment::get()->getVulkan()["dumpLayers"];

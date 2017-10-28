@@ -12,20 +12,8 @@ DebugEnvironment::DebugEnvironment() {
 #endif
 }
 
-void DebugEnvironment::setValue(const std::string& key, const std::string& value) {
-    mainSettings[key] = value;
-}
-
-std::string DebugEnvironment::getValue(const std::string& key) const {
-    if (mainSettings.find(key) != mainSettings.end()) {
-        return mainSettings[key];
-    } else {
-        return std::string();
-    }
-}
-
 void DebugEnvironment::setDebugScreen() {
-    const std::string& screenName = getValue("screen");
+    const std::string& screenName = mainSettings["screen"];
     if (!screenName.empty()) {
         if (screenName == "menu") {
             Game::get()->setScreen(std::make_shared<MenuScreen>());
@@ -37,10 +25,6 @@ void DebugEnvironment::setDebugScreen() {
     } else {
         Game::get()->setScreen(std::make_shared<MenuScreen>());
     }
-
-    if (getValue("debugHUD") == "true") {
-//        DebugHUD::get()->setVisible(true);
-    }
 }
 
 void DebugEnvironment::loadValues() {
@@ -48,7 +32,7 @@ void DebugEnvironment::loadValues() {
     std::string mainText = Utils::readTextFile(mainPath);
     mainSettings = json::parse(mainText);
 
-    enable = getValue("enable") == "true";
+    enable = mainSettings["enable"];
 
     std::string vulkanPath = Application::getCurrentPath() + "/Debug/vulkan.json";
     std::string vulkanText = Utils::readTextFile(vulkanPath);

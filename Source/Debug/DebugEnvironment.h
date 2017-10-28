@@ -8,12 +8,10 @@ class DebugEnvironment : public Singleton<DebugEnvironment> {
 
 public:
     DebugEnvironment();
-    void setValue(const std::string& key, const std::string& value);
-    std::string getValue(const std::string& key) const;
     bool getEnable() const { return enable; }
     void setDebugScreen();
-    const json& getMainSettings() const { return mainSettings; }
-    const json& getVulkanSettings() const { return vulkanSettings; }
+    json& getMain() { return mainSettings; }
+    json& getVulkan() { return vulkanSettings; }
 
 private:
     void loadValues();

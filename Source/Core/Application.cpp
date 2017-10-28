@@ -66,12 +66,12 @@ void Application::init() {
             Vulkan::ContextProperties properties = {};
 
             new Vulkan::Context(properties);
-            bool dumpLayers = DebugEnvironment::get()->getVulkanSettings()["dumpLayers"];
+            bool dumpLayers = DebugEnvironment::get()->getVulkan()["dumpLayers"];
             if(dumpLayers) {
                 Vulkan::Context::get()->getInstance()->dumpLayers();
             }
 
-            bool dumpExtensions = DebugEnvironment::get()->getVulkanSettings()["dumpExtensions"];
+            bool dumpExtensions = DebugEnvironment::get()->getVulkan()["dumpExtensions"];
             if(dumpExtensions) {
                 Vulkan::Context::get()->getInstance()->dumpExtensions();
             }

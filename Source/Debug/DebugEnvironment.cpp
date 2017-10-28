@@ -13,12 +13,12 @@ DebugEnvironment::DebugEnvironment() {
 }
 
 void DebugEnvironment::setValue(const std::string& key, const std::string& value) {
-    mainStorage[key] = value;
+    mainSettings[key] = value;
 }
 
 std::string DebugEnvironment::getValue(const std::string& key) const {
-    if (mainStorage.find(key) != mainStorage.end()) {
-        return mainStorage[key];
+    if (mainSettings.find(key) != mainSettings.end()) {
+        return mainSettings[key];
     } else {
         return std::string();
     }
@@ -46,11 +46,11 @@ void DebugEnvironment::setDebugScreen() {
 void DebugEnvironment::loadValues() {
     std::string mainPath = Application::getCurrentPath() + "/Debug/main.json";
     std::string mainText = Utils::readTextFile(mainPath);
-    mainStorage = json::parse(mainText);
+    mainSettings = json::parse(mainText);
 
     enable = getValue("enable") == "true";
 
     std::string vulkanPath = Application::getCurrentPath() + "/Debug/vulkan.json";
     std::string vulkanText = Utils::readTextFile(vulkanPath);
-    vulkanStorage = json::parse(vulkanText);
+    vulkanSettings = json::parse(vulkanText);
 }

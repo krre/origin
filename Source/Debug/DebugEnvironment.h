@@ -12,10 +12,12 @@ public:
     std::string getValue(const std::string& key) const;
     bool getEnable() const { return enable; }
     void setDebugScreen();
+    const getMainSettings() const { return mainSettings; }
+    const getVulkanSettings() const { return vulkanSettings; }
 
 private:
     void loadValues();
     bool enable = false;
-    json mainStorage;
-    json vulkanStorage;
+    json mainSettings;
+    json vulkanSettings;
 };

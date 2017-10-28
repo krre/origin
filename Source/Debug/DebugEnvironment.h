@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/Singleton.h"
-#include <map>
+#include <json/json.hpp>
+
+using json = nlohmann::json;
 
 class DebugEnvironment : public Singleton<DebugEnvironment> {
 
@@ -14,5 +16,5 @@ public:
 private:
     void loadValues();
     bool enable = false;
-    std::map<std::string, std::string> values;
+    json mainStorage;
 };

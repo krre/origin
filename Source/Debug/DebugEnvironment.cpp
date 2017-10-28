@@ -13,12 +13,12 @@ DebugEnvironment::DebugEnvironment() {
 }
 
 void DebugEnvironment::setValue(const std::string& key, const std::string& value) {
-    values[key] = value;
+    mainStorage[key] = value;
 }
 
 std::string DebugEnvironment::getValue(const std::string& key) const {
-    if (values.find(key) != values.end()) {
-        return values.at(key);
+    if (mainStorage.find(key) != mainStorage.end()) {
+        return mainStorage[key];
     } else {
         return std::string();
     }
@@ -44,24 +44,9 @@ void DebugEnvironment::setDebugScreen() {
 }
 
 void DebugEnvironment::loadValues() {
-    std::string mainDebugPath = Application::getCurrentPath() + "/Debug/main.debug";
-    std::string mainDebugText = Utils::readTextFile(mainDebugPath);
-    std::stringstream stream(mainDebugText);
-    std::string line;
-
-    while (std::getline(stream, line, '\n')) {
-        line.erase(remove_if(line.begin(), line.end(), isspace), line.end());
-
-        // Ignore empty strings and strings with first '#' symbol
-        if (line.size() && line.at(0) != '#') {
-            std::vector<std::string> pair = Utils::split(line, '=');
-            if (pair.size() != 2) {
-                throw std::runtime_error("Failed to parse main.debug at line: " + line);
-            } else {
-                values[pair.at(0)] = pair.at(1);
-            }
-        }
-    }
+    std::string mainPath = Application::getCurrentPath() + "/Debug/main.json";
+    std::string mainText = Utils::readTextFile(mainPath);
+    mainStorage = json::parse(mainText);
 
     enable = getValue("enable") == "true";
 }

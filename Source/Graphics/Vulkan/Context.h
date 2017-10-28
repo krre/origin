@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Singleton.h"
+#include <vector>
 
 namespace Vulkan {
 
@@ -8,10 +9,16 @@ class PhysicalDevices;
 class Device;
 class CommandPool;
 
+struct ContextProperties {
+    std::vector<const char*> layers;
+    std::vector<const char*> extensions;
+};
+
 class Context : public Singleton<Context> {
 
 public:
     Context();
+    Context(const ContextProperties& properties);
     ~Context();
     Vulkan::Instance* getInstance() const { return instance.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
@@ -22,6 +29,8 @@ public:
     Vulkan::CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
 
 private:
+    void createAll();
+
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
     std::unique_ptr<Vulkan::Device> graphicsDevice;

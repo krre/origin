@@ -10,7 +10,34 @@ using namespace Vulkan;
 Context::Context() {
     instance = std::make_unique<Vulkan::Instance>();
     instance->create();
+    createAll();
+}
 
+Context::Context(const ContextProperties& properties) {
+    instance = std::make_unique<Vulkan::Instance>();
+
+    if (properties.layers.size()) {
+        instance->setEnabledLayers(properties.layers);
+    }
+
+    if (properties.extensions.size()) {
+        instance->setEnabledExtensions(properties.extensions);
+    }
+
+    instance->create();
+    createAll();
+}
+
+Context::~Context() {
+    if (graphicsDevice) {
+        graphicsDevice->waitIdle();
+    }
+    if (computeDevice) {
+        computeDevice->waitIdle();
+    }
+}
+
+void Context::createAll() {
     physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance.get());
 
     // Create graphics logical device and command pool
@@ -40,13 +67,4 @@ Context::Context() {
 
     computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
     computeCommandPool->create();
-}
-
-Context::~Context() {
-    if (graphicsDevice) {
-        graphicsDevice->waitIdle();
-    }
-    if (computeDevice) {
-        computeDevice->waitIdle();
-    }
 }

@@ -49,4 +49,8 @@ void DebugEnvironment::loadValues() {
     mainStorage = json::parse(mainText);
 
     enable = getValue("enable") == "true";
+
+    std::string vulkanPath = Application::getCurrentPath() + "/Debug/vulkan.json";
+    std::string vulkanText = Utils::readTextFile(vulkanPath);
+    vulkanStorage = json::parse(vulkanText);
 }

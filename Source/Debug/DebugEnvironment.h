@@ -17,4 +17,5 @@ private:
     void loadValues();
     bool enable = false;
     json mainStorage;
+    json vulkanStorage;
 };

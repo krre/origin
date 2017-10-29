@@ -64,6 +64,7 @@ void Application::init() {
 
         if (DebugEnvironment::get()->getEnable()) {
             Vulkan::ContextProperties properties = {};
+
             if (DebugEnvironment::get()->getVulkan()["useLayers"]) {
                 for (auto& layer : DebugEnvironment::get()->getVulkan()["layers"]) {
                     properties.layers.push_back(layer.get<std::string>().c_str());
@@ -77,6 +78,7 @@ void Application::init() {
             }
 
             new Vulkan::Context(properties);
+
             bool dumpLayers = DebugEnvironment::get()->getVulkan()["dumpLayers"];
             if(dumpLayers) {
                 Vulkan::Context::get()->getInstance()->dumpLayers();
@@ -128,6 +130,7 @@ void Application::run() {
 
         Game::get()->update(frameTime);
         Game::get()->render();
+//        PRINT(frameTime << " " << 1 / frameTime)
     }
 }
 

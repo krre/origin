@@ -32,17 +32,20 @@ RenderWindow::RenderWindow() {
     int screenWidth = SDLWrapper::get()->getScreenSize().width;
     int screenHeight = SDLWrapper::get()->getScreenSize().height;
 
-    std::string settingsWidth = Settings::get()->getValue("width");
-    std::string settingsHeigth = Settings::get()->getValue("height");
+    auto settingsWidth = Settings::get()->getStorage()["width"];
+    auto settingsHeigth = Settings::get()->getStorage()["height"];
 
-    width = settingsWidth.empty() ? WINDOW_WIDTH : std::stoi(settingsWidth);
-    height = settingsHeigth.empty() ? WINDOW_HEIGHT : std::stoi(settingsHeigth);
+    width = settingsWidth.is_null() ? WINDOW_WIDTH : settingsWidth.get<int>();
+    height = settingsHeigth.is_null() ? WINDOW_HEIGHT : settingsHeigth.get<int>();
 
-    std::string settingsX = Settings::get()->getValue("x");
-    std::string settingsY = Settings::get()->getValue("y");
+    auto settingsX = Settings::get()->getStorage()["x"];
+    auto settingsY = Settings::get()->getStorage()["y"];
 
-    x = settingsX.empty() ? (screenWidth - width) / 2 : std::stoi(settingsX);
-    y = settingsY.empty() ? (screenHeight - height) / 2 : std::stoi(settingsY);
+    x = settingsX.is_null() ? (screenWidth - width) / 2 : settingsX.get<int>();
+    y = settingsY.is_null() ? (screenHeight - height) / 2 : settingsY.get<int>();
+
+    width = WINDOW_WIDTH;
+    height = WINDOW_HEIGHT;
 
     // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
     // then divide it on 2
@@ -115,8 +118,8 @@ void RenderWindow::show() {
 }
 
 void RenderWindow::onMove(int x, int y) {
-    Settings::get()->setValue("x", std::to_string(x));
-    Settings::get()->setValue("y", std::to_string(y));
+    Settings::get()->getStorage()["x"] = x;
+    Settings::get()->getStorage()["y"] = y;
 }
 
 void RenderWindow::onResize(int width, int height) {
@@ -124,8 +127,8 @@ void RenderWindow::onResize(int width, int height) {
 //        SceneManager::get()->rebuild();
     }
 
-    Settings::get()->setValue("width", std::to_string(width));
-    Settings::get()->setValue("height", std::to_string(height));
+    Settings::get()->getStorage()["width"] = width;
+    Settings::get()->getStorage()["height"] = height;
 }
 
 void RenderWindow::saveImage(const std::string& filePath) {

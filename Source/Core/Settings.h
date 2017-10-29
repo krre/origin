@@ -9,9 +9,8 @@ class Settings : public Singleton<Settings> {
 public:
     Settings();
     ~Settings();
-    void setValue(const std::string& name, const std::string& value);
-    std::string getValue(const std::string& name);
     void saveAll();
+    json& getStorage() { return storage; }
 
 private:
     void setDefaultSettings();

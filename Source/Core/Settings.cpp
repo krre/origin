@@ -21,18 +21,6 @@ Settings::~Settings() {
     saveAll();
 }
 
-void Settings::setValue(const std::string& name, const std::string& value) {
-    storage[name] = value;
-}
-
-std::string Settings::getValue(const std::string& name) {
-    if (storage.find(name) != storage.end()) {
-        return storage[name];
-    } else {
-        return std::string();
-    }
-}
-
 void Settings::saveAll() {
     std::ofstream out(path);
     std::string text = storage.dump(4);

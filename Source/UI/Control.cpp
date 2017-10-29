@@ -39,6 +39,11 @@ void Control::setCenterControl(Control* centerControl) {
     this->centerControl = centerControl;
 }
 
+void Control::resize(int width, int height) {
+    size.width = width;
+    size.height = height;
+}
+
 void Control::setZ(float z) {
     this->z = z;
 }

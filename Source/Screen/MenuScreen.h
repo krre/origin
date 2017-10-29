@@ -6,7 +6,7 @@ class View2D;
 class MenuScreen : public Screen {
 
 public:
-    MenuScreen();
+    MenuScreen(const Size& size);
 
 private:
     std::shared_ptr<View2D> menuView;

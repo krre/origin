@@ -20,7 +20,8 @@ Game::Game() {
     if (DebugEnvironment::get()->getEnable()) {
         DebugEnvironment::get()->setDebugScreen();
     } else {
-        setScreen(std::make_shared<MenuScreen>());
+        Size size(Application::get()->getWindow()->getWidth(), Application::get()->getWindow()->getHeight());
+        setScreen(std::make_shared<MenuScreen>(size));
     }
 
     Event::get()->keyPressed.connect<Game, &Game::onKeyPressed>(this);

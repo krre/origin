@@ -25,10 +25,6 @@ void View::render() {
 
 }
 
-void View::resize(uint32_t width, uint32_t height) {
-
-}
-
 const std::vector<View*> View::getInnerViews() {
     innerViews.clear();
     innerViews.push_back(this);

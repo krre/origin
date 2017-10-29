@@ -17,7 +17,7 @@ namespace Vulkan {
 class Screen {
 
 public:
-    Screen();
+    Screen(const Size& size);
     ~Screen();
     virtual void hide();
     virtual void pause();
@@ -40,6 +40,7 @@ private:
     View* currentView = nullptr;
     bool isPaused = true;
     RenderWindow* window = nullptr;
+    Size size;
 
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;

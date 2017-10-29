@@ -13,7 +13,7 @@
 #include "Graphics/Vulkan/RenderPass.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 
-Screen::Screen() {
+Screen::Screen(const Size& size) : size(size) {
     window = Application::get()->getWindow();
     device = Vulkan::Context::get()->getGraphicsDevice();
 
@@ -72,12 +72,15 @@ void Screen::render() {
 }
 
 void Screen::resize(uint32_t width, uint32_t height) {
+    size.width = width;
+    size.height = height;
     for (const auto& view : views) {
         view->resize(width, height);
     }
 }
 
 void Screen::pushView(const std::shared_ptr<View>& view) {
+    view->resize(size.width, size.height);
     views.push_back(view);
     currentView = view.get();
     updateRenderViews();
@@ -98,7 +101,7 @@ void Screen::updateRenderViews() {
     }
 
     Vulkan::RenderPass* renderPass = window->getRenderPass();
-    renderPass->setClearValue({ 1.0, 0.0, 0.0, 0.0 });
+    renderPass->setClearValue({ 0.0, 1.0, 0.0, 0.0 });
 
     for (auto* renderView : renderViews) {
         for (int i = 0; i < commandBuffers.size(); i++) {

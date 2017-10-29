@@ -44,9 +44,6 @@ RenderWindow::RenderWindow() {
     x = settingsX.is_null() ? (screenWidth - width) / 2 : settingsX.get<int>();
     y = settingsY.is_null() ? (screenHeight - height) / 2 : settingsY.get<int>();
 
-    width = WINDOW_WIDTH;
-    height = WINDOW_HEIGHT;
-
     // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
     // then divide it on 2
 //    if (screenWidth > mode.w) {

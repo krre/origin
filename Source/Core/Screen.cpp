@@ -66,7 +66,7 @@ void Screen::render() {
     submitQueue->clearCommandBuffers();
     uint32_t imageIndex = window->getSwapchain()->getImageIndex();
     submitQueue->addCommandBuffer(commandBuffers.at(imageIndex).get(), Application::get()->getWindow()->getImageAvailableSemaphore(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
-//    submitQueue->submit();
+    submitQueue->submit();
 
     window->present();
 }

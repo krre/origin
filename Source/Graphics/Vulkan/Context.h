@@ -10,8 +10,8 @@ class Device;
 class CommandPool;
 
 struct ContextProperties {
-    std::vector<const char*> layers;
-    std::vector<const char*> extensions;
+    std::vector<std::string> layers;
+    std::vector<std::string> extensions;
     bool dumpLayers = false;
     bool dumpExtensions = false;
 };

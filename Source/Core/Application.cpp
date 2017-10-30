@@ -70,13 +70,13 @@ void Application::init() {
 
             if (DebugEnvironment::get()->getVulkan()["useLayers"]) {
                 for (auto& layer : DebugEnvironment::get()->getVulkan()["layers"]) {
-                    properties.layers.push_back(layer.get<std::string>().c_str());
+                    properties.layers.push_back(layer);
                 }
             }
 
             if (DebugEnvironment::get()->getVulkan()["useExtensions"]) {
                 for (auto& layer : DebugEnvironment::get()->getVulkan()["extensions"]) {
-                    properties.extensions.push_back(layer.get<std::string>().c_str());
+                    properties.extensions.push_back(layer);
                 }
             }
 

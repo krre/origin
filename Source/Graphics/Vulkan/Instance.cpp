@@ -8,14 +8,14 @@ Instance::Instance() {
     // Get layers
     uint32_t layerCount;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
-    layers.resize(layerCount);
-    vkEnumerateInstanceLayerProperties(&layerCount, layers.data());
+    layersProperties.resize(layerCount);
+    vkEnumerateInstanceLayerProperties(&layerCount, layersProperties.data());
 
     // Get extensions
     uint32_t extensionCount;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-    extensions.resize(extensionCount);
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensions.data());
+    extensionProperties.resize(extensionCount);
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensionProperties.data());
 
 #ifdef OS_WIN
     enabledExtensions = {
@@ -46,12 +46,21 @@ Instance::~Instance() {
 }
 
 void Instance::create() {
+    std::vector<const char*> layers;
     if (enableValidationLayers) {
         createInfo.enabledLayerCount = enabledLayers.size();
-        createInfo.ppEnabledLayerNames = enabledLayers.data();
+        for (const auto& layer : enabledLayers) {
+            layers.push_back(const_cast<char*>(layer.c_str()));
+        }
+        createInfo.ppEnabledLayerNames = layers.data();
     }
+
     createInfo.enabledExtensionCount = enabledExtensions.size();
-    createInfo.ppEnabledExtensionNames = enabledExtensions.data();
+    std::vector<const char*> extensions;
+    for (const auto& extension : enabledExtensions) {
+        extensions.push_back(const_cast<char*>(extension.c_str()));
+    }
+    createInfo.ppEnabledExtensionNames = extensions.data();
 
     VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
 
@@ -65,24 +74,24 @@ void Instance::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyInstance(handle, nullptr))
 }
 
-void Instance::setEnabledLayers(const std::vector<const char*> enabledLayers) {
+void Instance::setEnabledLayers(const std::vector<std::string> enabledLayers) {
     this->enabledLayers = enabledLayers;
 }
 
 void Instance::dumpLayers() {
-    for (const auto& layer : layers) {
+    for (const auto& layer : layersProperties) {
         PRINT(layer.layerName << " - " << layer.description
               << " (spec. ver. " << apiToString(layer.specVersion)
               << ", impl. ver. " << layer.implementationVersion << ")");
     }
 }
 
-void Instance::setEnabledExtensions(const std::vector<const char*> enabledExtensions) {
+void Instance::setEnabledExtensions(const std::vector<std::string> enabledExtensions) {
     this->enabledExtensions = enabledExtensions;
 }
 
 void Instance::dumpExtensions() {
-    for (const auto& extension : extensions) {
+    for (const auto& extension : extensionProperties) {
         PRINT(extension.extensionName << " (spec. ver. " << extension.specVersion << ")");
     }
 }

@@ -23,12 +23,12 @@ public:
     void create() override;
     void destroy() override;
 
-    const std::vector<VkLayerProperties>& getLayers() const { return layers; }
-    void setEnabledLayers(const std::vector<const char*> enabledLayers);
+    const std::vector<VkLayerProperties>& getLayerProperties() const { return layersProperties; }
+    void setEnabledLayers(const std::vector<std::string> enabledLayers);
     void dumpLayers();
 
-    const std::vector<VkExtensionProperties>& getExtensions() const { return extensions; }
-    void setEnabledExtensions(const std::vector<const char*> enabledExtensions);
+    const std::vector<VkExtensionProperties>& getExtensionProperties() const { return extensionProperties; }
+    void setEnabledExtensions(const std::vector<std::string> enabledExtensions);
     void dumpExtensions();
 
     static std::string apiToString(int api);
@@ -36,10 +36,10 @@ public:
 private:
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};
-    std::vector<VkLayerProperties> layers;
-    std::vector<const char*> enabledLayers;
-    std::vector<VkExtensionProperties> extensions;
-    std::vector<const char*> enabledExtensions;
+    std::vector<VkLayerProperties> layersProperties;
+    std::vector<std::string> enabledLayers;
+    std::vector<VkExtensionProperties> extensionProperties;
+    std::vector<std::string> enabledExtensions;
     std::unique_ptr<DebugReportCallback> debugCallback;
 };
 

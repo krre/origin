@@ -12,6 +12,8 @@ class CommandPool;
 struct ContextProperties {
     std::vector<const char*> layers;
     std::vector<const char*> extensions;
+    bool dumpLayers = false;
+    bool dumpExtensions = false;
 };
 
 class Context : public Singleton<Context> {

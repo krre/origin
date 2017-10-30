@@ -65,6 +65,9 @@ void Application::init() {
         if (DebugEnvironment::get()->getEnable()) {
             Vulkan::ContextProperties properties = {};
 
+            properties.dumpLayers = DebugEnvironment::get()->getVulkan()["dumpLayers"];
+            properties.dumpExtensions = DebugEnvironment::get()->getVulkan()["dumpExtensions"];
+
             if (DebugEnvironment::get()->getVulkan()["useLayers"]) {
                 for (auto& layer : DebugEnvironment::get()->getVulkan()["layers"]) {
                     properties.layers.push_back(layer.get<std::string>().c_str());
@@ -78,16 +81,6 @@ void Application::init() {
             }
 
             new Vulkan::Context(properties);
-
-            bool dumpLayers = DebugEnvironment::get()->getVulkan()["dumpLayers"];
-            if(dumpLayers) {
-                Vulkan::Context::get()->getInstance()->dumpLayers();
-            }
-
-            bool dumpExtensions = DebugEnvironment::get()->getVulkan()["dumpExtensions"];
-            if(dumpExtensions) {
-                Vulkan::Context::get()->getInstance()->dumpExtensions();
-            }
         } else {
             new Vulkan::Context;
         }

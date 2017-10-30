@@ -265,5 +265,5 @@ void RenderWindow::rebuild() {
     VkExtent2D currentExtent = surface->getCurrentExtent();
     renderPass->setExtent(currentExtent);
     createSwapchain();
-    Game::get()->resize(width, height);
+    Game::get()->resize(currentExtent.width, currentExtent.height);
 }

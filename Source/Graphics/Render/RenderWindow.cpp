@@ -94,6 +94,16 @@ RenderWindow::RenderWindow() {
 }
 
 RenderWindow::~RenderWindow() {
+    int x, y, width, height;
+
+    SDL_GetWindowPosition(handle, &x, &y);
+    Settings::get()->getStorage()["x"] = x;
+    Settings::get()->getStorage()["y"] = y;
+
+    SDL_GetWindowSize(handle, &width, &height);
+    Settings::get()->getStorage()["width"] = width;
+    Settings::get()->getStorage()["height"] = height;
+
     SDL_DestroyWindow(handle);
 }
 
@@ -103,17 +113,11 @@ void RenderWindow::show() {
 }
 
 void RenderWindow::onMove(int x, int y) {
-    Settings::get()->getStorage()["x"] = x;
-    Settings::get()->getStorage()["y"] = y;
+
 }
 
 void RenderWindow::onResize(int width, int height) {
-    if (Application::get()->isRunning()) {
-//        SceneManager::get()->rebuild();
-    }
 
-    Settings::get()->getStorage()["width"] = width;
-    Settings::get()->getStorage()["height"] = height;
 }
 
 void RenderWindow::createSwapchain() {

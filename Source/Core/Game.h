@@ -19,6 +19,8 @@ public:
     void load();
     void save();
 
+    void resize(uint32_t width, uint32_t height);
+
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void saveScreenshot();

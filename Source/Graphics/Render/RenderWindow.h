@@ -51,6 +51,7 @@ public:
 private:
     void onMove(int x, int y);
     void onResize(int width, int height);
+    void createSwapchain();
 
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::Surface> surface;

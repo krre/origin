@@ -77,6 +77,7 @@ void Screen::resize(uint32_t width, uint32_t height) {
     for (const auto& view : views) {
         view->resize(width, height);
     }
+    updateRenderViews();
 }
 
 void Screen::pushView(const std::shared_ptr<View>& view) {

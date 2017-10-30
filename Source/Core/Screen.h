@@ -13,7 +13,6 @@ namespace Vulkan {
     class CommandBuffers;
 }
 
-
 class Screen {
 
 public:

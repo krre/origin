@@ -17,8 +17,9 @@
 #include "Graphics/Vulkan/Image/ImageView.h"
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include "Event/Event.h"
-#include <SDL_video.h>
-#include <lodepng/lodepng.h>
+
+// Hack to disable typedef Screen from X11 to prevent conflict with Screen class
+#define Screen SCREEN_DEF
 
 #ifdef OS_WIN
     #include "Graphics/Vulkan/Surface/Win32Surface.h"
@@ -26,7 +27,12 @@
     #include "Graphics/Vulkan/Surface/XcbSurface.h"
 #endif
 
+#undef Screen
+
+#include "Core/Game.h"
 #include <SDL_syswm.h>
+#include <SDL_video.h>
+#include <lodepng/lodepng.h>
 
 RenderWindow::RenderWindow() {
     int screenWidth = SDLWrapper::get()->getScreenSize().width;
@@ -76,27 +82,9 @@ RenderWindow::RenderWindow() {
     renderPass->setExtent(currentExtent);
     renderPass->create();
 
-    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
-    swapchain->create();
-
     presentQueue = std::make_unique<Vulkan::PresentQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
-    presentQueue->addSwapchain(swapchain.get());
 
-    for (const auto& image : swapchain->getImages()) {
-        std::unique_ptr<Vulkan::ImageView> imageView = std::make_unique<Vulkan::ImageView>(device, image);
-        imageView->setFormat(surface->getFormats().at(0).format);
-        imageView->create();
-
-        std::unique_ptr<Vulkan::Framebuffer> framebuffer = std::make_unique<Vulkan::Framebuffer>(device);
-        framebuffer->addAttachment(imageView.get());
-        framebuffer->setRenderPass(renderPass.get());
-        framebuffer->setWidth(currentExtent.width);
-        framebuffer->setHeight(currentExtent.height);
-        framebuffer->create();
-
-        imageViews.push_back(std::move(imageView));
-        framebuffers.push_back(std::move(framebuffer));
-    }
+    createSwapchain();
 
     imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     imageAvailableSemaphore->create();
@@ -126,6 +114,36 @@ void RenderWindow::onResize(int width, int height) {
 
     Settings::get()->getStorage()["width"] = width;
     Settings::get()->getStorage()["height"] = height;
+}
+
+void RenderWindow::createSwapchain() {
+    swapchain.reset();
+    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
+    swapchain->create();
+
+    presentQueue->clearSwapchains();
+    presentQueue->addSwapchain(swapchain.get());
+
+    imageViews.clear();
+    framebuffers.clear();
+
+    VkExtent2D currentExtent = surface->getCurrentExtent();
+
+    for (const auto& image : swapchain->getImages()) {
+        std::unique_ptr<Vulkan::ImageView> imageView = std::make_unique<Vulkan::ImageView>(device, image);
+        imageView->setFormat(surface->getFormats().at(0).format);
+        imageView->create();
+
+        std::unique_ptr<Vulkan::Framebuffer> framebuffer = std::make_unique<Vulkan::Framebuffer>(device);
+        framebuffer->addAttachment(imageView.get());
+        framebuffer->setRenderPass(renderPass.get());
+        framebuffer->setWidth(currentExtent.width);
+        framebuffer->setHeight(currentExtent.height);
+        framebuffer->create();
+
+        imageViews.push_back(std::move(imageView));
+        framebuffers.push_back(std::move(framebuffer));
+    }
 }
 
 void RenderWindow::saveImage(const std::string& filePath) {
@@ -244,6 +262,8 @@ void RenderWindow::present() {
 }
 
 void RenderWindow::rebuild() {
-    presentQueue->clearSwapchains();
-    presentQueue->addSwapchain(swapchain.get());
+    VkExtent2D currentExtent = surface->getCurrentExtent();
+    renderPass->setExtent(currentExtent);
+    createSwapchain();
+    Game::get()->resize(width, height);
 }

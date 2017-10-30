@@ -70,6 +70,12 @@ void Game::save() {
 
 }
 
+void Game::resize(uint32_t width, uint32_t height) {
+    for (const auto& screen : screens) {
+        screen->resize(width, height);
+    }
+}
+
 void Game::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
 #ifdef DEBUG_HUD_ENABLE

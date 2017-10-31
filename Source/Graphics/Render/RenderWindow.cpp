@@ -254,9 +254,8 @@ void RenderWindow::toggleFullScreen() {
 }
 
 void RenderWindow::acquireNextImage() {
-    try {
-        swapchain->acquireNextImage(imageAvailableSemaphore.get());
-    } catch (const std::exception& ex) {
+    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
+    if (result != VK_SUCCESS) {
         rebuild();
     }
 }

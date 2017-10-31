@@ -45,8 +45,8 @@ void Swapchain::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
 }
 
-void Swapchain::acquireNextImage(Semaphore* semaphore) {
-    VULKAN_CHECK_RESULT(vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, pImageIndex), "Failed to acquire next image")
+VkResult Swapchain::acquireNextImage(Semaphore* semaphore) {
+    return vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, pImageIndex);
 }
 
 void Swapchain::setImageIndexPtr(uint32_t* pImageIndex) {

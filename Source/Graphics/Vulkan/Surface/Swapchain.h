@@ -20,7 +20,7 @@ public:
     VkImage getImage(size_t i) const { return images.at(i); }
     const std::vector<VkImage>& getImages() const { return images; }
     VkFormat getImageFormat() const { return createInfo.imageFormat; }
-    void acquireNextImage(Semaphore* semaphore);
+    VkResult acquireNextImage(Semaphore* semaphore);
     void setImageIndexPtr(uint32_t* pImageIndex);
     VkImage getCurrentImage() const { return images.at(*pImageIndex); }
     uint32_t getImageIndex() const { return *pImageIndex; }

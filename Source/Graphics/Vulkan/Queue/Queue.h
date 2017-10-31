@@ -6,6 +6,7 @@
 namespace Vulkan {
 
 class Semaphore;
+class Fence;
 
 class Queue : public Handle<VkQueue>, public Devicer {
 
@@ -15,6 +16,7 @@ public:
     void destroy() override {}
     void addWaitSemaphore(Semaphore* semaphore);
     void waitIdle();
+    void syncHost(Fence* fence);
 
 protected:
     std::vector<VkSemaphore> waitSemaphores;

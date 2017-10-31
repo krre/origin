@@ -1,5 +1,6 @@
 #include "Queue.h"
 #include "../Semaphore.h"
+#include "../Fence.h"
 
 using namespace Vulkan;
 
@@ -13,4 +14,8 @@ void Queue::addWaitSemaphore(Semaphore* semaphore) {
 
 void Queue::waitIdle() {
     VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
+}
+
+void Queue::syncHost(Fence* fence) {
+    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, 0, nullptr, fence->getHandle()), "Failed to sync host with queue");
 }

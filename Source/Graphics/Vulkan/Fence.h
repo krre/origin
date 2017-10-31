@@ -11,8 +11,8 @@ public:
     ~Fence();
     void create() override;
     void destroy() override;
-    VkResult wait(uint32_t count);
-    VkResult reset(uint32_t count);
+    VkResult wait();
+    VkResult reset();
 
 private:
     VkFenceCreateInfo createInfo = {};

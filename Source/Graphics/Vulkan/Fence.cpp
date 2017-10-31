@@ -18,10 +18,10 @@ void Fence::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyFence(device->getHandle(), handle, nullptr))
 }
 
-VkResult Fence::wait(uint32_t count) {
-    return vkWaitForFences(device->getHandle(), count, &handle, VK_TRUE, 100000000);
+VkResult Fence::wait() {
+    return vkWaitForFences(device->getHandle(), 1, &handle, VK_TRUE, UINT64_MAX);
 }
 
-VkResult Fence::reset(uint32_t count) {
-    return vkResetFences(device->getHandle(), count, &handle);
+VkResult Fence::reset() {
+    return vkResetFences(device->getHandle(), 1, &handle);
 }

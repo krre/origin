@@ -4,9 +4,9 @@
 #include "Core/Utils.h"
 #include <assert.h>
 
-#ifdef OS_WIN
+#if defined(OS_WIN)
     #include <spirv-tools/libspirv.h>
-#elif OS_LINUX
+#elif defined(OS_LINUX)
     #include <vulkan/libspirv.h>
 #endif
 

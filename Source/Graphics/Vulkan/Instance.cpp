@@ -17,13 +17,13 @@ Instance::Instance() {
     extensionProperties.resize(extensionCount);
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensionProperties.data());
 
-#ifdef OS_WIN
+#if defined(OS_WIN)
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_win32_surface",
         "VK_EXT_debug_report"
     };
-#elif OS_LINUX
+#elif defined(OS_LINUX)
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_xcb_surface",

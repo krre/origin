@@ -21,9 +21,9 @@
 // Hack to disable typedef Screen from X11 to prevent conflict with Screen class
 #define Screen SCREEN_DEF
 
-#ifdef OS_WIN
+#if defined(OS_WIN)
     #include "Graphics/Vulkan/Surface/Win32Surface.h"
-#elif OS_LINUX
+#elif defined(OS_LINUX)
     #include "Graphics/Vulkan/Surface/XcbSurface.h"
 #endif
 
@@ -67,9 +67,9 @@ RenderWindow::RenderWindow() {
 
     device = Vulkan::Context::get()->getGraphicsDevice();
 
-#ifdef OS_WIN
+#if defined(OS_WIN)
     surface = std::make_unique<Vulkan::Win32Surface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
-#elif OS_LINUX
+#elif defined(OS_LINUX)
     surface = std::make_unique<Vulkan::XcbSurface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 

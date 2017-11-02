@@ -15,9 +15,9 @@
 #endif
 
 #ifdef WIN32
-    #define OS_WIN 1
+    #define OS_WIN
 #endif
 
 #ifdef UNIX
-    #define OS_LINUX 1
+    #define OS_LINUX
 #endif

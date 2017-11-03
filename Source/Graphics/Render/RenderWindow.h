@@ -3,11 +3,13 @@
 #include "Graphics/Color.h"
 #include <string>
 #include <vector>
+#include <SDL.h>
 
 const uint32_t WINDOW_WIDTH = 800;
 const uint32_t WINDOW_HEIGHT = 600;
 
 struct SDL_Window;
+class Screen;
 
 namespace Vulkan {
     class Device;
@@ -18,6 +20,8 @@ namespace Vulkan {
     class ImageView;
     class Framebuffer;
     class Semaphore;
+    class Fence;
+    class SubmitQueue;
     class PresentQueue;
 }
 
@@ -32,12 +36,19 @@ public:
     int getX() const { return x; }
     int getY() const { return y; }
 
+    void pushScreen(const std::shared_ptr<Screen>& screen);
+    void popScreen();
+    void setScreen(const std::shared_ptr<Screen>& screen);
+
     void show();
+
+    void update(float dt);
+    void render();
 
     void acquireNextImage();
     void present();
 
-    void saveImage(const std::string& filePath);
+    void saveScreenshot();
     void toggleFullScreen();
 
     Vulkan::Surface* getSurface() const { return surface.get(); }
@@ -49,6 +60,7 @@ public:
     void rebuild();
 
 private:
+    void onKeyPressed(const SDL_KeyboardEvent& event);
     void onMove(int x, int y);
     void onResize(int width, int height);
     void createSwapchain();
@@ -59,10 +71,14 @@ private:
     std::unique_ptr<Vulkan::RenderPass> renderPass;
     std::vector<std::unique_ptr<Vulkan::Framebuffer>> framebuffers;
     std::vector<std::unique_ptr<Vulkan::ImageView>> imageViews;
+    std::vector<std::unique_ptr<Vulkan::Fence>> presentFences;
     std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
+    std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
+    std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
     std::unique_ptr<Vulkan::PresentQueue> presentQueue;
 
     SDL_Window* handle = nullptr;
+    std::vector<std::shared_ptr<Screen>> screens;
     int x = 100;
     int y = 100;
 };

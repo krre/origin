@@ -1,6 +1,5 @@
 #include "DebugEnvironment.h"
 #include "Core/Application.h"
-#include "Core/Game.h"
 #include "Core/Defines.h"
 #include "Core/Utils.h"
 #include "Debug/DebugHUD.h"
@@ -18,14 +17,14 @@ void DebugEnvironment::setDebugScreen() {
     Size size(Application::get()->getWindow()->getWidth(), Application::get()->getWindow()->getHeight());
     if (!screenName.empty()) {
         if (screenName == "menu") {
-            Game::get()->setScreen(std::make_shared<MenuScreen>(size));
+            Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>(size));
         } else if (screenName == "settings") {
-//            Game::get()->setScreen(std::make_shared<SettingsScreen>());
+//            Application::get()->getWindow()->setScreen(std::make_shared<SettingsScreen>());
         } else if (screenName == "world") {
-//            Game::get()->setScreen(std::make_shared<WorldScreen>());
+//            Application::get()->getWindow()->setScreen(std::make_shared<WorldScreen>());
         }
     } else {
-        Game::get()->setScreen(std::make_shared<MenuScreen>(size));
+        Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>(size));
     }
 }
 

@@ -3,16 +3,30 @@
 #include "Core/SDLWrapper.h"
 #include "Core/Settings.h"
 #include "Core/Defines.h"
+#include "Core/Utils.h"
+#include "Core/Screen.h"
+#include "Debug/DebugHUD.h"
+#include "UI/Toast.h"
+#include "Event/Event.h"
+#include "Event/Input.h"
+#include <SDL_keycode.h>
+#include <glm/glm.hpp>
+#include <glm/ext.hpp>
+#include <ctime>
+#include <lodepng/lodepng.h>
+#include <experimental/filesystem>
 #include "Graphics/Vulkan/Context.h"
 #include "Graphics/Vulkan/Surface/Surface.h"
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Queue/PresentQueue.h"
+#include "Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Device/DeviceMemory.h"
 #include "Graphics/Vulkan/RenderPass.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Semaphore.h"
+#include "Graphics/Vulkan/Fence.h"
 #include "Graphics/Vulkan/Image/Image.h"
 #include "Graphics/Vulkan/Image/ImageView.h"
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
@@ -21,6 +35,11 @@
 // Hack to disable typedef Screen from X11 to prevent conflict with Screen class
 #define Screen SCREEN_DEF
 
+// TODO: Remove Drawable class from project
+#define Drawable DRAWABLE_DEF
+
+#define Font FONT_DEF
+
 #if defined(OS_WIN)
     #include "Graphics/Vulkan/Surface/Win32Surface.h"
 #elif defined(OS_LINUX)
@@ -28,6 +47,8 @@
 #endif
 
 #undef Screen
+#undef Drawable
+#undef Font
 
 #include "Core/Game.h"
 #include <SDL_syswm.h>
@@ -89,11 +110,22 @@ RenderWindow::RenderWindow() {
     imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     imageAvailableSemaphore->create();
 
+    renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
+    renderFinishedSemaphore->create();
+    presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
+
+    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
+    submitQueue->create();
+    submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
+
     Event::get()->windowMove.connect<RenderWindow, &RenderWindow::onMove>(this);
     Event::get()->windowResize.connect<RenderWindow, &RenderWindow::onResize>(this);
+    Event::get()->keyPressed.connect<RenderWindow, &RenderWindow::onKeyPressed>(this);
 }
 
 RenderWindow::~RenderWindow() {
+    submitQueue->waitIdle();
+
     int x, y, width, height;
 
     SDL_GetWindowPosition(handle, &x, &y);
@@ -107,9 +139,51 @@ RenderWindow::~RenderWindow() {
     SDL_DestroyWindow(handle);
 }
 
+void RenderWindow::pushScreen(const std::shared_ptr<Screen>& screen) {
+    if (!screens.empty()) {
+        screens.back()->pause();
+    }
+    screens.push_back(screen);
+    screen->resume();
+}
+
+void RenderWindow::popScreen() {
+    if (screens.size() > 1) {
+        screens.back()->pause();
+        screens.pop_back();
+        screens.back()->resume();
+    } else {
+        // TODO: Question dialog about exit from game
+        PRINT("Exit question dialog")
+    }
+}
+
+void RenderWindow::setScreen(const std::shared_ptr<Screen>& screen) {
+    for (const auto& screen : screens) {
+        screen->pause();
+    }
+    screens.clear();
+    pushScreen(screen);
+}
+
 void RenderWindow::show() {
     assert(handle != nullptr);
     SDL_ShowWindow(handle);
+}
+
+void RenderWindow::update(float dt) {
+    screens.back()->update(dt);
+}
+
+void RenderWindow::render() {
+    acquireNextImage();
+
+    submitQueue->clearCommandBuffers();
+    uint32_t imageIndex = swapchain->getImageIndex();
+    submitQueue->addCommandBuffer(screens.back()->getCommandBuffer(imageIndex), imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
+    submitQueue->submit();
+
+    present();
 }
 
 void RenderWindow::onMove(int x, int y) {
@@ -117,7 +191,9 @@ void RenderWindow::onMove(int x, int y) {
 }
 
 void RenderWindow::onResize(int width, int height) {
-
+    for (const auto& screen : screens) {
+        screen->resize(width, height);
+    }
 }
 
 void RenderWindow::createSwapchain() {
@@ -130,6 +206,7 @@ void RenderWindow::createSwapchain() {
 
     imageViews.clear();
     framebuffers.clear();
+    presentFences.clear();
 
     VkExtent2D currentExtent = surface->getCurrentExtent();
 
@@ -147,10 +224,31 @@ void RenderWindow::createSwapchain() {
 
         imageViews.push_back(std::move(imageView));
         framebuffers.push_back(std::move(framebuffer));
+
+        std::unique_ptr<Vulkan::Fence> presentFence = std::make_unique<Vulkan::Fence>(device);
+        presentFence->create();
+        presentFences.push_back(std::move(presentFence));
     }
 }
 
-void RenderWindow::saveImage(const std::string& filePath) {
+void RenderWindow::saveScreenshot() {
+    std::string directoryPath = Application::getCurrentPath() + Utils::getPathSeparator() + "Screenshot";
+    namespace fs = std::experimental::filesystem;
+    if (!fs::exists(directoryPath)) {
+        fs::create_directory(directoryPath);
+    }
+
+    time_t t = std::time(0); // Get time now
+    struct tm* now = std::localtime(&t);
+    std::string filename =
+            std::to_string(now->tm_year + 1900) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_mday)) + "_" +
+            Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
+    std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
+
     VkImage srcImage = swapchain->getCurrentImage();
 
     uint32_t width = surface->getCurrentExtent().width;
@@ -245,6 +343,10 @@ void RenderWindow::saveImage(const std::string& filePath) {
     }
 
     image.getMemory()->unmap();
+
+    std::string message = "Screenshot saved to " + filename;
+//    Toast::get()->showToast(message);
+    PRINT(message)
 }
 
 void RenderWindow::toggleFullScreen() {
@@ -268,5 +370,20 @@ void RenderWindow::rebuild() {
     VkExtent2D currentExtent = surface->getCurrentExtent();
     renderPass->setExtent(currentExtent);
     createSwapchain();
-    Game::get()->resize(currentExtent.width, currentExtent.height);
+}
+
+void RenderWindow::onKeyPressed(const SDL_KeyboardEvent& event) {
+    switch (event.keysym.sym) {
+#ifdef DEBUG_HUD_ENABLE
+    case SDLK_F5:
+        DebugHUD::get()->trigger();
+        break;
+#endif
+    case SDLK_F10:
+        Application::get()->getWindow()->toggleFullScreen();
+        break;
+    case SDLK_F11:
+        saveScreenshot();
+        break;
+    }
 }

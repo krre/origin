@@ -16,6 +16,7 @@
 #include "Graphics/Render/RenderManager.h"
 #include "Graphics/Vulkan/Context.h"
 #include "Graphics/Vulkan/Instance.h"
+#include "Screen/MenuScreen.h"
 #include <string>
 #include <SDL_timer.h>
 #include <algorithm>
@@ -102,6 +103,13 @@ void Application::init() {
         }
     }
 
+    if (DebugEnvironment::get()->getEnable()) {
+        DebugEnvironment::get()->setDebugScreen();
+    } else {
+        Size size(Application::get()->getWindow()->getWidth(), Application::get()->getWindow()->getHeight());
+        window->setScreen(std::make_shared<MenuScreen>(size));
+    }
+
     Event::get()->quit.connect<Application, &Application::quit>(this);
     Event::get()->windowResize.emit(window->getWidth(), window->getHeight());
 
@@ -121,8 +129,8 @@ void Application::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        Game::get()->update(frameTime);
-        Game::get()->render();
+        window->update(frameTime);
+        window->render();
 //        PRINT(frameTime << " " << 1 / frameTime)
     }
 }

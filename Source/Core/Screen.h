@@ -7,8 +7,6 @@ class RenderWindow;
 
 namespace Vulkan {
     class Device;
-    class Semaphore;
-    class SubmitQueue;
     class CommandBuffer;
     class CommandBuffers;
 }
@@ -24,12 +22,13 @@ public:
     virtual void show();
 
     void update(float dt);
-    void render();
     void resize(uint32_t width, uint32_t height);
 
     void pushView(const std::shared_ptr<View>& view);
     void popView();
     View* getCurrentView() const { return currentView; }
+
+    Vulkan::CommandBuffer* getCommandBuffer(size_t i) const { return commandBuffers.at(i).get(); }
 
 private:
     void updateRenderViews();
@@ -42,8 +41,6 @@ private:
     Size size;
 
     Vulkan::Device* device;
-    std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
-    std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
     std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;
     std::vector<std::unique_ptr<Vulkan::CommandBuffer>> commandBuffers;
 };

@@ -132,33 +132,6 @@ void Application::run() {
     }
 }
 
-/*
-int Application::run() {
-    // Game loop is based on article http://gafferongames.com/game-physics/fix-your-timestep/
-    const double dt = 0.01;
-    Uint64 frequency = SDL_GetPerformanceFrequency();
-    Uint64 currentTime = SDL_GetPerformanceCounter();
-    double accumulator = 0.0;
-
-    while (isRunning) {
-        Event::get()->handleEvents();
-
-        Uint64 newTime = SDL_GetPerformanceCounter();
-        double frameTime = double(newTime - currentTime) / frequency;
-        currentTime = newTime;
-        accumulator += frameTime;
-
-        while (accumulator >= dt) {
-            EntityManager::get()->process(dt, EntityManager::UPDATE);
-            accumulator -= dt;
-        }
-
-        EntityManager::get()->process(dt, EntityManager::RENDER);
-        SDL_GL_SwapWindow(window);
-    }
-}
-*/
-
 void Application::quit() {
     running = false;
 }

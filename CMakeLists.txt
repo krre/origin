@@ -36,7 +36,7 @@ if(WIN32)
     include_directories(${Vulkan_INCLUDE_DIRS})
     include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
 
-    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib/libSPIRV-Tools.a)
+    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
     string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
 
     target_link_libraries(${EXECUTABLE_NAME}

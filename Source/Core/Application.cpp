@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "Core/Context.h"
 #include "SDLWrapper.h"
 #include "Game.h"
 #include "Utils.h"
@@ -40,7 +39,6 @@ Application::~Application() {
     RenderManager::get()->release();
     Vulkan::Context::get()->release();
     SDLWrapper::get()->release();
-    Context::get()->release();
     Event::get()->release();
     DebugEnvironment::get()->release();
     Logger::get()->release();
@@ -58,7 +56,6 @@ void Application::init() {
         new Logger;
         new DebugEnvironment;
         new Event;
-        new Context;
 
         new SDLWrapper;
         SDLWrapper::get()->init();

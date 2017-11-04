@@ -3,8 +3,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Application.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Application.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Common.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Context.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Context.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Defines.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Game.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game.h

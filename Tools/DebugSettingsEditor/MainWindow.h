@@ -15,6 +15,9 @@ public:
 protected:
     void closeEvent(QCloseEvent* event);
 
+private slots:
+    void on_actionAbout_triggered();
+
 private:
     enum class Tabs {
         GENERAL,

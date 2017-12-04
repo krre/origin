@@ -1,5 +1,6 @@
 #include "VulkanTab.h"
 #include "ui_VulkanTab.h"
+#include <QJsonObject>
 
 VulkanTab::VulkanTab() :
         ui(new Ui::VulkanTab) {
@@ -8,4 +9,16 @@ VulkanTab::VulkanTab() :
 
 VulkanTab::~VulkanTab() {
     delete ui;
+}
+
+void VulkanTab::setJsonSettings(const QJsonObject& settings) {
+
+}
+
+QJsonObject VulkanTab::jsonSettings() const {
+    return QJsonObject();
+}
+
+QString VulkanTab::name() const {
+    return "vulkan";
 }

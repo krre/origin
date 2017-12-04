@@ -1,5 +1,6 @@
 #include "GeneralTab.h"
 #include "ui_GeneralTab.h"
+#include <QJsonObject>
 
 GeneralTab::GeneralTab() :
         ui(new Ui::GeneralTab) {
@@ -8,4 +9,16 @@ GeneralTab::GeneralTab() :
 
 GeneralTab::~GeneralTab() {
     delete ui;
+}
+
+void GeneralTab::setJsonSettings(const QJsonObject& settings) {
+
+}
+
+QJsonObject GeneralTab::jsonSettings() const {
+    return QJsonObject();
+}
+
+QString GeneralTab::name() const {
+    return "general";
 }

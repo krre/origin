@@ -16,7 +16,8 @@ HEADERS += \
         MainWindow.h \
     Defines.h \
     GeneralTab.h \
-    VulkanTab.h
+    VulkanTab.h \
+    AbstractTab.h
 
 FORMS += \
         MainWindow.ui \

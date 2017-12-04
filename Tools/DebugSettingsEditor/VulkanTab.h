@@ -1,16 +1,19 @@
 #pragma once
-#include <QWidget>
+#include "AbstractTab.h"
 
 namespace Ui {
     class VulkanTab;
 }
 
-class VulkanTab : public QWidget {
+class VulkanTab : public AbstractTab {
     Q_OBJECT
 
 public:
     explicit VulkanTab();
     ~VulkanTab();
+    void setJsonSettings(const QJsonObject& settings) override;
+    QJsonObject jsonSettings() const override;
+    QString name() const;
 
 private:
     Ui::VulkanTab* ui;

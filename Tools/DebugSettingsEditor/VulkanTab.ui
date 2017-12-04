@@ -1,21 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <author/>
- <comment/>
- <exportmacro/>
  <class>VulkanTab</class>
- <widget name="VulkanTab" class="QWidget">
+ <widget class="QWidget" name="VulkanTab">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>574</width>
+    <height>393</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
+  <layout class="QHBoxLayout" name="horizontalLayout">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Layers</string>
+     </property>
+     <property name="checkable">
+      <bool>false</bool>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QCheckBox" name="checkBoxLayersUse">
+        <property name="text">
+         <string>Use</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBoxLayersDump">
+        <property name="text">
+         <string>Dump</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListView" name="listViewLayers"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Extensions</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QCheckBox" name="checkBoxExtensionsUse">
+        <property name="text">
+         <string>Use</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkBoxExtensionsDump">
+        <property name="text">
+         <string>Dump</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QListView" name="listViewExtensions"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
  </widget>
- <pixmapfunction/>
+ <resources/>
  <connections/>
 </ui>

@@ -9,7 +9,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 INCLUDEPATH += ../../../origin/Source
 INCLUDEPATH += $$(VULKAN_SDK)/include
 
-LIBS += -L$$(VULKAN_SDK)/lib -lvulkan
+unix:LIBS += -L$$(VULKAN_SDK)/lib -lvulkan
+win32:LIBS += -L$$(VULKAN_SDK)/lib32 -lvulkan-1
 
 SOURCES += \
     main.cpp \

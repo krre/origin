@@ -1,8 +1,8 @@
-QT += core gui widgets
-
+QT += widgets
 CONFIG += c++11
 TARGET = DebugSettingsEditor
 TEMPLATE = app
+DESTDIR = $$(ORIGIN_HOME)
 
 DEFINES += QT_DEPRECATED_WARNINGS
 

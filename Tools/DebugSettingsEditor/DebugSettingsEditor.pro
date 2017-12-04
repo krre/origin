@@ -1,5 +1,6 @@
 QT += core gui widgets
 
+CONFIG += c++11
 TARGET = DebugSettingsEditor
 TEMPLATE = app
 
@@ -10,7 +11,8 @@ SOURCES += \
         MainWindow.cpp
 
 HEADERS += \
-        MainWindow.h
+        MainWindow.h \
+    Defines.h
 
 FORMS += \
         MainWindow.ui

@@ -28,6 +28,9 @@ private:
     void readSettings();
     void writeSettings();
 
+    void readDebugSettings();
+    void writeDebugSettings();
+
     Ui::MainWindow* ui;
     QString settingsPath;
 };

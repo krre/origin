@@ -15,6 +15,9 @@ public:
     QJsonObject debugSettings() const override;
     QString name() const;
 
+private slots:
+    void on_comboBoxScreen_currentIndexChanged(int currentIndex);
+
 private:
     Ui::GeneralTab* ui;
 };

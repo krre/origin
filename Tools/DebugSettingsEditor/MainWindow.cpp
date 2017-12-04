@@ -15,6 +15,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     settingsPath = QApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME;
     readSettings();
+    readDebugSettings();
+
+    for (int i = 0; i < ui->tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
+        connect(tab, &AbstractTab::flush, this, &MainWindow::writeDebugSettings);
+    }
 }
 
 MainWindow::~MainWindow() {
@@ -37,7 +43,7 @@ void MainWindow::on_actionAbout_triggered() {
 }
 
 void MainWindow::on_actionReload_triggered() {
-    qDebug() << "reload";
+    readDebugSettings();
 }
 
 void MainWindow::readSettings() {
@@ -56,4 +62,17 @@ void MainWindow::writeSettings() {
     settings.setValue("pos", pos());
     settings.setValue("tab", ui->tabWidget->currentIndex());
     settings.endGroup();
+}
+
+void MainWindow::readDebugSettings() {
+    QFile file(QCoreApplication::applicationDirPath() + "/" + DEBUG_SETTINGS_NAME);
+    if (!file.open(QIODevice::ReadOnly)) {
+        return;
+    }
+
+    QJsonDocument doc(QJsonDocument::fromJson(file.readAll()));
+}
+
+void MainWindow::writeDebugSettings() {
+    qDebug() << "write debug settings";
 }

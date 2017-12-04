@@ -5,6 +5,12 @@
 VulkanTab::VulkanTab() :
         ui(new Ui::VulkanTab) {
     ui->setupUi(this);
+
+    connect(ui->checkBoxLayersUse, &QCheckBox::toggled, this, &VulkanTab::flush);
+    connect(ui->checkBoxLayersDump, &QCheckBox::toggled, this, &VulkanTab::flush);
+
+    connect(ui->checkBoxExtensionsUse, &QCheckBox::toggled, this, &VulkanTab::flush);
+    connect(ui->checkBoxExtensionsDump, &QCheckBox::toggled, this, &VulkanTab::flush);
 }
 
 VulkanTab::~VulkanTab() {

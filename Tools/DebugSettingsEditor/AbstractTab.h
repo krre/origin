@@ -11,4 +11,7 @@ public:
     virtual void setDebugSettings(const QJsonObject& settings) = 0;
     virtual QJsonObject debugSettings() const = 0;
     virtual QString name() const = 0;
+
+signals:
+    void flush();
 };

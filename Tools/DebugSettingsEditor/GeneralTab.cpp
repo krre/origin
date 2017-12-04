@@ -5,6 +5,9 @@
 GeneralTab::GeneralTab() :
         ui(new Ui::GeneralTab) {
     ui->setupUi(this);
+
+    connect(ui->checkBoxEnable, &QCheckBox::toggled, this, &GeneralTab::flush);
+    connect(ui->checkBoxDebugHUD, &QCheckBox::toggled, this, &GeneralTab::flush);
 }
 
 GeneralTab::~GeneralTab() {
@@ -21,4 +24,9 @@ QJsonObject GeneralTab::debugSettings() const {
 
 QString GeneralTab::name() const {
     return "general";
+}
+
+void GeneralTab::on_comboBoxScreen_currentIndexChanged(int currentIndex) {
+    Q_UNUSED(currentIndex)
+    emit flush();
 }

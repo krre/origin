@@ -36,6 +36,10 @@ void MainWindow::on_actionAbout_triggered() {
            arg(APP_NAME).arg(APP_VERSION_STR).arg(QT_VERSION_STR).arg(__DATE__).arg(APP_URL));
 }
 
+void MainWindow::on_actionReload_triggered() {
+    qDebug() << "reload";
+}
+
 void MainWindow::readSettings() {
     QSettings settings(settingsPath, QSettings::IniFormat);
     settings.beginGroup("MainWindow");

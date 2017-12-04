@@ -17,6 +17,7 @@ protected:
 
 private slots:
     void on_actionAbout_triggered();
+    void on_actionReload_triggered();
 
 private:
     enum class Tabs {

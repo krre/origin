@@ -38,7 +38,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="listViewLayers"/>
+       <widget class="QListWidget" name="listWidgetLayers">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -64,7 +68,11 @@
        </widget>
       </item>
       <item>
-       <widget class="QListView" name="listViewExtensions"/>
+       <widget class="QListWidget" name="listWidgetExtensions">
+        <property name="selectionMode">
+         <enum>QAbstractItemView::ExtendedSelection</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>

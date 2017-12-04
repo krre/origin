@@ -16,7 +16,14 @@ VulkanTab::VulkanTab() :
 
     Vulkan::Instance instance;
     instance.create();
-    instance.dumpLayers();
+
+    for (const auto& layer : instance.getLayerProperties()) {
+        ui->listWidgetLayers->addItem(layer.layerName);
+    }
+
+    for (const auto& extension : instance.getExtensionProperties()) {
+        ui->listWidgetExtensions->addItem(extension.extensionName);
+    }
 }
 
 VulkanTab::~VulkanTab() {

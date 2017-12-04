@@ -33,4 +33,5 @@ private:
 
     Ui::MainWindow* ui;
     QString settingsPath;
+    QString debugSettingsPath;
 };

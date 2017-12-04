@@ -14,6 +14,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->addTab(new VulkanTab, tr("Vulkan"));
 
     settingsPath = QApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME;
+    debugSettingsPath = QCoreApplication::applicationDirPath() + "/" + DEBUG_SETTINGS_NAME;
+
     readSettings();
     readDebugSettings();
 
@@ -65,7 +67,7 @@ void MainWindow::writeSettings() {
 }
 
 void MainWindow::readDebugSettings() {
-    QFile file(QCoreApplication::applicationDirPath() + "/" + DEBUG_SETTINGS_NAME);
+    QFile file(debugSettingsPath);
     if (!file.open(QIODevice::ReadOnly)) {
         return;
     }
@@ -74,5 +76,19 @@ void MainWindow::readDebugSettings() {
 }
 
 void MainWindow::writeDebugSettings() {
-    qDebug() << "write debug settings";
+    QFile file(debugSettingsPath);
+    if (!file.open(QIODevice::WriteOnly)) {
+        qWarning() << "Couldn't open file" << debugSettingsPath;
+        return;
+    }
+
+    QJsonObject obj;
+
+    for (int i = 0; i < ui->tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
+        obj[tab->name()] = tab->debugSettings();
+    }
+
+    QJsonDocument doc(obj);
+    file.write(doc.toJson());
 }

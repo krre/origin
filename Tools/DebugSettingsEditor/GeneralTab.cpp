@@ -19,7 +19,12 @@ void GeneralTab::setDebugSettings(const QJsonObject& settings) {
 }
 
 QJsonObject GeneralTab::debugSettings() const {
-    return QJsonObject();
+    QJsonObject obj;
+    obj["enable"] = QJsonValue(ui->checkBoxEnable->isChecked());
+    obj["debugHud"] = QJsonValue(ui->checkBoxDebugHUD->isChecked());
+    obj["screen"] = QJsonValue(ui->comboBoxScreen->currentText());
+
+    return obj;
 }
 
 QString GeneralTab::name() const {

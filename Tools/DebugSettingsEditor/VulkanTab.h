@@ -12,7 +12,7 @@ public:
     explicit VulkanTab();
     ~VulkanTab();
     void setDebugSettings(const QJsonObject& settings) override;
-    QJsonObject jsonSettings() const override;
+    QJsonObject debugSettings() const override;
     QString name() const;
 
 private:

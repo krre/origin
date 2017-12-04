@@ -15,7 +15,7 @@ void VulkanTab::setDebugSettings(const QJsonObject& settings) {
 
 }
 
-QJsonObject VulkanTab::jsonSettings() const {
+QJsonObject VulkanTab::debugSettings() const {
     return QJsonObject();
 }
 

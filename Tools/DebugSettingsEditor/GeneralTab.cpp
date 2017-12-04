@@ -15,7 +15,7 @@ void GeneralTab::setDebugSettings(const QJsonObject& settings) {
 
 }
 
-QJsonObject GeneralTab::jsonSettings() const {
+QJsonObject GeneralTab::debugSettings() const {
     return QJsonObject();
 }
 

@@ -15,14 +15,16 @@ GeneralTab::~GeneralTab() {
 }
 
 void GeneralTab::setDebugSettings(const QJsonObject& settings) {
-
+    ui->checkBoxEnable->setChecked(settings["enable"].toBool());
+    ui->checkBoxDebugHUD->setChecked(settings["debugHud"].toBool());
+    ui->comboBoxScreen->setCurrentIndex(settings["screen"].toInt());
 }
 
 QJsonObject GeneralTab::debugSettings() const {
     QJsonObject obj;
     obj["enable"] = QJsonValue(ui->checkBoxEnable->isChecked());
     obj["debugHud"] = QJsonValue(ui->checkBoxDebugHUD->isChecked());
-    obj["screen"] = QJsonValue(ui->comboBoxScreen->currentText());
+    obj["screen"] = QJsonValue(ui->comboBoxScreen->currentIndex());
 
     return obj;
 }

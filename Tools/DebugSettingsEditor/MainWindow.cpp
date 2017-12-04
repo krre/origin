@@ -73,6 +73,11 @@ void MainWindow::readDebugSettings() {
     }
 
     QJsonDocument doc(QJsonDocument::fromJson(file.readAll()));
+
+    for (int i = 0; i < ui->tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
+        tab->setDebugSettings(doc.object()[tab->name()].toObject());
+    }
 }
 
 void MainWindow::writeDebugSettings() {

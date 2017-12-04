@@ -19,7 +19,11 @@ VulkanTab::~VulkanTab() {
 }
 
 void VulkanTab::setDebugSettings(const QJsonObject& settings) {
+    ui->checkBoxLayersUse->setChecked(settings["layers"]["use"].toBool());
+    ui->checkBoxLayersDump->setChecked(settings["layers"]["dump"].toBool());
 
+    ui->checkBoxExtensionsUse->setChecked(settings["extensions"]["use"].toBool());
+    ui->checkBoxExtensionsDump->setChecked(settings["extensions"]["dump"].toBool());
 }
 
 QJsonObject VulkanTab::debugSettings() const {

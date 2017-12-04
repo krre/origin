@@ -11,7 +11,7 @@ VulkanTab::~VulkanTab() {
     delete ui;
 }
 
-void VulkanTab::setJsonSettings(const QJsonObject& settings) {
+void VulkanTab::setDebugSettings(const QJsonObject& settings) {
 
 }
 

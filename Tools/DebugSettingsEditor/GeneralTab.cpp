@@ -11,7 +11,7 @@ GeneralTab::~GeneralTab() {
     delete ui;
 }
 
-void GeneralTab::setJsonSettings(const QJsonObject& settings) {
+void GeneralTab::setDebugSettings(const QJsonObject& settings) {
 
 }
 

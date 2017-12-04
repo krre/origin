@@ -8,7 +8,7 @@ class AbstractTab : public QWidget {
 
 public:
     explicit AbstractTab() {}
-    virtual void setJsonSettings(const QJsonObject& settings) = 0;
+    virtual void setDebugSettings(const QJsonObject& settings) = 0;
     virtual QJsonObject jsonSettings() const = 0;
     virtual QString name() const = 0;
 };

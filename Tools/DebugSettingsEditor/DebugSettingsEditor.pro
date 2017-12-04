@@ -9,13 +9,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
         main.cpp \
         MainWindow.cpp \
-    GeneralTab.cpp
+    GeneralTab.cpp \
+    VulkanTab.cpp
 
 HEADERS += \
         MainWindow.h \
     Defines.h \
-    GeneralTab.h
+    GeneralTab.h \
+    VulkanTab.h
 
 FORMS += \
         MainWindow.ui \
-    GeneralTab.ui
+    GeneralTab.ui \
+    VulkanTab.ui

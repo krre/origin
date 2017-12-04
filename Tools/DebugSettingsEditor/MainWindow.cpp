@@ -2,6 +2,7 @@
 #include "ui_MainWindow.h"
 #include "Defines.h"
 #include "GeneralTab.h"
+#include "VulkanTab.h"
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -10,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     ui->tabWidget->addTab(new GeneralTab, tr("General"));
+    ui->tabWidget->addTab(new VulkanTab, tr("Vulkan"));
 
     settingsPath = QApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME;
     readSettings();

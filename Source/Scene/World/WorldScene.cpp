@@ -35,7 +35,7 @@ WorldScene::~WorldScene() {
     if (Game::exists()) {
 //        Game::get()->setWorldScene(nullptr);
     }
-    EntityManager::get()->release();
+    EntityManager::release();
 }
 
 void WorldScene::init() {

@@ -30,19 +30,19 @@ Application::Application(int argc, char* argv[]) {
 }
 
 Application::~Application() {
-    Game::get()->release();
-    Input::get()->release();
-    DebugHUD::get()->release();
-    ResourceManager::get()->release();
-    RendererSet::get()->release();
+    Game::release();
+    Input::release();
+    DebugHUD::release();
+    ResourceManager::release();
+    RendererSet::release();
     window.reset();
-    RenderManager::get()->release();
-    Vulkan::Context::get()->release();
-    SDLWrapper::get()->release();
-    Event::get()->release();
-    DebugEnvironment::get()->release();
-    Logger::get()->release();
-    Settings::get()->release();
+    RenderManager::release();
+    Vulkan::Context::release();
+    SDLWrapper::release();
+    Event::release();
+    DebugEnvironment::release();
+    Logger::release();
+    Settings::release();
 }
 
 std::string Application::getCurrentPath() {

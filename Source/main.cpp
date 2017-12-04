@@ -5,6 +5,6 @@
 int main(int argc, char* argv[]) {
     new Application(argc, argv);
     Application::get()->run();
-    Application::get()->release();
+    Application::release();
     return EXIT_SUCCESS;
 }

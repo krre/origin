@@ -22,9 +22,9 @@ public:
         return instance != nullptr;
     }
 
-    void release() {
+    static void release() {
         if (instance != nullptr) {
-            delete this;
+            delete instance;
             instance = nullptr;
         }
     }

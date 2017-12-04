@@ -36,6 +36,7 @@ void MainWindow::readSettings() {
     settings.beginGroup("MainWindow");
     resize(settings.value("size", QSize(800, 600)).toSize());
     move(settings.value("pos", QPoint(200, 200)).toPoint());
+    ui->tabWidget->setCurrentIndex(settings.value("tab", 0).toInt());
     settings.endGroup();
 }
 
@@ -44,5 +45,6 @@ void MainWindow::writeSettings() {
     settings.beginGroup("MainWindow");
     settings.setValue("size", size());
     settings.setValue("pos", pos());
+    settings.setValue("tab", ui->tabWidget->currentIndex());
     settings.endGroup();
 }

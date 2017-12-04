@@ -1,5 +1,6 @@
 #include "VulkanTab.h"
 #include "ui_VulkanTab.h"
+#include "Graphics/Vulkan/Instance.h"
 #include <QJsonObject>
 #include <QJsonValue>
 
@@ -12,6 +13,10 @@ VulkanTab::VulkanTab() :
 
     connect(ui->checkBoxExtensionsUse, &QCheckBox::toggled, this, &VulkanTab::flush);
     connect(ui->checkBoxExtensionsDump, &QCheckBox::toggled, this, &VulkanTab::flush);
+
+    Vulkan::Instance instance;
+    instance.create();
+    instance.dumpLayers();
 }
 
 VulkanTab::~VulkanTab() {

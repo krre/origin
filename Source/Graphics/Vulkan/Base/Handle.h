@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/Common.h"
 #include <assert.h>
 #include <stdexcept>
 #include <vulkan/vulkan.h>

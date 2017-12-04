@@ -1,6 +1,7 @@
 #pragma once
 #include "Base/Handle.h"
 #include <vector>
+#include <memory>
 
 class RenderWindow;
 

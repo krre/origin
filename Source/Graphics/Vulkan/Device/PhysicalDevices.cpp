@@ -1,6 +1,7 @@
 #include "PhysicalDevices.h"
 #include "PhysicalDevice.h"
 #include "../Instance.h"
+#include <iostream>
 
 using namespace Vulkan;
 
@@ -37,6 +38,6 @@ PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
 
 void PhysicalDevices::dumpDevices() {
     for (const auto& device : devices) {
-        PRINT(device->properties.deviceName);
+        std::cout << device->properties.deviceName << std::endl;
     }
 }

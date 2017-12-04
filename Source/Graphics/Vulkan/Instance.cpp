@@ -1,6 +1,6 @@
 #include "Instance.h"
-#include "Core/Defines.h"
 #include "DebugReportCallback.h"
+#include <iostream>
 
 using namespace Vulkan;
 
@@ -17,13 +17,13 @@ Instance::Instance() {
     extensionProperties.resize(extensionCount);
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensionProperties.data());
 
-#if defined(OS_WIN)
+#if defined(_WIN32)
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_win32_surface",
         "VK_EXT_debug_report"
     };
-#elif defined(OS_LINUX)
+#elif defined(__linux__)
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_xcb_surface",
@@ -80,9 +80,9 @@ void Instance::setEnabledLayers(const std::vector<std::string> enabledLayers) {
 
 void Instance::dumpLayers() {
     for (const auto& layer : layersProperties) {
-        PRINT(layer.layerName << " - " << layer.description
+        std::cout << layer.layerName << " - " << layer.description
               << " (spec. ver. " << apiToString(layer.specVersion)
-              << ", impl. ver. " << layer.implementationVersion << ")");
+              << ", impl. ver. " << layer.implementationVersion << ")" << std::endl;;
     }
 }
 
@@ -92,7 +92,7 @@ void Instance::setEnabledExtensions(const std::vector<std::string> enabledExtens
 
 void Instance::dumpExtensions() {
     for (const auto& extension : extensionProperties) {
-        PRINT(extension.extensionName << " (spec. ver. " << extension.specVersion << ")");
+        std::cout << extension.extensionName << " (spec. ver. " << extension.specVersion << ")" << std::endl;
     }
 }
 

@@ -19,6 +19,7 @@ add_subdirectory(Source)
 add_subdirectory(ThirdParty)
 
 set(EXECUTABLE_NAME "origin")
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")

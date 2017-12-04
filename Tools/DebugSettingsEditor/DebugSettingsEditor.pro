@@ -8,11 +8,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        MainWindow.cpp
+        MainWindow.cpp \
+    GeneralTab.cpp
 
 HEADERS += \
         MainWindow.h \
-    Defines.h
+    Defines.h \
+    GeneralTab.h
 
 FORMS += \
-        MainWindow.ui
+        MainWindow.ui \
+    GeneralTab.ui

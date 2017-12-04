@@ -1,12 +1,15 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "Defines.h"
+#include "GeneralTab.h"
 #include <QtWidgets>
 
 MainWindow::MainWindow(QWidget *parent) :
         QMainWindow(parent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
+
+    ui->tabWidget->addTab(new GeneralTab, tr("General"));
 
     settingsPath = QApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME;
     readSettings();

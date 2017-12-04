@@ -16,6 +16,11 @@ protected:
     void closeEvent(QCloseEvent* event);
 
 private:
+    enum class Tabs {
+        GENERAL,
+        VULKAN
+    };
+
     void readSettings();
     void writeSettings();
 

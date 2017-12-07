@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>574</width>
-    <height>393</height>
+    <width>579</width>
+    <height>364</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,21 +15,14 @@
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <widget class="QGroupBox" name="groupBox">
+    <widget class="QGroupBox" name="groupBoxLayers">
      <property name="title">
       <string>Layers</string>
      </property>
      <property name="checkable">
-      <bool>false</bool>
+      <bool>true</bool>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QCheckBox" name="checkBoxLayersUse">
-        <property name="text">
-         <string>Use</string>
-        </property>
-       </widget>
-      </item>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
       <item>
        <widget class="QListWidget" name="listWidgetLayers">
         <property name="selectionMode">
@@ -41,18 +34,17 @@
     </widget>
    </item>
    <item>
-    <widget class="QGroupBox" name="groupBox_2">
+    <widget class="QGroupBox" name="groupBoxExtensions">
      <property name="title">
       <string>Extensions</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_2">
-      <item>
-       <widget class="QCheckBox" name="checkBoxExtensionsUse">
-        <property name="text">
-         <string>Use</string>
-        </property>
-       </widget>
-      </item>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
       <item>
        <widget class="QListWidget" name="listWidgetExtensions">
         <property name="selectionMode">

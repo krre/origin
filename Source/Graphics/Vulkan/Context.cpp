@@ -24,13 +24,8 @@ Context::Context(const ContextProperties& properties) {
         instance->dumpExtensions();
     }
 
-    if (properties.layers.size()) {
-        instance->setEnabledLayers(properties.layers);
-    }
-
-    if (properties.extensions.size()) {
-        instance->setEnabledExtensions(properties.extensions);
-    }
+    instance->setEnabledLayers(properties.layers);
+    instance->setEnabledExtensions(properties.extensions);
 
     instance->create();
     createAll();

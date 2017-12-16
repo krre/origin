@@ -21,13 +21,11 @@ Instance::Instance() {
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_win32_surface",
-        "VK_EXT_debug_report"
     };
 #elif defined(__linux__)
     enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_xcb_surface",
-        "VK_EXT_debug_report"
     };
 #endif
 
@@ -62,9 +60,12 @@ void Instance::create() {
 
     VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
 
-    if (enableValidationLayers) {
-        debugCallback = std::make_unique<DebugReportCallback>(this);
-        debugCallback->create();
+    for (const auto& layer : enabledExtensions) {
+        if (layer == "VK_EXT_debug_report") {
+            debugCallback = std::make_unique<DebugReportCallback>(this);
+            debugCallback->create();
+            break;
+        }
     }
 }
 

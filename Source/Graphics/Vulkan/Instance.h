@@ -7,12 +7,6 @@ class RenderWindow;
 
 namespace Vulkan {
 
-#ifdef NDEBUG
-    const bool enableValidationLayers = false;
-#else
-    const bool enableValidationLayers = true;
-#endif
-
 class DebugReportCallback;
 
 class Instance : public Handle<VkInstance> {

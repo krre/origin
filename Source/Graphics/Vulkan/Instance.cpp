@@ -47,13 +47,11 @@ Instance::~Instance() {
 
 void Instance::create() {
     std::vector<const char*> layers;
-    if (enableValidationLayers) {
-        createInfo.enabledLayerCount = enabledLayers.size();
-        for (const auto& layer : enabledLayers) {
-            layers.push_back(const_cast<char*>(layer.c_str()));
-        }
-        createInfo.ppEnabledLayerNames = layers.data();
+    createInfo.enabledLayerCount = enabledLayers.size();
+    for (const auto& layer : enabledLayers) {
+        layers.push_back(const_cast<char*>(layer.c_str()));
     }
+    createInfo.ppEnabledLayerNames = layers.data();
 
     createInfo.enabledExtensionCount = enabledExtensions.size();
     std::vector<const char*> extensions;

@@ -10,12 +10,10 @@ public:
     DebugEnvironment();
     bool getEnable() const { return enable; }
     void setDebugScreen();
-    json& getMain() { return mainSettings; }
-    json& getVulkan() { return vulkanSettings; }
+    json& getSettings() { return settings; }
 
 private:
     void loadValues();
     bool enable = false;
-    json mainSettings;
-    json vulkanSettings;
+    json settings;
 };

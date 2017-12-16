@@ -63,17 +63,14 @@ void Application::init() {
         if (DebugEnvironment::get()->getEnable()) {
             Vulkan::ContextProperties properties = {};
 
-            properties.dumpLayers = DebugEnvironment::get()->getVulkan()["dumpLayers"];
-            properties.dumpExtensions = DebugEnvironment::get()->getVulkan()["dumpExtensions"];
-
-            if (DebugEnvironment::get()->getVulkan()["useLayers"]) {
-                for (auto& layer : DebugEnvironment::get()->getVulkan()["layers"]) {
+            if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
+                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]) {
                     properties.layers.push_back(layer);
                 }
             }
 
-            if (DebugEnvironment::get()->getVulkan()["useExtensions"]) {
-                for (auto& layer : DebugEnvironment::get()->getVulkan()["extensions"]) {
+            if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
+                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]) {
                     properties.extensions.push_back(layer);
                 }
             }

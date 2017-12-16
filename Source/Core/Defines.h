@@ -6,7 +6,9 @@
 #define APP_URL "https://github.com/krre/origin"
 #define APP_SETTINGS_NAME "settings.json"
 
-#define DEVELOP_MODE
+#ifndef NDEBUG
+    #define DEVELOP_MODE
+#endif
 
 #ifdef DEVELOP_MODE
     #define CONSOLE_ENABLE

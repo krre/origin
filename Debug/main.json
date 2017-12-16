@@ -1,8 +1,0 @@
-{
-    "comment1" : "Use debug settings",
-    "enable" : true,
-    "comment2" : "Enable Debug HUD on startup application",
-    "debugHUD" : false,
-    "comment3" : "Set scene on startup application: menu|world|settings",
-    "screen" : "menu"
-}

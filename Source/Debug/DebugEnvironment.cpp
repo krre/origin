@@ -13,29 +13,25 @@ DebugEnvironment::DebugEnvironment() {
 }
 
 void DebugEnvironment::setDebugScreen() {
-    const std::string& screenName = mainSettings["screen"];
+    uint32_t s = settings["general"]["screen"];
+    Screens screen = static_cast<Screens>(s);
     Size size(Application::get()->getWindow()->getWidth(), Application::get()->getWindow()->getHeight());
-    if (!screenName.empty()) {
-        if (screenName == "menu") {
-            Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>(size));
-        } else if (screenName == "settings") {
-//            Application::get()->getWindow()->setScreen(std::make_shared<SettingsScreen>());
-        } else if (screenName == "world") {
-//            Application::get()->getWindow()->setScreen(std::make_shared<WorldScreen>());
-        }
-    } else {
+    if (screen == Screens::MENU) {
         Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>(size));
+    } else if (screen == Screens::SETTINGS) {
+//        Application::get()->getWindow()->setScreen(std::make_shared<SettingsScreen>());
+    } else if (screen == Screens::GAME) {
+//        Application::get()->getWindow()->setScreen(std::make_shared<WorldScreen>());
     }
 }
 
 void DebugEnvironment::loadValues() {
-    std::string mainPath = Application::getCurrentPath() + "/Debug/main.json";
-    std::string mainText = Utils::readTextFile(mainPath);
-    mainSettings = json::parse(mainText);
-
-    enable = mainSettings["enable"];
-
-    std::string vulkanPath = Application::getCurrentPath() + "/Debug/vulkan.json";
-    std::string vulkanText = Utils::readTextFile(vulkanPath);
-    vulkanSettings = json::parse(vulkanText);
+    std::string filePath = Application::getCurrentPath() + "/debug.json";
+    try {
+        std::string text = Utils::readTextFile(filePath);
+        settings = json::parse(text);
+        enable = settings["general"]["enable"];
+    } catch (const std::exception& ex) {
+        ERROR(ex.what())
+    };
 }

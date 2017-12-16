@@ -12,6 +12,12 @@ const int BLOCK_INFO_END = 1;
 
 using EntityId = uint64_t;
 
+enum class Screens {
+    MENU,
+    SETTINGS,
+    GAME
+};
+
 struct Size {
     Size() = default;
     Size(uint32_t width, uint32_t height) : width(width), height(height) {}

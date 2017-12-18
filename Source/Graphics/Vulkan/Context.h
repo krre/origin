@@ -12,6 +12,8 @@ class CommandPool;
 struct ContextProperties {
     std::vector<std::string> layers;
     std::vector<std::string> extensions;
+    bool useLayers = false;
+    bool useExtensions = false;
     bool dumpLayers = false;
     bool dumpExtensions = false;
 };

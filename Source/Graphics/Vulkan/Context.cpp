@@ -16,6 +16,14 @@ Context::Context() {
 Context::Context(const ContextProperties& properties) {
     instance = std::make_unique<Vulkan::Instance>();
 
+    if (properties.useLayers) {
+        instance->setEnabledLayers(properties.layers);
+    };
+
+    if (properties.useExtensions) {
+        instance->setEnabledExtensions(properties.extensions);
+    }
+
     if (properties.dumpLayers) {
         instance->dumpLayers();
     }
@@ -23,9 +31,6 @@ Context::Context(const ContextProperties& properties) {
     if (properties.dumpExtensions) {
         instance->dumpExtensions();
     }
-
-    instance->setEnabledLayers(properties.layers);
-    instance->setEnabledExtensions(properties.extensions);
 
     instance->create();
     createAll();

@@ -380,7 +380,7 @@ void RenderWindow::onKeyPressed(const SDL_KeyboardEvent& event) {
         break;
 #endif
     case SDLK_F10:
-        Application::get()->getWindow()->toggleFullScreen();
+        toggleFullScreen();
         break;
     case SDLK_F11:
         saveScreenshot();

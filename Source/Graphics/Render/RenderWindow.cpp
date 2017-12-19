@@ -118,9 +118,12 @@ RenderWindow::RenderWindow() {
     submitQueue->create();
     submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
 
-    Event::get()->windowMove.connect<RenderWindow, &RenderWindow::onMove>(this);
+//    Event::get()->windowMove.connect<RenderWindow, &RenderWindow::onMove>(this);
     Event::get()->windowResize.connect<RenderWindow, &RenderWindow::onResize>(this);
     Event::get()->keyPressed.connect<RenderWindow, &RenderWindow::onKeyPressed>(this);
+
+    using namespace std::placeholders;
+    Event::get()->winMove.connect(std::bind(&RenderWindow::onMove, this, _1, _2));
 }
 
 RenderWindow::~RenderWindow() {
@@ -187,7 +190,7 @@ void RenderWindow::render() {
 }
 
 void RenderWindow::onMove(int x, int y) {
-
+    PRINT(x << " " << y)
 }
 
 void RenderWindow::onResize(int width, int height) {

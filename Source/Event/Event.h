@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/Singleton.h"
+#include <Core/Signal.h>
 #include <SDL.h>
 
 class Event : public Singleton<Event> {
@@ -13,6 +14,7 @@ public:
     Nano::Signal<void(double)> update;
     Nano::Signal<void(int, int)> windowResize;
     Nano::Signal<void(int, int)> windowMove;
+    Signal<void(int, int)> winMove;
     Nano::Signal<void(int, int)> mouseMove;
     Nano::Signal<void(const SDL_KeyboardEvent&)> keyPressed;
     Nano::Signal<void(const SDL_KeyboardEvent&)> keyRelease;

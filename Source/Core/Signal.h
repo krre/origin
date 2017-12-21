@@ -1,20 +1,44 @@
 #pragma once
-#include <vector>
+#include <map>
 #include <functional>
 
-template<class R, class... Args> class Signal {
+// Based on article http://simmesimme.github.io/tutorials/2015/09/20/signal-slot
+template <class... Args> class Signal {
 
 public:
-    void connect(std::function<R, Args...> target) {
-        targets.push_back(target);
+    // Connect method of class T
+    template <class T> int connect(T* obj, void(T::*func)(Args...)) {
+        return connect([=](Args... args) {
+            (obj->*func)(args...);
+        });
     }
 
-    template<class... Args1> void fire(Args1... args) {
-        for (const auto& target : targets) {
-            target(args...);
+    // Connect constant method of class T
+    template <class T> int connect(T* obj, void(T::*func)(Args...)) const {
+
+    }
+
+    // Connect std::function object
+    int connect(std::function<void(Args...)> const& target) const {
+        targets.insert(std::make_pair(++currentId, target));
+        return currentId;
+    }
+
+    void disconnect(int id) {
+        targets.erase(id);
+    }
+
+    void disconnectAll() {
+        targets.clear();
+    }
+
+    void fire(Args... args) {
+        for (const auto& it : targets) {
+            it.second(args...);
         }
     }
 
 private:
-    std::vector<std::function<R, Args...>> targets;
+    mutable std::map<int, std::function<void(Args...)>> targets;
+    mutable int currentId = -1;
 };

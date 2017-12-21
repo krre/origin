@@ -9,7 +9,7 @@ public:
         targets.push_back(target);
     }
 
-    void emit(Args... args) {
+    template<class... Args1> void fire(Args1... args) {
         for (const auto& target : targets) {
             target(args...);
         }

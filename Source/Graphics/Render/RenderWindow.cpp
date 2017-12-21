@@ -122,8 +122,8 @@ RenderWindow::RenderWindow() {
     Event::get()->windowResize.connect<RenderWindow, &RenderWindow::onResize>(this);
     Event::get()->keyPressed.connect<RenderWindow, &RenderWindow::onKeyPressed>(this);
 
-    using namespace std::placeholders;
-    Event::get()->winMove.connect(std::bind(&RenderWindow::onMove, this, _1, _2));
+//    using namespace std::placeholders;
+    Event::get()->winMove.connect(std::bind(&RenderWindow::onMove, this, std::placeholders::_1, std::placeholders::_2));
 }
 
 RenderWindow::~RenderWindow() {

@@ -5,7 +5,7 @@
 
 Toast::Toast() {
     setVisible(false);
-    timer.timeout.connect<Toast, &Toast::onTimeout>(this);
+    timer.timeout.connect(this, &Toast::onTimeout);
     text.setZ(1.0f);
 }
 

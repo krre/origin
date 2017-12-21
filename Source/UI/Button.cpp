@@ -9,11 +9,11 @@ Button::Button() : Rectangle({ 100, 20 }) {
     addChild(label);
     label->setCenterControl(this);
 
-    Event::get()->mouseButtonAction.connect<Button, &Button::onMouseButtonAction>(this);
+    clickedId = Event::get()->mouseButtonAction.connect(this, &Button::onMouseButtonAction);
 }
 
 Button::~Button() {
-   Event::get()->mouseButtonAction.disconnect<Button, &Button::onMouseButtonAction>(this);
+   Event::get()->mouseButtonAction.disconnect(clickedId);
 }
 
 void Button::setText(const std::string &text) {
@@ -47,7 +47,7 @@ void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
         int mouseY = event.y;
 
         if (mouseX > position.x && mouseX < (position.x + size.width) && mouseY > position.y && mouseY < (position.y + size.height)) {
-            clicked.emit();
+            clicked.fire();
         }
     }
 }

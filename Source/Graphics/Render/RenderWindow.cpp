@@ -118,11 +118,9 @@ RenderWindow::RenderWindow() {
     submitQueue->create();
     submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
 
-//    Event::get()->windowMove.connect<RenderWindow, &RenderWindow::onMove>(this);
-    Event::get()->windowResize.connect<RenderWindow, &RenderWindow::onResize>(this);
-    Event::get()->keyPressed.connect<RenderWindow, &RenderWindow::onKeyPressed>(this);
-
-    Event::get()->winMove.connect(this, &RenderWindow::onMove);
+    Event::get()->windowMove.connect(this, &RenderWindow::onMove);
+    Event::get()->windowResize.connect(this, &RenderWindow::onResize);
+    Event::get()->keyPressed.connect(this, &RenderWindow::onKeyPressed);
 }
 
 RenderWindow::~RenderWindow() {

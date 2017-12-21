@@ -61,4 +61,5 @@ private:
     std::shared_ptr<Entity> currentCamera;
     std::shared_ptr<Entity> switchCameras[2] = { nullptr, nullptr };
     std::vector<std::shared_ptr<Entity>> cameras;
+    int keyPressedId;
 };

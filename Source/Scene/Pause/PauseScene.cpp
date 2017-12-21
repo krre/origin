@@ -44,8 +44,8 @@ void PauseScene::create() {
     layout->addControl(exitButton.get());
     setRootControl(layout);
 
-    continueButton->clicked.connect<PauseScene, &PauseScene::onContinueButtonClicked>(this);
-    exitButton->clicked.connect<PauseScene, &PauseScene::onExitButtonClicked>(this);
+    continueButton->clicked.connect(this, &PauseScene::onContinueButtonClicked);
+    exitButton->clicked.connect(this, &PauseScene::onExitButtonClicked);
 }
 
 void PauseScene::onKeyPressed(const SDL_KeyboardEvent& event) {

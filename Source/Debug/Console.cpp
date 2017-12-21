@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 
 Console::Console() {
-    Event::get()->windowResize.connect<Console, &Console::onWindowResize>(this);
+    Event::get()->windowResize.connect(this, &Console::onWindowResize);
     cmdLine = std::make_shared<Label>();
     cmdLine->setZ(1.0f);
 }

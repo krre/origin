@@ -14,6 +14,6 @@ void Timer::stop() {
 
 Uint32 Timer::onTimeElaplsed(Uint32 interval, void* param) {
     Timer* self = reinterpret_cast<Timer*>(param);
-    self->timeout.emit();
+    self->timeout.fire();
     return 0;
 }

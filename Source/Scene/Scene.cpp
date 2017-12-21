@@ -16,7 +16,7 @@
 #include <algorithm>
 
 Scene::Scene() {
-    Event::get()->windowResize.connect<Scene, &Scene::onWindowResize>(this);
+    Event::get()->windowResize.connect(this, &Scene::onWindowResize);
 
 //    commandBuffers = std::make_shared<Vulkan::CommandBuffers>(Vulkan::Instance::get()->getCommandPool());
 //    commandBuffers->allocate(Vulkan::Instance::get()->getSurface()->getSwapchain()->getCount());
@@ -36,11 +36,11 @@ void Scene::init() {
 }
 
 void Scene::pause() {
-    Event::get()->keyPressed.disconnect<Scene, &Scene::onKeyPressed>(this);
+    Event::get()->keyPressed.disconnect(keyPressedId);
 }
 
 void Scene::resume() {
-    Event::get()->keyPressed.connect<Scene, &Scene::onKeyPressed>(this);
+    keyPressedId = Event::get()->keyPressed.connect(this, &Scene::onKeyPressed);
 }
 
 void Scene::update(float dt) {

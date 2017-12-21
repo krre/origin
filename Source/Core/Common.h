@@ -2,7 +2,7 @@
 #include <iostream>
 #include <memory>
 #ifndef QT_VERSION
-    #include <nano-signal-slot/nano_signal_slot.hpp>
+    #include "Signal.h"
     #define PRINT(x) std::cout << x << std::endl;
     #define ERROR(x) std::cerr << x << std::endl;
 #endif

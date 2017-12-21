@@ -106,8 +106,8 @@ void Application::init() {
         window->setScreen(std::make_shared<MenuScreen>(size));
     }
 
-    Event::get()->quit.connect<Application, &Application::quit>(this);
-    Event::get()->windowResize.emit(window->getWidth(), window->getHeight());
+    Event::get()->quit.connect(this, &Application::quit);
+    Event::get()->windowResize.fire(window->getWidth(), window->getHeight());
 
     window->show();
 

@@ -12,17 +12,16 @@ void Event::handleEvents() {
         switch (event.type) {
 
         case SDL_QUIT:
-            quit.emit();
+            quit.fire();
             break;
 
         case SDL_WINDOWEVENT:
             switch (event.window.event) {
             case SDL_WINDOWEVENT_RESIZED:
-                windowResize.emit(event.window.data1, event.window.data2);
+                windowResize.fire(event.window.data1, event.window.data2);
                 break;
             case SDL_WINDOWEVENT_MOVED:
-//                windowMove.emit(event.window.data1, event.window.data2);
-                winMove.fire(event.window.data1, event.window.data2);
+                windowMove.fire(event.window.data1, event.window.data2);
                 break;
             default:
                 break;
@@ -32,15 +31,15 @@ void Event::handleEvents() {
         case SDL_MOUSEMOTION:
             Input::get()->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
             Input::get()->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
-            mouseMove.emit(event.motion.x, event.motion.y);
+            mouseMove.fire(event.motion.x, event.motion.y);
             break;
 
         case SDL_MOUSEBUTTONDOWN:
-            mouseButtonAction.emit(event.button);
+            mouseButtonAction.fire(event.button);
             break;
 
         case SDL_MOUSEBUTTONUP:
-            mouseButtonAction.emit(event.button);
+            mouseButtonAction.fire(event.button);
             break;
 
         case SDL_MOUSEWHEEL:
@@ -51,7 +50,7 @@ void Event::handleEvents() {
             if (!keyLock) {
                 Input::get()->addKey(event.key.keysym.sym);
                 Input::get()->isKeyAccepted = false;
-                keyPressed.emit(event.key);
+                keyPressed.fire(event.key);
                 keyLock = true;
             }
             break;
@@ -59,7 +58,7 @@ void Event::handleEvents() {
         case SDL_KEYUP:
             Input::get()->removeKey(event.key.keysym.sym);
             Input::get()->isKeyAccepted = false;
-            keyRelease.emit(event.key);
+            keyRelease.fire(event.key);
             keyLock = false;
         default:
             break;

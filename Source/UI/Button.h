@@ -17,7 +17,7 @@ public:
 
     void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
 
-    Nano::Signal<void()> clicked;
+    Signal<> clicked;
 
 protected:
     void draw(float dt) override;
@@ -25,4 +25,5 @@ protected:
 private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
     std::shared_ptr<Label> label;
+    int clickedId;
 };

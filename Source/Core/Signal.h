@@ -15,7 +15,9 @@ public:
 
     // Connect constant method of class T
     template <class T> int connect(T* obj, void(T::*func)(Args...)) const {
-
+        return connect([=](Args... args) {
+            (obj->*func)(args...);
+        });
     }
 
     // Connect std::function object

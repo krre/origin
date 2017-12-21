@@ -189,7 +189,7 @@ void RenderWindow::render() {
 }
 
 void RenderWindow::onMove(int x, int y) {
-    PRINT(x << " " << y)
+
 }
 
 void RenderWindow::onResize(int width, int height) {

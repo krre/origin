@@ -45,9 +45,6 @@ public:
     void update(float dt);
     void render();
 
-    void acquireNextImage();
-    void present();
-
     void saveScreenshot();
     void toggleFullScreen();
 
@@ -57,13 +54,11 @@ public:
     Vulkan::Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
     Vulkan::PresentQueue* getPresentQueue() const { return presentQueue.get(); }
     Vulkan::Framebuffer* getFrameBuffer(size_t i) { return framebuffers.at(i).get(); }
-    void rebuild();
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void onMove(int x, int y);
     void onResize(int width, int height);
-    void createSwapchain();
 
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::Surface> surface;
@@ -76,6 +71,7 @@ private:
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
     std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
     std::unique_ptr<Vulkan::PresentQueue> presentQueue;
+    std::unique_ptr<Vulkan::Fence> presentFence;
 
     SDL_Window* handle = nullptr;
     std::vector<std::shared_ptr<Screen>> screens;

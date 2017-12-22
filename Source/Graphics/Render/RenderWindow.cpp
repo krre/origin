@@ -88,6 +88,24 @@ RenderWindow::RenderWindow() {
 
     device = Vulkan::Context::get()->getGraphicsDevice();
 
+    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
+    presentQueue->create();
+
+    presentFence = std::make_unique<Vulkan::Fence>(device);
+    presentFence->setSignaledBit();
+    presentFence->create();
+
+    imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
+    imageAvailableSemaphore->create();
+
+    renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
+    renderFinishedSemaphore->create();
+    presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
+
+    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
+    submitQueue->create();
+    submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
+
 #if defined(OS_WIN)
     surface = std::make_unique<Vulkan::Win32Surface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif defined(OS_LINUX)
@@ -103,20 +121,8 @@ RenderWindow::RenderWindow() {
     renderPass->setExtent(currentExtent);
     renderPass->create();
 
-    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
-
-    createSwapchain();
-
-    imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
-    imageAvailableSemaphore->create();
-
-    renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
-    renderFinishedSemaphore->create();
-    presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
-
-    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
-    submitQueue->create();
-    submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
+    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
+    onResize(width, height);
 
     Event::get()->windowMove.connect(this, &RenderWindow::onMove);
     Event::get()->windowResize.connect(this, &RenderWindow::onResize);
@@ -176,14 +182,22 @@ void RenderWindow::update(float dt) {
 }
 
 void RenderWindow::render() {
-    acquireNextImage();
+    presentFence->wait();
+    presentFence->reset();
+
+    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
+    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+        PRINT("Resize")
+//        onResize(0, 0);
+    }
 
     submitQueue->clearCommandBuffers();
     uint32_t imageIndex = swapchain->getImageIndex();
     submitQueue->addCommandBuffer(screens.back()->getCommandBuffer(imageIndex), imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
     submitQueue->submit();
 
-    present();
+    presentQueue->present();
+    vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());
 }
 
 void RenderWindow::onMove(int x, int y) {
@@ -191,16 +205,7 @@ void RenderWindow::onMove(int x, int y) {
 }
 
 void RenderWindow::onResize(int width, int height) {
-    for (const auto& screen : screens) {
-        screen->resize(width, height);
-    }
-}
-
-void RenderWindow::createSwapchain() {
-    swapchain.reset();
-    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
-    swapchain->create();
-
+    swapchain->resize(width, height);
     presentQueue->clearSwapchains();
     presentQueue->addSwapchain(swapchain.get());
 
@@ -228,6 +233,12 @@ void RenderWindow::createSwapchain() {
         std::unique_ptr<Vulkan::Fence> presentFence = std::make_unique<Vulkan::Fence>(device);
         presentFence->create();
         presentFences.push_back(std::move(presentFence));
+    }
+
+    renderPass->setExtent(currentExtent);
+
+    for (const auto& screen : screens) {
+        screen->resize(width, height);
     }
 }
 
@@ -353,23 +364,6 @@ void RenderWindow::toggleFullScreen() {
     bool isFullscreen = SDL_GetWindowFlags(handle) & SDL_WINDOW_FULLSCREEN;
     SDL_SetWindowFullscreen(handle, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
     SDL_ShowCursor(isFullscreen);
-}
-
-void RenderWindow::acquireNextImage() {
-    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
-    if (result != VK_SUCCESS) {
-        rebuild();
-    }
-}
-
-void RenderWindow::present() {
-    presentQueue->present();
-}
-
-void RenderWindow::rebuild() {
-    VkExtent2D currentExtent = surface->getCurrentExtent();
-    renderPass->setExtent(currentExtent);
-    createSwapchain();
 }
 
 void RenderWindow::onKeyPressed(const SDL_KeyboardEvent& event) {

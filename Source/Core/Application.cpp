@@ -107,7 +107,6 @@ void Application::init() {
     }
 
     Event::get()->quit.connect(this, &Application::quit);
-    Event::get()->windowResize.fire(window->getWidth(), window->getHeight());
 
     window->show();
 

@@ -32,7 +32,7 @@ Swapchain::~Swapchain() {
 }
 
 void Swapchain::create() {
-    createInfo.imageExtent = surface->getCurrentExtent();
+    createInfo.oldSwapchain = handle;
     VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;
@@ -49,6 +49,30 @@ VkResult Swapchain::acquireNextImage(Semaphore* semaphore) {
     return vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, pImageIndex);
 }
 
+VkResult Swapchain::acquireNextImage(Semaphore* semaphore, uint32_t* index) {
+    return vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, index);
+}
+
 void Swapchain::setImageIndexPtr(uint32_t* pImageIndex) {
     this->pImageIndex = pImageIndex;
+}
+
+void Swapchain::resize(uint32_t width, uint32_t height) {
+    VkExtent2D extent = surface->getCurrentExtent();
+    if (extent.width == (uint32_t)-1) {
+        extent.width = width;
+        extent.height = height;
+    }
+
+    if (extent.width == oldExtent.width && extent.height == oldExtent.height) return;
+
+    createInfo.imageExtent = extent;
+    create();
+
+    if (createInfo.oldSwapchain != VK_NULL_HANDLE) {
+        device->waitIdle();
+        VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), createInfo.oldSwapchain, nullptr))
+    }
+
+    oldExtent = extent;
 }

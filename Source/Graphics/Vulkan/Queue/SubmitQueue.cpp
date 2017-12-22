@@ -32,6 +32,20 @@ void SubmitQueue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* wait
     submitInfos.push_back(submitInfo);
 }
 
+void SubmitQueue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* signalSemaphore) {
+    commandBuffers.push_back(commandBuffer->getHandle());
+    signalSemaphores.push_back(signalSemaphore->getHandle());
+
+    VkSubmitInfo submitInfo = {};
+    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+    submitInfo.commandBufferCount = commandBuffers.size();
+    submitInfo.pCommandBuffers = commandBuffers.data();
+    submitInfo.signalSemaphoreCount = signalSemaphores.size();
+    submitInfo.pSignalSemaphores = signalSemaphores.data();
+
+    submitInfos.push_back(submitInfo);
+}
+
 void SubmitQueue::addCommandBuffer(CommandBuffer* commandBuffer) {
     commandBuffers.push_back(commandBuffer->getHandle());
 

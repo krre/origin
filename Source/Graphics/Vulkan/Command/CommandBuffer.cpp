@@ -224,5 +224,18 @@ void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask,
 }
 
 void CommandBuffer::reset() {
+    viewports.clear();
+    scissors.clear();
+    vertexBuffers.clear();
+    vertexBufferOffsets.clear();
+    bufferCopies.clear();
+    imageCopies.clear();
+    blitRegions.clear();
+    dynamicOffsets.clear();
+    descriptorSets.clear();
+    memoryBarriers.clear();
+    bufferMemoryBarriers.clear();
+    imageMemoryBarriers.clear();
+
     vkResetCommandBuffer(handle, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
 }

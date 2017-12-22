@@ -25,7 +25,6 @@ public:
     void setImageIndexPtr(uint32_t* pImageIndex);
     VkImage getCurrentImage() const { return images.at(*pImageIndex); }
     uint32_t getImageIndex() const { return *pImageIndex; }
-    void resize(uint32_t width, uint32_t height);
 
 private:
     VkSwapchainCreateInfoKHR createInfo = {};

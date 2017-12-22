@@ -187,7 +187,7 @@ void RenderWindow::render() {
 
     VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-//        onResize(0, 0);
+        onResize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
     }
 
     submitQueue->clearCommandBuffers();

@@ -8,13 +8,13 @@ PresentQueue::PresentQueue(Device* device, uint32_t queueFamilyIndex, uint32_t q
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
 }
 
-void PresentQueue::present() {
+void PresentQueue::present(uint32_t* indices) {
     assert(!swapchainHandles.empty());
     presentInfo.waitSemaphoreCount = waitSemaphores.size();
     presentInfo.pWaitSemaphores = waitSemaphores.data();
     presentInfo.swapchainCount = swapchainHandles.size();
     presentInfo.pSwapchains = swapchainHandles.data();
-    presentInfo.pImageIndices = imageIndices.data();
+    presentInfo.pImageIndices = indices == nullptr ? imageIndices.data() : indices;
     VULKAN_CHECK_RESULT(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
 }
 

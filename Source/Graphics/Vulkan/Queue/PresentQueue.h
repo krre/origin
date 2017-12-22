@@ -10,7 +10,7 @@ class PresentQueue : public Queue {
 
 public:
     PresentQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
-    void present();
+    void present(uint32_t* indices = nullptr);
     void addSwapchain(Swapchain* swapchain);
     void clearSwapchains();
 

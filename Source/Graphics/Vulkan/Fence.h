@@ -13,6 +13,7 @@ public:
     void destroy() override;
     VkResult wait();
     VkResult reset();
+    void setSignaledBit();
 
 private:
     VkFenceCreateInfo createInfo = {};

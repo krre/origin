@@ -25,3 +25,7 @@ VkResult Fence::wait() {
 VkResult Fence::reset() {
     return vkResetFences(device->getHandle(), 1, &handle);
 }
+
+void Fence::setSignaledBit() {
+    createInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+}

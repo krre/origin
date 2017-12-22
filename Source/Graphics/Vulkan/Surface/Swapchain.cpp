@@ -32,7 +32,8 @@ Swapchain::~Swapchain() {
 }
 
 void Swapchain::create() {
-    createInfo.oldSwapchain = handle;
+    createInfo.imageExtent = surface->getCurrentExtent();;
+//    createInfo.oldSwapchain = handle;
     VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
 
     uint32_t count;
@@ -42,6 +43,7 @@ void Swapchain::create() {
 }
 
 void Swapchain::destroy() {
+    device->waitIdle();
     VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
 }
 

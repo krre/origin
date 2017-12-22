@@ -187,7 +187,6 @@ void RenderWindow::render() {
 
     VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-        PRINT("Resize")
 //        onResize(0, 0);
     }
 
@@ -205,15 +204,13 @@ void RenderWindow::onMove(int x, int y) {
 }
 
 void RenderWindow::onResize(int width, int height) {
-    swapchain->resize(width, height);
+    swapchain->destroy();
+    swapchain->create();
     presentQueue->clearSwapchains();
     presentQueue->addSwapchain(swapchain.get());
 
     imageViews.clear();
     framebuffers.clear();
-    presentFences.clear();
-
-    VkExtent2D currentExtent = surface->getCurrentExtent();
 
     for (const auto& image : swapchain->getImages()) {
         std::unique_ptr<Vulkan::ImageView> imageView = std::make_unique<Vulkan::ImageView>(device, image);
@@ -223,19 +220,15 @@ void RenderWindow::onResize(int width, int height) {
         std::unique_ptr<Vulkan::Framebuffer> framebuffer = std::make_unique<Vulkan::Framebuffer>(device);
         framebuffer->addAttachment(imageView.get());
         framebuffer->setRenderPass(renderPass.get());
-        framebuffer->setWidth(currentExtent.width);
-        framebuffer->setHeight(currentExtent.height);
+        framebuffer->setWidth(width);
+        framebuffer->setHeight(height);
         framebuffer->create();
 
         imageViews.push_back(std::move(imageView));
         framebuffers.push_back(std::move(framebuffer));
-
-        std::unique_ptr<Vulkan::Fence> presentFence = std::make_unique<Vulkan::Fence>(device);
-        presentFence->create();
-        presentFences.push_back(std::move(presentFence));
     }
 
-    renderPass->setExtent(currentExtent);
+    renderPass->setExtent({ (uint32_t)width, (uint32_t)height });
 
     for (const auto& screen : screens) {
         screen->resize(width, height);

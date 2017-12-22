@@ -66,7 +66,6 @@ private:
     std::unique_ptr<Vulkan::RenderPass> renderPass;
     std::vector<std::unique_ptr<Vulkan::Framebuffer>> framebuffers;
     std::vector<std::unique_ptr<Vulkan::ImageView>> imageViews;
-    std::vector<std::unique_ptr<Vulkan::Fence>> presentFences;
     std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
     std::unique_ptr<Vulkan::SubmitQueue> submitQueue;

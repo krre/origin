@@ -2,7 +2,6 @@
 #include "Core/Singleton.h"
 
 class Screen;
-class View;
 
 namespace Vulkan {
     class Semaphore;
@@ -15,7 +14,6 @@ class RenderManager : public Singleton<RenderManager> {
 public:
     RenderManager();
     ~RenderManager();
-    void renderView(View* view);
     void renderScreen(Screen* screen, Vulkan::Semaphore* waitSemaphore, Vulkan::Semaphore* signalSemaphore, uint32_t imageIndex);
 
 private:

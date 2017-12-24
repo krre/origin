@@ -37,6 +37,9 @@ public:
     void markDirty();
     void clearDirty();
 
+    void setVisible(bool visible);
+    bool getVisible() const { return visible; }
+
     void getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
     virtual void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) = 0;
 
@@ -52,6 +55,7 @@ protected:
     Size size;
     float scale = 1.0;
     float z = 0.0f;
+    bool visible = true;
 
 private:
     Control* fillControl = nullptr;

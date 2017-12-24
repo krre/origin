@@ -40,7 +40,9 @@ public:
     void getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
     virtual void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) = 0;
 
+    void setParent(Control* parent);
     void addChild(Control* control);
+    void removeChild(Control* control);
 
 protected:
     Control* parent = nullptr;

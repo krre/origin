@@ -80,6 +80,15 @@ void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexB
     clearDirty();
 }
 
+void Control::setParent(Control* parent) {
+    this->parent = parent;
+}
+
 void Control::addChild(Control* control) {
     children.push_back(control);
+    control->setParent(this);
+}
+
+void Control::removeChild(Control* control) {
+    children.erase(std::remove(children.begin(), children.end(), control), children.end());
 }

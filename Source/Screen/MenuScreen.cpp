@@ -4,7 +4,7 @@
 #include "UI/Text/Label.h"
 #include "UI/Rectangle.h"
 
-MenuScreen::MenuScreen(const Size& size) : Screen(size) {
+MenuScreen::MenuScreen() {
     menuView = std::make_shared<View2D>();
     pushView(menuView);
 

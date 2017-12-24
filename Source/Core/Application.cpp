@@ -102,8 +102,7 @@ void Application::init() {
     if (DebugEnvironment::get()->getEnable()) {
         DebugEnvironment::get()->setDebugScreen();
     } else {
-        Size size(Application::get()->getWindow()->getWidth(), Application::get()->getWindow()->getHeight());
-        window->setScreen(std::make_shared<MenuScreen>(size));
+        window->setScreen(std::make_shared<MenuScreen>());
     }
 
     Event::get()->quit.connect(this, &Application::quit);

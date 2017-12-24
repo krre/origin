@@ -15,7 +15,7 @@ namespace Vulkan {
 class Screen {
 
 public:
-    Screen(const Size& size);
+    Screen();
     ~Screen();
     virtual void hide();
     virtual void pause();
@@ -23,6 +23,7 @@ public:
     virtual void show();
 
     void setRootControl(Control* control);
+    Control* getRootControl() const { return rootControl; }
 
     void update(float dt);
     void resize(uint32_t width, uint32_t height);
@@ -42,7 +43,6 @@ private:
     View* currentView = nullptr;
     bool isPaused = true;
     RenderWindow* window = nullptr;
-    Size size;
 
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;

@@ -15,9 +15,8 @@ DebugEnvironment::DebugEnvironment() {
 void DebugEnvironment::setDebugScreen() {
     uint32_t s = settings["general"]["screen"];
     Screens screen = static_cast<Screens>(s);
-    Size size(Application::get()->getWindow()->getWidth(), Application::get()->getWindow()->getHeight());
     if (screen == Screens::MENU) {
-        Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>(size));
+        Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>());
     } else if (screen == Screens::SETTINGS) {
 //        Application::get()->getWindow()->setScreen(std::make_shared<SettingsScreen>());
     } else if (screen == Screens::GAME) {

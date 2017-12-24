@@ -150,6 +150,7 @@ void RenderWindow::pushScreen(const std::shared_ptr<Screen>& screen) {
         screens.back()->pause();
     }
     screens.push_back(screen);
+    screen->resize(width, height);
     screen->resume();
 }
 

@@ -6,7 +6,7 @@ Button::Button() : Rectangle({ 100, 20 }) {
     setColor({ 0.6, 0.6, 0.6 });
 
     label = std::make_shared<Label>();
-    addChild(label);
+//    addChild(label);
     label->setCenterControl(this);
 
     clickedId = Event::get()->mouseButtonAction.connect(this, &Button::onMouseButtonAction);
@@ -34,10 +34,6 @@ const Color& Button::getLabelColor() const {
 }
 
 void Button::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
-
-}
-
-void Button::draw(float dt) {
 
 }
 

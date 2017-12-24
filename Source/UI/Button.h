@@ -19,9 +19,6 @@ public:
 
     Signal<> clicked;
 
-protected:
-    void draw(float dt) override;
-
 private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
     std::shared_ptr<Label> label;

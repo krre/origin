@@ -7,8 +7,6 @@ class Layout : public Control {
 public:
     Layout();
     virtual void resize(int width, int height);
-    virtual void draw(float dt) override;
-    virtual void update(float dt) override;
 
     void addControl(Control *control);
     void removeControl(Control* control);

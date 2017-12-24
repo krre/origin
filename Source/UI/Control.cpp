@@ -63,8 +63,8 @@ void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexB
     std::unique_ptr<Batch2D> batch = std::make_unique<Batch2D>();
     prepareBatch(batch.get(), vertexBuffer, indexBuffer);
 
-    for (const auto& child : children) {
-        static_cast<Control*>(child.get())->getBatches(batches, vertexBuffer, indexBuffer);
+    for (auto child : children) {
+        child->getBatches(batches, vertexBuffer, indexBuffer);
     }
 
     batches.push_back(std::move(batch));

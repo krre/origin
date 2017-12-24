@@ -24,13 +24,6 @@ void Rectangle::setBorderWidth(uint32_t border) {
     this->borderWidth = border;
 }
 
-void Rectangle::draw(float dt) {
-}
-
-void Rectangle::update(float dt) {
-
-}
-
 void Rectangle::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
 
 }

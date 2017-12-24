@@ -11,20 +11,6 @@ void Layout::resize(int width, int height) {
     }
 }
 
-void Layout::draw(float dt) {
-    for (const auto& layout : layouts) {
-        layout->draw(dt);
-    }
-
-    for (const auto& control : controls) {
-        control->draw(dt);
-    }
-}
-
-void Layout::update(float dt) {
-
-}
-
 void Layout::addControl(Control* control) {
     controls.push_back(control);
     updateContentPostion();

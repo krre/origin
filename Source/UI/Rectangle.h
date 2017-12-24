@@ -17,8 +17,6 @@ public:
     void setBorderWidth(uint32_t borderWidth);
     uint32_t getBorderWidth() const { return borderWidth; }
 
-    void draw(float dt) override;
-    void update(float dt) override;
     void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
 
 private:

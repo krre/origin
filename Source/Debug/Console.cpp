@@ -12,7 +12,7 @@ Console::Console() {
 }
 
 void Console::update(float dt) {
-    cmdLine->draw(dt);
+//    cmdLine->draw(dt);
 }
 
 //void Console::setVisible(bool visible) {

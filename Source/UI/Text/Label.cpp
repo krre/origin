@@ -22,14 +22,6 @@ void Label::setColor(const Color& color) {
     this->color = color;
 }
 
-void Label::draw(float dt) {
-
-}
-
-void Label::update(float dt) {
-
-}
-
 void Label::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
 
 }

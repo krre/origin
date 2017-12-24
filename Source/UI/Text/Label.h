@@ -17,9 +17,6 @@ public:
     void setColor(const Color& color);
     const Color& getColor() const { return color; }
 
-    void draw(float dt) override;
-    void update(float dt) override;
-
     void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
 
 private:

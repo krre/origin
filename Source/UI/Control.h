@@ -1,6 +1,5 @@
 #pragma once
-#include "Graphics/Drawable.h"
-#include "Core/Node.h"
+#include "Core/Object.h"
 #include <glm/glm.hpp>
 #include <vector>
 
@@ -8,7 +7,7 @@ class Batch2D;
 class VertexBuffer;
 class IndexBuffer;
 
-class Control : public Drawable, public Node {
+class Control : public Object {
 
 public:
     Control(const Pos2& position = {});
@@ -48,7 +47,9 @@ protected:
     float z = 0.0f;
 
 private:
+    Control* parent = nullptr;
     Control* fillControl = nullptr;
     Control* centerControl = nullptr;
     bool isDirty = true;
+    std::vector<Control*> children;
 };

@@ -191,8 +191,8 @@ void RenderWindow::render() {
     }
 
     submitQueue->clearCommandBuffers();
-    uint32_t imageIndex = swapchain->getImageIndex();
-    submitQueue->addCommandBuffer(screens.back()->getCommandBuffer(imageIndex), imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
+    submitQueue->addCommandBuffer(screens.back()->getCommandBuffer(swapchain->getImageIndex()),
+                                  imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
     submitQueue->submit();
 
     presentQueue->present();

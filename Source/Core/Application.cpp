@@ -82,12 +82,11 @@ void Application::init() {
             new Vulkan::Context;
         }
 
-        new RenderManager;
-
         window = std::make_unique<RenderWindow>();
 
-        new RendererSet;
         new ResourceManager;
+        new RenderManager;
+        new RendererSet;
         new DebugHUD;
         new Input;
         new Game;

@@ -21,7 +21,6 @@ namespace Vulkan {
     class Framebuffer;
     class Semaphore;
     class Fence;
-    class SubmitQueue;
     class PresentQueue;
 }
 
@@ -68,7 +67,6 @@ private:
     std::vector<std::unique_ptr<Vulkan::ImageView>> imageViews;
     std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
-    std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
     std::unique_ptr<Vulkan::PresentQueue> presentQueue;
     std::unique_ptr<Vulkan::Fence> presentFence;
 

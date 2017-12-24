@@ -35,8 +35,8 @@ Application::~Application() {
     DebugHUD::release();
     ResourceManager::release();
     RendererSet::release();
-    window.reset();
     RenderManager::release();
+    window.reset();
     Vulkan::Context::release();
     SDLWrapper::release();
     Event::release();

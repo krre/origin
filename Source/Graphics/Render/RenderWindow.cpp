@@ -20,7 +20,6 @@
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Queue/PresentQueue.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Device/DeviceMemory.h"
 #include "Graphics/Vulkan/RenderPass.h"
@@ -31,6 +30,7 @@
 #include "Graphics/Vulkan/Image/ImageView.h"
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include "Event/Event.h"
+#include "Graphics/Render/RenderManager.h"
 
 // Hack to disable typedef Screen from X11 to prevent conflict with Screen class
 #define Screen SCREEN_DEF
@@ -102,10 +102,6 @@ RenderWindow::RenderWindow() {
     renderFinishedSemaphore->create();
     presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
 
-    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
-    submitQueue->create();
-    submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
-
 #if defined(OS_WIN)
     surface = std::make_unique<Vulkan::Win32Surface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif defined(OS_LINUX)
@@ -130,8 +126,6 @@ RenderWindow::RenderWindow() {
 }
 
 RenderWindow::~RenderWindow() {
-    submitQueue->waitIdle();
-
     int x, y, width, height;
 
     SDL_GetWindowPosition(handle, &x, &y);
@@ -191,11 +185,7 @@ void RenderWindow::render() {
         onResize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
     }
 
-    submitQueue->clearCommandBuffers();
-    submitQueue->addCommandBuffer(screens.back()->getCommandBuffer(swapchain->getImageIndex()),
-                                  imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
-    submitQueue->submit();
-
+    RenderManager::get()->renderScreen(screens.back().get(), imageAvailableSemaphore.get(), renderFinishedSemaphore.get(), swapchain->getImageIndex());
     presentQueue->present();
     vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());
 }

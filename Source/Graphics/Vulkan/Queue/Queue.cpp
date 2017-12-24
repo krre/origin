@@ -12,6 +12,10 @@ void Queue::addWaitSemaphore(Semaphore* semaphore) {
     waitSemaphores.push_back(semaphore->getHandle());
 }
 
+void Queue::clearWaitSemaphores() {
+    waitSemaphores.clear();
+}
+
 void Queue::waitIdle() {
     VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
 }

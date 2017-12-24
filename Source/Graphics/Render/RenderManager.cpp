@@ -1,13 +1,23 @@
 #include "RenderManager.h"
+#include "Core/Screen.h"
 #include "Scene/Scene.h"
 #include "UI/View.h"
 #include "UI/Control.h"
 #include "UI/Batch2D.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
+#include "Graphics/Vulkan/Semaphore.h"
+#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Context.h"
 
 RenderManager::RenderManager() {
+    device = Vulkan::Context::get()->getGraphicsDevice();
+    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
+    submitQueue->create();
+}
 
+RenderManager::~RenderManager() {
+    submitQueue->waitIdle();
 }
 
 void RenderManager::renderView(View* view) {
@@ -18,4 +28,16 @@ void RenderManager::renderView(View* view) {
     IndexBuffer indexBuffer(1000000);
 
     view->getScene()->getRootControl()->getBatches(batches, &vertexBuffer, &indexBuffer);
+}
+
+void RenderManager::renderScreen(Screen* screen, Vulkan::Semaphore* waitSemaphore, Vulkan::Semaphore* signalSemaphore, uint32_t imageIndex) {
+    if (screen->getRootControl() == nullptr) return;
+
+    submitQueue->clearWaitSemaphores();
+    submitQueue->addWaitSemaphore(waitSemaphore);
+
+    submitQueue->clearCommandBuffers();
+    submitQueue->addCommandBuffer(screen->getCommandBuffer(imageIndex),
+                                  waitSemaphore, VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, signalSemaphore);
+    submitQueue->submit();
 }

@@ -15,6 +15,7 @@ public:
     void create() override {}
     void destroy() override {}
     void addWaitSemaphore(Semaphore* semaphore);
+    void clearWaitSemaphores();
     void waitIdle();
     void syncHost(Fence* fence);
 

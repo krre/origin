@@ -2,6 +2,7 @@
 #include "Common.h"
 #include <vector>
 
+class Control;
 class View;
 class RenderWindow;
 
@@ -21,6 +22,8 @@ public:
     virtual void resume();
     virtual void show();
 
+    void setRootControl(Control* control);
+
     void update(float dt);
     void resize(uint32_t width, uint32_t height);
 
@@ -33,6 +36,7 @@ public:
 private:
     void updateRenderViews();
 
+    Control* rootControl = nullptr;
     std::vector<std::shared_ptr<View>> views;
     std::vector<View*> renderViews;
     View* currentView = nullptr;

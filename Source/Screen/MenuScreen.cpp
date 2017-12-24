@@ -8,6 +8,6 @@ MenuScreen::MenuScreen(const Size& size) : Screen(size) {
     menuView = std::make_shared<View2D>();
     pushView(menuView);
 
-    auto rectangle = std::make_shared<Rectangle>(Size(100, 100));
-    menuView->getScene()->setRootControl(rectangle);
+    Rectangle* rectangle = new Rectangle(Size(100, 100));
+    setRootControl(rectangle);
 }

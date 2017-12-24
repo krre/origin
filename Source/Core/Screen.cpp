@@ -25,7 +25,9 @@ Screen::Screen(const Size& size) : size(size) {
 }
 
 Screen::~Screen() {
-
+    if (rootControl != nullptr) {
+        delete rootControl;
+    }
 }
 
 void Screen::hide() {
@@ -42,6 +44,10 @@ void Screen::resume() {
 
 void Screen::show() {
 
+}
+
+void Screen::setRootControl(Control* control) {
+    rootControl = control;
 }
 
 void Screen::update(float dt) {

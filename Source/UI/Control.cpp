@@ -2,8 +2,16 @@
 #include "Batch2D.h"
 #include <algorithm>
 
-Control::Control(const Pos2& position) : position(position) {
+Control::Control(Control* parent) : parent(parent) {
+    if (parent != nullptr) {
+        parent->addChild(this);
+    }
+}
 
+Control::~Control() {
+    for (auto control : children) {
+        delete control;
+    }
 }
 
 void Control::setX(int x) {
@@ -70,4 +78,8 @@ void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexB
     batches.push_back(std::move(batch));
 
     clearDirty();
+}
+
+void Control::addChild(Control* control) {
+    children.push_back(control);
 }

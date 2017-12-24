@@ -10,7 +10,8 @@ class IndexBuffer;
 class Control : public Object {
 
 public:
-    Control(const Pos2& position = {});
+    Control(Control* parent = nullptr);
+    ~Control();
 
     void setX(int x);
     void setY(int y);
@@ -39,7 +40,11 @@ public:
     void getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
     virtual void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) = 0;
 
+    void addChild(Control* control);
+
 protected:
+    Control* parent = nullptr;
+    std::vector<Control*> children;
     Pos2 position = { 0, 0 };
     Pos2 absolutePosition = { 0, 0 };
     Size size;
@@ -47,9 +52,7 @@ protected:
     float z = 0.0f;
 
 private:
-    Control* parent = nullptr;
     Control* fillControl = nullptr;
     Control* centerControl = nullptr;
     bool isDirty = true;
-    std::vector<Control*> children;
 };

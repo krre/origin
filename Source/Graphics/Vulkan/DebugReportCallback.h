@@ -21,8 +21,6 @@ public:
 private:
     Instance* instance;
     VkDebugReportCallbackCreateInfoEXT createInfo = {};
-    PFN_vkCreateDebugReportCallbackEXT pfnCreateDebugReportCallback;
-    PFN_vkDestroyDebugReportCallbackEXT pfnDestroyDebugReportCallback;
 };
 
 } // Vulkan

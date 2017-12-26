@@ -15,8 +15,11 @@ class DebugReportCallback : public Handle<VkDebugReportCallbackEXT> {
 public:
     DebugReportCallback(Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback = debugCallbackDefault);
     ~DebugReportCallback();
+
     void create() override;
     void destroy() override;
+
+    void setFlags(VkDebugReportFlagsEXT flags);
 
 private:
     Instance* instance;

@@ -29,3 +29,7 @@ void DebugReportCallback::destroy() {
     }
     pfnDestroyDebugReportCallback(instance->getHandle(), handle, nullptr);
 }
+
+void DebugReportCallback::setFlags(VkDebugReportFlagsEXT flags) {
+    createInfo.flags = flags;
+}

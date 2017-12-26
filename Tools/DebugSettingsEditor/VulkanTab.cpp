@@ -33,16 +33,16 @@ VulkanTab::~VulkanTab() {
 }
 
 void VulkanTab::setDebugSettings(const QJsonObject& settings) {
-    ui->groupBoxLayers->setChecked(settings["layers"]["use"].toBool());
-    for (const auto& layer : settings["layers"]["list"].toArray()) {
+    ui->groupBoxLayers->setChecked(settings["layers"].toObject()["use"].toBool());
+    for (const auto& layer : settings["layers"].toObject()["list"].toArray()) {
         QList<QListWidgetItem*> items = ui->listWidgetLayers->findItems(layer.toString(), Qt::MatchFixedString);
         if (items.length()) {
             ui->listWidgetLayers->setCurrentItem(items.at(0), QItemSelectionModel::Select);
         }
     }
 
-    ui->groupBoxExtensions->setChecked(settings["extensions"]["use"].toBool());
-    for (const auto& extension : settings["extensions"]["list"].toArray()) {
+    ui->groupBoxExtensions->setChecked(settings["extensions"].toObject()["use"].toBool());
+    for (const auto& extension : settings["extensions"].toObject()["list"].toArray()) {
         QList<QListWidgetItem*> items = ui->listWidgetExtensions->findItems(extension.toString(), Qt::MatchFixedString);
         if (items.length()) {
             ui->listWidgetExtensions->setCurrentItem(items.at(0), QItemSelectionModel::Select);

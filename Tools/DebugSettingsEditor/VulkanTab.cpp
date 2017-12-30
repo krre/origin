@@ -1,6 +1,6 @@
 #include "VulkanTab.h"
 #include "ui_VulkanTab.h"
-#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>

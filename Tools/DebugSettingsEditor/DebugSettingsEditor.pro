@@ -17,8 +17,8 @@ SOURCES += \
     MainWindow.cpp \
     GeneralTab.cpp \
     VulkanTab.cpp \
-    ../../Source/Graphics/Vulkan/Instance.cpp \
-    ../../Source/Graphics/Vulkan/DebugReportCallback.cpp
+    ../../Source/Graphics/Vulkan/Wrapper/Instance.cpp \
+    ../../Source/Graphics/Vulkan/Wrapper/DebugReportCallback.cpp
 
 HEADERS += \
     MainWindow.h \
@@ -26,8 +26,8 @@ HEADERS += \
     GeneralTab.h \
     VulkanTab.h \
     AbstractTab.h \
-    ../../Source/Graphics/Vulkan/Instance.h \
-    ../../Source/Graphics/Vulkan/DebugReportCallback.h
+    ../../Source/Graphics/Vulkan/Wrapper/Instance.h \
+    ../../Source/Graphics/Vulkan/Wrapper/DebugReportCallback.h
 
 FORMS += \
     MainWindow.ui \

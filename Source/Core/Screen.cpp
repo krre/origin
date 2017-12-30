@@ -12,16 +12,16 @@
 #include "Graphics/Vulkan/Wrapper/Framebuffer.h"
 
 Screen::Screen() {
-    window = Application::get()->getWindow();
-    device = Vulkan::Context::get()->getGraphicsDevice();
+//    window = Application::get()->getWindow();
+//    device = Vulkan::Context::get()->getGraphicsDevice();
 
-    commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, Vulkan::Context::get()->getGraphicsCommandPool());
-    commandBufferHandlers->allocate(window->getSwapchain()->getCount());
+//    commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, Vulkan::Context::get()->getGraphicsCommandPool());
+//    commandBufferHandlers->allocate(window->getSwapchain()->getCount());
 
-    for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
-        auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
-        commandBuffers.push_back(std::move(commandBuffer));
-    }
+//    for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
+//        auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
+//        commandBuffers.push_back(std::move(commandBuffer));
+//    }
 }
 
 Screen::~Screen() {
@@ -83,7 +83,7 @@ void Screen::updateRenderViews() {
             renderViews.push_back(innerView);
         }
     }
-
+/*
     Vulkan::RenderPass* renderPass = window->getRenderPass();
     renderPass->setClearValue({ 0.0, 1.0, 0.0, 0.0 });
 
@@ -134,4 +134,5 @@ void Screen::updateRenderViews() {
             commandBuffer->end();
         }
     }
+    */
 }

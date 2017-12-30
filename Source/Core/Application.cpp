@@ -15,8 +15,6 @@
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Render/RenderManager.h"
-#include "Graphics/Vulkan/Context.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Screen/MenuScreen.h"
 #include <string>
 #include <SDL_timer.h>
@@ -34,12 +32,11 @@ Application::Application(int argc, char* argv[]) {
 Application::~Application() {
     Game::release();
     Input::release();
-    DebugHUD::release();
+//    DebugHUD::release();
     ResourceManager::release();
     RendererSet::release();
-    RenderManager::release();
-    window.reset();
-    Vulkan::Context::release();
+//    RenderManager::release();
+    delete renderWindow;
     GraphicsContext::release();
     SDLWrapper::release();
     Event::release();
@@ -71,34 +68,33 @@ void Application::init() {
                 new VulkanContext;
             }
 
-            Vulkan::ContextProperties properties = {};
+//            Vulkan::ContextProperties properties = {};
 
-            if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
-                properties.useLayers = true;
-                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]) {
-                    properties.layers.push_back(layer);
-                }
-            }
+//            if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
+//                properties.useLayers = true;
+//                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]) {
+//                    properties.layers.push_back(layer);
+//                }
+//            }
 
-            if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
-                properties.useExtensions = true;
-                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]) {
-                    properties.extensions.push_back(layer);
-                }
-            }
+//            if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
+//                properties.useExtensions = true;
+//                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]) {
+//                    properties.extensions.push_back(layer);
+//                }
+//            }
 
-            new Vulkan::Context(properties);
+//            new Vulkan::Context(properties);
         } else {
             new OpenGLContext;
-            new Vulkan::Context;
         }
 
-        window = std::make_unique<RenderWindow>();
+        renderWindow = GraphicsContext::get()->createRenderWindow();
 
         new ResourceManager;
-        new RenderManager;
+//        new RenderManager;
         new RendererSet;
-        new DebugHUD;
+//        new DebugHUD;
         new Input;
         new Game;
     } catch (const std::exception& ex) {
@@ -109,15 +105,15 @@ void Application::init() {
         }
     }
 
-    if (DebugEnvironment::get()->getEnable()) {
-        DebugEnvironment::get()->setDebugScreen();
-    } else {
-        window->setScreen(std::make_shared<MenuScreen>());
-    }
+//    if (DebugEnvironment::get()->getEnable()) {
+//        DebugEnvironment::get()->setDebugScreen();
+//    } else {
+//        window->setScreen(std::make_shared<MenuScreen>());
+//    }
 
     Event::get()->quit.connect(this, &Application::quit);
 
-    window->show();
+    renderWindow->show();
 
     running = true;
 }
@@ -133,8 +129,8 @@ void Application::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        window->update(frameTime);
-        window->render();
+//        renderWindow->update(frameTime);
+//        renderWindow->render();
 //        PRINT(frameTime << " " << 1 / frameTime)
     }
 }

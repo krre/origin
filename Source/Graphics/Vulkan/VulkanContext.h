@@ -6,7 +6,8 @@ class VulkanContext : public GraphicsContext {
 public:
     VulkanContext();
     ~VulkanContext();
+    RenderWindow* createRenderWindow() override;
 
 private:
-    RenderWindow* createRenderWindowImpl() override;
+
 };

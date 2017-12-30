@@ -8,11 +8,7 @@ class GraphicsContext : public Singleton<GraphicsContext> {
 public:
     GraphicsContext();
     ~GraphicsContext();
-    RenderWindow* createRenderWindow();
-    RenderWindow* getRenderWindow() const { return renderWindow; }
+    virtual RenderWindow* createRenderWindow() = 0;
 
 protected:
-    virtual RenderWindow* createRenderWindowImpl() = 0;
-
-    RenderWindow* renderWindow = nullptr;
 };

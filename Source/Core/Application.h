@@ -15,7 +15,7 @@ public:
     void run();
     void quit();
 
-    RenderWindow* getWindow() const { return window.get(); }
+    RenderWindow* getWindow() const { return renderWindow; }
     bool isRunning() const { return running; }
     const std::vector<std::string>& getArgv() const { return argv; }
 
@@ -24,5 +24,5 @@ private:
 
     std::vector<std::string> argv;
     bool running = false;
-    std::unique_ptr<RenderWindow> window;
+    RenderWindow* renderWindow;
 };

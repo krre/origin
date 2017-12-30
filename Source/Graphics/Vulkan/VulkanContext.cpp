@@ -9,6 +9,6 @@ VulkanContext::~VulkanContext() {
 
 }
 
-RenderWindow* VulkanContext::createRenderWindowImpl() {
+RenderWindow* VulkanContext::createRenderWindow() {
     return new VulkanRenderWindow;
 }

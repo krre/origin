@@ -6,11 +6,11 @@
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Vulkan/Wrapper/Semaphore.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
-#include "Graphics/Vulkan/Context.h"
+#include "Graphics/Vulkan/VulkanContext.h"
 
 RenderManager::RenderManager() {
-    device = Vulkan::Context::get()->getGraphicsDevice();
-    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
+    device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
+    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsFamily());
     submitQueue->create();
 }
 

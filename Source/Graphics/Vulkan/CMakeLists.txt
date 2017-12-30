@@ -2,8 +2,6 @@ add_subdirectory(Wrapper)
 
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Context.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Context.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanContext.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanContext.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderWindow.cpp

@@ -11,7 +11,7 @@
 #include "Graphics/Texture.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
-#include "Graphics/Vulkan/Context.h"
+#include "Graphics/Vulkan/VulkanContext.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Framebuffer.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
@@ -99,7 +99,7 @@ void DebugHUD::update(float dt) {
     std::string text =
         std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
         std::to_string(fps) + " fps\n"
-        "Video driver: " + Vulkan::Context::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
+        "Video driver: " + static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan API: " + vulkanApiVersion + "\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";

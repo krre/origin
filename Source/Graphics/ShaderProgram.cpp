@@ -1,5 +1,5 @@
 #include "ShaderProgram.h"
-#include "Graphics/Vulkan/Context.h"
+#include "Graphics/Vulkan/VulkanContext.h"
 #include "Graphics/Vulkan/Wrapper/Pipeline/PipelineLayout.h"
 #include "Graphics/Vulkan/Wrapper/Pipeline/GraphicsPipeline.h"
 #include "Graphics/Vulkan/Wrapper/Descriptor/DescriptorPool.h"
@@ -19,14 +19,14 @@
 using namespace Vulkan;
 
 ShaderProgram::ShaderProgram() {
-    descriptorPool = std::make_unique<DescriptorPool>(Vulkan::Context::get()->getGraphicsDevice());
-    descriptorSets = std::make_unique<DescriptorSets>(Vulkan::Context::get()->getGraphicsDevice(), descriptorPool.get());
+    descriptorPool = std::make_unique<DescriptorPool>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice());
+    descriptorSets = std::make_unique<DescriptorSets>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice(), descriptorPool.get());
 
-    graphicsPipeline = std::make_unique<GraphicsPipeline>(Vulkan::Context::get()->getGraphicsDevice());
+    graphicsPipeline = std::make_unique<GraphicsPipeline>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice());
 //    graphicsPipeline->setExtent(Application::get()->getWindow()->getSurface()->getCapabilities().currentExtent);
 
-    pipelineLayout = std::make_unique<PipelineLayout>(Vulkan::Context::get()->getGraphicsDevice());
-    descriptorSetLayout = std::make_unique<DescriptorSetLayout>(Vulkan::Context::get()->getGraphicsDevice());
+    pipelineLayout = std::make_unique<PipelineLayout>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice());
+    descriptorSetLayout = std::make_unique<DescriptorSetLayout>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice());
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -73,7 +73,7 @@ void ShaderProgram::createPipeline() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(Vulkan::Context::get()->getGraphicsDevice(), usage, bufferInfo->size);
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice(), usage, bufferInfo->size);
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();

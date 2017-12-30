@@ -2,11 +2,11 @@
 #include "Scene/Scene.h"
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
-#include "Graphics/Vulkan/Context.h"
+#include "Graphics/Vulkan/VulkanContext.h"
 
 View::View() {
     scene = std::make_unique<Scene>();
-    device = Vulkan::Context::get()->getGraphicsDevice();
+    device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
 }
 
 View::~View() {

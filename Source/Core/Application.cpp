@@ -67,24 +67,6 @@ void Application::init() {
             } else if (backend == VULKAN) {
                 new VulkanContext;
             }
-
-//            Vulkan::ContextProperties properties = {};
-
-//            if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
-//                properties.useLayers = true;
-//                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]) {
-//                    properties.layers.push_back(layer);
-//                }
-//            }
-
-//            if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
-//                properties.useExtensions = true;
-//                for (auto& layer : DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]) {
-//                    properties.extensions.push_back(layer);
-//                }
-//            }
-
-//            new Vulkan::Context(properties);
         } else {
             new OpenGLContext;
         }

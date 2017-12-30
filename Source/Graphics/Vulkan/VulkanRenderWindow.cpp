@@ -1,6 +1,6 @@
 #include "VulkanRenderWindow.h"
 #include "Core/Defines.h"
-#include "Graphics/Vulkan/Context.h"
+#include "Graphics/Vulkan/VulkanContext.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
@@ -24,14 +24,14 @@
     #include "Graphics/Vulkan/Wrapper/Surface/XcbSurface.h"
 #endif
 
-VulkanRenderWindow::VulkanRenderWindow() {
+VulkanRenderWindow::VulkanRenderWindow(VulkanContext* context) : context(context) {
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     SDL_GetWindowWMInfo(handle, &wminfo);
 
-    device = Vulkan::Context::get()->getGraphicsDevice();
+    device = context->getGraphicsDevice();
 
-    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
+    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, context->getGraphicsFamily());
     presentQueue->create();
 
     presentFence = std::make_unique<Vulkan::Fence>(device);
@@ -46,9 +46,9 @@ VulkanRenderWindow::VulkanRenderWindow() {
     presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
 
 #if defined(OS_WIN)
-    surface = std::make_unique<Vulkan::Win32Surface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_unique<Vulkan::Win32Surface>(context->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif defined(OS_LINUX)
-    surface = std::make_unique<Vulkan::XcbSurface>(Vulkan::Context::get()->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+    surface = std::make_unique<Vulkan::XcbSurface>(context->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 
     surface->create();
@@ -69,6 +69,7 @@ VulkanRenderWindow::~VulkanRenderWindow() {
 }
 
 void VulkanRenderWindow::render() {
+    return;
     presentFence->wait();
     presentFence->reset();
 
@@ -124,7 +125,7 @@ void VulkanRenderWindow::saveScreenshotImpl(const std::string& filePath) {
     image.create();
     VkImage dstImage = image.getHandle();
 
-    Vulkan::CommandBufferOneTime commandBuffer(device, Vulkan::Context::get()->getGraphicsCommandPool());
+    Vulkan::CommandBufferOneTime commandBuffer(device, context->getGraphicsCommandPool());
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,

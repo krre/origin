@@ -28,6 +28,11 @@ set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
 
+find_package(GLEW REQUIRED)
+include_directories(${GLEW_INCLUDE_DIRS})
+
+find_package(OpenGL)
+
 find_package(Bullet REQUIRED)
 include_directories(${BULLET_INCLUDE_DIRS})
 
@@ -59,6 +64,8 @@ include_directories(ThirdParty)
 
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs
 )

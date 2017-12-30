@@ -10,11 +10,8 @@
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include <SDL_keycode.h>
-#include <glm/glm.hpp>
-#include <glm/ext.hpp>
 #include <ctime>
 #include <experimental/filesystem>
-#include "Event/Event.h"
 
 // Hack to disable typedef Screen from X11 to prevent conflict with Screen class
 #define Screen SCREEN_DEF

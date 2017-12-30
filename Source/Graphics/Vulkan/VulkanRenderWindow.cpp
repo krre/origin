@@ -25,10 +25,6 @@
 #endif
 
 VulkanRenderWindow::VulkanRenderWindow(VulkanContext* context) : context(context) {
-    SDL_SysWMinfo wminfo;
-    SDL_VERSION(&wminfo.version);
-    SDL_GetWindowWMInfo(handle, &wminfo);
-
     device = context->getGraphicsDevice();
 
     presentQueue = std::make_unique<Vulkan::PresentQueue>(device, context->getGraphicsFamily());
@@ -44,24 +40,6 @@ VulkanRenderWindow::VulkanRenderWindow(VulkanContext* context) : context(context
     renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();
     presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
-
-#if defined(OS_WIN)
-    surface = std::make_unique<Vulkan::Win32Surface>(context->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
-#elif defined(OS_LINUX)
-    surface = std::make_unique<Vulkan::XcbSurface>(context->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
-#endif
-
-    surface->create();
-
-    VkExtent2D currentExtent = surface->getCurrentExtent();
-
-    renderPass = std::make_unique<Vulkan::RenderPass>(device);
-    renderPass->setColorFormat(surface->getFormats().at(0).format);
-    renderPass->setExtent(currentExtent);
-    renderPass->create();
-
-    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
-
 }
 
 VulkanRenderWindow::~VulkanRenderWindow() {
@@ -69,7 +47,6 @@ VulkanRenderWindow::~VulkanRenderWindow() {
 }
 
 void VulkanRenderWindow::render() {
-    return;
     presentFence->wait();
     presentFence->reset();
 
@@ -78,7 +55,7 @@ void VulkanRenderWindow::render() {
         onResize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
     }
 
-//    RenderManager::get()->renderScreen(screens.back().get(), imageAvailableSemaphore.get(), renderFinishedSemaphore.get(), swapchain->getImageIndex());
+    RenderManager::get()->renderScreen(screens.back().get(), imageAvailableSemaphore.get(), renderFinishedSemaphore.get(), swapchain->getImageIndex());
     presentQueue->present();
     vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());
 }
@@ -212,4 +189,29 @@ void VulkanRenderWindow::saveScreenshotImpl(const std::string& filePath) {
 
 Uint32 VulkanRenderWindow::getSurfaceFlag() const {
     return SDL_WINDOW_VULKAN;
+}
+
+void VulkanRenderWindow::initImpl() {
+    SDL_SysWMinfo wminfo;
+    SDL_VERSION(&wminfo.version);
+    SDL_GetWindowWMInfo(handle, &wminfo);
+
+#if defined(OS_WIN)
+    surface = std::make_unique<Vulkan::Win32Surface>(context->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+#elif defined(OS_LINUX)
+    surface = std::make_unique<Vulkan::XcbSurface>(context->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+#endif
+
+    surface->create();
+
+    VkExtent2D currentExtent = surface->getCurrentExtent();
+
+    renderPass = std::make_unique<Vulkan::RenderPass>(device);
+    renderPass->setColorFormat(surface->getFormats().at(0).format);
+    renderPass->setExtent(currentExtent);
+    renderPass->create();
+
+    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
+
+    onResize(width, height);
 }

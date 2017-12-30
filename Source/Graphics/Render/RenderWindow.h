@@ -44,13 +44,15 @@ protected:
     virtual void onResize(int width, int height);
     virtual void saveScreenshotImpl(const std::string& filePath) = 0;
     virtual Uint32 getSurfaceFlag() const = 0;
+    virtual void initImpl() = 0;
 
     SDL_Window* handle = nullptr;
     int x = 0;
     int y = 0;
     uint32_t width = WINDOW_WIDTH;
     uint32_t height = WINDOW_HEIGHT;
+    std::vector<std::shared_ptr<Screen>> screens;
 
 private:
-    std::vector<std::shared_ptr<Screen>> screens;
+
 };

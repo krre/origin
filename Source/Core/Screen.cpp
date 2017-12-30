@@ -4,6 +4,7 @@
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Vulkan/VulkanContext.h"
+#include "Graphics/Vulkan/VulkanRenderWindow.h"
 #include "Graphics/Vulkan/Wrapper/Semaphore.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffers.h"
@@ -12,16 +13,16 @@
 #include "Graphics/Vulkan/Wrapper/Framebuffer.h"
 
 Screen::Screen() {
-//    window = Application::get()->getWindow();
+    window = Application::get()->getWindow();
     device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
 
     commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsCommandPool());
-//    commandBufferHandlers->allocate(window->getSwapchain()->getCount());
+    commandBufferHandlers->allocate(static_cast<VulkanRenderWindow*>(window)->getSwapchain()->getCount());
 
-//    for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
-//        auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
-//        commandBuffers.push_back(std::move(commandBuffer));
-//    }
+    for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
+        auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
+        commandBuffers.push_back(std::move(commandBuffer));
+    }
 }
 
 Screen::~Screen() {

@@ -35,7 +35,7 @@ Application::~Application() {
 //    DebugHUD::release();
     ResourceManager::release();
     RendererSet::release();
-//    RenderManager::release();
+    RenderManager::release();
     delete renderWindow;
     GraphicsContext::release();
     SDLWrapper::release();
@@ -74,7 +74,7 @@ void Application::init() {
         renderWindow = GraphicsContext::get()->createRenderWindow();
 
         new ResourceManager;
-//        new RenderManager;
+        new RenderManager;
         new RendererSet;
 //        new DebugHUD;
         new Input;
@@ -87,11 +87,11 @@ void Application::init() {
         }
     }
 
-//    if (DebugEnvironment::get()->getEnable()) {
-//        DebugEnvironment::get()->setDebugScreen();
-//    } else {
-//        window->setScreen(std::make_shared<MenuScreen>());
-//    }
+    if (DebugEnvironment::get()->getEnable()) {
+        DebugEnvironment::get()->setDebugScreen();
+    } else {
+        renderWindow->setScreen(std::make_shared<MenuScreen>());
+    }
 
     Event::get()->quit.connect(this, &Application::quit);
 

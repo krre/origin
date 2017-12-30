@@ -12,4 +12,5 @@ private:
     void onResize(int width, int height) override;
     void saveScreenshotImpl(const std::string& filePath) override;
     Uint32 getSurfaceFlag() const override;
+    void initImpl() override;
 };

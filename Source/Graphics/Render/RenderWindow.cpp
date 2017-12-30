@@ -64,7 +64,7 @@ void RenderWindow::init() {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }
 
-//    onResize(width, height);
+    initImpl();
 
     Event::get()->windowMove.connect(this, &RenderWindow::onMove);
     Event::get()->windowResize.connect(this, &RenderWindow::onResize);
@@ -105,7 +105,7 @@ void RenderWindow::show() {
 }
 
 void RenderWindow::update(float dt) {
-//    screens.back()->update(dt);
+    screens.back()->update(dt);
 }
 
 void RenderWindow::render() {

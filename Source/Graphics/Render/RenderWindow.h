@@ -49,8 +49,8 @@ protected:
 
 private:
     std::vector<std::shared_ptr<Screen>> screens;
-    int x = 100;
-    int y = 100;
+    int x = 0;
+    int y = 0;
     uint32_t width = WINDOW_WIDTH;
     uint32_t height = WINDOW_HEIGHT;
 };

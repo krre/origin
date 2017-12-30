@@ -33,26 +33,22 @@
 #include <lodepng/lodepng.h>
 
 RenderWindow::RenderWindow() {
-    int screenWidth = SDLWrapper::get()->getScreenSize().width;
-    int screenHeight = SDLWrapper::get()->getScreenSize().height;
-
     auto settingsWidth = Settings::get()->getStorage()["width"];
     auto settingsHeigth = Settings::get()->getStorage()["height"];
 
-    width = settingsWidth.is_null() ? WINDOW_WIDTH : settingsWidth.get<int>();
-    height = settingsHeigth.is_null() ? WINDOW_HEIGHT : settingsHeigth.get<int>();
+    if (!settingsWidth.is_null()) {
+        width = settingsWidth.get<int>();
+    }
+
+    if (!settingsHeigth.is_null()) {
+        height = settingsHeigth.get<int>();
+    }
 
     auto settingsX = Settings::get()->getStorage()["x"];
     auto settingsY = Settings::get()->getStorage()["y"];
 
-    x = settingsX.is_null() ? (screenWidth - width) / 2 : settingsX.get<int>();
-    y = settingsY.is_null() ? (screenHeight - height) / 2 : settingsY.get<int>();
-
-    // Check dual monitor, and if current screen width is larger then maximum monitor resolution,
-    // then divide it on 2
-//    if (screenWidth > mode.w) {
-//        screenWidth /= 2;
-//    }
+    x = settingsX.is_null() ? (SDLWrapper::get()->getScreenSize().width - width) / 2 : settingsX.get<int>();
+    y = settingsY.is_null() ? (SDLWrapper::get()->getScreenSize().height - height) / 2 : settingsY.get<int>();
 }
 
 RenderWindow::~RenderWindow() {

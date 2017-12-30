@@ -12,7 +12,7 @@ OpenGLContext::OpenGLContext() {
 }
 
 OpenGLContext::~OpenGLContext() {
-
+    SDL_GL_DeleteContext(context);
 }
 
 RenderWindow* OpenGLContext::createRenderWindow() {

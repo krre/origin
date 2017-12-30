@@ -129,8 +129,8 @@ void Application::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-//        renderWindow->update(frameTime);
-//        renderWindow->render();
+        renderWindow->update(frameTime);
+        renderWindow->render();
 //        PRINT(frameTime << " " << 1 / frameTime)
     }
 }

@@ -126,7 +126,7 @@ void RenderWindow::show() {
 }
 
 void RenderWindow::update(float dt) {
-    screens.back()->update(dt);
+//    screens.back()->update(dt);
 }
 
 void RenderWindow::render() {

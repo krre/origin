@@ -1,5 +1,5 @@
 #include "CommandBuffer.h"
-#include "Graphics/Vulkan/Pipeline/Pipeline.h"
+#include "Graphics/Vulkan/Wrapper/Pipeline/Pipeline.h"
 
 using namespace Vulkan;
 

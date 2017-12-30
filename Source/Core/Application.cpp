@@ -14,7 +14,7 @@
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Graphics/Vulkan/Context.h"
-#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Screen/MenuScreen.h"
 #include <string>
 #include <SDL_timer.h>

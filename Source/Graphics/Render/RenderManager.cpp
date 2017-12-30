@@ -4,8 +4,8 @@
 #include "UI/Batch2D.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
-#include "Graphics/Vulkan/Semaphore.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Wrapper/Semaphore.h"
+#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Context.h"
 
 RenderManager::RenderManager() {

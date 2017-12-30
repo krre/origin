@@ -1,5 +1,5 @@
 #include "PauseDialog.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
 PauseDialog::PauseDialog() {
 

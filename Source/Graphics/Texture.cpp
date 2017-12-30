@@ -1,13 +1,13 @@
 #include "Texture.h"
 #include <lodepng/lodepng.h>
 #include "Graphics/Vulkan/Context.h"
-#include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
-#include "Graphics/Vulkan/Fence.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
-#include "Graphics/Vulkan/Image/ImageView.h"
-#include "Graphics/Vulkan/Image/Image.h"
-#include "Graphics/Vulkan/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
+#include "Graphics/Vulkan/Wrapper/Fence.h"
+#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
+#include "Graphics/Vulkan/Wrapper/Image/Image.h"
+#include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Context.h"
 
 Texture::Texture(const std::string& path, VkFormat format) {

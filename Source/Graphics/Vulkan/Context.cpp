@@ -1,9 +1,9 @@
 #include "Context.h"
-#include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Device/PhysicalDevices.h"
-#include "Graphics/Vulkan/Device/PhysicalDevice.h"
-#include "Graphics/Vulkan/Device/Device.h"
-#include "Graphics/Vulkan/Command/CommandPool.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Device/PhysicalDevices.h"
+#include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/Wrapper/Device/Device.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandPool.h"
 
 using namespace Vulkan;
 

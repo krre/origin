@@ -16,19 +16,19 @@
 #include <lodepng/lodepng.h>
 #include <experimental/filesystem>
 #include "Graphics/Vulkan/Context.h"
-#include "Graphics/Vulkan/Surface/Surface.h"
-#include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Surface/Swapchain.h"
-#include "Graphics/Vulkan/Queue/PresentQueue.h"
-#include "Graphics/Vulkan/Device/PhysicalDevice.h"
-#include "Graphics/Vulkan/Device/DeviceMemory.h"
-#include "Graphics/Vulkan/RenderPass.h"
-#include "Graphics/Vulkan/Framebuffer.h"
-#include "Graphics/Vulkan/Semaphore.h"
-#include "Graphics/Vulkan/Fence.h"
-#include "Graphics/Vulkan/Image/Image.h"
-#include "Graphics/Vulkan/Image/ImageView.h"
-#include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
+#include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
+#include "Graphics/Vulkan/Wrapper/Queue/PresentQueue.h"
+#include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/Wrapper/Device/DeviceMemory.h"
+#include "Graphics/Vulkan/Wrapper/RenderPass.h"
+#include "Graphics/Vulkan/Wrapper/Framebuffer.h"
+#include "Graphics/Vulkan/Wrapper/Semaphore.h"
+#include "Graphics/Vulkan/Wrapper/Fence.h"
+#include "Graphics/Vulkan/Wrapper/Image/Image.h"
+#include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Event/Event.h"
 #include "Graphics/Render/RenderManager.h"
 
@@ -41,9 +41,9 @@
 #define Font FONT_DEF
 
 #if defined(OS_WIN)
-    #include "Graphics/Vulkan/Surface/Win32Surface.h"
+    #include "Graphics/Vulkan/Wrapper/Surface/Win32Surface.h"
 #elif defined(OS_LINUX)
-    #include "Graphics/Vulkan/Surface/XcbSurface.h"
+    #include "Graphics/Vulkan/Wrapper/Surface/XcbSurface.h"
 #endif
 
 #undef Screen

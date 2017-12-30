@@ -4,12 +4,12 @@
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Vulkan/Context.h"
-#include "Graphics/Vulkan/Semaphore.h"
-#include "Graphics/Vulkan/Surface/Swapchain.h"
-#include "Graphics/Vulkan/Command/CommandBuffers.h"
-#include "Graphics/Vulkan/Command/CommandBuffer.h"
-#include "Graphics/Vulkan/RenderPass.h"
-#include "Graphics/Vulkan/Framebuffer.h"
+#include "Graphics/Vulkan/Wrapper/Semaphore.h"
+#include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBuffers.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandBuffer.h"
+#include "Graphics/Vulkan/Wrapper/RenderPass.h"
+#include "Graphics/Vulkan/Wrapper/Framebuffer.h"
 
 Screen::Screen() {
     window = Application::get()->getWindow();

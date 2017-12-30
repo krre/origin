@@ -1,9 +1,9 @@
 #include "CommandBufferOneTime.h"
 #include "CommandBuffers.h"
 #include "CommandBuffer.h"
-#include "Graphics/Vulkan/Command/CommandPool.h"
-#include "Graphics/Vulkan/Fence.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Wrapper/Command/CommandPool.h"
+#include "Graphics/Vulkan/Wrapper/Fence.h"
+#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
 using namespace Vulkan;
 

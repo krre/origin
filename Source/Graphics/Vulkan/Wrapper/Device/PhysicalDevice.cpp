@@ -1,5 +1,5 @@
 #include "PhysicalDevice.h"
-#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "../Surface/Surface.h"
 
 using namespace Vulkan;

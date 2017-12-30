@@ -1,5 +1,5 @@
 #include "IndexBuffer.h"
-#include "Graphics/Vulkan/Buffer/Buffer.h"
+#include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
 #include "Graphics/Vulkan/Context.h"
 
 IndexBuffer::IndexBuffer(uint64_t count) {

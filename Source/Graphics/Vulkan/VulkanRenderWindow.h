@@ -31,6 +31,7 @@ public:
 private:
     void onResize(int width, int height) override;
     void saveScreenshotImpl(const std::string& filePath) override;
+    Uint32 getSurfaceFlag() const override;
 
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::Surface> surface;

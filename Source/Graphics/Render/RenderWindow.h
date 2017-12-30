@@ -15,6 +15,7 @@ class RenderWindow {
 public:
     RenderWindow();
     virtual ~RenderWindow();
+    void init();
 
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }
@@ -22,6 +23,8 @@ public:
     int getY() const { return y; }
     uint32_t getWidth() const { return width; }
     uint32_t getHeight() const { return height; }
+
+    SDL_Window* getHandle() const { return handle; }
 
     void pushScreen(const std::shared_ptr<Screen>& screen);
     void popScreen();
@@ -40,9 +43,11 @@ protected:
     void onMove(int x, int y);
     virtual void onResize(int width, int height);
     virtual void saveScreenshotImpl(const std::string& filePath) = 0;
+    virtual Uint32 getSurfaceFlag() const = 0;
+
+    SDL_Window* handle = nullptr;
 
 private:
-    SDL_Window* handle = nullptr;
     std::vector<std::shared_ptr<Screen>> screens;
     int x = 100;
     int y = 100;

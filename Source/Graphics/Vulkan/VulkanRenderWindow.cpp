@@ -1,4 +1,5 @@
 #include "VulkanRenderWindow.h"
+#include "Core/Defines.h"
 #include "Graphics/Vulkan/Context.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
@@ -15,8 +16,19 @@
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Graphics/Render/RenderManager.h"
 #include <lodepng/lodepng.h>
+#include <SDL_syswm.h>
+
+#if defined(OS_WIN)
+    #include "Graphics/Vulkan/Wrapper/Surface/Win32Surface.h"
+#elif defined(OS_LINUX)
+    #include "Graphics/Vulkan/Wrapper/Surface/XcbSurface.h"
+#endif
 
 VulkanRenderWindow::VulkanRenderWindow() {
+    SDL_SysWMinfo wminfo;
+    SDL_VERSION(&wminfo.version);
+    SDL_GetWindowWMInfo(handle, &wminfo);
+
     device = Vulkan::Context::get()->getGraphicsDevice();
 
     presentQueue = std::make_unique<Vulkan::PresentQueue>(device, Vulkan::Context::get()->getGraphicsFamily());
@@ -195,4 +207,8 @@ void VulkanRenderWindow::saveScreenshotImpl(const std::string& filePath) {
     }
 
     image.getMemory()->unmap();
+}
+
+Uint32 VulkanRenderWindow::getSurfaceFlag() const {
+    return SDL_WINDOW_VULKAN;
 }

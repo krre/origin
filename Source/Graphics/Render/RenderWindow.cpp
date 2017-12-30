@@ -24,18 +24,11 @@
 
 #define Font FONT_DEF
 
-#if defined(OS_WIN)
-    #include "Graphics/Vulkan/Wrapper/Surface/Win32Surface.h"
-#elif defined(OS_LINUX)
-    #include "Graphics/Vulkan/Wrapper/Surface/XcbSurface.h"
-#endif
-
 #undef Screen
 #undef Drawable
 #undef Font
 
 #include "Core/Game.h"
-#include <SDL_syswm.h>
 #include <SDL_video.h>
 #include <lodepng/lodepng.h>
 
@@ -60,22 +53,6 @@ RenderWindow::RenderWindow() {
 //    if (screenWidth > mode.w) {
 //        screenWidth /= 2;
 //    }
-
-    handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
-    if (handle == nullptr) {
-        throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
-    }
-
-    SDL_SysWMinfo wminfo;
-    SDL_VERSION(&wminfo.version);
-    SDL_GetWindowWMInfo(handle, &wminfo);
-
-
-    onResize(width, height);
-
-    Event::get()->windowMove.connect(this, &RenderWindow::onMove);
-    Event::get()->windowResize.connect(this, &RenderWindow::onResize);
-    Event::get()->keyPressed.connect(this, &RenderWindow::onKeyPressed);
 }
 
 RenderWindow::~RenderWindow() {
@@ -90,6 +67,19 @@ RenderWindow::~RenderWindow() {
     Settings::get()->getStorage()["height"] = height;
 
     SDL_DestroyWindow(handle);
+}
+
+void RenderWindow::init() {
+    handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | getSurfaceFlag());
+    if (handle == nullptr) {
+        throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
+    }
+
+//    onResize(width, height);
+
+    Event::get()->windowMove.connect(this, &RenderWindow::onMove);
+    Event::get()->windowResize.connect(this, &RenderWindow::onResize);
+    Event::get()->keyPressed.connect(this, &RenderWindow::onKeyPressed);
 }
 
 void RenderWindow::pushScreen(const std::shared_ptr<Screen>& screen) {

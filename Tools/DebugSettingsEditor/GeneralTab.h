@@ -17,6 +17,7 @@ public:
 
 private slots:
     void on_comboBoxScreen_currentIndexChanged(int currentIndex);
+    void on_comboBoxBackend_currentIndexChanged(int currentIndex);
 
 private:
     Ui::GeneralTab* ui;

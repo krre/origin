@@ -10,6 +10,8 @@
 #include "Debug/DebugEnvironment.h"
 #include "Debug/DebugHUD.h"
 #include "Core/Settings.h"
+#include "Graphics/OpenGL/OpenGLContext.h"
+#include "Graphics/Vulkan/VulkanContext.h"
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Render/RenderManager.h"
@@ -38,6 +40,7 @@ Application::~Application() {
     RenderManager::release();
     window.reset();
     Vulkan::Context::release();
+    GraphicsContext::release();
     SDLWrapper::release();
     Event::release();
     DebugEnvironment::release();
@@ -61,6 +64,13 @@ void Application::init() {
         SDLWrapper::get()->init();
 
         if (DebugEnvironment::get()->getEnable()) {
+            GraphicsBackend backend = DebugEnvironment::get()->getGraphicsBackend();
+            if (backend == OPENGL) {
+                new OpenGLContext;
+            } else if (backend == VULKAN) {
+                new VulkanContext;
+            }
+
             Vulkan::ContextProperties properties = {};
 
             if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
@@ -79,6 +89,7 @@ void Application::init() {
 
             new Vulkan::Context(properties);
         } else {
+            new OpenGLContext;
             new Vulkan::Context;
         }
 

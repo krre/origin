@@ -12,6 +12,10 @@ DebugEnvironment::DebugEnvironment() {
 #endif
 }
 
+GraphicsBackend DebugEnvironment::getGraphicsBackend() const {
+    return settings["general"]["backend"];
+}
+
 void DebugEnvironment::setDebugScreen() {
     uint32_t s = settings["general"]["screen"];
     Screens screen = static_cast<Screens>(s);

@@ -5,3 +5,9 @@ enum class PipelinePreset {
     SDF,
     VOXEL,
 };
+
+
+enum GraphicsBackend {
+    OPENGL,
+    VULKAN
+};

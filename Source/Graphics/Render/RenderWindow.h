@@ -28,7 +28,7 @@ class RenderWindow : public RenderTarget {
 
 public:
     RenderWindow();
-    ~RenderWindow();
+    virtual ~RenderWindow();
 
     void setX(int x) { this->x = x; }
     void setY(int y) { this->y = y; }

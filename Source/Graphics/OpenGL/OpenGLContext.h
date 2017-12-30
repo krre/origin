@@ -8,5 +8,5 @@ public:
     ~OpenGLContext();
 
 private:
-
+    RenderWindow* createRenderWindowImpl() override;
 };

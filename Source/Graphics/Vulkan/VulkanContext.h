@@ -8,5 +8,5 @@ public:
     ~VulkanContext();
 
 private:
-
+    RenderWindow* createRenderWindowImpl() override;
 };

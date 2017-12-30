@@ -46,11 +46,11 @@ protected:
     virtual Uint32 getSurfaceFlag() const = 0;
 
     SDL_Window* handle = nullptr;
-
-private:
-    std::vector<std::shared_ptr<Screen>> screens;
     int x = 0;
     int y = 0;
     uint32_t width = WINDOW_WIDTH;
     uint32_t height = WINDOW_HEIGHT;
+
+private:
+    std::vector<std::shared_ptr<Screen>> screens;
 };

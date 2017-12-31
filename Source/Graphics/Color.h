@@ -13,6 +13,7 @@ public:
     float getRed() const { return red; }
     float getGreen() const { return green; }
     float getBlue() const { return blue; }
+    float getAlpha() const { return alpha; }
 
     static const Color TRANSPARENT;
     static const Color BLACK;

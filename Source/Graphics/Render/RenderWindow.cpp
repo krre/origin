@@ -156,6 +156,10 @@ void RenderWindow::toggleFullScreen() {
     SDL_ShowCursor(isFullscreen);
 }
 
+void RenderWindow::setColor(const Color& color) {
+    this->color = color;
+}
+
 void RenderWindow::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
 #ifdef DEBUG_HUD_ENABLE

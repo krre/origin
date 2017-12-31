@@ -84,13 +84,14 @@ void Screen::updateRenderViews() {
             renderViews.push_back(innerView);
         }
     }
-/*
-    Vulkan::RenderPass* renderPass = window->getRenderPass();
-    renderPass->setClearValue({ 0.0, 1.0, 0.0, 0.0 });
+
+    Vulkan::RenderPass* renderPass = static_cast<VulkanRenderWindow*>(window)->getRenderPass();
+    const Color& color = static_cast<VulkanRenderWindow*>(window)->getColor();
+    renderPass->setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
 
     for (auto* renderView : renderViews) {
         for (int i = 0; i < commandBuffers.size(); i++) {
-            renderPass->setFramebuffer(window->getFrameBuffer(i)->getHandle());
+            renderPass->setFramebuffer(static_cast<VulkanRenderWindow*>(window)->getFrameBuffer(i)->getHandle());
 
             Vulkan::CommandBuffer* commandBuffer = commandBuffers.at(i).get();
             commandBuffer->reset();
@@ -135,5 +136,4 @@ void Screen::updateRenderViews() {
             commandBuffer->end();
         }
     }
-    */
 }

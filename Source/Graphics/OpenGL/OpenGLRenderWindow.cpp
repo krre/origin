@@ -53,5 +53,5 @@ Uint32 OpenGLRenderWindow::getSurfaceFlag() const {
 }
 
 void OpenGLRenderWindow::initImpl() {
-    glClearColor(0.9, 1.0, 1.0, 1.0);
+    glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 }

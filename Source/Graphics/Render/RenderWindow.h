@@ -38,6 +38,9 @@ public:
     void saveScreenshot();
     void toggleFullScreen();
 
+    void setColor(const Color& color);
+    const Color& getColor() const { return color; }
+
 protected:
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void onMove(int x, int y);
@@ -52,6 +55,7 @@ protected:
     uint32_t width = WINDOW_WIDTH;
     uint32_t height = WINDOW_HEIGHT;
     std::vector<std::shared_ptr<Screen>> screens;
+    Color color = { 0.9, 1.0, 1.0, 1.0 };
 
 private:
 

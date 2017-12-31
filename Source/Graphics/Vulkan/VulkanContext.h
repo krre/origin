@@ -14,6 +14,7 @@ public:
     VulkanContext();
     ~VulkanContext();
     RenderWindow* createRenderWindow() override;
+    Renderer* createRenderer() override;
 
     Vulkan::Instance* getInstance() const { return instance.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }

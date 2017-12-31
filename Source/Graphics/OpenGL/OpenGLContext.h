@@ -8,6 +8,7 @@ public:
     OpenGLContext();
     ~OpenGLContext();
     RenderWindow* createRenderWindow() override;
+    Renderer* createRenderer() override;
 
 private:
     SDL_GLContext context;

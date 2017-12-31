@@ -1,5 +1,6 @@
 #include "OpenGLContext.h"
 #include "OpenGLRenderWindow.h"
+#include "OpenGLRenderer.h"
 #include <GL/glew.h>
 
 OpenGLContext::OpenGLContext() {
@@ -37,4 +38,8 @@ RenderWindow* OpenGLContext::createRenderWindow() {
     }
 
     return window;
+}
+
+Renderer* OpenGLContext::createRenderer() {
+    return new OpenGLRenderer;
 }

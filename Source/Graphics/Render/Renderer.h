@@ -5,4 +5,5 @@ class Renderer {
 
 public:
     Renderer();
+    virtual ~Renderer();
 };

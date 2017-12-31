@@ -1,5 +1,6 @@
 #include "VulkanContext.h"
 #include "VulkanRenderWindow.h"
+#include "VulkanRenderer.h"
 #include "Debug/DebugEnvironment.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevices.h"
@@ -35,6 +36,10 @@ RenderWindow* VulkanContext::createRenderWindow() {
     RenderWindow* window = new VulkanRenderWindow(this);
     window->init();
     return window;
+}
+
+Renderer* VulkanContext::createRenderer() {
+    return new VulkanRenderer;
 }
 
 void VulkanContext::createAll() {

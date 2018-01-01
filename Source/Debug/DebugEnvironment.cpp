@@ -13,7 +13,8 @@ DebugEnvironment::DebugEnvironment() {
 }
 
 GraphicsBackend DebugEnvironment::getGraphicsBackend() const {
-    return settings["general"]["backend"];
+    uint8_t s = settings["general"]["backend"];
+    return static_cast<GraphicsBackend>(s);
 }
 
 void DebugEnvironment::setDebugScreen() {

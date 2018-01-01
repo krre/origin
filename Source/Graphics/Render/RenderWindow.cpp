@@ -108,10 +108,6 @@ void RenderWindow::update(float dt) {
     screens.back()->update(dt);
 }
 
-void RenderWindow::render() {
-
-}
-
 void RenderWindow::onMove(int x, int y) {
     this->x = x;
     this->y = y;

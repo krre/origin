@@ -4,9 +4,6 @@
 #include <vector>
 #include <SDL.h>
 
-const uint32_t WINDOW_WIDTH = 800;
-const uint32_t WINDOW_HEIGHT = 600;
-
 struct SDL_Window;
 class Screen;
 
@@ -52,8 +49,8 @@ protected:
     SDL_Window* handle = nullptr;
     int x = 0;
     int y = 0;
-    uint32_t width = WINDOW_WIDTH;
-    uint32_t height = WINDOW_HEIGHT;
+    uint32_t width = 800;
+    uint32_t height = 600;
     std::vector<std::shared_ptr<Screen>> screens;
     Color color = { 0.9, 1.0, 1.0, 1.0 };
 

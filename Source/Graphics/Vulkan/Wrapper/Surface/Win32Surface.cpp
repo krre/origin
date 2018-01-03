@@ -2,6 +2,10 @@
 #include "Win32Surface.h"
 #include "../Instance.h"
 
+namespace Origin {
+
+namespace Vulkan {
+
 using namespace Vulkan;
 
 Win32Surface::Win32Surface(Instance* instance, PhysicalDevice* physicalDevice, HINSTANCE hinstance, HWND hwnd) :
@@ -17,3 +21,7 @@ void Vulkan::Win32Surface::platformCreateHandle() {
     createInfo.hwnd = hwnd;
     VULKAN_CHECK_RESULT(vkCreateWin32SurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create win32 surface");
 }
+
+} // Vulkan
+
+} // Origin

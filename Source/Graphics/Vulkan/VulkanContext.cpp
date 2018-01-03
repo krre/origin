@@ -8,6 +8,8 @@
 #include "Graphics/Vulkan/Wrapper/Device/Device.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandPool.h"
 
+namespace Origin {
+
 VulkanContext::VulkanContext() {
     instance = std::make_unique<Vulkan::Instance>();
 
@@ -73,3 +75,5 @@ void VulkanContext::createAll() {
     computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
     computeCommandPool->create();
 }
+
+} // Origin

@@ -2,7 +2,9 @@
 #include "../Semaphore.h"
 #include "../Fence.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Queue::Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) : Devicer(device) {
     vkGetDeviceQueue(device->getHandle(), queueFamilyIndex, queueIndex, &handle);
@@ -23,3 +25,7 @@ void Queue::waitIdle() {
 void Queue::syncHost(Fence* fence) {
     VULKAN_CHECK_RESULT(vkQueueSubmit(handle, 0, nullptr, fence->getHandle()), "Failed to sync host with queue");
 }
+
+} // Vulkan
+
+} // Origin

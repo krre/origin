@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 const int LOD_PIXEL_LIMIT = 1;
 
 class Console;
@@ -69,3 +71,5 @@ private:
     std::unique_ptr<Plane> plane;
     std::unique_ptr<ShaderProgram> shaderProgram;
 };
+
+} // Origin

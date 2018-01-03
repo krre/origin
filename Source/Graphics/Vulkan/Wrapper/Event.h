@@ -2,6 +2,8 @@
 #include "Base/Handle.h"
 #include "Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Event : public Handle<VkEvent>, public Devicer {
@@ -16,3 +18,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

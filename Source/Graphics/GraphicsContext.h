@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/Singleton.h"
 
+namespace Origin {
+
 class RenderWindow;
 class Renderer;
 
@@ -15,3 +17,5 @@ public:
 protected:
 
 };
+
+} // Origin

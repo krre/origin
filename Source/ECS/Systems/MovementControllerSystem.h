@@ -1,6 +1,8 @@
 #pragma once
 #include "ECS/System.h"
 
+namespace Origin {
+
 class Entity;
 
 class MovementControllerSystem : public System {
@@ -18,3 +20,5 @@ private:
     float moveSpeed;
     float rotateSpeed;
 };
+
+} // Origin

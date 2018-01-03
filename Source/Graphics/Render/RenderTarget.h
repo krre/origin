@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/Common.h"
 
+namespace Origin {
+
 class RenderTarget {
 
 public:
@@ -14,3 +16,5 @@ protected:
     uint32_t width = 0;
     uint32_t height = 0;
 };
+
+} // Origin

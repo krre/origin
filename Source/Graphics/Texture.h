@@ -3,11 +3,12 @@
 #include <vector>
 #include <vulkan/vulkan.h>
 
+namespace Origin {
+
 namespace Vulkan {
     class ImageView;
     class Image;
 }
-
 
 class Texture : public Object {
 
@@ -23,3 +24,5 @@ private:
     std::unique_ptr<Vulkan::Image> image;
     std::unique_ptr<Vulkan::ImageView> imageView;
 };
+
+} // Origin

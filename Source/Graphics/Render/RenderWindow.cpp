@@ -29,6 +29,8 @@
 #include <SDL_video.h>
 #include <lodepng/lodepng.h>
 
+namespace Origin {
+
 RenderWindow::RenderWindow() {
     auto settingsWidth = Settings::get()->getStorage()["width"];
     auto settingsHeigth = Settings::get()->getStorage()["height"];
@@ -171,3 +173,5 @@ void RenderWindow::onKeyPressed(const SDL_KeyboardEvent& event) {
         break;
     }
 }
+
+} // Origin

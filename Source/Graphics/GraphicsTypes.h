@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Origin {
+
 enum class PipelinePreset {
     BASE,
     SDF,
@@ -11,3 +13,5 @@ enum class GraphicsBackend {
     OPENGL,
     VULKAN
 };
+
+} // Origin

@@ -2,7 +2,9 @@
 #include "RenderPass.h"
 #include "Image/ImageView.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Framebuffer::Framebuffer(Device* device) :
     Devicer(device) {
@@ -40,3 +42,7 @@ void Framebuffer::setHeight(uint32_t height) {
 void Framebuffer::setRenderPass(RenderPass* renderPass) {
     createInfo.renderPass = renderPass->getHandle();
 }
+
+} // Vulkan
+
+} // Origin

@@ -3,6 +3,8 @@
 #include <map>
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 class Texture;
 class VertexBuffer;
 class IndexBuffer;
@@ -50,3 +52,5 @@ private:
     int lineHeight;
     int base;
 };
+
+} // Origin

@@ -4,6 +4,8 @@
 #include "UI/Text/Label.h"
 #include "UI/Rectangle.h"
 
+namespace Origin {
+
 MenuScreen::MenuScreen() {
     menuView = std::make_shared<View2D>();
     pushView(menuView);
@@ -11,3 +13,5 @@ MenuScreen::MenuScreen() {
     Rectangle* rectangle = new Rectangle(Size(100, 100));
     setRootControl(rectangle);
 }
+
+} // Origin

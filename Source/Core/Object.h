@@ -1,6 +1,8 @@
 #pragma once
 #include "Common.h"
 
+namespace Origin {
+
 class Object {
 
 public:
@@ -11,3 +13,5 @@ public:
 private:
     std::string name;
 };
+
+} // Origin

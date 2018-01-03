@@ -5,6 +5,9 @@
 #include <SDL.h>
 
 struct SDL_Window;
+
+namespace Origin {
+
 class Screen;
 
 class RenderWindow {
@@ -57,3 +60,5 @@ protected:
 private:
 
 };
+
+} // Origin

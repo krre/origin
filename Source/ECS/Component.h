@@ -2,6 +2,8 @@
 #include "Core/Object.h"
 #include "ECSTypes.h"
 
+namespace Origin {
+
 class Component : public Object {
 
 public:
@@ -13,3 +15,5 @@ public:
 protected:
     ComponentType type = ComponentType::Empty;
 };
+
+} // Origin

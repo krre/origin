@@ -1,6 +1,8 @@
 #include "DeviceMemory.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 DeviceMemory::DeviceMemory(Device* device) : Devicer(device) {
     allocateInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
@@ -30,3 +32,7 @@ void DeviceMemory::map(void** data, VkDeviceSize size, VkDeviceSize offset) {
 void DeviceMemory::unmap() {
     vkUnmapMemory(device->getHandle(), handle);
 }
+
+} // Vulkan
+
+} // Origin

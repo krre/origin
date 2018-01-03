@@ -3,6 +3,8 @@
 #include <glm/glm.hpp>
 #include <vector>
 
+namespace Origin {
+
 class Batch2D;
 class VertexBuffer;
 class IndexBuffer;
@@ -62,3 +64,5 @@ private:
     Control* centerControl = nullptr;
     bool isDirty = true;
 };
+
+} // Origin

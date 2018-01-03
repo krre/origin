@@ -2,6 +2,8 @@
 #include "../Base/Handle.h"
 #include <vector>
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Instance;
@@ -32,3 +34,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

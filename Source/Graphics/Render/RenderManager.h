@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/Singleton.h"
 
+namespace Origin {
+
 class Screen;
 
 namespace Vulkan {
@@ -20,3 +22,5 @@ private:
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
 };
+
+} // Origin

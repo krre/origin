@@ -2,6 +2,8 @@
 #include "Singleton.h"
 #include <vector>
 
+namespace Origin {
+
 class RenderWindow;
 
 class Application : public Singleton<Application> {
@@ -26,3 +28,5 @@ private:
     bool running = false;
     RenderWindow* renderWindow;
 };
+
+} // Origin

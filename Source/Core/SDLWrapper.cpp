@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <stdexcept>
 
+namespace Origin {
+
 SDLWrapper::SDLWrapper() {
 
 }
@@ -38,3 +40,6 @@ std::string SDLWrapper::getError() const {
 void SDLWrapper::showErrorMessageBox(const char* message) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, APP_NAME, message, nullptr);
 }
+
+} // Origin
+

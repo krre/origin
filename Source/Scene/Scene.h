@@ -3,6 +3,8 @@
 #include <SDL.h>
 #include <vector>
 
+namespace Origin {
+
 class Entity;
 class Control;
 
@@ -63,3 +65,5 @@ private:
     std::vector<std::shared_ptr<Entity>> cameras;
     int keyPressedId;
 };
+
+} // Origin

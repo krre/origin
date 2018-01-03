@@ -3,6 +3,8 @@
 #include <GL/glew.h>
 #include <lodepng/lodepng.h>
 
+namespace Origin {
+
 OpenGLRenderWindow::OpenGLRenderWindow() {
 
 }
@@ -55,3 +57,5 @@ Uint32 OpenGLRenderWindow::getSurfaceFlag() const {
 void OpenGLRenderWindow::initImpl() {
     glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 }
+
+} // Origin

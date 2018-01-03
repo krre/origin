@@ -3,6 +3,8 @@
 #include <fstream>
 #include <bitset>
 
+namespace Origin {
+
 Octree::Octree() {
 
 }
@@ -25,3 +27,5 @@ void Octree::draw() {
 std::shared_ptr<std::vector<uint32_t>> Octree::data() {
     return Utils::jsonToBinary(source);
 }
+
+} // Origin

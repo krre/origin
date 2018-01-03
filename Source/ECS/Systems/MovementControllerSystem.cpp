@@ -6,6 +6,8 @@
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"
 
+namespace Origin {
+
 MovementControllerSystem::MovementControllerSystem() {
     type = SystemType::MovementController;
 }
@@ -51,3 +53,5 @@ void MovementControllerSystem::setRotateEntity(Entity* rotateEntity) {
     this->rotateEntity = rotateEntity;
     rotateSpeed = static_cast<MovementComponent*>(rotateEntity->components[ComponentType::Movement].get())->rotateSpeed;
 }
+
+} // Origin

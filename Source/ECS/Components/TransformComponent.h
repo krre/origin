@@ -2,6 +2,8 @@
 #include "ECS/Component.h"
 #include <glm/ext.hpp>
 
+namespace Origin {
+
 class TransformComponent : public Component {
 
 public:
@@ -14,3 +16,5 @@ public:
     float yaw = 0;
     float pitch = 0;
 };
+
+} // Origin

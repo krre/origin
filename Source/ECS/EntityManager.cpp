@@ -3,6 +3,8 @@
 #include "Components/Components.h"
 #include <algorithm>
 
+namespace Origin {
+
 EntityManager::EntityManager() {
     initSystems();
 }
@@ -121,3 +123,5 @@ void EntityManager::draw(float dt) {
         }
     }
 }
+
+} // Origin

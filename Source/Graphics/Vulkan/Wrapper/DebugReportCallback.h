@@ -1,7 +1,10 @@
 #pragma once
 #include "Base/Handle.h"
 
+namespace Origin {
+
 namespace Vulkan {
+
     class Instance;
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {
@@ -27,3 +30,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

@@ -2,6 +2,8 @@
 #include "Queue.h"
 #include <vector>
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Swapchain;
@@ -22,3 +24,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

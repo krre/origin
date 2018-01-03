@@ -2,6 +2,8 @@
 #include "Rectangle.h"
 #include <SDL.h>
 
+namespace Origin {
+
 class Label;
 
 class Button : public Rectangle {
@@ -24,3 +26,5 @@ private:
     std::shared_ptr<Label> label;
     int clickedId;
 };
+
+} // Origin

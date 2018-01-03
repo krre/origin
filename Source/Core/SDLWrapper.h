@@ -1,6 +1,8 @@
 #pragma once
 #include "Singleton.h"
 
+namespace Origin {
+
 class SDLWrapper : public Singleton<SDLWrapper> {
 
 public:
@@ -16,3 +18,5 @@ private:
     Size screenSize;
     bool inited = false;
 };
+
+} // Origin

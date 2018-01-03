@@ -1,6 +1,8 @@
 #pragma once
 #include "Graphics/Voxel/Octree.h"
 
+namespace Origin {
+
 class Cube : public Octree {
 
 public:
@@ -11,3 +13,5 @@ private:
     float height;
     float depth;
 };
+
+} // Origin

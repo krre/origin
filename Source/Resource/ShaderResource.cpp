@@ -10,6 +10,8 @@
     #include <vulkan/libspirv.h>
 #endif
 
+namespace Origin {
+
 ShaderResource::ShaderResource() {
 }
 
@@ -228,3 +230,5 @@ void ShaderResource::dumpLocations() {
               << ", format: " << input.second.format)
     }
 }
+
+} // Origin

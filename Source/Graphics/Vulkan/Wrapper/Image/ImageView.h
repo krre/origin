@@ -2,6 +2,8 @@
 #include "Graphics/Vulkan/Wrapper/Base/Handle.h"
 #include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class ImageView : public Handle<VkImageView>, public Devicer {
@@ -18,3 +20,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

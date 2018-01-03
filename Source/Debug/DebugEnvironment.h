@@ -3,6 +3,8 @@
 #include "Graphics/GraphicsTypes.h"
 #include <json/json.hpp>
 
+namespace Origin {
+
 using json = nlohmann::json;
 
 class DebugEnvironment : public Singleton<DebugEnvironment> {
@@ -19,3 +21,5 @@ private:
     bool enable = false;
     json settings;
 };
+
+} // Origin

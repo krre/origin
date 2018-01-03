@@ -3,6 +3,8 @@
 #include "ECS/EntityManager.h"
 #include <algorithm>
 
+namespace Origin {
+
 NodeSystem::NodeSystem() {
     type = SystemType::Node;
 }
@@ -57,3 +59,5 @@ void NodeSystem::removeChildren(EntityId parent) {
         }
     }
 }
+
+} // Origin

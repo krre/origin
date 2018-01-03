@@ -1,6 +1,8 @@
 #include "Layout.h"
 #include <algorithm>
 
+namespace Origin {
+
 Layout::Layout() {
 
 }
@@ -60,3 +62,4 @@ void Layout::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffe
 
 }
 
+} // Origin

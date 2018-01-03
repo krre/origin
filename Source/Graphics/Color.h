@@ -2,6 +2,8 @@
 #include "Core/Object.h"
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 class Color : public Object {
 
 public:
@@ -29,3 +31,5 @@ private:
     float blue = 0;
     float alpha = 0;
 };
+
+} // Origin

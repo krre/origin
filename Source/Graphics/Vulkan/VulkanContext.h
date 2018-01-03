@@ -1,6 +1,8 @@
 #pragma once
 #include "Graphics/GraphicsContext.h"
 
+namespace Origin {
+
 namespace Vulkan {
     class Instance;
     class PhysicalDevices;
@@ -36,3 +38,5 @@ private:
     uint32_t graphicsFamily;
     uint32_t computeFamily;
 };
+
+} // Origin

@@ -1,7 +1,9 @@
 #include "RenderPass.h"
 #include "Instance.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 RenderPass::RenderPass(Device* device) :
     Devicer(device) {
@@ -129,3 +131,7 @@ void RenderPass::setExtent(VkExtent2D extent) {
 void RenderPass::setFramebuffer(VkFramebuffer framebuffer) {
     beginInfo.framebuffer = framebuffer;
 }
+
+} // Vulkan
+
+} // Origin

@@ -6,6 +6,8 @@
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include <string.h>
 
+namespace Origin {
+
 HardwareBuffer::HardwareBuffer() {
 
 }
@@ -55,3 +57,5 @@ void HardwareBuffer::bindMemory() {
 
     vkBindBufferMemory(buffer->getDevice()->getHandle(), buffer->getHandle(), memory->getHandle(), 0);
 }
+
+} // Origin

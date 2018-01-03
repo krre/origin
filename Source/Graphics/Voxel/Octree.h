@@ -2,6 +2,8 @@
 #include "Resource/Resource.h"
 #include <json/json.hpp>
 
+namespace Origin {
+
 using json = nlohmann::json;
 
 class Octree : public Resource {
@@ -15,3 +17,5 @@ public:
 private:
     json source;
 };
+
+} // Origin

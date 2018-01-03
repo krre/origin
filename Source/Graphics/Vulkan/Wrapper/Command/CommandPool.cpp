@@ -1,6 +1,8 @@
 #include "CommandPool.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 CommandPool::CommandPool(Device* device, uint32_t queueFamilyIndex) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
@@ -23,3 +25,7 @@ void CommandPool::destroy() {
 void CommandPool::reset() {
     VULKAN_CHECK_RESULT(vkResetCommandPool(device->getHandle(), handle, VK_COMMAND_POOL_RESET_RELEASE_RESOURCES_BIT), "Failed to reset command pool");
 }
+
+} // Vulkan
+
+} // Origin

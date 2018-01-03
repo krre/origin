@@ -8,6 +8,8 @@
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/VulkanContext.h"
 
+namespace Origin {
+
 RenderManager::RenderManager() {
     device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
     submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsFamily());
@@ -35,3 +37,5 @@ void RenderManager::renderScreen(Screen* screen, Vulkan::Semaphore* waitSemaphor
                                   waitSemaphore, VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, signalSemaphore);
     submitQueue->submit();
 }
+
+} // Origin

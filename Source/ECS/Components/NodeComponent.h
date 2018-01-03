@@ -3,6 +3,8 @@
 #include "ECS/Component.h"
 #include <vector>
 
+namespace Origin {
+
 class NodeComponent : public Component {
 
 public:
@@ -10,3 +12,5 @@ public:
     EntityId parent = 0;
     std::vector<EntityId> children;
 };
+
+} // Origin

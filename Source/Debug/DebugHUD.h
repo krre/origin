@@ -7,6 +7,8 @@
 #include "Graphics/Vulkan/Wrapper/RenderPass.h"
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 const int MAX_CHAR_COUNT = 2048;
 
 class Label;
@@ -41,3 +43,5 @@ private:
     std::string vulkanApiVersion;
     std::shared_ptr<Label> displayLabel;
 };
+
+} // Origin

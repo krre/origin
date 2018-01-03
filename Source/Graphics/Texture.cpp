@@ -9,6 +9,8 @@
 #include "Graphics/Vulkan/Wrapper/Image/Image.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 
+namespace Origin {
+
 Texture::Texture(const std::string& path, VkFormat format) {
     uint32_t width;
     uint32_t height;
@@ -54,3 +56,5 @@ uint32_t Texture::getWidth() const {
 uint32_t Texture::getHeight() const {
     return image->getHeight();
 }
+
+} // Origin

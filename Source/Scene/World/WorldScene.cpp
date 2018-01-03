@@ -23,6 +23,8 @@
 #include "Graphics/Vulkan/Wrapper/Descriptor/DescriptorSets.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
+namespace Origin {
+
 WorldScene::WorldScene() {
     new EntityManager;
     plane = std::make_unique<Plane>();
@@ -354,3 +356,5 @@ void WorldScene::onKeyPressed(const SDL_KeyboardEvent& event) {
 #endif
     }
 }
+
+} // Origin

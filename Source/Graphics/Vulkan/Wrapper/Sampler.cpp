@@ -1,6 +1,8 @@
 #include "Sampler.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Sampler::Sampler(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_SAMPLER_CREATE_INFO;
@@ -29,3 +31,7 @@ void Sampler::create() {
 void Sampler::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySampler(device->getHandle(), handle, nullptr))
 }
+
+} // Vulkan
+
+} // Origin

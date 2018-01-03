@@ -1,6 +1,8 @@
 #include "PipelineLayout.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 PipelineLayout::PipelineLayout(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
@@ -29,3 +31,7 @@ void PipelineLayout::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetL
 void PipelineLayout::addPushConstantRange(VkPushConstantRange pushConstantRange) {
     pushConstantRanges.push_back(pushConstantRange);
 }
+
+} // Vulkan
+
+} // Origin

@@ -2,6 +2,8 @@
 #include "Core/Application.h"
 #include "Event/Input.h"
 
+namespace Origin {
+
 SettingsScene::SettingsScene() {
 }
 
@@ -23,3 +25,5 @@ void SettingsScene::create() {
 //void SettingsScene::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
 //}
+
+} // Origin

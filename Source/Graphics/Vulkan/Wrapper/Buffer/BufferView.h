@@ -2,6 +2,8 @@
 #include "Graphics/Vulkan/Wrapper/Base/Handle.h"
 #include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Buffer;
@@ -19,3 +21,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

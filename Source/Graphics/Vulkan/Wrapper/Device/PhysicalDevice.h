@@ -2,6 +2,8 @@
 #include "Graphics/Vulkan/Wrapper/Base/Handle.h"
 #include <vector>
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Surface;
@@ -33,3 +35,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

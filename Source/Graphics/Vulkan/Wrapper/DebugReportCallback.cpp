@@ -1,7 +1,9 @@
 #include "DebugReportCallback.h"
 #include "Instance.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 DebugReportCallback::DebugReportCallback(Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback) : instance(instance) {
     createInfo.sType = VK_STRUCTURE_TYPE_DEBUG_REPORT_CALLBACK_CREATE_INFO_EXT;
@@ -33,3 +35,7 @@ void DebugReportCallback::destroy() {
 void DebugReportCallback::setFlags(VkDebugReportFlagsEXT flags) {
     createInfo.flags = flags;
 }
+
+} // Vulkan
+
+} // Origin

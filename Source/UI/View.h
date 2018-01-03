@@ -1,6 +1,8 @@
 #pragma once
 #include "Control.h"
 
+namespace Origin {
+
 namespace Vulkan {
     class Device;
     class CommandBuffer;
@@ -27,3 +29,5 @@ private:
     std::vector<View*> innerViews;
     std::unique_ptr<Scene> scene;
 };
+
+} // Origin

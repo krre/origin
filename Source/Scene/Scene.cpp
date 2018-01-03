@@ -15,6 +15,8 @@
 #include "ECS/Entity.h"
 #include <algorithm>
 
+namespace Origin {
+
 Scene::Scene() {
     Event::get()->windowResize.connect(this, &Scene::onWindowResize);
 
@@ -120,3 +122,5 @@ void Scene::setSize(const Size& size) {
 void Scene::setRootControl(const std::shared_ptr<Control>& root) {
     this->root = root;
 }
+
+} // Origin

@@ -2,7 +2,9 @@
 #include "Core/Common.h"
 #include "PhysicalDevice.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Device::Device(PhysicalDevice* physicalDevice) : physicalDevice(physicalDevice) {
     uint32_t count;
@@ -69,3 +71,7 @@ void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> qu
 
     queueCreateInfos.push_back(queueCreateInfo);
 }
+
+} // Vulkan
+
+} // Origin

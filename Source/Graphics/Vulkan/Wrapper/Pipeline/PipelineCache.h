@@ -2,6 +2,8 @@
 #include "Graphics/Vulkan/Wrapper/Base/Handle.h"
 #include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class PipelineCache : public Handle<VkPipelineCache>, public Devicer {
@@ -17,3 +19,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

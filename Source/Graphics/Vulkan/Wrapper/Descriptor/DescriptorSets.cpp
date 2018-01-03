@@ -2,7 +2,9 @@
 #include "DescriptorPool.h"
 #include <assert.h>
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 DescriptorSets::DescriptorSets(Device* device, DescriptorPool* descriptorPool) :
         Devicer(device),
@@ -46,3 +48,7 @@ void DescriptorSets::updateDescriptorSets() {
 void DescriptorSets::destroy() {
     VULKAN_DESTROY_COLLECTION(vkFreeDescriptorSets(device->getHandle(), descriptorPool->getHandle(), collection.size(), collection.data()));
 }
+
+} // Vulkan
+
+} // Origin

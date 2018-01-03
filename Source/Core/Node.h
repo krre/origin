@@ -2,6 +2,8 @@
 #include "Object.h"
 #include <vector>
 
+namespace Origin {
+
 class Node : public Object {
 
 public:
@@ -19,3 +21,5 @@ protected:
     std::vector<std::shared_ptr<Node>> children;
     Node* parent = nullptr;
 };
+
+} // Origin

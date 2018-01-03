@@ -2,6 +2,8 @@
 #include "Control.h"
 #include <vector>
 
+namespace Origin {
+
 class Layout : public Control {
 
 public:
@@ -32,3 +34,5 @@ protected:
     int spacing = 5;
     Control* parent = nullptr;
 };
+
+} // Origin

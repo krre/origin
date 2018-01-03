@@ -3,6 +3,8 @@
 #include "Graphics/Render/RenderWindow.h"
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 Toast::Toast() {
     setVisible(false);
     timer.timeout.connect(this, &Toast::onTimeout);
@@ -26,3 +28,5 @@ void Toast::showToast(const std::string& toastText) {
 void Toast::onTimeout() {
     setVisible(false);
 }
+
+} // Origin

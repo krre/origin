@@ -21,6 +21,8 @@
 #include <algorithm>
 #include <experimental/filesystem>
 
+namespace Origin {
+
 Application::Application(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         this->argv.push_back(argv[i]);
@@ -120,3 +122,5 @@ void Application::run() {
 void Application::quit() {
     running = false;
 }
+
+} // Origin

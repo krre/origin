@@ -3,6 +3,8 @@
 #include <fstream>
 #include <bitset>
 
+namespace Origin {
+
 Utils::Utils() {
 
 }
@@ -159,3 +161,5 @@ std::vector<std::string> Utils::split(const std::string& value, char delim) {
 void Utils::removeChar(std::string& str, char c) {
     str.erase(remove(str.begin(), str.end(), c), str.end());
 }
+
+} // Origin

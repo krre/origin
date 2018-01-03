@@ -1,5 +1,7 @@
 #include "SVOBuilder.h"
 
+namespace Origin {
+
 SVOBuilder::SVOBuilder() {
 
 }
@@ -33,3 +35,5 @@ std::shared_ptr<std::vector<uint32_t> > SVOBuilder::buildTest() {
     data->push_back(0xC5651FFF);
     return data;
 }
+
+} // Origin

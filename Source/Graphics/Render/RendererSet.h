@@ -3,6 +3,8 @@
 #include "Graphics/GraphicsTypes.h"
 #include <map>
 
+namespace Origin {
+
 namespace Vulkan {
     class GraphicsPipeline;
 }
@@ -17,3 +19,5 @@ public:
 private:
     std::map<PipelinePreset, std::shared_ptr<Vulkan::GraphicsPipeline>> pipelines;
 };
+
+} // Origin

@@ -1,6 +1,8 @@
 #include "PhysicsSystem.h"
 #include "ECS/Components/Components.h"
 
+namespace Origin {
+
 PhysicsSystem::PhysicsSystem() {
     type = SystemType::Physics;
 
@@ -50,3 +52,5 @@ void PhysicsSystem::createMotionState(Entity* entity) {
     transform.setOrigin(btVector3(tc->position.x, tc->position.y, tc->position.z));
     pc->motionState.reset(new btDefaultMotionState(transform));
 }
+
+} // Origin

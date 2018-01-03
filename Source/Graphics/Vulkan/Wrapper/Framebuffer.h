@@ -2,6 +2,8 @@
 #include "Base/Handle.h"
 #include "Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class ImageView;
@@ -30,3 +32,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

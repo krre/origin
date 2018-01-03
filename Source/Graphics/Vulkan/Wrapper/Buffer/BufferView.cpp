@@ -1,7 +1,9 @@
 #include "BufferView.h"
 #include "Buffer.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 BufferView::BufferView(Device* device, Buffer* buffer) :
         Devicer(device) {
@@ -20,3 +22,7 @@ void BufferView::create() {
 void BufferView::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyBufferView(device->getHandle(), handle, nullptr))
 }
+
+} // Vulkan
+
+} // Origin

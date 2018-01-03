@@ -1,6 +1,8 @@
 #include "Entity.h"
 #include <chrono>
 
+namespace Origin {
+
 EntityId Entity::counter = 0;
 
 Entity::Entity(EntityId id) {
@@ -16,3 +18,5 @@ Entity::Entity(EntityId id) {
         this->id = counter++; // TODO: Replace by hash
     }
 }
+
+} // Origin

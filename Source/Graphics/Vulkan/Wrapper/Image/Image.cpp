@@ -3,7 +3,9 @@
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 #include <string.h>
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Image::Image(Device* device) :
     Devicer(device) {
@@ -71,3 +73,7 @@ void Image::write(void* data, VkDeviceSize size, VkDeviceSize offset) {
     memcpy(mapData, data, size);
     memory->unmap();
 }
+
+} // Vulkan
+
+} // Origin

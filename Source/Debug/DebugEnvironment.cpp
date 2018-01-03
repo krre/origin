@@ -6,6 +6,8 @@
 #include "Screen/MenuScreen.h"
 #include "Graphics/Render/RenderWindow.h"
 
+namespace Origin {
+
 DebugEnvironment::DebugEnvironment() {
 #ifdef DEVELOP_MODE
     loadValues();
@@ -39,3 +41,5 @@ void DebugEnvironment::loadValues() {
         ERROR(ex.what())
     };
 }
+
+} // Origin

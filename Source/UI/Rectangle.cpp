@@ -3,6 +3,8 @@
 #include "Resource/ResourceManager.h"
 #include <glm/ext.hpp>
 
+namespace Origin {
+
 Rectangle::Rectangle(const Size& size) {
     this->size = size;
 }
@@ -27,3 +29,5 @@ void Rectangle::setBorderWidth(uint32_t border) {
 void Rectangle::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
 
 }
+
+} // Origin

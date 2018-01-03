@@ -1,5 +1,7 @@
 #include "Plane.h"
 
+namespace Origin {
+
 Plane::Plane(float width, float height) : width(width), height(height) {
     setVertices({
         -1.0f, -1.0f,
@@ -10,3 +12,5 @@ Plane::Plane(float width, float height) : width(width), height(height) {
 
     setIndices({ 0, 1, 2, 2, 3, 0 });
 }
+
+} // Origin

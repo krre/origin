@@ -4,6 +4,8 @@
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Vulkan/VulkanContext.h"
 
+namespace Origin {
+
 View::View() {
     scene = std::make_unique<Scene>();
     device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
@@ -32,3 +34,5 @@ const std::vector<View*> View::getInnerViews() {
 
     return innerViews;
 }
+
+} // Origin

@@ -2,6 +2,8 @@
 #include "Scene/Scene2D.h"
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 class Plane;
 class ShaderProgram;
 
@@ -29,3 +31,5 @@ private:
     std::unique_ptr<Plane> plane;
 //    std::unique_ptr<ShaderProgram> shaderProgram;
 };
+
+} // Origin

@@ -1,6 +1,8 @@
 #include "DescriptorSetLayout.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 DescriptorSetLayout::DescriptorSetLayout(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
@@ -23,3 +25,7 @@ void DescriptorSetLayout::destroy() {
 void DescriptorSetLayout::addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding) {
     bindings.push_back(layoutBinding);
 }
+
+} // Vulkan
+
+} // Origin

@@ -9,6 +9,8 @@
 #include <fstream>
 #include <experimental/filesystem>
 
+namespace Origin {
+
 namespace fs = std::experimental::filesystem;
 
 Font::Font() {
@@ -150,3 +152,5 @@ void Font::renderText(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, cons
     vertexBuffer->write(vertices.data(), vertices.size() * sizeof(Vertex));
     indexBuffer->write(indices.data(), indices.size() * sizeof(uint32_t));
 }
+
+} // Origin

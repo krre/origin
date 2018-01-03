@@ -3,6 +3,8 @@
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
 
+namespace Origin {
+
 Dialog::Dialog() {
     SDL_SetRelativeMouseMode(SDL_FALSE);
     int centerX = Application::get()->getWindow()->getWidth() / 2;
@@ -23,3 +25,5 @@ void Dialog::onKeyPressed(const SDL_KeyboardEvent& event) {
         close();
     }
 }
+
+} // Origin

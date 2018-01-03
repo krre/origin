@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Origin {
+
 enum class SystemType {
     Camera,
     Input,
@@ -26,3 +28,5 @@ enum class ComponentType {
     Render,
     Transform
 };
+
+} // Origin

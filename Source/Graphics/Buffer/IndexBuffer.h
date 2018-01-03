@@ -1,6 +1,8 @@
 #pragma once
 #include "HardwareBuffer.h"
 
+namespace Origin {
+
 class IndexBuffer : public HardwareBuffer {
 
 public:
@@ -10,3 +12,5 @@ public:
 private:
     VkIndexType indexType = VK_INDEX_TYPE_UINT32;
 };
+
+} // Origin

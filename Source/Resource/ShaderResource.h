@@ -4,6 +4,8 @@
 #include <map>
 #include <vulkan/vulkan.h>
 
+namespace Origin {
+
 class ShaderResource : public Resource {
 
     friend class ShaderProgram;
@@ -35,3 +37,5 @@ private:
 
     void parse();
 };
+
+} // Origin

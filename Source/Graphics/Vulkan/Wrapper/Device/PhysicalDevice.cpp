@@ -2,7 +2,9 @@
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "../Surface/Surface.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) : Handle(physicalDevice) {
 }
@@ -81,3 +83,7 @@ uint32_t PhysicalDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFla
 
     return -1;
 }
+
+} // Vulkan
+
+} // Origin

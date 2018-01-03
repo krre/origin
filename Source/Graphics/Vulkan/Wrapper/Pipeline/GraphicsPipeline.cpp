@@ -1,6 +1,8 @@
 #include "GraphicsPipeline.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 GraphicsPipeline::GraphicsPipeline(Device* device) :
         Pipeline(device) {
@@ -136,3 +138,7 @@ void GraphicsPipeline::create() {
 
     VULKAN_CHECK_RESULT(vkCreateGraphicsPipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create graphics pipelines");
 }
+
+} // Vulkan
+
+} // Origin

@@ -2,7 +2,9 @@
 #include "../Instance.h"
 #include "../Device/PhysicalDevice.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Surface::Surface(Instance* instance, PhysicalDevice* physicalDevice) :
     instance(instance),
@@ -37,3 +39,7 @@ VkExtent2D Surface::getCurrentExtent() const {
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->getHandle(), handle, &capabilities);
     return capabilities.currentExtent;
 }
+
+} // Vulkan
+
+} // Origin

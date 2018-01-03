@@ -2,6 +2,8 @@
 #include "Graphics/GraphicsContext.h"
 #include <SDL.h>
 
+namespace Origin {
+
 class OpenGLContext : public GraphicsContext {
 
 public:
@@ -13,3 +15,5 @@ public:
 private:
     SDL_GLContext context;
 };
+
+} // Origin

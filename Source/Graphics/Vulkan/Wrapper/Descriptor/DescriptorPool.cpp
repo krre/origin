@@ -1,6 +1,8 @@
 #include "DescriptorPool.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 DescriptorPool::DescriptorPool(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
@@ -36,3 +38,7 @@ void DescriptorPool::destroy() {
 void DescriptorPool::reset() {
     vkResetDescriptorPool(device->getHandle(), handle, 0);
 }
+
+} // Vulkan
+
+} // Origin

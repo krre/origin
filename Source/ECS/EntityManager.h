@@ -5,6 +5,8 @@
 #include <vector>
 #include <map>
 
+namespace Origin {
+
 class Entity;
 
 class EntityManager : public Singleton<EntityManager> {
@@ -51,3 +53,5 @@ private:
 
     void initSystems();
 };
+
+} // Origin

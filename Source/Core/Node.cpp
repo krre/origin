@@ -1,6 +1,8 @@
 #include "Node.h"
 #include <algorithm>
 
+namespace Origin {
+
 Node::Node() {
 
 }
@@ -33,3 +35,6 @@ void Node::setParent(Node* parent) {
 Node* Node::getParent() const {
     return parent;
 }
+
+} // Origin
+

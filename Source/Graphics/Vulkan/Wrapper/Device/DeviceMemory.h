@@ -2,6 +2,8 @@
 #include "Graphics/Vulkan/Wrapper/Base/Handle.h"
 #include "Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class DeviceMemory : public Handle<VkDeviceMemory>, public Devicer {
@@ -22,3 +24,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

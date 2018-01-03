@@ -1,6 +1,8 @@
 #pragma once
 #include "Entity.h"
 
+namespace Origin {
+
 class EntityBuilder {
 
 public:
@@ -18,3 +20,5 @@ public:
 
     static std::shared_ptr<Entity> avatar();
 };
+
+} // Origin

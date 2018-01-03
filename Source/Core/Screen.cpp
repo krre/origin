@@ -12,6 +12,8 @@
 #include "Graphics/Vulkan/Wrapper/RenderPass.h"
 #include "Graphics/Vulkan/Wrapper/Framebuffer.h"
 
+namespace Origin {
+
 Screen::Screen() {
     window = Application::get()->getWindow();
     device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
@@ -137,3 +139,5 @@ void Screen::updateRenderViews() {
         }
     }
 }
+
+} // Origin

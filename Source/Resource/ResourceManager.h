@@ -3,6 +3,8 @@
 #include "Resource/Resource.h"
 #include <map>
 
+namespace Origin {
+
 class ResourceManager : public Singleton<ResourceManager> {
 
 public:
@@ -25,3 +27,5 @@ private:
     std::map<std::string, std::shared_ptr<Resource>> resources;
     std::string dataPath;
 };
+
+} // Origin

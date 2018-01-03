@@ -2,6 +2,8 @@
 #include <map>
 #include <functional>
 
+namespace Origin {
+
 // Based on article http://simmesimme.github.io/tutorials/2015/09/20/signal-slot
 template <class... Args> class Signal {
 
@@ -44,3 +46,5 @@ private:
     mutable std::map<int, std::function<void(Args...)>> targets;
     mutable int currentId = -1;
 };
+
+} // Origin

@@ -1,6 +1,8 @@
 #pragma once
 #include "Core/Object.h"
 
+namespace Origin {
+
 class Drawable : public Object {
 
 public:
@@ -19,3 +21,4 @@ protected:
     float opacity = 1.0;
 };
 
+} // Origin

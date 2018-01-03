@@ -1,6 +1,8 @@
 #include "ImageView.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 ImageView::ImageView(Device* device, VkImage image) :
         Devicer(device) {
@@ -34,3 +36,7 @@ void ImageView::destroy() {
 void ImageView::setFormat(VkFormat format) {
     createInfo.format = format;
 }
+
+} // Vulkan
+
+} // Origin

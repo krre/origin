@@ -1,5 +1,7 @@
 #include "OctreeSystem.h"
 
+namespace Origin {
+
 OctreeSystem::OctreeSystem() {
     type = SystemType::Octree;
 }
@@ -7,3 +9,5 @@ OctreeSystem::OctreeSystem() {
 void OctreeSystem::process(float dt) {
 
 }
+
+} // Origin

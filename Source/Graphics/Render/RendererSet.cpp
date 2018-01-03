@@ -1,5 +1,7 @@
 #include "RendererSet.h"
 
+namespace Origin {
+
 RendererSet::RendererSet() {
 
 }
@@ -7,3 +9,5 @@ RendererSet::RendererSet() {
 void RendererSet::render() {
 
 }
+
+} // Origin

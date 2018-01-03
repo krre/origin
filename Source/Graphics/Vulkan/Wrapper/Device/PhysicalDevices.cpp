@@ -3,7 +3,9 @@
 #include "../Instance.h"
 #include <iostream>
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 PhysicalDevices::PhysicalDevices(Instance* instance) {
     uint32_t count;
@@ -41,3 +43,7 @@ void PhysicalDevices::dumpDevices() {
         std::cout << device->properties.deviceName << std::endl;
     }
 }
+
+} // Vulkan
+
+} // Origin

@@ -3,6 +3,25 @@
 #include <stdexcept>
 #include <vulkan/vulkan.h>
 
+#define VULKAN_CHECK_RESULT(f, message) { \
+    VkResult result = (f); \
+    if (result != VK_SUCCESS) { \
+        std::string errorMessage = std::string(message) + ": " + resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
+        throw std::runtime_error(errorMessage); \
+    } \
+}
+
+#define VULKAN_DESTROY_HANDLE(f) { \
+    if (handle != VK_NULL_HANDLE) { \
+        (f); \
+        handle = VK_NULL_HANDLE; \
+    } \
+} \
+
+namespace Origin {
+
+namespace Vulkan {
+
 static std::string resultToString(VkResult result) {
     switch (result) {
         case VK_SUCCESS: return "Success";
@@ -38,23 +57,6 @@ static std::string resultToString(VkResult result) {
     }
 }
 
-#define VULKAN_CHECK_RESULT(f, message) { \
-    VkResult result = (f); \
-    if (result != VK_SUCCESS) { \
-        std::string errorMessage = std::string(message) + ": " + resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
-        throw std::runtime_error(errorMessage); \
-    } \
-}
-
-#define VULKAN_DESTROY_HANDLE(f) { \
-    if (handle != VK_NULL_HANDLE) { \
-        (f); \
-        handle = VK_NULL_HANDLE; \
-    } \
-} \
-
-namespace Vulkan {
-
 template<typename T> class Handle {
 
 public:
@@ -75,3 +77,5 @@ protected:
 };
 
 } // Vulkan
+
+} // Origin

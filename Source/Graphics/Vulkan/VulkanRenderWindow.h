@@ -1,6 +1,8 @@
 #pragma once
 #include "Graphics/Render/RenderWindow.h"
 
+namespace Origin {
+
 namespace Vulkan {
     class Device;
     class Surface;
@@ -48,3 +50,5 @@ private:
     std::unique_ptr<Vulkan::PresentQueue> presentQueue;
     std::unique_ptr<Vulkan::Fence> presentFence;
 };
+
+} // Origin

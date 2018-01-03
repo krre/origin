@@ -2,6 +2,8 @@
 #include "Base/Handle.h"
 #include "Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Fence : public Handle<VkFence>, public Devicer {
@@ -20,3 +22,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

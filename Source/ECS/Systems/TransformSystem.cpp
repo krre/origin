@@ -4,6 +4,8 @@
 #include "ECS/Entity.h"
 #include <glm/gtx/matrix_decompose.hpp>
 
+namespace Origin {
+
 TransformSystem::TransformSystem() {
     type = SystemType::Transform;
 }
@@ -94,3 +96,5 @@ void TransformSystem::lookAt(Entity* entity, const glm::vec3& eye, const glm::ve
     tc->rotation = rotation;
     tc->dirty = true;
 }
+
+} // Origin

@@ -3,6 +3,8 @@
 #include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 #include <vector>
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Semaphore;
@@ -24,3 +26,5 @@ protected:
 };
 
 } // Vulkan
+
+} // Origin

@@ -2,6 +2,8 @@
 #include "Control.h"
 #include "Graphics/Color.h"
 
+namespace Origin {
+
 class Rectangle : public Control {
 
 public:
@@ -24,3 +26,5 @@ private:
     Color borderColor = Color::GRAY;
     uint32_t borderWidth = 0;
 };
+
+} // Origin

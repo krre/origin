@@ -3,6 +3,8 @@
 #include "Text/Label.h"
 #include "Core/Timer.h"
 
+namespace Origin {
+
 class Toast : public Drawable {
 
 public:
@@ -16,3 +18,5 @@ private:
     Label text;
     Timer timer;
 };
+
+} // Origin

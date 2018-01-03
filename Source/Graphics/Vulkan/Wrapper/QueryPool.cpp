@@ -1,6 +1,8 @@
 #include "QueryPool.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 QueryPool::QueryPool(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO;
@@ -18,3 +20,7 @@ void QueryPool::create() {
 void QueryPool::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyQueryPool(device->getHandle(), handle, nullptr))
 }
+
+} // Vulkan
+
+} // Origin

@@ -1,6 +1,8 @@
 #include "PipelineCache.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 PipelineCache::PipelineCache(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
@@ -17,3 +19,7 @@ void PipelineCache::create() {
 void PipelineCache::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyPipelineCache(device->getHandle(), handle, nullptr))
 }
+
+} // Vulkan
+
+} // Origin

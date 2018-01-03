@@ -7,6 +7,8 @@
     #define ERROR(x) std::cerr << x << std::endl;
 #endif
 
+namespace Origin {
+
 constexpr int PAGE_BYTES = 1 << 13; // 8192 (use in OctreeFarm)
 const int BLOCK_INFO_END = 1;
 
@@ -52,3 +54,5 @@ struct RectF {
     float width;
     float height;
 };
+
+} // Origin

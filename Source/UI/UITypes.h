@@ -1,5 +1,7 @@
 #pragma once
 
+namespace Origin {
+
 enum class Direction {
     HORIZONTAL,
     VERICAL
@@ -10,3 +12,5 @@ enum class ControlType {
     VIEW2D,
     VIEW3D
 };
+
+} // Origin

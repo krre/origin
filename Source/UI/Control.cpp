@@ -2,6 +2,8 @@
 #include "Batch2D.h"
 #include <algorithm>
 
+namespace Origin {
+
 Control::Control(Control* parent) : parent(parent) {
     if (parent != nullptr) {
         parent->addChild(this);
@@ -96,3 +98,5 @@ void Control::addChild(Control* control) {
 void Control::removeChild(Control* control) {
     children.erase(std::remove(children.begin(), children.end(), control), children.end());
 }
+
+} // Origin

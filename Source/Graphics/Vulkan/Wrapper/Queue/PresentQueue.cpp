@@ -1,7 +1,9 @@
 #include "PresentQueue.h"
 #include "../Surface/Swapchain.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 PresentQueue::PresentQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) :
     Queue(device, queueFamilyIndex, queueIndex) {
@@ -33,3 +35,7 @@ void PresentQueue::clearSwapchains() {
     swapchains.clear();
     imageIndices.clear();
 }
+
+} // Vulkan
+
+} // Origin

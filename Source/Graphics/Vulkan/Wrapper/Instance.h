@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 
-class RenderWindow;
+namespace Origin {
 
 namespace Vulkan {
 
@@ -39,3 +39,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

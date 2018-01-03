@@ -2,6 +2,8 @@
 #include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 #include <memory>
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Device;
@@ -32,3 +34,6 @@ private:
 };
 
 } // Vulkan
+
+} // Origin
+

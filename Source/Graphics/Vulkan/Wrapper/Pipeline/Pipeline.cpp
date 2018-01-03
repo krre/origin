@@ -1,6 +1,8 @@
 #include "Pipeline.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Pipeline::~Pipeline() {
     destroy();
@@ -25,3 +27,7 @@ void Pipeline::addShaderCode(VkShaderStageFlagBits stage, size_t size, const uin
 void Pipeline::setPipelineCache(VkPipelineCache pipelineCache) {
     this->pipelineCache = pipelineCache;
 }
+
+} // Vulkan
+
+} // Origin

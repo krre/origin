@@ -1,6 +1,8 @@
 #include "Semaphore.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Semaphore::Semaphore(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
@@ -17,3 +19,7 @@ void Semaphore::create() {
 void Semaphore::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySemaphore(device->getHandle(), handle, nullptr))
 }
+
+} // Vulkan
+
+} // Origin

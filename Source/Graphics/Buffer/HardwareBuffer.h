@@ -2,6 +2,8 @@
 #include "Core/Object.h"
 #include <vulkan/vulkan.h>
 
+namespace Origin {
+
 namespace Vulkan {
     class Buffer;
     class DeviceMemory;
@@ -28,3 +30,5 @@ protected:
 private:
 
 };
+
+} // Origin

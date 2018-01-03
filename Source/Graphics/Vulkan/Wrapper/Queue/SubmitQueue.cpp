@@ -3,7 +3,9 @@
 #include "../Semaphore.h"
 #include "../Command/CommandBuffer.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 SubmitQueue::SubmitQueue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) :
     Queue(device, queueFamilyIndex, queueIndex) {
@@ -64,3 +66,7 @@ void SubmitQueue::clearCommandBuffers() {
     waitDstStageMasks.clear();
     submitInfos.clear();
 }
+
+} // Vulkan
+
+} // Origin

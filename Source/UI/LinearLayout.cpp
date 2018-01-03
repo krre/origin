@@ -1,5 +1,7 @@
 #include "LinearLayout.h"
 
+namespace Origin {
+
 LinearLayout::LinearLayout(Direction direction) :
     direction(direction) {
 
@@ -17,3 +19,5 @@ void LinearLayout::updateContentPostion() {
         }
     }
 }
+
+} // Origin

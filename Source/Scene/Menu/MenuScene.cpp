@@ -12,6 +12,8 @@
 #include "Graphics/Vulkan/Wrapper/Pipeline/GraphicsPipeline.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffer.h"
 
+namespace Origin {
+
 MenuScene::MenuScene() {
     plane = std::make_unique<Plane>();
 //    shaderProgram = std::make_unique<ShaderProgram>();
@@ -92,3 +94,5 @@ void MenuScene::onKeyPressed(const SDL_KeyboardEvent& event) {
         Input::get()->isKeyAccepted = true;
     }
 }
+
+} // Origin

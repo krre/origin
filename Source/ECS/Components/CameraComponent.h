@@ -4,6 +4,8 @@
 #include "Graphics/Render/RenderWindow.h"
 #include <glm/ext.hpp>
 
+namespace Origin {
+
 class CameraComponent : public Component {
 
 public:
@@ -24,3 +26,5 @@ public:
     const glm::vec4 right = glm::vec4(1.0, 0.0, 0.0, 0.0);
     glm::mat4 projection;
 };
+
+} // Origin

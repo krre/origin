@@ -4,6 +4,8 @@
 #include <map>
 #include <vector>
 
+namespace Origin {
+
 namespace Vulkan {
     class GraphicsPipeline;
     class PipelineLayout;
@@ -55,3 +57,5 @@ private:
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
     int vertexBindingCount = 0;
 };
+
+} // Origin

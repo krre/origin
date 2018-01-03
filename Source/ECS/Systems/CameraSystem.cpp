@@ -6,6 +6,8 @@
 #include "ECS/Components/CameraComponent.h"
 #include "ECS/Components/TransformComponent.h"
 
+namespace Origin {
+
 CameraSystem::CameraSystem() {
     type = SystemType::Camera;
     Event::get()->windowResize.connect(this, &CameraSystem::onWindowResize);
@@ -33,3 +35,5 @@ void CameraSystem::onWindowResize(int width, int height) {
         }
     }
 }
+
+} // Origin

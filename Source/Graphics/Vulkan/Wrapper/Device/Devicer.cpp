@@ -1,7 +1,13 @@
 #include "Devicer.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Devicer::Devicer(Device* device) : device(device) {
 
 }
+
+} // Vulkan
+
+} // Origin

@@ -11,6 +11,8 @@
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
+namespace Origin {
+
 PauseScene::PauseScene() {
     layout = std::make_shared<LinearLayout>(Direction::VERICAL);
     continueButton = std::make_unique<Button>();
@@ -62,3 +64,5 @@ void PauseScene::onContinueButtonClicked() {
 void PauseScene::onExitButtonClicked() {
     Application::get()->quit();
 }
+
+} // Origin

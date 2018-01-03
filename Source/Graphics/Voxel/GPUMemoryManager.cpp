@@ -4,6 +4,8 @@
 #include "ECS/Entity.h"
 #include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
 
+namespace Origin {
+
 GPUMemoryManager::GPUMemoryManager() {
 }
 
@@ -41,3 +43,5 @@ void GPUMemoryManager::updateRenderList(Vulkan::Buffer* buffer) {
 //    buffer->write(&count, sizeof(count));
 //    buffer->write(renderOffsets.data(), sizeof(renderOffsets[0]) * renderOffsets.size(), sizeof(count));
 }
+
+} // Origin

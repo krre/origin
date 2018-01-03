@@ -26,6 +26,8 @@
 #include "UI/Rectangle.h"
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 DebugHUD::DebugHUD() {
 //    int apiVersionNumber = Vulkan::Instance::get()->getDefaultDevice()->getPhysicalDevice()->getProperties().apiVersion;
 //    vulkanApiVersion = Vulkan::Instance::apiToString(apiVersionNumber);
@@ -169,3 +171,5 @@ void DebugHUD::trigger() {
 //    ubo.projection = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
 //    shaderProgram.writeUniform("ubo");
 //}
+
+} // Origin

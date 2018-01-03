@@ -5,7 +5,9 @@
 #include "Graphics/Vulkan/Wrapper/Fence.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 CommandBufferOneTime::CommandBufferOneTime(Device* device, CommandPool* commandPool) :
         Devicer(device),
@@ -60,3 +62,7 @@ void CommandBufferOneTime::addImageCopy(VkImageCopy imageCopy) {
 void CommandBufferOneTime::addBufferCopy(VkBufferCopy bufferCopy) {
     commandBuffer->addBufferCopy(bufferCopy);
 }
+
+} // Vulkan
+
+} // Origin

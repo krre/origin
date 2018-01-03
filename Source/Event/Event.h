@@ -3,6 +3,8 @@
 #include <Core/Signal.h>
 #include <SDL.h>
 
+namespace Origin {
+
 class Event : public Singleton<Event> {
 
 public:
@@ -22,3 +24,5 @@ public:
 private:
     bool keyLock = false;
 };
+
+} // Origin

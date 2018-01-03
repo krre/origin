@@ -3,6 +3,8 @@
 #include "ECSTypes.h"
 #include <vector>
 
+namespace Origin {
+
 class EntityManager;
 
 class System : public Object {
@@ -22,3 +24,5 @@ protected:
     bool active = true;
     static EntityManager* entityManager;
 };
+
+} // Origin

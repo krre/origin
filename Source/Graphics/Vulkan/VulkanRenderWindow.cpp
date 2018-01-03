@@ -24,6 +24,8 @@
     #include "Graphics/Vulkan/Wrapper/Surface/XcbSurface.h"
 #endif
 
+namespace Origin {
+
 VulkanRenderWindow::VulkanRenderWindow(VulkanContext* context) : context(context) {
     device = context->getGraphicsDevice();
 
@@ -215,3 +217,5 @@ void VulkanRenderWindow::initImpl() {
 
     onResize(width, height);
 }
+
+} // Origin

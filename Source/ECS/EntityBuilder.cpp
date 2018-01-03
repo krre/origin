@@ -4,6 +4,8 @@
 #include "Graphics/Voxel/Primitive/Cube.h"
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 std::shared_ptr<Entity> EntityBuilder::geometry() {
     std::vector<ComponentType> types = {
         ComponentType::Node,
@@ -71,3 +73,5 @@ std::shared_ptr<Entity> EntityBuilder::light() {
     };
     return EntityManager::get()->createComponents(types);
 }
+
+} // Origin

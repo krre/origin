@@ -5,6 +5,8 @@
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "UI/Batch2D.h"
 
+namespace Origin {
+
 Scene2D::Scene2D() {
 //    vertexBuffer = std::make_unique<VertexBuffer>(MAX_VERTEX_BUFFER_SIZE);
 //    indexBuffer = std::make_unique<IndexBuffer>(MAX_INDEX_COUNT);
@@ -29,3 +31,5 @@ void Scene2D::onWindowResize(int width, int height) {
 //        root->setSize(size);
 //    }
 }
+
+} // Origin

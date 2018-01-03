@@ -1,6 +1,8 @@
 #pragma once
 #include "Singleton.h"
 
+namespace Origin {
+
 class Game : public Singleton<Game> {
 
 public:
@@ -9,3 +11,5 @@ public:
     void load();
     void save();
 };
+
+} // Origin

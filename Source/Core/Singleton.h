@@ -2,6 +2,8 @@
 #include "Object.h"
 #include <assert.h>
 
+namespace Origin {
+
 template <typename T> class Singleton : public Object {
 
 public:
@@ -34,3 +36,5 @@ private:
 };
 
 template <typename T> T* Singleton<T>::instance = nullptr;
+
+} // Origin

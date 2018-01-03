@@ -3,7 +3,9 @@
 #include "../Device/PhysicalDevice.h"
 #include "../Semaphore.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Swapchain::Swapchain(Device* device, Surface* surface) :
         Devicer(device),
@@ -59,3 +61,6 @@ void Swapchain::setImageIndexPtr(uint32_t* pImageIndex) {
     this->pImageIndex = pImageIndex;
 }
 
+} // Vulkan
+
+} // Origin

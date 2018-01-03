@@ -2,6 +2,8 @@
 #include "Common.h"
 #include <vector>
 
+namespace Origin {
+
 class Control;
 class View;
 class RenderWindow;
@@ -48,3 +50,5 @@ private:
     std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;
     std::vector<std::unique_ptr<Vulkan::CommandBuffer>> commandBuffers;
 };
+
+} // Origin

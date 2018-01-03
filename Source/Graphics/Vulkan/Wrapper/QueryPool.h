@@ -2,6 +2,8 @@
 #include "Base/Handle.h"
 #include "Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class QueryPool : public Handle<VkQueryPool>, public Devicer {
@@ -17,3 +19,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

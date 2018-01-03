@@ -2,7 +2,9 @@
 #include "DebugReportCallback.h"
 #include <iostream>
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Instance::Instance() {
     // Get layers
@@ -101,3 +103,7 @@ std::string Instance::apiToString(int api) {
     int patch = api & 0xFFF;
     return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
 }
+
+} // Vulkan
+
+} // Origin

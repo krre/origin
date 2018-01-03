@@ -2,6 +2,8 @@
 #include "EntityManager.h"
 #include <algorithm>
 
+namespace Origin {
+
 EntityManager* System::entityManager;
 
 System::System() {
@@ -11,3 +13,5 @@ System::System() {
 void System::setActive(bool active) {
     this->active = active;
 }
+
+} // Origin

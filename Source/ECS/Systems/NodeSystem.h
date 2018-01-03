@@ -2,6 +2,8 @@
 #include "ECS/System.h"
 #include "ECS/Entity.h"
 
+namespace Origin {
+
 class NodeSystem : public System {
 
 public:
@@ -12,3 +14,5 @@ public:
     void removeChild(EntityId parent, EntityId child);
     void removeChildren(EntityId parent);
 };
+
+} // Origin

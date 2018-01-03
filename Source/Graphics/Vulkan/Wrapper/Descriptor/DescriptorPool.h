@@ -3,6 +3,8 @@
 #include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 #include <vector>
 
+namespace Origin {
+
 namespace Vulkan {
 
 class DescriptorPool : public Handle<VkDescriptorPool>, public Devicer {
@@ -21,3 +23,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

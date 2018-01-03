@@ -3,6 +3,8 @@
 #include "Component.h"
 #include <map>
 
+namespace Origin {
+
 class Entity : public Object {
 
 public:
@@ -15,3 +17,5 @@ private:
     EntityId id;
     static EntityId counter;
 };
+
+} // Origin

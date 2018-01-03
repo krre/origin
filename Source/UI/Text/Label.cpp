@@ -5,6 +5,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+namespace Origin {
+
 Label::Label() {
 //    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt"));
 }
@@ -29,3 +31,5 @@ void Label::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer
 void Label::updateTextData() {
 
 }
+
+} // Origin

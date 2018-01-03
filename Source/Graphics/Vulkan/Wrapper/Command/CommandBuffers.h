@@ -2,6 +2,8 @@
 #include "Graphics/Vulkan/Wrapper/Base/Collection.h"
 #include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
 
+namespace Origin {
+
 namespace Vulkan {
 
 class CommandPool;
@@ -20,3 +22,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

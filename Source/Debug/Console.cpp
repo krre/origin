@@ -5,6 +5,8 @@
 #include "UI/Text/Label.h"
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 Console::Console() {
     Event::get()->windowResize.connect(this, &Console::onWindowResize);
     cmdLine = std::make_shared<Label>();
@@ -61,3 +63,5 @@ void Console::execute() {
 //        SceneManager::get()->popScene();
     }
 }
+
+} // Origin

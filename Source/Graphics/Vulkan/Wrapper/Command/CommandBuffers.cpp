@@ -2,7 +2,9 @@
 #include "CommandPool.h"
 #include <assert.h>
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 CommandBuffers::CommandBuffers(Device* device, CommandPool* commandPool, VkCommandBufferLevel level) :
         Devicer(device), commandPool(commandPool) {
@@ -26,3 +28,7 @@ void CommandBuffers::allocate(uint32_t count) {
 void CommandBuffers::destroy() {
     VULKAN_DESTROY_COLLECTION(vkFreeCommandBuffers(device->getHandle(), commandPool->getHandle(), collection.size(), collection.data()));
 }
+
+} // Vulkan
+
+} // Origin

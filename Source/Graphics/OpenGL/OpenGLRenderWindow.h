@@ -1,6 +1,8 @@
 #pragma once
 #include "Graphics/Render/RenderWindow.h"
 
+namespace Origin {
+
 class OpenGLRenderWindow : public RenderWindow {
 
 public:
@@ -14,3 +16,5 @@ private:
     Uint32 getSurfaceFlag() const override;
     void initImpl() override;
 };
+
+} // Origin

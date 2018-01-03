@@ -1,6 +1,8 @@
 #include "Buffer.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Buffer::Buffer(Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) :
         Devicer(device) {
@@ -25,3 +27,7 @@ void Buffer::create() {
 void Buffer::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyBuffer(device->getHandle(), handle, nullptr))
 }
+
+} // Vulkan
+
+} // Origin

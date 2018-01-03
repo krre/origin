@@ -5,6 +5,8 @@
 #include <vector>
 #include <json/json.hpp>
 
+namespace Origin {
+
 using json = nlohmann::json;
 
 class Utils : public Object {
@@ -23,3 +25,5 @@ public:
     static std::vector<std::string> split(const std::string &value, char delim);
     static void removeChar(std::string& str, char c);
 };
+
+} // Origin

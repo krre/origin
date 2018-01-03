@@ -2,6 +2,8 @@
 #include "Scene.h"
 #include <vector>
 
+namespace Origin {
+
 static const uint32_t MAX_VERTEX_BUFFER_SIZE = 1000000;
 static const uint32_t MAX_INDEX_COUNT = 10000;
 
@@ -28,3 +30,5 @@ private:
     std::vector<std::shared_ptr<Control>> controls;
     std::vector<std::unique_ptr<Batch2D>> batches;
 };
+
+} // Origin

@@ -5,6 +5,8 @@
 #include <experimental/filesystem>
 #include <fstream>
 
+namespace Origin {
+
 namespace fs = std::experimental::filesystem;
 
 Settings::Settings() {
@@ -30,3 +32,5 @@ void Settings::saveAll() {
 
 void Settings::setDefaultSettings() {
 }
+
+} // Origin

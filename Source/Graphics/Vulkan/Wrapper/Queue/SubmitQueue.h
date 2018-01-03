@@ -2,6 +2,8 @@
 #include "Queue.h"
 #include <vector>
 
+namespace Origin {
+
 namespace Vulkan {
 
 class Fence;
@@ -27,3 +29,5 @@ private:
 };
 
 } // Vulkan
+
+} // Origin

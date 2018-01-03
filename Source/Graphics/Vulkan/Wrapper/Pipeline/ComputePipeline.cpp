@@ -1,6 +1,8 @@
 #include "ComputePipeline.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 ComputePipeline::ComputePipeline(Device* device) :
         Pipeline(device) {
@@ -10,3 +12,7 @@ ComputePipeline::ComputePipeline(Device* device) :
 void ComputePipeline::create() {
     VULKAN_CHECK_RESULT(vkCreateComputePipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
 }
+
+} // Vulkan
+
+} // Origin

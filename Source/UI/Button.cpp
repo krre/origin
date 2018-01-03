@@ -2,6 +2,8 @@
 #include "Event/Event.h"
 #include "Text/Label.h"
 
+namespace Origin {
+
 Button::Button() : Rectangle({ 100, 20 }) {
     setColor({ 0.6, 0.6, 0.6 });
 
@@ -47,3 +49,5 @@ void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
         }
     }
 }
+
+} // Origin

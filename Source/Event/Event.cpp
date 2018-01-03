@@ -1,6 +1,8 @@
 #include "Event.h"
 #include "Input.h"
 
+namespace Origin {
+
 Event::Event() {
 
 }
@@ -65,3 +67,5 @@ void Event::handleEvents() {
         }
     }
 }
+
+} // Origin

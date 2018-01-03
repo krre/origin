@@ -3,6 +3,8 @@
 #include "OpenGLRenderer.h"
 #include <GL/glew.h>
 
+namespace Origin {
+
 OpenGLContext::OpenGLContext() {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
@@ -43,3 +45,5 @@ RenderWindow* OpenGLContext::createRenderWindow() {
 Renderer* OpenGLContext::createRenderer() {
     return new OpenGLRenderer;
 }
+
+} // Origin

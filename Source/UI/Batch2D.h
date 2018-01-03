@@ -3,6 +3,8 @@
 #include <vector>
 #include <glm/glm.hpp>
 
+namespace Origin {
+
 class Batch2D {
 
 public:
@@ -21,3 +23,5 @@ public:
 private:
 
 };
+
+} // Origin

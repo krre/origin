@@ -1,7 +1,9 @@
 #include "CommandBuffer.h"
 #include "Graphics/Vulkan/Wrapper/Pipeline/Pipeline.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 CommandBuffer::CommandBuffer(VkCommandBuffer handle) : Handle(handle) {
     beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
@@ -239,3 +241,7 @@ void CommandBuffer::reset() {
 
     vkResetCommandBuffer(handle, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
 }
+
+} // Vulkan
+
+} // Origin

@@ -2,7 +2,9 @@
 #include "XcbSurface.h"
 #include "../Instance.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 XcbSurface::XcbSurface(Instance* instance, PhysicalDevice* physicalDevice, xcb_connection_t* connection, xcb_window_t window) :
     Surface(instance, physicalDevice),
@@ -17,3 +19,7 @@ void Vulkan::XcbSurface::platformCreateHandle() {
     createInfo.window = window;
     VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
 }
+
+} // Vulkan
+
+} // Origin

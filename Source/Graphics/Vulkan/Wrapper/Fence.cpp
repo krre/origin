@@ -1,6 +1,8 @@
 #include "Fence.h"
 
-using namespace Vulkan;
+namespace Origin {
+
+namespace Vulkan {
 
 Fence::Fence(Device* device) : Devicer(device) {
     createInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
@@ -29,3 +31,7 @@ VkResult Fence::reset() {
 void Fence::setSignaledBit() {
     createInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 }
+
+} // Vulkan
+
+} // Origin

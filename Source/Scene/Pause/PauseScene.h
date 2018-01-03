@@ -1,6 +1,8 @@
 #pragma once
 #include "Scene/Scene2D.h"
 
+namespace Origin {
+
 class LinearLayout;
 class Button;
 
@@ -22,3 +24,5 @@ private:
     std::unique_ptr<Button> continueButton;
     std::unique_ptr<Button> exitButton;
 };
+
+} // Origin

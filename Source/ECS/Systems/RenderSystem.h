@@ -2,6 +2,8 @@
 #include "ECS/System.h"
 #include <vector>
 
+namespace Origin {
+
 class Drawable;
 
 class RenderSystem : public System {
@@ -13,3 +15,5 @@ public:
 private:
     std::vector<Drawable*> drawables;
 };
+
+} // Origin

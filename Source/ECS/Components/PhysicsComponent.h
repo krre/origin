@@ -2,6 +2,8 @@
 #include "ECS/Component.h"
 #include <btBulletDynamicsCommon.h>
 
+namespace Origin {
+
 class PhysicsComponent : public Component {
 
 public:
@@ -11,3 +13,5 @@ public:
     std::unique_ptr<btDefaultMotionState> motionState;
     btScalar mass = 0;
 };
+
+} // Origin

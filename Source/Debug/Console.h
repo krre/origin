@@ -2,6 +2,8 @@
 #include "Scene/Scene2D.h"
 #include <SDL.h>
 
+namespace Origin {
+
 class Label;
 
 class Console : public Scene2D {
@@ -17,3 +19,5 @@ private:
     void execute();
     std::shared_ptr<Label> cmdLine;
 };
+
+} // Origin

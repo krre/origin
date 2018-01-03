@@ -5,6 +5,10 @@ namespace Ui {
     class VulkanTab;
 }
 
+namespace Origin {
+
+namespace DebugSettingsEditor {
+
 class VulkanTab : public AbstractTab {
     Q_OBJECT
 
@@ -18,3 +22,7 @@ public:
 private:
     Ui::VulkanTab* ui;
 };
+
+} // DebugSettingsEditor
+
+} // Origin

@@ -5,6 +5,10 @@ namespace Ui {
     class MainWindow;
 }
 
+namespace Origin {
+
+namespace DebugSettingsEditor {
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -35,3 +39,7 @@ private:
     QString settingsPath;
     QString debugSettingsPath;
 };
+
+} // DebugSettingsEditor
+
+} // Origin

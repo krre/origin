@@ -2,6 +2,10 @@
 #include "ui_GeneralTab.h"
 #include <QJsonObject>
 
+namespace Origin {
+
+namespace DebugSettingsEditor {
+
 GeneralTab::GeneralTab() :
         ui(new Ui::GeneralTab) {
     ui->setupUi(this);
@@ -44,3 +48,7 @@ void GeneralTab::on_comboBoxBackend_currentIndexChanged(int currentIndex) {
     Q_UNUSED(currentIndex)
     emit flush();
 }
+
+} // DebugSettingsEditor
+
+} // Origin

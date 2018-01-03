@@ -6,6 +6,10 @@
 #include <QJsonArray>
 #include <QDebug>
 
+namespace Origin {
+
+namespace DebugSettingsEditor {
+
 VulkanTab::VulkanTab() :
         ui(new Ui::VulkanTab) {
     ui->setupUi(this);
@@ -16,7 +20,7 @@ VulkanTab::VulkanTab() :
     connect(ui->listWidgetLayers, &QListWidget::itemSelectionChanged, this, &VulkanTab::flush);
     connect(ui->listWidgetExtensions, &QListWidget::itemSelectionChanged, this, &VulkanTab::flush);
 
-    Origin::Vulkan::Instance instance;
+    Vulkan::Instance instance;
     instance.create();
 
     for (const auto& layer : instance.getLayerProperties()) {
@@ -86,3 +90,7 @@ QJsonObject VulkanTab::debugSettings() const {
 QString VulkanTab::name() const {
     return "vulkan";
 }
+
+} // DebugSettingsEditor
+
+} // Origin

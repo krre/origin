@@ -5,6 +5,10 @@ namespace Ui {
     class GeneralTab;
 }
 
+namespace Origin {
+
+namespace DebugSettingsEditor {
+
 class GeneralTab : public AbstractTab {
     Q_OBJECT
 
@@ -22,3 +26,7 @@ private slots:
 private:
     Ui::GeneralTab* ui;
 };
+
+} // DebugSettingsEditor
+
+} // Origin

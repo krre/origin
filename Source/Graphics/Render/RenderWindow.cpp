@@ -5,6 +5,7 @@
 #include "Core/Defines.h"
 #include "Core/Utils.h"
 #include "Core/Screen.h"
+#include "Core/Game.h"
 #include "Debug/DebugHUD.h"
 #include "UI/Toast.h"
 #include "Event/Event.h"
@@ -12,20 +13,6 @@
 #include <SDL_keycode.h>
 #include <ctime>
 #include <experimental/filesystem>
-
-// Hack to disable typedef Screen from X11 to prevent conflict with Screen class
-#define Screen SCREEN_DEF
-
-// TODO: Remove Drawable class from project
-#define Drawable DRAWABLE_DEF
-
-#define Font FONT_DEF
-
-#undef Screen
-#undef Drawable
-#undef Font
-
-#include "Core/Game.h"
 #include <SDL_video.h>
 #include <lodepng/lodepng.h>
 

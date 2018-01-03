@@ -16,7 +16,7 @@ VulkanTab::VulkanTab() :
     connect(ui->listWidgetLayers, &QListWidget::itemSelectionChanged, this, &VulkanTab::flush);
     connect(ui->listWidgetExtensions, &QListWidget::itemSelectionChanged, this, &VulkanTab::flush);
 
-    Vulkan::Instance instance;
+    Origin::Vulkan::Instance instance;
     instance.create();
 
     for (const auto& layer : instance.getLayerProperties()) {

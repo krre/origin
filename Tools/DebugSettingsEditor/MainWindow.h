@@ -24,11 +24,6 @@ private slots:
     void on_actionReload_triggered();
 
 private:
-    enum class Tabs {
-        GENERAL,
-        VULKAN
-    };
-
     void readSettings();
     void writeSettings();
 

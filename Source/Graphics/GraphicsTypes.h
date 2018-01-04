@@ -3,15 +3,15 @@
 namespace Origin {
 
 enum class PipelinePreset {
-    BASE,
-    SDF,
-    VOXEL,
+    base,
+    Sdf,
+    Voxel,
 };
 
 
 enum class GraphicsBackend {
-    OPENGL,
-    VULKAN
+    OpenGL,
+    Vulkan
 };
 
 } // Origin

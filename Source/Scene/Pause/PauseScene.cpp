@@ -14,7 +14,7 @@
 namespace Origin {
 
 PauseScene::PauseScene() {
-    layout = std::make_shared<LinearLayout>(Direction::VERICAL);
+    layout = std::make_shared<LinearLayout>(Direction::Vertical);
     continueButton = std::make_unique<Button>();
     exitButton = std::make_unique<Button>();
 }

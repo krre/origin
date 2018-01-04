@@ -22,11 +22,11 @@ GraphicsBackend DebugEnvironment::getGraphicsBackend() const {
 void DebugEnvironment::setDebugScreen() {
     uint8_t s = settings["general"]["screen"];
     GameScreen screen = static_cast<GameScreen>(s);
-    if (screen == GameScreen::MENU) {
+    if (screen == GameScreen::Menu) {
         Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>());
-    } else if (screen == GameScreen::SETTINGS) {
+    } else if (screen == GameScreen::Settings) {
 //        Application::get()->getWindow()->setScreen(std::make_shared<SettingsScreen>());
-    } else if (screen == GameScreen::GAME) {
+    } else if (screen == GameScreen::Game) {
 //        Application::get()->getWindow()->setScreen(std::make_shared<WorldScreen>());
     }
 }

@@ -15,9 +15,9 @@ const int BLOCK_INFO_END = 1;
 using EntityId = uint64_t;
 
 enum class GameScreen {
-    MENU,
-    SETTINGS,
-    GAME
+    Menu,
+    Settings,
+    Game
 };
 
 struct Size {

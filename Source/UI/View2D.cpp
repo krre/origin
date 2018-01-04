@@ -12,7 +12,7 @@ View2D::~View2D() {
 }
 
 void View2D::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
-    batch->controlType = ControlType::VIEW2D;
+    batch->controlType = ControlType::View2D;
 }
 
 void View2D::writeCommands(Vulkan::CommandBuffer* commandBuffer) {

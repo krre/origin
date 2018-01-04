@@ -10,7 +10,7 @@ LinearLayout::LinearLayout(Direction direction) :
 void LinearLayout::updateContentPostion() {
     int i = 0;
     for (const auto& control : controls) {
-        if (direction == Direction::VERICAL) {
+        if (direction == Direction::Vertical) {
             control->setPosition({ position.x, position.y + i * ((int)control->getSize().width + spacing) });
             i++;
         } else {

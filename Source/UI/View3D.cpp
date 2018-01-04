@@ -8,7 +8,7 @@ View3D::View3D() {
 }
 
 void View3D::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
-    batch->controlType = ControlType::VIEW3D;
+    batch->controlType = ControlType::View3D;
 }
 
 } // Origin

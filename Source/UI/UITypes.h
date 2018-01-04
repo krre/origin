@@ -3,14 +3,14 @@
 namespace Origin {
 
 enum class Direction {
-    HORIZONTAL,
-    VERICAL
+    Horizontal,
+    Vertical
 };
 
 enum class ControlType {
-    USUAL,
-    VIEW2D,
-    VIEW3D
+    Usual,
+    View2D,
+    View3D
 };
 
 } // Origin

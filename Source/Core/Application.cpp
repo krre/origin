@@ -64,9 +64,9 @@ void Application::init() {
 
         if (DebugEnvironment::get()->getEnable()) {
             GraphicsBackend backend = DebugEnvironment::get()->getGraphicsBackend();
-            if (backend == GraphicsBackend::OPENGL) {
+            if (backend == GraphicsBackend::OpenGL) {
                 new OpenGLContext;
-            } else if (backend == GraphicsBackend::VULKAN) {
+            } else if (backend == GraphicsBackend::Vulkan) {
                 new VulkanContext;
             }
         } else {

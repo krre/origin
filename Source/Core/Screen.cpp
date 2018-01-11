@@ -3,7 +3,7 @@
 #include "Graphics/Render/RenderManager.h"
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
-#include "Graphics/Vulkan/VulkanContext.h"
+#include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Vulkan/VulkanRenderWindow.h"
 #include "Graphics/Vulkan/Wrapper/Semaphore.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
@@ -16,9 +16,9 @@ namespace Origin {
 
 Screen::Screen() {
     window = Application::get()->getWindow();
-    device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
+    device = static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice();
 
-    commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsCommandPool());
+    commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsCommandPool());
     commandBufferHandlers->allocate(static_cast<VulkanRenderWindow*>(window)->getSwapchain()->getCount());
 
     for (int i = 0; i < commandBufferHandlers->getCount(); i++) {

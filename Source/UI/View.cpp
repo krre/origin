@@ -2,13 +2,13 @@
 #include "Scene/Scene.h"
 #include "Core/Application.h"
 #include "Graphics/Render/RenderWindow.h"
-#include "Graphics/Vulkan/VulkanContext.h"
+#include "Graphics/Vulkan/VulkanRenderContext.h"
 
 namespace Origin {
 
 View::View() {
     scene = std::make_unique<Scene>();
-    device = static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice();
+    device = static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice();
 }
 
 View::~View() {

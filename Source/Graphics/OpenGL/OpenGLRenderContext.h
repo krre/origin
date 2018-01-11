@@ -1,14 +1,14 @@
 #pragma once
-#include "Graphics/GraphicsContext.h"
+#include "Graphics/RenderContext.h"
 #include <SDL.h>
 
 namespace Origin {
 
-class OpenGLContext : public GraphicsContext {
+class OpenGLRenderContext : public RenderContext {
 
 public:
-    OpenGLContext();
-    ~OpenGLContext();
+    OpenGLRenderContext();
+    ~OpenGLRenderContext();
     RenderWindow* createRenderWindow() override;
     Renderer* createRenderer() override;
 

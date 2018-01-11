@@ -1,4 +1,4 @@
-#include "VulkanContext.h"
+#include "VulkanRenderContext.h"
 #include "VulkanRenderWindow.h"
 #include "VulkanRenderer.h"
 #include "Debug/DebugEnvironment.h"
@@ -10,7 +10,7 @@
 
 namespace Origin {
 
-VulkanContext::VulkanContext() {
+VulkanRenderContext::VulkanRenderContext() {
     instance = std::make_unique<Vulkan::Instance>();
 
     if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
@@ -25,7 +25,7 @@ VulkanContext::VulkanContext() {
     createAll();
 }
 
-VulkanContext::~VulkanContext() {
+VulkanRenderContext::~VulkanRenderContext() {
     if (graphicsDevice) {
         graphicsDevice->waitIdle();
     }
@@ -34,17 +34,17 @@ VulkanContext::~VulkanContext() {
     }
 }
 
-RenderWindow* VulkanContext::createRenderWindow() {
+RenderWindow* VulkanRenderContext::createRenderWindow() {
     RenderWindow* window = new VulkanRenderWindow(this);
     window->init();
     return window;
 }
 
-Renderer* VulkanContext::createRenderer() {
+Renderer* VulkanRenderContext::createRenderer() {
     return new VulkanRenderer;
 }
 
-void VulkanContext::createAll() {
+void VulkanRenderContext::createAll() {
     physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance.get());
 
     // Create graphics logical device and command pool

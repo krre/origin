@@ -1,6 +1,6 @@
 #include "Texture.h"
 #include <lodepng/lodepng.h>
-#include "Graphics/Vulkan/VulkanContext.h"
+#include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Graphics/Vulkan/Wrapper/Fence.h"
@@ -19,7 +19,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
         throw std::runtime_error("Failed to decode image " + path);
     }
 
-    image = std::make_unique<Vulkan::Image>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice());
+    image = std::make_unique<Vulkan::Image>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice());
 
     image->setWidth(width);
     image->setHeight(height);
@@ -30,12 +30,12 @@ Texture::Texture(const std::string& path, VkFormat format) {
 
     image->write(data.data(), data.size());
 
-    imageView = std::make_unique<Vulkan::ImageView>(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice(), image->getHandle());
+    imageView = std::make_unique<Vulkan::ImageView>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice(), image->getHandle());
     imageView->setFormat(image->getFormat());
     imageView->create();
 
     VkFormatProperties formatProps;
-//    vkGetPhysicalDeviceFormatProperties(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice()->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
+//    vkGetPhysicalDeviceFormatProperties(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice()->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
 
     /* See if we can use a linear tiled image for a texture, if not, we will
      * need a staging image for the texture data */
@@ -44,7 +44,7 @@ Texture::Texture(const std::string& path, VkFormat format) {
 
     }
 
-    Vulkan::CommandBufferOneTime commandBuffer(static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsDevice(), static_cast<VulkanContext*>(VulkanContext::get())->getGraphicsCommandPool());
+    Vulkan::CommandBufferOneTime commandBuffer(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice(), static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsCommandPool());
     commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
     commandBuffer.apply();
 }

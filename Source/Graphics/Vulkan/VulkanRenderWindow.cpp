@@ -1,6 +1,6 @@
 #include "VulkanRenderWindow.h"
 #include "Core/Defines.h"
-#include "Graphics/Vulkan/VulkanContext.h"
+#include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Swapchain.h"
@@ -26,7 +26,7 @@
 
 namespace Origin {
 
-VulkanRenderWindow::VulkanRenderWindow(VulkanContext* context) : context(context) {
+VulkanRenderWindow::VulkanRenderWindow(VulkanRenderContext* context) : context(context) {
     device = context->getGraphicsDevice();
 
     presentQueue = std::make_unique<Vulkan::PresentQueue>(device, context->getGraphicsFamily());

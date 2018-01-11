@@ -6,11 +6,11 @@ namespace Origin {
 class RenderWindow;
 class Renderer;
 
-class GraphicsContext : public Singleton<GraphicsContext> {
+class RenderContext : public Singleton<RenderContext> {
 
 public:
-    GraphicsContext();
-    ~GraphicsContext();
+    RenderContext();
+    ~RenderContext();
     virtual RenderWindow* createRenderWindow() = 0;
     virtual Renderer* createRenderer() = 0;
 

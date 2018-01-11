@@ -1,11 +1,11 @@
-#include "OpenGLContext.h"
+#include "OpenGLRenderContext.h"
 #include "OpenGLRenderWindow.h"
 #include "OpenGLRenderer.h"
 #include <GL/glew.h>
 
 namespace Origin {
 
-OpenGLContext::OpenGLContext() {
+OpenGLRenderContext::OpenGLRenderContext() {
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
     SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
@@ -14,11 +14,11 @@ OpenGLContext::OpenGLContext() {
     glewExperimental = GL_TRUE;
 }
 
-OpenGLContext::~OpenGLContext() {
+OpenGLRenderContext::~OpenGLRenderContext() {
     SDL_GL_DeleteContext(context);
 }
 
-RenderWindow* OpenGLContext::createRenderWindow() {
+RenderWindow* OpenGLRenderContext::createRenderWindow() {
     RenderWindow* window = new OpenGLRenderWindow;
     window->init();
 
@@ -42,7 +42,7 @@ RenderWindow* OpenGLContext::createRenderWindow() {
     return window;
 }
 
-Renderer* OpenGLContext::createRenderer() {
+Renderer* OpenGLRenderContext::createRenderer() {
     return new OpenGLRenderer;
 }
 

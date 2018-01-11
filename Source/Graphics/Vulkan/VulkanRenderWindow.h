@@ -16,12 +16,12 @@ namespace Vulkan {
     class PresentQueue;
 }
 
-class VulkanContext;
+class VulkanRenderContext;
 
 class VulkanRenderWindow : public RenderWindow {
 
 public:
-    VulkanRenderWindow(VulkanContext* context);
+    VulkanRenderWindow(VulkanRenderContext* context);
     ~VulkanRenderWindow();
     void render() override;
 
@@ -38,7 +38,7 @@ private:
     Uint32 getSurfaceFlag() const override;
     void initImpl() override;
 
-    VulkanContext* context;
+    VulkanRenderContext* context;
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::Swapchain> swapchain;

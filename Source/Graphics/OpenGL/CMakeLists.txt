@@ -1,7 +1,7 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLContext.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLContext.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderContext.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderContext.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderWindow.cpp

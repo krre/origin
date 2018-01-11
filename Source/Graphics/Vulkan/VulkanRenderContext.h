@@ -1,5 +1,5 @@
 #pragma once
-#include "Graphics/GraphicsContext.h"
+#include "Graphics/RenderContext.h"
 
 namespace Origin {
 
@@ -10,11 +10,11 @@ namespace Vulkan {
     class CommandPool;
 }
 
-class VulkanContext : public GraphicsContext {
+class VulkanRenderContext : public RenderContext {
 
 public:
-    VulkanContext();
-    ~VulkanContext();
+    VulkanRenderContext();
+    ~VulkanRenderContext();
     RenderWindow* createRenderWindow() override;
     Renderer* createRenderer() override;
 

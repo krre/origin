@@ -10,8 +10,8 @@
 #include "Debug/DebugEnvironment.h"
 #include "Debug/DebugHUD.h"
 #include "Core/Settings.h"
-#include "Graphics/OpenGL/OpenGLContext.h"
-#include "Graphics/Vulkan/VulkanContext.h"
+#include "Graphics/OpenGL/OpenGLRenderContext.h"
+#include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Graphics/Render/RenderManager.h"
@@ -39,7 +39,7 @@ Application::~Application() {
     RendererSet::release();
     RenderManager::release();
     delete renderWindow;
-    GraphicsContext::release();
+    RenderContext::release();
     SDLWrapper::release();
     Event::release();
     DebugEnvironment::release();
@@ -65,15 +65,15 @@ void Application::init() {
         if (DebugEnvironment::get()->getEnable()) {
             GraphicsBackend backend = DebugEnvironment::get()->getGraphicsBackend();
             if (backend == GraphicsBackend::OpenGL) {
-                new OpenGLContext;
+                new OpenGLRenderContext;
             } else if (backend == GraphicsBackend::Vulkan) {
-                new VulkanContext;
+                new VulkanRenderContext;
             }
         } else {
-            new OpenGLContext;
+            new OpenGLRenderContext;
         }
 
-        renderWindow = GraphicsContext::get()->createRenderWindow();
+        renderWindow = RenderContext::get()->createRenderWindow();
 
         new ResourceManager;
         new RenderManager;

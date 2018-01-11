@@ -19,14 +19,14 @@
 namespace Origin {
 
 ShaderProgram::ShaderProgram() {
-    descriptorPool = std::make_unique<Vulkan::DescriptorPool>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice());
-    descriptorSets = std::make_unique<Vulkan::DescriptorSets>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice(), descriptorPool.get());
+    descriptorPool = std::make_unique<Vulkan::DescriptorPool>(vkCtx->getGraphicsDevice());
+    descriptorSets = std::make_unique<Vulkan::DescriptorSets>(vkCtx->getGraphicsDevice(), descriptorPool.get());
 
-    graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice());
+    graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(vkCtx->getGraphicsDevice());
 //    graphicsPipeline->setExtent(Application::get()->getWindow()->getSurface()->getCapabilities().currentExtent);
 
-    pipelineLayout = std::make_unique<Vulkan::PipelineLayout>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice());
-    descriptorSetLayout = std::make_unique<Vulkan::DescriptorSetLayout>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice());
+    pipelineLayout = std::make_unique<Vulkan::PipelineLayout>(vkCtx->getGraphicsDevice());
+    descriptorSetLayout = std::make_unique<Vulkan::DescriptorSetLayout>(vkCtx->getGraphicsDevice());
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -73,7 +73,7 @@ void ShaderProgram::createPipeline() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Vulkan::Buffer> buffer = std::make_shared<Vulkan::Buffer>(static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice(), usage, bufferInfo->size);
+                std::shared_ptr<Vulkan::Buffer> buffer = std::make_shared<Vulkan::Buffer>(vkCtx->getGraphicsDevice(), usage, bufferInfo->size);
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();

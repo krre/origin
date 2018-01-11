@@ -39,4 +39,6 @@ private:
     uint32_t computeFamily;
 };
 
+#define vkCtx static_cast<VulkanRenderContext*>(RenderContext::get())
+
 } // Origin

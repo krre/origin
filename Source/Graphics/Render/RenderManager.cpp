@@ -11,8 +11,8 @@
 namespace Origin {
 
 RenderManager::RenderManager() {
-    device = static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice();
-    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsFamily());
+    device = vkCtx->getGraphicsDevice();
+    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, vkCtx->getGraphicsFamily());
     submitQueue->create();
 }
 

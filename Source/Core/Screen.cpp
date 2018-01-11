@@ -16,9 +16,9 @@ namespace Origin {
 
 Screen::Screen() {
     window = Application::get()->getWindow();
-    device = static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice();
+    device = vkCtx->getGraphicsDevice();
 
-    commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsCommandPool());
+    commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, vkCtx->getGraphicsCommandPool());
     commandBufferHandlers->allocate(static_cast<VulkanRenderWindow*>(window)->getSwapchain()->getCount());
 
     for (int i = 0; i < commandBufferHandlers->getCount(); i++) {

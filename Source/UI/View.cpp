@@ -8,7 +8,7 @@ namespace Origin {
 
 View::View() {
     scene = std::make_unique<Scene>();
-    device = static_cast<VulkanRenderContext*>(VulkanRenderContext::get())->getGraphicsDevice();
+    device = vkCtx->getGraphicsDevice();
 }
 
 View::~View() {

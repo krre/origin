@@ -11,8 +11,8 @@ class RenderContext : public Singleton<RenderContext> {
 public:
     RenderContext();
     ~RenderContext();
-    virtual RenderWindow* createRenderWindow() = 0;
-    virtual Renderer* createRenderer() = 0;
+    virtual std::shared_ptr<RenderWindow> createRenderWindow() = 0;
+    virtual std::shared_ptr<Renderer> createRenderer() = 0;
 
 protected:
 

@@ -17,7 +17,7 @@ public:
     void run();
     void quit();
 
-    RenderWindow* getWindow() const { return renderWindow; }
+    RenderWindow* getWindow() const { return renderWindow.get(); }
     bool isRunning() const { return running; }
     const std::vector<std::string>& getArgv() const { return argv; }
 
@@ -26,7 +26,7 @@ private:
 
     std::vector<std::string> argv;
     bool running = false;
-    RenderWindow* renderWindow;
+    std::shared_ptr<RenderWindow> renderWindow;
 };
 
 } // Origin

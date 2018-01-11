@@ -18,8 +18,8 @@ OpenGLRenderContext::~OpenGLRenderContext() {
     SDL_GL_DeleteContext(context);
 }
 
-RenderWindow* OpenGLRenderContext::createRenderWindow() {
-    RenderWindow* window = new OpenGLRenderWindow;
+std::shared_ptr<RenderWindow> OpenGLRenderContext::createRenderWindow() {
+    std::shared_ptr<RenderWindow> window = std::make_shared<OpenGLRenderWindow>();
     window->init();
 
     context = SDL_GL_CreateContext(window->getHandle());
@@ -42,8 +42,8 @@ RenderWindow* OpenGLRenderContext::createRenderWindow() {
     return window;
 }
 
-Renderer* OpenGLRenderContext::createRenderer() {
-    return new OpenGLRenderer;
+std::shared_ptr<Renderer> OpenGLRenderContext::createRenderer() {
+    return std::make_shared<OpenGLRenderer>();
 }
 
 } // Origin

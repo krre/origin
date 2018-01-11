@@ -38,7 +38,7 @@ Application::~Application() {
     ResourceManager::release();
     RendererSet::release();
     RenderManager::release();
-    delete renderWindow;
+    renderWindow.reset();
     RenderContext::release();
     SDLWrapper::release();
     Event::release();

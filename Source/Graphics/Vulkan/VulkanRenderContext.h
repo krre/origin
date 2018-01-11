@@ -15,8 +15,8 @@ class VulkanRenderContext : public RenderContext {
 public:
     VulkanRenderContext();
     ~VulkanRenderContext();
-    RenderWindow* createRenderWindow() override;
-    Renderer* createRenderer() override;
+    std::shared_ptr<RenderWindow> createRenderWindow() override;
+    std::shared_ptr<Renderer> createRenderer() override;
 
     Vulkan::Instance* getInstance() const { return instance.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }

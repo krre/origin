@@ -34,14 +34,14 @@ VulkanRenderContext::~VulkanRenderContext() {
     }
 }
 
-RenderWindow* VulkanRenderContext::createRenderWindow() {
-    RenderWindow* window = new VulkanRenderWindow(this);
+std::shared_ptr<RenderWindow> VulkanRenderContext::createRenderWindow() {
+    std::shared_ptr<RenderWindow> window = std::make_shared<VulkanRenderWindow>(this);
     window->init();
     return window;
 }
 
-Renderer* VulkanRenderContext::createRenderer() {
-    return new VulkanRenderer;
+std::shared_ptr<Renderer> VulkanRenderContext::createRenderer() {
+    return std::make_shared<VulkanRenderer>();
 }
 
 void VulkanRenderContext::createAll() {

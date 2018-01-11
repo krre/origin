@@ -16,4 +16,6 @@ private:
     SDL_GLContext context;
 };
 
+#define glCtx static_cast<OpenRenderContext*>(RenderContext::get())
+
 } // Origin

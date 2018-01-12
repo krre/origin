@@ -11,8 +11,6 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Color.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderContext.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderContext.h
     ${CMAKE_CURRENT_SOURCE_DIR}/GraphicsTypes.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.h

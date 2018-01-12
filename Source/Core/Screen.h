@@ -17,6 +17,13 @@ namespace Vulkan {
 class Screen {
 
 public:
+
+    enum class Name {
+        Menu,
+        Settings,
+        Game
+    };
+
     Screen();
     ~Screen();
     virtual void hide();

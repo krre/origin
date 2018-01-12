@@ -8,12 +8,6 @@ class Control;
 class View;
 class RenderWindow;
 
-namespace Vulkan {
-    class Device;
-    class CommandBuffer;
-    class CommandBuffers;
-}
-
 class Screen {
 
 public:
@@ -41,21 +35,13 @@ public:
     void popView();
     View* getCurrentView() const { return currentView; }
 
-    Vulkan::CommandBuffer* getCommandBuffer(size_t i) const { return commandBuffers.at(i).get(); }
-
 private:
-    void updateRenderViews();
-
     Control* rootControl = nullptr;
     std::vector<std::shared_ptr<View>> views;
     std::vector<View*> renderViews;
     View* currentView = nullptr;
     bool isPaused = true;
     RenderWindow* window = nullptr;
-
-    Vulkan::Device* device;
-    std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;
-    std::vector<std::unique_ptr<Vulkan::CommandBuffer>> commandBuffers;
 };
 
 } // Origin

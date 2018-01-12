@@ -14,7 +14,6 @@
 #include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
-#include "Graphics/Render/RenderManager.h"
 #include "Screen/MenuScreen.h"
 #include <string>
 #include <SDL_timer.h>
@@ -37,9 +36,8 @@ Application::~Application() {
 //    DebugHUD::release();
     ResourceManager::release();
     RendererSet::release();
-    RenderManager::release();
-    renderWindow.reset();
     RenderContext::get()->shutdown();
+    renderWindow.reset();
     RenderContext::release();
     SDLWrapper::release();
     Event::release();
@@ -78,7 +76,6 @@ void Application::init() {
         RenderContext::get()->init();
 
         new ResourceManager;
-        new RenderManager;
         new RendererSet;
 //        new DebugHUD;
         new Input;

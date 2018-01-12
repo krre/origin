@@ -1,5 +1,4 @@
 #include "VulkanRenderer.h"
-#include "Graphics/Render/RenderManager.h"
 #include "Core/Application.h"
 #include "Graphics/Vulkan/Wrapper/Semaphore.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"

@@ -12,7 +12,6 @@
 #include "Core/Settings.h"
 #include "Graphics/OpenGL/OpenGLRenderContext.h"
 #include "Graphics/Vulkan/VulkanRenderContext.h"
-#include "Graphics/Render/RendererSet.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Screen/MenuScreen.h"
 #include <string>
@@ -35,7 +34,6 @@ Application::~Application() {
     Input::release();
 //    DebugHUD::release();
     ResourceManager::release();
-    RendererSet::release();
     RenderContext::get()->shutdown();
     renderWindow.reset();
     RenderContext::release();
@@ -76,7 +74,6 @@ void Application::init() {
         RenderContext::get()->init();
 
         new ResourceManager;
-        new RendererSet;
 //        new DebugHUD;
         new Input;
         new Game;

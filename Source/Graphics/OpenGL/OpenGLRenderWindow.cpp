@@ -13,9 +13,11 @@ OpenGLRenderWindow::~OpenGLRenderWindow() {
 
 }
 
-void OpenGLRenderWindow::render() {
+void OpenGLRenderWindow::preRender() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
 
+void OpenGLRenderWindow::postRender() {
     SDL_GL_SwapWindow(handle);
 }
 

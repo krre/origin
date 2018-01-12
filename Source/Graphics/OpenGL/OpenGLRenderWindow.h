@@ -8,9 +8,10 @@ class OpenGLRenderWindow : public RenderWindow {
 public:
     OpenGLRenderWindow();
     ~OpenGLRenderWindow();
-    void render() override;
 
 private:
+    void preRender() override;
+    void postRender() override;
     void onResize(int width, int height) override;
     void saveScreenshotImpl(const std::string& filePath) override;
     Uint32 getSurfaceFlag() const override;

@@ -10,4 +10,8 @@ Renderer::~Renderer() {
 
 }
 
+void Renderer::render(Screen* screen) {
+
+}
+
 } // Origin

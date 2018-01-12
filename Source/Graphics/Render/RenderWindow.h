@@ -31,9 +31,11 @@ public:
     void setScreen(const std::shared_ptr<Screen>& screen);
 
     void show();
-
     void update(float dt);
-    virtual void render() = 0;
+    void render();
+
+    virtual void preRender() = 0;
+    virtual void postRender() = 0;
 
     void saveScreenshot();
     void toggleFullScreen();

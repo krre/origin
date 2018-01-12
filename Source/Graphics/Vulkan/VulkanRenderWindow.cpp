@@ -48,7 +48,7 @@ VulkanRenderWindow::~VulkanRenderWindow() {
 
 }
 
-void VulkanRenderWindow::render() {
+void VulkanRenderWindow::preRender() {
     presentFence->wait();
     presentFence->reset();
 
@@ -56,8 +56,11 @@ void VulkanRenderWindow::render() {
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         onResize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
     }
+}
 
+void VulkanRenderWindow::postRender() {
     RenderManager::get()->renderScreen(screens.back().get(), imageAvailableSemaphore.get(), renderFinishedSemaphore.get(), swapchain->getImageIndex());
+
     presentQueue->present();
     vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());
 }

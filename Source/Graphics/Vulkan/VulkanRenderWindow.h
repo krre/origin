@@ -23,7 +23,6 @@ class VulkanRenderWindow : public RenderWindow {
 public:
     VulkanRenderWindow(VulkanRenderContext* context);
     ~VulkanRenderWindow();
-    void render() override;
 
     Vulkan::Surface* getSurface() const { return surface.get(); }
     Vulkan::Swapchain* getSwapchain() const { return swapchain.get(); }
@@ -33,6 +32,9 @@ public:
     Vulkan::Framebuffer* getFrameBuffer(size_t i) { return framebuffers.at(i).get(); }
 
 private:
+    void preRender() override;
+    void postRender() override;
+
     void onResize(int width, int height) override;
     void saveScreenshotImpl(const std::string& filePath) override;
     Uint32 getSurfaceFlag() const override;

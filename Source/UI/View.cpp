@@ -7,7 +7,6 @@
 namespace Origin {
 
 View::View() {
-    scene = std::make_unique<Scene>();
     device = vkCtx->getGraphicsDevice();
 }
 

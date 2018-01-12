@@ -7,6 +7,9 @@ class OpenGLRenderer : public Renderer {
 
 public:
     OpenGLRenderer();
+
+private:
+    void renderQueue() override;
 };
 
 } // Origin

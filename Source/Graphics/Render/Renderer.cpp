@@ -11,7 +11,7 @@ Renderer::~Renderer() {
 }
 
 void Renderer::render(Screen* screen) {
-
+    renderQueue();
 }
 
 } // Origin

@@ -11,6 +11,9 @@ public:
     Renderer();
     virtual ~Renderer();
     void render(Screen* screen);
+
+protected:
+    virtual void renderQueue() = 0;
 };
 
 } // Origin

@@ -48,6 +48,10 @@ VulkanRenderWindow::~VulkanRenderWindow() {
 
 }
 
+uint32_t VulkanRenderWindow::getImageIndex() const {
+    return swapchain->getImageIndex();
+}
+
 void VulkanRenderWindow::preRender() {
     presentFence->wait();
     presentFence->reset();
@@ -59,8 +63,6 @@ void VulkanRenderWindow::preRender() {
 }
 
 void VulkanRenderWindow::postRender() {
-    RenderManager::get()->renderScreen(screens.back().get(), imageAvailableSemaphore.get(), renderFinishedSemaphore.get(), swapchain->getImageIndex());
-
     presentQueue->present();
     vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());
 }

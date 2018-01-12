@@ -28,8 +28,10 @@ public:
     Vulkan::Swapchain* getSwapchain() const { return swapchain.get(); }
     Vulkan::RenderPass* getRenderPass() const { return renderPass.get(); }
     Vulkan::Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
+    Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
     Vulkan::PresentQueue* getPresentQueue() const { return presentQueue.get(); }
     Vulkan::Framebuffer* getFrameBuffer(size_t i) { return framebuffers.at(i).get(); }
+    uint32_t getImageIndex() const;
 
 private:
     void preRender() override;

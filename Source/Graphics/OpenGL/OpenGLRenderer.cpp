@@ -6,4 +6,8 @@ OpenGLRenderer::OpenGLRenderer() {
 
 }
 
+void OpenGLRenderer::renderQueue() {
+
+}
+
 } // Origin

@@ -41,10 +41,6 @@ void Control::setScale(float scale) {
     this->scale = scale;
 }
 
-void Control::setFillControl(Control* fillControl) {
-    this->fillControl = fillControl;
-}
-
 void Control::setCenterControl(Control* centerControl) {
     this->centerControl = centerControl;
 }

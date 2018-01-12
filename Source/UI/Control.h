@@ -28,7 +28,6 @@ public:
     void setScale(float scale);
     float getScale() const { return scale; }
 
-    void setFillControl(Control* fillControl);
     void setCenterControl(Control* centerControl);
 
     void resize(int width, int height);
@@ -60,7 +59,6 @@ protected:
     bool visible = true;
 
 private:
-    Control* fillControl = nullptr;
     Control* centerControl = nullptr;
     bool isDirty = true;
 };

@@ -41,10 +41,6 @@ void Control::setScale(float scale) {
     this->scale = scale;
 }
 
-void Control::setCenterControl(Control* centerControl) {
-    this->centerControl = centerControl;
-}
-
 void Control::resize(int width, int height) {
     size.width = width;
     size.height = height;

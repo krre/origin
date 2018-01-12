@@ -28,8 +28,6 @@ public:
     void setScale(float scale);
     float getScale() const { return scale; }
 
-    void setCenterControl(Control* centerControl);
-
     void resize(int width, int height);
 
     float getZ() const { return z; }
@@ -59,7 +57,6 @@ protected:
     bool visible = true;
 
 private:
-    Control* centerControl = nullptr;
     bool isDirty = true;
 };
 

@@ -9,7 +9,6 @@ Button::Button() : Rectangle({ 100, 20 }) {
 
     label = std::make_shared<Label>();
 //    addChild(label);
-    label->setCenterControl(this);
 
     clickedId = Event::get()->mouseButtonAction.connect(this, &Button::onMouseButtonAction);
 }

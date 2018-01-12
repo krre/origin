@@ -16,7 +16,6 @@ public:
     VulkanRenderContext();
     ~VulkanRenderContext();
     std::shared_ptr<RenderWindow> createRenderWindow() override;
-    std::shared_ptr<Renderer> createRenderer() override;
 
     Vulkan::Instance* getInstance() const { return instance.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }
@@ -27,6 +26,7 @@ public:
     Vulkan::CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
 
 private:
+    std::shared_ptr<Renderer> createRenderer() override;
     void createAll();
 
     std::unique_ptr<Vulkan::Instance> instance;

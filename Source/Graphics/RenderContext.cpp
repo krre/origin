@@ -11,4 +11,12 @@ RenderContext::~RenderContext() {
 
 }
 
+void RenderContext::init() {
+    renderer = createRenderer();
+}
+
+Renderer*RenderContext::getRenderer() const {
+    return renderer.get();
+}
+
 } // Origin

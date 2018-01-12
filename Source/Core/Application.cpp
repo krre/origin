@@ -73,6 +73,7 @@ void Application::init() {
             new OpenGLRenderContext;
         }
 
+        RenderContext::get()->init();
         renderWindow = RenderContext::get()->createRenderWindow();
 
         new ResourceManager;

@@ -10,9 +10,10 @@ public:
     OpenGLRenderContext();
     ~OpenGLRenderContext();
     std::shared_ptr<RenderWindow> createRenderWindow() override;
-    std::shared_ptr<Renderer> createRenderer() override;
 
 private:
+    std::shared_ptr<Renderer> createRenderer() override;
+
     SDL_GLContext context;
 };
 

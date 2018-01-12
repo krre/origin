@@ -19,10 +19,6 @@ void View::update(float dt) {
 
 }
 
-void View::draw(float dt) {
-
-}
-
 void View::render() {
 
 }

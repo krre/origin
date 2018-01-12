@@ -16,7 +16,6 @@ public:
     View();
     ~View();
     void update(float dt);
-    void draw(float dt);
     void render();
     Scene* getScene() const { return scene.get(); }
     const std::vector<View*> getInnerViews();

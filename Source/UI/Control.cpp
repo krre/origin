@@ -66,6 +66,8 @@ void Control::setVisible(bool visible) {
 }
 
 void Control::getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
+    if (!visible) return;
+
     std::unique_ptr<Batch2D> batch = std::make_unique<Batch2D>();
     prepareBatch(batch.get(), vertexBuffer, indexBuffer);
 

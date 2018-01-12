@@ -34,9 +34,6 @@ public:
     void update(float dt);
     void render();
 
-    virtual void preRender() = 0;
-    virtual void postRender() = 0;
-
     void saveScreenshot();
     void toggleFullScreen();
 
@@ -50,6 +47,8 @@ protected:
     virtual void saveScreenshotImpl(const std::string& filePath) = 0;
     virtual Uint32 getSurfaceFlag() const = 0;
     virtual void initImpl() = 0;
+    virtual void preRender() = 0;
+    virtual void postRender() = 0;
 
     SDL_Window* handle = nullptr;
     int x = 0;

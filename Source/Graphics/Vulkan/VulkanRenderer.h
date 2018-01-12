@@ -18,6 +18,7 @@ class VulkanRenderer : public Renderer {
 public:
     VulkanRenderer();
     ~VulkanRenderer();
+    void updateCommandBuffers();
 
 private:
     void renderQueue() override;

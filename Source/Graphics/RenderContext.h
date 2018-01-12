@@ -10,8 +10,9 @@ class RenderContext : public Singleton<RenderContext> {
 
 public:
     RenderContext();
-    ~RenderContext();
+    virtual ~RenderContext();
     void init();
+    void shutdown();
     virtual std::shared_ptr<RenderWindow> createRenderWindow() = 0;
 
     Renderer* getRenderer() const;

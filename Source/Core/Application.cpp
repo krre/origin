@@ -39,6 +39,7 @@ Application::~Application() {
     RendererSet::release();
     RenderManager::release();
     renderWindow.reset();
+    RenderContext::get()->shutdown();
     RenderContext::release();
     SDLWrapper::release();
     Event::release();

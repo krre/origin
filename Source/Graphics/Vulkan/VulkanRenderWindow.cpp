@@ -15,6 +15,7 @@
 #include "Graphics/Vulkan/Wrapper/Image/ImageView.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Graphics/Render/RenderManager.h"
+#include "Graphics/Vulkan/VulkanRenderer.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
 
@@ -95,6 +96,11 @@ void VulkanRenderWindow::onResize(int width, int height) {
     renderPass->setExtent({ (uint32_t)width, (uint32_t)height });
 
     RenderWindow::onResize(width, height);
+
+    VulkanRenderer* renderer = static_cast<VulkanRenderer*>(vkCtx->getRenderer());
+    if (renderer) {
+        renderer->updateCommandBuffers();
+    }
 }
 
 void VulkanRenderWindow::saveScreenshotImpl(const std::string& filePath) {

@@ -14,6 +14,7 @@ OpenGLRenderWindow::~OpenGLRenderWindow() {
 }
 
 void OpenGLRenderWindow::preRender() {
+    glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
@@ -57,7 +58,7 @@ Uint32 OpenGLRenderWindow::getSurfaceFlag() const {
 }
 
 void OpenGLRenderWindow::initImpl() {
-    glClearColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+
 }
 
 } // Origin

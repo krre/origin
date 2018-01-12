@@ -14,7 +14,7 @@ const int BLOCK_INFO_END = 1;
 
 using EntityId = uint64_t;
 
-enum class GameScreen {
+enum class ScreenName {
     Menu,
     Settings,
     Game

@@ -7,10 +7,4 @@ enum class Direction {
     Vertical
 };
 
-enum class ControlType {
-    Usual,
-    View2D,
-    View3D
-};
-
 } // Origin

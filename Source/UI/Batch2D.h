@@ -18,7 +18,6 @@ public:
     Batch2D();
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
-    ControlType controlType = ControlType::Usual;
 
 private:
 

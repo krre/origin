@@ -26,7 +26,7 @@ void Rectangle::setBorderWidth(uint32_t border) {
     this->borderWidth = border;
 }
 
-void Rectangle::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
+void Rectangle::prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) {
 
 }
 

@@ -19,7 +19,7 @@ public:
     void setBorderWidth(uint32_t borderWidth);
     uint32_t getBorderWidth() const { return borderWidth; }
 
-    void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
+    void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) override;
 
 private:
     Color color = Color::WHITE;

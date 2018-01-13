@@ -58,7 +58,7 @@ void Layout::update() {
     updateContentPostion();
 }
 
-void Layout::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
+void Layout::prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) {
 
 }
 

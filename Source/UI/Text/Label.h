@@ -19,7 +19,7 @@ public:
     void setColor(const Color& color);
     const Color& getColor() const { return color; }
 
-    void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
+    void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) override;
 
 private:
     void updateTextData();

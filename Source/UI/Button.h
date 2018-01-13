@@ -17,7 +17,7 @@ public:
     void setLabelColor(const Color& labelColor);
     const Color& getLabelColor() const;
 
-    void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
+    void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) override;
 
     Signal<> clicked;
 

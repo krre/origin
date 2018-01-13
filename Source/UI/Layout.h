@@ -24,7 +24,7 @@ public:
     void setParent(Control* parent);
     void update();
 
-    void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) override;
+    void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) override;
 
 protected:
     virtual void updateContentPostion() = 0;

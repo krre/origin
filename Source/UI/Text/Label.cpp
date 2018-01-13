@@ -24,7 +24,7 @@ void Label::setColor(const Color& color) {
     this->color = color;
 }
 
-void Label::prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) {
+void Label::prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) {
 
 }
 

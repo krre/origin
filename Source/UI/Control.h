@@ -10,6 +10,7 @@ class VertexBuffer;
 class IndexBuffer;
 
 class Control : public Object {
+    friend class Renderer;
 
 public:
     Control(Control* parent = nullptr);
@@ -39,12 +40,12 @@ public:
     void setVisible(bool visible);
     bool getVisible() const { return visible; }
 
-    void getBatches(std::vector<std::unique_ptr<Batch2D>>& batches, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer);
-    virtual void prepareBatch(Batch2D* batch, VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer) = 0;
-
     void setParent(Control* parent);
     void addChild(Control* control);
     void removeChild(Control* control);
+
+    void getBatches(std::vector<Batch2D>& batches, std::vector<float>& vertices);
+    virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) = 0;
 
 protected:
     Control* parent = nullptr;

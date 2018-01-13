@@ -1,6 +1,6 @@
 #include "Screen.h"
-#include "UI/View.h"
 #include "Core/Application.h"
+#include "UI/Control.h"
 
 namespace Origin {
 
@@ -35,26 +35,11 @@ void Screen::setRootControl(Control* control) {
 }
 
 void Screen::update(float dt) {
-    for (auto* renderView : renderViews) {
-        renderView->update(dt);
-    }
+
 }
 
 void Screen::resize(uint32_t width, uint32_t height) {
-    for (const auto& view : views) {
-        view->resize(width, height);
-    }
-}
 
-void Screen::pushView(const std::shared_ptr<View>& view) {
-//    view->resize(size.width, size.height);
-    views.push_back(view);
-    currentView = view.get();
-}
-
-void Screen::popView() {
-    views.pop_back();
-    currentView = views.size() ? views.back().get() : nullptr;
 }
 
 } // Origin

@@ -9,7 +9,6 @@ Batch2D::Batch2D(std::vector<Vertex>* vertices) :
 }
 
 void Batch2D::addQuad(float x, float y, float width, float height) {
-    vertices->resize(vertices->size() + 6 * sizeof(Vertex));
     Vertex vertex = {};
     vertex.color = color.getArgb();
 

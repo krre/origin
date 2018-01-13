@@ -43,8 +43,8 @@ std::shared_ptr<RenderWindow> OpenGLRenderContext::createRenderWindow() {
     return window;
 }
 
-std::shared_ptr<GpuBuffer> OpenGLRenderContext::createGpuBuffer(uint32_t size) {
-    return std::make_shared<OpenGLGpuBuffer>(size);
+std::shared_ptr<GpuBuffer> OpenGLRenderContext::createGpuBuffer(GpuBuffer::Usage usage, uint32_t size) {
+    return std::make_shared<OpenGLGpuBuffer>(usage, size);
 }
 
 std::shared_ptr<Renderer> OpenGLRenderContext::createRenderer() {

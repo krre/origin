@@ -41,8 +41,8 @@ std::shared_ptr<RenderWindow> VulkanRenderContext::createRenderWindow() {
     return window;
 }
 
-std::shared_ptr<GpuBuffer> VulkanRenderContext::createGpuBuffer(uint32_t size) {
-    return std::make_shared<VulkanGpuBuffer>(size);
+std::shared_ptr<GpuBuffer> VulkanRenderContext::createGpuBuffer(GpuBuffer::Usage usage, uint32_t size) {
+    return std::make_shared<VulkanGpuBuffer>(usage, size);
 }
 
 std::shared_ptr<Renderer> VulkanRenderContext::createRenderer() {

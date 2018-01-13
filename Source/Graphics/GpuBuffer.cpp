@@ -2,7 +2,9 @@
 
 namespace Origin {
 
-GpuBuffer::GpuBuffer(uint32_t size) : size(size) {
+GpuBuffer::GpuBuffer(Usage usage, uint32_t size) :
+        usage(usage),
+        size(size) {
 
 }
 

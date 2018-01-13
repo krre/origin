@@ -16,7 +16,7 @@ public:
     VulkanRenderContext();
     ~VulkanRenderContext();
     std::shared_ptr<RenderWindow> createRenderWindow() override;
-    std::shared_ptr<GpuBuffer> createGpuBuffer(uint32_t size) override;
+    std::shared_ptr<GpuBuffer> createGpuBuffer(GpuBuffer::Usage usage, uint32_t size) override;
 
     Vulkan::Instance* getInstance() const { return instance.get(); }
     uint32_t getGraphicsFamily() const { return graphicsFamily; }

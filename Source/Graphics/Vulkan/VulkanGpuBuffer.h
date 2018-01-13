@@ -6,7 +6,7 @@ namespace Origin {
 class VulkanGpuBuffer : public GpuBuffer {
 
 public:
-    VulkanGpuBuffer(uint32_t size);
+    VulkanGpuBuffer(Usage usage, uint32_t size);
     ~VulkanGpuBuffer();
 
     void write(const void* data, uint32_t size, uint32_t offset = 0) override;

@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-VulkanGpuBuffer::VulkanGpuBuffer(uint32_t size) : GpuBuffer(size) {
+VulkanGpuBuffer::VulkanGpuBuffer(Usage usage, uint32_t size) : GpuBuffer(usage, size) {
 
 }
 

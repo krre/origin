@@ -8,7 +8,7 @@ class View3D : public View {
 public:
     View3D();
     Dimension getDimension() const override;
-    void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) override;
+    void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) override;
 };
 
 } // Origin

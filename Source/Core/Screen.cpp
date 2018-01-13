@@ -49,7 +49,7 @@ void Screen::resize(uint32_t width, uint32_t height) {
 
 }
 
-void Screen::getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<float>& vertices) {
+void Screen::getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {
     if (!control->getVisible()) return;
 
     View3D* view3d = dynamic_cast<View3D*>(control);

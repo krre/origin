@@ -2,6 +2,7 @@
 #include "Core/Object.h"
 #include <glm/glm.hpp>
 #include <vector>
+#include "Ui/Batch2D.h"
 
 namespace Origin {
 
@@ -45,7 +46,7 @@ public:
     void removeChild(Control* control);
     const std::vector<Control*>& getChildren() const { return children; }
 
-    virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) = 0;
+    virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) = 0;
 
 protected:
     Control* parent = nullptr;

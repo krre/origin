@@ -1,9 +1,11 @@
 #pragma once
-#include "UITypes.h"
 #include <vector>
 #include <glm/glm.hpp>
+#include "Graphics/Color.h"
 
 namespace Origin {
+
+class Texture;
 
 class Batch2D {
 
@@ -11,16 +13,18 @@ public:
 
     struct Vertex {
         glm::vec2 pos;
-        glm::vec2 uv;
-        uint16_t color;
+        glm::vec2 ui;
+        uint32_t color;
     };
 
-    Batch2D();
-    std::vector<Vertex> vertices;
-    std::vector<uint32_t> indices;
+    Batch2D(std::vector<Vertex>* vertices);
+    Color color;
+    Texture* texture = nullptr;
+    std::vector<Vertex>* vertices = nullptr;
+    uint32_t vertexStart = 0;
+    uint32_t vertextEnd = 0;
 
-private:
-
+    void addQuad(float x, float y, float width, float height);
 };
 
 } // Origin

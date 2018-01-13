@@ -58,7 +58,7 @@ void Layout::update() {
     updateContentPostion();
 }
 
-void Layout::prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) {
+void Layout::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {
 
 }
 

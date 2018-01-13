@@ -5,7 +5,7 @@
 
 namespace Origin {
 
-Dialog::Dialog() {
+Dialog::Dialog() : Rectangle(Size(200, 50)) {
     SDL_SetRelativeMouseMode(SDL_FALSE);
     int centerX = Application::get()->getWindow()->getWidth() / 2;
     int centerY = Application::get()->getWindow()->getHeight() / 2;
@@ -19,11 +19,11 @@ void Dialog::close() {
 //    SceneManager::get()->popScene();
 }
 
-void Dialog::onKeyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_ESCAPE) {
-        Input::get()->isKeyAccepted = true;
-        close();
-    }
-}
+//void Dialog::onKeyPressed(const SDL_KeyboardEvent& event) {
+//    if (event.keysym.sym == SDLK_ESCAPE) {
+//        Input::get()->isKeyAccepted = true;
+//        close();
+//    }
+//}
 
 } // Origin

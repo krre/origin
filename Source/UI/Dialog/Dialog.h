@@ -1,16 +1,13 @@
 #pragma once
-#include "Scene/Scene2D.h"
+#include "UI/Rectangle.h"
 
 namespace Origin {
 
-class Dialog : public Scene2D {
+class Dialog : public Rectangle {
 
 public:
     Dialog();
     void close();
-
-private:
-    void onKeyPressed(const SDL_KeyboardEvent& event) override;
 };
 
 } // Origin

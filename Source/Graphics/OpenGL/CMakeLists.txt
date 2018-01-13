@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLGpuBuffer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLGpuBuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderContext.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderContext.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderer.cpp

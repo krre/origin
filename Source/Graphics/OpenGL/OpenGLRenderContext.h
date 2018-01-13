@@ -10,6 +10,7 @@ public:
     OpenGLRenderContext();
     ~OpenGLRenderContext();
     std::shared_ptr<RenderWindow> createRenderWindow() override;
+    std::shared_ptr<GpuBuffer> createGpuBuffer(uint32_t size) override;
 
 private:
     std::shared_ptr<Renderer> createRenderer() override;

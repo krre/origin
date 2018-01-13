@@ -1,6 +1,7 @@
 #include "OpenGLRenderContext.h"
 #include "OpenGLRenderWindow.h"
 #include "OpenGLRenderer.h"
+#include "OpenGLGpuBuffer.h"
 #include <GL/glew.h>
 
 namespace Origin {
@@ -40,6 +41,10 @@ std::shared_ptr<RenderWindow> OpenGLRenderContext::createRenderWindow() {
     }
 
     return window;
+}
+
+std::shared_ptr<GpuBuffer> OpenGLRenderContext::createGpuBuffer(uint32_t size) {
+    return std::make_shared<OpenGLGpuBuffer>(size);
 }
 
 std::shared_ptr<Renderer> OpenGLRenderContext::createRenderer() {

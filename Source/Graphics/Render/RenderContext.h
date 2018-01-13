@@ -5,6 +5,7 @@ namespace Origin {
 
 class RenderWindow;
 class Renderer;
+class GpuBuffer;
 
 class RenderContext : public Singleton<RenderContext> {
 
@@ -14,6 +15,7 @@ public:
     void init();
     void shutdown();
     virtual std::shared_ptr<RenderWindow> createRenderWindow() = 0;
+    virtual std::shared_ptr<GpuBuffer> createGpuBuffer(uint32_t size) = 0;
 
     Renderer* getRenderer() const;
 

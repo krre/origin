@@ -10,8 +10,6 @@
 #include "UI/Toast.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
-#include "Graphics/RenderContext.h"
-#include "Graphics/Render/Renderer.h"
 #include <SDL_keycode.h>
 #include <ctime>
 #include <experimental/filesystem>
@@ -101,7 +99,7 @@ void RenderWindow::update(float dt) {
 
 void RenderWindow::render() {
     preRender();
-    RenderContext::get()->getRenderer()->render(screens.back().get());
+    screens.back()->render();
     postRender();
 }
 

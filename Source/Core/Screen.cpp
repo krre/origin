@@ -3,6 +3,8 @@
 #include "UI/Control.h"
 #include "UI/Batch2D.h"
 #include "UI/View3D.h"
+#include "Graphics/RenderContext.h"
+#include "Graphics/Render/Renderer.h"
 
 namespace Origin {
 
@@ -43,6 +45,10 @@ void Screen::update(float dt) {
     if (rootControl != nullptr) {
         getBatches(rootControl, batches, vertices);
     }
+}
+
+void Screen::render() {
+    RenderContext::get()->getRenderer()->render(this);
 }
 
 void Screen::resize(uint32_t width, uint32_t height) {

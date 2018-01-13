@@ -6,6 +6,10 @@ namespace Origin {
 
 class Control;
 class RenderWindow;
+class View;
+class View2D;
+class View3D;
+class Batch2D;
 
 class Screen {
 
@@ -31,8 +35,14 @@ public:
     void resize(uint32_t width, uint32_t height);
 
 private:
+    void getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<float>& vertices);
+    void addView(View* view);
+
     Control* rootControl = nullptr;
     bool isPaused = true;
+    std::vector<Batch2D> batches;
+    std::vector<float> vertices;
+    std::vector<View3D*> renderViews;
 };
 
 } // Origin

@@ -65,20 +65,6 @@ void Control::setVisible(bool visible) {
     this->visible = visible;
 }
 
-void Control::getBatches(std::vector<Batch2D>& batches, std::vector<float>& vertices) {
-    if (!visible) return;
-
-    prepareBatch(batches, vertices);
-
-    for (auto child : children) {
-        child->getBatches(batches, vertices);
-    }
-
-//    batches.push_back(std::move(batch));
-
-    clearDirty();
-}
-
 void Control::setParent(Control* parent) {
     this->parent = parent;
 }

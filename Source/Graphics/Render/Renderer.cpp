@@ -14,9 +14,6 @@ Renderer::~Renderer() {
 }
 
 void Renderer::render(Screen* screen) {
-    std::vector<Batch2D> batches;
-    std::vector<float> vertices;
-    screen->getRootControl()->getBatches(batches, vertices);
 
     renderQueue();
 }

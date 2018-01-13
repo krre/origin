@@ -27,7 +27,6 @@ void Rectangle::setBorderWidth(uint32_t border) {
 }
 
 void Rectangle::prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) {
-
 }
 
 } // Origin

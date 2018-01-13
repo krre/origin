@@ -43,8 +43,8 @@ public:
     void setParent(Control* parent);
     void addChild(Control* control);
     void removeChild(Control* control);
+    const std::vector<Control*>& getChildren() const { return children; }
 
-    void getBatches(std::vector<Batch2D>& batches, std::vector<float>& vertices);
     virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<float>& vertices) = 0;
 
 protected:

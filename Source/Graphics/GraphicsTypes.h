@@ -3,11 +3,10 @@
 namespace Origin {
 
 enum class PipelinePreset {
-    base,
+    Base,
     Sdf,
     Voxel,
 };
-
 
 enum class GraphicsBackend {
     OpenGL,

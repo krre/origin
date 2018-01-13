@@ -9,13 +9,14 @@ class Color : public Object {
 public:
     Color();
     Color(float red, float green, float blue, float alpha = 1.0);
-    glm::vec4 getRgba() const { return glm::vec4(red, green, blue, alpha); }
-    glm::vec3 getRgb() const { return glm::vec3(red, green, blue); }
+    glm::vec4 getRgba() const;
+    glm::vec3 getRgb() const;
+    uint32_t getArgb() const { return color; }
 
-    float getRed() const { return red; }
-    float getGreen() const { return green; }
-    float getBlue() const { return blue; }
-    float getAlpha() const { return alpha; }
+    float getRed() const;
+    float getGreen() const;
+    float getBlue() const;
+    float getAlpha() const;
 
     static const Color TRANSPARENT;
     static const Color BLACK;
@@ -26,10 +27,7 @@ public:
     static const Color BLUE;
 
 private:
-    float red = 0;
-    float green = 0;
-    float blue = 0;
-    float alpha = 0;
+    uint32_t color = 0;
 };
 
 } // Origin

@@ -14,9 +14,36 @@ Color::Color() {
 
 }
 
-Color::Color(float red, float green, float blue, float alpha) :
-    red(red), green(green), blue(blue), alpha(alpha) {
+Color::Color(float red, float green, float blue, float alpha) {
+    uint32_t r = std::clamp(red, 0.0f, 1.0f) * 255;
+    uint32_t g = std::clamp(green, 0.0f, 1.0f) * 255;
+    uint32_t b = std::clamp(blue, 0.0f, 1.0f) * 255;
+    uint32_t a = std::clamp(alpha, 0.0f, 1.0f) * 255;
+    color = (a << 24) | (r << 16) | (g << 8) | b;
+}
 
+glm::vec4 Color::getRgba() const {
+    return glm::vec4(getRed(), getGreen(), getBlue(), getAlpha());
+}
+
+glm::vec3 Color::getRgb() const {
+    return glm::vec3(getRed(), getGreen(), getBlue());
+}
+
+float Color::getRed() const {
+    return ((color >> 16) & 0xFF) / 255.0;
+}
+
+float Color::getGreen() const {
+    return ((color >> 8) & 0xFF) / 255.0;
+}
+
+float Color::getBlue() const {
+    return (color & 0xFF) / 255.0;
+}
+
+float Color::getAlpha() const {
+    return ((color >> 24) & 0xFF) / 255.0;
 }
 
 } // Origin

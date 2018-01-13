@@ -33,8 +33,9 @@ RenderWindow::RenderWindow() {
     auto settingsX = Settings::get()->getStorage()["x"];
     auto settingsY = Settings::get()->getStorage()["y"];
 
-    x = settingsX.is_null() ? (SDLWrapper::get()->getScreenSize().width - width) / 2 : settingsX.get<int>();
-    y = settingsY.is_null() ? (SDLWrapper::get()->getScreenSize().height - height) / 2 : settingsY.get<int>();
+    Size screenSize = SDLWrapper::getScreenSize();
+    x = settingsX.is_null() ? (screenSize.width - width) / 2 : settingsX.get<int>();
+    y = settingsY.is_null() ? (screenSize.height - height) / 2 : settingsY.get<int>();
 }
 
 RenderWindow::~RenderWindow() {

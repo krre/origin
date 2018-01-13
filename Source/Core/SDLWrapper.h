@@ -1,22 +1,23 @@
 #pragma once
-#include "Singleton.h"
+#include "Core/Common.h"
 
 namespace Origin {
 
-class SDLWrapper : public Singleton<SDLWrapper> {
+class SDLWrapper {
 
 public:
-    SDLWrapper();
-    ~SDLWrapper();
-    void init();
-    const Size& getScreenSize() const { return screenSize; }
-    std::string getError() const;
-    void showErrorMessageBox(const char* message);
-    bool isInited() const { return inited; }
+    SDLWrapper() = delete;
+
+    static void init();
+    static void shutdown();
+
+    static Size getScreenSize();
+    static std::string getError();
+    static void showErrorMessageBox(const char* message);
+    static bool isInited() { return inited; }
 
 private:
-    Size screenSize;
-    bool inited = false;
+    static bool inited;
 };
 
 } // Origin

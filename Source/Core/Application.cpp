@@ -37,7 +37,7 @@ Application::~Application() {
     RenderContext::get()->shutdown();
     renderWindow.reset();
     RenderContext::release();
-    SDLWrapper::release();
+    SDLWrapper::shutdown();
     Event::release();
     DebugEnvironment::release();
     Logger::release();
@@ -56,8 +56,7 @@ void Application::init() {
         new DebugEnvironment;
         new Event;
 
-        new SDLWrapper;
-        SDLWrapper::get()->init();
+        SDLWrapper::init();
 
         if (DebugEnvironment::get()->getEnable()) {
             GraphicsBackend backend = DebugEnvironment::get()->getGraphicsBackend();
@@ -78,8 +77,8 @@ void Application::init() {
         new Input;
         new Game;
     } catch (const std::exception& ex) {
-        if (SDLWrapper::exists() && SDLWrapper::get()->isInited()) {
-            SDLWrapper::get()->showErrorMessageBox(ex.what());
+        if (SDLWrapper::isInited()) {
+            SDLWrapper::showErrorMessageBox(ex.what());
         } else {
             ERROR(ex.what());
         }

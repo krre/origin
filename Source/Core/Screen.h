@@ -1,6 +1,6 @@
 #pragma once
 #include "Common.h"
-#include "UI/Batch2D.h"
+#include "Gui/Batch2D.h"
 #include <vector>
 
 namespace Origin {

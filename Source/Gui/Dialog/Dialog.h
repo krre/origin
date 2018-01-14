@@ -1,5 +1,5 @@
 #pragma once
-#include "UI/Rectangle.h"
+#include "Gui/Rectangle.h"
 
 namespace Origin {
 

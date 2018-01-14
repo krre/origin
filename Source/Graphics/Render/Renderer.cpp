@@ -1,7 +1,7 @@
 #include "Renderer.h"
 #include "Core/Screen.h"
-#include "UI/Control.h"
-#include "UI/Batch2D.h"
+#include "Gui/Control.h"
+#include "Gui/Batch2D.h"
 
 namespace Origin {
 

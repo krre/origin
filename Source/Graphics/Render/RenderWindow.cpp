@@ -7,7 +7,7 @@
 #include "Core/Screen.h"
 #include "Core/Game.h"
 #include "Debug/DebugHUD.h"
-#include "UI/Toast.h"
+#include "Gui/Toast.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include <SDL_keycode.h>

@@ -8,7 +8,7 @@
 #include "ECS/Components/Components.h"
 #include "ECS/Systems/Systems.h"
 #include "Resource/ResourceManager.h"
-#include "UI/Dialog/PauseDialog.h"
+#include "Gui/Dialog/PauseDialog.h"
 #include "Event/Input.h"
 #include "Graphics/ShaderProgram.h"
 #include "Graphics/Plane.h"

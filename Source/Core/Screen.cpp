@@ -1,8 +1,8 @@
 #include "Screen.h"
 #include "Core/Application.h"
-#include "UI/Control.h"
-#include "UI/Batch2D.h"
-#include "UI/View3D.h"
+#include "Gui/Control.h"
+#include "Gui/Batch2D.h"
+#include "Gui/View3D.h"
 #include "Graphics/Render/RenderContext.h"
 #include "Graphics/Render/Renderer.h"
 

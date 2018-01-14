@@ -7,7 +7,7 @@ add_subdirectory(Process)
 add_subdirectory(Resource)
 add_subdirectory(Scene)
 add_subdirectory(Screen)
-add_subdirectory(UI)
+add_subdirectory(Gui)
 add_subdirectory(World)
 
 set(SOURCES

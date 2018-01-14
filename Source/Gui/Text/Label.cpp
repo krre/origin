@@ -1,7 +1,7 @@
 #include "Label.h"
 #include "Core/Application.h"
 #include "Resource/ResourceManager.h"
-#include "UI/Text/Font.h"
+#include "Gui/Text/Font.h"
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 

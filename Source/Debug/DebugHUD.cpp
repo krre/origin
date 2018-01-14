@@ -21,9 +21,9 @@
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
-#include "UI/Text/Label.h"
-#include "UI/Text/Font.h"
-#include "UI/Rectangle.h"
+#include "Gui/Text/Label.h"
+#include "Gui/Text/Font.h"
+#include "Gui/Rectangle.h"
 #include <glm/glm.hpp>
 
 namespace Origin {

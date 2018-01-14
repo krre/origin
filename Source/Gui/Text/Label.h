@@ -1,5 +1,5 @@
 #pragma once
-#include "UI/Control.h"
+#include "Gui/Control.h"
 #include "Graphics/Color.h"
 
 namespace Origin {

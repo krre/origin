@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "UI/View2D.h"
+#include "Gui/View2D.h"
 #include "Graphics/Vulkan/Wrapper/Pipeline/PipelineCache.h"
 #include "Graphics/ShaderProgram.h"
 #include "Graphics/Vulkan/Wrapper/Sampler.h"

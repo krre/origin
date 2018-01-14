@@ -2,7 +2,7 @@
 #include "Event/Event.h"
 #include "Core/Game.h"
 #include "Core/Application.h"
-#include "UI/Text/Label.h"
+#include "Gui/Text/Label.h"
 #include <glm/glm.hpp>
 
 namespace Origin {

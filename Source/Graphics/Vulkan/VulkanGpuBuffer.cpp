@@ -4,6 +4,7 @@
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
 #include "Graphics/Vulkan/VulkanRenderContext.h"
+#include <cstring>
 
 
 namespace Origin {

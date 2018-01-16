@@ -4,6 +4,7 @@
 namespace Origin {
 
 class Screen;
+class Renderer2D;
 
 class Renderer {
 
@@ -14,6 +15,9 @@ public:
 
 protected:
     virtual void renderQueue() = 0;
+
+private:
+    std::unique_ptr<Renderer2D> renderer2d;
 };
 
 } // Origin

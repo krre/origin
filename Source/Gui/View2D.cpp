@@ -19,8 +19,4 @@ void View2D::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Ve
 
 }
 
-void View2D::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
-
-}
-
 } // Origin

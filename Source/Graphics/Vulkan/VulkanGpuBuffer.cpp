@@ -10,6 +10,8 @@
 namespace Origin {
 
 VulkanGpuBuffer::VulkanGpuBuffer(Usage usage, uint32_t size) : GpuBuffer(usage, size) {
+    device = vkCtx->getGraphicsDevice();
+
     VkBufferUsageFlagBits usageFlagBits;
     if (usage == Usage::Vertex) {
         usageFlagBits = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
@@ -23,7 +25,7 @@ VulkanGpuBuffer::VulkanGpuBuffer(Usage usage, uint32_t size) : GpuBuffer(usage, 
         std::runtime_error("Unknown usage type");
     }
 
-    buffer = std::make_unique<Vulkan::Buffer>(vkCtx->getGraphicsDevice(), usageFlagBits, size);
+    buffer = std::make_unique<Vulkan::Buffer>(device, usageFlagBits, size);
     buffer->create();
 
     VkMemoryRequirements memRequirements;
@@ -32,6 +34,7 @@ VulkanGpuBuffer::VulkanGpuBuffer(Usage usage, uint32_t size) : GpuBuffer(usage, 
     VkMemoryPropertyFlags properties = !moveToDevice ?
                 (VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) :
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+    memory = std::make_unique<Vulkan::DeviceMemory>(device);
     memory->setMemoryTypeIndex(buffer->getDevice()->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
     memory->allocate(memRequirements.size);
 

@@ -5,6 +5,7 @@
 namespace Origin {
 
 namespace Vulkan {
+    class Device;
     class Buffer;
     class DeviceMemory;
 }
@@ -24,6 +25,7 @@ protected:
     uint32_t size = 0;
 
 private:
+    Vulkan::Device* device;
     std::unique_ptr<Vulkan::Buffer> buffer;
     std::unique_ptr<Vulkan::DeviceMemory> memory;
     std::unique_ptr<Vulkan::Buffer> stageBuffer; // TODO: Use for staging

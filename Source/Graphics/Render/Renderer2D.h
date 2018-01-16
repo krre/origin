@@ -12,7 +12,9 @@ class Renderer2D {
 public:
     Renderer2D();
     virtual ~Renderer2D();
-    void render(Control* control);
+    void render();
+    void prepare(Control* control);
+    std::vector<View3D*> getRenderViews() const { return renderViews; }
 
 private:
     void getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices);

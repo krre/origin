@@ -6,6 +6,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer2D.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer2D.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer3D.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer3D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderWindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderWindow.h
     PARENT_SCOPE

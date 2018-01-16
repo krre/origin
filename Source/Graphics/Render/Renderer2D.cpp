@@ -12,15 +12,17 @@ Renderer2D::~Renderer2D() {
 
 }
 
-void Renderer2D::render(Control* control) {
+void Renderer2D::render() {
+
+}
+
+void Renderer2D::prepare(Control* control) {
     renderViews.clear();
     batches.clear();
     vertices.clear();
     if (control != nullptr) {
         getBatches(control, batches, vertices);
     }
-
-
 }
 
 void Renderer2D::getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {

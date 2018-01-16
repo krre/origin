@@ -5,6 +5,7 @@ namespace Origin {
 
 class Screen;
 class Renderer2D;
+class Renderer3D;
 
 class Renderer {
 
@@ -18,6 +19,7 @@ protected:
 
 private:
     std::unique_ptr<Renderer2D> renderer2d;
+    std::unique_ptr<Renderer3D> renderer3d;
 };
 
 } // Origin

@@ -2,6 +2,7 @@
 #include "VulkanRenderWindow.h"
 #include "VulkanRenderer.h"
 #include "VulkanGpuBuffer.h"
+#include "VulkanTexture.h"
 #include "Debug/DebugEnvironment.h"
 #include "Graphics/Vulkan/Wrapper/Instance.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevices.h"
@@ -43,6 +44,10 @@ std::shared_ptr<RenderWindow> VulkanRenderContext::createRenderWindow() {
 
 std::shared_ptr<GpuBuffer> VulkanRenderContext::createGpuBuffer(GpuBuffer::Usage usage, uint32_t size) {
     return std::make_shared<VulkanGpuBuffer>(usage, size);
+}
+
+std::shared_ptr<Texture> VulkanRenderContext::createTexture(const std::string& path) {
+    return std::make_shared<VulkanTexture>(path);
 }
 
 std::shared_ptr<Renderer> VulkanRenderContext::createRenderer() {

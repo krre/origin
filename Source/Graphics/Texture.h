@@ -1,28 +1,18 @@
 #pragma once
 #include "Core/Object.h"
-#include <vector>
-#include <vulkan/vulkan.h>
 
 namespace Origin {
-
-namespace Vulkan {
-    class ImageView;
-    class Image;
-}
 
 class Texture : public Object {
 
 public:
-    Texture(const std::string& path, VkFormat format = VK_FORMAT_R8G8B8A8_UNORM);
-    uint32_t getWidth() const;
-    uint32_t getHeight() const;
-    const Vulkan::Image* getImage() const { return image.get(); }
-    const Vulkan::ImageView* getImageView() const { return imageView.get(); }
+    Texture(const std::string& path);
+    uint32_t getWidth() const { return width; }
+    uint32_t getHeight() const { return height; }
 
 private:
-    std::vector<unsigned char> data;
-    std::unique_ptr<Vulkan::Image> image;
-    std::unique_ptr<Vulkan::ImageView> imageView;
+    uint32_t width = 0;
+    uint32_t height = 0;
 };
 
 } // Origin

@@ -10,5 +10,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderWindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderWindow.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanTexture.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanTexture.h
     PARENT_SCOPE
 )

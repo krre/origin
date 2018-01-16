@@ -1,15 +1,9 @@
 #pragma once
 #include "Common.h"
-#include "Gui/Batch2D.h"
-#include <vector>
 
 namespace Origin {
 
 class Control;
-class RenderWindow;
-class View;
-class View2D;
-class View3D;
 
 class Screen {
 
@@ -36,14 +30,8 @@ public:
     void resize(uint32_t width, uint32_t height);
 
 private:
-    void getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices);
-    void addView(View* view);
-
     Control* rootControl = nullptr;
     bool isPaused = true;
-    std::vector<Batch2D> batches;
-    std::vector<Batch2D::Vertex> vertices;
-    std::vector<View3D*> renderViews;
 };
 
 } // Origin

@@ -6,6 +6,8 @@
 #include "Core/Utils.h"
 #include "Core/Screen.h"
 #include "Core/Game.h"
+#include "Graphics/Render/RenderContext.h"
+#include "Graphics/Render/Renderer.h"
 #include "Debug/DebugHUD.h"
 #include "Gui/Toast.h"
 #include "Event/Event.h"
@@ -100,7 +102,7 @@ void RenderWindow::update(float dt) {
 
 void RenderWindow::render() {
     preRender();
-    screens.back()->render();
+    RenderContext::get()->getRenderer()->render(screens.back().get());
     postRender();
 }
 

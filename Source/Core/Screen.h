@@ -26,7 +26,6 @@ public:
     Control* getRootControl() const { return rootControl; }
 
     void update(float dt);
-    void render();
     void resize(uint32_t width, uint32_t height);
 
 private:

@@ -6,6 +6,7 @@ namespace Origin {
 
 class Control;
 class View3D;
+class GpuBuffer;
 
 class Renderer2D {
 
@@ -22,6 +23,7 @@ private:
     std::vector<Batch2D> batches;
     std::vector<Batch2D::Vertex> vertices;
     std::vector<View3D*> renderViews;
+    std::shared_ptr<GpuBuffer> vertexBuffer;
 };
 
 } // Origin

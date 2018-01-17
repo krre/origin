@@ -77,7 +77,7 @@ private:
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::unique_ptr<Vulkan::DescriptorPool> descriptorPool;
-    std::vector<VulkanShader*> shaders;
+    std::vector<std::unique_ptr<VulkanShader>> shaders;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
     std::unique_ptr<Vulkan::DescriptorSetLayout> descriptorSetLayout;
     std::unique_ptr<Vulkan::DescriptorSets> descriptorSets;

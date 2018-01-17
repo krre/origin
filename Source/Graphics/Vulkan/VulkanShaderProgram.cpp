@@ -246,6 +246,16 @@ void VulkanShader::dumpLocations() {
 }
 
 VulkanShaderProgram::VulkanShaderProgram(const std::string& name) : ShaderProgram(name) {
+    for (auto& it : files) {
+        for (auto& file : it.second) {
+            if (file.extension().string() == ".spv") {
+                std::unique_ptr<VulkanShader> shader = std::make_unique<VulkanShader>();
+                shader->load(file.string());
+                shaders.push_back(std::move(shader));
+            }
+        }
+    }
+
     descriptorPool = std::make_unique<Vulkan::DescriptorPool>(vkCtx->getGraphicsDevice());
     descriptorSets = std::make_unique<Vulkan::DescriptorSets>(vkCtx->getGraphicsDevice(), descriptorPool.get());
 
@@ -271,8 +281,8 @@ void VulkanShaderProgram::createPipeline() {
     assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
 
     for (const auto& shader : shaders) {
-//        VulkanShader->dumpBindings();
-//        VulkanShader->dumpLocations();
+//        shader->dumpBindings();
+//        shader->dumpLocations();
 
         for (auto& bindingIt : shader->bindings) {
             VkDescriptorSetLayoutBinding* layoutBinding = &bindingIt.second;

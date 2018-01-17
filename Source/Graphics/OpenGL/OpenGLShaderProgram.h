@@ -9,6 +9,8 @@ public:
     OpenGLShaderProgram();
     ~OpenGLShaderProgram();
 
+    void addShader(ShaderType type, const std::string& name) override;
+
 private:
 
 };

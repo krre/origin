@@ -34,10 +34,10 @@ VulkanShaderProgram::~VulkanShaderProgram() {
     descriptorPool->destroy();
 }
 
-void VulkanShaderProgram::addShader(const std::string& path) {
-    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>(path);
-    shaderResources.push_back(shaderResource);
-    graphicsPipeline->addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+void VulkanShaderProgram::addShader(ShaderType type, const std::string& name) {
+//    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>(name);
+//    shaderResources.push_back(shaderResource);
+//    graphicsPipeline->addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
 }
 
 void VulkanShaderProgram::createPipeline() {

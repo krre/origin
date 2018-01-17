@@ -28,7 +28,7 @@ namespace Origin {
 WorldScene::WorldScene() {
     new EntityManager;
     plane = std::make_unique<Plane>();
-    shaderProgram = std::make_unique<ShaderProgram>();
+//    shaderProgram = std::make_unique<ShaderProgram>();
     console = std::make_shared<Console>();
 //    Game::get()->setWorldScene(this);
 }

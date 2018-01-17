@@ -8,6 +8,7 @@ class VulkanRenderState : public RenderState {
 public:
     VulkanRenderState();
     ~VulkanRenderState();
+    void create() override;
 
 private:
 

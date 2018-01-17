@@ -10,4 +10,8 @@ OpenGLRenderState::~OpenGLRenderState() {
 
 }
 
+void OpenGLRenderState::create() {
+
+}
+
 } // Origin

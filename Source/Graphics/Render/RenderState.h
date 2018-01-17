@@ -20,6 +20,7 @@ public:
     ~RenderState();
     void setShaderProgram(ShaderProgram* shaderProgram);
     void setBlendEnable(bool blendEnable);
+    virtual void create() = 0;
 
 protected:
     ShaderProgram* shaderProgram;

@@ -8,6 +8,7 @@ class OpenGLRenderState : public RenderState {
 public:
     OpenGLRenderState();
     ~OpenGLRenderState();
+    void create() override;
 
 private:
 

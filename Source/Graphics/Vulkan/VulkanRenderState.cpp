@@ -10,4 +10,8 @@ VulkanRenderState::~VulkanRenderState() {
 
 }
 
+void VulkanRenderState::create() {
+
+}
+
 } // Origin

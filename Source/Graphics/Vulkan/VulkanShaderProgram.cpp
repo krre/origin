@@ -271,12 +271,6 @@ VulkanShaderProgram::~VulkanShaderProgram() {
     descriptorPool->destroy();
 }
 
-//void VulkanShaderProgram::addShader(ShaderType type, const std::string& name) {
-//    VulkanShader* VulkanShader = ResourceManager::get()->load<VulkanShader>(name);
-//    VulkanShaders.push_back(VulkanShader);
-    //    graphicsPipeline->addShaderCode(VulkanShader->getStage(), VulkanShader->getCodeSize() * sizeof(uint32_t), VulkanShader->getCodeData());
-//}
-
 void VulkanShaderProgram::createPipeline() {
     assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
 
@@ -334,6 +328,8 @@ void VulkanShaderProgram::createPipeline() {
                 graphicsPipeline->addVertexAttributeDescription(locationInfos.at(name));
             }
         }
+
+        graphicsPipeline->addShaderCode(shader->getStage(), shader->getCodeSize() * sizeof(uint32_t), shader->getCodeData());
     }
 
     descriptorSetLayout->create();

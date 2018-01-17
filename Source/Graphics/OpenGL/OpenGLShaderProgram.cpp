@@ -2,23 +2,11 @@
 
 namespace Origin {
 
-OpenGLShaderProgram::OpenGLShaderProgram() {
+OpenGLShaderProgram::OpenGLShaderProgram(const std::string& name) : ShaderProgram(name) {
 
 }
 
 OpenGLShaderProgram::~OpenGLShaderProgram() {
-
-}
-
-void OpenGLShaderProgram::load(const std::string& path) {
-
-}
-
-void OpenGLShaderProgram::addShader(ShaderProgram::ShaderType type, const std::string& name) {
-
-}
-
-void OpenGLShaderProgram::create() {
 
 }
 

@@ -53,8 +53,8 @@ std::shared_ptr<Texture> OpenGLRenderContext::createTexture(const std::string& p
     return std::make_shared<OpenGLTexture>(path);
 }
 
-std::shared_ptr<ShaderProgram> OpenGLRenderContext::createShaderProgram() {
-    return std::make_shared<OpenGLShaderProgram>();
+std::shared_ptr<ShaderProgram> OpenGLRenderContext::createShaderProgram(const std::string& name) {
+    return std::make_shared<OpenGLShaderProgram>(name);
 }
 
 std::shared_ptr<Renderer> OpenGLRenderContext::createRenderer() {

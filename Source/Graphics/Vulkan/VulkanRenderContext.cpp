@@ -51,8 +51,8 @@ std::shared_ptr<Texture> VulkanRenderContext::createTexture(const std::string& p
     return std::make_shared<VulkanTexture>(path);
 }
 
-std::shared_ptr<ShaderProgram> VulkanRenderContext::createShaderProgram() {
-    return std::make_shared<VulkanShaderProgram>();
+std::shared_ptr<ShaderProgram> VulkanRenderContext::createShaderProgram(const std::string& name) {
+    return std::make_shared<VulkanShaderProgram>(name);
 }
 
 std::shared_ptr<Renderer> VulkanRenderContext::createRenderer() {

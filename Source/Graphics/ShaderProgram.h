@@ -1,23 +1,13 @@
 #pragma once
-#include "Resource/Resource.h"
+#include "Core/Common.h"
 
 namespace Origin {
 
-class ShaderProgram : public Resource {
+class ShaderProgram {
 
 public:
-
-    enum class ShaderType {
-        Vertex,
-        Fragment
-    };
-
-    ShaderProgram();
+    ShaderProgram(const std::string& name);
     ~ShaderProgram();
-
-protected:
-    virtual void addShader(ShaderType type, const std::string& name) = 0;
-    virtual void create() = 0;
 
 private:
 

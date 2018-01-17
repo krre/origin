@@ -18,7 +18,7 @@
 
 namespace Origin {
 
-VulkanShaderProgram::VulkanShaderProgram() {
+VulkanShaderProgram::VulkanShaderProgram(const std::string& name) : ShaderProgram(name) {
     descriptorPool = std::make_unique<Vulkan::DescriptorPool>(vkCtx->getGraphicsDevice());
     descriptorSets = std::make_unique<Vulkan::DescriptorSets>(vkCtx->getGraphicsDevice(), descriptorPool.get());
 
@@ -34,19 +34,11 @@ VulkanShaderProgram::~VulkanShaderProgram() {
     descriptorPool->destroy();
 }
 
-void VulkanShaderProgram::load(const std::string& path) {
-
-}
-
-void VulkanShaderProgram::addShader(ShaderType type, const std::string& name) {
+//void VulkanShaderProgram::addShader(ShaderType type, const std::string& name) {
 //    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>(name);
 //    shaderResources.push_back(shaderResource);
     //    graphicsPipeline->addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
-}
-
-void VulkanShaderProgram::create() {
-
-}
+//}
 
 void VulkanShaderProgram::createPipeline() {
     assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);

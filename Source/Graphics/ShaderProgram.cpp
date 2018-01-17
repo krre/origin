@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-ShaderProgram::ShaderProgram() {
+ShaderProgram::ShaderProgram(const std::string& name) {
 
 }
 

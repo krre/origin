@@ -19,7 +19,7 @@ public:
     virtual std::shared_ptr<RenderWindow> createRenderWindow() = 0;
     virtual std::shared_ptr<GpuBuffer> createGpuBuffer(GpuBuffer::Usage usage, uint32_t size) = 0;
     virtual std::shared_ptr<Texture> createTexture(const std::string& path) = 0;
-    virtual std::shared_ptr<ShaderProgram> createShaderProgram() = 0;
+    virtual std::shared_ptr<ShaderProgram> createShaderProgram(const std::string& name) = 0;
 
     Renderer* getRenderer() const;
 

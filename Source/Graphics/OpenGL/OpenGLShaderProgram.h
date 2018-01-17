@@ -6,14 +6,8 @@ namespace Origin {
 class OpenGLShaderProgram : public ShaderProgram {
 
 public:
-    OpenGLShaderProgram();
+    OpenGLShaderProgram(const std::string& name);
     ~OpenGLShaderProgram();
-
-    void load(const std::string& path) override;
-
-private:
-    void addShader(ShaderType type, const std::string& name) override;
-    void create() override;
 
 };
 

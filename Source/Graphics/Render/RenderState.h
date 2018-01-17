@@ -3,6 +3,8 @@
 
 namespace Origin {
 
+class ShaderProgram;
+
 class RenderState {
 
 public:
@@ -16,9 +18,10 @@ public:
 
     RenderState();
     ~RenderState();
+    void setShaderProgram(ShaderProgram* shaderProgram);
 
 private:
-
+    ShaderProgram* shaderProgram;
 };
 
 } // Origin

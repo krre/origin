@@ -40,6 +40,7 @@ void Renderer::createShaderPrograms() {
 void Renderer::createRenderStates() {
     // Shape2D
     std::shared_ptr<RenderState> shape2DRS = RenderContext::get()->createRenderState();
+    shape2DRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Base].get());
     renderStates[RenderState::Type::Shape2D] = shape2DRS;
 
     // Freetype text
@@ -48,10 +49,12 @@ void Renderer::createRenderStates() {
 
     // SDF text
     std::shared_ptr<RenderState> sdfTextRS = RenderContext::get()->createRenderState();
+    sdfTextRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Sdf].get());
     renderStates[RenderState::Type::SdfText] = sdfTextRS;
 
     // Voxel
     std::shared_ptr<RenderState> voxelRS = RenderContext::get()->createRenderState();
+    voxelRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Voxel].get());
     renderStates[RenderState::Type::Voxel] = voxelRS;
 }
 

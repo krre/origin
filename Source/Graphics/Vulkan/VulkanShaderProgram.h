@@ -15,7 +15,37 @@ namespace Vulkan {
     class DescriptorPool;
 }
 
-class ShaderResource;
+class VulkanShader {
+
+    friend class VulkanShaderProgram;
+
+public:
+
+    struct Location {
+        int location;
+        VkFormat format;
+    };
+
+    VulkanShader();
+    void load(const std::string& path);
+    VkShaderStageFlagBits getStage() const { return stage; }
+    const uint32_t* getCodeData() const { return code.data(); }
+    size_t getCodeSize() const { return code.size(); }
+
+    void dumpBindings();
+    void dumpLocations();
+
+private:
+    VkFormat getFormat(const std::string& variableType, const std::string& OpTypeFloat, int vectorCount = 0);
+
+    VkShaderStageFlagBits stage;
+    std::vector<uint32_t> code;
+    std::map<std::string, Location> locations;
+    std::map<std::string, VkDescriptorSetLayoutBinding> bindings;
+    int set = 0;
+
+    void parse();
+};
 
 class VulkanShaderProgram : public ShaderProgram {
 
@@ -47,7 +77,7 @@ private:
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::unique_ptr<Vulkan::DescriptorPool> descriptorPool;
-    std::vector<ShaderResource*> shaderResources;
+    std::vector<VulkanShader*> shaders;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
     std::unique_ptr<Vulkan::DescriptorSetLayout> descriptorSetLayout;
     std::unique_ptr<Vulkan::DescriptorSets> descriptorSets;

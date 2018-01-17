@@ -4,7 +4,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Resource.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ResourceManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ResourceManager.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderResource.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderResource.cpp
     PARENT_SCOPE
 )

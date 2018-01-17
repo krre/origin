@@ -6,7 +6,6 @@
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"
 #include "ECS/Components/TransformComponent.h"
-#include "Resource/ShaderResource.h"
 #include "Resource/ResourceManager.h"
 #include "Graphics/Texture.h"
 #include "Graphics/Buffer/VertexBuffer.h"

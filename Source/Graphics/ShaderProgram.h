@@ -1,9 +1,9 @@
 #pragma once
-#include "Core/Object.h"
+#include "Resource/Resource.h"
 
 namespace Origin {
 
-class ShaderProgram : public Object {
+class ShaderProgram : public Resource {
 
 public:
 
@@ -15,6 +15,7 @@ public:
     ShaderProgram();
     ~ShaderProgram();
 
+protected:
     virtual void addShader(ShaderType type, const std::string& name) = 0;
     virtual void create() = 0;
 

@@ -34,6 +34,10 @@ VulkanShaderProgram::~VulkanShaderProgram() {
     descriptorPool->destroy();
 }
 
+void VulkanShaderProgram::load(const std::string& path) {
+
+}
+
 void VulkanShaderProgram::addShader(ShaderType type, const std::string& name) {
 //    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>(name);
 //    shaderResources.push_back(shaderResource);

@@ -10,6 +10,10 @@ OpenGLShaderProgram::~OpenGLShaderProgram() {
 
 }
 
+void OpenGLShaderProgram::load(const std::string& path) {
+
+}
+
 void OpenGLShaderProgram::addShader(ShaderProgram::ShaderType type, const std::string& name) {
 
 }

@@ -9,10 +9,11 @@ public:
     OpenGLShaderProgram();
     ~OpenGLShaderProgram();
 
-    void addShader(ShaderType type, const std::string& name) override;
-    void create() override;
+    void load(const std::string& path) override;
 
 private:
+    void addShader(ShaderType type, const std::string& name) override;
+    void create() override;
 
 };
 

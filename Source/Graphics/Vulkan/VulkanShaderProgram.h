@@ -29,8 +29,8 @@ public:
 
     VulkanShaderProgram();
     ~VulkanShaderProgram();
-    void addShader(ShaderType type, const std::string& name) override;
-    void create() override;
+
+    void load(const std::string& path) override;
 
     Vulkan::GraphicsPipeline* getGraphicsPipeline() { return graphicsPipeline.get(); }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return descriptorSetLayout.get(); }
@@ -46,6 +46,9 @@ public:
     void readUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
 private:
+    void addShader(ShaderType type, const std::string& name) override;
+    void create() override;
+
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::unique_ptr<Vulkan::DescriptorPool> descriptorPool;

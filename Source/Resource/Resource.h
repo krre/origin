@@ -7,7 +7,7 @@ class Resource : public Object {
 
 public:
     Resource();
-    virtual void load(const std::string& path) {}
+    virtual void load(const std::string& path) = 0;
 };
 
 } // Origin

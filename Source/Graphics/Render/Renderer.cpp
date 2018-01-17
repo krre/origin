@@ -41,15 +41,18 @@ void Renderer::createRenderStates() {
     // Shape2D
     std::shared_ptr<RenderState> shape2DRS = RenderContext::get()->createRenderState();
     shape2DRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Base].get());
+    shape2DRS->setBlendEnable(true);
     renderStates[RenderState::Type::Shape2D] = shape2DRS;
 
     // Freetype text
     std::shared_ptr<RenderState> freeTypeTextRS = RenderContext::get()->createRenderState();
+    shape2DRS->setBlendEnable(true);
     renderStates[RenderState::Type::FreeTypeText] = freeTypeTextRS;
 
     // SDF text
     std::shared_ptr<RenderState> sdfTextRS = RenderContext::get()->createRenderState();
     sdfTextRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Sdf].get());
+    shape2DRS->setBlendEnable(true);
     renderStates[RenderState::Type::SdfText] = sdfTextRS;
 
     // Voxel

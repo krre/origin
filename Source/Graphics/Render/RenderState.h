@@ -19,9 +19,11 @@ public:
     RenderState();
     ~RenderState();
     void setShaderProgram(ShaderProgram* shaderProgram);
+    void setBlendEnable(bool blendEnable);
 
-private:
+protected:
     ShaderProgram* shaderProgram;
+    bool blendEnable = false;
 };
 
 } // Origin

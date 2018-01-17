@@ -14,4 +14,8 @@ void RenderState::setShaderProgram(ShaderProgram* shaderProgram) {
     this->shaderProgram = shaderProgram;
 }
 
+void RenderState::setBlendEnable(bool blendEnable) {
+    this->blendEnable = blendEnable;
+}
+
 } // Origin

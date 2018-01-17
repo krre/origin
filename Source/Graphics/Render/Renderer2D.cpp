@@ -3,6 +3,7 @@
 #include "Gui/View3D.h"
 #include "Graphics/GpuBuffer.h"
 #include "Graphics/Render/RenderContext.h"
+#include "Graphics/Render/RenderState.h"
 
 namespace Origin {
 
@@ -10,6 +11,7 @@ Renderer2D::Renderer2D() {
     uint32_t startSize = 10000;
     vertexBuffer = RenderContext::get()->createGpuBuffer(GpuBuffer::Usage::Vertex, startSize);
     baseShaderProgram = RenderContext::get()->createShaderProgram("Base");
+    uiState = std::make_unique<RenderState>();
 }
 
 Renderer2D::~Renderer2D() {

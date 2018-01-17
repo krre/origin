@@ -8,6 +8,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderWindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderWindow.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLShaderProgram.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLShaderProgram.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLTexture.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLTexture.h
     PARENT_SCOPE

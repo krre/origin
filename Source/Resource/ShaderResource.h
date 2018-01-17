@@ -8,7 +8,7 @@ namespace Origin {
 
 class ShaderResource : public Resource {
 
-    friend class ShaderProgram;
+    friend class VulkanShaderProgram;
 
 public:
 

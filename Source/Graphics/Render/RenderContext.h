@@ -7,6 +7,7 @@ namespace Origin {
 class RenderWindow;
 class Renderer;
 class Texture;
+class ShaderProgram;
 
 class RenderContext : public Singleton<RenderContext> {
 
@@ -18,6 +19,7 @@ public:
     virtual std::shared_ptr<RenderWindow> createRenderWindow() = 0;
     virtual std::shared_ptr<GpuBuffer> createGpuBuffer(GpuBuffer::Usage usage, uint32_t size) = 0;
     virtual std::shared_ptr<Texture> createTexture(const std::string& path) = 0;
+    virtual std::shared_ptr<ShaderProgram> createShaderProgram() = 0;
 
     Renderer* getRenderer() const;
 

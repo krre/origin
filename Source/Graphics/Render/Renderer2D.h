@@ -7,8 +7,6 @@ namespace Origin {
 class Control;
 class View3D;
 class GpuBuffer;
-class ShaderProgram;
-class RenderState;
 
 class Renderer2D {
 
@@ -26,8 +24,6 @@ private:
     std::vector<Batch2D::Vertex> vertices;
     std::vector<View3D*> renderViews;
     std::shared_ptr<GpuBuffer> vertexBuffer;
-    std::shared_ptr<ShaderProgram> baseShaderProgram;
-    std::unique_ptr<RenderState> uiState;
 };
 
 } // Origin

@@ -12,7 +12,8 @@ Renderer::Renderer() {
     renderer2d = std::make_unique<Renderer2D>();
     renderer3d = std::make_unique<Renderer3D>();
 
-
+    createShaderPrograms();
+    createRenderStates();
 }
 
 Renderer::~Renderer() {
@@ -28,6 +29,12 @@ void Renderer::render(Screen* screen) {
     }
 
     renderQueue();
+}
+
+void Renderer::createShaderPrograms() {
+    shaderPrograms[ShaderProgram::ProgamType::Base] = RenderContext::get()->createShaderProgram("Base");
+    shaderPrograms[ShaderProgram::ProgamType::Sdf] = RenderContext::get()->createShaderProgram("Sdf");
+    shaderPrograms[ShaderProgram::ProgamType::Voxel] = RenderContext::get()->createShaderProgram("Voxel");
 }
 
 void Renderer::createRenderStates() {

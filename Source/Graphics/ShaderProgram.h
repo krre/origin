@@ -10,6 +10,12 @@ class ShaderProgram {
 
 public:
 
+    enum class ProgamType {
+        Base,
+        Sdf,
+        Voxel
+    };
+
     enum class ShaderType {
         Vertex,
         Fragment

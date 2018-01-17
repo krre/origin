@@ -9,6 +9,7 @@ namespace Origin {
 Renderer2D::Renderer2D() {
     uint32_t startSize = 10000;
     vertexBuffer = RenderContext::get()->createGpuBuffer(GpuBuffer::Usage::Vertex, startSize);
+    baseShaderProgram = RenderContext::get()->createShaderProgram("Base");
 }
 
 Renderer2D::~Renderer2D() {

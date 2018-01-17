@@ -14,4 +14,8 @@ void OpenGLShaderProgram::addShader(ShaderProgram::ShaderType type, const std::s
 
 }
 
+void OpenGLShaderProgram::create() {
+
+}
+
 } // Origin

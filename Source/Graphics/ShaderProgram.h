@@ -16,6 +16,7 @@ public:
     ~ShaderProgram();
 
     virtual void addShader(ShaderType type, const std::string& name) = 0;
+    virtual void create() = 0;
 
 private:
 

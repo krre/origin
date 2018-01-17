@@ -30,6 +30,7 @@ public:
     VulkanShaderProgram();
     ~VulkanShaderProgram();
     void addShader(ShaderType type, const std::string& name) override;
+    void create() override;
 
     Vulkan::GraphicsPipeline* getGraphicsPipeline() { return graphicsPipeline.get(); }
     const Vulkan::DescriptorSetLayout* getDescriptorSetLayout() const { return descriptorSetLayout.get(); }

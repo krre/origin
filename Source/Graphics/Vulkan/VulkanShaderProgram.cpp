@@ -37,7 +37,11 @@ VulkanShaderProgram::~VulkanShaderProgram() {
 void VulkanShaderProgram::addShader(ShaderType type, const std::string& name) {
 //    ShaderResource* shaderResource = ResourceManager::get()->load<ShaderResource>(name);
 //    shaderResources.push_back(shaderResource);
-//    graphicsPipeline->addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+    //    graphicsPipeline->addShaderCode(shaderResource->getStage(), shaderResource->getCodeSize() * sizeof(uint32_t), shaderResource->getCodeData());
+}
+
+void VulkanShaderProgram::create() {
+
 }
 
 void VulkanShaderProgram::createPipeline() {

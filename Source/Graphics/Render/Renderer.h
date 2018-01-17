@@ -25,7 +25,7 @@ private:
 
     std::unique_ptr<Renderer2D> renderer2d;
     std::unique_ptr<Renderer3D> renderer3d;
-    std::map<RenderState::Type, std::unique_ptr<RenderState>> renderStates;
+    std::map<RenderState::Type, std::shared_ptr<RenderState>> renderStates;
 };
 
 } // Origin

@@ -4,6 +4,7 @@
 #include "Renderer3D.h"
 #include "Gui/Control.h"
 #include "Gui/Batch2D.h"
+#include "Graphics/Render/RenderContext.h"
 
 namespace Origin {
 
@@ -31,20 +32,20 @@ void Renderer::render(Screen* screen) {
 
 void Renderer::createRenderStates() {
     // Shape2D
-    std::unique_ptr<RenderState> shape2DRS = std::make_unique<RenderState>();
-    renderStates[RenderState::Type::Shape2D] = std::move(shape2DRS);
+    std::shared_ptr<RenderState> shape2DRS = RenderContext::get()->createRenderState();
+    renderStates[RenderState::Type::Shape2D] = shape2DRS;
 
     // Freetype text
-    std::unique_ptr<RenderState> freeTypeTextRS = std::make_unique<RenderState>();
-    renderStates[RenderState::Type::FreeTypeText] = std::move(freeTypeTextRS);
+    std::shared_ptr<RenderState> freeTypeTextRS = RenderContext::get()->createRenderState();
+    renderStates[RenderState::Type::FreeTypeText] = freeTypeTextRS;
 
     // SDF text
-    std::unique_ptr<RenderState> sdfTextRS = std::make_unique<RenderState>();
-    renderStates[RenderState::Type::SdfText] = std::move(sdfTextRS);
+    std::shared_ptr<RenderState> sdfTextRS = RenderContext::get()->createRenderState();
+    renderStates[RenderState::Type::SdfText] = sdfTextRS;
 
     // Voxel
-    std::unique_ptr<RenderState> voxelRS = std::make_unique<RenderState>();
-    renderStates[RenderState::Type::Voxel] = std::move(voxelRS);
+    std::shared_ptr<RenderState> voxelRS = RenderContext::get()->createRenderState();
+    renderStates[RenderState::Type::Voxel] = voxelRS;
 }
 
 } // Origin

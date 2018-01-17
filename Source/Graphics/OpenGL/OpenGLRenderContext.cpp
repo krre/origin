@@ -4,6 +4,7 @@
 #include "OpenGLGpuBuffer.h"
 #include "OpenGLTexture.h"
 #include "OpenGLShaderProgram.h"
+#include "OpenGLRenderState.h"
 #include <GL/glew.h>
 
 namespace Origin {
@@ -55,6 +56,10 @@ std::shared_ptr<Texture> OpenGLRenderContext::createTexture(const std::string& p
 
 std::shared_ptr<ShaderProgram> OpenGLRenderContext::createShaderProgram(const std::string& name) {
     return std::make_shared<OpenGLShaderProgram>(name);
+}
+
+std::shared_ptr<RenderState> OpenGLRenderContext::createRenderState() {
+    return std::make_shared<OpenGLRenderState>();
 }
 
 std::shared_ptr<Renderer> OpenGLRenderContext::createRenderer() {

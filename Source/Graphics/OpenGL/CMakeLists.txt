@@ -6,6 +6,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderContext.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderState.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderWindow.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLRenderWindow.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OpenGLShaderProgram.cpp

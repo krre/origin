@@ -1,6 +1,6 @@
 #include "Button.h"
 #include "Event/Event.h"
-#include "Text/Label.h"
+#include "Label.h"
 
 namespace Origin {
 

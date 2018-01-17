@@ -20,8 +20,8 @@
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
-#include "Gui/Text/Label.h"
-#include "Gui/Text/Font.h"
+#include "Gui/Label.h"
+#include "Gui/Font.h"
 #include "Gui/Rectangle.h"
 #include <glm/glm.hpp>
 

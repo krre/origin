@@ -1,5 +1,4 @@
 add_subdirectory(Dialog)
-add_subdirectory(Text)
 
 set(SOURCES
     ${SOURCES}
@@ -9,20 +8,26 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Layout.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Font.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Font.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Label.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Label.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Layout.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Layout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/TextEdit.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/TextEdit.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.h
     ${CMAKE_CURRENT_SOURCE_DIR}/UITypes.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/View.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/View.h
     ${CMAKE_CURRENT_SOURCE_DIR}/View2D.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/View2D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/View3D.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/View3D.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/View.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/View.h
     PARENT_SCOPE
 )

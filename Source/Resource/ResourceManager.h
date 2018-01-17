@@ -15,7 +15,7 @@ public:
         auto it = resources.find(path);
         if (it == resources.end()) {
             resources[path] = std::make_shared<T>();
-            resources[path]->load(dataPath + "/" + path);
+            resources[path]->load(resourcesPath + "/" + path);
         }
 
         return static_cast<T*>(resources[path].get());
@@ -23,9 +23,11 @@ public:
 
     void free(const std::string& path);
 
+    static const std::string& getDataPath() { return resourcesPath; }
+
 private:
     std::map<std::string, std::shared_ptr<Resource>> resources;
-    std::string dataPath;
+    static std::string resourcesPath;
 };
 
 } // Origin

@@ -71,5 +71,5 @@ target_link_libraries(${EXECUTABLE_NAME}
 )
 
 # Show in QtCreator project tree
-file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*")
+file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*" "Source/Template/*.*")
 add_custom_target(root SOURCES ${Root})

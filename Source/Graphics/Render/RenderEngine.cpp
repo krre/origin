@@ -10,7 +10,6 @@
 #include "Gui/Batch2D.h"
 #include "Debug/DebugEnvironment.h"
 #include "Graphics/Render/RenderEngine.h"
-#include "Graphics/Vulkan/VulkanGpuBuffer.h"
 #include "Graphics/Vulkan/VulkanRenderState.h"
 #include "Graphics/Vulkan/VulkanShaderProgram.h"
 #include "Graphics/Vulkan/VulkanTexture.h"

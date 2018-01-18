@@ -10,7 +10,7 @@
 #include "Debug/DebugEnvironment.h"
 #include "Debug/DebugHUD.h"
 #include "Core/Settings.h"
-#include "Graphics/Vulkan/VulkanRenderContext.h"
+#include "Graphics/Render/RenderEngine.h"
 #include "Window.h"
 #include "Screen/MenuScreen.h"
 #include <string>
@@ -33,9 +33,8 @@ Application::~Application() {
     Input::release();
 //    DebugHUD::release();
     ResourceManager::release();
-    RenderContext::get()->shutdown();
     window.reset();
-    RenderContext::release();
+    RenderEngine::release();
     SDLWrapper::shutdown();
     Event::release();
     DebugEnvironment::release();
@@ -56,12 +55,9 @@ void Application::init() {
         new Event;
 
         SDLWrapper::init();
-
-        new VulkanRenderContext;
-
         window = std::make_unique<Window>();
-        RenderContext::get()->init();
 
+        new RenderEngine;
         new ResourceManager;
 //        new DebugHUD;
         new Input;
@@ -82,6 +78,7 @@ void Application::init() {
 
     Event::get()->quit.connect(this, &Application::quit);
 
+    window->onResize(window->getWidth(), window->getHeight());
     window->show();
 
     running = true;

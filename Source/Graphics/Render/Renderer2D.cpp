@@ -2,14 +2,13 @@
 #include "Gui/Control.h"
 #include "Gui/View3D.h"
 #include "Graphics/GpuBuffer.h"
-#include "Graphics/Render/RenderContext.h"
 #include "Graphics/Render/RenderState.h"
 
 namespace Origin {
 
 Renderer2D::Renderer2D() {
     uint32_t startSize = 10000;
-    vertexBuffer = RenderContext::get()->createGpuBuffer(GpuBuffer::Usage::Vertex, startSize);
+    vertexBuffer = std::make_unique<GpuBuffer>(GpuBuffer::Usage::Vertex, startSize);;
 }
 
 Renderer2D::~Renderer2D() {
@@ -20,7 +19,7 @@ void Renderer2D::render() {
     uint32_t size = vertices.size() * sizeof(Batch2D::Vertex);
 
     if (size > vertexBuffer->getSize()) {
-        vertexBuffer = RenderContext::get()->createGpuBuffer(GpuBuffer::Usage::Vertex, size);
+        vertexBuffer = std::make_unique<GpuBuffer>(GpuBuffer::Usage::Vertex, size);
     }
     vertexBuffer->write(vertices.data(), size);
 }

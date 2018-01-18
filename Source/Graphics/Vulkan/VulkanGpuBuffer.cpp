@@ -3,14 +3,14 @@
 #include "Graphics/Vulkan/Wrapper/Device/DeviceMemory.h"
 #include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
-#include "Graphics/Vulkan/VulkanRenderContext.h"
+#include "Graphics/Render/RenderEngine.h"
 #include <cstring>
 
 
 namespace Origin {
 
 VulkanGpuBuffer::VulkanGpuBuffer(Usage usage, uint32_t size) : GpuBuffer(usage, size) {
-    device = vkCtx->getGraphicsDevice();
+    device = RenderEngine::get()->getGraphicsDevice();
 
     VkBufferUsageFlagBits usageFlagBits;
     if (usage == Usage::Vertex) {
@@ -50,7 +50,7 @@ VkBuffer VulkanGpuBuffer::getHandle() const {
 }
 
 void VulkanGpuBuffer::copyToBuffer(Vulkan::Buffer* dstBuffer, VkDeviceSize size) {
-    Vulkan::CommandBufferOneTime commandBuffer(buffer->getDevice(), vkCtx->getComputeCommandPool());
+    Vulkan::CommandBufferOneTime commandBuffer(buffer->getDevice(), RenderEngine::get()->getComputeCommandPool());
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;

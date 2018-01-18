@@ -1,12 +1,12 @@
 #include "IndexBuffer.h"
 #include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
-#include "Graphics/Vulkan/VulkanRenderContext.h"
+#include "Graphics/Render/RenderEngine.h"
 
 namespace Origin {
 
 IndexBuffer::IndexBuffer(uint64_t count) {
     VkDeviceSize size = count * (indexType == VK_INDEX_TYPE_UINT16 ? sizeof(uint16_t) : sizeof(uint32_t));
-    buffer = std::make_unique<Vulkan::Buffer>(vkCtx->getGraphicsDevice(), VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size);
+    buffer = std::make_unique<Vulkan::Buffer>(RenderEngine::get()->getGraphicsDevice(), VK_BUFFER_USAGE_INDEX_BUFFER_BIT, size);
     buffer->create();
 }
 

@@ -4,10 +4,6 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanGpuBuffer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanGpuBuffer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderContext.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderContext.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderState.h
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanShaderProgram.cpp

@@ -23,7 +23,7 @@ private:
     std::vector<Batch2D> batches;
     std::vector<Batch2D::Vertex> vertices;
     std::vector<View3D*> renderViews;
-    std::shared_ptr<GpuBuffer> vertexBuffer;
+    std::unique_ptr<GpuBuffer> vertexBuffer;
 };
 
 } // Origin

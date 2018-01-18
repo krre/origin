@@ -4,7 +4,6 @@
 #include "Renderer3D.h"
 #include "Gui/Control.h"
 #include "Gui/Batch2D.h"
-#include "Graphics/Render/RenderContext.h"
 
 namespace Origin {
 
@@ -32,37 +31,37 @@ void Renderer::render(Screen* screen) {
 }
 
 void Renderer::createShaderPrograms() {
-    shaderPrograms[ShaderProgram::ProgamType::Base] = RenderContext::get()->createShaderProgram("Base");
-    shaderPrograms[ShaderProgram::ProgamType::Sdf] = RenderContext::get()->createShaderProgram("Sdf");
-    shaderPrograms[ShaderProgram::ProgamType::Voxel] = RenderContext::get()->createShaderProgram("Voxel");
+//    shaderPrograms[ShaderProgram::ProgamType::Base] = RenderContext::get()->createShaderProgram("Base");
+//    shaderPrograms[ShaderProgram::ProgamType::Sdf] = RenderContext::get()->createShaderProgram("Sdf");
+//    shaderPrograms[ShaderProgram::ProgamType::Voxel] = RenderContext::get()->createShaderProgram("Voxel");
 }
 
 void Renderer::createRenderStates() {
-    // Shape2D
-    std::shared_ptr<RenderState> shape2DRS = RenderContext::get()->createRenderState();
-    shape2DRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Base].get());
-    shape2DRS->setBlendEnable(true);
-    shape2DRS->create();
-    renderStates[RenderState::Type::Shape2D] = shape2DRS;
+//    // Shape2D
+//    std::shared_ptr<RenderState> shape2DRS = RenderContext::get()->createRenderState();
+//    shape2DRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Base].get());
+//    shape2DRS->setBlendEnable(true);
+//    shape2DRS->create();
+//    renderStates[RenderState::Type::Shape2D] = shape2DRS;
 
-    // Freetype text
-    std::shared_ptr<RenderState> freeTypeTextRS = RenderContext::get()->createRenderState();
-    shape2DRS->setBlendEnable(true);
-    shape2DRS->create();
-    renderStates[RenderState::Type::FreeTypeText] = freeTypeTextRS;
+//    // Freetype text
+//    std::shared_ptr<RenderState> freeTypeTextRS = RenderContext::get()->createRenderState();
+//    shape2DRS->setBlendEnable(true);
+//    shape2DRS->create();
+//    renderStates[RenderState::Type::FreeTypeText] = freeTypeTextRS;
 
-    // SDF text
-    std::shared_ptr<RenderState> sdfTextRS = RenderContext::get()->createRenderState();
-    sdfTextRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Sdf].get());
-    shape2DRS->setBlendEnable(true);
-    shape2DRS->create();
-    renderStates[RenderState::Type::SdfText] = sdfTextRS;
+//    // SDF text
+//    std::shared_ptr<RenderState> sdfTextRS = RenderContext::get()->createRenderState();
+//    sdfTextRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Sdf].get());
+//    shape2DRS->setBlendEnable(true);
+//    shape2DRS->create();
+//    renderStates[RenderState::Type::SdfText] = sdfTextRS;
 
-    // Voxel
-    std::shared_ptr<RenderState> voxelRS = RenderContext::get()->createRenderState();
-    voxelRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Voxel].get());
-    voxelRS->create();
-    renderStates[RenderState::Type::Voxel] = voxelRS;
+//    // Voxel
+//    std::shared_ptr<RenderState> voxelRS = RenderContext::get()->createRenderState();
+//    voxelRS->setShaderProgram(shaderPrograms[ShaderProgram::ProgamType::Voxel].get());
+//    voxelRS->create();
+//    renderStates[RenderState::Type::Voxel] = voxelRS;
 }
 
 } // Origin

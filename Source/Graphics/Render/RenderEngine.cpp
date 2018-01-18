@@ -81,6 +81,11 @@ void RenderEngine::render(Screen* screen) {
         renderer3d->render(view3d);
     }
 
+    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
+    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+        resize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
+    }
+
     submitQueue->clearWaitSemaphores();
     submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
 
@@ -91,11 +96,6 @@ void RenderEngine::render(Screen* screen) {
 
     presentFence->wait();
     presentFence->reset();
-
-    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
-    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-        resize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
-    }
 
     presentQueue->present();
     vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());

@@ -10,7 +10,6 @@
 #include "Debug/DebugEnvironment.h"
 #include "Debug/DebugHUD.h"
 #include "Core/Settings.h"
-#include "Graphics/OpenGL/OpenGLRenderContext.h"
 #include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Render/RenderWindow.h"
 #include "Screen/MenuScreen.h"
@@ -58,16 +57,7 @@ void Application::init() {
 
         SDLWrapper::init();
 
-        if (DebugEnvironment::get()->getEnable()) {
-            GraphicsBackend backend = DebugEnvironment::get()->getGraphicsBackend();
-            if (backend == GraphicsBackend::OpenGL) {
-                new OpenGLRenderContext;
-            } else if (backend == GraphicsBackend::Vulkan) {
-                new VulkanRenderContext;
-            }
-        } else {
-            new OpenGLRenderContext;
-        }
+        new VulkanRenderContext;
 
         renderWindow = RenderContext::get()->createRenderWindow();
         RenderContext::get()->init();

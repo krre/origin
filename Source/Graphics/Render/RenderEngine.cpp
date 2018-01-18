@@ -85,7 +85,7 @@ void RenderEngine::render(Screen* screen) {
     submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
 
     submitQueue->clearCommandBuffers();
-    submitQueue->addCommandBuffer(commandBuffers.at(getImageIndex()).get(),
+    submitQueue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
                                   imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
     submitQueue->submit();
 
@@ -146,7 +146,7 @@ void RenderEngine::createAll() {
 
     device = RenderEngine::get()->getGraphicsDevice();
 
-    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, RenderEngine::get()->getGraphicsFamily());
+    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, graphicsFamily);
     presentQueue->create();
 
     presentFence = std::make_unique<Vulkan::Fence>(device);
@@ -165,9 +165,9 @@ void RenderEngine::createAll() {
     SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
 
 #if defined(OS_WIN)
-    surface = std::make_unique<Vulkan::Win32Surface>(context->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_unique<Vulkan::Win32Surface>(instance.get(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif defined(OS_LINUX)
-    surface = std::make_unique<Vulkan::XcbSurface>(RenderEngine::get()->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+    surface = std::make_unique<Vulkan::XcbSurface>(instance.get(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 
     surface->create();
@@ -181,18 +181,10 @@ void RenderEngine::createAll() {
 
     swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
 
-    commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, RenderEngine::get()->getGraphicsCommandPool());
-    commandBufferHandlers->allocate(swapchain->getCount());
+    resize(window->getWidth(), window->getHeight());
 
-    for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
-        auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
-        commandBuffers.push_back(std::move(commandBuffer));
-    }
-
-    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, RenderEngine::get()->getGraphicsFamily());
+    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, graphicsFamily);
     submitQueue->create();
-
-    updateCommandBuffers();
 }
 
 void RenderEngine::createShaderPrograms() {
@@ -230,12 +222,21 @@ void RenderEngine::createRenderStates() {
 }
 
 void RenderEngine::updateCommandBuffers() {
-    Vulkan::RenderPass* renderPass = getRenderPass();
     const Color& color = window->getColor();
     renderPass->setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
 
+    if (!commandBuffers.size()) {
+        commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, graphicsCommandPool.get());
+        commandBufferHandlers->allocate(swapchain->getCount());
+
+        for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
+            auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
+            commandBuffers.push_back(std::move(commandBuffer));
+        }
+    }
+
     for (int i = 0; i < commandBuffers.size(); i++) {
-        renderPass->setFramebuffer(getFrameBuffer(i)->getHandle());
+        renderPass->setFramebuffer(framebuffers.at(i)->getHandle());
 
         Vulkan::CommandBuffer* commandBuffer = commandBuffers.at(i).get();
         commandBuffer->reset();
@@ -340,7 +341,7 @@ void RenderEngine::saveScreenshot() {
     image.create();
     VkImage dstImage = image.getHandle();
 
-    Vulkan::CommandBufferOneTime commandBuffer(device, RenderEngine::get()->getGraphicsCommandPool());
+    Vulkan::CommandBufferOneTime commandBuffer(device, graphicsCommandPool.get());
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
@@ -427,10 +428,6 @@ void RenderEngine::saveScreenshot() {
     std::string message = "Screenshot saved to " + filename;
 //    Toast::get()->showToast(message);
     PRINT(message)
-}
-
-uint32_t RenderEngine::getImageIndex() const {
-    return swapchain->getImageIndex();
 }
 
 } // Origin

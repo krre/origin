@@ -14,7 +14,6 @@ namespace Vulkan {
     class SubmitQueue;
     class CommandBuffer;
     class CommandBuffers;
-    class Device;
     class Surface;
     class Swapchain;
     class RenderPass;
@@ -39,29 +38,18 @@ public:
     RenderEngine();
     ~RenderEngine();
 
-    Vulkan::Instance* getInstance() const { return instance.get(); }
-    uint32_t getGraphicsFamily() const { return graphicsFamily; }
-    uint32_t getComputeFamily() const { return computeFamily; }
     Vulkan::Device* getGraphicsDevice() const { return graphicsDevice.get(); }
     Vulkan::Device* getComputeDevice() const { return computeDevice.get(); }
     Vulkan::CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }
     Vulkan::CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
-    Vulkan::Surface* getSurface() const { return surface.get(); }
-    Vulkan::Swapchain* getSwapchain() const { return swapchain.get(); }
-    Vulkan::RenderPass* getRenderPass() const { return renderPass.get(); }
-    Vulkan::Semaphore* getImageAvailableSemaphore() const { return imageAvailableSemaphore.get(); }
-    Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
-    Vulkan::PresentQueue* getPresentQueue() const { return presentQueue.get(); }
-    Vulkan::Framebuffer* getFrameBuffer(size_t i) { return framebuffers.at(i).get(); }
-    uint32_t getImageIndex() const;
 
     void render(Screen* screen);
-    void updateCommandBuffers();
     void resize(int width, int height);
     void saveScreenshot();
 
 private:
     void createAll();
+    void updateCommandBuffers();
 
     std::unique_ptr<Vulkan::Instance> instance;
     std::unique_ptr<Vulkan::PhysicalDevices> physicalDevices;
@@ -69,8 +57,6 @@ private:
     std::shared_ptr<Vulkan::CommandPool> graphicsCommandPool;
     std::unique_ptr<Vulkan::Device> computeDevice;
     std::shared_ptr<Vulkan::CommandPool> computeCommandPool;
-    uint32_t graphicsFamily;
-    uint32_t computeFamily;
     std::unique_ptr<Vulkan::Surface> surface;
     std::unique_ptr<Vulkan::Swapchain> swapchain;
     std::unique_ptr<Vulkan::RenderPass> renderPass;
@@ -84,6 +70,8 @@ private:
     std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;
     std::vector<std::unique_ptr<Vulkan::CommandBuffer>> commandBuffers;
     Vulkan::Device* device;
+    uint32_t graphicsFamily;
+    uint32_t computeFamily;
 
     void createRenderStates();
     void createShaderPrograms();

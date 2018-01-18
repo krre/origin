@@ -11,7 +11,6 @@
 #include "Debug/DebugEnvironment.h"
 #include "Graphics/Render/RenderEngine.h"
 #include "Graphics/Vulkan/VulkanRenderState.h"
-#include "Graphics/Vulkan/VulkanShaderProgram.h"
 #include "Graphics/Vulkan/VulkanTexture.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffer.h"
 #include "Graphics/Vulkan/Wrapper/Command/CommandBuffers.h"

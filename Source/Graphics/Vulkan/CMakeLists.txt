@@ -4,7 +4,5 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/VulkanRenderState.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanTexture.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/VulkanTexture.h
     PARENT_SCOPE
 )

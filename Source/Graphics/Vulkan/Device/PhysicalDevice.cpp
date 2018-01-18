@@ -1,5 +1,5 @@
 #include "PhysicalDevice.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Instance.h"
 #include "../Surface/Surface.h"
 
 namespace Origin {

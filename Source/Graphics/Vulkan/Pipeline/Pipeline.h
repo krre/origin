@@ -1,7 +1,7 @@
 #pragma once
-#include "Graphics/Vulkan/Wrapper/Base/Handle.h"
-#include "Graphics/Vulkan/Wrapper/Device/Devicer.h"
-#include "Graphics/Vulkan/Wrapper/ShaderModule.h"
+#include "Graphics/Vulkan/Base/Handle.h"
+#include "Graphics/Vulkan/Device/Devicer.h"
+#include "Graphics/Vulkan/ShaderModule.h"
 #include "PipelineLayout.h"
 #include "PipelineCache.h"
 #include <map>

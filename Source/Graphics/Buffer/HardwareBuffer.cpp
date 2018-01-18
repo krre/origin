@@ -1,9 +1,9 @@
 #include "HardwareBuffer.h"
-#include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
-#include "Graphics/Vulkan/Wrapper/Device/DeviceMemory.h"
-#include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
-#include "Graphics/Vulkan/Wrapper/Queue/SubmitQueue.h"
-#include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
+#include "Graphics/Vulkan/Buffer/Buffer.h"
+#include "Graphics/Vulkan/Device/DeviceMemory.h"
+#include "Graphics/Vulkan/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include <string.h>
 
 namespace Origin {

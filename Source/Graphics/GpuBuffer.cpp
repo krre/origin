@@ -1,8 +1,8 @@
 #include "GpuBuffer.h"
-#include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
-#include "Graphics/Vulkan/Wrapper/Device/DeviceMemory.h"
-#include "Graphics/Vulkan/Wrapper/Device/PhysicalDevice.h"
-#include "Graphics/Vulkan/Wrapper/Command/CommandBufferOneTime.h"
+#include "Graphics/Vulkan/Buffer/Buffer.h"
+#include "Graphics/Vulkan/Device/DeviceMemory.h"
+#include "Graphics/Vulkan/Device/PhysicalDevice.h"
+#include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include "Graphics/Render/RenderEngine.h"
 #include <cstring>
 

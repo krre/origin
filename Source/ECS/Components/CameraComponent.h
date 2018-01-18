@@ -1,7 +1,7 @@
 #pragma once
 #include "ECS/Component.h"
 #include "Core/Application.h"
-#include "Graphics/Render/RenderWindow.h"
+#include "Core/Window.h"
 #include <glm/ext.hpp>
 
 namespace Origin {

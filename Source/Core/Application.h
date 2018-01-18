@@ -4,7 +4,7 @@
 
 namespace Origin {
 
-class RenderWindow;
+class Window;
 
 class Application : public Singleton<Application> {
 
@@ -17,7 +17,7 @@ public:
     void run();
     void quit();
 
-    RenderWindow* getWindow() const { return renderWindow.get(); }
+    Window* getWindow() const { return window.get(); }
     bool isRunning() const { return running; }
     const std::vector<std::string>& getArgv() const { return argv; }
 
@@ -26,7 +26,7 @@ private:
 
     std::vector<std::string> argv;
     bool running = false;
-    std::shared_ptr<RenderWindow> renderWindow;
+    std::unique_ptr<Window> window;
 };
 
 } // Origin

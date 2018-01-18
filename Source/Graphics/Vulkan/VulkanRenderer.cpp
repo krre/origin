@@ -8,13 +8,13 @@
 #include "Graphics/Vulkan/Wrapper/RenderPass.h"
 #include "Graphics/Vulkan/Wrapper/Framebuffer.h"
 #include "Graphics/Vulkan/VulkanRenderContext.h"
-#include "Graphics/Vulkan/VulkanRenderWindow.h"
+#include "Core/Window.h"
 
 namespace Origin {
 
 VulkanRenderer::VulkanRenderer() {
     device = vkCtx->getGraphicsDevice();
-    window = static_cast<VulkanRenderWindow*>(Application::get()->getWindow());
+    window = Application::get()->getWindow();
 
     commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, vkCtx->getGraphicsCommandPool());
     commandBufferHandlers->allocate(window->getSwapchain()->getCount());
@@ -40,7 +40,7 @@ void VulkanRenderer::updateCommandBuffers() {
     renderPass->setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
 
     for (int i = 0; i < commandBuffers.size(); i++) {
-        renderPass->setFramebuffer(static_cast<VulkanRenderWindow*>(window)->getFrameBuffer(i)->getHandle());
+        renderPass->setFramebuffer(window->getFrameBuffer(i)->getHandle());
 
         Vulkan::CommandBuffer* commandBuffer = commandBuffers.at(i).get();
         commandBuffer->reset();

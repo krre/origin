@@ -1,4 +1,17 @@
-#include "VulkanRenderWindow.h"
+#include "Window.h"
+#include "Core/Application.h"
+#include "Core/SDLWrapper.h"
+#include "Core/Settings.h"
+#include "Core/Defines.h"
+#include "Core/Utils.h"
+#include "Core/Screen.h"
+#include "Core/Game.h"
+#include "Graphics/Render/RenderContext.h"
+#include "Graphics/Render/Renderer.h"
+#include "Debug/DebugHUD.h"
+#include "Gui/Toast.h"
+#include "Event/Event.h"
+#include "Event/Input.h"
 #include "Core/Defines.h"
 #include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Vulkan/Wrapper/Surface/Surface.h"
@@ -17,6 +30,11 @@
 #include "Graphics/Vulkan/VulkanRenderer.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
+#include <SDL_keycode.h>
+#include <ctime>
+#include <experimental/filesystem>
+#include <SDL_video.h>
+#include <lodepng/lodepng.h>
 
 #if defined(OS_WIN)
     #include "Graphics/Vulkan/Wrapper/Surface/Win32Surface.h"
@@ -26,10 +44,37 @@
 
 namespace Origin {
 
-VulkanRenderWindow::VulkanRenderWindow(VulkanRenderContext* context) : context(context) {
-    device = context->getGraphicsDevice();
+Window::Window() {
+    auto settingsWidth = Settings::get()->getStorage()["width"];
+    auto settingsHeigth = Settings::get()->getStorage()["height"];
 
-    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, context->getGraphicsFamily());
+    if (!settingsWidth.is_null()) {
+        width = settingsWidth.get<int>();
+    }
+
+    if (!settingsHeigth.is_null()) {
+        height = settingsHeigth.get<int>();
+    }
+
+    auto settingsX = Settings::get()->getStorage()["x"];
+    auto settingsY = Settings::get()->getStorage()["y"];
+
+    Size screenSize = SDLWrapper::getScreenSize();
+    x = settingsX.is_null() ? (screenSize.width - width) / 2 : settingsX.get<int>();
+    y = settingsY.is_null() ? (screenSize.height - height) / 2 : settingsY.get<int>();
+
+    handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
+    if (handle == nullptr) {
+        throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
+    }
+
+    SDL_SysWMinfo wminfo;
+    SDL_VERSION(&wminfo.version);
+    SDL_GetWindowWMInfo(handle, &wminfo);
+
+    device = vkCtx->getGraphicsDevice();
+
+    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, vkCtx->getGraphicsFamily());
     presentQueue->create();
 
     presentFence = std::make_unique<Vulkan::Fence>(device);
@@ -42,17 +87,79 @@ VulkanRenderWindow::VulkanRenderWindow(VulkanRenderContext* context) : context(c
     renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();
     presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
+
+#if defined(OS_WIN)
+    surface = std::make_unique<Vulkan::Win32Surface>(context->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+#elif defined(OS_LINUX)
+    surface = std::make_unique<Vulkan::XcbSurface>(vkCtx->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+#endif
+
+    surface->create();
+
+    VkExtent2D currentExtent = surface->getCurrentExtent();
+
+    renderPass = std::make_unique<Vulkan::RenderPass>(device);
+    renderPass->setColorFormat(surface->getFormats().at(0).format);
+    renderPass->setExtent(currentExtent);
+    renderPass->create();
+
+    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
+
+    onResize(width, height);
+
+    Event::get()->windowMove.connect(this, &Window::onMove);
+    Event::get()->windowResize.connect(this, &Window::onResize);
+    Event::get()->keyPressed.connect(this, &Window::onKeyPressed);
 }
 
-VulkanRenderWindow::~VulkanRenderWindow() {
+Window::~Window() {
+    Settings::get()->getStorage()["x"] = x;
+    Settings::get()->getStorage()["y"] = y;
 
+    Settings::get()->getStorage()["width"] = width;
+    Settings::get()->getStorage()["height"] = height;
+
+    SDL_DestroyWindow(handle);
 }
 
-uint32_t VulkanRenderWindow::getImageIndex() const {
-    return swapchain->getImageIndex();
+void Window::pushScreen(const std::shared_ptr<Screen>& screen) {
+    if (!screens.empty()) {
+        screens.back()->pause();
+    }
+    screens.push_back(screen);
+    screen->resize(width, height);
+    screen->resume();
 }
 
-void VulkanRenderWindow::preRender() {
+void Window::popScreen() {
+    if (screens.size() > 1) {
+        screens.back()->pause();
+        screens.pop_back();
+        screens.back()->resume();
+    } else {
+        // TODO: Question dialog about exit from game
+        PRINT("Exit question dialog")
+    }
+}
+
+void Window::setScreen(const std::shared_ptr<Screen>& screen) {
+    for (const auto& screen : screens) {
+        screen->pause();
+    }
+    screens.clear();
+    pushScreen(screen);
+}
+
+void Window::show() {
+    assert(handle != nullptr);
+    SDL_ShowWindow(handle);
+}
+
+void Window::update(float dt) {
+    screens.back()->update(dt);
+}
+
+void Window::render() {
     presentFence->wait();
     presentFence->reset();
 
@@ -60,14 +167,22 @@ void VulkanRenderWindow::preRender() {
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         onResize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
     }
-}
 
-void VulkanRenderWindow::postRender() {
+    RenderContext::get()->getRenderer()->render(screens.back().get());
+
     presentQueue->present();
     vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());
 }
 
-void VulkanRenderWindow::onResize(int width, int height) {
+void Window::onMove(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
+void Window::onResize(int width, int height) {
+    this->width = width;
+    this->height = height;
+
     swapchain->destroy();
     swapchain->create();
     presentQueue->clearSwapchains();
@@ -94,15 +209,34 @@ void VulkanRenderWindow::onResize(int width, int height) {
 
     renderPass->setExtent({ (uint32_t)width, (uint32_t)height });
 
-    RenderWindow::onResize(width, height);
-
     VulkanRenderer* renderer = static_cast<VulkanRenderer*>(vkCtx->getRenderer());
     if (renderer) {
         renderer->updateCommandBuffers();
     }
+
+    for (const auto& screen : screens) {
+        screen->resize(width, height);
+    }
 }
 
-void VulkanRenderWindow::saveScreenshotImpl(const std::string& filePath) {
+void Window::saveScreenshot() {
+    std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
+    namespace fs = std::experimental::filesystem;
+    if (!fs::exists(directoryPath)) {
+        fs::create_directory(directoryPath);
+    }
+
+    time_t t = std::time(0); // Get time now
+    struct tm* now = std::localtime(&t);
+    std::string filename =
+            std::to_string(now->tm_year + 1900) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_mday)) + "_" +
+            Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
+            Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
+    std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
+
     VkImage srcImage = swapchain->getCurrentImage();
 
     uint32_t width = surface->getCurrentExtent().width;
@@ -114,7 +248,7 @@ void VulkanRenderWindow::saveScreenshotImpl(const std::string& filePath) {
     image.create();
     VkImage dstImage = image.getHandle();
 
-    Vulkan::CommandBufferOneTime commandBuffer(device, context->getGraphicsCommandPool());
+    Vulkan::CommandBufferOneTime commandBuffer(device, vkCtx->getGraphicsCommandPool());
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
@@ -197,35 +331,40 @@ void VulkanRenderWindow::saveScreenshotImpl(const std::string& filePath) {
     }
 
     image.getMemory()->unmap();
+
+    std::string message = "Screenshot saved to " + filename;
+//    Toast::get()->showToast(message);
+    PRINT(message)
 }
 
-Uint32 VulkanRenderWindow::getSurfaceFlag() const {
-    return SDL_WINDOW_VULKAN;
+void Window::toggleFullScreen() {
+    bool isFullscreen = SDL_GetWindowFlags(handle) & SDL_WINDOW_FULLSCREEN;
+    SDL_SetWindowFullscreen(handle, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+    SDL_ShowCursor(isFullscreen);
 }
 
-void VulkanRenderWindow::initImpl() {
-    SDL_SysWMinfo wminfo;
-    SDL_VERSION(&wminfo.version);
-    SDL_GetWindowWMInfo(handle, &wminfo);
+void Window::setColor(const Color& color) {
+    this->color = color;
+}
 
-#if defined(OS_WIN)
-    surface = std::make_unique<Vulkan::Win32Surface>(context->getInstance(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
-#elif defined(OS_LINUX)
-    surface = std::make_unique<Vulkan::XcbSurface>(context->getInstance(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
+    switch (event.keysym.sym) {
+#ifdef DEBUG_HUD_ENABLE
+    case SDLK_F5:
+        DebugHUD::get()->trigger();
+        break;
 #endif
+    case SDLK_F10:
+        toggleFullScreen();
+        break;
+    case SDLK_F11:
+        saveScreenshot();
+        break;
+    }
+}
 
-    surface->create();
-
-    VkExtent2D currentExtent = surface->getCurrentExtent();
-
-    renderPass = std::make_unique<Vulkan::RenderPass>(device);
-    renderPass->setColorFormat(surface->getFormats().at(0).format);
-    renderPass->setExtent(currentExtent);
-    renderPass->create();
-
-    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
-
-    onResize(width, height);
+uint32_t Window::getImageIndex() const {
+    return swapchain->getImageIndex();
 }
 
 } // Origin

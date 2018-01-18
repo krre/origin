@@ -11,7 +11,7 @@
 #include "Debug/DebugHUD.h"
 #include "Core/Settings.h"
 #include "Graphics/Vulkan/VulkanRenderContext.h"
-#include "Graphics/Render/RenderWindow.h"
+#include "Window.h"
 #include "Screen/MenuScreen.h"
 #include <string>
 #include <SDL_timer.h>
@@ -34,7 +34,7 @@ Application::~Application() {
 //    DebugHUD::release();
     ResourceManager::release();
     RenderContext::get()->shutdown();
-    renderWindow.reset();
+    window.reset();
     RenderContext::release();
     SDLWrapper::shutdown();
     Event::release();
@@ -59,7 +59,7 @@ void Application::init() {
 
         new VulkanRenderContext;
 
-        renderWindow = RenderContext::get()->createRenderWindow();
+        window = std::make_unique<Window>();
         RenderContext::get()->init();
 
         new ResourceManager;
@@ -77,12 +77,12 @@ void Application::init() {
     if (DebugEnvironment::get()->getEnable()) {
         DebugEnvironment::get()->setDebugScreen();
     } else {
-        renderWindow->setScreen(std::make_shared<MenuScreen>());
+        window->setScreen(std::make_shared<MenuScreen>());
     }
 
     Event::get()->quit.connect(this, &Application::quit);
 
-    renderWindow->show();
+    window->show();
 
     running = true;
 }
@@ -98,8 +98,8 @@ void Application::run() {
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        renderWindow->update(frameTime);
-        renderWindow->render();
+        window->update(frameTime);
+        window->render();
 //        PRINT(frameTime << " " << 1 / frameTime)
     }
 }

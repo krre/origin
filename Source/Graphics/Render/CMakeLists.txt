@@ -10,7 +10,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderState.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderState.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderWindow.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderWindow.h
     PARENT_SCOPE
 )

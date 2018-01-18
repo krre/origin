@@ -1,7 +1,7 @@
 #include "Dialog.h"
 #include "Event/Input.h"
 #include "Core/Application.h"
-#include "Graphics/Render/RenderWindow.h"
+#include "Core/Window.h"
 
 namespace Origin {
 

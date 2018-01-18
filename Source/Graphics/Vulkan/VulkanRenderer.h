@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class VulkanRenderWindow;
+class Window;
 
 namespace Vulkan {
     class Semaphore;
@@ -23,7 +23,7 @@ public:
 private:
     void renderQueue() override;
 
-    VulkanRenderWindow* window = nullptr;
+    Window* window = nullptr;
     Vulkan::Device* device;
     std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
     std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;

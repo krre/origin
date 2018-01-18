@@ -1,6 +1,6 @@
 #include "Toast.h"
 #include "Core/Application.h"
-#include "Graphics/Render/RenderWindow.h"
+#include "Core/Window.h"
 #include <glm/glm.hpp>
 
 namespace Origin {

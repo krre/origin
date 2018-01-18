@@ -4,7 +4,7 @@
 #include "Core/Utils.h"
 #include "Debug/DebugHUD.h"
 #include "Screen/MenuScreen.h"
-#include "Graphics/Render/RenderWindow.h"
+#include "Core/Window.h"
 
 namespace Origin {
 

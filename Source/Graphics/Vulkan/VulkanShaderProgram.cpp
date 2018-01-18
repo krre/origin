@@ -2,7 +2,7 @@
 #include "Core/Application.h"
 #include "Core/Defines.h"
 #include "Core/Utils.h"
-#include "Graphics/Render/RenderWindow.h"
+#include "Core/Window.h"
 #include "Graphics/Vulkan/VulkanRenderContext.h"
 #include "Graphics/Vulkan/Wrapper/Buffer/Buffer.h"
 #include "Graphics/Vulkan/Wrapper/Descriptor/DescriptorPool.h"

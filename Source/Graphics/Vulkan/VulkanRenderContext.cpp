@@ -1,5 +1,4 @@
 #include "VulkanRenderContext.h"
-#include "VulkanRenderWindow.h"
 #include "VulkanRenderer.h"
 #include "VulkanGpuBuffer.h"
 #include "VulkanTexture.h"
@@ -36,12 +35,6 @@ VulkanRenderContext::~VulkanRenderContext() {
     if (computeDevice) {
         computeDevice->waitIdle();
     }
-}
-
-std::shared_ptr<RenderWindow> VulkanRenderContext::createRenderWindow() {
-    std::shared_ptr<RenderWindow> window = std::make_shared<VulkanRenderWindow>(this);
-    window->init();
-    return window;
 }
 
 std::shared_ptr<GpuBuffer> VulkanRenderContext::createGpuBuffer(GpuBuffer::Usage usage, uint32_t size) {

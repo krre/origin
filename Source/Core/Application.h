@@ -12,7 +12,7 @@ public:
     Application(int argc, char* argv[]);
     ~Application();
     // Path to Application directory
-    static std::string getCurrentPath();
+    static std::string getCurrentDirectory();
 
     void run();
     void quit();

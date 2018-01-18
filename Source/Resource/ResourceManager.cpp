@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-std::string ResourceManager::resourcesPath = Application::getCurrentPath() + "/Data";
+std::string ResourceManager::resourcesPath = Application::getCurrentDirectory() + "/Data";
 
 ResourceManager::ResourceManager() {
 }

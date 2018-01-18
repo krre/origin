@@ -32,7 +32,7 @@ void DebugEnvironment::setDebugScreen() {
 }
 
 void DebugEnvironment::loadValues() {
-    std::string filePath = Application::getCurrentPath() + "/debug.json";
+    std::string filePath = Application::getCurrentDirectory() + "/debug.json";
     try {
         std::string text = Utils::readTextFile(filePath);
         settings = json::parse(text);

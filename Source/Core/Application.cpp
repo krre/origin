@@ -43,7 +43,7 @@ Application::~Application() {
     Settings::release();
 }
 
-std::string Application::getCurrentPath() {
+std::string Application::getCurrentDirectory() {
     return std::experimental::filesystem::current_path().string();
 }
 

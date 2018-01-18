@@ -10,7 +10,7 @@ namespace Origin {
 namespace fs = std::experimental::filesystem;
 
 Settings::Settings() {
-    path = Application::getCurrentPath() + Utils::getPathSeparator() + APP_SETTINGS_NAME;
+    path = Application::getCurrentDirectory() + Utils::getPathSeparator() + APP_SETTINGS_NAME;
     if (fs::exists(path)) {
         std::string text = Utils::readTextFile(path);
         storage = json::parse(text);

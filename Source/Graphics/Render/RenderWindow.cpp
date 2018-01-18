@@ -121,7 +121,7 @@ void RenderWindow::onResize(int width, int height) {
 }
 
 void RenderWindow::saveScreenshot() {
-    std::string directoryPath = Application::getCurrentPath() + Utils::getPathSeparator() + "Screenshot";
+    std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;
     if (!fs::exists(directoryPath)) {
         fs::create_directory(directoryPath);

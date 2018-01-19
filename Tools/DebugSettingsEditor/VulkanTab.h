@@ -19,6 +19,9 @@ public:
     QJsonObject debugSettings() const override;
     QString name() const;
 
+private slots:
+    void on_comboBoxDevice_currentIndexChanged(int currentIndex);
+
 private:
     Ui::VulkanTab* ui;
 };

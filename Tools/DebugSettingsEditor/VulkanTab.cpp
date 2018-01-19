@@ -1,6 +1,8 @@
 #include "VulkanTab.h"
 #include "ui_VulkanTab.h"
-#include "Graphics/Vulkan/Wrapper/Instance.h"
+#include "Graphics/Vulkan/Instance.h"
+#include "Graphics/Vulkan/Device/PhysicalDevices.h"
+#include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>
@@ -23,6 +25,13 @@ VulkanTab::VulkanTab() :
     Vulkan::Instance instance;
     instance.create();
 
+    Vulkan::PhysicalDevices physicalDevices(&instance);
+
+    for (size_t i = 0; i < physicalDevices.getCount(); i++) {
+        Vulkan::PhysicalDevice* physicalDevice = physicalDevices.getPhysicalDevice(i);
+        ui->comboBoxDevice->insertItem(i, physicalDevice->getProperties().deviceName);
+    }
+
     for (const auto& layer : instance.getLayerProperties()) {
         ui->listWidgetLayers->addItem(layer.layerName);
     }
@@ -37,6 +46,8 @@ VulkanTab::~VulkanTab() {
 }
 
 void VulkanTab::setDebugSettings(const QJsonObject& settings) {
+    ui->comboBoxDevice->setCurrentIndex(settings["device"].toInt());
+
     ui->groupBoxLayers->setChecked(settings["layers"].toObject()["use"].toBool());
     for (const auto& layer : settings["layers"].toObject()["list"].toArray()) {
         QList<QListWidgetItem*> items = ui->listWidgetLayers->findItems(layer.toString(), Qt::MatchFixedString);
@@ -56,6 +67,9 @@ void VulkanTab::setDebugSettings(const QJsonObject& settings) {
 
 QJsonObject VulkanTab::debugSettings() const {
     QJsonObject obj;
+
+    // Device
+    obj["device"] = QJsonValue(ui->comboBoxDevice->currentIndex());
 
     // Layers
     QJsonObject layersObj;
@@ -89,6 +103,11 @@ QJsonObject VulkanTab::debugSettings() const {
 
 QString VulkanTab::name() const {
     return "vulkan";
+}
+
+void VulkanTab::on_comboBoxDevice_currentIndexChanged(int currentIndex) {
+    Q_UNUSED(currentIndex)
+    emit flush();
 }
 
 } // DebugSettingsEditor

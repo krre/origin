@@ -132,27 +132,27 @@ void RenderEngine::createAll() {
     }
 
     // Create graphics logical device and command pool
+    graphicsFamily = graphicsPhysicalDevice->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
     graphicsDevice = std::make_unique<Vulkan::Device>(graphicsPhysicalDevice);
     graphicsDevice->addQueueCreateInfo(graphicsFamily, { 1.0 });
     graphicsDevice->create();
-
-    graphicsFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
 
     graphicsCommandPool = std::make_shared<Vulkan::CommandPool>(graphicsDevice.get(), graphicsFamily);
     graphicsCommandPool->create();
 
     // Create compute logical device and command pool
-    computeDevice = std::make_unique<Vulkan::Device>(computePhysicalDevice);
-    computeDevice->addQueueCreateInfo(computeFamily, { 1.0 });
-    computeDevice->create();
+    if (graphicsPhysicalDevice != computePhysicalDevice) {
+        computeFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
+        computeDevice = std::make_unique<Vulkan::Device>(computePhysicalDevice);
+        computeDevice->addQueueCreateInfo(computeFamily, { 1.0 });
+        computeDevice->create();
 
-    computeFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
-
-    computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
-    computeCommandPool->create();
+        computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
+        computeCommandPool->create();
+    }
 
     device = graphicsDevice.get();
-    PRINT(graphicsPhysicalDevice->getProperties().deviceName)
+    PRINT(device->getPhysicalDevice()->getProperties().deviceName)
 
     imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     imageAvailableSemaphore->create();

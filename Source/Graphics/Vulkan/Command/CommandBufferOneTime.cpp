@@ -3,7 +3,7 @@
 #include "CommandBuffer.h"
 #include "Graphics/Vulkan/Command/CommandPool.h"
 #include "Graphics/Vulkan/Fence.h"
-#include "Graphics/Vulkan/Queue/Queue.h"
+#include "Graphics/Vulkan/Queue.h"
 
 namespace Origin {
 

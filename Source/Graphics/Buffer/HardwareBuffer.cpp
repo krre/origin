@@ -2,7 +2,7 @@
 #include "Graphics/Vulkan/Buffer/Buffer.h"
 #include "Graphics/Vulkan/Device/DeviceMemory.h"
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"
-#include "Graphics/Vulkan/Queue/Queue.h"
+#include "Graphics/Vulkan/Queue.h"
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include <string.h>
 

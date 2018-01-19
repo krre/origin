@@ -1,8 +1,8 @@
 #include "Queue.h"
-#include "../Semaphore.h"
-#include "../Fence.h"
-#include "../Command/CommandBuffer.h"
-#include "../Surface/Swapchain.h"
+#include "Semaphore.h"
+#include "Fence.h"
+#include "Command/CommandBuffer.h"
+#include "Surface/Swapchain.h"
 
 namespace Origin {
 

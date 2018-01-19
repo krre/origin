@@ -1,6 +1,0 @@
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Queue.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
-    PARENT_SCOPE
-)

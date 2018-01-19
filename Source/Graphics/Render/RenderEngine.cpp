@@ -18,7 +18,7 @@
 #include "Graphics/Vulkan/Device/PhysicalDevices.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Queue/Queue.h"
+#include "Graphics/Vulkan/Queue.h"
 #include "Graphics/Vulkan/RenderPass.h"
 #include "Graphics/Vulkan/Semaphore.h"
 #include "Graphics/Vulkan/Surface/Swapchain.h"

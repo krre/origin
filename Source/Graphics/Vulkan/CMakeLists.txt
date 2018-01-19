@@ -5,7 +5,6 @@ add_subdirectory(Descriptor)
 add_subdirectory(Device)
 add_subdirectory(Image)
 add_subdirectory(Pipeline)
-add_subdirectory(Queue)
 add_subdirectory(Surface)
 
 set(SOURCES
@@ -22,6 +21,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Instance.h
     ${CMAKE_CURRENT_SOURCE_DIR}/QueryPool.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/QueryPool.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Queue.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Queue.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPass.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Sampler.cpp

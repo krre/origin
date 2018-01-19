@@ -6,7 +6,7 @@
 #include "Graphics/Vulkan/Semaphore.h"
 #include "Graphics/Vulkan/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
-#include "Graphics/Vulkan/Queue/Queue.h"
+#include "Graphics/Vulkan/Queue.h"
 #include "Graphics/Vulkan/RenderPass.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Event/Input.h"

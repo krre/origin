@@ -33,11 +33,17 @@ void Queue::submit(Fence* fence) {
     VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence == nullptr ? VK_NULL_HANDLE : fence->getHandle()), "Failed to submit queue");
 }
 
-void Queue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* waitSemaphore, VkPipelineStageFlags waitDstStageMask, Semaphore* signalSemaphore) {
+void Queue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* signalSemaphore, Semaphore* waitSemaphore, VkPipelineStageFlags waitDstStageMask) {
     commandBuffers.push_back(commandBuffer->getHandle());
-    submitSignalSemaphores.push_back(signalSemaphore->getHandle());
-    submitWaitSemaphores.push_back(waitSemaphore->getHandle());
-    submitWaitDstStageMasks.push_back(waitDstStageMask);
+
+    if (signalSemaphore != nullptr) {
+        submitSignalSemaphores.push_back(signalSemaphore->getHandle());
+    }
+
+    if (waitSemaphore != nullptr) {
+        submitWaitSemaphores.push_back(waitSemaphore->getHandle());
+        submitWaitDstStageMasks.push_back(waitDstStageMask);
+    }
 
     VkSubmitInfo submitInfo = {};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
@@ -46,31 +52,6 @@ void Queue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* waitSemaph
     submitInfo.pWaitSemaphores = submitWaitSemaphores.data();
     submitInfo.signalSemaphoreCount = submitSignalSemaphores.size();
     submitInfo.pSignalSemaphores = submitSignalSemaphores.data();
-    submitInfo.commandBufferCount = commandBuffers.size();
-    submitInfo.pCommandBuffers = commandBuffers.data();
-
-    submitInfos.push_back(submitInfo);
-}
-
-void Queue::addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* signalSemaphore) {
-    commandBuffers.push_back(commandBuffer->getHandle());
-    submitSignalSemaphores.push_back(signalSemaphore->getHandle());
-
-    VkSubmitInfo submitInfo = {};
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submitInfo.commandBufferCount = commandBuffers.size();
-    submitInfo.pCommandBuffers = commandBuffers.data();
-    submitInfo.signalSemaphoreCount = submitSignalSemaphores.size();
-    submitInfo.pSignalSemaphores = submitSignalSemaphores.data();
-
-    submitInfos.push_back(submitInfo);
-}
-
-void Queue::addCommandBuffer(CommandBuffer* commandBuffer) {
-    commandBuffers.push_back(commandBuffer->getHandle());
-
-    VkSubmitInfo submitInfo = {};
-    submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
     submitInfo.commandBufferCount = commandBuffers.size();
     submitInfo.pCommandBuffers = commandBuffers.data();
 

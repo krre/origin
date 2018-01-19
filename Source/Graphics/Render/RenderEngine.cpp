@@ -83,7 +83,8 @@ void RenderEngine::render(Screen* screen) {
 
     queue->clearCommandBuffers();
     queue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
-                                  imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
+                            renderFinishedSemaphore.get(),
+                            imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
     queue->submit();
     queue->present();
     queue->waitIdle();

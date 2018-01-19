@@ -18,8 +18,8 @@ public:
     Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
     void create() override {}
     void destroy() override {}
-    void addWaitSemaphore(Semaphore* semaphore);
-    void clearWaitSemaphores();
+    void addPresentWaitSemaphore(Semaphore* semaphore);
+    void clearPresentWaitSemaphores();
     void waitIdle();
     void syncHost(Fence* fence);
 
@@ -34,9 +34,10 @@ public:
     void clearSwapchains();
 
 protected:
-    std::vector<VkSemaphore> waitSemaphores;
-    std::vector<VkSemaphore> signalSemaphores;
-    std::vector<VkPipelineStageFlags> waitDstStageMasks;
+    std::vector<VkSemaphore> submitWaitSemaphores;
+    std::vector<VkSemaphore> submitSignalSemaphores;
+    std::vector<VkPipelineStageFlags> submitWaitDstStageMasks;
+    std::vector<VkSemaphore> presentWaitSemaphores;
     std::vector<VkCommandBuffer> commandBuffers;
     std::vector<VkSubmitInfo> submitInfos;
     VkPresentInfoKHR presentInfo = {};

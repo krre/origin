@@ -81,14 +81,12 @@ void RenderEngine::render(Screen* screen) {
         resizeSwapchain();
     }
 
-    queue->clearWaitSemaphores();
-    queue->addWaitSemaphore(imageAvailableSemaphore.get());
-
     queue->clearCommandBuffers();
     queue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
                                   imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
     queue->submit();
     queue->present();
+    queue->waitIdle();
 }
 
 void RenderEngine::createAll() {
@@ -144,7 +142,7 @@ void RenderEngine::createAll() {
 
     queue = std::make_unique<Vulkan::Queue>(device, graphicsFamily);
     queue->create();
-    queue->addWaitSemaphore(renderFinishedSemaphore.get());
+    queue->addPresentWaitSemaphore(renderFinishedSemaphore.get());
 
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);

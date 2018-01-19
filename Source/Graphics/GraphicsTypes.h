@@ -8,9 +8,4 @@ enum class PipelinePreset {
     Voxel,
 };
 
-enum class GraphicsBackend {
-    OpenGL,
-    Vulkan
-};
-
 } // Origin

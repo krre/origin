@@ -14,11 +14,6 @@ DebugEnvironment::DebugEnvironment() {
 #endif
 }
 
-GraphicsBackend DebugEnvironment::getGraphicsBackend() const {
-    uint8_t s = settings["general"]["backend"];
-    return static_cast<GraphicsBackend>(s);
-}
-
 void DebugEnvironment::setDebugScreen() {
     uint8_t s = settings["general"]["screen"];
     Screen::Name screen = static_cast<Screen::Name>(s);

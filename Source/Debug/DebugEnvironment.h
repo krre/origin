@@ -12,7 +12,6 @@ class DebugEnvironment : public Singleton<DebugEnvironment> {
 public:
     DebugEnvironment();
     bool getEnable() const { return enable; }
-    GraphicsBackend getGraphicsBackend() const;
     void setDebugScreen();
     json& getSettings() { return settings; }
 

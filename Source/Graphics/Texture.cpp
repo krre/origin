@@ -4,7 +4,7 @@
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Command/CommandBufferOneTime.h"
 #include "Graphics/Vulkan/Fence.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Queue/Queue.h"
 #include "Graphics/Vulkan/Image/ImageView.h"
 #include "Graphics/Vulkan/Image/Image.h"
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"

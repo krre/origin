@@ -11,7 +11,7 @@ namespace Vulkan {
     class Device;
     class CommandPool;
     class Semaphore;
-    class SubmitQueue;
+    class Queue;
     class CommandBuffer;
     class CommandBuffers;
     class Surface;
@@ -22,7 +22,6 @@ namespace Vulkan {
     class Framebuffer;
     class Semaphore;
     class Fence;
-    class PresentQueue;
 }
 
 class Window;
@@ -64,9 +63,8 @@ private:
     std::vector<std::unique_ptr<Vulkan::ImageView>> imageViews;
     std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
-    std::unique_ptr<Vulkan::PresentQueue> presentQueue;
     std::unique_ptr<Vulkan::Fence> presentFence;
-    std::unique_ptr<Vulkan::SubmitQueue> submitQueue;
+    std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;
     std::vector<std::unique_ptr<Vulkan::CommandBuffer>> commandBuffers;
     Vulkan::Device* device;

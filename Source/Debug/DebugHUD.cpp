@@ -18,7 +18,7 @@
 #include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
 #include "Graphics/Vulkan/Command/CommandBuffers.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Queue/Queue.h"
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include "Gui/Label.h"
 #include "Gui/Font.h"

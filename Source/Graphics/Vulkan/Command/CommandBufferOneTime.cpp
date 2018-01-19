@@ -3,7 +3,7 @@
 #include "CommandBuffer.h"
 #include "Graphics/Vulkan/Command/CommandPool.h"
 #include "Graphics/Vulkan/Fence.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Queue/Queue.h"
 
 namespace Origin {
 
@@ -28,7 +28,7 @@ void CommandBufferOneTime::apply() {
     Fence fence(device);
     fence.create();
 
-    SubmitQueue queue(device, commandPool->getQueueFamilyIndex(), 0);
+    Queue queue(device, commandPool->getQueueFamilyIndex(), 0);
     queue.addCommandBuffer(commandBuffer.get());
     queue.submit(&fence);
 

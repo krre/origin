@@ -21,7 +21,7 @@
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
 #include "Graphics/Vulkan/Descriptor/DescriptorSets.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Queue/Queue.h"
 
 namespace Origin {
 

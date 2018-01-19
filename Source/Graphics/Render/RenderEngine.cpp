@@ -18,14 +18,13 @@
 #include "Graphics/Vulkan/Device/PhysicalDevices.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Queue/Queue.h"
 #include "Graphics/Vulkan/RenderPass.h"
 #include "Graphics/Vulkan/Semaphore.h"
 #include "Graphics/Vulkan/Surface/Swapchain.h"
 #include "Graphics/Vulkan/Surface/Surface.h"
 #include "Graphics/Vulkan/Instance.h"
 #include "Graphics/Vulkan/Surface/Swapchain.h"
-#include "Graphics/Vulkan/Queue/PresentQueue.h"
 #include "Graphics/Vulkan/Device/PhysicalDevice.h"
 #include "Graphics/Vulkan/Device/DeviceMemory.h"
 #include "Graphics/Vulkan/RenderPass.h"
@@ -59,7 +58,7 @@ RenderEngine::RenderEngine() {
 }
 
 RenderEngine::~RenderEngine() {
-    submitQueue->waitIdle();
+    queue->waitIdle();
 
     if (graphicsDevice) {
         graphicsDevice->waitIdle();
@@ -82,19 +81,20 @@ void RenderEngine::render(Screen* screen) {
         resizeSwapchain();
     }
 
-    submitQueue->clearWaitSemaphores();
-    submitQueue->addWaitSemaphore(imageAvailableSemaphore.get());
+    queue->clearWaitSemaphores();
+    queue->addWaitSemaphore(imageAvailableSemaphore.get());
 
-    submitQueue->clearCommandBuffers();
-    submitQueue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
+    queue->clearCommandBuffers();
+    queue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
                                   imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
-    submitQueue->submit();
+    queue->submit();
+    queue->waitIdle();
 
-    presentFence->wait();
-    presentFence->reset();
+//    presentFence->wait();
+//    presentFence->reset();
 
-    presentQueue->present();
-    vkQueueSubmit(presentQueue->getHandle(), 0, nullptr, presentFence->getHandle());
+    queue->present();
+//    vkQueueSubmit(queue->getHandle(), 0, nullptr, presentFence->getHandle());
 }
 
 void RenderEngine::createAll() {
@@ -142,9 +142,6 @@ void RenderEngine::createAll() {
 
     device = RenderEngine::get()->getGraphicsDevice();
 
-    presentQueue = std::make_unique<Vulkan::PresentQueue>(device, graphicsFamily);
-    presentQueue->create();
-
     presentFence = std::make_unique<Vulkan::Fence>(device);
     presentFence->setSignaledBit();
     presentFence->create();
@@ -154,7 +151,10 @@ void RenderEngine::createAll() {
 
     renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     renderFinishedSemaphore->create();
-    presentQueue->addWaitSemaphore(renderFinishedSemaphore.get());
+
+    queue = std::make_unique<Vulkan::Queue>(device, graphicsFamily);
+    queue->create();
+    queue->addWaitSemaphore(renderFinishedSemaphore.get());
 
     SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
@@ -175,9 +175,6 @@ void RenderEngine::createAll() {
     swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
 
     resizeSwapchain();
-
-    submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, graphicsFamily);
-    submitQueue->create();
 }
 
 void RenderEngine::createShaderPrograms() {
@@ -281,8 +278,8 @@ void RenderEngine::resizeSwapchain() {
 
     swapchain->destroy();
     swapchain->create();
-    presentQueue->clearSwapchains();
-    presentQueue->addSwapchain(swapchain.get());
+    queue->clearSwapchains();
+    queue->addSwapchain(swapchain.get());
 
     imageViews.clear();
     framebuffers.clear();

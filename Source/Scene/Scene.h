@@ -33,7 +33,7 @@ public:
     // Swap last to cameras
     void switchCamera();
 
-//    Vulkan::SubmitQueue* getQueue() const { return queue.get(); }
+//    Vulkan::Queue* getQueue() const { return queue.get(); }
 //    Vulkan::Semaphore* getRenderFinishedSemaphore() const { return renderFinishedSemaphore.get(); }
 //    void setRenderPass(Vulkan::RenderPass* renderPass);
 
@@ -54,7 +54,7 @@ protected:
     Pos2 position = { 0, 0 };
     Size size;
 //    std::shared_ptr<Vulkan::CommandBuffers> commandBuffers;
-//    std::shared_ptr<Vulkan::SubmitQueue> queue;
+//    std::shared_ptr<Vulkan::Queue> queue;
 //    std::shared_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
 
 private:

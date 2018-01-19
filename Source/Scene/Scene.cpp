@@ -6,7 +6,7 @@
 #include "Graphics/Vulkan/Semaphore.h"
 #include "Graphics/Vulkan/Command/CommandBuffers.h"
 #include "Graphics/Vulkan/Command/CommandBuffer.h"
-#include "Graphics/Vulkan/Queue/SubmitQueue.h"
+#include "Graphics/Vulkan/Queue/Queue.h"
 #include "Graphics/Vulkan/RenderPass.h"
 #include "Graphics/Vulkan/Framebuffer.h"
 #include "Event/Input.h"
@@ -26,7 +26,7 @@ Scene::Scene() {
 //    renderFinishedSemaphore = std::make_shared<Vulkan::Semaphore>();
 //    renderFinishedSemaphore->create();
 
-//    queue = std::make_shared<Vulkan::SubmitQueue>(Vulkan::Instance::get()->getGraphicsFamily());
+//    queue = std::make_shared<Vulkan::Queue>(Vulkan::Instance::get()->getGraphicsFamily());
 //    queue->addSignalSemaphore(renderFinishedSemaphore->getHandle());
 }
 

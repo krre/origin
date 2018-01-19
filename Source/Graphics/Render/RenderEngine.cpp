@@ -136,7 +136,7 @@ void RenderEngine::createAll() {
     computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
     computeCommandPool->create();
 
-    device = RenderEngine::get()->getGraphicsDevice();
+    device = graphicsDevice.get();
 
     imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     imageAvailableSemaphore->create();

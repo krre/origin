@@ -31,37 +31,34 @@ include_directories(${SDL2_INCLUDE_DIR})
 find_package(Bullet REQUIRED)
 include_directories(${BULLET_INCLUDE_DIRS})
 
-if(WIN32)
-    find_package(Vulkan REQUIRED)
-
-    include_directories(${Vulkan_INCLUDE_DIRS})
-    include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
-
-    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
-    string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
-
-    target_link_libraries(${EXECUTABLE_NAME}
-        ${Vulkan_LIBRARIES}
-        ${SPIRV_TOOLS_LIB}
-    )
-else()
-    include_directories($ENV{VULKAN_SDK}/include)
-
-    target_link_libraries(${EXECUTABLE_NAME}
-        $ENV{VULKAN_SDK}/lib/libvulkan.so
-        $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
-        X11-xcb
-    )
-endif()
+find_package(Vulkan REQUIRED)
+include_directories(${Vulkan_INCLUDE_DIRS})
 
 include_directories(Source)
 include_directories(ThirdParty)
 
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
+    ${Vulkan_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs
 )
+
+if(WIN32)
+    include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
+
+    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
+    string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
+
+    target_link_libraries(${EXECUTABLE_NAME}
+        ${SPIRV_TOOLS_LIB}
+    )
+else()
+    target_link_libraries(${EXECUTABLE_NAME}
+        $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
+        X11-xcb
+    )
+endif()
 
 # Show in QtCreator project tree
 file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*" "Source/Template/*.*")

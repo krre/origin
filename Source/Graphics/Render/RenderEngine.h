@@ -44,7 +44,7 @@ public:
     Vulkan::CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
 
     void render(Screen* screen);
-    void resize(int width, int height);
+    void resizeSwapchain();
     void saveScreenshot();
 
 private:

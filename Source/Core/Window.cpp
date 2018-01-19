@@ -113,7 +113,7 @@ void Window::onResize(int width, int height) {
         screen->resize(width, height);
     }
 
-    RenderEngine::get()->resize(width, height);
+    RenderEngine::get()->resizeSwapchain();
 }
 
 void Window::toggleFullScreen() {

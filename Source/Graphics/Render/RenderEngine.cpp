@@ -79,7 +79,7 @@ void RenderEngine::render(Screen* screen) {
 
     VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-        resize(surface->getCurrentExtent().width, surface->getCurrentExtent().height);
+        resizeSwapchain();
     }
 
     submitQueue->clearWaitSemaphores();
@@ -168,16 +168,13 @@ void RenderEngine::createAll() {
 
     surface->create();
 
-    VkExtent2D currentExtent = surface->getCurrentExtent();
-
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
     renderPass->setColorFormat(surface->getFormats().at(0).format);
-    renderPass->setExtent(currentExtent);
     renderPass->create();
 
     swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
 
-    resize(window->getWidth(), window->getHeight());
+    resizeSwapchain();
 
     submitQueue = std::make_unique<Vulkan::SubmitQueue>(device, graphicsFamily);
     submitQueue->create();
@@ -249,7 +246,6 @@ void RenderEngine::updateCommandBuffers() {
         scissor.offset = { 0, 0 };
         scissor.extent = extent;
 
-        renderPass->setExtent(extent);
         commandBuffer->beginRenderPass(renderPass->getBeginInfo());
 
         //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
@@ -278,7 +274,11 @@ void RenderEngine::updateCommandBuffers() {
     }
 }
 
-void RenderEngine::resize(int width, int height) {
+void RenderEngine::resizeSwapchain() {
+    uint32_t width = surface->getCurrentExtent().width;
+    uint32_t height = surface->getCurrentExtent().height;
+    renderPass->setExtent({ width, height });
+
     swapchain->destroy();
     swapchain->create();
     presentQueue->clearSwapchains();
@@ -302,8 +302,6 @@ void RenderEngine::resize(int width, int height) {
         imageViews.push_back(std::move(imageView));
         framebuffers.push_back(std::move(framebuffer));
     }
-
-    renderPass->setExtent({ (uint32_t)width, (uint32_t)height });
 
     updateCommandBuffers();
 }

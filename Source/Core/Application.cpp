@@ -78,7 +78,6 @@ void Application::init() {
 
     Event::get()->quit.connect(this, &Application::quit);
 
-    window->onResize(window->getWidth(), window->getHeight());
     window->show();
 
     running = true;

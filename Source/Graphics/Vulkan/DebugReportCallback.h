@@ -1,5 +1,6 @@
 #pragma once
 #include "Base/Handle.h"
+#include <iostream>
 
 namespace Origin {
 
@@ -7,8 +8,9 @@ namespace Vulkan {
 
     class Instance;
 
-static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objType, uint64_t obj, size_t location, int32_t code, const char* layerPrefix, const char* msg, void* userData) {
-//    std::cerr << "Validation layer: " << msg << std::endl;
+static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objectType, uint64_t object,
+                                                           size_t location, int32_t messageCode, const char* pLayerPrefix, const char* pMessage, void* userData) {
+    std::cerr << "Validation layer: " << pMessage << std::endl;
 
     return VK_FALSE;
 }

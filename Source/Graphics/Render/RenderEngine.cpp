@@ -93,50 +93,66 @@ void RenderEngine::render(Screen* screen) {
 void RenderEngine::createAll() {
     instance = std::make_unique<Vulkan::Instance>();
 
-    if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
-        instance->setEnabledLayers(DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]);
-    }
+    if (DebugEnvironment::get()->getEnable()) {
+        if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
+            instance->setEnabledLayers(DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]);
+        }
 
-    if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
-        instance->setEnabledExtensions(DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]);
+        if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
+            instance->setEnabledExtensions(DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]);
+        }
     }
 
     instance->create();
 
     physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance.get());
-    physicalDevices->dumpDevices();
 
-    // Create graphics logical device and command pool
-    Vulkan::PhysicalDevice* gpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
-    if (gpd == nullptr) {
-        gpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+    // Default graphics and compute device are same
+    Vulkan::PhysicalDevice* graphicsPhysicalDevice = physicalDevices->getPhysicalDevice(0);
+    Vulkan::PhysicalDevice* computePhysicalDevice = physicalDevices->getPhysicalDevice(0);
+
+    if (physicalDevices->getCount() > 1) {
+        if (DebugEnvironment::get()->getEnable()) {
+            // Take from debug settings
+            int index = DebugEnvironment::get()->getVulanDevice();
+            graphicsPhysicalDevice = physicalDevices->getPhysicalDevice(index);
+            computePhysicalDevice = physicalDevices->getPhysicalDevice(1 - index);
+        } else {
+            // Select by hardware properties
+            graphicsPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+            if (graphicsPhysicalDevice == nullptr) {
+                graphicsPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+            }
+
+            computePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+            if (computePhysicalDevice == nullptr) {
+                computePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+            }
+        }
     }
 
-    graphicsDevice = std::make_unique<Vulkan::Device>(gpd);
+    // Create graphics logical device and command pool
+    graphicsDevice = std::make_unique<Vulkan::Device>(graphicsPhysicalDevice);
     graphicsDevice->addQueueCreateInfo(graphicsFamily, { 1.0 });
     graphicsDevice->create();
 
-    graphicsFamily = gpd->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
+    graphicsFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
 
     graphicsCommandPool = std::make_shared<Vulkan::CommandPool>(graphicsDevice.get(), graphicsFamily);
     graphicsCommandPool->create();
 
     // Create compute logical device and command pool
-    Vulkan::PhysicalDevice* cpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
-    if (cpd == nullptr) {
-        cpd = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
-    }
-
-    computeDevice = std::make_unique<Vulkan::Device>(gpd);
+    computeDevice = std::make_unique<Vulkan::Device>(computePhysicalDevice);
     computeDevice->addQueueCreateInfo(computeFamily, { 1.0 });
     computeDevice->create();
 
-    computeFamily = gpd->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
+    computeFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
 
     computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
     computeCommandPool->create();
 
     device = graphicsDevice.get();
+    PRINT(graphicsPhysicalDevice->getProperties().deviceName)
 
     imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     imageAvailableSemaphore->create();

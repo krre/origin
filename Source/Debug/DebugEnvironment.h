@@ -14,6 +14,7 @@ public:
     bool getEnable() const { return enable; }
     void setDebugScreen();
     json& getSettings() { return settings; }
+    int getVulanDevice() { return settings["vulkan"]["device"]; }
 
 private:
     void loadValues();

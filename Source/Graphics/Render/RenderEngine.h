@@ -6,22 +6,21 @@
 namespace Origin {
 
 namespace Vulkan {
-    class Instance;
-    class PhysicalDevices;
-    class Device;
-    class CommandPool;
-    class Semaphore;
-    class Queue;
     class CommandBuffer;
     class CommandBuffers;
-    class Surface;
-    class Swapchain;
-    class RenderPass;
+    class CommandPool;
+    class Device;
+    class Framebuffer;
     class Image;
     class ImageView;
-    class Framebuffer;
+    class Instance;
+    class PhysicalDevices;
+    class Queue;
+    class RenderPass;
     class Semaphore;
-    class Fence;
+    class Semaphore;
+    class Surface;
+    class Swapchain;
 }
 
 class Window;
@@ -63,7 +62,6 @@ private:
     std::vector<std::unique_ptr<Vulkan::ImageView>> imageViews;
     std::unique_ptr<Vulkan::Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Vulkan::Semaphore> renderFinishedSemaphore;
-    std::unique_ptr<Vulkan::Fence> presentFence;
     std::unique_ptr<Vulkan::Queue> queue;
     std::unique_ptr<Vulkan::CommandBuffers> commandBufferHandlers;
     std::vector<std::unique_ptr<Vulkan::CommandBuffer>> commandBuffers;

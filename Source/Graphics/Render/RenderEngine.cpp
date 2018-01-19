@@ -88,13 +88,7 @@ void RenderEngine::render(Screen* screen) {
     queue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
                                   imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT, renderFinishedSemaphore.get());
     queue->submit();
-    queue->waitIdle();
-
-//    presentFence->wait();
-//    presentFence->reset();
-
     queue->present();
-//    vkQueueSubmit(queue->getHandle(), 0, nullptr, presentFence->getHandle());
 }
 
 void RenderEngine::createAll() {
@@ -141,10 +135,6 @@ void RenderEngine::createAll() {
     computeCommandPool->create();
 
     device = RenderEngine::get()->getGraphicsDevice();
-
-    presentFence = std::make_unique<Vulkan::Fence>(device);
-    presentFence->setSignaledBit();
-    presentFence->create();
 
     imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
     imageAvailableSemaphore->create();

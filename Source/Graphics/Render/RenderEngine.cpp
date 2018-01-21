@@ -87,7 +87,7 @@ void RenderEngine::render(Screen* screen) {
                             imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
     queue->submit();
     queue->present();
-    queue->waitIdle();
+//    queue->waitIdle();
 }
 
 void RenderEngine::createAll() {

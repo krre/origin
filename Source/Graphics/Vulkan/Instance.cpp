@@ -62,11 +62,13 @@ void Instance::create() {
 
     VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
 
-    for (const auto& layer : enabledExtensions) {
-        if (layer == "VK_EXT_debug_report") {
-            debugCallback = std::make_unique<DebugReportCallback>(this);
-            debugCallback->create();
-            break;
+    if (useDebugCallback) {
+        for (const auto& layer : enabledExtensions) {
+            if (layer == "VK_EXT_debug_report") {
+                debugCallback = std::make_unique<DebugReportCallback>(this);
+                debugCallback->create();
+                break;
+            }
         }
     }
 }

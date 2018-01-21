@@ -26,6 +26,8 @@ public:
     void setEnabledExtensions(const std::vector<std::string> enabledExtensions);
     void dumpExtensions();
 
+    void setUseDebugCallback(bool useDebugCallback) { this->useDebugCallback = useDebugCallback; }
+
     static std::string apiToString(int api);
 
 private:
@@ -36,6 +38,7 @@ private:
     std::vector<VkExtensionProperties> extensionProperties;
     std::vector<std::string> enabledExtensions;
     std::unique_ptr<DebugReportCallback> debugCallback;
+    bool useDebugCallback = false;
 };
 
 } // Vulkan

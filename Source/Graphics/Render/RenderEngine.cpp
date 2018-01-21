@@ -103,6 +103,7 @@ void RenderEngine::createAll() {
         }
     }
 
+//    instance->setUseDebugCallback(true); // TODO: Take from debug settings
     instance->create();
 
     physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance.get());

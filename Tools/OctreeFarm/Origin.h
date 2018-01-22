@@ -3,6 +3,10 @@
 #include <QtGlobal>
 #ifdef Q_OS_UNIX
     #define UNIX
-#elif Q_OS_WIN32
-    #define WIN32
+#endif
+
+#ifdef Q_OS_WIN
+    #ifndef WIN32
+        #define WIN32
+    #endif
 #endif

@@ -1,6 +1,8 @@
 #include "MainWindow.h"
 #include <QtWidgets>
 
+namespace AssemblyBox {
+
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     settings = new QSettings(QApplication::applicationDirPath() + "/" + QApplication::applicationName() + ".ini", QSettings::IniFormat);
 
@@ -100,3 +102,5 @@ void MainWindow::writeSettings() {
     settings->setValue("General/geometry", saveGeometry());
     settings->setValue("General/splitter", splitter.saveState());
 }
+
+} // AssemblyBox

@@ -5,6 +5,8 @@
 #include <QSettings>
 #include <QSplitter>
 
+namespace AssemblyBox {
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -31,3 +33,5 @@ private:
     Properties* properties;
     QSplitter splitter;
 };
+
+} // AssemblyBox

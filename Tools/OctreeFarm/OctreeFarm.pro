@@ -6,7 +6,7 @@ TEMPLATE = app
 win32: LIBS += -L$$(GLEW_HOME)/lib -lglew32 -lopengl32
 linux: LIBS += -lGLEW
 
-INCLUDEPATH += "../../ThirdParty" $$(GLEW_HOME)/include
+INCLUDEPATH += "../../ThirdParty" $$(GLEW_HOME)/include "../../Source"
 
 SOURCES += main.cpp\
     MainWindow.cpp \
@@ -31,4 +31,5 @@ HEADERS  += MainWindow.h \
     ../../Source/Core/Object.h \
     Defines.h \
     Command.h \
-    OptionsDialog.h
+    OptionsDialog.h \
+    Origin.h

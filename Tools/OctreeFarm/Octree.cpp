@@ -46,17 +46,18 @@ bool Octree::load(const QString& fileName) {
 }
 
 void Octree::setIsModified(bool isModified) {
-    if (this->isModified == isModified) return;
-    this->isModified = isModified;
+    if (isModified == isModified) return;
+    isModified = isModified;
     emit isModifiedChanged(isModified);
 }
 
 int Octree::colorAttachOffset(int parent, int childIndex) {
-    int pageHeader = parent & -pageBytes;
-    int blockInfo = pageHeader + storage->at(pageHeader);
-    int attachData = blockInfo + blockInfoEnd;
-    int paletteNode = storage->at(attachData + parent - 1);
-    return attachData + (paletteNode >> 8) + std::bitset<8>(paletteNode & ((1 << childIndex) - 1)).count();
+//    int pageHeader = parent & -pageBytes;
+//    int blockInfo = pageHeader + storage->at(pageHeader);
+//    int attachData = blockInfo + blockInfoEnd;
+//    int paletteNode = storage->at(attachData + parent - 1);
+//    return attachData + (paletteNode >> 8) + std::bitset<8>(paletteNode & ((1 << childIndex) - 1)).count();
+    return 0;
 }
 
 void Octree::confirmUpdate() {

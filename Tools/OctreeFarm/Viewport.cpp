@@ -29,8 +29,8 @@ void Viewport::initializeGL() {
     program.link();
     program.bind();
 
-    program.setUniformValue("pageBytes", pageBytes);
-    program.setUniformValue("blockInfoEnd", blockInfoEnd);
+//    program.setUniformValue("pageBytes", pageBytes);
+//    program.setUniformValue("blockInfoEnd", blockInfoEnd);
     program.setUniformValue("backgroundColor", backgroundColor);
     program.setUniformValue("pickPixel", QPoint(-1, -1));
 
@@ -51,7 +51,7 @@ void Viewport::initializeGL() {
 
     glGenBuffers(1, &octreesSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, octreesSsbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER, pageBytes, NULL, GL_DYNAMIC_COPY);
+//    glBufferData(GL_SHADER_STORAGE_BUFFER, pageBytes, NULL, GL_DYNAMIC_COPY);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 0, octreesSsbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
@@ -123,8 +123,8 @@ void Viewport::paintGL() {
     transform.append(stepH);
 
     int size = sizeof(glm::vec4) * transform.size();
-    int offset = pageBytes - size;
-    updateOctreeInGPU(offset, transform.data(), size);
+//    int offset = pageBytes - size;
+//    updateOctreeInGPU(offset, transform.data(), size);
 
     program.bind();
 

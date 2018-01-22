@@ -35,8 +35,8 @@ public:
     bool load(const QString& fileName);
     void confirmUpdate();
 
-    void setIsModified(bool modified);
-    bool isModified() const { return modified; }
+    void setIsModified(bool isModified);
+    bool getIsModified() const { return isModified; }
 
     void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append = false);
 
@@ -49,7 +49,7 @@ public slots:
     void paste();
 
 signals:
-    void isModifiedChanged(bool modified);
+    void isModifiedChanged(bool isModified);
     void nodeSelected(int level, int index, const QColor& color);
     void nodeDeselected();
     void dataChanged();
@@ -63,6 +63,6 @@ private:
     uint32_t selectionColor = 0xFF909090;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);
-    bool modified = false;
+    bool isModified = false;
     Clipboard clipboard;
 };

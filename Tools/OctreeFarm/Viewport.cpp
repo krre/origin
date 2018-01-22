@@ -92,12 +92,12 @@ void Viewport::initializeGL() {
 
 void Viewport::paintGL() {
     QVector<glm::vec4> transform;
-    transform.append(octree->octreeToWorld()[0]);
-    transform.append(octree->octreeToWorld()[1]);
-    transform.append(octree->octreeToWorld()[2]);
-    transform.append(octree->octreeToWorld()[3]);
+    transform.append(octree->getOctreeToWorld()[0]);
+    transform.append(octree->getOctreeToWorld()[1]);
+    transform.append(octree->getOctreeToWorld()[2]);
+    transform.append(octree->getOctreeToWorld()[3]);
 
-    glm::mat4 cameraToOctree = octree->worldToOctree() * camera.getCameraToWorld();
+    glm::mat4 cameraToOctree = octree->getWorldToOctree() * camera.getCameraToWorld();
     transform.append(cameraToOctree[3]);
 
     glm::vec4 up = glm::vec4(camera.up(), 0.0);

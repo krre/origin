@@ -27,8 +27,8 @@ public:
     uint32_t* data() { return storage->data(); }
     int count() { return storage->size(); }
 
-    glm::mat4 octreeToWorld() const { return m_octreeToWorld; }
-    glm::mat4 worldToOctree() const { return m_worldToOctree; }
+    glm::mat4 getOctreeToWorld() const { return octreeToWorld; }
+    glm::mat4 getWorldToOctree() const { return worldToOctree; }
 
     void createNew();
     bool save(const QString& fileName);
@@ -61,8 +61,8 @@ private:
     QSharedPointer<QVector<uint32_t>> storage;
     QVector<QSharedPointer<Node>> selection;
     uint32_t selectionColor = 0xFF909090;
-    glm::mat4 m_octreeToWorld = glm::mat4(1.0);
-    glm::mat4 m_worldToOctree = glm::mat4(1.0);
+    glm::mat4 octreeToWorld = glm::mat4(1.0);
+    glm::mat4 worldToOctree = glm::mat4(1.0);
     bool isModified = false;
     Clipboard clipboard;
 };

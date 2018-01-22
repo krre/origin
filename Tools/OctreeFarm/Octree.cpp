@@ -5,7 +5,7 @@
 #include <bitset>
 
 Octree::Octree(QObject* parent) : QObject(parent) {
-    m_worldToOctree = glm::inverse(m_octreeToWorld);
+    worldToOctree = glm::inverse(octreeToWorld);
 }
 
 void Octree::createNew() {

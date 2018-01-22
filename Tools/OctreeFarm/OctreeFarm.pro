@@ -1,5 +1,5 @@
 QT += widgets
-CONFIG += c++11
+CONFIG += c++17
 TARGET = OctreeFarm
 TEMPLATE = app
 

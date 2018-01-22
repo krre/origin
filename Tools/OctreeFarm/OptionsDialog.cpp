@@ -1,6 +1,8 @@
 #include "OptionsDialog.h"
 #include <QtWidgets>
 
+namespace OctreeFarm {
+
 OptionsDialog::OptionsDialog(QWidget* parent) : QDialog(parent) {
     setWindowTitle(tr("Options"));
     setMinimumSize(400, 300);
@@ -18,3 +20,5 @@ OptionsDialog::OptionsDialog(QWidget* parent) : QDialog(parent) {
 void OptionsDialog::onAccepted() {
     qDebug() << "accepted";
 }
+
+} // OctreeFarm

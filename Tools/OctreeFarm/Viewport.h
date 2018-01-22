@@ -8,6 +8,8 @@
 #include <QOpenGLShaderProgram>
 #include <cstdint>
 
+namespace OctreeFarm {
+
 const int LOD_PIXEL_LIMIT = 1;
 
 class Viewport : public QOpenGLWidget {
@@ -70,3 +72,5 @@ private:
     QPoint pick;
     bool isReady = false;
 };
+
+} // OctreeFarm

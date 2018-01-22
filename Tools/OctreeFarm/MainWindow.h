@@ -9,6 +9,8 @@
 #include <QFileDialog>
 #include <QUndoStack>
 
+namespace OctreeFarm {
+
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -54,3 +56,5 @@ private:
     QString currentFile;
     QUndoStack* undoStack;
 };
+
+} // OctreeFarm

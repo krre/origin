@@ -5,6 +5,8 @@
 #include <QtCore>
 #include <bitset>
 
+namespace OctreeFarm {
+
 Source::Source(QObject* parent) : QObject(parent) {
 
 }
@@ -282,3 +284,5 @@ glm::vec3 Source::pathToPos(const QVector<int> path) {
 
     return pos;
 }
+
+} // OctreeFarm

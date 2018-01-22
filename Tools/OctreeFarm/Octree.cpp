@@ -4,6 +4,8 @@
 #include "../../Source/Core/Utils.h"
 #include <bitset>
 
+namespace OctreeFarm {
+
 Octree::Octree(QObject* parent) : QObject(parent) {
     worldToOctree = glm::inverse(octreeToWorld);
 }
@@ -134,3 +136,5 @@ void Octree::paste() {
 //        changeNodeColor(clipboard.color);
     }
 }
+
+} // OctreeFarm

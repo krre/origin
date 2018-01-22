@@ -6,6 +6,8 @@
 #include <QLabel>
 #include <QUndoStack>
 
+namespace OctreeFarm {
+
 class Properties : public QWidget {
     Q_OBJECT
 
@@ -32,3 +34,5 @@ private:
     QLabel* levelLabel;
     QLabel* indexLabel;
 };
+
+} // OctreeFarm

@@ -2,6 +2,8 @@
 #include <QDialog>
 #include <QDialogButtonBox>
 
+namespace OctreeFarm {
+
 class OptionsDialog : public QDialog {
 
 public:
@@ -13,3 +15,5 @@ private slots:
 private:
     QDialogButtonBox* buttonBox;
 };
+
+} // OctreeFarm

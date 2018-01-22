@@ -2,6 +2,8 @@
 #include "Command.h"
 #include <QtWidgets>
 
+namespace OctreeFarm {
+
 Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack) :
     octree(octree),
     viewport(viewport),
@@ -100,3 +102,5 @@ void Properties::levelMinus() {
 void Properties::levelReset() {
     qDebug() << "level reset";
 }
+
+} // OctreeFarm

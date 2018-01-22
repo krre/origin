@@ -3,6 +3,8 @@
 #include "OptionsDialog.h"
 #include <QtWidgets>
 
+namespace OctreeFarm {
+
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent) {
     undoStack = new QUndoStack(this);
     settings = new QSettings(QApplication::applicationDirPath() + "/" + QApplication::applicationName() + ".ini", QSettings::IniFormat);
@@ -314,3 +316,5 @@ void MainWindow::about() {
 void MainWindow::initViewport() {
     readSettings();
 }
+
+} // OctreeFarm

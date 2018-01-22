@@ -2,6 +2,8 @@
 #include <QtCore>
 #include <iostream>
 
+namespace OctreeFarm {
+
 Camera::Camera(QObject* parent) : QObject(parent) {
     reset();
 }
@@ -65,3 +67,5 @@ void Camera::update() {
     m_worldToCamera = glm::lookAt(m_position, m_target, m_up);
     cameraToWorld = glm::inverse(m_worldToCamera);
 }
+
+} // OctreeFarm

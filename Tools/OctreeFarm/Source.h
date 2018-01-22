@@ -6,6 +6,8 @@
 #include <json/json.hpp>
 #include <glm/glm.hpp>
 
+namespace OctreeFarm {
+
 struct Node;
 
 using json = nlohmann::json;
@@ -37,3 +39,5 @@ private:
     json root;
     uint32_t defaultColor = 0xFF4681FF;
 };
+
+} // OctreeFarm

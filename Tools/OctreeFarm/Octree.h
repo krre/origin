@@ -6,6 +6,8 @@
 #include <QSharedPointer>
 #include <glm/ext.hpp>
 
+namespace OctreeFarm {
+
 struct Node {
     uint32_t parent;
     uint32_t childIndex;
@@ -66,3 +68,5 @@ private:
     bool isModified = false;
     Clipboard clipboard;
 };
+
+} // OctreeFarm

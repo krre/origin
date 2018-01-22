@@ -6,7 +6,7 @@ int main(int argc, char* argv[]) {
     app.setApplicationName("OctreeFarm");
     app.setApplicationVersion("0.1.0");
 
-    MainWindow window;
+    OctreeFarm::MainWindow window;
     window.show();
 
     return app.exec();

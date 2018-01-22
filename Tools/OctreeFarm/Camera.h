@@ -2,6 +2,8 @@
 #include <QObject>
 #include <glm/ext.hpp>
 
+namespace OctreeFarm {
+
 class Camera : public QObject {
     Q_OBJECT
 
@@ -45,3 +47,5 @@ private:
     float m_yaw;
     float m_pitch;
 };
+
+} // OctreeFarm

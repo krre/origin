@@ -6,6 +6,8 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
 
+namespace OctreeFarm {
+
 Viewport::Viewport(Octree* octree) : octree(octree) {
     QSurfaceFormat format;
     format.setVersion(3, 3);
@@ -233,3 +235,5 @@ void Viewport::setShadeless(bool shadeless) {
     program.setUniformValue("shadeless", shadeless);
     update();
 }
+
+} // OctreeFarm

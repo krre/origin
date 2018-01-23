@@ -5,6 +5,7 @@
 
 namespace Vulkan {
     class ShaderProgram;
+    class GpuBuffer;
 }
 
 namespace Origin {
@@ -14,8 +15,6 @@ const int LOD_PIXEL_LIMIT = 1;
 class Console;
 class Plane;
 class ShaderProgram;
-class VertexBuffer;
-class IndexBuffer;
 
 class WorldScene : public Scene3D {
 
@@ -67,8 +66,8 @@ private:
 //    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
     void onKeyPressed(const SDL_KeyboardEvent& event) override;
 
-    std::unique_ptr<VertexBuffer> vertexBuffer;
-    std::unique_ptr<IndexBuffer> indexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> indexBuffer;
     std::shared_ptr<Console> console;
     EntityId characterId;
     uint64_t seed;

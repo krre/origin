@@ -1,8 +1,7 @@
 #include "Scene2D.h"
 #include "Gui/Control.h"
 #include "VulkanRenderer/API/Queue.h"
-#include "Graphics/Buffer/VertexBuffer.h"
-#include "Graphics/Buffer/IndexBuffer.h"
+#include "VulkanRenderer/GpuBuffer.h"
 #include "Gui/Batch2D.h"
 
 namespace Origin {

@@ -5,13 +5,10 @@
 
 namespace Vulkan {
     class Texture;
-    class Buffer;
+    class GpuBuffer;
 }
 
 namespace Origin {
-
-class VertexBuffer;
-class IndexBuffer;
 
 class Font : public Resource {
 
@@ -37,7 +34,7 @@ public:
     void setSize(int size);
     int getSize() const { return size; }
     void load(const std::string& path) override;
-    void renderText(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, const std::string& text);
+    void renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* indexBuffer, const std::string& text);
     Vulkan::Texture* getTexture() const { return texture.get(); }
     uint32_t getIndexCount() const { return indexCount; }
 

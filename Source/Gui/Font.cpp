@@ -2,8 +2,7 @@
 #include "Resource/ResourceManager.h"
 #include "Core/Utils.h"
 #include "VulkanRenderer/Texture.h"
-#include "Graphics/Buffer/VertexBuffer.h"
-#include "Graphics/Buffer/IndexBuffer.h"
+#include "VulkanRenderer/GpuBuffer.h"
 #include "VulkanRenderer/API/Image/Image.h"
 #include "VulkanRenderer/API/Image/ImageView.h"
 #include <fstream>
@@ -99,7 +98,7 @@ void Font::load(const std::string& path) {
     avarageCharacterWidth = charactersWidthSum / charactersCount;
 }
 
-void Font::renderText(VertexBuffer* vertexBuffer, IndexBuffer* indexBuffer, const std::string& text) {
+void Font::renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* indexBuffer, const std::string& text) {
     std::vector<Vertex> vertices;
     std::vector<uint32_t> indices;
     uint32_t indexOffset = 0;

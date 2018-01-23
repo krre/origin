@@ -1,4 +1,3 @@
-add_subdirectory(Buffer)
 add_subdirectory(Light)
 add_subdirectory(Render)
 add_subdirectory(Voxel)

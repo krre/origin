@@ -108,7 +108,7 @@ void RenderEngine::saveScreenshot() {
 }
 
 void RenderEngine::prepare() {
-//    renderer2d->prepare(screen->getRootControl());
+    renderer2d->prepare(window->getScreen()->getRootControl());
     renderer2d->render();
 
     for (auto view3d : renderer2d->getRenderViews()) {

@@ -28,6 +28,7 @@ public:
     void pushScreen(const std::shared_ptr<Screen>& screen);
     void popScreen();
     void setScreen(const std::shared_ptr<Screen>& screen);
+    Screen* getScreen() const { return screens.back().get(); }
 
     void show();
     void update(float dt);

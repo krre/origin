@@ -20,7 +20,7 @@ class ShaderProgram;
 class RenderEngine : public Vulkan::Renderer {
 
 public:
-    RenderEngine();
+    RenderEngine(WindowSettings windowSettings);
     ~RenderEngine();
 
     void saveScreenshot();

@@ -39,7 +39,7 @@
 
 namespace Origin {
 
-RenderEngine::RenderEngine() {
+RenderEngine::RenderEngine(WindowSettings windowSettings) : Vulkan::Renderer(windowSettings) {
     window = Application::get()->getWindow();
 }
 

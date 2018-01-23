@@ -17,6 +17,7 @@
 #include <SDL_timer.h>
 #include <algorithm>
 #include <experimental/filesystem>
+#include <SDL_syswm.h>
 
 namespace Origin {
 
@@ -56,19 +57,33 @@ void Application::init() {
 
         SDLWrapper::init();
         window = std::make_unique<Window>();
-        renderEngine = std::make_unique<RenderEngine>();
 
-        if (DebugEnvironment::get()->getEnable()) {
-            if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
-                renderEngine->setEnabledLayers(DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]);
-            }
+        RenderEngine::WindowSettings windowSettings;
+        SDL_SysWMinfo wminfo;
+        SDL_VERSION(&wminfo.version);
+        SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
 
-            if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
-                renderEngine->setEnabledExtensions(DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]);
-            }
+#if defined(OS_WIN)
+        windowSettings.hinstance = GetModuleHandle(nullptr);
+        windowSettings.hwnd = wminfo.info.win.window
+#elif defined(OS_LINUX)
+        windowSettings.connection = XGetXCBConnection(wminfo.info.x11.display);
+        windowSettings.window = wminfo.info.x11.window;
+#endif
 
-            renderEngine->setDeviceIndex(DebugEnvironment::get()->getVulkanDevice());
-        }
+        renderEngine = std::make_unique<RenderEngine>(windowSettings);
+
+//        if (DebugEnvironment::get()->getEnable()) {
+//            if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
+//                renderEngine->setEnabledLayers(DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]);
+//            }
+
+//            if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
+//                renderEngine->setEnabledExtensions(DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]);
+//            }
+
+//            renderEngine->setDeviceIndex(DebugEnvironment::get()->getVulkanDevice());
+//        }
         renderEngine->create();
 
         new ResourceManager;

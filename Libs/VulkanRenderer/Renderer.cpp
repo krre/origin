@@ -24,17 +24,11 @@
 #include "API/Image/ImageView.h"
 #include "API/Command/CommandBufferOneTime.h"
 
-#if defined(_WIN32)
-    #include "API/Surface/Win32Surface.h"
-#elif defined(__linux__)
-    #include "API/Surface/XcbSurface.h"
-#endif
-
 namespace Vulkan {
 
 Renderer* Renderer::renderer = nullptr;
 
-Renderer::Renderer() {
+Renderer::Renderer(WindowSettings windowSettings) : windowSettings(windowSettings) {
     assert(renderer == nullptr);
     renderer = this;
 }
@@ -121,9 +115,9 @@ void Renderer::create() {
     queue->addPresentWaitSemaphore(renderFinishedSemaphore.get());
 
 #if defined(_WIN32)
-    surface = std::make_unique<Win32Surface>(instance.get(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_unique<Win32Surface>(instance.get(), device->getPhysicalDevice(), windowSettings.hinstance, windowSettings.hwnd);
 #elif defined(__linux__)
-    surface = std::make_unique<XcbSurface>(instance.get(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+    surface = std::make_unique<XcbSurface>(instance.get(), device->getPhysicalDevice(), windowSettings.connection, windowSettings.window);
 #endif
 
     surface->create();

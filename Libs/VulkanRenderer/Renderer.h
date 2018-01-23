@@ -2,6 +2,12 @@
 #include <memory>
 #include <vector>
 
+#if defined(_WIN32)
+    #include "API/Surface/Win32Surface.h"
+#elif defined(__linux__)
+    #include "API/Surface/XcbSurface.h"
+#endif
+
 namespace Vulkan {
 
 class CommandBuffer;
@@ -23,7 +29,17 @@ class Swapchain;
 class Renderer {
 
 public:
-    Renderer();
+    struct WindowSettings {
+#if defined(_WIN32)
+    HINSTANCE hinstance;
+    HWND hwnd;
+#elif defined(__linux__)
+    xcb_connection_t* connection;
+    xcb_window_t window;
+#endif
+    };
+
+    Renderer(WindowSettings windowSettings);
     ~Renderer();
 
     Device* getGraphicsDevice() const { return graphicsDevice.get(); }
@@ -72,6 +88,7 @@ private:
     int presetDevice = -1;
     Device* device;
     static Renderer* renderer;
+    WindowSettings windowSettings;
 };
 
 } // Vulkan

@@ -1,5 +1,5 @@
 QT += widgets
-CONFIG += c++14
+CONFIG += c++17
 TARGET = DebugSettingsEditor
 TEMPLATE = app
 DESTDIR = $$(ORIGIN_HOME)

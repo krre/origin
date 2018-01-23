@@ -33,7 +33,7 @@ void DebugEnvironment::loadValues() {
         settings = json::parse(text);
         enable = settings["general"]["enable"];
     } catch (const std::exception& ex) {
-        ERROR(ex.what())
+        PRINT(ex.what())
     };
 }
 

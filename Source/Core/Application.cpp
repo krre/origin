@@ -65,7 +65,7 @@ void Application::init() {
 
 #if defined(OS_WIN)
         windowSettings.hinstance = GetModuleHandle(nullptr);
-        windowSettings.hwnd = wminfo.info.win.window
+        windowSettings.hwnd = wminfo.info.win.window;
 #elif defined(OS_LINUX)
         windowSettings.connection = XGetXCBConnection(wminfo.info.x11.display);
         windowSettings.window = wminfo.info.x11.window;
@@ -94,7 +94,7 @@ void Application::init() {
         if (SDLWrapper::isInited()) {
             SDLWrapper::showErrorMessageBox(ex.what());
         } else {
-            ERROR(ex.what());
+            PRINT(ex.what());
         }
     }
 

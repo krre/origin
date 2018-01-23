@@ -4,7 +4,6 @@
 #ifndef QT_VERSION
     #include "Signal.h"
     #define PRINT(x) std::cout << x << std::endl;
-    #define ERROR(x) std::cerr << x << std::endl;
 #endif
 
 namespace Origin {

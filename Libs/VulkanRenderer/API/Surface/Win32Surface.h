@@ -6,9 +6,6 @@
 
 namespace Vulkan {
 
-class Instance;
-class PhysicalDevice;
-
 class Win32Surface : public Surface {
 
 public:

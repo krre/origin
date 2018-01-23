@@ -3,11 +3,6 @@
 #include "Graphics/Render/RenderState.h"
 #include "VulkanRenderer/ShaderProgram.h"
 
-namespace Vulkan {
-    class CommandBuffer;
-    class Framebuffer;
-}
-
 namespace Origin {
 
 class Window;

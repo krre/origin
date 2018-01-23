@@ -17,11 +17,11 @@ public:
     void destroy() override;
 
     const std::vector<VkLayerProperties>& getLayerProperties() const { return layersProperties; }
-    void setEnabledLayers(const std::vector<std::string> enabledLayers);
+    void setEnabledLayers(const std::vector<std::string>& enabledLayers);
     void dumpLayers();
 
     const std::vector<VkExtensionProperties>& getExtensionProperties() const { return extensionProperties; }
-    void setEnabledExtensions(const std::vector<std::string> enabledExtensions);
+    void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
     void dumpExtensions();
 
     void setUseDebugCallback(bool useDebugCallback) { this->useDebugCallback = useDebugCallback; }

@@ -75,7 +75,7 @@ void Instance::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyInstance(handle, nullptr))
 }
 
-void Instance::setEnabledLayers(const std::vector<std::string> enabledLayers) {
+void Instance::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
     this->enabledLayers = enabledLayers;
 }
 
@@ -87,7 +87,7 @@ void Instance::dumpLayers() {
     }
 }
 
-void Instance::setEnabledExtensions(const std::vector<std::string> enabledExtensions) {
+void Instance::setEnabledExtensions(const std::vector<std::string>& enabledExtensions) {
     this->enabledExtensions = enabledExtensions;
 }
 

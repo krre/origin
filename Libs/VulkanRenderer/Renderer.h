@@ -43,7 +43,7 @@ public:
     void updateCommandBuffers();
 
 protected:
-    virtual void writeCommandBuffers(CommandBuffer* commandBuffer) = 0;
+    virtual void writeCommandBuffers(CommandBuffer* commandBuffer, Framebuffer* framebuffer) = 0;
 
 private:
     void createAll();

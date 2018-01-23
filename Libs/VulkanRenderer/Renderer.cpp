@@ -299,7 +299,7 @@ void Renderer::updateCommandBuffers() {
     for (int i = 0; i < commandBuffers.size(); i++) {
         CommandBuffer* commandBuffer = commandBuffers.at(i).get();
         commandBuffer->reset();
-        writeCommandBuffers(commandBuffer);
+        writeCommandBuffers(commandBuffer, framebuffers.at(i).get());
     }
 }
 

@@ -14,7 +14,7 @@ class Buffer;
 class DescriptorSets;
 class DescriptorPool;
 
-namespace fs = std::experimental::filesystem;
+//namespace fs = std::experimental::filesystem;
 
 class VulkanShader {
 
@@ -99,7 +99,7 @@ private:
     std::map<std::string, VkDescriptorImageInfo> imageInfos;
     std::map<VkDescriptorType, uint32_t> descriptorsTypes;
     int vertexBindingCount = 0;
-    std::map<ShaderType, std::vector<fs::path>> files;
+//    std::map<ShaderType, std::vector<fs::path>> files;
 };
 
 } // Vulkan

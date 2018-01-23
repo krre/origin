@@ -259,15 +259,15 @@ ShaderProgram::ShaderProgram(const std::string& name) {
 //        }
 //    }
 
-    for (auto& it : files) {
-        for (auto& file : it.second) {
-            if (file.extension().string() == ".spv") {
-                std::unique_ptr<VulkanShader> shader = std::make_unique<VulkanShader>();
-                shader->load(file.string());
-                shaders.push_back(std::move(shader));
-            }
-        }
-    }
+//    for (auto& it : files) {
+//        for (auto& file : it.second) {
+//            if (file.extension().string() == ".spv") {
+//                std::unique_ptr<VulkanShader> shader = std::make_unique<VulkanShader>();
+//                shader->load(file.string());
+//                shaders.push_back(std::move(shader));
+//            }
+//        }
+//    }
 
     descriptorPool = std::make_unique<DescriptorPool>(device);
     descriptorSets = std::make_unique<DescriptorSets>(device, descriptorPool.get());

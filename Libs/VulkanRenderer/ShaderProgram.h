@@ -16,7 +16,7 @@ class DescriptorPool;
 
 //namespace fs = std::experimental::filesystem;
 
-class VulkanShader {
+class Shader {
 
     friend class ShaderProgram;
 
@@ -27,7 +27,7 @@ public:
         VkFormat format;
     };
 
-    VulkanShader();
+    Shader();
     void load(const std::string& path);
     VkShaderStageFlagBits getStage() const { return stage; }
     const uint32_t* getCodeData() const { return code.data(); }
@@ -90,7 +90,7 @@ private:
     std::unique_ptr<GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<PipelineLayout> pipelineLayout;
     std::unique_ptr<DescriptorPool> descriptorPool;
-    std::vector<std::unique_ptr<VulkanShader>> shaders;
+    std::vector<std::unique_ptr<Shader>> shaders;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
     std::unique_ptr<DescriptorSetLayout> descriptorSetLayout;
     std::unique_ptr<DescriptorSets> descriptorSets;

@@ -23,10 +23,10 @@
 
 namespace Vulkan {
 
-VulkanShader::VulkanShader() {
+Shader::Shader() {
 }
 
-void VulkanShader::load(const std::string& path) {
+void Shader::load(const std::string& path) {
     std::ifstream file(path, std::ios::ate | std::ios::binary);
 
     if (!file.is_open()) {
@@ -45,7 +45,7 @@ void VulkanShader::load(const std::string& path) {
     }
 }
 
-VkFormat VulkanShader::getFormat(const std::string& variableType, const std::string& valueType, int vectorCount) {
+VkFormat Shader::getFormat(const std::string& variableType, const std::string& valueType, int vectorCount) {
     if (variableType == "OpTypeVector") {
         if (valueType == "OpTypeFloat") {
             if (vectorCount == 2) {
@@ -59,7 +59,7 @@ VkFormat VulkanShader::getFormat(const std::string& variableType, const std::str
     assert(0);
 }
 
-void VulkanShader::parse() {
+void Shader::parse() {
     assert(bindings.empty());
     assert(locations.empty());
 
@@ -224,7 +224,7 @@ void VulkanShader::parse() {
     spvContextDestroy(context);
 }
 
-void VulkanShader::dumpBindings() {
+void Shader::dumpBindings() {
     std::cout << "Dump SPIR-V descriptors:" << std::endl;
     for (const auto& binding : bindings) {
         std::cout << "name: " << binding.first
@@ -234,7 +234,7 @@ void VulkanShader::dumpBindings() {
     }
 }
 
-void VulkanShader::dumpLocations() {
+void Shader::dumpLocations() {
     std::cout << "Dump SPIR-V inputs:" << std::endl;
     for (const auto& input : locations) {
         std::cout << "name: " << input.first
@@ -335,7 +335,7 @@ void ShaderProgram::createPipeline() {
             const std::string& name = location.first;
             const auto& inputInfoIt = locationInfos.find(name);
             if (inputInfoIt != locationInfos.end()) {
-                VulkanShader::Location* input = &location.second;
+                Shader::Location* input = &location.second;
                 locationInfos.at(name).location = input->location;
                 locationInfos.at(name).format = input->format;
                 graphicsPipeline->addVertexAttributeDescription(locationInfos.at(name));

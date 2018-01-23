@@ -47,6 +47,14 @@ Renderer::~Renderer() {
     }
 }
 
+void Renderer::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
+    instance->setEnabledLayers(enabledLayers);
+}
+
+void Renderer::setEnabledExtensions(const std::vector<std::string>& enabledExtensions) {
+    instance->setEnabledExtensions(enabledExtensions);
+}
+
 void Renderer::create() {
 
 }
@@ -69,31 +77,19 @@ void Renderer::render() {
 void Renderer::createAll() {
     instance = std::make_unique<Vulkan::Instance>();
 
-    if (DebugEnvironment::get()->getEnable()) {
-        if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
-            instance->setEnabledLayers(DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]);
-        }
-
-        if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
-            instance->setEnabledExtensions(DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]);
-        }
-    }
-
 //    instance->setUseDebugCallback(true); // TODO: Take from debug settings
     instance->create();
 
     physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance.get());
 
-    // Default graphics and compute device are same
+    // Default graphics and compute device are same and first in list of physical devices
     Vulkan::PhysicalDevice* graphicsPhysicalDevice = physicalDevices->getPhysicalDevice(0);
     Vulkan::PhysicalDevice* computePhysicalDevice = physicalDevices->getPhysicalDevice(0);
 
     if (physicalDevices->getCount() > 1) {
-        if (DebugEnvironment::get()->getEnable()) {
-            // Take from debug settings
-            int index = DebugEnvironment::get()->getVulanDevice();
-            graphicsPhysicalDevice = physicalDevices->getPhysicalDevice(index);
-            computePhysicalDevice = physicalDevices->getPhysicalDevice(1 - index);
+        if (presetDevice != -1) {
+            graphicsPhysicalDevice = physicalDevices->getPhysicalDevice(presetDevice);
+            computePhysicalDevice = physicalDevices->getPhysicalDevice(1 - presetDevice);
         } else {
             // Select by hardware properties
             graphicsPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);

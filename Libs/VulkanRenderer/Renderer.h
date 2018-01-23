@@ -31,6 +31,11 @@ public:
     Vulkan::CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }
     Vulkan::CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
 
+    void setEnabledLayers(const std::vector<std::string>& enabledLayers);
+    void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
+
+    void setDeviceIndex(int index) { presetDevice = index; }
+
     void create();
     void render();
     void resize();
@@ -61,6 +66,7 @@ private:
     Vulkan::Device* device;
     uint32_t graphicsFamily;
     uint32_t computeFamily;
+    int presetDevice = -1;
 };
 
 } // Vulkan

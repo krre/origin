@@ -30,6 +30,7 @@ public:
     Device* getComputeDevice() const { return computeDevice.get(); }
     CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }
     CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
+    RenderPass* getRenderPass() const { return renderPass.get(); }
 
     static Renderer* get() { return renderer; }
 
@@ -41,10 +42,12 @@ public:
     void create();
     void render();
     void resize();
+    virtual void prepare() = 0;
     std::vector<unsigned char> readFramebuffer();
     void updateCommandBuffers();
 
 protected:
+    virtual void init() {}
     virtual void writeCommandBuffers(CommandBuffer* commandBuffer, Framebuffer* framebuffer) = 0;
 
 private:

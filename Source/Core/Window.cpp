@@ -94,10 +94,11 @@ void Window::show() {
 
 void Window::update(float dt) {
     screens.back()->update(dt);
+    RenderEngine::get()->prepare();
 }
 
 void Window::render() {
-    RenderEngine::get()->render(screens.back().get());
+    RenderEngine::get()->render();
 }
 
 void Window::onMove(int x, int y) {
@@ -113,7 +114,7 @@ void Window::onResize(int width, int height) {
         screen->resize(width, height);
     }
 
-    RenderEngine::get()->resizeSwapchain();
+    RenderEngine::get()->resize();
 }
 
 void Window::toggleFullScreen() {
@@ -137,7 +138,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
         toggleFullScreen();
         break;
     case SDLK_F11:
-        RenderEngine::get()->saveScreenshot();
+        static_cast<RenderEngine*>(RenderEngine::get())->saveScreenshot();
         break;
     }
 }

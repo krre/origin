@@ -5,6 +5,7 @@
 namespace Origin {
 
 class Window;
+class RenderEngine;
 
 class Application : public Singleton<Application> {
 
@@ -27,6 +28,7 @@ private:
     std::vector<std::string> argv;
     bool running = false;
     std::unique_ptr<Window> window;
+    std::unique_ptr<RenderEngine> renderEngine;
 };
 
 } // Origin

@@ -135,9 +135,12 @@ void Renderer::create() {
     swapchain = std::make_unique<Swapchain>(device, surface.get());
 
     resize();
+    init();
 }
 
 void Renderer::render() {
+    prepare();
+
     VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         resize();
@@ -149,7 +152,7 @@ void Renderer::render() {
                             imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
     queue->submit();
     queue->present();
-//    queue->waitIdle();
+    //    queue->waitIdle();
 }
 
 void Renderer::resize() {

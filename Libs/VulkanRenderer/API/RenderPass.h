@@ -18,9 +18,7 @@ public:
     void setBlendEnable(bool blendEnable);
     void addClearValue(VkClearValue clearValue);
     void setClearValue(VkClearValue clearValue);
-    void setExtent(VkExtent2D extent);
     VkRenderPassBeginInfo* getBeginInfo() { return &beginInfo; }
-    void setFramebuffer(VkFramebuffer framebuffer);
 
 private:
     VkRenderPassCreateInfo createInfo = {};

@@ -3,8 +3,6 @@
 #include "Graphics/Render/RenderState.h"
 #include "VulkanRenderer/ShaderProgram.h"
 
-namespace Origin {
-
 namespace Vulkan {
     class CommandBuffer;
     class CommandBuffers;
@@ -22,6 +20,8 @@ namespace Vulkan {
     class Surface;
     class Swapchain;
 }
+
+namespace Origin {
 
 class Window;
 class Screen;
@@ -75,7 +75,7 @@ private:
     std::unique_ptr<Renderer2D> renderer2d;
     std::unique_ptr<Renderer3D> renderer3d;
 
-    std::map<ShaderProgram::ProgamType, std::shared_ptr<ShaderProgram>> shaderPrograms;
+    std::map<Vulkan::ShaderProgram::ProgamType, std::shared_ptr<Vulkan::ShaderProgram>> shaderPrograms;
     std::map<RenderState::Type, std::shared_ptr<RenderState>> renderStates;
 
     Window* window = nullptr;

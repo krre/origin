@@ -2,11 +2,14 @@
 #include "Core/Common.h"
 #include "Gui/Batch2D.h"
 
+namespace Vulkan {
+    class GpuBuffer;
+}
+
 namespace Origin {
 
 class Control;
 class View3D;
-class GpuBuffer;
 
 class Renderer2D {
 
@@ -23,7 +26,7 @@ private:
     std::vector<Batch2D> batches;
     std::vector<Batch2D::Vertex> vertices;
     std::vector<View3D*> renderViews;
-    std::unique_ptr<GpuBuffer> vertexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
 };
 
 } // Origin

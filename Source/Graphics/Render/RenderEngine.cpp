@@ -235,7 +235,7 @@ void RenderEngine::updateCommandBuffers() {
     }
 
     for (int i = 0; i < commandBuffers.size(); i++) {
-        renderPass->setFramebuffer(framebuffers.at(i)->getHandle());
+        renderPass->getBeginInfo()->framebuffer = framebuffers.at(i)->getHandle();
 
         Vulkan::CommandBuffer* commandBuffer = commandBuffers.at(i).get();
         commandBuffer->reset();
@@ -283,7 +283,7 @@ void RenderEngine::updateCommandBuffers() {
 void RenderEngine::resizeSwapchain() {
     uint32_t width = surface->getCurrentExtent().width;
     uint32_t height = surface->getCurrentExtent().height;
-    renderPass->setExtent({ width, height });
+    renderPass->getBeginInfo()->renderArea.extent = { width, height };
 
     swapchain->destroy();
     swapchain->create();

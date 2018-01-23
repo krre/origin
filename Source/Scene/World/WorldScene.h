@@ -3,6 +3,10 @@
 #include <SDL.h>
 #include <glm/glm.hpp>
 
+namespace Vulkan {
+    class ShaderProgram;
+}
+
 namespace Origin {
 
 const int LOD_PIXEL_LIMIT = 1;
@@ -69,7 +73,7 @@ private:
     EntityId characterId;
     uint64_t seed;
     std::unique_ptr<Plane> plane;
-    std::unique_ptr<ShaderProgram> shaderProgram;
+    std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
 };
 
 } // Origin

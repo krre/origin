@@ -122,12 +122,4 @@ void RenderPass::setClearValue(VkClearValue clearValue) {
     addClearValue(clearValue);
 }
 
-void RenderPass::setExtent(VkExtent2D extent) {
-    beginInfo.renderArea.extent = extent;
-}
-
-void RenderPass::setFramebuffer(VkFramebuffer framebuffer) {
-    beginInfo.framebuffer = framebuffer;
-}
-
 } // Vulkan

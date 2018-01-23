@@ -154,12 +154,7 @@ void Renderer::createAll() {
 }
 
 void Renderer::writeCommandBuffers(CommandBuffer* commandBuffer) {
-    const Color& color = window->getColor();
-    renderPass->setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
-
     for (int i = 0; i < commandBuffers.size(); i++) {
-        renderPass->setFramebuffer(framebuffers.at(i)->getHandle());
-
         CommandBuffer* commandBuffer = commandBuffers.at(i).get();
         commandBuffer->reset();
         commandBuffer->begin();
@@ -206,7 +201,7 @@ void Renderer::writeCommandBuffers(CommandBuffer* commandBuffer) {
 void Renderer::resize() {
     uint32_t width = surface->getCurrentExtent().width;
     uint32_t height = surface->getCurrentExtent().height;
-    renderPass->setExtent({ width, height });
+    renderPass->getBeginInfo()->renderArea.extent= { width, height };
 
     swapchain->destroy();
     swapchain->create();

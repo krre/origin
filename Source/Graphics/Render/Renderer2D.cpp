@@ -8,7 +8,7 @@ namespace Origin {
 
 Renderer2D::Renderer2D() {
     uint32_t startSize = 10000;
-    vertexBuffer = std::make_unique<GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);;
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);;
 }
 
 Renderer2D::~Renderer2D() {
@@ -19,7 +19,7 @@ void Renderer2D::render() {
     uint32_t size = vertices.size() * sizeof(Batch2D::Vertex);
 
     if (size > vertexBuffer->getSize()) {
-        vertexBuffer = std::make_unique<GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+        vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     }
     vertexBuffer->write(vertices.data(), size);
 }

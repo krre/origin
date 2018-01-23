@@ -18,7 +18,7 @@ public:
     float getBlue() const;
     float getAlpha() const;
 
-//    static const Color TRANSPARENT;
+    static const Color TRANSPARENT;
     static const Color BLACK;
     static const Color WHITE;
     static const Color GRAY;

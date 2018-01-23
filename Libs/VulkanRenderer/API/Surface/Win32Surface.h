@@ -2,6 +2,8 @@
 #include "Surface.h"
 #include <windows.h>
 
+#undef TRANSPARENT // Fix conflict with Color::TRANSPARENT const
+
 namespace Vulkan {
 
 class Instance;

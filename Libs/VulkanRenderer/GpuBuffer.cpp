@@ -3,6 +3,7 @@
 #include "API/Device/DeviceMemory.h"
 #include "API/Device/PhysicalDevice.h"
 #include "API/Command/CommandBufferOneTime.h"
+#include "Renderer.h"
 #include <cstring>
 
 namespace Vulkan {
@@ -10,7 +11,7 @@ namespace Vulkan {
 GpuBuffer::GpuBuffer(VkBufferUsageFlagBits usage, uint32_t size) :
         usage(usage),
         size(size) {
-//    device = RenderEngine::get()->getGraphicsDevice();
+    device = Renderer::get()->getGraphicsDevice();
     buffer = std::make_unique<Buffer>(device, usage, size);
     buffer->create();
 

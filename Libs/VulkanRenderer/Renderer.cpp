@@ -32,8 +32,11 @@
 
 namespace Vulkan {
 
+Renderer* Renderer::renderer = nullptr;
+
 Renderer::Renderer() {
-    createAll();
+    assert(renderer == nullptr);
+    renderer = this;
 }
 
 Renderer::~Renderer() {
@@ -56,25 +59,6 @@ void Renderer::setEnabledExtensions(const std::vector<std::string>& enabledExten
 }
 
 void Renderer::create() {
-
-}
-
-void Renderer::render() {
-    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
-    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
-        resize();
-    }
-
-    queue->clearCommandBuffers();
-    queue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
-                            renderFinishedSemaphore.get(),
-                            imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
-    queue->submit();
-    queue->present();
-//    queue->waitIdle();
-}
-
-void Renderer::createAll() {
     instance = std::make_unique<Instance>();
 
 //    instance->setUseDebugCallback(true); // TODO: Take from debug settings
@@ -151,6 +135,21 @@ void Renderer::createAll() {
     swapchain = std::make_unique<Swapchain>(device, surface.get());
 
     resize();
+}
+
+void Renderer::render() {
+    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
+    if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+        resize();
+    }
+
+    queue->clearCommandBuffers();
+    queue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
+                            renderFinishedSemaphore.get(),
+                            imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
+    queue->submit();
+    queue->present();
+//    queue->waitIdle();
 }
 
 void Renderer::resize() {

@@ -31,6 +31,8 @@ public:
     CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }
     CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
 
+    static Renderer* get() { return renderer; }
+
     void setEnabledLayers(const std::vector<std::string>& enabledLayers);
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
 
@@ -46,8 +48,6 @@ protected:
     virtual void writeCommandBuffers(CommandBuffer* commandBuffer, Framebuffer* framebuffer) = 0;
 
 private:
-    void createAll();
-
     std::unique_ptr<Instance> instance;
     std::unique_ptr<PhysicalDevices> physicalDevices;
     std::unique_ptr<Device> graphicsDevice;
@@ -64,10 +64,11 @@ private:
     std::unique_ptr<Queue> queue;
     std::unique_ptr<CommandBuffers> commandBufferHandlers;
     std::vector<std::unique_ptr<CommandBuffer>> commandBuffers;
-    Device* device;
     uint32_t graphicsFamily;
     uint32_t computeFamily;
     int presetDevice = -1;
+    Device* device;
+    static Renderer* renderer;
 };
 
 } // Vulkan

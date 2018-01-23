@@ -6,6 +6,7 @@ namespace Vulkan {
 
 class ImageView;
 class Image;
+class Device;
 
 class Texture {
 
@@ -23,6 +24,7 @@ private:
     std::vector<unsigned char> data;
     std::unique_ptr<Image> image;
     std::unique_ptr<ImageView> imageView;
+    Device* device;
 };
 
 } // Origin

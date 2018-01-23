@@ -1,5 +1,4 @@
 #include "Texture.h"
-//#include "Graphics/Render/RenderEngine.h"
 #include "API/Instance.h"
 #include "API/Command/CommandBufferOneTime.h"
 #include "API/Fence.h"
@@ -7,10 +6,12 @@
 #include "API/Image/ImageView.h"
 #include "API/Image/Image.h"
 #include "API/Device/PhysicalDevice.h"
+#include "Renderer.h"
 
 namespace Vulkan {
 
 Texture::Texture(const std::string& path) {
+    device = Renderer::get()->getGraphicsDevice();
     uint32_t width;
     uint32_t height;
 //    unsigned result = lodepng::decode(data, width, height, path);
@@ -18,7 +19,7 @@ Texture::Texture(const std::string& path) {
 //        throw std::runtime_error("Failed to decode image " + path);
 //    }
 
-//    image = std::make_unique<Image>(RenderEngine::get()->getGraphicsDevice());
+    image = std::make_unique<Image>(device);
 
     image->setWidth(width);
     image->setHeight(height);
@@ -29,12 +30,12 @@ Texture::Texture(const std::string& path) {
 
     image->write(data.data(), data.size());
 
-//    imageView = std::make_unique<ImageView>(RenderEngine::get()->getGraphicsDevice(), image->getHandle());
+    imageView = std::make_unique<ImageView>(device, image->getHandle());
     imageView->setFormat(image->getFormat());
     imageView->create();
 
     VkFormatProperties formatProps;
-//    vkGetPhysicalDeviceFormatProperties(RenderEngine::get()->getGraphicsDevice()->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
+    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
 
     /* See if we can use a linear tiled image for a texture, if not, we will
      * need a staging image for the texture data */
@@ -43,9 +44,9 @@ Texture::Texture(const std::string& path) {
 
     }
 
-//    CommandBufferOneTime commandBuffer(RenderEngine::get()->getGraphicsDevice(), RenderEngine::get()->getGraphicsCommandPool());
-//    commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
-//    commandBuffer.apply();
+    CommandBufferOneTime commandBuffer(device, Renderer::get()->getGraphicsCommandPool());
+    commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
+    commandBuffer.apply();
 }
 
 Texture::~Texture() {

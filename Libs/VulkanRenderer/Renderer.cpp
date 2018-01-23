@@ -120,9 +120,9 @@ void Renderer::create() {
     queue->create();
     queue->addPresentWaitSemaphore(renderFinishedSemaphore.get());
 
-#if defined(OS_WIN)
+#if defined(_WIN32)
     surface = std::make_unique<Win32Surface>(instance.get(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
-#elif defined(OS_LINUX)
+#elif defined(__linux__)
     surface = std::make_unique<XcbSurface>(instance.get(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 

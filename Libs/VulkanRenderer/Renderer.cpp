@@ -153,51 +153,6 @@ void Renderer::createAll() {
     resize();
 }
 
-void Renderer::writeCommandBuffers(CommandBuffer* commandBuffer) {
-    for (int i = 0; i < commandBuffers.size(); i++) {
-        CommandBuffer* commandBuffer = commandBuffers.at(i).get();
-        commandBuffer->reset();
-        commandBuffer->begin();
-
-        VkExtent2D extent = { surface->getCurrentExtent().width, surface->getCurrentExtent().height };
-
-        VkViewport viewport = {};
-        viewport.width = extent.width;
-        viewport.height = extent.height;
-        viewport.maxDepth = 1.0;
-
-        VkRect2D scissor = {};
-        scissor.offset = { 0, 0 };
-        scissor.extent = extent;
-
-        commandBuffer->beginRenderPass(renderPass->getBeginInfo());
-
-        //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
-
-        commandBuffer->addViewport(viewport);
-        commandBuffer->setViewport(0);
-
-        commandBuffer->addScissor(scissor);
-        commandBuffer->setScissor(0);
-
-        //    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
-        //    commandBuffer->bindVertexBuffers();
-        //    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
-
-        //    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
-        //        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
-        //    }
-        //    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
-        //    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
-
-        commandBuffer->endRenderPass();
-
-        // TODO: Write commands to commandBuffer
-
-        commandBuffer->end();
-    }
-}
-
 void Renderer::resize() {
     uint32_t width = surface->getCurrentExtent().width;
     uint32_t height = surface->getCurrentExtent().height;
@@ -233,10 +188,11 @@ void Renderer::resize() {
 
         for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
             auto commandBuffer = std::make_unique<CommandBuffer>(commandBufferHandlers->at(i));
-            writeCommandBuffers(commandBuffer.get());
             commandBuffers.push_back(std::move(commandBuffer));
         }
     }
+
+    updateCommandBuffers();
 }
 
 std::vector<unsigned char> Renderer::readFramebuffer() {
@@ -337,6 +293,14 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
     image.getMemory()->unmap();
 
     return std::move(output);
+}
+
+void Renderer::updateCommandBuffers() {
+    for (int i = 0; i < commandBuffers.size(); i++) {
+        CommandBuffer* commandBuffer = commandBuffers.at(i).get();
+        commandBuffer->reset();
+        writeCommandBuffers(commandBuffer);
+    }
 }
 
 } // Vulkan

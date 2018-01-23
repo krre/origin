@@ -40,9 +40,10 @@ public:
     void render();
     void resize();
     std::vector<unsigned char> readFramebuffer();
+    void updateCommandBuffers();
 
 protected:
-    void writeCommandBuffers(CommandBuffer* commandBuffer);
+    virtual void writeCommandBuffers(CommandBuffer* commandBuffer) = 0;
 
 private:
     void createAll();

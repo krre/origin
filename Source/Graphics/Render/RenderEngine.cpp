@@ -110,6 +110,7 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     beginInfo->framebuffer = framebuffer->getHandle();
 
     VkExtent2D extent = { window->getWidth(), window->getHeight() };
+    beginInfo->renderArea.extent = extent;
 
     VkViewport viewport = {};
     viewport.width = extent.width;
@@ -119,6 +120,8 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     VkRect2D scissor = {};
     scissor.offset = { 0, 0 };
     scissor.extent = extent;
+
+    commandBuffer->begin();
 
     commandBuffer->beginRenderPass(beginInfo);
 

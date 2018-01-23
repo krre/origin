@@ -10,7 +10,7 @@ namespace Origin {
 GpuBuffer::GpuBuffer(VkBufferUsageFlagBits usage, uint32_t size) :
         usage(usage),
         size(size) {
-    device = RenderEngine::get()->getGraphicsDevice();
+//    device = RenderEngine::get()->getGraphicsDevice();
     buffer = std::make_unique<Vulkan::Buffer>(device, usage, size);
     buffer->create();
 
@@ -36,14 +36,14 @@ VkBuffer GpuBuffer::getHandle() const {
 }
 
 void GpuBuffer::copyToBuffer(Vulkan::Buffer* dstBuffer, VkDeviceSize size) {
-    Vulkan::CommandBufferOneTime commandBuffer(buffer->getDevice(), RenderEngine::get()->getComputeCommandPool());
+//    Vulkan::CommandBufferOneTime commandBuffer(buffer->getDevice(), RenderEngine::get()->getComputeCommandPool());
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;
-    commandBuffer.addBufferCopy(bufferCopy);
-    commandBuffer.copyBuffer(buffer->getHandle(), dstBuffer->getHandle());
+//    commandBuffer.addBufferCopy(bufferCopy);
+//    commandBuffer.copyBuffer(buffer->getHandle(), dstBuffer->getHandle());
 
-    commandBuffer.apply();
+//    commandBuffer.apply();
 }
 
 void GpuBuffer::write(const void* data, uint32_t size, uint32_t offset) {

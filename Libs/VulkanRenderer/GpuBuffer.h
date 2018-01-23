@@ -10,7 +10,7 @@ namespace Vulkan {
     class DeviceMemory;
 }
 
-class GpuBuffer : public Object {
+class GpuBuffer {
 
 public:
     GpuBuffer(VkBufferUsageFlagBits usage, uint32_t size);

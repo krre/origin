@@ -1,11 +1,11 @@
 #include "Font.h"
 #include "Resource/ResourceManager.h"
 #include "Core/Utils.h"
-#include "Graphics/Texture.h"
+#include "VulkanRenderer/Texture.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
-#include "Vulkan/Image/Image.h"
-#include "Vulkan/Image/ImageView.h"
+#include "VulkanRenderer/API/Image/Image.h"
+#include "VulkanRenderer/API/Image/ImageView.h"
 #include <fstream>
 #include <experimental/filesystem>
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Common.h"
 #include "Graphics/Render/RenderState.h"
-#include "Graphics/ShaderProgram.h"
+#include "VulkanRenderer/ShaderProgram.h"
 
 namespace Origin {
 

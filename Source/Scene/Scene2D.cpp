@@ -1,6 +1,6 @@
 #include "Scene2D.h"
 #include "Gui/Control.h"
-#include "Vulkan/Queue.h"
+#include "VulkanRenderer/API/Queue.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
 #include "Gui/Batch2D.h"

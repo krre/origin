@@ -1,26 +1,23 @@
 #include "ShaderProgram.h"
-#include "Resource/ResourceManager.h"
-#include "Core/Application.h"
-#include "Core/Defines.h"
-#include "Core/Utils.h"
-#include "Core/Window.h"
-#include "Graphics/Render/RenderEngine.h"
-#include "Vulkan/Buffer/Buffer.h"
-#include "Vulkan/Descriptor/DescriptorPool.h"
-#include "Vulkan/Descriptor/DescriptorSetLayout.h"
-#include "Vulkan/Descriptor/DescriptorSets.h"
-#include "Vulkan/Instance.h"
-#include "Vulkan/Pipeline/GraphicsPipeline.h"
-#include "Vulkan/Pipeline/PipelineLayout.h"
-#include "Vulkan/RenderPass.h"
-#include "Vulkan/Surface/Surface.h"
-#include "Vulkan/Surface/Swapchain.h"
+//#include "Graphics/Render/RenderEngine.h"
+#include "API/Buffer/Buffer.h"
+#include "API/Descriptor/DescriptorPool.h"
+#include "API/Descriptor/DescriptorSetLayout.h"
+#include "API/Descriptor/DescriptorSets.h"
+#include "API/Instance.h"
+#include "API/Pipeline/GraphicsPipeline.h"
+#include "API/Pipeline/PipelineLayout.h"
+#include "API/RenderPass.h"
+#include "API/Surface/Surface.h"
+#include "API/Surface/Swapchain.h"
 #include <fstream>
+#include <iostream>
 #include <assert.h>
+#include <algorithm>
 
-#if defined(OS_WIN)
+#if defined(_WIN32)
     #include <spirv-tools/libspirv.h>
-#elif defined(OS_LINUX)
+#elif defined(__linux__)
     #include <vulkan/libspirv.h>
 #endif
 
@@ -88,7 +85,6 @@ void VulkanShader::parse() {
 
     // Parse SPIR-V text code to vector of lines
     int i = 0;
-    const char quote = '\"';
     while (i < resultText->length) {
         char c = resultText->str[i++];
         if (c == ' ') {
@@ -114,7 +110,8 @@ void VulkanShader::parse() {
             } else if (firstWord == "OpName") {
                 // Example:
                 // OpName %44 "ubo"
-                Utils::removeChar(line.at(2), quote);
+                std::string& str = line.at(2);
+                str.erase(std::remove(str.begin(), str.end(), '\"'), str.end());
                 names[line.at(1)] = line.at(2);
             } else if (firstWord == "OpDecorate") {
                 // Set descriptor for uniform buffers and storage buffers
@@ -228,37 +225,39 @@ void VulkanShader::parse() {
 }
 
 void VulkanShader::dumpBindings() {
-    PRINT("Dump SPIR-V descriptors:")
+    std::cout << "Dump SPIR-V descriptors:" << std::endl;
     for (const auto& binding : bindings) {
-        PRINT("name: " << binding.first
+        std::cout << "name: " << binding.first
               << ", binding: " << binding.second.binding
-              << ", descriptorType: " << binding.second.descriptorType)
+              << ", descriptorType: " << binding.second.descriptorType
+              << std::endl;
     }
 }
 
 void VulkanShader::dumpLocations() {
-    PRINT("Dump SPIR-V inputs:")
+    std::cout << "Dump SPIR-V inputs:" << std::endl;
     for (const auto& input : locations) {
-        PRINT("name: " << input.first
+        std::cout << "name: " << input.first
               << ", location: " << input.second.location
-              << ", format: " << input.second.format)
+              << ", format: " << input.second.format
+              << std::endl;
     }
 }
 
 ShaderProgram::ShaderProgram(const std::string& name) {
-    std::string shaderDirPath = ResourceManager::getDataPath() + "/Shader";
+    std::string shaderDirPath = name; // TODO: Remove parse file path
 
-    for (auto& filePath : fs::directory_iterator(shaderDirPath)) {
-        std::string fileName = filePath.path().filename().string();
-        std::vector<std::string> words = Utils::split(fileName, '.');
-        if (words.at(0) == name) { // base name
-            if (words.at(1) == "vert") { // first extension
-                files[ShaderType::Vertex].push_back(filePath);
-            } else if (words.at(1) == "frag") {
-                files[ShaderType::Fragment].push_back(filePath);
-            }
-        }
-    }
+//    for (auto& filePath : fs::directory_iterator(shaderDirPath)) {
+//        std::string fileName = filePath.path().filename().string();
+//        std::vector<std::string> words = Utils::split(fileName, '.');
+//        if (words.at(0) == name) { // base name
+//            if (words.at(1) == "vert") { // first extension
+//                files[ShaderType::Vertex].push_back(filePath);
+//            } else if (words.at(1) == "frag") {
+//                files[ShaderType::Fragment].push_back(filePath);
+//            }
+//        }
+//    }
 
     for (auto& it : files) {
         for (auto& file : it.second) {
@@ -270,14 +269,14 @@ ShaderProgram::ShaderProgram(const std::string& name) {
         }
     }
 
-    descriptorPool = std::make_unique<Vulkan::DescriptorPool>(RenderEngine::get()->getGraphicsDevice());
-    descriptorSets = std::make_unique<Vulkan::DescriptorSets>(RenderEngine::get()->getGraphicsDevice(), descriptorPool.get());
+    descriptorPool = std::make_unique<Vulkan::DescriptorPool>(device);
+    descriptorSets = std::make_unique<Vulkan::DescriptorSets>(device, descriptorPool.get());
 
-    graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(RenderEngine::get()->getGraphicsDevice());
+    graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
 //    graphicsPipeline->setExtent(Application::get()->getWindow()->getSurface()->getCapabilities().currentExtent);
 
-    pipelineLayout = std::make_unique<Vulkan::PipelineLayout>(RenderEngine::get()->getGraphicsDevice());
-    descriptorSetLayout = std::make_unique<Vulkan::DescriptorSetLayout>(RenderEngine::get()->getGraphicsDevice());
+    pipelineLayout = std::make_unique<Vulkan::PipelineLayout>(device);
+    descriptorSetLayout = std::make_unique<Vulkan::DescriptorSetLayout>(device);
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -318,7 +317,7 @@ void ShaderProgram::createPipeline() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Vulkan::Buffer> buffer = std::make_shared<Vulkan::Buffer>(RenderEngine::get()->getGraphicsDevice(), usage, bufferInfo->size);
+                std::shared_ptr<Vulkan::Buffer> buffer = std::make_shared<Vulkan::Buffer>(device, usage, bufferInfo->size);
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();

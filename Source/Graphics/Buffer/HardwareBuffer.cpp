@@ -1,9 +1,9 @@
 #include "HardwareBuffer.h"
-#include "Vulkan/Buffer/Buffer.h"
-#include "Vulkan/Device/DeviceMemory.h"
-#include "Vulkan/Device/PhysicalDevice.h"
-#include "Vulkan/Queue.h"
-#include "Vulkan/Command/CommandBufferOneTime.h"
+#include "VulkanRenderer/API/Buffer/Buffer.h"
+#include "VulkanRenderer/API/Device/DeviceMemory.h"
+#include "VulkanRenderer/API/Device/PhysicalDevice.h"
+#include "VulkanRenderer/API/Queue.h"
+#include "VulkanRenderer/API/Command/CommandBufferOneTime.h"
 #include <string.h>
 
 namespace Origin {

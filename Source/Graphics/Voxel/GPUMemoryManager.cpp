@@ -2,7 +2,7 @@
 #include "Resource/ResourceManager.h"
 #include "ECS/Components/Components.h"
 #include "ECS/Entity.h"
-#include "Vulkan/Buffer/Buffer.h"
+#include "VulkanRenderer/API/Buffer/Buffer.h"
 
 namespace Origin {
 

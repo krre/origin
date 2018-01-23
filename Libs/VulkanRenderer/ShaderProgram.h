@@ -7,6 +7,7 @@
 namespace Origin {
 
 namespace Vulkan {
+    class Device;
     class GraphicsPipeline;
     class PipelineLayout;
     class DescriptorSetLayout;
@@ -87,6 +88,7 @@ public:
     void readUniform(const std::string& name, VkDeviceSize offset = 0, VkDeviceSize size = 0, void* data = nullptr);
 
 private:
+    Vulkan::Device* device = nullptr;
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<Vulkan::PipelineLayout> pipelineLayout;
     std::unique_ptr<Vulkan::DescriptorPool> descriptorPool;

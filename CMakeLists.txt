@@ -43,6 +43,7 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
     ${BULLET_LIBRARIES}
     stdc++fs
+    vulkanrenderer
 )
 
 # Show in QtCreator project tree

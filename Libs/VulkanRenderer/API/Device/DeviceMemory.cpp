@@ -1,7 +1,5 @@
 #include "DeviceMemory.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 DeviceMemory::DeviceMemory(Device* device) : Devicer(device) {
@@ -34,5 +32,3 @@ void DeviceMemory::unmap() {
 }
 
 } // Vulkan
-
-} // Origin

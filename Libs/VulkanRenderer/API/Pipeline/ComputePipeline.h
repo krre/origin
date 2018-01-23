@@ -1,8 +1,6 @@
 #pragma once
 #include "Pipeline.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 class ComputePipeline : public Pipeline {
@@ -18,5 +16,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

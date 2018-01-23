@@ -1,7 +1,5 @@
 #include "ImageView.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 ImageView::ImageView(Device* device, VkImage image) :
@@ -38,5 +36,3 @@ void ImageView::setFormat(VkFormat format) {
 }
 
 } // Vulkan
-
-} // Origin

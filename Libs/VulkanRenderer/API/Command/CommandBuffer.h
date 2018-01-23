@@ -2,8 +2,6 @@
 #include "../Base/Handle.h"
 #include <vector>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Pipeline;
@@ -72,6 +70,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin
-

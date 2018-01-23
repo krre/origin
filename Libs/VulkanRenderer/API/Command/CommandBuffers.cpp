@@ -2,8 +2,6 @@
 #include "CommandPool.h"
 #include <assert.h>
 
-namespace Origin {
-
 namespace Vulkan {
 
 CommandBuffers::CommandBuffers(Device* device, CommandPool* commandPool, VkCommandBufferLevel level) :
@@ -30,5 +28,3 @@ void CommandBuffers::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

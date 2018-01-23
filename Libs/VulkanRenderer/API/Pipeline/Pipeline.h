@@ -7,8 +7,6 @@
 #include <map>
 #include <memory>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Pipeline : public Handle<VkPipeline>, public Devicer {
@@ -28,5 +26,3 @@ protected:
 };
 
 } // Vulkan
-
-} // Origin

@@ -2,8 +2,6 @@
 #include "../Base/Handle.h"
 #include "../Device/Devicer.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 class PipelineCache : public Handle<VkPipelineCache>, public Devicer {
@@ -19,5 +17,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

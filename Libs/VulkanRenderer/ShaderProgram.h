@@ -4,17 +4,15 @@
 #include <map>
 #include <vector>
 
-namespace Origin {
-
 namespace Vulkan {
-    class Device;
-    class GraphicsPipeline;
-    class PipelineLayout;
-    class DescriptorSetLayout;
-    class Buffer;
-    class DescriptorSets;
-    class DescriptorPool;
-}
+
+class Device;
+class GraphicsPipeline;
+class PipelineLayout;
+class DescriptorSetLayout;
+class Buffer;
+class DescriptorSets;
+class DescriptorPool;
 
 namespace fs = std::experimental::filesystem;
 
@@ -104,4 +102,4 @@ private:
     std::map<ShaderType, std::vector<fs::path>> files;
 };
 
-} // Origin
+} // Vulkan

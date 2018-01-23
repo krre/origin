@@ -1,7 +1,5 @@
 #include "Sampler.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Sampler::Sampler(Device* device) : Devicer(device) {
@@ -33,5 +31,3 @@ void Sampler::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

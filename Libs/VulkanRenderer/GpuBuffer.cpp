@@ -5,7 +5,7 @@
 #include "API/Command/CommandBufferOneTime.h"
 #include <cstring>
 
-namespace Origin {
+namespace Vulkan {
 
 GpuBuffer::GpuBuffer(VkBufferUsageFlagBits usage, uint32_t size) :
         usage(usage),
@@ -60,4 +60,4 @@ void GpuBuffer::read(void* data, uint32_t size, uint32_t offset) {
     memory->unmap();
 }
 
-} // Origin
+} // Vulkan

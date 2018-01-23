@@ -3,8 +3,6 @@
 #include <vector>
 #include <memory>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class DebugReportCallback;
@@ -42,5 +40,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

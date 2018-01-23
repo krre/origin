@@ -2,8 +2,6 @@
 #include "../Base/Collection.h"
 #include "../Device/Devicer.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 class CommandPool;
@@ -22,5 +20,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

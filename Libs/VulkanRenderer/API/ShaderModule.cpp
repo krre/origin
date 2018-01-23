@@ -1,7 +1,5 @@
 #include "ShaderModule.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 ShaderModule::ShaderModule(Device* device, size_t codeSize, const uint32_t* pCode) : Devicer(device) {
@@ -23,5 +21,3 @@ void ShaderModule::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

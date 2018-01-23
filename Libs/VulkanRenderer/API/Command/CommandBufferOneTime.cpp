@@ -5,8 +5,6 @@
 #include "../Fence.h"
 #include "../Queue.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 CommandBufferOneTime::CommandBufferOneTime(Device* device, CommandPool* commandPool) :
@@ -64,5 +62,3 @@ void CommandBufferOneTime::addBufferCopy(VkBufferCopy bufferCopy) {
 }
 
 } // Vulkan
-
-} // Origin

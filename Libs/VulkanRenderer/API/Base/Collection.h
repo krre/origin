@@ -9,8 +9,6 @@
     } \
 } \
 
-namespace Origin {
-
 namespace Vulkan {
 
 template<typename T> class Collection {
@@ -29,5 +27,3 @@ protected:
 };
 
 } // Vulkan
-
-} // Origin

@@ -2,8 +2,6 @@
 #include "Base/Handle.h"
 #include "Device/Devicer.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 class ShaderModule : public Handle<VkShaderModule>, public Devicer {
@@ -20,5 +18,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

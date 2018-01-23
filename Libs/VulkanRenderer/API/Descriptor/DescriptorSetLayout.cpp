@@ -1,7 +1,5 @@
 #include "DescriptorSetLayout.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 DescriptorSetLayout::DescriptorSetLayout(Device* device) : Devicer(device) {
@@ -27,5 +25,3 @@ void DescriptorSetLayout::addLayoutBinding(VkDescriptorSetLayoutBinding layoutBi
 }
 
 } // Vulkan
-
-} // Origin

@@ -242,11 +242,10 @@ void Renderer::resize() {
 
         for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
             auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
+            writeCommandBuffers(commandBuffer.get());
             commandBuffers.push_back(std::move(commandBuffer));
         }
     }
-
-    updateCommandBuffers();
 }
 
 std::vector<unsigned char> Renderer::readFramebuffer() {

@@ -1,8 +1,6 @@
 #include "BufferView.h"
 #include "Buffer.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 BufferView::BufferView(Device* device, Buffer* buffer) :
@@ -24,5 +22,3 @@ void BufferView::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

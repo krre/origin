@@ -1,7 +1,5 @@
 #include "GraphicsPipeline.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 GraphicsPipeline::GraphicsPipeline(Device* device) :
@@ -140,5 +138,3 @@ void GraphicsPipeline::create() {
 }
 
 } // Vulkan
-
-} // Origin

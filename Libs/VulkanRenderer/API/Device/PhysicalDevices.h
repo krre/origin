@@ -3,8 +3,6 @@
 #include <vector>
 #include <memory>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Instance;
@@ -24,5 +22,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

@@ -18,8 +18,6 @@
     } \
 } \
 
-namespace Origin {
-
 namespace Vulkan {
 
 static std::string resultToString(VkResult result) {
@@ -78,4 +76,3 @@ protected:
 
 } // Vulkan
 
-} // Origin

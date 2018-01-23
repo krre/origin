@@ -2,8 +2,6 @@
 #include "PhysicalDevice.h"
 #include <iostream>
 
-namespace Origin {
-
 namespace Vulkan {
 
 Device::Device(PhysicalDevice* physicalDevice) : physicalDevice(physicalDevice) {
@@ -73,5 +71,3 @@ void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> qu
 }
 
 } // Vulkan
-
-} // Origin

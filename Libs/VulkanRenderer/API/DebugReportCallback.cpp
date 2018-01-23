@@ -1,8 +1,6 @@
 #include "DebugReportCallback.h"
 #include "Instance.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 DebugReportCallback::DebugReportCallback(Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback) : instance(instance) {
@@ -37,5 +35,3 @@ void DebugReportCallback::setFlags(VkDebugReportFlagsEXT flags) {
 }
 
 } // Vulkan
-
-} // Origin

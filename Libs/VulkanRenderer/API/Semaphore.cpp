@@ -1,7 +1,5 @@
 #include "Semaphore.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Semaphore::Semaphore(Device* device) : Devicer(device) {
@@ -21,5 +19,3 @@ void Semaphore::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

@@ -3,8 +3,6 @@
 #include "../Instance.h"
 #include <iostream>
 
-namespace Origin {
-
 namespace Vulkan {
 
 PhysicalDevices::PhysicalDevices(Instance* instance) {
@@ -45,5 +43,3 @@ void PhysicalDevices::dumpDevices() {
 }
 
 } // Vulkan
-
-} // Origin

@@ -1,14 +1,12 @@
 #pragma once
 #include <vector>
 #include <memory>
-#include <vulkan/vulkan.h>
-
-namespace Origin {
 
 namespace Vulkan {
-    class ImageView;
-    class Image;
-}
+
+class ImageView;
+class Image;
+
 
 class Texture {
 

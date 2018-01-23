@@ -3,8 +3,6 @@
 #include "../Device/Devicer.h"
 #include <vector>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class DescriptorSetLayout : public Handle<VkDescriptorSetLayout>, public Devicer {
@@ -22,5 +20,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

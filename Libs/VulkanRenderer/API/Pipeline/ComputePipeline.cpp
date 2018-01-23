@@ -1,7 +1,5 @@
 #include "ComputePipeline.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 ComputePipeline::ComputePipeline(Device* device) :
@@ -14,5 +12,3 @@ void ComputePipeline::create() {
 }
 
 } // Vulkan
-
-} // Origin

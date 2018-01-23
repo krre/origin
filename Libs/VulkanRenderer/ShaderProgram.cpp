@@ -21,7 +21,7 @@
     #include <vulkan/libspirv.h>
 #endif
 
-namespace Origin {
+namespace Vulkan {
 
 VulkanShader::VulkanShader() {
 }
@@ -397,4 +397,4 @@ void ShaderProgram::readUniform(const std::string& name, VkDeviceSize offset, Vk
 }
 
 
-} // Origin
+} // Vulkan

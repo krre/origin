@@ -2,8 +2,6 @@
 #include "../Device/Devicer.h"
 #include <memory>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Device;
@@ -34,6 +32,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin
-

@@ -3,8 +3,6 @@
 #include "../Device/PhysicalDevice.h"
 #include <string.h>
 
-namespace Origin {
-
 namespace Vulkan {
 
 Image::Image(Device* device) :
@@ -75,5 +73,3 @@ void Image::write(void* data, VkDeviceSize size, VkDeviceSize offset) {
 }
 
 } // Vulkan
-
-} // Origin

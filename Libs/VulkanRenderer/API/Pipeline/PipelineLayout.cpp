@@ -1,7 +1,5 @@
 #include "PipelineLayout.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 PipelineLayout::PipelineLayout(Device* device) : Devicer(device) {
@@ -33,5 +31,3 @@ void PipelineLayout::addPushConstantRange(VkPushConstantRange pushConstantRange)
 }
 
 } // Vulkan
-
-} // Origin

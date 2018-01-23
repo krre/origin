@@ -1,8 +1,6 @@
 #include "RenderPass.h"
 #include "Instance.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 RenderPass::RenderPass(Device* device) :
@@ -133,5 +131,3 @@ void RenderPass::setFramebuffer(VkFramebuffer framebuffer) {
 }
 
 } // Vulkan
-
-} // Origin

@@ -3,8 +3,6 @@
 #include <iostream>
 #include <iomanip>
 
-namespace Origin {
-
 namespace Vulkan {
 
     class Instance;
@@ -53,5 +51,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

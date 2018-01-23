@@ -2,8 +2,6 @@
 #include "../Base/Handle.h"
 #include <vector>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class PhysicalDevice;
@@ -32,5 +30,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

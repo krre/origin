@@ -1,8 +1,6 @@
 #include "CommandBuffer.h"
 #include "../Pipeline/Pipeline.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 CommandBuffer::CommandBuffer(VkCommandBuffer handle) : Handle(handle) {
@@ -243,5 +241,3 @@ void CommandBuffer::reset() {
 }
 
 } // Vulkan
-
-} // Origin

@@ -1,7 +1,5 @@
 #include "PipelineCache.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 PipelineCache::PipelineCache(Device* device) : Devicer(device) {
@@ -21,5 +19,3 @@ void PipelineCache::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

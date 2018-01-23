@@ -1,7 +1,5 @@
 #include "Event.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Event::Event(Device* device) : Devicer(device) {
@@ -17,5 +15,3 @@ void Event::create() {
 }
 
 } // Vulkan
-
-} // Origin

@@ -1,7 +1,5 @@
 #include "QueryPool.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 QueryPool::QueryPool(Device* device) : Devicer(device) {
@@ -22,5 +20,3 @@ void QueryPool::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

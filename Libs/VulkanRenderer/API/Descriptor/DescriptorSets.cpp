@@ -2,8 +2,6 @@
 #include "DescriptorPool.h"
 #include <assert.h>
 
-namespace Origin {
-
 namespace Vulkan {
 
 DescriptorSets::DescriptorSets(Device* device, DescriptorPool* descriptorPool) :
@@ -50,5 +48,3 @@ void DescriptorSets::destroy() {
 }
 
 } // Vulkan
-
-} // Origin

@@ -1,7 +1,5 @@
 #include "DescriptorPool.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 DescriptorPool::DescriptorPool(Device* device) : Devicer(device) {
@@ -40,5 +38,3 @@ void DescriptorPool::reset() {
 }
 
 } // Vulkan
-
-} // Origin

@@ -1,7 +1,5 @@
 #include "Fence.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Fence::Fence(Device* device) : Devicer(device) {
@@ -33,5 +31,3 @@ void Fence::setSignaledBit() {
 }
 
 } // Vulkan
-
-} // Origin

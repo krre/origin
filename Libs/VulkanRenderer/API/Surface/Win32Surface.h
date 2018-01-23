@@ -2,8 +2,6 @@
 #include "Surface.h"
 #include <windows.h>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Instance;
@@ -21,5 +19,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

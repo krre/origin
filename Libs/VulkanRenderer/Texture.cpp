@@ -8,7 +8,7 @@
 #include "API/Image/Image.h"
 #include "API/Device/PhysicalDevice.h"
 
-namespace Origin {
+namespace Vulkan {
 
 Texture::Texture(const std::string& path) {
     uint32_t width;
@@ -52,4 +52,4 @@ Texture::~Texture() {
 
 }
 
-} // Origin
+} // Vulkan

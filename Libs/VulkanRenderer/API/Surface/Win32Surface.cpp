@@ -2,8 +2,6 @@
 #include "Win32Surface.h"
 #include "../Instance.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 using namespace Vulkan;
@@ -23,5 +21,3 @@ void Vulkan::Win32Surface::platformCreateHandle() {
 }
 
 } // Vulkan
-
-} // Origin

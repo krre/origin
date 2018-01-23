@@ -2,8 +2,6 @@
 #include "../Instance.h"
 #include "../Device/PhysicalDevice.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Surface::Surface(Instance* instance, PhysicalDevice* physicalDevice) :
@@ -41,5 +39,3 @@ VkExtent2D Surface::getCurrentExtent() const {
 }
 
 } // Vulkan
-
-} // Origin

@@ -2,8 +2,6 @@
 #include "RenderPass.h"
 #include "Image/ImageView.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Framebuffer::Framebuffer(Device* device) :
@@ -44,5 +42,3 @@ void Framebuffer::setRenderPass(RenderPass* renderPass) {
 }
 
 } // Vulkan
-
-} // Origin

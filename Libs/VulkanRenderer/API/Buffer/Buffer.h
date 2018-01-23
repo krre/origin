@@ -2,8 +2,6 @@
 #include "../Base/Handle.h"
 #include "../Device/Devicer.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Buffer : public Handle<VkBuffer>, public Devicer {
@@ -22,5 +20,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

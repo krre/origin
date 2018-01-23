@@ -2,8 +2,6 @@
 #include "DebugReportCallback.h"
 #include <iostream>
 
-namespace Origin {
-
 namespace Vulkan {
 
 Instance::Instance() {
@@ -107,5 +105,3 @@ std::string Instance::apiToString(int api) {
 }
 
 } // Vulkan
-
-} // Origin

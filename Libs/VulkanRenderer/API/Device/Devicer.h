@@ -1,8 +1,6 @@
 #pragma once
 #include "Device.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Devicer {
@@ -18,5 +16,3 @@ protected:
 };
 
 } // Vulkan
-
-} // Origin

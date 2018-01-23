@@ -4,8 +4,6 @@
 #include "Command/CommandBuffer.h"
 #include "Surface/Swapchain.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Queue::Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) : Devicer(device) {
@@ -93,5 +91,3 @@ void Queue::clearSwapchains() {
 }
 
 } // Vulkan
-
-} // Origin

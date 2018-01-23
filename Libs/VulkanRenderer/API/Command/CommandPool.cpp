@@ -1,7 +1,5 @@
 #include "CommandPool.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 CommandPool::CommandPool(Device* device, uint32_t queueFamilyIndex) : Devicer(device) {
@@ -27,5 +25,3 @@ void CommandPool::reset() {
 }
 
 } // Vulkan
-
-} // Origin

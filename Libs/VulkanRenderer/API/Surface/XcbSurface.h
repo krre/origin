@@ -2,8 +2,6 @@
 #include "Surface.h"
 #include <X11/Xlib-xcb.h>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class Instance;
@@ -21,5 +19,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

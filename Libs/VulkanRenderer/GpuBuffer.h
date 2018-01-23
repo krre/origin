@@ -2,13 +2,11 @@
 #include <vulkan/vulkan.h>
 #include <memory>
 
-namespace Origin {
-
 namespace Vulkan {
-    class Device;
-    class Buffer;
-    class DeviceMemory;
-}
+
+class Device;
+class Buffer;
+class DeviceMemory;
 
 class GpuBuffer {
 
@@ -32,4 +30,4 @@ private:
     VkBufferUsageFlagBits usage;
 };
 
-} // Origin
+} // Vulkan

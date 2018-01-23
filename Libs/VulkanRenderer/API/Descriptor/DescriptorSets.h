@@ -2,8 +2,6 @@
 #include "../Base/Collection.h"
 #include "../Device/Devicer.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 class DescriptorPool;
@@ -29,5 +27,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

@@ -2,8 +2,6 @@
 #include "XcbSurface.h"
 #include "../Instance.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 XcbSurface::XcbSurface(Instance* instance, PhysicalDevice* physicalDevice, xcb_connection_t* connection, xcb_window_t window) :
@@ -21,5 +19,3 @@ void Vulkan::XcbSurface::platformCreateHandle() {
 }
 
 } // Vulkan
-
-} // Origin

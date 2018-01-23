@@ -1,7 +1,5 @@
 #include "Pipeline.h"
 
-namespace Origin {
-
 namespace Vulkan {
 
 Pipeline::~Pipeline() {
@@ -29,5 +27,3 @@ void Pipeline::setPipelineCache(VkPipelineCache pipelineCache) {
 }
 
 } // Vulkan
-
-} // Origin

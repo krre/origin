@@ -3,8 +3,6 @@
 #include "Device/Devicer.h"
 #include <vector>
 
-namespace Origin {
-
 namespace Vulkan {
 
 class RenderPass : public Handle<VkRenderPass>, public Devicer {
@@ -41,5 +39,3 @@ private:
 };
 
 } // Vulkan
-
-} // Origin

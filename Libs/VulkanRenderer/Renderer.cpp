@@ -31,6 +31,7 @@ Renderer* Renderer::renderer = nullptr;
 Renderer::Renderer(WindowSettings windowSettings) : windowSettings(windowSettings) {
     assert(renderer == nullptr);
     renderer = this;
+    instance = std::make_unique<Instance>();
 }
 
 Renderer::~Renderer() {
@@ -53,8 +54,6 @@ void Renderer::setEnabledExtensions(const std::vector<std::string>& enabledExten
 }
 
 void Renderer::create() {
-    instance = std::make_unique<Instance>();
-
 //    instance->setUseDebugCallback(true); // TODO: Take from debug settings
     instance->create();
 

@@ -269,14 +269,14 @@ ShaderProgram::ShaderProgram(const std::string& name) {
         }
     }
 
-    descriptorPool = std::make_unique<Vulkan::DescriptorPool>(device);
-    descriptorSets = std::make_unique<Vulkan::DescriptorSets>(device, descriptorPool.get());
+    descriptorPool = std::make_unique<DescriptorPool>(device);
+    descriptorSets = std::make_unique<DescriptorSets>(device, descriptorPool.get());
 
-    graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
+    graphicsPipeline = std::make_unique<GraphicsPipeline>(device);
 //    graphicsPipeline->setExtent(Application::get()->getWindow()->getSurface()->getCapabilities().currentExtent);
 
-    pipelineLayout = std::make_unique<Vulkan::PipelineLayout>(device);
-    descriptorSetLayout = std::make_unique<Vulkan::DescriptorSetLayout>(device);
+    pipelineLayout = std::make_unique<PipelineLayout>(device);
+    descriptorSetLayout = std::make_unique<DescriptorSetLayout>(device);
 }
 
 ShaderProgram::~ShaderProgram() {
@@ -317,7 +317,7 @@ void ShaderProgram::createPipeline() {
                     usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
                 }
                 BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Vulkan::Buffer> buffer = std::make_shared<Vulkan::Buffer>(device, usage, bufferInfo->size);
+                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, bufferInfo->size);
                 buffer->create();
                 bufferInfo->buffer = buffer;
                 writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();

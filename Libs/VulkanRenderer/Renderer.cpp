@@ -75,16 +75,16 @@ void Renderer::render() {
 }
 
 void Renderer::createAll() {
-    instance = std::make_unique<Vulkan::Instance>();
+    instance = std::make_unique<Instance>();
 
 //    instance->setUseDebugCallback(true); // TODO: Take from debug settings
     instance->create();
 
-    physicalDevices = std::make_unique<Vulkan::PhysicalDevices>(instance.get());
+    physicalDevices = std::make_unique<PhysicalDevices>(instance.get());
 
     // Default graphics and compute device are same and first in list of physical devices
-    Vulkan::PhysicalDevice* graphicsPhysicalDevice = physicalDevices->getPhysicalDevice(0);
-    Vulkan::PhysicalDevice* computePhysicalDevice = physicalDevices->getPhysicalDevice(0);
+    PhysicalDevice* graphicsPhysicalDevice = physicalDevices->getPhysicalDevice(0);
+    PhysicalDevice* computePhysicalDevice = physicalDevices->getPhysicalDevice(0);
 
     if (physicalDevices->getCount() > 1) {
         if (presetDevice != -1) {
@@ -106,61 +106,61 @@ void Renderer::createAll() {
 
     // Create graphics logical device and command pool
     graphicsFamily = graphicsPhysicalDevice->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
-    graphicsDevice = std::make_unique<Vulkan::Device>(graphicsPhysicalDevice);
+    graphicsDevice = std::make_unique<Device>(graphicsPhysicalDevice);
     graphicsDevice->addQueueCreateInfo(graphicsFamily, { 1.0 });
     graphicsDevice->create();
 
-    graphicsCommandPool = std::make_shared<Vulkan::CommandPool>(graphicsDevice.get(), graphicsFamily);
+    graphicsCommandPool = std::make_shared<CommandPool>(graphicsDevice.get(), graphicsFamily);
     graphicsCommandPool->create();
 
     // Create compute logical device and command pool
     if (graphicsPhysicalDevice != computePhysicalDevice) {
         computeFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
-        computeDevice = std::make_unique<Vulkan::Device>(computePhysicalDevice);
+        computeDevice = std::make_unique<Device>(computePhysicalDevice);
         computeDevice->addQueueCreateInfo(computeFamily, { 1.0 });
         computeDevice->create();
 
-        computeCommandPool = std::make_shared<Vulkan::CommandPool>(computeDevice.get(), computeFamily);
+        computeCommandPool = std::make_shared<CommandPool>(computeDevice.get(), computeFamily);
         computeCommandPool->create();
     }
 
     device = graphicsDevice.get();
 
-    imageAvailableSemaphore = std::make_unique<Vulkan::Semaphore>(device);
+    imageAvailableSemaphore = std::make_unique<Semaphore>(device);
     imageAvailableSemaphore->create();
 
-    renderFinishedSemaphore = std::make_unique<Vulkan::Semaphore>(device);
+    renderFinishedSemaphore = std::make_unique<Semaphore>(device);
     renderFinishedSemaphore->create();
 
-    queue = std::make_unique<Vulkan::Queue>(device, graphicsFamily);
+    queue = std::make_unique<Queue>(device, graphicsFamily);
     queue->create();
     queue->addPresentWaitSemaphore(renderFinishedSemaphore.get());
 
 #if defined(OS_WIN)
-    surface = std::make_unique<Vulkan::Win32Surface>(instance.get(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
+    surface = std::make_unique<Win32Surface>(instance.get(), device->getPhysicalDevice(), GetModuleHandle(nullptr), wminfo.info.win.window);
 #elif defined(OS_LINUX)
-    surface = std::make_unique<Vulkan::XcbSurface>(instance.get(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
+    surface = std::make_unique<XcbSurface>(instance.get(), device->getPhysicalDevice(), XGetXCBConnection(wminfo.info.x11.display), wminfo.info.x11.window);
 #endif
 
     surface->create();
 
-    renderPass = std::make_unique<Vulkan::RenderPass>(device);
+    renderPass = std::make_unique<RenderPass>(device);
     renderPass->setColorFormat(surface->getFormats().at(0).format);
     renderPass->create();
 
-    swapchain = std::make_unique<Vulkan::Swapchain>(device, surface.get());
+    swapchain = std::make_unique<Swapchain>(device, surface.get());
 
     resize();
 }
 
-void Renderer::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer) {
+void Renderer::writeCommandBuffers(CommandBuffer* commandBuffer) {
     const Color& color = window->getColor();
     renderPass->setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
 
     for (int i = 0; i < commandBuffers.size(); i++) {
         renderPass->setFramebuffer(framebuffers.at(i)->getHandle());
 
-        Vulkan::CommandBuffer* commandBuffer = commandBuffers.at(i).get();
+        CommandBuffer* commandBuffer = commandBuffers.at(i).get();
         commandBuffer->reset();
         commandBuffer->begin();
 
@@ -217,11 +217,11 @@ void Renderer::resize() {
     framebuffers.clear();
 
     for (const auto& image : swapchain->getImages()) {
-        std::unique_ptr<Vulkan::ImageView> imageView = std::make_unique<Vulkan::ImageView>(device, image);
+        std::unique_ptr<ImageView> imageView = std::make_unique<ImageView>(device, image);
         imageView->setFormat(surface->getFormats().at(0).format);
         imageView->create();
 
-        std::unique_ptr<Vulkan::Framebuffer> framebuffer = std::make_unique<Vulkan::Framebuffer>(device);
+        std::unique_ptr<Framebuffer> framebuffer = std::make_unique<Framebuffer>(device);
         framebuffer->addAttachment(imageView.get());
         framebuffer->setRenderPass(renderPass.get());
         framebuffer->setWidth(width);
@@ -233,11 +233,11 @@ void Renderer::resize() {
     }
 
     if (!commandBuffers.size()) {
-        commandBufferHandlers = std::make_unique<Vulkan::CommandBuffers>(device, graphicsCommandPool.get());
+        commandBufferHandlers = std::make_unique<CommandBuffers>(device, graphicsCommandPool.get());
         commandBufferHandlers->allocate(swapchain->getCount());
 
         for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
-            auto commandBuffer = std::make_unique<Vulkan::CommandBuffer>(commandBufferHandlers->at(i));
+            auto commandBuffer = std::make_unique<CommandBuffer>(commandBufferHandlers->at(i));
             writeCommandBuffers(commandBuffer.get());
             commandBuffers.push_back(std::move(commandBuffer));
         }
@@ -250,13 +250,13 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
     uint32_t width = surface->getCurrentExtent().width;
     uint32_t height = surface->getCurrentExtent().height;
 
-    Vulkan::Image image(device);
+    Image image(device);
     image.setWidth(width);
     image.setHeight(height);
     image.create();
     VkImage dstImage = image.getHandle();
 
-    Vulkan::CommandBufferOneTime commandBuffer(device, graphicsCommandPool.get());
+    CommandBufferOneTime commandBuffer(device, graphicsCommandPool.get());
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,

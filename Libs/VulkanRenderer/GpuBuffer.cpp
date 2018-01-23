@@ -11,7 +11,7 @@ GpuBuffer::GpuBuffer(VkBufferUsageFlagBits usage, uint32_t size) :
         usage(usage),
         size(size) {
 //    device = RenderEngine::get()->getGraphicsDevice();
-    buffer = std::make_unique<Vulkan::Buffer>(device, usage, size);
+    buffer = std::make_unique<Buffer>(device, usage, size);
     buffer->create();
 
     VkMemoryRequirements memRequirements;
@@ -20,7 +20,7 @@ GpuBuffer::GpuBuffer(VkBufferUsageFlagBits usage, uint32_t size) :
     VkMemoryPropertyFlags properties = !moveToDevice ?
                 (VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) :
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
-    memory = std::make_unique<Vulkan::DeviceMemory>(device);
+    memory = std::make_unique<DeviceMemory>(device);
     memory->setMemoryTypeIndex(buffer->getDevice()->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
     memory->allocate(memRequirements.size);
 
@@ -35,8 +35,8 @@ VkBuffer GpuBuffer::getHandle() const {
     return buffer->getHandle();
 }
 
-void GpuBuffer::copyToBuffer(Vulkan::Buffer* dstBuffer, VkDeviceSize size) {
-//    Vulkan::CommandBufferOneTime commandBuffer(buffer->getDevice(), RenderEngine::get()->getComputeCommandPool());
+void GpuBuffer::copyToBuffer(Buffer* dstBuffer, VkDeviceSize size) {
+//    CommandBufferOneTime commandBuffer(buffer->getDevice(), RenderEngine::get()->getComputeCommandPool());
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;

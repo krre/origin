@@ -18,7 +18,7 @@ Texture::Texture(const std::string& path) {
 //        throw std::runtime_error("Failed to decode image " + path);
 //    }
 
-//    image = std::make_unique<Vulkan::Image>(RenderEngine::get()->getGraphicsDevice());
+//    image = std::make_unique<Image>(RenderEngine::get()->getGraphicsDevice());
 
     image->setWidth(width);
     image->setHeight(height);
@@ -29,7 +29,7 @@ Texture::Texture(const std::string& path) {
 
     image->write(data.data(), data.size());
 
-//    imageView = std::make_unique<Vulkan::ImageView>(RenderEngine::get()->getGraphicsDevice(), image->getHandle());
+//    imageView = std::make_unique<ImageView>(RenderEngine::get()->getGraphicsDevice(), image->getHandle());
     imageView->setFormat(image->getFormat());
     imageView->create();
 
@@ -43,7 +43,7 @@ Texture::Texture(const std::string& path) {
 
     }
 
-//    Vulkan::CommandBufferOneTime commandBuffer(RenderEngine::get()->getGraphicsDevice(), RenderEngine::get()->getGraphicsCommandPool());
+//    CommandBufferOneTime commandBuffer(RenderEngine::get()->getGraphicsDevice(), RenderEngine::get()->getGraphicsCommandPool());
 //    commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
 //    commandBuffer.apply();
 }

@@ -4,13 +4,13 @@
 #include "Graphics/ShaderProgram.h"
 #include "Graphics/Buffer/VertexBuffer.h"
 #include "Graphics/Buffer/IndexBuffer.h"
-#include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Surface/Swapchain.h"
-#include "Graphics/Vulkan/Surface/Surface.h"
-#include "Graphics/Vulkan/RenderPass.h"
-#include "Graphics/Vulkan/Descriptor/DescriptorSets.h"
-#include "Graphics/Vulkan/Pipeline/GraphicsPipeline.h"
-#include "Graphics/Vulkan/Command/CommandBuffer.h"
+#include "Vulkan/Instance.h"
+#include "Vulkan/Surface/Swapchain.h"
+#include "Vulkan/Surface/Surface.h"
+#include "Vulkan/RenderPass.h"
+#include "Vulkan/Descriptor/DescriptorSets.h"
+#include "Vulkan/Pipeline/GraphicsPipeline.h"
+#include "Vulkan/Command/CommandBuffer.h"
 
 namespace Origin {
 

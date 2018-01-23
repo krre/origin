@@ -2,7 +2,6 @@ add_subdirectory(Buffer)
 add_subdirectory(Light)
 add_subdirectory(Render)
 add_subdirectory(Voxel)
-add_subdirectory(Vulkan)
 
 set(SOURCES
     ${SOURCES}
@@ -11,15 +10,9 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Drawable.h
     ${CMAKE_CURRENT_SOURCE_DIR}/GraphicsTypes.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/GpuBuffer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/GpuBuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Mesh.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Plane.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Texture.h
     PARENT_SCOPE
 )

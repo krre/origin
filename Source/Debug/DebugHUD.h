@@ -1,10 +1,10 @@
 #pragma once
 #include "Core/Singleton.h"
 #include "Gui/View2D.h"
-#include "Graphics/Vulkan/Pipeline/PipelineCache.h"
-#include "Graphics/ShaderProgram.h"
-#include "Graphics/Vulkan/Sampler.h"
-#include "Graphics/Vulkan/RenderPass.h"
+#include "VulkanRenderer/API/Pipeline/PipelineCache.h"
+#include "VulkanRenderer/ShaderProgram.h"
+#include "VulkanRenderer/API/Sampler.h"
+#include "VulkanRenderer/API/RenderPass.h"
 #include <glm/glm.hpp>
 
 namespace Origin {

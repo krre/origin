@@ -4,12 +4,12 @@
 #include "Event/Input.h"
 #include "Gui/LinearLayout.h"
 #include "Gui/Button.h"
-#include "Graphics/Vulkan/Surface/Swapchain.h"
-#include "Graphics/Vulkan/Framebuffer.h"
-#include "Graphics/Vulkan/Instance.h"
-#include "Graphics/Vulkan/Command/CommandBuffer.h"
-#include "Graphics/Vulkan/Command/CommandBuffers.h"
-#include "Graphics/Vulkan/Queue.h"
+#include "Vulkan/Surface/Swapchain.h"
+#include "Vulkan/Framebuffer.h"
+#include "Vulkan/Instance.h"
+#include "Vulkan/Command/CommandBuffer.h"
+#include "Vulkan/Command/CommandBuffers.h"
+#include "Vulkan/Queue.h"
 
 namespace Origin {
 

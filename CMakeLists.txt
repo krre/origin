@@ -15,13 +15,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 configure_file(Origin.h.in Origin.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
+add_subdirectory(Libs)
 add_subdirectory(Source)
 add_subdirectory(ThirdParty)
 
 set(EXECUTABLE_NAME "origin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
-
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 
 # If find SDL2 failure, set SDL_PATH variable to SDL install root
@@ -36,30 +35,16 @@ include_directories(${Vulkan_INCLUDE_DIRS})
 
 include_directories(Source)
 include_directories(ThirdParty)
+include_directories(Libs)
+
+add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
-    ${Vulkan_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs
 )
 
-if(WIN32)
-    include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
-
-    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
-    string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
-
-    target_link_libraries(${EXECUTABLE_NAME}
-        ${SPIRV_TOOLS_LIB}
-    )
-else()
-    target_link_libraries(${EXECUTABLE_NAME}
-        $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
-        X11-xcb
-    )
-endif()
-
 # Show in QtCreator project tree
-file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*" "Source/Template/*.*")
+file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*" "Source/Template/*.*" "Libs/*.*")
 add_custom_target(root SOURCES ${Root})

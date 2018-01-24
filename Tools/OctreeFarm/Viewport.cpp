@@ -15,13 +15,13 @@ namespace OctreeFarm {
 Viewport::Viewport(Octree* octree) : octree(octree) {
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
     VulkanRenderer::WindowSettings windowSettings;
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX)
     QPlatformNativeInterface* native = QGuiApplication::platformNativeInterface();
     windowSettings.window = static_cast<xcb_window_t>(winId());
     windowSettings.connection = static_cast<xcb_connection_t*>(native->nativeResourceForWindow("connection", this));
 #elif defined(Q_OS_WIN)
-//    windowSettings.hinstance =
-    windowSettings.hwnd = winId()
+    windowSettings.hinstance = GetModuleHandle(nullptr);
+    windowSettings.hwnd = HWND(winId());
 #endif
 
     renderer = QSharedPointer<VulkanRenderer>(new VulkanRenderer(windowSettings));

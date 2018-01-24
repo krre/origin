@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.5)
+
+project(Octree)
+
+set(LIB_NAME "Octree")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME}) # For MinGW
+
+set(VERSION_MAJOR 0)
+set(VERSION_MINOR 1)
+set(VERSION_PATCH 0)
+
+set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+find_package(Vulkan REQUIRED)
+include_directories(${Vulkan_INCLUDE_DIRS})
+
+set(SOURCES
+    ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Octree.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Octree.h
+)
+
+add_library(${LIB_NAME} SHARED ${SOURCES})
+
+target_link_libraries(${LIB_NAME}
+    ${Vulkan_LIBRARIES}
+)

@@ -44,6 +44,7 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${BULLET_LIBRARIES}
     stdc++fs
     VulkanRenderer
+    Octree
 )
 
 # Show in QtCreator project tree

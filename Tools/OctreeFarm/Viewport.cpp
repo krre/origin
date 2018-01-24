@@ -13,6 +13,7 @@
 namespace OctreeFarm {
 
 Viewport::Viewport(Octree* octree) : octree(octree) {
+    setFlag(Qt::FramelessWindowHint);
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
     VulkanRenderer::WindowSettings windowSettings;
 #if defined(Q_OS_LINUX)

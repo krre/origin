@@ -1,4 +1,5 @@
 QT += widgets
+QT += core-private gui-private # For use QPA
 CONFIG += c++17
 TARGET = OctreeFarm
 TEMPLATE = app
@@ -12,6 +13,7 @@ unix:LIBS += -L$$(VULKAN_SDK)/lib -lvulkan
 win32:LIBS += -L$$(VULKAN_SDK)/lib32 -lvulkan-1
 LIBS += -L$$(ORIGIN_HOME) -lVulkanRenderer
 
+
 SOURCES += main.cpp\
     Octree.cpp \
     Camera.cpp \
@@ -20,7 +22,8 @@ SOURCES += main.cpp\
     Source.cpp \
     Command.cpp \
     OptionsDialog.cpp \
-    MainWindow.cpp
+    MainWindow.cpp \
+    VulkanRenderer.cpp
 
 HEADERS  += \
     Octree.h \
@@ -32,7 +35,8 @@ HEADERS  += \
     Command.h \
     OptionsDialog.h \
     Origin.h \
-    MainWindow.h
+    MainWindow.h \
+    VulkanRenderer.h
 
 FORMS += \
     MainWindow.ui

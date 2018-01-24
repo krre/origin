@@ -9,6 +9,8 @@ namespace OctreeFarm {
 
 const int LOD_PIXEL_LIMIT = 1;
 
+class VulkanRenderer;
+
 class Viewport : public QWindow {
     Q_OBJECT
 
@@ -27,6 +29,7 @@ class Viewport : public QWindow {
 
 public:
     Viewport(Octree* octree = nullptr);
+    ~Viewport();
     void updateOctreeInGPU(int offset, void* data, int count);
     void reset();
     bool getIsReady() { return isReady; }
@@ -35,6 +38,7 @@ protected:
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
+    void resizeEvent(QResizeEvent* event);
 
 signals:
     void ready();
@@ -46,6 +50,7 @@ private slots:
     void onOctreeChanged();
 
 private:
+    QSharedPointer<VulkanRenderer> renderer;
     float rotateSpeed = 5;
     float panSpeed = 100;
     QPoint lastPos;

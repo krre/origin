@@ -2,5 +2,7 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuScreen.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuScreen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScreen.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScreen.h
     PARENT_SCOPE
 )

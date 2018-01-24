@@ -11,8 +11,7 @@ INCLUDEPATH += $$(VULKAN_SDK)/include
 
 unix:LIBS += -L$$(VULKAN_SDK)/lib -lvulkan
 win32:LIBS += -L$$(VULKAN_SDK)/lib32 -lvulkan-1
-LIBS += -L$$(ORIGIN_HOME) -lVulkanRenderer
-
+LIBS += -L$$(ORIGIN_HOME) -lVulkanRenderer -lOctree
 
 SOURCES += main.cpp\
     Octree.cpp \

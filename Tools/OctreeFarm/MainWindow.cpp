@@ -2,6 +2,7 @@
 #include "ui_MainWindow.h"
 #include "Defines.h"
 #include "Viewport.h"
+#include "Properties.h"
 #include "Command.h"
 #include "OptionsDialog.h"
 #include <QtWidgets>
@@ -17,9 +18,14 @@ MainWindow::MainWindow(QWidget* parent) :
 
     viewport = new Viewport;
     QWidget* container = QWidget::createWindowContainer(viewport);
-    QBoxLayout* layout = new QBoxLayout(QBoxLayout::TopToBottom, ui->frameViewport);
-    layout->setMargin(0);
-    layout->addWidget(container);
+    QBoxLayout* viewportlayout = new QBoxLayout(QBoxLayout::TopToBottom, ui->frameViewport);
+    viewportlayout->setMargin(0);
+    viewportlayout->addWidget(container);
+
+    QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, ui->frameProperties);
+    propLayout->setMargin(0);
+    properties = new Properties(&octree, viewport, undoStack);
+    propLayout->addWidget(properties);
 
     setWindowTitle(APP_NAME);
 

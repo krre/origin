@@ -47,6 +47,7 @@ public:
     CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }
     CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
     RenderPass* getRenderPass() const { return renderPass.get(); }
+    Surface* getSurface() const { return surface.get(); }
 
     static Renderer* get() { return renderer; }
 

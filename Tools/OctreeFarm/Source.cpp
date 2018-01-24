@@ -1,7 +1,6 @@
 #include "Source.h"
 #include "Octree.h"
 #include "Defines.h"
-#include "Core/Utils.h"
 #include <QtCore>
 #include <bitset>
 
@@ -29,8 +28,8 @@ QString Source::serialize() {
 }
 
 QSharedPointer<QVector<uint32_t>> Source::binary() {
-    std::shared_ptr<std::vector<uint32_t>> dataStd = Origin::Utils::jsonToBinary(root);
-    QVector<uint32_t>* data = new QVector<uint32_t>(QVector<uint32_t>::fromStdVector(*dataStd));
+//    std::shared_ptr<std::vector<uint32_t>> dataStd = Origin::Utils::jsonToBinary(root);
+//    QVector<uint32_t>* data = new QVector<uint32_t>(QVector<uint32_t>::fromStdVector(*dataStd));
 
 #if BINARY_PRINT == 1
     for (auto value: *data) {
@@ -38,7 +37,8 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     }
 #endif
 
-    return QSharedPointer<QVector<uint32_t>>(data);
+//    return QSharedPointer<QVector<uint32_t>>(data);
+    return QSharedPointer<QVector<uint32_t>>();
 }
 
 bool Source::changeNodeColor(const QVector<QSharedPointer<Node>>& selection, const QColor& color) {
@@ -248,17 +248,17 @@ json::object_t* Source::findNode(const QVector<int>& path, int index) {
 QVector<int> Source::posToPath(const glm::vec3& pos, int scale) {
     QVector<int> path;
     int s_max = 23; // from Voxel.frag
-    std::bitset<32> bitsX(Origin::Utils::floatToUint(pos.x));
-    std::bitset<32> bitsY(Origin::Utils::floatToUint(pos.y));
-    std::bitset<32> bitsZ(Origin::Utils::floatToUint(pos.z));
+//    std::bitset<32> bitsX(Origin::Utils::floatToUint(pos.x));
+//    std::bitset<32> bitsY(Origin::Utils::floatToUint(pos.y));
+//    std::bitset<32> bitsZ(Origin::Utils::floatToUint(pos.z));
 
-    for (int i = s_max - 1; i >= scale; i--) {
-        int index = 0;
-        index |= bitsX[i];
-        index |= bitsY[i] << 1;
-        index |= bitsZ[i] << 2;
-        path.append(index);
-    }
+//    for (int i = s_max - 1; i >= scale; i--) {
+//        int index = 0;
+//        index |= bitsX[i];
+//        index |= bitsY[i] << 1;
+//        index |= bitsZ[i] << 2;
+//        path.append(index);
+//    }
 
     return path;
 }
@@ -267,20 +267,20 @@ glm::vec3 Source::pathToPos(const QVector<int> path) {
     glm::vec3 pos = glm::vec3(1.0);
     int s_max = 23; // from Voxel.frag
     int i = s_max - 1;
-    std::bitset<32> bitsX(Origin::Utils::floatToUint(pos.x));
-    std::bitset<32> bitsY(Origin::Utils::floatToUint(pos.y));
-    std::bitset<32> bitsZ(Origin::Utils::floatToUint(pos.z));
+//    std::bitset<32> bitsX(Origin::Utils::floatToUint(pos.x));
+//    std::bitset<32> bitsY(Origin::Utils::floatToUint(pos.y));
+//    std::bitset<32> bitsZ(Origin::Utils::floatToUint(pos.z));
 
-    for (auto index: path) {
-        bitsX[i] = index & 1;
-        bitsY[i] = (index >> 1) & 1;
-        bitsZ[i] = (index >> 2) & 1;
-        i--;
-    }
+//    for (auto index: path) {
+//        bitsX[i] = index & 1;
+//        bitsY[i] = (index >> 1) & 1;
+//        bitsZ[i] = (index >> 2) & 1;
+//        i--;
+//    }
 
-    pos.x = Origin::Utils::uintToFloat(bitsX.to_ullong());
-    pos.y = Origin::Utils::uintToFloat(bitsY.to_ullong());
-    pos.z = Origin::Utils::uintToFloat(bitsZ.to_ullong());
+//    pos.x = Origin::Utils::uintToFloat(bitsX.to_ullong());
+//    pos.y = Origin::Utils::uintToFloat(bitsY.to_ullong());
+//    pos.z = Origin::Utils::uintToFloat(bitsZ.to_ullong());
 
     return pos;
 }

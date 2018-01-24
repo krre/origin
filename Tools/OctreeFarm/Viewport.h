@@ -1,18 +1,15 @@
 #pragma once
 #include "Octree.h"
 #include "Camera.h"
-#include <QOpenGLWidget>
-#include <QOpenGLBuffer>
-#include <QOpenGLTexture>
-#include <QOpenGLVertexArrayObject>
-#include <QOpenGLShaderProgram>
 #include <cstdint>
+#include <QWindow>
+#include <QVector3D>
 
 namespace OctreeFarm {
 
 const int LOD_PIXEL_LIMIT = 1;
 
-class Viewport : public QOpenGLWidget {
+class Viewport : public QWindow {
     Q_OBJECT
 
     struct PickResult {
@@ -35,9 +32,6 @@ public:
     bool getIsReady() { return isReady; }
 
 protected:
-    void initializeGL() override;
-    void paintGL() override;
-    void resizeGL(int width, int height) override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
@@ -52,14 +46,6 @@ private slots:
     void onOctreeChanged();
 
 private:
-    QOpenGLVertexArrayObject vao;
-    QOpenGLBuffer vbo;
-    GLuint octreesSsbo;
-    GLuint pickResultSsbo;
-    GLuint renderListSsbo;
-    GLuint debugSsbo;
-    QOpenGLShaderProgram program;
-
     float rotateSpeed = 5;
     float panSpeed = 100;
     QPoint lastPos;

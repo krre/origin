@@ -84,7 +84,7 @@ void MainWindow::setupSplitter() {
     viewportLayout->setMargin(0);
     viewport = new Viewport(&octree);
     viewport->setMinimumWidth(100);
-    viewportLayout->addWidget(viewport);
+//    viewportLayout->addWidget(viewport);
 
     // Properties
     QFrame* propFrame = new QFrame;
@@ -261,7 +261,7 @@ void MainWindow::newFile() {
         octree.createNew();
         viewport->reset();
         viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
-        viewport->update();
+//        viewport->update();
         setCurrentFile(QString());
     }
 }
@@ -273,7 +273,7 @@ void MainWindow::open() {
             loadFile(fileName);
             viewport->reset();
             viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
-            viewport->update();
+//            viewport->update();
         }
     }
 }
@@ -299,7 +299,7 @@ void MainWindow::revert() {
     if (!currentFile.isEmpty()) {
         loadFile(currentFile);
         viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
-        viewport->update();
+//        viewport->update();
     }
 }
 

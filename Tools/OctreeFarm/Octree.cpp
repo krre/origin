@@ -1,7 +1,6 @@
 #include "Octree.h"
 #include <QtCore>
 #include <QtGui>
-#include "../../Source/Core/Utils.h"
 #include <bitset>
 
 namespace OctreeFarm {

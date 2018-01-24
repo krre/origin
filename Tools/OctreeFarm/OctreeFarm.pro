@@ -3,10 +3,13 @@ CONFIG += c++17
 TARGET = OctreeFarm
 TEMPLATE = app
 
-win32: LIBS += -L$$(GLEW_HOME)/lib -lglew32 -lopengl32
-linux: LIBS += -lGLEW
+INCLUDEPATH += "../../ThirdParty"
+INCLUDEPATH += ../../../origin/Libs
+INCLUDEPATH += $$(VULKAN_SDK)/include
 
-INCLUDEPATH += "../../ThirdParty" $$(GLEW_HOME)/include "../../Source"
+unix:LIBS += -L$$(VULKAN_SDK)/lib -lvulkan
+win32:LIBS += -L$$(VULKAN_SDK)/lib32 -lvulkan-1
+LIBS += -L$$(ORIGIN_HOME) -lVulkanRenderer
 
 SOURCES += main.cpp\
     MainWindow.cpp \
@@ -15,8 +18,6 @@ SOURCES += main.cpp\
     Viewport.cpp \
     Properties.cpp \
     Source.cpp \
-    ../../Source/Core/Utils.cpp \
-    ../../Source/Core/Object.cpp \
     Command.cpp \
     OptionsDialog.cpp
 
@@ -25,10 +26,7 @@ HEADERS  += MainWindow.h \
     Camera.h \
     Viewport.h \
     Properties.h \
-    ../../Source/Core/Common.h \
     Source.h \
-    ../../Source/Core/Utils.h \
-    ../../Source/Core/Object.h \
     Defines.h \
     Command.h \
     OptionsDialog.h \

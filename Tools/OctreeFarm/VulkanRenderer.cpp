@@ -26,7 +26,7 @@ void VulkanRenderer::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, V
     VkRenderPassBeginInfo* beginInfo = getRenderPass()->getBeginInfo();
     beginInfo->framebuffer = framebuffer->getHandle();
 
-    VkExtent2D extent = { getSurface()->getCurrentExtent().width, getSurface()->getCurrentExtent().height };
+    VkExtent2D extent = getSurface()->getCurrentExtent();
     beginInfo->renderArea.extent = extent;
 
     VkViewport viewport = {};

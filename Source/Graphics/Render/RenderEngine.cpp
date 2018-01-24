@@ -109,7 +109,7 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     VkRenderPassBeginInfo* beginInfo = getRenderPass()->getBeginInfo();
     beginInfo->framebuffer = framebuffer->getHandle();
 
-    VkExtent2D extent = { window->getWidth(), window->getHeight() };
+    VkExtent2D extent = getSurface()->getCurrentExtent();
     beginInfo->renderArea.extent = extent;
 
     VkViewport viewport = {};

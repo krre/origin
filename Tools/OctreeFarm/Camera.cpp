@@ -10,62 +10,62 @@ Camera::Camera(QObject* parent) : QObject(parent) {
 
 void Camera::setCameraToWorld(const glm::mat4& cameraToWorld) {
     this->cameraToWorld = cameraToWorld;
-    m_worldToCamera = glm::inverse(cameraToWorld);
+    worldToCamera = glm::inverse(cameraToWorld);
 }
 
 void Camera::setTarget(const glm::vec3& target) {
-    m_target = target;
-    distance = glm::distance(m_position, target);
+    this->target = target;
+    distance = glm::distance(position, target);
 }
 
 void Camera::setPosition(const glm::vec3& position) {
-    m_position = position;
+    this->position = position;
     setCameraToWorld(glm::translate(cameraToWorld, position));
 }
 
 void Camera::pan(float dx, float dy) {
-    glm::vec3 X = m_right * dx;
-    glm::vec3 Y = m_up * dy;
-    m_position += X + Y;
-    m_target += X + Y;
+    glm::vec3 x = right * dx;
+    glm::vec3 y = up * dy;
+    position += x + y;
+    target += x + y;
     update();
 }
 
 void Camera::rotate(float yaw, float pitch) {
-    m_yaw = yaw;
-    m_pitch = pitch;
+    this->yaw = yaw;
+    this->pitch = pitch;
     update();
 }
 
 void Camera::zoom(float amount) {
-    m_position += m_look * amount;
-    distance = glm::distance(m_position, m_target);
+    position += look * amount;
+    distance = glm::distance(position, target);
     distance = std::max(minDistance, std::min(distance, maxDistance));
     update();
 }
 
 void Camera::reset() {
-    m_position = glm::vec3(0.0, 0.0, 3.0);
+    position = glm::vec3(0.0, 0.0, 3.0);
     setTarget(glm::vec3(0.0, 0.0, 0.0));
-    m_scale = 1.0;
-    m_yaw = 0;
-    m_pitch = 0;
-    m_up = glm::vec3(0.0, 1.0, 0.0);
-    m_look = glm::vec3(0.0, 0.0, -1.0);
-    m_right = glm::vec3(1.0, 0.0, 0.0);
+    scale = 1.0;
+    yaw = 0;
+    pitch = 0;
+    up = glm::vec3(0.0, 1.0, 0.0);
+    look = glm::vec3(0.0, 0.0, -1.0);
+    right = glm::vec3(1.0, 0.0, 0.0);
     update();
 }
 
 void Camera::update() {
-    glm::mat4 R = glm::yawPitchRoll(glm::radians(m_yaw), glm::radians(m_pitch), 0.0f);
+    glm::mat4 R = glm::yawPitchRoll(glm::radians(yaw), glm::radians(pitch), 0.0f);
     glm::vec3 T = glm::vec3(0, 0, distance);
     T = glm::vec3(R * glm::vec4(T, 0.0f));
-    m_position = m_target + T;
-    m_look = glm::normalize(m_target - m_position);
-    m_up = glm::vec3(R * glm::vec4(UP, 0.0f));
-    m_right = glm::cross(m_look, m_up);
-    m_worldToCamera = glm::lookAt(m_position, m_target, m_up);
-    cameraToWorld = glm::inverse(m_worldToCamera);
+    position = target + T;
+    look = glm::normalize(target - position);
+    up = glm::vec3(R * glm::vec4(UP, 0.0f));
+    right = glm::cross(look, up);
+    worldToCamera = glm::lookAt(position, target, up);
+    cameraToWorld = glm::inverse(worldToCamera);
 }
 
 } // OctreeFarm

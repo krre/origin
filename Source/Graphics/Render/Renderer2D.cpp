@@ -21,7 +21,10 @@ void Renderer2D::render() {
     if (size > vertexBuffer->getSize()) {
         vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     }
-    vertexBuffer->write(vertices.data(), size);
+
+    if (size) {
+        vertexBuffer->write(vertices.data(), size);
+    }
 }
 
 void Renderer2D::prepare(Control* control) {

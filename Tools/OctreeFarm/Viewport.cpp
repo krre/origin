@@ -8,11 +8,6 @@
 namespace OctreeFarm {
 
 Viewport::Viewport(Octree* octree) : octree(octree) {
-    QSurfaceFormat format;
-    format.setVersion(3, 3);
-    format.setRenderableType(QSurfaceFormat::OpenGL);
-    setFormat(format);
-
     connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
 }
 

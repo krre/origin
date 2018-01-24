@@ -5,6 +5,7 @@
 #include "Debug/DebugHUD.h"
 #include "Screen/MenuScreen.h"
 #include "Screen/SettingsScreen.h"
+#include "Screen/GameScreen.h"
 #include "Core/Window.h"
 
 namespace Origin {
@@ -23,7 +24,7 @@ void DebugEnvironment::setDebugScreen() {
     } else if (screen == Screen::Name::Settings) {
         Application::get()->getWindow()->setScreen(std::make_shared<SettingsScreen>());
     } else if (screen == Screen::Name::Game) {
-//        Application::get()->getWindow()->setScreen(std::make_shared<WorldScreen>());
+        Application::get()->getWindow()->setScreen(std::make_shared<GameScreen>());
     }
 }
 

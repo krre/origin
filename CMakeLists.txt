@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(origin)
+project(Origin)
 
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
@@ -19,7 +19,7 @@ add_subdirectory(Libs)
 add_subdirectory(Source)
 add_subdirectory(ThirdParty)
 
-set(EXECUTABLE_NAME "origin")
+set(EXECUTABLE_NAME "Origin")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 

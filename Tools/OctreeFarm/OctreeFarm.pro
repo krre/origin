@@ -18,7 +18,6 @@ SOURCES += main.cpp\
     Octree.cpp \
     Camera.cpp \
     Viewport.cpp \
-#    Properties.cpp \
     Source.cpp \
     Command.cpp \
     OptionsDialog.cpp \
@@ -30,7 +29,6 @@ HEADERS  += \
     Octree.h \
     Camera.h \
     Viewport.h \
-#    Properties.h \
     Source.h \
     Defines.h \
     Command.h \

@@ -26,7 +26,7 @@ class Viewport : public QWindow {
     };
 
 public:
-    Viewport(Octree* octree);
+    Viewport(Octree* octree = nullptr);
     void updateOctreeInGPU(int offset, void* data, int count);
     void reset();
     bool getIsReady() { return isReady; }

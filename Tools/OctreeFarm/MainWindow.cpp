@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "Defines.h"
+#include "Viewport.h"
 #include <QtWidgets>
 
 namespace OctreeFarm {
@@ -9,7 +10,15 @@ MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow) {
     ui->setupUi(this);
+
+    Viewport* viewport = new Viewport;
+    QWidget* container = QWidget::createWindowContainer(viewport);
+    QBoxLayout* layout = new QBoxLayout(QBoxLayout::TopToBottom, ui->frameViewport);
+    layout->setMargin(0);
+    layout->addWidget(container);
+
     setWindowTitle(APP_NAME);
+
     settings = new QSettings(QCoreApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME, QSettings::IniFormat, this);
     readSettings();
 }

@@ -8,7 +8,7 @@
 namespace OctreeFarm {
 
 Viewport::Viewport(Octree* octree) : octree(octree) {
-    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
+//    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
 }
 
 void Viewport::mousePressEvent(QMouseEvent* event) {

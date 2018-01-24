@@ -142,7 +142,14 @@ void MainWindow::readSettings() {
     settings->beginGroup("MainWindow");
 
     resize(settings->value("size", QSize(WINDOW_WIDTH, WINDOW_HEIGHT)).toSize());
-    move(settings->value("pos", QPoint(WINDOW_X, WINDOW_Y)).toPoint());
+
+    QPoint pos = settings->value("pos").toPoint();
+    if (pos.isNull()) {
+        const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
+        move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
+    } else {
+        move(pos);
+    }
 
     QVariant splitterSize = settings->value("splitter");
     if (splitterSize == QVariant()) {

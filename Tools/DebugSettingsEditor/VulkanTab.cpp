@@ -8,8 +8,6 @@
 #include <QJsonArray>
 #include <QDebug>
 
-namespace Origin {
-
 namespace DebugSettingsEditor {
 
 VulkanTab::VulkanTab() :
@@ -139,5 +137,3 @@ void VulkanTab::on_comboBoxDevice_currentIndexChanged(int currentIndex) {
 }
 
 } // DebugSettingsEditor
-
-} // Origin

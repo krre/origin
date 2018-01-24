@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
     app.setApplicationName(APP_NAME);
     app.setApplicationVersion(APP_VERSION_STR);
 
-    Origin::DebugSettingsEditor::MainWindow mainWindow;
+    DebugSettingsEditor::MainWindow mainWindow;
     mainWindow.show();
 
     return app.exec();

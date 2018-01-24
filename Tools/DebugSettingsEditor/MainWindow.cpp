@@ -5,8 +5,6 @@
 #include "VulkanTab.h"
 #include <QtWidgets>
 
-namespace Origin {
-
 namespace DebugSettingsEditor {
 
 MainWindow::MainWindow(QWidget* parent) :
@@ -103,5 +101,3 @@ void MainWindow::writeDebugSettings() {
 }
 
 } // DebugSettingsEditor
-
-} // Origin

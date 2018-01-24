@@ -3,6 +3,8 @@
 
 class QJsonObject;
 
+namespace DebugSettingsEditor {
+
 class AbstractTab : public QWidget {
     Q_OBJECT
 
@@ -15,3 +17,5 @@ public:
 signals:
     void flush();
 };
+
+} // DebugSettingsEditor

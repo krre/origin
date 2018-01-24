@@ -5,8 +5,6 @@ namespace Ui {
     class GeneralTab;
 }
 
-namespace Origin {
-
 namespace DebugSettingsEditor {
 
 class GeneralTab : public AbstractTab {
@@ -27,5 +25,3 @@ private:
 };
 
 } // DebugSettingsEditor
-
-} // Origin

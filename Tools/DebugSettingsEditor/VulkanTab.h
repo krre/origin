@@ -5,8 +5,6 @@ namespace Ui {
     class VulkanTab;
 }
 
-namespace Origin {
-
 namespace DebugSettingsEditor {
 
 class VulkanTab : public AbstractTab {
@@ -27,5 +25,3 @@ private:
 };
 
 } // DebugSettingsEditor
-
-} // Origin

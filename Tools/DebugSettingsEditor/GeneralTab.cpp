@@ -2,8 +2,6 @@
 #include "ui_GeneralTab.h"
 #include <QJsonObject>
 
-namespace Origin {
-
 namespace DebugSettingsEditor {
 
 GeneralTab::GeneralTab() :
@@ -43,5 +41,3 @@ void GeneralTab::on_comboBoxScreen_currentIndexChanged(int currentIndex) {
 }
 
 } // DebugSettingsEditor
-
-} // Origin

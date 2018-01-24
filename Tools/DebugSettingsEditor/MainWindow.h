@@ -5,8 +5,6 @@ namespace Ui {
     class MainWindow;
 }
 
-namespace Origin {
-
 namespace DebugSettingsEditor {
 
 class MainWindow : public QMainWindow {
@@ -36,5 +34,3 @@ private:
 };
 
 } // DebugSettingsEditor
-
-} // Origin

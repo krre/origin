@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, ui->frameProperties);
     propLayout->setMargin(0);
-    properties = new Properties(&octree, viewport, undoStack);
+    properties = new Properties(&octree, viewport, undoStack, this);
     propLayout->addWidget(properties);
 
     setWindowTitle(APP_NAME);

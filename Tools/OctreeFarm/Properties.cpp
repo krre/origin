@@ -1,73 +1,59 @@
 #include "Properties.h"
 #include "Command.h"
+#include "Octree.h"
+#include "Viewport.h"
+#include "ui_Properties.h"
 #include <QtWidgets>
 
 namespace OctreeFarm {
 
-Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack) :
+Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent) :
+    QWidget(parent),
+    ui(new Ui::Properties),
     octree(octree),
     viewport(viewport),
     undoStack(undoStack) {
-    QFormLayout* formlayout = new QFormLayout;
-    setLayout(formlayout);
-
-    levelLabel = new QLabel;
-    formlayout->addRow(tr("Level:"), levelLabel);
-
-    indexLabel = new QLabel;
-    formlayout->addRow(tr("Index:"), indexLabel);
-
-    colorButton = new QPushButton;
-    colorButton->setAutoFillBackground(true);
-    colorButton->setFlat(true);
+    ui->setupUi(this);
+    ui->pushButtonColor->setAutoFillBackground(true);
     setNodeColor(QColor(Qt::blue));
-    formlayout->addRow(tr("Color:"), colorButton);
 
-    QCheckBox* shadelessCheckBox = new QCheckBox(tr("Shadeless"));
-    formlayout->addRow(shadelessCheckBox);
-
-    QBoxLayout* levelLayout = new QBoxLayout(QBoxLayout::LeftToRight);
-    QPushButton* levelPlusButton = new QPushButton(tr("Level") + "+");
-    QPushButton* levelMinusButton = new QPushButton(tr("Level") + "-");
-    QPushButton* levelResetButton = new QPushButton(tr("Reset"));
-    levelLayout->addWidget(levelPlusButton);
-    levelLayout->addWidget(levelMinusButton);
-    levelLayout->addWidget(levelResetButton);
-    formlayout->addRow(levelLayout);
-
-    connect(colorButton, &QPushButton::clicked, this, &Properties::changeNodeColor);
-    connect(shadelessCheckBox, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
+    connect(ui->pushButtonColor, &QPushButton::clicked, this, &Properties::changeNodeColor);
+    connect(ui->checkBoxShadeless, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
     connect(octree, &Octree::nodeSelected, this, &Properties::onNodeSelected);
     connect(octree, &Octree::nodeDeselected, this, &Properties::onNodeDeselected);
-    connect(levelPlusButton, &QPushButton::clicked, this, &Properties::levelPlus);
-    connect(levelMinusButton, &QPushButton::clicked, this, &Properties::levelMinus);
-    connect(levelResetButton, &QPushButton::clicked, this, &Properties::levelReset);
+    connect(ui->pushButtonPlus, &QPushButton::clicked, this, &Properties::levelPlus);
+    connect(ui->pushButtonMinus, &QPushButton::clicked, this, &Properties::levelMinus);
+    connect(ui->pushButtonReset, &QPushButton::clicked, this, &Properties::levelReset);
 
     onNodeDeselected();
 }
 
+Properties::~Properties() {
+    delete ui;
+}
+
 void Properties::setNodeLevel(int level) {
     if (level >= 0) {
-        levelLabel->setText(QString::number(23 - level));
+        ui->labelLevel->setText(QString::number(23 - level));
     } else {
-        levelLabel->setText(QString());
+        ui->labelLevel->setText(QString());
     }
 }
 
 void Properties::setNodeIndex(int index) {
     if (index >= 0) {
-        indexLabel->setText(QString::number(index));
+        ui->labelIndex->setText(QString::number(index));
     } else {
-        indexLabel->setText(QString());
+        ui->labelIndex->setText(QString());
     }
 }
 
 void Properties::setNodeColor(const QColor& color) {
-    QPalette colorButtonPal = colorButton->palette();
+    QPalette colorButtonPal = ui->pushButtonColor->palette();
     colorButtonPal.setColor(QPalette::Button, color.isValid() ? color : QColor(Qt::transparent));
-    colorButton->setPalette(colorButtonPal);
+    ui->pushButtonColor->setPalette(colorButtonPal);
     nodeColor = color;
-    colorButton->setEnabled(color.isValid());
+    ui->pushButtonColor->setEnabled(color.isValid());
 }
 
 void Properties::changeNodeColor() {

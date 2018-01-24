@@ -18,25 +18,28 @@ SOURCES += main.cpp\
     Octree.cpp \
     Camera.cpp \
     Viewport.cpp \
-    Properties.cpp \
+#    Properties.cpp \
     Source.cpp \
     Command.cpp \
     OptionsDialog.cpp \
     MainWindow.cpp \
-    VulkanRenderer.cpp
+    VulkanRenderer.cpp \
+    Properties.cpp
 
 HEADERS  += \
     Octree.h \
     Camera.h \
     Viewport.h \
-    Properties.h \
+#    Properties.h \
     Source.h \
     Defines.h \
     Command.h \
     OptionsDialog.h \
     Origin.h \
     MainWindow.h \
-    VulkanRenderer.h
+    VulkanRenderer.h \
+    Properties.h
 
 FORMS += \
-    MainWindow.ui
+    MainWindow.ui \
+    Properties.ui

@@ -42,7 +42,7 @@ void MainWindow::on_actionNew_triggered() {
     if (maybeSave()) {
         octree.createNew();
         viewport->reset();
-        viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
+//        viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
 //        viewport->update();
         setCurrentFile(QString());
     }
@@ -161,6 +161,13 @@ void MainWindow::readSettings() {
     }
 
     settings->endGroup();
+
+    QString filePath = settings->value("Path/currentFile").toString();
+    if (!filePath.isEmpty() && QFile::exists(filePath)) {
+        loadFile(filePath);
+    } else {
+        on_actionNew_triggered();
+    }
 }
 
 void MainWindow::writeSettings() {
@@ -169,6 +176,8 @@ void MainWindow::writeSettings() {
     settings->setValue("pos", pos());
     settings->setValue("splitter", ui->splitter->saveState());
     settings->endGroup();
+
+    settings->setValue("Path/currentFile", currentFile);
 }
 
 bool MainWindow::maybeSave() {

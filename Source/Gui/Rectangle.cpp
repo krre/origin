@@ -6,11 +6,11 @@
 
 namespace Origin {
 
-Rectangle::Rectangle(const Size& size) {
+Rectangle::Rectangle(const Size& size, Control* parent) : Control(parent) {
     this->size = size;
 }
 
-Rectangle::Rectangle(const Pos2& position, const Size& size) {
+Rectangle::Rectangle(const Pos2& position, const Size& size, Control* parent) : Control(parent) {
     this->position = position;
     this->size = size;
 }

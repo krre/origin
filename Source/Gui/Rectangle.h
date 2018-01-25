@@ -7,8 +7,8 @@ namespace Origin {
 class Rectangle : public Control {
 
 public:
-    Rectangle(const Size& size);
-    Rectangle(const Pos2& position, const Size& size);
+    Rectangle(const Size& size, Control* parent = nullptr);
+    Rectangle(const Pos2& position, const Size& size, Control* parent = nullptr);
 
     void setColor(const Color& color);
     const Color& getColor() const { return color; }

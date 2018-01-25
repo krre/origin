@@ -8,7 +8,5 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer3D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderState.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderState.h
     PARENT_SCOPE
 )

@@ -1,14 +1,12 @@
 #pragma once
-#include "View.h"
+#include "Control.h"
 
 namespace Origin {
 
-class View3D : public View {
+class View3D : public Control {
 
 public:
     View3D();
-    Dimension getDimension() const override;
-    void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) override;
 };
 
 } // Origin

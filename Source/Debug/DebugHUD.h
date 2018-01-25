@@ -1,6 +1,5 @@
 #pragma once
 #include "Core/Singleton.h"
-#include "Gui/View2D.h"
 #include "VulkanRenderer/API/Pipeline/PipelineCache.h"
 #include "VulkanRenderer/ShaderProgram.h"
 #include "VulkanRenderer/API/Sampler.h"
@@ -14,7 +13,7 @@ const int MAX_CHAR_COUNT = 2048;
 class Label;
 class Font;
 
-class DebugHUD : public Singleton<DebugHUD>, public View2D {
+class DebugHUD : public Singleton<DebugHUD> {
 
     struct UBO {
         glm::mat4 projection = glm::mat4(1.0);

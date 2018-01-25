@@ -11,7 +11,11 @@ Control::Control(Control* parent) : parent(parent) {
 }
 
 Control::~Control() {
-    for (auto control : children) {
+    if (parent != nullptr) {
+        parent->removeChild(this);
+    }
+
+    for (const auto& control : children) {
         delete control;
     }
 }

@@ -1,7 +1,4 @@
 add_subdirectory(World)
-add_subdirectory(Menu)
-add_subdirectory(Settings)
-add_subdirectory(Pause)
 
 set(SOURCES
     ${SOURCES}

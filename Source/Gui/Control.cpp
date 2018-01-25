@@ -70,7 +70,18 @@ void Control::setVisible(bool visible) {
 }
 
 void Control::setParent(Control* parent) {
+    if (this->parent == parent) return;
+
+    // Remove self from children of previous parent
+    if (this->parent != nullptr) {
+        this->parent->removeChild(this);
+    }
+
     this->parent = parent;
+
+    if (parent != nullptr) {
+        parent->addChild(this);
+    }
 }
 
 void Control::addChild(Control* control) {

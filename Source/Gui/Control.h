@@ -17,9 +17,6 @@ public:
     Control(Control* parent = nullptr);
     ~Control();
 
-    void setX(int x);
-    void setY(int y);
-
     void setPosition(const Pos2& position);
     const Pos2& getPosition() const { return position; }
     const Pos2& getAbsolutePosition() const { return absolutePosition; }

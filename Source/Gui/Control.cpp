@@ -20,14 +20,6 @@ Control::~Control() {
     }
 }
 
-void Control::setX(int x) {
-    position.x = x;
-}
-
-void Control::setY(int y) {
-    position.y = y;
-}
-
 void Control::setPosition(const Pos2& position) {
     this->position = position;
     if (parent != nullptr) {

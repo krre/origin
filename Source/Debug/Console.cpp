@@ -8,7 +8,7 @@
 namespace Origin {
 
 Console::Console() {
-    Event::get()->windowResize.connect(this, &Console::onWindowResize);
+//    Event::get()->windowResize.connect(this, &Console::onWindowResize);
     cmdLine = std::make_shared<Label>();
     cmdLine->setZ(1.0f);
 }
@@ -30,26 +30,26 @@ void Console::update(float dt) {
 
 //}
 
-void Console::onWindowResize(int width, int height) {
-    cmdLine->setPosition({ 5, height - 5 });
-}
+//void Console::onWindowResize(int width, int height) {
+//    cmdLine->setPosition({ 5, height - 5 });
+//}
 
-void Console::onKeyPressed(const SDL_KeyboardEvent& event) {
-    std::string newText;
-    switch (event.keysym.sym) {
-    case SDLK_BACKSPACE:
-        newText = cmdLine->getText().substr(0, cmdLine->getText().length() - 1);
-        cmdLine->setText(newText);
-        break;
-    case SDLK_RETURN:
-        execute();
-        break;
-    default:
-        newText = cmdLine->getText() + (char)event.keysym.sym;
-        cmdLine->setText(newText);
-        break;
-    }
-}
+//void Console::onKeyPressed(const SDL_KeyboardEvent& event) {
+//    std::string newText;
+//    switch (event.keysym.sym) {
+//    case SDLK_BACKSPACE:
+//        newText = cmdLine->getText().substr(0, cmdLine->getText().length() - 1);
+//        cmdLine->setText(newText);
+//        break;
+//    case SDLK_RETURN:
+//        execute();
+//        break;
+//    default:
+//        newText = cmdLine->getText() + (char)event.keysym.sym;
+//        cmdLine->setText(newText);
+//        break;
+//    }
+//}
 
 void Console::execute() {
     std::string command = cmdLine->getText();

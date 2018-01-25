@@ -2,7 +2,6 @@
 #include "Core/Application.h"
 #include "Core/Game.h"
 #include "Core/Defines.h"
-#include "Scene/World/WorldScene.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"
 #include "ECS/Components/TransformComponent.h"
@@ -23,6 +22,7 @@
 #include "Gui/Font.h"
 #include "Gui/Rectangle.h"
 #include <glm/glm.hpp>
+#include <SDL.h>
 
 namespace Origin {
 

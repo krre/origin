@@ -58,15 +58,6 @@ void RenderEngine::saveScreenshot() {
     PRINT(message)
 }
 
-void RenderEngine::prepare() {
-    renderer2d->prepare(window->getScreen()->getRootControl());
-    renderer2d->render();
-
-    for (auto view3d : renderer2d->getRenderViews()) {
-        renderer3d->render(view3d);
-    }
-}
-
 void RenderEngine::init() {
     renderer2d = std::make_unique<Renderer2D>();
     renderer3d = std::make_unique<Renderer3D>();

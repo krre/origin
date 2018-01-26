@@ -41,6 +41,10 @@ void Screen::update(float dt) {
 
 }
 
+void Screen::draw() {
+
+}
+
 void Screen::resize(uint32_t width, uint32_t height) {
     if (rootControl != nullptr) {
         rootControl->resize(width, height);

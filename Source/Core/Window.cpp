@@ -94,10 +94,10 @@ void Window::show() {
 
 void Window::update(float dt) {
     screens.back()->update(dt);
-    RenderEngine::get()->prepare();
 }
 
 void Window::render() {
+    screens.back()->draw();
     RenderEngine::get()->render();
 }
 

@@ -59,7 +59,6 @@ public:
     void create();
     void render();
     void resize();
-    virtual void prepare() = 0;
     std::vector<unsigned char> readFramebuffer();
     void updateCommandBuffers();
 

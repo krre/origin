@@ -132,8 +132,6 @@ void Renderer::create() {
 }
 
 void Renderer::render() {
-    prepare();
-
     VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         resize();

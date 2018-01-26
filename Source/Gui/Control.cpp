@@ -13,9 +13,7 @@ Control::~Control() {
         parent->removeChild(this);
     }
 
-    for (const auto& control : children) {
-        delete control;
-    }
+    removeChildren();
 }
 
 void Control::setPosition(const Pos2& position) {
@@ -81,6 +79,14 @@ void Control::addChild(Control* control) {
 
 void Control::removeChild(Control* control) {
     children.erase(std::remove(children.begin(), children.end(), control), children.end());
+}
+
+void Control::removeChildren() {
+    for (const auto& control : children) {
+        delete control;
+    }
+
+    children.clear();
 }
 
 } // Origin

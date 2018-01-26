@@ -41,6 +41,7 @@ public:
     void setParent(Control* parent);
     void addChild(Control* control);
     void removeChild(Control* control);
+    void removeChildren();
     const std::vector<Control*>& getChildren() const { return children; }
 
     virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) = 0;

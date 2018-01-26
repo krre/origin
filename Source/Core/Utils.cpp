@@ -5,11 +5,13 @@
 
 namespace Origin {
 
-std::string Utils::zeroFill(const std::string& number) {
+namespace Utils {
+
+std::string zeroFill(const std::string& number) {
     return (number.size() == 1 ? "0" : "") + number;
 }
 
-std::string Utils::getPathSeparator() {
+std::string getPathSeparator() {
 #if defined(OS_WIN)
     return "\\";
 #elif defined(OS_LINUX)
@@ -17,11 +19,11 @@ std::string Utils::getPathSeparator() {
 #endif
 }
 
-uint32_t Utils::rgbaToUint32(const glm::vec4& color) {
+uint32_t rgbaToUint32(const glm::vec4& color) {
     return (((int(color.r * 255) & 0xff) << 24) + ((int(color.g * 255) & 0xff) << 16) + ((int(color.b * 255) & 0xff) << 8) + (int(color.a * 255) & 0xff));
 }
 
-std::string Utils::readTextFile(const std::string& filePath) {
+std::string readTextFile(const std::string& filePath) {
     std::ifstream in(filePath);
     if (in.is_open()) {
         std::string text((std::istreambuf_iterator<char>(in)), (std::istreambuf_iterator<char>()));
@@ -33,26 +35,26 @@ std::string Utils::readTextFile(const std::string& filePath) {
     return "";
 }
 
-uint32_t Utils::floatToUint(float value) {
+uint32_t floatToUint(float value) {
     return *(uint32_t*)&value;
 }
 
-float Utils::uintToFloat(uint32_t value) {
+float uintToFloat(uint32_t value) {
     return *(float*)&value;
 }
 
-std::string Utils::uintToBinaryString(uint32_t value) {
+std::string uintToBinaryString(uint32_t value) {
     return std::bitset<8>(value >> 24 & 0xFF).to_string() + " " +
            std::bitset<8>(value >> 16 & 0xFF).to_string() + " " +
            std::bitset<8>(value >> 8 & 0xFF).to_string() + " " +
             std::bitset<8>(value & 0xFF).to_string();
 }
 
-uint32_t Utils::binaryStringToUint(const std::string& value) {
+uint32_t binaryStringToUint(const std::string& value) {
     return uint32_t(std::bitset<32>(value).to_ullong());
 }
 
-std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
+std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source) {
     auto data = std::make_shared<std::vector<uint32_t>>();
 
     // Append header
@@ -140,7 +142,7 @@ std::shared_ptr<std::vector<uint32_t>> Utils::jsonToBinary(json source) {
     return data;
 }
 
-std::vector<std::string> Utils::split(const std::string& value, char delim) {
+std::vector<std::string> split(const std::string& value, char delim) {
     std::vector<std::string> elems;
     std::stringstream ss;
     ss.str(value);
@@ -154,8 +156,10 @@ std::vector<std::string> Utils::split(const std::string& value, char delim) {
     return elems;
 }
 
-void Utils::removeChar(std::string& str, char c) {
+void removeChar(std::string& str, char c) {
     str.erase(remove(str.begin(), str.end(), c), str.end());
 }
+
+} // Utils
 
 } // Origin

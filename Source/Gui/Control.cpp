@@ -5,9 +5,7 @@
 namespace Origin {
 
 Control::Control(Control* parent) : parent(parent) {
-    if (parent != nullptr) {
-        parent->addChild(this);
-    }
+    setParent(parent);
 }
 
 Control::~Control() {

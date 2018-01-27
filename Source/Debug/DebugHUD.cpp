@@ -18,9 +18,9 @@
 #include "VulkanRenderer/API/Command/CommandBuffers.h"
 #include "VulkanRenderer/API/Queue.h"
 #include "VulkanRenderer/API/Device/PhysicalDevice.h"
-#include "Gui/Label.h"
-#include "Gui/Font.h"
-#include "Gui/Rectangle.h"
+#include "UI/Label.h"
+#include "UI/Font.h"
+#include "UI/Rectangle.h"
 #include <glm/glm.hpp>
 #include <SDL.h>
 

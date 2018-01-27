@@ -1,6 +1,6 @@
 #include "Renderer2D.h"
-#include "Gui/Control.h"
-#include "Gui/View3D.h"
+#include "UI/Control.h"
+#include "UI/View3D.h"
 #include "VulkanRenderer/GpuBuffer.h"
 
 namespace Origin {

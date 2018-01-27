@@ -1,7 +1,7 @@
 #include "Rectangle.h"
 #include "Core/Application.h"
 #include "Resource/ResourceManager.h"
-#include "Gui/Batch2D.h"
+#include "Batch2D.h"
 #include <glm/ext.hpp>
 
 namespace Origin {

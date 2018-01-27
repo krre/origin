@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/Common.h"
-#include "Gui/Batch2D.h"
+#include "UI/Batch2D.h"
 
 namespace Vulkan {
     class GpuBuffer;

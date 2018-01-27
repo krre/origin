@@ -1,6 +1,6 @@
 #include "GameScreen.h"
-#include "Gui/LinearLayout.h"
-#include "Gui/Rectangle.h"
+#include "UI/LinearLayout.h"
+#include "UI/Rectangle.h"
 
 namespace Origin {
 

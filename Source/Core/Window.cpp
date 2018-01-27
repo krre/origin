@@ -6,7 +6,7 @@
 #include "Screen/Screen.h"
 #include "Core/Game.h"
 #include "Debug/DebugHUD.h"
-#include "Gui/Toast.h"
+#include "UI/Toast.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "Core/Defines.h"

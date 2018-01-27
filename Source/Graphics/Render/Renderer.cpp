@@ -2,8 +2,8 @@
 #include "Screen/Screen.h"
 #include "Renderer2D.h"
 #include "Renderer3D.h"
-#include "Gui/Control.h"
-#include "Gui/Batch2D.h"
+#include "UI/Control.h"
+#include "UI/Batch2D.h"
 
 namespace Origin {
 

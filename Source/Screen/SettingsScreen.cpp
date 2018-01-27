@@ -1,5 +1,5 @@
 #include "SettingsScreen.h"
-#include "Gui/Rectangle.h"
+#include "UI/Rectangle.h"
 
 namespace Origin {
 

@@ -1,9 +1,7 @@
 #pragma once
-#include "Gui/Control.h"
+#include "UI/Control.h"
 
 namespace Origin {
-
-class Control;
 
 class Screen : public Control {
 

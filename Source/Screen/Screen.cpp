@@ -1,7 +1,5 @@
 #include "Screen.h"
-#include "Core/Application.h"
-#include "Gui/Control.h"
-#include "Gui/Batch2D.h"
+#include "UI/Control.h"
 
 namespace Origin {
 

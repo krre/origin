@@ -2,7 +2,7 @@
 #include "Core/Object.h"
 #include <glm/glm.hpp>
 #include <vector>
-#include "Gui/Batch2D.h"
+#include "Batch2D.h"
 
 namespace Origin {
 

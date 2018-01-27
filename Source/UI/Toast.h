@@ -1,6 +1,6 @@
 #pragma once
 #include "Graphics/Drawable.h"
-#include "Gui/Label.h"
+#include "Label.h"
 #include "Core/Timer.h"
 
 namespace Origin {

@@ -3,12 +3,10 @@
 #include "Gui/Control.h"
 #include "Gui/Batch2D.h"
 
-
-
 namespace Origin {
 
 Screen::Screen() {
-
+    setScreen(this);
 }
 
 Screen::~Screen() {

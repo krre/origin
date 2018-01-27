@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/GameScene.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/GameScene.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Scene.h
     PARENT_SCOPE

@@ -6,6 +6,10 @@
 
 namespace Origin {
 
+EntityBuilder::EntityBuilder(EntityManager* entityManager) : entityManager(entityManager) {
+
+}
+
 std::shared_ptr<Entity> EntityBuilder::geometry() {
     std::vector<ComponentType> types = {
         ComponentType::Node,
@@ -14,7 +18,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
         ComponentType::Render,
         ComponentType::Physics,
     };
-    std::shared_ptr<Entity> entity = EntityManager::get()->createComponents(types);
+    std::shared_ptr<Entity> entity = entityManager->createComponents(types);
 
     return entity;
 }
@@ -30,7 +34,7 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
         ComponentType::Movement,
         ComponentType::Camera
     };
-    return EntityManager::get()->createComponents(types);
+    return entityManager->createComponents(types);
 }
 
 std::shared_ptr<Entity> EntityBuilder::camera() {
@@ -40,7 +44,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
         ComponentType::Movement, // TODO: take from to avatar
         ComponentType::Camera
     };
-    std::shared_ptr<Entity> entity = EntityManager::get()->createComponents(types);
+    std::shared_ptr<Entity> entity = entityManager->createComponents(types);
 
     auto movementComponent = static_cast<MovementComponent*>(entity->components[ComponentType::Movement].get());
     movementComponent->moveSpeed = 1.0;
@@ -56,7 +60,7 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
         ComponentType::Movement
     };
 
-    std::shared_ptr<Entity> entity = EntityManager::get()->createComponents(types);
+    std::shared_ptr<Entity> entity = entityManager->createComponents(types);
 
     auto movementComponent = static_cast<MovementComponent*>(entity->components[ComponentType::Movement].get());
     movementComponent->moveSpeed = 1.0;
@@ -71,7 +75,7 @@ std::shared_ptr<Entity> EntityBuilder::light() {
         ComponentType::Transform,
         ComponentType::Light,
     };
-    return EntityManager::get()->createComponents(types);
+    return entityManager->createComponents(types);
 }
 
 } // Origin

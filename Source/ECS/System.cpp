@@ -4,14 +4,15 @@
 
 namespace Origin {
 
-EntityManager* System::entityManager;
-
 System::System() {
-    entityManager = EntityManager::get();
 }
 
 void System::setActive(bool active) {
     this->active = active;
+}
+
+void System::setEntityManager(EntityManager* entityManager) {
+    this->entityManager = entityManager;
 }
 
 } // Origin

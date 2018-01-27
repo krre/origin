@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/Singleton.h"
 #include "System.h"
 #include "Component.h"
 #include <vector>
@@ -9,7 +8,7 @@ namespace Origin {
 
 class Entity;
 
-class EntityManager : public Singleton<EntityManager> {
+class EntityManager {
 
 public:
     EntityManager();

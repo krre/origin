@@ -5,6 +5,7 @@ namespace Origin {
 
 class UIManager;
 class UIRenderer;
+class EntityManager;
 
 class Screen : public Control {
 
@@ -25,11 +26,13 @@ public:
 
     UIManager* getUIManager() const { return uiManager.get(); }
     UIRenderer* getUIRenderer() const { return uiRenderer.get(); }
+    EntityManager* getEntityEngine() const { return entityManager.get(); }
 
 private:
     bool isPaused = true;
     std::unique_ptr<UIManager> uiManager;
     std::unique_ptr<UIRenderer> uiRenderer;
+    std::unique_ptr<EntityManager> entityManager;
 };
 
 } // Origin

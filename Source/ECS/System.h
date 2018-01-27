@@ -19,10 +19,12 @@ public:
     void setActive(bool active);
     bool getActive() const { return active; }
 
+    void setEntityManager(EntityManager* entityManager);
+
 protected:
     SystemType type = SystemType::None;
     bool active = true;
-    static EntityManager* entityManager;
+    EntityManager* entityManager;
 };
 
 } // Origin

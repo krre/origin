@@ -3,22 +3,27 @@
 
 namespace Origin {
 
+class EntityManager;
+
 class EntityBuilder {
 
 public:
-    EntityBuilder() {}
+    EntityBuilder(EntityManager* entityManager);
     // Geometry
-    static std::shared_ptr<Entity> geometry();
-    static std::shared_ptr<Entity> cube();
+    std::shared_ptr<Entity> geometry();
+    std::shared_ptr<Entity> cube();
 
     // Camera
-    static std::shared_ptr<Entity> camera();
-    static std::shared_ptr<Entity> freeCamera();
+    std::shared_ptr<Entity> camera();
+    std::shared_ptr<Entity> freeCamera();
 
     // Light
-    static std::shared_ptr<Entity> light();
+    std::shared_ptr<Entity> light();
 
-    static std::shared_ptr<Entity> avatar();
+    std::shared_ptr<Entity> avatar();
+
+private:
+    EntityManager* entityManager;
 };
 
 } // Origin

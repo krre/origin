@@ -1,5 +1,4 @@
 #pragma once
-#include "UITypes.h"
 #include "Layout.h"
 
 namespace Origin {
@@ -7,6 +6,11 @@ namespace Origin {
 class LinearLayout : public Layout {
 
 public:
+    enum class Direction {
+        Horizontal,
+        Vertical
+    };
+
     LinearLayout(Direction direction);
 
 private:

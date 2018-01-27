@@ -1,12 +1,14 @@
 #include "Screen.h"
 #include "UI/Control.h"
 #include "UI/UIManager.h"
+#include "UI/UIRenderer.h"
 
 namespace Origin {
 
 Screen::Screen() {
     setScreen(this);
     uiManager = std::make_unique<UIManager>();
+    uiRenderer = std::make_unique<UIRenderer>();
 }
 
 Screen::~Screen() {

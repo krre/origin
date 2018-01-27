@@ -4,6 +4,7 @@
 namespace Origin {
 
 class UIManager;
+class UIRenderer;
 
 class Screen : public Control {
 
@@ -23,10 +24,12 @@ public:
     virtual void show();
 
     UIManager* getUIManager() const { return uiManager.get(); }
+    UIRenderer* getUIRenderer() const { return uiRenderer.get(); }
 
 private:
     bool isPaused = true;
     std::unique_ptr<UIManager> uiManager;
+    std::unique_ptr<UIRenderer> uiRenderer;
 };
 
 } // Origin

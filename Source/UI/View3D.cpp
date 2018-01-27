@@ -1,4 +1,5 @@
 #include "View3D.h"
+#include "Scene/Scene.h"
 
 namespace Origin {
 

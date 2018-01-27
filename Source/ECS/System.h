@@ -10,7 +10,7 @@ class EntityManager;
 class System : public Object {
 
 public:
-    System();
+    System(EntityManager* entityManager);
 
     virtual void process(float dt) = 0;
 
@@ -18,8 +18,6 @@ public:
 
     void setActive(bool active);
     bool getActive() const { return active; }
-
-    void setEntityManager(EntityManager* entityManager);
 
 protected:
     SystemType type = SystemType::None;

@@ -17,13 +17,13 @@ public:
 
     // Update system
     template <typename T> void addUpdateSystem() {
-        auto system = std::make_shared<T>();
+        auto system = std::make_shared<T>(this);
         updateSystems[system->getType()] = system;
     }
 
     // Draw system
     template <typename T> void addDrawSystem() {
-        auto system = std::make_shared<T>();
+        auto system = std::make_shared<T>(this);
         drawSystems[system->getType()] = system;
     }
 

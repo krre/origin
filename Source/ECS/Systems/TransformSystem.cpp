@@ -6,7 +6,7 @@
 
 namespace Origin {
 
-TransformSystem::TransformSystem() {
+TransformSystem::TransformSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::Transform;
 }
 

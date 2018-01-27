@@ -9,7 +9,7 @@ class Entity;
 class CameraSystem : public System {
 
 public:
-    CameraSystem();
+    CameraSystem(EntityManager* entityManager);
     void process(float dt) override;
     glm::mat4 getView(Entity* entity);
 private:

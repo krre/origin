@@ -8,7 +8,7 @@
 
 namespace Origin {
 
-MovementControllerSystem::MovementControllerSystem() {
+MovementControllerSystem::MovementControllerSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::MovementController;
 }
 

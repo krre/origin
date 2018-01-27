@@ -10,7 +10,7 @@ namespace Origin {
 class OctreeSystem : public System {
 
 public:
-    OctreeSystem();
+    OctreeSystem(EntityManager* entityManager);
     void process(float dt) override;
     SVOBuilder* getSVOBuilder() { return &svoBuilder; }
     GPUMemoryManager* getGpuMemoryManager() { return &gpuMemoryManager; }

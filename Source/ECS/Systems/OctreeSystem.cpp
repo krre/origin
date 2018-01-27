@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-OctreeSystem::OctreeSystem() {
+OctreeSystem::OctreeSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::Octree;
 }
 

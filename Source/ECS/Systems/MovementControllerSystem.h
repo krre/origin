@@ -8,7 +8,7 @@ class Entity;
 class MovementControllerSystem : public System {
 
 public:
-    MovementControllerSystem();
+    MovementControllerSystem(EntityManager* entityManager);
     void process(float dt) override;
     void setMoveEntity(Entity* moveEntity);
     void setRotateEntity(Entity* rotateEntity);

@@ -7,7 +7,7 @@ namespace Origin {
 class NodeSystem : public System {
 
 public:
-    NodeSystem();
+    NodeSystem(EntityManager* entityManager);
     void process(float dt) override;
 
     void addChild(EntityId parent, EntityId child);

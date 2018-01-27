@@ -5,7 +5,7 @@
 
 namespace Origin {
 
-NodeSystem::NodeSystem() {
+NodeSystem::NodeSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::Node;
 }
 

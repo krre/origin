@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-RenderSystem::RenderSystem() {
+RenderSystem::RenderSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::Render;
 }
 

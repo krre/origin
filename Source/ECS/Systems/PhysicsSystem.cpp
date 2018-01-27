@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-PhysicsSystem::PhysicsSystem() {
+PhysicsSystem::PhysicsSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::Physics;
 
     collisionConfiguration.reset(new btDefaultCollisionConfiguration);

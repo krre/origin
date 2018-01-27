@@ -9,7 +9,7 @@ class Entity;
 class TransformSystem : public System {
 
 public:
-    TransformSystem();
+    TransformSystem(EntityManager* entityManager);
     void process(float dt) override;
     void update(Entity* entity);
 

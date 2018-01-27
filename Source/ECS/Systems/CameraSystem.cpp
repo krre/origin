@@ -8,7 +8,7 @@
 
 namespace Origin {
 
-CameraSystem::CameraSystem() {
+CameraSystem::CameraSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::Camera;
     Event::get()->windowResize.connect(this, &CameraSystem::onWindowResize);
 }

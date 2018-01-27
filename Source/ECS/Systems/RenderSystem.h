@@ -9,7 +9,7 @@ class Drawable;
 class RenderSystem : public System {
 
 public:
-    RenderSystem();
+    RenderSystem(EntityManager* entityManager);
     void process(float dt) override;
 
 private:

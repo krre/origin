@@ -8,7 +8,7 @@ namespace Origin {
 class PhysicsSystem : public System {
 
 public:
-    PhysicsSystem();
+    PhysicsSystem(EntityManager* entityManager);
     ~PhysicsSystem();
     void process(float dt) override;
     void addRigidBody(Entity* entity);

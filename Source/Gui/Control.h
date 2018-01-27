@@ -10,13 +10,14 @@ class Batch2D;
 class VertexBuffer;
 class IndexBuffer;
 class Screen;
+class Layout;
 
 class Control : public Object {
     friend class Renderer;
 
 public:
     Control(Control* parent = nullptr);
-    ~Control();
+    virtual ~Control();
 
     void setPosition(const Pos2& position);
     const Pos2& getPosition() const { return position; }
@@ -48,6 +49,9 @@ public:
     void setScreen(Screen* screen);
     Screen* getScreen() const { return screen; }
 
+    void setLayout(Layout* layout);
+    Layout* getLayout() const { return layout; }
+
     virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {}
 
 protected:
@@ -64,6 +68,7 @@ protected:
 
 private:
     Screen* screen = nullptr;
+    Layout* layout = nullptr;
     bool isDirty = true;
 };
 

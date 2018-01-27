@@ -1,6 +1,7 @@
 #include "Control.h"
 #include "Batch2D.h"
 #include "Screen/Screen.h"
+#include "Layout.h"
 #include <algorithm>
 
 namespace Origin {
@@ -15,6 +16,10 @@ Control::~Control() {
     }
 
     removeChildren();
+
+    if (layout) {
+        delete layout;
+    }
 }
 
 void Control::setPosition(const Pos2& position) {
@@ -60,6 +65,10 @@ void Control::update(float dt) {
     for (const auto child : children) {
         child->update(dt);
     }
+
+    if (layout) {
+        layout->update(dt);
+    }
 }
 
 void Control::draw() {
@@ -67,6 +76,10 @@ void Control::draw() {
 
     for (const auto child : children) {
         child->draw();
+    }
+
+    if (layout) {
+        layout->draw();
     }
 }
 
@@ -108,6 +121,12 @@ void Control::setScreen(Screen* screen) {
     for (const auto child : children) {
         child->setScreen(screen);
     }
+}
+
+void Control::setLayout(Layout* layout) {
+    this->layout = layout;
+    layout->setScreen(getScreen());
+    layout->resize(size.width, size.height);
 }
 
 } // Origin

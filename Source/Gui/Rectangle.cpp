@@ -36,7 +36,6 @@ void Rectangle::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D:
 }
 
 void Rectangle::drawImpl() {
-
 }
 
 } // Origin

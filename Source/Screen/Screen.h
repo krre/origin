@@ -16,7 +16,7 @@ public:
     };
 
     Screen();
-    ~Screen();
+    virtual ~Screen();
     virtual void hide();
     virtual void pause();
     virtual void resume();

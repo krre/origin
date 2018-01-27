@@ -1,4 +1,5 @@
 #include "Layout.h"
+#include "Control.h"
 #include <algorithm>
 
 namespace Origin {
@@ -7,14 +8,28 @@ Layout::Layout() {
 
 }
 
+Layout::~Layout() {
+    clearLayouts();
+    clearControls();
+}
+
 void Layout::resize(int width, int height) {
     for (const auto& layout : layouts) {
         layout->resize(width, height);
     }
 }
 
+void Layout::setScreen(Screen* screen) {
+    this->screen = screen;
+
+    for (const auto control : controls) {
+        control->setScreen(screen);
+    }
+}
+
 void Layout::addControl(Control* control) {
     controls.push_back(control);
+    control->setScreen(screen);
     updateContentPostion();
 }
 
@@ -24,24 +39,27 @@ void Layout::removeControl(Control *control) {
 }
 
 void Layout::clearControls() {
+    for (const auto control : controls) {
+        delete control;
+    }
+
     controls.clear();
 }
 
-void Layout::addLayout(const std::shared_ptr<Layout>& layout) {
+void Layout::addLayout(Layout* layout) {
     layouts.push_back(layout);
-    layout->setParent(this);
+    layout->setScreen(screen);
     updateContentPostion();
 }
 
-void Layout::removeLayout(const std::shared_ptr<Layout>& layout) {
+void Layout::removeLayout(Layout* layout) {
     layouts.erase(std::remove(layouts.begin(), layouts.end(), layout), layouts.end());
-    layout->setParent(nullptr);
     updateContentPostion();
 }
 
 void Layout::clearLayouts() {
     for (const auto& layout : layouts) {
-        layout->setParent(nullptr);
+        delete layout;
     }
     layouts.clear();
 }
@@ -50,16 +68,26 @@ void Layout::setSpacing(int spacing) {
     this->spacing = spacing;
 }
 
-void Layout::setParent(Control* parent) {
-    this->parent = parent;
-}
+void Layout::update(float dt) {
+    for (const auto& layout : layouts) {
+        layout->update(dt);
+    }
 
-void Layout::update() {
+    for (const auto control : controls) {
+        control->update(dt);
+    }
+
     updateContentPostion();
 }
 
-void Layout::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {
+void Layout::draw() {
+    for (const auto& layout : layouts) {
+        layout->draw();
+    }
 
+    for (const auto control : controls) {
+        control->draw();
+    }
 }
 
 } // Origin

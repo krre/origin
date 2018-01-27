@@ -2,7 +2,9 @@
 
 namespace Origin {
 
-View3D::View3D(const std::shared_ptr<Scene>& scene) : scene(scene) {
+View3D::View3D(Rect viewport, Control* parent) :
+    viewport(viewport),
+    Control(parent) {
 
 }
 

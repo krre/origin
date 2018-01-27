@@ -1,13 +1,13 @@
 #include "GameScreen.h"
 #include "UI/LinearLayout.h"
-#include "UI/Rectangle.h"
+#include "UI/View3D.h"
 
 namespace Origin {
 
 GameScreen::GameScreen() {
-    Rectangle* rectangle = new Rectangle(Size(100, 100));
+    View3D* mainView = new View3D();
     LinearLayout* layout = new LinearLayout(LinearLayout::Direction::Vertical);
-    layout->addControl(rectangle);
+    layout->addControl(mainView);
     setLayout(layout);
 }
 

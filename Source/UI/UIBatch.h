@@ -7,7 +7,7 @@ namespace Origin {
 
 class Texture;
 
-class Batch2D {
+class UIBatch {
 
 public:
 
@@ -17,7 +17,7 @@ public:
         uint32_t color;
     };
 
-    Batch2D(std::vector<Vertex>* vertices);
+    UIBatch(std::vector<Vertex>* vertices);
     Color color;
     Texture* texture = nullptr;
     std::vector<Vertex>* vertices = nullptr;

@@ -24,7 +24,7 @@ void Label::setColor(const Color& color) {
     this->color = color;
 }
 
-void Label::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {
+void Label::prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {
 
 }
 

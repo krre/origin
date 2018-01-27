@@ -2,11 +2,11 @@
 #include "Core/Object.h"
 #include <glm/glm.hpp>
 #include <vector>
-#include "Batch2D.h"
+#include "UIBatch.h"
 
 namespace Origin {
 
-class Batch2D;
+class UIBatch;
 class VertexBuffer;
 class IndexBuffer;
 class Screen;
@@ -52,7 +52,7 @@ public:
     void setLayout(Layout* layout);
     Layout* getLayout() const { return layout; }
 
-    virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {}
+    virtual void prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {}
 
 protected:
     virtual void updateImpl(float dt) {}

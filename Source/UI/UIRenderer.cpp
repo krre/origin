@@ -12,12 +12,12 @@ UIRenderer::~UIRenderer() {
 
 }
 
-void UIRenderer::addBatch(Batch2D batch) {
+void UIRenderer::addBatch(UIBatch batch) {
     batches.push_back(batch);
 }
 
 void UIRenderer::drawBatches() {
-    uint32_t size = vertices.size() * sizeof(Batch2D::Vertex);
+    uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
 
     if (size > vertexBuffer->getSize()) {
         vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);

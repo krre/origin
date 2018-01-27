@@ -19,7 +19,7 @@ public:
     void setBorderWidth(uint32_t borderWidth);
     uint32_t getBorderWidth() const { return borderWidth; }
 
-    void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) override;
+    void prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) override;
 
 private:
     void drawImpl() override;

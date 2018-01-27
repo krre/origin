@@ -2,8 +2,6 @@ add_subdirectory(Dialog)
 
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Batch2D.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Batch2D.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Button.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Control.cpp
@@ -22,6 +20,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/TextEdit.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Toast.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/UIBatch.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/UIBatch.h
     ${CMAKE_CURRENT_SOURCE_DIR}/UIManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/UIManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/UIRenderer.cpp

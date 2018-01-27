@@ -1,6 +1,6 @@
 #pragma once
 #include "Core/Common.h"
-#include "UI/Batch2D.h"
+#include "UI/UIBatch.h"
 
 namespace Vulkan {
     class GpuBuffer;
@@ -21,10 +21,10 @@ public:
     std::vector<View3D*> getRenderViews() const { return renderViews; }
 
 private:
-    void getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices);
+    void getBatches(Control* control, std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices);
 
-    std::vector<Batch2D> batches;
-    std::vector<Batch2D::Vertex> vertices;
+    std::vector<UIBatch> batches;
+    std::vector<UIBatch::Vertex> vertices;
     std::vector<View3D*> renderViews;
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
 };

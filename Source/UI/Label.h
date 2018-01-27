@@ -19,7 +19,7 @@ public:
     void setColor(const Color& color);
     const Color& getColor() const { return color; }
 
-    void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) override;
+    void prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) override;
 
 private:
     void updateTextData();

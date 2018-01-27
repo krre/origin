@@ -15,7 +15,7 @@ Renderer2D::~Renderer2D() {
 }
 
 void Renderer2D::render() {
-    uint32_t size = vertices.size() * sizeof(Batch2D::Vertex);
+    uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
 
     if (size > vertexBuffer->getSize()) {
         vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
@@ -35,7 +35,7 @@ void Renderer2D::prepare(Control* control) {
     }
 }
 
-void Renderer2D::getBatches(Control* control, std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {
+void Renderer2D::getBatches(Control* control, std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {
     if (!control->getVisible()) return;
 
     View3D* view3d = dynamic_cast<View3D*>(control);

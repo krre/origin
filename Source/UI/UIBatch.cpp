@@ -1,14 +1,14 @@
-#include "Batch2D.h"
+#include "UIBatch.h"
 
 namespace Origin {
 
-Batch2D::Batch2D(std::vector<Vertex>* vertices) :
+UIBatch::UIBatch(std::vector<Vertex>* vertices) :
         vertices(vertices) {
     vertexStart = vertices->size();
     vertextEnd = vertices->size();
 }
 
-void Batch2D::addQuad(float x, float y, float width, float height) {
+void UIBatch::addQuad(float x, float y, float width, float height) {
     Vertex vertex = {};
     vertex.color = color.getArgb();
 

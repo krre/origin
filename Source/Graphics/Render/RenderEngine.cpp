@@ -7,7 +7,7 @@
 #include "Renderer2D.h"
 #include "Renderer3D.h"
 #include "UI/Control.h"
-#include "UI/Batch2D.h"
+#include "UI/UIBatch.h"
 #include "Debug/DebugEnvironment.h"
 #include "Graphics/Render/RenderEngine.h"
 #include "VulkanRenderer/API/Command/CommandBuffer.h"

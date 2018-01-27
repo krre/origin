@@ -33,7 +33,7 @@ const Color& Button::getLabelColor() const {
     return label->getColor();
 }
 
-void Button::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {
+void Button::prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {
 
 }
 

@@ -3,7 +3,7 @@
 #include "Resource/ResourceManager.h"
 #include "Screen/Screen.h"
 #include "UI/UIRenderer.h"
-#include "Batch2D.h"
+#include "UIBatch.h"
 #include <glm/ext.hpp>
 
 namespace Origin {
@@ -29,8 +29,8 @@ void Rectangle::setBorderWidth(uint32_t border) {
     this->borderWidth = border;
 }
 
-void Rectangle::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {
-    Batch2D batch(&vertices);
+void Rectangle::prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {
+    UIBatch batch(&vertices);
     batch.color = color;
     batch.addQuad(position.x, position.y, size.width, size.height);
 
@@ -38,7 +38,7 @@ void Rectangle::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D:
 }
 
 void Rectangle::drawImpl() {
-    Batch2D batch(screen->getUIRenderer()->getVerticles());
+    UIBatch batch(screen->getUIRenderer()->getVerticles());
     batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height);
     screen->getUIRenderer()->addBatch(batch);
 }

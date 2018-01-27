@@ -1,11 +1,11 @@
 #pragma once
-#include "Common.h"
+#include "Gui/Control.h"
 
 namespace Origin {
 
 class Control;
 
-class Screen {
+class Screen : public Control {
 
 public:
 

@@ -47,7 +47,7 @@ public:
     void removeChildren();
     const std::vector<Control*>& getChildren() const { return children; }
 
-    virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) = 0;
+    virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {}
 
 protected:
     Control* parent = nullptr;

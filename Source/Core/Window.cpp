@@ -3,7 +3,7 @@
 #include "Core/SDLWrapper.h"
 #include "Core/Settings.h"
 #include "Core/Defines.h"
-#include "Core/Screen.h"
+#include "Screen/Screen.h"
 #include "Core/Game.h"
 #include "Debug/DebugHUD.h"
 #include "Gui/Toast.h"

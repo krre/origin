@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Screen.h"
+#include "Screen.h"
 
 namespace Origin {
 

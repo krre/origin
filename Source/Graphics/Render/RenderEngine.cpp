@@ -2,7 +2,7 @@
 #include "Core/Defines.h"
 #include "Core/Application.h"
 #include "Core/Window.h"
-#include "Core/Screen.h"
+#include "Screen/Screen.h"
 #include "Core/Utils.h"
 #include "Renderer2D.h"
 #include "Renderer3D.h"

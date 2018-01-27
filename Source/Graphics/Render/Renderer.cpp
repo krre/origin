@@ -1,5 +1,5 @@
 #include "Renderer.h"
-#include "Core/Screen.h"
+#include "Screen/Screen.h"
 #include "Renderer2D.h"
 #include "Renderer3D.h"
 #include "Gui/Control.h"

@@ -1,10 +1,11 @@
 #include "Control.h"
 #include "Batch2D.h"
+#include "Screen/Screen.h"
 #include <algorithm>
 
 namespace Origin {
 
-Control::Control(Control* parent) : parent(parent) {
+Control::Control(Control* parent) {
     setParent(parent);
 }
 
@@ -65,6 +66,7 @@ void Control::setParent(Control* parent) {
 
     if (parent != nullptr) {
         parent->addChild(this);
+        setScreen(parent->getScreen());
     }
 }
 
@@ -83,6 +85,13 @@ void Control::removeChildren() {
     }
 
     children.clear();
+}
+
+void Control::setScreen(Screen* screen) {
+    this->screen = screen;
+    for (const auto child : children) {
+        child->setScreen(screen);
+    }
 }
 
 } // Origin

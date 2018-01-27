@@ -9,6 +9,7 @@ namespace Origin {
 class Batch2D;
 class VertexBuffer;
 class IndexBuffer;
+class Screen;
 
 class Control : public Object {
     friend class Renderer;
@@ -44,6 +45,9 @@ public:
     void removeChildren();
     const std::vector<Control*>& getChildren() const { return children; }
 
+    void setScreen(Screen* screen);
+    Screen* getScreen() const { return screen; }
+
     virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {}
 
 protected:
@@ -56,6 +60,7 @@ protected:
     bool visible = true;
 
 private:
+    Screen* screen = nullptr;
     bool isDirty = true;
 };
 

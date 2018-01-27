@@ -13,6 +13,8 @@ MovementControllerSystem::MovementControllerSystem(EntityManager* entityManager)
 }
 
 void MovementControllerSystem::process(float dt) {
+    if (!rotateEntity || !moveEntity) return;
+
     TransformComponent* tc = static_cast<TransformComponent*>(rotateEntity->components[ComponentType::Transform].get());
 
     glm::ivec2 relMousePos = Input::get()->getRelMousePos();

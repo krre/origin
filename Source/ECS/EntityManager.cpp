@@ -122,10 +122,10 @@ void EntityManager::update(float dt) {
     }
 }
 
-void EntityManager::draw(float dt) {
+void EntityManager::draw() {
     for (const auto& system : drawSystems) {
         if (system.second->getActive()) {
-            system.second->process(dt);
+            system.second->process(0); // dt is not used
         }
     }
 }

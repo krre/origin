@@ -14,8 +14,8 @@ public:
     void setRotateEntity(Entity* rotateEntity);
 
 private:
-    Entity* moveEntity;
-    Entity* rotateEntity;
+    Entity* moveEntity = nullptr;
+    Entity* rotateEntity = nullptr;
 
     float moveSpeed;
     float rotateSpeed;

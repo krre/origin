@@ -29,6 +29,9 @@ public:
     EntityManager* getEntityEngine() const { return entityManager.get(); }
 
 private:
+    void updateImpl(float dt);
+    void drawImpl();
+
     bool isPaused = true;
     std::unique_ptr<UIManager> uiManager;
     std::unique_ptr<UIRenderer> uiRenderer;

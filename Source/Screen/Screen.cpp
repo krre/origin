@@ -33,4 +33,12 @@ void Screen::show() {
 
 }
 
+void Screen::updateImpl(float dt) {
+    entityManager->update(dt);
+}
+
+void Screen::drawImpl() {
+    entityManager->draw();
+}
+
 } // Origin

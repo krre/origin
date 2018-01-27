@@ -45,7 +45,7 @@ public:
     void removeComponent(Entity* entity, ComponentType type);
 
     void update(float dt);
-    void draw(float dt);
+    void draw();
 
     EntityBuilder* getBuilder() { return entityBuilder.get(); }
 

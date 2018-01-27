@@ -38,6 +38,9 @@ public:
     void setVisible(bool visible);
     bool getVisible() const { return visible; }
 
+    virtual void update(float dt) {}
+    virtual void draw() {}
+
     void setParent(Control* parent);
     void addChild(Control* control);
     void removeChild(Control* control);

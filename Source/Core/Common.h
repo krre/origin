@@ -35,10 +35,13 @@ struct Pos2F {
 };
 
 struct Rect {
-    int x;
-    int y;
-    int width;
-    int height;
+    Rect() = default;
+    Rect(int x, int y, int width, int height):
+        x(x), y(y), width(width), height(height) {}
+    int x = 0;
+    int y = 0;
+    int width = 0;
+    int height = 0;
 };
 
 struct RectF {

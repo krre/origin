@@ -3,6 +3,8 @@
 
 namespace Origin {
 
+class UIManager;
+
 class Screen : public Control {
 
 public:
@@ -20,8 +22,11 @@ public:
     virtual void resume();
     virtual void show();
 
+    UIManager* getUIManager() const { return uiManager.get(); }
+
 private:
     bool isPaused = true;
+    std::unique_ptr<UIManager> uiManager;
 };
 
 } // Origin

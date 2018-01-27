@@ -14,6 +14,8 @@ public:
     UIRenderer();
     ~UIRenderer();
     void addBatch(Batch2D batch);
+    void drawBatches();
+    std::vector<Batch2D::Vertex>* getVerticles() { return &vertices; }
 
 private:
     std::vector<Batch2D> batches;

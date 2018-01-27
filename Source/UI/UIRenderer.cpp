@@ -16,4 +16,19 @@ void UIRenderer::addBatch(Batch2D batch) {
     batches.push_back(batch);
 }
 
+void UIRenderer::drawBatches() {
+    uint32_t size = vertices.size() * sizeof(Batch2D::Vertex);
+
+    if (size > vertexBuffer->getSize()) {
+        vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+    }
+
+    if (size) {
+        vertexBuffer->write(vertices.data(), size);
+    }
+
+    batches.clear();
+    vertices.clear();
+}
+
 } // Origin

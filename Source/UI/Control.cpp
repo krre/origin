@@ -24,8 +24,8 @@ Control::~Control() {
 
 void Control::setPosition(const Pos2& position) {
     this->position = position;
-    if (parent != nullptr) {
-        absolutePosition = static_cast<Control*>(parent)->absolutePosition + position;
+    if (parent) {
+        absolutePosition = parent->getAbsolutePosition() + position;
     } else {
         absolutePosition = position;
     }

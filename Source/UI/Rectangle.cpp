@@ -1,6 +1,8 @@
 #include "Rectangle.h"
 #include "Core/Application.h"
 #include "Resource/ResourceManager.h"
+#include "Screen/Screen.h"
+#include "UI/UIRenderer.h"
 #include "Batch2D.h"
 #include <glm/ext.hpp>
 
@@ -36,6 +38,9 @@ void Rectangle::prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D:
 }
 
 void Rectangle::drawImpl() {
+    Batch2D batch(screen->getUIRenderer()->getVerticles());
+    batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height);
+    screen->getUIRenderer()->addBatch(batch);
 }
 
 } // Origin

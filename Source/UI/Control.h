@@ -59,6 +59,7 @@ protected:
     virtual void drawImpl() {}
 
     Control* parent = nullptr;
+    Screen* screen = nullptr;
     std::vector<Control*> children;
     Pos2 position = { 0, 0 };
     Pos2 absolutePosition = { 0, 0 };
@@ -67,7 +68,6 @@ protected:
     bool visible = true;
 
 private:
-    Screen* screen = nullptr;
     Layout* layout = nullptr;
     bool isDirty = true;
 };

@@ -33,6 +33,10 @@ void Screen::show() {
 
 }
 
+void Screen::prepareRender() {
+    uiRenderer->drawBatches();
+}
+
 void Screen::updateImpl(float dt) {
     entityManager->update(dt);
 }

@@ -22,6 +22,8 @@ public:
     void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) override;
 
 private:
+    void drawImpl() override;
+
     Color color = Color::WHITE;
     Color borderColor = Color::GRAY;
     uint32_t borderWidth = 0;

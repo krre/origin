@@ -36,8 +36,8 @@ public:
     void setVisible(bool visible);
     bool getVisible() const { return visible; }
 
-    virtual void update(float dt) {}
-    virtual void draw() {}
+    void update(float dt);
+    void draw();
 
     void setParent(Control* parent);
     void addChild(Control* control);
@@ -51,6 +51,9 @@ public:
     virtual void prepareBatch(std::vector<Batch2D>& batches, std::vector<Batch2D::Vertex>& vertices) {}
 
 protected:
+    virtual void updateImpl(float dt) {}
+    virtual void drawImpl() {}
+
     Control* parent = nullptr;
     std::vector<Control*> children;
     Pos2 position = { 0, 0 };

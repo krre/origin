@@ -54,6 +54,22 @@ void Control::setVisible(bool visible) {
     this->visible = visible;
 }
 
+void Control::update(float dt) {
+    updateImpl(dt);
+
+    for (const auto child : children) {
+        child->update(dt);
+    }
+}
+
+void Control::draw() {
+    drawImpl();
+
+    for (const auto child : children) {
+        child->draw();
+    }
+}
+
 void Control::setParent(Control* parent) {
     if (this->parent == parent) return;
 

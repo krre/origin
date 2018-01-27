@@ -19,12 +19,12 @@ Renderer::~Renderer() {
 }
 
 void Renderer::render(Screen* screen) {
-    renderer2d->prepare(screen->getRootControl());
-    renderer2d->render();
+//    renderer2d->prepare(screen->getRootControl());
+//    renderer2d->render();
 
-    for (auto view3d : renderer2d->getRenderViews()) {
-        renderer3d->render(view3d);
-    }
+//    for (auto view3d : renderer2d->getRenderViews()) {
+//        renderer3d->render(view3d);
+//    }
 
     renderQueue();
 }

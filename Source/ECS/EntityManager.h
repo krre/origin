@@ -7,11 +7,13 @@
 namespace Origin {
 
 class Entity;
+class EntityBuilder;
 
 class EntityManager {
 
 public:
     EntityManager();
+    ~EntityManager();
 
     // Update system
     template <typename T> void addUpdateSystem() {
@@ -45,10 +47,13 @@ public:
     void update(float dt);
     void draw(float dt);
 
+    EntityBuilder* getBuilder() { return entityBuilder.get(); }
+
 private:
     std::map<SystemType, std::shared_ptr<System>> updateSystems;
     std::map<SystemType, std::shared_ptr<System>> drawSystems;
     std::map<EntityId, std::shared_ptr<Entity>> entities;
+    std::unique_ptr<EntityBuilder> entityBuilder;
 
     void initSystems();
 };

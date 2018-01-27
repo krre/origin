@@ -1,5 +1,6 @@
 #include "EntityManager.h"
-#include "ECS/Systems/Systems.h"
+#include "Systems/Systems.h"
+#include "EntityBuilder.h"
 #include "Components/Components.h"
 #include <algorithm>
 
@@ -7,6 +8,11 @@ namespace Origin {
 
 EntityManager::EntityManager() {
     initSystems();
+    entityBuilder = std::make_unique<EntityBuilder>(this);
+}
+
+EntityManager::~EntityManager() {
+
 }
 
 void EntityManager::removeSystem(SystemType type) {

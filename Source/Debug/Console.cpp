@@ -10,7 +10,6 @@ namespace Origin {
 Console::Console() {
 //    Event::get()->windowResize.connect(this, &Console::onWindowResize);
     cmdLine = std::make_shared<Label>();
-    cmdLine->setZ(1.0f);
 }
 
 void Console::update(float dt) {

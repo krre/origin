@@ -8,7 +8,6 @@ namespace Origin {
 Toast::Toast() {
     setVisible(false);
     timer.timeout.connect(this, &Toast::onTimeout);
-    text.setZ(1.0f);
 }
 
 void Toast::draw(float dt) {

@@ -38,10 +38,6 @@ void Control::resize(int width, int height) {
     size.height = height;
 }
 
-void Control::setZ(float z) {
-    this->z = z;
-}
-
 void Control::markDirty() {
     isDirty = true;
     if (parent != nullptr) {

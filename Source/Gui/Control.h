@@ -29,9 +29,6 @@ public:
 
     void resize(int width, int height);
 
-    float getZ() const { return z; }
-    void setZ(float z);
-
     void markDirty();
     void clearDirty();
 
@@ -56,7 +53,6 @@ protected:
     Pos2 absolutePosition = { 0, 0 };
     Size size;
     float scale = 1.0;
-    float z = 0.0f;
     bool visible = true;
 
 private:

@@ -19,7 +19,6 @@ Button::~Button() {
 
 void Button::setText(const std::string &text) {
     label->setText(text);
-    label->setZ(1.0f);
 }
 
 std::string Button::getText() const {

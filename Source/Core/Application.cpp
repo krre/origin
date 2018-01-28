@@ -65,7 +65,7 @@ void Application::init() {
 #if defined(OS_WIN)
         renderEngine = std::make_unique<RenderEngine>(GetModuleHandle(nullptr), (void*)wminfo.info.win.window);
 #elif defined(OS_LINUX)
-        renderEngine = std::make_unique<RenderEngine>((void*)wminfo.info.x11.window, (void*)wminfo.info.win.window);
+        renderEngine = std::make_unique<RenderEngine>((void*)wmInfo.info.x11.display, (void*)wmInfo.info.x11.window);
 #endif
 
         if (DebugEnvironment::get()->getEnable()) {

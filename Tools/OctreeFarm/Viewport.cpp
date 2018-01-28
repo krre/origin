@@ -17,7 +17,8 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
 #if defined(Q_OS_LINUX)
     QPlatformNativeInterface* native = QGuiApplication::platformNativeInterface();
-    renderer = QSharedPointer<VulkanRenderer>(native->nativeResourceForWindow("connection", this), (void*)(winId()));
+    WId window = winId();
+    renderer = QSharedPointer<VulkanRenderer>(new VulkanRenderer(native->nativeResourceForWindow("connection", this), &window));
 #elif defined(Q_OS_WIN)
     renderer = QSharedPointer<VulkanRenderer>(new VulkanRenderer(GetModuleHandle(nullptr), (void*)(winId())));
 #endif

@@ -15,17 +15,13 @@ namespace OctreeFarm {
 Viewport::Viewport(Octree* octree) : octree(octree) {
     setFlag(Qt::FramelessWindowHint);
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
-    VulkanRenderer::WindowSettings windowSettings;
 #if defined(Q_OS_LINUX)
     QPlatformNativeInterface* native = QGuiApplication::platformNativeInterface();
-    windowSettings.window = static_cast<xcb_window_t>(winId());
-    windowSettings.connection = static_cast<xcb_connection_t*>(native->nativeResourceForWindow("connection", this));
+    renderer = QSharedPointer<VulkanRenderer>(native->nativeResourceForWindow("connection", this), (void*)(winId()));
 #elif defined(Q_OS_WIN)
-    windowSettings.hinstance = GetModuleHandle(nullptr);
-    windowSettings.hwnd = HWND(winId());
+    renderer = QSharedPointer<VulkanRenderer>(new VulkanRenderer(GetModuleHandle(nullptr), (void*)(winId())));
 #endif
 
-    renderer = QSharedPointer<VulkanRenderer>(new VulkanRenderer(windowSettings));
     renderer->create();
 }
 

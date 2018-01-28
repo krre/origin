@@ -2,18 +2,16 @@
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Framebuffer.h"
 #include "VulkanRenderer/API/RenderPass.h"
+#include "VulkanRenderer/API/Surface/Surface.h"
 
 namespace OctreeFarm {
 
-VulkanRenderer::VulkanRenderer(WindowSettings windowSettings) : Vulkan::Renderer(windowSettings) {
+VulkanRenderer::VulkanRenderer(void* platformHandle, void* platformWindow) :
+    Vulkan::Renderer(platformHandle, platformWindow) {
 
 }
 
 VulkanRenderer::~VulkanRenderer() {
-
-}
-
-void VulkanRenderer::prepare() {
 
 }
 

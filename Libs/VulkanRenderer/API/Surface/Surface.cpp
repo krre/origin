@@ -27,8 +27,8 @@ void Surface::create() {
 #if defined(VK_USE_PLATFORM_XCB_KHR)
     VkXcbSurfaceCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
-    createInfo.connection = XGetXCBConnection((xcb_connection_t*)platformHandle);
-    createInfo.window = (xcb_window_t)platformWindow;
+    createInfo.connection = (xcb_connection_t*)platformHandle;
+    createInfo.window = *(xcb_window_t*)(platformWindow);
     VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
 #elif defined(VK_USE_PLATFORM_WIN32_KHR)
     VkWin32SurfaceCreateInfoKHR createInfo = {};

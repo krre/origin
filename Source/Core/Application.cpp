@@ -19,6 +19,10 @@
 #include <experimental/filesystem>
 #include <SDL_syswm.h>
 
+#if defined(OS_LINUX)
+    #include <X11/Xlib-xcb.h>
+#endif
+
 namespace Origin {
 
 Application::Application(int argc, char* argv[]) {
@@ -65,7 +69,7 @@ void Application::init() {
 #if defined(OS_WIN)
         renderEngine = std::make_unique<RenderEngine>(GetModuleHandle(nullptr), (void*)wminfo.info.win.window);
 #elif defined(OS_LINUX)
-        renderEngine = std::make_unique<RenderEngine>((void*)wmInfo.info.x11.display, (void*)wmInfo.info.x11.window);
+        renderEngine = std::make_unique<RenderEngine>((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window);
 #endif
 
         if (DebugEnvironment::get()->getEnable()) {

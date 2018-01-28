@@ -10,7 +10,7 @@ class PhysicalDevice;
 class Surface : public Handle<VkSurfaceKHR> {
 
 public:
-    Surface(Instance* instance, PhysicalDevice* physicalDevice);
+    Surface(Instance* instance, PhysicalDevice* physicalDevice, void* platformHandle, void* platformWindow);
     ~Surface();
     void create() override;
     void destroy() override;
@@ -20,12 +20,11 @@ public:
     const VkSurfaceCapabilitiesKHR& getCapabilities() const { return capabilities; }
     VkExtent2D getCurrentExtent() const;
 
-protected:
-    virtual void platformCreateHandle() = 0;
-    Instance* instance;
-
 private:
+    Instance* instance;
     PhysicalDevice* physicalDevice;
+    void* platformHandle;
+    void* platformWindow;
     std::vector<VkSurfaceFormatKHR> formats;
     std::vector<VkPresentModeKHR> presentModes;
     VkSurfaceCapabilitiesKHR capabilities;

@@ -58,20 +58,15 @@ void Application::init() {
         SDLWrapper::init();
         window = std::make_unique<Window>();
 
-        RenderEngine::WindowSettings windowSettings;
         SDL_SysWMinfo wminfo;
         SDL_VERSION(&wminfo.version);
         SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
 
 #if defined(OS_WIN)
-        windowSettings.hinstance = GetModuleHandle(nullptr);
-        windowSettings.hwnd = wminfo.info.win.window;
+        renderEngine = std::make_unique<RenderEngine>(GetModuleHandle(nullptr), (void*)wminfo.info.win.window);
 #elif defined(OS_LINUX)
-        windowSettings.connection = XGetXCBConnection(wminfo.info.x11.display);
-        windowSettings.window = wminfo.info.x11.window;
+        renderEngine = std::make_unique<RenderEngine>((void*)wminfo.info.x11.window, (void*)wminfo.info.win.window);
 #endif
-
-        renderEngine = std::make_unique<RenderEngine>(windowSettings);
 
         if (DebugEnvironment::get()->getEnable()) {
             if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {

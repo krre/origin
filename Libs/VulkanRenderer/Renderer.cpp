@@ -13,6 +13,7 @@
 #include "API/Surface/Swapchain.h"
 #include "API/Surface/Surface.h"
 #include "API/Instance.h"
+#include "API/Surface/Surface.h"
 #include "API/Surface/Swapchain.h"
 #include "API/Device/PhysicalDevice.h"
 #include "API/Device/DeviceMemory.h"
@@ -28,7 +29,9 @@ namespace Vulkan {
 
 Renderer* Renderer::renderer = nullptr;
 
-Renderer::Renderer(WindowSettings windowSettings) : windowSettings(windowSettings) {
+Renderer::Renderer(void* platformHandle, void* platformWindow) :
+        platformHandle(platformHandle),
+        platformWindow(platformWindow) {
     assert(renderer == nullptr);
     renderer = this;
     instance = std::make_unique<Instance>();
@@ -113,12 +116,7 @@ void Renderer::create() {
     queue->create();
     queue->addPresentWaitSemaphore(renderFinishedSemaphore.get());
 
-#if defined(_WIN32)
-    surface = std::make_unique<Win32Surface>(instance.get(), device->getPhysicalDevice(), windowSettings.hinstance, windowSettings.hwnd);
-#elif defined(__linux__)
-    surface = std::make_unique<XcbSurface>(instance.get(), device->getPhysicalDevice(), windowSettings.connection, windowSettings.window);
-#endif
-
+    surface = std::make_unique<Surface>(instance.get(), device->getPhysicalDevice(), platformHandle, platformWindow);
     surface->create();
 
     renderPass = std::make_unique<RenderPass>(device);

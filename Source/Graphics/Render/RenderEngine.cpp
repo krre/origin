@@ -13,12 +13,14 @@
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Framebuffer.h"
 #include "VulkanRenderer/API/RenderPass.h"
+#include "VulkanRenderer/API/Surface/Surface.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
 
 namespace Origin {
 
-RenderEngine::RenderEngine(WindowSettings windowSettings) : Vulkan::Renderer(windowSettings) {
+RenderEngine::RenderEngine(void* platformHandle, void* platformWindow) :
+        Vulkan::Renderer(platformHandle, platformWindow) {
     window = Application::get()->getWindow();
 }
 

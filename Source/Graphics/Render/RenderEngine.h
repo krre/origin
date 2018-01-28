@@ -14,7 +14,7 @@ class ShaderProgram;
 class RenderEngine : public Vulkan::Renderer {
 
 public:
-    RenderEngine(WindowSettings windowSettings);
+    RenderEngine(void* platformHandle, void* platformWindow);
     ~RenderEngine();
 
     void saveScreenshot();

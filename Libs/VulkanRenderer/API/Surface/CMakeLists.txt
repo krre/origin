@@ -1,15 +1,3 @@
-if(WIN32)
-    set(SURFACE_PLATFORM_SOURCE
-        ${CMAKE_CURRENT_SOURCE_DIR}/Win32Surface.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/Win32Surface.h
-    )
-else()
-    set(SURFACE_PLATFORM_SOURCE
-        ${CMAKE_CURRENT_SOURCE_DIR}/XcbSurface.cpp
-        ${CMAKE_CURRENT_SOURCE_DIR}/XcbSurface.h
-    )
-endif()
-
 set(SOURCES
     ${SOURCES}
     ${SURFACE_PLATFORM_SOURCE}

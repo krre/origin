@@ -20,12 +20,12 @@ void VulkanRenderer::init() {
 }
 
 void VulkanRenderer::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    getRenderPass()->setClearValue({ 0.9, 1.0, 1.0, 1.0 });
-    VkRenderPassBeginInfo* beginInfo = getRenderPass()->getBeginInfo();
-    beginInfo->framebuffer = framebuffer->getHandle();
-
     VkExtent2D extent = getSurface()->getCurrentExtent();
-    beginInfo->renderArea.extent = extent;
+
+    Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
+    renderPassBegin.setClearValue({ 0.9, 1.0, 1.0, 1.0 });
+    renderPassBegin.setFrameBuffer(framebuffer->getHandle());
+    renderPassBegin.setRenderArea({ 0, 0, extent.width, extent.height });
 
     VkViewport viewport = {};
     viewport.width = extent.width;
@@ -38,7 +38,7 @@ void VulkanRenderer::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, V
 
     commandBuffer->begin();
 
-    commandBuffer->beginRenderPass(beginInfo);
+    commandBuffer->beginRenderPass(renderPassBegin.get());
 
     //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
 

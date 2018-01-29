@@ -13,8 +13,6 @@ namespace SDLWrapper {
     void showErrorMessageBox(const char* message);
     bool isInited();
 
-    static bool inited;
-
 } // SDLWrapper
 
 } // Origin

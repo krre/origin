@@ -5,6 +5,10 @@
 
 namespace Origin {
 
+namespace {
+    bool inited = false;
+}
+
 namespace SDLWrapper {
 
 void init() {

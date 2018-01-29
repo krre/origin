@@ -5,9 +5,9 @@
 
 namespace Origin {
 
-bool SDLWrapper::inited = false;
+namespace SDLWrapper {
 
-void SDLWrapper::init() {
+void init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
         std::runtime_error("SDL could not initialize!\nSDL_Error: " + getError());
     }
@@ -15,11 +15,11 @@ void SDLWrapper::init() {
     inited = true;
 }
 
-void SDLWrapper::shutdown() {
+void shutdown() {
     SDL_Quit();
 }
 
-Size SDLWrapper::getScreenSize() {
+Size getScreenSize() {
     Size screenSize;
     SDL_DisplayMode mode;
     if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
@@ -35,13 +35,19 @@ Size SDLWrapper::getScreenSize() {
     return screenSize;
 }
 
-std::string SDLWrapper::getError() {
+std::string getError() {
     return std::string(SDL_GetError());
 }
 
-void SDLWrapper::showErrorMessageBox(const char* message) {
+void showErrorMessageBox(const char* message) {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, APP_NAME, message, nullptr);
 }
+
+bool isInited() {
+    return inited;
+}
+
+} // SDLWrapper
 
 } // Origin
 

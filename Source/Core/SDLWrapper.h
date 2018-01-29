@@ -3,21 +3,18 @@
 
 namespace Origin {
 
-class SDLWrapper {
+namespace SDLWrapper {
 
-public:
-    SDLWrapper() = delete;
+    void init();
+    void shutdown();
 
-    static void init();
-    static void shutdown();
+    Size getScreenSize();
+    std::string getError();
+    void showErrorMessageBox(const char* message);
+    bool isInited();
 
-    static Size getScreenSize();
-    static std::string getError();
-    static void showErrorMessageBox(const char* message);
-    static bool isInited() { return inited; }
-
-private:
     static bool inited;
-};
+
+} // SDLWrapper
 
 } // Origin

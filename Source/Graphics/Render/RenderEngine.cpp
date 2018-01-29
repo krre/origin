@@ -68,13 +68,13 @@ void RenderEngine::init() {
 }
 
 void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    const Color& color = window->getColor();
-    getRenderPass()->setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
-    VkRenderPassBeginInfo* beginInfo = getRenderPass()->getBeginInfo();
-    beginInfo->framebuffer = framebuffer->getHandle();
-
     VkExtent2D extent = getSurface()->getCurrentExtent();
-    beginInfo->renderArea.extent = extent;
+    const Color& color = window->getColor();
+
+    Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
+    renderPassBegin.setRenderArea({ 0, 0, extent.width, extent.height });
+    renderPassBegin.setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
+    renderPassBegin.setFrameBuffer(framebuffer->getHandle());
 
     VkViewport viewport = {};
     viewport.width = extent.width;
@@ -87,7 +87,7 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
 
     commandBuffer->begin();
 
-    commandBuffer->beginRenderPass(beginInfo);
+    commandBuffer->beginRenderPass(renderPassBegin.get());
 
     //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
 

@@ -5,6 +5,23 @@
 
 namespace Vulkan {
 
+class RenderPassBegin {
+
+public:
+    RenderPassBegin(VkRenderPass renderPass);
+    VkRenderPassBeginInfo* get() { return &beginInfo; }
+
+    void setFrameBuffer(VkFramebuffer framebuffer);
+    void setRenderArea(VkRect2D renderArea);
+
+    void addClearValue(VkClearValue clearValue);
+    void setClearValue(VkClearValue clearValue);
+
+private:
+    VkRenderPassBeginInfo beginInfo = {};
+    std::vector<VkClearValue> clearValues;
+};
+
 class RenderPass : public Handle<VkRenderPass>, public Devicer {
 
 public:
@@ -16,19 +33,14 @@ public:
     void setDepthFormat(VkFormat format);
     void setDepthEnable(bool depthEnable);
     void setBlendEnable(bool blendEnable);
-    void addClearValue(VkClearValue clearValue);
-    void setClearValue(VkClearValue clearValue);
-    VkRenderPassBeginInfo* getBeginInfo() { return &beginInfo; }
 
 private:
     VkRenderPassCreateInfo createInfo = {};
-    VkRenderPassBeginInfo beginInfo = {};
     VkAttachmentDescription colorAttachmentDescription = {};
     VkAttachmentDescription depthAttachmentDescription = {};
     VkAttachmentReference colorAttachmentReference = {};
     VkAttachmentReference depthAttachmentReference = {};
     VkSubpassDescription subpassDescription = {};
-    std::vector<VkClearValue> clearValues;
     std::vector<VkSubpassDependency> subpassDependencies;
     std::vector<VkSubpassDescription> subpassDescriptions;
     std::vector<VkAttachmentDescription> attachmentDescriptions;

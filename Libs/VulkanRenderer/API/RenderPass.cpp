@@ -3,10 +3,32 @@
 
 namespace Vulkan {
 
+RenderPassBegin::RenderPassBegin(VkRenderPass renderPass) {
+    beginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+    beginInfo.renderPass = renderPass;
+}
+
+void RenderPassBegin::setFrameBuffer(VkFramebuffer framebuffer) {
+    beginInfo.framebuffer = framebuffer;
+}
+
+void RenderPassBegin::setRenderArea(VkRect2D renderArea) {
+    beginInfo.renderArea = renderArea;
+}
+
+void RenderPassBegin::addClearValue(VkClearValue clearValue) {
+    clearValues.push_back(clearValue);
+    beginInfo.clearValueCount = clearValues.size();
+    beginInfo.pClearValues = clearValues.data();
+}
+
+void RenderPassBegin::setClearValue(VkClearValue clearValue) {
+    clearValues.clear();
+    addClearValue(clearValue);
+}
+
 RenderPass::RenderPass(Device* device) :
     Devicer(device) {
-    beginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-    beginInfo.renderArea.offset = { 0, 0 };
 }
 
 RenderPass::~RenderPass() {
@@ -88,7 +110,6 @@ void RenderPass::create() {
     createInfo.dependencyCount = subpassDependencies.size();
     createInfo.pDependencies = subpassDependencies.data();
     VULKAN_CHECK_RESULT(vkCreateRenderPass(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create render pass");
-    beginInfo.renderPass = handle;
 }
 
 void RenderPass::destroy() {
@@ -109,17 +130,6 @@ void RenderPass::setDepthEnable(bool depthEnable) {
 
 void RenderPass::setBlendEnable(bool overlayEnable) {
     this->blendEnable = overlayEnable;
-}
-
-void RenderPass::addClearValue(VkClearValue clearValue) {
-    clearValues.push_back(clearValue);
-    beginInfo.clearValueCount = clearValues.size();
-    beginInfo.pClearValues = clearValues.data();
-}
-
-void RenderPass::setClearValue(VkClearValue clearValue) {
-    clearValues.clear();
-    addClearValue(clearValue);
 }
 
 } // Vulkan

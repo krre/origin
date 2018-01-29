@@ -147,7 +147,6 @@ void Renderer::render() {
 void Renderer::resize() {
     uint32_t width = surface->getCurrentExtent().width;
     uint32_t height = surface->getCurrentExtent().height;
-    renderPass->getBeginInfo()->renderArea.extent= { width, height };
 
     swapchain->destroy();
     swapchain->create();

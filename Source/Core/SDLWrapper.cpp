@@ -51,6 +51,16 @@ bool isInited() {
     return inited;
 }
 
+SDL_SysWMinfo getSysWMinfo(SDL_Window* window) {
+    SDL_SysWMinfo wminfo;
+    SDL_VERSION(&wminfo.version);
+    if (!SDL_GetWindowWMInfo(window, &wminfo)) {
+        std::runtime_error("SDL_GetWindowWMInfo failed\nSDL_Error: " + getError());
+    }
+
+    return wminfo;
+}
+
 } // SDLWrapper
 
 } // Origin

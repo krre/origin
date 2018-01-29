@@ -17,7 +17,6 @@
 #include <SDL_timer.h>
 #include <algorithm>
 #include <experimental/filesystem>
-#include <SDL_syswm.h>
 
 #if defined(OS_LINUX)
     #include <X11/Xlib-xcb.h>
@@ -58,13 +57,10 @@ void Application::init() {
         new Logger;
         new DebugEnvironment;
         new Event;
-
         SDL::init();
         window = std::make_unique<Window>();
 
-        SDL_SysWMinfo wminfo;
-        SDL_VERSION(&wminfo.version);
-        SDL_GetWindowWMInfo(window->getHandle(), &wminfo);
+        SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
 
 #if defined(OS_WIN)
         renderEngine = std::make_unique<RenderEngine>(GetModuleHandle(nullptr), (void*)wminfo.info.win.window);

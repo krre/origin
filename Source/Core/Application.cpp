@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "SDLWrapper.h"
 #include "Game.h"
 #include "Utils.h"
 #include "Defines.h"
@@ -13,6 +12,7 @@
 #include "Graphics/Render/RenderEngine.h"
 #include "Window.h"
 #include "Screen/MenuScreen.h"
+#include "SDLWrapper.h"
 #include <string>
 #include <SDL_timer.h>
 #include <algorithm>

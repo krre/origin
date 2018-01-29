@@ -9,7 +9,7 @@ namespace {
     bool inited = false;
 }
 
-namespace SDLWrapper {
+namespace SDL {
 
 void init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {

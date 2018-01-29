@@ -35,7 +35,7 @@ Window::Window() {
     auto settingsX = Settings::get()->getStorage()["x"];
     auto settingsY = Settings::get()->getStorage()["y"];
 
-    Size screenSize = SDLWrapper::getScreenSize();
+    Size screenSize = SDL::getScreenSize();
     x = settingsX.is_null() ? (screenSize.width - width) / 2 : settingsX.get<int>();
     y = settingsY.is_null() ? (screenSize.height - height) / 2 : settingsY.get<int>();
 

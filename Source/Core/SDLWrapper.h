@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-namespace SDLWrapper {
+namespace SDL {
 
     void init();
     void shutdown();
@@ -13,6 +13,6 @@ namespace SDLWrapper {
     void showErrorMessageBox(const char* message);
     bool isInited();
 
-} // SDLWrapper
+} // SDL
 
 } // Origin

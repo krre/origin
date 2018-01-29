@@ -40,7 +40,7 @@ Application::~Application() {
     ResourceManager::release();
     window.reset();
     renderEngine.reset();
-    SDLWrapper::shutdown();
+    SDL::shutdown();
     Event::release();
     DebugEnvironment::release();
     Logger::release();
@@ -59,7 +59,7 @@ void Application::init() {
         new DebugEnvironment;
         new Event;
 
-        SDLWrapper::init();
+        SDL::init();
         window = std::make_unique<Window>();
 
         SDL_SysWMinfo wminfo;
@@ -90,8 +90,8 @@ void Application::init() {
         new Input;
         new Game;
     } catch (const std::exception& ex) {
-        if (SDLWrapper::isInited()) {
-            SDLWrapper::showErrorMessageBox(ex.what());
+        if (SDL::isInited()) {
+            SDL::showErrorMessageBox(ex.what());
         } else {
             PRINT(ex.what());
         }

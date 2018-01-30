@@ -28,12 +28,6 @@ RenderEngine::~RenderEngine() {
 
 }
 
-void RenderEngine::createShaderPrograms() {
-//    shaderPrograms[ShaderProgram::ProgamType::Base] = RenderContext::get()->createShaderProgram("Base");
-//    shaderPrograms[ShaderProgram::ProgamType::Sdf] = RenderContext::get()->createShaderProgram("Sdf");
-//    shaderPrograms[ShaderProgram::ProgamType::Voxel] = RenderContext::get()->createShaderProgram("Voxel");
-}
-
 void RenderEngine::saveScreenshot() {
     std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;
@@ -63,8 +57,6 @@ void RenderEngine::saveScreenshot() {
 void RenderEngine::init() {
     renderer2d = std::make_unique<Renderer2D>();
     renderer3d = std::make_unique<Renderer3D>();
-
-    createShaderPrograms();
 }
 
 void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {

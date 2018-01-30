@@ -1,4 +1,4 @@
-#include "VulkanRenderer.h"
+#include "RenderEngine.h"
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Framebuffer.h"
 #include "VulkanRenderer/API/RenderPass.h"
@@ -6,20 +6,20 @@
 
 namespace OctreeFarm {
 
-VulkanRenderer::VulkanRenderer(void* platformHandle, void* platformWindow) :
+RenderEngine::RenderEngine(void* platformHandle, void* platformWindow) :
     Vulkan::Renderer(platformHandle, platformWindow) {
 
 }
 
-VulkanRenderer::~VulkanRenderer() {
+RenderEngine::~RenderEngine() {
 
 }
 
-void VulkanRenderer::init() {
+void RenderEngine::init() {
 
 }
 
-void VulkanRenderer::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     VkExtent2D extent = getSurface()->getCurrentExtent();
 
     Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());

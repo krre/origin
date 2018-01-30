@@ -1,6 +1,6 @@
 #include "Viewport.h"
 #include <QtWidgets>
-#include "VulkanRenderer.h"
+#include "RenderEngine.h"
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
@@ -18,12 +18,12 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
 #if defined(Q_OS_LINUX)
     QPlatformNativeInterface* native = QGuiApplication::platformNativeInterface();
     WId window = winId();
-    renderer = QSharedPointer<VulkanRenderer>(new VulkanRenderer(native->nativeResourceForWindow("connection", this), &window));
+    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(native->nativeResourceForWindow("connection", this), &window));
 #elif defined(Q_OS_WIN)
-    renderer = QSharedPointer<VulkanRenderer>(new VulkanRenderer(GetModuleHandle(nullptr), (void*)(winId())));
+    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(GetModuleHandle(nullptr), (void*)(winId())));
 #endif
 
-    renderer->create();
+    renderEngine->create();
 }
 
 Viewport::~Viewport() {
@@ -65,8 +65,9 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 }
 
 void Viewport::resizeEvent(QResizeEvent* event) {
-    renderer->resize();
-    renderer->render();
+    Q_UNUSED(event)
+    renderEngine->resize();
+    renderEngine->render();
 }
 
 void Viewport::onOctreeChanged() {

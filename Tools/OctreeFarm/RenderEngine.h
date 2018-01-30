@@ -3,11 +3,11 @@
 
 namespace OctreeFarm {
 
-class VulkanRenderer : public Vulkan::Renderer {
+class RenderEngine : public Vulkan::Renderer {
 
 public:
-    VulkanRenderer(void* platformHandle, void* platformWindow);
-    virtual ~VulkanRenderer();
+    RenderEngine(void* platformHandle, void* platformWindow);
+    virtual ~RenderEngine();
 
 private:
     void init() override;

@@ -41,7 +41,7 @@
       <property name="childrenCollapsible">
        <bool>false</bool>
       </property>
-      <widget class="QFrame" name="frameProperties">
+      <widget class="QFrame" name="frameViewport">
        <property name="minimumSize">
         <size>
          <width>50</width>
@@ -55,7 +55,7 @@
         <enum>QFrame::Sunken</enum>
        </property>
       </widget>
-      <widget class="QFrame" name="frameViewport">
+      <widget class="QFrame" name="frameProperties">
        <property name="minimumSize">
         <size>
          <width>50</width>
@@ -79,7 +79,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

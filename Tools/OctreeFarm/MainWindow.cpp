@@ -162,7 +162,7 @@ void MainWindow::readSettings() {
 
     QVariant splitterSize = settings->value("splitter");
     if (splitterSize == QVariant()) {
-        ui->splitter->setSizes({ 200, 500 });
+        ui->splitter->setSizes({ 500, 150 });
     } else {
         ui->splitter->restoreState(splitterSize.toByteArray());
     }

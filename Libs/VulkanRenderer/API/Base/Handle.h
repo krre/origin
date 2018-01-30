@@ -49,10 +49,9 @@ static std::string resultToString(VkResult result) {
         case VK_ERROR_INVALID_SHADER_NV: return "Invalid shader";
         case VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR: return "Invalid external handle";
         case VK_ERROR_OUT_OF_POOL_MEMORY_KHR: return "Out of pool memory";
-        case VK_RESULT_MAX_ENUM:
-        case VK_RESULT_RANGE_SIZE:
-        return std::string("Unknown result code: ") + std::to_string(result);
     }
+
+    return std::string("Unknown result code: ") + std::to_string(result);
 }
 
 template<typename T> class Handle {

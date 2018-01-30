@@ -15,12 +15,12 @@ namespace OctreeFarm {
 Viewport::Viewport(Octree* octree) : octree(octree) {
     setFlag(Qt::FramelessWindowHint);
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
+    WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
     QPlatformNativeInterface* native = QGuiApplication::platformNativeInterface();
-    WId window = winId();
-    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(native->nativeResourceForWindow("connection", this), &window));
+    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(native->nativeResourceForWindow("connection", this), &windowHandle));
 #elif defined(Q_OS_WIN)
-    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(GetModuleHandle(nullptr), (void*)(winId())));
+    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(GetModuleHandle(nullptr), (void*)(windowHandle)));
 #endif
 
     renderEngine->create();

@@ -22,11 +22,6 @@ void RenderPassBegin::addClearValue(VkClearValue clearValue) {
     beginInfo.pClearValues = clearValues.data();
 }
 
-void RenderPassBegin::setClearValue(VkClearValue clearValue) {
-    clearValues.clear();
-    addClearValue(clearValue);
-}
-
 RenderPass::RenderPass(Device* device) :
     Devicer(device) {
 }

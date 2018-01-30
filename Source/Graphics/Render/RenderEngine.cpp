@@ -72,9 +72,9 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     const Color& color = window->getColor();
 
     Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
-    renderPassBegin.setRenderArea({ 0, 0, extent.width, extent.height });
-    renderPassBegin.setClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
+    renderPassBegin.setRenderArea({ 0, 0, extent.width, extent.height });
+    renderPassBegin.addClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
 
     VkViewport viewport = {};
     viewport.width = extent.width;

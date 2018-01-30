@@ -15,7 +15,6 @@ public:
     void setRenderArea(VkRect2D renderArea);
 
     void addClearValue(VkClearValue clearValue);
-    void setClearValue(VkClearValue clearValue);
 
 private:
     VkRenderPassBeginInfo beginInfo = {};

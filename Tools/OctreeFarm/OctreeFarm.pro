@@ -19,10 +19,10 @@ SOURCES += main.cpp\
     Viewport.cpp \
     Source.cpp \
     Command.cpp \
-    OptionsDialog.cpp \
     MainWindow.cpp \
     VulkanRenderer.cpp \
-    Properties.cpp
+    Properties.cpp \
+    Options.cpp
 
 HEADERS  += \
     Octree.h \
@@ -31,12 +31,13 @@ HEADERS  += \
     Source.h \
     Defines.h \
     Command.h \
-    OptionsDialog.h \
     Origin.h \
     MainWindow.h \
     VulkanRenderer.h \
-    Properties.h
+    Properties.h \
+    Options.h
 
 FORMS += \
     MainWindow.ui \
-    Properties.ui
+    Properties.ui \
+    Options.ui

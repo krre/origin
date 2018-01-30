@@ -4,7 +4,7 @@
 #include "Viewport.h"
 #include "Properties.h"
 #include "Command.h"
-#include "OptionsDialog.h"
+#include "Options.h"
 #include <QtWidgets>
 
 namespace OctreeFarm {
@@ -132,8 +132,8 @@ void MainWindow::on_actionDelete_triggered() {
 }
 
 void MainWindow::on_actionOptions_triggered() {
-    OptionsDialog optionsDialog(this);
-    optionsDialog.exec();
+    Options options(this);
+    options.exec();
 }
 
 void MainWindow::on_actionAbout_triggered() {

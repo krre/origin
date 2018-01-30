@@ -20,7 +20,7 @@
 
 namespace Vulkan {
 
-static std::string resultToString(VkResult result) {
+inline static std::string resultToString(VkResult result) {
     switch (result) {
         case VK_SUCCESS: return "Success";
         case VK_NOT_READY: return "Not ready";

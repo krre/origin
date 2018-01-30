@@ -1,7 +1,6 @@
 #pragma once
 #include "Octree.h"
 #include <QMainWindow>
-#include <QSettings>
 #include <QFileDialog>
 
 namespace Ui {
@@ -68,7 +67,6 @@ private:
     void setCurrentFile(const QString& fileName);
 
     Ui::MainWindow* ui;
-    QSettings* settings;
     Properties* properties;
     Viewport* viewport;
     Octree octree;

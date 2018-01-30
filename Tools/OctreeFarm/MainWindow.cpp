@@ -5,6 +5,7 @@
 #include "Properties.h"
 #include "Command.h"
 #include "Options.h"
+#include "Settings.h"
 #include <QtWidgets>
 
 namespace OctreeFarm {
@@ -29,7 +30,6 @@ MainWindow::MainWindow(QWidget* parent) :
 
     setWindowTitle(APP_NAME);
 
-    settings = new QSettings(QCoreApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME, QSettings::IniFormat, this);
     readSettings();
 
     connect(&octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
@@ -148,11 +148,11 @@ void MainWindow::on_actionAbout_triggered() {
 }
 
 void MainWindow::readSettings() {
-    settings->beginGroup("MainWindow");
+    Settings::beginGroup("MainWindow");
 
-    resize(settings->value("size", QSize(WINDOW_WIDTH, WINDOW_HEIGHT)).toSize());
+    resize(Settings::getValue("size", QSize(WINDOW_WIDTH, WINDOW_HEIGHT)).toSize());
 
-    QPoint pos = settings->value("pos").toPoint();
+    QPoint pos = Settings::getValue("pos").toPoint();
     if (pos.isNull()) {
         const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
@@ -160,16 +160,16 @@ void MainWindow::readSettings() {
         move(pos);
     }
 
-    QVariant splitterSize = settings->value("splitter");
+    QVariant splitterSize = Settings::getValue("splitter");
     if (splitterSize == QVariant()) {
         ui->splitter->setSizes({ 500, 150 });
     } else {
         ui->splitter->restoreState(splitterSize.toByteArray());
     }
 
-    settings->endGroup();
+    Settings::endGroup();
 
-    QString filePath = settings->value("Path/currentFile").toString();
+    QString filePath = Settings::getValue("Path/currentFile").toString();
     if (!filePath.isEmpty() && QFile::exists(filePath)) {
         loadFile(filePath);
     } else {
@@ -178,13 +178,13 @@ void MainWindow::readSettings() {
 }
 
 void MainWindow::writeSettings() {
-    settings->beginGroup("MainWindow");
-    settings->setValue("size", size());
-    settings->setValue("pos", pos());
-    settings->setValue("splitter", ui->splitter->saveState());
-    settings->endGroup();
+    Settings::beginGroup("MainWindow");
+    Settings::setValue("size", size());
+    Settings::setValue("pos", pos());
+    Settings::setValue("splitter", ui->splitter->saveState());
+    Settings::endGroup();
 
-    settings->setValue("Path/currentFile", currentFile);
+    Settings::setValue("Path/currentFile", currentFile);
 }
 
 bool MainWindow::maybeSave() {

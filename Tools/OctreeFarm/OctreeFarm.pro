@@ -22,7 +22,8 @@ SOURCES += main.cpp\
     MainWindow.cpp \
     Properties.cpp \
     Options.cpp \
-    RenderEngine.cpp
+    RenderEngine.cpp \
+    Settings.cpp
 
 HEADERS  += \
     Octree.h \
@@ -35,7 +36,8 @@ HEADERS  += \
     MainWindow.h \
     Properties.h \
     Options.h \
-    RenderEngine.h
+    RenderEngine.h \
+    Settings.h
 
 FORMS += \
     MainWindow.ui \

@@ -6,7 +6,7 @@
 #include <iostream>
 
 #if defined(Q_OS_LINUX)
-#include <QX11Info>
+    #include <QX11Info>
 #endif
 
 namespace OctreeFarm {

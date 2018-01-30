@@ -1,5 +1,5 @@
 QT += widgets
-QT += core-private gui-private # For use QPA
+unix: QT += x11extras
 CONFIG += c++17
 TARGET = OctreeFarm
 TEMPLATE = app

@@ -5,9 +5,8 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
 
-#ifdef Q_OS_LINUX
-#include <qpa/qplatformnativeinterface.h>
-#include <QtPlatformHeaders/qxcbwindowfunctions.h>
+#if defined(Q_OS_LINUX)
+#include <QX11Info>
 #endif
 
 namespace OctreeFarm {
@@ -17,8 +16,7 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
     WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
-    QPlatformNativeInterface* native = QGuiApplication::platformNativeInterface();
-    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(native->nativeResourceForWindow("connection", this), &windowHandle));
+    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(QX11Info::connection(), &windowHandle));
 #elif defined(Q_OS_WIN)
     renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(GetModuleHandle(nullptr), (void*)(windowHandle)));
 #endif

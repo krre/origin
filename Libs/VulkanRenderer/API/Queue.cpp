@@ -34,11 +34,11 @@ void Queue::submit(VkFence fence) {
 void Queue::addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore, VkSemaphore waitSemaphore, VkPipelineStageFlags waitDstStageMask) {
     commandBuffers.push_back(commandBuffer);
 
-    if (signalSemaphore != nullptr) {
+    if (signalSemaphore) {
         submitSignalSemaphores.push_back(signalSemaphore);
     }
 
-    if (waitSemaphore != nullptr) {
+    if (waitSemaphore) {
         submitWaitSemaphores.push_back(waitSemaphore);
         submitWaitDstStageMasks.push_back(waitDstStageMask);
     }

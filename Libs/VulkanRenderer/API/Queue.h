@@ -17,14 +17,14 @@ public:
     void addPresentWaitSemaphore(VkSemaphore semaphore);
     void clearPresentWaitSemaphores();
 
-    void addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore = nullptr, VkSemaphore waitSemaphore = nullptr, VkPipelineStageFlags waitDstStageMask = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
+    void addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore = VK_NULL_HANDLE, VkSemaphore waitSemaphore = VK_NULL_HANDLE, VkPipelineStageFlags waitDstStageMask = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
     void clearCommandBuffers();
 
     void addSwapchain(Swapchain* swapchain);
     void clearSwapchains();
 
-    void submit(VkFence fence = nullptr);
-    void present(uint32_t* indices = nullptr);
+    void submit(VkFence fence = VK_NULL_HANDLE);
+    void present(uint32_t* indices = VK_NULL_HANDLE);
 
     void waitIdle();
     void syncHost(VkFence fence);

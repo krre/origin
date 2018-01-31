@@ -15,7 +15,10 @@ set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -std=c++17 -fPIC")
+
+if(UNIX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -std=c++17 -fPIC")
+endif()
 
 find_package(Vulkan REQUIRED)
 include_directories(${Vulkan_INCLUDE_DIRS})
@@ -36,11 +39,15 @@ set(SOURCES
 
 add_library(${LIB_NAME} SHARED ${SOURCES})
 
+set(SPIRV_CROSS_LIB $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a)
+
 if(WIN32)
     include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
 
     set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
     string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
+
+    string(REGEX REPLACE "\\\\" "/" SPIRV_CROSS_LIB ${SPIRV_CROSS_LIB})
 
     target_link_libraries(${LIB_NAME}
         ${SPIRV_TOOLS_LIB}
@@ -50,11 +57,9 @@ else()
         $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
         X11-xcb
     )
-    target_link_libraries(${LIB_NAME}
-        $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a
-    )
 endif()
 
 target_link_libraries(${LIB_NAME}
     ${Vulkan_LIBRARIES}
+    ${SPIRV_CROSS_LIB} # If linking error, recompile spirv-cross lib with -fPIC flag (on Linux only)
 )

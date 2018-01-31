@@ -48,6 +48,8 @@ public:
 
 protected:
     virtual void init() {}
+    virtual void preRender() {}
+    virtual void postRender() {}
     virtual void writeCommandBuffers(CommandBuffer* commandBuffer, Framebuffer* framebuffer) = 0;
 
 private:

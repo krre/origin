@@ -21,6 +21,7 @@ public:
 
 private:
     void init() override;
+    void preRender() override;
     void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
 
     std::unique_ptr<Renderer2D> renderer2d;
@@ -29,6 +30,7 @@ private:
     std::map<Vulkan::ShaderProgram::ProgamType, std::shared_ptr<Vulkan::ShaderProgram>> shaderPrograms;
 
     Window* window = nullptr;
+    Screen* currentScreen = nullptr;
 };
 
 } // Origin

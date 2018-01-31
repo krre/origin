@@ -1,12 +1,17 @@
 #pragma once
-#include "Resource/Resource.h"
+#include "Core/Common.h"
+
+namespace Vulkan {
+    class CommandBuffer;
+}
 
 namespace Origin {
 
-class RenderPassResource : public Resource {
+class RenderPassResource {
 
 public:
     RenderPassResource();
+    virtual void write(Vulkan::CommandBuffer* commandBuffer) = 0;
 };
 
 } // Origin

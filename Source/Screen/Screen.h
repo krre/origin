@@ -6,6 +6,7 @@ namespace Origin {
 class UIManager;
 class UIRenderer;
 class EntityManager;
+class RenderPassResource;
 
 class Screen : public Control {
 
@@ -29,6 +30,11 @@ public:
     UIManager* getUIManager() const { return uiManager.get(); }
     UIRenderer* getUIRenderer() const { return uiRenderer.get(); }
     EntityManager* getEntityEngine() const { return entityManager.get(); }
+
+    const std::vector<RenderPassResource*>& getRenderPassResources() const { return renderPassResources; }
+
+protected:
+    std::vector<RenderPassResource*> renderPassResources;
 
 private:
     void updateImpl(float dt) override;

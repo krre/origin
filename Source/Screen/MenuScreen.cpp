@@ -1,5 +1,6 @@
 #include "MenuScreen.h"
 #include "UI/Rectangle.h"
+#include "Resource/RenderPass/RenderPassUI.h"
 
 namespace Origin {
 

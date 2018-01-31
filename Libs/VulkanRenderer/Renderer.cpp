@@ -130,6 +130,8 @@ void Renderer::create() {
 }
 
 void Renderer::render() {
+    preRender();
+
     VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         resize();
@@ -142,6 +144,8 @@ void Renderer::render() {
     queue->submit();
     queue->present();
     queue->waitIdle();
+
+    postRender();
 }
 
 void Renderer::resize() {
@@ -289,7 +293,9 @@ void Renderer::updateCommandBuffers() {
     for (int i = 0; i < commandBuffers.size(); i++) {
         CommandBuffer* commandBuffer = commandBuffers.at(i).get();
         commandBuffer->reset();
+        commandBuffer->begin();
         writeCommandBuffers(commandBuffer, framebuffers.at(i).get());
+        commandBuffer->end();
     }
 }
 

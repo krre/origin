@@ -14,6 +14,7 @@
 #include "VulkanRenderer/API/Framebuffer.h"
 #include "VulkanRenderer/API/RenderPass.h"
 #include "VulkanRenderer/API/Surface/Surface.h"
+#include "Resource/RenderPass/RenderPassResource.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
 
@@ -59,6 +60,13 @@ void RenderEngine::init() {
     renderer3d = std::make_unique<Renderer3D>();
 }
 
+void RenderEngine::preRender() {
+    if (currentScreen != window->getCurrentScreen()) {
+        currentScreen = window->getCurrentScreen();
+        updateCommandBuffers();
+    }
+}
+
 void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     VkExtent2D extent = getSurface()->getCurrentExtent();
     const Color& color = window->getColor();
@@ -77,7 +85,11 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     scissor.offset = { 0, 0 };
     scissor.extent = extent;
 
-    commandBuffer->begin();
+    if (currentScreen) {
+        for (const auto renderPassResoure : currentScreen->getRenderPassResources()) {
+            renderPassResoure->write(commandBuffer);
+        }
+    }
 
     commandBuffer->beginRenderPass(renderPassBegin.get());
 
@@ -100,8 +112,6 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     //    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
     commandBuffer->endRenderPass();
-
-    commandBuffer->end();
 }
 
 } // Origin

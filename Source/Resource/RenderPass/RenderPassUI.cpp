@@ -6,4 +6,8 @@ RenderPassUI::RenderPassUI() {
 
 }
 
+void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer) {
+
+}
+
 } // Origin

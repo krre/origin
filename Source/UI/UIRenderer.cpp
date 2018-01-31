@@ -1,9 +1,12 @@
 #include "UIRenderer.h"
 #include "VulkanRenderer/GpuBuffer.h"
+#include "Resource/RenderPass/RenderPassUI.h"
 
 namespace Origin {
 
 UIRenderer::UIRenderer() {
+    renderPassUI = std::make_unique<RenderPassUI>();
+
     uint32_t startSize = 10000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 }

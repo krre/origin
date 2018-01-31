@@ -8,6 +8,8 @@ namespace Vulkan {
 
 namespace Origin {
 
+class RenderPassUI;
+
 class UIRenderer {
 
 public:
@@ -16,11 +18,13 @@ public:
     void addBatch(UIBatch batch);
     void drawBatches();
     std::vector<UIBatch::Vertex>* getVerticles() { return &vertices; }
+    RenderPassUI* getRenderPassUI() const { return renderPassUI.get(); }
 
 private:
     std::vector<UIBatch> batches;
     std::vector<UIBatch::Vertex> vertices;
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
+    std::unique_ptr<RenderPassUI> renderPassUI;
 };
 
 } // Origin

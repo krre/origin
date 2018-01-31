@@ -3,6 +3,7 @@
 #include "UI/UIManager.h"
 #include "UI/UIRenderer.h"
 #include "ECS/EntityManager.h"
+#include "Resource/RenderPass/RenderPassUI.h"
 
 namespace Origin {
 
@@ -11,6 +12,8 @@ Screen::Screen() {
     uiManager = std::make_unique<UIManager>();
     uiRenderer = std::make_unique<UIRenderer>();
     entityManager = std::make_unique<EntityManager>();
+
+    renderPassResources.push_back(uiRenderer->getRenderPassUI());
 }
 
 Screen::~Screen() {

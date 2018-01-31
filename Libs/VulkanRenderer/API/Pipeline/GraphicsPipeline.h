@@ -17,7 +17,6 @@ public:
     void setPipelineLayout(VkPipelineLayout layout);
     void setRenderPass(VkRenderPass renderPass);
     void setBlendEnable(VkBool32 blendEnable);
-    void setExtent(VkExtent2D extent);
 
     VkPipelineBindPoint getBindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
     void create() override;
@@ -34,9 +33,6 @@ private:
     VkPipelineViewportStateCreateInfo viewportStateCreateInfo = {};
 
     VkPipelineColorBlendAttachmentState colorBlendAttachmentState = {};
-
-    VkViewport viewport = {};
-    VkRect2D scissor = {};
 
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;

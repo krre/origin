@@ -34,13 +34,6 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
 
     viewportStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 
-    viewport.x = 0.0f;
-    viewport.y = 0.0f;
-    viewport.minDepth = 0.0f;
-    viewport.maxDepth = 1.0f;
-
-    scissor.offset = { 0, 0 };
-
     colorBlendAttachmentState.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
     colorBlendAttachmentState.blendEnable = VK_FALSE;
     colorBlendAttachmentState.srcColorBlendFactor = VK_BLEND_FACTOR_ONE;
@@ -64,12 +57,6 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
     depthStencilStateCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL;
     depthStencilStateCreateInfo.front = depthStencilStateCreateInfo.back;
     depthStencilStateCreateInfo.back.compareOp = VK_COMPARE_OP_ALWAYS;
-}
-
-void GraphicsPipeline::setExtent(VkExtent2D extent) {
-    viewport.width = (float)extent.width;
-    viewport.height = (float)extent.height;
-    scissor.extent = extent;
 }
 
 void GraphicsPipeline::addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription) {
@@ -105,14 +92,6 @@ void GraphicsPipeline::setBlendEnable(VkBool32 blendEnable) {
 }
 
 void GraphicsPipeline::create() {
-    if (!viewports.size()) {
-        viewports.push_back(viewport);
-    }
-
-    if (!scissors.size()) {
-        scissors.push_back(scissor);
-    }
-
     viewportStateCreateInfo.viewportCount = viewports.size();
     viewportStateCreateInfo.pViewports = viewports.data();
     viewportStateCreateInfo.scissorCount = scissors.size();

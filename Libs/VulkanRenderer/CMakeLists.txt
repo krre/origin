@@ -15,6 +15,7 @@ set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -std=c++17 -fPIC")
 
 find_package(Vulkan REQUIRED)
 include_directories(${Vulkan_INCLUDE_DIRS})
@@ -48,6 +49,9 @@ else()
     target_link_libraries(${LIB_NAME}
         $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
         X11-xcb
+    )
+    target_link_libraries(${LIB_NAME}
+        $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a
     )
 endif()
 

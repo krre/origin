@@ -8,6 +8,8 @@
 #include "VulkanRenderer/API/Surface/Surface.h"
 #include "VulkanRenderer/API/RenderPass.h"
 #include "Graphics/Render/RenderEngine.h"
+#include "VulkanRenderer/ShaderProgram.h"
+#include "Resource/ResourceManager.h"
 
 namespace Origin {
 
@@ -15,6 +17,9 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
     renderPass->setColorFormat(RenderEngine::get()->getSurface()->getFormats().at(0).format);
     renderPass->create();
+
+    Vulkan::Shader shader;
+    shader.load(ResourceManager::get()->getDataPath() + "/Shader/Voxel.frag.spv");
 }
 
 RenderPassUI::~RenderPassUI() {

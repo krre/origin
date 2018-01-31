@@ -21,6 +21,8 @@
     #include <vulkan/libspirv.h>
 #endif
 
+#include <spirv_cross/spirv_cross.hpp>
+
 namespace Vulkan {
 
 Shader::Shader() {
@@ -42,6 +44,13 @@ void Shader::load(const std::string& path) {
 
     if (!code.empty()) {
         parse();
+        spirv_cross::Compiler compiler(code);
+        spirv_cross::ShaderResources resources = compiler.get_shader_resources();
+        for (auto &u : resources.uniform_buffers) {
+            uint32_t set = compiler.get_decoration(u.id, spv::DecorationDescriptorSet);
+            uint32_t binding = compiler.get_decoration(u.id, spv::DecorationBinding);
+            printf("Found UBO %s at set = %u, binding = %u!\n", u.name.c_str(), set, binding);
+        }
     }
 }
 

@@ -4,8 +4,6 @@
 #include "Core/Window.h"
 #include "Screen/Screen.h"
 #include "Core/Utils.h"
-#include "Renderer2D.h"
-#include "Renderer3D.h"
 #include "UI/Control.h"
 #include "UI/UIBatch.h"
 #include "Debug/DebugEnvironment.h"
@@ -56,8 +54,7 @@ void RenderEngine::saveScreenshot() {
 }
 
 void RenderEngine::init() {
-    renderer2d = std::make_unique<Renderer2D>();
-    renderer3d = std::make_unique<Renderer3D>();
+
 }
 
 void RenderEngine::preRender() {

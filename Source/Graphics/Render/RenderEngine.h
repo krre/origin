@@ -24,9 +24,6 @@ private:
     void preRender() override;
     void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
 
-    std::unique_ptr<Renderer2D> renderer2d;
-    std::unique_ptr<Renderer3D> renderer3d;
-
     std::map<Vulkan::ShaderProgram::ProgamType, std::shared_ptr<Vulkan::ShaderProgram>> shaderPrograms;
 
     Window* window = nullptr;

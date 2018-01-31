@@ -2,11 +2,5 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderEngine.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderEngine.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer2D.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer2D.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer3D.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer3D.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
     PARENT_SCOPE
 )

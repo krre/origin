@@ -28,7 +28,7 @@ void CommandBufferOneTime::apply() {
 
     Queue queue(device, commandPool->getQueueFamilyIndex(), 0);
     queue.addCommandBuffer(commandBuffer->getHandle());
-    queue.submit(&fence);
+    queue.submit(fence.getHandle());
 
     device->waitForFences({ fence.getHandle() });
 }

@@ -114,7 +114,7 @@ void Renderer::create() {
 
     queue = std::make_unique<Queue>(device, graphicsFamily);
     queue->create();
-    queue->addPresentWaitSemaphore(renderFinishedSemaphore.get());
+    queue->addPresentWaitSemaphore(renderFinishedSemaphore->getHandle());
 
     surface = std::make_unique<Surface>(instance.get(), device->getPhysicalDevice(), platformHandle, platformWindow);
     surface->create();

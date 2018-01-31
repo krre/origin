@@ -5,10 +5,7 @@
 
 namespace Vulkan {
 
-class Semaphore;
-class Fence;
 class Swapchain;
-class CommandBuffer;
 
 class Queue : public Handle<VkQueue>, public Devicer {
 
@@ -17,7 +14,7 @@ public:
     void create() override {}
     void destroy() override {}
 
-    void addPresentWaitSemaphore(Semaphore* semaphore);
+    void addPresentWaitSemaphore(VkSemaphore semaphore);
     void clearPresentWaitSemaphores();
 
     void addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore = nullptr, VkSemaphore waitSemaphore = nullptr, VkPipelineStageFlags waitDstStageMask = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
@@ -26,11 +23,11 @@ public:
     void addSwapchain(Swapchain* swapchain);
     void clearSwapchains();
 
-    void submit(Fence* fence = nullptr);
+    void submit(VkFence fence = nullptr);
     void present(uint32_t* indices = nullptr);
 
     void waitIdle();
-    void syncHost(Fence* fence);
+    void syncHost(VkFence fence);
 
 protected:
     std::vector<VkSemaphore> submitWaitSemaphores;

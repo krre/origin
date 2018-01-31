@@ -11,8 +11,8 @@ Queue::Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) : D
     vkGetDeviceQueue(device->getHandle(), queueFamilyIndex, queueIndex, &handle);
 }
 
-void Queue::addPresentWaitSemaphore(Semaphore* semaphore) {
-    presentWaitSemaphores.push_back(semaphore->getHandle());
+void Queue::addPresentWaitSemaphore(VkSemaphore semaphore) {
+    presentWaitSemaphores.push_back(semaphore);
 }
 
 void Queue::clearPresentWaitSemaphores() {
@@ -23,12 +23,12 @@ void Queue::waitIdle() {
     VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
 }
 
-void Queue::syncHost(Fence* fence) {
-    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, 0, nullptr, fence->getHandle()), "Failed to sync host with queue");
+void Queue::syncHost(VkFence fence) {
+    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, 0, nullptr, fence), "Failed to sync host with queue");
 }
 
-void Queue::submit(Fence* fence) {
-    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence == nullptr ? VK_NULL_HANDLE : fence->getHandle()), "Failed to submit queue");
+void Queue::submit(VkFence fence) {
+    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence), "Failed to submit queue");
 }
 
 void Queue::addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore, VkSemaphore waitSemaphore, VkPipelineStageFlags waitDstStageMask) {

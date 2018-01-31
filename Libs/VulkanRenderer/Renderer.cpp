@@ -138,9 +138,9 @@ void Renderer::render() {
     }
 
     queue->clearCommandBuffers();
-    queue->addCommandBuffer(commandBuffers.at(swapchain->getImageIndex()).get(),
-                            renderFinishedSemaphore.get(),
-                            imageAvailableSemaphore.get(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
+    queue->addCommandBuffer(commandBuffers->at(swapchain->getImageIndex()),
+                            renderFinishedSemaphore->getHandle(),
+                            imageAvailableSemaphore->getHandle(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
     queue->submit();
     queue->present();
     queue->waitIdle();
@@ -176,14 +176,9 @@ void Renderer::resize() {
         framebuffers.push_back(std::move(framebuffer));
     }
 
-    if (!commandBuffers.size()) {
-        commandBufferHandlers = std::make_unique<CommandBuffers>(device, graphicsCommandPool.get());
-        commandBufferHandlers->allocate(swapchain->getCount());
-
-        for (int i = 0; i < commandBufferHandlers->getCount(); i++) {
-            auto commandBuffer = std::make_unique<CommandBuffer>(commandBufferHandlers->at(i));
-            commandBuffers.push_back(std::move(commandBuffer));
-        }
+    if (!commandBuffers) {
+        commandBuffers = std::make_unique<CommandBuffers>(device, graphicsCommandPool.get());
+        commandBuffers->allocate(swapchain->getCount());
     }
 
     updateCommandBuffers();
@@ -290,12 +285,12 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
 }
 
 void Renderer::updateCommandBuffers() {
-    for (int i = 0; i < commandBuffers.size(); i++) {
-        CommandBuffer* commandBuffer = commandBuffers.at(i).get();
-        commandBuffer->reset();
-        commandBuffer->begin();
-        writeCommandBuffers(commandBuffer, framebuffers.at(i).get());
-        commandBuffer->end();
+    for (int i = 0; i < commandBuffers->getCount(); i++) {
+        CommandBuffer commandBuffer(commandBuffers->at(i));
+        commandBuffer.reset();
+        commandBuffer.begin();
+        writeCommandBuffers(&commandBuffer, framebuffers.at(i).get());
+        commandBuffer.end();
     }
 }
 

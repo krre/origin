@@ -20,7 +20,7 @@ public:
     void addPresentWaitSemaphore(Semaphore* semaphore);
     void clearPresentWaitSemaphores();
 
-    void addCommandBuffer(CommandBuffer* commandBuffer, Semaphore* signalSemaphore = nullptr, Semaphore* waitSemaphore = nullptr, VkPipelineStageFlags waitDstStageMask = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
+    void addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore = nullptr, VkSemaphore waitSemaphore = nullptr, VkPipelineStageFlags waitDstStageMask = VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
     void clearCommandBuffers();
 
     void addSwapchain(Swapchain* swapchain);

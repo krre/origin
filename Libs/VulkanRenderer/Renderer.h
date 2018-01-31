@@ -69,8 +69,7 @@ private:
     std::unique_ptr<Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Semaphore> renderFinishedSemaphore;
     std::unique_ptr<Queue> queue;
-    std::unique_ptr<CommandBuffers> commandBufferHandlers;
-    std::vector<std::unique_ptr<CommandBuffer>> commandBuffers;
+    std::unique_ptr<CommandBuffers> commandBuffers;
     uint32_t graphicsFamily;
     uint32_t computeFamily;
     int presetDevice = -1;

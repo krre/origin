@@ -31,7 +31,6 @@ private slots:
     void on_actionSave_triggered();
     void on_actionSaveAs_triggered();
     void on_actionRevert_triggered();
-    void on_actionExit_triggered();
 
     // Edit
     void on_actionUndo_triggered();

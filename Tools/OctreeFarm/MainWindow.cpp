@@ -11,8 +11,8 @@
 namespace OctreeFarm {
 
 MainWindow::MainWindow(QWidget* parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow) {
+        QMainWindow(parent),
+        ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     undoStack = new QUndoStack(this);
@@ -80,10 +80,6 @@ void MainWindow::on_actionRevert_triggered() {
         viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
 //        viewport->update();
     }
-}
-
-void MainWindow::on_actionExit_triggered() {
-    close();
 }
 
 void MainWindow::on_actionUndo_triggered() {

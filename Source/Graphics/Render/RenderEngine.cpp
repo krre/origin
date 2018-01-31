@@ -1,20 +1,14 @@
 #include "RenderEngine.h"
-#include "Core/Defines.h"
 #include "Core/Application.h"
 #include "Core/Window.h"
 #include "Screen/Screen.h"
 #include "Core/Utils.h"
-#include "UI/Control.h"
-#include "UI/UIBatch.h"
-#include "Debug/DebugEnvironment.h"
-#include "Graphics/Render/RenderEngine.h"
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Framebuffer.h"
 #include "VulkanRenderer/API/RenderPass.h"
 #include "VulkanRenderer/API/Surface/Surface.h"
 #include "Resource/RenderPass/RenderPassResource.h"
 #include <lodepng/lodepng.h>
-#include <SDL_syswm.h>
 
 namespace Origin {
 

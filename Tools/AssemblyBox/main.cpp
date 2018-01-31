@@ -1,13 +1,14 @@
 #include "MainWindow.h"
+#include "Defines.h"
 #include <QApplication>
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
-    app.setApplicationName("AssemblyBox");
-    app.setApplicationVersion("0.1.0");
+    app.setApplicationName(APP_NAME);
+    app.setApplicationVersion(APP_VERSION_STR);
 
-    AssemblyBox::MainWindow window;
-    window.show();
+    AssemblyBox::MainWindow mainWindow;
+    mainWindow.show();
 
     return app.exec();
 }

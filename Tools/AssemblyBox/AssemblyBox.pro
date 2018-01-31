@@ -5,10 +5,11 @@ TEMPLATE = app
 DESTDIR = $$(ORIGIN_HOME)
 
 SOURCES += main.cpp\
-    MainWindow.cpp \
-    Viewport.cpp \
-    Properties.cpp
+    MainWindow.cpp
 
-HEADERS += MainWindow.h \
-    Viewport.h \
-    Properties.h
+HEADERS += \
+    MainWindow.h \
+    Defines.h
+
+FORMS += \
+    MainWindow.ui

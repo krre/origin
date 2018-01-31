@@ -1,9 +1,9 @@
 #pragma once
-#include "Viewport.h"
-#include "Properties.h"
 #include <QMainWindow>
-#include <QSettings>
-#include <QSplitter>
+
+namespace Ui {
+    class MainWindow;
+}
 
 namespace AssemblyBox {
 
@@ -11,27 +11,22 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 
 public:
-    MainWindow(QWidget* parent = 0);
+    explicit MainWindow(QWidget* parent = 0);
+    ~MainWindow();
 
 protected:
     void closeEvent(QCloseEvent* event) override;
 
 private slots:
-    void resetGeometry();
-    void newPlanet();
-    void about();
+    // Help
+    void on_actionAbout_triggered();
 
 private:
-    void setupMenuBar();
-    void setupActions();
-    void setupSplitter();
     void readSettings();
     void writeSettings();
 
-    QSettings* settings;
-    Viewport* viewport;
-    Properties* properties;
-    QSplitter splitter;
+    Ui::MainWindow* ui;
+    QString settingsPath;
 };
 
 } // AssemblyBox

@@ -41,7 +41,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::closeEvent(QCloseEvent* event) {
     writeSettings();
-    event->accept();
+    QMainWindow::closeEvent(event);
 }
 
 void MainWindow::on_actionNew_triggered() {
@@ -146,14 +146,10 @@ void MainWindow::on_actionAbout_triggered() {
 void MainWindow::readSettings() {
     Settings::beginGroup("MainWindow");
 
-    resize(Settings::getValue("size", QSize(WINDOW_WIDTH, WINDOW_HEIGHT)).toSize());
-
-    QPoint pos = Settings::getValue("pos").toPoint();
-    if (pos.isNull()) {
+    if (!restoreGeometry(Settings::getValue("geometry").toByteArray())) {
+        resize(WINDOW_WIDTH, WINDOW_HEIGHT);
         const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
-    } else {
-        move(pos);
     }
 
     QVariant splitterSize = Settings::getValue("splitter");
@@ -175,8 +171,7 @@ void MainWindow::readSettings() {
 
 void MainWindow::writeSettings() {
     Settings::beginGroup("MainWindow");
-    Settings::setValue("size", size());
-    Settings::setValue("pos", pos());
+    Settings::setValue("geometry", saveGeometry());
     Settings::setValue("splitter", ui->splitter->saveState());
     Settings::endGroup();
 

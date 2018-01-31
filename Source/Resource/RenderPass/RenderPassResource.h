@@ -4,7 +4,6 @@
 namespace Vulkan {
     class CommandBuffer;
     class Framebuffer;
-    class RenderPass;
     class Device;
 }
 
@@ -16,9 +15,6 @@ public:
     RenderPassResource(Vulkan::Device* device);
     ~RenderPassResource();
     virtual void write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) = 0;
-
-protected:
-    std::unique_ptr<Vulkan::RenderPass> renderPass;
 };
 
 } // Origin

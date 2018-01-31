@@ -6,13 +6,19 @@
 #include "VulkanRenderer/API/Framebuffer.h"
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Surface/Surface.h"
+#include "VulkanRenderer/API/RenderPass.h"
 #include "Graphics/Render/RenderEngine.h"
 
 namespace Origin {
 
 RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) {
+    renderPass = std::make_unique<Vulkan::RenderPass>(device);
     renderPass->setColorFormat(RenderEngine::get()->getSurface()->getFormats().at(0).format);
     renderPass->create();
+}
+
+RenderPassUI::~RenderPassUI() {
+
 }
 
 void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {

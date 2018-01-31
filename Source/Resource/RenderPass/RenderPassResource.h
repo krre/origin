@@ -3,6 +3,9 @@
 
 namespace Vulkan {
     class CommandBuffer;
+    class Framebuffer;
+    class RenderPass;
+    class Device;
 }
 
 namespace Origin {
@@ -10,8 +13,12 @@ namespace Origin {
 class RenderPassResource {
 
 public:
-    RenderPassResource();
-    virtual void write(Vulkan::CommandBuffer* commandBuffer) = 0;
+    RenderPassResource(Vulkan::Device* device);
+    ~RenderPassResource();
+    virtual void write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) = 0;
+
+protected:
+    std::unique_ptr<Vulkan::RenderPass> renderPass;
 };
 
 } // Origin

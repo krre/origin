@@ -33,7 +33,7 @@ MainWindow::~MainWindow() {
 
 void MainWindow::closeEvent(QCloseEvent* event) {
     writeSettings();
-    event->accept();
+    QMainWindow::closeEvent(event);
 }
 
 void MainWindow::on_actionAbout_triggered() {
@@ -53,8 +53,13 @@ void MainWindow::on_actionReload_triggered() {
 void MainWindow::readSettings() {
     QSettings settings(settingsPath, QSettings::IniFormat);
     settings.beginGroup("MainWindow");
-    resize(settings.value("size", QSize(800, 600)).toSize());
-    move(settings.value("pos", QPoint(200, 200)).toPoint());
+
+    if (!restoreGeometry(settings.value("geometry").toByteArray())) {
+        resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
+        move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
+    }
+
     ui->tabWidget->setCurrentIndex(settings.value("tab", 0).toInt());
     settings.endGroup();
 }
@@ -62,8 +67,7 @@ void MainWindow::readSettings() {
 void MainWindow::writeSettings() {
     QSettings settings(settingsPath, QSettings::IniFormat);
     settings.beginGroup("MainWindow");
-    settings.setValue("size", size());
-    settings.setValue("pos", pos());
+    settings.setValue("geometry", saveGeometry());
     settings.setValue("tab", ui->tabWidget->currentIndex());
     settings.endGroup();
 }

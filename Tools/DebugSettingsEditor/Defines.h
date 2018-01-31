@@ -5,3 +5,6 @@
 #define APP_URL "https://github.com/krre/origin"
 #define APP_SETTINGS_NAME "DebugSettingsEditor.ini"
 #define DEBUG_SETTINGS_NAME "debug.json"
+
+#define WINDOW_WIDTH 1200
+#define WINDOW_HEIGHT 800

@@ -1,13 +1,12 @@
 #pragma once
 #include "../Base/Handle.h"
 #include "../Device/Devicer.h"
-#include "../ShaderModule.h"
-#include "PipelineLayout.h"
-#include "PipelineCache.h"
 #include <map>
 #include <memory>
 
 namespace Vulkan {
+
+class ShaderModule;
 
 class Pipeline : public Handle<VkPipeline>, public Devicer {
 

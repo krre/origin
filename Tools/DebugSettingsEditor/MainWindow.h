@@ -18,8 +18,12 @@ protected:
     void closeEvent(QCloseEvent* event);
 
 private slots:
-    void on_actionAbout_triggered();
+    // File
     void on_actionReload_triggered();
+
+    // Help
+    void on_actionAbout_triggered();
+
 
 private:
     void readSettings();

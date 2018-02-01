@@ -9,6 +9,14 @@ namespace Vulkan {
 class Shader {
 
 public:
+
+    struct BufferInfo {
+        std::string name;
+        uint32_t set;
+        uint32_t binding;
+        VkDescriptorType type;
+    };
+
     Shader();
     ~Shader();
     void load(const std::string& filePath);

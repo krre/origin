@@ -35,18 +35,33 @@ void Shader::parse() {
     spirv_cross::Compiler compiler(code);
 
     // Stage flag
-    spirv_cross::SPIREntryPoint entryPoint = compiler.get_entry_point("main");
+    spirv_cross::SPIREntryPoint& entryPoint = compiler.get_entry_point("main");
     stage = getStage(entryPoint.model);
 //    std::cout << stage << std::endl;
 
-//    spirv_cross::ShaderResources resources = compiler.get_shader_resources();
-//    for (auto &u : resources.uniform_buffers) {
-//        uint32_t set = compiler.get_decoration(u.id, spv::DecorationDescriptorSet);
-//        uint32_t binding = compiler.get_decoration(u.id, spv::DecorationBinding);
-//        printf("Found UBO %s at set = %u, binding = %u!\n", u.name.c_str(), set, binding);
-//    }
+    spirv_cross::ShaderResources resources = compiler.get_shader_resources();
 
+    std::vector<BufferInfo> infos;
 
+    // Uniform
+    for (auto& buffer : resources.uniform_buffers) {
+        BufferInfo bufferInfo;
+        bufferInfo.name = buffer.name;
+        bufferInfo.set = compiler.get_decoration(buffer.id, spv::DecorationDescriptorSet);
+        bufferInfo.binding = compiler.get_decoration(buffer.id, spv::DecorationBinding);
+        bufferInfo.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+        infos.push_back(bufferInfo);
+    }
+
+    // Storage
+    for (auto& buffer : resources.storage_buffers) {
+        BufferInfo bufferInfo;
+        bufferInfo.name = buffer.name;
+        bufferInfo.set = compiler.get_decoration(buffer.id, spv::DecorationDescriptorSet);
+        bufferInfo.binding = compiler.get_decoration(buffer.id, spv::DecorationBinding);
+        bufferInfo.type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+        infos.push_back(bufferInfo);
+    }
 }
 
 VkShaderStageFlagBits Shader::getStage(spv::ExecutionModel model) {

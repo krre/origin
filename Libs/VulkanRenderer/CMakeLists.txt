@@ -31,6 +31,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/GpuBuffer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Shader.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Shader.h
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/ShaderProgram.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Texture.cpp

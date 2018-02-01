@@ -1,4 +1,5 @@
 #pragma once
+#include "Shader.h"
 #include <experimental/filesystem>
 #include <vulkan/vulkan.h>
 #include <map>
@@ -15,7 +16,7 @@ class DescriptorSets;
 class DescriptorPool;
 
 //namespace fs = std::experimental::filesystem;
-
+/*
 class Shader {
 
     friend class ShaderProgram;
@@ -47,7 +48,7 @@ private:
 
     void parse();
 };
-
+*/
 class ShaderProgram {
 
 public:

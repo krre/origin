@@ -24,7 +24,7 @@
 #include <spirv_cross/spirv_cross.hpp>
 
 namespace Vulkan {
-
+/*
 Shader::Shader() {
 }
 
@@ -252,7 +252,7 @@ void Shader::dumpLocations() {
               << std::endl;
     }
 }
-
+*/
 ShaderProgram::ShaderProgram(const std::string& name) {
     std::string shaderDirPath = name; // TODO: Remove parse file path
 
@@ -295,7 +295,7 @@ ShaderProgram::~ShaderProgram() {
 
 void ShaderProgram::createPipeline() {
     assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
-
+/*
     for (const auto& shader : shaders) {
 //        shader->dumpBindings();
 //        shader->dumpLocations();
@@ -368,7 +368,7 @@ void ShaderProgram::createPipeline() {
     descriptorPool->create();
     descriptorSets->allocate();
     descriptorSets->updateDescriptorSets();
-
+*/
     graphicsPipeline->create();
 }
 

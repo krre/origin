@@ -9,7 +9,7 @@ class RenderPassBegin {
 
 public:
     RenderPassBegin(VkRenderPass renderPass);
-    VkRenderPassBeginInfo* get() { return &beginInfo; }
+    VkRenderPassBeginInfo* getInfo() { return &beginInfo; }
 
     void setFrameBuffer(VkFramebuffer framebuffer);
     void setRenderArea(VkRect2D renderArea);

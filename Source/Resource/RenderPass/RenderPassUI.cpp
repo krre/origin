@@ -55,7 +55,7 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
     renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
     renderPassBegin.addClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
 
-    commandBuffer->beginRenderPass(renderPassBegin.get());
+    commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
 //    commandBuffer->bindPipeline(graphicsPipeline.get());
 

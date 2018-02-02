@@ -9,6 +9,7 @@
 #include "VulkanRenderer/API/RenderPass.h"
 #include "Graphics/Render/RenderEngine.h"
 #include "VulkanRenderer/ShaderProgram.h"
+#include "VulkanRenderer/GpuBuffer.h"
 #include "Resource/ResourceManager.h"
 
 namespace Origin {
@@ -17,6 +18,9 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
     renderPass->setColorFormat(RenderEngine::get()->getSurface()->getFormats().at(0).format);
     renderPass->create();
+
+    uint32_t startSize = 10000; // TODO: Set optimal value or take from constant
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
     Vulkan::Shader shader;
     shader.load(ResourceManager::get()->getDataPath() + "/Shader/Voxel.frag.spv");
@@ -51,6 +55,10 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
     //    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
     commandBuffer->endRenderPass();
+}
+
+void RenderPassUI::resizeVertexBuffer(uint32_t size) {
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
 }
 
 } // Origin

@@ -2,10 +2,6 @@
 #include "Core/Common.h"
 #include "UIBatch.h"
 
-namespace Vulkan {
-    class GpuBuffer;
-}
-
 namespace Origin {
 
 class RenderPassUI;
@@ -23,7 +19,6 @@ public:
 private:
     std::vector<UIBatch> batches;
     std::vector<UIBatch::Vertex> vertices;
-    std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
     std::unique_ptr<RenderPassUI> renderPassUI;
 };
 

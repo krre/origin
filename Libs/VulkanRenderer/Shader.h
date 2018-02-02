@@ -14,7 +14,8 @@ public:
         std::string name;
         uint32_t set;
         uint32_t binding;
-        VkDescriptorType type;
+        VkDescriptorType descriptorType;
+        uint32_t descriptorCount;
     };
 
     Shader();

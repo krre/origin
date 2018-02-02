@@ -274,11 +274,21 @@ void ShaderProgram::loadShader(const std::string& filePath) {
 }
 
 void ShaderProgram::create() {
-    pipelineLayout->create();
+//    descriptorSetLayout->create();
+//    descriptorSets->addDescriptorSetLayout(descriptorSetLayout->getHandle());
+//    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout->getHandle());
+//    pipelineLayout->create();
+
+//    for (const auto& it : descriptorsTypes) {
+//        descriptorPool->addPoolSize(it.first, it.second);
+//    }
+//    descriptorPool->create();
+
+//    descriptorSets->allocate();
+//    descriptorSets->updateDescriptorSets();
 }
 
 void ShaderProgram::createPipeline() {
-//    assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
 /*
     for (const auto& shader : shaders) {
 //        shader->dumpBindings();
@@ -337,23 +347,7 @@ void ShaderProgram::createPipeline() {
 
         graphicsPipeline->addShaderCode(shader->getStage(), shader->getCodeSize() * sizeof(uint32_t), shader->getCodeData());
     }
-
-    descriptorSetLayout->create();
-    descriptorSets->addDescriptorSetLayout(descriptorSetLayout->getHandle());
-    pipelineLayout->addDescriptorSetLayout(descriptorSetLayout->getHandle());
-    pipelineLayout->create();
-    graphicsPipeline->setPipelineLayout(pipelineLayout->getHandle());
-
-    // Descriptor pool
-    for (const auto& it : descriptorsTypes) {
-        descriptorPool->addPoolSize(it.first, it.second);
-    }
-
-    descriptorPool->create();
-    descriptorSets->allocate();
-    descriptorSets->updateDescriptorSets();
 */
-//    graphicsPipeline->create();
 }
 
 int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate) {

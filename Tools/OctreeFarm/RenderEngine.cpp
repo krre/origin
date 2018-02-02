@@ -20,7 +20,7 @@ void RenderEngine::init() {
 }
 
 void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    VkExtent2D extent = getSurface()->getCurrentExtent();
+    VkExtent2D extent = { framebuffer->getWidth(), framebuffer->getHeight() };
 
     Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
@@ -35,8 +35,6 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     VkRect2D scissor = {};
     scissor.offset = { 0, 0 };
     scissor.extent = extent;
-
-    commandBuffer->begin();
 
     commandBuffer->beginRenderPass(renderPassBegin.get());
 
@@ -59,8 +57,6 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     //    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
     commandBuffer->endRenderPass();
-
-    commandBuffer->end();
 }
 
 } // OctreeFarm

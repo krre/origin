@@ -18,8 +18,8 @@ public:
     VkBuffer getHandle() const;
     void copyToBuffer(Buffer* dstBuffer, VkDeviceSize size);
 
-    virtual void write(const void* data, uint32_t size, uint32_t offset = 0);
-    virtual void read(void* data, uint32_t size, uint32_t offset = 0);
+    void write(const void* data, uint32_t size, uint32_t offset = 0);
+    void read(void* data, uint32_t size, uint32_t offset = 0);
 
 private:
     Device* device;

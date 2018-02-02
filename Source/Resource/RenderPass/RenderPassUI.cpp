@@ -42,11 +42,10 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
 
     //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
 
+    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+    commandBuffer->bindVertexBuffers();
 
-
-    //    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
-    //    commandBuffer->bindVertexBuffers();
-    //    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
+//    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
     //    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
     //        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));

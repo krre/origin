@@ -1,6 +1,5 @@
 #pragma once
 #include "Shader.h"
-#include <experimental/filesystem>
 #include <vulkan/vulkan.h>
 #include <map>
 #include <vector>
@@ -8,6 +7,8 @@
 namespace Vulkan {
 
 class Device;
+class Shader;
+
 class GraphicsPipeline;
 class PipelineLayout;
 class DescriptorSetLayout;
@@ -70,8 +71,9 @@ public:
         std::shared_ptr<Buffer> buffer;
     };
 
-    ShaderProgram(const std::string& name);
+    ShaderProgram();
     ~ShaderProgram();
+    void loadShader(const std::string& filePath);
 
     GraphicsPipeline* getGraphicsPipeline() { return graphicsPipeline.get(); }
     const DescriptorSetLayout* getDescriptorSetLayout() const { return descriptorSetLayout.get(); }
@@ -88,10 +90,11 @@ public:
 
 private:
     Device* device = nullptr;
+    std::vector<std::unique_ptr<Shader>> shaders;
+
     std::unique_ptr<GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<PipelineLayout> pipelineLayout;
     std::unique_ptr<DescriptorPool> descriptorPool;
-    std::vector<std::unique_ptr<Shader>> shaders;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
     std::unique_ptr<DescriptorSetLayout> descriptorSetLayout;
     std::unique_ptr<DescriptorSets> descriptorSets;

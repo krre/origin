@@ -22,8 +22,9 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     uint32_t startSize = 10000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
-    Vulkan::Shader shader;
-    shader.load(ResourceManager::get()->getDataPath() + "/Shader/Voxel.frag.spv");
+    shaderProgram = std::make_unique<Vulkan::ShaderProgram>();
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.frag.spv");
 }
 
 RenderPassUI::~RenderPassUI() {

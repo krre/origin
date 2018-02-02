@@ -4,6 +4,7 @@
 namespace Vulkan {
     class RenderPass;
     class GpuBuffer;
+    class ShaderProgram;
 }
 
 namespace Origin {
@@ -20,6 +21,7 @@ public:
 private:
     std::unique_ptr<Vulkan::RenderPass> renderPass;
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
+    std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
 };
 
 } // Origin

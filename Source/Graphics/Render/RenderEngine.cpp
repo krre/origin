@@ -9,6 +9,7 @@
 #include "VulkanRenderer/API/Surface/Surface.h"
 #include "Resource/RenderPass/RenderPassResource.h"
 #include <lodepng/lodepng.h>
+#include <experimental/filesystem>
 
 namespace Origin {
 

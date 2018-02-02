@@ -1,5 +1,5 @@
 #include "ShaderProgram.h"
-//#include "Graphics/Render/RenderEngine.h"
+#include "Renderer.h"
 #include "API/Buffer/Buffer.h"
 #include "API/Descriptor/DescriptorPool.h"
 #include "API/Descriptor/DescriptorSetLayout.h"
@@ -253,36 +253,11 @@ void Shader::dumpLocations() {
     }
 }
 */
-ShaderProgram::ShaderProgram(const std::string& name) {
-    std::string shaderDirPath = name; // TODO: Remove parse file path
-
-//    for (auto& filePath : fs::directory_iterator(shaderDirPath)) {
-//        std::string fileName = filePath.path().filename().string();
-//        std::vector<std::string> words = Utils::split(fileName, '.');
-//        if (words.at(0) == name) { // base name
-//            if (words.at(1) == "vert") { // first extension
-//                files[ShaderType::Vertex].push_back(filePath);
-//            } else if (words.at(1) == "frag") {
-//                files[ShaderType::Fragment].push_back(filePath);
-//            }
-//        }
-//    }
-
-//    for (auto& it : files) {
-//        for (auto& file : it.second) {
-//            if (file.extension().string() == ".spv") {
-//                std::unique_ptr<VulkanShader> shader = std::make_unique<VulkanShader>();
-//                shader->load(file.string());
-//                shaders.push_back(std::move(shader));
-//            }
-//        }
-//    }
+ShaderProgram::ShaderProgram() {
+    device = Renderer::get()->getGraphicsDevice();
 
     descriptorPool = std::make_unique<DescriptorPool>(device);
     descriptorSets = std::make_unique<DescriptorSets>(device, descriptorPool.get());
-
-    graphicsPipeline = std::make_unique<GraphicsPipeline>(device);
-//    graphicsPipeline->setExtent(Application::get()->getWindow()->getSurface()->getCapabilities().currentExtent);
 
     pipelineLayout = std::make_unique<PipelineLayout>(device);
     descriptorSetLayout = std::make_unique<DescriptorSetLayout>(device);
@@ -291,6 +266,12 @@ ShaderProgram::ShaderProgram(const std::string& name) {
 ShaderProgram::~ShaderProgram() {
     descriptorSets->destroy();
     descriptorPool->destroy();
+}
+
+void ShaderProgram::loadShader(const std::string& filePath) {
+    std::unique_ptr<Shader> shader = std::make_unique<Shader>();
+    shader->load(filePath);
+    shaders.push_back(std::move(shader));
 }
 
 void ShaderProgram::createPipeline() {

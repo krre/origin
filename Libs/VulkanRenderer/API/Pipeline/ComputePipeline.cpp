@@ -11,4 +11,8 @@ void ComputePipeline::create() {
     VULKAN_CHECK_RESULT(vkCreateComputePipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
 }
 
+void ComputePipeline::setPipelineLayout(VkPipelineLayout layout) {
+    createInfo.layout = layout;
+}
+
 } // Vulkan

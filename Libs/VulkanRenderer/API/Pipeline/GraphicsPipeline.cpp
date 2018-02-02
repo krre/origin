@@ -12,6 +12,8 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
     createInfo.pColorBlendState = &colorBlendStateCreateInfo;
     createInfo.pDepthStencilState = &depthStencilStateCreateInfo;
     createInfo.pViewportState = &viewportStateCreateInfo;
+    createInfo.pDynamicState = &dynamicStateCreateInfo;
+    createInfo.pTessellationState = &tessellationStateCreateInfo;
 
     vertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 
@@ -75,6 +77,10 @@ void GraphicsPipeline::addScissor(VkRect2D scissor) {
     scissors.push_back(scissor);
 }
 
+void GraphicsPipeline::addDynamicState(VkDynamicState dynamicState) {
+    dynamicStates.push_back(dynamicState);
+}
+
 void GraphicsPipeline::addColorBlendAttachmentState(VkPipelineColorBlendAttachmentState colorBlendAttachmentState) {
     colorBlendAttachmentStates.push_back(colorBlendAttachmentState);
 }
@@ -109,6 +115,9 @@ void GraphicsPipeline::create() {
 
     vertexInputStateCreateInfo.vertexAttributeDescriptionCount = vertexAttributeDescriptions.size();
     vertexInputStateCreateInfo.pVertexAttributeDescriptions = vertexAttributeDescriptions.data();
+
+    dynamicStateCreateInfo.dynamicStateCount = dynamicStates.size();
+    dynamicStateCreateInfo.pDynamicStates = dynamicStates.data();
 
     createInfo.stageCount = shaderStages.size();
     createInfo.pStages = shaderStages.data();

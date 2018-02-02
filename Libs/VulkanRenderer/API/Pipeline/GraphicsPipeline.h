@@ -10,9 +10,9 @@ public:
     void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
     void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);
     void addColorBlendAttachmentState(VkPipelineColorBlendAttachmentState colorBlendAttachmentState);
-
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
+    void addDynamicState(VkDynamicState dynamicState);
 
     void setPipelineLayout(VkPipelineLayout layout);
     void setRenderPass(VkRenderPass renderPass);
@@ -31,14 +31,16 @@ private:
     VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo = {};
     VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo = {};
     VkPipelineViewportStateCreateInfo viewportStateCreateInfo = {};
-
     VkPipelineColorBlendAttachmentState colorBlendAttachmentState = {};
+    VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};
+    VkPipelineTessellationStateCreateInfo tessellationStateCreateInfo = {};
 
     std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
     std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
     std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachmentStates;
     std::vector<VkViewport> viewports;
     std::vector<VkRect2D> scissors;
+    std::vector<VkDynamicState> dynamicStates;
 };
 
 } // Vulkan

@@ -3,20 +3,19 @@
 #include <stdexcept>
 #include <vulkan/vulkan.h>
 
-#define VULKAN_CHECK_RESULT(f, message) { \
-    VkResult result = (f); \
-    if (result != VK_SUCCESS) { \
-        std::string errorMessage = std::string(message) + ": " + Vulkan::resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
-        throw std::runtime_error(errorMessage); \
-    } \
+#define VULKAN_CHECK_RESULT(f, message) \
+VkResult result = (f); \
+if (result != VK_SUCCESS) { \
+    std::string errorMessage = std::string(message) + ": " + Vulkan::resultToString(result) + " in " + __FILE__ + " at line " + std::to_string(__LINE__); \
+    throw std::runtime_error(errorMessage); \
 }
 
-#define VULKAN_DESTROY_HANDLE(f) { \
-    if (handle != VK_NULL_HANDLE) { \
-        (f); \
-        handle = VK_NULL_HANDLE; \
-    } \
-} \
+
+#define VULKAN_DESTROY_HANDLE(f) \
+if (handle != VK_NULL_HANDLE) { \
+    (f); \
+    handle = VK_NULL_HANDLE; \
+}
 
 namespace Vulkan {
 

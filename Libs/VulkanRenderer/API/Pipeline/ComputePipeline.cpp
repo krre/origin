@@ -8,6 +8,8 @@ ComputePipeline::ComputePipeline(Device* device) :
 }
 
 void ComputePipeline::create() {
+    assert(shaderStages.size() == 1);
+    createInfo.stage = shaderStages.at(0);
     VULKAN_CHECK_RESULT(vkCreateComputePipelines(device->getHandle(), pipelineCache, 1, &createInfo, nullptr, &handle), "Failed to create compute pipelines");
 }
 

@@ -16,6 +16,8 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
     createInfo.pTessellationState = &tessellationStateCreateInfo;
 
     vertexInputStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+    dynamicStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+    viewportStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 
     inputAssemblyStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
     inputAssemblyStateCreateInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
@@ -33,8 +35,6 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
     multisampleStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
     multisampleStateCreateInfo.sampleShadingEnable = VK_FALSE;
     multisampleStateCreateInfo.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
-
-    viewportStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 
     colorBlendAttachmentState.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
     colorBlendAttachmentState.blendEnable = VK_FALSE;
@@ -98,6 +98,14 @@ void GraphicsPipeline::setBlendEnable(VkBool32 blendEnable) {
 }
 
 void GraphicsPipeline::create() {
+    if (!viewports.size()) {
+        addViewport({ 0, 0, 0, 0, 0}); // TODO: Dirty hack
+    }
+
+    if (!scissors.size()) {
+        addScissor({ 0, 0, 0, 0 }); // TODO: Dirty hack
+    }
+
     viewportStateCreateInfo.viewportCount = viewports.size();
     viewportStateCreateInfo.pViewports = viewports.data();
     viewportStateCreateInfo.scissorCount = scissors.size();

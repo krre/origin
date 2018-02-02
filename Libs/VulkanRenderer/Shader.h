@@ -20,11 +20,12 @@ public:
     Shader();
     ~Shader();
     void load(const std::string& filePath);
+    VkShaderStageFlagBits getStage() const { return stage; }
     const std::vector<uint32_t>& getCode() const { return code; }
 
 private:
     void parse();
-    VkShaderStageFlagBits getStage(spv::ExecutionModel model);
+    VkShaderStageFlagBits executionModelToStage(spv::ExecutionModel model);
 
     std::vector<uint32_t> code;
     VkShaderStageFlagBits stage;

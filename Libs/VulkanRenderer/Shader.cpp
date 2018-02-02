@@ -36,7 +36,7 @@ void Shader::parse() {
 
     // Stage flag
     spirv_cross::SPIREntryPoint& entryPoint = compiler.get_entry_point("main");
-    stage = getStage(entryPoint.model);
+    stage = executionModelToStage(entryPoint.model);
 //    std::cout << stage << std::endl;
 
     spirv_cross::ShaderResources resources = compiler.get_shader_resources();
@@ -64,7 +64,7 @@ void Shader::parse() {
     }
 }
 
-VkShaderStageFlagBits Shader::getStage(spv::ExecutionModel model) {
+VkShaderStageFlagBits Shader::executionModelToStage(spv::ExecutionModel model) {
     switch (model) {
         case spv::ExecutionModel::ExecutionModelVertex: return VK_SHADER_STAGE_VERTEX_BIT;
         case spv::ExecutionModel::ExecutionModelTessellationControl: return VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT;

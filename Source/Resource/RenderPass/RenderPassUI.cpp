@@ -7,9 +7,11 @@
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Surface/Surface.h"
 #include "VulkanRenderer/API/RenderPass.h"
+#include "VulkanRenderer/API/Pipeline/PipelineLayout.h"
 #include "Graphics/Render/RenderEngine.h"
 #include "VulkanRenderer/ShaderProgram.h"
 #include "VulkanRenderer/GpuBuffer.h"
+#include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
 
 namespace Origin {
@@ -25,6 +27,20 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>();
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.vert.spv");
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.frag.spv");
+    shaderProgram->create();
+
+    graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
+    graphicsPipeline->setRenderPass(renderPass->getHandle());
+    graphicsPipeline->setPipelineLayout(shaderProgram->getPipelineLayout()->getHandle());
+
+    graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+    graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+
+    for (auto& shader : shaderProgram->getShaders()) {
+        graphicsPipeline->addShaderCode(shader->getStage(), shader->getCode().size() * sizeof(uint32_t), shader->getCode().data(), "main");
+    }
+
+//    graphicsPipeline->create();
 }
 
 RenderPassUI::~RenderPassUI() {
@@ -41,7 +57,7 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
 
     commandBuffer->beginRenderPass(renderPassBegin.get());
 
-    //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
+//    commandBuffer->bindPipeline(graphicsPipeline.get());
 
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();

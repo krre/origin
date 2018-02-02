@@ -9,7 +9,6 @@ namespace Vulkan {
 class Device;
 class Shader;
 
-class GraphicsPipeline;
 class PipelineLayout;
 class DescriptorSetLayout;
 class Buffer;
@@ -74,8 +73,9 @@ public:
     ShaderProgram();
     ~ShaderProgram();
     void loadShader(const std::string& filePath);
+    const std::vector<std::unique_ptr<Shader>>& getShaders() const { return shaders; }
+    void create();
 
-    GraphicsPipeline* getGraphicsPipeline() { return graphicsPipeline.get(); }
     const DescriptorSetLayout* getDescriptorSetLayout() const { return descriptorSetLayout.get(); }
     const DescriptorSets* getDescriptorSets() const { return descriptorSets.get(); }
     const PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
@@ -92,7 +92,6 @@ private:
     Device* device = nullptr;
     std::vector<std::unique_ptr<Shader>> shaders;
 
-    std::unique_ptr<GraphicsPipeline> graphicsPipeline;
     std::unique_ptr<PipelineLayout> pipelineLayout;
     std::unique_ptr<DescriptorPool> descriptorPool;
     std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;

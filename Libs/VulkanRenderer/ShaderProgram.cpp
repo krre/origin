@@ -5,7 +5,6 @@
 #include "API/Descriptor/DescriptorSetLayout.h"
 #include "API/Descriptor/DescriptorSets.h"
 #include "API/Instance.h"
-#include "API/Pipeline/GraphicsPipeline.h"
 #include "API/Pipeline/PipelineLayout.h"
 #include "API/RenderPass.h"
 #include "API/Surface/Surface.h"
@@ -274,8 +273,12 @@ void ShaderProgram::loadShader(const std::string& filePath) {
     shaders.push_back(std::move(shader));
 }
 
+void ShaderProgram::create() {
+    pipelineLayout->create();
+}
+
 void ShaderProgram::createPipeline() {
-    assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
+//    assert(graphicsPipeline->getHandle() == VK_NULL_HANDLE);
 /*
     for (const auto& shader : shaders) {
 //        shader->dumpBindings();
@@ -350,7 +353,7 @@ void ShaderProgram::createPipeline() {
     descriptorSets->allocate();
     descriptorSets->updateDescriptorSets();
 */
-    graphicsPipeline->create();
+//    graphicsPipeline->create();
 }
 
 int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate) {
@@ -358,7 +361,7 @@ int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertex
     bindingDescription.binding = vertexBindingCount++;
     bindingDescription.inputRate = inputRate;
     bindingDescription.stride = stride;
-    graphicsPipeline->addVertexBindingDescription(bindingDescription);
+//    graphicsPipeline->addVertexBindingDescription(bindingDescription);
     return bindingDescription.binding;
 }
 

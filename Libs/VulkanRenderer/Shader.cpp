@@ -111,8 +111,10 @@ void Shader::parse() {
         }
     }
 
+#if 0
     dumpBindings();
     dumpLocations();
+#endif
 }
 
 void Shader::dumpBindings() {
@@ -148,6 +150,7 @@ VkShaderStageFlagBits Shader::executionModelToStage(spv::ExecutionModel model) {
         default: break;
     }
 
+    assert(false);
     return VK_SHADER_STAGE_FLAG_BITS_MAX_ENUM;
 }
 
@@ -160,6 +163,7 @@ VkFormat Shader::spirvTypeToFormat(spirv_cross::SPIRType type) {
         }
     }
 
+    assert(false);
     return VK_FORMAT_MAX_ENUM;
 }
 

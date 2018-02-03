@@ -1,18 +1,9 @@
 #include "ShaderProgram.h"
 #include "Renderer.h"
-#include "API/Buffer/Buffer.h"
 #include "API/Descriptor/DescriptorPool.h"
 #include "API/Descriptor/DescriptorSetLayout.h"
 #include "API/Descriptor/DescriptorSets.h"
-#include "API/Instance.h"
 #include "API/Pipeline/PipelineLayout.h"
-#include "API/RenderPass.h"
-#include "API/Surface/Surface.h"
-#include "API/Surface/Swapchain.h"
-#include <fstream>
-#include <iostream>
-#include <assert.h>
-#include <algorithm>
 #include <spirv_cross/spirv_cross.hpp>
 
 namespace Vulkan {
@@ -54,6 +45,15 @@ void ShaderProgram::create() {
             }
 
             descriptorTypes.at(binding.layoutBinding.descriptorType) += binding.layoutBinding.descriptorCount;
+
+            VkWriteDescriptorSet writeDescriptorSet = {};
+            writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+            writeDescriptorSet.dstBinding = binding.layoutBinding.binding;
+            writeDescriptorSet.dstArrayElement = 0;
+            writeDescriptorSet.descriptorType = binding.layoutBinding.descriptorType;
+            writeDescriptorSet.descriptorCount = binding.layoutBinding.descriptorCount;
+
+            writeDescriptorSets[binding.variableName] = writeDescriptorSet;
         }
     }
 
@@ -73,9 +73,33 @@ void ShaderProgram::create() {
     }
 
     descriptorSets->allocate();
-    pipelineLayout->create();
 
-    //    descriptorSets->updateDescriptorSets();
+    for (const auto& it : writeDescriptorSets) {
+        const std::string& name = it.first;
+        VkWriteDescriptorSet writeDescriptorSet = it.second;
+
+        for (const auto& it : descriptorBufferInfos) {
+            if (it.first == name) {
+                writeDescriptorSet.pBufferInfo = &it.second;
+                break;
+            }
+        }
+
+        for (const auto& it : descriptorImageInfos) {
+            if (it.first == name) {
+                writeDescriptorSet.pImageInfo = &it.second;
+                break;
+            }
+        }
+
+        writeDescriptorSet.dstSet = descriptorSets->at(0); // TODO: Temporary dirty hack
+
+        descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
+    }
+
+    descriptorSets->updateDescriptorSets();
+
+    pipelineLayout->create();
 }
 
 const Shader::LocationInfo* ShaderProgram::getLocationInfo(const std::string& name) const {
@@ -90,85 +114,12 @@ const Shader::LocationInfo* ShaderProgram::getLocationInfo(const std::string& na
     return nullptr;
 }
 
-void ShaderProgram::createPipeline() {
-/*
-    for (const auto& shader : shaders) {
-//        shader->dumpBindings();
-//        shader->dumpLocations();
-
-        for (auto& bindingIt : shader->bindings) {
-            VkDescriptorSetLayoutBinding* layoutBinding = &bindingIt.second;
-            if (descriptorsTypes.find(layoutBinding->descriptorType) == descriptorsTypes.end()) {
-                descriptorsTypes[layoutBinding->descriptorType] = 1;
-            } else {
-                descriptorsTypes[layoutBinding->descriptorType]++;
-            }
-
-            descriptorSetLayout->addLayoutBinding(*layoutBinding);
-
-            VkWriteDescriptorSet writeDescriptorSet = {};
-            writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-            writeDescriptorSet.dstBinding = layoutBinding->binding;
-            writeDescriptorSet.dstArrayElement = 0;
-            writeDescriptorSet.descriptorType = layoutBinding->descriptorType;
-            writeDescriptorSet.descriptorCount = layoutBinding->descriptorCount;
-
-            const auto& bufferIt = bufferInfos.find(bindingIt.first);
-            if (bufferIt != bufferInfos.end()) {
-                VkBufferUsageFlagBits usage;
-                if (layoutBinding->descriptorType == VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER) {
-                    usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
-                } else if (layoutBinding->descriptorType == VK_DESCRIPTOR_TYPE_STORAGE_BUFFER) {
-                    usage = VK_BUFFER_USAGE_STORAGE_BUFFER_BIT;
-                }
-                BufferInfo* bufferInfo = &bufferIt->second;
-                std::shared_ptr<Buffer> buffer = std::make_shared<Buffer>(device, usage, bufferInfo->size);
-                buffer->create();
-                bufferInfo->buffer = buffer;
-                writeDescriptorSet.pBufferInfo = buffer->getDescriptorInfo();
-                descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
-            }
-
-            const auto& imageIt = imageInfos.find(bindingIt.first);
-            if (imageIt != imageInfos.end()) {
-                writeDescriptorSet.pImageInfo = &imageIt->second;
-                descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
-            }
-        }
-
-        for (auto& location : shader->locations) {
-            const std::string& name = location.first;
-            const auto& inputInfoIt = locationInfos.find(name);
-            if (inputInfoIt != locationInfos.end()) {
-                Shader::Location* input = &location.second;
-                locationInfos.at(name).location = input->location;
-                locationInfos.at(name).format = input->format;
-                graphicsPipeline->addVertexAttributeDescription(locationInfos.at(name));
-            }
-        }
-
-        graphicsPipeline->addShaderCode(shader->getStage(), shader->getCodeSize() * sizeof(uint32_t), shader->getCodeData());
-    }
-*/
-}
-
-void ShaderProgram::bindUniform(const std::string& name, uint32_t size, void* uniform) {
-    BufferInfo linkInfo = {};
-    linkInfo.size = size;
-    linkInfo.uniform = uniform;
-//    bufferInfos[name] = linkInfo;
+void ShaderProgram::bindBuffer(const std::string& name, VkDescriptorBufferInfo descriptorBufferInfo) {
+    descriptorBufferInfos[name] = descriptorBufferInfo;
 }
 
 void ShaderProgram::bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
-//    imageInfos[name] = descriptorImageInfo;
-}
-
-void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-//    bufferInfos.at(name).buffer->write(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
-}
-
-void ShaderProgram::readUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {
-//    bufferInfos.at(name).buffer->read(data != nullptr ? data : bufferInfos.at(name).uniform, size ? size : bufferInfos.at(name).size, offset);
+    descriptorImageInfos[name] = descriptorImageInfo;
 }
 
 } // Vulkan

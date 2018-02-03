@@ -12,11 +12,9 @@ public:
     void create() override;
     void destroy() override;
     VkDeviceSize getSize() const { return createInfo.size; }
-    const VkDescriptorBufferInfo* getDescriptorInfo() const { return &descriptorInfo; }
 
 private:
     VkBufferCreateInfo createInfo = {};
-    VkDescriptorBufferInfo descriptorInfo = {};
 };
 
 } // Vulkan

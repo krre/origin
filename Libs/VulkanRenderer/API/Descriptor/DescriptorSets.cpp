@@ -37,9 +37,6 @@ void DescriptorSets::addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet)
 }
 
 void DescriptorSets::updateDescriptorSets() {
-    for (auto& it : writeDescriptorSets) {
-        it.dstSet = collection.at(0); // TODO: Set meaningful value
-    }
     vkUpdateDescriptorSets(device->getHandle(), writeDescriptorSets.size(), writeDescriptorSets.data(), copyDescriptorSets.size(), copyDescriptorSets.data());
 }
 

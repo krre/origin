@@ -22,6 +22,8 @@ public:
 private:
     std::unique_ptr<Vulkan::RenderPass> renderPass;
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> uniformVertBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> uniformFragBuffer;
     std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
 };

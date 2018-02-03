@@ -26,9 +26,21 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     uint32_t startSize = 10000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
+    uniformVertBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
+    uniformFragBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::vec3));
+
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>();
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.vert.spv");
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.frag.spv");
+
+    VkDescriptorBufferInfo bufferInfo = {};
+    bufferInfo.buffer = uniformVertBuffer->getHandle();
+    bufferInfo.range = VK_WHOLE_SIZE;
+    shaderProgram->bindBuffer("uboVert", bufferInfo);
+
+    bufferInfo.buffer = uniformFragBuffer->getHandle();
+    shaderProgram->bindBuffer("uboFrag", bufferInfo);
+
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);

@@ -15,54 +15,9 @@ class Buffer;
 class DescriptorSets;
 class DescriptorPool;
 
-//namespace fs = std::experimental::filesystem;
-/*
-class Shader {
-
-    friend class ShaderProgram;
-
-public:
-
-    struct Location {
-        int location;
-        VkFormat format;
-    };
-
-    Shader();
-    void load(const std::string& path);
-    VkShaderStageFlagBits getStage() const { return stage; }
-    const uint32_t* getCodeData() const { return code.data(); }
-    size_t getCodeSize() const { return code.size(); }
-
-    void dumpBindings();
-    void dumpLocations();
-
-private:
-    VkFormat getFormat(const std::string& variableType, const std::string& OpTypeFloat, int vectorCount = 0);
-
-    VkShaderStageFlagBits stage;
-    std::vector<uint32_t> code;
-    std::map<std::string, Location> locations;
-    std::map<std::string, VkDescriptorSetLayoutBinding> bindings;
-    int set = 0;
-
-    void parse();
-};
-*/
 class ShaderProgram {
 
 public:
-
-    enum class ProgamType {
-        Base,
-        Sdf,
-        Voxel
-    };
-
-    enum class ShaderType {
-        Vertex,
-        Fragment
-    };
 
     struct BufferInfo {
         uint32_t size;
@@ -76,10 +31,9 @@ public:
     const std::vector<std::unique_ptr<Shader>>& getShaders() const { return shaders; }
     void create();
 
-    const DescriptorSetLayout* getDescriptorSetLayout() const { return descriptorSetLayout.get(); }
     const DescriptorSets* getDescriptorSets() const { return descriptorSets.get(); }
     const PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
-    Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
+//    Buffer* getUniformBuffer(const std::string& name) const { return bufferInfos.at(name).buffer.get(); }
     void createPipeline();
     int createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate = VK_VERTEX_INPUT_RATE_VERTEX);
     void bindUniform(const std::string& name, uint32_t size, void* uniform = nullptr);
@@ -94,15 +48,13 @@ private:
 
     std::unique_ptr<PipelineLayout> pipelineLayout;
     std::unique_ptr<DescriptorPool> descriptorPool;
-    std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
-    std::unique_ptr<DescriptorSetLayout> descriptorSetLayout;
+//    std::vector<VkVertexInputBindingDescription> vertexInputBindingDescriptions;
+    std::map<uint32_t, std::unique_ptr<DescriptorSetLayout>> descriptorSetLayouts;
     std::unique_ptr<DescriptorSets> descriptorSets;
-    std::map<std::string, BufferInfo> bufferInfos;
-    std::map<std::string, VkVertexInputAttributeDescription> locationInfos;
-    std::map<std::string, VkDescriptorImageInfo> imageInfos;
-    std::map<VkDescriptorType, uint32_t> descriptorsTypes;
-    int vertexBindingCount = 0;
-//    std::map<ShaderType, std::vector<fs::path>> files;
+//    std::map<std::string, BufferInfo> bufferInfos;
+//    std::map<std::string, VkVertexInputAttributeDescription> locationInfos;
+//    std::map<std::string, VkDescriptorImageInfo> imageInfos;
+//    int vertexBindingCount = 0;
 };
 
 } // Vulkan

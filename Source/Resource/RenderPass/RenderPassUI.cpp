@@ -7,6 +7,7 @@
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Surface/Surface.h"
 #include "VulkanRenderer/API/RenderPass.h"
+#include "VulkanRenderer/API/Descriptor/DescriptorSets.h"
 #include "VulkanRenderer/API/Pipeline/PipelineLayout.h"
 #include "Graphics/Render/RenderEngine.h"
 #include "VulkanRenderer/ShaderProgram.h"
@@ -40,7 +41,7 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
         graphicsPipeline->addShaderCode(shader->getStage(), shader->getCode().size() * sizeof(uint32_t), shader->getCode().data(), "main");
     }
 
-//    graphicsPipeline->create();
+    graphicsPipeline->create();
 }
 
 RenderPassUI::~RenderPassUI() {
@@ -57,17 +58,18 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
 
     commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
-//    commandBuffer->bindPipeline(graphicsPipeline.get());
+    commandBuffer->bindPipeline(graphicsPipeline.get());
 
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
 
 //    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
 
-    //    for (int i = 0; i < shaderProgram.getDescriptorSets()->getCount(); i++) {
-    //        commandBuffer->addDescriptorSet(shaderProgram.getDescriptorSets()->at(i));
-    //    }
-    //    commandBuffer->bindDescriptorSets(shaderProgram.getGraphicsPipeline()->getBindPoint(), shaderProgram.getPipelineLayout()->getHandle());
+    for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
+        commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
+    }
+    commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
+
     //    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
 
     commandBuffer->endRenderPass();

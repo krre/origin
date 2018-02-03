@@ -11,6 +11,7 @@ public:
     DescriptorPool(Device* device);
     ~DescriptorPool();
     void addPoolSize(VkDescriptorType type, uint32_t count);
+    void setMaxSets(uint32_t maxSets);
     void create() override;
     void destroy() override;
     void reset();

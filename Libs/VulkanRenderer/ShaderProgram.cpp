@@ -75,7 +75,19 @@ void ShaderProgram::create() {
     descriptorSets->allocate();
     pipelineLayout->create();
 
-//    descriptorSets->updateDescriptorSets();
+    //    descriptorSets->updateDescriptorSets();
+}
+
+const Shader::LocationInfo* ShaderProgram::getLocationInfo(const std::string& name) const {
+    for (const auto& shader : shaders) {
+        for (const auto& locationInfo : shader->getLocations()) {
+            if (locationInfo.name == name) {
+                return &locationInfo;
+            }
+        }
+    }
+
+    return nullptr;
 }
 
 void ShaderProgram::createPipeline() {
@@ -140,15 +152,6 @@ void ShaderProgram::createPipeline() {
 */
 }
 
-int ShaderProgram::createVertexInputBindingDescription(uint32_t stride, VkVertexInputRate inputRate) {
-    VkVertexInputBindingDescription bindingDescription = {};
-//    bindingDescription.binding = vertexBindingCount++;
-    bindingDescription.inputRate = inputRate;
-    bindingDescription.stride = stride;
-//    graphicsPipeline->addVertexBindingDescription(bindingDescription);
-    return bindingDescription.binding;
-}
-
 void ShaderProgram::bindUniform(const std::string& name, uint32_t size, void* uniform) {
     BufferInfo linkInfo = {};
     linkInfo.size = size;
@@ -158,11 +161,6 @@ void ShaderProgram::bindUniform(const std::string& name, uint32_t size, void* un
 
 void ShaderProgram::bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
 //    imageInfos[name] = descriptorImageInfo;
-}
-
-void ShaderProgram::bindInput(const std::string& name, uint32_t binding, uint32_t offset) {
-//    locationInfos[name].binding = binding;
-//    locationInfos[name].offset = offset;
 }
 
 void ShaderProgram::writeUniform(const std::string& name, VkDeviceSize offset, VkDeviceSize size, void* data) {

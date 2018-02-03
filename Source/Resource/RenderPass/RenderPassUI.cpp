@@ -14,6 +14,7 @@
 #include "VulkanRenderer/GpuBuffer.h"
 #include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
+#include "UI/UIBatch.h"
 
 namespace Origin {
 
@@ -40,6 +41,21 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     for (auto& shader : shaderProgram->getShaders()) {
         graphicsPipeline->addShaderCode(shader->getStage(), shader->getCode().size() * sizeof(uint32_t), shader->getCode().data(), "main");
     }
+
+    const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("position");
+    VkVertexInputAttributeDescription attributeDescription = {};
+    attributeDescription.binding = 0;
+    attributeDescription.location = locationInfo->location;
+    attributeDescription.format = locationInfo->format;
+
+    graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+
+    VkVertexInputBindingDescription bindingDescription;
+    bindingDescription.binding = attributeDescription.binding;
+    bindingDescription.stride = sizeof(UIBatch::Vertex);
+    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+
+    graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     graphicsPipeline->create();
 }

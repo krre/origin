@@ -9,7 +9,6 @@ namespace Vulkan {
 class Shader {
 
 public:
-
     struct BufferInfo {
         std::string typeName;
         std::string variableName;

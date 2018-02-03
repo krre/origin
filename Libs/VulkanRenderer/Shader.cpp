@@ -53,8 +53,6 @@ void Shader::parse() {
     resourcesList.push_back(resources.separate_images);
     resourcesList.push_back(resources.separate_samplers);
 
-    std::vector<BufferInfo> bufferInfos;
-
     for (const auto& resource : resourcesList) {
         for (const auto& buffer : resource) {
             BufferInfo bufferInfo;
@@ -65,14 +63,19 @@ void Shader::parse() {
             bufferInfo.descriptorCount = 1;
 
             spv::StorageClass storageClass = compiler.get_storage_class(buffer.id);
+            spirv_cross::SPIRType type = compiler.get_type_from_variable(buffer.id);
 
             if (storageClass == spv::StorageClassOutput) {
                 continue;
             } else if (storageClass == spv::StorageClassInput) {
                 // Location
+                LocationInfo locationInfo;
+                locationInfo.name = buffer.name;
+                locationInfo.location = compiler.get_decoration(buffer.id, spv::DecorationLocation);
+                locationInfo.format = spirvTypeToFormat(type);
+                locations.push_back(locationInfo);
                 continue;
             } else if (storageClass == spv::StorageClassUniformConstant) {
-                spirv_cross::SPIRType type = compiler.get_type_from_variable(buffer.id);
                 if (type.basetype == spirv_cross::SPIRType::Image) {
                     if (type.image.dim == spv::DimBuffer) {
                         bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
@@ -104,8 +107,33 @@ void Shader::parse() {
 
             assert(bufferInfo.descriptorType != VK_DESCRIPTOR_TYPE_MAX_ENUM);
 
-            bufferInfos.push_back(bufferInfo);
+            bindings.push_back(bufferInfo);
         }
+    }
+
+    dumpBindings();
+    dumpLocations();
+}
+
+void Shader::dumpBindings() {
+    std::cout << "Dump SPIR-V bindings (stage " << stage << "):" << std::endl;
+    for (const auto& binding : bindings) {
+        std::cout << "name: " << binding.name
+            << ", set: " << binding.set
+            << ", binding: " << binding.binding
+            << ", descriptorType: " << binding.descriptorType
+            << ", descriptorCount: " << binding.descriptorCount
+            << std::endl;
+    }
+}
+
+void Shader::dumpLocations() {
+    std::cout << "Dump SPIR-V locations (stage " << stage << "):" << std::endl;
+    for (const auto& location : locations) {
+        std::cout << "name: " << location.name
+            << ", location: " << location.location
+            << ", format: " << location.format
+            << std::endl;
     }
 }
 
@@ -121,6 +149,18 @@ VkShaderStageFlagBits Shader::executionModelToStage(spv::ExecutionModel model) {
     }
 
     return VK_SHADER_STAGE_FLAG_BITS_MAX_ENUM;
+}
+
+VkFormat Shader::spirvTypeToFormat(spirv_cross::SPIRType type) {
+    if (type.basetype == spirv_cross::SPIRType::Float) {
+        if (type.vecsize == 2) {
+            return VK_FORMAT_R32G32_SFLOAT;
+        } else if (type.vecsize == 3) {
+            return VK_FORMAT_R32G32B32_SFLOAT;
+        }
+    }
+
+    return VK_FORMAT_MAX_ENUM;
 }
 
 } // Vulkan

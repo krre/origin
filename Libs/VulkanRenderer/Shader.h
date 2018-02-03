@@ -18,18 +18,30 @@ public:
         uint32_t descriptorCount;
     };
 
+    struct LocationInfo {
+        std::string name;
+        uint32_t location;
+        VkFormat format;
+    };
+
     Shader();
     ~Shader();
     void load(const std::string& filePath);
     VkShaderStageFlagBits getStage() const { return stage; }
     const std::vector<uint32_t>& getCode() const { return code; }
 
+    void dumpBindings();
+    void dumpLocations();
+
 private:
     void parse();
     VkShaderStageFlagBits executionModelToStage(spv::ExecutionModel model);
+    VkFormat spirvTypeToFormat(spirv_cross::SPIRType type);
 
     std::vector<uint32_t> code;
     VkShaderStageFlagBits stage;
+    std::vector<BufferInfo> bindings;
+    std::vector<LocationInfo> locations;
 };
 
 } // Vulkan

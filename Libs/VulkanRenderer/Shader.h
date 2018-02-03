@@ -11,11 +11,10 @@ class Shader {
 public:
 
     struct BufferInfo {
-        std::string name;
+        std::string typeName;
+        std::string variableName;
         uint32_t set;
-        uint32_t binding;
-        VkDescriptorType descriptorType;
-        uint32_t descriptorCount;
+        VkDescriptorSetLayoutBinding layoutBinding;
     };
 
     struct LocationInfo {
@@ -27,8 +26,12 @@ public:
     Shader();
     ~Shader();
     void load(const std::string& filePath);
+
     VkShaderStageFlagBits getStage() const { return stage; }
     const std::vector<uint32_t>& getCode() const { return code; }
+
+    const std::vector<BufferInfo> getBindings() const { return bindings; }
+    const std::vector<LocationInfo> getLocations() const { return locations; }
 
     void dumpBindings();
     void dumpLocations();

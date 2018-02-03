@@ -56,11 +56,13 @@ void Shader::parse() {
     for (const auto& resource : resourcesList) {
         for (const auto& buffer : resource) {
             BufferInfo bufferInfo;
-            bufferInfo.name = buffer.name;
+            bufferInfo.typeName = buffer.name;
+            bufferInfo.variableName = compiler.get_name(buffer.id);
             bufferInfo.set = compiler.get_decoration(buffer.id, spv::DecorationDescriptorSet);
-            bufferInfo.binding = compiler.get_decoration(buffer.id, spv::DecorationBinding);
-            bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_MAX_ENUM;
-            bufferInfo.descriptorCount = 1;
+            bufferInfo.layoutBinding.stageFlags = stage;
+            bufferInfo.layoutBinding.binding = compiler.get_decoration(buffer.id, spv::DecorationBinding);
+            bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_MAX_ENUM;
+            bufferInfo.layoutBinding.descriptorCount = 1;
 
             spv::StorageClass storageClass = compiler.get_storage_class(buffer.id);
             spirv_cross::SPIRType type = compiler.get_type_from_variable(buffer.id);
@@ -78,34 +80,34 @@ void Shader::parse() {
             } else if (storageClass == spv::StorageClassUniformConstant) {
                 if (type.basetype == spirv_cross::SPIRType::Image) {
                     if (type.image.dim == spv::DimBuffer) {
-                        bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
+                        bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER;
                     } else {
                         if (type.image.format == spv::ImageFormat::ImageFormatUnknown) {
-                            bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
+                            bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE;
                         } else {
-                            bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+                            bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
                         }
                     }
                 } else if (type.basetype == spirv_cross::SPIRType::Sampler) {
-                    bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
+                    bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_SAMPLER;
                 } else if (type.basetype == spirv_cross::SPIRType::SampledImage) {
                     if (type.image.dim == spv::DimBuffer) {
-                        bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
+                        bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER;
                     } else {
-                        bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+                        bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
                     }
                 }
 
                 if (type.array.size()) {
-                    bufferInfo.descriptorCount = type.array.at(0);
+                    bufferInfo.layoutBinding.descriptorCount = type.array.at(0);
                 }
             } else if (storageClass == spv::StorageClassUniform) {
-                bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+                bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
             } else if (storageClass == spv::StorageClassStorageBuffer) {
-                bufferInfo.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+                bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
             }
 
-            assert(bufferInfo.descriptorType != VK_DESCRIPTOR_TYPE_MAX_ENUM);
+            assert(bufferInfo.layoutBinding.descriptorType != VK_DESCRIPTOR_TYPE_MAX_ENUM);
 
             bindings.push_back(bufferInfo);
         }
@@ -120,11 +122,12 @@ void Shader::parse() {
 void Shader::dumpBindings() {
     std::cout << "Dump SPIR-V bindings (stage " << stage << "):" << std::endl;
     for (const auto& binding : bindings) {
-        std::cout << "name: " << binding.name
+        std::cout << "type name: " << binding.typeName
+            << ", variable name: " << binding.variableName
             << ", set: " << binding.set
-            << ", binding: " << binding.binding
-            << ", descriptorType: " << binding.descriptorType
-            << ", descriptorCount: " << binding.descriptorCount
+            << ", binding: " << binding.layoutBinding.binding
+            << ", descriptorType: " << binding.layoutBinding.descriptorType
+            << ", descriptorCount: " << binding.layoutBinding.descriptorCount
             << std::endl;
     }
 }

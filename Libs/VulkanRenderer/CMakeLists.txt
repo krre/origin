@@ -44,19 +44,9 @@ add_library(${LIB_NAME} SHARED ${SOURCES})
 set(SPIRV_CROSS_LIB $ENV{VULKAN_SDK}/lib/libspirv-cross-core.a)
 
 if(WIN32)
-    include_directories($ENV{VULKAN_SDK}/spirv-tools/include)
-
-    set(SPIRV_TOOLS_LIB $ENV{VULKAN_SDK}/lib32/libSPIRV-Tools.a)
-    string(REGEX REPLACE "\\\\" "/" SPIRV_TOOLS_LIB ${SPIRV_TOOLS_LIB})
-
     string(REGEX REPLACE "\\\\" "/" SPIRV_CROSS_LIB ${SPIRV_CROSS_LIB})
-
-    target_link_libraries(${LIB_NAME}
-        ${SPIRV_TOOLS_LIB}
-    )
 else()
     target_link_libraries(${LIB_NAME}
-        $ENV{VULKAN_SDK}/lib/spirv-tools/libSPIRV-Tools.a
         X11-xcb
     )
 endif()

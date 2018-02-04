@@ -1,13 +1,15 @@
 #include "Label.h"
-#include "Core/Application.h"
 #include "Resource/ResourceManager.h"
 #include "Font.h"
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "Screen/Screen.h"
+#include "UI/UIRenderer.h"
+#include "UIBatch.h"
 
 namespace Origin {
 
-Label::Label() {
+Label::Label(const std::string& text, Control* parent) :
+    text(text),
+    Control(parent) {
 //    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt"));
 }
 
@@ -22,6 +24,13 @@ void Label::setFont(Font* font) {
 
 void Label::setColor(const Color& color) {
     this->color = color;
+}
+
+void Label::drawImpl() {
+    UIBatch batch(screen->getUIRenderer()->getVerticles());
+    batch.color = color;
+    batch.addText(absolutePosition.x, absolutePosition.y, text, font);
+    screen->getUIRenderer()->addBatch(batch);
 }
 
 void Label::updateTextData() {

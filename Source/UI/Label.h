@@ -9,7 +9,7 @@ class Font;
 class Label : public Control {
 
 public:
-    Label();
+    Label(const std::string& text = "", Control* parent = nullptr);
     void setText(const std::string& text);
     const std::string& getText() const { return text; }
 
@@ -20,6 +20,8 @@ public:
     const Color& getColor() const { return color; }
 
 private:
+    void drawImpl() override;
+
     void updateTextData();
     std::string text;
     Font* font;

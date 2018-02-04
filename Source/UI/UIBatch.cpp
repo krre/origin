@@ -33,4 +33,8 @@ void UIBatch::addQuad(float x, float y, float width, float height) {
     vertextEnd = vertices->size();
 }
 
+void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
+
+}
+
 } // Origin

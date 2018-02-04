@@ -6,6 +6,7 @@
 namespace Origin {
 
 class Texture;
+class Font;
 
 class UIBatch {
 
@@ -25,6 +26,7 @@ public:
     uint32_t vertextEnd = 0;
 
     void addQuad(float x, float y, float width, float height);
+    void addText(float x, float y, const std::string& text, Font* font);
 };
 
 } // Origin

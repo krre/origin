@@ -28,10 +28,6 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
-    uint32_t width = Application::get()->getWindow()->getWidth();
-    uint32_t height = Application::get()->getWindow()->getHeight();
-    glm::mat4 mvp = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
-    uboBuffer->write(&mvp, sizeof(mvp));
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>();
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.vert.spv");
@@ -99,6 +95,10 @@ RenderPassUI::~RenderPassUI() {
 
 void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     const Color& color = Application::get()->getWindow()->getColor();
+
+    // TODO: Only need update on resize framebuffer
+    glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), 0.0f, (float)framebuffer->getHeight());
+    uboBuffer->write(&mvp, sizeof(mvp));
 
     Vulkan::RenderPassBegin renderPassBegin(renderPass->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());

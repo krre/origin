@@ -13,7 +13,7 @@ public:
 
     struct Vertex {
         glm::vec2 pos;
-        glm::vec2 ui;
+        glm::vec2 uv;
         uint32_t color;
     };
 

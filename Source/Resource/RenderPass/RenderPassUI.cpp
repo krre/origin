@@ -15,6 +15,7 @@
 #include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
 #include "UI/UIBatch.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Origin {
 
@@ -26,20 +27,18 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     uint32_t startSize = 10000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
-    uniformVertBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
-    uniformFragBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::vec3));
+    uboBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
+    glm::mat4 mvp = glm::ortho(0.0f, (float)Application::get()->getWindow()->getWidth(), 0.0f, (float)Application::get()->getWindow()->getHeight());
+    uboBuffer->write(&mvp, sizeof(mvp));
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>();
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.vert.spv");
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
-    bufferInfo.buffer = uniformVertBuffer->getHandle();
+    bufferInfo.buffer = uboBuffer->getHandle();
     bufferInfo.range = VK_WHOLE_SIZE;
-    shaderProgram->bindBuffer("uboVert", bufferInfo);
-
-    bufferInfo.buffer = uniformFragBuffer->getHandle();
-    shaderProgram->bindBuffer("uboFrag", bufferInfo);
+    shaderProgram->bindBuffer("ubo", bufferInfo);
 
     shaderProgram->create();
 
@@ -54,20 +53,40 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
         graphicsPipeline->addShaderCode(shader->getStage(), shader->getCode().size() * sizeof(uint32_t), shader->getCode().data(), "main");
     }
 
-    const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("position");
-    VkVertexInputAttributeDescription attributeDescription = {};
-    attributeDescription.binding = 0;
-    attributeDescription.location = locationInfo->location;
-    attributeDescription.format = locationInfo->format;
-
-    graphicsPipeline->addVertexAttributeDescription(attributeDescription);
-
     VkVertexInputBindingDescription bindingDescription;
-    bindingDescription.binding = attributeDescription.binding;
+    bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(UIBatch::Vertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
+
+    {
+        const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("position");
+        VkVertexInputAttributeDescription attributeDescription = {};
+        attributeDescription.binding = bindingDescription.binding;
+        attributeDescription.location = locationInfo->location;
+        attributeDescription.format = locationInfo->format;
+        graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+    }
+
+    {
+        const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("uv");
+        VkVertexInputAttributeDescription attributeDescription = {};
+        attributeDescription.binding = bindingDescription.binding;
+        attributeDescription.location = locationInfo->location;
+        attributeDescription.format = locationInfo->format;
+        attributeDescription.offset = sizeof(UIBatch::Vertex::pos);
+        graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+    }
+
+    {
+        const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("color");
+        VkVertexInputAttributeDescription attributeDescription = {};
+        attributeDescription.binding = bindingDescription.binding;
+        attributeDescription.location = locationInfo->location;
+        attributeDescription.format = locationInfo->format;
+        attributeDescription.offset = sizeof(UIBatch::Vertex::pos + UIBatch::Vertex::uv);
+        graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+    }
 
     graphicsPipeline->create();
 }
@@ -91,14 +110,13 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
 
-//    commandBuffer->bindIndexBuffer(indexBuffer->getHandle(), indexBuffer->getIndexType());
-
     for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
         commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
     }
     commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
 
-    //    commandBuffer->drawIndexed(MAX_CHAR_COUNT, 1, 0, 0, 0);
+//    commandBuffer->draw(vertexBuffer->getSize(), 1, 0, 0);
+    commandBuffer->draw(6, 1, 0, 0);
 
     commandBuffer->endRenderPass();
 }

@@ -39,6 +39,7 @@ void Rectangle::prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch:
 
 void Rectangle::drawImpl() {
     UIBatch batch(screen->getUIRenderer()->getVerticles());
+    batch.color = color;
     batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height);
     screen->getUIRenderer()->addBatch(batch);
 }

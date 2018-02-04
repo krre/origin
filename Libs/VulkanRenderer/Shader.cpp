@@ -70,12 +70,14 @@ void Shader::parse() {
             if (storageClass == spv::StorageClassOutput) {
                 continue;
             } else if (storageClass == spv::StorageClassInput) {
-                // Location
-                LocationInfo locationInfo;
-                locationInfo.name = buffer.name;
-                locationInfo.location = compiler.get_decoration(buffer.id, spv::DecorationLocation);
-                locationInfo.format = spirvTypeToFormat(type);
-                locations.push_back(locationInfo);
+                if (stage == VK_SHADER_STAGE_VERTEX_BIT) {
+                    // Location
+                    LocationInfo locationInfo;
+                    locationInfo.name = buffer.name;
+                    locationInfo.location = compiler.get_decoration(buffer.id, spv::DecorationLocation);
+                    locationInfo.format = spirvTypeToFormat(type);
+                    locations.push_back(locationInfo);
+                }
                 continue;
             } else if (storageClass == spv::StorageClassUniformConstant) {
                 if (type.basetype == spirv_cross::SPIRType::Image) {
@@ -163,6 +165,8 @@ VkFormat Shader::spirvTypeToFormat(spirv_cross::SPIRType type) {
             return VK_FORMAT_R32G32_SFLOAT;
         } else if (type.vecsize == 3) {
             return VK_FORMAT_R32G32B32_SFLOAT;
+        } else if (type.vecsize == 4) {
+            return VK_FORMAT_R32G32B32A32_SFLOAT;
         }
     }
 

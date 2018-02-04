@@ -1,6 +1,4 @@
 #include "Rectangle.h"
-#include "Core/Application.h"
-#include "Resource/ResourceManager.h"
 #include "Screen/Screen.h"
 #include "UI/UIRenderer.h"
 #include "UIBatch.h"

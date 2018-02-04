@@ -17,8 +17,6 @@ public:
     void setLabelColor(const Color& labelColor);
     const Color& getLabelColor() const;
 
-    void prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) override;
-
     Signal<> clicked;
 
 private:

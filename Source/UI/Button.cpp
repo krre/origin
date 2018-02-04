@@ -33,10 +33,6 @@ const Color& Button::getLabelColor() const {
     return label->getColor();
 }
 
-void Button::prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {
-
-}
-
 void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         int mouseX = event.x;

@@ -29,14 +29,6 @@ void Rectangle::setBorderWidth(uint32_t border) {
     this->borderWidth = border;
 }
 
-void Rectangle::prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {
-    UIBatch batch(&vertices);
-    batch.color = color;
-    batch.addQuad(position.x, position.y, size.width, size.height);
-
-    batches.push_back(batch);
-}
-
 void Rectangle::drawImpl() {
     UIBatch batch(screen->getUIRenderer()->getVerticles());
     batch.color = color;

@@ -52,8 +52,6 @@ public:
     void setLayout(Layout* layout);
     Layout* getLayout() const { return layout; }
 
-    virtual void prepareBatch(std::vector<UIBatch>& batches, std::vector<UIBatch::Vertex>& vertices) {}
-
 protected:
     virtual void updateImpl(float dt) {}
     virtual void drawImpl() {}

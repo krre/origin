@@ -60,31 +60,31 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     {
-        const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("position");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("position");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
-        attributeDescription.location = locationInfo->location;
-        attributeDescription.format = locationInfo->format;
+        attributeDescription.location = locationInfo.location;
+        attributeDescription.format = locationInfo.format;
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
     {
-        const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("uv");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("uv");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
-        attributeDescription.location = locationInfo->location;
-        attributeDescription.format = locationInfo->format;
+        attributeDescription.location = locationInfo.location;
+        attributeDescription.format = locationInfo.format;
         attributeDescription.offset = sizeof(UIBatch::Vertex::pos);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
     {
-        const Vulkan::Shader::LocationInfo* locationInfo = shaderProgram->getLocationInfo("color");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("color");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
-        attributeDescription.location = locationInfo->location;
-        attributeDescription.format = locationInfo->format;
-        attributeDescription.offset = sizeof(UIBatch::Vertex::pos + UIBatch::Vertex::uv);
+        attributeDescription.location = locationInfo.location;
+        attributeDescription.format = locationInfo.format;
+        attributeDescription.offset = sizeof(UIBatch::Vertex::pos) + sizeof(UIBatch::Vertex::uv);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 

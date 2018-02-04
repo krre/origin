@@ -14,5 +14,7 @@ layout (location = 0) out struct {
 } outUVColor;
 
 void main() {
+    outUVColor.uv = uv;
+    outUVColor.color = color;
     gl_Position = ubo.mvp * vec4(position, 0, 1);
 }

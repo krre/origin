@@ -10,7 +10,7 @@ UIBatch::UIBatch(std::vector<Vertex>* vertices) :
 
 void UIBatch::addQuad(float x, float y, float width, float height) {
     Vertex vertex = {};
-    vertex.color = color.getArgb();
+    vertex.color = color.getRgba();
 
     vertex.pos = { x, y }; // Top-Left
     vertices->push_back(vertex);
@@ -28,6 +28,7 @@ void UIBatch::addQuad(float x, float y, float width, float height) {
     vertices->push_back(vertex);
 
     vertex.pos = { x + width, y }; // Top-Right
+    vertices->push_back(vertex);
 
     vertextEnd = vertices->size();
 }

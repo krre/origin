@@ -27,7 +27,7 @@ public:
 
     const DescriptorSets* getDescriptorSets() const { return descriptorSets.get(); }
     const PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
-    const Shader::LocationInfo* getLocationInfo(const std::string& name) const;
+    Shader::LocationInfo getLocationInfo(const std::string& name) const;
 
     void bindBuffer(const std::string& name, VkDescriptorBufferInfo descriptorBufferInfo);
     void bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);

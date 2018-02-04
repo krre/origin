@@ -14,7 +14,7 @@ public:
     struct Vertex {
         glm::vec2 pos;
         glm::vec2 uv;
-        uint32_t color;
+        glm::vec4 color;
     };
 
     UIBatch(std::vector<Vertex>* vertices);

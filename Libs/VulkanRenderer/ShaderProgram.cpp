@@ -102,16 +102,17 @@ void ShaderProgram::create() {
     pipelineLayout->create();
 }
 
-const Shader::LocationInfo* ShaderProgram::getLocationInfo(const std::string& name) const {
+Shader::LocationInfo ShaderProgram::getLocationInfo(const std::string& name) const {
     for (const auto& shader : shaders) {
         for (const auto& locationInfo : shader->getLocations()) {
             if (locationInfo.name == name) {
-                return &locationInfo;
+                return locationInfo;
             }
         }
     }
 
-    return nullptr;
+    assert(false);
+    return Shader::LocationInfo {};
 }
 
 void ShaderProgram::bindBuffer(const std::string& name, VkDescriptorBufferInfo descriptorBufferInfo) {

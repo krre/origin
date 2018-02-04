@@ -26,6 +26,7 @@ void UIRenderer::drawBatches() {
 
     if (size) {
         renderPassUI->getVertexBuffer()->write(vertices.data(), size);
+        renderPassUI->setVertexCount(vertices.size());
     }
 
     batches.clear();

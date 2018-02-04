@@ -117,8 +117,7 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
     }
     commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
 
-//    commandBuffer->draw(vertexBuffer->getSize(), 1, 0, 0);
-    commandBuffer->draw(6, 1, 0, 0);
+    commandBuffer->draw(vertextCount, 1, 0, 0);
 
     commandBuffer->endRenderPass();
 }

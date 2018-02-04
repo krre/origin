@@ -5,7 +5,9 @@
 namespace Origin {
 
 MenuScreen::MenuScreen() {
-    Rectangle* rectangle = new Rectangle(Size(100, 100), this);
+    Rectangle* rectangle = new Rectangle(Size(500, 500), this);
+    rectangle->setPosition(Pos2(50, 50));
+    rectangle->setColor(Color(0,0, 1.0, 0.0));
 }
 
 } // Origin

@@ -28,7 +28,9 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
-    glm::mat4 mvp = glm::ortho(0.0f, (float)Application::get()->getWindow()->getWidth(), 0.0f, (float)Application::get()->getWindow()->getHeight());
+    uint32_t width = Application::get()->getWindow()->getWidth();
+    uint32_t height = Application::get()->getWindow()->getHeight();
+    glm::mat4 mvp = glm::ortho(0.0f, (float)width, 0.0f, (float)height);
     uboBuffer->write(&mvp, sizeof(mvp));
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>();

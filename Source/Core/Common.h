@@ -21,8 +21,9 @@ struct Size {
 };
 
 struct Pos2 {
-    int x;
-    int y;
+    Pos2(int x, int y) : x(x), y(y) {}
+    int x = 0;
+    int y = 0;
 
     Pos2 operator+(const Pos2& pos) const { return { pos.x + x, pos.y + y }; }
 };

@@ -30,6 +30,9 @@ include_directories(${SDL2_INCLUDE_DIR})
 find_package(Bullet REQUIRED)
 include_directories(${BULLET_INCLUDE_DIRS})
 
+find_package(Freetype REQUIRED)
+include_directories(${FREETYPE_INCLUDE_DIRS})
+
 find_package(Vulkan REQUIRED)
 include_directories(${Vulkan_INCLUDE_DIRS})
 
@@ -41,6 +44,7 @@ add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
 target_link_libraries(${EXECUTABLE_NAME}
     ${SDL2_LIBRARY}
+    ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs
     VulkanRenderer

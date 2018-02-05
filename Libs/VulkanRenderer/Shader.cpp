@@ -63,6 +63,7 @@ void Shader::parse() {
             bufferInfo.layoutBinding.binding = compiler.get_decoration(buffer.id, spv::DecorationBinding);
             bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_MAX_ENUM;
             bufferInfo.layoutBinding.descriptorCount = 1;
+            bufferInfo.layoutBinding.pImmutableSamplers = NULL;
 
             spv::StorageClass storageClass = compiler.get_storage_class(buffer.id);
             spirv_cross::SPIRType type = compiler.get_type_from_variable(buffer.id);

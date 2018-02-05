@@ -6,6 +6,7 @@ namespace Vulkan {
     class GpuBuffer;
     class ShaderProgram;
     class GraphicsPipeline;
+    class Texture;
 }
 
 namespace Origin {
@@ -19,6 +20,7 @@ public:
     Vulkan::GpuBuffer* getVertexBuffer() const { return vertexBuffer.get(); }
     void resizeVertexBuffer(uint32_t size);
     void setVertexCount(uint32_t vertextCount) { this->vertextCount = vertextCount; }
+    void setTexture(Vulkan::Texture* texture) { this->texture = texture; }
 
 private:
     std::unique_ptr<Vulkan::RenderPass> renderPass;
@@ -27,6 +29,7 @@ private:
     std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     uint32_t vertextCount = 0;
+    Vulkan::Texture* texture;
 };
 
 } // Origin

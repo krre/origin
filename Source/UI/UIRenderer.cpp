@@ -27,6 +27,7 @@ void UIRenderer::drawBatches() {
     if (size) {
         renderPassUI->getVertexBuffer()->write(vertices.data(), size);
         renderPassUI->setVertexCount(vertices.size());
+        renderPassUI->setTexture(batches.at(0).texture); // TODO: Sort batches and swith textures
     }
 
     batches.clear();

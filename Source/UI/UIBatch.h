@@ -3,9 +3,12 @@
 #include <glm/glm.hpp>
 #include "Graphics/Color.h"
 
+namespace Vulkan {
+    class Texture;
+}
+
 namespace Origin {
 
-class Texture;
 class Font;
 
 class UIBatch {
@@ -20,7 +23,7 @@ public:
 
     UIBatch(std::vector<Vertex>* vertices);
     Color color;
-    Texture* texture = nullptr;
+    Vulkan::Texture* texture = nullptr;
     std::vector<Vertex>* vertices = nullptr;
     uint32_t vertexStart = 0;
     uint32_t vertextEnd = 0;

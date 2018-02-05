@@ -29,6 +29,7 @@ void Label::setColor(const Color& color) {
 void Label::drawImpl() {
     UIBatch batch(screen->getUIRenderer()->getVerticles());
     batch.color = color;
+    batch.texture = font->getTexture();
     batch.addText(absolutePosition.x, absolutePosition.y, text, font);
     screen->getUIRenderer()->addBatch(batch);
 }

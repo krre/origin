@@ -1,28 +1,28 @@
 #include "DebugHUD.h"
-#include "Core/Application.h"
-#include "Core/Game.h"
-#include "Core/Defines.h"
-#include "ECS/EntityManager.h"
-#include "ECS/Entity.h"
-#include "ECS/Components/TransformComponent.h"
-#include "Resource/ResourceManager.h"
-#include "VulkanRenderer/Texture.h"
-#include "VulkanRenderer/GpuBuffer.h"
-#include "Graphics/Render/RenderEngine.h"
-#include "VulkanRenderer/API/Instance.h"
-#include "VulkanRenderer/API/Framebuffer.h"
-#include "VulkanRenderer/API/Surface/Surface.h"
-#include "VulkanRenderer/API/Descriptor/DescriptorSets.h"
-#include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
-#include "VulkanRenderer/API/Command/CommandBuffer.h"
-#include "VulkanRenderer/API/Command/CommandBuffers.h"
-#include "VulkanRenderer/API/Queue.h"
-#include "VulkanRenderer/API/Device/PhysicalDevice.h"
-#include "UI/Label.h"
-#include "UI/Font.h"
-#include "UI/Rectangle.h"
-#include <glm/glm.hpp>
-#include <SDL.h>
+//#include "Core/Application.h"
+//#include "Core/Game.h"
+//#include "Core/Defines.h"
+//#include "ECS/EntityManager.h"
+//#include "ECS/Entity.h"
+//#include "ECS/Components/TransformComponent.h"
+//#include "Resource/ResourceManager.h"
+//#include "VulkanRenderer/Texture.h"
+//#include "VulkanRenderer/GpuBuffer.h"
+//#include "Graphics/Render/RenderEngine.h"
+//#include "VulkanRenderer/API/Instance.h"
+//#include "VulkanRenderer/API/Framebuffer.h"
+//#include "VulkanRenderer/API/Surface/Surface.h"
+//#include "VulkanRenderer/API/Descriptor/DescriptorSets.h"
+//#include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
+//#include "VulkanRenderer/API/Command/CommandBuffer.h"
+//#include "VulkanRenderer/API/Command/CommandBuffers.h"
+//#include "VulkanRenderer/API/Queue.h"
+//#include "VulkanRenderer/API/Device/PhysicalDevice.h"
+//#include "UI/Label.h"
+//#include "UI/Font.h"
+//#include "UI/Rectangle.h"
+//#include <glm/glm.hpp>
+//#include <SDL.h>
 
 namespace Origin {
 
@@ -87,22 +87,22 @@ DebugHUD::~DebugHUD() {
 //}
 
 void DebugHUD::update(float dt) {
-    accumTime += dt;
-    counter++;
-    if (accumTime >= 0.5) {
-        // Average fps for 0.5 sec (on resize may be > 60, so clamp to 60)
-        fps = int(std::round(counter / accumTime));
-        accumTime = 0;
-        counter = 0;
-    }
+//    accumTime += dt;
+//    counter++;
+//    if (accumTime >= 0.5) {
+//        // Average fps for 0.5 sec (on resize may be > 60, so clamp to 60)
+//        fps = int(std::round(counter / accumTime));
+//        accumTime = 0;
+//        counter = 0;
+//    }
 
-    std::string text =
-        std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
-        std::to_string(fps) + " fps\n"
-        "Video driver: " + RenderEngine::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
-        "Vulkan API: " + vulkanApiVersion + "\n"
-        "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
-        "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
+//    std::string text =
+//        std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
+//        std::to_string(fps) + " fps\n"
+//        "Video driver: " + RenderEngine::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
+//        "Vulkan API: " + vulkanApiVersion + "\n"
+//        "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
+//        "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
 
 //    if (Game::get()->getWorldScene()) {
 //        Entity* character = EntityManager::get()->getEntity(Game::get()->getWorldScene()->getCharacterId()).get();
@@ -117,7 +117,7 @@ void DebugHUD::update(float dt) {
 
 //    font->renderText(vertexBuffer.get(), indexBuffer.get(), text);
 
-    displayLabel->setText(text);
+//    displayLabel->setText(text);
 }
 
 void DebugHUD::trigger() {

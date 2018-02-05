@@ -8,9 +8,9 @@
 namespace Origin {
 
 Label::Label(const std::string& text, Control* parent) :
-    text(text),
-    Control(parent) {
-//    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolata.fnt"));
+        text(text),
+        Control(parent) {
+    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf"));
 }
 
 void Label::setText(const std::string& text) {

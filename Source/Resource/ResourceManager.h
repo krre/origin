@@ -29,6 +29,8 @@ public:
 
     static const std::string& getDataPath() { return resourcesPath; }
 
+    const FT_Library& getFreeTypeHandle() const { return ft; }
+
 private:
     std::map<std::string, std::shared_ptr<Resource>> resources;
     static std::string resourcesPath;

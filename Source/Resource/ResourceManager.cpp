@@ -7,7 +7,7 @@ std::string ResourceManager::resourcesPath = Application::getCurrentDirectory() 
 
 ResourceManager::ResourceManager() {
     if (FT_Init_FreeType(&ft)) {
-        std::runtime_error("Could not init freetype library");
+        throw std::runtime_error("Could not init freetype library");
     }
 }
 

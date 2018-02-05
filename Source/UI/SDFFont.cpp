@@ -57,7 +57,7 @@ void SDFFont::load(const std::string& path) {
             Utils::removeChar(textureName, quote);
             fs::path SDFFontPath(path);
             std::string texturePath = SDFFontPath.parent_path().string() + Utils::getPathSeparator() + textureName;
-            texture = std::make_unique<Vulkan::Texture>(texturePath);
+//            texture = std::make_unique<Vulkan::Texture>(texturePath);
         } else if (head == "char") {
             Character character = {};
             int id;

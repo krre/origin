@@ -1,8 +1,5 @@
 #include "Texture.h"
-#include "API/Instance.h"
 #include "API/Command/CommandBufferOneTime.h"
-#include "API/Fence.h"
-#include "API/Queue.h"
 #include "API/Image/ImageView.h"
 #include "API/Image/Image.h"
 #include "API/Device/PhysicalDevice.h"
@@ -10,14 +7,8 @@
 
 namespace Vulkan {
 
-Texture::Texture(const std::string& path) {
+Texture::Texture(uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset) {
     device = Renderer::get()->getGraphicsDevice();
-    uint32_t width;
-    uint32_t height;
-//    unsigned result = lodepng::decode(data, width, height, path);
-//    if (result) {
-//        throw std::runtime_error("Failed to decode image " + path);
-//    }
 
     image = std::make_unique<Image>(device);
 
@@ -28,7 +19,7 @@ Texture::Texture(const std::string& path) {
     image->setInitialLayout(VK_IMAGE_LAYOUT_PREINITIALIZED);
     image->create();
 
-    image->write(data.data(), data.size());
+    image->write(data, size, offset);
 
     imageView = std::make_unique<ImageView>(device, image->getHandle());
     imageView->setFormat(image->getFormat());

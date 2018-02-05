@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <vulkan/vulkan.h>
 
 namespace Vulkan {
 
@@ -11,7 +12,7 @@ class Device;
 class Texture {
 
 public:
-    Texture(const std::string& path);
+    Texture(uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset = 0);
     ~Texture();
     uint32_t getWidth() const { return width; }
     uint32_t getHeight() const { return height; }

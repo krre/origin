@@ -72,16 +72,20 @@ void Font::load(const std::string& filePath) {
         penX += bmp->width + 1;
     }
 
-    // Write PNG
-    std::vector<unsigned char> pngData;
-    pngData.reserve(texWidth * texHeight * 4);
+    std::vector<unsigned char> atlasData;
+    uint32_t size = texWidth * texHeight * 4;
+    atlasData.reserve(size);
     for(int i = 0; i < (texWidth * texHeight); ++i){
-        pngData[i * 4 + 0] |= pixels[i];
-        pngData[i * 4 + 1] |= pixels[i];
-        pngData[i * 4 + 2] |= pixels[i];
-        pngData[i * 4 + 3] = 0xff;
+        atlasData[i * 4 + 0] |= pixels[i];
+        atlasData[i * 4 + 1] |= pixels[i];
+        atlasData[i * 4 + 2] |= pixels[i];
+        atlasData[i * 4 + 3] = 0xff;
     }
 
+    texture = std::make_unique<Vulkan::Texture>(texWidth, texHeight, atlasData.data(), size);
+
+    // Write PNG
+#if 1
     std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Cache";
 
     namespace fs = std::experimental::filesystem;
@@ -91,7 +95,8 @@ void Font::load(const std::string& filePath) {
 
     std::string atlasPath = directoryPath + Utils::getPathSeparator() + "atlas.png";
 
-    lodepng::encode(atlasPath, pngData.data(), texWidth, texHeight);
+    lodepng::encode(atlasPath, atlasData.data(), texWidth, texHeight);
+#endif
 }
 
 } // Origin

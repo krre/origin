@@ -51,6 +51,13 @@ target_link_libraries(${EXECUTABLE_NAME}
     Octree
 )
 
+if(UNIX)
+    target_link_libraries(${EXECUTABLE_NAME}
+        png
+        z # zlib
+    )
+endif()
+
 # Show in QtCreator project tree
 file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*" "Source/Template/*.*" "Libs/*.*")
 add_custom_target(root SOURCES ${Root})

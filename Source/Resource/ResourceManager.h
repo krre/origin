@@ -3,6 +3,10 @@
 #include "Resource/Resource.h"
 #include <map>
 
+#undef HAVE_STDINT_H
+#include <ft2build.h>
+#include FT_FREETYPE_H
+
 namespace Origin {
 
 class ResourceManager : public Singleton<ResourceManager> {
@@ -28,6 +32,7 @@ public:
 private:
     std::map<std::string, std::shared_ptr<Resource>> resources;
     static std::string resourcesPath;
+    FT_Library ft;
 };
 
 } // Origin

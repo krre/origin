@@ -2,6 +2,8 @@
 #include "Graphics/Color.h"
 #include <string>
 #include <vector>
+
+#undef HAVE_STDINT_H
 #include <SDL.h>
 
 struct SDL_Window;

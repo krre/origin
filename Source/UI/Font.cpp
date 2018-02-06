@@ -11,7 +11,7 @@
 namespace Origin {
 
 Font::Font() {
-
+    glyphInfos.resize(NUM_GLYPHS);
 }
 
 Font::~Font() {
@@ -63,20 +63,22 @@ void Font::load(const std::string& filePath) {
             }
         }
 
+        GlyphInfo* glyphInfo = &glyphInfos[i];
+
         // This is stuff you'd need when rendering individual glyphs out of the atlas
-        glyphInfo[i].x0 = penX;
-        glyphInfo[i].y0 = penY;
-        glyphInfo[i].x1 = penX + bmp->width;
-        glyphInfo[i].y1 = penY + bmp->rows;
+        glyphInfo->x0 = penX;
+        glyphInfo->y0 = penY;
+        glyphInfo->x1 = penX + bmp->width;
+        glyphInfo->y1 = penY + bmp->rows;
 
-        glyphInfo[i].u0 = glyphInfo[i].x0 / (float)texWidth;
-        glyphInfo[i].v0 = glyphInfo[i].y0 / (float)texHeight;
-        glyphInfo[i].u1 = glyphInfo[i].x1 / (float)texWidth;
-        glyphInfo[i].v1 = glyphInfo[i].y1 / (float)texHeight;
+        glyphInfo->u0 = glyphInfo->x0 / (float)texWidth;
+        glyphInfo->v0 = glyphInfo->y0 / (float)texHeight;
+        glyphInfo->u1 = glyphInfo->x1 / (float)texWidth;
+        glyphInfo->v1 = glyphInfo->y1 / (float)texHeight;
 
-        glyphInfo[i].offsetX = face->glyph->bitmap_left;
-        glyphInfo[i].offsetY = face->glyph->bitmap_top;
-        glyphInfo[i].advance = face->glyph->advance.x >> 6;
+        glyphInfo->offsetX = face->glyph->bitmap_left;
+        glyphInfo->offsetY = face->glyph->bitmap_top;
+        glyphInfo->advance = face->glyph->advance.x >> 6;
 
         penX += bmp->width + 1;
     }

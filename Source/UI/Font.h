@@ -23,7 +23,7 @@ public:
         float u0, v0, u1, v1; // UV coords
         int offsetX, offsetY; // left & top bearing when rendering
         int advance; // x advance when rendering
-    } glyphInfo [NUM_GLYPHS];
+    };
 
     Font();
     ~Font();
@@ -31,10 +31,12 @@ public:
     int getSize() const { return size; }
     void load(const std::string& filePath) override;
     Vulkan::Texture* getTexture() const { return texture.get(); }
+    GlyphInfo& getGliphInfo(int codechar) { return glyphInfos.at(codechar); }
 
 private:
     FT_Face face;
     int size = 14;
+    std::vector<GlyphInfo> glyphInfos;
     std::unique_ptr<Vulkan::Texture> texture;
 };
 

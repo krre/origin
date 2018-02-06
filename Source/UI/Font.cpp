@@ -69,8 +69,8 @@ void Font::load(const std::string& filePath) {
         glyphInfo[i].x1 = penX + bmp->width;
         glyphInfo[i].y1 = penY + bmp->rows;
 
-        glyphInfo[i].offsetX   = face->glyph->bitmap_left;
-        glyphInfo[i].offsetY   = face->glyph->bitmap_top;
+        glyphInfo[i].offsetX = face->glyph->bitmap_left;
+        glyphInfo[i].offsetY = face->glyph->bitmap_top;
         glyphInfo[i].advance = face->glyph->advance.x >> 6;
 
         penX += bmp->width + 1;
@@ -78,7 +78,8 @@ void Font::load(const std::string& filePath) {
 
     uint32_t size = texWidth * texHeight * 4;
     std::vector<unsigned char> atlasData(size);
-    for(int i = 0; i < (texWidth * texHeight); ++i){
+
+    for (int i = 0; i < (texWidth * texHeight); ++i) {
         atlasData[i * 4 + 0] |= pixels[i];
         atlasData[i * 4 + 1] |= pixels[i];
         atlasData[i * 4 + 2] |= pixels[i];

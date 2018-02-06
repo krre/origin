@@ -6,13 +6,13 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-#define NUM_GLYPHS 128
-
 namespace Vulkan {
     class Texture;
 }
 
 namespace Origin {
+
+const uint32_t NUM_GLYPHS = 128;
 
 class Font : public Resource {
 

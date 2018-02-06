@@ -10,5 +10,5 @@ layout (location = 0) in struct {
 layout (location = 0) out vec4 fragColor;
 
 void main() {
-    fragColor = inUVColor.color;
+    fragColor = inUVColor.color * texture(samplerImage, inUVColor.uv.st);
 }

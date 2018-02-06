@@ -48,39 +48,35 @@ void Font::load(const std::string& filePath) {
 
     for (int i = 0; i < NUM_GLYPHS; ++i) {
         FT_Load_Char(face, i, FT_LOAD_RENDER | FT_LOAD_FORCE_AUTOHINT | FT_LOAD_TARGET_LIGHT);
-        FT_Bitmap* bmp = &face->glyph->bitmap;
+        FT_Bitmap* bitmap = &face->glyph->bitmap;
 
-        if (penX + bmp->width >= texWidth) {
+        if (penX + bitmap->width >= texWidth) {
             penX = 0;
             penY += ((face->size->metrics.height >> 6) + 1);
         }
 
-        for (int row = 0; row < bmp->rows; ++row) {
-            for (int col = 0; col < bmp->width; ++col) {
+        for (int row = 0; row < bitmap->rows; ++row) {
+            for (int col = 0; col < bitmap->width; ++col) {
                 int x = penX + col;
                 int y = penY + row;
-                pixels[y * texWidth + x] = bmp->buffer[row * bmp->pitch + col];
+                pixels[y * texWidth + x] = bitmap->buffer[row * bitmap->pitch + col];
             }
         }
 
         GlyphInfo* glyphInfo = &glyphInfos[i];
 
-        // This is stuff you'd need when rendering individual glyphs out of the atlas
-        glyphInfo->x0 = penX;
-        glyphInfo->y0 = penY;
-        glyphInfo->x1 = penX + bmp->width;
-        glyphInfo->y1 = penY + bmp->rows;
-
-        glyphInfo->u0 = glyphInfo->x0 / (float)texWidth;
-        glyphInfo->v0 = glyphInfo->y0 / (float)texHeight;
-        glyphInfo->u1 = glyphInfo->x1 / (float)texWidth;
-        glyphInfo->v1 = glyphInfo->y1 / (float)texHeight;
-
         glyphInfo->offsetX = face->glyph->bitmap_left;
         glyphInfo->offsetY = face->glyph->bitmap_top;
-        glyphInfo->advance = face->glyph->advance.x >> 6;
+        glyphInfo->width = bitmap->width;
+        glyphInfo->height = bitmap->rows;
+        glyphInfo->advanceX = face->glyph->advance.x >> 6;
 
-        penX += bmp->width + 1;
+        glyphInfo->u0 = penX / (float)texWidth;
+        glyphInfo->v0 = penY / (float)texHeight;
+        glyphInfo->u1 = (penX + glyphInfo->width) / (float)texWidth;
+        glyphInfo->v1 = (penY + glyphInfo->height) / (float)texHeight;
+
+        penX += bitmap->width + 1;
     }
 
     uint32_t size = texWidth * texHeight * 4;

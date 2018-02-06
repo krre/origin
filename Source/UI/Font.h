@@ -18,11 +18,42 @@ class Font : public Resource {
 
 public:
 
+    // Glyph metrics:
+    // --------------
+    //
+    //                       xmin                     xmax
+    //                        |                         |
+    //                        |<-------- width -------->|
+    //                        |                         |
+    //              |         +-------------------------+----------------- ymax
+    //              |         |    ggggggggg   ggggg    |     ^        ^
+    //              |         |   g:::::::::ggg::::g    |     |        |
+    //              |         |  g:::::::::::::::::g    |     |        |
+    //              |         | g::::::ggggg::::::gg    |     |        |
+    //              |         | g:::::g     g:::::g     |     |        |
+    //    offsetX  -|-------->| g:::::g     g:::::g     |  offsetY     |
+    //              |         | g:::::g     g:::::g     |     |        |
+    //              |         | g::::::g    g:::::g     |     |        |
+    //              |         | g:::::::ggggg:::::g     |     |        |
+    //              |         |  g::::::::::::::::g     |     |      height
+    //              |         |   gg::::::::::::::g     |     |        |
+    //  baseline ---*---------|---- gggggggg::::::g-----*--------      |
+    //            / |         |             g:::::g     |              |
+    //     origin   |         | gggggg      g:::::g     |              |
+    //              |         | g:::::gg   gg:::::g     |              |
+    //              |         |  g::::::ggg:::::::g     |              |
+    //              |         |   gg:::::::::::::g      |              |
+    //              |         |     ggg::::::ggg        |              |
+    //              |         |         gggggg          |              v
+    //              |         +-------------------------+----------------- ymin
+    //              |                                   |
+    //              |------------- advanceX ----------->|
+
     struct GlyphInfo {
-        int x0, y0, x1, y1;	// coords of glyph in the texture atlas
-        float u0, v0, u1, v1; // UV coords
-        int offsetX, offsetY; // left & top bearing when rendering
-        int advance; // x advance when rendering
+        float u0, v0, u1, v1;
+        int offsetX, offsetY;
+        int width, height;
+        int advanceX;
     };
 
     Font();

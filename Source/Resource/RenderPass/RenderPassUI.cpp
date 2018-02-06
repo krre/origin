@@ -56,6 +56,7 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
+    graphicsPipeline->setBlendEnable(true);
     graphicsPipeline->setRenderPass(renderPass->getHandle());
     graphicsPipeline->setPipelineLayout(shaderProgram->getPipelineLayout()->getHandle());
 

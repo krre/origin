@@ -28,7 +28,7 @@ void Font::load(const std::string& filePath) {
         throw std::runtime_error(std::string("Could not open font ") + filePath);
     }
 
-    setSize(14);
+    setSize(54);
 
     // Creating atlas based on code https://gist.github.com/baines/b0f9e4be04ba4e6f56cab82eef5008ff
 
@@ -83,11 +83,15 @@ void Font::load(const std::string& filePath) {
     std::vector<unsigned char> atlasData(size);
 
     for (int i = 0; i < (texWidth * texHeight); ++i) {
-        atlasData[i * 4 + 0] |= pixels[i];
-        atlasData[i * 4 + 1] |= pixels[i];
-        atlasData[i * 4 + 2] |= pixels[i];
-        atlasData[i * 4 + 3] |= pixels[i];
+        atlasData[i * 4 + 0] |= 0xff; // R
+        atlasData[i * 4 + 1] |= 0xff; // G
+        atlasData[i * 4 + 2] |= 0xff; // B
+        atlasData[i * 4 + 3] |= pixels[i]; // A
     }
+
+    atlasData[3] = 0xff; // Alpha dot for shapes
+    glyphInfos.at(0).u1 = 1.0f / texWidth;
+    glyphInfos.at(0).v1 = 1.0f / texHeight;
 
     texture = std::make_unique<Vulkan::Texture>(texWidth, texHeight, atlasData.data(), size);
 

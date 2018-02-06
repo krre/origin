@@ -14,28 +14,28 @@ void UIBatch::addQuad(float x, float y, float width, float height, Font* font) {
     Vertex vertex = {};
     vertex.color = color.getRgba();
 
-    vertex.pos = { x, height + y}; // Top-Left
+    vertex.pos = { x, y }; // Top-Left
     vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
     vertices->push_back(vertex);
 
-    vertex.pos = { x, y }; // Bottom-Left
-    vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
-    vertices->push_back(vertex);
-
-    vertex.pos = { width + x, height + y};
+    vertex.pos = { x + width, y }; // Top-Right
     vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
-    vertices->push_back(vertex); // Top-Right
+    vertices->push_back(vertex);
 
-    vertex.pos = { width + x, height + y }; // Bottom-Left
+    vertex.pos = { x, y + height }; // Bottom-Left
     vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
     vertices->push_back(vertex);
 
-    vertex.pos = { x, y }; // Bottom-Right
+    vertex.pos = { x, y + height }; // Bottom-Left
+    vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
+    vertices->push_back(vertex);
+
+    vertex.pos = { x + width, y }; // Top-Right
+    vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
+    vertices->push_back(vertex);
+
+    vertex.pos = { x + width, y + height }; // Bottom-Right
     vertex.uv = { glyphInfo.u1, glyphInfo.v1 };
-    vertices->push_back(vertex);
-
-    vertex.pos = { width + x, y }; // Top-Right
-    vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
     vertices->push_back(vertex);
 
     vertextEnd = vertices->size();
@@ -51,28 +51,28 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
         Vertex vertex = {};
         vertex.color = color.getRgba();
 
-        vertex.pos = { posX, posY + glyphInfo.height }; // Top-Left
+        vertex.pos = { posX, posY }; // Top-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
-        vertices->push_back(vertex);
-
-        vertex.pos = { posX, posY }; // Bottom-Left
-        vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
-        vertices->push_back(vertex);
-
-        vertex.pos = { posX + glyphInfo.width, posY + glyphInfo.height };
-        vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
-        vertices->push_back(vertex); // Top-Right
-
-        vertex.pos = { posX + glyphInfo.width, posY + glyphInfo.height }; // Bottom-Left
-        vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
-        vertices->push_back(vertex);
-
-        vertex.pos = { posX, posY }; // Bottom-Right
-        vertex.uv = { glyphInfo.u1, glyphInfo.v1 };
         vertices->push_back(vertex);
 
         vertex.pos = { posX + glyphInfo.width, posY }; // Top-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
+        vertices->push_back(vertex);
+
+        vertex.pos = { posX, posY + glyphInfo.height }; // Bottom-Left
+        vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
+        vertices->push_back(vertex);
+
+        vertex.pos = { posX, posY + glyphInfo.height }; // Bottom-Left
+        vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
+        vertices->push_back(vertex);
+
+        vertex.pos = { posX + glyphInfo.width, posY }; // Top-Right
+        vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
+        vertices->push_back(vertex);
+
+        vertex.pos = { posX + glyphInfo.width, posY + glyphInfo.height }; // Bottom-Right
+        vertex.uv = { glyphInfo.u1, glyphInfo.v1 };
         vertices->push_back(vertex);
 
         vertextEnd = vertices->size();

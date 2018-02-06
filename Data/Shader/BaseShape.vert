@@ -17,4 +17,5 @@ void main() {
     outUVColor.uv = uv;
     outUVColor.color = color;
     gl_Position = ubo.mvp * vec4(position, 0, 1);
+    gl_Position.y = -gl_Position.y; // TODO: Use #define GLM_FORCE_LEFT_HANDED before include glm
 }

@@ -28,7 +28,7 @@ public:
     uint32_t vertexStart = 0;
     uint32_t vertextEnd = 0;
 
-    void addQuad(float x, float y, float width, float height);
+    void addQuad(float x, float y, float width, float height, Font* font);
     void addText(float x, float y, const std::string& text, Font* font);
 };
 

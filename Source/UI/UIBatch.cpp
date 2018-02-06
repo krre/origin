@@ -9,26 +9,33 @@ UIBatch::UIBatch(std::vector<Vertex>* vertices) :
     vertextEnd = vertices->size();
 }
 
-void UIBatch::addQuad(float x, float y, float width, float height) {
+void UIBatch::addQuad(float x, float y, float width, float height, Font* font) {
+    Font::GlyphInfo& glyphInfo = font->getGliphInfo(0);
     Vertex vertex = {};
     vertex.color = color.getRgba();
 
     vertex.pos = { x, height + y}; // Top-Left
+    vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
     vertices->push_back(vertex);
 
     vertex.pos = { x, y }; // Bottom-Left
+    vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
     vertices->push_back(vertex);
 
     vertex.pos = { width + x, height + y};
+    vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
     vertices->push_back(vertex); // Top-Right
 
     vertex.pos = { width + x, height + y }; // Bottom-Left
+    vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
     vertices->push_back(vertex);
 
     vertex.pos = { x, y }; // Bottom-Right
+    vertex.uv = { glyphInfo.u1, glyphInfo.v1 };
     vertices->push_back(vertex);
 
     vertex.pos = { width + x, y }; // Top-Right
+    vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
     vertices->push_back(vertex);
 
     vertextEnd = vertices->size();

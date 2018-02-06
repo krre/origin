@@ -34,7 +34,7 @@ void Rectangle::drawImpl() {
     UIBatch batch(screen->getUIRenderer()->getVerticles());
     batch.color = color;
     batch.texture = font->getTexture();
-    batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height);
+    batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height, font);
     screen->getUIRenderer()->addBatch(batch);
 }
 

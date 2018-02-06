@@ -69,6 +69,11 @@ void Font::load(const std::string& filePath) {
         glyphInfo[i].x1 = penX + bmp->width;
         glyphInfo[i].y1 = penY + bmp->rows;
 
+        glyphInfo[i].u0 = glyphInfo[i].x0 / (float)texWidth;
+        glyphInfo[i].v0 = glyphInfo[i].y0 / (float)texHeight;
+        glyphInfo[i].u1 = glyphInfo[i].x1 / (float)texWidth;
+        glyphInfo[i].v1 = glyphInfo[i].y1 / (float)texHeight;
+
         glyphInfo[i].offsetX = face->glyph->bitmap_left;
         glyphInfo[i].offsetY = face->glyph->bitmap_top;
         glyphInfo[i].advance = face->glyph->advance.x >> 6;

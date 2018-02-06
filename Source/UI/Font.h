@@ -20,6 +20,7 @@ public:
 
     struct GlyphInfo {
         int x0, y0, x1, y1;	// coords of glyph in the texture atlas
+        float u0, v0, u1, v1; // UV coords
         int offsetX, offsetY; // left & top bearing when rendering
         int advance; // x advance when rendering
     } glyphInfo [NUM_GLYPHS];

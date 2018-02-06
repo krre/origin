@@ -18,6 +18,7 @@
 #include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
 #include "UI/UIBatch.h"
+#include "UI/Font.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Origin {
@@ -43,6 +44,14 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     bufferInfo.buffer = uboBuffer->getHandle();
     bufferInfo.range = VK_WHOLE_SIZE;
     shaderProgram->bindBuffer("ubo", bufferInfo);
+
+    Font* font = ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf");
+    texture = font->getTexture();
+    VkDescriptorImageInfo imageInfo = {};
+    imageInfo.sampler = sampler->getHandle();
+    imageInfo.imageView = texture->getImageView()->getHandle();
+    imageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
+    shaderProgram->bindImage("samplerImage", imageInfo);
 
     shaderProgram->create();
 
@@ -134,11 +143,6 @@ void RenderPassUI::resizeVertexBuffer(uint32_t size) {
 
 void RenderPassUI::setTexture(Vulkan::Texture* texture) {
     this->texture = texture;
-    VkDescriptorImageInfo imageInfo = {};
-    imageInfo.sampler = sampler->getHandle();
-    imageInfo.imageView = texture->getImageView()->getHandle();
-    imageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
-    shaderProgram->bindImage("samplerImage", imageInfo);
 }
 
 } // Origin

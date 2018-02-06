@@ -73,6 +73,7 @@ void ShaderProgram::create() {
     }
 
     descriptorSets->allocate();
+    updateDescriptorSets();
 
     pipelineLayout->create();
 }
@@ -92,17 +93,15 @@ Shader::LocationInfo ShaderProgram::getLocationInfo(const std::string& name) con
 
 void ShaderProgram::bindBuffer(const std::string& name, VkDescriptorBufferInfo descriptorBufferInfo) {
     descriptorBufferInfos[name] = descriptorBufferInfo;
-    updateDescriptorSets();
+//    updateDescriptorSets();
 }
 
 void ShaderProgram::bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
     descriptorImageInfos[name] = descriptorImageInfo;
-    updateDescriptorSets();
+//    updateDescriptorSets();
 }
 
 void ShaderProgram::updateDescriptorSets() {
-    descriptorSets->clearWriteDescriptorSets();
-
     for (const auto& it : writeDescriptorSets) {
         const std::string& name = it.first;
         VkWriteDescriptorSet writeDescriptorSet = it.second;

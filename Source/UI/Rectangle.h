@@ -4,6 +4,8 @@
 
 namespace Origin {
 
+class Font;
+
 class Rectangle : public Control {
 
 public:
@@ -25,6 +27,7 @@ private:
     Color color = Color::WHITE;
     Color borderColor = Color::GRAY;
     uint32_t borderWidth = 0;
+    Font* font;
 };
 
 } // Origin

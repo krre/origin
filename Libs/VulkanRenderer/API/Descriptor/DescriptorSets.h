@@ -13,8 +13,13 @@ public:
     ~DescriptorSets();
     void allocate();
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
+
     void addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet);
+    void clearWriteDescriptorSets();
+
     void addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet);
+    void clearCopyDescriptorSets();
+
     void updateDescriptorSets();
     void destroy() override;
 

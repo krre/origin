@@ -74,6 +74,35 @@ void ShaderProgram::create() {
 
     descriptorSets->allocate();
 
+    pipelineLayout->create();
+}
+
+Shader::LocationInfo ShaderProgram::getLocationInfo(const std::string& name) const {
+    for (const auto& shader : shaders) {
+        for (const auto& locationInfo : shader->getLocations()) {
+            if (locationInfo.name == name) {
+                return locationInfo;
+            }
+        }
+    }
+
+    assert(false);
+    return Shader::LocationInfo {};
+}
+
+void ShaderProgram::bindBuffer(const std::string& name, VkDescriptorBufferInfo descriptorBufferInfo) {
+    descriptorBufferInfos[name] = descriptorBufferInfo;
+    updateDescriptorSets();
+}
+
+void ShaderProgram::bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
+    descriptorImageInfos[name] = descriptorImageInfo;
+    updateDescriptorSets();
+}
+
+void ShaderProgram::updateDescriptorSets() {
+    descriptorSets->clearWriteDescriptorSets();
+
     for (const auto& it : writeDescriptorSets) {
         const std::string& name = it.first;
         VkWriteDescriptorSet writeDescriptorSet = it.second;
@@ -98,29 +127,6 @@ void ShaderProgram::create() {
     }
 
     descriptorSets->updateDescriptorSets();
-
-    pipelineLayout->create();
-}
-
-Shader::LocationInfo ShaderProgram::getLocationInfo(const std::string& name) const {
-    for (const auto& shader : shaders) {
-        for (const auto& locationInfo : shader->getLocations()) {
-            if (locationInfo.name == name) {
-                return locationInfo;
-            }
-        }
-    }
-
-    assert(false);
-    return Shader::LocationInfo {};
-}
-
-void ShaderProgram::bindBuffer(const std::string& name, VkDescriptorBufferInfo descriptorBufferInfo) {
-    descriptorBufferInfos[name] = descriptorBufferInfo;
-}
-
-void ShaderProgram::bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo) {
-    descriptorImageInfos[name] = descriptorImageInfo;
 }
 
 } // Vulkan

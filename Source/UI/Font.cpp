@@ -85,7 +85,7 @@ void Font::load(const std::string& filePath) {
     texture = std::make_unique<Vulkan::Texture>(texWidth, texHeight, atlasData.data(), size);
 
     // Write PNG
-#if 1
+#if 0
     std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Cache";
 
     namespace fs = std::experimental::filesystem;

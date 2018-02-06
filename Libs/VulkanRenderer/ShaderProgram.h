@@ -33,6 +33,8 @@ public:
     void bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
 
 private:
+    void updateDescriptorSets();
+
     Device* device = nullptr;
     std::vector<std::unique_ptr<Shader>> shaders;
     std::unique_ptr<PipelineLayout> pipelineLayout;

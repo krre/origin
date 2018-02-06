@@ -32,8 +32,16 @@ void DescriptorSets::addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorS
     writeDescriptorSets.push_back(writeDescriptorSet);
 }
 
+void DescriptorSets::clearWriteDescriptorSets() {
+    writeDescriptorSets.clear();
+}
+
 void DescriptorSets::addCopyDescriptorSet(VkCopyDescriptorSet copyDescriptorSet) {
     copyDescriptorSets.push_back(copyDescriptorSet);
+}
+
+void DescriptorSets::clearCopyDescriptorSets() {
+    copyDescriptorSets.clear();
 }
 
 void DescriptorSets::updateDescriptorSets() {

@@ -4,6 +4,8 @@
 #include "Core/Window.h"
 #include "VulkanRenderer/API/RenderPass.h"
 #include "VulkanRenderer/API/Framebuffer.h"
+#include "VulkanRenderer/API/Sampler.h"
+#include "VulkanRenderer/API/Image/ImageView.h"
 #include "VulkanRenderer/API/Command/CommandBuffer.h"
 #include "VulkanRenderer/API/Surface/Surface.h"
 #include "VulkanRenderer/API/RenderPass.h"
@@ -12,6 +14,7 @@
 #include "Graphics/Render/RenderEngine.h"
 #include "VulkanRenderer/ShaderProgram.h"
 #include "VulkanRenderer/GpuBuffer.h"
+#include "VulkanRenderer/Texture.h"
 #include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
 #include "UI/UIBatch.h"
@@ -28,6 +31,9 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
+
+    sampler = std::make_unique<Vulkan::Sampler>(device);
+    sampler->create();
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>();
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.vert.spv");
@@ -124,6 +130,15 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
 
 void RenderPassUI::resizeVertexBuffer(uint32_t size) {
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+}
+
+void RenderPassUI::setTexture(Vulkan::Texture* texture) {
+    this->texture = texture;
+    VkDescriptorImageInfo imageInfo = {};
+    imageInfo.sampler = sampler->getHandle();
+    imageInfo.imageView = texture->getImageView()->getHandle();
+    imageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
+    shaderProgram->bindImage("samplerImage", imageInfo);
 }
 
 } // Origin

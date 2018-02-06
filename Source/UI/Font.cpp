@@ -43,7 +43,7 @@ void Font::load(const std::string& filePath) {
     int texHeight = texWidth;
 
     // Render glyphs to atlas
-    unsigned char* pixels = (unsigned char*)calloc(texWidth * texHeight, 1);
+    std::vector<unsigned char> pixels(texWidth * texHeight);
     int penX = 0, penY = 0;
 
     for (int i = 0; i < NUM_GLYPHS; ++i) {
@@ -87,7 +87,7 @@ void Font::load(const std::string& filePath) {
 
     texture = std::make_unique<Vulkan::Texture>(texWidth, texHeight, atlasData.data(), size);
 
-    // Write PNG
+    // Write PNG for testing image
 #if 0
     std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Cache";
 

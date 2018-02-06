@@ -51,33 +51,33 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
         Vertex vertex = {};
         vertex.color = color.getRgba();
 
-        vertex.pos = { posX, posY }; // Top-Left
+        vertex.pos = { posX + glyphInfo.offsetX, posY - glyphInfo.offsetY }; // Top-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.width, posY }; // Top-Right
+        vertex.pos = { posX + glyphInfo.width + glyphInfo.offsetX, posY - glyphInfo.offsetY }; // Top-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX, posY + glyphInfo.height }; // Bottom-Left
+        vertex.pos = { posX + glyphInfo.offsetX, posY + glyphInfo.height - glyphInfo.offsetY }; // Bottom-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX, posY + glyphInfo.height }; // Bottom-Left
+        vertex.pos = { posX + glyphInfo.offsetX, posY + glyphInfo.height - glyphInfo.offsetY }; // Bottom-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.width, posY }; // Top-Right
+        vertex.pos = { posX + glyphInfo.offsetX + glyphInfo.width, posY - glyphInfo.offsetY }; // Top-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.width, posY + glyphInfo.height }; // Bottom-Right
+        vertex.pos = { posX + glyphInfo.offsetX + glyphInfo.width, posY + glyphInfo.height - glyphInfo.offsetY }; // Bottom-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v1 };
         vertices->push_back(vertex);
 
         vertextEnd = vertices->size();
 
-        posX += glyphInfo.advanceX + glyphInfo.offsetX;
+        posX += glyphInfo.advanceX;
     }
 }
 

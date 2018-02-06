@@ -72,14 +72,13 @@ void Font::load(const std::string& filePath) {
         penX += bmp->width + 1;
     }
 
-    std::vector<unsigned char> atlasData;
     uint32_t size = texWidth * texHeight * 4;
-    atlasData.reserve(size);
+    std::vector<unsigned char> atlasData(size);
     for(int i = 0; i < (texWidth * texHeight); ++i){
         atlasData[i * 4 + 0] |= pixels[i];
         atlasData[i * 4 + 1] |= pixels[i];
         atlasData[i * 4 + 2] |= pixels[i];
-        atlasData[i * 4 + 3] = 0xff;
+        atlasData[i * 4 + 3] |= pixels[i];
     }
 
     texture = std::make_unique<Vulkan::Texture>(texWidth, texHeight, atlasData.data(), size);

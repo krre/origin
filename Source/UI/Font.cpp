@@ -35,24 +35,28 @@ void Font::load(const std::string& filePath) {
     // Max texture size
     int maxDim = (1 + (face->size->metrics.height >> 6)) * std::ceil(std::sqrt(NUM_GLYPHS));
     int texWidth = 1;
-    while(texWidth < maxDim) texWidth <<= 1;
+
+    while (texWidth < maxDim) {
+        texWidth <<= 1;
+    }
+
     int texHeight = texWidth;
 
     // Render glyphs to atlas
     unsigned char* pixels = (unsigned char*)calloc(texWidth * texHeight, 1);
     int penX = 0, penY = 0;
 
-    for(int i = 0; i < NUM_GLYPHS; ++i){
+    for (int i = 0; i < NUM_GLYPHS; ++i) {
         FT_Load_Char(face, i, FT_LOAD_RENDER | FT_LOAD_FORCE_AUTOHINT | FT_LOAD_TARGET_LIGHT);
         FT_Bitmap* bmp = &face->glyph->bitmap;
 
-        if(penX + bmp->width >= texWidth){
+        if (penX + bmp->width >= texWidth) {
             penX = 0;
             penY += ((face->size->metrics.height >> 6) + 1);
         }
 
-        for(int row = 0; row < bmp->rows; ++row){
-            for(int col = 0; col < bmp->width; ++col){
+        for (int row = 0; row < bmp->rows; ++row) {
+            for (int col = 0; col < bmp->width; ++col) {
                 int x = penX + col;
                 int y = penY + row;
                 pixels[y * texWidth + x] = bmp->buffer[row * bmp->pitch + col];

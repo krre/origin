@@ -22,8 +22,8 @@
 namespace Origin {
 
 Window::Window() {
-    auto settingsWidth = Settings::get()->getStorage()["width"];
-    auto settingsHeigth = Settings::get()->getStorage()["height"];
+    auto settingsWidth = Game::getSettings()->getStorage()["width"];
+    auto settingsHeigth = Game::getSettings()->getStorage()["height"];
 
     if (!settingsWidth.is_null()) {
         width = settingsWidth.get<int>();
@@ -33,8 +33,8 @@ Window::Window() {
         height = settingsHeigth.get<int>();
     }
 
-    auto settingsX = Settings::get()->getStorage()["x"];
-    auto settingsY = Settings::get()->getStorage()["y"];
+    auto settingsX = Game::getSettings()->getStorage()["x"];
+    auto settingsY = Game::getSettings()->getStorage()["y"];
 
     Size screenSize = SDL::getScreenSize();
     x = settingsX.is_null() ? (screenSize.width - width) / 2 : settingsX.get<int>();
@@ -51,11 +51,11 @@ Window::Window() {
 }
 
 Window::~Window() {
-    Settings::get()->getStorage()["x"] = x;
-    Settings::get()->getStorage()["y"] = y;
+    Game::getSettings()->getStorage()["x"] = x;
+    Game::getSettings()->getStorage()["y"] = y;
 
-    Settings::get()->getStorage()["width"] = width;
-    Settings::get()->getStorage()["height"] = height;
+    Game::getSettings()->getStorage()["width"] = width;
+    Game::getSettings()->getStorage()["height"] = height;
 
     SDL_DestroyWindow(handle);
 }

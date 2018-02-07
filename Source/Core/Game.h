@@ -5,6 +5,7 @@
 namespace Origin {
 
 class Window;
+class Settings;
 class RenderEngine;
 class UIManager;
 class UIRenderer;
@@ -22,6 +23,7 @@ namespace Game {
     void quit();
 
     Window* getWindow();
+    Settings* getSettings();
     UIManager* getUIManager();
     UIRenderer* getUIRenderer();
     EntityManager* getEntityManager();

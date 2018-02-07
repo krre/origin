@@ -1,12 +1,11 @@
 #pragma once
-#include "Singleton.h"
 #include <json/json.hpp>
 
 namespace Origin {
 
 using json = nlohmann::json;
 
-class Settings : public Singleton<Settings> {
+class Settings {
 
 public:
     Settings();

@@ -24,10 +24,18 @@ Control::~Control() {
 
 void Control::setPosition(const Pos2& position) {
     this->position = position;
+    updatePosition();
+}
+
+void Control::updatePosition() {
     if (parent) {
         absolutePosition = parent->getAbsolutePosition() + position;
     } else {
         absolutePosition = position;
+    }
+
+    for (const auto child : children) {
+        child->updatePosition();
     }
 }
 
@@ -42,6 +50,12 @@ void Control::setScale(float scale) {
 void Control::resize(int width, int height) {
     size.width = width;
     size.height = height;
+
+    resizeImpl(width, height);
+
+    if (layout != nullptr) {
+        layout->resize(width, height);
+    }
 }
 
 void Control::markDirty() {

@@ -98,6 +98,7 @@ void init(int argc, char* argv[]) {
         window->setScreen(std::make_shared<MenuScreen>());
     }
 
+    window->onResize(window->getWidth(), window->getHeight());
     window->show();
 
     running = true;
@@ -185,6 +186,10 @@ Overlay* getOverlay() {
 
 RenderManager* getRenderManager() {
     return renderManager;
+}
+
+bool isRunning() {
+    return running;
 }
 
 } // Game

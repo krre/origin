@@ -135,7 +135,9 @@ void Window::onResize(int width, int height) {
     }
 
     Game::getOverlay()->resize(width, height);
-    Game::getRenderManager()->resize();
+    if (Game::isRunning()) {
+        Game::getRenderManager()->resize();
+    }
 }
 
 void Window::toggleFullScreen() {

@@ -2,18 +2,15 @@
 #include "Debug/DebugHUD.h"
 #include "Debug/Console.h"
 #include "UI/Toast.h"
+#include "Core/Game.h"
+#include "Core/Window.h"
 
 namespace Origin {
 
 Overlay::Overlay(Control* parent) : Control(parent) {
     console = new Console(this);
-    console->setVisible(false);
-
     debugHUD = new DebugHUD(this);
-    debugHUD->setVisible(false);
-
     toast = new Toast(this);
-    toast->setVisible(false);
 }
 
 Overlay::~Overlay() {
@@ -26,6 +23,10 @@ void Overlay::toggleDebugHUD() {
 
 void Overlay::toggleConsole() {
     console->setVisible(console->getVisible());
+}
+
+void Overlay::resizeImpl(int width, int height) {
+    toast->setPosition(Pos2(15, height / 2));
 }
 
 } // Origin

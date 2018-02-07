@@ -21,7 +21,10 @@ public:
 
     void setPosition(const Pos2& position);
     const Pos2& getPosition() const { return position; }
+
     const Pos2& getAbsolutePosition() const { return absolutePosition; }
+
+    void updatePosition();
 
     const Size& getSize() const { return size; }
     void setSize(const Size& size);
@@ -54,11 +57,13 @@ public:
     Layout* getLayout() const { return layout; }
 
 protected:
+    virtual void resizeImpl(int width, int height) {}
     virtual void updateImpl(float dt) {}
     virtual void drawImpl() {}
     virtual void postDraw() {}
 
     Control* parent = nullptr;
+    Layout* layout = nullptr;
     Screen* screen = nullptr;
     std::vector<Control*> children;
     Pos2 position = { 0, 0 };
@@ -68,7 +73,6 @@ protected:
     bool visible = true;
 
 private:
-    Layout* layout = nullptr;
     bool dirty = true;
 };
 

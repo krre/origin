@@ -11,11 +11,9 @@ class Toast : public Control {
 public:
     Toast(Control* parent = nullptr);
     ~Toast();
-    void showToast(const std::string& toastText);
+    void show(const std::string& toastText);
 
 private:
-    void drawImpl() override;
-    void updateImpl(float dt) override;
     void onTimeout();
     Label* text;
     std::unique_ptr<Timer> timer;

@@ -10,6 +10,8 @@
 #include "Resource/RenderPass/RenderPassResource.h"
 #include "Resource/RenderPass/RenderPassUI.h"
 #include "UI/UIRenderer.h"
+#include "UI/Overlay.h"
+#include "UI/Toast.h"
 #include <lodepng/lodepng.h>
 #include <experimental/filesystem>
 
@@ -46,8 +48,7 @@ void RenderManager::saveScreenshot() {
     lodepng::encode(filePath, buffer.data(), window->getWidth(), window->getHeight());
 
     std::string message = "Screenshot saved to " + filename;
-//    Toast::get()->showToast(message);
-    PRINT(message)
+    Game::getOverlay()->getToast()->show(message);
 }
 
 void RenderManager::init() {

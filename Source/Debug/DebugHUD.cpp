@@ -11,6 +11,8 @@
 namespace Origin {
 
 DebugHUD::DebugHUD(Control* parent) : Control(parent) {
+    setVisible(false);
+
     displayLabel = new Label(this);
     displayLabel->setPosition(Pos2(10, 20));
     int apiVersionNumber = Game::getRenderManager()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;

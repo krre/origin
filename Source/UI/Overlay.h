@@ -19,6 +19,7 @@ public:
     void toggleConsole();
 
 private:
+   void resizeImpl(int width, int height) override;
     DebugHUD* debugHUD;
     Toast* toast;
     Console* console;

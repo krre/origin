@@ -18,15 +18,7 @@ Toast::~Toast() {
 
 }
 
-void Toast::drawImpl() {
-    text->setPosition({ 5, (int)Game::getWindow()->getHeight() / 2 });
-}
-
-void Toast::updateImpl(float dt) {
-
-}
-
-void Toast::showToast(const std::string& toastText) {
+void Toast::show(const std::string& toastText) {
     text->setText(toastText);
     setVisible(true);
     timer->start(4000);

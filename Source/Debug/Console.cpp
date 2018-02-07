@@ -8,6 +8,7 @@
 namespace Origin {
 
 Console::Console(Control* parent) : Control(parent) {
+    setVisible(false);
     cmdLine = new Label(this);
 }
 

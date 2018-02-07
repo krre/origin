@@ -4,6 +4,7 @@
 
 namespace Origin {
 
+class Logger;
 class Window;
 class Settings;
 class RenderEngine;
@@ -22,6 +23,7 @@ namespace Game {
     void run();
     void quit();
 
+    Logger* getLogger();
     Window* getWindow();
     Settings* getSettings();
     UIManager* getUIManager();

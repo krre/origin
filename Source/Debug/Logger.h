@@ -1,9 +1,8 @@
 #pragma once
-#include "Core/Singleton.h"
 
 namespace Origin {
 
-class Logger : public Singleton<Logger> {
+class Logger {
 
 public:
     Logger();

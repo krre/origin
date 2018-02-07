@@ -31,6 +31,7 @@ namespace {
     std::vector<std::string> argvs;
     bool running = false;
 
+    Logger* logger;
     Settings* settings;
     Window* window;
     RenderEngine* renderEngine;
@@ -49,7 +50,7 @@ void init(int argc, char* argv[]) {
     try {
         SDL::init();
         settings = new Settings;
-        new Logger;
+        logger = new Logger;
         new DebugEnvironment;
         new Event;
         window = new Window;
@@ -113,8 +114,8 @@ void shutdown() {
     SDL::shutdown();
     Event::release();
     DebugEnvironment::release();
-    Logger::release();
     delete settings;
+    delete logger;
 }
 
 void run() {
@@ -160,6 +161,10 @@ EntityManager* getEntityManager() {
 
 Settings* getSettings() {
     return settings;
+}
+
+Logger* getLogger() {
+    return logger;
 }
 
 } // Game

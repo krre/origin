@@ -7,10 +7,10 @@ namespace Origin {
 
 class Label;
 
-class Console : Control {
+class Console : public Control {
 
 public:
-    Console();
+    Console(Control* parent = nullptr);
 
 private:
 //    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;

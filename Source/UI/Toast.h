@@ -9,7 +9,8 @@ class Timer;
 class Toast : public Control {
 
 public:
-    Toast();
+    Toast(Control* parent = nullptr);
+    ~Toast();
     void showToast(const std::string& toastText);
 
 private:

@@ -7,7 +7,7 @@
 
 namespace Origin {
 
-Console::Console() {
+Console::Console(Control* parent) : Control(parent) {
     cmdLine = new Label(this);
 }
 

@@ -10,7 +10,6 @@ class DebugHUD : public Control {
 public:
     DebugHUD(Control* parent = nullptr);
     ~DebugHUD();
-    void trigger();
 
 private:
     void updateImpl(float dt) override;

@@ -19,11 +19,6 @@ DebugHUD::~DebugHUD() {
 
 }
 
-void DebugHUD::trigger() {
-    setVisible(!visible);
-    PRINT(visible)
-}
-
 void DebugHUD::updateImpl(float dt) {
     accumTime += dt;
     counter++;

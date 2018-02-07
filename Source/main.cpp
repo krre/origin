@@ -3,8 +3,8 @@
 #undef main // fix SDL error: undefined reference to `WinMain@16'
 
 int main(int argc, char* argv[]) {
-    new Origin::Application(argc, argv);
-    Origin::Application::get()->run();
-    Origin::Application::release();
+    Origin::Application::init(argc, argv);
+    Origin::Application::run();
+    Origin::Application::shutdown();
     return EXIT_SUCCESS;
 }

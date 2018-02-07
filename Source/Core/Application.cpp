@@ -17,6 +17,7 @@
 #include <string>
 #include <SDL_timer.h>
 #include <algorithm>
+#include <memory>
 #include <experimental/filesystem>
 
 #if defined(OS_LINUX)
@@ -25,34 +26,24 @@
 
 namespace Origin {
 
-Application::Application(int argc, char* argv[]) {
-    for (int i = 0; i < argc; i++) {
-        this->argv.push_back(argv[i]);
-    }
-
-    init();
+namespace {
+    std::vector<std::string> argvs;
+    bool running = false;
+    std::unique_ptr<Window> window;
+    std::unique_ptr<RenderEngine> renderEngine;
 }
 
-Application::~Application() {
-    Game::release();
-    Input::release();
-    DebugHUD::release();
-    Context::release();
-    ResourceManager::release();
-    window.reset();
-    renderEngine.reset();
-    SDL::shutdown();
-    Event::release();
-    DebugEnvironment::release();
-    Logger::release();
-    Settings::release();
-}
+namespace Application {
 
-std::string Application::getCurrentDirectory() {
+std::string getCurrentDirectory() {
     return std::experimental::filesystem::current_path().string();
 }
 
-void Application::init() {
+void init(int argc, char* argv[]) {
+    for (int i = 0; i < argc; i++) {
+        argvs.push_back(argv[i]);
+    }
+
     try {
         // Order is important
         new Settings;
@@ -102,14 +93,27 @@ void Application::init() {
         window->setScreen(std::make_shared<MenuScreen>());
     }
 
-    Event::get()->quit.connect(this, &Application::quit);
-
     window->show();
 
     running = true;
 }
 
-void Application::run() {
+void shutdown() {
+    Game::release();
+    Input::release();
+    DebugHUD::release();
+    Context::release();
+    ResourceManager::release();
+    window.reset();
+    renderEngine.reset();
+    SDL::shutdown();
+    Event::release();
+    DebugEnvironment::release();
+    Logger::release();
+    Settings::release();
+}
+
+void run() {
     Uint64 frequency = SDL_GetPerformanceFrequency();
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
@@ -126,8 +130,22 @@ void Application::run() {
     }
 }
 
-void Application::quit() {
+void quit() {
     running = false;
 }
+
+std::vector<std::string>& getArgv() {
+    return argvs;
+}
+
+bool isRunning() {
+    return running;
+}
+
+Window* getWindow() {
+    return window.get();
+}
+
+} // Application
 
 } // Origin

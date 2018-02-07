@@ -7,9 +7,9 @@ namespace Origin {
 
 Dialog::Dialog() : Rectangle(Size(200, 50)) {
     SDL_SetRelativeMouseMode(SDL_FALSE);
-    int centerX = Application::get()->getWindow()->getWidth() / 2;
-    int centerY = Application::get()->getWindow()->getHeight() / 2;
-//    SDL_WarpMouseInWindow(Application::get()->getWindow()->getHandle(), centerX, centerY);
+    int centerX = Application::getWindow()->getWidth() / 2;
+    int centerY = Application::getWindow()->getHeight() / 2;
+//    SDL_WarpMouseInWindow(Application::getWindow()->getHandle(), centerX, centerY);
 //    int posX = centerX - getSize().width / 2;
 //    int posY = centerY - getSize().height / 2;
 //    setPosition({ posX, posY });

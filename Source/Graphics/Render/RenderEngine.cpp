@@ -15,7 +15,7 @@ namespace Origin {
 
 RenderEngine::RenderEngine(void* platformHandle, void* platformWindow) :
         Vulkan::Renderer(platformHandle, platformWindow) {
-    window = Application::get()->getWindow();
+    window = Application::getWindow();
 }
 
 RenderEngine::~RenderEngine() {

@@ -11,7 +11,6 @@ public:
     Event();
     void handleEvents();
 
-    Signal<> quit;
     Signal<> render;
     Signal<double> update;
     Signal<int, int> windowResize;

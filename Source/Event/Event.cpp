@@ -1,5 +1,6 @@
 #include "Event.h"
 #include "Input.h"
+#include "Core/Application.h"
 
 namespace Origin {
 
@@ -14,7 +15,7 @@ void Event::handleEvents() {
         switch (event.type) {
 
         case SDL_QUIT:
-            quit.fire();
+            Application::quit();
             break;
 
         case SDL_WINDOWEVENT:

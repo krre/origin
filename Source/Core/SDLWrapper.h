@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Common.h"
 #include <SDL_syswm.h>
+#include <string>
 
 namespace Origin {
 

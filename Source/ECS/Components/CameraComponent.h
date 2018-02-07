@@ -11,8 +11,8 @@ class CameraComponent : public Component {
 public:
     CameraComponent() {
         type = ComponentType::Camera;
-        int width = Application::get()->getWindow()->getWidth();
-        int height = Application::get()->getWindow()->getHeight();
+        int width = Application::getWindow()->getWidth();
+        int height = Application::getWindow()->getHeight();
         aspect = width * 1.0f / height;
         projection = glm::perspective(fov, aspect, near, far);
     }

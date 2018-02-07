@@ -20,11 +20,11 @@ void DebugEnvironment::setDebugScreen() {
     uint8_t s = settings["general"]["screen"];
     Screen::Name screen = static_cast<Screen::Name>(s);
     if (screen == Screen::Name::Menu) {
-        Application::get()->getWindow()->setScreen(std::make_shared<MenuScreen>());
+        Application::getWindow()->setScreen(std::make_shared<MenuScreen>());
     } else if (screen == Screen::Name::Settings) {
-        Application::get()->getWindow()->setScreen(std::make_shared<SettingsScreen>());
+        Application::getWindow()->setScreen(std::make_shared<SettingsScreen>());
     } else if (screen == Screen::Name::Game) {
-        Application::get()->getWindow()->setScreen(std::make_shared<GameScreen>());
+        Application::getWindow()->setScreen(std::make_shared<GameScreen>());
     }
 }
 

@@ -110,7 +110,7 @@ RenderPassUI::~RenderPassUI() {
 }
 
 void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    const Color& color = Application::get()->getWindow()->getColor();
+    const Color& color = Application::getWindow()->getColor();
 
     // TODO: Only need update on resize framebuffer
     glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);

@@ -55,7 +55,7 @@ void Console::execute() {
     if (command.length() > 0 && command.substr(0, 1) == "/") {
         command = command.substr(1, command.length() - 1);
         if (command == "exit") {
-            Application::get()->quit();
+            Application::quit();
         } else if (command == "help") {
             PRINT("help");
         }

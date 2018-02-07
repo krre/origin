@@ -14,7 +14,7 @@ class UIManager;
 class UIRenderer;
 class EntityManager;
 class ResourceManager;
-class DebugHUD;
+class Overlay;
 class Input;
 
 namespace Game {
@@ -37,7 +37,7 @@ namespace Game {
     DebugEnvironment* getDebugEnvironment();
     Event* getEvent();
     ResourceManager* getResourceManager();
-    DebugHUD* getDebugHUD();
+    Overlay* getOverlay();
     Input* getInput();
 
     bool isRunning();

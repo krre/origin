@@ -6,7 +6,7 @@
 #include "Resource/ResourceManager.h"
 #include "Debug/Logger.h"
 #include "Debug/DebugEnvironment.h"
-#include "Debug/DebugHUD.h"
+#include "UI/Overlay.h"
 #include "UI/UIManager.h"
 #include "UI/UIRenderer.h"
 #include "ECS/EntityManager.h"
@@ -41,7 +41,7 @@ namespace {
     UIRenderer* uiRenderer;
     EntityManager* entityManager;
     ResourceManager* resourceManager;
-    DebugHUD* debugHUD;
+    Overlay* overlay;
     Input* input;
 }
 
@@ -85,7 +85,7 @@ void init(int argc, char* argv[]) {
         uiManager = new UIManager;
         uiRenderer = new UIRenderer;
         entityManager = new EntityManager;
-        debugHUD = new DebugHUD;
+        overlay = new Overlay;
         input = new Input;
     } catch (const std::exception& ex) {
         if (SDL::isInited()) {
@@ -108,7 +108,7 @@ void init(int argc, char* argv[]) {
 
 void shutdown() {
     delete input;
-    delete debugHUD;
+    delete overlay;
     delete resourceManager;
     delete entityManager;
     delete uiRenderer;
@@ -183,12 +183,12 @@ ResourceManager* getResourceManager() {
     return resourceManager;
 }
 
-DebugHUD* getDebugHUD() {
-    return debugHUD;
-}
-
 Input* getInput() {
     return input;
+}
+
+Overlay* getOverlay() {
+    return overlay;
 }
 
 } // Game

@@ -14,6 +14,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Layout.h
     ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/LinearLayout.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Overlay.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Overlay.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Rectangle.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SDFFont.cpp

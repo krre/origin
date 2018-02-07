@@ -10,6 +10,7 @@
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "Core/Defines.h"
+#include "UI/Overlay.h"
 #include "Debug/DebugHUD.h"
 #include "Graphics/Render/RenderEngine.h"
 #include <lodepng/lodepng.h>
@@ -140,7 +141,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
 #ifdef DEBUG_HUD_ENABLE
     case SDLK_F5:
-        Game::getDebugHUD()->trigger();
+        Game::getOverlay()->getDebugHUD()->trigger();
         break;
 #endif
     case SDLK_F10:

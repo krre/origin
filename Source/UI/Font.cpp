@@ -28,7 +28,7 @@ void Font::load(const std::string& filePath) {
         throw std::runtime_error(std::string("Could not open font ") + filePath);
     }
 
-    setSize(16);
+    setSize(14);
 
     // Creating atlas based on code https://gist.github.com/baines/b0f9e4be04ba4e6f56cab82eef5008ff
 

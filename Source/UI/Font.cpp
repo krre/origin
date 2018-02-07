@@ -28,7 +28,7 @@ void Font::load(const std::string& filePath) {
         throw std::runtime_error(std::string("Could not open font ") + filePath);
     }
 
-    setSize(54);
+    setSize(16);
 
     // Creating atlas based on code https://gist.github.com/baines/b0f9e4be04ba4e6f56cab82eef5008ff
 
@@ -83,10 +83,10 @@ void Font::load(const std::string& filePath) {
     std::vector<unsigned char> atlasData(size);
 
     for (int i = 0; i < (texWidth * texHeight); ++i) {
-        atlasData[i * 4 + 0] |= 0xff; // R
-        atlasData[i * 4 + 1] |= 0xff; // G
-        atlasData[i * 4 + 2] |= 0xff; // B
-        atlasData[i * 4 + 3] |= pixels[i]; // A
+        atlasData[i * 4 + 0] = 0xff; // R
+        atlasData[i * 4 + 1] = 0xff; // G
+        atlasData[i * 4 + 2] = 0xff; // B
+        atlasData[i * 4 + 3] = pixels[i]; // A
     }
 
     atlasData[3] = 0xff; // Alpha dot for shapes

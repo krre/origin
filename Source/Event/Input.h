@@ -1,12 +1,11 @@
 #pragma once
-#include "Core/Singleton.h"
 #include <unordered_set>
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 
 namespace Origin {
 
-class Input : public Singleton<Input> {
+class Input {
 
 public:
     Input();

@@ -15,6 +15,7 @@ class UIRenderer;
 class EntityManager;
 class ResourceManager;
 class DebugHUD;
+class Input;
 
 namespace Game {
 
@@ -37,6 +38,7 @@ namespace Game {
     Event* getEvent();
     ResourceManager* getResourceManager();
     DebugHUD* getDebugHUD();
+    Input* getInput();
 
     bool isRunning();
     std::vector<std::string>& getArgv();

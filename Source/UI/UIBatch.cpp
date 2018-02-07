@@ -48,6 +48,14 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
     for (auto& sign : text) {
         Font::GlyphInfo& glyphInfo = font->getGliphInfo((int)sign);
 
+        // New line
+        if (sign == '\n') {
+            posX = x;
+            int lineHeight = font->getSize() + font->getSize() * 0.2; // TODO: Take from Label
+            posY += lineHeight;
+            continue;
+        }
+
         Vertex vertex = {};
         vertex.color = color.getRgba();
 

@@ -25,8 +25,6 @@ public:
     virtual void resume();
     virtual void show();
 
-    void prepareRender();
-
     UIManager* getUIManager() const { return uiManager.get(); }
     UIRenderer* getUIRenderer() const { return uiRenderer.get(); }
     EntityManager* getEntityEngine() const { return entityManager.get(); }
@@ -39,6 +37,7 @@ protected:
 private:
     void updateImpl(float dt) override;
     void drawImpl() override;
+    void postDraw() override;
 
     bool isPaused = true;
     std::unique_ptr<UIManager> uiManager;

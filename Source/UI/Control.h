@@ -55,6 +55,7 @@ public:
 protected:
     virtual void updateImpl(float dt) {}
     virtual void drawImpl() {}
+    virtual void postDraw() {}
 
     Control* parent = nullptr;
     Screen* screen = nullptr;

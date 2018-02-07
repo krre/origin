@@ -81,6 +81,8 @@ void Control::draw() {
     if (layout) {
         layout->draw();
     }
+
+    postDraw();
 }
 
 void Control::setParent(Control* parent) {

@@ -102,7 +102,6 @@ void Window::update(float dt) {
 
 void Window::render() {
     screens.back()->draw();
-    screens.back()->prepareRender();
     RenderEngine::get()->render();
 }
 

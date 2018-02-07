@@ -8,12 +8,7 @@
 namespace Origin {
 
 Console::Console() {
-//    Event::get()->windowResize.connect(this, &Console::onWindowResize);
-    cmdLine = std::make_shared<Label>();
-}
-
-void Console::update(float dt) {
-//    cmdLine->draw(dt);
+    cmdLine = new Label(this);
 }
 
 //void Console::setVisible(bool visible) {

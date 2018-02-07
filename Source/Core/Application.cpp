@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "Utils.h"
 #include "Defines.h"
+#include "Context.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "Resource/ResourceManager.h"
@@ -36,6 +37,7 @@ Application::~Application() {
     Game::release();
     Input::release();
     DebugHUD::release();
+    Context::release();
     ResourceManager::release();
     window.reset();
     renderEngine.reset();
@@ -82,6 +84,7 @@ void Application::init() {
         renderEngine->create();
 
         new ResourceManager;
+        new Context;
         new DebugHUD;
         new Input;
         new Game;

@@ -109,8 +109,8 @@ void shutdown() {
     delete entityManager;
     delete uiManager;
     delete window;
-    delete renderManager;
     delete resourceManager;
+    delete renderManager;
     delete event;
     delete debugEnvironment;
     delete settings;

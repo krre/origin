@@ -34,10 +34,6 @@ namespace {
 
 namespace Game {
 
-std::string getCurrentDirectory() {
-    return std::experimental::filesystem::current_path().string();
-}
-
 void init(int argc, char* argv[]) {
     for (int i = 0; i < argc; i++) {
         argvs.push_back(argv[i]);
@@ -131,12 +127,8 @@ void quit() {
     running = false;
 }
 
-std::vector<std::string>& getArgv() {
-    return argvs;
-}
-
-bool isRunning() {
-    return running;
+std::string getCurrentDirectory() {
+    return std::experimental::filesystem::current_path().string();
 }
 
 Window* getWindow() {

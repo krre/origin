@@ -8,7 +8,6 @@
 #include "Debug/DebugEnvironment.h"
 #include "UI/Overlay.h"
 #include "UI/UIManager.h"
-#include "UI/UIRenderer.h"
 #include "ECS/EntityManager.h"
 #include "Core/Settings.h"
 #include "Graphics/Render/RenderEngine.h"
@@ -38,7 +37,6 @@ namespace {
     Window* window;
     RenderEngine* renderEngine;
     UIManager* uiManager;
-    UIRenderer* uiRenderer;
     EntityManager* entityManager;
     ResourceManager* resourceManager;
     Overlay* overlay;
@@ -59,6 +57,7 @@ void init(int argc, char* argv[]) {
         debugEnvironment = new DebugEnvironment;
         event = new Event;
         window = new Window;
+        resourceManager = new ResourceManager;
 
         SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
 
@@ -81,9 +80,7 @@ void init(int argc, char* argv[]) {
         }
         renderEngine->create();
 
-        resourceManager = new ResourceManager;
         uiManager = new UIManager;
-        uiRenderer = new UIRenderer;
         entityManager = new EntityManager;
         overlay = new Overlay;
         input = new Input;
@@ -109,12 +106,11 @@ void init(int argc, char* argv[]) {
 void shutdown() {
     delete input;
     delete overlay;
-    delete resourceManager;
     delete entityManager;
-    delete uiRenderer;
     delete uiManager;
     delete window;
     delete renderEngine;
+    delete resourceManager;
     delete event;
     delete debugEnvironment;
     delete settings;
@@ -155,10 +151,6 @@ UIManager* getUIManager() {
     return uiManager;
 }
 
-UIRenderer* getUIRenderer() {
-    return uiRenderer;
-}
-
 EntityManager* getEntityManager() {
     return entityManager;
 }
@@ -189,6 +181,10 @@ Input* getInput() {
 
 Overlay* getOverlay() {
     return overlay;
+}
+
+RenderEngine* getRenderEngine() {
+    return renderEngine;
 }
 
 } // Game

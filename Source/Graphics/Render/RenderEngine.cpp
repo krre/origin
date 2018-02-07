@@ -8,6 +8,8 @@
 #include "VulkanRenderer/API/RenderPass.h"
 #include "VulkanRenderer/API/Surface/Surface.h"
 #include "Resource/RenderPass/RenderPassResource.h"
+#include "Resource/RenderPass/RenderPassUI.h"
+#include "UI/UIRenderer.h"
 #include <lodepng/lodepng.h>
 #include <experimental/filesystem>
 
@@ -49,7 +51,8 @@ void RenderEngine::saveScreenshot() {
 }
 
 void RenderEngine::init() {
-
+    uiRenderer = std::make_unique<UIRenderer>();
+    renderPassResources.push_back(uiRenderer->getRenderPassUI());
 }
 
 void RenderEngine::preRender() {
@@ -77,10 +80,8 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     commandBuffer->addScissor(scissor);
     commandBuffer->setScissor(0);
 
-    if (currentScreen) {
-        for (const auto renderPassResoure : currentScreen->getRenderPassResources()) {
-            renderPassResoure->write(commandBuffer, framebuffer);
-        }
+    for (const auto renderPassResoure : renderPassResources) {
+        renderPassResoure->write(commandBuffer, framebuffer);
     }
 }
 

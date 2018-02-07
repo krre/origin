@@ -17,6 +17,7 @@
 #include "VulkanRenderer/Texture.h"
 #include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
+#include "Core/Game.h"
 #include "UI/UIBatch.h"
 #include "UI/Font.h"
 #include <glm/gtc/matrix_transform.hpp>
@@ -25,7 +26,7 @@ namespace Origin {
 
 RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) {
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
-    renderPass->setColorFormat(RenderEngine::get()->getSurface()->getFormats().at(0).format);
+    renderPass->setColorFormat(Game::getRenderEngine()->getSurface()->getFormats().at(0).format);
     renderPass->create();
 
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant

@@ -11,7 +11,7 @@
 #include "Event/Input.h"
 #include "Core/Defines.h"
 #include "UI/Overlay.h"
-#include "Debug/DebugHUD.h"
+#include "UI/UIRenderer.h"
 #include "Graphics/Render/RenderEngine.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
@@ -100,13 +100,14 @@ void Window::show() {
 
 void Window::update(float dt) {
     screens.back()->update(dt);
-//    DebugHUD::get()->update(dt);
+    Game::getOverlay()->update(dt);
 }
 
 void Window::render() {
     screens.back()->draw();
-//    DebugHUD::get()->draw();
-    RenderEngine::get()->render();
+    Game::getOverlay()->draw();
+    Game::getRenderEngine()->getUIRenderer()->drawBatches();
+    Game::getRenderEngine()->render();
 }
 
 void Window::onMove(int x, int y) {
@@ -122,9 +123,8 @@ void Window::onResize(int width, int height) {
         screen->resize(width, height);
     }
 
-//    DebugHUD::get()->resize(width, height);
-
-    RenderEngine::get()->resize();
+    Game::getOverlay()->resize(width, height);
+    Game::getRenderEngine()->resize();
 }
 
 void Window::toggleFullScreen() {
@@ -148,7 +148,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
         toggleFullScreen();
         break;
     case SDLK_F11:
-        static_cast<RenderEngine*>(RenderEngine::get())->saveScreenshot();
+        Game::getRenderEngine()->saveScreenshot();
         break;
     }
 }

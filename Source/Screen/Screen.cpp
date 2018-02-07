@@ -1,16 +1,12 @@
 #include "Screen.h"
 #include "UI/Control.h"
-#include "UI/UIManager.h"
-#include "UI/UIRenderer.h"
 #include "ECS/EntityManager.h"
 #include "Core/Game.h"
-#include "Resource/RenderPass/RenderPassUI.h"
 
 namespace Origin {
 
 Screen::Screen() {
     setScreen(this);
-    renderPassResources.push_back(Game::getUIRenderer()->getRenderPassUI());
 }
 
 Screen::~Screen() {
@@ -42,7 +38,6 @@ void Screen::drawImpl() {
 }
 
 void Screen::postDraw() {
-    Game::getUIRenderer()->drawBatches();
 }
 
 } // Origin

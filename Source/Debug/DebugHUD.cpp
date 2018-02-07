@@ -1,6 +1,7 @@
 #include "DebugHUD.h"
 #include "UI/Label.h"
 #include "Core/Defines.h"
+#include "Core/Game.h"
 #include "Graphics/Render/RenderEngine.h"
 #include "VulkanRenderer/API/Device/Device.h"
 #include "VulkanRenderer/API/Device/PhysicalDevice.h"
@@ -11,8 +12,9 @@ namespace Origin {
 
 DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     displayLabel = new Label(this);
-    int apiVersionNumber = RenderEngine::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
-    vulkanApiVersion = RenderEngine::get()->getInstance()->apiToString((apiVersionNumber));
+    displayLabel->setPosition(Pos2(10, 20));
+    int apiVersionNumber = Game::getRenderEngine()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
+    vulkanApiVersion = Game::getRenderEngine()->getInstance()->apiToString((apiVersionNumber));
 }
 
 DebugHUD::~DebugHUD() {
@@ -32,7 +34,7 @@ void DebugHUD::updateImpl(float dt) {
     std::string text =
         std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
         std::to_string(fps) + " fps\n"
-        "Video driver: " + RenderEngine::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
+        "Video driver: " + Game::getRenderEngine()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan API: " + vulkanApiVersion + "\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";

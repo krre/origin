@@ -1,18 +1,21 @@
 #pragma once
 #include "VulkanRenderer/Renderer.h"
-#include "VulkanRenderer/ShaderProgram.h"
 
 namespace Origin {
 
 class Window;
 class Screen;
 class ShaderProgram;
+class RenderPassResource;
+class UIRenderer;
 
 class RenderEngine : public Vulkan::Renderer {
 
 public:
     RenderEngine(void* platformHandle, void* platformWindow);
     ~RenderEngine();
+
+    UIRenderer* getUIRenderer() const { return uiRenderer.get(); }
 
     void saveScreenshot();
 
@@ -23,6 +26,8 @@ private:
 
     Window* window = nullptr;
     Screen* currentScreen = nullptr;
+    std::vector<RenderPassResource*> renderPassResources;
+    std::unique_ptr<UIRenderer> uiRenderer;
 };
 
 } // Origin

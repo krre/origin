@@ -11,7 +11,6 @@ class DebugEnvironment;
 class Event;
 class RenderEngine;
 class UIManager;
-class UIRenderer;
 class EntityManager;
 class ResourceManager;
 class Overlay;
@@ -31,8 +30,8 @@ namespace Game {
     Logger* getLogger();
     Window* getWindow();
     Settings* getSettings();
+    RenderEngine* getRenderEngine();
     UIManager* getUIManager();
-    UIRenderer* getUIRenderer();
     EntityManager* getEntityManager();
     DebugEnvironment* getDebugEnvironment();
     Event* getEvent();

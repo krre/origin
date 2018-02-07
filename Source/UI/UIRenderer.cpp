@@ -2,11 +2,12 @@
 #include "VulkanRenderer/GpuBuffer.h"
 #include "Resource/RenderPass/RenderPassUI.h"
 #include "Graphics/Render/RenderEngine.h"
+#include "Core/Game.h"
 
 namespace Origin {
 
 UIRenderer::UIRenderer() {
-    renderPassUI = std::make_unique<RenderPassUI>(RenderEngine::get()->getGraphicsDevice());
+    renderPassUI = std::make_unique<RenderPassUI>(Game::getRenderEngine()->getGraphicsDevice());
 }
 
 UIRenderer::~UIRenderer() {

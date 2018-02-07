@@ -11,7 +11,7 @@ namespace Origin {
 
 Rectangle::Rectangle(const Size& size, Control* parent) : Control(parent) {
     this->size = size;
-    font = ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf");
+    font = Game::getResourceManager()->load<Font>("Fonts/inconsolatalgc.ttf");
 }
 
 Rectangle::Rectangle(const Pos2& position, const Size& size, Control* parent) : Control(parent) {

@@ -13,6 +13,7 @@ class RenderEngine;
 class UIManager;
 class UIRenderer;
 class EntityManager;
+class ResourceManager;
 
 namespace Game {
 
@@ -33,6 +34,7 @@ namespace Game {
     EntityManager* getEntityManager();
     DebugEnvironment* getDebugEnvironment();
     Event* getEvent();
+    ResourceManager* getResourceManager();
 
     bool isRunning();
     std::vector<std::string>& getArgv();

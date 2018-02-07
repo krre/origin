@@ -11,7 +11,7 @@ namespace Origin {
 Label::Label(const std::string& text, Control* parent) :
         text(text),
         Control(parent) {
-    setFont(ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf"));
+    setFont(Game::getResourceManager()->load<Font>("Fonts/inconsolatalgc.ttf"));
 }
 
 void Label::setText(const std::string& text) {

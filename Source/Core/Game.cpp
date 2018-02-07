@@ -40,6 +40,7 @@ namespace {
     UIManager* uiManager;
     UIRenderer* uiRenderer;
     EntityManager* entityManager;
+    ResourceManager* resourceManager;
 }
 
 namespace Game {
@@ -78,8 +79,7 @@ void init(int argc, char* argv[]) {
         }
         renderEngine->create();
 
-        new ResourceManager;
-
+        resourceManager = new ResourceManager;
         uiManager = new UIManager;
         uiRenderer = new UIRenderer;
         entityManager = new EntityManager;
@@ -107,17 +107,17 @@ void init(int argc, char* argv[]) {
 void shutdown() {
     Input::release();
     DebugHUD::release();
-    ResourceManager::release();
+    delete resourceManager;
     delete entityManager;
     delete uiRenderer;
     delete uiManager;
     delete window;
     delete renderEngine;
-    SDL::shutdown();
     delete event;
     delete debugEnvironment;
     delete settings;
     delete logger;
+    SDL::shutdown();
 }
 
 void run() {
@@ -169,12 +169,16 @@ Logger* getLogger() {
     return logger;
 }
 
-DebugEnvironment*getDebugEnvironment() {
+DebugEnvironment* getDebugEnvironment() {
     return debugEnvironment;
 }
 
 Event* getEvent() {
     return event;
+}
+
+ResourceManager* getResourceManager() {
+    return resourceManager;
 }
 
 } // Game

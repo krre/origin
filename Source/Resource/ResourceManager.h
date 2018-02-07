@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/Singleton.h"
 #include "Resource/Resource.h"
 #include <map>
 
@@ -9,7 +8,7 @@
 
 namespace Origin {
 
-class ResourceManager : public Singleton<ResourceManager> {
+class ResourceManager {
 
 public:
     ResourceManager();

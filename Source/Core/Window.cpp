@@ -99,12 +99,12 @@ void Window::show() {
 
 void Window::update(float dt) {
     screens.back()->update(dt);
-    DebugHUD::get()->update(dt);
+//    DebugHUD::get()->update(dt);
 }
 
 void Window::render() {
     screens.back()->draw();
-    DebugHUD::get()->draw();
+//    DebugHUD::get()->draw();
     RenderEngine::get()->render();
 }
 
@@ -121,7 +121,7 @@ void Window::onResize(int width, int height) {
         screen->resize(width, height);
     }
 
-    DebugHUD::get()->resize(width, height);
+//    DebugHUD::get()->resize(width, height);
 
     RenderEngine::get()->resize();
 }

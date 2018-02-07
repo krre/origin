@@ -1,6 +1,7 @@
 #include "Label.h"
 #include "Resource/ResourceManager.h"
 #include "Font.h"
+#include "Core/Context.h"
 #include "Screen/Screen.h"
 #include "UI/UIRenderer.h"
 #include "UIBatch.h"
@@ -27,11 +28,11 @@ void Label::setColor(const Color& color) {
 }
 
 void Label::drawImpl() {
-    UIBatch batch(screen->getUIRenderer()->getVerticles());
+    UIBatch batch(Context::get()->getUIRenderer()->getVerticles());
     batch.color = color;
     batch.texture = font->getTexture();
     batch.addText(absolutePosition.x, absolutePosition.y, text, font);
-    screen->getUIRenderer()->addBatch(batch);
+    Context::get()->getUIRenderer()->addBatch(batch);
 }
 
 void Label::updateTextData() {

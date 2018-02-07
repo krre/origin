@@ -1,5 +1,6 @@
 #include "Screen.h"
 #include "UI/Control.h"
+#include "Core/Context.h"
 #include "UI/UIManager.h"
 #include "UI/UIRenderer.h"
 #include "ECS/EntityManager.h"
@@ -9,11 +10,7 @@ namespace Origin {
 
 Screen::Screen() {
     setScreen(this);
-    uiManager = std::make_unique<UIManager>();
-    uiRenderer = std::make_unique<UIRenderer>();
-    entityManager = std::make_unique<EntityManager>();
-
-    renderPassResources.push_back(uiRenderer->getRenderPassUI());
+    renderPassResources.push_back(Context::get()->getUIRenderer()->getRenderPassUI());
 }
 
 Screen::~Screen() {
@@ -37,15 +34,15 @@ void Screen::show() {
 }
 
 void Screen::updateImpl(float dt) {
-    entityManager->update(dt);
+    Context::get()->getEntityManager()->update(dt);
 }
 
 void Screen::drawImpl() {
-    entityManager->draw();
+    Context::get()->getEntityManager()->draw();
 }
 
 void Screen::postDraw() {
-    uiRenderer->drawBatches();
+    Context::get()->getUIRenderer()->drawBatches();
 }
 
 } // Origin

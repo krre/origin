@@ -28,7 +28,7 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) 
     renderPass->setColorFormat(RenderEngine::get()->getSurface()->getFormats().at(0).format);
     renderPass->create();
 
-    uint32_t startSize = 10000; // TODO: Set optimal value or take from constant
+    uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));

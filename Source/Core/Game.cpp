@@ -31,8 +31,9 @@ namespace {
     std::vector<std::string> argvs;
     bool running = false;
 
-    Logger* logger;
     Settings* settings;
+    Logger* logger;
+    DebugEnvironment* debugEnvironment;
     Window* window;
     RenderEngine* renderEngine;
     UIManager* uiManager;
@@ -51,7 +52,7 @@ void init(int argc, char* argv[]) {
         SDL::init();
         settings = new Settings;
         logger = new Logger;
-        new DebugEnvironment;
+        debugEnvironment = new DebugEnvironment;
         new Event;
         window = new Window;
 
@@ -63,16 +64,16 @@ void init(int argc, char* argv[]) {
         renderEngine = new RenderEngine((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window);
 #endif
 
-        if (DebugEnvironment::get()->getEnable()) {
-            if (DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["use"]) {
-                renderEngine->setEnabledLayers(DebugEnvironment::get()->getSettings()["vulkan"]["layers"]["list"]);
+        if (debugEnvironment->getEnable()) {
+            if (debugEnvironment->getSettings()["vulkan"]["layers"]["use"]) {
+                renderEngine->setEnabledLayers(debugEnvironment->getSettings()["vulkan"]["layers"]["list"]);
             }
 
-            if (DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["use"]) {
-                renderEngine->setEnabledExtensions(DebugEnvironment::get()->getSettings()["vulkan"]["extensions"]["list"]);
+            if (debugEnvironment->getSettings()["vulkan"]["extensions"]["use"]) {
+                renderEngine->setEnabledExtensions(debugEnvironment->getSettings()["vulkan"]["extensions"]["list"]);
             }
 
-            renderEngine->setDeviceIndex(DebugEnvironment::get()->getVulkanDevice());
+            renderEngine->setDeviceIndex(debugEnvironment->getVulkanDevice());
         }
         renderEngine->create();
 
@@ -91,8 +92,8 @@ void init(int argc, char* argv[]) {
         }
     }
 
-    if (DebugEnvironment::get()->getEnable()) {
-        DebugEnvironment::get()->setDebugScreen();
+    if (debugEnvironment->getEnable()) {
+        debugEnvironment->setDebugScreen();
     } else {
         window->setScreen(std::make_shared<MenuScreen>());
     }
@@ -113,7 +114,7 @@ void shutdown() {
     delete renderEngine;
     SDL::shutdown();
     Event::release();
-    DebugEnvironment::release();
+    delete debugEnvironment;
     delete settings;
     delete logger;
 }
@@ -165,6 +166,10 @@ Settings* getSettings() {
 
 Logger* getLogger() {
     return logger;
+}
+
+DebugEnvironment*getDebugEnvironment() {
+    return debugEnvironment;
 }
 
 } // Game

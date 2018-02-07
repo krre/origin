@@ -7,6 +7,7 @@ namespace Origin {
 class Logger;
 class Window;
 class Settings;
+class DebugEnvironment;
 class RenderEngine;
 class UIManager;
 class UIRenderer;
@@ -29,6 +30,7 @@ namespace Game {
     UIManager* getUIManager();
     UIRenderer* getUIRenderer();
     EntityManager* getEntityManager();
+    DebugEnvironment* getDebugEnvironment();
 
     bool isRunning();
     std::vector<std::string>& getArgv();

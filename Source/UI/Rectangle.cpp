@@ -1,5 +1,5 @@
 #include "Rectangle.h"
-#include "Core/Context.h"
+#include "Core/Game.h"
 #include "Screen/Screen.h"
 #include "UI/UIRenderer.h"
 #include "Resource/ResourceManager.h"
@@ -32,11 +32,11 @@ void Rectangle::setBorderWidth(uint32_t border) {
 }
 
 void Rectangle::drawImpl() {
-    UIBatch batch(Context::get()->getUIRenderer()->getVerticles());
+    UIBatch batch(Game::getUIRenderer()->getVerticles());
     batch.color = color;
     batch.texture = font->getTexture();
     batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height, font);
-    Context::get()->getUIRenderer()->addBatch(batch);
+    Game::getUIRenderer()->addBatch(batch);
 }
 
 } // Origin

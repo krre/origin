@@ -1,16 +1,16 @@
 #include "Screen.h"
 #include "UI/Control.h"
-#include "Core/Context.h"
 #include "UI/UIManager.h"
 #include "UI/UIRenderer.h"
 #include "ECS/EntityManager.h"
+#include "Core/Game.h"
 #include "Resource/RenderPass/RenderPassUI.h"
 
 namespace Origin {
 
 Screen::Screen() {
     setScreen(this);
-    renderPassResources.push_back(Context::get()->getUIRenderer()->getRenderPassUI());
+    renderPassResources.push_back(Game::getUIRenderer()->getRenderPassUI());
 }
 
 Screen::~Screen() {
@@ -34,15 +34,15 @@ void Screen::show() {
 }
 
 void Screen::updateImpl(float dt) {
-    Context::get()->getEntityManager()->update(dt);
+    Game::getEntityManager()->update(dt);
 }
 
 void Screen::drawImpl() {
-    Context::get()->getEntityManager()->draw();
+    Game::getEntityManager()->draw();
 }
 
 void Screen::postDraw() {
-    Context::get()->getUIRenderer()->drawBatches();
+    Game::getUIRenderer()->drawBatches();
 }
 
 } // Origin

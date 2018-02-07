@@ -6,6 +6,9 @@ namespace Origin {
 
 class Window;
 class RenderEngine;
+class UIManager;
+class UIRenderer;
+class EntityManager;
 
 namespace Game {
 
@@ -19,6 +22,10 @@ namespace Game {
     void quit();
 
     Window* getWindow();
+    UIManager* getUIManager();
+    UIRenderer* getUIRenderer();
+    EntityManager* getEntityManager();
+
     bool isRunning();
     std::vector<std::string>& getArgv();
 

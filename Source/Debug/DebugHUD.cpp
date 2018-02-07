@@ -10,7 +10,7 @@
 namespace Origin {
 
 DebugHUD::DebugHUD(Control* parent) : Control(parent) {
-    displayLabel = new Label("", this);
+    displayLabel = new Label(this);
     int apiVersionNumber = RenderEngine::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
     vulkanApiVersion = RenderEngine::get()->getInstance()->apiToString((apiVersionNumber));
 }

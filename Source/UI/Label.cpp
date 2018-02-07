@@ -8,6 +8,10 @@
 
 namespace Origin {
 
+Label::Label(Control* parent) : Control(parent) {
+    setFont(Game::getResourceManager()->load<Font>("Fonts/inconsolatalgc.ttf"));
+}
+
 Label::Label(const std::string& text, Control* parent) :
         text(text),
         Control(parent) {

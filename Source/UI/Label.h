@@ -9,7 +9,8 @@ class Font;
 class Label : public Control {
 
 public:
-    Label(const std::string& text = "", Control* parent = nullptr);
+    Label(Control* parent = nullptr);
+    Label(const std::string& text, Control* parent = nullptr);
     void setText(const std::string& text);
     const std::string& getText() const { return text; }
 

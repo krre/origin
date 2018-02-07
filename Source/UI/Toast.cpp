@@ -9,7 +9,7 @@ namespace Origin {
 
 Toast::Toast() {
     timer = std::make_unique<Timer>();
-    text = new Label("", this);
+    text = new Label(this);
     setVisible(false);
     timer->timeout.connect(this, &Toast::onTimeout);
 }

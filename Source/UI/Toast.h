@@ -1,22 +1,23 @@
 #pragma once
-#include "Graphics/Drawable.h"
-#include "Label.h"
-#include "Core/Timer.h"
+#include "Control.h"
 
 namespace Origin {
 
-class Toast : public Drawable {
+class Label;
+class Timer;
+
+class Toast : public Control {
 
 public:
     Toast();
-    void draw(float dt) override;
-    void update(float dt) override;
     void showToast(const std::string& toastText);
 
 private:
+    void drawImpl() override;
+    void updateImpl(float dt) override;
     void onTimeout();
-    Label text;
-    Timer timer;
+    Label* text;
+    std::unique_ptr<Timer> timer;
 };
 
 } // Origin

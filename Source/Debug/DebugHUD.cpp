@@ -2,13 +2,14 @@
 #include "UI/Label.h"
 #include "Core/Defines.h"
 #include "Graphics/Render/RenderEngine.h"
+#include "VulkanRenderer/API/Device/Device.h"
 #include "VulkanRenderer/API/Device/PhysicalDevice.h"
 #include "VulkanRenderer/API/Instance.h"
 #include <SDL.h>
 
 namespace Origin {
 
-DebugHUD::DebugHUD() {
+DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     displayLabel = new Label("", this);
     int apiVersionNumber = RenderEngine::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
     vulkanApiVersion = RenderEngine::get()->getInstance()->apiToString((apiVersionNumber));

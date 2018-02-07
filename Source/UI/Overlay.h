@@ -1,19 +1,19 @@
 #pragma once
-#include "Core/Common.h"
+#include "UI/Control.h"
 
 namespace Origin {
 
 class DebugHUD;
 
-class Overlay {
+class Overlay : Control {
 
 public:
     Overlay();
     ~Overlay();
-    DebugHUD* getDebugHUD() const { return debugHUD.get(); }
+    DebugHUD* getDebugHUD() const { return debugHUD; }
 
 private:
-    std::unique_ptr<DebugHUD> debugHUD;
+    DebugHUD* debugHUD;
 };
 
 } // Origin

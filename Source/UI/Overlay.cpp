@@ -4,7 +4,7 @@
 namespace Origin {
 
 Overlay::Overlay() {
-    debugHUD = std::make_unique<DebugHUD>();
+    debugHUD = new DebugHUD(this);
 }
 
 Overlay::~Overlay() {

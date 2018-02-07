@@ -1,19 +1,14 @@
 #pragma once
-#include "Screen/Screen.h"
-#include "VulkanRenderer/API/Pipeline/PipelineCache.h"
-#include "VulkanRenderer/ShaderProgram.h"
-#include "VulkanRenderer/API/Sampler.h"
-#include "VulkanRenderer/API/RenderPass.h"
-#include <glm/glm.hpp>
+#include "UI/Control.h"
 
 namespace Origin {
 
 class Label;
 
-class DebugHUD : public Screen {
+class DebugHUD : public Control {
 
 public:
-    DebugHUD();
+    DebugHUD(Control* parent = nullptr);
     ~DebugHUD();
     void trigger();
 

@@ -37,7 +37,7 @@ VkBuffer GpuBuffer::getHandle() const {
 }
 
 void GpuBuffer::copyToBuffer(Buffer* dstBuffer, VkDeviceSize size) {
-//    CommandBufferOneTime commandBuffer(buffer->getDevice(), Game::getRenderEngine->getComputeCommandPool());
+//    CommandBufferOneTime commandBuffer(buffer->getDevice(), Game::getRenderManager->getComputeCommandPool());
 
     VkBufferCopy bufferCopy = {};
     bufferCopy.size = size;

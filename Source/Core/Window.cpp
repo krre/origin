@@ -12,7 +12,7 @@
 #include "Core/Defines.h"
 #include "UI/Overlay.h"
 #include "UI/UIRenderer.h"
-#include "Graphics/Render/RenderEngine.h"
+#include "Graphics/Render/RenderManager.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
 #include <SDL_keycode.h>
@@ -106,8 +106,8 @@ void Window::update(float dt) {
 void Window::render() {
     screens.back()->draw();
     Game::getOverlay()->draw();
-    Game::getRenderEngine()->getUIRenderer()->drawBatches();
-    Game::getRenderEngine()->render();
+    Game::getRenderManager()->getUIRenderer()->drawBatches();
+    Game::getRenderManager()->render();
 }
 
 void Window::onMove(int x, int y) {
@@ -124,7 +124,7 @@ void Window::onResize(int width, int height) {
     }
 
     Game::getOverlay()->resize(width, height);
-    Game::getRenderEngine()->resize();
+    Game::getRenderManager()->resize();
 }
 
 void Window::toggleFullScreen() {
@@ -148,7 +148,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
         toggleFullScreen();
         break;
     case SDLK_F11:
-        Game::getRenderEngine()->saveScreenshot();
+        Game::getRenderManager()->saveScreenshot();
         break;
     }
 }

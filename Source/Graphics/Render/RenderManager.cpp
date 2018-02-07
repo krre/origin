@@ -1,4 +1,4 @@
-#include "RenderEngine.h"
+#include "RenderManager.h"
 #include "Core/Game.h"
 #include "Core/Window.h"
 #include "Screen/Screen.h"
@@ -15,16 +15,16 @@
 
 namespace Origin {
 
-RenderEngine::RenderEngine(void* platformHandle, void* platformWindow) :
+RenderManager::RenderManager(void* platformHandle, void* platformWindow) :
         Vulkan::Renderer(platformHandle, platformWindow) {
     window = Game::getWindow();
 }
 
-RenderEngine::~RenderEngine() {
+RenderManager::~RenderManager() {
 
 }
 
-void RenderEngine::saveScreenshot() {
+void RenderManager::saveScreenshot() {
     std::string directoryPath = Game::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;
     if (!fs::exists(directoryPath)) {
@@ -50,19 +50,19 @@ void RenderEngine::saveScreenshot() {
     PRINT(message)
 }
 
-void RenderEngine::init() {
+void RenderManager::init() {
     uiRenderer = std::make_unique<UIRenderer>();
     renderPassResources.push_back(uiRenderer->getRenderPassUI());
 }
 
-void RenderEngine::preRender() {
+void RenderManager::preRender() {
     if (currentScreen != window->getCurrentScreen()) {
         currentScreen = window->getCurrentScreen();
         updateCommandBuffers();
     }
 }
 
-void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+void RenderManager::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     VkExtent2D extent = { framebuffer->getWidth(), framebuffer->getHeight() };
 
     VkViewport viewport = {};

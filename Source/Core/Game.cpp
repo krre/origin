@@ -10,7 +10,7 @@
 #include "UI/UIManager.h"
 #include "ECS/EntityManager.h"
 #include "Core/Settings.h"
-#include "Graphics/Render/RenderEngine.h"
+#include "Graphics/Render/RenderManager.h"
 #include "Window.h"
 #include "Screen/MenuScreen.h"
 #include "SDLWrapper.h"
@@ -35,7 +35,7 @@ namespace {
     DebugEnvironment* debugEnvironment;
     Event* event;
     Window* window;
-    RenderEngine* renderEngine;
+    RenderManager* renderManager;
     UIManager* uiManager;
     EntityManager* entityManager;
     ResourceManager* resourceManager;
@@ -62,23 +62,23 @@ void init(int argc, char* argv[]) {
         SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
 
 #if defined(OS_WIN)
-        renderEngine = new RenderEngine(GetModuleHandle(nullptr), (void*)wminfo.info.win.window);
+        renderManager = new RenderManager(GetModuleHandle(nullptr), (void*)wminfo.info.win.window);
 #elif defined(OS_LINUX)
-        renderEngine = new RenderEngine((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window);
+        renderManager = new RenderManager((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window);
 #endif
 
         if (debugEnvironment->getEnable()) {
             if (debugEnvironment->getSettings()["vulkan"]["layers"]["use"]) {
-                renderEngine->setEnabledLayers(debugEnvironment->getSettings()["vulkan"]["layers"]["list"]);
+                renderManager->setEnabledLayers(debugEnvironment->getSettings()["vulkan"]["layers"]["list"]);
             }
 
             if (debugEnvironment->getSettings()["vulkan"]["extensions"]["use"]) {
-                renderEngine->setEnabledExtensions(debugEnvironment->getSettings()["vulkan"]["extensions"]["list"]);
+                renderManager->setEnabledExtensions(debugEnvironment->getSettings()["vulkan"]["extensions"]["list"]);
             }
 
-            renderEngine->setDeviceIndex(debugEnvironment->getVulkanDevice());
+            renderManager->setDeviceIndex(debugEnvironment->getVulkanDevice());
         }
-        renderEngine->create();
+        renderManager->create();
 
         uiManager = new UIManager;
         entityManager = new EntityManager;
@@ -109,7 +109,7 @@ void shutdown() {
     delete entityManager;
     delete uiManager;
     delete window;
-    delete renderEngine;
+    delete renderManager;
     delete resourceManager;
     delete event;
     delete debugEnvironment;
@@ -183,8 +183,8 @@ Overlay* getOverlay() {
     return overlay;
 }
 
-RenderEngine* getRenderEngine() {
-    return renderEngine;
+RenderManager* getRenderManager() {
+    return renderManager;
 }
 
 } // Game

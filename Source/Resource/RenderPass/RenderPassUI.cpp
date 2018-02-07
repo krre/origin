@@ -11,7 +11,7 @@
 #include "VulkanRenderer/API/RenderPass.h"
 #include "VulkanRenderer/API/Descriptor/DescriptorSets.h"
 #include "VulkanRenderer/API/Pipeline/PipelineLayout.h"
-#include "Graphics/Render/RenderEngine.h"
+#include "Graphics/Render/RenderManager.h"
 #include "VulkanRenderer/ShaderProgram.h"
 #include "VulkanRenderer/GpuBuffer.h"
 #include "VulkanRenderer/Texture.h"
@@ -26,7 +26,7 @@ namespace Origin {
 
 RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) {
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
-    renderPass->setColorFormat(Game::getRenderEngine()->getSurface()->getFormats().at(0).format);
+    renderPass->setColorFormat(Game::getRenderManager()->getSurface()->getFormats().at(0).format);
     renderPass->create();
 
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant

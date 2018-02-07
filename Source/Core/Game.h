@@ -9,7 +9,7 @@ class Window;
 class Settings;
 class DebugEnvironment;
 class Event;
-class RenderEngine;
+class RenderManager;
 class UIManager;
 class EntityManager;
 class ResourceManager;
@@ -30,7 +30,7 @@ namespace Game {
     Logger* getLogger();
     Window* getWindow();
     Settings* getSettings();
-    RenderEngine* getRenderEngine();
+    RenderManager* getRenderManager();
     UIManager* getUIManager();
     EntityManager* getEntityManager();
     DebugEnvironment* getDebugEnvironment();

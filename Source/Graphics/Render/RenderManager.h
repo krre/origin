@@ -9,11 +9,11 @@ class ShaderProgram;
 class RenderPassResource;
 class UIRenderer;
 
-class RenderEngine : public Vulkan::Renderer {
+class RenderManager : public Vulkan::Renderer {
 
 public:
-    RenderEngine(void* platformHandle, void* platformWindow);
-    ~RenderEngine();
+    RenderManager(void* platformHandle, void* platformWindow);
+    ~RenderManager();
 
     UIRenderer* getUIRenderer() const { return uiRenderer.get(); }
 

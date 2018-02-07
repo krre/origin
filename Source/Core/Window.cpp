@@ -140,7 +140,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
 #ifdef DEBUG_HUD_ENABLE
     case SDLK_F5:
-        DebugHUD::get()->trigger();
+        Game::getDebugHUD()->trigger();
         break;
 #endif
     case SDLK_F10:

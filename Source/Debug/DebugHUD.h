@@ -1,5 +1,4 @@
 #pragma once
-#include "Core/Singleton.h"
 #include "Screen/Screen.h"
 #include "VulkanRenderer/API/Pipeline/PipelineCache.h"
 #include "VulkanRenderer/ShaderProgram.h"
@@ -11,7 +10,7 @@ namespace Origin {
 
 class Label;
 
-class DebugHUD : public Singleton<DebugHUD>, public Screen {
+class DebugHUD : public Screen {
 
 public:
     DebugHUD();

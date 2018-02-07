@@ -41,6 +41,7 @@ namespace {
     UIRenderer* uiRenderer;
     EntityManager* entityManager;
     ResourceManager* resourceManager;
+    DebugHUD* debugHUD;
 }
 
 namespace Game {
@@ -83,7 +84,7 @@ void init(int argc, char* argv[]) {
         uiManager = new UIManager;
         uiRenderer = new UIRenderer;
         entityManager = new EntityManager;
-        new DebugHUD;
+        debugHUD = new DebugHUD;
         new Input;
     } catch (const std::exception& ex) {
         if (SDL::isInited()) {
@@ -106,7 +107,7 @@ void init(int argc, char* argv[]) {
 
 void shutdown() {
     Input::release();
-    DebugHUD::release();
+    delete debugHUD;
     delete resourceManager;
     delete entityManager;
     delete uiRenderer;
@@ -179,6 +180,10 @@ Event* getEvent() {
 
 ResourceManager* getResourceManager() {
     return resourceManager;
+}
+
+DebugHUD* getDebugHUD() {
+    return debugHUD;
 }
 
 } // Game

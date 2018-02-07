@@ -111,8 +111,8 @@ void Control::removeChild(Control* control) {
 }
 
 void Control::removeChildren() {
-    for (const auto& control : children) {
-        delete control;
+    for (int i = children.size() - 1; i >= 0; i--) {
+        delete children.at(i);
     }
 
     children.clear();

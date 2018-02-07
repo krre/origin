@@ -45,18 +45,20 @@ void Control::resize(int width, int height) {
 }
 
 void Control::markDirty() {
-    isDirty = true;
+    dirty = true;
     if (parent != nullptr) {
-        static_cast<Control*>(parent)->markDirty();
+        parent->markDirty();
     }
 }
 
 void Control::clearDirty() {
-    isDirty = false;
+    dirty = false;
 }
 
 void Control::setVisible(bool visible) {
+    if (this->visible == visible) return;
     this->visible = visible;
+    markDirty();
 }
 
 void Control::update(float dt) {
@@ -75,7 +77,9 @@ void Control::draw() {
     drawImpl();
 
     for (const auto child : children) {
-        child->draw();
+        if (child->getVisible()) {
+            child->draw();
+        }
     }
 
     if (layout) {

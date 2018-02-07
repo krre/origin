@@ -107,6 +107,17 @@ void Window::render() {
     screens.back()->draw();
     Game::getOverlay()->draw();
     Game::getRenderManager()->getUIRenderer()->drawBatches();
+
+    if (screens.back()->getDirty() || Game::getOverlay()->getDirty()) {
+        Game::getRenderManager()->updateCommandBuffers();
+        if (screens.back()->getDirty()) {
+            screens.back()->clearDirty();
+        }
+        if (Game::getOverlay()->getDirty()) {
+            Game::getOverlay()->clearDirty();
+        }
+    }
+
     Game::getRenderManager()->render();
 }
 

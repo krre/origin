@@ -33,6 +33,7 @@ public:
 
     void markDirty();
     void clearDirty();
+    bool getDirty() const { return dirty; }
 
     void setVisible(bool visible);
     bool getVisible() const { return visible; }
@@ -68,7 +69,7 @@ protected:
 
 private:
     Layout* layout = nullptr;
-    bool isDirty = true;
+    bool dirty = true;
 };
 
 } // Origin

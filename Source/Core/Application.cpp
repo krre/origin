@@ -35,7 +35,7 @@ Application::Application(int argc, char* argv[]) {
 Application::~Application() {
     Game::release();
     Input::release();
-//    DebugHUD::release();
+    DebugHUD::release();
     ResourceManager::release();
     window.reset();
     renderEngine.reset();
@@ -82,7 +82,7 @@ void Application::init() {
         renderEngine->create();
 
         new ResourceManager;
-//        new DebugHUD;
+        new DebugHUD;
         new Input;
         new Game;
     } catch (const std::exception& ex) {

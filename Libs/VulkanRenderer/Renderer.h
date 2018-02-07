@@ -26,6 +26,7 @@ public:
     Renderer(void* platformHandle, void* platformWindow);
     ~Renderer();
 
+    Instance* getInstance() const { return instance.get(); }
     Device* getGraphicsDevice() const { return graphicsDevice.get(); }
     Device* getComputeDevice() const { return computeDevice.get(); }
     CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }

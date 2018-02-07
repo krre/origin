@@ -10,6 +10,7 @@
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "Core/Defines.h"
+#include "Debug/DebugHUD.h"
 #include "Graphics/Render/RenderEngine.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
@@ -98,10 +99,12 @@ void Window::show() {
 
 void Window::update(float dt) {
     screens.back()->update(dt);
+    DebugHUD::get()->update(dt);
 }
 
 void Window::render() {
     screens.back()->draw();
+    DebugHUD::get()->draw();
     RenderEngine::get()->render();
 }
 
@@ -117,6 +120,8 @@ void Window::onResize(int width, int height) {
     for (const auto& screen : screens) {
         screen->resize(width, height);
     }
+
+    DebugHUD::get()->resize(width, height);
 
     RenderEngine::get()->resize();
 }

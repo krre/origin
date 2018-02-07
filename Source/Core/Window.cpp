@@ -87,7 +87,7 @@ void Window::setScreen(const std::shared_ptr<Screen>& screen) {
     pushScreen(screen);
 }
 
-Screen*Window::getCurrentScreen() const {
+Screen* Window::getCurrentScreen() const {
     return screens.size() ? screens.back().get() : nullptr;
 }
 

@@ -1,5 +1,5 @@
 #include "Settings.h"
-#include "Application.h"
+#include "Game.h"
 #include "Defines.h"
 #include "Utils.h"
 #include <experimental/filesystem>
@@ -10,7 +10,7 @@ namespace Origin {
 namespace fs = std::experimental::filesystem;
 
 Settings::Settings() {
-    path = Application::getCurrentDirectory() + Utils::getPathSeparator() + APP_SETTINGS_NAME;
+    path = Game::getCurrentDirectory() + Utils::getPathSeparator() + APP_SETTINGS_NAME;
     if (fs::exists(path)) {
         std::string text = Utils::readTextFile(path);
         storage = json::parse(text);

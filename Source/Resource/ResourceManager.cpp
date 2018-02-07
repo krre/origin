@@ -1,9 +1,9 @@
-#include "Core/Application.h"
+#include "Core/Game.h"
 #include "ResourceManager.h"
 
 namespace Origin {
 
-std::string ResourceManager::resourcesPath = Application::getCurrentDirectory() + "/Data";
+std::string ResourceManager::resourcesPath = Game::getCurrentDirectory() + "/Data";
 
 ResourceManager::ResourceManager() {
     if (FT_Init_FreeType(&ft)) {

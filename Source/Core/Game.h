@@ -1,15 +1,27 @@
 #pragma once
-#include "Singleton.h"
+#include <string>
+#include <vector>
 
 namespace Origin {
 
-class Game : public Singleton<Game> {
+class Window;
+class RenderEngine;
 
-public:
-    Game();
+namespace Game {
 
-    void load();
-    void save();
-};
+    void init(int argc, char* argv[]);
+    void shutdown();
+
+    // Path to Game directory
+    std::string getCurrentDirectory();
+
+    void run();
+    void quit();
+
+    Window* getWindow();
+    bool isRunning();
+    std::vector<std::string>& getArgv();
+
+} // Game
 
 } // Origin

@@ -1,15 +1,15 @@
 #include "Dialog.h"
 #include "Event/Input.h"
-#include "Core/Application.h"
+#include "Core/Game.h"
 #include "Core/Window.h"
 
 namespace Origin {
 
 Dialog::Dialog() : Rectangle(Size(200, 50)) {
     SDL_SetRelativeMouseMode(SDL_FALSE);
-    int centerX = Application::getWindow()->getWidth() / 2;
-    int centerY = Application::getWindow()->getHeight() / 2;
-//    SDL_WarpMouseInWindow(Application::getWindow()->getHandle(), centerX, centerY);
+    int centerX = Game::getWindow()->getWidth() / 2;
+    int centerY = Game::getWindow()->getHeight() / 2;
+//    SDL_WarpMouseInWindow(Game::getWindow()->getHandle(), centerX, centerY);
 //    int posX = centerX - getSize().width / 2;
 //    int posY = centerY - getSize().height / 2;
 //    setPosition({ posX, posY });

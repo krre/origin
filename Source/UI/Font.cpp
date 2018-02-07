@@ -2,7 +2,7 @@
 #include "Resource/ResourceManager.h"
 #include "VulkanRenderer/Texture.h"
 #include "Core/Utils.h"
-#include "Core/Application.h"
+#include "Core/Game.h"
 #include <cmath>
 #include <lodepng/lodepng.h>
 #include <experimental/filesystem>
@@ -97,7 +97,7 @@ void Font::load(const std::string& filePath) {
 
     // Write PNG for testing image
 #if 0
-    std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Cache";
+    std::string directoryPath = Game::getCurrentDirectory() + Utils::getPathSeparator() + "Cache";
 
     namespace fs = std::experimental::filesystem;
     if (!fs::exists(directoryPath)) {

@@ -1,5 +1,5 @@
 #include "DebugEnvironment.h"
-#include "Core/Application.h"
+#include "Core/Game.h"
 #include "Core/Defines.h"
 #include "Core/Utils.h"
 #include "Debug/DebugHUD.h"
@@ -20,16 +20,16 @@ void DebugEnvironment::setDebugScreen() {
     uint8_t s = settings["general"]["screen"];
     Screen::Name screen = static_cast<Screen::Name>(s);
     if (screen == Screen::Name::Menu) {
-        Application::getWindow()->setScreen(std::make_shared<MenuScreen>());
+        Game::getWindow()->setScreen(std::make_shared<MenuScreen>());
     } else if (screen == Screen::Name::Settings) {
-        Application::getWindow()->setScreen(std::make_shared<SettingsScreen>());
+        Game::getWindow()->setScreen(std::make_shared<SettingsScreen>());
     } else if (screen == Screen::Name::Game) {
-        Application::getWindow()->setScreen(std::make_shared<GameScreen>());
+        Game::getWindow()->setScreen(std::make_shared<GameScreen>());
     }
 }
 
 void DebugEnvironment::loadValues() {
-    std::string filePath = Application::getCurrentDirectory() + "/debug.json";
+    std::string filePath = Game::getCurrentDirectory() + "/debug.json";
     try {
         std::string text = Utils::readTextFile(filePath);
         settings = json::parse(text);

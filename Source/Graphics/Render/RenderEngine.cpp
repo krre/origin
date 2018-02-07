@@ -1,5 +1,5 @@
 #include "RenderEngine.h"
-#include "Core/Application.h"
+#include "Core/Game.h"
 #include "Core/Window.h"
 #include "Screen/Screen.h"
 #include "Core/Utils.h"
@@ -15,7 +15,7 @@ namespace Origin {
 
 RenderEngine::RenderEngine(void* platformHandle, void* platformWindow) :
         Vulkan::Renderer(platformHandle, platformWindow) {
-    window = Application::getWindow();
+    window = Game::getWindow();
 }
 
 RenderEngine::~RenderEngine() {
@@ -23,7 +23,7 @@ RenderEngine::~RenderEngine() {
 }
 
 void RenderEngine::saveScreenshot() {
-    std::string directoryPath = Application::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
+    std::string directoryPath = Game::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;
     if (!fs::exists(directoryPath)) {
         fs::create_directory(directoryPath);

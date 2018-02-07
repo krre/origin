@@ -1,5 +1,5 @@
 #include "Window.h"
-#include "Core/Application.h"
+#include "Core/Game.h"
 #include "Core/SDLWrapper.h"
 #include "Core/Settings.h"
 #include "Core/Defines.h"

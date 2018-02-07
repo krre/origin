@@ -8,6 +8,7 @@ class Logger;
 class Window;
 class Settings;
 class DebugEnvironment;
+class Event;
 class RenderEngine;
 class UIManager;
 class UIRenderer;
@@ -31,6 +32,7 @@ namespace Game {
     UIRenderer* getUIRenderer();
     EntityManager* getEntityManager();
     DebugEnvironment* getDebugEnvironment();
+    Event* getEvent();
 
     bool isRunning();
     std::vector<std::string>& getArgv();

@@ -1,5 +1,6 @@
 #include "CameraSystem.h"
 #include "Event/Event.h"
+#include "Core/Game.h"
 #include "TransformSystem.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"
@@ -10,7 +11,7 @@ namespace Origin {
 
 CameraSystem::CameraSystem(EntityManager* entityManager) : System(entityManager) {
     type = SystemType::Camera;
-    Event::get()->windowResize.connect(this, &CameraSystem::onWindowResize);
+    Game::getEvent()->windowResize.connect(this, &CameraSystem::onWindowResize);
 }
 
 void CameraSystem::process(float dt) {

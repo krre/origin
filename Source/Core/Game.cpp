@@ -34,6 +34,7 @@ namespace {
     Settings* settings;
     Logger* logger;
     DebugEnvironment* debugEnvironment;
+    Event* event;
     Window* window;
     RenderEngine* renderEngine;
     UIManager* uiManager;
@@ -53,7 +54,7 @@ void init(int argc, char* argv[]) {
         settings = new Settings;
         logger = new Logger;
         debugEnvironment = new DebugEnvironment;
-        new Event;
+        event = new Event;
         window = new Window;
 
         SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
@@ -113,7 +114,7 @@ void shutdown() {
     delete window;
     delete renderEngine;
     SDL::shutdown();
-    Event::release();
+    delete event;
     delete debugEnvironment;
     delete settings;
     delete logger;
@@ -124,7 +125,7 @@ void run() {
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
     while (running) {
-        Event::get()->handleEvents();
+        event->handleEvents();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
@@ -170,6 +171,10 @@ Logger* getLogger() {
 
 DebugEnvironment*getDebugEnvironment() {
     return debugEnvironment;
+}
+
+Event* getEvent() {
+    return event;
 }
 
 } // Game

@@ -1,11 +1,10 @@
 #pragma once
-#include "Core/Singleton.h"
 #include <Core/Signal.h>
 #include <SDL.h>
 
 namespace Origin {
 
-class Event : public Singleton<Event> {
+class Event {
 
 public:
     Event();

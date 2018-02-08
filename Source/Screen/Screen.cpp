@@ -23,6 +23,7 @@ void Screen::pause() {
 
 void Screen::resume() {
     isPaused = false;
+    activate();
 }
 
 void Screen::show() {

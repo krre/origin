@@ -11,8 +11,6 @@ const std::string SLASH = "/";
 
 Console::Console(Control* parent) : TextEdit(parent) {
     setVisible(false);
-    cmdLine = new Label(this);
-    cmdLine->setText(SLASH);
 }
 
 //void Console::setVisible(bool visible) {
@@ -46,16 +44,16 @@ Console::Console(Control* parent) : TextEdit(parent) {
 //}
 
 void Console::execute() {
-    std::string command = cmdLine->getText();
-    if (command.length() > 0 && command.substr(0, 1) == "/") {
-        command = command.substr(1, command.length() - 1);
-        if (command == "exit") {
-            Game::quit();
-        } else if (command == "help") {
-            PRINT("help");
-        }
+//    std::string command = cmdLine->getText();
+//    if (command.length() > 0 && command.substr(0, 1) == "/") {
+//        command = command.substr(1, command.length() - 1);
+//        if (command == "exit") {
+//            Game::quit();
+//        } else if (command == "help") {
+//            PRINT("help");
+//        }
 //        SceneManager::get()->popScene();
-    }
+//    }
 }
 
 } // Origin

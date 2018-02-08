@@ -14,7 +14,6 @@ public:
 
 private:
     void execute();
-    Label* cmdLine;
 };
 
 } // Origin

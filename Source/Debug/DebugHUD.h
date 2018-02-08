@@ -18,7 +18,7 @@ private:
     int counter = 30;
     int fps = 0;
     std::string vulkanApiVersion;
-    Label* displayLabel;
+    Label* label;
 };
 
 } // Origin

@@ -13,8 +13,8 @@ namespace Origin {
 DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     setVisible(false);
 
-    displayLabel = new Label(this);
-    displayLabel->move(5, 0);
+    label = new Label(this);
+    label->move(5, 0);
     int apiVersionNumber = Game::getRenderManager()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
     vulkanApiVersion = Game::getRenderManager()->getInstance()->apiToString((apiVersionNumber));
 }
@@ -52,7 +52,7 @@ void DebugHUD::updateImpl(float dt) {
 //        text += pos;
 //    }
 
-    displayLabel->setText(text);
+    label->setText(text);
 }
 
 } // Origin

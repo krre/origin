@@ -6,7 +6,7 @@ namespace Origin {
 class TextEdit : public Control {
 
 public:
-    TextEdit();
+    TextEdit(Control* parent = nullptr);
 };
 
 } // Origin

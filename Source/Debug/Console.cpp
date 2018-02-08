@@ -9,7 +9,7 @@ namespace Origin {
 
 const std::string SLASH = "/";
 
-Console::Console(Control* parent) : Control(parent) {
+Console::Console(Control* parent) : TextEdit(parent) {
     setVisible(false);
     cmdLine = new Label(this);
     cmdLine->setText(SLASH);

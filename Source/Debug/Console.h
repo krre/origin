@@ -1,5 +1,5 @@
 #pragma once
-#include "UI/Control.h"
+#include "UI/TextEdit.h"
 #include <SDL.h>
 #include <memory>
 
@@ -7,7 +7,7 @@ namespace Origin {
 
 class Label;
 
-class Console : public Control {
+class Console : public TextEdit {
 
 public:
     Console(Control* parent = nullptr);

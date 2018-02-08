@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-TextEdit::TextEdit() {
+TextEdit::TextEdit(Control* parent) : Control(parent) {
 
 }
 

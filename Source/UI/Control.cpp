@@ -135,6 +135,11 @@ void Control::addChild(Control* control) {
     control->setParent(this);
 }
 
+void Control::insertChild(Control* control, int index) {
+    int realIndex = std::max(0, std::min(index, (int)children.size() - 1));
+    children.insert(children.begin() + realIndex, control);
+}
+
 void Control::removeChild(Control* control) {
     children.erase(std::remove(children.begin(), children.end(), control), children.end());
 }

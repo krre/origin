@@ -4,6 +4,7 @@
 #include "UI/Toast.h"
 #include "Core/Game.h"
 #include "Core/Window.h"
+#include "UI/Dialog/Dialog.h"
 
 namespace Origin {
 
@@ -29,10 +30,24 @@ void Overlay::showConsole() {
     console->setVisible(true);
 }
 
+void Overlay::showDialog(Dialog* dialog) {
+    insertChild(dialog, 0); // Insert on bottom of overlay
+    dialog->activate();
+    this->dialog = dialog;
+    centerDialog();
+}
+
 void Overlay::resizeImpl(int width, int height) {
     toast->move(15, height / 2);
     console->move(0, height - console->getSize().height - 5);
     console->resize(width, console->getSize().height);
+    centerDialog();
+}
+
+void Overlay::centerDialog() {
+    if (dialog) {
+        dialog->move((size.width - dialog->getSize().width) / 2, (size.height - dialog->getSize().height) / 2);
+    }
 }
 
 } // Origin

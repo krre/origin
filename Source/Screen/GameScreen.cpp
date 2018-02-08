@@ -1,7 +1,10 @@
 #include "GameScreen.h"
 #include "UI/LinearLayout.h"
 #include "UI/View3D.h"
+#include "Core/Game.h"
+#include "UI/Overlay.h"
 #include "Scene/GameScene.h"
+#include "UI/Dialog/PauseDialog.h"
 #include <SDL_events.h>
 
 namespace Origin {
@@ -18,6 +21,8 @@ GameScreen::GameScreen() {
 void GameScreen::keyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         PRINT("esc")
+        PauseDialog* dialog = new PauseDialog;
+        Game::getOverlay()->showDialog(dialog);
     }
 }
 

@@ -52,6 +52,7 @@ public:
 
     void setParent(Control* parent);
     void addChild(Control* control);
+    void insertChild(Control* control, int index);
     void removeChild(Control* control);
     void removeChildren();
     const std::vector<Control*>& getChildren() const { return children; }

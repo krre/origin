@@ -6,6 +6,7 @@ namespace Origin {
 class DebugHUD;
 class Toast;
 class Console;
+class Dialog;
 
 class Overlay : public Control {
 
@@ -18,12 +19,15 @@ public:
 
     void toggleDebugHUD();
     void showConsole();
+    void showDialog(Dialog* dialog);
 
 private:
    void resizeImpl(int width, int height) override;
+   void centerDialog();
     DebugHUD* debugHUD;
     Toast* toast;
     Console* console;
+    Dialog* dialog = nullptr;
 };
 
 } // Origin

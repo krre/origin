@@ -12,6 +12,7 @@
 #include "Core/Defines.h"
 #include "UI/Overlay.h"
 #include "UI/UIRenderer.h"
+#include "Debug/Console.h"
 #include "Graphics/Render/RenderManager.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
@@ -167,10 +168,12 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
             Game::getInput()->isKeyAccepted = true;
             break;
         case SDLK_SLASH:
-            Game::getOverlay()->showConsole();
-            Game::getInput()->isKeyAccepted = true;
+            if (!Game::getOverlay()->getConsole()->getVisible()) {
+                Game::getOverlay()->showConsole();
+                Game::getInput()->isKeyAccepted = true;
+            }
             break;
-        }
+    }
 }
 
 } // Origin

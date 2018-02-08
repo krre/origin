@@ -35,20 +35,15 @@ void TextEdit::resizeImpl(int width, int height) {
 }
 
 void TextEdit::keyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_RETURN) return;
-
-    std::string text = label->getText();
-    std::string newText;
-    switch (event.keysym.sym) {
-        case SDLK_BACKSPACE:
-            newText = text.substr(0, text.length() - 1);
-            label->setText(newText);
-            break;
-        default:
-            newText = text + (char)event.keysym.sym;
-            label->setText(newText);
-            break;
+    if (event.keysym.sym == SDLK_BACKSPACE) {
+        std::string text = label->getText();
+        std::string newText = text.substr(0, text.length() - 1);
+        label->setText(newText);
     }
+}
+
+void TextEdit::textPressed(const SDL_TextInputEvent& event) {
+    label->setText(label->getText() + event.text);
 }
 
 } // Origin

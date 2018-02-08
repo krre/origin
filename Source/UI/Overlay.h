@@ -14,6 +14,7 @@ public:
     ~Overlay();
     DebugHUD* getDebugHUD() const { return debugHUD; }
     Toast* getToast() const { return toast; }
+    Console* getConsole() const { return console; }
 
     void toggleDebugHUD();
     void showConsole();

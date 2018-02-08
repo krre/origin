@@ -1,6 +1,7 @@
 #include "Event.h"
 #include "Input.h"
 #include "Core/Game.h"
+#include "Core/Common.h"
 
 namespace Origin {
 
@@ -18,15 +19,15 @@ void Event::handleEvents() {
                 break;
             case SDL_WINDOWEVENT:
                 switch (event.window.event) {
-                case SDL_WINDOWEVENT_RESIZED:
-                    windowResize.fire(event.window.data1, event.window.data2);
-                    break;
-                case SDL_WINDOWEVENT_MOVED:
-                    windowMove.fire(event.window.data1, event.window.data2);
-                    break;
-                default:
-                    break;
-                }
+                    case SDL_WINDOWEVENT_RESIZED:
+                        windowResize.fire(event.window.data1, event.window.data2);
+                        break;
+                    case SDL_WINDOWEVENT_MOVED:
+                        windowMove.fire(event.window.data1, event.window.data2);
+                        break;
+                    default:
+                        break;
+                    }
                 break;
             case SDL_MOUSEMOTION:
                 Game::getInput()->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
@@ -56,10 +57,12 @@ void Event::handleEvents() {
                 keyRelease.fire(event.key);
                 keyLock = false;
                 break;
-    //        case SDL_TextInputEvent:
-    //            break;
-    //        case SDL_TextEditingEvent:
-    //            break;
+            case SDL_TEXTINPUT:
+                textInput.fire(event.text);
+                break;
+            case SDL_TEXTEDITING:
+                PRINT("edit " << event.edit.text);
+                break;
             default:
                 break;
         }

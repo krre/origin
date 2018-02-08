@@ -2,6 +2,7 @@
 #include "Core/Common.h"
 
 struct SDL_KeyboardEvent;
+struct SDL_TextInputEvent;
 
 namespace Origin {
 
@@ -17,6 +18,7 @@ public:
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
+    void onTextInput(const SDL_TextInputEvent& event);
 
     Control* activeControl = nullptr;
 

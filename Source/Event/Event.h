@@ -17,6 +17,7 @@ public:
     Signal<int, int> mouseMove;
     Signal<const SDL_KeyboardEvent&> keyPressed;
     Signal<const SDL_KeyboardEvent&> keyRelease;
+    Signal<const SDL_TextInputEvent&> textInput;
     Signal<const SDL_MouseButtonEvent&> mouseButtonAction;
 
 private:

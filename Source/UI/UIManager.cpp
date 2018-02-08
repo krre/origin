@@ -8,6 +8,7 @@ namespace Origin {
 
 UIManager::UIManager() {
     Game::getEvent()->keyPressed.connect(this, &UIManager::onKeyPressed);
+    Game::getEvent()->textInput.connect(this, &UIManager::onTextInput);
 }
 
 UIManager::~UIManager() {
@@ -31,6 +32,14 @@ void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
 
     if (activeControl && activeControl->getVisible()) {
         activeControl->keyPressed(event);
+    }
+}
+
+void UIManager::onTextInput(const SDL_TextInputEvent& event) {
+    if (Game::getInput()->isKeyAccepted) return;
+
+    if (activeControl && activeControl->getVisible()) {
+        activeControl->textPressed(event);
     }
 }
 

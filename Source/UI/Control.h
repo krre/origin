@@ -5,6 +5,7 @@
 #include "UIBatch.h"
 
 struct SDL_KeyboardEvent;
+struct SDL_TextInputEvent;
 
 namespace Origin {
 
@@ -69,6 +70,7 @@ protected:
     virtual void drawImpl() {}
     virtual void postDraw() {}
     virtual void keyPressed(const SDL_KeyboardEvent& event) {}
+    virtual void textPressed(const SDL_TextInputEvent& event) {}
 
     UIManager* uiManager;
     Control* parent = nullptr;

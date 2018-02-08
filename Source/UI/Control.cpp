@@ -25,7 +25,7 @@ Control::~Control() {
     }
 
     if (uiManager->getActiveControl() == this) {
-        uiManager->setActiveControl(nullptr);
+        uiManager->setActiveControl(screen);
     }
 }
 
@@ -166,7 +166,7 @@ void Control::setLayout(Layout* layout) {
 }
 
 void Control::activate() {
-    uiManager->setActiveControl(this);
+    Game::getUIManager()->setActiveControl(this);
 }
 
 void Control::setActive(bool active) {

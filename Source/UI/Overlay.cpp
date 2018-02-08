@@ -5,6 +5,7 @@
 #include "Core/Game.h"
 #include "Core/Window.h"
 #include "UI/Dialog/Dialog.h"
+#include "Screen/Screen.h"
 
 namespace Origin {
 
@@ -35,6 +36,14 @@ void Overlay::showDialog(Dialog* dialog) {
     dialog->activate();
     this->dialog = dialog;
     centerDialog();
+    markDirty();
+}
+
+void Overlay::closeDialog(Dialog* dialog) {
+    removeChild(dialog);
+    this->dialog = nullptr;
+    delete dialog;
+    markDirty();
 }
 
 void Overlay::resizeImpl(int width, int height) {

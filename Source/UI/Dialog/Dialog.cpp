@@ -2,6 +2,8 @@
 #include "Event/Input.h"
 #include "Core/Game.h"
 #include "Core/Window.h"
+#include "UI/Overlay.h"
+#include "Screen/Screen.h"
 
 namespace Origin {
 
@@ -10,13 +12,13 @@ Dialog::Dialog() : Rectangle(Size(200, 50)) {
 }
 
 void Dialog::close() {
+    Game::getOverlay()->closeDialog(this);
 }
 
-//void Dialog::onKeyPressed(const SDL_KeyboardEvent& event) {
-//    if (event.keysym.sym == SDLK_ESCAPE) {
-//        Input::get()->isKeyAccepted = true;
-//        close();
-//    }
-//}
+void Dialog::keyPressed(const SDL_KeyboardEvent& event) {
+    if (event.keysym.sym == SDLK_ESCAPE) {
+        close();
+    }
+}
 
 } // Origin

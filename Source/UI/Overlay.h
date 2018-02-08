@@ -20,6 +20,7 @@ public:
     void toggleDebugHUD();
     void showConsole();
     void showDialog(Dialog* dialog);
+    void closeDialog(Dialog* dialog);
 
 private:
    void resizeImpl(int width, int height) override;

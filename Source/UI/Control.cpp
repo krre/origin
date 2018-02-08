@@ -58,6 +58,10 @@ void Control::resize(int width, int height) {
     }
 }
 
+void Control::move(int x, int y) {
+    setPosition({ x, y });
+}
+
 void Control::markDirty() {
     dirty = true;
     if (parent != nullptr) {

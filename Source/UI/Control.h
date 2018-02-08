@@ -33,6 +33,7 @@ public:
     float getScale() const { return scale; }
 
     void resize(int width, int height);
+    void move(int x, int y);
 
     void markDirty();
     void clearDirty();

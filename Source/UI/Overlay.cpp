@@ -26,7 +26,7 @@ void Overlay::toggleConsole() {
 }
 
 void Overlay::resizeImpl(int width, int height) {
-    toast->setPosition(Pos2(15, height / 2));
+    toast->move(15, height / 2);
 //    console->setPosition(Pos2(5, height - 20));
 }
 

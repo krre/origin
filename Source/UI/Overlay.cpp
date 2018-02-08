@@ -21,12 +21,12 @@ void Overlay::toggleDebugHUD() {
     debugHUD->setVisible(!debugHUD->getVisible());
 }
 
-void Overlay::toggleConsole() {
-    console->setVisible(!console->getVisible());
-    if (console->getVisible()) {
-        console->reset();
-        console->activate();
-    }
+void Overlay::showConsole() {
+    if (console->getVisible()) return;
+
+    console->reset();
+    console->activate();
+    console->setVisible(true);
 }
 
 void Overlay::resizeImpl(int width, int height) {

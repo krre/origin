@@ -16,7 +16,7 @@ public:
     Toast* getToast() const { return toast; }
 
     void toggleDebugHUD();
-    void toggleConsole();
+    void showConsole();
 
 private:
    void resizeImpl(int width, int height) override;

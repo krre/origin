@@ -166,8 +166,8 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
             Game::getRenderManager()->saveScreenshot();
             Game::getInput()->isKeyAccepted = true;
             break;
-        case SDLK_BACKQUOTE:
-            Game::getOverlay()->toggleConsole();
+        case SDLK_SLASH:
+            Game::getOverlay()->showConsole();
             Game::getInput()->isKeyAccepted = true;
             break;
         }

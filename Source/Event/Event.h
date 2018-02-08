@@ -19,9 +19,6 @@ public:
     Signal<const SDL_KeyboardEvent&> keyRelease;
     Signal<const SDL_TextInputEvent&> textInput;
     Signal<const SDL_MouseButtonEvent&> mouseButtonAction;
-
-private:
-    bool keyLock = false;
 };
 
 } // Origin

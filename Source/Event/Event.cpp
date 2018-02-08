@@ -43,19 +43,14 @@ void Event::handleEvents() {
             case SDL_MOUSEWHEEL:
                 break;
             case SDL_KEYDOWN:
-                // Use keyLock to fix bug on some Linux system, when catch two SDL_KEYDOWN event and one SDL_KEYUP
-                if (!keyLock) {
-                    Game::getInput()->addKey(event.key.keysym.sym);
-                    Game::getInput()->isKeyAccepted = false;
-                    keyPressed.fire(event.key);
-                    keyLock = true;
-                }
+                Game::getInput()->addKey(event.key.keysym.sym);
+                Game::getInput()->isKeyAccepted = false;
+                keyPressed.fire(event.key);
                 break;
             case SDL_KEYUP:
                 Game::getInput()->removeKey(event.key.keysym.sym);
                 Game::getInput()->isKeyAccepted = false;
                 keyRelease.fire(event.key);
-                keyLock = false;
                 break;
             case SDL_TEXTINPUT:
                 textInput.fire(event.text);

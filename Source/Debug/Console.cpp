@@ -11,6 +11,7 @@ const std::string SLASH = "/";
 
 Console::Console(Control* parent) : TextEdit(parent) {
     setVisible(false);
+    setText(SLASH);
 }
 
 //void Console::setVisible(bool visible) {

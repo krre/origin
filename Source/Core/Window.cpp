@@ -163,6 +163,9 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
     case SDLK_F11:
         Game::getRenderManager()->saveScreenshot();
         break;
+    case SDLK_BACKQUOTE:
+        Game::getOverlay()->toggleConsole();
+        break;
     }
 }
 

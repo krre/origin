@@ -13,9 +13,6 @@ public:
     Console(Control* parent = nullptr);
 
 private:
-//    void writeCommands(Vulkan::CommandBuffer* commandBuffer) override;
-//    void onWindowResize(int width, int height) override;
-//    void onKeyPressed(const SDL_KeyboardEvent& event) override;
     void execute();
     Label* cmdLine;
 };

@@ -7,9 +7,12 @@
 
 namespace Origin {
 
+const std::string SLASH = "/";
+
 Console::Console(Control* parent) : Control(parent) {
     setVisible(false);
     cmdLine = new Label(this);
+    cmdLine->setText(SLASH);
 }
 
 //void Console::setVisible(bool visible) {
@@ -23,10 +26,6 @@ Console::Console(Control* parent) : Control(parent) {
 
 //void Console::writeCommands(Vulkan::CommandBuffer* commandBuffer) {
 
-//}
-
-//void Console::onWindowResize(int width, int height) {
-//    cmdLine->setPosition({ 5, height - 5 });
 //}
 
 //void Console::onKeyPressed(const SDL_KeyboardEvent& event) {

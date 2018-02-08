@@ -23,7 +23,6 @@ public:
 private:
     void drawImpl() override;
 
-    void updateTextData();
     std::string text;
     Font* font;
     Color color = Color::BLACK;

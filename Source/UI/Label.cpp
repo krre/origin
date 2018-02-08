@@ -20,8 +20,10 @@ Label::Label(const std::string& text, Control* parent) :
 }
 
 void Label::setText(const std::string& text) {
+    if (this->text.length() != text.length()) {
+        markDirty();
+    }
     this->text = text;
-    updateTextData();
 }
 
 void Label::setFont(Font* font) {
@@ -38,10 +40,6 @@ void Label::drawImpl() {
     batch.texture = font->getTexture();
     batch.addText(absolutePosition.x, absolutePosition.y, text, font);
     Game::getRenderManager()->getUIRenderer()->addBatch(batch);
-}
-
-void Label::updateTextData() {
-
 }
 
 } // Origin

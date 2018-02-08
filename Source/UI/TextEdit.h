@@ -10,15 +10,19 @@ class TextEdit : public Control {
 
 public:
     TextEdit(Control* parent = nullptr);
+
     void setText(const std::string& text);
     const std::string& getText() const;
+
+protected:
+    void keyPressed(const SDL_KeyboardEvent& event) override;
 
 private:
     void resizeImpl(int width, int height) override;
 
     Rectangle* background;
     Label* label;
-
+    int cursorPosition = 0;
 };
 
 } // Origin

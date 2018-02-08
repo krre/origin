@@ -1,6 +1,8 @@
 #include "Control.h"
 #include "UIBatch.h"
 #include "Screen/Screen.h"
+#include "Core/Game.h"
+#include "UI/UIManager.h"
 #include "Layout.h"
 #include <algorithm>
 
@@ -8,6 +10,7 @@ namespace Origin {
 
 Control::Control(Control* parent) {
     setParent(parent);
+    uiManager = Game::getUIManager();
 }
 
 Control::~Control() {
@@ -19,6 +22,10 @@ Control::~Control() {
 
     if (layout) {
         delete layout;
+    }
+
+    if (uiManager->getActiveControl() == this) {
+        uiManager->setActiveControl(nullptr);
     }
 }
 
@@ -151,6 +158,17 @@ void Control::setLayout(Layout* layout) {
     this->layout = layout;
     layout->setScreen(getScreen());
     layout->resize(size.width, size.height);
+}
+
+void Control::activate() {
+    uiManager->setActiveControl(this);
+}
+
+void Control::setActive(bool active) {
+    this->active = active;
+    if (active) {
+
+    }
 }
 
 } // Origin

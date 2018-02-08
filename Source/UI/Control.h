@@ -4,6 +4,8 @@
 #include <vector>
 #include "UIBatch.h"
 
+struct SDL_KeyboardEvent;
+
 namespace Origin {
 
 class UIBatch;
@@ -11,9 +13,11 @@ class VertexBuffer;
 class IndexBuffer;
 class Screen;
 class Layout;
+class UIManager;
 
 class Control : public Object {
     friend class Renderer;
+    friend class UIManager;
 
 public:
     Control(Control* parent = nullptr);
@@ -57,12 +61,16 @@ public:
     void setLayout(Layout* layout);
     Layout* getLayout() const { return layout; }
 
+    void activate();
+
 protected:
     virtual void resizeImpl(int width, int height) {}
     virtual void updateImpl(float dt) {}
     virtual void drawImpl() {}
     virtual void postDraw() {}
+    virtual void keyPressed(const SDL_KeyboardEvent& event) {}
 
+    UIManager* uiManager;
     Control* parent = nullptr;
     Layout* layout = nullptr;
     Screen* screen = nullptr;
@@ -72,8 +80,12 @@ protected:
     Size size;
     float scale = 1.0;
     bool visible = true;
+    bool active = false;
 
 private:
+    void setActive(bool active);
+    bool getActive() const { return active; }
+
     bool dirty = true;
 };
 

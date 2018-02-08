@@ -3,6 +3,10 @@
 #include "Label.h"
 #include "Font.h"
 
+#undef HAVE_STDINT_H
+#include <SDL_keycode.h>
+#include <SDL_events.h>
+
 namespace Origin {
 
 const int DEFAULT_WIDHT = 200;
@@ -28,6 +32,23 @@ const std::string& TextEdit::getText() const {
 
 void TextEdit::resizeImpl(int width, int height) {
     background->resize(width, height);
+}
+
+void TextEdit::keyPressed(const SDL_KeyboardEvent& event) {
+    if (event.keysym.sym == SDLK_RETURN) return;
+
+    std::string text = label->getText();
+    std::string newText;
+    switch (event.keysym.sym) {
+        case SDLK_BACKSPACE:
+            newText = text.substr(0, text.length() - 1);
+            label->setText(newText);
+            break;
+        default:
+            newText = text + (char)event.keysym.sym;
+            label->setText(newText);
+            break;
+    }
 }
 
 } // Origin

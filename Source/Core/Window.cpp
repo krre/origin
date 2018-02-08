@@ -153,20 +153,24 @@ void Window::setColor(const Color& color) {
 void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
 #ifdef DEBUG_HUD_ENABLE
-    case SDLK_F5:
-        Game::getOverlay()->toggleDebugHUD();
-        break;
+        case SDLK_F5:
+            Game::getOverlay()->toggleDebugHUD();
+            Game::getInput()->isKeyAccepted = true;
+            break;
 #endif
-    case SDLK_F10:
-        toggleFullScreen();
-        break;
-    case SDLK_F11:
-        Game::getRenderManager()->saveScreenshot();
-        break;
-    case SDLK_BACKQUOTE:
-        Game::getOverlay()->toggleConsole();
-        break;
-    }
+        case SDLK_F10:
+            toggleFullScreen();
+            Game::getInput()->isKeyAccepted = true;
+            break;
+        case SDLK_F11:
+            Game::getRenderManager()->saveScreenshot();
+            Game::getInput()->isKeyAccepted = true;
+            break;
+        case SDLK_BACKQUOTE:
+            Game::getOverlay()->toggleConsole();
+            Game::getInput()->isKeyAccepted = true;
+            break;
+        }
 }
 
 } // Origin

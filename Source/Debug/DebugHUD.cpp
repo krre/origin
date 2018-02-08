@@ -14,7 +14,7 @@ DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     setVisible(false);
 
     displayLabel = new Label(this);
-    displayLabel->move(10, 20);
+    displayLabel->move(5, 0);
     int apiVersionNumber = Game::getRenderManager()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
     vulkanApiVersion = Game::getRenderManager()->getInstance()->apiToString((apiVersionNumber));
 }

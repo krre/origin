@@ -30,10 +30,14 @@ void Font::load(const std::string& filePath) {
 
     setSize(14);
 
+    lineHeight = face->size->metrics.height >> 6;
+    ascender = face->size->metrics.ascender >> 6;
+    descender = face->size->metrics.descender >> 6;
+
     // Creating atlas based on code https://gist.github.com/baines/b0f9e4be04ba4e6f56cab82eef5008ff
 
     // Max texture size
-    int maxDim = (1 + (face->size->metrics.height >> 6)) * std::ceil(std::sqrt(NUM_GLYPHS));
+    int maxDim = (1 + lineHeight) * std::ceil(std::sqrt(NUM_GLYPHS));
     int texWidth = 1;
 
     while (texWidth < maxDim) {

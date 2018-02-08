@@ -13,7 +13,7 @@ TextEdit::TextEdit(Control* parent) : Control(parent) {
     label = new Label(this);
     label->setColor(Color(0.85, 0.85, 0.85));
     label->setText("test line");
-    label->move(0, 15);
+//    label->move(0, 15);
 }
 
 } // Origin

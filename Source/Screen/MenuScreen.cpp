@@ -17,9 +17,6 @@ MenuScreen::MenuScreen() {
     Label* label = new Label("origin", rectangle2);
     label->move(15, 15);
     label->setColor(Color(0.4, 0.7, 1.0));
-
-//    Label* label = new Label("ApplicationWindow", this);
-//    label->move(0, 20);
 }
 
 } // Origin

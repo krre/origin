@@ -63,12 +63,18 @@ public:
     void load(const std::string& filePath) override;
     Vulkan::Texture* getTexture() const { return texture.get(); }
     GlyphInfo& getGliphInfo(int codechar) { return glyphInfos.at(codechar); }
+    int getLineHeight() const { return lineHeight; }
+    int getAscender() const { return ascender; }
+    int getDescender() const { return descender; }
 
 private:
     FT_Face face;
     int size = 14;
     std::vector<GlyphInfo> glyphInfos;
     std::unique_ptr<Vulkan::Texture> texture;
+    int lineHeight;
+    int ascender;
+    int descender;
 };
 
 } // Origin

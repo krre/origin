@@ -4,6 +4,7 @@
 #include "Core/Game.h"
 #include "Core/Window.h"
 #include "Screen/Screen.h"
+#include "Screen/SettingsScreen.h"
 
 namespace Origin {
 
@@ -39,7 +40,7 @@ PauseDialog::PauseDialog() {
     Button* buttonSettings = new Button("Settings");
     buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSettings->clicked.connect([&]() {
-        PRINT("Settings")
+        Game::getWindow()->pushScreen(std::make_shared<SettingsScreen>());
         this->close();
     });
     layout->addControl(buttonSettings);

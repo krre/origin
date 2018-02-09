@@ -9,21 +9,22 @@ LinearLayout::LinearLayout(Direction direction, Control* parent) :
 }
 
 void LinearLayout::updateContentPostion() {
-    int i = 0;
     contentWidth = 0;
     contentHeight = 0;
+    int positionX = position.x;
+    int positionY = position.y;
     for (const auto& control : controls) {
         if (direction == Direction::Vertical) {
-            control->move(position.x, position.y + i * (control->getContentHeight() + spacing));
+            control->move(positionX, positionY);
+            positionY += control->getContentHeight() + spacing;
             contentWidth = std::max(contentWidth, control->getContentWidth());
             contentHeight += control->getContentHeight() + spacing;
         } else {
-            control->move(position.x + i * (control->getContentWidth() + spacing), position.y);
+            control->move(positionX, positionY);
+            positionX += control->getContentWidth() + spacing;
             contentWidth += control->getContentHeight() + spacing;
             contentHeight = std::max(contentHeight, control->getContentHeight());
         }
-
-        i++;
     }
 
     // Remove last spacing

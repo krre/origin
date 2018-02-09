@@ -13,10 +13,8 @@ Label::Label(Control* parent) : Control(parent) {
     setFont(Game::getResourceManager()->load<Font>("Fonts/inconsolatalgc.ttf"));
 }
 
-Label::Label(const std::string& text, Control* parent) :
-        text(text),
-        Control(parent) {
-    setFont(Game::getResourceManager()->load<Font>("Fonts/inconsolatalgc.ttf"));
+Label::Label(const std::string& text, Control* parent) : Label(parent) {
+    setText(text);
 }
 
 void Label::setText(const std::string& text) {

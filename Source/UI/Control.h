@@ -34,6 +34,9 @@ public:
     const Size& getSize() const { return size; }
     void setSize(const Size& size);
 
+    int getContentWidth() const { return size.width ? size.width : contentWidth; }
+    int getContentHeight() const { return size.height ? size.height : contentHeight; }
+
     void setScale(float scale);
     float getScale() const { return scale; }
 
@@ -81,6 +84,8 @@ protected:
     Pos2 position = { 0, 0 };
     Pos2 absolutePosition = { 0, 0 };
     Size size;
+    int contentWidth = 0;
+    int contentHeight = 0;
     float scale = 1.0;
     bool visible = true;
     bool active = false;

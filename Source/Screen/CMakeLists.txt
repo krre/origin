@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/GameScreen.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/GameScreen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/LoadWorldScreen.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/LoadWorldScreen.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuScreen.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuScreen.h
     ${CMAKE_CURRENT_SOURCE_DIR}/NewWorldScreen.cpp

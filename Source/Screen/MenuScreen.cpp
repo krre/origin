@@ -6,6 +6,7 @@
 #include "GameScreen.h"
 #include "SettingsScreen.h"
 #include "NewWorldScreen.h"
+#include "LoadWorldScreen.h"
 
 namespace Origin {
 
@@ -25,7 +26,7 @@ MenuScreen::MenuScreen() {
     Button* buttonLoad = new Button("Load game");
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonLoad->clicked.connect([&]() {
-        PRINT("Load game")
+        Game::getWindow()->pushScreen(std::make_shared<LoadWorldScreen>());
     });
     layout->addControl(buttonLoad);
 

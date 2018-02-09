@@ -1,10 +1,11 @@
 #include "SettingsScreen.h"
-#include "UI/Rectangle.h"
+#include "UI/Button.h"
 
 namespace Origin {
 
 SettingsScreen::SettingsScreen() {
-    Rectangle* rectangle = new Rectangle(Size(100, 100), this);
+    Button* button = new Button("Button", this);
+//    button->move(300, 300);
 }
 
 } // Origin

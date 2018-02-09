@@ -9,19 +9,20 @@ class Label;
 class Button : public Rectangle {
 
 public:
-    Button();
+    Button(Control* parent = nullptr);
+    Button(const std::string& text, Control* parent = nullptr);
     ~Button();
     void setText(const std::string& text);
     std::string getText() const;
 
-    void setLabelColor(const Color& labelColor);
-    const Color& getLabelColor() const;
+    void setTextColor(const Color& labelColor);
+    const Color& getTextColor() const;
 
     Signal<> clicked;
 
 private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
-    std::shared_ptr<Label> label;
+    Label* label;
     int clickedId;
 };
 

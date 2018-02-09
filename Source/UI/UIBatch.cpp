@@ -45,7 +45,17 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
     int posX = x;
     int posY = y;
     int lineHeight = font->getLineHeight();
-    int ascender = font->getAscender();
+
+    // Find highest sign for first row
+    int maxHeigth = 0;
+    for (auto& sign : text) {
+        if (sign == '\n') {
+            break;
+        }
+
+        Font::GlyphInfo& glyphInfo = font->getGliphInfo((int)sign);
+        maxHeigth = std::max(maxHeigth, glyphInfo.offsetY);
+    }
 
     for (auto& sign : text) {
         Font::GlyphInfo& glyphInfo = font->getGliphInfo((int)sign);
@@ -61,7 +71,9 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
         vertex.color = color.getRgba();
 
         posX += glyphInfo.offsetX;
-        int topY = posY + ascender - glyphInfo.offsetY;
+        // TODO: maxHeigth need only for first row.
+        // May be for other rows use ascender.
+        int topY = posY + maxHeigth - glyphInfo.offsetY;
 
         vertex.pos = { posX, topY }; // Top-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v0 };

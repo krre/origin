@@ -19,6 +19,18 @@ void Layout::resize(int width, int height) {
     }
 }
 
+void Layout::updateImpl(float dt) {
+    for (const auto control : controls) {
+        control->update(dt);
+    }
+}
+
+void Layout::drawImpl() {
+    for (const auto control : controls) {
+        control->draw();
+    }
+}
+
 void Layout::addControl(Control* control) {
     control->setParent(this);
     controls.push_back(control);

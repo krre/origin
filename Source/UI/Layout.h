@@ -27,6 +27,8 @@ public:
 
 protected:
     virtual void updateContentPostion() = 0;
+    void updateImpl(float dt) override;
+    void drawImpl() override;
 
     std::vector<Control*> controls;
     std::vector<Layout*> layouts;

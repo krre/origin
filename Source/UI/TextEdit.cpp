@@ -19,7 +19,7 @@ TextEdit::TextEdit(Control* parent) : Control(parent) {
     label = new Label(this);
     label->setColor(Color(0.85, 0.85, 0.85));
 
-    resize(DEFAULT_WIDHT, label->getFont()->getLineHeight());
+    resize(DEFAULT_WIDHT, label->getFont()->getLineHeight() + 5);
 }
 
 void TextEdit::setText(const std::string& text) {

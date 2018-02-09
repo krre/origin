@@ -45,7 +45,7 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
     int posX = x;
     int posY = y;
     int lineHeight = font->getLineHeight();
-    int descender = font->getDescender();
+    int ascender = font->getAscender();
 
     for (auto& sign : text) {
         Font::GlyphInfo& glyphInfo = font->getGliphInfo((int)sign);
@@ -60,27 +60,30 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
         Vertex vertex = {};
         vertex.color = color.getRgba();
 
-        vertex.pos = { posX + glyphInfo.offsetX, posY - glyphInfo.offsetY + lineHeight + descender }; // Top-Left
+        posX += glyphInfo.offsetX;
+        int topY = posY + ascender - glyphInfo.offsetY;
+
+        vertex.pos = { posX, topY }; // Top-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.width + glyphInfo.offsetX, posY - glyphInfo.offsetY + lineHeight + descender }; // Top-Right
+        vertex.pos = { posX + glyphInfo.width, topY }; // Top-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.offsetX, posY + glyphInfo.height - glyphInfo.offsetY + lineHeight + descender }; // Bottom-Left
+        vertex.pos = { posX, topY + glyphInfo.height }; // Bottom-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.offsetX, posY + glyphInfo.height - glyphInfo.offsetY + lineHeight + descender }; // Bottom-Left
+        vertex.pos = { posX, topY + glyphInfo.height }; // Bottom-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.offsetX + glyphInfo.width, posY - glyphInfo.offsetY + lineHeight + descender }; // Top-Right
+        vertex.pos = { posX + glyphInfo.width, topY }; // Top-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.offsetX + glyphInfo.width, posY + glyphInfo.height - glyphInfo.offsetY + lineHeight + descender }; // Bottom-Right
+        vertex.pos = { posX + glyphInfo.width, topY + glyphInfo.height }; // Bottom-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v1 };
         vertices->push_back(vertex);
 

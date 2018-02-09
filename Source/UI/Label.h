@@ -20,12 +20,18 @@ public:
     void setColor(const Color& color);
     const Color& getColor() const { return color; }
 
+    int getContentWidth() const { return contentWidth; }
+    int getContentHeight() const { return contentHeight; }
+
 private:
     void drawImpl() override;
 
     std::string text;
     Font* font;
     Color color = Color::BLACK;
+    int contentWidth;
+    int contentHeight;
+    int lineCount;
 };
 
 } // Origin

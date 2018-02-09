@@ -93,6 +93,8 @@ void Control::setVisible(bool visible) {
 }
 
 void Control::update(float dt) {
+    if (!visible) return;
+
     updateImpl(dt);
 
     for (const auto child : children) {

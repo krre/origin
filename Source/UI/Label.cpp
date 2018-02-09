@@ -24,6 +24,30 @@ void Label::setText(const std::string& text) {
         markDirty();
     }
     this->text = text;
+
+    contentWidth = 0;
+    lineCount = text.length() ? 1 : 0;
+    int lineWidth = 0;
+    int maxLineWidth = 0;
+
+    for (auto& sign : text) {
+        Font::GlyphInfo& glyphInfo = font->getGliphInfo((int)sign);
+        lineWidth += glyphInfo.advanceX;
+
+        // New line
+        if (sign == '\n') {
+            lineCount++;
+            maxLineWidth = std::max(maxLineWidth, lineWidth);
+        }
+    }
+
+    if (lineCount == 1) {
+        contentWidth = lineWidth;
+    } else if (lineCount > 1) {
+         contentWidth = maxLineWidth;
+    }
+
+    contentHeight = font->getLineHeight() * lineCount;
 }
 
 void Label::setFont(Font* font) {

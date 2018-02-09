@@ -7,13 +7,20 @@
 
 namespace Origin {
 
+const int BUTTON_WINDTH = 200;
+const int BUTTON_HEIGHT = 40;
+
 PauseDialog::PauseDialog() {
+
+
     Button* buttonContinue = new Button("Continue");
+    buttonContinue->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonContinue->clicked.connect([&]() {
         this->close();
     });
 
     Button* buttonExit = new Button("Exit");
+    buttonExit->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonExit->clicked.connect([&]() {
         Game::quit();
     });

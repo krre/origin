@@ -10,7 +10,9 @@ public:
     enum class Name {
         Menu,
         Settings,
-        Game
+        Game,
+        NewGame,
+        LoadGame
     };
 
     Screen();

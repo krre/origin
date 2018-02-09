@@ -60,6 +60,16 @@
          <string>Game</string>
         </property>
        </item>
+       <item>
+        <property name="text">
+         <string>New game</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Load game</string>
+        </property>
+       </item>
       </widget>
      </item>
      <item row="0" column="2">

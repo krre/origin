@@ -1,6 +1,7 @@
 #include "Button.h"
 #include "Event/Event.h"
 #include "Core/Game.h"
+#include "Core/Window.h"
 #include "Label.h"
 
 namespace Origin {
@@ -39,7 +40,7 @@ const Color& Button::getTextColor() const {
 }
 
 void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
-    if (!visible) return;
+    if (!visible || screen != Game::getWindow()->getCurrentScreen()) return;
 
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         int mouseX = event.x;

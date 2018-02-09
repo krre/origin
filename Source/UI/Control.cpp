@@ -124,6 +124,11 @@ void Control::draw() {
 void Control::setParent(Control* parent) {
     if (this->parent == parent) return;
 
+    Screen* screen = dynamic_cast<Screen*>(parent);
+    if (screen) {
+        setScreen(screen);
+    }
+
     // Remove self from children of previous parent
     if (this->parent != nullptr) {
         this->parent->removeChild(this);
@@ -133,7 +138,6 @@ void Control::setParent(Control* parent) {
 
     if (parent != nullptr) {
         parent->addChild(this);
-        setScreen(parent->getScreen());
     }
 }
 

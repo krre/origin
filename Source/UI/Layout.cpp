@@ -19,14 +19,6 @@ void Layout::resize(int width, int height) {
     }
 }
 
-void Layout::setScreen(Screen* screen) {
-    this->screen = screen;
-
-    for (const auto control : controls) {
-        control->setScreen(screen);
-    }
-}
-
 void Layout::addControl(Control* control) {
     control->setParent(this);
     controls.push_back(control);

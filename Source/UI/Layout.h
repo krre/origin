@@ -25,8 +25,6 @@ public:
 
     void resize(int width, int height);
 
-    void setScreen(Screen* screen);
-
 protected:
     virtual void updateContentPostion() = 0;
 
@@ -34,7 +32,6 @@ protected:
     std::vector<Layout*> layouts;
     int spacing = 5;
     Control* parent = nullptr;
-    Screen* screen = nullptr;
 };
 
 } // Origin

@@ -24,6 +24,7 @@ PauseDialog::PauseDialog() {
     buttonSave->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSave->clicked.connect([&]() {
         PRINT("Save game")
+        this->close();
     });
     layout->addControl(buttonSave);
 
@@ -31,6 +32,7 @@ PauseDialog::PauseDialog() {
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonLoad->clicked.connect([&]() {
         PRINT("Load game")
+        this->close();
     });
     layout->addControl(buttonLoad);
 
@@ -38,8 +40,17 @@ PauseDialog::PauseDialog() {
     buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSettings->clicked.connect([&]() {
         PRINT("Settings")
+        this->close();
     });
     layout->addControl(buttonSettings);
+
+    Button* buttonMenu = new Button("Menu");
+    buttonMenu->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+    buttonMenu->clicked.connect([&]() {
+        Game::getWindow()->popScreen();
+        this->close();
+    });
+    layout->addControl(buttonMenu);
 
     Button* buttonExit = new Button("Exit");
     buttonExit->resize(BUTTON_WINDTH, BUTTON_HEIGHT);

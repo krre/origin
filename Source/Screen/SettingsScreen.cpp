@@ -1,11 +1,15 @@
 #include "SettingsScreen.h"
 #include "UI/Button.h"
+#include "Core/Game.h"
+#include "Core/Window.h"
 
 namespace Origin {
 
 SettingsScreen::SettingsScreen() {
-    Button* button = new Button("Button", this);
-//    button->move(300, 300);
+    Button* buttonBack = new Button("Back", this);
+    buttonBack->clicked.connect([&]() {
+        Game::getWindow()->popScreen();
+    });
 }
 
 } // Origin

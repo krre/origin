@@ -21,13 +21,14 @@ void UIRenderer::addBatch(UIBatch batch) {
 void UIRenderer::drawBatches() {
     uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
 
+    renderPassUI->setVertexCount(vertices.size());
+
     if (size > renderPassUI->getVertexBuffer()->getSize()) {
         renderPassUI->resizeVertexBuffer(size);
     }
 
     if (size) {
         renderPassUI->getVertexBuffer()->write(vertices.data(), size);
-        renderPassUI->setVertexCount(vertices.size());
         renderPassUI->setTexture(batches.at(0).texture); // TODO: Sort batches and swith textures
     }
 

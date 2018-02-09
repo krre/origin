@@ -70,32 +70,32 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
         Vertex vertex = {};
         vertex.color = color.getRgba();
 
-        posX += glyphInfo.offsetX;
+        int xo = posX + glyphInfo.offsetX;
         // TODO: maxHeigth need only for first row.
         // May be for other rows use ascender.
-        int topY = posY + maxHeigth - glyphInfo.offsetY;
+        int yo = posY + maxHeigth - glyphInfo.offsetY;
 
-        vertex.pos = { posX, topY }; // Top-Left
+        vertex.pos = { xo, yo }; // Top-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.width, topY }; // Top-Right
+        vertex.pos = { xo + glyphInfo.width, yo }; // Top-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX, topY + glyphInfo.height }; // Bottom-Left
+        vertex.pos = { xo, yo + glyphInfo.height }; // Bottom-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX, topY + glyphInfo.height }; // Bottom-Left
+        vertex.pos = { xo, yo + glyphInfo.height }; // Bottom-Left
         vertex.uv = { glyphInfo.u0, glyphInfo.v1 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.width, topY }; // Top-Right
+        vertex.pos = { xo + glyphInfo.width, yo }; // Top-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v0 };
         vertices->push_back(vertex);
 
-        vertex.pos = { posX + glyphInfo.width, topY + glyphInfo.height }; // Bottom-Right
+        vertex.pos = { xo + glyphInfo.width, yo + glyphInfo.height }; // Bottom-Right
         vertex.uv = { glyphInfo.u1, glyphInfo.v1 };
         vertices->push_back(vertex);
 

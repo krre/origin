@@ -45,7 +45,7 @@ void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
         int mouseX = event.x;
         int mouseY = event.y;
 
-        if (mouseX > position.x && mouseX < (position.x + size.width) && mouseY > position.y && mouseY < (position.y + size.height)) {
+        if (mouseX > absolutePosition.x && mouseX < (absolutePosition.x + size.width) && mouseY > absolutePosition.y && mouseY < (absolutePosition.y + size.height)) {
             clicked.fire();
             PRINT("clicked")
         }

@@ -28,12 +28,14 @@ void Layout::setScreen(Screen* screen) {
 }
 
 void Layout::addControl(Control* control) {
+    control->setParent(this);
     controls.push_back(control);
     control->setScreen(screen);
     updateContentPostion();
 }
 
 void Layout::removeControl(Control *control) {
+    removeChild(control);
     controls.erase(std::remove(controls.begin(), controls.end(), control), controls.end());
     updateContentPostion();
 }
@@ -66,28 +68,6 @@ void Layout::clearLayouts() {
 
 void Layout::setSpacing(int spacing) {
     this->spacing = spacing;
-}
-
-void Layout::update(float dt) {
-    for (const auto& layout : layouts) {
-        layout->update(dt);
-    }
-
-    for (const auto control : controls) {
-        control->update(dt);
-    }
-
-    updateContentPostion();
-}
-
-void Layout::draw() {
-    for (const auto& layout : layouts) {
-        layout->draw();
-    }
-
-    for (const auto control : controls) {
-        control->draw();
-    }
 }
 
 } // Origin

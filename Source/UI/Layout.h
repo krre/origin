@@ -23,9 +23,6 @@ public:
     int getSpacing() const { return spacing; }
     void setSpacing(int spacing);
 
-    void update(float dt);
-    void draw();
-
     void resize(int width, int height);
 
     void setScreen(Screen* screen);

@@ -3,6 +3,7 @@
 #include "Screen/Screen.h"
 #include "Core/Game.h"
 #include "UI/UIManager.h"
+#include "Core/Window.h"
 #include "Layout.h"
 #include <algorithm>
 
@@ -83,6 +84,11 @@ void Control::clearDirty() {
 void Control::setVisible(bool visible) {
     if (this->visible == visible) return;
     this->visible = visible;
+
+    if (!visible && uiManager->getActiveControl() == this) {
+        uiManager->setActiveControl(Game::getWindow()->getCurrentScreen());
+    }
+
     markDirty();
 }
 

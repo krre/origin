@@ -1,15 +1,15 @@
 #pragma once
+#include "UI/Control.h"
 #include <vector>
 
 namespace Origin {
 
-class Control;
 class Screen;
 
-class Layout {
+class Layout : public Control {
 
 public:
-    Layout();
+    Layout(Control* parent = nullptr);
     virtual ~Layout();
 
     void addControl(Control *control);

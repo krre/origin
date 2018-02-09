@@ -3,7 +3,8 @@
 
 namespace Origin {
 
-LinearLayout::LinearLayout(Direction direction) :
+LinearLayout::LinearLayout(Direction direction, Control* parent) :
+    Layout(parent),
     direction(direction) {
 
 }

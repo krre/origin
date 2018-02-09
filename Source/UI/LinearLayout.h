@@ -11,7 +11,7 @@ public:
         Vertical
     };
 
-    LinearLayout(Direction direction);
+    LinearLayout(Direction direction, Control* parent = nullptr);
 
 private:
     void updateContentPostion() override;

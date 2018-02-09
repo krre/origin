@@ -4,7 +4,7 @@
 
 namespace Origin {
 
-Layout::Layout() {
+Layout::Layout(Control* parent) : Control(parent) {
 
 }
 

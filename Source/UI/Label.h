@@ -29,9 +29,9 @@ private:
     std::string text;
     Font* font;
     Color color = Color::BLACK;
-    int contentWidth;
-    int contentHeight;
-    int lineCount;
+    int contentWidth = 0;
+    int contentHeight = 0;
+    int lineCount = 0;
 };
 
 } // Origin

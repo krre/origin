@@ -19,7 +19,15 @@ void Dialog::resizeToContent() {
     if (!children.size()) return;
 
     Control* child = children.at(0);
-    resize(child->getContentWidth(), child->getContentHeight());
+    int width = child->getContentWidth() + padding * 2;
+    int height = child->getContentHeight() + padding * 2;
+    resize(width, height);
+
+    child->move(padding, padding);
+}
+
+void Dialog::setPadding(int padding) {
+    this->padding = padding;
 }
 
 void Dialog::keyPressed(const SDL_KeyboardEvent& event) {

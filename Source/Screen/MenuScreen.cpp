@@ -1,22 +1,46 @@
 #include "MenuScreen.h"
-#include "UI/Rectangle.h"
-#include "UI/Label.h"
-#include "Resource/RenderPass/RenderPassUI.h"
+#include "UI/LinearLayout.h"
+#include "UI/Button.h"
+#include "Core/Game.h"
+#include "Core/Window.h"
+#include "Screen/GameScreen.h"
+#include "Screen/SettingsScreen.h"
 
 namespace Origin {
 
+const int BUTTON_WINDTH = 200;
+const int BUTTON_HEIGHT = 40;
+
 MenuScreen::MenuScreen() {
-    Rectangle* rectangle1 = new Rectangle(Size(500, 500), this);
-    rectangle1->move(50, 50);
-    rectangle1->setColor(Color(0.0, 1.0, 0.0));
+    LinearLayout* layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
-    Rectangle* rectangle2 = new Rectangle(Size(200, 200), rectangle1);
-    rectangle2->move(20, 20);
-    rectangle2->setColor(Color(1.0, 0.0, 0.0));
+    Button* buttonContinue = new Button("New game");
+    buttonContinue->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+    buttonContinue->clicked.connect([&]() {
+        Game::getWindow()->pushScreen(std::make_shared<GameScreen>());
+    });
+    layout->addControl(buttonContinue);
 
-    Label* label = new Label("origin", rectangle2);
-    label->move(15, 15);
-    label->setColor(Color(0.4, 0.7, 1.0));
+    Button* buttonLoad = new Button("Load game");
+    buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+    buttonLoad->clicked.connect([&]() {
+        PRINT("Load game")
+    });
+    layout->addControl(buttonLoad);
+
+    Button* buttonSettings = new Button("Settings");
+    buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+    buttonSettings->clicked.connect([&]() {
+        Game::getWindow()->pushScreen(std::make_shared<SettingsScreen>());
+    });
+    layout->addControl(buttonSettings);
+
+    Button* buttonExit = new Button("Exit");
+    buttonExit->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+    buttonExit->clicked.connect([&]() {
+        Game::quit();
+    });
+    layout->addControl(buttonExit);
 }
 
 } // Origin

@@ -22,6 +22,9 @@ public:
 
 private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
+    void centerLabel();
+    void resizeImpl(int width, int height) override;
+
     Label* label;
     int clickedId;
 };

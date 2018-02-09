@@ -15,7 +15,7 @@ PauseDialog::PauseDialog() {
 
     Button* buttonExit = new Button("Exit");
     buttonExit->clicked.connect([&]() {
-        this->close();
+        Game::quit();
     });
 
 

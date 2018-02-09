@@ -7,6 +7,9 @@ class PauseDialog : public Dialog {
 
 public:
     PauseDialog();
+    ~PauseDialog();
+
+private:
 };
 
 } // Origin

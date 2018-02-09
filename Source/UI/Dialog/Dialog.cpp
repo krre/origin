@@ -15,6 +15,13 @@ void Dialog::close() {
     Game::getOverlay()->closeDialog(this);
 }
 
+void Dialog::resizeToContent() {
+    if (!children.size()) return;
+
+    Control* child = children.at(0);
+    resize(child->getContentWidth(), child->getContentHeight());
+}
+
 void Dialog::keyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         close();

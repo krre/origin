@@ -83,7 +83,7 @@ protected:
     std::vector<Control*> children;
     Pos2 position = { 0, 0 };
     Pos2 absolutePosition = { 0, 0 };
-    Size size;
+    Size size = { 0, 0 };
     int contentWidth = 0;
     int contentHeight = 0;
     float scale = 1.0;

@@ -49,6 +49,12 @@ void Control::updatePosition() {
 
 void Control::setSize(const Size& size) {
     this->size = size;
+
+    resizeImpl(size.width, size.height);
+
+    if (layout != nullptr) {
+        layout->resize(size.width, size.height);
+    }
 }
 
 void Control::setScale(float scale) {
@@ -56,14 +62,7 @@ void Control::setScale(float scale) {
 }
 
 void Control::resize(int width, int height) {
-    size.width = width;
-    size.height = height;
-
-    resizeImpl(width, height);
-
-    if (layout != nullptr) {
-        layout->resize(width, height);
-    }
+    setSize({ (uint32_t)width, (uint32_t)height });
 }
 
 void Control::move(int x, int y) {

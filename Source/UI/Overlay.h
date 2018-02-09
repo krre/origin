@@ -21,6 +21,7 @@ public:
     void showConsole();
     void showDialog(Dialog* dialog);
     void closeDialog(Dialog* dialog);
+    bool isDialogOpen() const { return dialog != nullptr; }
 
 private:
    void resizeImpl(int width, int height) override;

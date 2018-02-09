@@ -168,7 +168,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
             Game::getInput()->isKeyAccepted = true;
             break;
         case SDLK_SLASH:
-            if (!Game::getOverlay()->getConsole()->getVisible()) {
+            if (!Game::getOverlay()->isDialogOpen() && !Game::getOverlay()->getConsole()->getVisible()) {
                 Game::getOverlay()->showConsole();
                 Game::getInput()->isKeyAccepted = true;
             }

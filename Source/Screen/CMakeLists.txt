@@ -4,6 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/GameScreen.h
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuScreen.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/MenuScreen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/NewWorldScreen.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/NewWorldScreen.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Screen.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Screen.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScreen.cpp

@@ -3,8 +3,9 @@
 #include "UI/Button.h"
 #include "Core/Game.h"
 #include "Core/Window.h"
-#include "Screen/GameScreen.h"
-#include "Screen/SettingsScreen.h"
+#include "GameScreen.h"
+#include "SettingsScreen.h"
+#include "NewWorldScreen.h"
 
 namespace Origin {
 
@@ -17,7 +18,7 @@ MenuScreen::MenuScreen() {
     Button* buttonContinue = new Button("New game");
     buttonContinue->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonContinue->clicked.connect([&]() {
-        Game::getWindow()->pushScreen(std::make_shared<GameScreen>());
+        Game::getWindow()->pushScreen(std::make_shared<NewWorldScreen>());
     });
     layout->addControl(buttonContinue);
 

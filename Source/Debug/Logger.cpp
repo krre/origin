@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-Logger::Logger() {
+Logger::Logger(Object* parent) : Object(parent) {
 
 }
 

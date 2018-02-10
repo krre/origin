@@ -5,7 +5,7 @@
 
 namespace Origin {
 
-Event::Event() {
+Event::Event(Object* parent) : Object(parent) {
 
 }
 

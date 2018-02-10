@@ -1,14 +1,15 @@
 #pragma once
+#include "Core/Object.h"
 #include <unordered_set>
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 
 namespace Origin {
 
-class Input {
+class Input : public Object {
 
 public:
-    Input();
+    Input(Object* parent = nullptr);
     void addKey(SDL_Keycode key);
     void removeKey(SDL_Keycode key);
     bool isKeyPressed(SDL_Keycode key);

@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Object.h"
 #include "Resource/Resource.h"
 #include <map>
 
@@ -8,10 +9,10 @@
 
 namespace Origin {
 
-class ResourceManager {
+class ResourceManager : public Object {
 
 public:
-    ResourceManager();
+    ResourceManager(Object* parent = nullptr);
     ~ResourceManager();
 
     template <typename T> T* load(const std::string& path) {

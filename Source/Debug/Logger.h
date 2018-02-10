@@ -1,11 +1,12 @@
 #pragma once
+#include "Core/Object.h"
 
 namespace Origin {
 
-class Logger {
+class Logger : public Object {
 
 public:
-    Logger();
+    Logger(Object* parent = nullptr);
 };
 
 } // Origin

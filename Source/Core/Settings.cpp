@@ -9,7 +9,7 @@ namespace Origin {
 
 namespace fs = std::experimental::filesystem;
 
-Settings::Settings() {
+Settings::Settings(Object* parent) : Object(parent) {
     path = Game::getCurrentDirectory() + Utils::getPathSeparator() + APP_SETTINGS_NAME;
     if (fs::exists(path)) {
         std::string text = Utils::readTextFile(path);

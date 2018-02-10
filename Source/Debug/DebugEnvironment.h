@@ -1,15 +1,15 @@
 #pragma once
-#include "Graphics/GraphicsTypes.h"
+#include "Core/Object.h"
 #include <json/json.hpp>
 
 namespace Origin {
 
 using json = nlohmann::json;
 
-class DebugEnvironment {
+class DebugEnvironment : public Object {
 
 public:
-    DebugEnvironment();
+    DebugEnvironment(Object* parent = nullptr);
     bool getEnable() const { return enable; }
     void setDebugScreen();
     json& getSettings() { return settings; }

@@ -23,7 +23,7 @@
 
 namespace Origin {
 
-Window::Window() {
+Window::Window(Object* parent) : Object(parent) {
     auto settingsWidth = Game::getSettings()->getStorage()["width"];
     auto settingsHeigth = Game::getSettings()->getStorage()["height"];
 

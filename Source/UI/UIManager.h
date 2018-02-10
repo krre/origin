@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Common.h"
+#include "Core/Object.h"
 
 struct SDL_KeyboardEvent;
 struct SDL_TextInputEvent;
@@ -8,10 +8,10 @@ namespace Origin {
 
 class Control;
 
-class UIManager {
+class UIManager : public Object {
 
 public:
-    UIManager();
+    UIManager(Object* parent = nullptr);
     ~UIManager();
     void setActiveControl(Control* control);
     Control* getActiveControl() const { return activeControl; }

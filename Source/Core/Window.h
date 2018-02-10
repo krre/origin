@@ -1,4 +1,5 @@
 #pragma once
+#include "Object.h"
 #include "Graphics/Color.h"
 #include <string>
 #include <vector>
@@ -12,10 +13,10 @@ namespace Origin {
 
 class Screen;
 
-class Window {
+class Window : public Object {
 
 public:
-    Window();
+    Window(Object* parent = nullptr);
     ~Window();
 
     void setX(int x) { this->x = x; }

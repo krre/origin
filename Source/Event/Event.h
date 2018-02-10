@@ -1,13 +1,14 @@
 #pragma once
-#include <Core/Signal.h>
+#include "Core/Object.h"
+#include "Core/Signal.h"
 #include <SDL.h>
 
 namespace Origin {
 
-class Event {
+class Event : public Object {
 
 public:
-    Event();
+    Event(Object* parent = nullptr);
     void handleEvents();
 
     Signal<> render;

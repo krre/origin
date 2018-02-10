@@ -5,7 +5,7 @@ namespace Origin {
 
 std::string ResourceManager::resourcesPath = Game::getCurrentDirectory() + "/Data";
 
-ResourceManager::ResourceManager() {
+ResourceManager::ResourceManager(Object* parent) : Object(parent) {
     if (FT_Init_FreeType(&ft)) {
         throw std::runtime_error("Could not init freetype library");
     }

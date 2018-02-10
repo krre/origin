@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-Input::Input() {
+Input::Input(Object* parent) : Object(parent) {
 
 }
 

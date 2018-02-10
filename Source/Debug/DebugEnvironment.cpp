@@ -12,7 +12,7 @@
 
 namespace Origin {
 
-DebugEnvironment::DebugEnvironment() {
+DebugEnvironment::DebugEnvironment(Object* parent) : Object(parent) {
 #ifdef DEVELOP_MODE
     loadValues();
 #endif

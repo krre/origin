@@ -6,7 +6,7 @@
 
 namespace Origin {
 
-UIManager::UIManager() {
+UIManager::UIManager(Object* parent) : Object(parent) {
     Game::getEvent()->keyPressed.connect(this, &UIManager::onKeyPressed);
     Game::getEvent()->textInput.connect(this, &UIManager::onTextInput);
 }

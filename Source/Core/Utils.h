@@ -1,6 +1,4 @@
 #pragma once
-#include "Core/Object.h"
-#include "Graphics/GraphicsTypes.h"
 #include <glm/glm.hpp>
 #include <vector>
 #include <json/json.hpp>

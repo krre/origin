@@ -1,14 +1,15 @@
 #pragma once
+#include "Object.h"
 #include <json/json.hpp>
 
 namespace Origin {
 
 using json = nlohmann::json;
 
-class Settings {
+class Settings : public Object {
 
 public:
-    Settings();
+    Settings(Object* parent = nullptr);
     ~Settings();
     void saveAll();
     json& getStorage() { return storage; }

@@ -72,22 +72,28 @@ void Window::pushScreen(const std::shared_ptr<Screen>& screen) {
 }
 
 void Window::popScreen() {
-    if (screens.size() > 1) {
-        screens.back()->pause();
-        screens.pop_back();
-        screens.back()->resume();
-    } else {
-        // TODO: Question dialog about exit from game
-        PRINT("Exit question dialog")
-    }
+    addDeferredCall([&] () {
+        if (screens.size() > 1) {
+            screens.back()->pause();
+            screens.pop_back();
+            screens.back()->resume();
+        } else {
+            // TODO: Question dialog about exit from game
+            PRINT("Exit question dialog")
+        }
+    });
 }
 
 void Window::setScreen(const std::shared_ptr<Screen>& screen) {
-    for (const auto& screen : screens) {
-        screen->pause();
+    if (screens.empty()) {
+        pushScreen(screen);
+        return;
     }
-    screens.clear();
-    pushScreen(screen);
+    addDeferredCall([=] () {
+        screens.back()->pause();
+        screens.clear();
+        pushScreen(screen);
+    });
 }
 
 Screen* Window::getCurrentScreen() const {
@@ -149,6 +155,14 @@ void Window::toggleFullScreen() {
 
 void Window::setColor(const Color& color) {
     this->color = color;
+}
+
+void Window::invokeDeffered() {
+    for (const auto& call : deferredCalls) {
+        call();
+    }
+
+    deferredCalls.clear();
 }
 
 void Window::onKeyPressed(const SDL_KeyboardEvent& event) {

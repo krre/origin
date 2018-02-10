@@ -115,6 +115,7 @@ void Game::run() {
 
     while (running) {
         event->handleEvents();
+        window->invokeDeffered();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;

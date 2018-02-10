@@ -3,6 +3,7 @@
 #include "Graphics/Color.h"
 #include <string>
 #include <vector>
+#include <functional>
 
 #undef HAVE_STDINT_H
 #include <SDL.h>
@@ -41,7 +42,11 @@ public:
     void setColor(const Color& color);
     const Color& getColor() const { return color; }
 
+    void invokeDeffered();
+
 private:
+    // Save call deffered funtions, e.g. destroy screen.
+    addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void onMove(int x, int y);
 
@@ -52,6 +57,7 @@ private:
     uint32_t height = 600;
     std::vector<std::shared_ptr<Screen>> screens;
     Color color = Color(0.9, 1.0, 1.0, 1.0);
+    std::vector<std::function<void()>> deferredCalls;
 };
 
 } // Origin

@@ -13,7 +13,8 @@ void LinearLayout::updateContentPostion() {
     contentHeight = 0;
     int positionX = position.x;
     int positionY = position.y;
-    for (const auto& control : controls) {
+    for (const auto& child : getChildren()) {
+        Control* control = static_cast<Control*>(child);
         if (direction == Direction::Vertical) {
             control->move(positionX, positionY);
             positionY += control->getContentHeight() + spacing;
@@ -28,7 +29,7 @@ void LinearLayout::updateContentPostion() {
     }
 
     // Remove last spacing
-    if (controls.size()) {
+    if (getChildren().size()) {
         if (direction == Direction::Vertical) {
             contentHeight -= spacing;
         } else {

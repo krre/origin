@@ -15,11 +15,9 @@ Button::Button(Control* parent) : Rectangle(parent) {
 
 Button::Button(const std::string& text, Control* parent) : Button(parent) {
     setText(text);
-    clickedId = Game::getEvent()->mouseButtonAction.connect(this, &Button::onMouseButtonAction);
 }
 
 Button::~Button() {
-    Game::getEvent()->mouseButtonAction.disconnect(clickedId);
 }
 
 void Button::setText(const std::string &text) {
@@ -39,16 +37,9 @@ const Color& Button::getTextColor() const {
     return label->getColor();
 }
 
-void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
-    if (!visible) return;
-
+void Button::mouseButtonAction(const SDL_MouseButtonEvent& event) {
     if (event.type == SDL_MOUSEBUTTONDOWN) {
-        int mouseX = event.x;
-        int mouseY = event.y;
-
-        if (mouseX > absolutePosition.x && mouseX < (absolutePosition.x + size.width) && mouseY > absolutePosition.y && mouseY < (absolutePosition.y + size.height)) {
-            clicked.fire();
-        }
+        clicked.fire();
     }
 }
 

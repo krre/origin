@@ -15,14 +15,14 @@ NewWorldScreen::NewWorldScreen() {
     textEdit = new TextEdit();
     layout->addControl(textEdit);
 
-    Button* buttonPlay = new Button("Play", this);
+    Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
-        PRINT("Game: " << textEdit->getText())
         Game::getWindow()->setScreen(std::make_shared<GameScreen>());
+        PRINT("Game: " << textEdit->getText())
     });
     layout->addControl(buttonPlay);
 
-    Button* buttonBack = new Button("Back", this);
+    Button* buttonBack = new Button("Back");
     buttonBack->clicked.connect([&]() {
         Game::getWindow()->popScreen();
     });

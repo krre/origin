@@ -6,6 +6,7 @@
 
 struct SDL_KeyboardEvent;
 struct SDL_TextInputEvent;
+struct SDL_MouseButtonEvent;
 
 namespace Origin {
 
@@ -65,6 +66,7 @@ protected:
     virtual void postDraw() {}
     virtual void keyPressed(const SDL_KeyboardEvent& event) {}
     virtual void textPressed(const SDL_TextInputEvent& event) {}
+    virtual void mouseButtonAction(const SDL_MouseButtonEvent& event) {}
 
     UIManager* uiManager;
     Layout* layout = nullptr;

@@ -21,7 +21,8 @@ public:
     Signal<> clicked;
 
 private:
-    void onMouseButtonAction(const SDL_MouseButtonEvent& event);
+    void mouseButtonAction(const SDL_MouseButtonEvent& event) override;
+
     void centerLabel();
     void resizeImpl(int width, int height) override;
 

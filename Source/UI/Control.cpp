@@ -77,8 +77,10 @@ void Control::setVisible(bool visible) {
     if (this->visible == visible) return;
     this->visible = visible;
 
-    if (!visible && uiManager->getActiveControl() == this) {
-        uiManager->setActiveControl(Game::getWindow()->getCurrentScreen());
+    Screen* screen = Game::getWindow()->getCurrentScreen();
+
+    if (!visible && screen && screen->getActiveControl() == this) {
+        screen->activate();
     }
 
     markDirty();
@@ -121,14 +123,7 @@ void Control::setLayout(Layout* layout) {
 }
 
 void Control::activate() {
-    Game::getUIManager()->setActiveControl(this);
-}
-
-void Control::setActive(bool active) {
-    this->active = active;
-    if (active) {
-
-    }
+    Game::getWindow()->getCurrentScreen()->setActiveControl(this);
 }
 
 } // Origin

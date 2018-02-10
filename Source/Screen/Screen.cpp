@@ -22,11 +22,19 @@ void Screen::pause() {
 
 void Screen::resume() {
     isPaused = false;
-    activate();
+    if (activeControl) {
+        activeControl->activate();
+    } else {
+        activate();
+    }
 }
 
 void Screen::show() {
 
+}
+
+void Screen::setActiveControl(Control* control) {
+    activeControl = control;
 }
 
 void Screen::updateImpl(float dt) {

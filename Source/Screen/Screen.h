@@ -22,6 +22,9 @@ public:
     virtual void resume();
     virtual void show();
 
+    void setActiveControl(Control* control);
+    Control* getActiveControl() const { return activeControl; }
+
 protected:
 
 
@@ -31,6 +34,7 @@ private:
     void postDraw() override;
 
     bool isPaused = true;
+    Control* activeControl = nullptr;
 };
 
 } // Origin

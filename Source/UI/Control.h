@@ -75,12 +75,8 @@ protected:
     int contentHeight = 0;
     float scale = 1.0;
     bool visible = true;
-    bool active = false;
 
 private:
-    void setActive(bool active);
-    bool getActive() const { return active; }
-
     bool dirty = true;
 };
 

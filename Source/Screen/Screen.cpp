@@ -6,7 +6,6 @@
 namespace Origin {
 
 Screen::Screen() {
-    setScreen(this);
 }
 
 Screen::~Screen() {

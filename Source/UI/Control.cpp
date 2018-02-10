@@ -24,10 +24,6 @@ Control::~Control() {
     if (layout) {
         delete layout;
     }
-
-    if (uiManager->getActiveControl() == this) {
-        uiManager->setActiveControl(screen);
-    }
 }
 
 void Control::setPosition(const Pos2& position) {
@@ -124,11 +120,6 @@ void Control::draw() {
 void Control::setParent(Control* parent) {
     if (this->parent == parent) return;
 
-    Screen* screen = dynamic_cast<Screen*>(parent);
-    if (screen) {
-        setScreen(screen);
-    }
-
     // Remove self from children of previous parent
     if (this->parent != nullptr) {
         this->parent->removeChild(this);
@@ -163,16 +154,8 @@ void Control::removeChildren() {
     children.clear();
 }
 
-void Control::setScreen(Screen* screen) {
-    this->screen = screen;
-    for (const auto child : children) {
-        child->setScreen(screen);
-    }
-}
-
 void Control::setLayout(Layout* layout) {
     this->layout = layout;
-    layout->setScreen(getScreen());
     layout->resize(size.width, size.height);
 }
 

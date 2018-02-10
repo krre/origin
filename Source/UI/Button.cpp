@@ -40,7 +40,7 @@ const Color& Button::getTextColor() const {
 }
 
 void Button::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
-    if (!visible || screen != Game::getWindow()->getCurrentScreen()) return;
+    if (!visible) return;
 
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         int mouseX = event.x;

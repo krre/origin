@@ -21,7 +21,6 @@ GameScreen::GameScreen() {
 void GameScreen::keyPressed(const SDL_KeyboardEvent& event) {
     if (event.keysym.sym == SDLK_ESCAPE) {
         PauseDialog* dialog = new PauseDialog;
-        dialog->setScreen(this);
         Game::getOverlay()->showDialog(dialog);
     }
 }

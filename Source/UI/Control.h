@@ -60,9 +60,6 @@ public:
     void removeChildren();
     const std::vector<Control*>& getChildren() const { return children; }
 
-    void setScreen(Screen* screen);
-    Screen* getScreen() const { return screen; }
-
     void setLayout(Layout* layout);
     Layout* getLayout() const { return layout; }
 
@@ -79,7 +76,6 @@ protected:
     UIManager* uiManager;
     Control* parent = nullptr;
     Layout* layout = nullptr;
-    Screen* screen = nullptr;
     std::vector<Control*> children;
     Pos2 position = { 0, 0 };
     Pos2 absolutePosition = { 0, 0 };

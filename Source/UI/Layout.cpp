@@ -34,7 +34,6 @@ void Layout::drawImpl() {
 void Layout::addControl(Control* control) {
     control->setParent(this);
     controls.push_back(control);
-    control->setScreen(screen);
     updateContentPostion();
 }
 
@@ -54,7 +53,6 @@ void Layout::clearControls() {
 
 void Layout::addLayout(Layout* layout) {
     layouts.push_back(layout);
-    layout->setScreen(screen);
     updateContentPostion();
 }
 

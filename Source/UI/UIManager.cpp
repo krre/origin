@@ -5,6 +5,7 @@
 #include "Screen/Screen.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
+#include "UI/Overlay.h"
 
 namespace Origin {
 
@@ -39,6 +40,9 @@ void UIManager::onTextInput(const SDL_TextInputEvent& event) {
 void UIManager::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
     Control* control = Game::getWindow()->getCurrentScreen();
     traverseOverLeaf(control, event);
+
+    Overlay* overlay = Game::getOverlay();
+    traverseOverLeaf(overlay, event);
 }
 
 void UIManager::traverseOverLeaf(Control* control, const SDL_MouseButtonEvent& event) {

@@ -41,9 +41,20 @@ void Overlay::showDialog(Dialog* dialog) {
 void Overlay::closeDialog(Dialog* dialog) {
     removeChild(dialog);
     this->dialog = nullptr;
-    delete dialog;
+    addDeferredCall([=]() {
+        delete dialog;
+    });
+
     Game::getWindow()->getCurrentScreen()->activate();
     markDirty();
+}
+
+void Overlay::invokeDeffered() {
+    for (const auto& call : deferredCalls) {
+        call();
+    }
+
+    deferredCalls.clear();
 }
 
 void Overlay::resizeImpl(int width, int height) {

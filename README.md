@@ -6,6 +6,7 @@ Procedural world game based on raycast rendering and sparse voxel octree technol
 - SDL 2.0.4
 - FreeType 2.9
 - Bullet 2.85
+- SPIRV-Cross
 
 ## Status
 Now under initial development stage

@@ -1,25 +1,25 @@
 #pragma once
-#include "Core/Common.h"
+#include "Core/Object.h"
 #include "UIBatch.h"
 
 namespace Origin {
 
 class RenderPassUI;
 
-class UIRenderer {
+class UIRenderer : public Object {
 
 public:
-    UIRenderer();
+    UIRenderer(Object* parent = nullptr);
     ~UIRenderer();
     void addBatch(UIBatch batch);
     void drawBatches();
     std::vector<UIBatch::Vertex>* getVerticles() { return &vertices; }
-    RenderPassUI* getRenderPassUI() const { return renderPassUI.get(); }
+    RenderPassUI* getRenderPassUI() const { return renderPassUI; }
 
 private:
     std::vector<UIBatch> batches;
     std::vector<UIBatch::Vertex> vertices;
-    std::unique_ptr<RenderPassUI> renderPassUI;
+    RenderPassUI* renderPassUI;
 };
 
 } // Origin

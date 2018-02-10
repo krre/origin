@@ -24,7 +24,8 @@
 
 namespace Origin {
 
-RenderPassUI::RenderPassUI(Vulkan::Device* device) : RenderPassResource(device) {
+RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
+        RenderPassResource(device, parent) {
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
     renderPass->setColorFormat(Game::getRenderManager()->getSurface()->getFormats().at(0).format);
     renderPass->create();

@@ -15,7 +15,7 @@ namespace Origin {
 class RenderPassUI : public RenderPassResource {
 
 public:
-    RenderPassUI(Vulkan::Device* device);
+    RenderPassUI(Vulkan::Device* device, Object* parent = nullptr);
     ~RenderPassUI();
     void write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
     Vulkan::GpuBuffer* getVertexBuffer() const { return vertexBuffer.get(); }

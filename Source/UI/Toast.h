@@ -16,7 +16,7 @@ public:
 private:
     void onTimeout();
     Label* text;
-    std::unique_ptr<Timer> timer;
+    Timer* timer;
 };
 
 } // Origin

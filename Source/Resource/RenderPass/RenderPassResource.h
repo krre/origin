@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Common.h"
+#include "Core/Object.h"
 
 namespace Vulkan {
     class CommandBuffer;
@@ -9,10 +9,10 @@ namespace Vulkan {
 
 namespace Origin {
 
-class RenderPassResource {
+class RenderPassResource : public Object {
 
 public:
-    RenderPassResource(Vulkan::Device* device);
+    RenderPassResource(Vulkan::Device* device, Object* parent = nullptr);
     ~RenderPassResource();
     virtual void write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) = 0;
 };

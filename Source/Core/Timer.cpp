@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-Timer::Timer() {
+Timer::Timer(Object* parent) : Object(parent) {
 
 }
 

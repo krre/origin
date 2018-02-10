@@ -7,7 +7,7 @@ namespace Origin {
 class Timer : public Object {
 
 public:
-    Timer();
+    Timer(Object* parent = nullptr);
     void start(int msec);
     void stop();
 

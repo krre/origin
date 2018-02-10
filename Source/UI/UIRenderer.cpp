@@ -6,8 +6,8 @@
 
 namespace Origin {
 
-UIRenderer::UIRenderer() {
-    renderPassUI = std::make_unique<RenderPassUI>(Game::getRenderManager()->getGraphicsDevice());
+UIRenderer::UIRenderer(Object* parent) : Object(parent) {
+    renderPassUI = new RenderPassUI(Game::getRenderManager()->getGraphicsDevice(), this);
 }
 
 UIRenderer::~UIRenderer() {

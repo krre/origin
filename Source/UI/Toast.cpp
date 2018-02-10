@@ -8,7 +8,7 @@
 namespace Origin {
 
 Toast::Toast(Control* parent) : Control(parent) {
-    timer = std::make_unique<Timer>();
+    timer = new Timer(this);
     text = new Label(this);
     setVisible(false);
     timer->timeout.connect(this, &Toast::onTimeout);

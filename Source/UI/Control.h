@@ -53,13 +53,6 @@ public:
     void update(float dt);
     void draw();
 
-    void setParent(Control* parent);
-    void addChild(Control* control);
-    void insertChild(Control* control, int index);
-    void removeChild(Control* control);
-    void removeChildren();
-    const std::vector<Control*>& getChildren() const { return children; }
-
     void setLayout(Layout* layout);
     Layout* getLayout() const { return layout; }
 
@@ -74,9 +67,7 @@ protected:
     virtual void textPressed(const SDL_TextInputEvent& event) {}
 
     UIManager* uiManager;
-    Control* parent = nullptr;
     Layout* layout = nullptr;
-    std::vector<Control*> children;
     Pos2 position = { 0, 0 };
     Pos2 absolutePosition = { 0, 0 };
     Size size = { 0, 0 };

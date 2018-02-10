@@ -9,18 +9,11 @@
 
 namespace Origin {
 
-Control::Control(Control* parent) {
-    setParent(parent);
+Control::Control(Control* parent) : Object(parent) {
     uiManager = Game::getUIManager();
 }
 
 Control::~Control() {
-    if (parent != nullptr) {
-        parent->removeChild(this);
-    }
-
-    removeChildren();
-
     if (layout) {
         delete layout;
     }
@@ -32,14 +25,16 @@ void Control::setPosition(const Pos2& position) {
 }
 
 void Control::updatePosition() {
+    Control* parent = static_cast<Control*>(getParent());
+
     if (parent) {
         absolutePosition = parent->getAbsolutePosition() + position;
     } else {
         absolutePosition = position;
     }
 
-    for (const auto child : children) {
-        child->updatePosition();
+    for (const auto child : getChildren()) {
+        static_cast<Control*>(child)->updatePosition();
     }
 }
 
@@ -67,6 +62,8 @@ void Control::move(int x, int y) {
 
 void Control::markDirty() {
     dirty = true;
+
+    Control* parent = static_cast<Control*>(getParent());
     if (parent != nullptr) {
         parent->markDirty();
     }
@@ -92,8 +89,8 @@ void Control::update(float dt) {
 
     updateImpl(dt);
 
-    for (const auto child : children) {
-        child->update(dt);
+    for (const auto child : getChildren()) {
+        static_cast<Control*>(child)->update(dt);
     }
 
     if (layout) {
@@ -104,9 +101,10 @@ void Control::update(float dt) {
 void Control::draw() {
     drawImpl();
 
-    for (const auto child : children) {
-        if (child->getVisible()) {
-            child->draw();
+    for (Object* child : getChildren()) {
+        Control* control = static_cast<Control*>(child);
+        if (control->getVisible()) {
+            control->draw();
         }
     }
 
@@ -115,43 +113,6 @@ void Control::draw() {
     }
 
     postDraw();
-}
-
-void Control::setParent(Control* parent) {
-    if (this->parent == parent) return;
-
-    // Remove self from children of previous parent
-    if (this->parent != nullptr) {
-        this->parent->removeChild(this);
-    }
-
-    this->parent = parent;
-
-    if (parent != nullptr) {
-        parent->addChild(this);
-    }
-}
-
-void Control::addChild(Control* control) {
-    children.push_back(control);
-    control->setParent(this);
-}
-
-void Control::insertChild(Control* control, int index) {
-    int realIndex = std::max(0, std::min(index, (int)children.size() - 1));
-    children.insert(children.begin() + realIndex, control);
-}
-
-void Control::removeChild(Control* control) {
-    children.erase(std::remove(children.begin(), children.end(), control), children.end());
-}
-
-void Control::removeChildren() {
-    for (int i = children.size() - 1; i >= 0; i--) {
-        delete children.at(i);
-    }
-
-    children.clear();
 }
 
 void Control::setLayout(Layout* layout) {

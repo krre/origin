@@ -36,7 +36,7 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     scissor.offset = { 0, 0 };
     scissor.extent = extent;
 
-    commandBuffer->beginRenderPass(renderPassBegin.get());
+    commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
     //    commandBuffer->bindPipeline(shaderProgram.getGraphicsPipeline());
 

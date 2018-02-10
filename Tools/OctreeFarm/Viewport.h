@@ -9,7 +9,7 @@ namespace OctreeFarm {
 
 const int LOD_PIXEL_LIMIT = 1;
 
-class RenderManager;
+class RenderEngine;
 
 class Viewport : public QWindow {
     Q_OBJECT
@@ -50,7 +50,7 @@ private slots:
     void onOctreeChanged();
 
 private:
-    QSharedPointer<RenderManager> RenderManager;
+    QSharedPointer<RenderEngine> renderEngine;
     float rotateSpeed = 5;
     float panSpeed = 100;
     QPoint lastPos;

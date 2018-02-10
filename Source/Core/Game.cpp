@@ -26,45 +26,49 @@
 
 namespace Origin {
 
-namespace {
-    std::vector<std::string> argvs;
-    bool running = false;
+bool Game::running = false;
 
-    Settings* settings;
-    Logger* logger;
-    DebugEnvironment* debugEnvironment;
-    Event* event;
-    Window* window;
-    RenderManager* renderManager;
-    UIManager* uiManager;
-    EntityManager* entityManager;
-    ResourceManager* resourceManager;
-    Overlay* overlay;
-    Input* input;
-}
+Settings* Game::settings;
+Logger* Game::logger;
+DebugEnvironment* Game::debugEnvironment;
+Event* Game::event;
+Window* Game::window;
+RenderManager* Game::renderManager;
+UIManager* Game::uiManager;
+EntityManager* Game::entityManager;
+ResourceManager* Game::resourceManager;
+Overlay* Game::overlay;
+Input* Game::input;
 
-namespace Game {
-
-void init(int argc, char* argv[]) {
+Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
     for (int i = 0; i < argc; i++) {
         argvs.push_back(argv[i]);
     }
 
+    init();
+}
+
+Game::~Game() {
+    SDL::shutdown();
+    resourceManager->cleanup();
+}
+
+void Game::init() {
     try {
         SDL::init();
-        settings = new Settings;
-        logger = new Logger;
-        debugEnvironment = new DebugEnvironment;
-        event = new Event;
-        window = new Window;
-        resourceManager = new ResourceManager;
+        settings = new Settings(this);
+        logger = new Logger(this);
+        debugEnvironment = new DebugEnvironment(this);
+        event = new Event(this);
+        window = new Window(this);
+        resourceManager = new ResourceManager(this);
 
         SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
 
 #if defined(OS_WIN)
-        renderManager = new RenderManager(GetModuleHandle(nullptr), (void*)wminfo.info.win.window);
+        renderManager = new RenderManager(GetModuleHandle(nullptr), (void*)wminfo.info.win.window, this);
 #elif defined(OS_LINUX)
-        renderManager = new RenderManager((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window);
+        renderManager = new RenderManager((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window, this);
 #endif
 
         if (debugEnvironment->getEnable()) {
@@ -80,10 +84,11 @@ void init(int argc, char* argv[]) {
         }
         renderManager->create();
 
-        uiManager = new UIManager;
-        entityManager = new EntityManager;
-        overlay = new Overlay;
-        input = new Input;
+        uiManager = new UIManager(this);
+        entityManager = new EntityManager(this);
+        overlay = new Overlay();
+        overlay->setParent(this);
+        input = new Input(this);
     } catch (const std::exception& ex) {
         if (SDL::isInited()) {
             SDL::showErrorMessageBox(ex.what());
@@ -104,22 +109,7 @@ void init(int argc, char* argv[]) {
     running = true;
 }
 
-void shutdown() {
-    delete input;
-    delete overlay;
-    delete entityManager;
-    delete uiManager;
-    delete window;
-    delete resourceManager;
-    delete renderManager;
-    delete event;
-    delete debugEnvironment;
-    delete settings;
-    delete logger;
-    SDL::shutdown();
-}
-
-void run() {
+void Game::run() {
     Uint64 frequency = SDL_GetPerformanceFrequency();
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
@@ -136,62 +126,60 @@ void run() {
     }
 }
 
-void quit() {
+void Game::quit() {
     running = false;
 }
 
-std::string getCurrentDirectory() {
+std::string Game::getCurrentDirectory() {
     return std::experimental::filesystem::current_path().string();
 }
 
-Window* getWindow() {
+Window* Game::getWindow() {
     return window;
 }
 
-UIManager* getUIManager() {
+UIManager* Game::getUIManager() {
     return uiManager;
 }
 
-EntityManager* getEntityManager() {
+EntityManager* Game::getEntityManager() {
     return entityManager;
 }
 
-Settings* getSettings() {
+Settings* Game::getSettings() {
     return settings;
 }
 
-Logger* getLogger() {
+Logger* Game::getLogger() {
     return logger;
 }
 
-DebugEnvironment* getDebugEnvironment() {
+DebugEnvironment* Game::getDebugEnvironment() {
     return debugEnvironment;
 }
 
-Event* getEvent() {
+Event* Game::getEvent() {
     return event;
 }
 
-ResourceManager* getResourceManager() {
+ResourceManager* Game::getResourceManager() {
     return resourceManager;
 }
 
-Input* getInput() {
+Input* Game::getInput() {
     return input;
 }
 
-Overlay* getOverlay() {
+Overlay* Game::getOverlay() {
     return overlay;
 }
 
-RenderManager* getRenderManager() {
+RenderManager* Game::getRenderManager() {
     return renderManager;
 }
 
-bool isRunning() {
+bool Game::isRunning() {
     return running;
 }
-
-} // Game
 
 } // Origin

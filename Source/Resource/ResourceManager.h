@@ -26,6 +26,7 @@ public:
     }
 
     void free(const std::string& path);
+    void cleanup();
 
     static const std::string& getDataPath() { return resourcesPath; }
 

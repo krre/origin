@@ -20,4 +20,8 @@ void ResourceManager::free(const std::string& path) {
     resources.erase(path);
 }
 
+void ResourceManager::cleanup() {
+    resources.clear();
+}
+
 } // Origin

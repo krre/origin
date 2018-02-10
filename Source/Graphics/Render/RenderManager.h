@@ -27,8 +27,8 @@ private:
 
     Window* window = nullptr;
     Screen* currentScreen = nullptr;
-    std::vector<RenderPassResource*> renderPassResources;
     UIRenderer* uiRenderer;
+    std::vector<RenderPassResource*> renderPassResources;
 };
 
 } // Origin

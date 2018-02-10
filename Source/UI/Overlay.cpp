@@ -16,7 +16,6 @@ Overlay::Overlay(Control* parent) : Control(parent) {
 }
 
 Overlay::~Overlay() {
-
 }
 
 void Overlay::toggleDebugHUD() {

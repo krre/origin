@@ -1,4 +1,5 @@
 #pragma once
+#include "Object.h"
 #include <string>
 #include <vector>
 
@@ -16,32 +17,50 @@ class ResourceManager;
 class Overlay;
 class Input;
 
-namespace Game {
+class Game : public Object {
 
-    void init(int argc, char* argv[]);
-    void shutdown();
+public:
+    Game(int argc, char* argv[], Object* parent = nullptr);
+    ~Game();
 
     // Path to Game directory
-    std::string getCurrentDirectory();
+    static std::string getCurrentDirectory();
 
     void run();
-    void quit();
+    static void quit();
 
-    Logger* getLogger();
-    Window* getWindow();
-    Settings* getSettings();
-    RenderManager* getRenderManager();
-    UIManager* getUIManager();
-    EntityManager* getEntityManager();
-    DebugEnvironment* getDebugEnvironment();
-    Event* getEvent();
-    ResourceManager* getResourceManager();
-    Overlay* getOverlay();
-    Input* getInput();
+    static Logger* getLogger();
+    static Window* getWindow();
+    static Settings* getSettings();
+    static RenderManager* getRenderManager();
+    static UIManager* getUIManager();
+    static EntityManager* getEntityManager();
+    static DebugEnvironment* getDebugEnvironment();
+    static Event* getEvent();
+    static ResourceManager* getResourceManager();
+    static Overlay* getOverlay();
+    static Input* getInput();
 
-    bool isRunning();
-    std::vector<std::string>& getArgv();
+    static bool isRunning();
+    static std::vector<std::string>& getArgv();
 
-} // Game
+private:
+    void init();
+
+    std::vector<std::string> argvs;
+    static bool running;
+
+    static Settings* settings;
+    static Logger* logger;
+    static DebugEnvironment* debugEnvironment;
+    static Event* event;
+    static Window* window;
+    static RenderManager* renderManager;
+    static UIManager* uiManager;
+    static EntityManager* entityManager;
+    static ResourceManager* resourceManager;
+    static Overlay* overlay;
+    static Input* input;
+};
 
 } // Origin

@@ -6,7 +6,8 @@
 
 namespace OctreeFarm {
 
-RenderEngine::RenderEngine(void* platformHandle, void* platformWindow) :
+RenderEngine::RenderEngine(void* platformHandle, void* platformWindow, QObject* parent) :
+    QObject(parent),
     Vulkan::Renderer(platformHandle, platformWindow) {
 
 }

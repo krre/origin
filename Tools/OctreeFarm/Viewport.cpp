@@ -16,9 +16,9 @@ Viewport::Viewport(Octree* octree) : octree(octree) {
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
     WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
-    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(QX11Info::connection(), &windowHandle));
+    renderEngine = new RenderEngine(QX11Info::connection(), &windowHandle, this);
 #elif defined(Q_OS_WIN)
-    renderEngine = QSharedPointer<RenderEngine>(new RenderEngine(GetModuleHandle(nullptr), (void*)(windowHandle)));
+    renderEngine = new RenderEngine(GetModuleHandle(nullptr), (void*)(windowHandle), this);
 #endif
 
     renderEngine->create();

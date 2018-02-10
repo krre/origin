@@ -50,7 +50,7 @@ private slots:
     void onOctreeChanged();
 
 private:
-    QSharedPointer<RenderEngine> renderEngine;
+    RenderEngine* renderEngine;
     float rotateSpeed = 5;
     float panSpeed = 100;
     QPoint lastPos;

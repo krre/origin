@@ -1,12 +1,14 @@
 #pragma once
 #include "VulkanRenderer/Renderer.h"
+#include <QObject>
 
 namespace OctreeFarm {
 
-class RenderEngine : public Vulkan::Renderer {
+class RenderEngine : public QObject, public Vulkan::Renderer {
+    Q_OBJECT
 
 public:
-    RenderEngine(void* platformHandle, void* platformWindow);
+    RenderEngine(void* platformHandle, void* platformWindow, QObject* parent = nullptr);
     virtual ~RenderEngine();
 
 private:

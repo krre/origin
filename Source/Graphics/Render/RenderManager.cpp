@@ -17,8 +17,9 @@
 
 namespace Origin {
 
-RenderManager::RenderManager(void* platformHandle, void* platformWindow) :
-        Vulkan::Renderer(platformHandle, platformWindow) {
+RenderManager::RenderManager(void* platformHandle, void* platformWindow, Object* parent) :
+        Vulkan::Renderer(platformHandle, platformWindow),
+        Object(parent) {
     window = Game::getWindow();
 }
 
@@ -52,7 +53,7 @@ void RenderManager::saveScreenshot() {
 }
 
 void RenderManager::init() {
-    uiRenderer = std::make_unique<UIRenderer>();
+    uiRenderer = new UIRenderer(this);
     renderPassResources.push_back(uiRenderer->getRenderPassUI());
 }
 

@@ -1,4 +1,5 @@
 #pragma once
+#include "Core/Object.h"
 #include "VulkanRenderer/Renderer.h"
 
 namespace Origin {
@@ -9,13 +10,13 @@ class ShaderProgram;
 class RenderPassResource;
 class UIRenderer;
 
-class RenderManager : public Vulkan::Renderer {
+class RenderManager : public Vulkan::Renderer, public Object {
 
 public:
-    RenderManager(void* platformHandle, void* platformWindow);
+    RenderManager(void* platformHandle, void* platformWindow, Object* parent = nullptr);
     ~RenderManager();
 
-    UIRenderer* getUIRenderer() const { return uiRenderer.get(); }
+    UIRenderer* getUIRenderer() const { return uiRenderer; }
 
     void saveScreenshot();
 
@@ -27,7 +28,7 @@ private:
     Window* window = nullptr;
     Screen* currentScreen = nullptr;
     std::vector<RenderPassResource*> renderPassResources;
-    std::unique_ptr<UIRenderer> uiRenderer;
+    UIRenderer* uiRenderer;
 };
 
 } // Origin

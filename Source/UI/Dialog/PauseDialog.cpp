@@ -5,6 +5,8 @@
 #include "Core/Window.h"
 #include "Screen/Screen.h"
 #include "Screen/SettingsScreen.h"
+#include "Screen/MenuScreen.h"
+#include "Screen/LoadWorldScreen.h"
 
 namespace Origin {
 
@@ -32,7 +34,7 @@ PauseDialog::PauseDialog() {
     Button* buttonLoad = new Button("Load game");
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonLoad->clicked.connect([&]() {
-        PRINT("Load game")
+        Game::getWindow()->pushScreen(std::make_shared<LoadWorldScreen>());
         this->close();
     });
     layout->addControl(buttonLoad);
@@ -48,7 +50,7 @@ PauseDialog::PauseDialog() {
     Button* buttonMenu = new Button("Menu");
     buttonMenu->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonMenu->clicked.connect([&]() {
-        Game::getWindow()->popScreen();
+        Game::getWindow()->pushScreen(std::make_shared<MenuScreen>());
         this->close();
     });
     layout->addControl(buttonMenu);

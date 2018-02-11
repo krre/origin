@@ -7,12 +7,14 @@ class World : public Object {
 
 public:
     World(Object* parent = nullptr);
-    void create(std::string& filePath);
-    void load(std::string& filePath);
+    void create(const std::string& name);
+    void load(const std::string& name);
     void save();
 
 private:
-    std::string filePath;
+    std::string getSavesDirectory();
+
+    std::string savePath;
 };
 
 } // Origin

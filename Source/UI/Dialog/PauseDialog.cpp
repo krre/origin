@@ -7,6 +7,7 @@
 #include "Screen/SettingsScreen.h"
 #include "Screen/MenuScreen.h"
 #include "Screen/LoadWorldScreen.h"
+#include "World/World.h"
 
 namespace Origin {
 
@@ -27,7 +28,7 @@ PauseDialog::PauseDialog() {
     buttonSave->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSave->clicked.connect([&]() {
         this->close();
-        PRINT("Save game")
+        Game::getWorld()->save();
     });
     layout->addControl(buttonSave);
 

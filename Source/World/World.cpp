@@ -1,4 +1,9 @@
 #include "World.h"
+#include "Core/Game.h"
+#include "Core/Utils.h"
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
 
 namespace Origin {
 
@@ -6,18 +11,28 @@ World::World(Object* parent) : Object(parent) {
 
 }
 
-void World::create(std::string& filePath) {
-    this->filePath = filePath;
-    PRINT("create world " << filePath)
+void World::create(const std::string& name) {
+    savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
+    fs::create_directory(savePath);
+    PRINT("create world " << savePath)
 }
 
-void World::load(std::string& filePath) {
-    PRINT("create world " << filePath)
-            this->filePath = filePath;
+void World::load(const std::string& name) {
+    PRINT("create world " << name)
+    this->savePath = name;
 }
 
 void World::save() {
-    PRINT("save world " << filePath)
+    PRINT("save world " << savePath)
+}
+
+std::string World::getSavesDirectory() {
+    std::string directoryPath = Game::getCurrentDirectory() + Utils::getPathSeparator() + "Saves";
+    if (!fs::exists(directoryPath)) {
+        fs::create_directory(directoryPath);
+    }
+
+    return directoryPath;
 }
 
 } // Origin

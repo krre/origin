@@ -5,6 +5,7 @@
 #include "Core/Window.h"
 #include "UI/LinearLayout.h"
 #include "UI/TextEdit.h"
+#include "World/World.h"
 
 namespace Origin {
 
@@ -16,8 +17,10 @@ NewWorldScreen::NewWorldScreen() {
 
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {
-        PRINT("Game: " << textEdit->getText())
-        Game::getWindow()->setScreen(std::make_shared<GameScreen>());
+        if (!textEdit->getText().empty()) {
+            Game::getWorld()->create(textEdit->getText());
+            Game::getWindow()->setScreen(std::make_shared<GameScreen>());
+        }
     });
     layout->addControl(buttonPlay);
 

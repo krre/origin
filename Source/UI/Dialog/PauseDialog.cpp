@@ -26,32 +26,32 @@ PauseDialog::PauseDialog() {
     Button* buttonSave = new Button("Save game");
     buttonSave->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSave->clicked.connect([&]() {
-        PRINT("Save game")
         this->close();
+        PRINT("Save game")
     });
     layout->addControl(buttonSave);
 
     Button* buttonLoad = new Button("Load game");
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonLoad->clicked.connect([&]() {
-        Game::getWindow()->pushScreen(std::make_shared<LoadWorldScreen>());
         this->close();
+        Game::getWindow()->pushScreen(std::make_shared<LoadWorldScreen>());
     });
     layout->addControl(buttonLoad);
 
     Button* buttonSettings = new Button("Settings");
     buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSettings->clicked.connect([&]() {
-        Game::getWindow()->pushScreen(std::make_shared<SettingsScreen>());
         this->close();
+        Game::getWindow()->pushScreen(std::make_shared<SettingsScreen>());
     });
     layout->addControl(buttonSettings);
 
     Button* buttonMenu = new Button("Menu");
     buttonMenu->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonMenu->clicked.connect([&]() {
-        Game::getWindow()->pushScreen(std::make_shared<MenuScreen>());
         this->close();
+        Game::getWindow()->pushScreen(std::make_shared<MenuScreen>());
     });
     layout->addControl(buttonMenu);
 

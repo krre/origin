@@ -8,8 +8,7 @@
 namespace Origin {
 
 LoadWorldScreen::LoadWorldScreen() {
-    LinearLayout* layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
-    layout->move(5, 5);
+    layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {
@@ -17,11 +16,15 @@ LoadWorldScreen::LoadWorldScreen() {
     });
     layout->addControl(buttonPlay);
 
-    Button* buttonBack = new Button("Back", this);
+    buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {
         Game::getWindow()->popScreen();
     });
-    layout->addControl(buttonBack);
+}
+
+void LoadWorldScreen::resizeImpl(int width, int height) {
+    layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
+    buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
 }
 
 } // Origin

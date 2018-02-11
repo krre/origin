@@ -14,16 +14,16 @@ World::World(Object* parent) : Object(parent) {
 void World::create(const std::string& name) {
     savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
     fs::create_directory(savePath);
-    PRINT("create world " << savePath)
+    PRINT("Create world: " << savePath)
 }
 
 void World::load(const std::string& name) {
     this->savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
-    PRINT("load world " << savePath)
+    PRINT("Load world: " << savePath)
 }
 
 void World::save() {
-    PRINT("save world " << savePath)
+    PRINT("Save world: " << savePath)
 }
 
 std::string World::getSavesDirectory() {

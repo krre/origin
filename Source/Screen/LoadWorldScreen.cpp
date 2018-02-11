@@ -5,6 +5,10 @@
 #include "Core/Window.h"
 #include "UI/LinearLayout.h"
 #include "UI/ListBox.h"
+#include "World/World.h"
+#include <experimental/filesystem>
+
+namespace fs = std::experimental::filesystem;
 
 namespace Origin {
 
@@ -13,9 +17,12 @@ LoadWorldScreen::LoadWorldScreen() {
 
     listBox = new ListBox;
     listBox->resize(200, 200);
-    listBox->addLine("one");
-    listBox->addLine("two");
-    listBox->addLine("three");
+
+    for(auto& path: fs::directory_iterator(Game::getWorld()->getSavesDirectory())) {
+        fs::path fullPath(path);
+        listBox->addLine(fullPath.filename().string());
+    }
+
     layout->addControl(listBox);
 
     Button* buttonPlay = new Button("Play", this);

@@ -20,6 +20,7 @@ DebugEnvironment::DebugEnvironment(Object* parent) : Object(parent) {
 
 void DebugEnvironment::setDebugScreen() {
     uint8_t s = settings["general"]["screen"];
+    std::string worldName = settings["general"]["save"];
     Screen::Name screen = static_cast<Screen::Name>(s);
     switch (screen) {
         case Screen::Name::Menu:
@@ -29,7 +30,7 @@ void DebugEnvironment::setDebugScreen() {
             Game::getWindow()->setScreen(std::make_shared<SettingsScreen>());
             break;
         case Screen::Name::Game:
-            Game::getWindow()->setScreen(std::make_shared<GameScreen>("test"));
+            Game::getWindow()->setScreen(std::make_shared<GameScreen>(worldName));
             break;
         case Screen::Name::NewGame:
             Game::getWindow()->setScreen(std::make_shared<NewWorldScreen>());

@@ -28,7 +28,7 @@ NewWorldScreen::NewWorldScreen() {
     });
     layout->addControl(buttonBack);
 
-    textEdit->activate();
+    setActiveControl(textEdit);
 }
 
 } // Origin

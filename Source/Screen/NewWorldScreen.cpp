@@ -1,5 +1,5 @@
 #include "NewWorldScreen.h"
-#include "Screen/GameScreen.h"
+#include "GameScreen.h"
 #include "UI/Button.h"
 #include "Core/Game.h"
 #include "Core/Window.h"

@@ -11,7 +11,7 @@ namespace Origin {
 LoadWorldScreen::LoadWorldScreen() {
     layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
-    ListBox* listBox = new ListBox;
+    listBox = new ListBox;
     listBox->resize(200, 200);
     listBox->addLine("one");
     listBox->addLine("two");
@@ -20,6 +20,7 @@ LoadWorldScreen::LoadWorldScreen() {
 
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {
+        PRINT(listBox->getCurrentText())
         Game::getWindow()->setScreen(std::make_shared<GameScreen>());
     });
     layout->addControl(buttonPlay);

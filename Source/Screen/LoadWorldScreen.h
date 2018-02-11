@@ -5,6 +5,7 @@ namespace Origin {
 
 class Button;
 class LinearLayout;
+class ListBox;
 
 class LoadWorldScreen : public Screen {
 
@@ -16,6 +17,7 @@ private:
 
     Button* buttonBack;
     LinearLayout* layout;
+    ListBox* listBox;
 };
 
 } // Origin

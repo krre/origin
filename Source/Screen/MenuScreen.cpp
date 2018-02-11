@@ -14,7 +14,7 @@ const int BUTTON_WINDTH = 200;
 const int BUTTON_HEIGHT = 40;
 
 MenuScreen::MenuScreen() {
-    LinearLayout* layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
+    layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
     Button* buttonContinue = new Button("New game");
     buttonContinue->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
@@ -43,6 +43,10 @@ MenuScreen::MenuScreen() {
         Game::quit();
     });
     layout->addControl(buttonExit);
+}
+
+void MenuScreen::resizeImpl(int width, int height) {
+    layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
 }
 
 } // Origin

@@ -4,11 +4,19 @@
 #include "GameScreen.h"
 #include "Core/Window.h"
 #include "UI/LinearLayout.h"
+#include "UI/ListBox.h"
 
 namespace Origin {
 
 LoadWorldScreen::LoadWorldScreen() {
     layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
+
+    ListBox* listBox = new ListBox;
+    listBox->resize(200, 200);
+    listBox->addLine("one");
+    listBox->addLine("two");
+    listBox->addLine("three");
+    layout->addControl(listBox);
 
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {

@@ -17,6 +17,7 @@ public:
 protected:
     void keyPressed(const SDL_KeyboardEvent& event) override;
     void textPressed(const SDL_TextInputEvent& event) override;
+    void mouseButtonAction(const SDL_MouseButtonEvent& event) override;
 
 private:
     void resizeImpl(int width, int height) override;

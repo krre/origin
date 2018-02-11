@@ -46,4 +46,10 @@ void TextEdit::textPressed(const SDL_TextInputEvent& event) {
     label->setText(label->getText() + event.text);
 }
 
+void TextEdit::mouseButtonAction(const SDL_MouseButtonEvent& event) {
+    if (event.type == SDL_MOUSEBUTTONDOWN) {
+        activate();
+    }
+}
+
 } // Origin

@@ -5,11 +5,14 @@
 #include "UI/Overlay.h"
 #include "Scene/GameScene.h"
 #include "UI/Dialog/PauseDialog.h"
+#include "World/World.h"
 #include <SDL_events.h>
 
 namespace Origin {
 
-GameScreen::GameScreen() {
+GameScreen::GameScreen(const std::string& worldName) {
+    Game::getWorld()->load(worldName);
+
     View3D* gameView = new View3D();
     std::shared_ptr<GameScene> gameScene = std::make_shared<GameScene>();
     gameView->setScene(gameScene);

@@ -19,7 +19,7 @@ NewWorldScreen::NewWorldScreen() {
     buttonPlay->clicked.connect([&]() {
         if (!textEdit->getText().empty()) {
             Game::getWorld()->create(textEdit->getText());
-            Game::getWindow()->setScreen(std::make_shared<GameScreen>());
+            Game::getWindow()->setScreen(std::make_shared<GameScreen>(textEdit->getText()));
         }
     });
     layout->addControl(buttonPlay);

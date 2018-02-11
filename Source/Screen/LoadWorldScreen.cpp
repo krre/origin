@@ -22,8 +22,7 @@ LoadWorldScreen::LoadWorldScreen() {
     buttonPlay->clicked.connect([&]() {
         std::string name = listBox->getCurrentText();
         if (!name.empty()) {
-            PRINT(listBox->getCurrentText())
-            Game::getWindow()->setScreen(std::make_shared<GameScreen>());
+            Game::getWindow()->setScreen(std::make_shared<GameScreen>(listBox->getCurrentText()));
         }
     });
     layout->addControl(buttonPlay);

@@ -29,7 +29,7 @@ void DebugEnvironment::setDebugScreen() {
             Game::getWindow()->setScreen(std::make_shared<SettingsScreen>());
             break;
         case Screen::Name::Game:
-            Game::getWindow()->setScreen(std::make_shared<GameScreen>());
+            Game::getWindow()->setScreen(std::make_shared<GameScreen>("test"));
             break;
         case Screen::Name::NewGame:
             Game::getWindow()->setScreen(std::make_shared<NewWorldScreen>());

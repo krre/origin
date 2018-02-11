@@ -18,8 +18,8 @@ void World::create(const std::string& name) {
 }
 
 void World::load(const std::string& name) {
-    PRINT("create world " << name)
-    this->savePath = name;
+    this->savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
+    PRINT("load world " << savePath)
 }
 
 void World::save() {

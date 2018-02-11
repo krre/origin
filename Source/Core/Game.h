@@ -16,6 +16,7 @@ class EntityManager;
 class ResourceManager;
 class Overlay;
 class Input;
+class World;
 
 class Game : public Object {
 
@@ -40,6 +41,7 @@ public:
     static ResourceManager* getResourceManager();
     static Overlay* getOverlay();
     static Input* getInput();
+    static World* getWorld();
 
     static bool isRunning();
     static std::vector<std::string>& getArgv();
@@ -61,6 +63,7 @@ private:
     static ResourceManager* resourceManager;
     static Overlay* overlay;
     static Input* input;
+    static World* world;
 };
 
 } // Origin

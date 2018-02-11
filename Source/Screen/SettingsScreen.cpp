@@ -6,10 +6,14 @@
 namespace Origin {
 
 SettingsScreen::SettingsScreen() {
-    Button* buttonBack = new Button("Back", this);
+    buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {
         Game::getWindow()->popScreen();
     });
+}
+
+void SettingsScreen::resizeImpl(int width, int height) {
+    buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
 }
 
 } // Origin

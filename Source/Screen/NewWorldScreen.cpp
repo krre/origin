@@ -9,8 +9,7 @@
 namespace Origin {
 
 NewWorldScreen::NewWorldScreen() {
-    LinearLayout* layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
-    layout->move(5, 5);
+    layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
     textEdit = new TextEdit();
     layout->addControl(textEdit);
@@ -22,13 +21,17 @@ NewWorldScreen::NewWorldScreen() {
     });
     layout->addControl(buttonPlay);
 
-    Button* buttonBack = new Button("Back", this);
+    buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {
         Game::getWindow()->popScreen();
     });
-    layout->addControl(buttonBack);
 
     setActiveControl(textEdit);
+}
+
+void NewWorldScreen::resizeImpl(int width, int height) {
+    layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
+    buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
 }
 
 } // Origin

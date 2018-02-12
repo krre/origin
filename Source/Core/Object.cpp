@@ -19,13 +19,13 @@ void Object::setParent(Object* parent) {
     if (this->parent == parent) return;
 
     // Remove self from children of previous parent
-    if (this->parent != nullptr) {
+    if (this->parent) {
         this->parent->removeChild(this);
     }
 
     this->parent = parent;
 
-    if (parent != nullptr) {
+    if (parent) {
         parent->addChild(this);
     }
 }

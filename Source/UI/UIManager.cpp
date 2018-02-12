@@ -72,7 +72,7 @@ void UIManager::traverseOverLeaf(Control* control, const SDL_MouseButtonEvent& e
             Control* parent = static_cast<Control*>(control->getParent());
             while (parent) {
                 parent->mouseButtonAction(event);
-                parent = static_cast<Control*>(parent->getParent());
+                parent = dynamic_cast<Control*>(parent->getParent());
             }
         }
     }

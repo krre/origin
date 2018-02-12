@@ -61,6 +61,7 @@ void Overlay::resizeImpl(int width, int height) {
     toast->move(15, height / 2);
     console->move(0, height - console->getSize().height - 5);
     console->resize(width, console->getSize().height);
+    debugHUD->resize(width, height);
     centerDialog();
 }
 

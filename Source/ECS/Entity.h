@@ -8,8 +8,12 @@ namespace Origin {
 class Entity : public Object {
 
 public:
-    Entity(EntityId id = 0);
+    Entity(Entity* parent = nullptr);
+    Entity(EntityId id, Entity* parent = nullptr);
+
     EntityId getId() { return id; }
+    static void setIdCounter(EntityId id);
+
     std::map<Component::Type, std::shared_ptr<Component>> components;
     bool enable = true;
 

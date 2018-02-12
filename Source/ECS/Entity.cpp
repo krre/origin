@@ -1,22 +1,19 @@
 #include "Entity.h"
-#include <chrono>
 
 namespace Origin {
 
 EntityId Entity::counter = 0;
 
-Entity::Entity(EntityId id) {
-    if (id) {
-        this->id = id;
-    } else {
-        /*
-        // Get id as nanoseconds count from Epoch
-        using namespace std::chrono;
-        auto now = high_resolution_clock::now();
-        this->id = duration_cast<nanoseconds>(now.time_since_epoch()).count();
-        */
-        this->id = counter++; // TODO: Replace by hash
-    }
+Entity::Entity(Entity* parent) : Object(parent) {
+    id = counter++;
+}
+
+Entity::Entity(EntityId id, Entity* parent) : Object(parent) {
+    this->id = id;
+}
+
+void Entity::setIdCounter(EntityId id) {
+    counter = id;
 }
 
 } // Origin

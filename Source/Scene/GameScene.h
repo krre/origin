@@ -6,7 +6,7 @@ namespace Origin {
 class GameScene : public Scene {
 
 public:
-    GameScene();
+    GameScene(Object* parent = nullptr);
     ~GameScene();
 
 private:

@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-GameScene::GameScene() {
+GameScene::GameScene(Object* parent) : Scene(parent) {
 
 }
 

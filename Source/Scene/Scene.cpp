@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-Scene::Scene() {
+Scene::Scene(Object* parent) : Object(parent) {
 
 }
 

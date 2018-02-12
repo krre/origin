@@ -1,12 +1,12 @@
 #pragma once
-#include "Core/Common.h"
+#include "Core/Object.h"
 
 namespace Origin {
 
-class Scene {
+class Scene : public Object {
 
 public:
-    Scene();
+    Scene(Object* parent = nullptr);
     ~Scene();
 
 private:

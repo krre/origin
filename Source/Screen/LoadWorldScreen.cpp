@@ -25,13 +25,15 @@ LoadWorldScreen::LoadWorldScreen() {
 
     layout->addChild(listBox);
 
+    LinearLayout* buttonLayout = new LinearLayout(LinearLayout::Direction::Horizontal);
+
     Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
         if (listBox->getCurrentIndex() >= 0) {
             Game::getWindow()->setScreen(std::make_shared<GameScreen>(listBox->getCurrentText()));
         }
     });
-    layout->addChild(buttonPlay);
+    buttonLayout->addChild(buttonPlay);
 
     Button* buttonRemove = new Button("Remove");
     buttonRemove->clicked.connect([&]() {
@@ -41,7 +43,9 @@ LoadWorldScreen::LoadWorldScreen() {
             listBox->removeLine(currentIndex);
         }
     });
-    layout->addChild(buttonRemove);
+    buttonLayout->addChild(buttonRemove);
+
+    layout->addChild(buttonLayout);
 
     buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {

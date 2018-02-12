@@ -12,11 +12,6 @@ public:
     Layout(Control* parent = nullptr);
     virtual ~Layout();
 
-    void addControl(Control *control);
-    void removeControl(Control* control);
-    void removeControl(int index);
-    void clearControls();
-
     void addLayout(Layout* layout);
     void removeLayout(Layout* layout);
     void clearLayouts();
@@ -28,6 +23,10 @@ public:
 
 protected:
     virtual void updateContentPostion() = 0;
+
+private:
+    void notifyAddChild(Object* child) override;
+    void notifyRemoveChild(Object* child) override;
 
     std::vector<Layout*> layouts;
     int spacing = 5;

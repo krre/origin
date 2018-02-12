@@ -10,7 +10,6 @@ Layout::Layout(Control* parent) : Control(parent) {
 
 Layout::~Layout() {
     clearLayouts();
-    clearControls();
 }
 
 void Layout::resize(int width, int height) {
@@ -19,23 +18,12 @@ void Layout::resize(int width, int height) {
     }
 }
 
-void Layout::addControl(Control* control) {
-    control->setParent(this);
+void Layout::notifyAddChild(Object* child) {
     updateContentPostion();
 }
 
-void Layout::removeControl(Control *control) {
-    removeChild(control);
+void Layout::notifyRemoveChild(Object* child) {
     updateContentPostion();
-}
-
-void Layout::removeControl(int index) {
-    removeChild(index);
-    updateContentPostion();
-}
-
-void Layout::clearControls() {
-    removeChildren();
 }
 
 void Layout::addLayout(Layout* layout) {

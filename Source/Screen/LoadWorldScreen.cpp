@@ -23,7 +23,7 @@ LoadWorldScreen::LoadWorldScreen() {
         listBox->addLine(fullPath.filename().string());
     }
 
-    layout->addControl(listBox);
+    layout->addChild(listBox);
 
     Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
@@ -32,7 +32,7 @@ LoadWorldScreen::LoadWorldScreen() {
             Game::getWindow()->setScreen(std::make_shared<GameScreen>(listBox->getCurrentText()));
         }
     });
-    layout->addControl(buttonPlay);
+    layout->addChild(buttonPlay);
 
     Button* buttonRemove = new Button("Remove");
     buttonRemove->clicked.connect([&]() {
@@ -42,7 +42,7 @@ LoadWorldScreen::LoadWorldScreen() {
             listBox->removeLine(currentIndex);
         }
     });
-    layout->addControl(buttonRemove);
+    layout->addChild(buttonRemove);
 
     buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {

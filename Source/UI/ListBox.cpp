@@ -37,11 +37,11 @@ ListBox::~ListBox() {
 
 void ListBox::addLine(const std::string& text) {
     ListLine* listLine = new ListLine(text, layout->getChildren().size(), this);
-    layout->addControl(listLine);
+    layout->addChild(listLine);
 }
 
 void ListBox::removeLine(int index) {
-    layout->removeControl(index);
+    layout->removeChild(index);
 }
 
 void ListBox::setCurrentIndex(int currentIndex) {

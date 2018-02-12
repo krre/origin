@@ -21,28 +21,28 @@ MenuScreen::MenuScreen() {
     buttonContinue->clicked.connect([&]() {
         Game::getWindow()->pushScreen(std::make_shared<NewWorldScreen>());
     });
-    layout->addControl(buttonContinue);
+    layout->addChild(buttonContinue);
 
     Button* buttonLoad = new Button("Load game");
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonLoad->clicked.connect([&]() {
         Game::getWindow()->pushScreen(std::make_shared<LoadWorldScreen>());
     });
-    layout->addControl(buttonLoad);
+    layout->addChild(buttonLoad);
 
     Button* buttonSettings = new Button("Settings");
     buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSettings->clicked.connect([&]() {
         Game::getWindow()->pushScreen(std::make_shared<SettingsScreen>());
     });
-    layout->addControl(buttonSettings);
+    layout->addChild(buttonSettings);
 
     Button* buttonExit = new Button("Exit");
     buttonExit->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonExit->clicked.connect([&]() {
         Game::quit();
     });
-    layout->addControl(buttonExit);
+    layout->addChild(buttonExit);
 }
 
 void MenuScreen::resizeImpl(int width, int height) {

@@ -17,7 +17,7 @@ GameScreen::GameScreen(const std::string& worldName) {
     std::shared_ptr<GameScene> gameScene = std::make_shared<GameScene>();
     gameView->setScene(gameScene);
     LinearLayout* layout = new LinearLayout(LinearLayout::Direction::Vertical);
-    layout->addControl(gameView);
+    layout->addChild(gameView);
     setLayout(layout);
 }
 

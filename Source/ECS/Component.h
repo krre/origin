@@ -1,9 +1,8 @@
 #pragma once
-#include "Core/Object.h"
 
 namespace Origin {
 
-class Component : public Object {
+class Component {
 
 public:
 

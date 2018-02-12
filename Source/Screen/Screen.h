@@ -29,10 +29,6 @@ protected:
 
 
 private:
-    void updateImpl(float dt) override;
-    void drawImpl() override;
-    void postDraw() override;
-
     bool isPaused = true;
     Control* activeControl = nullptr;
 };

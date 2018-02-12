@@ -40,6 +40,10 @@ void ListBox::addLine(const std::string& text) {
     layout->addControl(listLine);
 }
 
+void ListBox::removeLine(int index) {
+    layout->removeControl(index);
+}
+
 void ListBox::setCurrentIndex(int currentIndex) {
     this->currentIndex = currentIndex;
 

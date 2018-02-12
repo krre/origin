@@ -25,7 +25,7 @@ LoadWorldScreen::LoadWorldScreen() {
 
     layout->addControl(listBox);
 
-    Button* buttonPlay = new Button("Play", this);
+    Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
         std::string name = listBox->getCurrentText();
         if (!name.empty()) {
@@ -33,6 +33,16 @@ LoadWorldScreen::LoadWorldScreen() {
         }
     });
     layout->addControl(buttonPlay);
+
+    Button* buttonRemove = new Button("Remove");
+    buttonRemove->clicked.connect([&]() {
+        int currentIndex = listBox->getCurrentIndex();
+        if (currentIndex >= 0) {
+            Game::getWorld()->remove(listBox->getCurrentText());
+            listBox->removeLine(currentIndex);
+        }
+    });
+    layout->addControl(buttonRemove);
 
     buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {

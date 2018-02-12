@@ -17,6 +17,12 @@ void World::create(const std::string& name) {
     PRINT("Create world: " << savePath)
 }
 
+void World::remove(const std::string& name) {
+    std::string removePath = getSavesDirectory() + Utils::getPathSeparator() + name;
+    fs::remove_all(removePath);
+    PRINT("Remove world: " << removePath)
+}
+
 void World::load(const std::string& name) {
     this->savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
     PRINT("Load world: " << savePath)

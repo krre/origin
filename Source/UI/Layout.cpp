@@ -29,6 +29,11 @@ void Layout::removeControl(Control *control) {
     updateContentPostion();
 }
 
+void Layout::removeControl(int index) {
+    removeChild(index);
+    updateContentPostion();
+}
+
 void Layout::clearControls() {
     removeChildren();
 }

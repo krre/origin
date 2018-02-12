@@ -28,7 +28,11 @@ public:
     ListBox(Control* parent = nullptr);
     ~ListBox();
     void addLine(const std::string& text);
+    void removeLine(int index);
+
     void setCurrentIndex(int currentIndex);
+    int getCurrentIndex() const { return currentIndex; }
+
     const std::string& getCurrentText() const { return currentText; }
 
 private:

@@ -14,6 +14,7 @@ public:
 
     void addControl(Control *control);
     void removeControl(Control* control);
+    void removeControl(int index);
     void clearControls();
 
     void addLayout(Layout* layout);

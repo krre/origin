@@ -9,6 +9,7 @@ public:
     World(Object* parent = nullptr);
 
     void create(const std::string& name);
+    void remove(const std::string& name);
     void load(const std::string& name);
     void save();
 

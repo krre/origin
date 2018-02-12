@@ -44,6 +44,10 @@ void Object::removeChild(Object* child) {
     children.erase(std::remove(children.begin(), children.end(), child), children.end());
 }
 
+void Object::removeChild(int index) {
+    children.erase(children.begin() + index);
+}
+
 void Object::removeChildren() {
     for (int i = children.size() - 1; i >= 0; i--) {
         delete children.at(i);

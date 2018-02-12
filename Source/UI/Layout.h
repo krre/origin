@@ -30,7 +30,6 @@ private:
 
     std::vector<Layout*> layouts;
     int spacing = 5;
-    Control* parent = nullptr;
 };
 
 } // Origin

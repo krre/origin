@@ -42,6 +42,7 @@ void ListBox::addLine(const std::string& text) {
 
 void ListBox::removeLine(int index) {
     layout->removeChild(index);
+    currentIndex = -1;
 }
 
 void ListBox::setCurrentIndex(int currentIndex) {

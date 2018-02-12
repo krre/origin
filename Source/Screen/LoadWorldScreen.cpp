@@ -27,8 +27,7 @@ LoadWorldScreen::LoadWorldScreen() {
 
     Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
-        std::string name = listBox->getCurrentText();
-        if (!name.empty()) {
+        if (listBox->getCurrentIndex() >= 0) {
             Game::getWindow()->setScreen(std::make_shared<GameScreen>(listBox->getCurrentText()));
         }
     });

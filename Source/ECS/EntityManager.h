@@ -16,7 +16,6 @@ public:
     EntityManager(Object* parent = nullptr);
     ~EntityManager();
 
-    // Update system
     template <typename T> void addSystem() {
         auto system = std::make_shared<T>(this);
         systems[system->getType()] = system;

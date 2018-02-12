@@ -16,17 +16,15 @@ EntityManager::~EntityManager() {
 }
 
 void EntityManager::removeSystem(System::Type type) {
-    updateSystems.erase(type);
-    drawSystems.erase(type);
+    systems.erase(type);
 }
 
 std::shared_ptr<System> EntityManager::getSystem(System::Type type) {
-    auto it = updateSystems.find(type);
-    if (it != updateSystems.end()) {
+    auto it = systems.find(type);
+    if (it != systems.end()) {
         return it->second;
     }
-    std::shared_ptr<System> system = drawSystems.at(type);
-    return system;
+    return nullptr;
 }
 
 void EntityManager::addEntity(const std::shared_ptr<Entity>& entity) {
@@ -48,13 +46,12 @@ void EntityManager::clearEntities() {
 void EntityManager::initSystems() {
     // Order important!
     // This is also order of processing
-    addUpdateSystem<MovementControllerSystem>();
-    addUpdateSystem<CameraSystem>();
-    addUpdateSystem<TransformSystem>();
-    addUpdateSystem<NodeSystem>();
-    addUpdateSystem<PhysicsSystem>();
-    addUpdateSystem<OctreeSystem>();
-    addDrawSystem<RenderSystem>();
+    addSystem<MovementControllerSystem>();
+    addSystem<CameraSystem>();
+    addSystem<TransformSystem>();
+    addSystem<NodeSystem>();
+    addSystem<PhysicsSystem>();
+    addSystem<OctreeSystem>();
 }
 
 Component* EntityManager::createComponent(Entity* entity, Component::Type type) {
@@ -115,7 +112,7 @@ void EntityManager::removeComponent(Entity* entity, Component::Type type) {
 }
 
 void EntityManager::update(float dt) {
-    for (const auto& system : updateSystems) {
+    for (const auto& system : systems) {
         if (system.second->getActive()) {
             system.second->process(dt);
         }
@@ -123,11 +120,11 @@ void EntityManager::update(float dt) {
 }
 
 void EntityManager::draw() {
-    for (const auto& system : drawSystems) {
-        if (system.second->getActive()) {
-            system.second->process(0); // dt is not used
-        }
-    }
+//    for (const auto& system : drawSystems) {
+//        if (system.second->getActive()) {
+//            system.second->process(0); // dt is not used
+//        }
+//    }
 }
 
 } // Origin

@@ -17,15 +17,9 @@ public:
     ~EntityManager();
 
     // Update system
-    template <typename T> void addUpdateSystem() {
+    template <typename T> void addSystem() {
         auto system = std::make_shared<T>(this);
-        updateSystems[system->getType()] = system;
-    }
-
-    // Draw system
-    template <typename T> void addDrawSystem() {
-        auto system = std::make_shared<T>(this);
-        drawSystems[system->getType()] = system;
+        systems[system->getType()] = system;
     }
 
     void removeSystem(System::Type type);
@@ -51,8 +45,7 @@ public:
     EntityBuilder* getBuilder() { return entityBuilder.get(); }
 
 private:
-    std::map<System::Type, std::shared_ptr<System>> updateSystems;
-    std::map<System::Type, std::shared_ptr<System>> drawSystems;
+    std::map<System::Type, std::shared_ptr<System>> systems;
     std::map<EntityId, std::shared_ptr<Entity>> entities;
     std::unique_ptr<EntityBuilder> entityBuilder;
 

@@ -25,9 +25,6 @@ public:
     void setActiveControl(Control* control);
     Control* getActiveControl() const { return activeControl; }
 
-protected:
-
-
 private:
     bool isPaused = true;
     Control* activeControl = nullptr;

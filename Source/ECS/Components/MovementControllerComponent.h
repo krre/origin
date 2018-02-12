@@ -7,7 +7,7 @@ namespace Origin {
 class MovementControllerComponent : public Component {
 
 public:
-    MovementControllerComponent() { type = ComponentType::MovementController; }
+    MovementControllerComponent() { type = Component::Type::MovementController; }
     EntityId moveTarget;
     EntityId rotateTarget;
 };

@@ -7,7 +7,7 @@ namespace Origin {
 class PhysicsComponent : public Component {
 
 public:
-    PhysicsComponent() { type = ComponentType::Physics; }
+    PhysicsComponent() { type = Component::Type::Physics; }
     std::unique_ptr<btRigidBody> rigidBody;
     std::unique_ptr<btCollisionShape> collisionShape;
     std::unique_ptr<btDefaultMotionState> motionState;

@@ -7,7 +7,7 @@ namespace Origin {
 class TransformComponent : public Component {
 
 public:
-    TransformComponent() { type = ComponentType::Transform; }
+    TransformComponent() { type = Component::Type::Transform; }
     glm::mat4 objectToWorld = glm::mat4(1.0);
     glm::mat4 worldToObject = glm::mat4(1.0);
     glm::vec3 position;

@@ -4,7 +4,7 @@
 namespace Origin {
 
 PhysicsSystem::PhysicsSystem(EntityManager* entityManager) : System(entityManager) {
-    type = SystemType::Physics;
+    type = System::Type::Physics;
 
     collisionConfiguration.reset(new btDefaultCollisionConfiguration);
     dispatcher.reset(new btCollisionDispatcher(collisionConfiguration.get()));
@@ -28,25 +28,25 @@ void PhysicsSystem::process(float dt) {
 }
 
 void PhysicsSystem::addRigidBody(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
     dynamicsWorld->addRigidBody(pc->rigidBody.get());
 }
 
 void PhysicsSystem::createRigidBody(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
     pc->rigidBody.reset(new btRigidBody(pc->mass, pc->motionState.get(), pc->collisionShape.get()));
 }
 
 void PhysicsSystem::createCollisionShape(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
-    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
+    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     btScalar scale = btScalar(tc->scale) / 2.0;
     pc->collisionShape.reset(new btBoxShape(btVector3(scale, scale, scale)));
 }
 
 void PhysicsSystem::createMotionState(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[ComponentType::Physics].get());
-    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[ComponentType::Transform].get());
+    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
+    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     btTransform transform;
     transform.setIdentity();
     transform.setOrigin(btVector3(tc->position.x, tc->position.y, tc->position.z));

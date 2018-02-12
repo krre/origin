@@ -28,8 +28,8 @@ public:
         drawSystems[system->getType()] = system;
     }
 
-    void removeSystem(SystemType type);
-    std::shared_ptr<System> getSystem(SystemType type);
+    void removeSystem(System::Type type);
+    std::shared_ptr<System> getSystem(System::Type type);
     void clearSystems();
 
     // Entity
@@ -40,10 +40,10 @@ public:
     std::map<EntityId, std::shared_ptr<Entity>> getEntities() { return entities; }
 
     // Component
-    Component* createComponent(Entity* entity, ComponentType type);
-    std::shared_ptr<Entity> createComponents(const std::vector<ComponentType>& types);
+    Component* createComponent(Entity* entity, Component::Type type);
+    std::shared_ptr<Entity> createComponents(const std::vector<Component::Type>& types);
     void addComponent(Entity* entity, std::shared_ptr<Component> component);
-    void removeComponent(Entity* entity, ComponentType type);
+    void removeComponent(Entity* entity, Component::Type type);
 
     void update(float dt);
     void draw();
@@ -51,8 +51,8 @@ public:
     EntityBuilder* getBuilder() { return entityBuilder.get(); }
 
 private:
-    std::map<SystemType, std::shared_ptr<System>> updateSystems;
-    std::map<SystemType, std::shared_ptr<System>> drawSystems;
+    std::map<System::Type, std::shared_ptr<System>> updateSystems;
+    std::map<System::Type, std::shared_ptr<System>> drawSystems;
     std::map<EntityId, std::shared_ptr<Entity>> entities;
     std::unique_ptr<EntityBuilder> entityBuilder;
 

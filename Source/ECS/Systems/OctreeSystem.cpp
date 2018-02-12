@@ -3,7 +3,7 @@
 namespace Origin {
 
 OctreeSystem::OctreeSystem(EntityManager* entityManager) : System(entityManager) {
-    type = SystemType::Octree;
+    type = System::Type::Octree;
 }
 
 void OctreeSystem::process(float dt) {

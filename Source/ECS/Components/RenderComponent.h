@@ -6,7 +6,7 @@ namespace Origin {
 class RenderComponent : public Component {
 
 public:
-    RenderComponent() { type = ComponentType::Render; }
+    RenderComponent() { type = Component::Type::Render; }
     bool visible = true;
 };
 

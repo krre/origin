@@ -1,19 +1,34 @@
 #pragma once
 #include "Core/Object.h"
-#include "ECSTypes.h"
 
 namespace Origin {
 
 class Component : public Object {
 
 public:
+
+    enum class Type {
+        Camera,
+        Empty,
+        Light,
+        Material,
+        Mesh,
+        MovementController,
+        Movement,
+        Node,
+        Octree,
+        Physics,
+        Render,
+        Transform
+    };
+
     Component();
-    ComponentType getType() const { return type; }
+    Type getType() const { return type; }
     bool enable = true;
     bool dirty = false;
 
 protected:
-    ComponentType type = ComponentType::Empty;
+    Type type = Type::Empty;
 };
 
 } // Origin

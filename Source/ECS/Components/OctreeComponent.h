@@ -8,7 +8,7 @@ namespace Origin {
 class OctreeComponent : public Component {
 
 public:
-    OctreeComponent() { type = ComponentType::Octree; }
+    OctreeComponent() { type = Component::Type::Octree; }
     std::shared_ptr<std::vector<uint32_t>> data;
 };
 

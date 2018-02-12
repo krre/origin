@@ -10,7 +10,7 @@ GPUMemoryManager::GPUMemoryManager() {
 }
 
 void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Buffer* buffer) {
-    OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+    OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[Component::Type::Octree].get());
     int size = sizeof(uint32_t) * oc->data.get()->size();
 //    buffer->write(oc->data->data(), size, endOffset);
 
@@ -20,7 +20,7 @@ void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Buffer* buffer) {
 }
 
 void GPUMemoryManager::updateEntityOctree(Entity* entity) {
-    OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[ComponentType::Octree].get());
+    OctreeComponent* oc = static_cast<OctreeComponent*>(entity->components[Component::Type::Octree].get());
     int offset = octreeOffsets[entity->getId()];
     int size = sizeof(uint32_t) * oc->data.get()->size();
 //    GLvoid* data = glMapBufferRange(GL_SHADER_STORAGE_BUFFER, offset, size, GL_MAP_WRITE_BIT);

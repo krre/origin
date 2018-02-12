@@ -5,7 +5,6 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Component.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Component.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ECSTypes.h
     ${CMAKE_CURRENT_SOURCE_DIR}/EntityManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/EntityManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Entity.cpp

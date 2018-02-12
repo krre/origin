@@ -4,7 +4,7 @@
 namespace Origin {
 
 RenderSystem::RenderSystem(EntityManager* entityManager) : System(entityManager) {
-    type = SystemType::Render;
+    type = System::Type::Render;
 }
 
 void RenderSystem::process(float dt) {

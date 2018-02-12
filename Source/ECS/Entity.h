@@ -15,7 +15,6 @@ public:
     static void setIdCounter(EntityId id);
 
     std::map<Component::Type, std::shared_ptr<Component>> components;
-    bool enable = true;
 
 private:
     EntityId id;

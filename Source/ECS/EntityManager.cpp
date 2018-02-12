@@ -49,7 +49,6 @@ void EntityManager::initSystems() {
     addSystem<MovementControllerSystem>();
     addSystem<CameraSystem>();
     addSystem<TransformSystem>();
-    addSystem<NodeSystem>();
     addSystem<PhysicsSystem>();
     addSystem<OctreeSystem>();
 }
@@ -117,14 +116,6 @@ void EntityManager::update(float dt) {
             system.second->process(dt);
         }
     }
-}
-
-void EntityManager::draw() {
-//    for (const auto& system : drawSystems) {
-//        if (system.second->getActive()) {
-//            system.second->process(0); // dt is not used
-//        }
-//    }
 }
 
 } // Origin

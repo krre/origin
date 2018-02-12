@@ -42,7 +42,7 @@ void Screen::updateImpl(float dt) {
 }
 
 void Screen::drawImpl() {
-    Game::getEntityManager()->draw();
+
 }
 
 void Screen::postDraw() {

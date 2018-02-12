@@ -40,7 +40,6 @@ public:
     void removeComponent(Entity* entity, Component::Type type);
 
     void update(float dt);
-    void draw();
 
     EntityBuilder* getBuilder() { return entityBuilder.get(); }
 

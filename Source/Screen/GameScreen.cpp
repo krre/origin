@@ -3,7 +3,7 @@
 #include "UI/View3D.h"
 #include "Core/Game.h"
 #include "UI/Overlay.h"
-#include "Scene/GameScene.h"
+#include "ECS/Scenes/GameScene.h"
 #include "UI/Dialog/PauseDialog.h"
 #include "World/World.h"
 #include <SDL_events.h>

@@ -20,7 +20,11 @@ DebugEnvironment::DebugEnvironment(Object* parent) : Object(parent) {
 
 void DebugEnvironment::setDebugScreen() {
     uint8_t s = settings["general"]["screen"];
-    std::string worldName = settings["general"]["save"];
+    json j = settings["general"]["save"];
+    std::string worldName;
+    if (j.is_string()) {
+        worldName = j.get<std::string>();
+    }
     Screen::Name screen = static_cast<Screen::Name>(s);
     switch (screen) {
         case Screen::Name::Menu:

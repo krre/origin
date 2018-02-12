@@ -46,7 +46,7 @@ public:
 
 private:
     // Save call deffered funtions, e.g. destroy screen.
-    addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
+    void addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void onMove(int x, int y);
 

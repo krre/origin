@@ -28,7 +28,7 @@ private:
    void resizeImpl(int width, int height) override;
    void centerDialog();
     // Save call deffered funtions, e.g. destroy dialog.
-    addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
+    void addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
 
     DebugHUD* debugHUD;
     Toast* toast;

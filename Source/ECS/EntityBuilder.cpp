@@ -12,7 +12,6 @@ EntityBuilder::EntityBuilder(EntityManager* entityManager) : entityManager(entit
 
 std::shared_ptr<Entity> EntityBuilder::geometry() {
     std::vector<Component::Type> types = {
-        Component::Type::Node,
         Component::Type::Transform,
         Component::Type::Octree,
         Component::Type::Render,
@@ -29,7 +28,6 @@ std::shared_ptr<Entity> EntityBuilder::cube() {
 
 std::shared_ptr<Entity> EntityBuilder::avatar() {
     std::vector<Component::Type> types = {
-        Component::Type::Node,
         Component::Type::Transform,
         Component::Type::Movement,
         Component::Type::Camera
@@ -39,7 +37,6 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
 
 std::shared_ptr<Entity> EntityBuilder::camera() {
     std::vector<Component::Type> types = {
-        Component::Type::Node,
         Component::Type::Transform,
         Component::Type::Movement, // TODO: take from to avatar
         Component::Type::Camera

@@ -4,7 +4,6 @@
 #include "MaterialComponent.h"
 #include "MovementComponent.h"
 #include "MovementControllerComponent.h"
-#include "NodeComponent.h"
 #include "OctreeComponent.h"
 #include "PhysicsComponent.h"
 #include "RenderComponent.h"

@@ -67,9 +67,6 @@ Component* EntityManager::createComponent(Entity* entity, Component::Type type) 
     case Component::Type::Movement:
         entity->components[type] = std::make_shared<MovementComponent>();
         break;
-    case Component::Type::Node:
-        entity->components[type] = std::make_shared<NodeComponent>();
-        break;
     case Component::Type::Render:
         entity->components[type] = std::make_shared<RenderComponent>();
         break;

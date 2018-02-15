@@ -1,8 +1,8 @@
 #include "RenderEngine.h"
-#include "VulkanRenderer/API/Command/CommandBuffer.h"
-#include "VulkanRenderer/API/Framebuffer.h"
-#include "VulkanRenderer/API/RenderPass.h"
-#include "VulkanRenderer/API/Surface/Surface.h"
+#include "Vulkan/API/Command/CommandBuffer.h"
+#include "Vulkan/API/Framebuffer.h"
+#include "Vulkan/API/RenderPass.h"
+#include "Vulkan/API/Surface/Surface.h"
 
 namespace OctreeFarm {
 

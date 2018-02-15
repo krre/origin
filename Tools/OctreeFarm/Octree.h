@@ -1,6 +1,6 @@
 #pragma once
 #include <QObject> // Must be before Common.h since need define QT_VERSION macro
-#include "../../Source/Core/Common.h"
+#include "Core/Common.h"
 #include <QVector>
 #include <QColor>
 #include <QSharedPointer>

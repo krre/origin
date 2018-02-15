@@ -1,17 +1,18 @@
 #pragma once
+#include "Core/Object.h"
 
-namespace Octree {
-
-class Octree {
+namespace Origin {
 
 class JsonStorage;
 
+class Octree : public Object {
+
 public:
-    Octree();
+    Octree(Object* parent = nullptr);
     ~Octree();
 
 private:
-
+    JsonStorage* storage;
 };
 
-} // Octree
+} // Origin

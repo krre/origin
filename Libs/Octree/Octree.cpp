@@ -1,13 +1,14 @@
 #include "Octree.h"
+#include "JsonStorage.h"
 
-namespace Octree {
+namespace Origin {
 
-Octree::Octree() {
-
+Octree::Octree(Object* parent) : Object(parent) {
+    storage = new JsonStorage(this);
 }
 
 Octree::~Octree() {
 
 }
 
-} // Octree
+} // Origin

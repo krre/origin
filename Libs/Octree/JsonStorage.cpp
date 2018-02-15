@@ -1,13 +1,12 @@
 #include "JsonStorage.h"
 
-namespace Octree {
+namespace Origin {
 
-JsonStorage::JsonStorage() {
+JsonStorage::JsonStorage(Object* parent) : Object(parent) {
 
 }
 
 JsonStorage::~JsonStorage() {
-
 }
 
 void JsonStorage::create() {
@@ -18,4 +17,4 @@ void JsonStorage::create() {
     }
 }
 
-} // Octree
+} // Origin

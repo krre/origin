@@ -1,14 +1,15 @@
 #pragma once
+#include "Core/Object.h"
 #include <json/json.hpp>
 
-namespace Octree {
+namespace Origin {
 
 using json = nlohmann::json;
 
-class JsonStorage {
+class JsonStorage : public Object {
 
 public:
-    JsonStorage();
+    JsonStorage(Object* parent = nullptr);
     ~JsonStorage();
 
     void create();
@@ -17,4 +18,4 @@ private:
     json root;
 };
 
-} // Octree
+} // Origin

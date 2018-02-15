@@ -1,3 +1,3 @@
 add_subdirectory(Core)
 add_subdirectory(Octree)
-add_subdirectory(VulkanRenderer)
+add_subdirectory(Vulkan)

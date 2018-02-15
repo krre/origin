@@ -48,7 +48,7 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${BULLET_LIBRARIES}
     stdc++fs
     Core
-    VulkanRenderer
+    Vulkan
     Octree
 )
 

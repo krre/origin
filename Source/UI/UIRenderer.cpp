@@ -1,5 +1,5 @@
 #include "UIRenderer.h"
-#include "VulkanRenderer/GpuBuffer.h"
+#include "Vulkan/GpuBuffer.h"
 #include "Resource/RenderPass/RenderPassUI.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Base/Game.h"

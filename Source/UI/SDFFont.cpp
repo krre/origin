@@ -1,10 +1,10 @@
 #include "SDFFont.h"
 #include "Resource/ResourceManager.h"
 #include "Core/Utils.h"
-#include "VulkanRenderer/Texture.h"
-#include "VulkanRenderer/GpuBuffer.h"
-#include "VulkanRenderer/API/Image/Image.h"
-#include "VulkanRenderer/API/Image/ImageView.h"
+#include "Vulkan/Texture.h"
+#include "Vulkan/GpuBuffer.h"
+#include "Vulkan/API/Image/Image.h"
+#include "Vulkan/API/Image/ImageView.h"
 #include <fstream>
 #include <experimental/filesystem>
 

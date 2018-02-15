@@ -3,9 +3,9 @@
 #include "Base/Defines.h"
 #include "Base/Game.h"
 #include "Graphics/Render/RenderManager.h"
-#include "VulkanRenderer/API/Device/Device.h"
-#include "VulkanRenderer/API/Device/PhysicalDevice.h"
-#include "VulkanRenderer/API/Instance.h"
+#include "Vulkan/API/Device/Device.h"
+#include "Vulkan/API/Device/PhysicalDevice.h"
+#include "Vulkan/API/Instance.h"
 #include <SDL.h>
 
 namespace Origin {

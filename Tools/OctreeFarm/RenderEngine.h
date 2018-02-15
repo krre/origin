@@ -1,5 +1,5 @@
 #pragma once
-#include "VulkanRenderer/Renderer.h"
+#include "Vulkan/Renderer.h"
 #include <QObject>
 
 namespace OctreeFarm {

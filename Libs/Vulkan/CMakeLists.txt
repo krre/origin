@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(VulkanRenderer)
+project(Vulkan)
 
-set(LIB_NAME "VulkanRenderer")
+set(LIB_NAME "Vulkan")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME}) # For MinGW
 

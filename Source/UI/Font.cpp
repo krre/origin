@@ -1,6 +1,6 @@
 #include "Font.h"
 #include "Resource/ResourceManager.h"
-#include "VulkanRenderer/Texture.h"
+#include "Vulkan/Texture.h"
 #include "Core/Utils.h"
 #include "Base/Game.h"
 #include <cmath>

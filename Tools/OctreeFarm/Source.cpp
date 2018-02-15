@@ -6,6 +6,8 @@
 
 namespace OctreeFarm {
 
+const uint32_t DEFAULT_COLOR = 0xFF4681FF;
+
 Source::Source(QObject* parent) : QObject(parent) {
 
 }
@@ -14,7 +16,7 @@ void Source::create(const QString& string) {
     if (string.isEmpty()) {
         for (int i = 0; i < 8; i++) {
             QJsonObject node;
-            node["color"] = QColor(defaultColor).name(QColor::HexArgb);
+            node["color"] = QColor(DEFAULT_COLOR).name(QColor::HexArgb);
             root[QString::number(i)] = node;
         }
     } else {
@@ -197,7 +199,7 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, 
 
         auto iter = parentNode.find(QString::number(i));
         if (iter == parentNode.end()) {
-            parentNode[QString::number(i)].toObject()["color"] = QColor(defaultColor).name(QColor::HexArgb);
+            parentNode[QString::number(i)].toObject()["color"] = QColor(DEFAULT_COLOR).name(QColor::HexArgb);
             path[path.count() - 1] = i; // Write to path finded node index
             newNode.pos = pathToPos(path);
             newNode.scale = node->scale;

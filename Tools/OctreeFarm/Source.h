@@ -35,7 +35,6 @@ private:
     glm::vec3 pathToPos(const QVector<int> path);
 
     QJsonObject root;
-    uint32_t defaultColor = 0xFF4681FF;
 };
 
 } // OctreeFarm

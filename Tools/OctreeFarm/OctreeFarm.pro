@@ -6,7 +6,7 @@ TEMPLATE = app
 DESTDIR = $$(ORIGIN_HOME)
 
 INCLUDEPATH += "../../ThirdParty"
-INCLUDEPATH += ../../../origin/Libs
+INCLUDEPATH += ../../Libs
 INCLUDEPATH += $$(VULKAN_SDK)/include
 
 unix:LIBS += -L$$(VULKAN_SDK)/lib -lvulkan

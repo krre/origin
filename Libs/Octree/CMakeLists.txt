@@ -18,9 +18,12 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_package(Vulkan REQUIRED)
 include_directories(${Vulkan_INCLUDE_DIRS})
+include_directories(../../ThirdParty)
 
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/JsonStorage.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/JsonStorage.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Octree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Octree.h
 )

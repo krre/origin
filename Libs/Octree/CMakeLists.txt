@@ -28,3 +28,7 @@ set(SOURCES
 )
 
 add_library(${LIB_NAME} SHARED ${SOURCES})
+
+target_link_libraries(${LIB_NAME}
+    Core
+)

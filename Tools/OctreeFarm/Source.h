@@ -3,14 +3,12 @@
 #include <QColor>
 #include <QSharedPointer>
 #include <QVector>
-#include <json/json.hpp>
+#include <QJsonObject>
 #include <glm/glm.hpp>
 
 namespace OctreeFarm {
 
 struct Node;
-
-using json = nlohmann::json;
 
 class Source : public QObject {
     Q_OBJECT
@@ -32,11 +30,11 @@ public:
     void createChildren(const Node& node);
 
 private:
-    json::object_t* findNode(const QVector<int>& path, int index);
+    QJsonObject findNode(const QVector<int>& path, int index);
     QVector<int> posToPath(const glm::vec3& pos, int scale);
     glm::vec3 pathToPos(const QVector<int> path);
 
-    json root;
+    QJsonObject root;
     uint32_t defaultColor = 0xFF4681FF;
 };
 

@@ -49,8 +49,8 @@ bool Octree::load(const QString& fileName) {
 }
 
 void Octree::setIsModified(bool isModified) {
-    if (isModified == isModified) return;
-    isModified = isModified;
+    if (this->isModified == isModified) return;
+    this->isModified = isModified;
     emit isModifiedChanged(isModified);
 }
 

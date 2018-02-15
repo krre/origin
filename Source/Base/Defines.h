@@ -15,11 +15,3 @@
     #define DEBUG_HUD_ENABLE
     #define DEVELOP_GAME_STATE
 #endif
-
-#ifdef WIN32
-    #define OS_WIN
-#endif
-
-#ifdef UNIX
-    #define OS_LINUX
-#endif

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 
 project(Octree)
 
-set(LIB_NAME "Octree")
+set(LIB_NAME "Core")
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME}) # For MinGW
 
@@ -20,10 +20,14 @@ include_directories(../../ThirdParty)
 
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/JsonStorage.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/JsonStorage.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Octree.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Octree.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Common.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Defines.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Object.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Object.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Signal.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Singleton.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utils.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Utils.h
 )
 
 add_library(${LIB_NAME} SHARED ${SOURCES})

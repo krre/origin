@@ -1,7 +1,7 @@
 #include "Button.h"
 #include "Event/Event.h"
-#include "Core/Game.h"
-#include "Core/Window.h"
+#include "Base/Game.h"
+#include "Base/Window.h"
 #include "Label.h"
 
 namespace Origin {

@@ -1,6 +1,6 @@
 #include "CameraSystem.h"
 #include "Event/Event.h"
-#include "Core/Game.h"
+#include "Base/Game.h"
 #include "TransformSystem.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"

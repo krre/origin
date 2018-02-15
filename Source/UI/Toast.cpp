@@ -1,7 +1,7 @@
 #include "Toast.h"
-#include "Core/Game.h"
-#include "Core/Window.h"
-#include "Core/Timer.h"
+#include "Base/Game.h"
+#include "Base/Window.h"
+#include "Base/Timer.h"
 #include "UI/Label.h"
 #include <glm/glm.hpp>
 

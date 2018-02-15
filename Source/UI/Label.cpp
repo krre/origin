@@ -1,7 +1,7 @@
 #include "Label.h"
 #include "Resource/ResourceManager.h"
 #include "Font.h"
-#include "Core/Game.h"
+#include "Base/Game.h"
 #include "Screen/Screen.h"
 #include "UI/UIRenderer.h"
 #include "Graphics/Render/RenderManager.h"

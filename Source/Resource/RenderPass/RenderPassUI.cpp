@@ -1,7 +1,7 @@
 #include "RenderPassUI.h"
 #include "Graphics/Color.h"
-#include "Core/Game.h"
-#include "Core/Window.h"
+#include "Base/Game.h"
+#include "Base/Window.h"
 #include "VulkanRenderer/API/RenderPass.h"
 #include "VulkanRenderer/API/Framebuffer.h"
 #include "VulkanRenderer/API/Sampler.h"
@@ -17,7 +17,6 @@
 #include "VulkanRenderer/Texture.h"
 #include "VulkanRenderer/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
-#include "Core/Game.h"
 #include "UI/UIBatch.h"
 #include "UI/Font.h"
 #include <glm/gtc/matrix_transform.hpp>

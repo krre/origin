@@ -1,7 +1,7 @@
 #include "SettingsScreen.h"
 #include "UI/Button.h"
-#include "Core/Game.h"
-#include "Core/Window.h"
+#include "Base/Game.h"
+#include "Base/Window.h"
 
 namespace Origin {
 

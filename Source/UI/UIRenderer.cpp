@@ -2,7 +2,7 @@
 #include "VulkanRenderer/GpuBuffer.h"
 #include "Resource/RenderPass/RenderPassUI.h"
 #include "Graphics/Render/RenderManager.h"
-#include "Core/Game.h"
+#include "Base/Game.h"
 
 namespace Origin {
 

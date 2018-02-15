@@ -1,4 +1,4 @@
-add_subdirectory(Core)
+add_subdirectory(Base)
 add_subdirectory(Debug)
 add_subdirectory(ECS)
 add_subdirectory(Event)

@@ -1,6 +1,6 @@
 #include "DebugEnvironment.h"
-#include "Core/Game.h"
-#include "Core/Defines.h"
+#include "Base/Game.h"
+#include "Base/Defines.h"
 #include "Core/Utils.h"
 #include "Debug/DebugHUD.h"
 #include "Screen/MenuScreen.h"
@@ -8,7 +8,7 @@
 #include "Screen/GameScreen.h"
 #include "Screen/NewWorldScreen.h"
 #include "Screen/LoadWorldScreen.h"
-#include "Core/Window.h"
+#include "Base/Window.h"
 
 namespace Origin {
 

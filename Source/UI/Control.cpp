@@ -1,9 +1,9 @@
 #include "Control.h"
 #include "UIBatch.h"
 #include "Screen/Screen.h"
-#include "Core/Game.h"
+#include "Base/Game.h"
 #include "UI/UIManager.h"
-#include "Core/Window.h"
+#include "Base/Window.h"
 #include "Layout.h"
 #include <algorithm>
 

@@ -2,8 +2,8 @@
 #include "Debug/DebugHUD.h"
 #include "Debug/Console.h"
 #include "UI/Toast.h"
-#include "Core/Game.h"
-#include "Core/Window.h"
+#include "Base/Game.h"
+#include "Base/Window.h"
 #include "UI/Dialog/Dialog.h"
 #include "Screen/Screen.h"
 

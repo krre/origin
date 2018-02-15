@@ -1,7 +1,7 @@
 #include "Dialog.h"
 #include "Event/Input.h"
-#include "Core/Game.h"
-#include "Core/Window.h"
+#include "Base/Game.h"
+#include "Base/Window.h"
 #include "UI/Overlay.h"
 #include "Screen/Screen.h"
 

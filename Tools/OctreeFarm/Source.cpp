@@ -15,9 +15,7 @@ Source::Source(QObject* parent) : QObject(parent) {
 void Source::create(const QString& string) {
     if (string.isEmpty()) {
         for (int i = 0; i < 8; i++) {
-            QJsonObject node;
-            node["color"] = QColor(DEFAULT_COLOR).name(QColor::HexArgb);
-            root[QString::number(i)] = node;
+            root[QString::number(i)] = { { "color",  QColor(DEFAULT_COLOR).name(QColor::HexArgb) } };
         }
     } else {
         root = QJsonDocument::fromVariant(QVariant(string)).object();

@@ -1,6 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "Defines.h"
+#include "Octree.h"
 #include "Viewport.h"
 #include "Properties.h"
 #include "Command.h"
@@ -16,6 +17,7 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 
     undoStack = new QUndoStack(this);
+    octree = new Octree(this);
 
     viewport = new Viewport;
     QWidget* container = QWidget::createWindowContainer(viewport);
@@ -25,14 +27,14 @@ MainWindow::MainWindow(QWidget* parent) :
 
     QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, ui->frameProperties);
     propLayout->setMargin(0);
-    properties = new Properties(&octree, viewport, undoStack, this);
+    properties = new Properties(octree, viewport, undoStack, this);
     propLayout->addWidget(properties);
 
     setWindowTitle(APP_NAME);
 
     readSettings();
 
-    connect(&octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
+    connect(octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 
 MainWindow::~MainWindow() {
@@ -46,7 +48,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 void MainWindow::on_actionNew_triggered() {
     if (maybeSave()) {
-        octree.createNew();
+        octree->createNew();
         viewport->reset();
 //        viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
 //        viewport->update();
@@ -60,7 +62,7 @@ void MainWindow::on_actionOpen_triggered() {
         if (!fileName.isEmpty()) {
             loadFile(fileName);
             viewport->reset();
-            viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
+            viewport->updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
 //            viewport->update();
         }
     }
@@ -77,7 +79,7 @@ void MainWindow::on_actionSaveAs_triggered() {
 void MainWindow::on_actionRevert_triggered() {
     if (!currentFile.isEmpty()) {
         loadFile(currentFile);
-        viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
+        viewport->updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
 //        viewport->update();
     }
 }
@@ -91,39 +93,39 @@ void MainWindow::on_actionRedo_triggered() {
 }
 
 void MainWindow::on_actionCopy_triggered() {
-    octree.copy();
+    octree->copy();
 }
 
 void MainWindow::on_actionPaste_triggered() {
-    octree.paste();
+    octree->paste();
 }
 
 void MainWindow::on_actionDeselect_triggered() {
-    octree.deselect();
+    octree->deselect();
 }
 
 void MainWindow::on_actionSplit_triggered() {
-    QUndoCommand* splitCommand = new SplitCommand(&octree);
+    QUndoCommand* splitCommand = new SplitCommand(octree);
     undoStack->push(splitCommand);
 }
 
 void MainWindow::on_actionMerge_triggered() {
-    QUndoCommand* addCommand = new AddCommand(&octree, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+    QUndoCommand* addCommand = new AddCommand(octree, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
     undoStack->push(addCommand);
 }
 
 void MainWindow::on_actionAddForward_triggered() {
-    QUndoCommand* mergeCommand = new MergeCommand(&octree);
+    QUndoCommand* mergeCommand = new MergeCommand(octree);
     undoStack->push(mergeCommand);
 }
 
 void MainWindow::on_actionAddBack_triggered() {
-    QUndoCommand* mergeCommand = new MergeCommand(&octree);
+    QUndoCommand* mergeCommand = new MergeCommand(octree);
     undoStack->push(mergeCommand);
 }
 
 void MainWindow::on_actionDelete_triggered() {
-    QUndoCommand* deleteCommand = new DeleteCommand(&octree);
+    QUndoCommand* deleteCommand = new DeleteCommand(octree);
     undoStack->push(deleteCommand);
 }
 
@@ -179,7 +181,7 @@ void MainWindow::writeSettings() {
 }
 
 bool MainWindow::maybeSave() {
-    if (!octree.getIsModified()) {
+    if (!octree->getIsModified()) {
         return true;
     }
 
@@ -231,7 +233,7 @@ bool MainWindow::saveFile(const QString& fileName) {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    octree.save(fileName);
+    octree->save(fileName);
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
@@ -254,7 +256,7 @@ void MainWindow::loadFile(const QString& fileName) {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    octree.load(fileName);
+    octree->load(fileName);
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
@@ -282,7 +284,7 @@ QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
 
 void MainWindow::setCurrentFile(const QString& fileName) {
     currentFile = fileName;
-    octree.setIsModified(false);
+    octree->setIsModified(false);
     setWindowModified(false);
 
     QString shownName = QFileInfo(currentFile).fileName();

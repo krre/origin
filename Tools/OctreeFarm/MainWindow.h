@@ -1,5 +1,4 @@
 #pragma once
-#include "Octree.h"
 #include <QMainWindow>
 #include <QFileDialog>
 
@@ -13,6 +12,7 @@ namespace OctreeFarm {
 
 class Properties;
 class Viewport;
+class Octree;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -68,7 +68,7 @@ private:
     Ui::MainWindow* ui;
     Properties* properties;
     Viewport* viewport;
-    Octree octree;
+    Octree* octree;
     QString currentFile;
     QUndoStack* undoStack;
 

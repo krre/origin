@@ -1,12 +1,14 @@
 #pragma once
 #include <QObject> // Must be before Common.h since need define QT_VERSION macro
 #include "../../Source/Core/Common.h"
-#include "Source.h"
 #include <QVector>
+#include <QColor>
 #include <QSharedPointer>
 #include <glm/ext.hpp>
 
 namespace OctreeFarm {
+
+class Source;
 
 struct Node {
     uint32_t parent;
@@ -43,7 +45,7 @@ public:
     void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append = false);
 
     QVector<QSharedPointer<Node>> getSelection() { return selection; }
-    Source* getSource() { return &source; }
+    Source* getSource() { return source; }
 
 public slots:
     void deselect();
@@ -59,7 +61,7 @@ signals:
 private:
     int colorAttachOffset(int parent, int childIndex);
 
-    Source source;
+    Source* source;
     QSharedPointer<QVector<uint32_t>> storage;
     QVector<QSharedPointer<Node>> selection;
     uint32_t selectionColor = 0xFF909090;

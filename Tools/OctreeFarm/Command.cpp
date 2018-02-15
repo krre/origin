@@ -1,4 +1,5 @@
 #include "Command.h"
+#include "Source.h"
 #include <QtCore>
 
 namespace OctreeFarm {

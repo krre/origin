@@ -1,4 +1,5 @@
 #include "Octree.h"
+#include "Source.h"
 #include <QtCore>
 #include <QtGui>
 #include <bitset>
@@ -6,12 +7,13 @@
 namespace OctreeFarm {
 
 Octree::Octree(QObject* parent) : QObject(parent) {
+    source = new Source(this);
     worldToOctree = glm::inverse(octreeToWorld);
 }
 
 void Octree::createNew() {
-    source.create();
-    storage = source.binary();
+    source->create();
+    storage = source->binary();
 }
 
 bool Octree::save(const QString& fileName) {
@@ -22,7 +24,7 @@ bool Octree::save(const QString& fileName) {
     }
 
     QTextStream out(&file);
-    out << source.serialize();
+    out << source->serialize();
     file.close();
 
     return true;
@@ -36,11 +38,11 @@ bool Octree::load(const QString& fileName) {
     }
     QTextStream in(&file);
     QString data = in.readAll();
-    source.create(data);
+    source->create(data);
 
     file.close();
 
-    storage = source.binary();
+    storage = source->binary();
     dataChanged();
 
     return true;
@@ -64,7 +66,7 @@ int Octree::colorAttachOffset(int parent, int childIndex) {
 void Octree::confirmUpdate() {
     selection.clear();
     nodeDeselected();
-    storage = source.binary();
+    storage = source->binary();
     setIsModified(true);
     dataChanged();
 }

@@ -25,6 +25,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/JsonStorage.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Octree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Octree.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/Substance.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Substance.h
 )
 
 add_library(${LIB_NAME} SHARED ${SOURCES})

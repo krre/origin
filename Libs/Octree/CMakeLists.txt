@@ -27,6 +27,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Octree.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Substance.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Substance.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubstanceTree.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SubstanceTree.h
 )
 
 add_library(${LIB_NAME} SHARED ${SOURCES})

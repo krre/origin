@@ -6,6 +6,10 @@
 #include <QSharedPointer>
 #include <glm/ext.hpp>
 
+namespace Origin {
+    class Octree;
+}
+
 namespace OctreeFarm {
 
 class Source;
@@ -27,6 +31,7 @@ class OctreeEditor : public QObject {
 
 public:
     explicit OctreeEditor(QObject* parent = 0);
+    ~OctreeEditor();
 
     uint32_t* data() { return storage->data(); }
     int count() { return storage->size(); }
@@ -61,6 +66,7 @@ signals:
 private:
     int colorAttachOffset(int parent, int childIndex);
 
+    QScopedPointer<Origin::Octree> octree;
     Source* source;
     QSharedPointer<QVector<uint32_t>> storage;
     QVector<QSharedPointer<Node>> selection;

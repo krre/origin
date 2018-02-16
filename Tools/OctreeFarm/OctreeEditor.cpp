@@ -1,5 +1,6 @@
 #include "OctreeEditor.h"
 #include "Source.h"
+#include "Octree/Octree.h"
 #include <QtCore>
 #include <QtGui>
 #include <bitset>
@@ -7,8 +8,13 @@
 namespace OctreeFarm {
 
 OctreeEditor::OctreeEditor(QObject* parent) : QObject(parent) {
+    octree.reset(new Origin::Octree);
     source = new Source(this);
     worldToOctree = glm::inverse(octreeToWorld);
+}
+
+OctreeEditor::~OctreeEditor() {
+
 }
 
 void OctreeEditor::createNew() {

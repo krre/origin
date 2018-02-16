@@ -1,5 +1,5 @@
 #include "Source.h"
-#include "Octree.h"
+#include "OctreeEditor.h"
 #include "Defines.h"
 #include <QtCore>
 #include <bitset>

@@ -1,7 +1,7 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "Defines.h"
-#include "Octree.h"
+#include "OctreeEditor.h"
 #include "Viewport.h"
 #include "Properties.h"
 #include "Command.h"
@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 
     undoStack = new QUndoStack(this);
-    octree = new Octree(this);
+    octree = new OctreeEditor(this);
 
     viewport = new Viewport;
     QWidget* container = QWidget::createWindowContainer(viewport);
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget* parent) :
 
     readSettings();
 
-    connect(octree, &Octree::isModifiedChanged, this, &MainWindow::setWindowModified);
+    connect(octree, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 
 MainWindow::~MainWindow() {

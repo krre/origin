@@ -1,13 +1,13 @@
 #include "Properties.h"
 #include "Command.h"
-#include "Octree.h"
+#include "OctreeEditor.h"
 #include "Viewport.h"
 #include "ui_Properties.h"
 #include <QtWidgets>
 
 namespace OctreeFarm {
 
-Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent) :
+Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent) :
     QWidget(parent),
     ui(new Ui::Properties),
     octree(octree),
@@ -19,8 +19,8 @@ Properties::Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack
 
     connect(ui->pushButtonColor, &QPushButton::clicked, this, &Properties::changeNodeColor);
     connect(ui->checkBoxShadeless, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
-    connect(octree, &Octree::nodeSelected, this, &Properties::onNodeSelected);
-    connect(octree, &Octree::nodeDeselected, this, &Properties::onNodeDeselected);
+    connect(octree, &OctreeEditor::nodeSelected, this, &Properties::onNodeSelected);
+    connect(octree, &OctreeEditor::nodeDeselected, this, &Properties::onNodeDeselected);
     connect(ui->pushButtonPlus, &QPushButton::clicked, this, &Properties::levelPlus);
     connect(ui->pushButtonMinus, &QPushButton::clicked, this, &Properties::levelMinus);
     connect(ui->pushButtonReset, &QPushButton::clicked, this, &Properties::levelReset);

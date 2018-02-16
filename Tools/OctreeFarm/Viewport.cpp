@@ -11,7 +11,7 @@
 
 namespace OctreeFarm {
 
-Viewport::Viewport(Octree* octree) : octree(octree) {
+Viewport::Viewport(OctreeEditor* octree) : octree(octree) {
     setFlag(Qt::FramelessWindowHint);
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
     WId windowHandle = winId();

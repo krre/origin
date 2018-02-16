@@ -1,5 +1,5 @@
 #pragma once
-#include "Octree.h"
+#include "OctreeEditor.h"
 #include "Camera.h"
 #include <cstdint>
 #include <QWindow>
@@ -28,7 +28,7 @@ class Viewport : public QWindow {
     };
 
 public:
-    Viewport(Octree* octree = nullptr);
+    Viewport(OctreeEditor* octree = nullptr);
     ~Viewport();
     void updateOctreeInGPU(int offset, void* data, int count);
     void reset();
@@ -56,7 +56,7 @@ private:
     QPoint lastPos;
     float rx = 0;
     float ry = 0;
-    Octree* octree;
+    OctreeEditor* octree;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
     bool pickMode = false;

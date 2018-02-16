@@ -1,4 +1,4 @@
-#include "Octree.h"
+#include "OctreeEditor.h"
 #include "Source.h"
 #include <QtCore>
 #include <QtGui>
@@ -6,17 +6,17 @@
 
 namespace OctreeFarm {
 
-Octree::Octree(QObject* parent) : QObject(parent) {
+OctreeEditor::OctreeEditor(QObject* parent) : QObject(parent) {
     source = new Source(this);
     worldToOctree = glm::inverse(octreeToWorld);
 }
 
-void Octree::createNew() {
+void OctreeEditor::createNew() {
     source->create();
     storage = source->binary();
 }
 
-bool Octree::save(const QString& fileName) {
+bool OctreeEditor::save(const QString& fileName) {
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly)) {
         qDebug() << "Could not open file for writing";
@@ -30,7 +30,7 @@ bool Octree::save(const QString& fileName) {
     return true;
 }
 
-bool Octree::load(const QString& fileName) {
+bool OctreeEditor::load(const QString& fileName) {
     QFile file(fileName);
     if (!file.open(QFile::ReadOnly)) {
         qDebug() << "Could not open file for reading";
@@ -48,13 +48,13 @@ bool Octree::load(const QString& fileName) {
     return true;
 }
 
-void Octree::setIsModified(bool isModified) {
+void OctreeEditor::setIsModified(bool isModified) {
     if (this->isModified == isModified) return;
     this->isModified = isModified;
     emit isModifiedChanged(isModified);
 }
 
-int Octree::colorAttachOffset(int parent, int childIndex) {
+int OctreeEditor::colorAttachOffset(int parent, int childIndex) {
 //    int pageHeader = parent & -pageBytes;
 //    int blockInfo = pageHeader + storage->at(pageHeader);
 //    int attachData = blockInfo + blockInfoEnd;
@@ -63,7 +63,7 @@ int Octree::colorAttachOffset(int parent, int childIndex) {
     return 0;
 }
 
-void Octree::confirmUpdate() {
+void OctreeEditor::confirmUpdate() {
     selection.clear();
     nodeDeselected();
     storage = source->binary();
@@ -71,7 +71,7 @@ void Octree::confirmUpdate() {
     dataChanged();
 }
 
-void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append) {
+void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append) {
     int offset = colorAttachOffset(parent, childIndex);
 
     QSharedPointer<Node> node(new Node);
@@ -113,7 +113,7 @@ void Octree::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const 
     dataChanged();
 }
 
-void Octree::deselect() {
+void OctreeEditor::deselect() {
     if (selection.count()) {
         for (auto node: selection) {
             int address = colorAttachOffset(node->parent, node->childIndex);
@@ -126,13 +126,13 @@ void Octree::deselect() {
     }
 }
 
-void Octree::copy() {
+void OctreeEditor::copy() {
     if (selection.count()) {
         clipboard.color = selection.last().data()->color;
     }
 }
 
-void Octree::paste() {
+void OctreeEditor::paste() {
     if (clipboard.color.isValid()) {
 //        changeNodeColor(clipboard.color);
     }

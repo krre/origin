@@ -1,5 +1,5 @@
 #pragma once
-#include "Octree.h"
+#include "OctreeEditor.h"
 #include <QUndoCommand>
 
 namespace OctreeFarm {
@@ -7,24 +7,24 @@ namespace OctreeFarm {
 class DeleteCommand : public QUndoCommand {
 
 public:
-    explicit DeleteCommand(Octree* octree);
+    explicit DeleteCommand(OctreeEditor* octree);
     void undo() override;
     void redo() override;
 
 private:
-    Octree* octree;
+    OctreeEditor* octree;
     QVector<QSharedPointer<Node>> nodes;
 };
 
 class AddCommand : public QUndoCommand {
 
 public:
-    explicit AddCommand(Octree* octree, bool back = false);
+    explicit AddCommand(OctreeEditor* octree, bool back = false);
     void undo() override;
     void redo() override;
 
 private:
-    Octree* octree;
+    OctreeEditor* octree;
     bool back;
     QVector<QSharedPointer<Node>> nodes;
     Node node;
@@ -33,24 +33,24 @@ private:
 class SplitCommand : public QUndoCommand {
 
 public:
-    explicit SplitCommand(Octree* octree);
+    explicit SplitCommand(OctreeEditor* octree);
     void undo() override;
     void redo() override;
 
 private:
-    Octree* octree;
+    OctreeEditor* octree;
     QVector<QSharedPointer<Node>> nodes;
 };
 
 class MergeCommand : public QUndoCommand {
 
 public:
-    explicit MergeCommand(Octree* octree);
+    explicit MergeCommand(OctreeEditor* octree);
     void undo() override;
     void redo() override;
 
 private:
-    Octree* octree;
+    OctreeEditor* octree;
     QVector<QSharedPointer<Node>> nodes;
     QVector<Node> mergedNodes;
     Node newNode;
@@ -59,12 +59,12 @@ private:
 class ChangeColorCommand : public QUndoCommand {
 
 public:
-    explicit ChangeColorCommand(Octree* octree, QColor color);
+    explicit ChangeColorCommand(OctreeEditor* octree, QColor color);
     void undo() override;
     void redo() override;
 
 private:
-    Octree* octree;
+    OctreeEditor* octree;
     QVector<QSharedPointer<Node>> nodes;
     QColor color;
 };

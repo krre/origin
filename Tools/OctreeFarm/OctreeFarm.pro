@@ -11,10 +11,9 @@ INCLUDEPATH += $$(VULKAN_SDK)/include
 
 unix:LIBS += -L$$(VULKAN_SDK)/lib -lvulkan
 win32:LIBS += -L$$(VULKAN_SDK)/lib32 -lvulkan-1
-LIBS += -L$$(ORIGIN_HOME) -lVulkan -lOctree
+LIBS += -L$$(ORIGIN_HOME) -lCore -lVulkan -lOctree
 
 SOURCES += main.cpp\
-    Octree.cpp \
     Camera.cpp \
     Viewport.cpp \
     Source.cpp \
@@ -23,10 +22,10 @@ SOURCES += main.cpp\
     Properties.cpp \
     Options.cpp \
     RenderEngine.cpp \
-    Settings.cpp
+    Settings.cpp \
+    OctreeEditor.cpp
 
 HEADERS  += \
-    Octree.h \
     Camera.h \
     Viewport.h \
     Source.h \
@@ -37,7 +36,8 @@ HEADERS  += \
     Properties.h \
     Options.h \
     RenderEngine.h \
-    Settings.h
+    Settings.h \
+    OctreeEditor.h
 
 FORMS += \
     MainWindow.ui \

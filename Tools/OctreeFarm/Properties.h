@@ -9,14 +9,14 @@ class QUndoStack;
 
 namespace OctreeFarm {
 
-class Octree;
+class OctreeEditor;
 class Viewport;
 
 class Properties : public QWidget {
     Q_OBJECT
 
 public:
-    explicit Properties(Octree* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent = 0);
+    explicit Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent = 0);
     ~Properties();
     void setNodeLevel(int level);
     void setNodeIndex(int index);
@@ -33,7 +33,7 @@ private slots:
 
 private:
     Ui::Properties *ui;
-    Octree* octree;
+    OctreeEditor* octree;
     Viewport* viewport;
     QUndoStack* undoStack;
     QColor nodeColor;

@@ -4,7 +4,7 @@
 
 namespace OctreeFarm {
 
-DeleteCommand::DeleteCommand(Octree* octree) : octree(octree) {
+DeleteCommand::DeleteCommand(OctreeEditor* octree) : octree(octree) {
     nodes = octree->getSelection();
 }
 
@@ -29,7 +29,7 @@ void DeleteCommand::redo() {
     }
 }
 
-AddCommand::AddCommand(Octree* octree, bool back) : octree(octree), back(back) {
+AddCommand::AddCommand(OctreeEditor* octree, bool back) : octree(octree), back(back) {
     nodes = octree->getSelection();
 }
 
@@ -49,7 +49,7 @@ void AddCommand::redo() {
     }
 }
 
-SplitCommand::SplitCommand(Octree* octree) : octree(octree) {
+SplitCommand::SplitCommand(OctreeEditor* octree) : octree(octree) {
     nodes = octree->getSelection();
 }
 
@@ -73,7 +73,7 @@ void SplitCommand::redo() {
     }
 }
 
-MergeCommand::MergeCommand(Octree* octree) : octree(octree) {
+MergeCommand::MergeCommand(OctreeEditor* octree) : octree(octree) {
     nodes = octree->getSelection();
 }
 
@@ -98,7 +98,7 @@ void MergeCommand::redo() {
     }
 }
 
-ChangeColorCommand::ChangeColorCommand(Octree* octree, QColor color) : octree(octree), color(color) {
+ChangeColorCommand::ChangeColorCommand(OctreeEditor* octree, QColor color) : octree(octree), color(color) {
     nodes = octree->getSelection();
 }
 

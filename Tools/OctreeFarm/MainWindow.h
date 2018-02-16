@@ -12,7 +12,7 @@ namespace OctreeFarm {
 
 class Properties;
 class Viewport;
-class Octree;
+class OctreeEditor;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
@@ -68,7 +68,7 @@ private:
     Ui::MainWindow* ui;
     Properties* properties;
     Viewport* viewport;
-    Octree* octree;
+    OctreeEditor* octree;
     QString currentFile;
     QUndoStack* undoStack;
 

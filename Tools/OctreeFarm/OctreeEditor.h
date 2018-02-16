@@ -22,11 +22,11 @@ struct Clipboard {
     QColor color;
 };
 
-class Octree : public QObject {
+class OctreeEditor : public QObject {
     Q_OBJECT
 
 public:
-    explicit Octree(QObject* parent = 0);
+    explicit OctreeEditor(QObject* parent = 0);
 
     uint32_t* data() { return storage->data(); }
     int count() { return storage->size(); }

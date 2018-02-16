@@ -8,3 +8,5 @@
 #ifdef UNIX
     #define OS_LINUX
 #endif
+
+#define UNUSED(x) (void)x;

@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <memory>
+#include "Defines.h"
 #ifndef QT_VERSION
     #include "Signal.h"
     #define PRINT(x) std::cout << x << std::endl;

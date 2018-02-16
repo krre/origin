@@ -23,8 +23,8 @@ public:
     const std::vector<Object*>& getChildren() const { return children; }
 
 protected:
-    virtual void notifyAddChild(Object* child) {}
-    virtual void notifyRemoveChild(Object* child) {}
+    virtual void notifyAddChild(Object* child) { UNUSED(child) }
+    virtual void notifyRemoveChild(Object* child) { UNUSED(child) }
 
 private:
     friend class Control;

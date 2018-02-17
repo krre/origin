@@ -12,8 +12,6 @@ public:
     JsonStorage(Object* parent = nullptr);
     ~JsonStorage();
 
-    void create();
-
 private:
     json root;
 };

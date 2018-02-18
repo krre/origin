@@ -1,8 +1,5 @@
 #pragma once
 #include "Core/Object.h"
-#include <glm/glm.hpp>
-#include <vector>
-#include "UIBatch.h"
 
 struct SDL_KeyboardEvent;
 struct SDL_TextInputEvent;

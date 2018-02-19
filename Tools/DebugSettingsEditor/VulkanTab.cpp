@@ -1,8 +1,8 @@
 #include "VulkanTab.h"
 #include "ui_VulkanTab.h"
-#include "VulkanRenderer/API/Instance.h"
-#include "VulkanRenderer/API/Device/PhysicalDevices.h"
-#include "VulkanRenderer/API/Device/PhysicalDevice.h"
+#include "Vulkan/API/Instance.h"
+#include "Vulkan/API/Device/PhysicalDevices.h"
+#include "Vulkan/API/Device/PhysicalDevice.h"
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>

@@ -7,10 +7,10 @@ class LinearLayout;
 class Label;
 class ListBox;
 
-class ListLine : public Rectangle {
+class ListDelegate : public Rectangle {
 
 public:
-    ListLine(const std::string& text, int index, ListBox* listBox);
+    ListDelegate(const std::string& text, int index, ListBox* listBox);
     int getIndex() const { return index; }
 
 private:
@@ -22,7 +22,7 @@ private:
 };
 
 class ListBox : public Rectangle {
-    friend class ListLine;
+    friend class ListDelegate;
 
 public:
     ListBox(Control* parent = nullptr);

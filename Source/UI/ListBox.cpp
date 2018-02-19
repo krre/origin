@@ -10,7 +10,7 @@ namespace Origin {
 const Color LINE_SELECTED_COLOR = Color(1, 1, 1, 0.3);
 const Color LINE_COLOR = Color(0, 0, 0, 0.7);
 
-ListDelegate::ListDelegate(const std::string& text, int index, ListBox* listBox) :
+RowDelegate::RowDelegate(const std::string& text, int index, ListBox* listBox) :
         index(index),
         listBox(listBox) {
     setColor(LINE_COLOR);
@@ -19,7 +19,7 @@ ListDelegate::ListDelegate(const std::string& text, int index, ListBox* listBox)
     resize(200, 30);
 }
 
-void ListDelegate::mouseButtonAction(const SDL_MouseButtonEvent& event) {
+void RowDelegate::mouseButtonAction(const SDL_MouseButtonEvent& event) {
      if (event.type == SDL_MOUSEBUTTONDOWN) {
         listBox->currentText = label->getText();
         listBox->setCurrentIndex(index);
@@ -36,7 +36,7 @@ ListBox::~ListBox() {
 }
 
 void ListBox::addLine(const std::string& text) {
-    ListDelegate* listLine = new ListDelegate(text, layout->getChildren().size(), this);
+    RowDelegate* listLine = new RowDelegate(text, layout->getChildren().size(), this);
     layout->addChild(listLine);
 }
 
@@ -49,7 +49,7 @@ void ListBox::setCurrentIndex(int currentIndex) {
     this->currentIndex = currentIndex;
 
     for (Object* child : layout->getChildren()) {
-        ListDelegate* listLine = static_cast<ListDelegate*>(child);
+        RowDelegate* listLine = static_cast<RowDelegate*>(child);
         if (listLine->getIndex() == currentIndex) {
             listLine->setColor(LINE_SELECTED_COLOR);
         } else {

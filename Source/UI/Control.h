@@ -51,9 +51,6 @@ public:
     void update(float dt);
     void draw();
 
-    void setLayout(Layout* layout);
-    Layout* getLayout() const { return layout; }
-
     void activate();
 
 protected:
@@ -66,7 +63,6 @@ protected:
     virtual void mouseButtonAction(const SDL_MouseButtonEvent& event) {}
 
     UIManager* uiManager;
-    Layout* layout = nullptr;
     Pos2 position = { 0, 0 };
     Pos2 absolutePosition = { 0, 0 };
     Size size = { 0, 0 };

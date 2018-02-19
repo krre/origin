@@ -14,9 +14,7 @@ Control::Control(Control* parent) : Object(parent) {
 }
 
 Control::~Control() {
-    if (layout) {
-        delete layout;
-    }
+
 }
 
 void Control::setPosition(const Pos2& position) {
@@ -42,10 +40,6 @@ void Control::setSize(const Size& size) {
     this->size = size;
 
     resizeImpl(size.width, size.height);
-
-    if (layout != nullptr) {
-        layout->resize(size.width, size.height);
-    }
 }
 
 void Control::setScale(float scale) {
@@ -94,10 +88,6 @@ void Control::update(float dt) {
     for (const auto child : getChildren()) {
         static_cast<Control*>(child)->update(dt);
     }
-
-    if (layout) {
-        layout->update(dt);
-    }
 }
 
 void Control::draw() {
@@ -110,16 +100,7 @@ void Control::draw() {
         }
     }
 
-    if (layout) {
-        layout->draw();
-    }
-
     postDraw();
-}
-
-void Control::setLayout(Layout* layout) {
-    this->layout = layout;
-    layout->resize(size.width, size.height);
 }
 
 void Control::activate() {

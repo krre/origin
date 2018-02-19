@@ -13,5 +13,4 @@
 #ifdef DEVELOP_MODE
     #define CONSOLE_ENABLE
     #define DEBUG_HUD_ENABLE
-    #define DEVELOP_GAME_STATE
 #endif

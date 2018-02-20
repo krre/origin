@@ -8,8 +8,6 @@ struct SDL_MouseButtonEvent;
 
 namespace Origin {
 
-class Control;
-
 class UIManager : public Object {
 
 public:
@@ -20,7 +18,7 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
     void onTextInput(const SDL_TextInputEvent& event);
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
-    void traverseOverLeaf(Control* control, const SDL_MouseButtonEvent& event);
+    void traverseOverLeaf(Object* object, const SDL_MouseButtonEvent& event);
 };
 
 } // Origin

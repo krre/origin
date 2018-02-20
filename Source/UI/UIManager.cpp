@@ -45,35 +45,36 @@ void UIManager::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
     traverseOverLeaf(overlay, event);
 }
 
-void UIManager::traverseOverLeaf(Control* control, const SDL_MouseButtonEvent& event) {
-    if (control->getVisible()) {
-        int mouseX = event.x;
-        int mouseY = event.y;
+void UIManager::traverseOverLeaf(Object* object, const SDL_MouseButtonEvent& event) {
+    Control* control = dynamic_cast<Control*>(object);
+    if (!control || !control->getVisible()) return;
 
-        int width = control->size.width ? control->size.width : control->contentWidth;
-        int height = control->size.height ? control->size.height : control->contentHeight;
+    int mouseX = event.x;
+    int mouseY = event.y;
 
-        if (mouseX >= control->absolutePosition.x &&
-                mouseX <= (control->absolutePosition.x + width) &&
-                mouseY >= control->absolutePosition.y &&
-                mouseY <= (control->absolutePosition.y + height)) {
-            if (control->getChildren().size()) {
-                for (Object* child : control->getChildren()) {
-                    traverseOverLeaf(static_cast<Control*>(child), event);
-                }
-            } else {
-                Control* parent = control;
-                while (parent) {
-                    parent->mouseButtonAction(event);
-                    parent = static_cast<Control*>(parent->getParent());
-                }
+    int width = control->size.width ? control->size.width : control->contentWidth;
+    int height = control->size.height ? control->size.height : control->contentHeight;
+
+    if (mouseX >= control->absolutePosition.x &&
+            mouseX <= (control->absolutePosition.x + width) &&
+            mouseY >= control->absolutePosition.y &&
+            mouseY <= (control->absolutePosition.y + height)) {
+        if (control->getChildren().size()) {
+            for (Object* child : control->getChildren()) {
+                traverseOverLeaf(child, event);
             }
         } else {
-            Control* parent = static_cast<Control*>(control->getParent());
+            Control* parent = control;
             while (parent) {
                 parent->mouseButtonAction(event);
-                parent = dynamic_cast<Control*>(parent->getParent());
+                parent = static_cast<Control*>(parent->getParent());
             }
+        }
+    } else {
+        Control* parent = static_cast<Control*>(control->getParent());
+        while (parent) {
+            parent->mouseButtonAction(event);
+            parent = dynamic_cast<Control*>(parent->getParent());
         }
     }
 }

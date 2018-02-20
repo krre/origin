@@ -1,5 +1,8 @@
 #include "View3D.h"
+#include "Base/Game.h"
 #include "ECS/Scenes/Scene.h"
+#include "Graphics/Render/RenderManager.h"
+#include "Graphics/Render/SceneRenderer.h"
 
 namespace Origin {
 
@@ -15,6 +18,12 @@ View3D::View3D(Rect viewport, Control* parent) :
 
 void View3D::setScene(const std::shared_ptr<Scene>& scene) {
     this->scene = scene;
+}
+
+void View3D::drawImpl() {
+    if (scene) {
+        Game::getRenderManager()->getSceneRenderer()->addScene(scene.get());
+    }
 }
 
 } // Origin

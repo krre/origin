@@ -3,14 +3,19 @@
 
 namespace Origin {
 
+class Scene;
+
 class SceneRenderer : public Object {
 
 public:
     SceneRenderer(Object* parent = nullptr);
     ~SceneRenderer();
 
-private:
+    void addScene(Scene* scene);
+    void drawScenes();
 
+private:
+    std::vector<Scene*> scenes;
 };
 
 } // Origin

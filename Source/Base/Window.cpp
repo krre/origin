@@ -12,6 +12,7 @@
 #include "Core/Defines.h"
 #include "UI/Overlay.h"
 #include "Graphics/Render/UIRenderer.h"
+#include "Graphics/Render/SceneRenderer.h"
 #include "Debug/Console.h"
 #include "Graphics/Render/RenderManager.h"
 #include <lodepng/lodepng.h>
@@ -127,6 +128,7 @@ void Window::render() {
     screens.back()->draw();
     Game::getOverlay()->draw();
     Game::getRenderManager()->getUIRenderer()->drawBatches();
+    Game::getRenderManager()->getSceneRenderer()->drawScenes();
 
     if (screens.back()->getDirty() || Game::getOverlay()->getDirty()) {
         Game::getRenderManager()->updateCommandBuffers();

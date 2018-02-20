@@ -32,7 +32,10 @@ void Control::updatePosition() {
     }
 
     for (const auto child : getChildren()) {
-        static_cast<Control*>(child)->updatePosition();
+        Control* control = dynamic_cast<Control*>(child);
+        if (control) {
+            control->updatePosition();
+        }
     }
 }
 
@@ -86,7 +89,10 @@ void Control::update(float dt) {
     updateImpl(dt);
 
     for (const auto child : getChildren()) {
-        static_cast<Control*>(child)->update(dt);
+        Control* control = dynamic_cast<Control*>(child);
+        if (control) {
+            control->update(dt);
+        }
     }
 }
 
@@ -94,8 +100,8 @@ void Control::draw() {
     drawImpl();
 
     for (Object* child : getChildren()) {
-        Control* control = static_cast<Control*>(child);
-        if (control->getVisible()) {
+        Control* control = dynamic_cast<Control*>(child);
+        if (control && control->getVisible()) {
             control->draw();
         }
     }

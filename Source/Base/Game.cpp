@@ -130,6 +130,8 @@ void Game::run() {
         window->render();
 //        PRINT(frameTime << " " << 1 / frameTime)
     }
+
+    window->close();
 }
 
 void Game::quit() {

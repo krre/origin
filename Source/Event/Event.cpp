@@ -22,9 +22,6 @@ void Event::handleEvents() {
                     case SDL_WINDOWEVENT_RESIZED:
                         windowResize.fire(event.window.data1, event.window.data2);
                         break;
-                    case SDL_WINDOWEVENT_MOVED:
-                        windowMove.fire(event.window.data1, event.window.data2);
-                        break;
                     default:
                         break;
                     }

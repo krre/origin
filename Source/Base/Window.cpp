@@ -35,31 +35,31 @@ Window::Window(Object* parent) : Object(parent) {
         height = settingsHeigth.get<int>();
     }
 
+    int x = SDL_WINDOWPOS_CENTERED;
+    int y = SDL_WINDOWPOS_CENTERED;
+
+// On some Ubuntu OS y position is shifted on window creation, so do not use position settings
+#if !defined(OS_LINUX)
     auto settingsX = Game::getSettings()->getStorage()["x"];
     auto settingsY = Game::getSettings()->getStorage()["y"];
 
-    Size screenSize = SDL::getScreenSize();
-    x = settingsX.is_null() ? (screenSize.width - width) / 2 : settingsX.get<int>();
-    y = settingsY.is_null() ? (screenSize.height - height) / 2 : settingsY.get<int>();
+    if (!settingsX.is_null() && !settingsY.is_null()) {
+        x = settingsX.get<int>();
+        y = settingsY.get<int>();
+    }
+#endif
 
     handle = SDL_CreateWindow(APP_NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
     if (handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }
 
-    Game::getEvent()->windowMove.connect(this, &Window::onMove);
     Game::getEvent()->windowResize.connect(this, &Window::onResize);
     Game::getEvent()->keyPressed.connect(this, &Window::onKeyPressed);
 }
 
 Window::~Window() {
-    Game::getSettings()->getStorage()["x"] = x;
-    Game::getSettings()->getStorage()["y"] = y;
 
-    Game::getSettings()->getStorage()["width"] = width;
-    Game::getSettings()->getStorage()["height"] = height;
-
-    SDL_DestroyWindow(handle);
 }
 
 void Window::pushScreen(const std::shared_ptr<Screen>& screen) {
@@ -105,6 +105,19 @@ void Window::show() {
     SDL_ShowWindow(handle);
 }
 
+void Window::close() {
+    int x, y;
+    SDL_GetWindowPosition(handle, &x, &y);
+
+    Game::getSettings()->getStorage()["x"] = x;
+    Game::getSettings()->getStorage()["y"] = y;
+
+    Game::getSettings()->getStorage()["width"] = width;
+    Game::getSettings()->getStorage()["height"] = height;
+
+    SDL_DestroyWindow(handle);
+}
+
 void Window::update(float dt) {
     screens.back()->update(dt);
     Game::getOverlay()->update(dt);
@@ -126,11 +139,6 @@ void Window::render() {
     }
 
     Game::getRenderManager()->render();
-}
-
-void Window::onMove(int x, int y) {
-    this->x = x;
-    this->y = y;
 }
 
 void Window::onResize(int width, int height) {

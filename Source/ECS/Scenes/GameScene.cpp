@@ -1,10 +1,11 @@
 #include "GameScene.h"
-#include "Octree/Octree.h"
+#include "ECS/Entity.h"
 
 namespace Origin {
 
 GameScene::GameScene(Object* parent) : Scene(parent) {
-    addOctree(new Octree);
+    Entity* entity = new Entity;
+    setEntity(entity);
 }
 
 GameScene::~GameScene() {

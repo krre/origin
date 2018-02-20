@@ -1,17 +1,18 @@
 #include "Scene.h"
-#include "Octree/Octree.h"
+#include "ECS/Entity.h"
 
 namespace Origin {
 
 Scene::Scene(Object* parent) : Object(parent) {
-    rootOctree = new Object(this);
+
 }
 
 Scene::~Scene() {
 }
 
-void Scene::addOctree(Octree* octree) {
-    rootOctree->addChild(octree);
+void Scene::setEntity(Entity* entity) {
+    entity->setParent(this);
+    this->entity = entity;
 }
 
 } // Origin

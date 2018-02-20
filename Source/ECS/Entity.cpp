@@ -12,6 +12,10 @@ Entity::Entity(EntityId id, Entity* parent) : Object(parent) {
     this->id = id;
 }
 
+Entity::~Entity() {
+
+}
+
 void Entity::setIdCounter(EntityId id) {
     counter = id;
 }

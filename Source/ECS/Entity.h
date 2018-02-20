@@ -10,6 +10,7 @@ class Entity : public Object {
 public:
     Entity(Entity* parent = nullptr);
     Entity(EntityId id, Entity* parent = nullptr);
+    ~Entity();
 
     EntityId getId() { return id; }
     static void setIdCounter(EntityId id);

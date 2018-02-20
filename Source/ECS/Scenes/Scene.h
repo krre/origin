@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Octree;
+class Entity;
 
 class Scene : public Object {
 
@@ -11,11 +11,11 @@ public:
     Scene(Object* parent = nullptr);
     ~Scene();
 
-    void addOctree(Octree* octree);
-    Object* getRootOctree() const { return rootOctree; }
+    void setEntity(Entity* entity);
+    Entity* getEntity() const { return entity; }
 
 private:
-    Object* rootOctree;
+    Entity* entity = nullptr;
 };
 
 } // Origin

@@ -11,8 +11,6 @@ public:
     Event(Object* parent = nullptr);
     void handleEvents();
 
-    Signal<> render;
-    Signal<double> update;
     Signal<int, int> windowResize;
     Signal<int, int> windowMove;
     Signal<int, int> mouseMove;

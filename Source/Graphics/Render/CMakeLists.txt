@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderManager.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SceneRenderer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/SceneRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/UIRenderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/UIRenderer.h
     PARENT_SCOPE

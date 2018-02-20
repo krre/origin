@@ -9,6 +9,7 @@ class Screen;
 class ShaderProgram;
 class RenderPassResource;
 class UIRenderer;
+class SceneRenderer;
 
 class RenderManager : public Vulkan::Renderer, public Object {
 
@@ -17,6 +18,7 @@ public:
     ~RenderManager();
 
     UIRenderer* getUIRenderer() const { return uiRenderer; }
+    SceneRenderer* getSceneRenderer() const { return sceneRenderer; }
 
     void saveScreenshot();
 
@@ -27,7 +29,8 @@ private:
 
     Window* window = nullptr;
     Screen* currentScreen = nullptr;
-    UIRenderer* uiRenderer;
+    UIRenderer* uiRenderer = nullptr;
+    SceneRenderer* sceneRenderer = nullptr;
     std::vector<RenderPassResource*> renderPassResources;
 };
 

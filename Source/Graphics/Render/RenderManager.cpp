@@ -10,6 +10,7 @@
 #include "Resource/RenderPass/RenderPassResource.h"
 #include "Resource/RenderPass/RenderPassUI.h"
 #include "UIRenderer.h"
+#include "SceneRenderer.h"
 #include "UI/Overlay.h"
 #include "UI/Toast.h"
 #include <lodepng/lodepng.h>
@@ -54,6 +55,7 @@ void RenderManager::saveScreenshot() {
 
 void RenderManager::init() {
     uiRenderer = new UIRenderer(this);
+    sceneRenderer = new SceneRenderer(this);
     renderPassResources.push_back(uiRenderer->getRenderPassUI());
 }
 

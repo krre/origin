@@ -15,6 +15,8 @@ public:
     EntityId getId() { return id; }
     static void setIdCounter(EntityId id);
 
+    void addComponent(const std::shared_ptr<Component>& component);
+
     std::map<Component::Type, std::shared_ptr<Component>> components;
 
 private:

@@ -20,4 +20,8 @@ void Entity::setIdCounter(EntityId id) {
     counter = id;
 }
 
+void Entity::addComponent(const std::shared_ptr<Component>& component) {
+    components[component->getType()] = component;
+}
+
 } // Origin

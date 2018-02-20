@@ -1,6 +1,6 @@
 #pragma once
 #include "ECS/Component.h"
-#include "Graphics/Voxel/Octree.h"
+#include "Octree/Octree.h"
 #include <vector>
 
 namespace Origin {

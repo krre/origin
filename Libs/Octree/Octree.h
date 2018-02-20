@@ -11,6 +11,8 @@ public:
     Octree(Object* parent = nullptr);
     ~Octree();
 
+    void load(const std::string& path);
+
 private:
     JsonStorage* storage;
 };

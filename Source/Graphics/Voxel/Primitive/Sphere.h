@@ -1,5 +1,5 @@
 #pragma once
-#include "Graphics/Voxel/Octree.h"
+#include "Octree/Octree.h"
 
 namespace Origin {
 

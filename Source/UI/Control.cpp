@@ -60,8 +60,8 @@ void Control::move(int x, int y) {
 void Control::markDirty() {
     dirty = true;
 
-    Control* parent = static_cast<Control*>(getParent());
-    if (parent != nullptr) {
+    Control* parent = dynamic_cast<Control*>(getParent());
+    if (parent) {
         parent->markDirty();
     }
 }

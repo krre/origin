@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-TemplateObject::TemplateObject() {
+TemplateObject::TemplateObject(Object parent) : Object(parent) {
 
 }
 

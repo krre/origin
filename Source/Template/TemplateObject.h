@@ -6,7 +6,7 @@ namespace Origin {
 class TemplateObject : public Object {
 
 public:
-    TemplateObject();
+    TemplateObject(Object parent = nullptr);
     ~TemplateObject();
 
 private:

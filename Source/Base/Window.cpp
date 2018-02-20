@@ -11,7 +11,7 @@
 #include "Event/Input.h"
 #include "Core/Defines.h"
 #include "UI/Overlay.h"
-#include "UI/UIRenderer.h"
+#include "Graphics/Render/UIRenderer.h"
 #include "Debug/Console.h"
 #include "Graphics/Render/RenderManager.h"
 #include <lodepng/lodepng.h>

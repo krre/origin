@@ -3,7 +3,7 @@
 #include "Font.h"
 #include "Base/Game.h"
 #include "Screen/Screen.h"
-#include "UI/UIRenderer.h"
+#include "Graphics/Render/UIRenderer.h"
 #include "Graphics/Render/RenderManager.h"
 #include "UIBatch.h"
 

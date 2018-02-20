@@ -9,7 +9,7 @@
 #include "Vulkan/API/Surface/Surface.h"
 #include "Resource/RenderPass/RenderPassResource.h"
 #include "Resource/RenderPass/RenderPassUI.h"
-#include "UI/UIRenderer.h"
+#include "UIRenderer.h"
 #include "UI/Overlay.h"
 #include "UI/Toast.h"
 #include <lodepng/lodepng.h>

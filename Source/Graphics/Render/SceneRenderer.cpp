@@ -18,6 +18,8 @@ void SceneRenderer::drawScenes() {
     for (Scene* scene : scenes) {
 
     }
+
+    scenes.clear();
 }
 
 } // Origin

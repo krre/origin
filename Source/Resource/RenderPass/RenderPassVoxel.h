@@ -2,7 +2,6 @@
 #include "RenderPassResource.h"
 
 namespace Vulkan {
-    class RenderPass;
     class GpuBuffer;
     class Sampler;
     class ShaderProgram;
@@ -22,7 +21,6 @@ public:
     void setVertexCount(uint32_t vertextCount) { this->vertextCount = vertextCount; }
 
 private:
-    std::unique_ptr<Vulkan::RenderPass> renderPass;
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
     std::unique_ptr<Vulkan::GpuBuffer> uboBuffer;
     std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;

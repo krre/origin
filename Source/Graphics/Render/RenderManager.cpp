@@ -9,6 +9,7 @@
 #include "Vulkan/API/Surface/Surface.h"
 #include "Resource/RenderPass/RenderPassResource.h"
 #include "Resource/RenderPass/RenderPassUI.h"
+#include "Resource/RenderPass/RenderPassVoxel.h"
 #include "UIRenderer.h"
 #include "SceneRenderer.h"
 #include "UI/Overlay.h"
@@ -55,8 +56,10 @@ void RenderManager::saveScreenshot() {
 
 void RenderManager::init() {
     uiRenderer = new UIRenderer(this);
-    sceneRenderer = new SceneRenderer(this);
     renderPassResources.push_back(uiRenderer->getRenderPassUI());
+
+    sceneRenderer = new SceneRenderer(this);
+    renderPassResources.push_back(sceneRenderer->getRenderPassVoxel());
 }
 
 void RenderManager::preRender() {

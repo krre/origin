@@ -17,7 +17,6 @@
 #include "Resource/ResourceManager.h"
 #include "ECS/Scenes/Scene.h"
 #include "UI/Font.h"
-#include <glm/gtc/matrix_transform.hpp>
 
 namespace Origin {
 

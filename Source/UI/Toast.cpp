@@ -10,6 +10,7 @@ namespace Origin {
 Toast::Toast(Control* parent) : Control(parent) {
     timer = new Timer(this);
     text = new Label(this);
+    text->move(5, 0);
     setVisible(false);
     timer->timeout.connect(this, &Toast::onTimeout);
 }

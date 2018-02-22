@@ -55,11 +55,11 @@ void RenderManager::saveScreenshot() {
 }
 
 void RenderManager::init() {
-    uiRenderer = new UIRenderer(this);
-    renderPassResources.push_back(uiRenderer->getRenderPassUI());
-
     sceneRenderer = new SceneRenderer(this);
     renderPassResources.push_back(sceneRenderer->getRenderPassVoxel());
+
+    uiRenderer = new UIRenderer(this);
+    renderPassResources.push_back(uiRenderer->getRenderPassUI());
 }
 
 void RenderManager::preRender() {

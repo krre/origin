@@ -4,5 +4,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassResource.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassUI.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassUI.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassVoxel.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassVoxel.cpp
     PARENT_SCOPE
 )

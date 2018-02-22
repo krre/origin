@@ -44,7 +44,6 @@ RenderPassVoxel::RenderPassVoxel(Vulkan::Device* device, Object* parent) :
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
-    graphicsPipeline->setBlendEnable(true);
     graphicsPipeline->setRenderPass(renderPass->getHandle());
     graphicsPipeline->setPipelineLayout(shaderProgram->getPipelineLayout()->getHandle());
 

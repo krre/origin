@@ -19,7 +19,6 @@ Image::Image(Device* device) :
     createInfo.samples = VK_SAMPLE_COUNT_1_BIT;
     createInfo.tiling = VK_IMAGE_TILING_LINEAR;
     createInfo.usage = VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
-    createInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
 }
 
 Image::Image(Device* device, VkImage image) :
@@ -60,6 +59,10 @@ void Image::setFormat(VkFormat format) {
 
 void Image::setUsage(VkImageUsageFlags usage) {
     createInfo.usage = usage;
+}
+
+void Image::setTiling(VkImageTiling tiling) {
+    createInfo.tiling = tiling;
 }
 
 void Image::setInitialLayout(VkImageLayout initialLayout) {

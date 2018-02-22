@@ -27,6 +27,7 @@ public:
     VkFormat getFormat() const { return createInfo.format; }
 
     void setUsage(VkImageUsageFlags usage);
+    void setTiling(VkImageTiling tiling);
     void setInitialLayout(VkImageLayout initialLayout);
     void write(void* data, VkDeviceSize size, VkDeviceSize offset = 0);
 

@@ -27,6 +27,8 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
         RenderPassResource(device, parent) {
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
     renderPass->setColorFormat(Game::getRenderManager()->getSurface()->getFormats().at(0).format);
+    renderPass->setDepthEnable(true);
+    renderPass->setDepthFormat(VK_FORMAT_D16_UNORM); // TODO: Take from render pass used for framebuffer
     renderPass->create();
 
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
@@ -120,6 +122,10 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
     renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
     renderPassBegin.addClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
+    VkClearValue depthColor = {};
+    depthColor.depthStencil.depth = 1.0f;
+    depthColor.depthStencil.stencil = 0.0f;
+    renderPassBegin.addClearValue(depthColor);
 
     commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 

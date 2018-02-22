@@ -28,6 +28,7 @@
 namespace Vulkan {
 
 Renderer* Renderer::renderer = nullptr;
+const VkFormat depthFormat = VK_FORMAT_D16_UNORM;
 
 Renderer::Renderer(void* platformHandle, void* platformWindow) :
         platformHandle(platformHandle),
@@ -121,6 +122,8 @@ void Renderer::create() {
 
     renderPass = std::make_unique<RenderPass>(device);
     renderPass->setColorFormat(surface->getFormats().at(0).format);
+    renderPass->setDepthEnable(true);
+    renderPass->setDepthFormat(depthFormat);
     renderPass->create();
 
     swapchain = std::make_unique<Swapchain>(device, surface.get());
@@ -160,6 +163,29 @@ void Renderer::resize() {
     imageViews.clear();
     framebuffers.clear();
 
+    depthImage = std::make_unique<Image>(device);
+    depthImage->setWidth(width);
+    depthImage->setHeight(height);
+    depthImage->setFormat(depthFormat);
+    depthImage->setUsage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT);
+
+    VkFormatProperties props;
+    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), depthFormat, &props);
+    if (props.linearTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) {
+        depthImage->setTiling(VK_IMAGE_TILING_LINEAR);
+    } else if (props.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) {
+        depthImage->setTiling(VK_IMAGE_TILING_OPTIMAL);
+    } else {
+        throw std::runtime_error("VK_FORMAT_D16_UNORM Unsupported");
+    }
+
+    depthImage->create();
+
+    depthImageView = std::make_unique<ImageView>(device, depthImage->getHandle());
+    depthImageView->setFormat(depthFormat);
+    depthImageView->setAspectMask(VK_IMAGE_ASPECT_DEPTH_BIT);
+    depthImageView->create();
+
     for (const auto& image : swapchain->getImages()) {
         std::unique_ptr<ImageView> imageView = std::make_unique<ImageView>(device, image);
         imageView->setFormat(surface->getFormats().at(0).format);
@@ -167,6 +193,7 @@ void Renderer::resize() {
 
         std::unique_ptr<Framebuffer> framebuffer = std::make_unique<Framebuffer>(device);
         framebuffer->addAttachment(imageView.get());
+        framebuffer->addAttachment(depthImageView.get());
         framebuffer->setRenderPass(renderPass.get());
         framebuffer->setWidth(width);
         framebuffer->setHeight(height);

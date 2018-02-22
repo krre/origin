@@ -123,8 +123,8 @@ void RenderPass::setDepthEnable(bool depthEnable) {
     this->depthEnable = depthEnable;
 }
 
-void RenderPass::setBlendEnable(bool overlayEnable) {
-    this->blendEnable = overlayEnable;
+void RenderPass::setBlendEnable(bool blendEnable) {
+    this->blendEnable = blendEnable;
 }
 
 } // Vulkan

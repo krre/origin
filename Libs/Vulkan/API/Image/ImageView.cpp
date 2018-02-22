@@ -35,4 +35,8 @@ void ImageView::setFormat(VkFormat format) {
     createInfo.format = format;
 }
 
+void ImageView::setAspectMask(VkImageAspectFlags aspectMask) {
+    createInfo.subresourceRange.aspectMask = aspectMask;
+}
+
 } // Vulkan

@@ -67,6 +67,8 @@ private:
     std::unique_ptr<RenderPass> renderPass;
     std::vector<std::unique_ptr<Framebuffer>> framebuffers;
     std::vector<std::unique_ptr<ImageView>> imageViews;
+    std::unique_ptr<Image> depthImage;
+    std::unique_ptr<ImageView> depthImageView;
     std::unique_ptr<Semaphore> imageAvailableSemaphore;
     std::unique_ptr<Semaphore> renderFinishedSemaphore;
     std::unique_ptr<Queue> queue;

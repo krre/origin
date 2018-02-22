@@ -12,6 +12,7 @@ public:
     void create() override;
     void destroy() override;
     void setFormat(VkFormat format);
+    void setAspectMask(VkImageAspectFlags aspectMask);
 
 private:
     VkImageViewCreateInfo createInfo = {};

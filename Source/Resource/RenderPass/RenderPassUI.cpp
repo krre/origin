@@ -25,12 +25,6 @@ namespace Origin {
 
 RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
         RenderPassResource(device, parent) {
-    renderPass = std::make_unique<Vulkan::RenderPass>(device);
-    renderPass->setColorFormat(Game::getRenderManager()->getSurface()->getFormats().at(0).format);
-    renderPass->setDepthEnable(true);
-    renderPass->setDepthFormat(VK_FORMAT_D16_UNORM); // TODO: Take from render pass used for framebuffer
-    renderPass->create();
-
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
@@ -59,7 +53,7 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
-    graphicsPipeline->setRenderPass(renderPass->getHandle());
+    graphicsPipeline->setRenderPass(Game::getRenderManager()->getRenderPass()->getHandle());
     graphicsPipeline->setPipelineLayout(shaderProgram->getPipelineLayout()->getHandle());
 
     graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
@@ -118,7 +112,7 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
     glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
     uboBuffer->write(&mvp, sizeof(mvp));
 
-    Vulkan::RenderPassBegin renderPassBegin(renderPass->getHandle());
+    Vulkan::RenderPassBegin renderPassBegin(Game::getRenderManager()->getRenderPass()->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
     renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
     renderPassBegin.addClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });

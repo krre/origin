@@ -6,6 +6,7 @@ namespace Vulkan {
     class Sampler;
     class ShaderProgram;
     class GraphicsPipeline;
+    class RenderPass;
     class Texture;
 }
 
@@ -28,6 +29,7 @@ private:
     std::unique_ptr<Vulkan::Sampler> sampler;
     std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
+    std::unique_ptr<Vulkan::RenderPass> renderPass;
     uint32_t vertextCount = 0;
     Vulkan::Texture* texture;
 };

@@ -28,8 +28,13 @@ public:
     ~RenderPass();
     void create() override;
     void destroy() override;
+
     void setColorFormat(VkFormat format);
+    VkFormat getColorFormat() const { return colorAttachmentDescription.format; }
+
     void setDepthFormat(VkFormat format);
+    VkFormat getDepthFormat() const { return depthAttachmentDescription.format; }
+
     void setDepthEnable(bool depthEnable);
     void setBlendEnable(bool blendEnable);
 

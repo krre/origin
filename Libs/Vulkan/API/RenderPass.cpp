@@ -42,6 +42,7 @@ void RenderPass::create() {
     attachmentDescriptions.push_back(colorAttachmentDescription);
 
     if (depthEnable) {
+        depthAttachmentDescription.format = VK_FORMAT_D16_UNORM;
         depthAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
         depthAttachmentDescription.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
         depthAttachmentDescription.storeOp = VK_ATTACHMENT_STORE_OP_STORE;

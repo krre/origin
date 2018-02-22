@@ -136,6 +136,8 @@ void CommandBuffer::bindPipeline(Pipeline* pipeline) {
 void CommandBuffer::bindVertexBuffers(uint32_t firstBinding) {
     assert(!vertexBuffers.empty());
     vkCmdBindVertexBuffers(handle, firstBinding, vertexBuffers.size(), vertexBuffers.data(), vertexBufferOffsets.data());
+    vertexBuffers.clear();
+    vertexBufferOffsets.clear();
 }
 
 void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset) {
@@ -167,6 +169,8 @@ void CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t 
 
 void CommandBuffer::bindDescriptorSets(VkPipelineBindPoint bindPoint, VkPipelineLayout layout, uint32_t firstSet) {
     vkCmdBindDescriptorSets(handle, bindPoint, layout, firstSet, descriptorSets.size(), descriptorSets.data(), dynamicOffsets.size(), dynamicOffsets.data());
+    descriptorSets.clear();
+    dynamicOffsets.clear();
 }
 
 void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {

@@ -119,6 +119,7 @@ void Renderer::create() {
 
     renderPass = std::make_unique<RenderPass>(device);
     renderPass->setColorFormat(surface->getFormats().at(0).format);
+//    renderPass->setBlendEnable(true);
     renderPass->setDepthEnable(true);
     renderPass->setDepthFormat(depthFormat);
     renderPass->create();

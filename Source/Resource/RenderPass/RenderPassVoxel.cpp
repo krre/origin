@@ -86,7 +86,8 @@ void RenderPassVoxel::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Frameb
     const Color& color = Game::getWindow()->getColor();
 
     // TODO: Only need update on resize framebuffer
-    glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
+//    glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
+    glm::mat4 mvp = glm::mat4(1.0);
     uboBuffer->write(&mvp, sizeof(mvp));
 
     Vulkan::RenderPassBegin renderPassBegin(Game::getRenderManager()->getRenderPass()->getHandle());

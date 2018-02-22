@@ -11,7 +11,7 @@ class Scene : public Object {
 public:
 
     struct Vertex {
-        glm::vec2 pos;
+        glm::vec4 pos;
         glm::vec4 color;
     };
 

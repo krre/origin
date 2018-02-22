@@ -35,7 +35,11 @@ void Image::create() {
 
     VkMemoryRequirements memRequirements;
     vkGetImageMemoryRequirements(device->getHandle(), handle, &memRequirements);
-    memory->setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT));
+    VkMemoryPropertyFlags properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+    if (createInfo.format == VK_FORMAT_D16_UNORM) {
+        properties = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
+    }
+    memory->setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
     memory->allocate(memRequirements.size);
 
     vkBindImageMemory(device->getHandle(), handle, memory->getHandle(), 0);

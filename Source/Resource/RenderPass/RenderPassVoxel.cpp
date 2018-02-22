@@ -85,11 +85,6 @@ RenderPassVoxel::~RenderPassVoxel() {
 void RenderPassVoxel::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     const Color& color = Game::getWindow()->getColor();
 
-    // TODO: Only need update on resize framebuffer
-//    glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
-    glm::mat4 mvp = glm::mat4(1.0);
-    uboBuffer->write(&mvp, sizeof(mvp));
-
     Vulkan::RenderPassBegin renderPassBegin(Game::getRenderManager()->getRenderPass()->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
     renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
@@ -120,6 +115,10 @@ void RenderPassVoxel::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Frameb
 
 void RenderPassVoxel::resizeVertexBuffer(uint32_t size) {
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+}
+
+void RenderPassVoxel::updateMvp(const glm::mat4& mvp) {
+    uboBuffer->write(&mvp, sizeof(mvp));
 }
 
 } // Origin

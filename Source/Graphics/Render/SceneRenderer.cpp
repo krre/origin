@@ -2,7 +2,9 @@
 #include "Vulkan/GpuBuffer.h"
 #include "Resource/RenderPass/RenderPassVoxel.h"
 #include "Graphics/Render/RenderManager.h"
+#include "Base/Window.h"
 #include "Base/Game.h"
+#include <glm/gtc/matrix_transform.hpp>
 
 namespace Origin {
 
@@ -38,6 +40,13 @@ void SceneRenderer::drawScenes() {
 
 
     }
+
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)Game::getWindow()->getWidth() / Game::getWindow()->getHeight(), 0.1f, 100.0f);
+    glm::mat4 view = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+
+    glm::mat4 mvp = proj * view;
+
+    renderPassVoxel->updateMvp(mvp);
 
     uint32_t size = vertices.size() * sizeof(Scene::Vertex);
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "RenderPassResource.h"
+#include <glm/glm.hpp>
 
 namespace Vulkan {
     class GpuBuffer;
@@ -19,6 +20,8 @@ public:
     Vulkan::GpuBuffer* getVertexBuffer() const { return vertexBuffer.get(); }
     void resizeVertexBuffer(uint32_t size);
     void setVertexCount(uint32_t vertextCount) { this->vertextCount = vertextCount; }
+
+    void updateMvp(const glm::mat4& mvp);
 
 private:
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;

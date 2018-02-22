@@ -3,6 +3,7 @@
 #include "Vulkan/Texture.h"
 #include "Core/Utils.h"
 #include "Base/Game.h"
+#include "Graphics/Render/RenderManager.h"
 #include <cmath>
 #include <lodepng/lodepng.h>
 #include <experimental/filesystem>
@@ -97,7 +98,7 @@ void Font::load(const std::string& filePath) {
     glyphInfos.at(0).u1 = 1.0f / texWidth;
     glyphInfos.at(0).v1 = 1.0f / texHeight;
 
-    texture = std::make_unique<Vulkan::Texture>(texWidth, texHeight, atlasData.data(), size);
+    texture = std::make_unique<Vulkan::Texture>(Game::getRenderManager()->getGraphicsDevice(), texWidth, texHeight, atlasData.data(), size);
 
     // Write PNG for testing image
 #if 0

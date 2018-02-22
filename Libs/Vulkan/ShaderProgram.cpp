@@ -8,9 +8,7 @@
 
 namespace Vulkan {
 
-ShaderProgram::ShaderProgram() {
-    device = Renderer::get()->getGraphicsDevice();
-
+ShaderProgram::ShaderProgram(Device* device) : device(device) {
     descriptorPool = std::make_unique<DescriptorPool>(device);
     descriptorSets = std::make_unique<DescriptorSets>(device, descriptorPool.get());
 

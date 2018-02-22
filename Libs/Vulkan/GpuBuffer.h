@@ -11,7 +11,7 @@ class DeviceMemory;
 class GpuBuffer {
 
 public:
-    GpuBuffer(VkBufferUsageFlagBits usage, uint32_t size);
+    GpuBuffer(Device* device, VkBufferUsageFlagBits usage, uint32_t size);
     ~GpuBuffer();
     VkBufferUsageFlagBits getUsage() const { return usage; }
     uint32_t getSize() const { return size; }
@@ -22,7 +22,6 @@ public:
     void read(void* data, uint32_t size, uint32_t offset = 0);
 
 private:
-    Device* device;
     std::unique_ptr<Buffer> buffer;
     std::unique_ptr<DeviceMemory> memory;
     std::unique_ptr<Buffer> stageBuffer; // TODO: Use for staging

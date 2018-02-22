@@ -34,8 +34,6 @@ public:
     RenderPass* getRenderPass() const { return renderPass.get(); }
     Surface* getSurface() const { return surface.get(); }
 
-    static Renderer* get() { return renderer; }
-
     void setEnabledLayers(const std::vector<std::string>& enabledLayers);
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
 
@@ -77,7 +75,6 @@ private:
     uint32_t computeFamily;
     int presetDevice = -1;
     Device* device;
-    static Renderer* renderer;
 };
 
 } // Vulkan

@@ -26,14 +26,14 @@ namespace Origin {
 RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
         RenderPassResource(device, parent) {
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
-    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
 
-    uboBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
+    uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
 
     sampler = std::make_unique<Vulkan::Sampler>(device);
     sampler->create();
 
-    shaderProgram = std::make_unique<Vulkan::ShaderProgram>();
+    shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
     shaderProgram->loadShader(Game::getResourceManager()->getDataPath() + "/Shader/BaseShape.vert.spv");
     shaderProgram->loadShader(Game::getResourceManager()->getDataPath() + "/Shader/BaseShape.frag.spv");
 
@@ -141,7 +141,7 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
 }
 
 void RenderPassUI::resizeVertexBuffer(uint32_t size) {
-    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
 }
 
 void RenderPassUI::setTexture(Vulkan::Texture* texture) {

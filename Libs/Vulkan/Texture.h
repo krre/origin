@@ -12,7 +12,7 @@ class Device;
 class Texture {
 
 public:
-    Texture(uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset = 0);
+    Texture(Device* device, uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset = 0);
     ~Texture();
     uint32_t getWidth() const { return width; }
     uint32_t getHeight() const { return height; }
@@ -25,7 +25,6 @@ private:
     std::vector<unsigned char> data;
     std::unique_ptr<Image> image;
     std::unique_ptr<ImageView> imageView;
-    Device* device;
 };
 
 } // Origin

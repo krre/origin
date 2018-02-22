@@ -19,7 +19,7 @@ class DescriptorPool;
 class ShaderProgram {
 
 public:
-    ShaderProgram();
+    ShaderProgram(Device* device);
     ~ShaderProgram();
     void loadShader(const std::string& filePath);
     const std::vector<std::unique_ptr<Shader>>& getShaders() const { return shaders; }

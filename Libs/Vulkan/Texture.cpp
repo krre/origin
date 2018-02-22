@@ -7,9 +7,7 @@
 
 namespace Vulkan {
 
-Texture::Texture(uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset) {
-    device = Renderer::get()->getGraphicsDevice();
-
+Texture::Texture(Device* device, uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset) {
     image = std::make_unique<Image>(device);
 
     image->setWidth(width);
@@ -35,9 +33,9 @@ Texture::Texture(uint32_t width, uint32_t height, void* data, VkDeviceSize size,
 
     }
 
-    CommandBufferOneTime commandBuffer(device, Renderer::get()->getGraphicsCommandPool());
-    commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
-    commandBuffer.apply();
+//    CommandBufferOneTime commandBuffer(device, Renderer::get()->getGraphicsCommandPool());
+//    commandBuffer.setImageLayout(image->getHandle(), VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PREINITIALIZED, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_PIPELINE_STAGE_HOST_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT);
+//    commandBuffer.apply();
 }
 
 Texture::~Texture() {

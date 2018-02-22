@@ -27,14 +27,11 @@
 
 namespace Vulkan {
 
-Renderer* Renderer::renderer = nullptr;
 const VkFormat depthFormat = VK_FORMAT_D16_UNORM;
 
 Renderer::Renderer(void* platformHandle, void* platformWindow) :
         platformHandle(platformHandle),
         platformWindow(platformWindow) {
-    assert(renderer == nullptr);
-    renderer = this;
     instance = std::make_unique<Instance>();
 }
 

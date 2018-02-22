@@ -220,6 +220,7 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
     Image image(device);
     image.setWidth(width);
     image.setHeight(height);
+    image.setUsage(VK_IMAGE_USAGE_TRANSFER_DST_BIT);
     image.create();
     VkImage dstImage = image.getHandle();
 
@@ -284,27 +285,28 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
     std::vector<unsigned char> output;
     output.resize(width * height * 4);
 
-    if (supportsBlit) {
-
-    } else {
-        // Convert from BGR to RGB
-        uint32_t offset = 0;
-        for (uint32_t y = 0; y < height; y++) {
-            unsigned int *row = (unsigned int*)data;
-            for (uint32_t x = 0; x < width; x++) {
+    uint32_t offset = 0;
+    for (uint32_t y = 0; y < height; y++) {
+        unsigned int* row = (unsigned int*)data;
+        for (uint32_t x = 0; x < width; x++) {
+            if (!supportsBlit) {
+                // Convert from BGR to RGB
                 output[offset++] = *((char*)row + 2);
                 output[offset++] = *((char*)row + 1);
                 output[offset++] = *((char*)row);
                 output[offset++] = *((char*)row + 3);
-
-                row++;
+            } else {
+                output[offset++] = *((char*)row + 0);
+                output[offset++] = *((char*)row + 1);
+                output[offset++] = *((char*)row + 2);
+                output[offset++] = *((char*)row + 3);
             }
 
-            data += subResourceLayout.rowPitch;
+            row++;
         }
-    }
 
-//    lodepng::encode(filePath, output.data(), width, height);
+        data += subResourceLayout.rowPitch;
+    }
 
     image.getMemory()->unmap();
 

@@ -48,8 +48,8 @@ GraphicsPipeline::GraphicsPipeline(Device* device) :
     depthStencilStateCreateInfo.depthTestEnable = VK_TRUE;
     depthStencilStateCreateInfo.depthWriteEnable = VK_TRUE;
     depthStencilStateCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL;
-    depthStencilStateCreateInfo.front = depthStencilStateCreateInfo.back;
     depthStencilStateCreateInfo.back.compareOp = VK_COMPARE_OP_ALWAYS;
+    depthStencilStateCreateInfo.front = depthStencilStateCreateInfo.back;
 }
 
 void GraphicsPipeline::addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription) {

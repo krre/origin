@@ -62,7 +62,7 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 void Viewport::resizeEvent(QResizeEvent* event) {
     Q_UNUSED(event)
     renderEngine->resize();
-    renderEngine->render();
+    update();
 }
 
 void Viewport::onOctreeChanged() {

@@ -32,12 +32,9 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
     lastPos = event->pos();
 
     if (event->button() == Qt::LeftButton) {
-//        program.bind();
         pick = event->pos();
-//        program.setUniformValue("pickPixel", QPoint(pick.x(), height() - pick.y()));
         pickMode = true;
-        // Update is asynchronous action so selection is continued in paintGL()
-//        update();
+        update();
     }
 }
 
@@ -46,12 +43,12 @@ void Viewport::mouseMoveEvent(QMouseEvent* event) {
         rx += (lastPos.x() - event->pos().x()) / rotateSpeed;
         ry += (lastPos.y() - event->pos().y()) / rotateSpeed;
         camera.rotate(rx, ry);
-//        update();
+        update();
     } else if (event->buttons() == Qt::MiddleButton) {
         float dx = (lastPos.x() - event->pos().x()) / panSpeed;
         float dy = (event->pos().y() - lastPos.y()) / panSpeed;
         camera.pan(dx, dy);
-//        update();
+        update();
     }
 
     lastPos = event->pos();
@@ -59,7 +56,7 @@ void Viewport::mouseMoveEvent(QMouseEvent* event) {
 
 void Viewport::wheelEvent(QWheelEvent* event) {
     camera.zoom(glm::sin(event->angleDelta().ry()));
-    //    update();
+    update();
 }
 
 void Viewport::resizeEvent(QResizeEvent* event) {
@@ -69,22 +66,23 @@ void Viewport::resizeEvent(QResizeEvent* event) {
 }
 
 void Viewport::onOctreeChanged() {
-    updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
-//    update();
-}
-
-void Viewport::updateOctreeInGPU(int offset, void* data, int count) {
-
+    update();
 }
 
 void Viewport::reset() {
     rx = 0;
     ry = 0;
     camera.reset();
+    update();
+}
+
+void Viewport::update() {
+    qDebug() << "update";
+    renderEngine->render();
 }
 
 void Viewport::setShadeless(bool shadeless) {
-//    update();
+    update();
 }
 
 } // OctreeFarm

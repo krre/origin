@@ -50,8 +50,6 @@ void MainWindow::on_actionNew_triggered() {
     if (maybeSave()) {
         octree->createNew();
         viewport->reset();
-//        viewport->updateOctreeInGPU(0, octree.data(), sizeof(uint32_t) * octree.count());
-//        viewport->update();
         setCurrentFile(QString());
     }
 }
@@ -62,8 +60,6 @@ void MainWindow::on_actionOpen_triggered() {
         if (!fileName.isEmpty()) {
             loadFile(fileName);
             viewport->reset();
-            viewport->updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
-//            viewport->update();
         }
     }
 }
@@ -79,8 +75,7 @@ void MainWindow::on_actionSaveAs_triggered() {
 void MainWindow::on_actionRevert_triggered() {
     if (!currentFile.isEmpty()) {
         loadFile(currentFile);
-        viewport->updateOctreeInGPU(0, octree->data(), sizeof(uint32_t) * octree->count());
-//        viewport->update();
+        viewport->update();
     }
 }
 

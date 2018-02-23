@@ -3,7 +3,7 @@ Procedural world game based on raycast rendering and sparse voxel octree technol
 
 ## Dependencies
 - Vulkan SDK 1.0.68.0
-- SDL 2.0.4
+- SDL 2.0.7
 - FreeType 2.9
 - Bullet 2.85
 - SPIRV-Cross

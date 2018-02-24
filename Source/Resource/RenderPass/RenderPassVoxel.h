@@ -4,7 +4,6 @@
 
 namespace Vulkan {
     class GpuBuffer;
-    class Sampler;
     class ShaderProgram;
     class GraphicsPipeline;
 }

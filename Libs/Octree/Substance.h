@@ -10,6 +10,7 @@ public:
     ~Substance();
 
 private:
+    uint32_t substance = 0;
 
 };
 

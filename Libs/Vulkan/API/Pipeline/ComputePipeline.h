@@ -7,7 +7,6 @@ class ComputePipeline : public Pipeline {
 
 public:
     ComputePipeline(Device* device);
-    ~ComputePipeline();
     void create() override;
     void setPipelineLayout(VkPipelineLayout layout);
     VkPipelineBindPoint getBindPoint() const override { return VK_PIPELINE_BIND_POINT_COMPUTE; }

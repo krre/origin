@@ -11,19 +11,16 @@ namespace Origin {
 SceneRenderer::SceneRenderer(Object* parent) : Object(parent) {
     renderPassVoxel = new RenderPassVoxel(Game::getRenderManager()->getGraphicsDevice(), this);
 
-    glm::vec4 color = { 1.0f, 0.0f, 0.0f, 1.0f };
     Scene::Vertex vertex = {};
+    vertex.color =  { 1.0f, 0.0f, 0.0f, 1.0f };
 
     vertex.pos = { -1.0, 1.0, 1.0, 1.0 };
-    vertex.color = color;
     vertices.push_back(vertex);
 
     vertex.pos = { 1.0, 1.0, 1.0, 1.0 };
-    vertex.color = color;
     vertices.push_back(vertex);
 
     vertex.pos = { -1.0, -1.0, 1.0, 1.0 };
-    vertex.color = color;
     vertices.push_back(vertex);
 }
 

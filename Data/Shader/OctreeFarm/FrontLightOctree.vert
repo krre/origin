@@ -13,6 +13,7 @@ layout (location = 1) out vec3 outNormal;
 
 void main() {
     outColor = color;
+    outNormal = vec3(normalize(ubo.mvp * vec4(normal, 1.0)));
     gl_Position = ubo.mvp * position;
     gl_Position.y = -gl_Position.y; // TODO: Use #define GLM_FORCE_LEFT_HANDED before include glm
 }

@@ -48,6 +48,7 @@ public slots:
 
 private slots:
     void onOctreeChanged();
+    void onCameraStateChanged();
 
 private:
     RenderEngine* renderEngine;

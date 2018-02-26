@@ -25,6 +25,8 @@ public:
     RenderEngine(void* platformHandle, void* platformWindow, QObject* parent = nullptr);
     virtual ~RenderEngine();
 
+    void updateMvp(const glm::mat4& mvp);
+
 private:
     void init() override;
     void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;

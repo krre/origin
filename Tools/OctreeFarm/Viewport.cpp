@@ -13,6 +13,7 @@ namespace OctreeFarm {
 
 Viewport::Viewport(OctreeEditor* octree) : octree(octree) {
     setFlag(Qt::FramelessWindowHint);
+    connect(&camera, &Camera::stateChanged, this, &Viewport::onCameraStateChanged);
 //    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
     WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
@@ -43,12 +44,10 @@ void Viewport::mouseMoveEvent(QMouseEvent* event) {
         rx += (lastPos.x() - event->pos().x()) / rotateSpeed;
         ry += (lastPos.y() - event->pos().y()) / rotateSpeed;
         camera.rotate(rx, ry);
-        update();
     } else if (event->buttons() == Qt::MiddleButton) {
         float dx = (lastPos.x() - event->pos().x()) / panSpeed;
         float dy = (event->pos().y() - lastPos.y()) / panSpeed;
         camera.pan(dx, dy);
-        update();
     }
 
     lastPos = event->pos();
@@ -69,11 +68,26 @@ void Viewport::onOctreeChanged() {
     update();
 }
 
+void Viewport::onCameraStateChanged() {
+    qDebug() << "onCameraStateChanged";
+    if (!(width() || height())) return;
+
+    float aspect = (float)(width() / height());
+    qDebug() << aspect;
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
+    glm::mat4 view = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+    glm::mat4 model = glm::mat4(1.0f);
+    float rot = 0;
+    model = glm::rotate(model, rot, glm::vec3(0.0, 1.0, 0.0)) * glm::rotate(model, rot, glm::vec3(1.0, 1.0, 1.0));
+    glm::mat4 mvp = proj * view * model;
+    renderEngine->updateMvp(mvp);
+    update();
+}
+
 void Viewport::reset() {
     rx = 0;
     ry = 0;
     camera.reset();
-    update();
 }
 
 void Viewport::update() {

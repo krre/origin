@@ -66,6 +66,7 @@ void Camera::update() {
     right = glm::cross(look, up);
     worldToCamera = glm::lookAt(position, target, up);
     cameraToWorld = glm::inverse(worldToCamera);
+    emit stateChanged();
 }
 
 } // OctreeFarm

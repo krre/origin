@@ -25,6 +25,9 @@ public:
     glm::vec3 getLook() { return look; }
     glm::vec3 getRight() { return right; }
 
+signals:
+    void stateChanged();
+
 private:
     void update();
 

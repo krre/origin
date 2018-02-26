@@ -22,6 +22,10 @@ RenderEngine::~RenderEngine() {
 
 }
 
+void RenderEngine::updateMvp(const glm::mat4& mvp) {
+    uboBuffer->write(&mvp, sizeof(mvp));
+}
+
 void RenderEngine::init() {
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));

@@ -47,15 +47,9 @@ void SceneRenderer::drawScenes() {
     glm::mat4 mvp = proj * view * model;
 
     renderPassVoxel->updateMvp(mvp);
-
-    uint32_t size = vertices.size() * sizeof(Scene::Vertex);
-
     renderPassVoxel->setVertexCount(vertices.size());
 
-    if (size > renderPassVoxel->getVertexBuffer()->getSize()) {
-        renderPassVoxel->resizeVertexBuffer(size);
-    }
-
+    uint32_t size = vertices.size() * sizeof(Scene::Vertex);
     if (size) {
         renderPassVoxel->getVertexBuffer()->write(vertices.data(), size);
     }

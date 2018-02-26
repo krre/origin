@@ -116,6 +116,16 @@ void RenderPassVoxel::resizeVertexBuffer(uint32_t size) {
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
 }
 
+void RenderPassVoxel::setVertexCount(uint32_t vertextCount) {
+    this->vertextCount = vertextCount;
+
+    uint32_t size = vertextCount * sizeof(Scene::Vertex);
+
+    if (size > vertexBuffer->getSize()) {
+        resizeVertexBuffer(size);
+    }
+}
+
 void RenderPassVoxel::updateMvp(const glm::mat4& mvp) {
     uboBuffer->write(&mvp, sizeof(mvp));
 }

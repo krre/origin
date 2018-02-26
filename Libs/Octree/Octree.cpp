@@ -13,6 +13,7 @@ Octree::~Octree() {
 
 void Octree::create() {
     storage = {};
+    build();
 }
 
 void Octree::load(const std::string& path) {
@@ -29,18 +30,17 @@ void Octree::build(Octree::SurfaceFlags flags) {
     vertices.clear();
 
     uint32_t numFlags = static_cast<uint32_t>(flags);
-    PRINT(numFlags)
 
     Vertex vertex = {};
-    vertex.color =  { 1.0f, 0.0f, 0.0f };
+    vertex.color =  { 1.0f, 0.0f, 0.0f, 1.0f };
 
-    vertex.pos = { -1.0, 1.0, 1.0 };
+    vertex.pos = { -1.0, 1.0, 1.0, 1.0f };
     vertices.push_back(vertex);
 
-    vertex.pos = { 1.0, 1.0, 1.0 };
+    vertex.pos = { 1.0, 1.0, 1.0, 1.0f };
     vertices.push_back(vertex);
 
-    vertex.pos = { -1.0, -1.0, 1.0 };
+    vertex.pos = { -1.0, -1.0, 1.0, 1.0f };
     vertices.push_back(vertex);
 }
 

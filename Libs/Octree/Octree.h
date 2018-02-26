@@ -13,8 +13,8 @@ class Octree : public Object {
 
 public:
     struct Vertex {
-        glm::vec3 pos;
-        glm::vec3 color;
+        glm::vec4 pos;
+        glm::vec4 color;
     };
 
     enum class SurfaceFlags : uint32_t {

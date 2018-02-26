@@ -16,7 +16,6 @@ class RenderEngine : public QObject, public Vulkan::Renderer {
     Q_OBJECT
 
 public:
-
     RenderEngine(void* platformHandle, void* platformWindow, QObject* parent = nullptr);
     virtual ~RenderEngine();
 
@@ -24,10 +23,17 @@ public:
     void setVertextCount(uint32_t vertexCount);
 
     void updateMvp(const glm::mat4& mvp);
+    void updateShadeless(bool shadeless);
 
 private:
     void init() override;
     void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
+    void updateUBO();
+
+    struct UBO {
+        glm::mat4 mvp = glm::mat4(1.0);
+        int shadeless = 0;
+    } ubo;
 
     QScopedPointer<Vulkan::GpuBuffer> vertexBuffer;
     QScopedPointer<Vulkan::GpuBuffer> uboBuffer;

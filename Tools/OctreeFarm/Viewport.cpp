@@ -100,7 +100,7 @@ void Viewport::update() {
 }
 
 void Viewport::setShadeless(bool shadeless) {
-    Q_UNUSED(shadeless)
+    renderEngine->updateShadeless(shadeless);
     update();
 }
 

@@ -34,14 +34,20 @@ void RenderEngine::setVertextCount(uint32_t vertexCount) {
 }
 
 void RenderEngine::updateMvp(const glm::mat4& mvp) {
-    uboBuffer->write(&mvp, sizeof(mvp));
+    ubo.mvp = mvp;
+    updateUBO();
+}
+
+void RenderEngine::updateShadeless(bool shadeless) {
+    ubo.shadeless = shadeless;
+    updateUBO();
 }
 
 void RenderEngine::init() {
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));
 
-    uboBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4)));
+    uboBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(UBO)));
 
     shaderProgram.reset(new Vulkan::ShaderProgram(getGraphicsDevice()));
     std::string shaderDataPath = QApplication::applicationDirPath().toStdString() + "/Data/Shader/OctreeFarm";
@@ -148,6 +154,10 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     }
 
     commandBuffer->endRenderPass();
+}
+
+void RenderEngine::updateUBO() {
+    uboBuffer->write(&ubo, sizeof(ubo));
 }
 
 } // OctreeFarm

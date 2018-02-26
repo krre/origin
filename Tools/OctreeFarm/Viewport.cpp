@@ -11,10 +11,10 @@
 
 namespace OctreeFarm {
 
-Viewport::Viewport(OctreeEditor* octree) : octree(octree) {
+Viewport::Viewport(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
     setFlag(Qt::FramelessWindowHint);
     connect(&camera, &Camera::stateChanged, this, &Viewport::onCameraStateChanged);
-//    connect(octree, &Octree::dataChanged, this, &Viewport::onOctreeChanged);
+    connect(octreeEditor, &OctreeEditor::dataChanged, this, &Viewport::onOctreeChanged);
     WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
     renderEngine = new RenderEngine(QX11Info::connection(), &windowHandle, this);
@@ -65,6 +65,7 @@ void Viewport::resizeEvent(QResizeEvent* event) {
 }
 
 void Viewport::onOctreeChanged() {
+    qDebug() << "onOctreeChanged";
     update();
 }
 

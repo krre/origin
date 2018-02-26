@@ -17,9 +17,9 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->setupUi(this);
 
     undoStack = new QUndoStack(this);
-    octree = new OctreeEditor(this);
+    octreeEditor = new OctreeEditor(this);
 
-    viewport = new Viewport;
+    viewport = new Viewport(octreeEditor);
     QWidget* container = QWidget::createWindowContainer(viewport);
     QBoxLayout* viewportlayout = new QBoxLayout(QBoxLayout::TopToBottom, ui->frameViewport);
     viewportlayout->setMargin(0);
@@ -27,14 +27,14 @@ MainWindow::MainWindow(QWidget* parent) :
 
     QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, ui->frameProperties);
     propLayout->setMargin(0);
-    properties = new Properties(octree, viewport, undoStack, this);
+    properties = new Properties(octreeEditor, viewport, undoStack, this);
     propLayout->addWidget(properties);
 
     setWindowTitle(APP_NAME);
 
     readSettings();
 
-    connect(octree, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
+    connect(octreeEditor, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 
 MainWindow::~MainWindow() {
@@ -48,7 +48,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 
 void MainWindow::on_actionNew_triggered() {
     if (maybeSave()) {
-        octree->createNew();
+        octreeEditor->createNew();
         viewport->reset();
         setCurrentFile(QString());
     }
@@ -88,39 +88,39 @@ void MainWindow::on_actionRedo_triggered() {
 }
 
 void MainWindow::on_actionCopy_triggered() {
-    octree->copy();
+    octreeEditor->copy();
 }
 
 void MainWindow::on_actionPaste_triggered() {
-    octree->paste();
+    octreeEditor->paste();
 }
 
 void MainWindow::on_actionDeselect_triggered() {
-    octree->deselect();
+    octreeEditor->deselect();
 }
 
 void MainWindow::on_actionSplit_triggered() {
-    QUndoCommand* splitCommand = new SplitCommand(octree);
+    QUndoCommand* splitCommand = new SplitCommand(octreeEditor);
     undoStack->push(splitCommand);
 }
 
 void MainWindow::on_actionMerge_triggered() {
-    QUndoCommand* addCommand = new AddCommand(octree, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+    QUndoCommand* addCommand = new AddCommand(octreeEditor, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
     undoStack->push(addCommand);
 }
 
 void MainWindow::on_actionAddForward_triggered() {
-    QUndoCommand* mergeCommand = new MergeCommand(octree);
+    QUndoCommand* mergeCommand = new MergeCommand(octreeEditor);
     undoStack->push(mergeCommand);
 }
 
 void MainWindow::on_actionAddBack_triggered() {
-    QUndoCommand* mergeCommand = new MergeCommand(octree);
+    QUndoCommand* mergeCommand = new MergeCommand(octreeEditor);
     undoStack->push(mergeCommand);
 }
 
 void MainWindow::on_actionDelete_triggered() {
-    QUndoCommand* deleteCommand = new DeleteCommand(octree);
+    QUndoCommand* deleteCommand = new DeleteCommand(octreeEditor);
     undoStack->push(deleteCommand);
 }
 
@@ -176,7 +176,7 @@ void MainWindow::writeSettings() {
 }
 
 bool MainWindow::maybeSave() {
-    if (!octree->getIsModified()) {
+    if (!octreeEditor->getIsModified()) {
         return true;
     }
 
@@ -228,7 +228,7 @@ bool MainWindow::saveFile(const QString& fileName) {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    octree->save(fileName);
+    octreeEditor->save(fileName);
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
@@ -251,7 +251,7 @@ void MainWindow::loadFile(const QString& fileName) {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    octree->load(fileName);
+    octreeEditor->load(fileName);
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
@@ -279,7 +279,7 @@ QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
 
 void MainWindow::setCurrentFile(const QString& fileName) {
     currentFile = fileName;
-    octree->setIsModified(false);
+    octreeEditor->setIsModified(false);
     setWindowModified(false);
 
     QString shownName = QFileInfo(currentFile).fileName();

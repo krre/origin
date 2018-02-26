@@ -20,6 +20,7 @@ OctreeEditor::~OctreeEditor() {
 void OctreeEditor::createNew() {
     source->create();
     storage = source->binary();
+    dataChanged();
 }
 
 bool OctreeEditor::save(const QString& fileName) {

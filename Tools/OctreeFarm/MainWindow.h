@@ -68,7 +68,7 @@ private:
     Ui::MainWindow* ui;
     Properties* properties;
     Viewport* viewport;
-    OctreeEditor* octree;
+    OctreeEditor* octreeEditor;
     QString currentFile;
     QUndoStack* undoStack;
 

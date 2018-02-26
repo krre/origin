@@ -28,7 +28,7 @@ class Viewport : public QWindow {
     };
 
 public:
-    Viewport(OctreeEditor* octree = nullptr);
+    Viewport(OctreeEditor* octreeEditor = nullptr);
     ~Viewport();
     void reset();
     void update();
@@ -57,7 +57,7 @@ private:
     QPoint lastPos;
     float rx = 0;
     float ry = 0;
-    OctreeEditor* octree;
+    OctreeEditor* octreeEditor;
     Camera camera;
     QVector3D backgroundColor = QVector3D(0.77, 0.83, 0.83);
     bool pickMode = false;

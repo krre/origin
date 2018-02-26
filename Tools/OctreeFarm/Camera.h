@@ -12,6 +12,8 @@ public:
     glm::mat4 getCameraToWorld() const { return cameraToWorld; }
     void setCameraToWorld(const glm::mat4& cameraToWorld);
     glm::mat4 getWorldToCamera() const { return worldToCamera; }
+    glm::mat4 getProjective() const { return projective; }
+    glm::mat4 getView() const { return view; }
 
     void setTarget(const glm::vec3& target);
     void setPosition(const glm::vec3& position);
@@ -20,6 +22,7 @@ public:
     void zoom(float amount);
     void reset();
     void update();
+    void resize(int width, int height);
 
     float getFov() { return fov; }
     glm::vec3 getUp() { return up; }
@@ -40,6 +43,8 @@ private:
     glm::vec3 look;
     glm::vec3 right;
 
+    glm::mat4 projective = glm::mat4(1.0);
+    glm::mat4 view = glm::mat4(1.0);
     glm::mat4 cameraToWorld = glm::mat4(1.0);
     glm::mat4 worldToCamera = glm::mat4(1.0);
     glm::vec3 position;

@@ -11,16 +11,19 @@ Camera::Camera(QObject* parent) : QObject(parent) {
 void Camera::setCameraToWorld(const glm::mat4& cameraToWorld) {
     this->cameraToWorld = cameraToWorld;
     worldToCamera = glm::inverse(cameraToWorld);
+    update();
 }
 
 void Camera::setTarget(const glm::vec3& target) {
     this->target = target;
     distance = glm::distance(position, target);
+    update();
 }
 
 void Camera::setPosition(const glm::vec3& position) {
     this->position = position;
     setCameraToWorld(glm::translate(cameraToWorld, position));
+    update();
 }
 
 void Camera::pan(float dx, float dy) {
@@ -39,8 +42,6 @@ void Camera::rotate(float yaw, float pitch) {
 
 void Camera::zoom(float amount) {
     position += look * amount;
-    distance = glm::distance(position, target);
-    distance = std::max(minDistance, std::min(distance, maxDistance));
     update();
 }
 
@@ -57,6 +58,9 @@ void Camera::reset() {
 }
 
 void Camera::update() {
+    distance = glm::distance(position, target);
+    distance = std::max(minDistance, std::min(distance, maxDistance));
+
     glm::mat4 R = glm::yawPitchRoll(glm::radians(yaw), glm::radians(pitch), 0.0f);
     glm::vec3 T = glm::vec3(0, 0, distance);
     T = glm::vec3(R * glm::vec4(T, 0.0f));
@@ -66,7 +70,16 @@ void Camera::update() {
     right = glm::cross(look, up);
     worldToCamera = glm::lookAt(position, target, up);
     cameraToWorld = glm::inverse(worldToCamera);
+    view = glm::lookAt(position, target, up);
     emit stateChanged();
+}
+
+void Camera::resize(int width, int height) {
+    if (!(width || height)) return;
+
+    float aspect = (float)width / height;
+    projective = glm::perspective(fov, aspect, 0.1f, 100.0f);
+    update();
 }
 
 } // OctreeFarm

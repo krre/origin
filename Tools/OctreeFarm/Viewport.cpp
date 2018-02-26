@@ -15,8 +15,10 @@ namespace OctreeFarm {
 
 Viewport::Viewport(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
     setFlag(Qt::FramelessWindowHint);
+
     connect(&camera, &Camera::stateChanged, this, &Viewport::onCameraStateChanged);
     connect(octreeEditor, &OctreeEditor::dataChanged, this, &Viewport::onOctreeChanged);
+
     WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
     renderEngine = new RenderEngine(QX11Info::connection(), &windowHandle, this);
@@ -62,7 +64,7 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 
 void Viewport::resizeEvent(QResizeEvent* event) {
     Q_UNUSED(event)
-    camera.update();
+    camera.resize(event->size().width(), event->size().height());
     renderEngine->resize();
     update();
 }
@@ -80,13 +82,8 @@ void Viewport::onOctreeChanged() {
 void Viewport::onCameraStateChanged() {
     if (!(width() || height())) return;
 
-    float aspect = (float)width() / height();
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
-    glm::mat4 view = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     glm::mat4 model = glm::mat4(1.0f);
-    float rot = 0;
-    model = glm::rotate(model, rot, glm::vec3(0.0, 1.0, 0.0)) * glm::rotate(model, rot, glm::vec3(1.0, 1.0, 1.0));
-    glm::mat4 mvp = proj * view * model;
+    glm::mat4 mvp = camera.getProjective() * camera.getView() * model;
     renderEngine->updateMvp(mvp);
     update();
 }
@@ -95,10 +92,10 @@ void Viewport::reset() {
     rx = 0;
     ry = 0;
     camera.reset();
+    camera.setPosition(glm::vec3(0, 0, -5));
 }
 
 void Viewport::update() {
-    qDebug() << "update";
     renderEngine->render();
 }
 

@@ -43,3 +43,7 @@ FORMS += \
     MainWindow.ui \
     Properties.ui \
     Options.ui
+
+DISTFILES += \
+    ../../Data/Shader/OctreeFarm/FrontLightOctree.frag \
+    ../../Data/Shader/OctreeFarm/FrontLightOctree.vert

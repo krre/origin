@@ -13,6 +13,7 @@ public:
     struct Vertex {
         glm::vec4 pos;
         glm::vec4 color;
+        glm::vec3 normal;
     };
 
     Scene(Object* parent = nullptr);

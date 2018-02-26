@@ -33,64 +33,64 @@ void Octree::build(Octree::SurfaceFlags flags) {
     vertex.color =  { 1.0f, 0.0f, 0.0f, 1.0f };
 
     if (flags & SurfaceFlags::Front) {
-        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 0.0, -1.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 0.0, -1.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 0.0, -1.0 }; vertices.push_back(vertex);
 
-        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 0.0, -1.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 0.0, -1.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 0.0, -1.0 }; vertices.push_back(vertex);
 
     }
 
     if (flags & SurfaceFlags::Back) {
-        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 0.0, 1.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 0.0, 1.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 0.0, 1.0 }; vertices.push_back(vertex);
 
-        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 0.0, 1.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 0.0, 1.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 0.0, 1.0 }; vertices.push_back(vertex);
     }
 
     if (flags & SurfaceFlags::Top) {
-        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 1.0, 0.0 }; vertices.push_back(vertex);
 
-        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 0.0, 1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertex.normal = { 0.0, 1.0, 0.0 }; vertices.push_back(vertex);
     }
 
     if (flags & SurfaceFlags::Bottom) {
-        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertex.normal = { 0.0, -1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, -1.0, 1.0f }; vertex.normal = { 0.0, -1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 0.0, -1.0, 0.0 }; vertices.push_back(vertex);
 
-        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 0.0, -1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 0.0, -1.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertex.normal = { 0.0, -1.0, 0.0 }; vertices.push_back(vertex);
     }
 
     if (flags & SurfaceFlags::Left) {
-        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertex.normal = { -1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, 1.0, 1.0f }; vertex.normal = { -1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertex.normal = { -1.0, 0.0, 0.0 }; vertices.push_back(vertex);
 
-        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, 1.0, 1.0f }; vertex.normal = { -1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, -1.0, -1.0, 1.0f }; vertex.normal = { -1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { -1.0, 1.0, -1.0, 1.0f }; vertex.normal = { -1.0, 0.0, 0.0 }; vertices.push_back(vertex);
     }
 
     if (flags & SurfaceFlags::Right) {
-        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, 1.0, 1.0f }; vertex.normal = { 1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 1.0, 0.0, 0.0 }; vertices.push_back(vertex);
 
-        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertices.push_back(vertex);
-        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, 1.0, 1.0f }; vertex.normal = { 1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, 1.0, -1.0, 1.0f }; vertex.normal = { 1.0, 0.0, 0.0 }; vertices.push_back(vertex);
+        vertex.pos = { 1.0, -1.0, -1.0, 1.0f }; vertex.normal = { 1.0, 0.0, 0.0 }; vertices.push_back(vertex);
     }
 }
 

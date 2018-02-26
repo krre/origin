@@ -90,6 +90,16 @@ void RenderEngine::init() {
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
+    {
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("normal");
+        VkVertexInputAttributeDescription attributeDescription = {};
+        attributeDescription.binding = bindingDescription.binding;
+        attributeDescription.location = locationInfo.location;
+        attributeDescription.format = locationInfo.format;
+        attributeDescription.offset = sizeof(Vertex::pos + Vertex::color);
+        graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+    }
+
     graphicsPipeline->create();
 }
 

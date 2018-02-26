@@ -15,6 +15,7 @@ public:
     struct Vertex {
         glm::vec4 pos;
         glm::vec4 color;
+        glm::vec3 normal;
     };
 
     enum class SurfaceFlags : uint32_t {

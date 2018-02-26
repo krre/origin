@@ -4,24 +4,23 @@
 #include "Graphics/Render/RenderManager.h"
 #include "Base/Window.h"
 #include "Base/Game.h"
+#include "Octree/Octree.h"
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace Origin {
 
 SceneRenderer::SceneRenderer(Object* parent) : Object(parent) {
     renderPassVoxel = new RenderPassVoxel(Game::getRenderManager()->getGraphicsDevice(), this);
+    Octree* octree = new Octree(this);
+    octree->create();
 
-    Scene::Vertex vertex = {};
-    vertex.color =  { 1.0f, 0.0f, 0.0f, 1.0f };
-
-    vertex.pos = { -1.0, 1.0, 1.0, 1.0 };
-    vertices.push_back(vertex);
-
-    vertex.pos = { 1.0, 1.0, 1.0, 1.0 };
-    vertices.push_back(vertex);
-
-    vertex.pos = { -1.0, -1.0, 1.0, 1.0 };
-    vertices.push_back(vertex);
+    for (const auto& octreeVertex : octree->getVertices()) {
+        Scene::Vertex sceneVertex;
+        sceneVertex.pos = octreeVertex.pos;
+        sceneVertex.color = octreeVertex.color;
+        sceneVertex.normal = octreeVertex.normal;
+        vertices.push_back(sceneVertex);
+    }
 }
 
 SceneRenderer::~SceneRenderer() {

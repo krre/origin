@@ -64,9 +64,9 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 
 void Viewport::resizeEvent(QResizeEvent* event) {
     Q_UNUSED(event)
-    camera.resize(event->size().width(), event->size().height());
     renderEngine->resize();
-    update();
+    camera.resize(event->size().width(), event->size().height());
+    // update() do not use here because it already done by camera state changing.
 }
 
 void Viewport::onOctreeChanged() {

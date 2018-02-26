@@ -19,13 +19,9 @@ void UIRenderer::addBatch(UIBatch batch) {
 }
 
 void UIRenderer::drawBatches() {
-    uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
-
     renderPassUI->setVertexCount(vertices.size());
 
-    if (size > renderPassUI->getVertexBuffer()->getSize()) {
-        renderPassUI->resizeVertexBuffer(size);
-    }
+    uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
 
     if (size) {
         renderPassUI->getVertexBuffer()->write(vertices.data(), size);

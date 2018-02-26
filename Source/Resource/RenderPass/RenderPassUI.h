@@ -20,7 +20,7 @@ public:
     void write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
     Vulkan::GpuBuffer* getVertexBuffer() const { return vertexBuffer.get(); }
     void resizeVertexBuffer(uint32_t size);
-    void setVertexCount(uint32_t vertextCount) { this->vertextCount = vertextCount; }
+    void setVertexCount(uint32_t vertextCount);
     void setTexture(Vulkan::Texture* texture);
 
 private:

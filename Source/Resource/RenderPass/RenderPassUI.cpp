@@ -151,6 +151,16 @@ void RenderPassUI::resizeVertexBuffer(uint32_t size) {
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
 }
 
+void RenderPassUI::setVertexCount(uint32_t vertextCount) {
+    this->vertextCount = vertextCount;
+
+    uint32_t size = vertextCount * sizeof(UIBatch::Vertex);
+
+    if (size > vertexBuffer->getSize()) {
+        resizeVertexBuffer(size);
+    }
+}
+
 void RenderPassUI::setTexture(Vulkan::Texture* texture) {
     this->texture = texture;
 }

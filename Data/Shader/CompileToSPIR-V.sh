@@ -1,4 +1,6 @@
 validator="$VULKAN_SDK/bin/glslangValidator -V -t"
+$validator OctreeFarm/FrontLightOctree.vert -o OctreeFarm/FrontLightOctree.vert.spv
+$validator OctreeFarm/FrontLightOctree.frag -o OctreeFarm/FrontLightOctree.frag.spv
 $validator BaseShape.vert -o BaseShape.vert.spv
 $validator BaseShape.frag -o BaseShape.frag.spv
 $validator Voxel.vert -o Voxel.vert.spv

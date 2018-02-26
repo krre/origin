@@ -8,6 +8,7 @@
 #include "Vulkan/API/Pipeline/GraphicsPipeline.h"
 #include "Vulkan/API/Pipeline/PipelineLayout.h"
 #include "Vulkan/API/Descriptor/DescriptorSets.h"
+#include "Octree/Octree.h"
 #include <QApplication>
 
 namespace OctreeFarm {
@@ -25,7 +26,7 @@ RenderEngine::~RenderEngine() {
 void RenderEngine::setVertextCount(uint32_t vertexCount) {
     this->vertextCount = vertexCount;
 
-    uint32_t size = vertexCount * sizeof(Vertex);
+    uint32_t size = vertexCount * sizeof(Origin::Octree::Vertex);
 
     if (size > vertexBuffer->getSize()) {
         vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size));
@@ -67,7 +68,7 @@ void RenderEngine::init() {
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(Vertex);
+    bindingDescription.stride = sizeof(Origin::Octree::Vertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
@@ -86,7 +87,7 @@ void RenderEngine::init() {
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Vertex::pos);
+        attributeDescription.offset = sizeof(Origin::Octree::Vertex::pos);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
@@ -96,7 +97,7 @@ void RenderEngine::init() {
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Vertex::pos + Vertex::color);
+        attributeDescription.offset = sizeof(Origin::Octree::Vertex::pos) + sizeof(Origin::Octree::Vertex::color);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 

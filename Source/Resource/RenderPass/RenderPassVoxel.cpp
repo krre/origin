@@ -16,6 +16,7 @@
 #include "Vulkan/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
 #include "ECS/Scenes/Scene.h"
+#include "Octree/Octree.h"
 #include "UI/Font.h"
 
 namespace Origin {
@@ -51,7 +52,7 @@ RenderPassVoxel::RenderPassVoxel(Vulkan::Device* device, Object* parent) :
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(Scene::Vertex);
+    bindingDescription.stride = sizeof(Octree::Vertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
@@ -70,7 +71,7 @@ RenderPassVoxel::RenderPassVoxel(Vulkan::Device* device, Object* parent) :
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Scene::Vertex::pos);
+        attributeDescription.offset = sizeof(Octree::Vertex::pos);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
@@ -80,7 +81,7 @@ RenderPassVoxel::RenderPassVoxel(Vulkan::Device* device, Object* parent) :
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Scene::Vertex::pos + Scene::Vertex::color);
+        attributeDescription.offset = sizeof(Octree::Vertex::pos) + sizeof(Octree::Vertex::color);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
@@ -129,7 +130,7 @@ void RenderPassVoxel::resizeVertexBuffer(uint32_t size) {
 void RenderPassVoxel::setVertexCount(uint32_t vertextCount) {
     this->vertextCount = vertextCount;
 
-    uint32_t size = vertextCount * sizeof(Scene::Vertex);
+    uint32_t size = vertextCount * sizeof(Octree::Vertex);
 
     if (size > vertexBuffer->getSize()) {
         resizeVertexBuffer(size);

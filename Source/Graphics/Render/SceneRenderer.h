@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Object.h"
 #include "ECS/Scenes/Scene.h"
+#include "Octree/Octree.h"
 
 namespace Origin {
 
@@ -14,12 +15,12 @@ public:
 
     void addScene(Scene* scene);
     void drawScenes();
-    std::vector<Scene::Vertex>* getVerticles() { return &vertices; }
+    std::vector<Octree::Vertex>* getVerticles() { return &vertices; }
     RenderPassVoxel* getRenderPassVoxel() const { return renderPassVoxel; }
 
 private:
     std::vector<Scene*> scenes;
-    std::vector<Scene::Vertex> vertices;
+    std::vector<Octree::Vertex> vertices;
     RenderPassVoxel* renderPassVoxel;
 };
 

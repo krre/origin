@@ -14,12 +14,8 @@ SceneRenderer::SceneRenderer(Object* parent) : Object(parent) {
     Octree* octree = new Octree(this);
     octree->create();
 
-    for (const auto& octreeVertex : octree->getVertices()) {
-        Scene::Vertex sceneVertex;
-        sceneVertex.pos = octreeVertex.pos;
-        sceneVertex.color = octreeVertex.color;
-        sceneVertex.normal = octreeVertex.normal;
-        vertices.push_back(sceneVertex);
+    for (const auto& vertex : octree->getVertices()) {
+        vertices.push_back(vertex);
     }
 }
 
@@ -48,7 +44,7 @@ void SceneRenderer::drawScenes() {
     renderPassVoxel->updateMvp(mvp);
     renderPassVoxel->setVertexCount(vertices.size());
 
-    uint32_t size = vertices.size() * sizeof(Scene::Vertex);
+    uint32_t size = vertices.size() * sizeof(Octree::Vertex);
     if (size) {
         renderPassVoxel->getVertexBuffer()->write(vertices.data(), size);
     }

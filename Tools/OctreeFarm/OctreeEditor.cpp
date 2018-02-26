@@ -20,6 +20,7 @@ OctreeEditor::~OctreeEditor() {
 void OctreeEditor::createNew() {
     source->create();
     storage = source->binary();
+    octree->create();
     dataChanged();
 }
 

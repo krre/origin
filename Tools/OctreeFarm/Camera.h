@@ -19,6 +19,7 @@ public:
     void rotate(float yaw, float pitch);
     void zoom(float amount);
     void reset();
+    void update();
 
     float getFov() { return fov; }
     glm::vec3 getUp() { return up; }
@@ -29,8 +30,6 @@ signals:
     void stateChanged();
 
 private:
-    void update();
-
     const float minDistance = 0.1;
     const float maxDistance = 50;
     float fov = glm::radians(50.0f);

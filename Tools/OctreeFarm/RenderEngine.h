@@ -25,6 +25,9 @@ public:
     RenderEngine(void* platformHandle, void* platformWindow, QObject* parent = nullptr);
     virtual ~RenderEngine();
 
+    Vulkan::GpuBuffer* getVertexBuffer() const { return vertexBuffer.data(); }
+    void setVertextCount(uint32_t vertexCount);
+
     void updateMvp(const glm::mat4& mvp);
 
 private:

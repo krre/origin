@@ -22,6 +22,16 @@ RenderEngine::~RenderEngine() {
 
 }
 
+void RenderEngine::setVertextCount(uint32_t vertexCount) {
+    this->vertextCount = vertexCount;
+
+    uint32_t size = vertexCount * sizeof(Vertex);
+
+    if (size > vertexBuffer->getSize()) {
+        vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size));
+    }
+}
+
 void RenderEngine::updateMvp(const glm::mat4& mvp) {
     uboBuffer->write(&mvp, sizeof(mvp));
 }
@@ -90,6 +100,10 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
     renderPassBegin.setRenderArea({ 0, 0, extent.width, extent.height });
     renderPassBegin.addClearValue({ 0.9, 1.0, 1.0, 1.0 });
+    VkClearValue depthColor = {};
+    depthColor.depthStencil.depth = 1.0f;
+    depthColor.depthStencil.stencil = 0.0f;
+    renderPassBegin.addClearValue(depthColor);
 
     VkViewport viewport = {};
     viewport.width = extent.width;

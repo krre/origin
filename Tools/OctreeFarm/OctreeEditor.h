@@ -51,6 +51,7 @@ public:
 
     QVector<QSharedPointer<Node>> getSelection() { return selection; }
     Source* getSource() { return source; }
+    Origin::Octree* getOctree() const { return octree.data(); }
 
 public slots:
     void deselect();

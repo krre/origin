@@ -1,6 +1,8 @@
 #include "Viewport.h"
 #include <QtWidgets>
 #include "RenderEngine.h"
+#include "Vulkan/GpuBuffer.h"
+#include "Octree/Octree.h"
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
@@ -60,21 +62,25 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 
 void Viewport::resizeEvent(QResizeEvent* event) {
     Q_UNUSED(event)
+    camera.update();
     renderEngine->resize();
     update();
 }
 
 void Viewport::onOctreeChanged() {
-    qDebug() << "onOctreeChanged";
-    update();
+    uint32_t size = octreeEditor->getOctree()->getVertices().size() * sizeof(Origin::Octree::Vertex);
+    if (size) {
+        renderEngine->setVertextCount(octreeEditor->getOctree()->getVertices().size());
+        renderEngine->getVertexBuffer()->write(octreeEditor->getOctree()->getVertices().data(), size);
+        renderEngine->updateCommandBuffers();
+        update();
+    }
 }
 
 void Viewport::onCameraStateChanged() {
-    qDebug() << "onCameraStateChanged";
     if (!(width() || height())) return;
 
-    float aspect = (float)(width() / height());
-    qDebug() << aspect;
+    float aspect = (float)width() / height();
     glm::mat4 proj = glm::perspective(glm::radians(45.0f), aspect, 0.1f, 100.0f);
     glm::mat4 view = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     glm::mat4 model = glm::mat4(1.0f);

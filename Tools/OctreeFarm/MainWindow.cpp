@@ -124,6 +124,10 @@ void MainWindow::on_actionDelete_triggered() {
     undoStack->push(deleteCommand);
 }
 
+void MainWindow::on_actionReset_triggered() {
+    viewport->reset();
+}
+
 void MainWindow::on_actionOptions_triggered() {
     Options options(this);
     options.exec();

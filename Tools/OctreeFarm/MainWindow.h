@@ -46,6 +46,9 @@ private slots:
     void on_actionAddBack_triggered();
     void on_actionDelete_triggered();
 
+    // View
+    void on_actionReset_triggered();
+
     // Tools
     void on_actionOptions_triggered();
 

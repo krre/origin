@@ -9,9 +9,7 @@ class Camera : public QObject {
 
 public:
     explicit Camera(QObject* parent = 0);
-    glm::mat4 getCameraToWorld() const { return cameraToWorld; }
-    void setCameraToWorld(const glm::mat4& cameraToWorld);
-    glm::mat4 getWorldToCamera() const { return worldToCamera; }
+
     glm::mat4 getProjective() const { return projective; }
     glm::mat4 getView() const { return view; }
 
@@ -24,11 +22,6 @@ public:
     void update();
     void resize(int width, int height);
 
-    float getFov() { return fov; }
-    glm::vec3 getUp() { return up; }
-    glm::vec3 getLook() { return look; }
-    glm::vec3 getRight() { return right; }
-
 signals:
     void stateChanged();
 
@@ -37,7 +30,6 @@ private:
     const float maxDistance = 50;
     float fov = glm::radians(50.0f);
     float aspect;
-//    const float distance = 0.5f; // distance from camera to screen
     const glm::vec3 UP = glm::vec3(0.0, 1.0, 0.0);
     glm::vec3 up;
     glm::vec3 look;
@@ -45,12 +37,9 @@ private:
 
     glm::mat4 projective = glm::mat4(1.0);
     glm::mat4 view = glm::mat4(1.0);
-    glm::mat4 cameraToWorld = glm::mat4(1.0);
-    glm::mat4 worldToCamera = glm::mat4(1.0);
     glm::vec3 position;
     glm::vec3 target;
     float distance; // from target to position
-    float scale;
     float yaw;
     float pitch;
 };

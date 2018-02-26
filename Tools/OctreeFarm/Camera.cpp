@@ -8,12 +8,6 @@ Camera::Camera(QObject* parent) : QObject(parent) {
     reset();
 }
 
-void Camera::setCameraToWorld(const glm::mat4& cameraToWorld) {
-    this->cameraToWorld = cameraToWorld;
-    worldToCamera = glm::inverse(cameraToWorld);
-    update();
-}
-
 void Camera::setTarget(const glm::vec3& target) {
     this->target = target;
     distance = glm::distance(position, target);
@@ -22,7 +16,6 @@ void Camera::setTarget(const glm::vec3& target) {
 
 void Camera::setPosition(const glm::vec3& position) {
     this->position = position;
-    setCameraToWorld(glm::translate(cameraToWorld, position));
     update();
 }
 
@@ -48,7 +41,6 @@ void Camera::zoom(float amount) {
 void Camera::reset() {
     position = glm::vec3(0.0, 0.0, 3.0);
     setTarget(glm::vec3(0.0, 0.0, 0.0));
-    scale = 1.0;
     yaw = 0;
     pitch = 0;
     up = glm::vec3(0.0, 1.0, 0.0);
@@ -68,8 +60,6 @@ void Camera::update() {
     look = glm::normalize(target - position);
     up = glm::vec3(R * glm::vec4(UP, 0.0f));
     right = glm::cross(look, up);
-    worldToCamera = glm::lookAt(position, target, up);
-    cameraToWorld = glm::inverse(worldToCamera);
     view = glm::lookAt(position, target, up);
     emit stateChanged();
 }

@@ -6,7 +6,7 @@ layout (location = 2) in flat int shadeless;
 
 layout (location = 0) out vec4 fragColor;
 
-const vec3 lightPos = vec3(0.3, -0.3, 0.8);
+const vec3 lightPos = vec3(-0.3, 0.5, 0.8);
 const vec3 lightColor = vec3(1.0, 1.0, 1.0);
 
 void main() {

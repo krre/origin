@@ -89,10 +89,11 @@ void Viewport::onCameraStateChanged() {
 }
 
 void Viewport::reset() {
-    rx = 0;
-    ry = 0;
+    rx = 47;
+    ry = -35;
     camera.reset();
     camera.setPosition(glm::vec3(0, 0, -5));
+    camera.rotate(rx, ry);
 }
 
 void Viewport::update() {

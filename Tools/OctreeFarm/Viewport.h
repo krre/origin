@@ -54,7 +54,7 @@ private:
     RenderEngine* renderEngine;
     float rotateSpeed = 5;
     float panSpeed = 100;
-    QPoint lastPos;
+    QPoint lastPos = QPoint();
     float rx = 0;
     float ry = 0;
     OctreeEditor* octreeEditor;

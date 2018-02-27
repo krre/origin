@@ -56,6 +56,14 @@ void Properties::setNodeColor(const QColor& color) {
     ui->pushButtonColor->setEnabled(color.isValid());
 }
 
+void Properties::setShadeless(bool shadeless) {
+    ui->checkBoxShadeless->setChecked(shadeless);
+}
+
+bool Properties::getShadeless() const {
+    return ui->checkBoxShadeless->isChecked();
+}
+
 void Properties::changeNodeColor() {
     QColor color = QColorDialog::getColor(nodeColor);
     if (color.isValid()) {

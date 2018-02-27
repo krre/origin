@@ -160,6 +160,8 @@ void MainWindow::readSettings() {
         ui->splitter->restoreState(splitterSize.toByteArray());
     }
 
+    properties->setShadeless(Settings::getValue("shadeless").toBool());
+
     Settings::endGroup();
 
     QString filePath = Settings::getValue("Path/currentFile").toString();
@@ -174,6 +176,7 @@ void MainWindow::writeSettings() {
     Settings::beginGroup("MainWindow");
     Settings::setValue("geometry", saveGeometry());
     Settings::setValue("splitter", ui->splitter->saveState());
+    Settings::setValue("shadeless", properties->getShadeless());
     Settings::endGroup();
 
     Settings::setValue("Path/currentFile", currentFile);

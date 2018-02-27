@@ -22,6 +22,9 @@ public:
     void setNodeIndex(int index);
     void setNodeColor(const QColor& color);
 
+    void setShadeless(bool shadeless);
+    bool getShadeless() const;
+
 private slots:
     void changeNodeColor();
     void onNodeSelected(int level, int index, const QColor& color);

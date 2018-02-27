@@ -116,7 +116,7 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
     renderPassBegin.setRenderArea({ 0, 0, extent.width, extent.height });
-    renderPassBegin.addClearValue({ 0.9, 1.0, 1.0, 1.0 });
+    renderPassBegin.addClearValue({ 0.9f, 1.0f, 1.0f, 1.0f });
     VkClearValue depthColor = {};
     depthColor.depthStencil.depth = 1.0f;
     depthColor.depthStencil.stencil = 0.0f;

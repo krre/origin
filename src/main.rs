@@ -1,5 +1,8 @@
 extern crate winit;
 
+#[macro_use]
+extern crate serde_json;
+
 use std::fs::File;
 use std::io::Write;
 use std::env;
@@ -30,5 +33,18 @@ fn main() {
         }
     });
 
-    let _file = File::create(settings_path).unwrap().write_all(b"Hello, world!");
+    // Write window geometry to settings
+    let (window_x, window_y) = window.get_position().unwrap();
+    let (window_width, window_height) = window.get_outer_size().unwrap();
+
+    let settings = json!({
+        "window": {
+            "x": window_x,
+            "y": window_y,
+            "width": window_width,
+            "height": window_height
+        }
+    });
+
+    let _file = File::create(settings_path).unwrap().write_all(settings.to_string().as_bytes());
 }

@@ -4,3 +4,4 @@ version = "0.1.0"
 authors = ["Vladimir Zarypov <krre31@gmail.com>"]
 
 [dependencies]
+winit = "0.11.1"

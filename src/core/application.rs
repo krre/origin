@@ -74,7 +74,7 @@ impl Drop for Application {
     fn drop(&mut self) {
         // Write window geometry to settings
         let (x, y) = self.window.get_position().unwrap();
-        let (width, height) = self.window.get_outer_size().unwrap();
+        let (width, height) = self.window.get_inner_size().unwrap();
         self.settings.set_window_geometry(x,y, width, height);
     }
 }

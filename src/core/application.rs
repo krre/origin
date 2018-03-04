@@ -62,11 +62,16 @@ impl Application {
             });
 
             self.update(0.0);
+            self.render();
         }
     }
 
     fn update(&self, _dt: f32) {
 //        println!("update: {}", dt)
+    }
+
+    fn render(&self) {
+//        println!("render")
     }
 }
 

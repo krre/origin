@@ -49,15 +49,15 @@ impl Application {
 
     pub fn run(&mut self) {
         let mut now = SystemTime::now();
-        let mut running = true;
-        while running {
+        let mut is_running = true;
+        while is_running {
             self.events_loop.poll_events(|event| {
                 match event {
                     winit::Event::WindowEvent { event: winit::WindowEvent::Resized(w, h), .. } => {
                         println!("The window was resized to {}x{}", w, h);
                     },
                     winit::Event::WindowEvent { event: winit::WindowEvent::Closed, .. } => {
-                        running = false;
+                        is_running = false;
                     },
                     _ => ()
                 }

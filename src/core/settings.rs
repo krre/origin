@@ -5,6 +5,8 @@ use std::fs::File;
 use std::io::{Write, Read, BufReader};
 use std::env;
 
+const SETTINGS_NAME: &str = "origin.ini";
+
 pub struct  Settings {
     settings_path: PathBuf,
     storage: serde_json::Value,
@@ -16,7 +18,7 @@ impl Settings {
         // Get path to settings file
         let current_exe = env::current_exe().unwrap();
         let mut settings_path = current_exe.parent().unwrap().to_path_buf();
-        settings_path.push("origin.ini");
+        settings_path.push(SETTINGS_NAME);
 
         let mut storage = json!({});
         let mut is_loaded = false;

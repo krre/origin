@@ -1,5 +1,6 @@
 extern crate winit;
 
+use std::time::SystemTime;
 use core::settings::Settings;
 
 const WINDOW_WIDTH: u32 = 800;
@@ -47,12 +48,13 @@ impl Application {
     }
 
     pub fn run(&mut self) {
+        let mut now = SystemTime::now();
         let mut running = true;
         while running {
             self.events_loop.poll_events(|event| {
                 match event {
-                    winit::Event::WindowEvent { event: winit::WindowEvent::Resized(_w, _h), .. } => {
-//                        println!("The window was resized to {}x{}", w, h);
+                    winit::Event::WindowEvent { event: winit::WindowEvent::Resized(w, h), .. } => {
+                        println!("The window was resized to {}x{}", w, h);
                     },
                     winit::Event::WindowEvent { event: winit::WindowEvent::Closed, .. } => {
                         running = false;
@@ -61,7 +63,12 @@ impl Application {
                 }
             });
 
-            self.update(0.0);
+            let duration = now.elapsed().unwrap();
+            const BILLION: u32 = 1000000000;
+            let dt = (duration.as_secs() as u32 * BILLION + duration.subsec_nanos()) as f32 / BILLION as f32;
+            now = SystemTime::now();
+
+            self.update(dt);
             self.render();
         }
     }

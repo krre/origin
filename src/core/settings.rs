@@ -59,7 +59,8 @@ impl Settings {
     }
 
     pub fn flush(&self) {
-        let _file = File::create(&self.settings_path).unwrap().write_all( serde_json::to_string_pretty(&self.storage).unwrap().as_bytes());
+        let _file = File::create(&self.settings_path).unwrap()
+            .write_all( serde_json::to_string_pretty(&self.storage).unwrap().as_bytes());
     }
 }
 

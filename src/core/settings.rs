@@ -37,15 +37,15 @@ impl Settings {
         Settings { settings_path, storage, is_loaded }
     }
 
-    pub fn window_geometry(&self) -> (i32, i32, u32, u32) {
+    pub fn window_geometry(&self) -> Option<(i32, i32, u32, u32)> {
         if self.is_loaded {
             let x = self.storage["window"]["x"].as_i64().unwrap() as i32;
             let y = self.storage["window"]["y"].as_i64().unwrap() as i32;
             let width = self.storage["window"]["width"].as_i64().unwrap() as u32;
             let height = self.storage["window"]["height"].as_i64().unwrap() as u32;
-            (x, y, width, height)
+            Some((x, y, width, height))
         } else {
-            (i32::max_value(), i32::max_value(), u32::max_value(), u32::max_value())
+            None
         }
     }
 

@@ -50,13 +50,11 @@ impl Settings {
     }
 
     pub fn set_window_geometry(&mut self, x: i32, y: i32, width: u32, height: u32) {
-        self.storage = json!({
-            "window": {
-                "x": x,
-                "y": y,
-                "width": width,
-                "height": height
-            }
+        self.storage["window"] = json!({
+            "x": x,
+            "y": y,
+            "width": width,
+            "height": height
         })
     }
 

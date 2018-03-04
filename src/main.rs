@@ -7,6 +7,8 @@ use std::fs::File;
 use std::io::{Write, Read, BufReader};
 use std::env;
 
+mod core;
+
 fn main() {
     // Get path to settings file
     let current_exe = env::current_exe().unwrap();

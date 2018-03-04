@@ -4,9 +4,7 @@ extern crate winit;
 extern crate serde_json;
 
 use std::fs::File;
-use std::io::Write;
-use std::io::Read;
-use std::io::BufReader;
+use std::io::{Write, Read, BufReader};
 use std::env;
 
 fn main() {

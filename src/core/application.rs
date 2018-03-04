@@ -47,14 +47,26 @@ impl Application {
     }
 
     pub fn run(&mut self) {
-        self.events_loop.run_forever(|event| {
-            match event {
-                winit::Event::WindowEvent { event: winit::WindowEvent::Closed, .. } => {
-                    winit::ControlFlow::Break
-                },
-                _ => winit::ControlFlow::Continue,
-            }
-        });
+        let mut running = true;
+        while running {
+            self.events_loop.poll_events(|event| {
+                match event {
+                    winit::Event::WindowEvent { event: winit::WindowEvent::Resized(_w, _h), .. } => {
+//                        println!("The window was resized to {}x{}", w, h);
+                    },
+                    winit::Event::WindowEvent { event: winit::WindowEvent::Closed, .. } => {
+                        running = false;
+                    },
+                    _ => ()
+                }
+            });
+
+            self.update(0.0);
+        }
+    }
+
+    fn update(&self, _dt: f32) {
+//        println!("update: {}", dt)
     }
 }
 

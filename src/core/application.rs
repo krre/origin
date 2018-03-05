@@ -1,8 +1,7 @@
-extern crate winit;
-
 use std::time::SystemTime;
 use core::settings::Settings;
 use gfx::renderer::Renderer;
+use winit;
 
 const WINDOW_WIDTH: u32 = 800;
 const WINDOW_HEIGHT: u32 = 600;
@@ -39,7 +38,7 @@ impl Application {
 
         window.set_position(x, y);
 
-        let renderer = Renderer::new();
+        let renderer = Renderer::new(&window);
 
         Application { settings, events_loop, window, renderer }
     }

@@ -19,31 +19,24 @@ impl Application {
     pub fn new() -> Self {
         let settings = Settings::new();
         let events_loop = winit::EventsLoop::new();
-        let mut builder = winit::WindowBuilder::new().with_title(APP_NAME);
 
-        let x;
-        let y;
-        let mut width = WINDOW_WIDTH;
-        let mut height= WINDOW_HEIGHT;
-
-        match settings.window_geometry() {
+         let (x, y, width, height) = match settings.window_geometry() {
+            Some(window_geometry) => window_geometry,
             None => {
                 // Move window on center of screen
                 let (monitor_width, monitor_height) = events_loop.get_primary_monitor().get_dimensions();
-                x = (monitor_width - width) as i32 / 2;
-                y = (monitor_height - height) as i32 / 2;
+                let x = (monitor_width - WINDOW_WIDTH) as i32 / 2;
+                let y = (monitor_height - WINDOW_HEIGHT) as i32 / 2;
+                (x, y, WINDOW_WIDTH, WINDOW_HEIGHT)
             }
-            Some(settings_geometry) => {
-                x = settings_geometry.0;
-                y = settings_geometry.1;
-                width = settings_geometry.2;
-                height = settings_geometry.3;
-            }
-        }
+        };
 
         // Create window
-        builder = builder.with_dimensions(width, height);
-        let window = builder.build(&events_loop).unwrap();
+        let window = winit::WindowBuilder::new()
+            .with_title(APP_NAME)
+            .with_dimensions(width, height)
+            .build(&events_loop).unwrap();
+
         window.set_position(x, y);
 
         let renderer = Renderer::new();

@@ -25,10 +25,8 @@ impl Renderer {
 
 impl VulkanBackend {
     pub fn new() -> Self {
-        let instance = {
-            let extensions = vulkano_win::required_extensions();
-            Instance::new(None, &extensions, None).expect("Failed to create Vulkan instance")
-        };
+        let instance = Instance::new(None, &vulkano_win::required_extensions(), None)
+            .expect("Failed to create Vulkan instance");
 
         VulkanBackend { instance }
     }

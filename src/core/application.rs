@@ -2,6 +2,7 @@ extern crate winit;
 
 use std::time::SystemTime;
 use core::settings::Settings;
+use gfx::renderer::Renderer;
 
 const WINDOW_WIDTH: u32 = 800;
 const WINDOW_HEIGHT: u32 = 600;
@@ -10,7 +11,8 @@ const APP_NAME: &str = "Origin";
 pub struct Application {
     settings: Settings,
     events_loop: winit::EventsLoop,
-    window: winit::Window
+    window: winit::Window,
+    renderer: Renderer
 }
 
 impl Application {
@@ -44,7 +46,9 @@ impl Application {
         let window = builder.build(&events_loop).unwrap();
         window.set_position(x, y);
 
-        Application { settings, events_loop, window,  }
+        let renderer = Renderer::new();
+
+        Application { settings, events_loop, window, renderer }
     }
 
     pub fn run(&mut self) {
@@ -69,16 +73,12 @@ impl Application {
             now = SystemTime::now();
 
             self.update(dt);
-            self.render();
+            self.renderer.render();
         }
     }
 
     fn update(&self, _dt: f32) {
 //        println!("update: {}", dt)
-    }
-
-    fn render(&self) {
-//        println!("render")
     }
 }
 

@@ -60,7 +60,7 @@ impl Application {
             });
 
             let duration = now.elapsed().unwrap();
-            const BILLION: u32 = 1000000000;
+            const BILLION: u32 = 1_000_000_000;
             let dt = (duration.as_secs() as u32 * BILLION + duration.subsec_nanos()) as f32 / BILLION as f32;
             now = SystemTime::now();
 

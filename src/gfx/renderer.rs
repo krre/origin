@@ -1,6 +1,7 @@
 use winit;
 use gfx::surface_adapter;
 use vulkano::instance::Instance;
+use vulkano::instance::PhysicalDevice;
 use vulkano::swapchain::Surface;
 
 use std::sync::Arc;
@@ -33,8 +34,13 @@ impl VulkanBackend {
 
         let surface = surface_adapter::build_surface(&window, instance.clone()).unwrap();
 
+        let physical = PhysicalDevice::enumerate(&instance).next()
+            .expect("No device available");
+        // Some little debug infos.
+        println!("Using device: {} (type: {:?})", physical.name(), physical.ty());
+
         VulkanBackend {
-            instance,
+            instance: instance.clone(),
             surface
         }
     }

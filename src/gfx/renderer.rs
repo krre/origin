@@ -25,7 +25,8 @@ pub struct Renderer {
 struct VulkanBackend {
     instance: Arc<Instance>,
     surface: Arc<Surface>,
-    device: Arc<Device>
+    device: Arc<Device>,
+    swapchain: Arc<Swapchain>
 }
 
 impl Renderer {
@@ -94,7 +95,8 @@ impl VulkanBackend {
         VulkanBackend {
             instance: instance.clone(),
             surface,
-            device
+            device,
+            swapchain
         }
     }
 }

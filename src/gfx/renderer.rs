@@ -26,7 +26,8 @@ struct VulkanBackend {
     instance: Arc<Instance>,
     surface: Arc<Surface>,
     device: Arc<Device>,
-    swapchain: Arc<Swapchain>
+    swapchain: Arc<Swapchain>,
+    recreate_swapchain: bool
 }
 
 impl Renderer {
@@ -36,7 +37,12 @@ impl Renderer {
         Renderer { vulkan_backend }
     }
 
-    pub fn render(&self) {
+    pub fn render(&mut self) {
+        if self.vulkan_backend.recreate_swapchain {
+            println!("recreate swapchain");
+
+            self.vulkan_backend.recreate_swapchain = false;
+        }
 //        println!("render")
     }
 }
@@ -96,7 +102,8 @@ impl VulkanBackend {
             instance: instance.clone(),
             surface,
             device,
-            swapchain
+            swapchain,
+            recreate_swapchain: false
         }
     }
 }

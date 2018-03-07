@@ -14,6 +14,8 @@ use vulkano::image::swapchain::SwapchainImage;
 use vulkano::framebuffer::Framebuffer;
 use vulkano::framebuffer::FramebufferAbstract;
 use vulkano::framebuffer::RenderPassAbstract;
+use vulkano::sync::GpuFuture;
+use vulkano::sync::now;
 
 use std::sync::Arc;
 use std::mem;
@@ -30,7 +32,8 @@ struct VulkanBackend {
     swapchain_images: Vec<Arc<SwapchainImage>>,
     framebuffers: Option<Vec<Arc<FramebufferAbstract + Send + Sync>>>,
     render_pass: Arc<RenderPassAbstract + Send + Sync>,
-    recreate_swapchain: bool
+    recreate_swapchain: bool,
+    previous_frame_end: Box<GpuFuture>
 }
 
 impl Renderer {
@@ -48,6 +51,8 @@ impl Renderer {
 
             self.vulkan_backend.recreate_swapchain = false;
         }
+
+        self.vulkan_backend.previous_frame_end.cleanup_finished();
 //        println!("render")
     }
 }
@@ -121,6 +126,8 @@ impl VulkanBackend {
             }
         ).unwrap());
 
+        let previous_frame_end = Box::new(now(device.clone())) as Box<GpuFuture>;
+
         VulkanBackend {
             instance: instance.clone(),
             surface,
@@ -129,7 +136,8 @@ impl VulkanBackend {
             swapchain_images,
             framebuffers,
             render_pass,
-            recreate_swapchain: true
+            recreate_swapchain: true,
+            previous_frame_end
         }
     }
 

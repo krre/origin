@@ -5,10 +5,12 @@ use vulkano::instance::PhysicalDevice;
 use vulkano::swapchain::Surface;
 use vulkano::device::DeviceExtensions;
 use vulkano::device::Device;
+use vulkano::device::Queue;
 use vulkano::swapchain;
 use vulkano::swapchain::PresentMode;
 use vulkano::swapchain::SurfaceTransform;
 use vulkano::swapchain::Swapchain;
+use vulkano::swapchain::AcquireError;
 use vulkano::image::ImageUsage;
 use vulkano::image::swapchain::SwapchainImage;
 use vulkano::framebuffer::Framebuffer;
@@ -16,6 +18,7 @@ use vulkano::framebuffer::FramebufferAbstract;
 use vulkano::framebuffer::RenderPassAbstract;
 use vulkano::sync::GpuFuture;
 use vulkano::sync::now;
+use vulkano::command_buffer::AutoCommandBufferBuilder;
 
 use std::sync::Arc;
 use std::mem;
@@ -28,6 +31,7 @@ struct VulkanBackend {
     instance: Arc<Instance>,
     surface: Arc<Surface>,
     device: Arc<Device>,
+    queue: Arc<Queue>,
     swapchain: Arc<Swapchain>,
     swapchain_images: Vec<Arc<SwapchainImage>>,
     framebuffers: Option<Vec<Arc<FramebufferAbstract + Send + Sync>>>,
@@ -53,6 +57,32 @@ impl Renderer {
         }
 
         self.vulkan_backend.previous_frame_end.cleanup_finished();
+
+        let (image_num, acquire_future) = match swapchain::acquire_next_image(self.vulkan_backend.swapchain.clone(), None) {
+            Ok(r) => r,
+            Err(AcquireError::OutOfDate) => {
+                self.vulkan_backend.recreate_swapchain = true;
+                return;
+            },
+            Err(err) => panic!("{:?}", err)
+        };
+
+        let command_buffer = AutoCommandBufferBuilder::primary_one_time_submit(self.vulkan_backend.device.clone(), self.vulkan_backend.queue.family()).unwrap()
+            .begin_render_pass(self.vulkan_backend.framebuffers.as_ref().unwrap()[image_num].clone(), false,
+                               vec![[0.0, 0.0, 1.0, 1.0].into()])
+            .unwrap()
+
+            .end_render_pass()
+            .unwrap()
+
+            .build().unwrap();
+
+        let future = self.vulkan_backend.previous_frame_end.join(acquire_future)
+            .then_execute(self.vulkan_backend.queue.clone(), command_buffer).unwrap()
+            .then_swapchain_present(self.vulkan_backend.queue.clone(), self.vulkan_backend.swapchain.clone(), image_num)
+            .then_signal_fence_and_flush().unwrap();
+        self.vulkan_backend.previous_frame_end = Box::new(future) as Box<_>;
+
 //        println!("render")
     }
 }
@@ -132,6 +162,7 @@ impl VulkanBackend {
             instance: instance.clone(),
             surface,
             device,
+            queue,
             swapchain,
             swapchain_images,
             framebuffers,

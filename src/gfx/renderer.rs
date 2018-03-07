@@ -15,6 +15,7 @@ use vulkano::sync::now;
 use vulkano::sync::SharingMode;
 use vulkano::sync::GpuFuture;
 use vulkano::image::ImageUsage;
+use vulkano::image::swapchain::SwapchainImage;
 
 use std::sync::Arc;
 
@@ -27,12 +28,14 @@ struct VulkanBackend {
     surface: Arc<Surface>,
     device: Arc<Device>,
     swapchain: Arc<Swapchain>,
+    swapchain_images: Vec<Arc<SwapchainImage>>,
     recreate_swapchain: bool
 }
 
 impl Renderer {
     pub fn new(window: &winit::Window) -> Self {
-        let vulkan_backend = VulkanBackend::new(&window);
+        let mut vulkan_backend = VulkanBackend::new(&window);
+        vulkan_backend.resize_swapchain();
 
         Renderer { vulkan_backend }
     }
@@ -40,6 +43,7 @@ impl Renderer {
     pub fn render(&mut self) {
         if self.vulkan_backend.recreate_swapchain {
             println!("recreate swapchain");
+            self.vulkan_backend.resize_swapchain();
 
             self.vulkan_backend.recreate_swapchain = false;
         }
@@ -75,7 +79,7 @@ impl VulkanBackend {
 
         let queue = queues.next().unwrap();
 
-        let (mut swapchain, mut images) = {
+        let (mut swapchain, mut swapchain_images) = {
             let caps = surface.capabilities(physical)
                 .expect("Failed to get surface capabilities");
 
@@ -96,6 +100,7 @@ impl VulkanBackend {
                            dimensions, 1, usage, &queue,
                            SurfaceTransform::Identity, alpha, PresentMode::Fifo, true, None)
                 .expect("Failed to create swapchain")
+
         };
 
         VulkanBackend {
@@ -103,7 +108,12 @@ impl VulkanBackend {
             surface,
             device,
             swapchain,
-            recreate_swapchain: false
+            swapchain_images,
+            recreate_swapchain: true
         }
+    }
+
+    fn resize_swapchain(&mut self) {
+
     }
 }

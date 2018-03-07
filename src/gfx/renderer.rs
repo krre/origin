@@ -9,15 +9,14 @@ use vulkano::swapchain;
 use vulkano::swapchain::PresentMode;
 use vulkano::swapchain::SurfaceTransform;
 use vulkano::swapchain::Swapchain;
-use vulkano::swapchain::AcquireError;
-use vulkano::swapchain::SwapchainCreationError;
-use vulkano::sync::now;
-use vulkano::sync::SharingMode;
-use vulkano::sync::GpuFuture;
 use vulkano::image::ImageUsage;
 use vulkano::image::swapchain::SwapchainImage;
+use vulkano::framebuffer::Framebuffer;
+use vulkano::framebuffer::FramebufferAbstract;
+use vulkano::framebuffer::RenderPassAbstract;
 
 use std::sync::Arc;
+use std::mem;
 
 pub struct Renderer {
     vulkan_backend: VulkanBackend
@@ -29,6 +28,8 @@ struct VulkanBackend {
     device: Arc<Device>,
     swapchain: Arc<Swapchain>,
     swapchain_images: Vec<Arc<SwapchainImage>>,
+    framebuffers: Option<Vec<Arc<FramebufferAbstract + Send + Sync>>>,
+    render_pass: Arc<RenderPassAbstract + Send + Sync>,
     recreate_swapchain: bool
 }
 
@@ -79,7 +80,7 @@ impl VulkanBackend {
 
         let queue = queues.next().unwrap();
 
-        let (mut swapchain, mut swapchain_images) = {
+        let (swapchain, swapchain_images) = {
             let caps = surface.capabilities(physical)
                 .expect("Failed to get surface capabilities");
 
@@ -103,17 +104,53 @@ impl VulkanBackend {
 
         };
 
+        let framebuffers: Option<Vec<Arc<FramebufferAbstract + Send + Sync>>> = None;
+
+        let render_pass = Arc::new(single_pass_renderpass!(device.clone(),
+            attachments: {
+                color: {
+                    load: Clear,
+                    store: Store,
+                    format: swapchain.format(),
+                    samples: 1,
+                }
+            },
+            pass: {
+                color: [color],
+                depth_stencil: {}
+            }
+        ).unwrap());
+
         VulkanBackend {
             instance: instance.clone(),
             surface,
             device,
             swapchain,
             swapchain_images,
+            framebuffers,
+            render_pass,
             recreate_swapchain: true
         }
     }
 
     fn resize_swapchain(&mut self) {
+        let capabilites = self.surface.capabilities(self.device.physical_device()).unwrap();
+        let dimensions = capabilites.current_extent.unwrap();
+        println!("{} {}", dimensions[0], dimensions[1]);
 
+        let (new_swapchain, new_images) = match self.swapchain.recreate_with_dimension(dimensions) {
+            Ok(r) => r,
+            Err(err) => panic!("{:?}", err)
+        };
+
+        mem::replace(&mut self.swapchain, new_swapchain);
+        mem::replace(&mut self.swapchain_images, new_images);
+
+        let new_framebuffers = Some(self.swapchain_images.iter().map(|image| {
+            Arc::new(Framebuffer::start(self.render_pass.clone())
+                .add(image.clone()).unwrap()
+                .build().unwrap()) as Arc<FramebufferAbstract + Send + Sync>
+        }).collect::<Vec<_>>());
+        mem::replace(&mut self.framebuffers, new_framebuffers);
     }
 }

@@ -10,9 +10,8 @@ Device::Device(PhysicalDevice* physicalDevice) : physicalDevice(physicalDevice) 
     extensions.resize(count);
     vkEnumerateDeviceExtensionProperties(physicalDevice->getHandle(), nullptr, &count, extensions.data());
 
-    for (const auto& extension : extensions) {
-        enabledExtensions.push_back(extension.extensionName);
-    }
+    // While only one extension is enabled
+    enabledExtensions.push_back("VK_KHR_swapchain");
 
     createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
     createInfo.enabledExtensionCount = enabledExtensions.size();

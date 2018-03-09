@@ -39,6 +39,10 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         pick = event->pos();
         pickMode = true;
+        addLineCube();
+        renderEngine->setLineVertextCount(lines.size());
+        renderEngine->getVoxelVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
+        renderEngine->updateCommandBuffers();
         update();
     }
 }
@@ -72,8 +76,8 @@ void Viewport::resizeEvent(QResizeEvent* event) {
 void Viewport::onOctreeChanged() {
     uint32_t size = octreeEditor->getOctree()->getVertices().size() * sizeof(Origin::Octree::Vertex);
     if (size) {
-        renderEngine->setVertextCount(octreeEditor->getOctree()->getVertices().size());
-        renderEngine->getVertexBuffer()->write(octreeEditor->getOctree()->getVertices().data(), size);
+        renderEngine->setVoxelVertextCount(octreeEditor->getOctree()->getVertices().size());
+        renderEngine->getVoxelVertexBuffer()->write(octreeEditor->getOctree()->getVertices().data(), size);
         renderEngine->updateCommandBuffers();
         update();
     }
@@ -86,6 +90,14 @@ void Viewport::onCameraStateChanged() {
     glm::mat4 mvp = camera.getProjective() * camera.getView() * model;
     renderEngine->updateMvp(mvp);
     update();
+}
+
+void Viewport::addLineCube() {
+    LineVertex vertex = {};
+    vertex.color = { 1.0, 1.0, 0.0, 1.0 };
+
+    vertex.position = { -1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { 1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
 }
 
 void Viewport::reset() {

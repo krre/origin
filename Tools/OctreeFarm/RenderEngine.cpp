@@ -23,7 +23,7 @@ RenderEngine::~RenderEngine() {
 
 }
 
-void RenderEngine::setVertextCount(uint32_t vertexCount) {
+void RenderEngine::setVoxelVertextCount(uint32_t vertexCount) {
     this->voxelRenderPass.vertextCount = vertexCount;
 
     uint32_t size = vertexCount * sizeof(Origin::Octree::Vertex);
@@ -31,6 +31,10 @@ void RenderEngine::setVertextCount(uint32_t vertexCount) {
     if (size > voxelRenderPass.vertexBuffer->getSize()) {
         voxelRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size));
     }
+}
+
+void RenderEngine::setLineVertextCount(uint32_t vertexCount) {
+    this->voxelRenderPass.vertextCount = vertexCount;
 }
 
 void RenderEngine::updateMvp(const glm::mat4& mvp) {
@@ -136,6 +140,7 @@ void RenderEngine::initLineRenderPass() {
     lineRenderPass.shaderProgram->create();
 
     lineRenderPass. graphicsPipeline.reset(new Vulkan::GraphicsPipeline(getGraphicsDevice()));
+    lineRenderPass.graphicsPipeline->setPrimitiveTopology(VK_PRIMITIVE_TOPOLOGY_LINE_LIST);
     lineRenderPass.graphicsPipeline->setRenderPass(getRenderPass()->getHandle());
     lineRenderPass.graphicsPipeline->setPipelineLayout(lineRenderPass.shaderProgram->getPipelineLayout()->getHandle());
 

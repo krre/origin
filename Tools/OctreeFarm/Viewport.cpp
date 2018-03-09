@@ -151,6 +151,18 @@ void Viewport::drawSelection() {
 void Viewport::pickOctree(const QPoint& pos) {
     pick = pos;
     pickMode = true;
+
+    float x = (2.0f * pos.x()) / width() - 1.0f;
+    float y = 1.0f - (2.0f * pos.y()) / height();
+    glm::vec2 ndcRay = glm::vec2(x, y);
+    glm::vec4 clipRay = glm::vec4(ndcRay, -1.0, 1.0);
+    glm::vec4 eyeRay = glm::inverse(camera.getProjective()) * clipRay;
+    eyeRay = glm::vec4(eyeRay.x, eyeRay.y, -1.0, 0.0);
+
+    glm::vec3 worldRay = glm::vec3(glm::inverse(camera.getView()) * eyeRay);
+    worldRay = glm::normalize(worldRay);
+    qDebug() << pos << QString::fromStdString(glm::to_string(worldRay));
+
     lines.clear();
     addLineCube();
     drawSelection();

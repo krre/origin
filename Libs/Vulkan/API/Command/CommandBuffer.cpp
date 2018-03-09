@@ -80,6 +80,21 @@ void CommandBuffer::clearImageMemoryBarriers() {
     imageMemoryBarriers.clear();
 }
 
+void CommandBuffer::clear() {
+    viewports.clear();
+    scissors.clear();
+    vertexBuffers.clear();
+    vertexBufferOffsets.clear();
+    bufferCopies.clear();
+    imageCopies.clear();
+    blitRegions.clear();
+    dynamicOffsets.clear();
+    descriptorSets.clear();
+    memoryBarriers.clear();
+    bufferMemoryBarriers.clear();
+    imageMemoryBarriers.clear();
+}
+
 VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
     VkImageMemoryBarrier imb = {};
     imb.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
@@ -232,19 +247,7 @@ void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask,
 }
 
 void CommandBuffer::reset() {
-    viewports.clear();
-    scissors.clear();
-    vertexBuffers.clear();
-    vertexBufferOffsets.clear();
-    bufferCopies.clear();
-    imageCopies.clear();
-    blitRegions.clear();
-    dynamicOffsets.clear();
-    descriptorSets.clear();
-    memoryBarriers.clear();
-    bufferMemoryBarriers.clear();
-    imageMemoryBarriers.clear();
-
+    clear();
     vkResetCommandBuffer(handle, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
 }
 

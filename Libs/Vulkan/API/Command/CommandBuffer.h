@@ -33,6 +33,8 @@ public:
     void addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier);
     void clearImageMemoryBarriers();
 
+    void clear();
+
     // Commands
     void begin(VkCommandBufferUsageFlags flags = VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT);
     void end();

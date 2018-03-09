@@ -50,9 +50,9 @@ void RenderEngine::init() {
     uboBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(UBO)));
 
     shaderProgram.reset(new Vulkan::ShaderProgram(getGraphicsDevice()));
-    std::string shaderDataPath = QApplication::applicationDirPath().toStdString() + "/Data/Shader/OctreeFarm";
-    shaderProgram->loadShader(shaderDataPath + "/FrontLightOctree.vert.spv");
-    shaderProgram->loadShader(shaderDataPath + "/FrontLightOctree.frag.spv");
+    std::string shaderDataPath = QApplication::applicationDirPath().toStdString() + "/Data/Shader/";
+    shaderProgram->loadShader(shaderDataPath + "OctreeFarm/FrontLightOctree.vert.spv");
+    shaderProgram->loadShader(shaderDataPath + "OctreeFarm/FrontLightOctree.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
     bufferInfo.buffer = uboBuffer->getHandle();

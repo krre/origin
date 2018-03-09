@@ -255,6 +255,9 @@
    <property name="text">
     <string>Add Back</string>
    </property>
+   <property name="shortcut">
+    <string>Shift+A</string>
+   </property>
   </action>
   <action name="actionDelete">
    <property name="text">

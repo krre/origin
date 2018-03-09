@@ -10,3 +10,5 @@ set validator=%VULKAN_SDK%\bin\glslangValidator -V -t
 %validator% SDF.frag -o SDF.frag.spv
 %validator% Octree.vert -o Octree.vert.spv
 %validator% Octree.frag -o Octree.frag.spv
+%validator% Line.vert -o Line.vert.spv
+%validator% Line.frag -o Line.frag.spv

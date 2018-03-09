@@ -72,6 +72,10 @@ void GraphicsPipeline::addDynamicState(VkDynamicState dynamicState) {
     dynamicStates.push_back(dynamicState);
 }
 
+void GraphicsPipeline::setPrimitiveTopology(VkPrimitiveTopology topology) {
+    inputAssemblyStateCreateInfo.topology = topology;
+}
+
 void GraphicsPipeline::addColorBlendAttachmentState(VkPipelineColorBlendAttachmentState colorBlendAttachmentState) {
     colorBlendAttachmentStates.push_back(colorBlendAttachmentState);
 }

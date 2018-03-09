@@ -14,6 +14,7 @@ public:
     void addScissor(VkRect2D scissor);
     void addDynamicState(VkDynamicState dynamicState);
 
+    void setPrimitiveTopology(VkPrimitiveTopology topology);
     void setPipelineLayout(VkPipelineLayout layout);
     void setRenderPass(VkRenderPass renderPass);
 

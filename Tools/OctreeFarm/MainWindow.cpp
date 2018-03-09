@@ -96,6 +96,7 @@ void MainWindow::on_actionPaste_triggered() {
 }
 
 void MainWindow::on_actionDeselect_triggered() {
+    viewport->deselect();
     octreeEditor->deselect();
 }
 

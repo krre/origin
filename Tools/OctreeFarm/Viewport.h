@@ -36,7 +36,9 @@ public:
 
     Viewport(OctreeEditor* octreeEditor = nullptr);
     ~Viewport();
+
     void reset();
+    void deselect();
     void update();
     bool getIsReady() { return isReady; }
 
@@ -58,6 +60,7 @@ private slots:
 
 private:
     void addLineCube();
+    void drawSelection();
     void pickOctree(const QPoint& pos);
 
     RenderEngine* renderEngine;

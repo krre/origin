@@ -139,15 +139,21 @@ void Viewport::addLineCube() {
     vertex.position = { 1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
 }
 
+void Viewport::drawSelection() {
+    renderEngine->setLineVertextCount(lines.size());
+    if (lines.size()) {
+        renderEngine->getLineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
+    }
+    renderEngine->updateCommandBuffers();
+    update();
+}
+
 void Viewport::pickOctree(const QPoint& pos) {
     pick = pos;
     pickMode = true;
     lines.clear();
     addLineCube();
-    renderEngine->setLineVertextCount(lines.size());
-    renderEngine->getLineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
-    renderEngine->updateCommandBuffers();
-    update();
+    drawSelection();
 }
 
 void Viewport::reset() {
@@ -156,6 +162,11 @@ void Viewport::reset() {
     camera.reset();
     camera.setPosition(glm::vec3(0, 0, -5));
     camera.rotate(rx, ry);
+}
+
+void Viewport::deselect() {
+    lines.clear();
+    drawSelection();
 }
 
 void Viewport::update() {

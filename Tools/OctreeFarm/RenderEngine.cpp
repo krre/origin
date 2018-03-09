@@ -9,6 +9,7 @@
 #include "Vulkan/API/Pipeline/PipelineLayout.h"
 #include "Vulkan/API/Descriptor/DescriptorSets.h"
 #include "Octree/Octree.h"
+#include "Viewport.h"
 #include <QApplication>
 #include <QDebug>
 
@@ -154,7 +155,7 @@ void RenderEngine::initLineRenderPass() {
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(Origin::Octree::Vertex);
+    bindingDescription.stride = sizeof(Viewport::LineVertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     lineRenderPass.graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
@@ -173,7 +174,7 @@ void RenderEngine::initLineRenderPass() {
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Origin::Octree::Vertex::pos);
+        attributeDescription.offset = sizeof(Viewport::LineVertex::position);
         lineRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 

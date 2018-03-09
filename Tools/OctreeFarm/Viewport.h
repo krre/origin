@@ -28,6 +28,12 @@ class Viewport : public QWindow {
     };
 
 public:
+
+    struct LineVertex {
+        glm::vec4 position;
+        glm::vec4 color;
+    };
+
     Viewport(OctreeEditor* octreeEditor = nullptr);
     ~Viewport();
     void reset();
@@ -52,11 +58,6 @@ private slots:
 
 private:
     void addLineCube();
-
-    struct LineVertex {
-        glm::vec4 position;
-        glm::vec4 color;
-    };
 
     RenderEngine* renderEngine;
     float rotateSpeed = 5;

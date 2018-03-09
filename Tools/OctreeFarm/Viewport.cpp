@@ -97,8 +97,53 @@ void Viewport::addLineCube() {
     LineVertex vertex = {};
     vertex.color = { 1.0, 1.0, 0.0, 1.0 };
 
+    // Front top
     vertex.position = { -1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
     vertex.position = { 1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
+
+    // Front right
+    vertex.position = { 1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { 1.0, -1.0, 1.0, 1.0 }; lines.push_back(vertex);
+
+    // Front bottom
+    vertex.position = { 1.0, -1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { -1.0, -1.0, 1.0, 1.0 }; lines.push_back(vertex);
+
+    // Front left
+    vertex.position = { -1.0, -1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { -1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
+
+    // Back top
+    vertex.position = { -1.0, 1.0, -1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { 1.0, 1.0, -1.0, 1.0 }; lines.push_back(vertex);
+
+    // Back right
+    vertex.position = { 1.0, 1.0, -1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { 1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
+
+    // Back bottom
+    vertex.position = { 1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { -1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
+
+    // Back left
+    vertex.position = { -1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { -1.0, 1.0, -1.0, 1.0 }; lines.push_back(vertex);
+
+    // Top left
+    vertex.position = { -1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { -1.0, 1.0, -1.0, 1.0 }; lines.push_back(vertex);
+
+    // Top rigth
+    vertex.position = { 1.0, 1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { 1.0, 1.0, -1.0, 1.0 }; lines.push_back(vertex);
+
+    // Bottom left
+    vertex.position = { -1.0, -1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { -1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
+
+    // Bottom rigth
+    vertex.position = { 1.0, -1.0, 1.0, 1.0 }; lines.push_back(vertex);
+    vertex.position = { 1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
 }
 
 void Viewport::reset() {

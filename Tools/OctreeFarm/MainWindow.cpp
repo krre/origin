@@ -187,19 +187,19 @@ bool MainWindow::maybeSave() {
         return true;
     }
 
-    const QMessageBox::StandardButton ret
-        = QMessageBox::warning(this, QCoreApplication::applicationName(),
+    const QMessageBox::StandardButton button = QMessageBox::warning(this, QCoreApplication::applicationName(),
                                tr("The octree has been modified.\n"
                                   "Do you want to save your changes?"),
                                QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);
-    switch (ret) {
-    case QMessageBox::Save:
-        return save();
-    case QMessageBox::Cancel:
-        return false;
-    default:
-        break;
+    switch (button) {
+        case QMessageBox::Save:
+            return save();
+        case QMessageBox::Cancel:
+            return false;
+        default:
+            break;
     }
+
     return true;
 }
 

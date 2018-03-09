@@ -59,9 +59,16 @@ private slots:
     void onCameraStateChanged();
 
 private:
+
+    struct AABB {
+        glm::vec3 min;
+        glm::vec3 max;
+    };
+
     void addLineCube();
     void drawSelection();
     void pickOctree(const QPoint& pos);
+    bool intersectRayAabb(const glm::vec3& origin, const glm::vec3& dir, const AABB &aabb);
 
     RenderEngine* renderEngine;
     float rotateSpeed = 5;

@@ -10,6 +10,7 @@
 #include "Vulkan/API/Descriptor/DescriptorSets.h"
 #include "Octree/Octree.h"
 #include <QApplication>
+#include <QDebug>
 
 namespace OctreeFarm {
 
@@ -34,7 +35,7 @@ void RenderEngine::setVoxelVertextCount(uint32_t vertexCount) {
 }
 
 void RenderEngine::setLineVertextCount(uint32_t vertexCount) {
-    this->voxelRenderPass.vertextCount = vertexCount;
+    this->lineRenderPass.vertextCount = vertexCount;
 }
 
 void RenderEngine::updateMvp(const glm::mat4& mvp) {
@@ -220,6 +221,28 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
         commandBuffer->bindDescriptorSets(voxelRenderPass.graphicsPipeline->getBindPoint(), voxelRenderPass.shaderProgram->getPipelineLayout()->getHandle());
 
         commandBuffer->draw(voxelRenderPass.vertextCount, 1, 0, 0);
+    }
+
+    if (lineRenderPass.graphicsPipeline && lineRenderPass.vertextCount) {
+        commandBuffer->clear();
+
+        commandBuffer->bindPipeline(lineRenderPass.graphicsPipeline.data());
+
+        commandBuffer->addViewport(viewport);
+        commandBuffer->setViewport(0);
+
+        commandBuffer->addScissor(scissor);
+        commandBuffer->setScissor(0);
+
+        commandBuffer->addVertexBuffer(lineRenderPass.vertexBuffer->getHandle());
+        commandBuffer->bindVertexBuffers();
+
+        for (size_t i = 0; i < lineRenderPass.shaderProgram->getDescriptorSets()->getCount(); i++) {
+            commandBuffer->addDescriptorSet(lineRenderPass.shaderProgram->getDescriptorSets()->at(i));
+        }
+        commandBuffer->bindDescriptorSets(lineRenderPass.graphicsPipeline->getBindPoint(), lineRenderPass.shaderProgram->getPipelineLayout()->getHandle());
+
+        commandBuffer->draw(lineRenderPass.vertextCount, 1, 0, 0);
     }
 
     commandBuffer->endRenderPass();

@@ -39,9 +39,10 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
     if (event->button() == Qt::LeftButton) {
         pick = event->pos();
         pickMode = true;
+        lines.clear();
         addLineCube();
         renderEngine->setLineVertextCount(lines.size());
-        renderEngine->getVoxelVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
+        renderEngine->getLineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
         renderEngine->updateCommandBuffers();
         update();
     }

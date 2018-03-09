@@ -35,15 +35,22 @@ void RenderEngine::setVertextCount(uint32_t vertexCount) {
 
 void RenderEngine::updateMvp(const glm::mat4& mvp) {
     voxelUbo.mvp = mvp;
-    updateUBO();
+    lineUbo.mvp = mvp;
+    updateVoxelUbo();
+    lineRenderPass.uboBuffer->write(&lineUbo, sizeof(lineUbo));
 }
 
 void RenderEngine::updateShadeless(bool shadeless) {
     voxelUbo.shadeless = shadeless;
-    updateUBO();
+    updateVoxelUbo();
 }
 
 void RenderEngine::init() {
+    initVoxelRenderPass();
+    initLineRenderPass();
+}
+
+void RenderEngine::initVoxelRenderPass() {
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     voxelRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));
 
@@ -110,6 +117,63 @@ void RenderEngine::init() {
     voxelRenderPass.graphicsPipeline->create();
 }
 
+void RenderEngine::initLineRenderPass() {
+    uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
+    lineRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));
+
+    lineRenderPass.uboBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(lineUbo)));
+
+    lineRenderPass.shaderProgram.reset(new Vulkan::ShaderProgram(getGraphicsDevice()));
+    std::string shaderDataPath = QApplication::applicationDirPath().toStdString() + "/Data/Shader/";
+    lineRenderPass.shaderProgram->loadShader(shaderDataPath + "Line.vert.spv");
+    lineRenderPass.shaderProgram->loadShader(shaderDataPath + "Line.frag.spv");
+
+    VkDescriptorBufferInfo bufferInfo = {};
+    bufferInfo.buffer = lineRenderPass.uboBuffer->getHandle();
+    bufferInfo.range = VK_WHOLE_SIZE;
+    lineRenderPass.shaderProgram->bindBuffer("ubo", bufferInfo);
+
+    lineRenderPass.shaderProgram->create();
+
+    lineRenderPass. graphicsPipeline.reset(new Vulkan::GraphicsPipeline(getGraphicsDevice()));
+    lineRenderPass.graphicsPipeline->setRenderPass(getRenderPass()->getHandle());
+    lineRenderPass.graphicsPipeline->setPipelineLayout(lineRenderPass.shaderProgram->getPipelineLayout()->getHandle());
+
+    lineRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+    lineRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+
+    for (auto& shader : lineRenderPass.shaderProgram->getShaders()) {
+        lineRenderPass.graphicsPipeline->addShaderCode(shader->getStage(), shader->getCode().size() * sizeof(uint32_t), shader->getCode().data(), "main");
+    }
+
+    VkVertexInputBindingDescription bindingDescription;
+    bindingDescription.binding = 0;
+    bindingDescription.stride = sizeof(Origin::Octree::Vertex);
+    bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+    lineRenderPass.graphicsPipeline->addVertexBindingDescription(bindingDescription);
+
+    {
+        const Vulkan::Shader::LocationInfo locationInfo = lineRenderPass.shaderProgram->getLocationInfo("position");
+        VkVertexInputAttributeDescription attributeDescription = {};
+        attributeDescription.binding = bindingDescription.binding;
+        attributeDescription.location = locationInfo.location;
+        attributeDescription.format = locationInfo.format;
+        lineRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+    }
+
+    {
+        const Vulkan::Shader::LocationInfo locationInfo = lineRenderPass.shaderProgram->getLocationInfo("color");
+        VkVertexInputAttributeDescription attributeDescription = {};
+        attributeDescription.binding = bindingDescription.binding;
+        attributeDescription.location = locationInfo.location;
+        attributeDescription.format = locationInfo.format;
+        attributeDescription.offset = sizeof(Origin::Octree::Vertex::pos);
+        lineRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+    }
+
+    lineRenderPass.graphicsPipeline->create();
+}
+
 void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     VkExtent2D extent = { framebuffer->getWidth(), framebuffer->getHeight() };
 
@@ -156,7 +220,7 @@ void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vul
     commandBuffer->endRenderPass();
 }
 
-void RenderEngine::updateUBO() {
+void RenderEngine::updateVoxelUbo() {
     voxelRenderPass.uboBuffer->write(&voxelUbo, sizeof(voxelUbo));
 }
 

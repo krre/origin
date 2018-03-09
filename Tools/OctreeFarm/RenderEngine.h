@@ -36,15 +36,23 @@ private:
     };
 
     void init() override;
+    void initVoxelRenderPass();
+    void initLineRenderPass();
     void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
-    void updateUBO();
+    void updateVoxelUbo();
 
     struct VoxelUBO {
         glm::mat4 mvp = glm::mat4(1.0);
         int shadeless = 0;
     } voxelUbo;
 
+
+    struct LineUBO {
+        glm::mat4 mvp = glm::mat4(1.0);
+    } lineUbo;
+
     RenderPass voxelRenderPass;
+    RenderPass lineRenderPass;
 };
 
 } // OctreeFarm

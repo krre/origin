@@ -37,14 +37,7 @@ void Viewport::mousePressEvent(QMouseEvent* event) {
     lastPos = event->pos();
 
     if (event->button() == Qt::LeftButton) {
-        pick = event->pos();
-        pickMode = true;
-        lines.clear();
-        addLineCube();
-        renderEngine->setLineVertextCount(lines.size());
-        renderEngine->getLineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
-        renderEngine->updateCommandBuffers();
-        update();
+        pickOctree(event->pos());
     }
 }
 
@@ -144,6 +137,17 @@ void Viewport::addLineCube() {
     // Bottom rigth
     vertex.position = { 1.0, -1.0, 1.0, 1.0 }; lines.push_back(vertex);
     vertex.position = { 1.0, -1.0, -1.0, 1.0 }; lines.push_back(vertex);
+}
+
+void Viewport::pickOctree(const QPoint& pos) {
+    pick = pos;
+    pickMode = true;
+    lines.clear();
+    addLineCube();
+    renderEngine->setLineVertextCount(lines.size());
+    renderEngine->getLineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
+    renderEngine->updateCommandBuffers();
+    update();
 }
 
 void Viewport::reset() {

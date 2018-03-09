@@ -58,6 +58,7 @@ private slots:
 
 private:
     void addLineCube();
+    void pickOctree(const QPoint& pos);
 
     RenderEngine* renderEngine;
     float rotateSpeed = 5;

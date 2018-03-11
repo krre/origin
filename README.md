@@ -9,4 +9,4 @@ Procedural world game based on raycast rendering and sparse voxel octree technol
 - SPIRV-Cross (https://github.com/KhronosGroup/SPIRV-Cross)
 
 ## Status
-Now under initial development stage
+Initial development stage

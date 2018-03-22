@@ -65,7 +65,7 @@ impl Application {
             now = SystemTime::now();
 
             self.update(dt);
-            self.renderer.render();
+//            self.renderer.render();
         }
     }
 

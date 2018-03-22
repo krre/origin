@@ -77,11 +77,11 @@ impl Renderer {
 
             .build().unwrap();
 
-        let future = self.vulkan_backend.previous_frame_end.join(acquire_future)
-            .then_execute(self.vulkan_backend.queue.clone(), command_buffer).unwrap()
-            .then_swapchain_present(self.vulkan_backend.queue.clone(), self.vulkan_backend.swapchain.clone(), image_num)
-            .then_signal_fence_and_flush().unwrap();
-        self.vulkan_backend.previous_frame_end = Box::new(future) as Box<_>;
+//        let future = self.vulkan_backend.previous_frame_end.join(acquire_future)
+//            .then_execute(self.vulkan_backend.queue.clone(), command_buffer).unwrap()
+//            .then_swapchain_present(self.vulkan_backend.queue.clone(), self.vulkan_backend.swapchain.clone(), image_num)
+//            .then_signal_fence_and_flush().unwrap();
+//        self.vulkan_backend.previous_frame_end = Box::new(future) as Box<_>;
 
 //        println!("render")
     }

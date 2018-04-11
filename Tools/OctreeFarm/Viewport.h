@@ -68,7 +68,7 @@ private:
     void addLineCube();
     void drawSelection();
     void pickOctree(const QPoint& pos);
-    bool intersectRayAabb(const glm::vec3& origin, const glm::vec3& dir, const AABB &aabb);
+    bool intersectRayAabb(const glm::vec3& origin, const glm::vec3& direction, const AABB &aabb);
 
     RenderEngine* renderEngine;
     float rotateSpeed = 5;

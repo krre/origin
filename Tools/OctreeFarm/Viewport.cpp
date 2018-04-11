@@ -168,14 +168,14 @@ void Viewport::pickOctree(const QPoint& pos) {
     drawSelection();
 }
 
-bool Viewport::intersectRayAabb(const glm::vec3& origin, const glm::vec3& dir, const Viewport::AABB& aabb) {
+bool Viewport::intersectRayAabb(const glm::vec3& origin, const glm::vec3& direction, const Viewport::AABB& aabb) {
     float tmin, tmax, tymin, tymax, tzmin, tzmax;
 
     glm::vec3 bounds[2];
     bounds[0] = aabb.min;
     bounds[1] = aabb.max;
 
-    glm::vec3 invdir = 1.f / dir;
+    glm::vec3 invdir = 1.f / direction;
     glm::i8vec3 sign;
 
     sign.x = (invdir.x < 0);

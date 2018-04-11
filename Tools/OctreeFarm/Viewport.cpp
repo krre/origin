@@ -189,20 +189,26 @@ bool Viewport::intersectRayAabb(const glm::vec3& origin, const glm::vec3& dir, c
 
     if ((tmin > tymax) || (tymin > tmax)) return false;
 
-    if (tymin > tmin)
+    if (tymin > tmin) {
         tmin = tymin;
-    if (tymax < tmax)
+    }
+
+    if (tymax < tmax) {
         tmax = tymax;
+    }
 
     tzmin = (bounds[sign.z].z - origin.z) * invdir.z;
     tzmax = (bounds[1 - sign.z].z - origin.z) * invdir.z;
 
     if ((tmin > tzmax) || (tzmin > tmax)) return false;
 
-    if (tzmin > tmin)
+    if (tzmin > tmin) {
         tmin = tzmin;
-    if (tzmax < tmax)
+    }
+
+    if (tzmax < tmax) {
         tmax = tzmax;
+    }
 
     return true;
 }

@@ -161,10 +161,14 @@ void Viewport::pickOctree(const QPoint& pos) {
 
     glm::vec3 worldRay = glm::vec3(glm::inverse(camera.getView()) * eyeRay);
     worldRay = glm::normalize(worldRay);
-    qDebug() << pos << QString::fromStdString(glm::to_string(worldRay));
 
     lines.clear();
-    addLineCube();
+
+    bool result = intersectRayAabb(camera.getPosition(), worldRay, { glm::vec3(-1.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0) });
+    if (result) {
+        addLineCube();
+    }
+
     drawSelection();
 }
 

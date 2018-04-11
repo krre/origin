@@ -12,6 +12,7 @@ public:
 
     glm::mat4 getProjective() const { return projective; }
     glm::mat4 getView() const { return view; }
+    glm::vec3 getPosition() const { return position; }
 
     void setTarget(const glm::vec3& target);
     void setPosition(const glm::vec3& position);

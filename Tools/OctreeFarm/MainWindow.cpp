@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget* parent) :
     octreeEditor = new OctreeEditor(this);
 
     viewport = new Viewport(octreeEditor);
+    connect(viewport, &Viewport::selectionChanged, this, &MainWindow::onSelectionChanged);
     QWidget* container = QWidget::createWindowContainer(viewport);
     QBoxLayout* viewportlayout = new QBoxLayout(QBoxLayout::TopToBottom, ui->frameViewport);
     viewportlayout->setMargin(0);
@@ -142,7 +143,16 @@ void MainWindow::on_actionAbout_triggered() {
            Build on %4<br><br> \
            <a href=%5>%5</a><br><br>%6").
            arg(APP_NAME).arg(APP_VERSION_STR).arg(QT_VERSION_STR).
-           arg(__DATE__).arg(APP_URL).arg(APP_COPYRIGHT));
+            arg(__DATE__).arg(APP_URL).arg(APP_COPYRIGHT));
+}
+
+void MainWindow::onSelectionChanged(bool selected) {
+    ui->actionDeselect->setEnabled(selected);
+    ui->actionSplit->setEnabled(selected);
+    ui->actionMerge->setEnabled(selected);
+    ui->actionAddBack->setEnabled(selected);
+    ui->actionAddForward->setEnabled(selected);
+    ui->actionDelete->setEnabled(selected);
 }
 
 void MainWindow::readSettings() {

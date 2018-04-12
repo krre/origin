@@ -50,6 +50,7 @@ protected:
 
 signals:
     void ready();
+    void selectionChanged(bool selected);
 
 public slots:
     void setShadeless(bool shadeless);

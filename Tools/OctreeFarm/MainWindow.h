@@ -55,6 +55,9 @@ private slots:
     // Help
     void on_actionAbout_triggered();
 
+    // Viewport
+    void onSelectionChanged(bool selected);
+
 private:
     void readSettings();
     void writeSettings();

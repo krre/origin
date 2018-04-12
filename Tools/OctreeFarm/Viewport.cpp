@@ -170,6 +170,7 @@ void Viewport::pickOctree(const QPoint& pos) {
     }
 
     drawSelection();
+    selectionChanged(result);
 }
 
 bool Viewport::intersectRayAabb(const glm::vec3& origin, const glm::vec3& direction, const Viewport::AABB& aabb) {
@@ -223,11 +224,13 @@ void Viewport::reset() {
     camera.reset();
     camera.setPosition(glm::vec3(0, 0, -5));
     camera.rotate(rx, ry);
+    deselect();
 }
 
 void Viewport::deselect() {
     lines.clear();
     drawSelection();
+    emit selectionChanged(false);
 }
 
 void Viewport::update() {

@@ -94,6 +94,10 @@ void Octree::build(Octree::SurfaceFlags flags) {
     }
 }
 
+void Octree::split(const Path& path) {
+
+}
+
 const std::vector<Octree::Vertex>& Octree::getVertices() const {
     return vertices;
 }

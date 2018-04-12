@@ -12,6 +12,14 @@ using json = nlohmann::json;
 class Octree : public Object {
 
 public:
+    struct Pos {
+        uint8_t x;
+        uint8_t y;
+        uint8_t z;
+    };
+
+    typedef std::vector<Octree::Pos> Path;
+
     struct Vertex {
         glm::vec4 pos;
         glm::vec4 color;
@@ -34,6 +42,8 @@ public:
     void create();
     void load(const std::string& path);
     void build(SurfaceFlags flags = SurfaceFlags::All);
+
+    void split(const Path& path);
 
     const std::vector<Vertex>& getVertices() const;
 

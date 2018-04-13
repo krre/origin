@@ -66,11 +66,8 @@ void SplitCommand::undo() {
 }
 
 void SplitCommand::redo() {
-    if (octreeEditor->getSource()->splitNode(nodes)) {
-        octreeEditor->confirmUpdate();
-    } else {
-        qDebug() << "Failure split node";
-    }
+    octreeEditor->split();
+    octreeEditor->confirmUpdate();
 }
 
 MergeCommand::MergeCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {

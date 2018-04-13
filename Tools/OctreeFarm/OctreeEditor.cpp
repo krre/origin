@@ -20,6 +20,11 @@ void OctreeEditor::createNew() {
     dataChanged();
 }
 
+void OctreeEditor::split(const Origin::Octree::Path& path) {
+    octree->split(path);
+    dataChanged();
+}
+
 bool OctreeEditor::save(const QString& fileName) {
     QFile file(fileName);
     if (!file.open(QFile::WriteOnly)) {

@@ -1,6 +1,7 @@
 #pragma once
 #include <QObject> // Must be before Common.h since need define QT_VERSION macro
 #include "Core/Common.h"
+#include <Octree/Octree.h>
 #include <QVector>
 #include <QColor>
 #include <QSharedPointer>
@@ -40,6 +41,7 @@ public:
     glm::mat4 getWorldToOctree() const { return worldToOctree; }
 
     void createNew();
+    void split(const Origin::Octree::Path& path = Origin::Octree::Path());
     bool save(const QString& fileName);
     bool load(const QString& fileName);
     void confirmUpdate();

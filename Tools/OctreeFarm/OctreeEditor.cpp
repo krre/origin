@@ -31,18 +31,7 @@ bool OctreeEditor::save(const QString& fileName) {
 }
 
 bool OctreeEditor::load(const QString& fileName) {
-    QFile file(fileName);
-    if (!file.open(QFile::ReadOnly)) {
-        qDebug() << "Could not open file for reading";
-        return false;
-    }
-    QTextStream in(&file);
-    QString data = in.readAll();
-    source->create(data);
-
-    file.close();
-
-    storage = source->binary();
+    octree->load(fileName.toStdString());
     dataChanged();
 
     return true;

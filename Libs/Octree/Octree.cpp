@@ -4,17 +4,13 @@
 
 namespace Origin {
 
-Octree::Octree(Object* parent) : Object(parent) {
-    create();
+Octree::Octree(Substance substance, Object* parent) : Object(parent) {
+    storage = {};
+    storage["substance"] = substance.getId();
+    build();
 }
 
 Octree::~Octree() {
-}
-
-void Octree::create() {
-    storage = {};
-    storage["substance"] = 0;
-    build();
 }
 
 void Octree::load(const std::string& path) {

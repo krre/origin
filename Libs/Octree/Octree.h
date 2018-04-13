@@ -36,10 +36,9 @@ public:
         All = Top | Bottom | Front | Back | Left | Right
     };
 
-    Octree(Object* parent = nullptr);
+    Octree(Substance substance = Substance(), Object* parent = nullptr);
     ~Octree();
 
-    void create();
     void load(const std::string& path);
     void build(SurfaceFlags flags = SurfaceFlags::All);
 

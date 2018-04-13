@@ -11,8 +11,7 @@ namespace Origin {
 
 SceneRenderer::SceneRenderer(Object* parent) : Object(parent) {
     renderPassVoxel = new RenderPassVoxel(Game::getRenderManager()->getGraphicsDevice(), this);
-    Octree* octree = new Octree(this);
-    octree->create();
+    Octree* octree = new Octree(Substance(), this);
 
     for (const auto& vertex : octree->getVertices()) {
         vertices.push_back(vertex);

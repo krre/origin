@@ -43,13 +43,16 @@ public:
     void load(const std::string& path);
     void build(SurfaceFlags flags = SurfaceFlags::All);
 
-    void split(const Path& path);
+    void split(const Path& path = Path());
 
     const std::vector<Vertex>& getVertices() const;
 
     void setSubstance(const Substance& substance);
 
 private:
+    json::object_t* findNode(const Path& path);
+    int posToNumber(const Pos& pos);
+
     json storage = {};
     std::vector<Vertex> vertices;
     Substance substance;

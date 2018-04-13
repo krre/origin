@@ -13,6 +13,7 @@ Octree::~Octree() {
 
 void Octree::create() {
     storage = {};
+    storage["substance"] = 0;
     build();
 }
 
@@ -95,7 +96,13 @@ void Octree::build(Octree::SurfaceFlags flags) {
 }
 
 void Octree::split(const Path& path) {
+    json::object_t* parentNode = findNode(path);
+    json nodes;
+    for (int i = 0; i < 8; i++) {
+        nodes[std::to_string(i)] = json::object();
+    }
 
+    (*parentNode)["nodes"] = nodes;
 }
 
 const std::vector<Octree::Vertex>& Octree::getVertices() const {
@@ -104,6 +111,25 @@ const std::vector<Octree::Vertex>& Octree::getVertices() const {
 
 void Octree::setSubstance(const Substance& substance) {
     this->substance = substance;
+}
+
+json::object_t* Octree::findNode(const Path& path) {
+    json::object_t* node = storage.get_ptr<json::object_t*>();
+    for (const Pos& pos : path) {
+        int number = posToNumber(pos);
+        node = storage[std::to_string(number)].get_ptr<json::object_t*>();
+    }
+
+    return node;
+}
+
+int Octree::posToNumber(const Octree::Pos& pos) {
+    int number = 0;
+    number |= pos.x & 0x1;
+    number |= pos.y & 0x2;
+    number |= pos.z & 0x4;
+
+    return number;
 }
 
 } // Origin

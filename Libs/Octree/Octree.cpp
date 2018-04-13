@@ -23,6 +23,12 @@ void Octree::load(const std::string& path) {
     storage = json::parse(text);
 }
 
+void Octree::save(const std::string& path) {
+    std::ofstream out(path);
+    out << storage.dump(4);
+    out.close();
+}
+
 void Octree::build(Octree::SurfaceFlags flags) {
     vertices.clear();
 

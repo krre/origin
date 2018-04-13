@@ -40,6 +40,7 @@ public:
     ~Octree();
 
     void load(const std::string& path);
+    void save(const std::string& path);
     void build(SurfaceFlags flags = SurfaceFlags::All);
 
     void split(const Path& path = Path());

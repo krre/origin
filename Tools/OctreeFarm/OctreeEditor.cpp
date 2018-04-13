@@ -8,9 +8,7 @@
 namespace OctreeFarm {
 
 OctreeEditor::OctreeEditor(QObject* parent) : QObject(parent) {
-    octree.reset(new Origin::Octree);
-    source = new Source(this);
-    worldToOctree = glm::inverse(octreeToWorld);
+    createNew();
 }
 
 OctreeEditor::~OctreeEditor() {
@@ -18,9 +16,7 @@ OctreeEditor::~OctreeEditor() {
 }
 
 void OctreeEditor::createNew() {
-    source->create();
-    storage = source->binary();
-    octree->create();
+    octree.reset(new Origin::Octree);
     dataChanged();
 }
 

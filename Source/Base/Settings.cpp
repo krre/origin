@@ -25,8 +25,7 @@ Settings::~Settings() {
 
 void Settings::saveAll() {
     std::ofstream out(path);
-    std::string text = storage.dump(4);
-    out << text;
+    out << storage.dump(4);
     out.close();
 }
 

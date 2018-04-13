@@ -26,16 +26,7 @@ void OctreeEditor::split(const Origin::Octree::Path& path) {
 }
 
 bool OctreeEditor::save(const QString& fileName) {
-    QFile file(fileName);
-    if (!file.open(QFile::WriteOnly)) {
-        qDebug() << "Could not open file for writing";
-        return false;
-    }
-
-    QTextStream out(&file);
-    out << source->serialize();
-    file.close();
-
+    octree->save(fileName.toStdString());
     return true;
 }
 

@@ -39,7 +39,7 @@ Window::Window(Object* parent) : Object(parent) {
     int x = SDL_WINDOWPOS_CENTERED;
     int y = SDL_WINDOWPOS_CENTERED;
 
-// On some Ubuntu OS y position is shifted on window creation, so do not use position settings
+// On some Ubuntu OS 'Y' position is shifted on window creation, so do not use position settings
 #if !defined(OS_LINUX)
     auto settingsX = Game::getSettings()->getStorage()["x"];
     auto settingsY = Game::getSettings()->getStorage()["y"];

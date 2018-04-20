@@ -3,32 +3,26 @@
 
 namespace OctreeFarm {
 
-namespace Settings {
+QSettings* Settings::settings = nullptr;
 
-namespace {
-    QSettings* settings;
-}
-
-void init(const QString filePath, QObject* parent) {
+void Settings::init(const QString filePath, QObject* parent) {
     settings = new QSettings(filePath, QSettings::IniFormat, parent);
 }
 
-void beginGroup(const QString& prefix) {
+void Settings::beginGroup(const QString& prefix) {
     settings->beginGroup(prefix);
 }
 
-void endGroup() {
+void Settings::endGroup() {
     settings->endGroup();
 }
 
-void setValue(const QString& key, const QVariant& value) {
+void Settings::setValue(const QString& key, const QVariant& value) {
     settings->setValue(key, value);
 }
 
-QVariant getValue(const QString& key, const QVariant& defaultValue) {
+QVariant Settings::getValue(const QString& key, const QVariant& defaultValue) {
     return settings->value(key, defaultValue);
 }
-
-} // Settings
 
 } // OctreeFarm

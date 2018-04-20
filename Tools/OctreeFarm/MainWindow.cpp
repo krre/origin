@@ -168,26 +168,27 @@ void MainWindow::onSelectionChanged(bool selected) {
 }
 
 void MainWindow::readSettings() {
-    Settings::beginGroup("MainWindow");
+    Settings settings;
+    settings.beginGroup("MainWindow");
 
-    if (!restoreGeometry(Settings::getValue("geometry").toByteArray())) {
+    if (!restoreGeometry(settings.value("geometry").toByteArray())) {
         resize(WINDOW_WIDTH, WINDOW_HEIGHT);
         const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
     }
 
-    QVariant splitterSize = Settings::getValue("splitter");
+    QVariant splitterSize = settings.value("splitter");
     if (splitterSize == QVariant()) {
         ui->splitter->setSizes({ 500, 150 });
     } else {
         ui->splitter->restoreState(splitterSize.toByteArray());
     }
 
-    properties->setShadeless(Settings::getValue("shadeless").toBool());
+    properties->setShadeless(settings.value("shadeless").toBool());
 
-    Settings::endGroup();
+    settings.endGroup();
 
-    QString filePath = Settings::getValue("Path/currentFile").toString();
+    QString filePath = settings.value("Path/currentFile").toString();
     if (!filePath.isEmpty() && QFile::exists(filePath)) {
         loadFile(filePath);
     } else {
@@ -196,13 +197,14 @@ void MainWindow::readSettings() {
 }
 
 void MainWindow::writeSettings() {
-    Settings::beginGroup("MainWindow");
-    Settings::setValue("geometry", saveGeometry());
-    Settings::setValue("splitter", ui->splitter->saveState());
-    Settings::setValue("shadeless", properties->getShadeless());
-    Settings::endGroup();
+    Settings settings;
+    settings.beginGroup("MainWindow");
+    settings.setValue("geometry", saveGeometry());
+    settings.setValue("splitter", ui->splitter->saveState());
+    settings.setValue("shadeless", properties->getShadeless());
+    settings.endGroup();
 
-    Settings::setValue("Path/currentFile", currentFile);
+    settings.setValue("Path/currentFile", currentFile);
 }
 
 bool MainWindow::maybeSave() {

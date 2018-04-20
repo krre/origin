@@ -188,6 +188,13 @@ void MainWindow::readSettings() {
 
     settings.endGroup();
 
+    int size = settings.beginReadArray("RecentFiles");
+    for (int i = 0; i < size; ++i) {
+        settings.setArrayIndex(i);
+        addRecentFile(settings.value("path").toString());
+    }
+    settings.endArray();
+
     QString filePath = settings.value("Path/currentFile").toString();
     if (!filePath.isEmpty() && QFile::exists(filePath)) {
         loadFile(filePath);
@@ -205,6 +212,13 @@ void MainWindow::writeSettings() {
     settings.endGroup();
 
     settings.setValue("Path/currentFile", currentFile);
+
+    settings.beginWriteArray("RecentFiles");
+    for (int i = 0; i < ui->menuRecentFiles->actions().size() - separatorAndMenuCount; ++i) {
+        settings.setArrayIndex(i);
+        settings.setValue("path", ui->menuRecentFiles->actions().at(i)->text());
+    }
+    settings.endArray();
 }
 
 bool MainWindow::maybeSave() {

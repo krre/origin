@@ -31,6 +31,7 @@ private slots:
     void on_actionSave_triggered();
     void on_actionSaveAs_triggered();
     void on_actionRevert_triggered();
+    void on_actionClearMenuRecentFiles_triggered();
 
     // Edit
     void on_actionUndo_triggered();
@@ -70,6 +71,8 @@ private:
     void loadFile(const QString& fileName);
     QString openFileDialog(QFileDialog::QFileDialog::AcceptMode mode);
     void setCurrentFile(const QString& fileName);
+    void addRecentFile(const QString& filePath);
+    void updateMenuState();
 
     Ui::MainWindow* ui;
     Properties* properties;

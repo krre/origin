@@ -11,6 +11,9 @@
 
 namespace OctreeFarm {
 
+const int maxRecentFiles = 10;
+const int separatorAndMenuCount = 2;
+
 MainWindow::MainWindow(QWidget* parent) :
         QMainWindow(parent),
         ui(new Ui::MainWindow) {
@@ -34,6 +37,7 @@ MainWindow::MainWindow(QWidget* parent) :
     setWindowTitle(APP_NAME);
 
     readSettings();
+    updateMenuState();
 
     connect(octreeEditor, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
@@ -60,7 +64,6 @@ void MainWindow::on_actionOpen_triggered() {
         QString fileName = openFileDialog(QFileDialog::AcceptOpen);
         if (!fileName.isEmpty()) {
             loadFile(fileName);
-            viewport->reset();
         }
     }
 }
@@ -78,6 +81,15 @@ void MainWindow::on_actionRevert_triggered() {
         loadFile(currentFile);
         viewport->update();
     }
+}
+
+void MainWindow::on_actionClearMenuRecentFiles_triggered() {
+    QMenu* menu = ui->menuRecentFiles;
+    for (int i = menu->actions().size() - separatorAndMenuCount - 1; i >= 0; i--) {
+        menu->removeAction(menu->actions().at(i));
+    }
+
+    updateMenuState();
 }
 
 void MainWindow::on_actionUndo_triggered() {
@@ -275,7 +287,9 @@ void MainWindow::loadFile(const QString& fileName) {
     QApplication::restoreOverrideCursor();
 #endif
 
+    viewport->reset();
     setCurrentFile(fileName);
+    addRecentFile(fileName);
 }
 
 QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
@@ -306,6 +320,32 @@ void MainWindow::setCurrentFile(const QString& fileName) {
     }
     setWindowFilePath(shownName);
     setWindowTitle(shownName + "[*] - " + QCoreApplication::applicationName());
+}
+
+void MainWindow::addRecentFile(const QString& filePath) {
+    QMenu* menu = ui->menuRecentFiles;
+
+    for (QAction* action : menu->actions()) {
+        if (action->text() == filePath) {
+            menu->removeAction(action);
+        }
+    }
+
+    QAction* fileAction = new QAction(filePath);
+    connect(fileAction, &QAction::triggered, [=] {
+        loadFile(filePath);
+    });
+    menu->insertAction(menu->actions().first(), fileAction);
+
+    if (menu->actions().size() > maxRecentFiles + separatorAndMenuCount) {
+        menu->removeAction(menu->actions().at(menu->actions().size() - separatorAndMenuCount - 1));
+    }
+
+    updateMenuState();
+}
+
+void MainWindow::updateMenuState() {
+    ui->menuRecentFiles->menuAction()->setEnabled(ui->menuRecentFiles->actions().size() > separatorAndMenuCount);
 }
 
 } // OctreeFarm

@@ -1,5 +1,6 @@
 #include "Object.h"
 #include <assert.h>
+#include <algorithm>
 
 namespace Origin {
 

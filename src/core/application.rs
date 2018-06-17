@@ -52,7 +52,7 @@ impl Application {
                     winit::Event::WindowEvent { event: winit::WindowEvent::Resized(w, h), .. } => {
                         println!("The window was resized to {}x{}", w, h);
                     },
-                    winit::Event::WindowEvent { event: winit::WindowEvent::Closed, .. } => {
+                    winit::Event::WindowEvent { event: winit::WindowEvent::CloseRequested, .. } => {
                         is_running = false;
                     },
                     _ => ()

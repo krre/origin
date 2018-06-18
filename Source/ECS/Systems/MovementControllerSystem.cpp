@@ -6,6 +6,9 @@
 #include "ECS/Components/TransformComponent.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"
+#define GLM_ENABLE_EXPERIMENTAL
+#include <glm/gtx/quaternion.hpp>
+#include <glm/gtx/euler_angles.hpp>
 
 namespace Origin {
 

@@ -1,4 +1,5 @@
 #include "Color.h"
+#include <glm/common.hpp>
 
 namespace Origin {
 
@@ -15,10 +16,10 @@ Color::Color() {
 }
 
 Color::Color(float red, float green, float blue, float alpha) {
-    uint32_t r = std::clamp(red, 0.0f, 1.0f) * 255;
-    uint32_t g = std::clamp(green, 0.0f, 1.0f) * 255;
-    uint32_t b = std::clamp(blue, 0.0f, 1.0f) * 255;
-    uint32_t a = std::clamp(alpha, 0.0f, 1.0f) * 255;
+    uint32_t r = glm::clamp(red, 0.0f, 1.0f) * 255;
+    uint32_t g = glm::clamp(green, 0.0f, 1.0f) * 255;
+    uint32_t b = glm::clamp(blue, 0.0f, 1.0f) * 255;
+    uint32_t a = glm::clamp(alpha, 0.0f, 1.0f) * 255;
     color = (a << 24) | (r << 16) | (g << 8) | b;
 }
 

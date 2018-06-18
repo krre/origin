@@ -2,7 +2,9 @@
 #include "ECS/Components/TransformComponent.h"
 #include "ECS/EntityManager.h"
 #include "ECS/Entity.h"
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/matrix_decompose.hpp>
+#include <glm/gtx/quaternion.hpp>
 
 namespace Origin {
 
@@ -19,7 +21,8 @@ void TransformSystem::process(float dt) {
 void TransformSystem::update(Entity* entity) {
     TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
     if (tc && tc->dirty) {
-        glm::mat4 translationMatrix = glm::translate(tc->position);
+        glm::mat4 mat(1);
+        glm::mat4 translationMatrix = glm::translate(mat, tc->position);
         glm::mat4 rotationMatrix = glm::toMat4(tc->rotation);
         glm::mat4 scaleMatrix = glm::scale(glm::mat4(1.0f), glm::vec3(tc->scale));
         tc->objectToWorld = translationMatrix * rotationMatrix * scaleMatrix;

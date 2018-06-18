@@ -3,6 +3,7 @@
 #include "RenderEngine.h"
 #include "Vulkan/GpuBuffer.h"
 #include "Octree/Octree.h"
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>

@@ -10,7 +10,7 @@ Event::Event(Object* parent) : Object(parent) {
 }
 
 void Event::handleEvents() {
-    Game::getInput()->mouseReset();
+    Input::get()->mouseReset();
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
         switch (event.type) {
@@ -27,8 +27,8 @@ void Event::handleEvents() {
                     }
                 break;
             case SDL_MOUSEMOTION:
-                Game::getInput()->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
-                Game::getInput()->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
+                Input::get()->setMousePos(glm::ivec2(event.motion.x, event.motion.y));
+                Input::get()->setRelMousePos(glm::ivec2(event.motion.xrel, event.motion.yrel));
                 mouseMove.fire(event.motion.x, event.motion.y);
                 break;
             case SDL_MOUSEBUTTONDOWN:
@@ -40,13 +40,13 @@ void Event::handleEvents() {
             case SDL_MOUSEWHEEL:
                 break;
             case SDL_KEYDOWN:
-                Game::getInput()->addKey(event.key.keysym.sym);
-                Game::getInput()->isKeyAccepted = false;
+                Input::get()->addKey(event.key.keysym.sym);
+                Input::get()->isKeyAccepted = false;
                 keyPressed.fire(event.key);
                 break;
             case SDL_KEYUP:
-                Game::getInput()->removeKey(event.key.keysym.sym);
-                Game::getInput()->isKeyAccepted = false;
+                Input::get()->removeKey(event.key.keysym.sym);
+                Input::get()->isKeyAccepted = false;
                 keyRelease.fire(event.key);
                 break;
             case SDL_TEXTINPUT:

@@ -33,7 +33,6 @@ bool Game::running = false;
 Event* Game::event;
 Window* Game::window;
 Overlay* Game::overlay;
-Input* Game::input;
 
 Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
     for (int i = 0; i < argc; i++) {
@@ -83,7 +82,7 @@ void Game::init() {
         new EntityManager(this);
         overlay = new Overlay();
         overlay->setParent(this);
-        input = new Input(this);
+        new Input(this);
         new World(this);
     } catch (const std::exception& ex) {
         if (SDL::isInited()) {
@@ -140,10 +139,6 @@ Window* Game::getWindow() {
 
 Event* Game::getEvent() {
     return event;
-}
-
-Input* Game::getInput() {
-    return input;
 }
 
 Overlay* Game::getOverlay() {

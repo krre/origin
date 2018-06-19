@@ -33,7 +33,6 @@ public:
     static Window* getWindow();
     static Event* getEvent();
     static Overlay* getOverlay();
-    static Input* getInput();
 
     static bool isRunning();
     static std::vector<std::string>& getArgv();
@@ -47,7 +46,6 @@ private:
     static Event* event;
     static Window* window;
     static Overlay* overlay;
-    static Input* input;
 };
 
 } // Origin

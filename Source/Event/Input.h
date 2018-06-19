@@ -1,12 +1,12 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include <unordered_set>
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 
 namespace Origin {
 
-class Input : public Object {
+class Input : public SingleObject<Input> {
 
 public:
     Input(Object* parent = nullptr);

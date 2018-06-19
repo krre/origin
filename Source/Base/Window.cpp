@@ -180,21 +180,21 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
 #ifdef DEBUG_HUD_ENABLE
         case SDLK_F5:
             Game::getOverlay()->toggleDebugHUD();
-            Game::getInput()->isKeyAccepted = true;
+            Input::get()->isKeyAccepted = true;
             break;
 #endif
         case SDLK_F10:
             toggleFullScreen();
-            Game::getInput()->isKeyAccepted = true;
+            Input::get()->isKeyAccepted = true;
             break;
         case SDLK_F11:
             RenderManager::get()->saveScreenshot();
-            Game::getInput()->isKeyAccepted = true;
+            Input::get()->isKeyAccepted = true;
             break;
         case SDLK_SLASH:
             if (!Game::getOverlay()->isDialogOpen() && !Game::getOverlay()->getConsole()->getVisible()) {
                 Game::getOverlay()->showConsole();
-                Game::getInput()->isKeyAccepted = true;
+                Input::get()->isKeyAccepted = true;
             }
             break;
     }

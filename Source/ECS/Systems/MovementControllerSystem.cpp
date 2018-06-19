@@ -21,7 +21,7 @@ void MovementControllerSystem::process(float dt) {
 
     TransformComponent* tc = static_cast<TransformComponent*>(rotateEntity->components[Component::Type::Transform].get());
 
-    glm::ivec2 relMousePos = Game::getInput()->getRelMousePos();
+    glm::ivec2 relMousePos = Input::get()->getRelMousePos();
     tc->yaw -= rotateSpeed * relMousePos.x;
     tc->yaw = fmod(tc->yaw, 360.0f);
 
@@ -32,13 +32,13 @@ void MovementControllerSystem::process(float dt) {
     TransformSystem* transformSystem = static_cast<TransformSystem*>(entityManager->getSystem(System::Type::Transform).get());
     transformSystem->setRotation(rotateEntity, rotation);
 
-    if (Game::getInput()->isKeyPressed(SDLK_w)) {
+    if (Input::get()->isKeyPressed(SDLK_w)) {
         transformSystem->translate(moveEntity, glm::vec3(0.0f, 0.0f, -1.0f) * moveSpeed * dt);
-    } else if (Game::getInput()->isKeyPressed(SDLK_s)) {
+    } else if (Input::get()->isKeyPressed(SDLK_s)) {
         transformSystem->translate(moveEntity, glm::vec3(0.0f, 0.0f, 1.0f) * moveSpeed * dt);
-    } else if (Game::getInput()->isKeyPressed(SDLK_a)) {
+    } else if (Input::get()->isKeyPressed(SDLK_a)) {
         transformSystem->translate(moveEntity, glm::vec3(-1.0f, 0.0f, 0.0f) * moveSpeed * dt);
-    } else if (Game::getInput()->isKeyPressed(SDLK_d)) {
+    } else if (Input::get()->isKeyPressed(SDLK_d)) {
         transformSystem->translate(moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * moveSpeed * dt);
     }
 

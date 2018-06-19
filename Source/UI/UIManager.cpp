@@ -20,7 +20,7 @@ UIManager::~UIManager() {
 }
 
 void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
-    if (Game::getInput()->isKeyAccepted) return;
+    if (Input::get()->isKeyAccepted) return;
 
     Control* activeControl = Game::getWindow()->getCurrentScreen()->getActiveControl();
     if (activeControl && activeControl->getVisible()) {
@@ -29,7 +29,7 @@ void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
 }
 
 void UIManager::onTextInput(const SDL_TextInputEvent& event) {
-    if (Game::getInput()->isKeyAccepted) return;
+    if (Input::get()->isKeyAccepted) return;
 
     Control* activeControl = Game::getWindow()->getCurrentScreen()->getActiveControl();
     if (activeControl && activeControl->getVisible()) {

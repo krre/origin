@@ -127,11 +127,11 @@ void Window::update(float dt) {
 void Window::render() {
     screens.back()->draw();
     Game::getOverlay()->draw();
-    Game::getRenderManager()->getUIRenderer()->drawBatches();
-    Game::getRenderManager()->getSceneRenderer()->drawScenes();
+    RenderManager::get()->getUIRenderer()->drawBatches();
+    RenderManager::get()->getSceneRenderer()->drawScenes();
 
     if (screens.back()->getDirty() || Game::getOverlay()->getDirty()) {
-        Game::getRenderManager()->updateCommandBuffers();
+        RenderManager::get()->updateCommandBuffers();
         if (screens.back()->getDirty()) {
             screens.back()->clearDirty();
         }
@@ -140,7 +140,7 @@ void Window::render() {
         }
     }
 
-    Game::getRenderManager()->render();
+    RenderManager::get()->render();
 }
 
 void Window::onResize(int width, int height) {
@@ -153,7 +153,7 @@ void Window::onResize(int width, int height) {
 
     Game::getOverlay()->resize(width, height);
     if (Game::isRunning()) {
-        Game::getRenderManager()->resize();
+        RenderManager::get()->resize();
     }
 }
 
@@ -188,7 +188,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
             Game::getInput()->isKeyAccepted = true;
             break;
         case SDLK_F11:
-            Game::getRenderManager()->saveScreenshot();
+            RenderManager::get()->saveScreenshot();
             Game::getInput()->isKeyAccepted = true;
             break;
         case SDLK_SLASH:

@@ -22,7 +22,7 @@ void View3D::setScene(const std::shared_ptr<Scene>& scene) {
 
 void View3D::drawImpl() {
     if (scene) {
-        Game::getRenderManager()->getSceneRenderer()->addScene(scene.get());
+        RenderManager::get()->getSceneRenderer()->addScene(scene.get());
     }
 }
 

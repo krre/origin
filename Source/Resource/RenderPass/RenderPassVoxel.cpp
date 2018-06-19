@@ -40,7 +40,7 @@ RenderPassVoxel::RenderPassVoxel(Vulkan::Device* device, Object* parent) :
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
-    graphicsPipeline->setRenderPass(Game::getRenderManager()->getRenderPass()->getHandle());
+    graphicsPipeline->setRenderPass(RenderManager::get()->getRenderPass()->getHandle());
     graphicsPipeline->setPipelineLayout(shaderProgram->getPipelineLayout()->getHandle());
 
     graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
@@ -95,7 +95,7 @@ RenderPassVoxel::~RenderPassVoxel() {
 void RenderPassVoxel::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     const Color& color = Game::getWindow()->getColor();
 
-    Vulkan::RenderPassBegin renderPassBegin(Game::getRenderManager()->getRenderPass()->getHandle());
+    Vulkan::RenderPassBegin renderPassBegin(RenderManager::get()->getRenderPass()->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
     renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
     renderPassBegin.addClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });

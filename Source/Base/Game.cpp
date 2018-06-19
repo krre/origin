@@ -32,7 +32,6 @@ bool Game::running = false;
 
 Event* Game::event;
 Window* Game::window;
-RenderManager* Game::renderManager;
 UIManager* Game::uiManager;
 EntityManager* Game::entityManager;
 ResourceManager* Game::resourceManager;
@@ -65,23 +64,23 @@ void Game::init() {
         SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
 
 #if defined(OS_WIN)
-        renderManager = new RenderManager(GetModuleHandle(nullptr), (void*)wminfo.info.win.window, this);
+        new RenderManager(GetModuleHandle(nullptr), (void*)wminfo.info.win.window, this);
 #elif defined(OS_LINUX)
-        renderManager = new RenderManager((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window, this);
+        new RenderManager((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window, this);
 #endif
 
         if (DebugEnvironment::getEnable()) {
             if (DebugEnvironment::getSettings()["vulkan"]["layers"]["use"]) {
-                renderManager->setEnabledLayers(DebugEnvironment::getSettings()["vulkan"]["layers"]["list"]);
+                RenderManager::get()->setEnabledLayers(DebugEnvironment::getSettings()["vulkan"]["layers"]["list"]);
             }
 
             if (DebugEnvironment::getSettings()["vulkan"]["extensions"]["use"]) {
-                renderManager->setEnabledExtensions(DebugEnvironment::getSettings()["vulkan"]["extensions"]["list"]);
+                RenderManager::get()->setEnabledExtensions(DebugEnvironment::getSettings()["vulkan"]["extensions"]["list"]);
             }
 
-            renderManager->setDeviceIndex(DebugEnvironment::getVulkanDevice());
+            RenderManager::get()->setDeviceIndex(DebugEnvironment::getVulkanDevice());
         }
-        renderManager->create();
+        RenderManager::get()->create();
 
         uiManager = new UIManager(this);
         entityManager = new EntityManager(this);
@@ -164,10 +163,6 @@ Input* Game::getInput() {
 
 Overlay* Game::getOverlay() {
     return overlay;
-}
-
-RenderManager* Game::getRenderManager() {
-    return renderManager;
 }
 
 bool Game::isRunning() {

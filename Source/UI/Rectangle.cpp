@@ -35,11 +35,11 @@ void Rectangle::setBorderWidth(uint32_t border) {
 }
 
 void Rectangle::drawImpl() {
-    UIBatch batch(Game::getRenderManager()->getUIRenderer()->getVerticles());
+    UIBatch batch(RenderManager::get()->getUIRenderer()->getVerticles());
     batch.color = color;
     batch.texture = font->getTexture();
     batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height, font);
-    Game::getRenderManager()->getUIRenderer()->addBatch(batch);
+    RenderManager::get()->getUIRenderer()->addBatch(batch);
 }
 
 } // Origin

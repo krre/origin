@@ -15,8 +15,8 @@ DebugHUD::DebugHUD(Control* parent) : Control(parent) {
 
     label = new Label(this);
     label->move(5, 5);
-    int apiVersionNumber = Game::getRenderManager()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
-    vulkanApiVersion = Game::getRenderManager()->getInstance()->apiToString((apiVersionNumber));
+    int apiVersionNumber = RenderManager::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().apiVersion;
+    vulkanApiVersion = RenderManager::get()->getInstance()->apiToString((apiVersionNumber));
 }
 
 DebugHUD::~DebugHUD() {
@@ -36,7 +36,7 @@ void DebugHUD::updateImpl(float dt) {
     std::string text =
         std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
         std::to_string(fps) + " fps\n"
-        "Video driver: " + Game::getRenderManager()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
+        "Video driver: " + RenderManager::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan API: " + vulkanApiVersion + "\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";

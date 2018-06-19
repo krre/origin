@@ -60,11 +60,11 @@ void Label::setColor(const Color& color) {
 }
 
 void Label::drawImpl() {
-    UIBatch batch(Game::getRenderManager()->getUIRenderer()->getVerticles());
+    UIBatch batch(RenderManager::get()->getUIRenderer()->getVerticles());
     batch.color = color;
     batch.texture = font->getTexture();
     batch.addText(absolutePosition.x, absolutePosition.y, text, font);
-    Game::getRenderManager()->getUIRenderer()->addBatch(batch);
+    RenderManager::get()->getUIRenderer()->addBatch(batch);
 }
 
 } // Origin

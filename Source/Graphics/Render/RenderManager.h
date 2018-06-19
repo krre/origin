@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include "Vulkan/Renderer.h"
 
 namespace Origin {
@@ -11,14 +11,14 @@ class RenderPassResource;
 class UIRenderer;
 class SceneRenderer;
 
-class RenderManager : public Vulkan::Renderer, public Object {
+class RenderManager : public Vulkan::Renderer, public SingleObject<RenderManager> {
 
 public:
     RenderManager(void* platformHandle, void* platformWindow, Object* parent = nullptr);
     ~RenderManager();
 
-    UIRenderer* getUIRenderer() const { return uiRenderer; }
-    SceneRenderer* getSceneRenderer() const { return sceneRenderer; }
+    UIRenderer* getUIRenderer() { return get()->uiRenderer; }
+    SceneRenderer* getSceneRenderer() { return get()->sceneRenderer; }
 
     void saveScreenshot();
 

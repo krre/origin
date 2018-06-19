@@ -10,7 +10,7 @@
 namespace Origin {
 
 SceneRenderer::SceneRenderer(Object* parent) : Object(parent) {
-    renderPassVoxel = new RenderPassVoxel(Game::getRenderManager()->getGraphicsDevice(), this);
+    renderPassVoxel = new RenderPassVoxel(RenderManager::get()->getGraphicsDevice(), this);
     Octree* octree = new Octree(Substance(), this);
 
     for (const auto& vertex : octree->getVertices()) {

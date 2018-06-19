@@ -53,10 +53,10 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
     shaderProgram->create();
 
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
-    renderPass->setColorFormat(Game::getRenderManager()->getRenderPass()->getColorFormat());
+    renderPass->setColorFormat(RenderManager::get()->getRenderPass()->getColorFormat());
     renderPass->setBlendEnable(true);
     renderPass->setDepthEnable(true);
-    renderPass->setDepthFormat(Game::getRenderManager()->getRenderPass()->getDepthFormat());
+    renderPass->setDepthFormat(RenderManager::get()->getRenderPass()->getDepthFormat());
     renderPass->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);

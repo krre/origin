@@ -1,19 +1,19 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include <json/json.hpp>
 
 namespace Origin {
 
 using json = nlohmann::json;
 
-class DebugEnvironment : public Object {
+class DebugEnvironment : public SingleObject<DebugEnvironment> {
 
 public:
     DebugEnvironment(Object* parent = nullptr);
-    bool getEnable() const { return enable; }
-    void setDebugScreen();
-    json& getSettings() { return settings; }
-    int getVulkanDevice() { return settings["vulkan"]["device"]; }
+    static bool getEnable() { return get()->enable; }
+    static void setDebugScreen();
+    static json& getSettings() { return get()->settings; }
+    static int getVulkanDevice() { return get()->settings["vulkan"]["device"]; }
 
 private:
     void loadValues();

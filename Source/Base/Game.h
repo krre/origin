@@ -35,7 +35,6 @@ public:
     static RenderManager* getRenderManager();
     static UIManager* getUIManager();
     static EntityManager* getEntityManager();
-    static DebugEnvironment* getDebugEnvironment();
     static Event* getEvent();
     static ResourceManager* getResourceManager();
     static Overlay* getOverlay();
@@ -51,7 +50,6 @@ private:
     static bool running;
 
     static Settings* settings;
-    static DebugEnvironment* debugEnvironment;
     static Event* event;
     static Window* window;
     static RenderManager* renderManager;

@@ -31,7 +31,6 @@ namespace Origin {
 bool Game::running = false;
 
 Settings* Game::settings;
-DebugEnvironment* Game::debugEnvironment;
 Event* Game::event;
 Window* Game::window;
 RenderManager* Game::renderManager;
@@ -59,7 +58,7 @@ void Game::init() {
         SDL::init();
         settings = new Settings(this);
         new Logger(this);
-        debugEnvironment = new DebugEnvironment(this);
+        new DebugEnvironment(this);
         event = new Event(this);
         window = new Window(this);
         resourceManager = new ResourceManager(this);
@@ -72,16 +71,16 @@ void Game::init() {
         renderManager = new RenderManager((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window, this);
 #endif
 
-        if (debugEnvironment->getEnable()) {
-            if (debugEnvironment->getSettings()["vulkan"]["layers"]["use"]) {
-                renderManager->setEnabledLayers(debugEnvironment->getSettings()["vulkan"]["layers"]["list"]);
+        if (DebugEnvironment::getEnable()) {
+            if (DebugEnvironment::getSettings()["vulkan"]["layers"]["use"]) {
+                renderManager->setEnabledLayers(DebugEnvironment::getSettings()["vulkan"]["layers"]["list"]);
             }
 
-            if (debugEnvironment->getSettings()["vulkan"]["extensions"]["use"]) {
-                renderManager->setEnabledExtensions(debugEnvironment->getSettings()["vulkan"]["extensions"]["list"]);
+            if (DebugEnvironment::getSettings()["vulkan"]["extensions"]["use"]) {
+                renderManager->setEnabledExtensions(DebugEnvironment::getSettings()["vulkan"]["extensions"]["list"]);
             }
 
-            renderManager->setDeviceIndex(debugEnvironment->getVulkanDevice());
+            renderManager->setDeviceIndex(DebugEnvironment::getVulkanDevice());
         }
         renderManager->create();
 
@@ -99,8 +98,8 @@ void Game::init() {
         }
     }
 
-    if (debugEnvironment->getEnable()) {
-        debugEnvironment->setDebugScreen();
+    if (DebugEnvironment::getEnable()) {
+        DebugEnvironment::setDebugScreen();
     } else {
         window->setScreen(std::make_shared<MenuScreen>());
     }
@@ -154,10 +153,6 @@ EntityManager* Game::getEntityManager() {
 
 Settings* Game::getSettings() {
     return settings;
-}
-
-DebugEnvironment* Game::getDebugEnvironment() {
-    return debugEnvironment;
 }
 
 Event* Game::getEvent() {

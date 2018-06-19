@@ -12,15 +12,15 @@
 
 namespace Origin {
 
-DebugEnvironment::DebugEnvironment(Object* parent) : Object(parent) {
+DebugEnvironment::DebugEnvironment(Object* parent) : SingleObject(parent) {
 #ifdef DEVELOP_MODE
     loadValues();
 #endif
 }
 
 void DebugEnvironment::setDebugScreen() {
-    uint8_t s = settings["general"]["screen"];
-    json j = settings["general"]["save"];
+    uint8_t s = get()->settings["general"]["screen"];
+    json j = get()->settings["general"]["save"];
     std::string worldName;
     if (j.is_string()) {
         worldName = j.get<std::string>();

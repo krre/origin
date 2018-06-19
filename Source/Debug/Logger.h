@@ -1,9 +1,9 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 
 namespace Origin {
 
-class Logger : public Object {
+class Logger : public SingleObject<Logger> {
 
 public:
     Logger(Object* parent = nullptr);

@@ -13,7 +13,7 @@ namespace Origin {
 
 CameraSystem::CameraSystem(EntityManager* entityManager) : System(entityManager) {
     type = System::Type::Camera;
-    Game::getEvent()->windowResize.connect(this, &CameraSystem::onWindowResize);
+    Event::get()->windowResize.connect(this, &CameraSystem::onWindowResize);
 }
 
 void CameraSystem::process(float dt) {

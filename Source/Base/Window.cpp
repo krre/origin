@@ -55,8 +55,8 @@ Window::Window(Object* parent) : Object(parent) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }
 
-    Game::getEvent()->windowResize.connect(this, &Window::onResize);
-    Game::getEvent()->keyPressed.connect(this, &Window::onKeyPressed);
+    Event::get()->windowResize.connect(this, &Window::onResize);
+    Event::get()->keyPressed.connect(this, &Window::onKeyPressed);
 }
 
 Window::~Window() {

@@ -1,11 +1,11 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include "Core/Signal.h"
 #include <SDL.h>
 
 namespace Origin {
 
-class Event : public Object {
+class Event : public SingleObject<Event> {
 
 public:
     Event(Object* parent = nullptr);

@@ -30,7 +30,6 @@ namespace Origin {
 
 bool Game::running = false;
 
-Event* Game::event;
 Window* Game::window;
 Overlay* Game::overlay;
 
@@ -53,7 +52,7 @@ void Game::init() {
         new Settings(this);
         new Logger(this);
         new DebugEnvironment(this);
-        event = new Event(this);
+        new Event(this);
         window = new Window(this);
         new ResourceManager(this);
 
@@ -109,7 +108,7 @@ void Game::run() {
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
     while (running) {
-        event->handleEvents();
+        Event::get()->handleEvents();
         window->invokeDeffered();
         overlay->invokeDeffered();
 
@@ -135,10 +134,6 @@ std::string Game::getCurrentDirectory() {
 
 Window* Game::getWindow() {
     return window;
-}
-
-Event* Game::getEvent() {
-    return event;
 }
 
 Overlay* Game::getOverlay() {

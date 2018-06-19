@@ -10,9 +10,9 @@
 namespace Origin {
 
 UIManager::UIManager(Object* parent) : SingleObject(parent) {
-    Game::getEvent()->keyPressed.connect(this, &UIManager::onKeyPressed);
-    Game::getEvent()->textInput.connect(this, &UIManager::onTextInput);
-    Game::getEvent()->mouseButtonAction.connect(this, &UIManager::onMouseButtonAction);
+    Event::get()->keyPressed.connect(this, &UIManager::onKeyPressed);
+    Event::get()->textInput.connect(this, &UIManager::onTextInput);
+    Event::get()->mouseButtonAction.connect(this, &UIManager::onMouseButtonAction);
 }
 
 UIManager::~UIManager() {

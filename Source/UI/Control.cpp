@@ -10,7 +10,7 @@
 namespace Origin {
 
 Control::Control(Control* parent) : Object(parent) {
-    uiManager = Game::getUIManager();
+    uiManager = UIManager::get();
 }
 
 Control::~Control() {

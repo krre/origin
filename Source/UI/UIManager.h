@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include <functional>
 
 struct SDL_KeyboardEvent;
@@ -8,7 +8,7 @@ struct SDL_MouseButtonEvent;
 
 namespace Origin {
 
-class UIManager : public Object {
+class UIManager : public SingleObject<UIManager> {
 
 public:
     UIManager(Object* parent = nullptr);

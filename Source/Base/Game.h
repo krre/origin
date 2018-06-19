@@ -31,7 +31,6 @@ public:
     static void quit();
 
     static Window* getWindow();
-    static UIManager* getUIManager();
     static EntityManager* getEntityManager();
     static Event* getEvent();
     static ResourceManager* getResourceManager();
@@ -49,7 +48,6 @@ private:
 
     static Event* event;
     static Window* window;
-    static UIManager* uiManager;
     static EntityManager* entityManager;
     static ResourceManager* resourceManager;
     static Overlay* overlay;

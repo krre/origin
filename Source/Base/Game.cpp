@@ -31,7 +31,6 @@ namespace Origin {
 bool Game::running = false;
 
 Settings* Game::settings;
-Logger* Game::logger;
 DebugEnvironment* Game::debugEnvironment;
 Event* Game::event;
 Window* Game::window;
@@ -60,7 +59,7 @@ void Game::init() {
     try {
         SDL::init();
         settings = new Settings(this);
-        logger = new Logger(this);
+        new Logger(this);
         debugEnvironment = new DebugEnvironment(this);
         event = new Event(this);
         window = new Window(this);
@@ -156,10 +155,6 @@ EntityManager* Game::getEntityManager() {
 
 Settings* Game::getSettings() {
     return settings;
-}
-
-Logger* Game::getLogger() {
-    return logger;
 }
 
 DebugEnvironment* Game::getDebugEnvironment() {

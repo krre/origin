@@ -30,7 +30,6 @@ public:
     void run();
     static void quit();
 
-    static Logger* getLogger();
     static Window* getWindow();
     static Settings* getSettings();
     static RenderManager* getRenderManager();
@@ -53,7 +52,6 @@ private:
     static bool running;
 
     static Settings* settings;
-    static Logger* logger;
     static DebugEnvironment* debugEnvironment;
     static Event* event;
     static Window* window;

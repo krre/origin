@@ -121,22 +121,22 @@ void Window::close() {
 
 void Window::update(float dt) {
     screens.back()->update(dt);
-    Game::getOverlay()->update(dt);
+    Overlay::get()->update(dt);
 }
 
 void Window::render() {
     screens.back()->draw();
-    Game::getOverlay()->draw();
+    Overlay::get()->draw();
     RenderManager::get()->getUIRenderer()->drawBatches();
     RenderManager::get()->getSceneRenderer()->drawScenes();
 
-    if (screens.back()->getDirty() || Game::getOverlay()->getDirty()) {
+    if (screens.back()->getDirty() || Overlay::get()->getDirty()) {
         RenderManager::get()->updateCommandBuffers();
         if (screens.back()->getDirty()) {
             screens.back()->clearDirty();
         }
-        if (Game::getOverlay()->getDirty()) {
-            Game::getOverlay()->clearDirty();
+        if (Overlay::get()->getDirty()) {
+            Overlay::get()->clearDirty();
         }
     }
 
@@ -151,7 +151,7 @@ void Window::onResize(int width, int height) {
         screen->resize(width, height);
     }
 
-    Game::getOverlay()->resize(width, height);
+    Overlay::get()->resize(width, height);
     if (Game::isRunning()) {
         RenderManager::get()->resize();
     }
@@ -179,7 +179,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
     switch (event.keysym.sym) {
 #ifdef DEBUG_HUD_ENABLE
         case SDLK_F5:
-            Game::getOverlay()->toggleDebugHUD();
+            Overlay::get()->toggleDebugHUD();
             Input::get()->isKeyAccepted = true;
             break;
 #endif
@@ -192,8 +192,8 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
             Input::get()->isKeyAccepted = true;
             break;
         case SDLK_SLASH:
-            if (!Game::getOverlay()->isDialogOpen() && !Game::getOverlay()->getConsole()->getVisible()) {
-                Game::getOverlay()->showConsole();
+            if (!Overlay::get()->isDialogOpen() && !Overlay::get()->getConsole()->getVisible()) {
+                Overlay::get()->showConsole();
                 Input::get()->isKeyAccepted = true;
             }
             break;

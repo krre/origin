@@ -30,8 +30,6 @@ namespace Origin {
 
 bool Game::running = false;
 
-Overlay* Game::overlay;
-
 Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
     for (int i = 0; i < argc; i++) {
         argvs.push_back(argv[i]);
@@ -78,8 +76,8 @@ void Game::init() {
 
         new UIManager(this);
         new EntityManager(this);
-        overlay = new Overlay();
-        overlay->setParent(this);
+        new Overlay();
+        Overlay::get()->setParent(this);
         new Input(this);
         new World(this);
     } catch (const std::exception& ex) {
@@ -109,7 +107,7 @@ void Game::run() {
     while (running) {
         Event::get()->handleEvents();
         Window::get()->invokeDeffered();
-        overlay->invokeDeffered();
+        Overlay::get()->invokeDeffered();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
@@ -129,10 +127,6 @@ void Game::quit() {
 
 std::string Game::getCurrentDirectory() {
     return std::experimental::filesystem::current_path().string();
-}
-
-Overlay* Game::getOverlay() {
-    return overlay;
 }
 
 bool Game::isRunning() {

@@ -7,15 +7,22 @@
 #include "UI/Dialog/Dialog.h"
 #include "Screen/Screen.h"
 
+static Origin::Overlay* instance = nullptr;
+
 namespace Origin {
 
 Overlay::Overlay(Control* parent) : Control(parent) {
+    instance  = this;
     console = new Console(this);
     debugHUD = new DebugHUD(this);
     toast = new Toast(this);
 }
 
 Overlay::~Overlay() {
+}
+
+Overlay* Overlay::get() {
+    return instance;
 }
 
 void Overlay::toggleDebugHUD() {

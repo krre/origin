@@ -29,9 +29,6 @@ public:
 
     void run();
     static void quit();
-
-    static Overlay* getOverlay();
-
     static bool isRunning();
     static std::vector<std::string>& getArgv();
 
@@ -40,8 +37,6 @@ private:
 
     std::vector<std::string> argvs;
     static bool running;
-
-    static Overlay* overlay;
 };
 
 } // Origin

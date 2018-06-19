@@ -13,6 +13,9 @@ class Overlay : public Control {
 public:
     Overlay(Control* parent = nullptr);
     ~Overlay();
+
+    static Overlay* get();
+
     DebugHUD* getDebugHUD() const { return debugHUD; }
     Toast* getToast() const { return toast; }
     Console* getConsole() const { return console; }

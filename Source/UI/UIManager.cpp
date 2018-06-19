@@ -41,7 +41,7 @@ void UIManager::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
     Control* control = Window::get()->getCurrentScreen();
     traverseOverLeaf(control, event);
 
-    Overlay* overlay = Game::getOverlay();
+    Overlay* overlay = Overlay::get();
     traverseOverLeaf(overlay, event);
 }
 

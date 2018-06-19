@@ -12,7 +12,7 @@ Dialog::Dialog() : Rectangle(Size(200, 50)) {
 }
 
 void Dialog::close() {
-    Game::getOverlay()->closeDialog(this);
+    Overlay::get()->closeDialog(this);
 }
 
 void Dialog::resizeToContent() {

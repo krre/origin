@@ -51,7 +51,7 @@ void RenderManager::saveScreenshot() {
     lodepng::encode(filePath, buffer.data(), get()->window->getWidth(), get()->window->getHeight());
 
     std::string message = "Screenshot saved to " + filename;
-    Game::getOverlay()->getToast()->show(message);
+    Overlay::get()->getToast()->show(message);
 }
 
 void RenderManager::init() {

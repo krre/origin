@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include "System.h"
 #include "Component.h"
 #include <vector>
@@ -10,7 +10,7 @@ namespace Origin {
 class Entity;
 class EntityBuilder;
 
-class EntityManager : public Object {
+class EntityManager : public SingleObject<EntityManager> {
 
 public:
     EntityManager(Object* parent = nullptr);

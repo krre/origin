@@ -32,7 +32,6 @@ bool Game::running = false;
 
 Event* Game::event;
 Window* Game::window;
-EntityManager* Game::entityManager;
 ResourceManager* Game::resourceManager;
 Overlay* Game::overlay;
 Input* Game::input;
@@ -82,7 +81,7 @@ void Game::init() {
         RenderManager::get()->create();
 
         new UIManager(this);
-        entityManager = new EntityManager(this);
+        new EntityManager(this);
         overlay = new Overlay();
         overlay->setParent(this);
         input = new Input(this);
@@ -138,10 +137,6 @@ std::string Game::getCurrentDirectory() {
 
 Window* Game::getWindow() {
     return window;
-}
-
-EntityManager* Game::getEntityManager() {
-    return entityManager;
 }
 
 Event* Game::getEvent() {

@@ -31,7 +31,6 @@ public:
     static void quit();
 
     static Window* getWindow();
-    static EntityManager* getEntityManager();
     static Event* getEvent();
     static ResourceManager* getResourceManager();
     static Overlay* getOverlay();
@@ -48,7 +47,6 @@ private:
 
     static Event* event;
     static Window* window;
-    static EntityManager* entityManager;
     static ResourceManager* resourceManager;
     static Overlay* overlay;
     static Input* input;

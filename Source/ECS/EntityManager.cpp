@@ -6,7 +6,7 @@
 
 namespace Origin {
 
-EntityManager::EntityManager(Object* parent) : Object(parent) {
+EntityManager::EntityManager(Object* parent) : SingleObject(parent) {
     initSystems();
     entityBuilder = std::make_unique<EntityBuilder>(this);
 }

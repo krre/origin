@@ -29,8 +29,8 @@ RenderPassVoxel::RenderPassVoxel(Vulkan::Device* device, Object* parent) :
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(Game::getResourceManager()->getDataPath() + "/Shader/Voxel.vert.spv");
-    shaderProgram->loadShader(Game::getResourceManager()->getDataPath() + "/Shader/Voxel.frag.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Voxel.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Voxel.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
     bufferInfo.buffer = uboBuffer->getHandle();

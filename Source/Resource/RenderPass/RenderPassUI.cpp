@@ -34,15 +34,15 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
     sampler->create();
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(Game::getResourceManager()->getDataPath() + "/Shader/BaseShape.vert.spv");
-    shaderProgram->loadShader(Game::getResourceManager()->getDataPath() + "/Shader/BaseShape.frag.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/BaseShape.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
     bufferInfo.buffer = uboBuffer->getHandle();
     bufferInfo.range = VK_WHOLE_SIZE;
     shaderProgram->bindBuffer("ubo", bufferInfo);
 
-    Font* font = Game::getResourceManager()->load<Font>("Fonts/inconsolatalgc.ttf");
+    Font* font = ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf");
     texture = font->getTexture();
     VkDescriptorImageInfo imageInfo = {};
     imageInfo.sampler = sampler->getHandle();

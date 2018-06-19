@@ -32,7 +32,6 @@ bool Game::running = false;
 
 Event* Game::event;
 Window* Game::window;
-ResourceManager* Game::resourceManager;
 Overlay* Game::overlay;
 Input* Game::input;
 
@@ -46,7 +45,7 @@ Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
 
 Game::~Game() {
     SDL::shutdown();
-    resourceManager->cleanup();
+    ResourceManager::get()->cleanup();
 }
 
 void Game::init() {
@@ -57,7 +56,7 @@ void Game::init() {
         new DebugEnvironment(this);
         event = new Event(this);
         window = new Window(this);
-        resourceManager = new ResourceManager(this);
+        new ResourceManager(this);
 
         SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
 
@@ -141,10 +140,6 @@ Window* Game::getWindow() {
 
 Event* Game::getEvent() {
     return event;
-}
-
-ResourceManager* Game::getResourceManager() {
-    return resourceManager;
 }
 
 Input* Game::getInput() {

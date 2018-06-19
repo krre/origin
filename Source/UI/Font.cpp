@@ -25,7 +25,7 @@ void Font::setSize(int size) {
 }
 
 void Font::load(const std::string& filePath) {
-    if (FT_New_Face(Game::getResourceManager()->getFreeTypeHandle(), filePath.c_str(), 0, &face)) {
+    if (FT_New_Face(ResourceManager::get()->getFreeTypeHandle(), filePath.c_str(), 0, &face)) {
         throw std::runtime_error(std::string("Could not open font ") + filePath);
     }
 

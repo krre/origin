@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include "Resource/Resource.h"
 #include <map>
 
@@ -9,7 +9,7 @@
 
 namespace Origin {
 
-class ResourceManager : public Object {
+class ResourceManager : public SingleObject<ResourceManager> {
 
 public:
     ResourceManager(Object* parent = nullptr);

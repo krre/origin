@@ -32,7 +32,6 @@ public:
 
     static Window* getWindow();
     static Event* getEvent();
-    static ResourceManager* getResourceManager();
     static Overlay* getOverlay();
     static Input* getInput();
 
@@ -47,7 +46,6 @@ private:
 
     static Event* event;
     static Window* window;
-    static ResourceManager* resourceManager;
     static Overlay* overlay;
     static Input* input;
 };

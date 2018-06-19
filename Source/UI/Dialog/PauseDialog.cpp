@@ -28,7 +28,7 @@ PauseDialog::PauseDialog() {
     buttonSave->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSave->clicked.connect([&]() {
         this->close();
-        Game::getWorld()->save();
+        World::save();
     });
     layout->addChild(buttonSave);
 

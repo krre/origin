@@ -18,7 +18,7 @@ NewWorldScreen::NewWorldScreen() {
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {
         if (!textEdit->getText().empty()) {
-            Game::getWorld()->create(textEdit->getText());
+            World::create(textEdit->getText());
             Game::getWindow()->setScreen(std::make_shared<GameScreen>(textEdit->getText()));
         }
     });

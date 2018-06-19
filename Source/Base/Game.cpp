@@ -40,7 +40,6 @@ EntityManager* Game::entityManager;
 ResourceManager* Game::resourceManager;
 Overlay* Game::overlay;
 Input* Game::input;
-World* Game::world;
 
 Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
     for (int i = 0; i < argc; i++) {
@@ -91,7 +90,7 @@ void Game::init() {
         overlay = new Overlay();
         overlay->setParent(this);
         input = new Input(this);
-        world = new World(this);
+        new World(this);
     } catch (const std::exception& ex) {
         if (SDL::isInited()) {
             SDL::showErrorMessageBox(ex.what());
@@ -171,10 +170,6 @@ ResourceManager* Game::getResourceManager() {
 
 Input* Game::getInput() {
     return input;
-}
-
-World*Game::getWorld() {
-    return world;
 }
 
 Overlay* Game::getOverlay() {

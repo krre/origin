@@ -11,7 +11,7 @@
 namespace Origin {
 
 GameScreen::GameScreen(const std::string& worldName) {
-    Game::getWorld()->load(worldName);
+    World::load(worldName);
 
     View3D* gameView = new View3D(this);
     std::shared_ptr<GameScene> gameScene = std::make_shared<GameScene>();

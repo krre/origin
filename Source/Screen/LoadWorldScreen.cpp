@@ -18,7 +18,7 @@ LoadWorldScreen::LoadWorldScreen() {
     listBox = new ListBox;
     listBox->resize(200, 200);
 
-    for(auto& path: fs::directory_iterator(Game::getWorld()->getSavesDirectory())) {
+    for(auto& path: fs::directory_iterator(World::getSavesDirectory())) {
         fs::path fullPath(path);
         listBox->addLine(fullPath.filename().string());
     }
@@ -39,7 +39,7 @@ LoadWorldScreen::LoadWorldScreen() {
     buttonRemove->clicked.connect([&]() {
         int currentIndex = listBox->getCurrentIndex();
         if (currentIndex >= 0) {
-            Game::getWorld()->remove(listBox->getCurrentText());
+            World::remove(listBox->getCurrentText());
             listBox->removeLine(currentIndex);
         }
     });

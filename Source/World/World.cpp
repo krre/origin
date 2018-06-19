@@ -3,18 +3,20 @@
 #include "Core/Utils.h"
 #include <experimental/filesystem>
 
+static Origin::World* instance = nullptr;
+
 namespace fs = std::experimental::filesystem;
 
 namespace Origin {
 
 World::World(Object* parent) : Object(parent) {
-
+    instance = this;
 }
 
 void World::create(const std::string& name) {
-    savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
-    fs::create_directory(savePath);
-    PRINT("Create world: " << savePath)
+    instance->savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
+    fs::create_directory(instance->savePath);
+    PRINT("Create world: " << instance->savePath)
 }
 
 void World::remove(const std::string& name) {
@@ -24,12 +26,12 @@ void World::remove(const std::string& name) {
 }
 
 void World::load(const std::string& name) {
-    this->savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
-    PRINT("Load world: " << savePath)
+    instance->savePath = getSavesDirectory() + Utils::getPathSeparator() + name;
+    PRINT("Load world: " << instance->savePath)
 }
 
 void World::save() {
-    PRINT("Save world: " << savePath)
+    PRINT("Save world: " << instance->savePath)
 }
 
 std::string World::getSavesDirectory() {

@@ -8,12 +8,12 @@ class World : public Object {
 public:
     World(Object* parent = nullptr);
 
-    void create(const std::string& name);
-    void remove(const std::string& name);
-    void load(const std::string& name);
-    void save();
+    static void create(const std::string& name);
+    static void remove(const std::string& name);
+    static void load(const std::string& name);
+    static void save();
 
-    std::string getSavesDirectory();
+    static std::string getSavesDirectory();
 
 private:
     std::string savePath;

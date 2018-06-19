@@ -29,7 +29,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Object.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Signal.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Singleton.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/SingleObject.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Utils.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Utils.h
 )

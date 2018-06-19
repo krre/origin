@@ -4,15 +4,15 @@
 
 namespace Origin {
 
-template <typename T> class Singleton : public Object {
+template <typename T> class SingleObject : public Object {
 
 public:
-    Singleton() {
-        assert(instance == nullptr && "Singleton object should be initialized only once");
+    SingleObject(Object* parent = nullptr) : Object(parent) {
+        assert(instance == nullptr && "SingleObject should be initialized only once");
         instance = static_cast<T*>(this);
     }
 
-    virtual ~Singleton() {
+    virtual ~SingleObject() {
         instance = nullptr;
     }
 
@@ -35,6 +35,6 @@ private:
     static T* instance;
 };
 
-template <typename T> T* Singleton<T>::instance = nullptr;
+template <typename T> T* SingleObject<T>::instance = nullptr;
 
 } // Origin

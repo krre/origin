@@ -30,7 +30,7 @@ LoadWorldScreen::LoadWorldScreen() {
     Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
         if (listBox->getCurrentIndex() >= 0) {
-            Game::getWindow()->setScreen(std::make_shared<GameScreen>(listBox->getCurrentText()));
+            Window::get()->setScreen(std::make_shared<GameScreen>(listBox->getCurrentText()));
         }
     });
     buttonLayout->addChild(buttonPlay);
@@ -49,7 +49,7 @@ LoadWorldScreen::LoadWorldScreen() {
 
     buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {
-        Game::getWindow()->popScreen();
+        Window::get()->popScreen();
     });
 }
 

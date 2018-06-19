@@ -8,7 +8,7 @@ namespace Origin {
 SettingsScreen::SettingsScreen() {
     buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {
-        Game::getWindow()->popScreen();
+        Window::get()->popScreen();
     });
 }
 

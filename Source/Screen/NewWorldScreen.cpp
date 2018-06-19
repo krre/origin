@@ -19,14 +19,14 @@ NewWorldScreen::NewWorldScreen() {
     buttonPlay->clicked.connect([&]() {
         if (!textEdit->getText().empty()) {
             World::create(textEdit->getText());
-            Game::getWindow()->setScreen(std::make_shared<GameScreen>(textEdit->getText()));
+            Window::get()->setScreen(std::make_shared<GameScreen>(textEdit->getText()));
         }
     });
     layout->addChild(buttonPlay);
 
     buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {
-        Game::getWindow()->popScreen();
+        Window::get()->popScreen();
     });
 
     setActiveControl(textEdit);

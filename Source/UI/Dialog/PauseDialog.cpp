@@ -36,7 +36,7 @@ PauseDialog::PauseDialog() {
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonLoad->clicked.connect([&]() {
         this->close();
-        Game::getWindow()->pushScreen(std::make_shared<LoadWorldScreen>());
+        Window::get()->pushScreen(std::make_shared<LoadWorldScreen>());
     });
     layout->addChild(buttonLoad);
 
@@ -44,7 +44,7 @@ PauseDialog::PauseDialog() {
     buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSettings->clicked.connect([&]() {
         this->close();
-        Game::getWindow()->pushScreen(std::make_shared<SettingsScreen>());
+        Window::get()->pushScreen(std::make_shared<SettingsScreen>());
     });
     layout->addChild(buttonSettings);
 
@@ -52,7 +52,7 @@ PauseDialog::PauseDialog() {
     buttonMenu->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonMenu->clicked.connect([&]() {
         this->close();
-        Game::getWindow()->pushScreen(std::make_shared<MenuScreen>());
+        Window::get()->pushScreen(std::make_shared<MenuScreen>());
     });
     layout->addChild(buttonMenu);
 
@@ -65,11 +65,11 @@ PauseDialog::PauseDialog() {
 
     resizeToContent();
 
-    Game::getWindow()->getCurrentScreen()->pause();
+    Window::get()->getCurrentScreen()->pause();
 }
 
 PauseDialog::~PauseDialog() {
-    Game::getWindow()->getCurrentScreen()->resume();
+    Window::get()->getCurrentScreen()->resume();
 }
 
 } // Origin

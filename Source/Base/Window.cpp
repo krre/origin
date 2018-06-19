@@ -24,7 +24,7 @@
 
 namespace Origin {
 
-Window::Window(Object* parent) : Object(parent) {
+Window::Window(Object* parent) : SingleObject(parent) {
     auto settingsWidth = Settings::getStorage()["width"];
     auto settingsHeigth = Settings::getStorage()["height"];
 

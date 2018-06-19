@@ -28,19 +28,19 @@ void DebugEnvironment::setDebugScreen() {
     Screen::Name screen = static_cast<Screen::Name>(s);
     switch (screen) {
         case Screen::Name::Menu:
-            Game::getWindow()->setScreen(std::make_shared<MenuScreen>());
+            Window::get()->setScreen(std::make_shared<MenuScreen>());
             break;
         case Screen::Name::Settings:
-            Game::getWindow()->setScreen(std::make_shared<SettingsScreen>());
+            Window::get()->setScreen(std::make_shared<SettingsScreen>());
             break;
         case Screen::Name::Game:
-            Game::getWindow()->setScreen(std::make_shared<GameScreen>(worldName));
+            Window::get()->setScreen(std::make_shared<GameScreen>(worldName));
             break;
         case Screen::Name::NewGame:
-            Game::getWindow()->setScreen(std::make_shared<NewWorldScreen>());
+            Window::get()->setScreen(std::make_shared<NewWorldScreen>());
             break;
         case Screen::Name::LoadGame:
-            Game::getWindow()->setScreen(std::make_shared<LoadWorldScreen>());
+            Window::get()->setScreen(std::make_shared<LoadWorldScreen>());
             break;
         default:
             assert(0 && "Screen not found");

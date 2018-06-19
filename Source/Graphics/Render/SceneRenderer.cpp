@@ -32,7 +32,7 @@ void SceneRenderer::drawScenes() {
 
     }
 
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)Game::getWindow()->getWidth() / Game::getWindow()->getHeight(), 0.1f, 100.0f);
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)Window::get()->getWidth() / Window::get()->getHeight(), 0.1f, 100.0f);
     glm::mat4 view = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     glm::mat4 model = glm::mat4(1.0f);
     float rot = 0;

@@ -22,7 +22,7 @@ namespace Origin {
 RenderManager::RenderManager(void* platformHandle, void* platformWindow, Object* parent) :
         Vulkan::Renderer(platformHandle, platformWindow),
         SingleObject(parent) {
-    window = Game::getWindow();
+    window = Window::get();
 }
 
 RenderManager::~RenderManager() {

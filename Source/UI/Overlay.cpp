@@ -45,7 +45,7 @@ void Overlay::closeDialog(Dialog* dialog) {
         delete dialog;
     });
 
-    Game::getWindow()->getCurrentScreen()->activate();
+    Window::get()->getCurrentScreen()->activate();
     markDirty();
 }
 

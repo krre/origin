@@ -30,7 +30,6 @@ namespace Origin {
 
 bool Game::running = false;
 
-Window* Game::window;
 Overlay* Game::overlay;
 
 Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
@@ -53,10 +52,10 @@ void Game::init() {
         new Logger(this);
         new DebugEnvironment(this);
         new Event(this);
-        window = new Window(this);
+        new Window(this);
         new ResourceManager(this);
 
-        SDL_SysWMinfo wminfo = SDL::getSysWMinfo(window->getHandle());
+        SDL_SysWMinfo wminfo = SDL::getSysWMinfo(Window::get()->getHandle());
 
 #if defined(OS_WIN)
         new RenderManager(GetModuleHandle(nullptr), (void*)wminfo.info.win.window, this);
@@ -94,11 +93,11 @@ void Game::init() {
     if (DebugEnvironment::getEnable()) {
         DebugEnvironment::setDebugScreen();
     } else {
-        window->setScreen(std::make_shared<MenuScreen>());
+        Window::get()->setScreen(std::make_shared<MenuScreen>());
     }
 
-    window->onResize(window->getWidth(), window->getHeight());
-    window->show();
+    Window::get()->onResize(Window::get()->getWidth(), Window::get()->getHeight());
+    Window::get()->show();
 
     running = true;
 }
@@ -109,19 +108,19 @@ void Game::run() {
 
     while (running) {
         Event::get()->handleEvents();
-        window->invokeDeffered();
+        Window::get()->invokeDeffered();
         overlay->invokeDeffered();
 
         Uint64 newTime = SDL_GetPerformanceCounter();
         double frameTime = double(newTime - currentTime) / frequency;
         currentTime = newTime;
 
-        window->update(frameTime);
-        window->render();
+        Window::get()->update(frameTime);
+        Window::get()->render();
 //        PRINT(frameTime << " " << 1 / frameTime)
     }
 
-    window->close();
+    Window::get()->close();
 }
 
 void Game::quit() {
@@ -130,10 +129,6 @@ void Game::quit() {
 
 std::string Game::getCurrentDirectory() {
     return std::experimental::filesystem::current_path().string();
-}
-
-Window* Game::getWindow() {
-    return window;
 }
 
 Overlay* Game::getOverlay() {

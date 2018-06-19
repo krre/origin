@@ -1,5 +1,5 @@
 #pragma once
-#include "Core/Object.h"
+#include "Core/SingleObject.h"
 #include "Graphics/Color.h"
 #include <string>
 #include <vector>
@@ -14,7 +14,7 @@ namespace Origin {
 
 class Screen;
 
-class Window : public Object {
+class Window : public SingleObject<Window> {
 
 public:
     Window(Object* parent = nullptr);

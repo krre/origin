@@ -74,7 +74,7 @@ void Control::setVisible(bool visible) {
     if (this->visible == visible) return;
     this->visible = visible;
 
-    Screen* screen = Game::getWindow()->getCurrentScreen();
+    Screen* screen = Window::get()->getCurrentScreen();
 
     if (!visible && screen && screen->getActiveControl() == this) {
         screen->activate();
@@ -110,7 +110,7 @@ void Control::draw() {
 }
 
 void Control::activate() {
-    Game::getWindow()->getCurrentScreen()->setActiveControl(this);
+    Window::get()->getCurrentScreen()->setActiveControl(this);
 }
 
 } // Origin

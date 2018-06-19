@@ -22,7 +22,7 @@ UIManager::~UIManager() {
 void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (Input::get()->isKeyAccepted) return;
 
-    Control* activeControl = Game::getWindow()->getCurrentScreen()->getActiveControl();
+    Control* activeControl = Window::get()->getCurrentScreen()->getActiveControl();
     if (activeControl && activeControl->getVisible()) {
         activeControl->keyPressed(event);
     }
@@ -31,14 +31,14 @@ void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
 void UIManager::onTextInput(const SDL_TextInputEvent& event) {
     if (Input::get()->isKeyAccepted) return;
 
-    Control* activeControl = Game::getWindow()->getCurrentScreen()->getActiveControl();
+    Control* activeControl = Window::get()->getCurrentScreen()->getActiveControl();
     if (activeControl && activeControl->getVisible()) {
         activeControl->textPressed(event);
     }
 }
 
 void UIManager::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
-    Control* control = Game::getWindow()->getCurrentScreen();
+    Control* control = Window::get()->getCurrentScreen();
     traverseOverLeaf(control, event);
 
     Overlay* overlay = Game::getOverlay();

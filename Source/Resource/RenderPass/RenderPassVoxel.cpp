@@ -93,7 +93,7 @@ RenderPassVoxel::~RenderPassVoxel() {
 }
 
 void RenderPassVoxel::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    const Color& color = Game::getWindow()->getColor();
+    const Color& color = Window::get()->getColor();
 
     Vulkan::RenderPassBegin renderPassBegin(RenderManager::get()->getRenderPass()->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());

@@ -30,7 +30,6 @@ public:
     void run();
     static void quit();
 
-    static Window* getWindow();
     static Overlay* getOverlay();
 
     static bool isRunning();
@@ -42,7 +41,6 @@ private:
     std::vector<std::string> argvs;
     static bool running;
 
-    static Window* window;
     static Overlay* overlay;
 };
 

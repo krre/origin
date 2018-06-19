@@ -16,7 +16,6 @@ class PhysicalDevices;
 class Queue;
 class RenderPass;
 class Semaphore;
-class Semaphore;
 class Surface;
 class Swapchain;
 

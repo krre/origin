@@ -25,8 +25,8 @@
 namespace Origin {
 
 Window::Window(Object* parent) : Object(parent) {
-    auto settingsWidth = Game::getSettings()->getStorage()["width"];
-    auto settingsHeigth = Game::getSettings()->getStorage()["height"];
+    auto settingsWidth = Settings::getStorage()["width"];
+    auto settingsHeigth = Settings::getStorage()["height"];
 
     if (!settingsWidth.is_null()) {
         width = settingsWidth.get<int>();
@@ -41,8 +41,8 @@ Window::Window(Object* parent) : Object(parent) {
 
 // On some Ubuntu OS 'Y' position is shifted on window creation, so do not use position settings
 #if !defined(OS_LINUX)
-    auto settingsX = Game::getSettings()->getStorage()["x"];
-    auto settingsY = Game::getSettings()->getStorage()["y"];
+    auto settingsX = Settings::getStorage()["x"];
+    auto settingsY = Settings::getStorage()["y"];
 
     if (!settingsX.is_null() && !settingsY.is_null()) {
         x = settingsX.get<int>();
@@ -110,11 +110,11 @@ void Window::close() {
     int x, y;
     SDL_GetWindowPosition(handle, &x, &y);
 
-    Game::getSettings()->getStorage()["x"] = x;
-    Game::getSettings()->getStorage()["y"] = y;
+    Settings::getStorage()["x"] = x;
+    Settings::getStorage()["y"] = y;
 
-    Game::getSettings()->getStorage()["width"] = width;
-    Game::getSettings()->getStorage()["height"] = height;
+    Settings::getStorage()["width"] = width;
+    Settings::getStorage()["height"] = height;
 
     SDL_DestroyWindow(handle);
 }

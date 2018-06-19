@@ -31,7 +31,6 @@ public:
     static void quit();
 
     static Window* getWindow();
-    static Settings* getSettings();
     static RenderManager* getRenderManager();
     static UIManager* getUIManager();
     static EntityManager* getEntityManager();
@@ -49,7 +48,6 @@ private:
     std::vector<std::string> argvs;
     static bool running;
 
-    static Settings* settings;
     static Event* event;
     static Window* window;
     static RenderManager* renderManager;

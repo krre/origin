@@ -23,7 +23,7 @@ void LinearLayout::updateContentPostion() {
         } else {
             control->move(positionX, positionY);
             positionX += control->getContentWidth() + getSpacing();
-            contentWidth += control->getContentHeight() + getSpacing();
+            contentWidth += control->getContentWidth() + getSpacing();
             contentHeight = std::max(contentHeight, control->getContentHeight());
         }
     }

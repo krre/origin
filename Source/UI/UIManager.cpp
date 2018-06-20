@@ -38,11 +38,8 @@ void UIManager::onTextInput(const SDL_TextInputEvent& event) {
 }
 
 void UIManager::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
-    Control* control = Window::get()->getCurrentScreen();
-    traverseOverLeaf(control, event);
-
-    Overlay* overlay = Overlay::get();
-    traverseOverLeaf(overlay, event);
+    traverseOverLeaf(Window::get()->getCurrentScreen(), event);
+    traverseOverLeaf(Overlay::get(), event);
 }
 
 void UIManager::traverseOverLeaf(Object* object, const SDL_MouseButtonEvent& event) {

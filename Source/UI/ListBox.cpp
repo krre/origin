@@ -17,6 +17,8 @@ RowDelegate::RowDelegate(const std::string& text, int index, ListBox* listBox) :
     label = new Label(text, this);
     label->setColor(Color::WHITE);
     resize(200, 30);
+    // Align to vertical center
+    label->move(5, (getSize().height - label->getContentHeight()) / 2);
 }
 
 void RowDelegate::mouseButtonAction(const SDL_MouseButtonEvent& event) {

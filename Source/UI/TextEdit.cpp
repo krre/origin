@@ -19,7 +19,9 @@ TextEdit::TextEdit(Control* parent) : Control(parent) {
     label = new Label(this);
     label->setColor(Color(0.85, 0.85, 0.85));
 
-    resize(DEFAULT_WIDHT, label->getFont()->getLineHeight() + 5);
+    resize(DEFAULT_WIDHT, label->getFont()->getLineHeight() + 6);
+    // Align to vertical center
+    label->move(5, getSize().height / 2 - 2);
 }
 
 void TextEdit::setText(const std::string& text) {

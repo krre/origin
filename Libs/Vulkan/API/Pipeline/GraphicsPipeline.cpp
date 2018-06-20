@@ -110,7 +110,7 @@ void GraphicsPipeline::create() {
         colorBlendAttachmentState.dstColorBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
         colorBlendAttachmentState.colorBlendOp = VK_BLEND_OP_ADD;
         colorBlendAttachmentState.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA;
-        colorBlendAttachmentState.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+        colorBlendAttachmentState.dstAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
         colorBlendAttachmentState.alphaBlendOp = VK_BLEND_OP_ADD;
         colorBlendAttachmentStates.push_back(colorBlendAttachmentState);
     }

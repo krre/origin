@@ -12,7 +12,7 @@
 namespace Origin {
 
 Font::Font() {
-    glyphInfos.resize(NUM_GLYPHS);
+    glyphInfos.resize(GLYPHS_COUNT);
 }
 
 Font::~Font() {
@@ -38,7 +38,7 @@ void Font::load(const std::string& filePath) {
     // Creating atlas based on code https://gist.github.com/baines/b0f9e4be04ba4e6f56cab82eef5008ff
 
     // Max texture size
-    int maxDim = (1 + lineHeight) * std::ceil(std::sqrt(NUM_GLYPHS));
+    int maxDim = (1 + lineHeight) * std::ceil(std::sqrt(GLYPHS_COUNT));
     int texWidth = 1;
 
     while (texWidth < maxDim) {
@@ -51,7 +51,7 @@ void Font::load(const std::string& filePath) {
     std::vector<unsigned char> pixels(texWidth * texHeight);
     int penX = 0, penY = 0;
 
-    for (int i = 0; i < NUM_GLYPHS; ++i) {
+    for (int i = 0; i < GLYPHS_COUNT; ++i) {
         FT_Load_Char(face, i, FT_LOAD_RENDER | FT_LOAD_FORCE_AUTOHINT | FT_LOAD_TARGET_LIGHT);
         FT_Bitmap* bitmap = &face->glyph->bitmap;
 

@@ -12,7 +12,7 @@ namespace Vulkan {
 
 namespace Origin {
 
-const uint32_t NUM_GLYPHS = 128;
+const uint32_t GLYPHS_COUNT = 128;
 
 class Font : public Resource {
 

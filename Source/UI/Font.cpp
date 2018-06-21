@@ -115,4 +115,9 @@ void Font::load(const std::string& filePath) {
 #endif
 }
 
+Font::GlyphInfo&Font::getGliphInfo(int codechar) {
+    char questionMark = '?';
+    return glyphInfos.at(codechar <= GLYPHS_COUNT ? codechar : (int)questionMark);
+}
+
 } // Origin

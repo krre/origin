@@ -62,7 +62,7 @@ public:
     int getSize() const { return size; }
     void load(const std::string& filePath) override;
     Vulkan::Texture* getTexture() const { return texture.get(); }
-    GlyphInfo& getGliphInfo(int codechar) { return glyphInfos.at(codechar); }
+    GlyphInfo& getGliphInfo(int codechar);
     int getLineHeight() const { return lineHeight; }
     int getAscender() const { return ascender; }
     int getDescender() const { return descender; }

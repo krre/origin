@@ -29,7 +29,9 @@ RenderPassOctree::RenderPassOctree(Vulkan::Device* device, Object* parent) :
     };
     vertextCount = plane.size();
 
-    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.size() * sizeof(glm::vec2));
+    int size = plane.size() * sizeof(glm::vec2);
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+    vertexBuffer->write(plane.data(), size);
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Octree.vert.spv");

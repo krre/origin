@@ -86,19 +86,17 @@ void RenderPassOctree::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Frame
 
     commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
-    if (vertextCount) {
-        commandBuffer->bindPipeline(graphicsPipeline.get());
+    commandBuffer->bindPipeline(graphicsPipeline.get());
 
-        commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
-        commandBuffer->bindVertexBuffers();
+    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+    commandBuffer->bindVertexBuffers();
 
-        for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
-            commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
-        }
-        commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
-
-        commandBuffer->draw(vertextCount, 1, 0, 0);
+    for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
+        commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
     }
+    commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
+
+    commandBuffer->draw(vertextCount, 1, 0, 0);
 
     commandBuffer->endRenderPass();
 }

@@ -23,19 +23,17 @@ namespace Origin {
 
 RenderPassOctree::RenderPassOctree(Vulkan::Device* device, Object* parent) :
         RenderPassResource(device, parent) {
-    uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
-    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
+    std::vector<glm::vec2> plane = {
+        { -1.0, 1.0 }, { 1.0, 1.0 }, { 1.0, -1.0 },
+        { -1.0, 1.0 }, { 1.0, -1.0 }, { -1.0, -1.0 }
+    };
+    vertextCount = plane.size();
 
-    uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, plane.size() * sizeof(glm::vec2));
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Octree.vert.spv");
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Octree.frag.spv");
-
-    VkDescriptorBufferInfo bufferInfo = {};
-    bufferInfo.buffer = uboBuffer->getHandle();
-    bufferInfo.range = VK_WHOLE_SIZE;
-    shaderProgram->bindBuffer("ubo", bufferInfo);
 
     shaderProgram->create();
 
@@ -52,7 +50,7 @@ RenderPassOctree::RenderPassOctree(Vulkan::Device* device, Object* parent) :
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(Octree::Vertex);
+    bindingDescription.stride = sizeof(glm::vec2);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
@@ -62,26 +60,6 @@ RenderPassOctree::RenderPassOctree(Vulkan::Device* device, Object* parent) :
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        graphicsPipeline->addVertexAttributeDescription(attributeDescription);
-    }
-
-    {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("color");
-        VkVertexInputAttributeDescription attributeDescription = {};
-        attributeDescription.binding = bindingDescription.binding;
-        attributeDescription.location = locationInfo.location;
-        attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Octree::Vertex::pos);
-        graphicsPipeline->addVertexAttributeDescription(attributeDescription);
-    }
-
-    {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("normal");
-        VkVertexInputAttributeDescription attributeDescription = {};
-        attributeDescription.binding = bindingDescription.binding;
-        attributeDescription.location = locationInfo.location;
-        attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Octree::Vertex::pos) + sizeof(Octree::Vertex::color);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
@@ -121,24 +99,6 @@ void RenderPassOctree::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Frame
     }
 
     commandBuffer->endRenderPass();
-}
-
-void RenderPassOctree::resizeVertexBuffer(uint32_t size) {
-    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
-}
-
-void RenderPassOctree::setVertexCount(uint32_t vertextCount) {
-    this->vertextCount = vertextCount;
-
-    uint32_t size = vertextCount * sizeof(Octree::Vertex);
-
-    if (size > vertexBuffer->getSize()) {
-        resizeVertexBuffer(size);
-    }
-}
-
-void RenderPassOctree::updateMvp(const glm::mat4& mvp) {
-    uboBuffer->write(&mvp, sizeof(mvp));
 }
 
 } // Origin

@@ -1,6 +1,6 @@
 #include "SceneRenderer.h"
 #include "Vulkan/GpuBuffer.h"
-#include "Resource/RenderPass/RenderPassVoxel.h"
+#include "Resource/RenderPass/RenderPassOctree.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Base/Window.h"
 #include "Base/Game.h"
@@ -10,12 +10,8 @@
 namespace Origin {
 
 SceneRenderer::SceneRenderer(Object* parent) : Object(parent) {
-    renderPassVoxel = new RenderPassVoxel(RenderManager::get()->getGraphicsDevice(), this);
+    renderPassOctree = new RenderPassOctree(RenderManager::get()->getGraphicsDevice(), this);
     Octree* octree = new Octree(Substance(), this);
-
-    for (const auto& vertex : octree->getVertices()) {
-        vertices.push_back(vertex);
-    }
 }
 
 SceneRenderer::~SceneRenderer() {
@@ -39,14 +35,6 @@ void SceneRenderer::drawScenes() {
     model = glm::rotate(model, rot, glm::vec3(0.0, 1.0, 0.0)) * glm::rotate(model, rot, glm::vec3(1.0, 1.0, 1.0));
 
     glm::mat4 mvp = proj * view * model;
-
-    renderPassVoxel->updateMvp(mvp);
-    renderPassVoxel->setVertexCount(vertices.size());
-
-    uint32_t size = vertices.size() * sizeof(Octree::Vertex);
-    if (size) {
-        renderPassVoxel->getVertexBuffer()->write(vertices.data(), size);
-    }
 
     scenes.clear();
 }

@@ -5,7 +5,7 @@
 
 namespace Origin {
 
-class RenderPassVoxel;
+class RenderPassOctree;
 
 class SceneRenderer : public Object {
 
@@ -15,13 +15,11 @@ public:
 
     void addScene(Scene* scene);
     void drawScenes();
-    std::vector<Octree::Vertex>* getVerticles() { return &vertices; }
-    RenderPassVoxel* getRenderPassVoxel() const { return renderPassVoxel; }
+    RenderPassOctree* getRenderPassOctree() const { return renderPassOctree; }
 
 private:
     std::vector<Scene*> scenes;
-    std::vector<Octree::Vertex> vertices;
-    RenderPassVoxel* renderPassVoxel;
+    RenderPassOctree* renderPassOctree;
 };
 
 } // Origin

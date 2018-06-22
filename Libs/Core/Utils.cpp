@@ -79,7 +79,7 @@ std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source) {
 
         int downLevelIndex = downLevel.size(); // Save current position before new children will added
 
-        for (auto& node: (*octree)) {
+        for (auto& node : (*octree)) {
             nodeDescriptor |= (1 << (8 + std::stoi(node.first))); // Valid nodes
 
             json::iterator iter = node.second.find("children");

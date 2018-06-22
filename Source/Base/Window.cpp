@@ -25,8 +25,8 @@
 namespace Origin {
 
 Window::Window(Object* parent) : SingleObject(parent) {
-    auto settingsWidth = Settings::getStorage()["width"];
-    auto settingsHeigth = Settings::getStorage()["height"];
+    json settingsWidth = Settings::getStorage()["width"];
+    json settingsHeigth = Settings::getStorage()["height"];
 
     if (!settingsWidth.is_null()) {
         width = settingsWidth.get<int>();
@@ -41,8 +41,8 @@ Window::Window(Object* parent) : SingleObject(parent) {
 
 // On some Ubuntu OS 'Y' position is shifted on window creation, so do not use position settings
 #if !defined(OS_LINUX)
-    auto settingsX = Settings::getStorage()["x"];
-    auto settingsY = Settings::getStorage()["y"];
+    json settingsX = Settings::getStorage()["x"];
+    json settingsY = Settings::getStorage()["y"];
 
     if (!settingsX.is_null() && !settingsY.is_null()) {
         x = settingsX.get<int>();

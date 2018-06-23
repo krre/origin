@@ -32,7 +32,9 @@ void RenderManager::addRenderer(Origin::Renderer* renderer) {
 
 void RenderManager::draw() {
     for (Origin::Renderer* renderer : renderers) {
-        renderer->draw();
+        if (renderer->getActive()) {
+            renderer->draw();
+        }
     }
 }
 
@@ -90,7 +92,9 @@ void RenderManager::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vu
     commandBuffer->setScissor(0);
 
     for (Origin::Renderer* renderer : renderers) {
-        renderer->getRenderPass()->write(commandBuffer, framebuffer);
+        if (renderer->getActive()) {
+            renderer->getRenderPass()->write(commandBuffer, framebuffer);
+        }
     }
 }
 

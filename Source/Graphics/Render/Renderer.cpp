@@ -10,4 +10,8 @@ Renderer::~Renderer() {
 
 }
 
+void Renderer::setActive(bool active) {
+    this->active = active;
+}
+
 } // Origin

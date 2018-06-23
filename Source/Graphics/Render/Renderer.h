@@ -14,8 +14,11 @@ public:
     virtual void draw() = 0;
     virtual RenderPassResource* getRenderPass() const = 0;
 
-private:
+    void setActive(bool active);
+    bool getActive() const { return active; }
 
+private:
+    bool active = true;
 };
 
 } // Origin

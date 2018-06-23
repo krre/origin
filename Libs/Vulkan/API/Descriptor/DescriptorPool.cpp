@@ -24,6 +24,7 @@ void DescriptorPool::setMaxSets(uint32_t maxSets) {
 }
 
 void DescriptorPool::create() {
+    assert(poolSizes.size() != 0);
     createInfo.poolSizeCount = poolSizes.size();
     createInfo.pPoolSizes = poolSizes.data();
     VULKAN_CHECK_RESULT(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");

@@ -6,12 +6,19 @@
 
 namespace Origin {
 
+static UIRenderer* instance = nullptr;
+
 UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
+    instance = this;
     renderPassUI = new RenderPassUI(RenderManager::get()->getGraphicsDevice(), this);
 }
 
 UIRenderer::~UIRenderer() {
 
+}
+
+UIRenderer* UIRenderer::get() {
+    return instance;
 }
 
 void UIRenderer::render() {

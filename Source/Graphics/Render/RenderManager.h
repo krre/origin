@@ -6,10 +6,8 @@ namespace Origin {
 
 class Window;
 class Screen;
-class ShaderProgram;
 class RenderPassResource;
-class UIRenderer;
-class SceneRenderer;
+class Renderer;
 
 class RenderManager : public Vulkan::Renderer, public SingleObject<RenderManager> {
 
@@ -17,8 +15,7 @@ public:
     RenderManager(void* platformHandle, void* platformWindow, Object* parent = nullptr);
     ~RenderManager();
 
-    UIRenderer* getUIRenderer() { return get()->uiRenderer; }
-    SceneRenderer* getSceneRenderer() { return get()->sceneRenderer; }
+    void addRenderer(Origin::Renderer* renderer);
 
     void saveScreenshot();
 
@@ -29,9 +26,7 @@ private:
 
     Window* window = nullptr;
     Screen* currentScreen = nullptr;
-    UIRenderer* uiRenderer = nullptr;
-    SceneRenderer* sceneRenderer = nullptr;
-    std::vector<RenderPassResource*> renderPassResources;
+    std::vector<Origin::Renderer*> renderers;
 };
 
 } // Origin

@@ -9,6 +9,8 @@
 #include "Debug/DebugEnvironment.h"
 #include "UI/Overlay.h"
 #include "UI/UIManager.h"
+#include "Graphics/Render/SceneRenderer.h"
+#include "Graphics/Render/UIRenderer.h"
 #include "ECS/EntityManager.h"
 #include "Base/Settings.h"
 #include "Graphics/Render/RenderManager.h"
@@ -73,6 +75,8 @@ void Game::init() {
             RenderManager::get()->setDeviceIndex(DebugEnvironment::getVulkanDevice());
         }
         RenderManager::get()->create();
+        RenderManager::get()->addRenderer(new SceneRenderer(this));
+        RenderManager::get()->addRenderer(new UIRenderer(this));
 
         new UIManager(this);
         new EntityManager(this);

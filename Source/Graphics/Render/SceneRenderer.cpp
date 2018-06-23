@@ -9,13 +9,20 @@
 
 namespace Origin {
 
+static SceneRenderer* instance = nullptr;
+
 SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
+    instance = this;
     renderPassOctree = new RenderPassOctree(RenderManager::get()->getGraphicsDevice(), this);
     Octree* octree = new Octree(Substance(), this);
 }
 
 SceneRenderer::~SceneRenderer() {
 
+}
+
+SceneRenderer* SceneRenderer::get() {
+    return instance;
 }
 
 void SceneRenderer::render() {

@@ -8,10 +8,7 @@
 #include "Vulkan/API/RenderPass.h"
 #include "Vulkan/API/Surface/Surface.h"
 #include "Resource/RenderPass/RenderPassResource.h"
-#include "Resource/RenderPass/RenderPassUI.h"
-#include "Resource/RenderPass/RenderPassOctree.h"
-#include "UIRenderer.h"
-#include "SceneRenderer.h"
+#include "Renderer.h"
 #include "UI/Overlay.h"
 #include "UI/Toast.h"
 #include <lodepng/lodepng.h>
@@ -27,6 +24,10 @@ RenderManager::RenderManager(void* platformHandle, void* platformWindow, Object*
 
 RenderManager::~RenderManager() {
 
+}
+
+void RenderManager::addRenderer(Origin::Renderer* renderer) {
+    renderers.push_back(renderer);
 }
 
 void RenderManager::saveScreenshot() {
@@ -55,11 +56,6 @@ void RenderManager::saveScreenshot() {
 }
 
 void RenderManager::init() {
-    sceneRenderer = new SceneRenderer(this);
-    renderPassResources.push_back(sceneRenderer->getRenderPass());
-
-    uiRenderer = new UIRenderer(this);
-    renderPassResources.push_back(uiRenderer->getRenderPass());
 }
 
 void RenderManager::preRender() {
@@ -87,8 +83,8 @@ void RenderManager::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vu
     commandBuffer->addScissor(scissor);
     commandBuffer->setScissor(0);
 
-    for (const auto renderPassResoure : renderPassResources) {
-        renderPassResoure->write(commandBuffer, framebuffer);
+    for (Origin::Renderer* renderer : renderers) {
+        renderer->getRenderPass()->write(commandBuffer, framebuffer);
     }
 }
 

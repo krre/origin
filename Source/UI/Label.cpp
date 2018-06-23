@@ -4,7 +4,6 @@
 #include "Base/Game.h"
 #include "Screen/Screen.h"
 #include "Graphics/Render/UIRenderer.h"
-#include "Graphics/Render/RenderManager.h"
 #include "UIBatch.h"
 
 namespace Origin {
@@ -60,11 +59,11 @@ void Label::setColor(const Color& color) {
 }
 
 void Label::drawImpl() {
-    UIBatch batch(RenderManager::get()->getUIRenderer()->getVerticles());
+    UIBatch batch(UIRenderer::get()->getVerticles());
     batch.color = color;
     batch.texture = font->getTexture();
     batch.addText(absolutePosition.x, absolutePosition.y, text, font);
-    RenderManager::get()->getUIRenderer()->addBatch(batch);
+    UIRenderer::get()->addBatch(batch);
 }
 
 } // Origin

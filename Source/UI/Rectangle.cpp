@@ -3,7 +3,6 @@
 #include "Screen/Screen.h"
 #include "Graphics/Render/UIRenderer.h"
 #include "Resource/ResourceManager.h"
-#include "Graphics/Render/RenderManager.h"
 #include "UIBatch.h"
 #include "Font.h"
 #include <glm/ext.hpp>
@@ -35,11 +34,11 @@ void Rectangle::setBorderWidth(uint32_t border) {
 }
 
 void Rectangle::drawImpl() {
-    UIBatch batch(RenderManager::get()->getUIRenderer()->getVerticles());
+    UIBatch batch(UIRenderer::get()->getVerticles());
     batch.color = color;
     batch.texture = font->getTexture();
     batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height, font);
-    RenderManager::get()->getUIRenderer()->addBatch(batch);
+    UIRenderer::get()->addBatch(batch);
 }
 
 } // Origin

@@ -127,8 +127,8 @@ void Window::update(float dt) {
 void Window::render() {
     screens.back()->draw();
     Overlay::get()->draw();
-    RenderManager::get()->getUIRenderer()->render();
-    RenderManager::get()->getSceneRenderer()->render();
+    UIRenderer::get()->render();
+    SceneRenderer::get()->render();
 
     if (screens.back()->getDirty() || Overlay::get()->getDirty()) {
         RenderManager::get()->updateCommandBuffers();

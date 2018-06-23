@@ -6,19 +6,19 @@
 
 namespace Origin {
 
-UIRenderer::UIRenderer(Object* parent) : Object(parent) {
-    renderPassUI = new RenderPassUI(RenderManager::get()->getGraphicsDevice(), this);
+UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
+
 }
 
 UIRenderer::~UIRenderer() {
 
 }
 
-void UIRenderer::addBatch(UIBatch batch) {
-    batches.push_back(batch);
+void UIRenderer::init() {
+    renderPassUI = new RenderPassUI(RenderManager::get()->getGraphicsDevice(), this);
 }
 
-void UIRenderer::drawBatches() {
+void UIRenderer::render() {
     renderPassUI->setVertexCount(vertices.size());
 
     uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
@@ -30,6 +30,14 @@ void UIRenderer::drawBatches() {
 
     batches.clear();
     vertices.clear();
+}
+
+RenderPassResource* UIRenderer::getRenderPass() const {
+    return renderPassUI;
+}
+
+void UIRenderer::addBatch(UIBatch batch) {
+    batches.push_back(batch);
 }
 
 } // Origin

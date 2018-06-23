@@ -60,7 +60,8 @@ void RenderManager::init() {
     renderPassResources.push_back(sceneRenderer->getRenderPass());
 
     uiRenderer = new UIRenderer(this);
-    renderPassResources.push_back(uiRenderer->getRenderPassUI());
+    uiRenderer->init();
+    renderPassResources.push_back(uiRenderer->getRenderPass());
 }
 
 void RenderManager::preRender() {

@@ -60,8 +60,11 @@ void ShaderProgram::create() {
         descriptorPool->addPoolSize(it.first, it.second);
     }
 
-    descriptorPool->setMaxSets(descriptorSetLayouts.size());
-    descriptorPool->create();
+
+    if (descriptorPool->getPoolSizeCount()) {
+        descriptorPool->setMaxSets(descriptorSetLayouts.size());
+        descriptorPool->create();
+    }
 
     // Create descriptor set layouts
     for (const auto& it : descriptorSetLayouts) {

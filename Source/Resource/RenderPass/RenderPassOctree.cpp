@@ -24,9 +24,10 @@ namespace Origin {
 RenderPassOctree::RenderPassOctree(Vulkan::Device* device, Object* parent) :
         RenderPassResource(device, parent) {
     std::vector<glm::vec2> plane = {
-        { -1.0, 1.0 }, { 1.0, 1.0 }, { 1.0, -1.0 },
-        { -1.0, 1.0 }, { 1.0, -1.0 }, { -1.0, -1.0 }
+       { -1.0, 1.0 }, { -1.0, -1.0 }, { 1.0, -1.0 },
+        { -1.0, 1.0 }, { 1.0, -1.0 }, { 1.0, 1.0 }
     };
+
     vertextCount = plane.size();
 
     int size = plane.size() * sizeof(glm::vec2);

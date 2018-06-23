@@ -136,10 +136,12 @@ void RenderPassUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuff
         commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
         commandBuffer->bindVertexBuffers();
 
-        for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
-            commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
+        if (shaderProgram->getDescriptorSets()->getCount()) {
+            for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
+                commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
+            }
+            commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
         }
-        commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
 
         commandBuffer->draw(vertextCount, 1, 0, 0);
     }

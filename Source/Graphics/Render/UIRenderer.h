@@ -14,7 +14,7 @@ public:
 
     static UIRenderer* get();
 
-    void render() override;
+    void draw() override;
     RenderPassResource* getRenderPass() const override;
 
     void addBatch(UIBatch batch);

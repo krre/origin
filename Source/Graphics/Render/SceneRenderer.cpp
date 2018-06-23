@@ -25,7 +25,7 @@ SceneRenderer* SceneRenderer::get() {
     return instance;
 }
 
-void SceneRenderer::render() {
+void SceneRenderer::draw() {
     for (Scene* scene : scenes) {
 
 

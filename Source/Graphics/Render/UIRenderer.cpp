@@ -21,7 +21,7 @@ UIRenderer* UIRenderer::get() {
     return instance;
 }
 
-void UIRenderer::render() {
+void UIRenderer::draw() {
     renderPassUI->setVertexCount(vertices.size());
 
     uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);

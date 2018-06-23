@@ -15,7 +15,7 @@ public:
 
     static SceneRenderer* get();
 
-    void render() override;
+    void draw() override;
     RenderPassResource* getRenderPass() const override;
 
     void addScene(Scene* scene);

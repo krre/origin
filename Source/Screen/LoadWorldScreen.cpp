@@ -1,6 +1,7 @@
 #include "LoadWorldScreen.h"
 #include "UI/Button.h"
 #include "Base/Game.h"
+#include "Base/SDLWrapper.h"
 #include "GameScreen.h"
 #include "Base/Window.h"
 #include "UI/LinearLayout.h"
@@ -39,8 +40,12 @@ LoadWorldScreen::LoadWorldScreen() {
     buttonRemove->clicked.connect([&]() {
         int currentIndex = listBox->getCurrentIndex();
         if (currentIndex >= 0) {
-            World::remove(listBox->getCurrentText());
-            listBox->removeLine(currentIndex);
+            try {
+                World::remove(listBox->getCurrentText());
+                listBox->removeLine(currentIndex);
+            } catch (const fs::filesystem_error& e) {
+                SDL::showErrorMessageBox(e.what());
+            }
         }
     });
     buttonLayout->addChild(buttonRemove);

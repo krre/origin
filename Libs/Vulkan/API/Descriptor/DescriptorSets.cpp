@@ -19,6 +19,7 @@ void DescriptorSets::allocate() {
     allocateInfo.descriptorSetCount = descriptorSetLayouts.size();
     allocateInfo.pSetLayouts = descriptorSetLayouts.data();
 
+    assert(collection.size() == 0 && allocateInfo.descriptorSetCount > 0);
     collection.resize(allocateInfo.descriptorSetCount);
     VULKAN_CHECK_RESULT(vkAllocateDescriptorSets(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
 }

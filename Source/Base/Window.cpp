@@ -128,7 +128,7 @@ void Window::render() {
     screens.back()->draw();
     Overlay::get()->draw();
     RenderManager::get()->getUIRenderer()->drawBatches();
-    RenderManager::get()->getSceneRenderer()->drawScenes();
+    RenderManager::get()->getSceneRenderer()->render();
 
     if (screens.back()->getDirty() || Overlay::get()->getDirty()) {
         RenderManager::get()->updateCommandBuffers();

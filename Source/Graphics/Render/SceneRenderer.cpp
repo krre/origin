@@ -9,20 +9,20 @@
 
 namespace Origin {
 
-SceneRenderer::SceneRenderer(Object* parent) : Object(parent) {
-    renderPassOctree = new RenderPassOctree(RenderManager::get()->getGraphicsDevice(), this);
-    Octree* octree = new Octree(Substance(), this);
+SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
+
 }
 
 SceneRenderer::~SceneRenderer() {
 
 }
 
-void SceneRenderer::addScene(Scene* scene) {
-    scenes.push_back(scene);
+void SceneRenderer::init() {
+    renderPassOctree = new RenderPassOctree(RenderManager::get()->getGraphicsDevice(), this);
+    Octree* octree = new Octree(Substance(), this);
 }
 
-void SceneRenderer::drawScenes() {
+void SceneRenderer::render() {
     for (Scene* scene : scenes) {
 
 
@@ -37,6 +37,14 @@ void SceneRenderer::drawScenes() {
     glm::mat4 mvp = proj * view * model;
 
     scenes.clear();
+}
+
+RenderPassResource* SceneRenderer::getRenderPass() const {
+    return renderPassOctree;
+}
+
+void SceneRenderer::addScene(Scene* scene) {
+    scenes.push_back(scene);
 }
 
 } // Origin

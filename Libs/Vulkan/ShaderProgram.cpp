@@ -70,8 +70,10 @@ void ShaderProgram::create() {
         pipelineLayout->addDescriptorSetLayout(it.second->getHandle());
     }
 
-    descriptorSets->allocate();
-    updateDescriptorSets();
+    if (descriptorSets->getCount()) {
+        descriptorSets->allocate();
+        updateDescriptorSets();
+    }
 
     pipelineLayout->create();
 }

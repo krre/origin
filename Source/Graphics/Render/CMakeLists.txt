@@ -1,5 +1,7 @@
 set(SOURCES
     ${SOURCES}
+    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderManager.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderManager.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SceneRenderer.cpp

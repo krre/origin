@@ -15,17 +15,16 @@ DescriptorSets::~DescriptorSets() {
 }
 
 void DescriptorSets::allocate() {
+    assert(allocateInfo.descriptorSetCount > 0);
     allocateInfo.descriptorPool = descriptorPool->getHandle();
-    allocateInfo.descriptorSetCount = descriptorSetLayouts.size();
     allocateInfo.pSetLayouts = descriptorSetLayouts.data();
-
-    assert(collection.size() == 0 && allocateInfo.descriptorSetCount > 0);
-    collection.resize(allocateInfo.descriptorSetCount);
     VULKAN_CHECK_RESULT(vkAllocateDescriptorSets(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
 }
 
 void DescriptorSets::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout) {
     descriptorSetLayouts.push_back(descriptorSetLayout);
+    allocateInfo.descriptorSetCount = descriptorSetLayouts.size();
+    collection.resize(allocateInfo.descriptorSetCount);
 }
 
 void DescriptorSets::addWriteDescriptorSet(VkWriteDescriptorSet writeDescriptorSet) {

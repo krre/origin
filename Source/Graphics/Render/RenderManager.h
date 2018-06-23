@@ -16,6 +16,7 @@ public:
     ~RenderManager();
 
     void addRenderer(Origin::Renderer* renderer);
+    void draw();
 
     void saveScreenshot();
 

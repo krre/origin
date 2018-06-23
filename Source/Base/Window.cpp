@@ -11,8 +11,6 @@
 #include "Event/Input.h"
 #include "Core/Defines.h"
 #include "UI/Overlay.h"
-#include "Graphics/Render/UIRenderer.h"
-#include "Graphics/Render/SceneRenderer.h"
 #include "Debug/Console.h"
 #include "Graphics/Render/RenderManager.h"
 #include <lodepng/lodepng.h>
@@ -127,8 +125,7 @@ void Window::update(float dt) {
 void Window::render() {
     screens.back()->draw();
     Overlay::get()->draw();
-    UIRenderer::get()->draw();
-    SceneRenderer::get()->draw();
+    RenderManager::get()->draw();
 
     if (screens.back()->getDirty() || Overlay::get()->getDirty()) {
         RenderManager::get()->updateCommandBuffers();

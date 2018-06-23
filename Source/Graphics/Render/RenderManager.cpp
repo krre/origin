@@ -30,6 +30,12 @@ void RenderManager::addRenderer(Origin::Renderer* renderer) {
     renderers.push_back(renderer);
 }
 
+void RenderManager::draw() {
+    for (Origin::Renderer* renderer : renderers) {
+        renderer->draw();
+    }
+}
+
 void RenderManager::saveScreenshot() {
     std::string directoryPath = Game::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;

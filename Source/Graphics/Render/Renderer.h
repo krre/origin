@@ -11,7 +11,6 @@ public:
     Renderer(Object* parent = nullptr);
     ~Renderer();
 
-    virtual void init() = 0;
     virtual void render() = 0;
     virtual RenderPassResource* getRenderPass() const = 0;
 

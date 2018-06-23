@@ -7,15 +7,11 @@
 namespace Origin {
 
 UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
-
+    renderPassUI = new RenderPassUI(RenderManager::get()->getGraphicsDevice(), this);
 }
 
 UIRenderer::~UIRenderer() {
 
-}
-
-void UIRenderer::init() {
-    renderPassUI = new RenderPassUI(RenderManager::get()->getGraphicsDevice(), this);
 }
 
 void UIRenderer::render() {

@@ -12,7 +12,6 @@ public:
     UIRenderer(Object* parent = nullptr);
     ~UIRenderer();
 
-    void init() override;
     void render() override;
     RenderPassResource* getRenderPass() const override;
 

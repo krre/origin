@@ -13,7 +13,6 @@ public:
     SceneRenderer(Object* parent = nullptr);
     ~SceneRenderer();
 
-    void init() override;
     void render() override;
     RenderPassResource* getRenderPass() const override;
 

@@ -10,16 +10,12 @@
 namespace Origin {
 
 SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
-
+    renderPassOctree = new RenderPassOctree(RenderManager::get()->getGraphicsDevice(), this);
+    Octree* octree = new Octree(Substance(), this);
 }
 
 SceneRenderer::~SceneRenderer() {
 
-}
-
-void SceneRenderer::init() {
-    renderPassOctree = new RenderPassOctree(RenderManager::get()->getGraphicsDevice(), this);
-    Octree* octree = new Octree(Substance(), this);
 }
 
 void SceneRenderer::render() {

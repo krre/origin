@@ -56,11 +56,9 @@ void RenderManager::saveScreenshot() {
 
 void RenderManager::init() {
     sceneRenderer = new SceneRenderer(this);
-    sceneRenderer->init();
     renderPassResources.push_back(sceneRenderer->getRenderPass());
 
     uiRenderer = new UIRenderer(this);
-    uiRenderer->init();
     renderPassResources.push_back(uiRenderer->getRenderPass());
 }
 

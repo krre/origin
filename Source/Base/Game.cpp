@@ -9,11 +9,12 @@
 #include "Debug/DebugEnvironment.h"
 #include "UI/Overlay.h"
 #include "UI/UIManager.h"
+#include "Graphics/Render/RenderManager.h"
 #include "Graphics/Render/SceneRenderer.h"
+#include "Graphics/Render/DebugRenderer.h"
 #include "Graphics/Render/UIRenderer.h"
 #include "ECS/EntityManager.h"
 #include "Base/Settings.h"
-#include "Graphics/Render/RenderManager.h"
 #include "Window.h"
 #include "Screen/MenuScreen.h"
 #include "World/World.h"
@@ -76,6 +77,7 @@ void Game::init() {
         }
         RenderManager::get()->create();
         RenderManager::get()->addRenderer(new SceneRenderer(this));
+        RenderManager::get()->addRenderer(new DebugRenderer(this));
         RenderManager::get()->addRenderer(new UIRenderer(this));
 
         new UIManager(this);

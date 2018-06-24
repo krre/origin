@@ -8,6 +8,7 @@
 #include "Screen/GameScreen.h"
 #include "Screen/NewWorldScreen.h"
 #include "Screen/LoadWorldScreen.h"
+#include "Screen/WaitScreen.h"
 #include "Base/Window.h"
 
 namespace Origin {
@@ -41,6 +42,9 @@ void DebugEnvironment::setDebugScreen() {
             break;
         case Screen::Name::LoadGame:
             Window::get()->setScreen(std::make_shared<LoadWorldScreen>());
+            break;
+        case Screen::Name::Wait:
+            Window::get()->setScreen(std::make_shared<WaitScreen>());
             break;
         default:
             assert(0 && "Screen not found");

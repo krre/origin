@@ -12,7 +12,8 @@ public:
         Settings,
         Game,
         NewGame,
-        LoadGame
+        LoadGame,
+        Wait
     };
 
     Screen();

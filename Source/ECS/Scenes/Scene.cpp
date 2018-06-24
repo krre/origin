@@ -10,9 +10,9 @@ Scene::Scene(Object* parent) : Object(parent) {
 Scene::~Scene() {
 }
 
-void Scene::setEntity(Entity* entity) {
+void Scene::setRootEntity(Entity* entity) {
     entity->setParent(this);
-    this->entity = entity;
+    this->rootEntity = entity;
 }
 
 } // Origin

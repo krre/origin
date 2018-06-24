@@ -12,11 +12,11 @@ public:
     Scene(Object* parent = nullptr);
     ~Scene();
 
-    void setEntity(Entity* entity);
-    Entity* getEntity() const { return entity; }
+    void setRootEntity(Entity* rootEntity);
+    Entity* getRootEntity() const { return rootEntity; }
 
 private:
-    Entity* entity = nullptr;
+    Entity* rootEntity = nullptr;
 };
 
 } // Origin

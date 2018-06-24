@@ -12,7 +12,7 @@ GameScene::GameScene(Object* parent) : Scene(parent) {
     octreeComponent->octree = std::make_shared<Octree>();
     entity->addComponent(octreeComponent);
     entity->addComponent(std::make_shared<TransformComponent>());
-    setEntity(entity);
+    setRootEntity(entity);
 }
 
 GameScene::~GameScene() {

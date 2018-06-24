@@ -1,5 +1,4 @@
 #include "Rectangle.h"
-#include "Base/Game.h"
 #include "Screen/Screen.h"
 #include "Graphics/Render/UIRenderer.h"
 #include "Resource/ResourceManager.h"

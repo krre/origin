@@ -1,7 +1,6 @@
 #include "DebugHUD.h"
 #include "UI/Label.h"
 #include "Base/Defines.h"
-#include "Base/Game.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Vulkan/API/Device/Device.h"
 #include "Vulkan/API/Device/PhysicalDevice.h"

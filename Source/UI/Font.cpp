@@ -2,7 +2,6 @@
 #include "Resource/ResourceManager.h"
 #include "Vulkan/Texture.h"
 #include "Core/Utils.h"
-#include "Base/Game.h"
 #include "Graphics/Render/RenderManager.h"
 #include <cmath>
 #include <lodepng/lodepng.h>

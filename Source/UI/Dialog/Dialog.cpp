@@ -1,6 +1,5 @@
 #include "Dialog.h"
 #include "Event/Input.h"
-#include "Base/Game.h"
 #include "Base/Window.h"
 #include "UI/Overlay.h"
 #include "Screen/Screen.h"

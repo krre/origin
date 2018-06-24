@@ -1,7 +1,6 @@
 #include "NewWorldScreen.h"
 #include "GameScreen.h"
 #include "UI/Button.h"
-#include "Base/Game.h"
 #include "Base/Window.h"
 #include "UI/LinearLayout.h"
 #include "UI/TextEdit.h"

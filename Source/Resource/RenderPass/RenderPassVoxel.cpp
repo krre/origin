@@ -1,6 +1,5 @@
 #include "RenderPassVoxel.h"
 #include "Graphics/Color.h"
-#include "Base/Game.h"
 #include "Base/Window.h"
 #include "Vulkan/API/RenderPass.h"
 #include "Vulkan/API/Framebuffer.h"

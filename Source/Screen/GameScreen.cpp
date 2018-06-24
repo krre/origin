@@ -1,7 +1,6 @@
 #include "GameScreen.h"
 #include "UI/LinearLayout.h"
 #include "UI/View3D.h"
-#include "Base/Game.h"
 #include "UI/Overlay.h"
 #include "ECS/Scenes/GameScene.h"
 #include "UI/Dialog/PauseDialog.h"

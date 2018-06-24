@@ -1,6 +1,5 @@
 #include "UIManager.h"
 #include "Control.h"
-#include "Base/Game.h"
 #include "Base/Window.h"
 #include "Screen/Screen.h"
 #include "Event/Event.h"

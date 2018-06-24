@@ -1,7 +1,6 @@
 #include "Label.h"
 #include "Resource/ResourceManager.h"
 #include "Font.h"
-#include "Base/Game.h"
 #include "Screen/Screen.h"
 #include "Graphics/Render/UIRenderer.h"
 #include "UIBatch.h"

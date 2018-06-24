@@ -1,6 +1,5 @@
 #include "Button.h"
 #include "Event/Event.h"
-#include "Base/Game.h"
 #include "Base/Window.h"
 #include "Label.h"
 

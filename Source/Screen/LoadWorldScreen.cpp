@@ -1,6 +1,5 @@
 #include "LoadWorldScreen.h"
 #include "UI/Button.h"
-#include "Base/Game.h"
 #include "Base/SDLWrapper.h"
 #include "GameScreen.h"
 #include "Base/Window.h"

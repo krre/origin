@@ -1,5 +1,4 @@
 #include "View3D.h"
-#include "Base/Game.h"
 #include "ECS/Scenes/Scene.h"
 #include "Graphics/Render/SceneRenderer.h"
 

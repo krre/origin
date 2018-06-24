@@ -1,7 +1,6 @@
 #include "Console.h"
 #include "Event/Event.h"
 #include "Base/Game.h"
-#include "Base/Game.h"
 #include "UI/Label.h"
 #include <glm/glm.hpp>
 

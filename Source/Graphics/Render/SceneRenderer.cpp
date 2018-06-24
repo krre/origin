@@ -3,7 +3,6 @@
 #include "Resource/RenderPass/RenderPassOctree.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Base/Window.h"
-#include "Base/Game.h"
 #include "Octree/Octree.h"
 #include <glm/gtc/matrix_transform.hpp>
 

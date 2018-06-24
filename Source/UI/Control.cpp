@@ -1,7 +1,6 @@
 #include "Control.h"
 #include "UIBatch.h"
 #include "Screen/Screen.h"
-#include "Base/Game.h"
 #include "UI/UIManager.h"
 #include "Base/Window.h"
 #include "Layout.h"

@@ -1,6 +1,5 @@
 #pragma once
 #include "ECS/Component.h"
-#include "Base/Game.h"
 #include "Base/Window.h"
 #include <glm/ext.hpp>
 

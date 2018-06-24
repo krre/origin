@@ -4,7 +4,6 @@
 
 namespace Origin {
 
-class Window;
 class Screen;
 class RenderPassResource;
 class Renderer;
@@ -25,7 +24,6 @@ private:
     void preRender() override;
     void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
 
-    Window* window = nullptr;
     Screen* currentScreen = nullptr;
     std::vector<Origin::Renderer*> renderers;
 };

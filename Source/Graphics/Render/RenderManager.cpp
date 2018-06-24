@@ -19,7 +19,6 @@ namespace Origin {
 RenderManager::RenderManager(void* platformHandle, void* platformWindow, Object* parent) :
         Vulkan::Renderer(platformHandle, platformWindow),
         SingleObject(parent) {
-    window = Window::get();
 }
 
 RenderManager::~RenderManager() {
@@ -57,7 +56,7 @@ void RenderManager::saveScreenshot() {
     std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
 
     std::vector<unsigned char> buffer = readFramebuffer();
-    lodepng::encode(filePath, buffer.data(), get()->window->getWidth(), get()->window->getHeight());
+    lodepng::encode(filePath, buffer.data(), Window::get()->getWidth(), Window::get()->getHeight());
 
     std::string message = "Screenshot saved to " + filename;
     Overlay::get()->getToast()->show(message);
@@ -67,8 +66,8 @@ void RenderManager::init() {
 }
 
 void RenderManager::preRender() {
-    if (currentScreen != window->getCurrentScreen()) {
-        currentScreen = window->getCurrentScreen();
+    if (currentScreen != Window::get()->getCurrentScreen()) {
+        currentScreen = Window::get()->getCurrentScreen();
         updateCommandBuffers();
     }
 }

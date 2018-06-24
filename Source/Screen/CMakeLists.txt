@@ -12,5 +12,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/Screen.h
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScreen.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/SettingsScreen.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/WaitScreen.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/WaitScreen.h
     PARENT_SCOPE
 )

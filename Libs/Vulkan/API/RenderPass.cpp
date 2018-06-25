@@ -37,7 +37,7 @@ void RenderPass::create() {
     colorAttachmentDescription.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
     colorAttachmentDescription.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
     colorAttachmentDescription.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    colorAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+    colorAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
     attachmentDescriptions.push_back(colorAttachmentDescription);
 

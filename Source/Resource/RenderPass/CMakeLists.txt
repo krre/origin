@@ -1,12 +1,6 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassOctree.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassOctree.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassResource.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassResource.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassUI.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassUI.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassVoxel.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/RenderPassVoxel.h
     PARENT_SCOPE
 )

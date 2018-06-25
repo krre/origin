@@ -21,7 +21,7 @@ void DebugRenderer::draw() {
 
 }
 
-RenderPassResource* DebugRenderer::getRenderPass() const {
+RenderLayer* DebugRenderer::getRenderLayer() const {
     return nullptr;
 }
 

@@ -5,7 +5,7 @@
 
 namespace Origin {
 
-class RenderPassOctree;
+class RenderLayerOctree;
 
 class SceneRenderer : public Renderer {
 
@@ -16,13 +16,13 @@ public:
     static SceneRenderer* get();
 
     void draw() override;
-    RenderPassResource* getRenderPass() const override;
+    RenderLayer* getRenderLayer() const override;
 
     void addScene(Scene* scene);
 
 private:
     std::vector<Scene*> scenes;
-    RenderPassOctree* renderPassOctree;
+    RenderLayerOctree* renderLayerOctree;
 };
 
 } // Origin

@@ -1,6 +1,6 @@
 #include "UIRenderer.h"
 #include "Vulkan/GpuBuffer.h"
-#include "Resource/RenderPass/RenderPassUI.h"
+#include "Resource/RenderLayer/RenderLayerUI.h"
 #include "Graphics/Render/RenderManager.h"
 
 namespace Origin {
@@ -9,7 +9,7 @@ static UIRenderer* instance = nullptr;
 
 UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     instance = this;
-    renderPassUI = new RenderPassUI(RenderManager::get()->getGraphicsDevice(), this);
+    renderLayerUI = new RenderLayerUI(RenderManager::get()->getGraphicsDevice(), this);
 }
 
 UIRenderer::~UIRenderer() {
@@ -21,21 +21,21 @@ UIRenderer* UIRenderer::get() {
 }
 
 void UIRenderer::draw() {
-    renderPassUI->setVertexCount(vertices.size());
+    renderLayerUI->setVertexCount(vertices.size());
 
     uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
 
     if (size) {
-        renderPassUI->getVertexBuffer()->write(vertices.data(), size);
-        renderPassUI->setTexture(batches.at(0).texture); // TODO: Sort batches and swith textures
+        renderLayerUI->getVertexBuffer()->write(vertices.data(), size);
+        renderLayerUI->setTexture(batches.at(0).texture); // TODO: Sort batches and swith textures
     }
 
     batches.clear();
     vertices.clear();
 }
 
-RenderPassResource* UIRenderer::getRenderPass() const {
-    return renderPassUI;
+RenderLayer* UIRenderer::getRenderLayer() const {
+    return renderLayerUI;
 }
 
 void UIRenderer::addBatch(UIBatch batch) {

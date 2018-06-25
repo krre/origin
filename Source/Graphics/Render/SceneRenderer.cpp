@@ -1,6 +1,6 @@
 #include "SceneRenderer.h"
 #include "Vulkan/GpuBuffer.h"
-#include "Resource/RenderPass/RenderPassOctree.h"
+#include "Resource/RenderLayer/RenderLayerOctree.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Base/Window.h"
 #include "Octree/Octree.h"
@@ -12,7 +12,7 @@ static SceneRenderer* instance = nullptr;
 
 SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
     instance = this;
-    renderPassOctree = new RenderPassOctree(RenderManager::get()->getGraphicsDevice(), this);
+    renderLayerOctree = new RenderLayerOctree(RenderManager::get()->getGraphicsDevice(), this);
     Octree* octree = new Octree(Substance(), this);
 }
 
@@ -41,8 +41,8 @@ void SceneRenderer::draw() {
     scenes.clear();
 }
 
-RenderPassResource* SceneRenderer::getRenderPass() const {
-    return renderPassOctree;
+RenderLayer* SceneRenderer::getRenderLayer() const {
+    return renderLayerOctree;
 }
 
 void SceneRenderer::addScene(Scene* scene) {

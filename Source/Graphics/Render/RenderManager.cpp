@@ -1,13 +1,14 @@
 #include "RenderManager.h"
 #include "Base/Game.h"
 #include "Base/Window.h"
+#include "Graphics/Color.h"
 #include "Screen/Screen.h"
 #include "Core/Utils.h"
 #include "Vulkan/API/Command/CommandBuffer.h"
 #include "Vulkan/API/Framebuffer.h"
 #include "Vulkan/API/RenderPass.h"
 #include "Vulkan/API/Surface/Surface.h"
-#include "Resource/RenderPass/RenderPassResource.h"
+#include "Resource/RenderLayer/RenderLayer.h"
 #include "Renderer.h"
 #include "UI/Overlay.h"
 #include "UI/Toast.h"
@@ -90,11 +91,25 @@ void RenderManager::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vu
     commandBuffer->addScissor(scissor);
     commandBuffer->setScissor(0);
 
+    Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
+    renderPassBegin.setFrameBuffer(framebuffer->getHandle());
+    renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
+    const Color& color = Window::get()->getColor();
+    renderPassBegin.addClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
+    VkClearValue depthColor = {};
+    depthColor.depthStencil.depth = 1.0f;
+    depthColor.depthStencil.stencil = 0.0f;
+    renderPassBegin.addClearValue(depthColor);
+
+    commandBuffer->beginRenderPass(renderPassBegin.getInfo());
+
     for (Origin::Renderer* renderer : renderers) {
         if (renderer->getActive()) {
-            renderer->getRenderPass()->write(commandBuffer, framebuffer);
+            renderer->getRenderLayer()->write(commandBuffer, framebuffer);
         }
     }
+
+    commandBuffer->endRenderPass();
 }
 
 } // Origin

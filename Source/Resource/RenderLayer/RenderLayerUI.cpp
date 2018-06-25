@@ -102,6 +102,10 @@ RenderLayerUI::~RenderLayerUI() {
 }
 
 void RenderLayerUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+    // TODO: Only need update on resize framebuffer
+    glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
+    uboBuffer->write(&mvp, sizeof(mvp));
+
     commandBuffer->bindPipeline(graphicsPipeline.get());
 
     commandBuffer->clearVertexBuffers();
@@ -117,6 +121,24 @@ void RenderLayerUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuf
     }
 
     commandBuffer->draw(vertextCount, 1, 0, 0);
+}
+
+void RenderLayerUI::resizeVertexBuffer(uint32_t size) {
+    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+}
+
+void RenderLayerUI::setVertexCount(uint32_t vertextCount) {
+    this->vertextCount = vertextCount;
+
+    uint32_t size = vertextCount * sizeof(UIBatch::Vertex);
+
+    if (size > vertexBuffer->getSize()) {
+        resizeVertexBuffer(size);
+    }
+}
+
+void RenderLayerUI::setTexture(Vulkan::Texture* texture) {
+    this->texture = texture;
 }
 
 } // Origin

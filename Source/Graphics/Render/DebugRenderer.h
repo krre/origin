@@ -12,7 +12,7 @@ public:
     static DebugRenderer* get();
 
     void draw() override;
-    RenderPassResource* getRenderPass() const override;
+    RenderLayer* getRenderLayer() const override;
 
 private:
 

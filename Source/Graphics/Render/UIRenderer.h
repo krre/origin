@@ -4,7 +4,7 @@
 
 namespace Origin {
 
-class RenderPassUI;
+class RenderLayerUI;
 
 class UIRenderer : public Renderer {
 
@@ -15,7 +15,7 @@ public:
     static UIRenderer* get();
 
     void draw() override;
-    RenderPassResource* getRenderPass() const override;
+    RenderLayer* getRenderLayer() const override;
 
     void addBatch(UIBatch batch);
     std::vector<UIBatch::Vertex>* getVerticles() { return &vertices; }
@@ -23,7 +23,7 @@ public:
 private:
     std::vector<UIBatch> batches;
     std::vector<UIBatch::Vertex> vertices;
-    RenderPassUI* renderPassUI;
+    RenderLayerUI* renderLayerUI;
 };
 
 } // Origin

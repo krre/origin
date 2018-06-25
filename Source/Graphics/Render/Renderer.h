@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class RenderPassResource;
+class RenderLayer;
 
 class Renderer : public Object {
 
@@ -12,7 +12,7 @@ public:
     ~Renderer();
 
     virtual void draw() = 0;
-    virtual RenderPassResource* getRenderPass() const = 0;
+    virtual RenderLayer* getRenderLayer() const = 0;
 
     void setActive(bool active);
     bool getActive() const { return active; }

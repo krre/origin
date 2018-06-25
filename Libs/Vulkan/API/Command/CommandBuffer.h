@@ -22,7 +22,9 @@ public:
     void addImageCopy(VkImageCopy imageCopy);
     void addBlitRegion(VkImageBlit blitRegion);
     void addDynamicOffset(uint32_t dynamicOffset);
+
     void addDescriptorSet(VkDescriptorSet descriptorSet);
+    void clearDescriptorSets();
 
     static VkMemoryBarrier createMemoryBarrier();
     void addMemoryBarrier(VkMemoryBarrier memoryBarrier);

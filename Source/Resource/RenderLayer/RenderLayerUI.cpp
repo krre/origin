@@ -110,6 +110,7 @@ void RenderLayerUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuf
     commandBuffer->bindVertexBuffers();
 
     if (shaderProgram->getDescriptorSets()->getCount()) {
+        commandBuffer->clearDescriptorSets();
         for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
             commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
         }

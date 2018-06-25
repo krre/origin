@@ -45,6 +45,10 @@ void CommandBuffer::addDescriptorSet(VkDescriptorSet descriptorSet) {
     descriptorSets.push_back(descriptorSet);
 }
 
+void CommandBuffer::clearDescriptorSets() {
+    descriptorSets.clear();
+}
+
 VkMemoryBarrier CommandBuffer::createMemoryBarrier() {
     VkMemoryBarrier mb = {};
     mb.sType = VK_STRUCTURE_TYPE_MEMORY_BARRIER;

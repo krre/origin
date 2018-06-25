@@ -14,7 +14,10 @@ public:
     void destroy() override {}
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);
+
     void addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset = 0);
+    void clearVertexBuffers();
+
     void addBufferCopy(VkBufferCopy bufferCopy);
     void addImageCopy(VkImageCopy imageCopy);
     void addBlitRegion(VkImageBlit blitRegion);

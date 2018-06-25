@@ -105,6 +105,7 @@ RenderLayerUI::~RenderLayerUI() {
 void RenderLayerUI::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     commandBuffer->bindPipeline(graphicsPipeline.get());
 
+    commandBuffer->clearVertexBuffers();
     commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
     commandBuffer->bindVertexBuffers();
 

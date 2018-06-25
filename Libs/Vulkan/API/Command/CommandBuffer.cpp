@@ -20,6 +20,11 @@ void CommandBuffer::addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset) 
     vertexBufferOffsets.push_back(offset);
 }
 
+void CommandBuffer::clearVertexBuffers() {
+    vertexBuffers.clear();
+    vertexBufferOffsets.clear();
+}
+
 void CommandBuffer::addBufferCopy(VkBufferCopy bufferCopy) {
     bufferCopies.push_back(bufferCopy);
 }

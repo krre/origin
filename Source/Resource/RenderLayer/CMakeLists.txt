@@ -4,5 +4,7 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderLayer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderLayerOctree.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderLayerOctree.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/RenderLayerUI.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/RenderLayerUI.h
     PARENT_SCOPE
 )

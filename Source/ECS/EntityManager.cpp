@@ -55,37 +55,36 @@ void EntityManager::initSystems() {
 
 Component* EntityManager::createComponent(Entity* entity, Component::Type type) {
     switch (type) {
-    case Component::Type::Camera:
-        entity->components[type] = std::make_shared<CameraComponent>();
-        break;
-    case Component::Type::Light:
-        entity->components[type] = std::make_shared<LightComponent>();
-        break;
-    case Component::Type::Material:
-        entity->components[type] = std::make_shared<MaterialComponent>();
-        break;
-    case Component::Type::Movement:
-        entity->components[type] = std::make_shared<MovementComponent>();
-        break;
-    case Component::Type::Render:
-        entity->components[type] = std::make_shared<RenderComponent>();
-        break;
-    case Component::Type::Physics:
-        entity->components[type] = std::make_shared<PhysicsComponent>();
-        break;
-    case Component::Type::Transform:
-        entity->components[type] = std::make_shared<TransformComponent>();
-        break;
-    case Component::Type::MovementController:
-        entity->components[type] = std::make_shared<MovementControllerComponent>();
-        break;
-    case Component::Type::Octree:
-        entity->components[type] = std::make_shared<OctreeComponent>();
-        break;
-    case Component::Type::Mesh: break;
-    case Component::Type::Empty: break;
+        case Component::Type::Camera:
+            entity->components[type] = std::make_shared<CameraComponent>();
+            break;
+        case Component::Type::Light:
+            entity->components[type] = std::make_shared<LightComponent>();
+            break;
+        case Component::Type::Material:
+            entity->components[type] = std::make_shared<MaterialComponent>();
+            break;
+        case Component::Type::Movement:
+            entity->components[type] = std::make_shared<MovementComponent>();
+            break;
+        case Component::Type::Render:
+            entity->components[type] = std::make_shared<RenderComponent>();
+            break;
+        case Component::Type::Physics:
+            entity->components[type] = std::make_shared<PhysicsComponent>();
+            break;
+        case Component::Type::Transform:
+            entity->components[type] = std::make_shared<TransformComponent>();
+            break;
+        case Component::Type::MovementController:
+            entity->components[type] = std::make_shared<MovementControllerComponent>();
+            break;
+        case Component::Type::Octree:
+            entity->components[type] = std::make_shared<OctreeComponent>();
+            break;
+        case Component::Type::Mesh: break;
+        case Component::Type::Empty: break;
     }
-
 
     return entity->components[type].get();
 }

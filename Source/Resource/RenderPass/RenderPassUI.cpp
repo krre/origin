@@ -53,7 +53,6 @@ RenderPassUI::RenderPassUI(Vulkan::Device* device, Object* parent) :
 
     renderPass = std::make_unique<Vulkan::RenderPass>(device);
     renderPass->setColorFormat(RenderManager::get()->getRenderPass()->getColorFormat());
-    renderPass->setBlendEnable(true);
     renderPass->setDepthEnable(true);
     renderPass->setDepthFormat(RenderManager::get()->getRenderPass()->getDepthFormat());
     renderPass->create();

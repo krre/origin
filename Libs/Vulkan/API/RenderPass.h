@@ -36,7 +36,6 @@ public:
     VkFormat getDepthFormat() const { return depthAttachmentDescription.format; }
 
     void setDepthEnable(bool depthEnable);
-    void setBlendEnable(bool blendEnable);
 
 private:
     VkRenderPassCreateInfo createInfo = {};
@@ -49,7 +48,6 @@ private:
     std::vector<VkSubpassDescription> subpassDescriptions;
     std::vector<VkAttachmentDescription> attachmentDescriptions;
     bool depthEnable = false;
-    bool blendEnable = false;
 };
 
 } // Vulkan

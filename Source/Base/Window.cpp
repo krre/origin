@@ -14,6 +14,7 @@
 #include "Debug/Console.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Graphics/Render/SceneRenderer.h"
+#include "Graphics/Render/UIRenderer.h"
 #include <lodepng/lodepng.h>
 #include <SDL_syswm.h>
 #include <SDL_keycode.h>
@@ -124,6 +125,7 @@ void Window::update(float dt) {
 }
 
 void Window::render() {
+    UIRenderer::get()->clearBatches();
     SceneRenderer::get()->clearScenes();
     screens.back()->draw();
     Overlay::get()->draw();

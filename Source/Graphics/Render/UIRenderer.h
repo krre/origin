@@ -16,8 +16,11 @@ public:
 
     void draw() override;
     RenderLayer* getRenderLayer() const override;
+    bool getActive() const override;
 
     void addBatch(UIBatch batch);
+    void clearBatches();
+
     std::vector<UIBatch::Vertex>* getVerticles() { return &vertices; }
 
 private:

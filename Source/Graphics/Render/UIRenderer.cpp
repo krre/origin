@@ -29,17 +29,23 @@ void UIRenderer::draw() {
         renderLayerUI->getVertexBuffer()->write(vertices.data(), size);
         renderLayerUI->setTexture(batches.at(0).texture); // TODO: Sort batches and swith textures
     }
-
-    batches.clear();
-    vertices.clear();
 }
 
 RenderLayer* UIRenderer::getRenderLayer() const {
     return renderLayerUI;
 }
 
+bool UIRenderer::getActive() const {
+    return batches.size() > 0;
+}
+
 void UIRenderer::addBatch(UIBatch batch) {
     batches.push_back(batch);
+}
+
+void UIRenderer::clearBatches() {
+    batches.clear();
+    vertices.clear();
 }
 
 } // Origin

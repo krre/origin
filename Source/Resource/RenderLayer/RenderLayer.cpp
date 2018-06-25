@@ -2,7 +2,8 @@
 
 namespace Origin {
 
-RenderLayer::RenderLayer(Object* parent) : Object(parent) {
+RenderLayer::RenderLayer(Vulkan::Device* device, Object* parent) :
+    device(device), Object(parent) {
 
 }
 

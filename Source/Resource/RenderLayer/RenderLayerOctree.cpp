@@ -2,7 +2,7 @@
 
 namespace Origin {
 
-RenderLayerOctree::RenderLayerOctree(Object* parent) : RenderLayer(parent) {
+RenderLayerOctree::RenderLayerOctree(Vulkan::Device* device, Object* parent) : RenderLayer(device, parent) {
 
 }
 

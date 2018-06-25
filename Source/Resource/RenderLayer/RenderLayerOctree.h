@@ -6,7 +6,7 @@ namespace Origin {
 class RenderLayerOctree : public RenderLayer {
 
 public:
-    RenderLayerOctree(Object* parent = nullptr);
+    RenderLayerOctree(Vulkan::Device* device, Object* parent = nullptr);
     ~RenderLayerOctree();
 
 private:

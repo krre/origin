@@ -1,5 +1,4 @@
 #include "RenderLayerUI.h"
-#include "Graphics/Color.h"
 #include "Base/Window.h"
 #include "Vulkan/API/RenderPass.h"
 #include "Vulkan/API/Framebuffer.h"

@@ -37,16 +37,22 @@ void SceneRenderer::draw() {
     model = glm::rotate(model, rot, glm::vec3(0.0, 1.0, 0.0)) * glm::rotate(model, rot, glm::vec3(1.0, 1.0, 1.0));
 
     glm::mat4 mvp = proj * view * model;
-
-    scenes.clear();
 }
 
 RenderLayer* SceneRenderer::getRenderLayer() const {
     return renderLayerOctree;
 }
 
+bool SceneRenderer::getActive() const {
+    return scenes.size() > 0;
+}
+
 void SceneRenderer::addScene(Scene* scene) {
     scenes.push_back(scene);
+}
+
+void SceneRenderer::clearScenes() {
+    scenes.clear();
 }
 
 } // Origin

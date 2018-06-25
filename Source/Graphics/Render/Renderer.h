@@ -15,7 +15,7 @@ public:
     virtual RenderLayer* getRenderLayer() const = 0;
 
     void setActive(bool active);
-    bool getActive() const { return active; }
+    virtual bool getActive() const { return active; }
 
 private:
     bool active = true;

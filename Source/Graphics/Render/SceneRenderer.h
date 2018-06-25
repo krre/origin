@@ -17,8 +17,10 @@ public:
 
     void draw() override;
     RenderLayer* getRenderLayer() const override;
+    bool getActive() const override;
 
     void addScene(Scene* scene);
+    void clearScenes();
 
 private:
     std::vector<Scene*> scenes;

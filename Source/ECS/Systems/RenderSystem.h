@@ -4,8 +4,6 @@
 
 namespace Origin {
 
-class Drawable;
-
 class RenderSystem : public System {
 
 public:
@@ -13,7 +11,7 @@ public:
     void process(float dt) override;
 
 private:
-    std::vector<Drawable*> drawables;
+
 };
 
 } // Origin

@@ -136,4 +136,21 @@ void VulkanTab::on_comboBoxDevice_currentIndexChanged(int currentIndex) {
     emit flush();
 }
 
+void VulkanTab::on_pushButtonSelectAll_clicked() {
+    changeStateDebugReportCheckBoxes(true);
+}
+
+void VulkanTab::on_pushButtonUnselectAll_clicked() {
+    changeStateDebugReportCheckBoxes(false);
+}
+
+void VulkanTab::changeStateDebugReportCheckBoxes(bool checked) {
+    ui->checkBoxInformation->setChecked(checked);
+    ui->checkBoxWarning->setChecked(checked);
+    ui->checkBoxPerformance->setChecked(checked);
+    ui->checkBoxError->setChecked(checked);
+    ui->checkBoxDebug->setChecked(checked);
+    emit flush();
+}
+
 } // DebugSettingsEditor

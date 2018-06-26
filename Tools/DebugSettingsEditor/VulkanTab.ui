@@ -57,10 +57,30 @@
       <bool>true</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QCheckBox" name="checkBoxInformation">
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="checkBoxWarning">
         <property name="text">
-         <string>Information</string>
+         <string>Warning</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QCheckBox" name="checkBoxPerformance">
+        <property name="text">
+         <string>Performance</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QCheckBox" name="checkBoxError">
+        <property name="text">
+         <string>Error</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -84,30 +104,24 @@
         </property>
        </spacer>
       </item>
-      <item row="1" column="1">
-       <widget class="QCheckBox" name="checkBoxError">
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="checkBoxInformation">
         <property name="text">
-         <string>Error</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
+         <string>Information</string>
         </property>
        </widget>
       </item>
-      <item row="0" column="1">
-       <widget class="QCheckBox" name="checkBoxPerformance">
+      <item row="2" column="0">
+       <widget class="QPushButton" name="pushButtonSelectAll">
         <property name="text">
-         <string>Performance</string>
+         <string>Sellect All</string>
         </property>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QCheckBox" name="checkBoxWarning">
+      <item row="2" column="1">
+       <widget class="QPushButton" name="pushButtonUnselectAll">
         <property name="text">
-         <string>Warning</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
+         <string>Unselect All</string>
         </property>
        </widget>
       </item>

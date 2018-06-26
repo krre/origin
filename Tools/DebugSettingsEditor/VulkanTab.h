@@ -19,8 +19,12 @@ public:
 
 private slots:
     void on_comboBoxDevice_currentIndexChanged(int currentIndex);
+    void on_pushButtonSelectAll_clicked();
+    void on_pushButtonUnselectAll_clicked();
 
 private:
+    void changeStateDebugReportCheckBoxes(bool checked);
+
     Ui::VulkanTab* ui;
 };
 

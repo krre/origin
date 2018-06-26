@@ -31,6 +31,10 @@ private slots:
     void on_pushButtonExtensionsUnselectAll_clicked();
     void on_pushButtonExtensionsReset_clicked();
 
+    void on_pushButtonLayersSelectAll_clicked();
+    void on_pushButtonLayersUnselectAll_clicked();
+    void on_pushButtonLayersReset_clicked();
+
 private:
     void changeStateDebugReportCheckBoxes(bool checked);
     void selectListWidgetItems(QListWidget* listWidget, const QStringList& list);

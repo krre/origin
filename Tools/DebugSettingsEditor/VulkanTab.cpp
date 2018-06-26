@@ -47,6 +47,7 @@ VulkanTab::VulkanTab() :
 
     on_pushButtonDebugReportReset_clicked();
     on_pushButtonExtensionsReset_clicked();
+    on_pushButtonLayersReset_clicked();
 }
 
 VulkanTab::~VulkanTab() {
@@ -171,6 +172,25 @@ void VulkanTab::on_pushButtonExtensionsReset_clicked() {
     list << "VK_KHR_win32_surface";
 
     selectListWidgetItems(ui->listWidgetExtensions, list);
+}
+
+void VulkanTab::on_pushButtonLayersSelectAll_clicked() {
+    ui->listWidgetLayers->selectAll();
+    emit flush();
+}
+
+void VulkanTab::on_pushButtonLayersUnselectAll_clicked() {
+    ui->listWidgetLayers->clearSelection();
+    emit flush();
+}
+
+void VulkanTab::on_pushButtonLayersReset_clicked() {
+    QStringList list;
+    list << "VK_LAYER_LUNARG_core_validation";
+    list << "VK_LAYER_LUNARG_parameter_validation";
+    list << "VK_LAYER_LUNARG_standard_validation";
+
+    selectListWidgetItems(ui->listWidgetLayers, list);
 }
 
 void VulkanTab::changeStateDebugReportCheckBoxes(bool checked) {

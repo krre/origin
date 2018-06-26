@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget* parent) :
         AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
         connect(tab, &AbstractTab::flush, this, &MainWindow::writeDebugSettings);
     }
+
+    writeDebugSettings();
 }
 
 MainWindow::~MainWindow() {

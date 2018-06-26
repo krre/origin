@@ -44,6 +44,8 @@ VulkanTab::VulkanTab() :
     for (const auto& extension : instance.getExtensionProperties()) {
         ui->listWidgetExtensions->addItem(extension.extensionName);
     }
+
+    on_pushButtonResetDebugReport_clicked();
 }
 
 VulkanTab::~VulkanTab() {
@@ -142,6 +144,13 @@ void VulkanTab::on_pushButtonSelectAll_clicked() {
 
 void VulkanTab::on_pushButtonUnselectAll_clicked() {
     changeStateDebugReportCheckBoxes(false);
+}
+
+void VulkanTab::on_pushButtonResetDebugReport_clicked() {
+    changeStateDebugReportCheckBoxes(false);
+    ui->checkBoxWarning->setChecked(true);
+    ui->checkBoxError->setChecked(true);
+    emit flush();
 }
 
 void VulkanTab::changeStateDebugReportCheckBoxes(bool checked) {

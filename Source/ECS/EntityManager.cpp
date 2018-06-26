@@ -106,7 +106,7 @@ void EntityManager::removeComponent(Entity* entity, Component::Type type) {
     entity->components.erase(type);
 }
 
-void EntityManager::update(float dt) {
+void EntityManager::update(Scene* scene, float dt) {
     for (const auto& system : systems) {
         if (system.second->getActive()) {
             system.second->process(dt);

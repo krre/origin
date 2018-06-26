@@ -14,6 +14,7 @@ public:
     void setScene(const std::shared_ptr<Scene>& scene);
 
 private:
+    void updateImpl(float dt) override;
     void drawImpl() override;
 
     std::shared_ptr<Scene> scene;

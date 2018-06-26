@@ -9,6 +9,7 @@ namespace Origin {
 
 class Entity;
 class EntityBuilder;
+class Scene;
 
 class EntityManager : public SingleObject<EntityManager> {
 
@@ -38,7 +39,7 @@ public:
     void addComponent(Entity* entity, std::shared_ptr<Component> component);
     void removeComponent(Entity* entity, Component::Type type);
 
-    void update(float dt);
+    void update(Scene* scene, float dt);
 
     EntityBuilder* getBuilder() { return entityBuilder.get(); }
 

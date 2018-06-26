@@ -1,7 +1,6 @@
 #include "View3D.h"
 #include "ECS/Scenes/Scene.h"
 #include "ECS/EntityManager.h"
-#include "Graphics/Render/SceneRenderer.h"
 
 namespace Origin {
 
@@ -27,7 +26,7 @@ void View3D::updateImpl(float dt) {
 
 void View3D::drawImpl() {
     if (scene) {
-        SceneRenderer::get()->addScene(scene.get());
+        EntityManager::get()->draw(scene.get());
     }
 }
 

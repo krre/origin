@@ -2,6 +2,7 @@
 #include "Systems/Systems.h"
 #include "EntityBuilder.h"
 #include "Components/Components.h"
+#include "Graphics/Render/SceneRenderer.h"
 #include <algorithm>
 
 namespace Origin {
@@ -112,6 +113,10 @@ void EntityManager::update(Scene* scene, float dt) {
             system.second->process(dt);
         }
     }
+}
+
+void EntityManager::draw(Scene* scene) {
+    SceneRenderer::get()->addScene(scene);
 }
 
 } // Origin

@@ -5,6 +5,9 @@ namespace Ui {
     class VulkanTab;
 }
 
+class QListWidget;
+class QStringList;
+
 namespace DebugSettingsEditor {
 
 class VulkanTab : public AbstractTab {
@@ -19,12 +22,18 @@ public:
 
 private slots:
     void on_comboBoxDevice_currentIndexChanged(int currentIndex);
-    void on_pushButtonSelectAll_clicked();
-    void on_pushButtonUnselectAll_clicked();
-    void on_pushButtonResetDebugReport_clicked();
+
+    void on_pushButtonDebugReportSelectAll_clicked();
+    void on_pushButtonDebugReportUnselectAll_clicked();
+    void on_pushButtonDebugReportReset_clicked();
+
+    void on_pushButtonExtensionsSelectAll_clicked();
+    void on_pushButtonExtensionsUnselectAll_clicked();
+    void on_pushButtonExtensionsReset_clicked();
 
 private:
     void changeStateDebugReportCheckBoxes(bool checked);
+    void selectListWidgetItems(QListWidget* listWidget, const QStringList& list);
 
     Ui::VulkanTab* ui;
 };

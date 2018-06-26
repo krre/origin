@@ -45,7 +45,8 @@ VulkanTab::VulkanTab() :
         ui->listWidgetExtensions->addItem(extension.extensionName);
     }
 
-    on_pushButtonResetDebugReport_clicked();
+    on_pushButtonDebugReportReset_clicked();
+    on_pushButtonExtensionsReset_clicked();
 }
 
 VulkanTab::~VulkanTab() {
@@ -138,19 +139,38 @@ void VulkanTab::on_comboBoxDevice_currentIndexChanged(int currentIndex) {
     emit flush();
 }
 
-void VulkanTab::on_pushButtonSelectAll_clicked() {
+void VulkanTab::on_pushButtonDebugReportSelectAll_clicked() {
     changeStateDebugReportCheckBoxes(true);
 }
 
-void VulkanTab::on_pushButtonUnselectAll_clicked() {
+void VulkanTab::on_pushButtonDebugReportUnselectAll_clicked() {
     changeStateDebugReportCheckBoxes(false);
 }
 
-void VulkanTab::on_pushButtonResetDebugReport_clicked() {
+void VulkanTab::on_pushButtonDebugReportReset_clicked() {
     changeStateDebugReportCheckBoxes(false);
     ui->checkBoxWarning->setChecked(true);
     ui->checkBoxError->setChecked(true);
     emit flush();
+}
+
+void VulkanTab::on_pushButtonExtensionsSelectAll_clicked() {
+    ui->listWidgetExtensions->selectAll();
+    emit flush();
+}
+
+void VulkanTab::on_pushButtonExtensionsUnselectAll_clicked() {
+    ui->listWidgetExtensions->clearSelection();
+    emit flush();
+}
+
+void VulkanTab::on_pushButtonExtensionsReset_clicked() {
+    QStringList list;
+    list << "VK_EXT_debug_report";
+    list << "VK_KHR_surface";
+    list << "VK_KHR_win32_surface";
+
+    selectListWidgetItems(ui->listWidgetExtensions, list);
 }
 
 void VulkanTab::changeStateDebugReportCheckBoxes(bool checked) {
@@ -159,6 +179,18 @@ void VulkanTab::changeStateDebugReportCheckBoxes(bool checked) {
     ui->checkBoxPerformance->setChecked(checked);
     ui->checkBoxError->setChecked(checked);
     ui->checkBoxDebug->setChecked(checked);
+    emit flush();
+}
+
+void VulkanTab::selectListWidgetItems(QListWidget* listWidget, const QStringList& list) {
+    listWidget->clearSelection();
+
+    for (int i = 0; i < listWidget->count(); i++) {
+        if (list.contains(listWidget->item(i)->text())) {
+            listWidget->setCurrentItem(listWidget->item(i), QItemSelectionModel::Select);
+        }
+    }
+
     emit flush();
 }
 

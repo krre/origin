@@ -25,9 +25,16 @@ RenderLayerOctree::RenderLayerOctree(Vulkan::Device* device, Object* parent) : R
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     vertexBuffer->write(plane.data(), size);
 
+    uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(UBO));
+
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Octree.vert.spv");
     shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Octree.frag.spv");
+
+    VkDescriptorBufferInfo bufferInfo = {};
+    bufferInfo.buffer = uboBuffer->getHandle();
+    bufferInfo.range = VK_WHOLE_SIZE;
+    shaderProgram->bindBuffer("ubo", bufferInfo);
 
     shaderProgram->create();
 
@@ -80,6 +87,10 @@ void RenderLayerOctree::write(Vulkan::CommandBuffer* commandBuffer, Vulkan::Fram
     }
 
     commandBuffer->draw(vertextCount, 1, 0, 0);
+}
+
+void RenderLayerOctree::writeUBO(const UBO& ubo) {
+    uboBuffer->write(&ubo, sizeof(UBO));
 }
 
 } // Origin

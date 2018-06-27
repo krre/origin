@@ -37,6 +37,10 @@ void SceneRenderer::draw() {
     model = glm::rotate(model, rot, glm::vec3(0.0, 1.0, 0.0)) * glm::rotate(model, rot, glm::vec3(1.0, 1.0, 1.0));
 
     glm::mat4 mvp = proj * view * model;
+
+    RenderLayerOctree::UBO ubo = {};
+    ubo.backgroundColor = glm::vec4(0.9, 1.0, 1.0, 1.0);
+    renderLayerOctree->writeUBO(ubo);
 }
 
 RenderLayer* SceneRenderer::getRenderLayer() const {

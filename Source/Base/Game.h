@@ -5,19 +5,6 @@
 
 namespace Origin {
 
-class Logger;
-class Window;
-class Settings;
-class DebugEnvironment;
-class Event;
-class RenderManager;
-class UIManager;
-class EntityManager;
-class ResourceManager;
-class Overlay;
-class Input;
-class World;
-
 class Game : public Object {
 
 public:

@@ -33,6 +33,7 @@ public:
     RenderPass* getRenderPass() const { return renderPass.get(); }
     Surface* getSurface() const { return surface.get(); }
 
+    void useDebugMessages();
     void setEnabledLayers(const std::vector<std::string>& enabledLayers);
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
 

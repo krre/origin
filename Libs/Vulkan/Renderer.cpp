@@ -46,6 +46,10 @@ Renderer::~Renderer() {
     }
 }
 
+void Renderer::useDebugMessages() {
+    instance->setUseDebugCallback(true);
+}
+
 void Renderer::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
     instance->setEnabledLayers(enabledLayers);
 }
@@ -55,7 +59,6 @@ void Renderer::setEnabledExtensions(const std::vector<std::string>& enabledExten
 }
 
 void Renderer::create() {
-//    instance->setUseDebugCallback(true); // TODO: Take from debug settings
     instance->create();
 
     physicalDevices = std::make_unique<PhysicalDevices>(instance.get());

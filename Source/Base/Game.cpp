@@ -65,6 +65,10 @@ void Game::init() {
 #endif
 
         if (DebugEnvironment::getEnable()) {
+            if (DebugEnvironment::getSettings()["vulkan"]["debugReport"]["use"]) {
+                RenderManager::get()->useDebugMessages();
+            }
+
             if (DebugEnvironment::getSettings()["vulkan"]["layers"]["use"]) {
                 RenderManager::get()->setEnabledLayers(DebugEnvironment::getSettings()["vulkan"]["layers"]["list"]);
             }

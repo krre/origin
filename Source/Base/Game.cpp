@@ -89,7 +89,7 @@ void Game::init() {
         new Overlay();
         Overlay::get()->setParent(this);
 
-        if (DebugEnvironment::getSettings()["general"]["debugHud"]) {
+        if (DebugEnvironment::getEnable() && DebugEnvironment::getSettings()["general"]["debugHud"]) {
             Overlay::get()->toggleDebugHUD();
         }
 

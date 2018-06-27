@@ -66,7 +66,30 @@ void Game::init() {
 
         if (DebugEnvironment::getEnable()) {
             if (DebugEnvironment::getSettings()["vulkan"]["debugReport"]["use"]) {
-                RenderManager::get()->useDebugMessages();
+                json debugReport = DebugEnvironment::getSettings()["vulkan"]["debugReport"];
+                VkDebugReportFlagsEXT flags = 0;
+
+                if (debugReport["information"]) {
+                    flags |= VK_DEBUG_REPORT_INFORMATION_BIT_EXT;
+                }
+
+                if (debugReport["warning"]) {
+                    flags |= VK_DEBUG_REPORT_WARNING_BIT_EXT;
+                }
+
+                if (debugReport["performance"]) {
+                    flags |= VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;
+                }
+
+                if (debugReport["error"]) {
+                    flags |= VK_DEBUG_REPORT_ERROR_BIT_EXT;
+                }
+
+                if (debugReport["debug"]) {
+                    flags |= VK_DEBUG_REPORT_DEBUG_BIT_EXT;
+                }
+
+                RenderManager::get()->useDebugReport(flags);
             }
 
             if (DebugEnvironment::getSettings()["vulkan"]["layers"]["use"]) {

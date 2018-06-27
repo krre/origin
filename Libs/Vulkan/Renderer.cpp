@@ -46,8 +46,8 @@ Renderer::~Renderer() {
     }
 }
 
-void Renderer::useDebugMessages() {
-    instance->setUseDebugCallback(true);
+void Renderer::useDebugReport(VkDebugReportFlagsEXT flags) {
+    instance->useDebugReport(flags);
 }
 
 void Renderer::setEnabledLayers(const std::vector<std::string>& enabledLayers) {

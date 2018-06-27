@@ -51,7 +51,7 @@ private:
     uint32_t width = 800;
     uint32_t height = 600;
     std::vector<std::shared_ptr<Screen>> screens;
-    Color color = Color(0.9, 1.0, 1.0, 1.0);
+    Color color = Color(0.22, 0.35, 0.0, 1.0);
     std::vector<std::function<void()>> deferredCalls;
 };
 

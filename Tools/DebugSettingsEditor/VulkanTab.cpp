@@ -169,7 +169,11 @@ void VulkanTab::on_pushButtonExtensionsReset_clicked() {
     QStringList list;
     list << "VK_EXT_debug_report";
     list << "VK_KHR_surface";
+#if defined(Q_OS_WIN)
     list << "VK_KHR_win32_surface";
+#elif defined(Q_OS_UNIX)
+    list << "VK_KHR_xcb_surface";
+#endif
 
     selectListWidgetItems(ui->listWidgetExtensions, list);
 }

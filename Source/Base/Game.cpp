@@ -88,6 +88,11 @@ void Game::init() {
         new EntityManager(this);
         new Overlay();
         Overlay::get()->setParent(this);
+
+        if (DebugEnvironment::getSettings()["general"]["debugHud"]) {
+            Overlay::get()->toggleDebugHUD();
+        }
+
         new Input(this);
         new World(this);
     } catch (const std::exception& ex) {

@@ -51,6 +51,33 @@ void DebugEnvironment::setDebugScreen() {
     }
 }
 
+VkDebugReportFlagsEXT DebugEnvironment::getVulkanDebugReportFlags() {
+    json debugReport = get()->settings["vulkan"]["debugReport"];
+    VkDebugReportFlagsEXT flags = 0;
+
+    if (debugReport["information"]) {
+        flags |= VK_DEBUG_REPORT_INFORMATION_BIT_EXT;
+    }
+
+    if (debugReport["warning"]) {
+        flags |= VK_DEBUG_REPORT_WARNING_BIT_EXT;
+    }
+
+    if (debugReport["performance"]) {
+        flags |= VK_DEBUG_REPORT_PERFORMANCE_WARNING_BIT_EXT;
+    }
+
+    if (debugReport["error"]) {
+        flags |= VK_DEBUG_REPORT_ERROR_BIT_EXT;
+    }
+
+    if (debugReport["debug"]) {
+        flags |= VK_DEBUG_REPORT_DEBUG_BIT_EXT;
+    }
+
+    return flags;
+}
+
 void DebugEnvironment::loadValues() {
     std::string filePath = Game::getCurrentDirectory() + "/debug.json";
     try {

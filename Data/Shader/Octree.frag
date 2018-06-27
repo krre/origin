@@ -13,6 +13,10 @@ layout(std140, binding = 0) uniform UBO {
     float lod;
 } ubo;
 
+layout (std430, binding = 1) buffer Blocks {
+    uint data[];
+} blocks;
+
 layout (location = 0) out vec4 fragColor;
 
 void main() {

@@ -34,6 +34,7 @@ public:
     Vulkan::GpuBuffer* getVertexBuffer() const { return vertexBuffer.get(); }
 
     void writeUBO(const UBO& ubo);
+    void writeBlocks(uint32_t offset, void* data, uint32_t size);
 
 private:
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;

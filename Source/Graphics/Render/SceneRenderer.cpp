@@ -41,6 +41,9 @@ void SceneRenderer::draw() {
     RenderLayerOctree::UBO ubo = {};
     ubo.backgroundColor = glm::vec4(0.9, 1.0, 1.0, 1.0);
     renderLayerOctree->writeUBO(ubo);
+
+    int n = 123;
+    renderLayerOctree->writeBlocks(0, &n, sizeof(n));
 }
 
 RenderLayer* SceneRenderer::getRenderLayer() const {

@@ -16,8 +16,11 @@ class VulkanTab : public AbstractTab {
 public:
     explicit VulkanTab();
     ~VulkanTab();
+
     void setDebugSettings(const QJsonObject& settings) override;
     QJsonObject debugSettings() const override;
+    void setDefaultSettings() override;
+
     QString name() const;
 
 private slots:

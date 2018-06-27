@@ -76,15 +76,20 @@ void MainWindow::writeSettings() {
 
 void MainWindow::readDebugSettings() {
     QFile file(debugSettingsPath);
-    if (!file.open(QIODevice::ReadOnly)) {
-        return;
-    }
+    bool settingsExists = file.open(QIODevice::ReadOnly);
 
-    QJsonDocument doc(QJsonDocument::fromJson(file.readAll()));
+    QJsonDocument doc;
+    if (settingsExists) {
+        doc = QJsonDocument(QJsonDocument::fromJson(file.readAll()));
+    }
 
     for (int i = 0; i < ui->tabWidget->count(); i++) {
         AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
-        tab->setDebugSettings(doc.object()[tab->name()].toObject());
+        if (settingsExists) {
+            tab->setDebugSettings(doc.object()[tab->name()].toObject());
+        } else {
+            tab->setDefaultSettings();
+        }
     }
 }
 

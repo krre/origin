@@ -44,10 +44,6 @@ VulkanTab::VulkanTab() :
     for (const auto& extension : instance.getExtensionProperties()) {
         ui->listWidgetExtensions->addItem(extension.extensionName);
     }
-
-    on_pushButtonDebugReportReset_clicked();
-    on_pushButtonExtensionsReset_clicked();
-    on_pushButtonLayersReset_clicked();
 }
 
 VulkanTab::~VulkanTab() {
@@ -129,6 +125,12 @@ QJsonObject VulkanTab::debugSettings() const {
     obj["extensions"] = extensionsObj;
 
     return obj;
+}
+
+void VulkanTab::setDefaultSettings() {
+    on_pushButtonDebugReportReset_clicked();
+    on_pushButtonExtensionsReset_clicked();
+    on_pushButtonLayersReset_clicked();
 }
 
 QString VulkanTab::name() const {

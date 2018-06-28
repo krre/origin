@@ -67,6 +67,7 @@ void Shader::parse() {
 
             spv::StorageClass storageClass = compiler.get_storage_class(buffer.id);
             spirv_cross::SPIRType type = compiler.get_type_from_variable(buffer.id);
+            spirv_cross::Bitset decorationBitset = compiler.get_decoration_bitset(buffer.base_type_id);
 
             if (storageClass == spv::StorageClassOutput) {
                 continue;
@@ -104,8 +105,10 @@ void Shader::parse() {
                 if (type.array.size()) {
                     bufferInfo.layoutBinding.descriptorCount = type.array.at(0);
                 }
-            } else if (storageClass == spv::StorageClassUniform) {
+            } else if (storageClass == spv::StorageClassUniform && decorationBitset.get(spv::DecorationBlock)) {
                 bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+            } else if (storageClass == spv::StorageClassUniform && decorationBitset.get(spv::DecorationBufferBlock)) {
+                bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
             } else if (storageClass == spv::StorageClassStorageBuffer) {
                 bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
             }

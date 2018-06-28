@@ -40,6 +40,8 @@ void SceneRenderer::draw() {
 
     RenderLayerOctree::UBO ubo = {};
     ubo.backgroundColor = glm::vec4(0.9, 1.0, 1.0, 1.0);
+    ubo.frameWidth = Window::get()->getWidth();
+    ubo.frameHeight = Window::get()->getHeight();
     renderLayerOctree->writeUBO(ubo);
 
     int n = 123;

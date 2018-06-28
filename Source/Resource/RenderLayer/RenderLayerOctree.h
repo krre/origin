@@ -20,8 +20,8 @@ public:
         glm::vec4 lightPos = glm::vec4(1.0, 1.0, 1.0, 1.0);
 
         int shadeless = 1;
-        int frameWidth = 100;
-        int frameHeight = 100;
+        int frameWidth = 0;
+        int frameHeight = 0;
 
         float ambientStrength = 1.0;
         float lod = 1.0;

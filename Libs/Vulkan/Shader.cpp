@@ -36,7 +36,7 @@ void Shader::parse() {
     spirv_cross::Compiler compiler(code);
 
     // Stage flag
-    spirv_cross::SPIREntryPoint& entryPoint = compiler.get_entry_point("main");
+    spirv_cross::SPIREntryPoint& entryPoint = compiler.get_entry_point("main", compiler.get_execution_model());
     stage = executionModelToStage(entryPoint.model);
 
     spirv_cross::ShaderResources resources = compiler.get_shader_resources();

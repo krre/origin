@@ -36,7 +36,7 @@ RenderLayerOctree::RenderLayerOctree(Vulkan::Device* device, Object* parent) : R
     bufferInfo.range = VK_WHOLE_SIZE;
     shaderProgram->bindBuffer("ubo", bufferInfo);
 
-    blocksBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, 1000000); // TODO: Use size from constant
+    blocksBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, 1000000); // TODO: Use size from constant
 
     bufferInfo.buffer = blocksBuffer->getHandle();
     bufferInfo.range = VK_WHOLE_SIZE;

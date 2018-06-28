@@ -25,6 +25,7 @@ public:
 private:
     std::vector<Scene*> scenes;
     RenderLayerOctree* renderLayerOctree;
+    std::vector<uint32_t> blocks;
 };
 
 } // Origin

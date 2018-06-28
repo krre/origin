@@ -13,6 +13,10 @@ static SceneRenderer* instance = nullptr;
 SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
     instance = this;
     renderLayerOctree = new RenderLayerOctree(RenderManager::get()->getGraphicsDevice(), this);
+
+    blocks.push_back(0xFF0000FF);
+
+
     Octree* octree = new Octree(Substance(), this);
 }
 
@@ -43,9 +47,7 @@ void SceneRenderer::draw() {
     ubo.frameWidth = Window::get()->getWidth();
     ubo.frameHeight = Window::get()->getHeight();
     renderLayerOctree->writeUBO(ubo);
-
-    int n = 123;
-    renderLayerOctree->writeBlocks(0, &n, sizeof(n));
+    renderLayerOctree->writeBlocks(0, blocks.data(), blocks.size() * sizeof(uint32_t));
 }
 
 RenderLayer* SceneRenderer::getRenderLayer() const {

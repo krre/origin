@@ -33,4 +33,8 @@ CameraComponent* Entity::getCamera() {
     return static_cast<CameraComponent*>(components[Component::Type::Camera].get());
 }
 
+MovementComponent* Entity::getMovement() {
+    return static_cast<MovementComponent*>(components[Component::Type::Camera].get());
+}
+
 } // Origin

@@ -41,7 +41,7 @@ void MovementControllerSystem::process(float dt) {
         transformSystem->translate(moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * moveSpeed * dt);
     }
 
-    bool free = static_cast<MovementComponent*>(moveEntity->components[Component::Type::Movement].get())->free;
+    bool free = moveEntity->getMovement()->free;
     if (!free) {
         // Track to floor pos
         TransformComponent* mtc = moveEntity->getTransform();
@@ -51,12 +51,12 @@ void MovementControllerSystem::process(float dt) {
 
 void MovementControllerSystem::setMoveEntity(Entity* moveEntity) {
     this->moveEntity = moveEntity;
-    moveSpeed = static_cast<MovementComponent*>(moveEntity->components[Component::Type::Movement].get())->moveSpeed;
+    moveSpeed = moveEntity->getMovement()->moveSpeed;
 }
 
 void MovementControllerSystem::setRotateEntity(Entity* rotateEntity) {
     this->rotateEntity = rotateEntity;
-    rotateSpeed = static_cast<MovementComponent*>(rotateEntity->components[Component::Type::Movement].get())->rotateSpeed;
+    rotateSpeed = rotateEntity->getMovement()->rotateSpeed;
 }
 
 } // Origin

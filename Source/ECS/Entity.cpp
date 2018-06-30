@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Components/Components.h"
 
 namespace Origin {
 
@@ -22,6 +23,10 @@ void Entity::setIdCounter(EntityId id) {
 
 void Entity::addComponent(const std::shared_ptr<Component>& component) {
     components[component->getType()] = component;
+}
+
+TransformComponent* Entity::getTransform() {
+    return static_cast<TransformComponent*>(components[Component::Type::Transform].get());
 }
 
 } // Origin

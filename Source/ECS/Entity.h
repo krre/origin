@@ -5,6 +5,8 @@
 
 namespace Origin {
 
+class TransformComponent;
+
 class Entity : public Object {
 
 public:
@@ -16,6 +18,8 @@ public:
     static void setIdCounter(EntityId id);
 
     void addComponent(const std::shared_ptr<Component>& component);
+
+    TransformComponent* getTransform();
 
     std::map<Component::Type, std::shared_ptr<Component>> components;
 

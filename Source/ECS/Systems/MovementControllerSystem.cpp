@@ -18,7 +18,7 @@ MovementControllerSystem::MovementControllerSystem(EntityManager* entityManager)
 void MovementControllerSystem::process(float dt) {
     if (!rotateEntity || !moveEntity) return;
 
-    TransformComponent* tc = static_cast<TransformComponent*>(rotateEntity->components[Component::Type::Transform].get());
+    TransformComponent* tc = rotateEntity->getTransform();
 
     glm::ivec2 relMousePos = Input::get()->getRelMousePos();
     tc->yaw -= rotateSpeed * relMousePos.x;
@@ -44,7 +44,7 @@ void MovementControllerSystem::process(float dt) {
     bool free = static_cast<MovementComponent*>(moveEntity->components[Component::Type::Movement].get())->free;
     if (!free) {
         // Track to floor pos
-        TransformComponent* mtc = static_cast<TransformComponent*>(moveEntity->components[Component::Type::Transform].get());
+        TransformComponent* mtc = moveEntity->getTransform();
         mtc->position.y = 0; // TODO: take from height map
     }
 }

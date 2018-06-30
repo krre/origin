@@ -42,7 +42,7 @@ void DebugHUD::updateImpl(float dt) {
 
 //    if (Game::get()->getWorldScene()) {
 //        Entity* character = EntityManager::get()->getEntity(Game::get()->getWorldScene()->getCharacterId()).get();
-//        TransformComponent* tc = static_cast<TransformComponent*>(character->components[Component::Type::Transform].get());
+//        TransformComponent* tc = character->getTransform();
 //        std::string pos = "\n"
 //        "Position X: " + std::to_string(tc->position.x) + "\n"
 //        "Position Y: " + std::to_string(tc->position.y) + "\n"

@@ -39,14 +39,14 @@ void PhysicsSystem::createRigidBody(Entity* entity) {
 
 void PhysicsSystem::createCollisionShape(Entity* entity) {
     PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
-    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
+    TransformComponent* tc = entity->getTransform();
     btScalar scale = btScalar(tc->scale) / 2.0;
     pc->collisionShape.reset(new btBoxShape(btVector3(scale, scale, scale)));
 }
 
 void PhysicsSystem::createMotionState(Entity* entity) {
     PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
-    TransformComponent* tc = static_cast<TransformComponent*>(entity->components[Component::Type::Transform].get());
+    TransformComponent* tc = entity->getTransform();
     btTransform transform;
     transform.setIdentity();
     transform.setOrigin(btVector3(tc->position.x, tc->position.y, tc->position.z));

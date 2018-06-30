@@ -37,4 +37,8 @@ MovementComponent* Entity::getMovement() {
     return static_cast<MovementComponent*>(components[Component::Type::Camera].get());
 }
 
+PhysicsComponent* Entity::getPhysics() {
+    return static_cast<PhysicsComponent*>(components[Component::Type::Camera].get());
+}
+
 } // Origin

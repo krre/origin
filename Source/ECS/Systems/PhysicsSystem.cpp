@@ -28,24 +28,24 @@ void PhysicsSystem::process(float dt) {
 }
 
 void PhysicsSystem::addRigidBody(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
+    PhysicsComponent* pc = entity->getPhysics();
     dynamicsWorld->addRigidBody(pc->rigidBody.get());
 }
 
 void PhysicsSystem::createRigidBody(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
+    PhysicsComponent* pc = entity->getPhysics();
     pc->rigidBody.reset(new btRigidBody(pc->mass, pc->motionState.get(), pc->collisionShape.get()));
 }
 
 void PhysicsSystem::createCollisionShape(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
+    PhysicsComponent* pc = entity->getPhysics();
     TransformComponent* tc = entity->getTransform();
     btScalar scale = btScalar(tc->scale) / 2.0;
     pc->collisionShape.reset(new btBoxShape(btVector3(scale, scale, scale)));
 }
 
 void PhysicsSystem::createMotionState(Entity* entity) {
-    PhysicsComponent* pc = static_cast<PhysicsComponent*>(entity->components[Component::Type::Physics].get());
+    PhysicsComponent* pc = entity->getPhysics();
     TransformComponent* tc = entity->getTransform();
     btTransform transform;
     transform.setIdentity();

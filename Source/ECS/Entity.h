@@ -8,6 +8,7 @@ namespace Origin {
 class TransformComponent;
 class CameraComponent;
 class MovementComponent;
+class PhysicsComponent;
 
 class Entity : public Object {
 
@@ -24,6 +25,7 @@ public:
     TransformComponent* getTransform();
     CameraComponent* getCamera();
     MovementComponent* getMovement();
+    PhysicsComponent* getPhysics();
 
     std::map<Component::Type, std::shared_ptr<Component>> components;
 

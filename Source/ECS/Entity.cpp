@@ -41,4 +41,8 @@ PhysicsComponent* Entity::getPhysics() {
     return static_cast<PhysicsComponent*>(components[Component::Type::Camera].get());
 }
 
+OctreeComponent* Entity::getOctree() {
+   return static_cast<OctreeComponent*>(components[Component::Type::Octree].get());
+}
+
 } // Origin

@@ -9,6 +9,7 @@ class TransformComponent;
 class CameraComponent;
 class MovementComponent;
 class PhysicsComponent;
+class OctreeComponent;
 
 class Entity : public Object {
 
@@ -26,6 +27,7 @@ public:
     CameraComponent* getCamera();
     MovementComponent* getMovement();
     PhysicsComponent* getPhysics();
+    OctreeComponent* getOctree();
 
     std::map<Component::Type, std::shared_ptr<Component>> components;
 

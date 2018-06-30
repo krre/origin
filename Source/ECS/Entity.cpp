@@ -29,4 +29,8 @@ TransformComponent* Entity::getTransform() {
     return static_cast<TransformComponent*>(components[Component::Type::Transform].get());
 }
 
+CameraComponent* Entity::getCamera() {
+    return static_cast<CameraComponent*>(components[Component::Type::Camera].get());
+}
+
 } // Origin

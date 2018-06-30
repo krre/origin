@@ -31,7 +31,7 @@ glm::mat4 CameraSystem::getView(Entity* entity) {
 void CameraSystem::onWindowResize(int width, int height) {
     // TODO: Replace by family
     for (const auto& entity : entityManager->getEntities()) {
-        CameraComponent* cameraComp = static_cast<CameraComponent*>(entity.second->components[Component::Type::Camera].get());
+        CameraComponent* cameraComp = entity.second->getCamera();
         if (cameraComp) {
             cameraComp->aspect = width * 1.0f / height;
             cameraComp->projection = glm::perspective(cameraComp->fov, cameraComp->aspect, cameraComp->near, cameraComp->far);

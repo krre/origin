@@ -7,7 +7,9 @@ namespace Origin {
 class MaterialComponent : public Component {
 
 public:
-    MaterialComponent() { type = Component::Type::Material; }
+    MaterialComponent() = default;
+    Type getType() const override { return Component::Type::Material; }
+
     glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
 };
 

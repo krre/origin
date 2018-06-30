@@ -7,7 +7,9 @@ namespace Origin {
 class LightComponent : public Component {
 
 public:
-    LightComponent() { type = Component::Type::Light; }
+    LightComponent() = default;
+    Type getType() const override { return Component::Type::Light; }
+
     glm::vec3 color = glm::vec3(1.0, 1.0, 1.0);
 };
 

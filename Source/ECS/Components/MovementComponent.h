@@ -6,7 +6,9 @@ namespace Origin {
 class MovementComponent : public Component {
 
 public:
-    MovementComponent() { type = Component::Type::Movement; }
+    MovementComponent() = default;
+    Type getType() const override { return Component::Type::Movement; }
+
     float moveSpeed = 0;
     float rotateSpeed = 0;
     bool free = false;

@@ -21,12 +21,9 @@ public:
     };
 
     Component();
-    Type getType() const { return type; }
+    virtual Type getType() const = 0;
     bool enable = true;
     bool dirty = false;
-
-protected:
-    Type type = Type::Empty;
 };
 
 } // Origin

@@ -7,7 +7,9 @@ namespace Origin {
 class OctreeComponent : public Component {
 
 public:
-    OctreeComponent() { type = Component::Type::Octree; }
+    OctreeComponent() = default;
+    Type getType() const override { return Component::Type::Octree; }
+
     std::shared_ptr<Octree> octree;
 };
 

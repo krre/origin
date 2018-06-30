@@ -6,7 +6,9 @@ namespace Origin {
 class RenderComponent : public Component {
 
 public:
-    RenderComponent() { type = Component::Type::Render; }
+    RenderComponent() = default;
+    Type getType() const override { return Component::Type::Render; }
+
     bool visible = true;
 };
 

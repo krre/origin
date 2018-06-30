@@ -34,11 +34,11 @@ CameraComponent* Entity::getCamera() {
 }
 
 MovementComponent* Entity::getMovement() {
-    return static_cast<MovementComponent*>(components[Component::Type::Camera].get());
+    return static_cast<MovementComponent*>(components[Component::Type::Movement].get());
 }
 
 PhysicsComponent* Entity::getPhysics() {
-    return static_cast<PhysicsComponent*>(components[Component::Type::Camera].get());
+    return static_cast<PhysicsComponent*>(components[Component::Type::Physics].get());
 }
 
 OctreeComponent* Entity::getOctree() {

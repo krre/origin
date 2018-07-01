@@ -57,37 +57,37 @@ void EntityManager::initSystems() {
 Component* EntityManager::createComponent(Entity* entity, Component::Type type) {
     switch (type) {
         case Component::Type::Camera:
-            entity->components[type] = std::make_shared<CameraComponent>();
+            entity->addComponent(std::make_shared<CameraComponent>());
             break;
         case Component::Type::Light:
-            entity->components[type] = std::make_shared<LightComponent>();
+            entity->addComponent(std::make_shared<LightComponent>());
             break;
         case Component::Type::Material:
-            entity->components[type] = std::make_shared<MaterialComponent>();
+            entity->addComponent(std::make_shared<MaterialComponent>());
             break;
         case Component::Type::Movement:
-            entity->components[type] = std::make_shared<MovementComponent>();
+            entity->addComponent(std::make_shared<MovementComponent>());
             break;
         case Component::Type::Render:
-            entity->components[type] = std::make_shared<RenderComponent>();
+            entity->addComponent(std::make_shared<RenderComponent>());
             break;
         case Component::Type::Physics:
-            entity->components[type] = std::make_shared<PhysicsComponent>();
+            entity->addComponent(std::make_shared<PhysicsComponent>());
             break;
         case Component::Type::Transform:
-            entity->components[type] = std::make_shared<TransformComponent>();
+            entity->addComponent(std::make_shared<TransformComponent>());
             break;
         case Component::Type::MovementController:
-            entity->components[type] = std::make_shared<MovementControllerComponent>();
+            entity->addComponent(std::make_shared<MovementControllerComponent>());
             break;
         case Component::Type::Octree:
-            entity->components[type] = std::make_shared<OctreeComponent>();
+            entity->addComponent(std::make_shared<OctreeComponent>());
             break;
         case Component::Type::Mesh: break;
         case Component::Type::Empty: break;
     }
 
-    return entity->components[type].get();
+    return entity->getComponent(type);
 }
 
 std::shared_ptr<Entity> EntityManager::createComponents(const std::vector<Component::Type>& types) {
@@ -100,11 +100,11 @@ std::shared_ptr<Entity> EntityManager::createComponents(const std::vector<Compon
 }
 
 void EntityManager::addComponent(Entity* entity, std::shared_ptr<Component> component) {
-    entity->components[component->getType()] = component;
+    entity->addComponent(component);
 }
 
 void EntityManager::removeComponent(Entity* entity, Component::Type type) {
-    entity->components.erase(type);
+    entity->removeComponent(type);
 }
 
 void EntityManager::update(Scene* scene, float dt) {

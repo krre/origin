@@ -25,6 +25,14 @@ void Entity::addComponent(const std::shared_ptr<Component>& component) {
     components[component->getType()] = component;
 }
 
+Component* Entity::getComponent(Component::Type type) {
+    return components[type].get();
+}
+
+void Entity::removeComponent(Component::Type type) {
+    components.erase(type);
+}
+
 TransformComponent* Entity::getTransform() {
     return static_cast<TransformComponent*>(components[Component::Type::Transform].get());
 }

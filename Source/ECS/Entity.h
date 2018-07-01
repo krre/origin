@@ -22,6 +22,8 @@ public:
     static void setIdCounter(EntityId id);
 
     void addComponent(const std::shared_ptr<Component>& component);
+    Component* getComponent(Component::Type type);
+    void removeComponent(Component::Type type);
 
     TransformComponent* getTransform();
     CameraComponent* getCamera();
@@ -29,11 +31,10 @@ public:
     PhysicsComponent* getPhysics();
     OctreeComponent* getOctree();
 
-    std::map<Component::Type, std::shared_ptr<Component>> components;
-
 private:
     EntityId id;
     static EntityId counter;
+    std::map<Component::Type, std::shared_ptr<Component>> components;
 };
 
 } // Origin

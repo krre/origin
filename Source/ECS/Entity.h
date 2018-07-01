@@ -18,7 +18,7 @@ public:
     Entity(EntityId id, Entity* parent = nullptr);
     ~Entity();
 
-    EntityId getId() { return id; }
+    EntityId getId() const { return id; }
     static void setIdCounter(EntityId id);
 
     void addComponent(const std::shared_ptr<Component>& component);

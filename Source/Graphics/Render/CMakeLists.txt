@@ -4,6 +4,8 @@ set(SOURCES
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/OctreeRenderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/OctreeRenderer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/PolygonalOctreeRenderer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/PolygonalOctreeRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RaycastOctreeRenderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/RaycastOctreeRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp

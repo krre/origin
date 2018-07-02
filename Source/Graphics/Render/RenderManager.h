@@ -22,7 +22,7 @@ public:
 private:
     void init() override;
     void preRender() override;
-    void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
+    void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
 
     Screen* currentScreen = nullptr;
     std::vector<Origin::Renderer*> renderers;

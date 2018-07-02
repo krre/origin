@@ -181,7 +181,7 @@ void RenderEngine::initLineRenderPass() {
     lineRenderPass.graphicsPipeline->create();
 }
 
-void RenderEngine::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     VkExtent2D extent = { framebuffer->getWidth(), framebuffer->getHeight() };
 
     Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());

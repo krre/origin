@@ -41,7 +41,7 @@ private:
     void init() override;
     void initVoxelRenderPass();
     void initLineRenderPass();
-    void writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
+    void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
     void updateVoxelUbo();
 
     struct VoxelUBO {

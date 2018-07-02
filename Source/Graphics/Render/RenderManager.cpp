@@ -72,7 +72,7 @@ void RenderManager::preRender() {
     }
 }
 
-void RenderManager::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     VkExtent2D extent = { framebuffer->getWidth(), framebuffer->getHeight() };
 
     VkViewport viewport = {};

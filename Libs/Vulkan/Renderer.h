@@ -51,7 +51,7 @@ protected:
     virtual void init() {}
     virtual void preRender() {}
     virtual void postRender() {}
-    virtual void writeCommandBuffers(CommandBuffer* commandBuffer, Framebuffer* framebuffer) = 0;
+    virtual void writeCommandBuffer(CommandBuffer* commandBuffer, Framebuffer* framebuffer) = 0;
 
 private:
     void* platformHandle;

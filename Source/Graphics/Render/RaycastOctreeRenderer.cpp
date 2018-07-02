@@ -3,7 +3,6 @@
 namespace Origin {
 
 RaycastOctreeRenderer::RaycastOctreeRenderer(Object* parent) : OctreeRenderer(parent) {
-
 }
 
 RaycastOctreeRenderer::~RaycastOctreeRenderer() {
@@ -11,6 +10,10 @@ RaycastOctreeRenderer::~RaycastOctreeRenderer() {
 }
 
 void RaycastOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+
+}
+
+void RaycastOctreeRenderer::draw() {
 
 }
 

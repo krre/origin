@@ -10,7 +10,7 @@ public:
     ~PolygonalOctreeRenderer();
 
     void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
-
+    void draw() override;
 private:
 
 };

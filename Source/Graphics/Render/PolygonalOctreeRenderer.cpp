@@ -3,7 +3,6 @@
 namespace Origin {
 
 PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRenderer(parent) {
-
 }
 
 PolygonalOctreeRenderer::~PolygonalOctreeRenderer() {
@@ -11,6 +10,10 @@ PolygonalOctreeRenderer::~PolygonalOctreeRenderer() {
 }
 
 void PolygonalOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+
+}
+
+void PolygonalOctreeRenderer::draw() {
 
 }
 

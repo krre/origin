@@ -42,6 +42,12 @@ RenderLayerOctree::RenderLayerOctree(Vulkan::Device* device, Object* parent) : R
     bufferInfo.range = VK_WHOLE_SIZE;
     shaderProgram->bindBuffer("blocks", bufferInfo);
 
+    metaBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, 100000); // TODO: Use size from constant
+
+    bufferInfo.buffer = metaBuffer->getHandle();
+    bufferInfo.range = VK_WHOLE_SIZE;
+    shaderProgram->bindBuffer("meta", bufferInfo);
+
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
@@ -101,6 +107,10 @@ void RenderLayerOctree::writeUBO(const UBO& ubo) {
 
 void RenderLayerOctree::writeBlocks(uint32_t offset, void* data, uint32_t size) {
     blocksBuffer->write(data, size, offset);
+}
+
+void RenderLayerOctree::writeMeta(uint32_t offset, void* data, uint32_t size) {
+    metaBuffer->write(data, size, offset);
 }
 
 } // Origin

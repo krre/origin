@@ -48,6 +48,10 @@ void SceneRenderer::draw() {
     ubo.frameHeight = Window::get()->getHeight();
     renderLayerOctree->writeUBO(ubo);
     renderLayerOctree->writeBlocks(0, blocks.data(), blocks.size() * sizeof(uint32_t));
+
+    RenderLayerOctree::MetaData metaData = {};
+    metaData.blockIndex = 0;
+    renderLayerOctree->writeMeta(0, &metaData, sizeof(RenderLayerOctree::MetaData));
 }
 
 RenderLayer* SceneRenderer::getRenderLayer() const {

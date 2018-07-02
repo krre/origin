@@ -17,6 +17,18 @@ layout (std430, binding = 1) buffer Blocks {
     uint data[];
 } blocks;
 
+struct MetaData {
+    vec3 origin;
+    vec3 startCornerPos;
+    vec3 stepW;
+    vec3 stepH;
+    uint blockIndex;
+};
+
+layout (std430, binding = 2) buffer Meta {
+    MetaData data[];
+} meta;
+
 layout (location = 0) out vec4 fragColor;
 
 struct Ray {

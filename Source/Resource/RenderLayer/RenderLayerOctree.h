@@ -27,6 +27,14 @@ public:
         float lod = 1.0;
     };
 
+    struct MetaData {
+        glm::vec3 origin;
+        glm::vec3 startCornerPos;
+        glm::vec3 stepW;
+        glm::vec3 stepH;
+        glm::uint blockIndex;
+    };
+
     RenderLayerOctree(Vulkan::Device* device, Object* parent = nullptr);
     ~RenderLayerOctree();
 
@@ -35,11 +43,13 @@ public:
 
     void writeUBO(const UBO& ubo);
     void writeBlocks(uint32_t offset, void* data, uint32_t size);
+    void writeMeta(uint32_t offset, void* data, uint32_t size);
 
 private:
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
     std::unique_ptr<Vulkan::GpuBuffer> uboBuffer;
     std::unique_ptr<Vulkan::GpuBuffer> blocksBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> metaBuffer;
     std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     uint32_t vertextCount = 0;

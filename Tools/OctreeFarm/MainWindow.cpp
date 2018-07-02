@@ -13,6 +13,7 @@ namespace OctreeFarm {
 
 const int maxRecentFiles = 10;
 const int separatorAndMenuCount = 2;
+bool MainWindow::closing = false;
 
 MainWindow::MainWindow(QWidget* parent) :
         QMainWindow(parent),
@@ -46,7 +47,12 @@ MainWindow::~MainWindow() {
     delete ui;
 }
 
+bool MainWindow::isClosing() {
+    return closing;
+}
+
 void MainWindow::closeEvent(QCloseEvent* event) {
+    closing = true;
     writeSettings();
     QMainWindow::closeEvent(event);
 }

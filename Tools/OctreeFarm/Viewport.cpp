@@ -3,6 +3,7 @@
 #include "RenderEngine.h"
 #include "Vulkan/GpuBuffer.h"
 #include "Octree/Octree.h"
+#include "MainWindow.h"
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
@@ -28,6 +29,7 @@ Viewport::Viewport(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
 #endif
 
     renderEngine->create();
+
 }
 
 Viewport::~Viewport() {
@@ -63,6 +65,9 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 
 void Viewport::resizeEvent(QResizeEvent* event) {
     Q_UNUSED(event)
+    // Hack to fix crash on Qt 5.11.1
+    if (!renderEngine || MainWindow::isClosing()) return;
+
     renderEngine->resize();
     camera.resize(event->size().width(), event->size().height());
     // update() do not use here because it already done by camera state changing.

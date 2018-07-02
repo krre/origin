@@ -21,6 +21,8 @@ public:
     explicit MainWindow(QWidget* parent = 0);
     ~MainWindow();
 
+    static bool isClosing();
+
 protected:
     void closeEvent(QCloseEvent* event) override;
 
@@ -80,6 +82,7 @@ private:
     OctreeEditor* octreeEditor;
     QString currentFile;
     QUndoStack* undoStack;
+    static bool closing;
 
 };
 

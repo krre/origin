@@ -71,7 +71,7 @@ private:
     void pickOctree(const QPoint& pos);
     bool intersectRayAabb(const glm::vec3& origin, const glm::vec3& direction, const AABB &aabb);
 
-    RenderEngine* renderEngine;
+    RenderEngine* renderEngine = nullptr;
     float rotateSpeed = 5;
     float panSpeed = 100;
     QPoint lastPos = QPoint();

@@ -2,6 +2,8 @@ set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugRenderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/DebugRenderer.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/OctreeRenderer.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/OctreeRenderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Renderer.h
     ${CMAKE_CURRENT_SOURCE_DIR}/RenderManager.cpp

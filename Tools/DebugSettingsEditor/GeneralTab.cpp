@@ -27,6 +27,7 @@ void GeneralTab::setDebugSettings(const QJsonObject& settings) {
     ui->checkBoxDebugHUD->setChecked(settings["debugHud"].toBool());
     ui->comboBoxScreen->setCurrentIndex(settings["screen"].toInt());
     ui->comboBoxSave->setCurrentText(settings["save"].toString());
+    ui->comboBoxRenderer->setCurrentIndex(settings["renderer"].toInt());
 }
 
 QJsonObject GeneralTab::debugSettings() const {
@@ -35,6 +36,7 @@ QJsonObject GeneralTab::debugSettings() const {
     obj["debugHud"] = QJsonValue(ui->checkBoxDebugHUD->isChecked());
     obj["screen"] = QJsonValue(ui->comboBoxScreen->currentIndex());
     obj["save"] = QJsonValue(ui->comboBoxSave->currentText());
+    obj["renderer"] = QJsonValue(ui->comboBoxRenderer->currentIndex());
 
     return obj;
 }
@@ -49,6 +51,11 @@ void GeneralTab::on_comboBoxScreen_currentIndexChanged(int currentIndex) {
 }
 
 void GeneralTab::on_comboBoxSave_currentIndexChanged(int currentIndex) {
+    Q_UNUSED(currentIndex)
+    emit flush();
+}
+
+void GeneralTab::on_comboBoxRenderer_currentIndexChanged(int currentIndex) {
     Q_UNUSED(currentIndex)
     emit flush();
 }

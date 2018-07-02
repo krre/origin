@@ -20,6 +20,7 @@ public:
 private slots:
     void on_comboBoxScreen_currentIndexChanged(int currentIndex);
     void on_comboBoxSave_currentIndexChanged(int currentIndex);
+    void on_comboBoxRenderer_currentIndexChanged(int currentIndex);
 
 private:
     Ui::GeneralTab* ui;

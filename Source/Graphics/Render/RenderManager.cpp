@@ -8,7 +8,6 @@
 #include "Vulkan/API/Framebuffer.h"
 #include "Vulkan/API/RenderPass.h"
 #include "Vulkan/API/Surface/Surface.h"
-#include "Resource/RenderLayer/RenderLayer.h"
 #include "Renderer.h"
 #include "UI/Overlay.h"
 #include "UI/Toast.h"
@@ -105,7 +104,7 @@ void RenderManager::writeCommandBuffers(Vulkan::CommandBuffer* commandBuffer, Vu
 
     for (Origin::Renderer* renderer : renderers) {
         if (renderer->getActive()) {
-            renderer->getRenderLayer()->write(commandBuffer, framebuffer);
+            renderer->writeCommandBuffer(commandBuffer, framebuffer);
         }
     }
 

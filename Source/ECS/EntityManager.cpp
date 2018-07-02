@@ -1,8 +1,8 @@
 #include "EntityManager.h"
+#include "Graphics/Render/SceneRenderer.h"
 #include "Systems/Systems.h"
 #include "EntityBuilder.h"
 #include "Components/Components.h"
-#include "Graphics/Render/SceneRenderer.h"
 #include <algorithm>
 
 namespace Origin {

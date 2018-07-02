@@ -1,9 +1,13 @@
 #pragma once
 #include "Core/Object.h"
 
-namespace Origin {
+namespace Vulkan {
+    class CommandBuffer;
+    class Framebuffer;
+    class Device;
+}
 
-class RenderLayer;
+namespace Origin {
 
 class Renderer : public Object {
 
@@ -11,13 +15,16 @@ public:
     Renderer(Object* parent = nullptr);
     ~Renderer();
 
+    virtual void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) = 0;
     virtual void draw() = 0;
-    virtual RenderLayer* getRenderLayer() const = 0;
 
     void setActive(bool active);
     virtual bool getActive() const { return active; }
 
+    Vulkan::Device* getDevice() const { return device; }
+
 private:
+    Vulkan::Device* device = nullptr;
     bool active = true;
 };
 

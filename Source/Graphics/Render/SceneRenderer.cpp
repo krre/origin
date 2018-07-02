@@ -74,7 +74,7 @@ void SceneRenderer::draw() {
     metaData.stepW = (w1 - w0) / width;
     w0 += metaData.stepW / 2.0f;
 
-    metaData.startCornerPos = w0 + h0;
+    metaData.startCorner = w0 + h0;
 
     renderLayerOctree->writeMeta(0, &metaData, sizeof(RenderLayerOctree::MetaData));
 }

@@ -29,7 +29,7 @@ public:
 
     struct MetaData {
         glm::vec3 origin;
-        glm::vec3 startCornerPos;
+        glm::vec3 startCorner;
         glm::vec3 stepW;
         glm::vec3 stepH;
         glm::uint blockIndex;

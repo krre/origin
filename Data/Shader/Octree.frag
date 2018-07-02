@@ -19,7 +19,7 @@ layout (std430, binding = 1) buffer Blocks {
 
 struct MetaData {
     vec3 origin;
-    vec3 startCornerPos;
+    vec3 startCorner;
     vec3 stepW;
     vec3 stepH;
     uint blockIndex;
@@ -40,7 +40,7 @@ void main() {
     MetaData metaData = meta.data[0];
     Ray ray;
     ray.origin = metaData.origin;
-    ray.direction = normalize(metaData.startCornerPos + metaData.stepW * gl_FragCoord.x + metaData.stepH * gl_FragCoord.y);
+    ray.direction = normalize(metaData.startCorner + metaData.stepW * gl_FragCoord.x + metaData.stepH * gl_FragCoord.y);
 
 //    fragColor = ubo.backgroundColor;
     fragColor = ubo.backgroundColor + ray.origin[0];

@@ -36,10 +36,19 @@ struct Ray {
     vec3 direction;
 };
 
-void main() {
-    Ray ray;
-    ray.origin = vec3(0.0, 0.0, 0.0);
-    ray.direction = vec3(0.0, 0.0, 1.0);
+Ray constructRay(in int index) {
+    MetaData metaData = meta.data[index];
 
-    fragColor = ubo.backgroundColor;
+    Ray ray;
+    ray.origin = metaData.origin;
+    ray.direction = normalize(metaData.startCornerPos + metaData.stepW * gl_FragCoord.x + metaData.stepH * gl_FragCoord.y);
+    return ray;
+}
+
+
+void main() {
+    Ray ray = constructRay(0);
+
+//    fragColor = ubo.backgroundColor;
+    fragColor = ubo.backgroundColor + ray.origin[0];
 }

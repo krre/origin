@@ -51,6 +51,31 @@ void SceneRenderer::draw() {
 
     RenderLayerOctree::MetaData metaData = {};
     metaData.blockIndex = 0;
+    metaData.origin = glm::vec3(0.0, 0.0, -5.0);
+
+    glm::vec3 up = glm::vec3(0.0, -1.0, 0.0); // Flip Vulkan coordinate system by setting Y to -1
+    glm::vec3 look = glm::vec3(0.0, 0.0, -1.0);
+    glm::vec3 right = glm::vec3(1.0, 0.0, 0.0);
+
+    float fov = glm::radians(50.0f);
+
+    float width = (float)Window::get()->getWidth();
+    float height = (float)Window::get()->getHeight();
+
+    // Ray calculation is based on Johns Hopkins presentation:
+    // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf
+    glm::vec3 h0 = look - up * glm::tan(fov); // min height vector
+    glm::vec3 h1 = look + up * glm::tan(fov); // max height vector
+    metaData.stepH = (h1 - h0) / height;
+    h0 += metaData.stepH / 2.0f;
+
+    glm::vec3 w0 = look - right * glm::tan(fov) * width / height; // min width vector
+    glm::vec3 w1 = look + right * glm::tan(fov) * width / height; // max width vector
+    metaData.stepW = (w1 - w0) / width;
+    w0 += metaData.stepW / 2.0f;
+
+    metaData.startCornerPos = w0 + h0;
+
     renderLayerOctree->writeMeta(0, &metaData, sizeof(RenderLayerOctree::MetaData));
 }
 

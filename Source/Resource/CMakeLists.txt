@@ -1,5 +1,3 @@
-add_subdirectory(RenderPass)
-
 set(SOURCES
     ${SOURCES}
     ${CMAKE_CURRENT_SOURCE_DIR}/Resource.h

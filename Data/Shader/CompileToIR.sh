@@ -1,1 +1,1 @@
-$VULKAN_SDK/bin/glslangValidator -H -t Octree.frag > Octree.txt
+$VULKAN_SDK/bin/glslangValidator -H -t RaycastOctree.frag > RaycastOctree.txt

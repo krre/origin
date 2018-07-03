@@ -3,8 +3,8 @@ $validator OctreeFarm/FrontLightOctree.vert -o OctreeFarm/FrontLightOctree.vert.
 $validator OctreeFarm/FrontLightOctree.frag -o OctreeFarm/FrontLightOctree.frag.spv
 $validator BaseShape.vert -o BaseShape.vert.spv
 $validator BaseShape.frag -o BaseShape.frag.spv
-$validator Voxel.vert -o Voxel.vert.spv
-$validator Voxel.frag -o Voxel.frag.spv
+$validator PolygonalOctree.vert -o PolygonalOctree.vert.spv
+$validator PolygonalOctree.frag -o PolygonalOctree.frag.spv
 $validator SDF.vert -o SDF.vert.spv
 $validator SDF.frag -o SDF.frag.spv
 $validator RaycastOctree.vert -o RaycastOctree.vert.spv

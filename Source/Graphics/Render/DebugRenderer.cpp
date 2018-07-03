@@ -32,8 +32,8 @@ DebugRenderer::DebugRenderer(Object* parent) : Renderer(parent) {
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Voxel.vert.spv");
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Voxel.frag.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/PolygonalOctree.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/PolygonalOctree.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
     bufferInfo.buffer = uboBuffer->getHandle();

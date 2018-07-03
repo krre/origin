@@ -1,5 +1,5 @@
 #include "SDLWrapper.h"
-#include "Defines.h"
+#include "Constants.h"
 #include <SDL.h>
 #include <stdexcept>
 
@@ -44,7 +44,7 @@ std::string getError() {
 }
 
 void showErrorMessageBox(const char* message) {
-    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, APP_NAME, message, nullptr);
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, Constants::App::NAME, message, nullptr);
 }
 
 bool isInited() {

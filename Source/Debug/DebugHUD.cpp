@@ -1,5 +1,6 @@
 #include "DebugHUD.h"
 #include "UI/Label.h"
+#include "Base/Constants.h"
 #include "Base/Defines.h"
 #include "Graphics/Render/RenderManager.h"
 #include "Vulkan/API/Device/Device.h"
@@ -33,7 +34,10 @@ void DebugHUD::updateImpl(float dt) {
     }
 
     std::string text =
-        std::string(APP_NAME) + " " + std::string(APP_VERSION_STR) + "\n" +
+        std::string(Constants::App::NAME) + " " +
+            std::string(Constants::App::VERSION) + " " +
+            std::string(Constants::App::STATUS) + "\n" +
+
         std::to_string(fps) + " fps\n"
         "Video driver: " + RenderManager::get()->getGraphicsDevice()->getPhysicalDevice()->getProperties().deviceName + "\n"
         "Vulkan API: " + vulkanApiVersion + "\n"

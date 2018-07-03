@@ -7,6 +7,7 @@ set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 
 set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
+set(STATUS_STRING "Preview Alpha")
 
 set(CMAKE_CXX_STANDARD 14) # TODO: Switch to C++17 when will be fixed the GLM compile errors
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

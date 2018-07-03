@@ -107,7 +107,6 @@ UIRenderer::~UIRenderer() {
 }
 
 void UIRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    // TODO: Need update only on resize framebuffer.
     glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
     uboBuffer->write(&mvp, sizeof(mvp));
 

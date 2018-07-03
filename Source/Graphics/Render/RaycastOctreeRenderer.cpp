@@ -31,8 +31,8 @@ RaycastOctreeRenderer::RaycastOctreeRenderer(Object* parent) : OctreeRenderer(pa
     vertexBuffer->write(plane.data(), size);
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Octree.vert.spv");
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/Octree.frag.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/RaycastOctree.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/Shader/RaycastOctree.frag.spv");
 
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(UBO));
 

@@ -10,8 +10,6 @@
 #include "UI/Overlay.h"
 #include "UI/UIManager.h"
 #include "Graphics/Render/RenderManager.h"
-#include "Graphics/Render/PolygonalOctreeRenderer.h"
-#include "Graphics/Render/RaycastOctreeRenderer.h"
 #include "Graphics/Render/SceneRenderer.h"
 #include "Graphics/Render/DebugRenderer.h"
 #include "Graphics/Render/UIRenderer.h"
@@ -82,12 +80,6 @@ void Game::init() {
             RenderManager::get()->setDeviceIndex(DebugEnvironment::getVulkanDevice());
         }
         RenderManager::get()->create();
-
-        if (DebugEnvironment::getEnable() && DebugEnvironment::getSettings()["general"]["renderer"] == static_cast<int>(OctreeRenderer::Type::Raycast)) {
-            RenderManager::get()->addRenderer(new RaycastOctreeRenderer(this));
-        } else {
-            RenderManager::get()->addRenderer(new PolygonalOctreeRenderer(this));
-        }
 
         RenderManager::get()->addRenderer(new SceneRenderer(this));
         RenderManager::get()->addRenderer(new DebugRenderer(this));

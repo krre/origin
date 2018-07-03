@@ -4,6 +4,7 @@
 namespace Origin {
 
 class Scene;
+class OctreeRenderer;
 
 class SceneRenderer : public Renderer {
 
@@ -24,6 +25,7 @@ public:
 
 private:
     std::vector<Scene*> scenes;
+    OctreeRenderer* octreeRenderer;
 };
 
 } // Origin

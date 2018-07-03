@@ -30,8 +30,6 @@ public:
 
     std::vector<UIBatch::Vertex>* getVerticles() { return &vertices; }
 
-    void resizeVertexBuffer(uint32_t size);
-
 private:
     std::vector<UIBatch> batches;
     std::vector<UIBatch::Vertex> vertices;
@@ -41,7 +39,6 @@ private:
     std::unique_ptr<Vulkan::Sampler> sampler;
     std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
-    uint32_t vertextCount = 0;
     Vulkan::Texture* texture;
 };
 

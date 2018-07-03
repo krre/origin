@@ -132,11 +132,11 @@ UIRenderer* UIRenderer::get() {
 }
 
 void UIRenderer::draw() {
-    vertextCount = vertices.size();
+    uint32_t vertextCount = vertices.size();
     uint32_t size = vertextCount * sizeof(UIBatch::Vertex);
 
     if (size > vertexBuffer->getSize()) {
-        resizeVertexBuffer(size);
+        vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     }
 
     if (size) {
@@ -161,10 +161,6 @@ void UIRenderer::addBatch(UIBatch batch) {
 void UIRenderer::clearBatches() {
     batches.clear();
     vertices.clear();
-}
-
-void UIRenderer::resizeVertexBuffer(uint32_t size) {
-    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
 }
 
 } // Origin

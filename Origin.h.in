@@ -1,4 +1,5 @@
 #pragma once
+#cmakedefine NAME_STRING "@NAME_STRING@"
 #cmakedefine VERSION_STRING "@VERSION_STRING@"
 #cmakedefine STATUS_STRING "@STATUS_STRING@"
 #cmakedefine WIN32

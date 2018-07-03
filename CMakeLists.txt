@@ -6,6 +6,7 @@ set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
 set(VERSION_PATCH 0)
 
+set(NAME_STRING ${PROJECT_NAME})
 set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 set(STATUS_STRING "Preview Alpha")
 
@@ -13,14 +14,14 @@ set(CMAKE_CXX_STANDARD 14) # TODO: Switch to C++17 when will be fixed the GLM co
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-configure_file(Origin.h.in Origin.h @ONLY)
+configure_file(${PROJECT_NAME}.h.in ${PROJECT_NAME}.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 add_subdirectory(Libs)
 add_subdirectory(Source)
 add_subdirectory(ThirdParty)
 
-set(EXECUTABLE_NAME "Origin")
+set(EXECUTABLE_NAME ${PROJECT_NAME})
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
 

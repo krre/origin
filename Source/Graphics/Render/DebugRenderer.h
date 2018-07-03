@@ -23,7 +23,6 @@ public:
     void draw() override;
 
     void setVertexCount(uint32_t vertextCount);
-
     void updateMvp(const glm::mat4& mvp);
 
 private:

@@ -191,6 +191,10 @@ void CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t 
     vkCmdDraw(handle, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
+void CommandBuffer::drawIndirect(VkBuffer buffer, VkDeviceSize offset, uint32_t drawCount, uint32_t stride) {
+    vkCmdDrawIndirect(handle, buffer, offset, drawCount, stride);
+}
+
 void CommandBuffer::bindDescriptorSets(VkPipelineBindPoint bindPoint, VkPipelineLayout layout, uint32_t firstSet) {
     vkCmdBindDescriptorSets(handle, bindPoint, layout, firstSet, descriptorSets.size(), descriptorSets.data(), dynamicOffsets.size(), dynamicOffsets.data());
     descriptorSets.clear();

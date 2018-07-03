@@ -28,7 +28,7 @@ UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
 
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
-
+    indirectBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT, sizeof(VkDrawIndirectCommand));
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
 
     sampler = std::make_unique<Vulkan::Sampler>(device);
@@ -107,7 +107,7 @@ UIRenderer::~UIRenderer() {
 }
 
 void UIRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    // TODO: Only need update on resize framebuffer
+    // TODO: Need update only on resize framebuffer.
     glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
     uboBuffer->write(&mvp, sizeof(mvp));
 
@@ -125,7 +125,7 @@ void UIRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan
         commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
     }
 
-    commandBuffer->draw(vertextCount, 1, 0, 0);
+    commandBuffer->drawIndirect(indirectBuffer->getHandle());
 }
 
 UIRenderer* UIRenderer::get() {
@@ -133,14 +133,22 @@ UIRenderer* UIRenderer::get() {
 }
 
 void UIRenderer::draw() {
-    setVertexCount(vertices.size());
+    vertextCount = vertices.size();
+    uint32_t size = vertextCount * sizeof(UIBatch::Vertex);
 
-    uint32_t size = vertices.size() * sizeof(UIBatch::Vertex);
+    if (size > vertexBuffer->getSize()) {
+        resizeVertexBuffer(size);
+    }
 
     if (size) {
         vertexBuffer->write(vertices.data(), size);
         texture = batches.at(0).texture; // TODO: Sort batches and swith textures
     }
+
+    VkDrawIndirectCommand indirectCommand = {};
+    indirectCommand.vertexCount = vertextCount;
+    indirectCommand.instanceCount = 1;
+    indirectBuffer->write(&indirectCommand, sizeof(VkDrawIndirectCommand));
 }
 
 bool UIRenderer::getActive() const {
@@ -158,16 +166,6 @@ void UIRenderer::clearBatches() {
 
 void UIRenderer::resizeVertexBuffer(uint32_t size) {
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
-}
-
-void UIRenderer::setVertexCount(uint32_t vertextCount) {
-    this->vertextCount = vertextCount;
-
-    uint32_t size = vertextCount * sizeof(UIBatch::Vertex);
-
-    if (size > vertexBuffer->getSize()) {
-        resizeVertexBuffer(size);
-    }
 }
 
 } // Origin

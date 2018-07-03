@@ -31,12 +31,12 @@ public:
     std::vector<UIBatch::Vertex>* getVerticles() { return &vertices; }
 
     void resizeVertexBuffer(uint32_t size);
-    void setVertexCount(uint32_t vertextCount);
 
 private:
     std::vector<UIBatch> batches;
     std::vector<UIBatch::Vertex> vertices;
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> indirectBuffer;
     std::unique_ptr<Vulkan::GpuBuffer> uboBuffer;
     std::unique_ptr<Vulkan::Sampler> sampler;
     std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;

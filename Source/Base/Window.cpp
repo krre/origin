@@ -153,6 +153,7 @@ void Window::onResize(int width, int height) {
     }
 
     Overlay::get()->resize(width, height);
+
     if (Game::isRunning()) {
         RenderManager::get()->resize();
     }

@@ -17,7 +17,8 @@ Label::Label(const std::string& text, Control* parent) : Label(parent) {
 
 void Label::setText(const std::string& text) {
     if (this->text.length() != text.length()) {
-        markDirty();
+        // Causes undesirable rebuild Vulkan command buffers
+//        markDirty();
     }
     this->text = text;
 

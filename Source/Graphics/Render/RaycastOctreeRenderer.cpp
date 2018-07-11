@@ -91,6 +91,8 @@ RaycastOctreeRenderer::~RaycastOctreeRenderer() {
 }
 
 void RaycastOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+    UNUSED(framebuffer)
+
     commandBuffer->bindPipeline(graphicsPipeline.get());
 
     commandBuffer->clearVertexBuffers();

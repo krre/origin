@@ -90,6 +90,8 @@ PolygonalOctreeRenderer::~PolygonalOctreeRenderer() {
 }
 
 void PolygonalOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
+    UNUSED(framebuffer)
+
     if (vertextCount) {
         commandBuffer->bindPipeline(graphicsPipeline.get());
 

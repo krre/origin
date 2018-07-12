@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Scene;
+class View3D;
 class OctreeRenderer;
 
 class SceneRenderer : public Renderer {
@@ -20,11 +20,11 @@ public:
     void draw() override;
     bool getActive() const override;
 
-    void addScene(Scene* scene);
-    void clearScenes();
+    void addView(View3D* view);
+    void clearViews();
 
 private:
-    std::vector<Scene*> scenes;
+    std::vector<View3D*> views;
     OctreeRenderer* octreeRenderer;
 };
 

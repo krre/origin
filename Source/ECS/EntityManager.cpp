@@ -115,8 +115,4 @@ void EntityManager::update(Scene* scene, float dt) {
     }
 }
 
-void EntityManager::draw(Scene* scene) {
-    SceneRenderer::get()->addScene(scene);
-}
-
 } // Origin

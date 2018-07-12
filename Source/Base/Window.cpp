@@ -127,7 +127,7 @@ void Window::update(float dt) {
 
 void Window::render() {
     UIRenderer::get()->clearBatches();
-    SceneRenderer::get()->clearScenes();
+    SceneRenderer::get()->clearViews();
     screens.back()->draw();
     Overlay::get()->draw();
     RenderManager::get()->draw();

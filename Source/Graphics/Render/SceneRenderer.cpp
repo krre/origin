@@ -34,23 +34,22 @@ SceneRenderer* SceneRenderer::get() {
 }
 
 void SceneRenderer::draw() {
-    for (Scene* scene : scenes) {
-
+    for (View3D* view : views) {
 
     }
     octreeRenderer->draw();
 }
 
 bool SceneRenderer::getActive() const {
-    return scenes.size() > 0;
+    return views.size() > 0;
 }
 
-void SceneRenderer::addScene(Scene* scene) {
-    scenes.push_back(scene);
+void SceneRenderer::addView(View3D* view) {
+    views.push_back(view);
 }
 
-void SceneRenderer::clearScenes() {
-    scenes.clear();
+void SceneRenderer::clearViews() {
+    views.clear();
 }
 
 } // Origin

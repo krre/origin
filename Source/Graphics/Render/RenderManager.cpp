@@ -68,7 +68,7 @@ void RenderManager::init() {
 void RenderManager::preRender() {
     if (currentScreen != Window::get()->getCurrentScreen()) {
         currentScreen = Window::get()->getCurrentScreen();
-        buildCommandBuffers();
+        markDirty();
     }
 }
 

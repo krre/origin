@@ -141,6 +141,11 @@ void Renderer::render() {
         resize();
     }
 
+    if (dirty) {
+        buildCommandBuffers();
+        dirty = false;
+    }
+
     queue->clearCommandBuffers();
     queue->addCommandBuffer(commandBuffers->at(swapchain->getImageIndex()),
                             renderFinishedSemaphore->getHandle(),
@@ -209,7 +214,7 @@ void Renderer::resize() {
         commandBuffers->allocate(swapchain->getCount());
     }
 
-    buildCommandBuffers();
+    markDirty();
 }
 
 std::vector<unsigned char> Renderer::readFramebuffer() {

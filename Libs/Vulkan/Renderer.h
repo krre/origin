@@ -45,7 +45,9 @@ public:
     void render();
     void resize();
     std::vector<unsigned char> readFramebuffer();
-    void buildCommandBuffers();
+
+    // Set flag for rebuilding command buffers
+    void markDirty() { dirty = true; }
 
 protected:
     virtual void init() {}
@@ -54,6 +56,8 @@ protected:
     virtual void writeCommandBuffer(CommandBuffer* commandBuffer, Framebuffer* framebuffer) = 0;
 
 private:
+    void buildCommandBuffers();
+
     void* platformHandle;
     void* platformWindow;
     std::unique_ptr<Instance> instance;
@@ -77,6 +81,7 @@ private:
     uint32_t computeFamily;
     int presetDevice = -1;
     Device* device;
+    bool dirty = false;
 };
 
 } // Vulkan

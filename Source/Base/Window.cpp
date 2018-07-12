@@ -134,12 +134,8 @@ void Window::render() {
 
     if (screens.back()->getDirty() || Overlay::get()->getDirty()) {
         RenderManager::get()->markDirty();
-        if (screens.back()->getDirty()) {
-            screens.back()->clearDirty();
-        }
-        if (Overlay::get()->getDirty()) {
-            Overlay::get()->clearDirty();
-        }
+        screens.back()->clearDirty();
+        Overlay::get()->clearDirty();
     }
 
     RenderManager::get()->render();

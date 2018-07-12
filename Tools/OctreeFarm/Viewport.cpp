@@ -78,7 +78,7 @@ void Viewport::onOctreeChanged() {
     if (size) {
         renderEngine->setVoxelVertextCount(octreeEditor->getOctree()->getVertices().size());
         renderEngine->getVoxelVertexBuffer()->write(octreeEditor->getOctree()->getVertices().data(), size);
-        renderEngine->updateCommandBuffers();
+        renderEngine->buildCommandBuffers();
         update();
     }
 }
@@ -150,7 +150,7 @@ void Viewport::drawSelection() {
     if (lines.size()) {
         renderEngine->getLineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
     }
-    renderEngine->updateCommandBuffers();
+    renderEngine->buildCommandBuffers();
     update();
 }
 

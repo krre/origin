@@ -209,7 +209,7 @@ void Renderer::resize() {
         commandBuffers->allocate(swapchain->getCount());
     }
 
-    updateCommandBuffers();
+    buildCommandBuffers();
 }
 
 std::vector<unsigned char> Renderer::readFramebuffer() {
@@ -314,7 +314,7 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
     return std::move(output);
 }
 
-void Renderer::updateCommandBuffers() {
+void Renderer::buildCommandBuffers() {
     for (int i = 0; i < commandBuffers->getCount(); i++) {
         CommandBuffer commandBuffer(commandBuffers->at(i));
         commandBuffer.reset();

@@ -133,7 +133,7 @@ void Window::render() {
     RenderManager::get()->draw();
 
     if (screens.back()->getDirty() || Overlay::get()->getDirty()) {
-        RenderManager::get()->updateCommandBuffers();
+        RenderManager::get()->buildCommandBuffers();
         if (screens.back()->getDirty()) {
             screens.back()->clearDirty();
         }

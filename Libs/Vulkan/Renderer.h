@@ -45,7 +45,7 @@ public:
     void render();
     void resize();
     std::vector<unsigned char> readFramebuffer();
-    void updateCommandBuffers();
+    void buildCommandBuffers();
 
 protected:
     virtual void init() {}

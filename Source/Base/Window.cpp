@@ -126,8 +126,6 @@ void Window::update(float dt) {
 }
 
 void Window::render() {
-    UIRenderer::get()->clearBatches();
-    SceneRenderer::get()->clearViews();
     screens.back()->draw();
     Overlay::get()->draw();
     RenderManager::get()->draw();
@@ -139,6 +137,9 @@ void Window::render() {
     }
 
     RenderManager::get()->render();
+
+    UIRenderer::get()->clearBatches();
+    SceneRenderer::get()->clearViews();
 }
 
 void Window::onResize(int width, int height) {

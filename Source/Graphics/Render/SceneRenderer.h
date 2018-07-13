@@ -5,11 +5,11 @@ namespace Origin {
 
 class View3D;
 class OctreeRenderer;
+class View3DBatch;
 
 class SceneRenderer : public Renderer {
 
 public:
-
     SceneRenderer(Object* parent = nullptr);
     ~SceneRenderer();
 
@@ -25,6 +25,7 @@ public:
 
 private:
     std::vector<View3D*> views;
+    std::vector<View3DBatch> batches;
     OctreeRenderer* octreeRenderer;
 };
 

@@ -4,6 +4,7 @@
 #include "Debug/DebugEnvironment.h"
 #include "Graphics/Render/PolygonalOctreeRenderer.h"
 #include "Graphics/Render/RaycastOctreeRenderer.h"
+#include "View3DBatch.h"
 
 namespace Origin {
 

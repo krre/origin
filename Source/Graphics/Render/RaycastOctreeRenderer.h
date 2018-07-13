@@ -40,6 +40,7 @@ public:
 
     void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
     void draw() override;
+    void drawView(View3D* view) override;
 
     void writeUBO(const UBO& ubo);
     void writeBlocks(uint32_t offset, void* data, uint32_t size);

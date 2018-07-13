@@ -156,6 +156,10 @@ void RaycastOctreeRenderer::draw() {
     writeMeta(0, &metaData, sizeof(MetaData));
 }
 
+void RaycastOctreeRenderer::drawView(View3D* view) {
+
+}
+
 void RaycastOctreeRenderer::writeUBO(const UBO& ubo) {
     uboBuffer->write(&ubo, sizeof(UBO));
 }

@@ -18,6 +18,7 @@ public:
 
     void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
     void draw() override;
+    void drawView(View3D* view) override;
 
     void setVertexCount(uint32_t vertextCount);
     void updateMvp(const glm::mat4& mvp);

@@ -35,9 +35,8 @@ SceneRenderer* SceneRenderer::get() {
 
 void SceneRenderer::draw() {
     for (View3D* view : views) {
-
+        octreeRenderer->drawView(view);
     }
-    octreeRenderer->draw();
 }
 
 bool SceneRenderer::getActive() const {

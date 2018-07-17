@@ -34,12 +34,12 @@ void Object::setParent(Object* parent) {
 void Object::appendChild(Object* child) {
     assert(child);
     children.push_back(child);
-    polishAddChild(child);
+    polishAppendChild(child);
 }
 
 void Object::insertChild(Object* child, int index) {
     children.insert(children.begin() + index, child);
-    polishAddChild(child);
+    polishAppendChild(child);
 }
 
 void Object::removeChild(Object* child) {
@@ -61,7 +61,7 @@ void Object::removeChildren() {
     children.clear();
 }
 
-void Object::polishAddChild(Object* child) {
+void Object::polishAppendChild(Object* child) {
     // Remove child from children of previous parent
     if (child->parent) {
         child->parent->removeChild(child);

@@ -29,7 +29,7 @@ protected:
 
 private:
     friend class Control;
-    void polishAddChild(Object* child);
+    void polishAppendChild(Object* child);
 
     std::string name;
     Object* parent = nullptr;

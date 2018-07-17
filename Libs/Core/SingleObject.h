@@ -4,6 +4,7 @@
 
 namespace Origin {
 
+// Singleton that inherited from Object class
 template <typename T> class SingleObject : public Object {
 
 public:

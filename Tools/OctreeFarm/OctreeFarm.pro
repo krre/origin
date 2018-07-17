@@ -37,7 +37,8 @@ HEADERS  += \
     Options.h \
     RenderEngine.h \
     Settings.h \
-    OctreeEditor.h
+    OctreeEditor.h \
+    Constants.h
 
 FORMS += \
     MainWindow.ui \

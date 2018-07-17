@@ -1,6 +1,6 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
-#include "Defines.h"
+#include "Constants.h"
 #include "OctreeEditor.h"
 #include "Viewport.h"
 #include "Properties.h"
@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget* parent) :
     properties = new Properties(octreeEditor, viewport, undoStack, this);
     propLayout->addWidget(properties);
 
-    setWindowTitle(APP_NAME);
+    setWindowTitle(Constants::App::NAME);
 
     readSettings();
     updateMenuState();
@@ -154,14 +154,14 @@ void MainWindow::on_actionOptions_triggered() {
 }
 
 void MainWindow::on_actionAbout_triggered() {
-    QMessageBox::about(this, tr("About %1").arg(APP_NAME),
+    QMessageBox::about(this, tr("About %1").arg(Constants::App::NAME),
         tr("<h3>%1 %2</h3> \
            Octree editor for Origin game<br><br>\
            Based on Qt %3<br> \
            Build on %4<br><br> \
            <a href=%5>%5</a><br><br>%6").
-           arg(APP_NAME).arg(APP_VERSION_STR).arg(QT_VERSION_STR).
-            arg(__DATE__).arg(APP_URL).arg(APP_COPYRIGHT));
+           arg(Constants::App::NAME).arg(Constants::App::VERSION).arg(QT_VERSION_STR).
+            arg(__DATE__).arg(Constants::App::URL).arg(Constants::App::COPYRIGHT));
 }
 
 void MainWindow::onSelectionChanged(bool selected) {
@@ -178,7 +178,7 @@ void MainWindow::readSettings() {
     settings.beginGroup("MainWindow");
 
     if (!restoreGeometry(settings.value("geometry").toByteArray())) {
-        resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        resize(Constants::Window::WIDTH, Constants::Window::HEIGHT);
         const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
     }

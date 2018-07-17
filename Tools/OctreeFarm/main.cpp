@@ -1,12 +1,12 @@
 #include "MainWindow.h"
-#include "Defines.h"
+#include "Constants.h"
 #include "Settings.h"
 #include <QApplication>
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
-    app.setApplicationName(APP_NAME);
-    app.setApplicationVersion(APP_VERSION_STR);
+    app.setApplicationName(Constants::App::NAME);
+    app.setApplicationVersion(Constants::App::VERSION);
 
     OctreeFarm::MainWindow mainWindow;
     mainWindow.show();

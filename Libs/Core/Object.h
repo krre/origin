@@ -16,7 +16,7 @@ public:
     void setParent(Object* parent);
     Object* getParent() const { return parent; }
 
-    void addChild(Object* child);
+    void appendChild(Object* child);
     void insertChild(Object* child, int index);
     void removeChild(Object* child);
     void removeChild(int index);

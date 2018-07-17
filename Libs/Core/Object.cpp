@@ -25,13 +25,13 @@ void Object::setParent(Object* parent) {
     }
 
     if (parent) {
-        parent->addChild(this);
+        parent->appendChild(this);
     }
 
     this->parent = parent;
 }
 
-void Object::addChild(Object* child) {
+void Object::appendChild(Object* child) {
     assert(child);
     children.push_back(child);
     polishAddChild(child);

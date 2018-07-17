@@ -39,7 +39,7 @@ ListBox::~ListBox() {
 
 void ListBox::addLine(const std::string& text) {
     RowDelegate* listLine = new RowDelegate(text, layout->getChildren().size(), this);
-    layout->addChild(listLine);
+    layout->appendChild(listLine);
 }
 
 void ListBox::removeLine(int index) {

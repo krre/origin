@@ -12,7 +12,7 @@ NewWorldScreen::NewWorldScreen() {
     layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
     textEdit = new TextEdit();
-    layout->addChild(textEdit);
+    layout->appendChild(textEdit);
 
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {
@@ -21,7 +21,7 @@ NewWorldScreen::NewWorldScreen() {
             Window::get()->setScreen(std::make_shared<GameScreen>(textEdit->getText()));
         }
     });
-    layout->addChild(buttonPlay);
+    layout->appendChild(buttonPlay);
 
     buttonBack = new Button("Back", this);
     buttonBack->clicked.connect([&]() {

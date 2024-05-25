@@ -51,11 +51,16 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT
         case VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT: type = "Debug report callback"; break;
         case VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_KHR_EXT: type = "Display"; break;
         case VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_MODE_KHR_EXT: type = "Display mode"; break;
-        case VK_DEBUG_REPORT_OBJECT_TYPE_OBJECT_TABLE_NVX_EXT: type = "Object table"; break;
-        case VK_DEBUG_REPORT_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NVX_EXT: type = "Indirect commands layout"; break;
         case VK_DEBUG_REPORT_OBJECT_TYPE_VALIDATION_CACHE_EXT_EXT: type = "Validation cache"; break;
-        case VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT: type = "Sampler ycbcr conversion"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT: type = "Sampler YCBCR conversion"; break;
         case VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT: type = "Descriptor update template"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_CU_MODULE_NVX_EXT: type = "CU module"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_CU_FUNCTION_NVX_EXT: type = "CU function"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR_EXT: type = "Acceleration structure"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV_EXT: type = "Acceleration structure"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_MODULE_NV_EXT: type = "CUDE module"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_FUNCTION_NV_EXT: type = "CUDE function"; break;
+        case VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT: type = "Buffer collection Fuchsia"; break;
     }
 
     std::cout << "[" << log << "] " << pLayerPrefix << " | object: " << std::hex << "0x" << object << std::dec << " | type: " << type

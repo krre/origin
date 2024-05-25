@@ -40,7 +40,7 @@ void Shader::parse() {
     stage = executionModelToStage(entryPoint.model);
 
     spirv_cross::ShaderResources resources = compiler.get_shader_resources();
-    std::vector<std::vector<spirv_cross::Resource>> resourcesList;
+    std::vector<spirv_cross::SmallVector<spirv_cross::Resource>> resourcesList;
     resourcesList.push_back(resources.uniform_buffers);
     resourcesList.push_back(resources.storage_buffers);
     resourcesList.push_back(resources.stage_inputs);
@@ -103,7 +103,7 @@ void Shader::parse() {
                 }
 
                 if (type.array.size()) {
-                    bufferInfo.layoutBinding.descriptorCount = type.array.at(0);
+                    bufferInfo.layoutBinding.descriptorCount = type.array[0];
                 }
             } else if (storageClass == spv::StorageClassUniform && decorationBitset.get(spv::DecorationBlock)) {
                 bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;

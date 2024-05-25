@@ -44,7 +44,7 @@ void MainWindow::on_actionAbout_triggered() {
            Based on Qt %3<br> \
            Build on %4<br><br> \
            <a href=%5>%5</a><br><br> \
-           Copyright © 2017-2018, Vladimir Zarypov").
+           Copyright © 2017-2024, Vladimir Zarypov").
            arg(APP_NAME).arg(APP_VERSION_STR).arg(QT_VERSION_STR).arg(__DATE__).arg(APP_URL));
 }
 

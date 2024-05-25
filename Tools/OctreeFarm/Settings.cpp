@@ -1,10 +1,10 @@
 #include "Settings.h"
-#include "Defines.h"
+#include "Constants.h"
 #include <QCoreApplication>
 
 namespace OctreeFarm {
 
-Settings::Settings() : QSettings(QCoreApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME, QSettings::IniFormat)  {
+Settings::Settings() : QSettings(QCoreApplication::applicationDirPath() + "/" + Constants::App::SETTINGS_NAME, QSettings::IniFormat)  {
 
 }
 

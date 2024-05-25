@@ -42,36 +42,28 @@ source_group("SIMD Files" FILES ${SIMD_SOURCE})
 source_group("SIMD Files" FILES ${SIMD_INLINE})
 source_group("SIMD Files" FILES ${SIMD_HEADER})
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+add_library(glm-header-only INTERFACE)
+add_library(glm::glm-header-only ALIAS glm-header-only)
 
-if(GLM_STATIC_LIBRARY_ENABLE OR GLM_DYNAMIC_LIBRARY_ENABLE)
-	if(GLM_STATIC_LIBRARY_ENABLE)
-		add_library(glm_static STATIC ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
-			${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
-			${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
-			${EXT_SOURCE}     ${EXT_INLINE}     ${EXT_HEADER}
-			${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
-			${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
-			${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
-	endif(GLM_STATIC_LIBRARY_ENABLE)
+target_include_directories(glm-header-only INTERFACE
+	"$<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}>"
+	"$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
+)
 
-	if(GLM_DYNAMIC_LIBRARY_ENABLE)
-		add_library(glm_shared SHARED ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
-			${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
-			${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
-			${EXT_SOURCE}     ${EXT_INLINE}     ${EXT_HEADER}
-			${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
-			${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
-			${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
-	endif(GLM_DYNAMIC_LIBRARY_ENABLE)
-
-else(GLM_STATIC_LIBRARY_ENABLE OR GLM_DYNAMIC_LIBRARY_ENABLE)
-	add_executable(glm_dummy ${ROOT_TEXT} ${ROOT_MD} ${ROOT_NAT}
+if (GLM_BUILD_LIBRARY)
+	add_library(glm
+		${ROOT_TEXT}      ${ROOT_MD}        ${ROOT_NAT}
 		${ROOT_SOURCE}    ${ROOT_INLINE}    ${ROOT_HEADER}
 		${CORE_SOURCE}    ${CORE_INLINE}    ${CORE_HEADER}
 		${EXT_SOURCE}     ${EXT_INLINE}     ${EXT_HEADER}
 		${GTC_SOURCE}     ${GTC_INLINE}     ${GTC_HEADER}
 		${GTX_SOURCE}     ${GTX_INLINE}     ${GTX_HEADER}
-		${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER})
-
-endif(GLM_STATIC_LIBRARY_ENABLE OR GLM_DYNAMIC_LIBRARY_ENABLE)
+		${SIMD_SOURCE}    ${SIMD_INLINE}    ${SIMD_HEADER}
+	)
+	add_library(glm::glm ALIAS glm)
+	target_link_libraries(glm PUBLIC glm-header-only)
+else()
+	add_library(glm INTERFACE)
+	add_library(glm::glm ALIAS glm)
+	target_link_libraries(glm INTERFACE glm-header-only)
+endif()

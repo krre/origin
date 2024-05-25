@@ -6,7 +6,6 @@ namespace Ui {
 }
 
 class QListWidget;
-class QStringList;
 
 namespace DebugSettingsEditor {
 

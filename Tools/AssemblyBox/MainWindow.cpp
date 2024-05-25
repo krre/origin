@@ -39,7 +39,7 @@ void MainWindow::readSettings() {
 
     if (!restoreGeometry(settings.value("geometry").toByteArray())) {
         resize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
+        const QRect availableGeometry = QGuiApplication::screens().constFirst()->availableGeometry();
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
     }
 

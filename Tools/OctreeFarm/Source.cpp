@@ -236,7 +236,7 @@ void Source::createChildren(const Node& node) {
 QJsonObject Source::findNode(const QVector<int>& path, int index) {
     QJsonObject node = root;
     for (int i = 0; i <= index; i++) {
-        node = node[QString(path.at(i))].toObject();
+        node = node[QString::number(path.at(i))].toObject();
         if (i != index) {
             node = node["children"].toObject();
         }

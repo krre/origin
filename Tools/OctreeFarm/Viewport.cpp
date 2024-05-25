@@ -9,10 +9,6 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
 
-#if defined(Q_OS_LINUX)
-    #include <QX11Info>
-#endif
-
 namespace OctreeFarm {
 
 Viewport::Viewport(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
@@ -23,7 +19,8 @@ Viewport::Viewport(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
 
     WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
-    renderEngine = new RenderEngine(QX11Info::connection(), &windowHandle, this);
+    auto x11Application = qGuiApp->nativeInterface<QNativeInterface::QX11Application>();
+    renderEngine = new RenderEngine(x11Application->connection(), &windowHandle, this);
 #elif defined(Q_OS_WIN)
     renderEngine = new RenderEngine(GetModuleHandle(nullptr), (void*)(windowHandle), this);
 #endif

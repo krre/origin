@@ -27,11 +27,11 @@ MainWindow::MainWindow(QWidget* parent) :
     connect(viewport, &Viewport::selectionChanged, this, &MainWindow::onSelectionChanged);
     QWidget* container = QWidget::createWindowContainer(viewport);
     QBoxLayout* viewportlayout = new QBoxLayout(QBoxLayout::TopToBottom, ui->frameViewport);
-    viewportlayout->setMargin(0);
+    viewportlayout->setContentsMargins(QMargins());
     viewportlayout->addWidget(container);
 
     QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, ui->frameProperties);
-    propLayout->setMargin(0);
+    propLayout->setContentsMargins(QMargins());
     properties = new Properties(octreeEditor, viewport, undoStack, this);
     propLayout->addWidget(properties);
 
@@ -179,7 +179,7 @@ void MainWindow::readSettings() {
 
     if (!restoreGeometry(settings.value("geometry").toByteArray())) {
         resize(Constants::Window::WIDTH, Constants::Window::HEIGHT);
-        const QRect availableGeometry = QApplication::desktop()->availableGeometry(this);
+        const QRect availableGeometry = QGuiApplication::screens().constFirst()->availableGeometry();
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
     }
 

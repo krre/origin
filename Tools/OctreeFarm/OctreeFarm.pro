@@ -1,5 +1,4 @@
 QT += widgets
-unix: QT += x11extras
 CONFIG += c++17
 TARGET = OctreeFarm
 TEMPLATE = app

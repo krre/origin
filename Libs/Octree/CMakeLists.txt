@@ -7,3 +7,5 @@ add_library(Octree SHARED
     Substance.cpp Substance.h
     SubstanceTree.cpp SubstanceTree.h
 )
+
+target_link_libraries(Octree Core)

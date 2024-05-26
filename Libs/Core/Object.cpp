@@ -54,8 +54,8 @@ void Object::removeChild(int index) {
 }
 
 void Object::removeChildren() {
-    for (int i = 0; i < children.size(); i++) {
-        children.at(i)->parent = nullptr;
+    for (auto child : children) {
+        child->parent = nullptr;
     }
 
     children.clear();

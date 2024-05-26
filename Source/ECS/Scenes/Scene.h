@@ -6,7 +6,7 @@ namespace Origin {
 
 class Entity;
 
-class Scene : public Object {
+class Scene : public Core::Object {
 
 public:
     Scene(Object* parent = nullptr);

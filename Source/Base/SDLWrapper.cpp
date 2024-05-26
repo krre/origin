@@ -23,8 +23,8 @@ void shutdown() {
     SDL_Quit();
 }
 
-Size getScreenSize() {
-    Size screenSize;
+Core::Size getScreenSize() {
+    Core::Size screenSize;
     SDL_DisplayMode mode;
     if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
         throw std::runtime_error("SDL_GetDesktopDisplayMode failed\nSDL_Error: " + getError());

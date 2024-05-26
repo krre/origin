@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class ProcessManager : public Object {
+class ProcessManager : public Core::Object {
 
 public:
     ProcessManager();

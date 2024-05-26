@@ -36,7 +36,7 @@ void EntityManager::removeEntity(const std::shared_ptr<Entity>& entity) {
 //    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 }
 
-std::shared_ptr<Entity> EntityManager::getEntity(EntityId id) {
+std::shared_ptr<Entity> EntityManager::getEntity(Core::EntityId id) {
     return entities[id];
 }
 

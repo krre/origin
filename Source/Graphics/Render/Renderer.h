@@ -9,7 +9,7 @@ namespace Vulkan {
 
 namespace Origin {
 
-class Renderer : public Object {
+class Renderer : public Core::Object {
 
 public:
     Renderer(Object* parent = nullptr);

@@ -18,7 +18,7 @@ public:
     void setTextColor(const Color& labelColor);
     const Color& getTextColor() const;
 
-    Signal<> clicked;
+    Core::Signal<> clicked;
 
 private:
     void mouseButtonAction(const SDL_MouseButtonEvent& event) override;

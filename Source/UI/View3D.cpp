@@ -9,7 +9,7 @@ View3D::View3D(Control* parent) : Control(parent) {
 
 }
 
-View3D::View3D(Rect viewport, Control* parent) :
+View3D::View3D(Core::Rect viewport, Control* parent) :
     viewport(viewport),
     Control(parent) {
 

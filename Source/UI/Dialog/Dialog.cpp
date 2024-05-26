@@ -6,7 +6,7 @@
 
 namespace Origin {
 
-Dialog::Dialog() : Rectangle(Size(200, 50)) {
+Dialog::Dialog() : Rectangle(Core::Size(200, 50)) {
     setColor(Color(0, 0, 0, 0.7));
 }
 

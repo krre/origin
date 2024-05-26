@@ -14,7 +14,7 @@ namespace Origin {
 
 class Screen;
 
-class Window : public SingleObject<Window> {
+class Window : public Core::SingleObject<Window> {
 
 public:
     Window(Object* parent = nullptr);

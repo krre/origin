@@ -3,13 +3,13 @@
 
 namespace Origin {
 
-EntityId Entity::counter = 0;
+Core::EntityId Entity::counter = 0;
 
 Entity::Entity(Entity* parent) : Object(parent) {
     id = counter++;
 }
 
-Entity::Entity(EntityId id, Entity* parent) : Object(parent) {
+Entity::Entity(Core::EntityId id, Entity* parent) : Object(parent) {
     this->id = id;
 }
 
@@ -17,7 +17,7 @@ Entity::~Entity() {
 
 }
 
-void Entity::setIdCounter(EntityId id) {
+void Entity::setIdCounter(Core::EntityId id) {
     counter = id;
 }
 

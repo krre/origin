@@ -12,11 +12,11 @@ Rectangle::Rectangle(Control* parent) : Control(parent) {
     font = ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf");
 }
 
-Rectangle::Rectangle(const Size& size, Control* parent) : Rectangle(parent) {
+Rectangle::Rectangle(const Core::Size& size, Control* parent) : Rectangle(parent) {
     this->size = size;
 }
 
-Rectangle::Rectangle(const Pos2& position, const Size& size, Control* parent) : Rectangle(size, parent) {
+Rectangle::Rectangle(const Core::Pos2& position, const Core::Size& size, Control* parent) : Rectangle(size, parent) {
     this->position = position;
 }
 

@@ -1,6 +1,6 @@
 #include "JsonStorage.h"
 
-namespace Origin {
+namespace Core {
 
 JsonStorage::JsonStorage(Object* parent) : Object(parent) {
 
@@ -9,4 +9,4 @@ JsonStorage::JsonStorage(Object* parent) : Object(parent) {
 JsonStorage::~JsonStorage() {
 }
 
-} // Origin
+}

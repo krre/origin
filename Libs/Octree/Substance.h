@@ -1,9 +1,9 @@
 #pragma once
 #include "Core/Object.h"
 
-namespace Origin {
+namespace Core {
 
-class Substance : public Object {
+class Substance : public Core::Object {
 
 public:
     Substance();
@@ -15,4 +15,4 @@ private:
 
 };
 
-} // Origin
+}

@@ -11,7 +11,7 @@ class Entity;
 class EntityBuilder;
 class Scene;
 
-class EntityManager : public SingleObject<EntityManager> {
+class EntityManager : public Core::SingleObject<EntityManager> {
 
 public:
     EntityManager(Object* parent = nullptr);
@@ -29,9 +29,9 @@ public:
     // Entity
     void addEntity(const std::shared_ptr<Entity>& entity);
     void removeEntity(const std::shared_ptr<Entity>& entity);
-    std::shared_ptr<Entity> getEntity(EntityId id);
+    std::shared_ptr<Entity> getEntity(Core::EntityId id);
     void clearEntities();
-    std::map<EntityId, std::shared_ptr<Entity>> getEntities() { return entities; }
+    std::map<Core::EntityId, std::shared_ptr<Entity>> getEntities() { return entities; }
 
     // Component
     Component* createComponent(Entity* entity, Component::Type type);
@@ -45,7 +45,7 @@ public:
 
 private:
     std::map<System::Type, std::shared_ptr<System>> systems;
-    std::map<EntityId, std::shared_ptr<Entity>> entities;
+    std::map<Core::EntityId, std::shared_ptr<Entity>> entities;
     std::unique_ptr<EntityBuilder> entityBuilder;
 
     void initSystems();

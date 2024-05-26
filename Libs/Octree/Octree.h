@@ -5,11 +5,11 @@
 #include <glm/glm.hpp>
 #include <type_traits>
 
-namespace Origin {
+namespace Core {
 
 using json = nlohmann::json;
 
-class Octree : public Object {
+class Octree : public Core::Object {
 
 public:
     struct Pos {
@@ -60,4 +60,4 @@ private:
 
 DEFINE_ENUM_CLASS_BITWISE_OPERATOR(Octree::SurfaceFlags)
 
-} // Origin
+}

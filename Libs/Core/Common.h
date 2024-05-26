@@ -7,7 +7,7 @@
     #define PRINT(x) std::cout << x << std::endl;
 #endif
 
-namespace Origin {
+namespace Core {
 
 constexpr int PAGE_BYTES = 1 << 13; // 8192 (use in OctreeFarm)
 const int BLOCK_INFO_END = 1;
@@ -53,4 +53,4 @@ struct RectF {
     float height;
 };
 
-} // Origin
+}

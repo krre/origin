@@ -2,7 +2,7 @@
 #include "Common.h"
 #include <vector>
 
-namespace Origin {
+namespace Core {
 
 class Object {
 
@@ -36,4 +36,4 @@ private:
     std::vector<Object*> children;
 };
 
-} // Origin
+}

@@ -4,7 +4,7 @@
 
 namespace Origin {
 
-class ProceduralObject : public Object {
+class ProceduralObject : public Core::Object {
 
 public:
     ProceduralObject();

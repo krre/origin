@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class TemplateObject : public Object {
+class TemplateObject : public Core::Object {
 
 public:
     TemplateObject(Object* parent = nullptr);

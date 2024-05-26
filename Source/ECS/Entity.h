@@ -11,15 +11,15 @@ class MovementComponent;
 class PhysicsComponent;
 class OctreeComponent;
 
-class Entity : public Object {
+class Entity : public Core::Object {
 
 public:
     Entity(Entity* parent = nullptr);
-    Entity(EntityId id, Entity* parent = nullptr);
+    Entity(Core::EntityId id, Entity* parent = nullptr);
     ~Entity();
 
-    EntityId getId() const { return id; }
-    static void setIdCounter(EntityId id);
+    Core::EntityId getId() const { return id; }
+    static void setIdCounter(Core::EntityId id);
 
     void addComponent(const std::shared_ptr<Component>& component);
     Component* getComponent(Component::Type type);
@@ -32,8 +32,8 @@ public:
     OctreeComponent* getOctree();
 
 private:
-    EntityId id;
-    static EntityId counter;
+    Core::EntityId id;
+    static Core::EntityId counter;
     std::map<Component::Type, std::shared_ptr<Component>> components;
 };
 

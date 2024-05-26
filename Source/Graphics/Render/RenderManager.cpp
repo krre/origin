@@ -38,7 +38,7 @@ void RenderManager::draw() {
 }
 
 void RenderManager::saveScreenshot() {
-    std::string directoryPath = Game::getCurrentDirectory() + Utils::getPathSeparator() + "Screenshot";
+    std::string directoryPath = Game::getCurrentDirectory() + Core::Utils::getPathSeparator() + "Screenshot";
     namespace fs = std::experimental::filesystem;
     if (!fs::exists(directoryPath)) {
         fs::create_directory(directoryPath);
@@ -48,12 +48,12 @@ void RenderManager::saveScreenshot() {
     struct tm* now = std::localtime(&t);
     std::string filename =
             std::to_string(now->tm_year + 1900) + "-" +
-            Utils::zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
-            Utils::zeroFill(std::to_string(now->tm_mday)) + "_" +
-            Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
-            Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
-            Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
-    std::string filePath = directoryPath + Utils::getPathSeparator() + filename;
+            Core::Utils::zeroFill(std::to_string(now->tm_mon + 1)) + "-" +
+            Core::Utils::zeroFill(std::to_string(now->tm_mday)) + "_" +
+            Core::Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
+            Core::Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
+            Core::Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
+    std::string filePath = directoryPath + Core::Utils::getPathSeparator() + filename;
 
     std::vector<unsigned char> buffer = readFramebuffer();
     lodepng::encode(filePath, buffer.data(), Window::get()->getWidth(), Window::get()->getHeight());

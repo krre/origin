@@ -6,7 +6,7 @@ namespace Origin {
 
 class EntityManager;
 
-class System : public Object {
+class System : public Core::Object {
 
 public:
 

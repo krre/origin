@@ -4,7 +4,7 @@
 
 namespace Origin {
 
-class Color : public Object {
+class Color : public Core::Object {
 
 public:
     Color();

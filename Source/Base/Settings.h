@@ -6,7 +6,7 @@ namespace Origin {
 
 using json = nlohmann::json;
 
-class Settings : public SingleObject<Settings> {
+class Settings : public Core::SingleObject<Settings> {
 
 public:
     Settings(Object* parent = nullptr);

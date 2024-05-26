@@ -2,10 +2,10 @@
 #include "Object.h"
 #include <assert.h>
 
-namespace Origin {
+namespace Core {
 
 // Singleton that inherited from Object class
-template <typename T> class SingleObject : public Object {
+template <typename T> class SingleObject : public Core::Object {
 
 public:
     SingleObject(Object* parent = nullptr) : Object(parent) {

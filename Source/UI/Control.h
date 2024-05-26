@@ -14,7 +14,7 @@ class Screen;
 class Layout;
 class UIManager;
 
-class Control : public Object {
+class Control : public Core::Object {
     friend class Renderer;
     friend class UIManager;
 
@@ -22,15 +22,15 @@ public:
     Control(Control* parent = nullptr);
     virtual ~Control();
 
-    void setPosition(const Pos2& position);
-    const Pos2& getPosition() const { return position; }
+    void setPosition(const Core::Pos2& position);
+    const Core::Pos2& getPosition() const { return position; }
 
-    const Pos2& getAbsolutePosition() const { return absolutePosition; }
+    const Core::Pos2& getAbsolutePosition() const { return absolutePosition; }
 
     void updatePosition();
 
-    const Size& getSize() const { return size; }
-    void setSize(const Size& size);
+    const Core::Size& getSize() const { return size; }
+    void setSize(const Core::Size& size);
 
     int getContentWidth() const { return size.width ? size.width : contentWidth; }
     int getContentHeight() const { return size.height ? size.height : contentHeight; }
@@ -63,9 +63,9 @@ protected:
     virtual void mouseButtonAction(const SDL_MouseButtonEvent& event) {}
 
     UIManager* uiManager;
-    Pos2 position = { 0, 0 };
-    Pos2 absolutePosition = { 0, 0 };
-    Size size = { 0, 0 };
+    Core::Pos2 position = { 0, 0 };
+    Core::Pos2 absolutePosition = { 0, 0 };
+    Core::Size size = { 0, 0 };
     int contentWidth = 0;
     int contentHeight = 0;
     float scale = 1.0;

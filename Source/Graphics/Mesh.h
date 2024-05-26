@@ -4,7 +4,7 @@
 
 namespace Origin {
 
-class Mesh : public Object {
+class Mesh : public Core::Object {
 
 public:
     Mesh();

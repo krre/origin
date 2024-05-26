@@ -5,19 +5,19 @@
 
 namespace Origin {
 
-class Event : public SingleObject<Event> {
+class Event : public Core::SingleObject<Event> {
 
 public:
     Event(Object* parent = nullptr);
     void handleEvents();
 
-    Signal<int, int> windowResize;
-    Signal<int, int> windowMove;
-    Signal<int, int> mouseMove;
-    Signal<const SDL_KeyboardEvent&> keyPressed;
-    Signal<const SDL_KeyboardEvent&> keyRelease;
-    Signal<const SDL_TextInputEvent&> textInput;
-    Signal<const SDL_MouseButtonEvent&> mouseButtonAction;
+    Core::Signal<int, int> windowResize;
+    Core::Signal<int, int> windowMove;
+    Core::Signal<int, int> mouseMove;
+    Core::Signal<const SDL_KeyboardEvent&> keyPressed;
+    Core::Signal<const SDL_KeyboardEvent&> keyRelease;
+    Core::Signal<const SDL_TextInputEvent&> textInput;
+    Core::Signal<const SDL_MouseButtonEvent&> mouseButtonAction;
 };
 
 } // Origin

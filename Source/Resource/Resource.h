@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Resource : public Object {
+class Resource : public Core::Object {
 
 public:
     Resource();

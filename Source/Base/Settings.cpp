@@ -10,9 +10,9 @@ namespace Origin {
 namespace fs = std::experimental::filesystem;
 
 Settings::Settings(Object* parent) : SingleObject(parent) {
-    path = Game::getCurrentDirectory() + Utils::getPathSeparator() + Constants::App::SETTINGS_NAME;
+    path = Game::getCurrentDirectory() + Core::Utils::getPathSeparator() + Constants::App::SETTINGS_NAME;
     if (fs::exists(path)) {
-        std::string text = Utils::readTextFile(path);
+        std::string text = Core::Utils::readTextFile(path);
         storage = json::parse(text);
     } else {
         setDefaultSettings();

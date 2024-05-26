@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Process : public Object {
+class Process : public Core::Object {
 
 public:
     Process();

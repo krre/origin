@@ -1,9 +1,9 @@
 #pragma once
 #include "Core/Object.h"
 
-namespace Origin {
+namespace Core {
 
-class SubstanceTree : public Object {
+class SubstanceTree : public Core::Object {
 
 public:
     SubstanceTree();
@@ -13,4 +13,4 @@ private:
 
 };
 
-} // Origin
+}

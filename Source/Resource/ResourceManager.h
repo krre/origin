@@ -9,7 +9,7 @@
 
 namespace Origin {
 
-class ResourceManager : public SingleObject<ResourceManager> {
+class ResourceManager : public Core::SingleObject<ResourceManager> {
 
 public:
     ResourceManager(Object* parent = nullptr);

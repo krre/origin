@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Light : public Object {
+class Light : public Core::Object {
 
 public:
     Light();

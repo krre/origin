@@ -4,7 +4,7 @@
 
 namespace Origin {
 
-class SVOBuilder : public Object {
+class SVOBuilder : public Core::Object {
 
 public:
     SVOBuilder();

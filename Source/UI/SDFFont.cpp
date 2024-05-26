@@ -39,7 +39,7 @@ void SDFFont::load(const std::string& path) {
         std::string line;
         std::getline(istream, line);
 
-        std::vector<std::string> words = Utils::split(line, ' ');
+        std::vector<std::string> words = Core::Utils::split(line, ' ');
         if (!words.size()) {
             continue;
         }
@@ -47,22 +47,22 @@ void SDFFont::load(const std::string& path) {
         std::string& head = words.at(0);
 
         if (head == "common") {
-            lineHeight = std::stoi(Utils::split(words.at(1), '=').at(1));
-            base = std::stoi(Utils::split(words.at(2), '=').at(1));
+            lineHeight = std::stoi(Core::Utils::split(words.at(1), '=').at(1));
+            base = std::stoi(Core::Utils::split(words.at(2), '=').at(1));
         } if (head == "page") {
             // Load png texture
-            std::vector<std::string> pair = Utils::split(words.at(2), '=');
+            std::vector<std::string> pair = Core::Utils::split(words.at(2), '=');
             std::string& textureName = pair.at(1);
             const char quote = '\"';
-            Utils::removeChar(textureName, quote);
+            Core::Utils::removeChar(textureName, quote);
             fs::path SDFFontPath(path);
-            std::string texturePath = SDFFontPath.parent_path().string() + Utils::getPathSeparator() + textureName;
+            std::string texturePath = SDFFontPath.parent_path().string() + Core::Utils::getPathSeparator() + textureName;
 //            texture = std::make_unique<Vulkan::Texture>(texturePath);
         } else if (head == "char") {
             Character character = {};
             int id;
             for (int i = 1; i < words.size(); i++) {
-                std::vector<std::string> pair = Utils::split(words.at(i), '=');
+                std::vector<std::string> pair = Core::Utils::split(words.at(i), '=');
                 std::string& name = pair.at(0);
                 int value = std::stoi(pair.at(1));
                 if (name == "id") {

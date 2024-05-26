@@ -8,7 +8,7 @@ struct SDL_MouseButtonEvent;
 
 namespace Origin {
 
-class UIManager : public SingleObject<UIManager> {
+class UIManager : public Core::SingleObject<UIManager> {
 
 public:
     UIManager(Object* parent = nullptr);

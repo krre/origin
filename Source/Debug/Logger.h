@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Logger : public SingleObject<Logger> {
+class Logger : public Core::SingleObject<Logger> {
 
 public:
     Logger(Object* parent = nullptr);

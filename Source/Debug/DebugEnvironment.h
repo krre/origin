@@ -7,7 +7,7 @@ namespace Origin {
 
 using json = nlohmann::json;
 
-class DebugEnvironment : public SingleObject<DebugEnvironment> {
+class DebugEnvironment : public Core::SingleObject<DebugEnvironment> {
 
 public:
     DebugEnvironment(Object* parent = nullptr);

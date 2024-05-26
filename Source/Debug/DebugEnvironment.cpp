@@ -81,7 +81,7 @@ VkDebugReportFlagsEXT DebugEnvironment::getVulkanDebugReportFlags() {
 void DebugEnvironment::loadValues() {
     std::string filePath = Game::getCurrentDirectory() + "/debug.json";
     try {
-        std::string text = Utils::readTextFile(filePath);
+        std::string text = Core::Utils::readTextFile(filePath);
         settings = json::parse(text);
         enable = settings["general"]["enable"];
     } catch (const std::exception& ex) {

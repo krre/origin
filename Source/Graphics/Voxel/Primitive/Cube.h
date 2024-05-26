@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Cube : public Octree {
+class Cube : public Core::Octree {
 
 public:
     Cube(float width = 1.0, float height = 1.0, float depth = 1.0);

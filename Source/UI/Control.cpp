@@ -16,7 +16,7 @@ Control::~Control() {
 
 }
 
-void Control::setPosition(const Pos2& position) {
+void Control::setPosition(const Core::Pos2& position) {
     this->position = position;
     updatePosition();
 }
@@ -38,7 +38,7 @@ void Control::updatePosition() {
     }
 }
 
-void Control::setSize(const Size& size) {
+void Control::setSize(const Core::Size& size) {
     this->size = size;
 
     resizeImpl(size.width, size.height);

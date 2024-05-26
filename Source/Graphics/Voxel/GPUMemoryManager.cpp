@@ -16,7 +16,7 @@ void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Buffer* buffer) {
 
     octreeOffsets[entity->getId()] = endOffset;
     renderOffsets.push_back(endOffset);
-    endOffset += PAGE_BYTES;
+    endOffset += Core::PAGE_BYTES;
 }
 
 void GPUMemoryManager::updateEntityOctree(Entity* entity) {
@@ -30,7 +30,7 @@ void GPUMemoryManager::updateEntityOctree(Entity* entity) {
 
 void GPUMemoryManager::updateEntityTransform(Entity* entity, const std::vector<glm::vec4>& transform, Vulkan::Buffer* buffer) {
     int size = sizeof(glm::vec4) * transform.size();
-    int offset = octreeOffsets[entity->getId()] + PAGE_BYTES - size;
+    int offset = octreeOffsets[entity->getId()] + Core::PAGE_BYTES - size;
 //    buffer->write(transform.data(), size, offset);
 }
 

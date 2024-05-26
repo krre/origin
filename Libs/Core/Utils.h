@@ -3,7 +3,7 @@
 #include <vector>
 #include <json/json.hpp>
 
-namespace Origin {
+namespace Core {
 
 namespace Utils {
     using json = nlohmann::json;
@@ -21,4 +21,4 @@ namespace Utils {
     void removeChar(std::string& str, char c);
 }
 
-} // Origin
+}

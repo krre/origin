@@ -3,7 +3,7 @@
 #include <fstream>
 #include <bitset>
 
-namespace Origin {
+namespace Core {
 
 namespace Utils {
 
@@ -162,4 +162,4 @@ void removeChar(std::string& str, char c) {
 
 } // Utils
 
-} // Origin
+}

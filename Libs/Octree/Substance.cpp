@@ -1,6 +1,6 @@
 #include "Substance.h"
 
-namespace Origin {
+namespace Core {
 
 Substance::Substance() {
 
@@ -10,4 +10,4 @@ Substance::~Substance() {
 
 }
 
-} // Origin
+}

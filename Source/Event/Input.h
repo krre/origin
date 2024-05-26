@@ -6,7 +6,7 @@
 
 namespace Origin {
 
-class Input : public SingleObject<Input> {
+class Input : public Core::SingleObject<Input> {
 
 public:
     Input(Object* parent = nullptr);

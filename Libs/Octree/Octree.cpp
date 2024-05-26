@@ -2,7 +2,7 @@
 #include "JsonStorage.h"
 #include <fstream>
 
-namespace Origin {
+namespace Core {
 
 Octree::Octree(Substance substance, Object* parent) : Object(parent) {
     storage = {};
@@ -134,4 +134,4 @@ int Octree::posToNumber(const Octree::Pos& pos) {
     return number;
 }
 
-} // Origin
+}

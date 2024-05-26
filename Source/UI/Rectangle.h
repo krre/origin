@@ -10,8 +10,8 @@ class Rectangle : public Control {
 
 public:
     Rectangle(Control* parent = nullptr);
-    Rectangle(const Size& size, Control* parent = nullptr);
-    Rectangle(const Pos2& position, const Size& size, Control* parent = nullptr);
+    Rectangle(const Core::Size& size, Control* parent = nullptr);
+    Rectangle(const Core::Pos2& position, const Core::Size& size, Control* parent = nullptr);
 
     void setColor(const Color& color);
     const Color& getColor() const { return color; }

@@ -2,11 +2,11 @@
 #include "Core/Object.h"
 #include <json/json.hpp>
 
-namespace Origin {
+namespace Core {
 
 using json = nlohmann::json;
 
-class JsonStorage : public Object {
+class JsonStorage : public Core::Object {
 
 public:
     JsonStorage(Object* parent = nullptr);
@@ -16,4 +16,4 @@ private:
     json root;
 };
 
-} // Origin
+}

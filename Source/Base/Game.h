@@ -5,7 +5,7 @@
 
 namespace Origin {
 
-class Game : public Object {
+class Game : public Core::Object {
 
 public:
     Game(int argc, char* argv[], Object* parent = nullptr);

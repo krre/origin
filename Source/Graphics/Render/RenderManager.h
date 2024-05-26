@@ -8,7 +8,7 @@ class Screen;
 class RenderPassResource;
 class Renderer;
 
-class RenderManager : public Vulkan::Renderer, public SingleObject<RenderManager> {
+class RenderManager : public Vulkan::Renderer, public Core::SingleObject<RenderManager> {
 
 public:
     RenderManager(void* platformHandle, void* platformWindow, Object* parent = nullptr);

@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class Cone : public Octree {
+class Cone : public Core::Octree {
 
 public:
     Cone();

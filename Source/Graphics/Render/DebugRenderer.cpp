@@ -55,7 +55,7 @@ DebugRenderer::DebugRenderer(Object* parent) : Renderer(parent) {
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(Octree::Vertex);
+    bindingDescription.stride = sizeof(Core::Octree::Vertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
@@ -74,7 +74,7 @@ DebugRenderer::DebugRenderer(Object* parent) : Renderer(parent) {
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Octree::Vertex::pos);
+        attributeDescription.offset = sizeof(Core::Octree::Vertex::pos);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
@@ -84,7 +84,7 @@ DebugRenderer::DebugRenderer(Object* parent) : Renderer(parent) {
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Octree::Vertex::pos) + sizeof(Octree::Vertex::color);
+        attributeDescription.offset = sizeof(Core::Octree::Vertex::pos) + sizeof(Core::Octree::Vertex::color);
         graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
@@ -122,7 +122,7 @@ void DebugRenderer::draw() {
 void DebugRenderer::setVertexCount(uint32_t vertextCount) {
     this->vertextCount = vertextCount;
 
-    uint32_t size = vertextCount * sizeof(Octree::Vertex);
+    uint32_t size = vertextCount * sizeof(Core::Octree::Vertex);
 
     if (size > vertexBuffer->getSize()) {
         vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);

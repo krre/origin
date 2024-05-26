@@ -3,7 +3,7 @@
 
 namespace Origin {
 
-class World : public SingleObject<World> {
+class World : public Core::SingleObject<World> {
 
 public:
     World(Object* parent = nullptr);

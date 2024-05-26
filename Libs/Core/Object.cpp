@@ -2,7 +2,7 @@
 #include <assert.h>
 #include <algorithm>
 
-namespace Origin {
+namespace Core {
 
 Object::Object(Object* parent) {
     setParent(parent);
@@ -70,4 +70,4 @@ void Object::polishAppendChild(Object* child) {
     notifyAddChild(child);
 }
 
-} // Origin
+}

@@ -10,8 +10,8 @@ public:
     MovementControllerComponent() = default;
     Type getType() const override { return Component::Type::MovementController; }
 
-    EntityId moveTarget;
-    EntityId rotateTarget;
+    Core::EntityId moveTarget;
+    Core::EntityId rotateTarget;
 };
 
 } // Origin

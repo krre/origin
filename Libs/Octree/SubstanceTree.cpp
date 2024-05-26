@@ -1,6 +1,6 @@
 #include "SubstanceTree.h"
 
-namespace Origin {
+namespace Core {
 
 SubstanceTree::SubstanceTree() {
 
@@ -10,4 +10,4 @@ SubstanceTree::~SubstanceTree() {
 
 }
 
-} // Origin
+}

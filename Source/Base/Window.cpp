@@ -91,7 +91,7 @@ void Window::setScreen(const std::shared_ptr<Screen>& screen) {
         pushScreen(screen);
         return;
     }
-    addDeferredCall([=] () {
+    addDeferredCall([=, this] () {
         screens.back()->pause();
         screens.clear();
         pushScreen(screen);

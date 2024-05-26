@@ -3,8 +3,6 @@
 #include "Defines.h"
 #include <QtWidgets>
 
-namespace AssemblyBox {
-
 MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
         ui(new Ui::MainWindow) {
     setWindowTitle(APP_NAME);
@@ -53,4 +51,3 @@ void MainWindow::writeSettings() {
     settings.endGroup();
 }
 
-} // AssemblyBox

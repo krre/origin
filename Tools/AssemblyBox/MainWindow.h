@@ -5,8 +5,6 @@ namespace Ui {
     class MainWindow;
 }
 
-namespace AssemblyBox {
-
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -29,4 +27,3 @@ private:
     QString settingsPath;
 };
 
-} // AssemblyBox

@@ -11,7 +11,7 @@ int main(int argc, char *argv[]) {
     app.setApplicationName(APP_NAME);
     app.setApplicationVersion(APP_VERSION_STR);
 
-    AssemblyBox::MainWindow mainWindow;
+    MainWindow mainWindow;
     mainWindow.show();
 
     return app.exec();

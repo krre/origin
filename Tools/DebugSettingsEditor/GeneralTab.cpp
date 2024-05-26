@@ -45,18 +45,15 @@ QString GeneralTab::name() const {
     return "general";
 }
 
-void GeneralTab::on_comboBoxScreen_currentIndexChanged(int currentIndex) {
-    Q_UNUSED(currentIndex)
+void GeneralTab::on_comboBoxScreen_currentIndexChanged(int currentIndex [[maybe_unused]]) {
     emit flush();
 }
 
-void GeneralTab::on_comboBoxSave_currentIndexChanged(int currentIndex) {
-    Q_UNUSED(currentIndex)
+void GeneralTab::on_comboBoxSave_currentIndexChanged(int currentIndex [[maybe_unused]]) {
     emit flush();
 }
 
-void GeneralTab::on_comboBoxRenderer_currentIndexChanged(int currentIndex) {
-    Q_UNUSED(currentIndex)
+void GeneralTab::on_comboBoxRenderer_currentIndexChanged(int currentIndex [[maybe_unused]]) {
     emit flush();
 }
 

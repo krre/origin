@@ -60,8 +60,7 @@ void Viewport::wheelEvent(QWheelEvent* event) {
     update();
 }
 
-void Viewport::resizeEvent(QResizeEvent* event) {
-    Q_UNUSED(event)
+void Viewport::resizeEvent(QResizeEvent* event [[maybe_unused]]) {
     // Hack to fix crash on Qt 5.11.1
     if (!renderEngine || MainWindow::isClosing()) return;
 

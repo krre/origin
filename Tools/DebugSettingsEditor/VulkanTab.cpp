@@ -137,8 +137,7 @@ QString VulkanTab::name() const {
     return "vulkan";
 }
 
-void VulkanTab::on_comboBoxDevice_currentIndexChanged(int currentIndex) {
-    Q_UNUSED(currentIndex)
+void VulkanTab::on_comboBoxDevice_currentIndexChanged(int currentIndex [[maybe_unused]]) {
     emit flush();
 }
 

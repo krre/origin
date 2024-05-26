@@ -24,8 +24,8 @@ public:
     const std::vector<Object*>& getChildren() const { return children; }
 
 protected:
-    virtual void notifyAddChild(Object* child) { UNUSED(child) }
-    virtual void notifyRemoveChild(Object* child) { UNUSED(child) }
+    virtual void notifyAddChild(Object* child [[maybe_unused]]) {}
+    virtual void notifyRemoveChild(Object* child [[maybe_unused]]) {}
 
 private:
     friend class Control;

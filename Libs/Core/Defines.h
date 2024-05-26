@@ -9,8 +9,6 @@
     #define OS_LINUX
 #endif
 
-#define UNUSED(x) (void)x;
-
 #define DEFINE_ENUM_CLASS_BITWISE_OPERATOR(EnumClass) \
 using T = std::underlying_type<EnumClass>::type; \
 inline EnumClass operator | (EnumClass lhs, EnumClass rhs) { \

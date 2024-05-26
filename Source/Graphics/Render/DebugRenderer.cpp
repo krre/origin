@@ -95,9 +95,7 @@ DebugRenderer::~DebugRenderer() {
 
 }
 
-void DebugRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    UNUSED(framebuffer)
-
+void DebugRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer [[maybe_unused]]) {
     if (vertextCount) {
         commandBuffer->bindPipeline(graphicsPipeline.get());
 

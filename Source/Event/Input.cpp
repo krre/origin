@@ -1,7 +1,5 @@
 #include "Input.h"
 
-namespace Origin {
-
 Input::Input(Object* parent) : SingleObject(parent) {
 
 }
@@ -29,5 +27,3 @@ void Input::setRelMousePos(const glm::ivec2& relPos) {
 void Input::mouseReset() {
     relMousePos = glm::ivec2(0, 0);
 }
-
-} // Origin

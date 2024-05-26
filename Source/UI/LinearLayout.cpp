@@ -1,8 +1,6 @@
 #include "LinearLayout.h"
 #include "Control.h"
 
-namespace Origin {
-
 LinearLayout::LinearLayout(Direction direction, Control* parent) :
     Layout(parent),
     direction(direction) {
@@ -37,5 +35,3 @@ void LinearLayout::updateContentPostion() {
         }
     }
 }
-
-} // Origin

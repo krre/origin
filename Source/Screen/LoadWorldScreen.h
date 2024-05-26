@@ -1,8 +1,6 @@
 #pragma once
 #include "Screen.h"
 
-namespace Origin {
-
 class Button;
 class LinearLayout;
 class ListBox;
@@ -19,5 +17,3 @@ private:
     LinearLayout* layout;
     ListBox* listBox;
 };
-
-} // Origin

@@ -1,8 +1,5 @@
 #pragma once
 #include "Rectangle.h"
-#include <SDL.h>
-
-namespace Origin {
 
 class Label;
 
@@ -29,5 +26,3 @@ private:
     Label* label;
     int clickedId;
 };
-
-} // Origin

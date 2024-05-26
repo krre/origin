@@ -8,8 +8,6 @@
 #include "Vulkan/API/Instance.h"
 #include <SDL.h>
 
-namespace Origin {
-
 DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     setVisible(false);
 
@@ -57,5 +55,3 @@ void DebugHUD::updateImpl(float dt) {
 
     label->setText(text);
 }
-
-} // Origin

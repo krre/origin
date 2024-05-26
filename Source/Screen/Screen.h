@@ -1,10 +1,7 @@
 #pragma once
 #include "UI/Control.h"
 
-namespace Origin {
-
 class Screen : public Control {
-
 public:
 
     enum class Name {
@@ -30,5 +27,3 @@ private:
     bool isPaused = true;
     Control* activeControl = nullptr;
 };
-
-} // Origin

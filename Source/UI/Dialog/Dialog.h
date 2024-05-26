@@ -1,8 +1,6 @@
 #pragma once
 #include "UI/Rectangle.h"
 
-namespace Origin {
-
 class Dialog : public Rectangle {
 
 public:
@@ -15,5 +13,3 @@ private:
     void keyPressed(const SDL_KeyboardEvent& event) override;
     int padding = 7;
 };
-
-} // Origin

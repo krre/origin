@@ -1,8 +1,6 @@
 #pragma once
 #include "Core/SingleObject.h"
 
-namespace Origin {
-
 class World : public Core::SingleObject<World> {
 
 public:
@@ -18,5 +16,3 @@ public:
 private:
     std::string savePath;
 };
-
-} // Origin

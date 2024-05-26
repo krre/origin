@@ -1,8 +1,6 @@
 #pragma once
 #include "Screen.h"
 
-namespace Origin {
-
 class LinearLayout;
 
 class MenuScreen : public Screen {
@@ -15,5 +13,3 @@ private:
 
     LinearLayout* layout;
 };
-
-} // Origin

@@ -3,8 +3,6 @@
 #include <string>
 #include <vector>
 
-namespace Origin {
-
 class Game : public Core::Object {
 
 public:
@@ -25,5 +23,3 @@ private:
     std::vector<std::string> argvs;
     static bool running;
 };
-
-} // Origin

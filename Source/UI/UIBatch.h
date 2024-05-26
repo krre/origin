@@ -7,8 +7,6 @@ namespace Vulkan {
     class Texture;
 }
 
-namespace Origin {
-
 class Font;
 
 class UIBatch {
@@ -31,5 +29,3 @@ public:
     void addQuad(float x, float y, float width, float height, Font* font);
     void addText(float x, float y, const std::string& text, Font* font);
 };
-
-} // Origin

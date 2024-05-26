@@ -15,8 +15,6 @@
 #include "Resource/ResourceManager.h"
 #include "Octree/Octree.h"
 
-namespace Origin {
-
 PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRenderer(parent) {
     Vulkan::Device* device = getDevice();
 
@@ -126,5 +124,3 @@ void PolygonalOctreeRenderer::setVertexCount(uint32_t vertextCount) {
 void PolygonalOctreeRenderer::updateMvp(const glm::mat4& mvp) {
     uboBuffer->write(&mvp, sizeof(mvp));
 }
-
-} // Origin

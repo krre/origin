@@ -2,8 +2,6 @@
 #include "Control.h"
 #include "Graphics/Color.h"
 
-namespace Origin {
-
 class Font;
 
 class Label : public Control {
@@ -28,5 +26,3 @@ private:
     Color color = Color::BLACK;
     int lineCount = 0;
 };
-
-} // Origin

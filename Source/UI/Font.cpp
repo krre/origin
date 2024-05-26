@@ -8,8 +8,6 @@
 #include <experimental/filesystem>
 #include <vector>
 
-namespace Origin {
-
 Font::Font() {
     glyphInfos.resize(GLYPHS_COUNT);
 }
@@ -118,5 +116,3 @@ Font::GlyphInfo&Font::getGliphInfo(int codechar) {
     char questionMark = '?';
     return glyphInfos.at(codechar <= GLYPHS_COUNT ? codechar : (int)questionMark);
 }
-
-} // Origin

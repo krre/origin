@@ -1,8 +1,6 @@
 #pragma once
 #include "UI/Rectangle.h"
 
-namespace Origin {
-
 class LinearLayout;
 class Label;
 class ListBox;
@@ -42,5 +40,3 @@ private:
     std::string currentText;
     int currentIndex = -1;
 };
-
-} // Origin

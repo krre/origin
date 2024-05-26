@@ -14,8 +14,6 @@
 #include "Resource/ResourceManager.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Origin {
-
 RaycastOctreeRenderer::RaycastOctreeRenderer(Object* parent) : OctreeRenderer(parent) {
     std::vector<glm::vec2> plane = {
        { -1.0, 1.0 }, { -1.0, -1.0 }, { 1.0, -1.0 },
@@ -169,5 +167,3 @@ void RaycastOctreeRenderer::writeBlocks(uint32_t offset, void* data, uint32_t si
 void RaycastOctreeRenderer::writeMeta(uint32_t offset, void* data, uint32_t size) {
     metaBuffer->write(data, size, offset);
 }
-
-} // Origin

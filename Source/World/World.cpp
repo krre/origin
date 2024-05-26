@@ -5,8 +5,6 @@
 
 namespace fs = std::experimental::filesystem;
 
-namespace Origin {
-
 World::World(Object* parent) : SingleObject(parent) {
 }
 
@@ -39,5 +37,3 @@ std::string World::getSavesDirectory() {
 
     return directoryPath;
 }
-
-} // Origin

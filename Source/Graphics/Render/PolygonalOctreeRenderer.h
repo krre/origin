@@ -8,8 +8,6 @@ namespace Vulkan {
     class GraphicsPipeline;
 }
 
-namespace Origin {
-
 class PolygonalOctreeRenderer : public OctreeRenderer {
 
 public:
@@ -31,5 +29,3 @@ private:
     uint32_t vertextCount = 0;
 
 };
-
-} // Origin

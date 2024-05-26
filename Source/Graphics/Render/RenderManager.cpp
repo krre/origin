@@ -14,8 +14,6 @@
 #include <lodepng/lodepng.h>
 #include <experimental/filesystem>
 
-namespace Origin {
-
 RenderManager::RenderManager(void* platformHandle, void* platformWindow, Object* parent) :
         Vulkan::Renderer(platformHandle, platformWindow),
         SingleObject(parent) {
@@ -25,12 +23,12 @@ RenderManager::~RenderManager() {
 
 }
 
-void RenderManager::addRenderer(Origin::Renderer* renderer) {
+void RenderManager::addRenderer(::Renderer* renderer) {
     renderers.push_back(renderer);
 }
 
 void RenderManager::draw() {
-    for (Origin::Renderer* renderer : renderers) {
+    for (::Renderer* renderer : renderers) {
         if (renderer->getActive()) {
             renderer->draw();
         }
@@ -102,7 +100,7 @@ void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vul
 
     commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
-    for (Origin::Renderer* renderer : renderers) {
+    for (::Renderer* renderer : renderers) {
         if (renderer->getActive()) {
             renderer->writeCommandBuffer(commandBuffer, framebuffer);
         }
@@ -110,5 +108,3 @@ void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vul
 
     commandBuffer->endRenderPass();
 }
-
-} // Origin

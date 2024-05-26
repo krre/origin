@@ -9,8 +9,6 @@
 #include "Screen/LoadWorldScreen.h"
 #include "World/World.h"
 
-namespace Origin {
-
 const int BUTTON_WINDTH = 200;
 const int BUTTON_HEIGHT = 40;
 
@@ -71,5 +69,3 @@ PauseDialog::PauseDialog() {
 PauseDialog::~PauseDialog() {
     Window::get()->getCurrentScreen()->resume();
 }
-
-} // Origin

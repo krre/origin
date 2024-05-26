@@ -2,8 +2,7 @@
 #include "Event/Event.h"
 #include "Base/Window.h"
 #include "Label.h"
-
-namespace Origin {
+#include <SDL.h>
 
 Button::Button(Control* parent) : Rectangle(parent) {
     label = new Label(this);
@@ -51,5 +50,3 @@ void Button::centerLabel() {
 void Button::resizeImpl(int width, int height) {
     centerLabel();
 }
-
-} // Origin

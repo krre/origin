@@ -1,8 +1,6 @@
 #pragma once
 #include "ECS/Component.h"
 
-namespace Origin {
-
 class RenderComponent : public Component {
 
 public:
@@ -11,5 +9,3 @@ public:
 
     bool visible = true;
 };
-
-} // Origin

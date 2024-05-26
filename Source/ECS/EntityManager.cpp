@@ -5,8 +5,6 @@
 #include "Components/Components.h"
 #include <algorithm>
 
-namespace Origin {
-
 EntityManager::EntityManager(Object* parent) : SingleObject(parent) {
     initSystems();
     entityBuilder = std::make_unique<EntityBuilder>(this);
@@ -114,5 +112,3 @@ void EntityManager::update(Scene* scene, float dt) {
         }
     }
 }
-
-} // Origin

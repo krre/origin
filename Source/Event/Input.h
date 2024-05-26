@@ -4,8 +4,6 @@
 #include <SDL_keycode.h>
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 class Input : public Core::SingleObject<Input> {
 
 public:
@@ -24,5 +22,3 @@ private:
     glm::ivec2 mousePos;
     glm::ivec2 relMousePos;
 };
-
-} // Origin

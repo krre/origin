@@ -2,8 +2,6 @@
 #include "Core/Object.h"
 #include <vector>
 
-namespace Origin {
-
 class Mesh : public Core::Object {
 
 public:
@@ -20,5 +18,3 @@ private:
     std::vector<float> vertices;
     std::vector<uint32_t> indices;
 };
-
-} // Origin

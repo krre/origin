@@ -1,8 +1,6 @@
 #pragma once
 #include "UI/Control.h"
 
-namespace Origin {
-
 class DebugHUD;
 class Toast;
 class Console;
@@ -39,5 +37,3 @@ private:
     Dialog* dialog = nullptr;
     std::vector<std::function<void()>> deferredCalls;
 };
-
-} // Origin

@@ -1,8 +1,6 @@
 #include "Screen.h"
 #include "UI/Control.h"
 
-namespace Origin {
-
 Screen::Screen() {
 }
 
@@ -34,5 +32,3 @@ void Screen::show() {
 void Screen::setActiveControl(Control* control) {
     activeControl = control;
 }
-
-} // Origin

@@ -1,9 +1,10 @@
 #pragma once
 #include "Core/SingleObject.h"
 #include "Core/Signal.h"
-#include <SDL.h>
 
-namespace Origin {
+struct SDL_KeyboardEvent;
+struct SDL_TextInputEvent;
+struct SDL_MouseButtonEvent;
 
 class Event : public Core::SingleObject<Event> {
 
@@ -19,5 +20,3 @@ public:
     Core::Signal<const SDL_TextInputEvent&> textInput;
     Core::Signal<const SDL_MouseButtonEvent&> mouseButtonAction;
 };
-
-} // Origin

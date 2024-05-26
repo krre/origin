@@ -7,8 +7,6 @@
 #include <SDL_keycode.h>
 #include <SDL_events.h>
 
-namespace Origin {
-
 const int DEFAULT_WIDHT = 200;
 const Color BACKGROUND_COLOR = Color(0, 0, 0, 0.8);
 
@@ -53,5 +51,3 @@ void TextEdit::mouseButtonAction(const SDL_MouseButtonEvent& event) {
         activate();
     }
 }
-
-} // Origin

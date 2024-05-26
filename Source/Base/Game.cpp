@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "SDLWrapper.h"
 #include "Core/Utils.h"
 #include "Core/Defines.h"
 #include "Defines.h"
@@ -18,18 +19,11 @@
 #include "Window.h"
 #include "Screen/MenuScreen.h"
 #include "World/World.h"
-#include "SDLWrapper.h"
 #include <string>
-#include <SDL_timer.h>
 #include <algorithm>
 #include <memory>
 #include <experimental/filesystem>
-
-#if defined(OS_LINUX)
-    #include <X11/Xlib-xcb.h>
-#endif
-
-namespace Origin {
+#include <SDL.h>
 
 bool Game::running = false;
 
@@ -56,13 +50,8 @@ void Game::init() {
         new Window(this);
         new ResourceManager(this);
 
-        SDL_SysWMinfo wminfo = SDL::getSysWMinfo(Window::get()->getHandle());
-
-#if defined(OS_WIN)
-        new RenderManager(GetModuleHandle(nullptr), (void*)wminfo.info.win.window, this);
-#elif defined(OS_LINUX)
-        new RenderManager((void*)XGetXCBConnection(wminfo.info.x11.display), (void*)&wminfo.info.x11.window, this);
-#endif
+        SDL::Platform platform = SDL::getPlatform(Window::get()->getHandle());
+        new RenderManager(platform.handle, platform.window);
 
         if (DebugEnvironment::getEnable()) {
             if (DebugEnvironment::getSettings()["vulkan"]["debugReport"]["use"]) {
@@ -148,5 +137,3 @@ std::string Game::getCurrentDirectory() {
 bool Game::isRunning() {
     return running;
 }
-
-} // Origin

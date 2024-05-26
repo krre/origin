@@ -8,8 +8,6 @@ namespace Vulkan {
     class GpuBuffer;
 }
 
-namespace Origin {
-
 class SDFFont : public Resource {
 
 public:
@@ -49,5 +47,3 @@ private:
     int lineHeight;
     int base;
 };
-
-} // Origin

@@ -18,8 +18,6 @@
 #include "UI/Font.h"
 #include <glm/gtc/matrix_transform.hpp>
 
-namespace Origin {
-
 static UIRenderer* instance = nullptr;
 
 UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
@@ -162,5 +160,3 @@ void UIRenderer::clearBatches() {
     batches.clear();
     vertices.clear();
 }
-
-} // Origin

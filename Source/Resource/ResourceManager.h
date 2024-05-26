@@ -7,10 +7,7 @@
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
-namespace Origin {
-
 class ResourceManager : public Core::SingleObject<ResourceManager> {
-
 public:
     ResourceManager(Object* parent = nullptr);
     ~ResourceManager();
@@ -37,5 +34,3 @@ private:
     static std::string resourcesPath;
     FT_Library ft;
 };
-
-} // Origin

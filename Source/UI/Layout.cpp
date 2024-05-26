@@ -2,8 +2,6 @@
 #include "Control.h"
 #include <algorithm>
 
-namespace Origin {
-
 Layout::Layout(Control* parent) : Control(parent) {
 
 }
@@ -19,5 +17,3 @@ void Layout::notifyRemoveChild(Object* child) {
 void Layout::setSpacing(int spacing) {
     this->spacing = spacing;
 }
-
-} // Origin

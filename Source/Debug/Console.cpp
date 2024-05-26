@@ -4,8 +4,6 @@
 #include "UI/Label.h"
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 const std::string SLASH = "/";
 
 Console::Console(Control* parent) : TextEdit(parent) {
@@ -40,5 +38,3 @@ void Console::execute() {
         setVisible(false);
     }
 }
-
-} // Origin

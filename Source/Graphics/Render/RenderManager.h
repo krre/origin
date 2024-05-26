@@ -2,8 +2,6 @@
 #include "Core/SingleObject.h"
 #include "Vulkan/Renderer.h"
 
-namespace Origin {
-
 class Screen;
 class RenderPassResource;
 class Renderer;
@@ -14,7 +12,7 @@ public:
     RenderManager(void* platformHandle, void* platformWindow, Object* parent = nullptr);
     ~RenderManager();
 
-    void addRenderer(Origin::Renderer* renderer);
+    void addRenderer(::Renderer* renderer);
     void draw();
 
     void saveScreenshot();
@@ -25,7 +23,5 @@ private:
     void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
 
     Screen* currentScreen = nullptr;
-    std::vector<Origin::Renderer*> renderers;
+    std::vector<::Renderer*> renderers;
 };
-
-} // Origin

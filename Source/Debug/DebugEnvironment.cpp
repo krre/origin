@@ -11,8 +11,6 @@
 #include "Screen/WaitScreen.h"
 #include "Base/Window.h"
 
-namespace Origin {
-
 DebugEnvironment::DebugEnvironment(Object* parent) : SingleObject(parent) {
 #ifdef DEVELOP_MODE
     loadValues();
@@ -88,5 +86,3 @@ void DebugEnvironment::loadValues() {
         PRINT(ex.what())
     };
 }
-
-} // Origin

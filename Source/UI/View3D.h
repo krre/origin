@@ -1,8 +1,6 @@
 #pragma once
 #include "Control.h"
 
-namespace Origin {
-
 class Scene;
 
 class View3D : public Control {
@@ -20,5 +18,3 @@ private:
     std::shared_ptr<Scene> scene;
     Core::Rect viewport;
 };
-
-} // Origin

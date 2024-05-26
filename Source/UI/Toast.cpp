@@ -4,8 +4,6 @@
 #include "UI/Label.h"
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 Toast::Toast(Control* parent) : Control(parent) {
     timer = new Timer(this);
     text = new Label(this);
@@ -27,5 +25,3 @@ void Toast::show(const std::string& toastText) {
 void Toast::onTimeout() {
     setVisible(false);
 }
-
-} // Origin

@@ -3,8 +3,6 @@
 #include "ECS/Entity.h"
 #include <btBulletDynamicsCommon.h>
 
-namespace Origin {
-
 class PhysicsSystem : public System {
 
 public:
@@ -22,5 +20,3 @@ private:
     std::unique_ptr<btBroadphaseInterface> overlappingPairCache;
     std::unique_ptr<btSequentialImpulseConstraintSolver> solver;
 };
-
-} // Origin

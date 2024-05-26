@@ -5,8 +5,6 @@
 #undef HAVE_STDINT_H
 #include <SDL_events.h>
 
-namespace Origin {
-
 const Color LINE_SELECTED_COLOR = Color(1, 1, 1, 0.3);
 const Color LINE_COLOR = Color(0, 0, 0, 0.7);
 
@@ -63,7 +61,3 @@ void ListBox::setCurrentIndex(int currentIndex) {
 void ListBox::resizeImpl(int width, int height) {
     layout->resize(width, height);
 }
-
-
-
-} // Origin

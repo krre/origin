@@ -2,8 +2,6 @@
 #include "Core/Object.h"
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 class Color : public Core::Object {
 
 public:
@@ -29,5 +27,3 @@ public:
 private:
     uint32_t color = 0;
 };
-
-} // Origin

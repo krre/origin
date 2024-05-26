@@ -9,8 +9,6 @@
 #include <glm/gtx/quaternion.hpp>
 #include <glm/gtx/euler_angles.hpp>
 
-namespace Origin {
-
 MovementControllerSystem::MovementControllerSystem(EntityManager* entityManager) : System(entityManager) {
     type = System::Type::MovementController;
 }
@@ -58,5 +56,3 @@ void MovementControllerSystem::setRotateEntity(Entity* rotateEntity) {
     this->rotateEntity = rotateEntity;
     rotateSpeed = rotateEntity->getMovement()->rotateSpeed;
 }
-
-} // Origin

@@ -1,6 +1,6 @@
 #include "LoadWorldScreen.h"
-#include "UI/Button.h"
 #include "Base/SDLWrapper.h"
+#include "UI/Button.h"
 #include "GameScreen.h"
 #include "Base/Window.h"
 #include "UI/LinearLayout.h"
@@ -9,8 +9,6 @@
 #include <experimental/filesystem>
 
 namespace fs = std::experimental::filesystem;
-
-namespace Origin {
 
 LoadWorldScreen::LoadWorldScreen() {
     layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
@@ -61,5 +59,3 @@ void LoadWorldScreen::resizeImpl(int width, int height) {
     layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
     buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
 }
-
-} // Origin

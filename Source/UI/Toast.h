@@ -1,8 +1,6 @@
 #pragma once
 #include "Control.h"
 
-namespace Origin {
-
 class Label;
 class Timer;
 
@@ -18,5 +16,3 @@ private:
     Label* text;
     Timer* timer;
 };
-
-} // Origin

@@ -3,8 +3,6 @@
 #include <json/json.hpp>
 #include <vulkan/vulkan.h>
 
-namespace Origin {
-
 using json = nlohmann::json;
 
 class DebugEnvironment : public Core::SingleObject<DebugEnvironment> {
@@ -22,5 +20,3 @@ private:
     bool enable = false;
     json settings;
 };
-
-} // Origin

@@ -5,8 +5,7 @@
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "UI/Overlay.h"
-
-namespace Origin {
+#include <SDL.h>
 
 UIManager::UIManager(Object* parent) : SingleObject(parent) {
     Event::get()->keyPressed.connect(this, &UIManager::onKeyPressed);
@@ -74,5 +73,3 @@ void UIManager::traverseOverLeaf(Object* object, const SDL_MouseButtonEvent& eve
         }
     }
 }
-
-} // Origin

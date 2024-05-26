@@ -1,8 +1,6 @@
 #include "Entity.h"
 #include "Components/Components.h"
 
-namespace Origin {
-
 Core::EntityId Entity::counter = 0;
 
 Entity::Entity(Entity* parent) : Object(parent) {
@@ -52,5 +50,3 @@ PhysicsComponent* Entity::getPhysics() {
 OctreeComponent* Entity::getOctree() {
    return static_cast<OctreeComponent*>(components[Component::Type::Octree].get());
 }
-
-} // Origin

@@ -1,8 +1,6 @@
 #pragma once
 #include "Core/Object.h"
 
-namespace Origin {
-
 class Light : public Core::Object {
 
 public:
@@ -15,5 +13,3 @@ protected:
     bool enable = true;
 
 };
-
-} // Origin

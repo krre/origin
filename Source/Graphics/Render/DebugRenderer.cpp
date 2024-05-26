@@ -16,8 +16,6 @@
 #include "ECS/Scenes/Scene.h"
 #include "Octree/Octree.h"
 
-namespace Origin {
-
 static DebugRenderer* instance = nullptr;
 
 DebugRenderer::DebugRenderer(Object* parent) : Renderer(parent) {
@@ -132,5 +130,3 @@ void DebugRenderer::setVertexCount(uint32_t vertextCount) {
 void DebugRenderer::updateMvp(const glm::mat4& mvp) {
     uboBuffer->write(&mvp, sizeof(mvp));
 }
-
-} // Origin

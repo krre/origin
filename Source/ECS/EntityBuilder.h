@@ -1,8 +1,6 @@
 #pragma once
 #include "Entity.h"
 
-namespace Origin {
-
 class EntityManager;
 
 class EntityBuilder {
@@ -25,5 +23,3 @@ public:
 private:
     EntityManager* entityManager;
 };
-
-} // Origin

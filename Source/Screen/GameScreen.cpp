@@ -7,8 +7,6 @@
 #include "World/World.h"
 #include <SDL_events.h>
 
-namespace Origin {
-
 GameScreen::GameScreen(const std::string& worldName) {
     World::load(worldName);
 
@@ -23,5 +21,3 @@ void GameScreen::keyPressed(const SDL_KeyboardEvent& event) {
         Overlay::get()->showDialog(dialog);
     }
 }
-
-} // Origin

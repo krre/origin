@@ -17,13 +17,9 @@
 #include "Graphics/Render/SceneRenderer.h"
 #include "Graphics/Render/UIRenderer.h"
 #include <lodepng/lodepng.h>
-#include <SDL_syswm.h>
-#include <SDL_keycode.h>
 #include <ctime>
 #include <experimental/filesystem>
 #include <SDL_video.h>
-
-namespace Origin {
 
 Window::Window(Object* parent) : SingleObject(parent) {
     json settingsWidth = Settings::getStorage()["width"];
@@ -199,5 +195,3 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
             break;
     }
 }
-
-} // Origin

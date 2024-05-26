@@ -2,8 +2,6 @@
 #include "ECS/Component.h"
 #include "ECS/Entity.h"
 
-namespace Origin {
-
 class MovementControllerComponent : public Component {
 
 public:
@@ -13,5 +11,3 @@ public:
     Core::EntityId moveTarget;
     Core::EntityId rotateTarget;
 };
-
-} // Origin

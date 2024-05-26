@@ -1,7 +1,5 @@
 #include "OctreeSystem.h"
 
-namespace Origin {
-
 OctreeSystem::OctreeSystem(EntityManager* entityManager) : System(entityManager) {
     type = System::Type::Octree;
 }
@@ -9,5 +7,3 @@ OctreeSystem::OctreeSystem(EntityManager* entityManager) : System(entityManager)
 void OctreeSystem::process(float dt) {
 
 }
-
-} // Origin

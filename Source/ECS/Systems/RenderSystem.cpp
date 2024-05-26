@@ -1,7 +1,5 @@
 #include "RenderSystem.h"
 
-namespace Origin {
-
 RenderSystem::RenderSystem(EntityManager* entityManager) : System(entityManager) {
     type = System::Type::Render;
 }
@@ -9,5 +7,3 @@ RenderSystem::RenderSystem(EntityManager* entityManager) : System(entityManager)
 void RenderSystem::process(float dt) {
 
 }
-
-} // Origin

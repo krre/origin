@@ -6,8 +6,6 @@
 #include "Layout.h"
 #include <algorithm>
 
-namespace Origin {
-
 Control::Control(Control* parent) : Object(parent) {
     uiManager = UIManager::get();
 }
@@ -111,5 +109,3 @@ void Control::draw() {
 void Control::activate() {
     Window::get()->getCurrentScreen()->setActiveControl(this);
 }
-
-} // Origin

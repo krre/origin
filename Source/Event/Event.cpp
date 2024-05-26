@@ -2,8 +2,7 @@
 #include "Input.h"
 #include "Base/Game.h"
 #include "Core/Common.h"
-
-namespace Origin {
+#include <SDL.h>
 
 Event::Event(Object* parent) : SingleObject(parent) {
 
@@ -60,5 +59,3 @@ void Event::handleEvents() {
         }
     }
 }
-
-} // Origin

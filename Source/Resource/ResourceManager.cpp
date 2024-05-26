@@ -1,8 +1,6 @@
 #include "Base/Game.h"
 #include "ResourceManager.h"
 
-namespace Origin {
-
 std::string ResourceManager::resourcesPath = Game::getCurrentDirectory() + "/Data";
 
 ResourceManager::ResourceManager(Object* parent) : SingleObject(parent) {
@@ -23,5 +21,3 @@ void ResourceManager::free(const std::string& path) {
 void ResourceManager::cleanup() {
     resources.clear();
 }
-
-} // Origin

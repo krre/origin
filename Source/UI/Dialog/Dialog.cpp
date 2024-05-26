@@ -3,8 +3,7 @@
 #include "Base/Window.h"
 #include "UI/Overlay.h"
 #include "Screen/Screen.h"
-
-namespace Origin {
+#include <SDL.h>
 
 Dialog::Dialog() : Rectangle(Core::Size(200, 50)) {
     setColor(Color(0, 0, 0, 0.7));
@@ -34,5 +33,3 @@ void Dialog::keyPressed(const SDL_KeyboardEvent& event) {
         close();
     }
 }
-
-} // Origin

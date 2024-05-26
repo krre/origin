@@ -2,8 +2,6 @@
 #include "Control.h"
 #include "Graphics/Color.h"
 
-namespace Origin {
-
 class Font;
 
 class Rectangle : public Control {
@@ -30,5 +28,3 @@ private:
     uint32_t borderWidth = 0;
     Font* font;
 };
-
-} // Origin

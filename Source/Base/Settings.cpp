@@ -5,8 +5,6 @@
 #include <experimental/filesystem>
 #include <fstream>
 
-namespace Origin {
-
 namespace fs = std::experimental::filesystem;
 
 Settings::Settings(Object* parent) : SingleObject(parent) {
@@ -31,5 +29,3 @@ void Settings::saveAll() {
 
 void Settings::setDefaultSettings() {
 }
-
-} // Origin

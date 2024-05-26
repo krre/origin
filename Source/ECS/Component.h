@@ -1,7 +1,5 @@
 #pragma once
 
-namespace Origin {
-
 class Component {
 
 public:
@@ -25,5 +23,3 @@ public:
     bool enable = true;
     bool dirty = false;
 };
-
-} // Origin

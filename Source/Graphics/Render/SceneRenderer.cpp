@@ -6,11 +6,9 @@
 #include "Graphics/Render/RaycastOctreeRenderer.h"
 #include "View3DBatch.h"
 
-namespace Origin {
-
 static SceneRenderer* instance = nullptr;
 
-SceneRenderer::SceneRenderer(Object* parent) : Origin::Renderer(parent) {
+SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
     instance = this;
 
     if (DebugEnvironment::getEnable() && DebugEnvironment::getSettings()["general"]["renderer"] == static_cast<int>(OctreeRenderer::Type::Raycast)) {
@@ -51,5 +49,3 @@ void SceneRenderer::addView(View3D* view) {
 void SceneRenderer::clearViews() {
     views.clear();
 }
-
-} // Origin

@@ -8,12 +8,8 @@ namespace Vulkan {
     class GraphicsPipeline;
 }
 
-namespace Origin {
-
 class RaycastOctreeRenderer : public OctreeRenderer {
-
 public:
-
     struct UBO {
         glm::vec4 backgroundColor = glm::vec4(1.0, 1.0, 1.0, 1.0);
         glm::vec4 lightColor = glm::vec4(1.0, 1.0, 1.0, 1.0);
@@ -56,5 +52,3 @@ private:
     uint32_t vertextCount = 0;
     std::vector<uint32_t> blocks;
 };
-
-} // Origin

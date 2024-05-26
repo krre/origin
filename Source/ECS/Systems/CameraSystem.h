@@ -2,8 +2,6 @@
 #include "ECS/System.h"
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 class Entity;
 
 class CameraSystem : public System {
@@ -15,5 +13,3 @@ public:
 private:
     void onWindowResize(int width, int height);
 };
-
-} // Origin

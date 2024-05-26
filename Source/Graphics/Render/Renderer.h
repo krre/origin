@@ -7,10 +7,7 @@ namespace Vulkan {
     class Device;
 }
 
-namespace Origin {
-
 class Renderer : public Core::Object {
-
 public:
     Renderer(Object* parent = nullptr);
     ~Renderer();
@@ -27,5 +24,3 @@ private:
     Vulkan::Device* device = nullptr;
     bool active = true;
 };
-
-} // Origin

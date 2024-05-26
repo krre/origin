@@ -1,8 +1,6 @@
 #pragma once
 #include "Scene.h"
 
-namespace Origin {
-
 class GameScene : public Scene {
 
 public:
@@ -12,5 +10,3 @@ public:
 private:
 
 };
-
-} // Origin

@@ -2,8 +2,6 @@
 #include "Core/Object.h"
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 class Entity;
 
 class Scene : public Core::Object {
@@ -18,5 +16,3 @@ public:
 private:
     Entity* rootEntity = nullptr;
 };
-
-} // Origin

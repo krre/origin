@@ -8,8 +8,6 @@ namespace Vulkan {
     class GraphicsPipeline;
 }
 
-namespace Origin {
-
 class DebugRenderer : public Renderer {
 
 public:
@@ -33,5 +31,3 @@ private:
     uint32_t vertextCount = 0;
 
 };
-
-} // Origin

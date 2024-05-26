@@ -2,8 +2,6 @@
 #include "Core/Object.h"
 #include <vector>
 
-namespace Origin {
-
 class EntityManager;
 
 class System : public Core::Object {
@@ -36,5 +34,3 @@ protected:
     bool active = true;
     EntityManager* entityManager;
 };
-
-} // Origin

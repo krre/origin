@@ -1,8 +1,6 @@
 #pragma once
 #include "Screen.h"
 
-namespace Origin {
-
 class WaitScreen : public Screen {
 
 public:
@@ -11,5 +9,3 @@ public:
 private:
     void resizeImpl(int width, int height) override;
 };
-
-} // Origin

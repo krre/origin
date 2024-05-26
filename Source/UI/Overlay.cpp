@@ -6,9 +6,7 @@
 #include "UI/Dialog/Dialog.h"
 #include "Screen/Screen.h"
 
-static Origin::Overlay* instance = nullptr;
-
-namespace Origin {
+static Overlay* instance = nullptr;
 
 Overlay::Overlay(Control* parent) : Control(parent) {
     instance  = this;
@@ -76,5 +74,3 @@ void Overlay::centerDialog() {
         dialog->move((size.width - dialog->getSize().width) / 2, (size.height - dialog->getSize().height) / 2);
     }
 }
-
-} // Origin

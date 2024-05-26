@@ -2,8 +2,6 @@
 #include "ECS/System.h"
 #include <glm/ext.hpp>
 
-namespace Origin {
-
 class Entity;
 
 class TransformSystem : public System {
@@ -26,5 +24,3 @@ public:
 
     void lookAt(Entity* entity, const glm::vec3& eye, const glm::vec3& center, const glm::vec3& up);
 };
-
-} // Origin

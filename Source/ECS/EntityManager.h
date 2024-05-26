@@ -5,8 +5,6 @@
 #include <vector>
 #include <map>
 
-namespace Origin {
-
 class Entity;
 class EntityBuilder;
 class Scene;
@@ -50,5 +48,3 @@ private:
 
     void initSystems();
 };
-
-} // Origin

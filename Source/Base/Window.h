@@ -1,16 +1,13 @@
 #pragma once
 #include "Core/SingleObject.h"
 #include "Graphics/Color.h"
-#include <string>
 #include <vector>
 #include <functional>
 
 #undef HAVE_STDINT_H
-#include <SDL.h>
 
 struct SDL_Window;
-
-namespace Origin {
+struct SDL_KeyboardEvent;
 
 class Screen;
 
@@ -54,5 +51,3 @@ private:
     Color color = Color(0.42, 0.65, 5.0, 1.0);
     std::vector<std::function<void()>> deferredCalls;
 };
-
-} // Origin

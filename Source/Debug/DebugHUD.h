@@ -1,8 +1,6 @@
 #pragma once
 #include "UI/Control.h"
 
-namespace Origin {
-
 class Label;
 
 class DebugHUD : public Control {
@@ -20,5 +18,3 @@ private:
     std::string vulkanApiVersion;
     Label* label;
 };
-
-} // Origin

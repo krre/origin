@@ -6,8 +6,6 @@ struct SDL_KeyboardEvent;
 struct SDL_TextInputEvent;
 struct SDL_MouseButtonEvent;
 
-namespace Origin {
-
 class UIManager : public Core::SingleObject<UIManager> {
 
 public:
@@ -20,5 +18,3 @@ private:
     void onMouseButtonAction(const SDL_MouseButtonEvent& event);
     void traverseOverLeaf(Object* object, const SDL_MouseButtonEvent& event);
 };
-
-} // Origin

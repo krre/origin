@@ -3,8 +3,6 @@
 #include "Octree/Octree.h"
 #include "ECS/Components/Components.h"
 
-namespace Origin {
-
 GameScene::GameScene(Object* parent) : Scene(parent) {
     Entity* entity = new Entity;
 
@@ -18,5 +16,3 @@ GameScene::GameScene(Object* parent) : Scene(parent) {
 GameScene::~GameScene() {
 
 }
-
-} // Origin

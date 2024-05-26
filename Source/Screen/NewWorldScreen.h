@@ -1,8 +1,6 @@
 #pragma once
 #include "Screen.h"
 
-namespace Origin {
-
 class TextEdit;
 class Button;
 class LinearLayout;
@@ -19,5 +17,3 @@ private:
     Button* buttonBack;
     LinearLayout* layout;
 };
-
-} // Origin

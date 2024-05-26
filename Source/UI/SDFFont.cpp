@@ -8,8 +8,6 @@
 #include <fstream>
 #include <experimental/filesystem>
 
-namespace Origin {
-
 namespace fs = std::experimental::filesystem;
 
 SDFFont::SDFFont() {
@@ -151,5 +149,3 @@ void SDFFont::renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* ind
     vertexBuffer->write(vertices.data(), vertices.size() * sizeof(Vertex));
     indexBuffer->write(indices.data(), indices.size() * sizeof(uint32_t));
 }
-
-} // Origin

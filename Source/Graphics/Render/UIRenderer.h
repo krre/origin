@@ -10,8 +10,6 @@ namespace Vulkan {
     class Texture;
 }
 
-namespace Origin {
-
 class UIRenderer : public Renderer {
 
 public:
@@ -41,5 +39,3 @@ private:
     std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
     Vulkan::Texture* texture;
 };
-
-} // Origin

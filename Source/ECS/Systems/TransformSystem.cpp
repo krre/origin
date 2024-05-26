@@ -6,8 +6,6 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <glm/gtx/quaternion.hpp>
 
-namespace Origin {
-
 TransformSystem::TransformSystem(EntityManager* entityManager) : System(entityManager) {
     type = System::Type::Transform;
 }
@@ -99,5 +97,3 @@ void TransformSystem::lookAt(Entity* entity, const glm::vec3& eye, const glm::ve
     tc->rotation = rotation;
     tc->dirty = true;
 }
-
-} // Origin

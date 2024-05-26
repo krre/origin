@@ -1,8 +1,6 @@
 #pragma once
 #include "Control.h"
 
-namespace Origin {
-
 class Rectangle;
 class Label;
 
@@ -26,5 +24,3 @@ private:
     Label* label;
     int cursorPosition = 0;
 };
-
-} // Origin

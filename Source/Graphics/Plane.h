@@ -1,8 +1,6 @@
 #pragma once
 #include "Mesh.h"
 
-namespace Origin {
-
 class Plane : public Mesh {
 
 public:
@@ -12,5 +10,3 @@ private:
     float width;
     float height;
 };
-
-} // Origin

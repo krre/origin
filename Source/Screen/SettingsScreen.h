@@ -1,8 +1,6 @@
 #pragma once
 #include "Screen.h"
 
-namespace Origin {
-
 class Button;
 
 class SettingsScreen : public Screen {
@@ -15,5 +13,3 @@ private:
 
     Button* buttonBack;
 };
-
-} // Origin

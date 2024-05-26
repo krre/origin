@@ -1,8 +1,6 @@
 #pragma once
 #include "Renderer.h"
 
-namespace Origin {
-
 class View3D;
 class OctreeRenderer;
 class View3DBatch;
@@ -28,5 +26,3 @@ private:
     std::vector<View3DBatch> batches;
     OctreeRenderer* octreeRenderer;
 };
-
-} // Origin

@@ -1,7 +1,5 @@
 #include "Timer.h"
 
-namespace Origin {
-
 Timer::Timer(Object* parent) : Object(parent) {
 
 }
@@ -19,5 +17,3 @@ Uint32 Timer::onTimeElaplsed(Uint32 interval, void* param) {
     self->timeout.fire();
     return 0;
 }
-
-} // Origin

@@ -1,8 +1,6 @@
 #pragma once
 #include "ECS/Component.h"
 
-namespace Origin {
-
 class MovementComponent : public Component {
 
 public:
@@ -13,5 +11,3 @@ public:
     float rotateSpeed = 0;
     bool free = false;
 };
-
-} // Origin

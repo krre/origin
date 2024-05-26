@@ -6,8 +6,6 @@
 #include "UI/TextEdit.h"
 #include "World/World.h"
 
-namespace Origin {
-
 NewWorldScreen::NewWorldScreen() {
     layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
@@ -35,5 +33,3 @@ void NewWorldScreen::resizeImpl(int width, int height) {
     layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
     buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
 }
-
-} // Origin

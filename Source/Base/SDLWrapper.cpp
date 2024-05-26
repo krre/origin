@@ -1,9 +1,12 @@
 #include "SDLWrapper.h"
 #include "Constants.h"
 #include <SDL.h>
+#include <SDL_syswm.h>
 #include <stdexcept>
 
-namespace Origin {
+#if defined(OS_LINUX)
+#include <X11/Xlib-xcb.h>
+#endif
 
 namespace {
     bool inited = false;
@@ -51,17 +54,24 @@ bool isInited() {
     return inited;
 }
 
-SDL_SysWMinfo getSysWMinfo(SDL_Window* window) {
-    SDL_SysWMinfo wminfo;
+Platform getPlatform(SDL_Window* window) {
+    static SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     if (!SDL_GetWindowWMInfo(window, &wminfo)) {
         throw std::runtime_error("SDL_GetWindowWMInfo failed\nSDL_Error: " + getError());
     }
 
-    return wminfo;
+    Platform result;
+
+#if defined(OS_WIN)
+    result.handle = GetModuleHandle(nullptr);
+    result.window = (void*)wminfo.info.win.window;
+#elif defined(OS_LINUX)
+    result.handle = (void*)XGetXCBConnection(wminfo.info.x11.display);
+    result.window = (void*)&wminfo.info.x11.window;
+#endif
+
+    return result;
 }
 
-} // SDLWrapper
-
-} // Origin
-
+}

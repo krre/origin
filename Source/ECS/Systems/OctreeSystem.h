@@ -4,8 +4,6 @@
 #include "Graphics/Voxel/GPUMemoryManager.h"
 #include <vector>
 
-namespace Origin {
-
 class OctreeSystem : public System {
 
 public:
@@ -18,5 +16,3 @@ private:
     SVOBuilder svoBuilder;
     GPUMemoryManager gpuMemoryManager;
 };
-
-} // Origin

@@ -8,8 +8,6 @@
 #include "NewWorldScreen.h"
 #include "LoadWorldScreen.h"
 
-namespace Origin {
-
 const int BUTTON_WINDTH = 200;
 const int BUTTON_HEIGHT = 40;
 
@@ -48,5 +46,3 @@ MenuScreen::MenuScreen() {
 void MenuScreen::resizeImpl(int width, int height) {
     layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
 }
-
-} // Origin

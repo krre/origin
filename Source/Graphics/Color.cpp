@@ -1,8 +1,6 @@
 #include "Color.h"
 #include <glm/common.hpp>
 
-namespace Origin {
-
 const Color Color::TRANSPARENT = { 0.0, 0.0, 0.0, 0.0 };
 const Color Color::BLACK = { 0.0, 0.0, 0.0, 1.0 };
 const Color Color::WHITE = { 1.0, 1.0, 1.0, 1.0 };
@@ -46,5 +44,3 @@ float Color::getBlue() const {
 float Color::getAlpha() const {
     return ((color >> 24) & 0xFF) / 255.0;
 }
-
-} // Origin

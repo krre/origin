@@ -3,8 +3,6 @@
 #include "ECS/EntityManager.h"
 #include "Graphics/Render/SceneRenderer.h"
 
-namespace Origin {
-
 View3D::View3D(Control* parent) : Control(parent) {
 
 }
@@ -30,5 +28,3 @@ void View3D::drawImpl() {
         SceneRenderer::get()->addView(this);
     }
 }
-
-} // Origin

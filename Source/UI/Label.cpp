@@ -5,8 +5,6 @@
 #include "Graphics/Render/UIRenderer.h"
 #include "UIBatch.h"
 
-namespace Origin {
-
 Label::Label(Control* parent) : Control(parent) {
     setFont(ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf"));
 }
@@ -65,5 +63,3 @@ void Label::drawImpl() {
     batch.addText(absolutePosition.x, absolutePosition.y, text, font);
     UIRenderer::get()->addBatch(batch);
 }
-
-} // Origin

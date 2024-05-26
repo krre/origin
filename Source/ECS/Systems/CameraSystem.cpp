@@ -8,8 +8,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/quaternion.hpp>
 
-namespace Origin {
-
 CameraSystem::CameraSystem(EntityManager* entityManager) : System(entityManager) {
     type = System::Type::Camera;
     Event::get()->windowResize.connect(this, &CameraSystem::onWindowResize);
@@ -38,5 +36,3 @@ void CameraSystem::onWindowResize(int width, int height) {
         }
     }
 }
-
-} // Origin

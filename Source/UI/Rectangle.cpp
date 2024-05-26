@@ -6,8 +6,6 @@
 #include "Font.h"
 #include <glm/ext.hpp>
 
-namespace Origin {
-
 Rectangle::Rectangle(Control* parent) : Control(parent) {
     font = ResourceManager::get()->load<Font>("Fonts/inconsolatalgc.ttf");
 }
@@ -39,5 +37,3 @@ void Rectangle::drawImpl() {
     batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height, font);
     UIRenderer::get()->addBatch(batch);
 }
-
-} // Origin

@@ -4,8 +4,6 @@
 #include <vector>
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 constexpr int MEMORY_SIZE = (1 << 20) * 100; // 100 MB
 const int MAX_OCTREE_COUNT = 100;
 
@@ -32,5 +30,3 @@ private:
     std::map<Core::EntityId, int> octreeOffsets;
     std::vector<uint32_t> renderOffsets;
 };
-
-} // Origin

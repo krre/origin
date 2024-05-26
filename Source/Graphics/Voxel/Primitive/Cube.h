@@ -1,8 +1,6 @@
 #pragma once
 #include "Octree/Octree.h"
 
-namespace Origin {
-
 class Cube : public Octree::Octree {
 
 public:
@@ -13,5 +11,3 @@ private:
     float height;
     float depth;
 };
-
-} // Origin

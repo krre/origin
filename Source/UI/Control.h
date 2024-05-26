@@ -5,8 +5,6 @@ struct SDL_KeyboardEvent;
 struct SDL_TextInputEvent;
 struct SDL_MouseButtonEvent;
 
-namespace Origin {
-
 class UIBatch;
 class VertexBuffer;
 class IndexBuffer;
@@ -74,5 +72,3 @@ protected:
 private:
     bool dirty = true;
 };
-
-} // Origin

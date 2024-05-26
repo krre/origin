@@ -3,8 +3,6 @@
 #include "Component.h"
 #include <map>
 
-namespace Origin {
-
 class TransformComponent;
 class CameraComponent;
 class MovementComponent;
@@ -36,5 +34,3 @@ private:
     static Core::EntityId counter;
     std::map<Component::Type, std::shared_ptr<Component>> components;
 };
-
-} // Origin

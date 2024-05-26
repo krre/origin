@@ -3,8 +3,6 @@
 
 struct SDL_KeyboardEvent;
 
-namespace Origin {
-
 class GameScreen : public Screen {
 
 public:
@@ -14,5 +12,3 @@ private:
     void keyPressed(const SDL_KeyboardEvent& event);
 
 };
-
-} // Origin

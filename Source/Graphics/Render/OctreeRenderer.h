@@ -1,8 +1,6 @@
 #pragma once
 #include "Renderer.h"
 
-namespace Origin {
-
 class View3D;
 
 class OctreeRenderer : public Renderer {
@@ -22,5 +20,3 @@ public:
 private:
 
 };
-
-} // Origin

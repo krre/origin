@@ -2,8 +2,6 @@
 #include "Core/SingleObject.h"
 #include <json/json.hpp>
 
-namespace Origin {
-
 using json = nlohmann::json;
 
 class Settings : public Core::SingleObject<Settings> {
@@ -20,5 +18,3 @@ private:
     std::string path;
     json storage;
 };
-
-} // Origin

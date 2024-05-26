@@ -10,8 +10,6 @@ namespace Vulkan {
     class Texture;
 }
 
-namespace Origin {
-
 const uint32_t GLYPHS_COUNT = 128;
 
 class Font : public Resource {
@@ -76,5 +74,3 @@ private:
     int ascender;
     int descender;
 };
-
-} // Origin

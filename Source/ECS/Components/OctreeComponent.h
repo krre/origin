@@ -2,8 +2,6 @@
 #include "ECS/Component.h"
 #include "Octree/Octree.h"
 
-namespace Origin {
-
 class OctreeComponent : public Component {
 
 public:
@@ -12,5 +10,3 @@ public:
 
     std::shared_ptr<Octree::Octree> octree;
 };
-
-} // Origin

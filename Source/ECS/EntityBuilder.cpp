@@ -4,8 +4,6 @@
 #include "Graphics/Voxel/Primitive/Cube.h"
 #include <glm/glm.hpp>
 
-namespace Origin {
-
 EntityBuilder::EntityBuilder(EntityManager* entityManager) : entityManager(entityManager) {
 
 }
@@ -74,5 +72,3 @@ std::shared_ptr<Entity> EntityBuilder::light() {
     };
     return entityManager->createComponents(types);
 }
-
-} // Origin

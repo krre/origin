@@ -2,8 +2,6 @@
 #include "UI/Control.h"
 #include <vector>
 
-namespace Origin {
-
 class Screen;
 
 class Layout : public Control {
@@ -23,5 +21,3 @@ private:
 
     int spacing = 5;
 };
-
-} // Origin

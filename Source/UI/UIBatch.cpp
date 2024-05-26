@@ -1,8 +1,6 @@
 #include "UIBatch.h"
 #include "Font.h"
 
-namespace Origin {
-
 UIBatch::UIBatch(std::vector<Vertex>* vertices) :
         vertices(vertices) {
     vertexStart = vertices->size();
@@ -104,5 +102,3 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
         posX += glyphInfo.advanceX;
     }
 }
-
-} // Origin

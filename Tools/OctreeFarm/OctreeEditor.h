@@ -7,7 +7,7 @@
 #include <QSharedPointer>
 #include <glm/ext.hpp>
 
-namespace Origin {
+namespace Octree {
     class Octree;
 }
 
@@ -41,7 +41,7 @@ public:
     glm::mat4 getWorldToOctree() const { return worldToOctree; }
 
     void createNew();
-    void split(const Origin::Octree::Path& path = Origin::Octree::Path());
+    void split(const Octree::Octree::Path& path = Octree::Octree::Path());
     bool save(const QString& fileName);
     bool load(const QString& fileName);
     void confirmUpdate();
@@ -53,7 +53,7 @@ public:
 
     QVector<QSharedPointer<Node>> getSelection() { return selection; }
     Source* getSource() { return source; }
-    Origin::Octree* getOctree() const { return octree.data(); }
+    Octree::Octree* getOctree() const { return octree.data(); }
 
 public slots:
     void deselect();
@@ -69,7 +69,7 @@ signals:
 private:
     int colorAttachOffset(int parent, int childIndex);
 
-    QScopedPointer<Origin::Octree> octree;
+    QScopedPointer<Octree::Octree> octree;
     Source* source;
     QSharedPointer<QVector<uint32_t>> storage;
     QVector<QSharedPointer<Node>> selection;

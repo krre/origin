@@ -16,11 +16,11 @@ OctreeEditor::~OctreeEditor() {
 }
 
 void OctreeEditor::createNew() {
-    octree.reset(new Origin::Octree);
+    octree.reset(new Octree::Octree);
     dataChanged();
 }
 
-void OctreeEditor::split(const Origin::Octree::Path& path) {
+void OctreeEditor::split(const Octree::Octree::Path& path) {
     octree->split(path);
     dataChanged();
 }

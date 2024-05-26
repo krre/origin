@@ -70,7 +70,7 @@ void Viewport::resizeEvent(QResizeEvent* event [[maybe_unused]]) {
 }
 
 void Viewport::onOctreeChanged() {
-    uint32_t size = octreeEditor->getOctree()->getVertices().size() * sizeof(Origin::Octree::Vertex);
+    uint32_t size = octreeEditor->getOctree()->getVertices().size() * sizeof(Octree::Octree::Vertex);
     if (size) {
         renderEngine->setVoxelVertextCount(octreeEditor->getOctree()->getVertices().size());
         renderEngine->getVoxelVertexBuffer()->write(octreeEditor->getOctree()->getVertices().data(), size);

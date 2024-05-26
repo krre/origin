@@ -28,7 +28,7 @@ RenderEngine::~RenderEngine() {
 void RenderEngine::setVoxelVertextCount(uint32_t vertexCount) {
     this->voxelRenderPass.vertextCount = vertexCount;
 
-    uint32_t size = vertexCount * sizeof(Origin::Octree::Vertex);
+    uint32_t size = vertexCount * sizeof(Octree::Octree::Vertex);
 
     if (size > voxelRenderPass.vertexBuffer->getSize()) {
         voxelRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(getGraphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size));
@@ -87,7 +87,7 @@ void RenderEngine::initVoxelRenderPass() {
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
-    bindingDescription.stride = sizeof(Origin::Octree::Vertex);
+    bindingDescription.stride = sizeof(Octree::Octree::Vertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
     voxelRenderPass.graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
@@ -106,7 +106,7 @@ void RenderEngine::initVoxelRenderPass() {
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Origin::Octree::Vertex::pos);
+        attributeDescription.offset = sizeof(Octree::Octree::Vertex::pos);
         voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
@@ -116,7 +116,7 @@ void RenderEngine::initVoxelRenderPass() {
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        attributeDescription.offset = sizeof(Origin::Octree::Vertex::pos) + sizeof(Origin::Octree::Vertex::color);
+        attributeDescription.offset = sizeof(Octree::Octree::Vertex::pos) + sizeof(Octree::Octree::Vertex::color);
         voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 

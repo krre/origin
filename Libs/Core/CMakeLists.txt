@@ -1,37 +1,10 @@
-cmake_minimum_required(VERSION 3.5)
-
-project(Octree)
-
-set(LIB_NAME "Core")
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME}) # For MinGW
-
-set(VERSION_MAJOR 0)
-set(VERSION_MINOR 1)
-set(VERSION_PATCH 0)
-
-set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
-if(UNIX)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS_INIT} -std=c++20 -fPIC")
-endif()
-
 include_directories(../../ThirdParty)
 
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Common.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Defines.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Object.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Object.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Signal.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/SingleObject.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Utils.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Utils.h
+add_library(Core SHARED
+    Common.h
+    Defines.h
+    Object.cpp Object.h
+    Signal.h
+    SingleObject.h
+    Utils.cpp Utils.h
 )
-
-add_library(${LIB_NAME} SHARED ${SOURCES})

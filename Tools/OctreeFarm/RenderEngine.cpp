@@ -13,12 +13,9 @@
 #include <QApplication>
 #include <QDebug>
 
-namespace OctreeFarm {
-
 RenderEngine::RenderEngine(void* platformHandle, void* platformWindow, QObject* parent) :
     QObject(parent),
     Vulkan::Renderer(platformHandle, platformWindow) {
-
 }
 
 RenderEngine::~RenderEngine() {
@@ -252,5 +249,3 @@ void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulk
 void RenderEngine::updateVoxelUbo() {
     voxelRenderPass.uboBuffer->write(&voxelUbo, sizeof(voxelUbo));
 }
-
-} // OctreeFarm

@@ -5,8 +5,6 @@
 #include <QtGui>
 #include <bitset>
 
-namespace OctreeFarm {
-
 OctreeEditor::OctreeEditor(QObject* parent) : QObject(parent) {
     createNew();
 }
@@ -126,5 +124,3 @@ void OctreeEditor::paste() {
 //        changeNodeColor(clipboard.color);
     }
 }
-
-} // OctreeFarm

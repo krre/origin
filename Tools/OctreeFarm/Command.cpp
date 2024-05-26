@@ -2,8 +2,6 @@
 #include "Source.h"
 #include <QtCore>
 
-namespace OctreeFarm {
-
 DeleteCommand::DeleteCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
     nodes = octreeEditor->getSelection();
 }
@@ -118,5 +116,3 @@ void ChangeColorCommand::redo() {
         qDebug() << "Failure change node color";
     }
 }
-
-} // OctreeFarm

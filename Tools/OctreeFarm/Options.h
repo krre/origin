@@ -5,8 +5,6 @@ namespace Ui {
     class Options;
 }
 
-namespace OctreeFarm {
-
 class Options : public QDialog {
     Q_OBJECT
 
@@ -17,5 +15,3 @@ public:
 private:
     Ui::Options* ui;
 };
-
-} // OctreeFarm

@@ -4,8 +4,6 @@
 #include <QtCore>
 #include <bitset>
 
-namespace OctreeFarm {
-
 const uint32_t DEFAULT_COLOR = 0xFF4681FF;
 
 Source::Source(QObject* parent) : QObject(parent) {
@@ -283,5 +281,3 @@ glm::vec3 Source::pathToPos(const QVector<int> path) {
 
     return pos;
 }
-
-} // OctreeFarm

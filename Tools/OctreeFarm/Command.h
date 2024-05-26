@@ -2,8 +2,6 @@
 #include "OctreeEditor.h"
 #include <QUndoCommand>
 
-namespace OctreeFarm {
-
 class DeleteCommand : public QUndoCommand {
 
 public:
@@ -68,5 +66,3 @@ private:
     QVector<QSharedPointer<Node>> nodes;
     QColor color;
 };
-
-} // OctreeFarm

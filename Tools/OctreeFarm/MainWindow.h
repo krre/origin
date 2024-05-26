@@ -8,8 +8,6 @@ namespace Ui {
 
 class QUndoStack;
 
-namespace OctreeFarm {
-
 class Properties;
 class Viewport;
 class OctreeEditor;
@@ -85,5 +83,3 @@ private:
     static bool closing;
 
 };
-
-} // OctreeFarm

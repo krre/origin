@@ -6,8 +6,6 @@
 #include <QJsonObject>
 #include <glm/glm.hpp>
 
-namespace OctreeFarm {
-
 struct Node;
 
 class Source : public QObject {
@@ -36,5 +34,3 @@ private:
 
     QJsonObject root;
 };
-
-} // OctreeFarm

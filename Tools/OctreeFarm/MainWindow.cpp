@@ -9,8 +9,6 @@
 #include "Settings.h"
 #include <QtWidgets>
 
-namespace OctreeFarm {
-
 const int maxRecentFiles = 10;
 const int separatorAndMenuCount = 2;
 bool MainWindow::closing = false;
@@ -369,5 +367,3 @@ void MainWindow::addRecentFile(const QString& filePath) {
 void MainWindow::updateMenuState() {
     ui->menuRecentFiles->menuAction()->setEnabled(ui->menuRecentFiles->actions().size() > separatorAndMenuCount);
 }
-
-} // OctreeFarm

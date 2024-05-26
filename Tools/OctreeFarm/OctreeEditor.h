@@ -11,8 +11,6 @@ namespace Octree {
     class Octree;
 }
 
-namespace OctreeFarm {
-
 class Source;
 
 struct Node {
@@ -79,5 +77,3 @@ private:
     bool isModified = false;
     Clipboard clipboard;
 };
-
-} // OctreeFarm

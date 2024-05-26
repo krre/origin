@@ -9,8 +9,6 @@
 #include <glm/gtx/matrix_decompose.hpp>
 #include <iostream>
 
-namespace OctreeFarm {
-
 Viewport::Viewport(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
     setFlag(Qt::FramelessWindowHint);
 
@@ -243,5 +241,3 @@ void Viewport::setShadeless(bool shadeless) {
     renderEngine->updateShadeless(shadeless);
     update();
 }
-
-} // OctreeFarm

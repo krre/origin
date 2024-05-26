@@ -5,8 +5,6 @@
 #include "ui_Properties.h"
 #include <QtWidgets>
 
-namespace OctreeFarm {
-
 Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent) :
     QWidget(parent),
     ui(new Ui::Properties),
@@ -96,5 +94,3 @@ void Properties::levelMinus() {
 void Properties::levelReset() {
     qDebug() << "level reset";
 }
-
-} // OctreeFarm

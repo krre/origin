@@ -4,8 +4,6 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/euler_angles.hpp>
 
-namespace OctreeFarm {
-
 Camera::Camera(QObject* parent) : QObject(parent) {
     reset();
 }
@@ -73,5 +71,3 @@ void Camera::resize(int width, int height) {
     projective = glm::perspective(fov, aspect, 0.1f, 100.0f);
     update();
 }
-
-} // OctreeFarm

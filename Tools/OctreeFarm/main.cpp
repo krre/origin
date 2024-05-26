@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
     app.setApplicationName(Constants::App::NAME);
     app.setApplicationVersion(Constants::App::VERSION);
 
-    OctreeFarm::MainWindow mainWindow;
+    MainWindow mainWindow;
     mainWindow.show();
 
     return app.exec();

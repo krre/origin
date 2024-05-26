@@ -7,8 +7,6 @@ namespace Ui {
 
 class QUndoStack;
 
-namespace OctreeFarm {
-
 class OctreeEditor;
 class Viewport;
 
@@ -41,5 +39,3 @@ private:
     QUndoStack* undoStack;
     QColor nodeColor;
 };
-
-} // OctreeFarm

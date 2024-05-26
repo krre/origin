@@ -5,8 +5,6 @@
 #include <QWindow>
 #include <QVector3D>
 
-namespace OctreeFarm {
-
 const int LOD_PIXEL_LIMIT = 1;
 
 class RenderEngine;
@@ -85,5 +83,3 @@ private:
     bool isReady = false;
     QVector<LineVertex> lines;
 };
-
-} // OctreeFarm

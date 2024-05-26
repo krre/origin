@@ -21,8 +21,8 @@ namespace Vulkan {
 
 std::string resultToString(VkResult result);
 
-template<typename T> class Handle {
-
+template <typename T>
+class Handle {
 public:
     Handle() = default;
     Handle(T handle) : handle(handle) {

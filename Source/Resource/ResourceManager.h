@@ -12,7 +12,8 @@ public:
     ResourceManager(Object* parent = nullptr);
     ~ResourceManager();
 
-    template <typename T> T* load(const std::string& path) {
+    template <typename T>
+    T* load(const std::string& path) {
         auto it = resources.find(path);
         if (it == resources.end()) {
             resources[path] = std::make_shared<T>();

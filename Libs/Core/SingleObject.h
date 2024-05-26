@@ -5,8 +5,8 @@
 namespace Core {
 
 // Singleton that inherited from Object class
-template <typename T> class SingleObject : public Core::Object {
-
+template <typename T>
+class SingleObject : public Core::Object {
 public:
     SingleObject(Object* parent = nullptr) : Object(parent) {
         assert(instance == nullptr && "SingleObject should be initialized only once");
@@ -36,6 +36,7 @@ private:
     static T* instance;
 };
 
-template <typename T> T* SingleObject<T>::instance = nullptr;
+template <typename T>
+T* SingleObject<T>::instance = nullptr;
 
 } // Origin

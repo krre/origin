@@ -11,8 +11,8 @@
 
 namespace Vulkan {
 
-template<typename T> class Collection {
-
+template <typename T>
+class Collection {
 public:
     Collection() = default;
     bool isOwner() const { return owner; }

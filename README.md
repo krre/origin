@@ -5,7 +5,7 @@ Procedural world game based on raycast rendering and sparse voxel octree technol
 - Vulkan SDK 1.3.183.0 (https://vulkan.lunarg.com)
 - SDL 2.30.3 (https://www.libsdl.org)
 - FreeType 2.13.2 (https://www.freetype.org)
-- Bullet 2.85 (http://bulletphysics.org/wordpress)
+- Bullet 3.25 (http://bulletphysics.org/wordpress)
 - SPIRV-Cross (https://github.com/KhronosGroup/SPIRV-Cross)
 
 ## Status

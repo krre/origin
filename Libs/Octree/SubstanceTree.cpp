@@ -1,6 +1,6 @@
 #include "SubstanceTree.h"
 
-namespace Core {
+namespace Octree {
 
 SubstanceTree::SubstanceTree() {
 

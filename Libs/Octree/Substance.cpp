@@ -1,6 +1,6 @@
 #include "Substance.h"
 
-namespace Core {
+namespace Octree {
 
 Substance::Substance() {
 

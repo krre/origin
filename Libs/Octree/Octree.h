@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include <type_traits>
 
-namespace Core {
+namespace Octree {
 
 using json = nlohmann::json;
 

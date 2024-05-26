@@ -10,7 +10,7 @@ public:
     OctreeComponent() = default;
     Type getType() const override { return Component::Type::Octree; }
 
-    std::shared_ptr<Core::Octree> octree;
+    std::shared_ptr<Octree::Octree> octree;
 };
 
 } // Origin

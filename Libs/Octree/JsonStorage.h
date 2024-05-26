@@ -2,7 +2,7 @@
 #include "Core/Object.h"
 #include <json/json.hpp>
 
-namespace Core {
+namespace Octree {
 
 using json = nlohmann::json;
 

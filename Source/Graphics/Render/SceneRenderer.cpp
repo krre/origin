@@ -19,7 +19,7 @@ SceneRenderer::SceneRenderer(Object* parent) : Origin::Renderer(parent) {
         octreeRenderer = new PolygonalOctreeRenderer(this);
     }
 
-    Core::Octree* octree = new Core::Octree(Core::Substance(), this);
+    Octree::Octree* octree = new Octree::Octree(Octree::Substance(), this);
 }
 
 SceneRenderer::~SceneRenderer() {

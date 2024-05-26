@@ -1,7 +1,7 @@
 #pragma once
 #include "Core/Object.h"
 
-namespace Core {
+namespace Octree {
 
 class SubstanceTree : public Core::Object {
 

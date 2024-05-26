@@ -1,6 +1,6 @@
 #include "JsonStorage.h"
 
-namespace Core {
+namespace Octree {
 
 JsonStorage::JsonStorage(Object* parent) : Object(parent) {
 

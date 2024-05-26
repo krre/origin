@@ -2,7 +2,7 @@
 #include "JsonStorage.h"
 #include <fstream>
 
-namespace Core {
+namespace Octree {
 
 Octree::Octree(Substance substance, Object* parent) : Object(parent) {
     storage = {};

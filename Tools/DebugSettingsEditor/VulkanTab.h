@@ -7,11 +7,8 @@ namespace Ui {
 
 class QListWidget;
 
-namespace DebugSettingsEditor {
-
 class VulkanTab : public AbstractTab {
     Q_OBJECT
-
 public:
     explicit VulkanTab();
     ~VulkanTab();
@@ -43,5 +40,3 @@ private:
 
     Ui::VulkanTab* ui;
 };
-
-} // DebugSettingsEditor

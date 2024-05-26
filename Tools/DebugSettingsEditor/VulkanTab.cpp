@@ -8,8 +8,6 @@
 #include <QJsonArray>
 #include <QDebug>
 
-namespace DebugSettingsEditor {
-
 VulkanTab::VulkanTab() :
         ui(new Ui::VulkanTab) {
     ui->setupUi(this);
@@ -218,5 +216,3 @@ void VulkanTab::selectListWidgetItems(QListWidget* listWidget, const QStringList
 
     emit flush();
 }
-
-} // DebugSettingsEditor

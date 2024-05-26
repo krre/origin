@@ -3,8 +3,6 @@
 #include <QJsonObject>
 #include <QtCore>
 
-namespace DebugSettingsEditor {
-
 GeneralTab::GeneralTab() :
         ui(new Ui::GeneralTab) {
     ui->setupUi(this);
@@ -56,5 +54,3 @@ void GeneralTab::on_comboBoxSave_currentIndexChanged(int currentIndex [[maybe_un
 void GeneralTab::on_comboBoxRenderer_currentIndexChanged(int currentIndex [[maybe_unused]]) {
     emit flush();
 }
-
-} // DebugSettingsEditor

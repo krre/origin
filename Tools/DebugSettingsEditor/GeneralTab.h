@@ -5,11 +5,8 @@ namespace Ui {
     class GeneralTab;
 }
 
-namespace DebugSettingsEditor {
-
 class GeneralTab : public AbstractTab {
     Q_OBJECT
-
 public:
     explicit GeneralTab();
     ~GeneralTab();
@@ -25,5 +22,3 @@ private slots:
 private:
     Ui::GeneralTab* ui;
 };
-
-} // DebugSettingsEditor

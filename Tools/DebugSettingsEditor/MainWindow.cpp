@@ -5,8 +5,6 @@
 #include "VulkanTab.h"
 #include <QtWidgets>
 
-namespace DebugSettingsEditor {
-
 MainWindow::MainWindow(QWidget* parent) :
         QMainWindow(parent),
     ui(new Ui::MainWindow) {
@@ -110,5 +108,3 @@ void MainWindow::writeDebugSettings() {
     QJsonDocument doc(obj);
     file.write(doc.toJson());
 }
-
-} // DebugSettingsEditor

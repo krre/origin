@@ -5,8 +5,6 @@ namespace Ui {
     class MainWindow;
 }
 
-namespace DebugSettingsEditor {
-
 class MainWindow : public QMainWindow {
     Q_OBJECT
 
@@ -36,5 +34,3 @@ private:
     QString settingsPath;
     QString debugSettingsPath;
 };
-
-} // DebugSettingsEditor

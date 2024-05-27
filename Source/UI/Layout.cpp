@@ -1,6 +1,5 @@
 #include "Layout.h"
 #include "Control.h"
-#include <algorithm>
 
 Layout::Layout(Control* parent) : Control(parent) {
 

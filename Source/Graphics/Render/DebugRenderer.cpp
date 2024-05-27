@@ -1,10 +1,7 @@
 #include "DebugRenderer.h"
-#include "Base/Window.h"
 #include "Vulkan/API/RenderPass.h"
 #include "Vulkan/API/Framebuffer.h"
-#include "Vulkan/API/Image/ImageView.h"
 #include "Vulkan/API/Command/CommandBuffer.h"
-#include "Vulkan/API/Surface/Surface.h"
 #include "Vulkan/API/RenderPass.h"
 #include "Vulkan/API/Descriptor/DescriptorSets.h"
 #include "Vulkan/API/Pipeline/PipelineLayout.h"
@@ -13,7 +10,6 @@
 #include "Vulkan/GpuBuffer.h"
 #include "Vulkan/API/Pipeline/GraphicsPipeline.h"
 #include "Resource/ResourceManager.h"
-#include "ECS/Scenes/Scene.h"
 #include "Octree/Octree.h"
 
 static DebugRenderer* instance = nullptr;

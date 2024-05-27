@@ -1,8 +1,5 @@
 #include "Game.h"
 #include "SDLWrapper.h"
-#include "Core/Utils.h"
-#include "Core/Defines.h"
-#include "Defines.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "Resource/ResourceManager.h"
@@ -20,7 +17,6 @@
 #include "Screen/MenuScreen.h"
 #include "World/World.h"
 #include <string>
-#include <algorithm>
 #include <memory>
 #include <experimental/filesystem>
 #include <SDL.h>

@@ -2,7 +2,6 @@
 #include "Base/Game.h"
 #include "Base/Defines.h"
 #include "Core/Utils.h"
-#include "Debug/DebugHUD.h"
 #include "Screen/MenuScreen.h"
 #include "Screen/SettingsScreen.h"
 #include "Screen/GameScreen.h"

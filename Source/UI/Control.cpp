@@ -1,10 +1,8 @@
 #include "Control.h"
-#include "UIBatch.h"
 #include "Screen/Screen.h"
 #include "UI/UIManager.h"
 #include "Base/Window.h"
 #include "Layout.h"
-#include <algorithm>
 
 Control::Control(Control* parent) : Object(parent) {
     uiManager = UIManager::get();

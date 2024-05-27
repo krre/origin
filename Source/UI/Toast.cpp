@@ -1,5 +1,4 @@
 #include "Toast.h"
-#include "Base/Window.h"
 #include "Base/Timer.h"
 #include "UI/Label.h"
 #include <glm/glm.hpp>

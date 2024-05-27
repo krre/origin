@@ -1,7 +1,6 @@
 #include "EntityBuilder.h"
 #include "EntityManager.h"
 #include "Components/Components.h"
-#include "Graphics/Voxel/Primitive/Cube.h"
 #include <glm/glm.hpp>
 
 EntityBuilder::EntityBuilder(EntityManager* entityManager) : entityManager(entityManager) {

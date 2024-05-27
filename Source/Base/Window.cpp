@@ -1,13 +1,10 @@
 #include "Window.h"
 #include "Base/Game.h"
-#include "Base/SDLWrapper.h"
 #include "Base/Settings.h"
 #include "Base/Constants.h"
 #include "Base/Defines.h"
 #include "Screen/Screen.h"
 #include "Base/Game.h"
-#include "Debug/DebugHUD.h"
-#include "UI/Toast.h"
 #include "Event/Event.h"
 #include "Event/Input.h"
 #include "Core/Defines.h"
@@ -17,9 +14,7 @@
 #include "Graphics/Render/SceneRenderer.h"
 #include "Graphics/Render/UIRenderer.h"
 #include <lodepng/lodepng.h>
-#include <ctime>
-#include <experimental/filesystem>
-#include <SDL_video.h>
+#include <SDL.h>
 
 Window::Window(Object* parent) : SingleObject(parent) {
     json settingsWidth = Settings::getStorage()["width"];

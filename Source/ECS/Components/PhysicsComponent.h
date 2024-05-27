@@ -1,6 +1,7 @@
 #pragma once
 #include "ECS/Component.h"
 #include <btBulletDynamicsCommon.h>
+#include <memory>
 
 class PhysicsComponent : public Component {
 

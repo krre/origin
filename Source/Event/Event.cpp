@@ -1,7 +1,6 @@
 #include "Event.h"
 #include "Input.h"
 #include "Base/Game.h"
-#include "Core/Common.h"
 #include <SDL.h>
 
 Event::Event(Object* parent) : SingleObject(parent) {

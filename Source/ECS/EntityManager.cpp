@@ -1,9 +1,7 @@
 #include "EntityManager.h"
-#include "Graphics/Render/SceneRenderer.h"
-#include "Systems/Systems.h"
 #include "EntityBuilder.h"
-#include "Components/Components.h"
-#include <algorithm>
+#include "ECS/Components/Components.h"
+#include "Systems/Systems.h"
 
 EntityManager::EntityManager(Object* parent) : SingleObject(parent) {
     initSystems();

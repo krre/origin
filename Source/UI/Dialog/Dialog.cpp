@@ -1,8 +1,5 @@
 #include "Dialog.h"
-#include "Event/Input.h"
-#include "Base/Window.h"
 #include "UI/Overlay.h"
-#include "Screen/Screen.h"
 #include <SDL.h>
 
 Dialog::Dialog() : Rectangle(Core::Size(200, 50)) {

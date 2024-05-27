@@ -1,11 +1,9 @@
 #include "Font.h"
 #include "Resource/ResourceManager.h"
 #include "Vulkan/Texture.h"
-#include "Core/Utils.h"
 #include "Graphics/Render/RenderManager.h"
 #include <cmath>
 #include <lodepng/lodepng.h>
-#include <experimental/filesystem>
 #include <vector>
 
 Font::Font() {

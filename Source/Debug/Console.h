@@ -1,8 +1,7 @@
 #pragma once
 #include "UI/TextEdit.h"
-#include <SDL.h>
-#include <memory>
 
+struct SDL_KeyboardEvent;
 class Label;
 
 class Console : public TextEdit {

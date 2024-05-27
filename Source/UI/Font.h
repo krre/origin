@@ -1,6 +1,5 @@
 #pragma once
 #include "Resource/Resource.h"
-#include <map>
 
 #undef HAVE_STDINT_H
 #include <ft2build.h>

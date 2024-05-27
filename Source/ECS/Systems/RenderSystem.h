@@ -1,6 +1,5 @@
 #pragma once
 #include "ECS/System.h"
-#include <vector>
 
 class RenderSystem : public System {
 

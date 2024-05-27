@@ -1,10 +1,9 @@
 #include "SceneRenderer.h"
-#include "ECS/Scenes/Scene.h"
 #include "Octree/Octree.h"
 #include "Debug/DebugEnvironment.h"
 #include "Graphics/Render/PolygonalOctreeRenderer.h"
 #include "Graphics/Render/RaycastOctreeRenderer.h"
-#include "View3DBatch.h"
+#include "Graphics/Render/View3DBatch.h"
 
 static SceneRenderer* instance = nullptr;
 

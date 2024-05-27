@@ -1,6 +1,5 @@
 #pragma once
 #include "UI/Control.h"
-#include <vector>
 
 class Screen;
 

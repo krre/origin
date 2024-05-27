@@ -1,12 +1,9 @@
 #include "SDFFont.h"
-#include "Resource/ResourceManager.h"
 #include "Core/Utils.h"
 #include "Vulkan/Texture.h"
 #include "Vulkan/GpuBuffer.h"
-#include "Vulkan/API/Image/Image.h"
-#include "Vulkan/API/Image/ImageView.h"
-#include <fstream>
 #include <experimental/filesystem>
+#include <fstream>
 
 namespace fs = std::experimental::filesystem;
 

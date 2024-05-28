@@ -2,10 +2,8 @@
 #include "core/Utils.h"
 #include "vulkan/Texture.h"
 #include "vulkan/GpuBuffer.h"
-#include <experimental/filesystem>
+#include <filesystem>
 #include <fstream>
-
-namespace fs = std::experimental::filesystem;
 
 SDFFont::SDFFont() {
 
@@ -50,7 +48,7 @@ void SDFFont::load(const std::string& path) {
             std::string& textureName = pair.at(1);
             const char quote = '\"';
             Core::Utils::removeChar(textureName, quote);
-            fs::path SDFFontPath(path);
+            std::filesystem::path SDFFontPath(path);
             std::string texturePath = SDFFontPath.parent_path().string() + Core::Utils::getPathSeparator() + textureName;
 //            texture = std::make_unique<Vulkan::Texture>(texturePath);
         } else if (head == "char") {

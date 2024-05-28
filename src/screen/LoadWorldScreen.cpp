@@ -6,9 +6,7 @@
 #include "ui/LinearLayout.h"
 #include "ui/ListBox.h"
 #include "world/World.h"
-#include <experimental/filesystem>
-
-namespace fs = std::experimental::filesystem;
+#include <filesystem>
 
 LoadWorldScreen::LoadWorldScreen() {
     layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
@@ -16,8 +14,8 @@ LoadWorldScreen::LoadWorldScreen() {
     listBox = new ListBox;
     listBox->resize(200, 200);
 
-    for(auto& path: fs::directory_iterator(World::getSavesDirectory())) {
-        fs::path fullPath(path);
+    for(auto& path: std::filesystem::directory_iterator(World::getSavesDirectory())) {
+        std::filesystem::path fullPath(path);
         listBox->addLine(fullPath.filename().string());
     }
 
@@ -40,7 +38,7 @@ LoadWorldScreen::LoadWorldScreen() {
             try {
                 World::remove(listBox->getCurrentText());
                 listBox->removeLine(currentIndex);
-            } catch (const fs::filesystem_error& e) {
+            } catch (const std::filesystem::filesystem_error& e) {
                 SDL::showErrorMessageBox(e.what());
             }
         }

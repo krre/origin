@@ -5,6 +5,8 @@
 #include <cmath>
 #include <lodepng/lodepng.h>
 #include <vector>
+#include <filesystem>
+
 
 Font::Font() {
     glyphInfos.resize(GLYPHS_COUNT);
@@ -99,9 +101,8 @@ void Font::load(const std::string& filePath) {
 #if 0
     std::string directoryPath = Game::getCurrentDirectory() + Utils::getPathSeparator() + "Cache";
 
-    namespace fs = std::experimental::filesystem;
-    if (!fs::exists(directoryPath)) {
-        fs::create_directory(directoryPath);
+    if (!std::filesystem::exists(directoryPath)) {
+        std::filesystem::create_directory(directoryPath);
     }
 
     std::string atlasPath = directoryPath + Utils::getPathSeparator() + "atlas.png";

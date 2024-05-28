@@ -18,7 +18,6 @@
 #include "world/World.h"
 #include <string>
 #include <memory>
-#include <experimental/filesystem>
 #include <SDL.h>
 
 bool Game::running = false;
@@ -127,7 +126,7 @@ void Game::quit() {
 }
 
 std::string Game::getCurrentDirectory() {
-    return std::experimental::filesystem::current_path().string();
+    return std::filesystem::current_path().string();
 }
 
 bool Game::isRunning() {

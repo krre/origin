@@ -2,14 +2,11 @@
 #include "Game.h"
 #include "Constants.h"
 #include "core/Utils.h"
-#include <experimental/filesystem>
 #include <fstream>
-
-namespace fs = std::experimental::filesystem;
 
 Settings::Settings(Object* parent) : SingleObject(parent) {
     path = Game::getCurrentDirectory() + Core::Utils::getPathSeparator() + Constants::App::SETTINGS_NAME;
-    if (fs::exists(path)) {
+    if (std::filesystem::exists(path)) {
         std::string text = Core::Utils::readTextFile(path);
         storage = json::parse(text);
     } else {

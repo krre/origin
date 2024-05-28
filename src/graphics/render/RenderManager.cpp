@@ -10,7 +10,6 @@
 #include "ui/Overlay.h"
 #include "ui/Toast.h"
 #include <lodepng/lodepng.h>
-#include <experimental/filesystem>
 
 RenderManager::RenderManager(void* platformHandle, void* platformWindow, Object* parent) :
         Vulkan::Renderer(platformHandle, platformWindow),
@@ -35,9 +34,9 @@ void RenderManager::draw() {
 
 void RenderManager::saveScreenshot() {
     std::string directoryPath = Game::getCurrentDirectory() + Core::Utils::getPathSeparator() + "Screenshot";
-    namespace fs = std::experimental::filesystem;
-    if (!fs::exists(directoryPath)) {
-        fs::create_directory(directoryPath);
+
+    if (!std::filesystem::exists(directoryPath)) {
+        std::filesystem::create_directory(directoryPath);
     }
 
     time_t t = std::time(0); // Get time now

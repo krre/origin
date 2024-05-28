@@ -7,16 +7,14 @@ namespace Ui {
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
-
 public:
-    explicit MainWindow(QWidget* parent = 0);
+    MainWindow();
     ~MainWindow();
 
 protected:
     void closeEvent(QCloseEvent* event) override;
 
 private slots:
-    // Help
     void on_actionAbout_triggered();
 
 private:
@@ -26,4 +24,3 @@ private:
     Ui::MainWindow* ui;
     QString settingsPath;
 };
-

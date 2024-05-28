@@ -3,8 +3,7 @@
 #include "Defines.h"
 #include <QtWidgets>
 
-MainWindow::MainWindow(QWidget* parent) : QMainWindow(parent),
-        ui(new Ui::MainWindow) {
+MainWindow::MainWindow() : ui(new Ui::MainWindow) {
     setWindowTitle(APP_NAME);
     settingsPath = QApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME;
     ui->setupUi(this);
@@ -50,4 +49,3 @@ void MainWindow::writeSettings() {
     settings.setValue("geometry", saveGeometry());
     settings.endGroup();
 }
-

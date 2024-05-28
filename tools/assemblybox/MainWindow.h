@@ -22,5 +22,4 @@ private:
     void writeSettings();
 
     Ui::MainWindow* ui;
-    QString settingsPath;
 };

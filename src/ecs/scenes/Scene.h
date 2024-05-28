@@ -1,0 +1,18 @@
+#pragma once
+#include <core/Object.h>
+#include <glm/glm.hpp>
+
+class Entity;
+
+class Scene : public Core::Object {
+
+public:
+    Scene(Object* parent = nullptr);
+    ~Scene();
+
+    void setRootEntity(Entity* rootEntity);
+    Entity* getRootEntity() const { return rootEntity; }
+
+private:
+    Entity* rootEntity = nullptr;
+};

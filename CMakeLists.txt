@@ -19,11 +19,11 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/CMake")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
-add_subdirectory(Libs)
-add_subdirectory(Source)
-add_subdirectory(ThirdParty)
+add_subdirectory(libs)
+add_subdirectory(src)
+add_subdirectory(trdparty)
 
 set(EXECUTABLE_NAME ${PROJECT_NAME})
 
@@ -40,9 +40,9 @@ include_directories(${FREETYPE_INCLUDE_DIRS})
 find_package(Vulkan REQUIRED)
 include_directories(${Vulkan_INCLUDE_DIRS})
 
-include_directories(Source)
-include_directories(ThirdParty)
-include_directories(Libs)
+include_directories(src)
+include_directories(trdparty)
+include_directories(libs)
 
 add_executable(${EXECUTABLE_NAME} ${SOURCES})
 
@@ -51,9 +51,9 @@ target_link_libraries(${EXECUTABLE_NAME}
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs
-    Core
-    Vulkan
-    Octree
+    core
+    vulkan-o
+    octree
 )
 
 if(UNIX)
@@ -64,5 +64,5 @@ if(UNIX)
 endif()
 
 # Show in QtCreator project tree
-file(GLOB_RECURSE Root "*.md" "*.in" "Data/*.*" "Debug/*.*" "Source/Template/*.*" "Libs/*.*")
+file(GLOB_RECURSE Root "*.md" "*.in" "data/*.*" "debug/*.*" "libs/*.*")
 add_custom_target(root SOURCES ${Root})

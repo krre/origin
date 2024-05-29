@@ -1,6 +1,5 @@
 set(SOURCES
     ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Constants.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Defines.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Game.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/Game.h

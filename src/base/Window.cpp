@@ -1,7 +1,6 @@
 #include "Window.h"
 #include "base/Game.h"
 #include "base/Settings.h"
-#include "base/Constants.h"
 #include "base/Defines.h"
 #include "screen/Screen.h"
 #include "base/Game.h"
@@ -42,7 +41,7 @@ Window::Window(Object* parent) : SingleObject(parent) {
     }
 #endif
 
-    handle = SDL_CreateWindow(Constants::App::NAME, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
+    handle = SDL_CreateWindow(Game::Name, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
     if (handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }

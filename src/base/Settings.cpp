@@ -1,11 +1,10 @@
 #include "Settings.h"
 #include "Game.h"
-#include "Constants.h"
 #include "core/Utils.h"
 #include <fstream>
 
 Settings::Settings(Object* parent) : SingleObject(parent) {
-    path = Game::getCurrentDirectory() + Core::Utils::getPathSeparator() + Constants::App::SETTINGS_NAME;
+    path = Game::getCurrentDirectory() + Core::Utils::getPathSeparator() + Game::SettingsName;
     if (std::filesystem::exists(path)) {
         std::string text = Core::Utils::readTextFile(path);
         storage = json::parse(text);

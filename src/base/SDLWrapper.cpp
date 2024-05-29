@@ -1,5 +1,5 @@
 #include "SDLWrapper.h"
-#include "Constants.h"
+#include "base/Game.h"
 #include <SDL.h>
 #include <SDL_syswm.h>
 #include <stdexcept>
@@ -47,7 +47,7 @@ std::string getError() {
 }
 
 void showErrorMessageBox(const char* message) {
-    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, Constants::App::NAME, message, nullptr);
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, Game::Name, message, nullptr);
 }
 
 bool isInited() {

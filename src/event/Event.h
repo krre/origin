@@ -1,6 +1,6 @@
 #pragma once
 #include <core/SingleObject.h>
-#include "core/Signal.h"
+#include <core/Signal.h>
 
 struct SDL_KeyboardEvent;
 struct SDL_TextInputEvent;

@@ -6,12 +6,12 @@
 #include "base/Game.h"
 #include "event/Event.h"
 #include "event/Input.h"
-#include "core/Defines.h"
 #include "ui/Overlay.h"
 #include "debug/Console.h"
 #include "graphics/render/RenderManager.h"
 #include "graphics/render/SceneRenderer.h"
 #include "graphics/render/UIRenderer.h"
+#include <core/Defines.h>
 #include <lodepng/lodepng.h>
 #include <SDL.h>
 

@@ -1,6 +1,6 @@
 #include "Settings.h"
 #include "Game.h"
-#include "core/Utils.h"
+#include <core/Utils.h>
 #include <fstream>
 
 Settings::Settings(Object* parent) : SingleObject(parent) {

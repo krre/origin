@@ -1,7 +1,6 @@
 #include "DebugEnvironment.h"
 #include "base/Game.h"
 #include "base/Defines.h"
-#include "core/Utils.h"
 #include "screen/MenuScreen.h"
 #include "screen/SettingsScreen.h"
 #include "screen/GameScreen.h"
@@ -9,6 +8,7 @@
 #include "screen/LoadWorldScreen.h"
 #include "screen/WaitScreen.h"
 #include "base/Window.h"
+#include <core/Utils.h>
 
 DebugEnvironment::DebugEnvironment(Object* parent) : SingleObject(parent) {
 #ifdef DEVELOP_MODE

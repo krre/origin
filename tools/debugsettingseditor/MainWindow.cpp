@@ -1,6 +1,6 @@
 #include "MainWindow.h"
+#include "Application.h"
 #include "ui_MainWindow.h"
-#include "Defines.h"
 #include "GeneralTab.h"
 #include "VulkanTab.h"
 #include <QtWidgets>
@@ -13,8 +13,7 @@ MainWindow::MainWindow(QWidget* parent) :
     ui->tabWidget->addTab(new GeneralTab, tr("General"));
     ui->tabWidget->addTab(new VulkanTab, tr("Vulkan"));
 
-    settingsPath = QApplication::applicationDirPath() + "/" + APP_SETTINGS_NAME;
-    debugSettingsPath = QCoreApplication::applicationDirPath() + "/" + DEBUG_SETTINGS_NAME;
+    debugSettingsPath = QCoreApplication::applicationDirPath() + "/debug.json";
 
     readSettings();
     readDebugSettings();
@@ -37,13 +36,15 @@ void MainWindow::closeEvent(QCloseEvent* event) {
 }
 
 void MainWindow::on_actionAbout_triggered() {
-    QMessageBox::about(this, tr("About %1").arg(APP_NAME),
+    QMessageBox::about(this, tr("About %1").arg(Application::Title),
         tr("<h3>%1 %2</h3> \
+           Debug settings editor for Origin game<br><br> \
            Based on Qt %3<br> \
-           Build on %4<br><br> \
-           <a href=%5>%5</a><br><br> \
-           Copyright © 2017-2024, Vladimir Zarypov").
-           arg(APP_NAME).arg(APP_VERSION_STR).arg(QT_VERSION_STR).arg(__DATE__).arg(APP_URL));
+           Build on %4 %5<br><br> \
+           <a href=%6>%6</a><br><br>Copyright © %7, %8").
+           arg(Application::Title, Application::Version, QT_VERSION_STR,
+            Application::BuildDate, Application::BuildTime, Application::Url,
+            Application::Years, Application::Author));
 }
 
 void MainWindow::on_actionReload_triggered() {
@@ -51,11 +52,11 @@ void MainWindow::on_actionReload_triggered() {
 }
 
 void MainWindow::readSettings() {
-    QSettings settings(settingsPath, QSettings::IniFormat);
+    QSettings settings;
     settings.beginGroup("MainWindow");
 
     if (!restoreGeometry(settings.value("geometry").toByteArray())) {
-        resize(WINDOW_WIDTH, WINDOW_HEIGHT);
+        resize(1200, 800);
         const QRect availableGeometry = QGuiApplication::screens().constFirst()->availableGeometry();
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
     }
@@ -65,7 +66,7 @@ void MainWindow::readSettings() {
 }
 
 void MainWindow::writeSettings() {
-    QSettings settings(settingsPath, QSettings::IniFormat);
+    QSettings settings;
     settings.beginGroup("MainWindow");
     settings.setValue("geometry", saveGeometry());
     settings.setValue("tab", ui->tabWidget->currentIndex());

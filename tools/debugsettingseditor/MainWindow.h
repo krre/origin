@@ -31,6 +31,5 @@ private:
     void writeDebugSettings();
 
     Ui::MainWindow* ui;
-    QString settingsPath;
     QString debugSettingsPath;
 };

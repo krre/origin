@@ -15,14 +15,15 @@ win32:LIBS += -L$$(VULKAN_SDK)/lib32 -lvulkan-1
 LIBS += -L$$(ORIGIN_HOME) -lvulkan-o
 
 SOURCES += \
+    Application.cpp \
     main.cpp \
     MainWindow.cpp \
     GeneralTab.cpp \
     VulkanTab.cpp
 
 HEADERS += \
+    Application.h \
     MainWindow.h \
-    Defines.h \
     GeneralTab.h \
     VulkanTab.h \
     AbstractTab.h

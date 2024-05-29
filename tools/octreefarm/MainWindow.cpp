@@ -6,7 +6,6 @@
 #include "Properties.h"
 #include "Command.h"
 #include "Options.h"
-#include "Settings.h"
 #include <QtWidgets>
 
 const int maxRecentFiles = 10;
@@ -170,7 +169,7 @@ void MainWindow::onSelectionChanged(bool selected) {
 }
 
 void MainWindow::readSettings() {
-    Settings settings;
+    QSettings settings;
     settings.beginGroup("MainWindow");
 
     if (!restoreGeometry(settings.value("geometry").toByteArray())) {
@@ -206,7 +205,7 @@ void MainWindow::readSettings() {
 }
 
 void MainWindow::writeSettings() {
-    Settings settings;
+    QSettings settings;
     settings.beginGroup("MainWindow");
     settings.setValue("geometry", saveGeometry());
     settings.setValue("splitter", ui->splitter->saveState());

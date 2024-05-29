@@ -22,7 +22,6 @@ SOURCES += main.cpp\
     Properties.cpp \
     Options.cpp \
     RenderEngine.cpp \
-    Settings.cpp \
     OctreeEditor.cpp
 
 HEADERS  += \
@@ -36,7 +35,6 @@ HEADERS  += \
     Properties.h \
     Options.h \
     RenderEngine.h \
-    Settings.h \
     OctreeEditor.h
 
 FORMS += \

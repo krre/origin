@@ -6,9 +6,9 @@
 class Game : public Core::Object {
 
 public:
-    static constexpr auto Name = NAME_STRING;
-    static constexpr auto Status = STATUS_STRING;
-    static constexpr auto Version = VERSION_STRING;
+    static constexpr auto Name = "Origin";
+    static constexpr auto Status = STATUS;
+    static constexpr auto Version = VERSION;
     static constexpr auto Url = "https://github.com/krre/origin";
     static constexpr auto SettingsName = "settings.json";
 

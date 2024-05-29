@@ -1,7 +1,6 @@
 #pragma once
-#define NAME_STRING "@NAME_STRING@"
-#define VERSION_STRING "@VERSION_STRING@"
-#define STATUS_STRING "@STATUS_STRING@"
+#define VERSION "@CMAKE_PROJECT_VERSION@"
+#define STATUS "@STATUS@"
 
 #cmakedefine WIN32
 #cmakedefine UNIX

@@ -1,14 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(origin)
+project(origin VERSION 0.1.0)
 
-set(VERSION_MAJOR 0)
-set(VERSION_MINOR 1)
-set(VERSION_PATCH 0)
-
-set(NAME_STRING ${PROJECT_NAME})
-set(VERSION_STRING "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
-set(STATUS_STRING "Preview Alpha")
+set(STATUS "Preview Alpha")
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

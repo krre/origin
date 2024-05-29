@@ -24,7 +24,7 @@ bool Game::running = false;
 
 Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
     for (int i = 0; i < argc; i++) {
-        argvs.push_back(argv[i]);
+        args.push_back(argv[i]);
     }
 
     init();

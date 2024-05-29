@@ -21,11 +21,10 @@ public:
     void run();
     static void quit();
     static bool isRunning();
-    static std::vector<std::string>& getArgv();
 
 private:
     void init();
 
-    std::vector<std::string> argvs;
+    std::vector<std::string> args;
     static bool running;
 };

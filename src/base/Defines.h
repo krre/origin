@@ -1,5 +1,5 @@
 #pragma once
-#include <Origin.h>
+#include <config.h>
 
 #ifndef NDEBUG
     #define DEVELOP_MODE

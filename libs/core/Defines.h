@@ -1,5 +1,5 @@
 #pragma once
-#include <Origin.h>
+#include <config.h>
 
 #ifdef WIN32
     #define OS_WIN

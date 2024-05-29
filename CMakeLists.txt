@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(Origin)
+project(origin)
 
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
@@ -14,7 +14,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-configure_file(${PROJECT_NAME}.h.in ${PROJECT_NAME}.h @ONLY)
+configure_file(config.h.in config.h @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})

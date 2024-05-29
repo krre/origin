@@ -13,6 +13,7 @@ win32:LIBS += -L$$(VULKAN_SDK)/lib32 -lvulkan-1
 LIBS += -L$$(ORIGIN_HOME) -lcore -lvulkan-o -loctree
 
 SOURCES += main.cpp\
+    Application.cpp \
     Camera.cpp \
     Viewport.cpp \
     Source.cpp \
@@ -25,10 +26,10 @@ SOURCES += main.cpp\
     OctreeEditor.cpp
 
 HEADERS  += \
+    Application.h \
     Camera.h \
     Viewport.h \
     Source.h \
-    Defines.h \
     Command.h \
     Origin.h \
     MainWindow.h \
@@ -36,8 +37,7 @@ HEADERS  += \
     Options.h \
     RenderEngine.h \
     Settings.h \
-    OctreeEditor.h \
-    Constants.h
+    OctreeEditor.h
 
 FORMS += \
     MainWindow.ui \

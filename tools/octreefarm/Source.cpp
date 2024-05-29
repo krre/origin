@@ -1,6 +1,5 @@
 #include "Source.h"
 #include "OctreeEditor.h"
-#include "Defines.h"
 #include <QtCore>
 #include <bitset>
 
@@ -29,7 +28,7 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
 //    std::shared_ptr<std::vector<uint32_t>> dataStd = Origin::Utils::jsonToBinary(root);
 //    QVector<uint32_t>* data = new QVector<uint32_t>(QVector<uint32_t>::fromStdVector(*dataStd));
 
-#if BINARY_PRINT == 1
+#if 0
     for (auto value: *data) {
         qDebug() << QString::fromStdString(Utils::uintToBinaryString(value)) << value;
     }

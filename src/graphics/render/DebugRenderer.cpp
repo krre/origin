@@ -10,7 +10,7 @@
 #include "vulkan/GpuBuffer.h"
 #include "vulkan/api/pipeline/GraphicsPipeline.h"
 #include "resource/ResourceManager.h"
-#include "octree/Octree.h"
+#include <octree/Octree.h>
 
 static DebugRenderer* instance = nullptr;
 

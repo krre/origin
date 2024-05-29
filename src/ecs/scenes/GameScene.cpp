@@ -1,7 +1,7 @@
 #include "GameScene.h"
 #include "ecs/Entity.h"
-#include "octree/Octree.h"
 #include "ecs/components/Components.h"
+#include <octree/Octree.h>
 
 GameScene::GameScene(Object* parent) : Scene(parent) {
     Entity* entity = new Entity;

@@ -1,5 +1,5 @@
 #pragma once
-#include "octree/Octree.h"
+#include <octree/Octree.h>
 
 class Cone : public Octree::Octree {
 

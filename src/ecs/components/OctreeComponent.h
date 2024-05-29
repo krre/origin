@@ -1,6 +1,6 @@
 #pragma once
 #include "ecs/Component.h"
-#include "octree/Octree.h"
+#include <octree/Octree.h>
 
 class OctreeComponent : public Component {
 

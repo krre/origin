@@ -1,6 +1,6 @@
 #pragma once
-#include <core/SingleObject.h>
 #include "resource/Resource.h"
+#include <core/SingleObject.h>
 #include <map>
 
 #undef HAVE_STDINT_H

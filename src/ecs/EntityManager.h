@@ -1,7 +1,7 @@
 #pragma once
-#include <core/SingleObject.h>
 #include "System.h"
 #include "Component.h"
+#include <core/SingleObject.h>
 #include <vector>
 #include <map>
 

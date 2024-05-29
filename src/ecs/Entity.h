@@ -1,6 +1,6 @@
 #pragma once
-#include <core/Object.h>
 #include "Component.h"
+#include <core/Object.h>
 #include <map>
 
 class TransformComponent;

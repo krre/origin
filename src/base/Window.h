@@ -1,6 +1,6 @@
 #pragma once
-#include <core/SingleObject.h>
 #include "graphics/Color.h"
+#include <core/SingleObject.h>
 #include <vector>
 #include <functional>
 

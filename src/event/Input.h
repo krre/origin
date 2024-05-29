@@ -1,7 +1,7 @@
 #pragma once
 #include <core/SingleObject.h>
-#include <unordered_set>
 #include <SDL_keycode.h>
+#include <unordered_set>
 #include <glm/glm.hpp>
 
 class Input : public Core::SingleObject<Input> {

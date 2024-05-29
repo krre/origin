@@ -1,6 +1,6 @@
 #pragma once
-#include <core/Object.h>
 #include "Substance.h"
+#include <core/Object.h>
 #include <json/json.hpp>
 #include <glm/glm.hpp>
 #include <type_traits>

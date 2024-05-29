@@ -26,7 +26,6 @@ class Viewport : public QWindow {
     };
 
 public:
-
     struct LineVertex {
         glm::vec4 position;
         glm::vec4 color;
@@ -58,7 +57,6 @@ private slots:
     void onCameraStateChanged();
 
 private:
-
     struct AABB {
         glm::vec3 min;
         glm::vec3 max;

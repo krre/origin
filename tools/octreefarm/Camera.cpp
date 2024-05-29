@@ -1,10 +1,9 @@
 #include "Camera.h"
 #include <QtCore>
-#include <iostream>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/euler_angles.hpp>
 
-Camera::Camera(QObject* parent) : QObject(parent) {
+Camera::Camera() {
     reset();
 }
 

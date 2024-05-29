@@ -2,7 +2,7 @@
 #include "vulkan/api/command/CommandBuffer.h"
 #include "vulkan/api/Framebuffer.h"
 #include "vulkan/api/RenderPass.h"
-#include "vulkan/api/surface/Surface.h"
+// #include "vulkan/api/surface/Surface.h"
 #include "vulkan/ShaderProgram.h"
 #include "vulkan/GpuBuffer.h"
 #include "vulkan/api/pipeline/GraphicsPipeline.h"
@@ -13,8 +13,7 @@
 #include <QApplication>
 #include <QDebug>
 
-RenderEngine::RenderEngine(void* platformHandle, void* platformWindow, QObject* parent) :
-    QObject(parent),
+RenderEngine::RenderEngine(void* platformHandle, void* platformWindow, QObject* parent) : QObject(parent),
     Vulkan::Renderer(platformHandle, platformWindow) {
 }
 

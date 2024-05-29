@@ -5,7 +5,7 @@
 class Camera : public QObject {
     Q_OBJECT
 public:
-    explicit Camera(QObject* parent = 0);
+    Camera();
 
     glm::mat4 getProjective() const { return projective; }
     glm::mat4 getView() const { return view; }

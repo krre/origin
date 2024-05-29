@@ -27,9 +27,8 @@ struct Clipboard {
 
 class OctreeEditor : public QObject {
     Q_OBJECT
-
 public:
-    explicit OctreeEditor(QObject* parent = 0);
+    OctreeEditor(QObject* parent = nullptr);
     ~OctreeEditor();
 
     uint32_t* data() { return storage->data(); }

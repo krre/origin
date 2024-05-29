@@ -13,9 +13,7 @@ const int maxRecentFiles = 10;
 const int separatorAndMenuCount = 2;
 bool MainWindow::closing = false;
 
-MainWindow::MainWindow(QWidget* parent) :
-        QMainWindow(parent),
-        ui(new Ui::MainWindow) {
+MainWindow::MainWindow() : ui(new Ui::MainWindow) {
     setWindowTitle(Application::Name);
     ui->setupUi(this);
 
@@ -146,7 +144,7 @@ void MainWindow::on_actionReset_triggered() {
 }
 
 void MainWindow::on_actionOptions_triggered() {
-    Options options(this);
+    Options options;
     options.exec();
 }
 

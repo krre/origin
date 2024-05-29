@@ -12,9 +12,8 @@ class Viewport;
 
 class Properties : public QWidget {
     Q_OBJECT
-
 public:
-    explicit Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent = 0);
+    Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent = nullptr);
     ~Properties();
     void setNodeLevel(int level);
     void setNodeIndex(int index);

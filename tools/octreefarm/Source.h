@@ -10,9 +10,8 @@ struct Node;
 
 class Source : public QObject {
     Q_OBJECT
-
 public:
-    explicit Source(QObject* parent = 0);
+    Source();
     void create(const QString& string = QString());
     QString serialize();
     QSharedPointer<QVector<uint32_t>> binary();

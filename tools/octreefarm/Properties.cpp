@@ -5,8 +5,7 @@
 #include "ui_Properties.h"
 #include <QtWidgets>
 
-Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent) :
-    QWidget(parent),
+Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent) : QWidget(parent),
     ui(new Ui::Properties),
     octree(octree),
     viewport(viewport),

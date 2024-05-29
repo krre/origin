@@ -5,7 +5,7 @@
 
 const uint32_t DEFAULT_COLOR = 0xFF4681FF;
 
-Source::Source(QObject* parent) : QObject(parent) {
+Source::Source() {
 
 }
 

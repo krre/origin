@@ -1,13 +1,12 @@
 #include "Viewport.h"
-#include <QtWidgets>
 #include "RenderEngine.h"
 #include "vulkan/GpuBuffer.h"
 #include "octree/Octree.h"
 #include "MainWindow.h"
 #define GLM_ENABLE_EXPERIMENTAL
+#include <QtWidgets>
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
-#include <iostream>
 
 Viewport::Viewport(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
     setFlag(Qt::FramelessWindowHint);

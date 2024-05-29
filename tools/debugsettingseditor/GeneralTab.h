@@ -13,7 +13,7 @@ public:
 
     void setDebugSettings(const QJsonObject& settings) override;
     QJsonObject debugSettings() const override;
-    QString name() const;
+    QString name() const override;
 
 private slots:
     void on_comboBoxScreen_currentIndexChanged(int currentIndex);

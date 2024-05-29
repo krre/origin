@@ -8,8 +8,7 @@
 #include <QJsonArray>
 #include <QDebug>
 
-VulkanTab::VulkanTab() :
-        ui(new Ui::VulkanTab) {
+VulkanTab::VulkanTab() : ui(new Ui::VulkanTab) {
     ui->setupUi(this);
 
     connect(ui->groupBoxDebugReport, &QGroupBox::toggled, this, &VulkanTab::flush);

@@ -5,9 +5,7 @@
 #include "VulkanTab.h"
 #include <QtWidgets>
 
-MainWindow::MainWindow(QWidget* parent) :
-        QMainWindow(parent),
-    ui(new Ui::MainWindow) {
+MainWindow::MainWindow() : ui(new Ui::MainWindow) {
     ui->setupUi(this);
 
     ui->tabWidget->addTab(new GeneralTab, tr("General"));

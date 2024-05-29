@@ -10,6 +10,7 @@ class GeneralTab : public AbstractTab {
 public:
     explicit GeneralTab();
     ~GeneralTab();
+
     void setDebugSettings(const QJsonObject& settings) override;
     QJsonObject debugSettings() const override;
     QString name() const;

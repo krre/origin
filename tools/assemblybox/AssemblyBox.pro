@@ -4,13 +4,11 @@ TARGET = assemblybox
 TEMPLATE = app
 DESTDIR = $$(ORIGIN_HOME)
 
-SOURCES += main.cpp\
+SOURCES += \
+    main.cpp \
     Application.cpp \
     MainWindow.cpp
 
 HEADERS += \
     Application.h \
     MainWindow.h
-
-FORMS += \
-    MainWindow.ui

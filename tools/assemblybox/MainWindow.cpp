@@ -1,16 +1,11 @@
 #include "MainWindow.h"
 #include "Application.h"
-#include "ui_MainWindow.h"
 #include <QtWidgets>
 
-MainWindow::MainWindow() : ui(new Ui::MainWindow) {
+MainWindow::MainWindow() {
     setWindowTitle(Application::Name);
-    ui->setupUi(this);
+    createActions();
     readSettings();
-}
-
-MainWindow::~MainWindow() {
-    delete ui;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
@@ -18,7 +13,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     QMainWindow::closeEvent(event);
 }
 
-void MainWindow::on_actionAbout_triggered() {
+void MainWindow::about() {
     QMessageBox::about(this, tr("About %1").arg(Application::Name),
         tr("<h3>%1 %2</h3> \
            Universe editor for Origin game<br><br> \
@@ -28,6 +23,16 @@ void MainWindow::on_actionAbout_triggered() {
            arg(Application::Name, Application::Version, QT_VERSION_STR,
             Application::BuildDate, Application::BuildTime, Application::Url,
             Application::Years, Application::Author));
+}
+
+void MainWindow::createActions() {
+    // File
+    QMenu* fileMenu = menuBar()->addMenu(tr("File"));
+    fileMenu->addAction(tr("Exit"), Qt::CTRL | Qt::Key_Q, this, &QMainWindow::close);
+
+    // Help
+    QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
+    helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);
 }
 
 void MainWindow::readSettings() {

@@ -1,5 +1,5 @@
 #pragma once
-// Fake Origin.h for compability with Origin classes
+// Fake config.h for compability with Origin classes
 #include <QtGlobal>
 #ifdef Q_OS_UNIX
     #define UNIX

@@ -30,12 +30,12 @@ HEADERS  += \
     Viewport.h \
     Source.h \
     Command.h \
-    Origin.h \
     MainWindow.h \
     Properties.h \
     Options.h \
     RenderEngine.h \
-    OctreeEditor.h
+    OctreeEditor.h \
+    config.h
 
 FORMS += \
     MainWindow.ui \

@@ -1,6 +1,6 @@
 QT += widgets
 CONFIG += c++20
-TARGET = DebugSettingsEditor
+TARGET = dse
 TEMPLATE = app
 DESTDIR = $$(ORIGIN_HOME)
 

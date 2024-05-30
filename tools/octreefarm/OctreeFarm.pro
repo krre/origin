@@ -1,6 +1,6 @@
 QT += widgets
 CONFIG += c++20
-TARGET = OctreeFarm
+TARGET = octreefarm
 TEMPLATE = app
 DESTDIR = $$(ORIGIN_HOME)
 

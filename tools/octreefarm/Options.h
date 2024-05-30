@@ -1,16 +1,13 @@
 #pragma once
 #include <QDialog>
 
-namespace Ui {
-    class Options;
-}
+class QDialogButtonBox;
 
 class Options : public QDialog {
     Q_OBJECT
 public:
     Options();
-    ~Options();
 
 private:
-    Ui::Options* ui;
+    QDialogButtonBox* m_buttonBox = nullptr;
 };

@@ -39,8 +39,7 @@ HEADERS  += \
 
 FORMS += \
     MainWindow.ui \
-    Properties.ui \
-    Options.ui
+    Properties.ui
 
 DISTFILES += \
     ../../data/shader/octreefarm/FrontLightOctree.frag \

@@ -1,6 +1,6 @@
 QT += widgets
 CONFIG += c++20
-TARGET = AssemblyBox
+TARGET = assemblybox
 TEMPLATE = app
 DESTDIR = $$(ORIGIN_HOME)
 

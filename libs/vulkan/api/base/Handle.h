@@ -27,17 +27,14 @@ public:
     Handle() = default;
     Handle(T handle) : handle(handle) {
         assert(handle != VK_NULL_HANDLE);
-        owner = false;
     }
     bool isValid() const { return handle != VK_NULL_HANDLE; }
-    bool isOwner() const { return owner; }
     T getHandle() const { return handle; }
     virtual void create() = 0;
     virtual void destroy() = 0;
 
 protected:
     T handle = VK_NULL_HANDLE;
-    bool owner = true;
 };
 
 } // Vulkan

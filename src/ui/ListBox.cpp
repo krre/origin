@@ -36,7 +36,7 @@ ListBox::~ListBox() {
 }
 
 void ListBox::addLine(const std::string& text) {
-    RowDelegate* listLine = new RowDelegate(text, layout->getChildren().size(), this);
+    RowDelegate* listLine = new RowDelegate(text, layout->children().size(), this);
     layout->appendChild(listLine);
 }
 
@@ -48,7 +48,7 @@ void ListBox::removeLine(int index) {
 void ListBox::setCurrentIndex(int currentIndex) {
     this->m_currentIndex = currentIndex;
 
-    for (Object* child : layout->getChildren()) {
+    for (Object* child : layout->children()) {
         RowDelegate* listLine = static_cast<RowDelegate*>(child);
         if (listLine->index() == currentIndex) {
             listLine->setColor(LINE_SELECTED_COLOR);

@@ -10,18 +10,18 @@ public:
     Object(Object* parent = nullptr);
     virtual ~Object();
 
-    void setName(const std::string& name) { this->name = name; }
-    const std::string& getName() const { return name; }
+    void setName(const std::string& name) { m_name = name; }
+    const std::string& name() const { return m_name; }
 
     void setParent(Object* parent);
-    Object* getParent() const { return parent; }
+    Object* parent() const { return m_parent; }
 
     void appendChild(Object* child);
     void insertChild(Object* child, int index);
     void removeChild(Object* child);
     void removeChild(int index);
     void removeChildren();
-    const std::vector<Object*>& getChildren() const { return children; }
+    const std::vector<Object*>& children() const { return m_children; }
 
 protected:
     virtual void notifyAddChild(Object* child [[maybe_unused]]) {}
@@ -31,9 +31,9 @@ private:
     friend class Control;
     void polishAppendChild(Object* child);
 
-    std::string name;
-    Object* parent = nullptr;
-    std::vector<Object*> children;
+    std::string m_name;
+    Object* m_parent = nullptr;
+    std::vector<Object*> m_children;
 };
 
 }

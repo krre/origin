@@ -54,22 +54,22 @@ void UIManager::traverseOverLeaf(Object* object, const SDL_MouseButtonEvent& eve
             mouseX <= (control->m_absolutePosition.x + width) &&
             mouseY >= control->m_absolutePosition.y &&
             mouseY <= (control->m_absolutePosition.y + height)) {
-        if (control->getChildren().size()) {
-            for (Object* child : control->getChildren()) {
+        if (control->children().size()) {
+            for (Object* child : control->children()) {
                 traverseOverLeaf(child, event);
             }
         } else {
             Control* parent = control;
             while (parent) {
                 parent->mouseButtonAction(event);
-                parent = static_cast<Control*>(parent->getParent());
+                parent = static_cast<Control*>(parent->parent());
             }
         }
     } else {
-        Control* parent = static_cast<Control*>(control->getParent());
+        Control* parent = static_cast<Control*>(control->parent());
         while (parent) {
             parent->mouseButtonAction(event);
-            parent = dynamic_cast<Control*>(parent->getParent());
+            parent = dynamic_cast<Control*>(parent->parent());
         }
     }
 }

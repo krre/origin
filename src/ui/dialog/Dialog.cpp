@@ -11,9 +11,9 @@ void Dialog::close() {
 }
 
 void Dialog::resizeToContent() {
-    if (!getChildren().size()) return;
+    if (!children().size()) return;
 
-    Control* child = static_cast<Control*>(getChildren().at(0));
+    Control* child = static_cast<Control*>(children().at(0));
     int width = child->contentWidth() + padding * 2;
     int height = child->contentHeight() + padding * 2;
     resize(width, height);

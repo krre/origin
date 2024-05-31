@@ -18,7 +18,7 @@ void Control::setPosition(const Core::Pos2& position) {
 }
 
 void Control::updatePosition() {
-    Control* parent = static_cast<Control*>(getParent());
+    Control* parent = static_cast<Control*>(Object::parent());
 
     if (parent) {
         m_absolutePosition = parent->absolutePosition() + m_position;
@@ -26,7 +26,7 @@ void Control::updatePosition() {
         m_absolutePosition = m_position;
     }
 
-    for (const auto child : getChildren()) {
+    for (const auto child : children()) {
         Control* control = dynamic_cast<Control*>(child);
         if (control) {
             control->updatePosition();
@@ -55,7 +55,7 @@ void Control::move(int x, int y) {
 void Control::markDirty() {
     m_dirty = true;
 
-    Control* parent = dynamic_cast<Control*>(getParent());
+    Control* parent = dynamic_cast<Control*>(Object::parent());
     if (parent) {
         parent->markDirty();
     }
@@ -83,7 +83,7 @@ void Control::update(float dt) {
 
     updateImpl(dt);
 
-    for (const auto child : getChildren()) {
+    for (const auto child : children()) {
         Control* control = dynamic_cast<Control*>(child);
         if (control) {
             control->update(dt);
@@ -94,7 +94,7 @@ void Control::update(float dt) {
 void Control::draw() {
     drawImpl();
 
-    for (Object* child : getChildren()) {
+    for (Object* child : children()) {
         Control* control = dynamic_cast<Control*>(child);
         if (control && control->visible()) {
             control->draw();

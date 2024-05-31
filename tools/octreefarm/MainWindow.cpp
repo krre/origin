@@ -209,7 +209,7 @@ void MainWindow::writeSettings() {
     settings.beginGroup("MainWindow");
     settings.setValue("geometry", saveGeometry());
     settings.setValue("splitter", ui->splitter->saveState());
-    settings.setValue("shadeless", properties->getShadeless());
+    settings.setValue("shadeless", properties->shadeless());
     settings.endGroup();
 
     settings.setValue("Path/currentFile", currentFile);
@@ -223,7 +223,7 @@ void MainWindow::writeSettings() {
 }
 
 bool MainWindow::maybeSave() {
-    if (!octreeEditor->getIsModified()) {
+    if (!octreeEditor->isModified()) {
         return true;
     }
 
@@ -328,7 +328,7 @@ QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
 
 void MainWindow::setCurrentFile(const QString& fileName) {
     currentFile = fileName;
-    octreeEditor->setIsModified(false);
+    octreeEditor->setModified(false);
     setWindowModified(false);
 
     QString shownName = QFileInfo(currentFile).fileName();

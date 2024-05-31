@@ -20,7 +20,7 @@ public:
     void setNodeColor(const QColor& color);
 
     void setShadeless(bool shadeless);
-    bool getShadeless() const;
+    bool shadeless() const;
 
 private slots:
     void changeNodeColor();

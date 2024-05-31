@@ -14,31 +14,31 @@ OctreeEditor::~OctreeEditor() {
 }
 
 void OctreeEditor::createNew() {
-    octree.reset(new Octree::Octree);
+    m_octree.reset(new Octree::Octree);
     dataChanged();
 }
 
 void OctreeEditor::split(const Octree::Octree::Path& path) {
-    octree->split(path);
+    m_octree->split(path);
     dataChanged();
 }
 
 bool OctreeEditor::save(const QString& fileName) {
-    octree->save(fileName.toStdString());
+    m_octree->save(fileName.toStdString());
     return true;
 }
 
 bool OctreeEditor::load(const QString& fileName) {
-    octree->load(fileName.toStdString());
+    m_octree->load(fileName.toStdString());
     dataChanged();
 
     return true;
 }
 
-void OctreeEditor::setIsModified(bool isModified) {
-    if (this->isModified == isModified) return;
-    this->isModified = isModified;
-    emit isModifiedChanged(isModified);
+void OctreeEditor::setModified(bool modified) {
+    if (m_modified == modified) return;
+    m_modified = modified;
+    emit isModifiedChanged(modified);
 }
 
 int OctreeEditor::colorAttachOffset(int parent, int childIndex) {
@@ -51,10 +51,10 @@ int OctreeEditor::colorAttachOffset(int parent, int childIndex) {
 }
 
 void OctreeEditor::confirmUpdate() {
-    selection.clear();
+    m_selection.clear();
     nodeDeselected();
-    storage = source->binary();
-    setIsModified(true);
+    storage = m_source->binary();
+    setModified(true);
     dataChanged();
 }
 
@@ -69,8 +69,8 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
     QColor color;
 
     int index = -1;
-    for (int i = 0; i < selection.count(); i++) {
-        if (selection.at(i)->parent == parent && selection.at(i)->childIndex == childIndex) {
+    for (int i = 0; i < m_selection.count(); i++) {
+        if (m_selection.at(i)->parent == parent && m_selection.at(i)->childIndex == childIndex) {
             index = i;
             break;
         }
@@ -78,21 +78,21 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
 
     if (append) {
         if (index >= 0) { // Remove selection
-            (*storage)[offset] = selection.at(index)->color;
-            selection.remove(index);
+            (*storage)[offset] = m_selection.at(index)->color;
+            m_selection.remove(index);
             nodeDeselected();
         } else { // Append selection
             node->color = (*storage)[offset];
             (*storage)[offset] = selectionColor;
-            selection.append(node);
+            m_selection.append(node);
             color.setRgba(node->color);
             nodeSelected(node->scale, childIndex, color);
         }
-    } else if (index == -1 || selection.count() > 1) {
+    } else if (index == -1 || m_selection.count() > 1) {
         deselect();
         node->color = (*storage)[offset];
         (*storage)[offset] = selectionColor;
-        selection.append(node);
+        m_selection.append(node);
         color.setRgba(node->color);
         nodeSelected(node->scale, childIndex, color);
     }
@@ -101,21 +101,21 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
 }
 
 void OctreeEditor::deselect() {
-    if (selection.count()) {
-        for (auto node: selection) {
+    if (m_selection.count()) {
+        for (auto node: m_selection) {
             int address = colorAttachOffset(node->parent, node->childIndex);
             (*storage)[address] = node->color;
         }
 
-        selection.clear();
+        m_selection.clear();
         nodeDeselected();
         dataChanged();
     }
 }
 
 void OctreeEditor::copy() {
-    if (selection.count()) {
-        clipboard.color = selection.last().data()->color;
+    if (m_selection.count()) {
+        clipboard.color = m_selection.last().data()->color;
     }
 }
 

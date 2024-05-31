@@ -34,8 +34,8 @@ public:
     uint32_t* data() { return storage->data(); }
     int count() { return storage->size(); }
 
-    glm::mat4 getOctreeToWorld() const { return octreeToWorld; }
-    glm::mat4 getWorldToOctree() const { return worldToOctree; }
+    glm::mat4 octreeToWorld() const { return m_octreeToWorld; }
+    glm::mat4 worldToOctree() const { return m_worldToOctree; }
 
     void createNew();
     void split(const Octree::Octree::Path& path = Octree::Octree::Path());
@@ -43,14 +43,14 @@ public:
     bool load(const QString& fileName);
     void confirmUpdate();
 
-    void setIsModified(bool isModified);
-    bool getIsModified() const { return isModified; }
+    void setModified(bool modified);
+    bool isModified() const { return m_modified; }
 
     void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append = false);
 
-    QVector<QSharedPointer<Node>> getSelection() { return selection; }
-    Source* getSource() { return source; }
-    Octree::Octree* getOctree() const { return octree.data(); }
+    QVector<QSharedPointer<Node>> selection() { return m_selection; }
+    Source* source() { return m_source; }
+    Octree::Octree* octree() const { return m_octree.data(); }
 
 public slots:
     void deselect();
@@ -66,13 +66,13 @@ signals:
 private:
     int colorAttachOffset(int parent, int childIndex);
 
-    QScopedPointer<Octree::Octree> octree;
-    Source* source;
+    QScopedPointer<Octree::Octree> m_octree;
+    Source* m_source;
     QSharedPointer<QVector<uint32_t>> storage;
-    QVector<QSharedPointer<Node>> selection;
+    QVector<QSharedPointer<Node>> m_selection;
     uint32_t selectionColor = 0xFF909090;
-    glm::mat4 octreeToWorld = glm::mat4(1.0);
-    glm::mat4 worldToOctree = glm::mat4(1.0);
-    bool isModified = false;
+    glm::mat4 m_octreeToWorld = glm::mat4(1.0);
+    glm::mat4 m_worldToOctree = glm::mat4(1.0);
+    bool m_modified = false;
     Clipboard clipboard;
 };

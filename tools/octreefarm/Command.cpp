@@ -3,13 +3,13 @@
 #include <QtCore>
 
 DeleteCommand::DeleteCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
-    nodes = octreeEditor->getSelection();
+    nodes = octreeEditor->selection();
 }
 
 void DeleteCommand::undo() {
     bool result = false;
     for (auto node: nodes) {
-        result = octreeEditor->getSource()->addNode(*node.data());
+        result = octreeEditor->source()->addNode(*node.data());
     }
 
     if (result) {
@@ -20,7 +20,7 @@ void DeleteCommand::undo() {
 }
 
 void DeleteCommand::redo() {
-    if (octreeEditor->getSource()->deleteNode(nodes)) {
+    if (octreeEditor->source()->deleteNode(nodes)) {
         octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure delete node";
@@ -28,11 +28,11 @@ void DeleteCommand::redo() {
 }
 
 AddCommand::AddCommand(OctreeEditor* octreeEditor, bool back) : octreeEditor(octreeEditor), back(back) {
-    nodes = octreeEditor->getSelection();
+    nodes = octreeEditor->selection();
 }
 
 void AddCommand::undo() {
-    if (octreeEditor->getSource()->deleteNode(node)) {
+    if (octreeEditor->source()->deleteNode(node)) {
         octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure delete node";
@@ -40,7 +40,7 @@ void AddCommand::undo() {
 }
 
 void AddCommand::redo() {
-    if (octreeEditor->getSource()->addNode(nodes, back, node)) {
+    if (octreeEditor->source()->addNode(nodes, back, node)) {
         octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure add node";
@@ -48,13 +48,13 @@ void AddCommand::redo() {
 }
 
 SplitCommand::SplitCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
-    nodes = octreeEditor->getSelection();
+    nodes = octreeEditor->selection();
 }
 
 void SplitCommand::undo() {
     bool result = false;
     for (auto node: nodes) {
-        result = octreeEditor->getSource()->mergeNode(*node.data());
+        result = octreeEditor->source()->mergeNode(*node.data());
     }
     if (result) {
         octreeEditor->confirmUpdate();
@@ -69,14 +69,14 @@ void SplitCommand::redo() {
 }
 
 MergeCommand::MergeCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
-    nodes = octreeEditor->getSelection();
+    nodes = octreeEditor->selection();
 }
 
 void MergeCommand::undo() {
-    octreeEditor->getSource()->createChildren(newNode);
+    octreeEditor->source()->createChildren(newNode);
     bool result = false;
     for (auto node: mergedNodes) {
-        result = octreeEditor->getSource()->addNode(node);
+        result = octreeEditor->source()->addNode(node);
     }
     if (result) {
         octreeEditor->confirmUpdate();
@@ -86,7 +86,7 @@ void MergeCommand::undo() {
 }
 
 void MergeCommand::redo() {
-    if (octreeEditor->getSource()->mergeNode(nodes, newNode, mergedNodes)) {
+    if (octreeEditor->source()->mergeNode(nodes, newNode, mergedNodes)) {
         octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure merge node";
@@ -94,13 +94,13 @@ void MergeCommand::redo() {
 }
 
 ChangeColorCommand::ChangeColorCommand(OctreeEditor* octreeEditor, QColor color) : octreeEditor(octreeEditor), color(color) {
-    nodes = octreeEditor->getSelection();
+    nodes = octreeEditor->selection();
 }
 
 void ChangeColorCommand::undo() {
     bool result = false;
     for (auto node: nodes) {
-        result = octreeEditor->getSource()->changeNodeColor(*node.data());
+        result = octreeEditor->source()->changeNodeColor(*node.data());
     }
     if (result) {
         octreeEditor->confirmUpdate();
@@ -110,7 +110,7 @@ void ChangeColorCommand::undo() {
 }
 
 void ChangeColorCommand::redo() {
-    if (octreeEditor->getSource()->changeNodeColor(nodes, color)) {
+    if (octreeEditor->source()->changeNodeColor(nodes, color)) {
         octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure change node color";

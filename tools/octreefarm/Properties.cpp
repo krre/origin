@@ -57,7 +57,7 @@ void Properties::setShadeless(bool shadeless) {
     ui->checkBoxShadeless->setChecked(shadeless);
 }
 
-bool Properties::getShadeless() const {
+bool Properties::shadeless() const {
     return ui->checkBoxShadeless->isChecked();
 }
 

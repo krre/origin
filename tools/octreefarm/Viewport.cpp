@@ -67,10 +67,10 @@ void Viewport::resizeEvent(QResizeEvent* event [[maybe_unused]]) {
 }
 
 void Viewport::onOctreeChanged() {
-    uint32_t size = octreeEditor->getOctree()->getVertices().size() * sizeof(Octree::Octree::Vertex);
+    uint32_t size = octreeEditor->octree()->vertices().size() * sizeof(Octree::Octree::Vertex);
     if (size) {
-        renderEngine->setVoxelVertextCount(octreeEditor->getOctree()->getVertices().size());
-        renderEngine->getVoxelVertexBuffer()->write(octreeEditor->getOctree()->getVertices().data(), size);
+        renderEngine->setVoxelVertextCount(octreeEditor->octree()->vertices().size());
+        renderEngine->voxelVertexBuffer()->write(octreeEditor->octree()->vertices().data(), size);
         renderEngine->markDirty();
         update();
     }
@@ -80,7 +80,7 @@ void Viewport::onCameraStateChanged() {
     if (!(width() || height())) return;
 
     glm::mat4 model = glm::mat4(1.0f);
-    glm::mat4 mvp = camera.getProjective() * camera.getView() * model;
+    glm::mat4 mvp = camera.projective() * camera.view() * model;
     renderEngine->updateMvp(mvp);
     update();
 }
@@ -141,7 +141,7 @@ void Viewport::addLineCube() {
 void Viewport::drawSelection() {
     renderEngine->setLineVertextCount(lines.size());
     if (lines.size()) {
-        renderEngine->getLineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
+        renderEngine->lineVertexBuffer()->write(lines.data(), sizeof(LineVertex) * lines.size());
     }
     renderEngine->markDirty();
     update();
@@ -155,15 +155,15 @@ void Viewport::pickOctree(const QPoint& pos) {
     float y = 1.0f - (2.0f * pos.y()) / height();
     glm::vec2 ndcRay = glm::vec2(x, y);
     glm::vec4 clipRay = glm::vec4(ndcRay, -1.0, 1.0);
-    glm::vec4 eyeRay = glm::inverse(camera.getProjective()) * clipRay;
+    glm::vec4 eyeRay = glm::inverse(camera.projective()) * clipRay;
     eyeRay = glm::vec4(eyeRay.x, eyeRay.y, -1.0, 0.0);
 
-    glm::vec3 worldRay = glm::vec3(glm::inverse(camera.getView()) * eyeRay);
+    glm::vec3 worldRay = glm::vec3(glm::inverse(camera.view()) * eyeRay);
     worldRay = glm::normalize(worldRay);
 
     lines.clear();
 
-    bool result = intersectRayAabb(camera.getPosition(), worldRay, { glm::vec3(-1.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0) });
+    bool result = intersectRayAabb(camera.position(), worldRay, { glm::vec3(-1.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0) });
     if (result) {
         addLineCube();
     }

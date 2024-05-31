@@ -16,17 +16,16 @@ public:
     RenderEngine(void* platformHandle, void* platformWindow, QObject* parent = nullptr);
     virtual ~RenderEngine();
 
-    Vulkan::GpuBuffer* getVoxelVertexBuffer() const { return voxelRenderPass.vertexBuffer.data(); }
+    Vulkan::GpuBuffer* voxelVertexBuffer() const { return voxelRenderPass.vertexBuffer.data(); }
     void setVoxelVertextCount(uint32_t vertexCount);
 
-    Vulkan::GpuBuffer* getLineVertexBuffer() const { return lineRenderPass.vertexBuffer.data(); }
+    Vulkan::GpuBuffer* lineVertexBuffer() const { return lineRenderPass.vertexBuffer.data(); }
     void setLineVertextCount(uint32_t vertexCount);
 
     void updateMvp(const glm::mat4& mvp);
     void updateShadeless(bool shadeless);
 
 private:
-
     struct RenderPass {
         QScopedPointer<Vulkan::GpuBuffer> vertexBuffer;
         QScopedPointer<Vulkan::GpuBuffer> uboBuffer;

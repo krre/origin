@@ -35,29 +35,29 @@ UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/BaseShape.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
-    bufferInfo.buffer = uboBuffer->getHandle();
+    bufferInfo.buffer = uboBuffer->handle();
     bufferInfo.range = VK_WHOLE_SIZE;
     shaderProgram->bindBuffer("ubo", bufferInfo);
 
     Font* font = ResourceManager::get()->load<Font>("fonts/inconsolatalgc.ttf");
     texture = font->texture();
     VkDescriptorImageInfo imageInfo = {};
-    imageInfo.sampler = sampler->getHandle();
-    imageInfo.imageView = texture->getImageView()->getHandle();
+    imageInfo.sampler = sampler->handle();
+    imageInfo.imageView = texture->imageView()->handle();
     imageInfo.imageLayout = VK_IMAGE_LAYOUT_GENERAL;
     shaderProgram->bindImage("samplerImage", imageInfo);
 
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
-    graphicsPipeline->setRenderPass(RenderManager::get()->getRenderPass()->getHandle());
-    graphicsPipeline->setPipelineLayout(shaderProgram->getPipelineLayout()->getHandle());
+    graphicsPipeline->setRenderPass(RenderManager::get()->renderPass()->handle());
+    graphicsPipeline->setPipelineLayout(shaderProgram->pipelineLayout()->handle());
 
     graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
     graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
 
-    for (auto& shader : shaderProgram->getShaders()) {
-        graphicsPipeline->addShaderCode(shader->getStage(), shader->getCode().size() * sizeof(uint32_t), shader->getCode().data(), "main");
+    for (auto& shader : shaderProgram->shaders()) {
+        graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
     }
 
     VkVertexInputBindingDescription bindingDescription;
@@ -67,7 +67,7 @@ UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("position");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->locationInfo("position");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
@@ -76,7 +76,7 @@ UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     }
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("uv");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->locationInfo("uv");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
@@ -86,7 +86,7 @@ UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     }
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("color");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->locationInfo("color");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
@@ -103,24 +103,24 @@ UIRenderer::~UIRenderer() {
 }
 
 void UIRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->getWidth(), (float)framebuffer->getHeight(), 0.0f);
+    glm::mat4 mvp = glm::ortho(0.0f, (float)framebuffer->width(), (float)framebuffer->height(), 0.0f);
     uboBuffer->write(&mvp, sizeof(mvp));
 
     commandBuffer->bindPipeline(graphicsPipeline.get());
 
     commandBuffer->clearVertexBuffers();
-    commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+    commandBuffer->addVertexBuffer(vertexBuffer->handle());
     commandBuffer->bindVertexBuffers();
 
-    if (shaderProgram->getDescriptorSets()->getCount()) {
+    if (shaderProgram->descriptorSets()->count()) {
         commandBuffer->clearDescriptorSets();
-        for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
-            commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
+        for (int i = 0; i < shaderProgram->descriptorSets()->count(); i++) {
+            commandBuffer->addDescriptorSet(shaderProgram->descriptorSets()->at(i));
         }
-        commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
+        commandBuffer->bindDescriptorSets(graphicsPipeline->bindPoint(), shaderProgram->pipelineLayout()->handle());
     }
 
-    commandBuffer->drawIndirect(indirectBuffer->getHandle());
+    commandBuffer->drawIndirect(indirectBuffer->handle());
 }
 
 UIRenderer* UIRenderer::get() {
@@ -131,7 +131,7 @@ void UIRenderer::draw() {
     uint32_t vertextCount = m_vertices.size();
     uint32_t size = vertextCount * sizeof(UIBatch::Vertex);
 
-    if (size > vertexBuffer->getSize()) {
+    if (size > vertexBuffer->size()) {
         vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     }
 

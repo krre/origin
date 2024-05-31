@@ -4,11 +4,11 @@
 
 namespace Vulkan {
 
-Device::Device(PhysicalDevice* physicalDevice) : physicalDevice(physicalDevice) {
+Device::Device(PhysicalDevice* physicalDevice) : m_physicalDevice(physicalDevice) {
     uint32_t count;
-    vkEnumerateDeviceExtensionProperties(physicalDevice->getHandle(), nullptr, &count, nullptr);
+    vkEnumerateDeviceExtensionProperties(physicalDevice->handle(), nullptr, &count, nullptr);
     extensions.resize(count);
-    vkEnumerateDeviceExtensionProperties(physicalDevice->getHandle(), nullptr, &count, extensions.data());
+    vkEnumerateDeviceExtensionProperties(physicalDevice->handle(), nullptr, &count, extensions.data());
 
     // While only one extension is enabled
     enabledExtensions.push_back("VK_KHR_swapchain");
@@ -23,27 +23,27 @@ Device::~Device() {
 }
 
 void Device::waitIdle() {
-    if (handle != VK_NULL_HANDLE) {
-        vkDeviceWaitIdle(handle);
+    if (m_handle != VK_NULL_HANDLE) {
+        vkDeviceWaitIdle(m_handle);
     }
 }
 
 void Device::waitForFences(std::vector<VkFence> fences) {
-    VULKAN_CHECK_RESULT(vkWaitForFences(handle, fences.size(), fences.data(), VK_TRUE, UINT64_MAX), "Failed wait for fences");
+    VULKAN_CHECK_RESULT(vkWaitForFences(m_handle, fences.size(), fences.data(), VK_TRUE, UINT64_MAX), "Failed wait for fences");
 }
 
 void Device::resetFences(std::vector<VkFence> fences) {
-    VULKAN_CHECK_RESULT(vkResetFences(handle, fences.size(), fences.data()), "Failed to reset fences")
+    VULKAN_CHECK_RESULT(vkResetFences(m_handle, fences.size(), fences.data()), "Failed to reset fences")
 }
 
 void Device::create() {
     createInfo.queueCreateInfoCount = queueCreateInfos.size();
     createInfo.pQueueCreateInfos = queueCreateInfos.data();
-    VULKAN_CHECK_RESULT(vkCreateDevice(physicalDevice->getHandle(), &createInfo, nullptr, &handle), "Failed to create device");
+    VULKAN_CHECK_RESULT(vkCreateDevice(m_physicalDevice->handle(), &createInfo, nullptr, &m_handle), "Failed to create device");
 }
 
 void Device::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyDevice(handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyDevice(m_handle, nullptr))
 }
 
 void Device::dumpExtensions() {

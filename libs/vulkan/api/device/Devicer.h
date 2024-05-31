@@ -9,10 +9,10 @@ public:
     Devicer(Device* device);
     Devicer() = delete;
 
-    Device* getDevice() const { return device; }
+    Device* device() const { return m_device; }
 
 protected:
-    Device* device;
+    Device* m_device;
 };
 
 }

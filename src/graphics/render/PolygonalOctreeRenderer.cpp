@@ -25,21 +25,21 @@ PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRendere
     shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/PolygonalOctree.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
-    bufferInfo.buffer = uboBuffer->getHandle();
+    bufferInfo.buffer = uboBuffer->handle();
     bufferInfo.range = VK_WHOLE_SIZE;
     shaderProgram->bindBuffer("ubo", bufferInfo);
 
     shaderProgram->create();
 
     graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
-    graphicsPipeline->setRenderPass(RenderManager::get()->getRenderPass()->getHandle());
-    graphicsPipeline->setPipelineLayout(shaderProgram->getPipelineLayout()->getHandle());
+    graphicsPipeline->setRenderPass(RenderManager::get()->renderPass()->handle());
+    graphicsPipeline->setPipelineLayout(shaderProgram->pipelineLayout()->handle());
 
     graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
     graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
 
-    for (auto& shader : shaderProgram->getShaders()) {
-        graphicsPipeline->addShaderCode(shader->getStage(), shader->getCode().size() * sizeof(uint32_t), shader->getCode().data(), "main");
+    for (auto& shader : shaderProgram->shaders()) {
+        graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
     }
 
     VkVertexInputBindingDescription bindingDescription;
@@ -49,7 +49,7 @@ PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRendere
     graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("position");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->locationInfo("position");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
@@ -58,7 +58,7 @@ PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRendere
     }
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("color");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->locationInfo("color");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
@@ -68,7 +68,7 @@ PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRendere
     }
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->getLocationInfo("normal");
+        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->locationInfo("normal");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
@@ -88,13 +88,13 @@ void PolygonalOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandB
     if (vertextCount) {
         commandBuffer->bindPipeline(graphicsPipeline.get());
 
-        commandBuffer->addVertexBuffer(vertexBuffer->getHandle());
+        commandBuffer->addVertexBuffer(vertexBuffer->handle());
         commandBuffer->bindVertexBuffers();
 
-        for (int i = 0; i < shaderProgram->getDescriptorSets()->getCount(); i++) {
-            commandBuffer->addDescriptorSet(shaderProgram->getDescriptorSets()->at(i));
+        for (int i = 0; i < shaderProgram->descriptorSets()->count(); i++) {
+            commandBuffer->addDescriptorSet(shaderProgram->descriptorSets()->at(i));
         }
-        commandBuffer->bindDescriptorSets(graphicsPipeline->getBindPoint(), shaderProgram->getPipelineLayout()->getHandle());
+        commandBuffer->bindDescriptorSets(graphicsPipeline->bindPoint(), shaderProgram->pipelineLayout()->handle());
 
         commandBuffer->draw(vertextCount, 1, 0, 0);
     }
@@ -113,7 +113,7 @@ void PolygonalOctreeRenderer::setVertexCount(uint32_t vertextCount) {
 
     uint32_t size = vertextCount * sizeof(Octree::Octree::Vertex);
 
-    if (size > vertexBuffer->getSize()) {
+    if (size > vertexBuffer->size()) {
         vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     }
 }

@@ -21,13 +21,14 @@ class ShaderProgram {
 public:
     ShaderProgram(Device* device);
     ~ShaderProgram();
+
     void loadShader(const std::string& filePath);
-    const std::vector<std::unique_ptr<Shader>>& getShaders() const { return shaders; }
+    const std::vector<std::unique_ptr<Shader>>& shaders() const { return m_shaders; }
     void create();
 
-    const DescriptorSets* getDescriptorSets() const { return descriptorSets.get(); }
-    const PipelineLayout* getPipelineLayout() const { return pipelineLayout.get(); }
-    Shader::LocationInfo getLocationInfo(const std::string& name) const;
+    const DescriptorSets* descriptorSets() const { return m_descriptorSets.get(); }
+    const PipelineLayout* pipelineLayout() const { return m_pipelineLayout.get(); }
+    Shader::LocationInfo locationInfo(const std::string& name) const;
 
     void bindBuffer(const std::string& name, VkDescriptorBufferInfo descriptorBufferInfo);
     void bindImage(const std::string& name, VkDescriptorImageInfo descriptorImageInfo);
@@ -36,11 +37,11 @@ private:
     void updateDescriptorSets();
 
     Device* device = nullptr;
-    std::vector<std::unique_ptr<Shader>> shaders;
-    std::unique_ptr<PipelineLayout> pipelineLayout;
+    std::vector<std::unique_ptr<Shader>> m_shaders;
+    std::unique_ptr<PipelineLayout> m_pipelineLayout;
     std::unique_ptr<DescriptorPool> descriptorPool;
     std::map<uint32_t, std::unique_ptr<DescriptorSetLayout>> descriptorSetLayouts;
-    std::unique_ptr<DescriptorSets> descriptorSets;
+    std::unique_ptr<DescriptorSets> m_descriptorSets;
     std::map<std::string, VkDescriptorBufferInfo> descriptorBufferInfos;
     std::map<std::string, VkDescriptorImageInfo> descriptorImageInfos;
     std::map<std::string, VkWriteDescriptorSet> writeDescriptorSets;

@@ -11,12 +11,12 @@ DeviceMemory::~DeviceMemory() {
 }
 
 void DeviceMemory::destroy() {
-    VULKAN_DESTROY_HANDLE(vkFreeMemory(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkFreeMemory(m_device->handle(), m_handle, nullptr))
 }
 
 void DeviceMemory::allocate(VkDeviceSize size) {
     allocateInfo.allocationSize = size;
-    VULKAN_CHECK_RESULT(vkAllocateMemory(device->getHandle(), &allocateInfo, nullptr, &handle), "Failed to allocate memory");
+    VULKAN_CHECK_RESULT(vkAllocateMemory(m_device->handle(), &allocateInfo, nullptr, &m_handle), "Failed to allocate memory");
 }
 
 void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
@@ -24,11 +24,11 @@ void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
 }
 
 void DeviceMemory::map(void** data, VkDeviceSize size, VkDeviceSize offset) {
-    VULKAN_CHECK_RESULT(vkMapMemory(device->getHandle(), handle, offset, size, 0, data), "Failed to map device memory");
+    VULKAN_CHECK_RESULT(vkMapMemory(m_device->handle(), m_handle, offset, size, 0, data), "Failed to map device memory");
 }
 
 void DeviceMemory::unmap() {
-    vkUnmapMemory(device->getHandle(), handle);
+    vkUnmapMemory(m_device->handle(), m_handle);
 }
 
 }

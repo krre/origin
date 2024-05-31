@@ -12,11 +12,11 @@ QueryPool::~QueryPool() {
 }
 
 void QueryPool::create() {
-    VULKAN_CHECK_RESULT(vkCreateQueryPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create query pool");
+    VULKAN_CHECK_RESULT(vkCreateQueryPool(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create query pool");
 }
 
 void QueryPool::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyQueryPool(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyQueryPool(m_device->handle(), m_handle, nullptr))
 }
 
 }

@@ -12,22 +12,23 @@ class Surface : public Handle<VkSurfaceKHR> {
 public:
     Surface(Instance* instance, PhysicalDevice* physicalDevice, void* platformHandle, void* platformWindow);
     ~Surface();
+
     void create() override;
     void destroy() override;
 
-    const std::vector<VkSurfaceFormatKHR>& getFormats() const { return formats; }
-    const std::vector<VkPresentModeKHR>& getPresentModes() const { return presentModes; }
-    const VkSurfaceCapabilitiesKHR& getCapabilities() const { return capabilities; }
-    VkExtent2D getCurrentExtent() const;
+    const std::vector<VkSurfaceFormatKHR>& formats() const { return m_formats; }
+    const std::vector<VkPresentModeKHR>& presentModes() const { return m_presentModes; }
+    const VkSurfaceCapabilitiesKHR& capabilities() const { return m_capabilities; }
+    VkExtent2D currentExtent() const;
 
 private:
     Instance* instance;
     PhysicalDevice* physicalDevice;
     void* platformHandle;
     void* platformWindow;
-    std::vector<VkSurfaceFormatKHR> formats;
-    std::vector<VkPresentModeKHR> presentModes;
-    VkSurfaceCapabilitiesKHR capabilities;
+    std::vector<VkSurfaceFormatKHR> m_formats;
+    std::vector<VkPresentModeKHR> m_presentModes;
+    VkSurfaceCapabilitiesKHR m_capabilities;
 };
 
 }

@@ -7,6 +7,9 @@ class GraphicsPipeline : public Pipeline {
 
 public:
     GraphicsPipeline(Device* device);
+
+    void create() override;
+
     void addVertexBindingDescription(VkVertexInputBindingDescription vertexBindingDescription);
     void addVertexAttributeDescription(VkVertexInputAttributeDescription vertexAttributeDescription);
     void addColorBlendAttachmentState(VkPipelineColorBlendAttachmentState colorBlendAttachmentState);
@@ -18,8 +21,7 @@ public:
     void setPipelineLayout(VkPipelineLayout layout);
     void setRenderPass(VkRenderPass renderPass);
 
-    VkPipelineBindPoint getBindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
-    void create() override;
+    VkPipelineBindPoint bindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
 
 private:
     VkGraphicsPipelineCreateInfo createInfo = {};

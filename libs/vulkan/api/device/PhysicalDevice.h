@@ -11,25 +11,26 @@ class PhysicalDevice : public Handle<VkPhysicalDevice> {
 
 public:
     PhysicalDevice(VkPhysicalDevice physicalDevice);
+
     void create() override {}
     void destroy() override {}
 
-    const VkPhysicalDeviceProperties& getProperties() const { return properties; }
-    const VkPhysicalDeviceFeatures& getFeatures() const { return features; }
-    const VkPhysicalDeviceMemoryProperties& getMemoryProperties() const { return memoryProperties; }
-    const std::vector<VkQueueFamilyProperties>& getQueueFamilyProperties() const { return queueFamilyProperties; }
-    VkFormat getSupportedDepthFormat();
-    bool getSupportBlit(VkFormat format);
-    bool getSupportSurface(Surface* surface, uint32_t queueFamilyIndex);
+    const VkPhysicalDeviceProperties& properties() const { return m_properties; }
+    const VkPhysicalDeviceFeatures& features() const { return m_features; }
+    const VkPhysicalDeviceMemoryProperties& memoryProperties() const { return m_memoryProperties; }
+    const std::vector<VkQueueFamilyProperties>& queueFamilyProperties() const { return m_queueFamilyProperties; }
+    VkFormat supportedDepthFormat();
+    bool supportBlit(VkFormat format);
+    bool supportSurface(Surface* surface, uint32_t queueFamilyIndex);
 
     uint32_t findQueueFamily(VkQueueFlags flags);
     uint32_t findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
 
 private:
-    VkPhysicalDeviceProperties properties;
-    VkPhysicalDeviceFeatures features;
-    VkPhysicalDeviceMemoryProperties memoryProperties;
-    std::vector<VkQueueFamilyProperties> queueFamilyProperties;
+    VkPhysicalDeviceProperties m_properties;
+    VkPhysicalDeviceFeatures m_features;
+    VkPhysicalDeviceMemoryProperties m_memoryProperties;
+    std::vector<VkQueueFamilyProperties> m_queueFamilyProperties;
 };
 
 }

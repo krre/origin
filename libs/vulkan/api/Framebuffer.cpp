@@ -18,15 +18,15 @@ void Framebuffer::create() {
     createInfo.attachmentCount = attachments.size();
     createInfo.pAttachments = attachments.data();
 
-    VULKAN_CHECK_RESULT(vkCreateFramebuffer(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create framebuffer");
+    VULKAN_CHECK_RESULT(vkCreateFramebuffer(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create framebuffer");
 }
 
 void Framebuffer::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyFramebuffer(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyFramebuffer(m_device->handle(), m_handle, nullptr))
 }
 
 void Framebuffer::addAttachment(ImageView* attachment) {
-    attachments.push_back(attachment->getHandle());
+    attachments.push_back(attachment->handle());
 }
 
 void Framebuffer::setWidth(uint32_t width) {
@@ -38,7 +38,7 @@ void Framebuffer::setHeight(uint32_t height) {
 }
 
 void Framebuffer::setRenderPass(RenderPass* renderPass) {
-    createInfo.renderPass = renderPass->getHandle();
+    createInfo.renderPass = renderPass->handle();
 }
 
 }

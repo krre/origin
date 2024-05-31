@@ -8,23 +8,23 @@
 namespace Vulkan {
 
 Texture::Texture(Device* device, uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset) {
-    image = std::make_unique<Image>(device);
+    m_image = std::make_unique<Image>(device);
 
-    image->setWidth(width);
-    image->setHeight(height);
-    image->setFormat(VK_FORMAT_R8G8B8A8_UNORM);
-    image->setUsage(VK_IMAGE_USAGE_SAMPLED_BIT);
-    image->setInitialLayout(VK_IMAGE_LAYOUT_PREINITIALIZED);
-    image->create();
+    m_image->setWidth(width);
+    m_image->setHeight(height);
+    m_image->setFormat(VK_FORMAT_R8G8B8A8_UNORM);
+    m_image->setUsage(VK_IMAGE_USAGE_SAMPLED_BIT);
+    m_image->setInitialLayout(VK_IMAGE_LAYOUT_PREINITIALIZED);
+    m_image->create();
 
-    image->write(data, size, offset);
+    m_image->write(data, size, offset);
 
-    imageView = std::make_unique<ImageView>(device, image->getHandle());
-    imageView->setFormat(image->getFormat());
-    imageView->create();
+    m_imageView = std::make_unique<ImageView>(device, m_image->handle());
+    m_imageView->setFormat(m_image->format());
+    m_imageView->create();
 
     VkFormatProperties formatProps;
-    vkGetPhysicalDeviceFormatProperties(device->getPhysicalDevice()->getHandle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
+    vkGetPhysicalDeviceFormatProperties(device->physicalDevice()->handle(), VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
 
     /* See if we can use a linear tiled image for a texture, if not, we will
      * need a staging image for the texture data */

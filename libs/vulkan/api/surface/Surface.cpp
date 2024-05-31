@@ -29,7 +29,7 @@ void Surface::create() {
     createInfo.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
     createInfo.connection = (xcb_connection_t*)platformHandle;
     createInfo.window = *(xcb_window_t*)(platformWindow);
-    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create Xcb surface");
+    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance->handle(), &createInfo, nullptr, &m_handle), "Failed to create Xcb surface");
 #elif defined(VK_USE_PLATFORM_WIN32_KHR)
     VkWin32SurfaceCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
@@ -39,24 +39,24 @@ void Surface::create() {
 #endif
 
     uint32_t count;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->getHandle(), handle, &count, nullptr);
-    formats.resize(count);
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->getHandle(), handle, &count, formats.data());
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->handle(), m_handle, &count, nullptr);
+    m_formats.resize(count);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->handle(), m_handle, &count, m_formats.data());
 
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->getHandle(), handle, &count, nullptr);
-    presentModes.resize(count);
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->getHandle(), handle, &count, presentModes.data());
+    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->handle(), m_handle, &count, nullptr);
+    m_presentModes.resize(count);
+    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->handle(), m_handle, &count, m_presentModes.data());
 
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->getHandle(), handle, &capabilities);
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->handle(), m_handle, &m_capabilities);
 }
 
 void Surface::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance->handle(), m_handle, nullptr))
 }
 
-VkExtent2D Surface::getCurrentExtent() const {
+VkExtent2D Surface::currentExtent() const {
     VkSurfaceCapabilitiesKHR capabilities;
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->getHandle(), handle, &capabilities);
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->handle(), m_handle, &capabilities);
     return capabilities.currentExtent;
 }
 

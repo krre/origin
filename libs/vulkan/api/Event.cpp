@@ -7,11 +7,11 @@ Event::Event(Device* device) : Devicer(device) {
 }
 
 Event::~Event() {
-    vkDestroyEvent(device->getHandle(), handle, nullptr);
+    vkDestroyEvent(m_device->handle(), m_handle, nullptr);
 }
 
 void Event::create() {
-    VULKAN_CHECK_RESULT(vkCreateEvent(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create event");
+    VULKAN_CHECK_RESULT(vkCreateEvent(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create event");
 }
 
 }

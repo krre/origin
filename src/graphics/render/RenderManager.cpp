@@ -68,7 +68,7 @@ void RenderManager::preRender() {
 }
 
 void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
-    VkExtent2D extent = { framebuffer->getWidth(), framebuffer->getHeight() };
+    VkExtent2D extent = { framebuffer->width(), framebuffer->height() };
 
     VkViewport viewport = {};
     viewport.width = extent.width;
@@ -85,9 +85,9 @@ void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vul
     commandBuffer->addScissor(scissor);
     commandBuffer->setScissor(0);
 
-    Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
-    renderPassBegin.setFrameBuffer(framebuffer->getHandle());
-    renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
+    Vulkan::RenderPassBegin renderPassBegin(renderPass()->handle());
+    renderPassBegin.setFrameBuffer(framebuffer->handle());
+    renderPassBegin.setRenderArea({ 0, 0, framebuffer->width(), framebuffer->height() });
     const Color& color = Window::get()->color();
     renderPassBegin.addClearValue({ color.red(), color.green(), color.blue(), color.alpha() });
     VkClearValue depthColor = {};

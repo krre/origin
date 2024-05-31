@@ -13,10 +13,13 @@ class Pipeline : public Handle<VkPipeline>, public Devicer {
 public:
     Pipeline(Device* device) : Devicer(device) {}
     virtual ~Pipeline();
+
     void destroy() override;
+
     void addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint = "main");
     void setPipelineCache(VkPipelineCache pipelineCache);
-    virtual VkPipelineBindPoint getBindPoint() const = 0;
+
+    virtual VkPipelineBindPoint bindPoint() const = 0;
 
 protected:
     VkPipelineCache pipelineCache = VK_NULL_HANDLE;

@@ -26,13 +26,13 @@ public:
     Renderer(void* platformHandle, void* platformWindow);
     ~Renderer();
 
-    Instance* getInstance() const { return instance.get(); }
-    Device* getGraphicsDevice() const { return graphicsDevice.get(); }
-    Device* getComputeDevice() const { return computeDevice.get(); }
-    CommandPool* getGraphicsCommandPool() const { return graphicsCommandPool.get(); }
-    CommandPool* getComputeCommandPool() const { return computeCommandPool.get(); }
-    RenderPass* getRenderPass() const { return renderPass.get(); }
-    Surface* getSurface() const { return surface.get(); }
+    Instance* instance() const { return m_instance.get(); }
+    Device* graphicsDevice() const { return m_graphicsDevice.get(); }
+    Device* computeDevice() const { return m_computeDevice.get(); }
+    CommandPool* graphicsCommandPool() const { return m_graphicsCommandPool.get(); }
+    CommandPool* computeCommandPool() const { return m_computeCommandPool.get(); }
+    RenderPass* renderPass() const { return m_renderPass.get(); }
+    Surface* surface() const { return m_surface.get(); }
 
     void useDebugReport(VkDebugReportFlagsEXT flags);
 
@@ -60,15 +60,15 @@ private:
 
     void* platformHandle;
     void* platformWindow;
-    std::unique_ptr<Instance> instance;
+    std::unique_ptr<Instance> m_instance;
     std::unique_ptr<PhysicalDevices> physicalDevices;
-    std::unique_ptr<Device> graphicsDevice;
-    std::shared_ptr<CommandPool> graphicsCommandPool;
-    std::unique_ptr<Device> computeDevice;
-    std::shared_ptr<CommandPool> computeCommandPool;
-    std::unique_ptr<Surface> surface;
+    std::unique_ptr<Device> m_graphicsDevice;
+    std::shared_ptr<CommandPool> m_graphicsCommandPool;
+    std::unique_ptr<Device> m_computeDevice;
+    std::shared_ptr<CommandPool> m_computeCommandPool;
+    std::unique_ptr<Surface> m_surface;
     std::unique_ptr<Swapchain> swapchain;
-    std::unique_ptr<RenderPass> renderPass;
+    std::unique_ptr<RenderPass> m_renderPass;
     std::vector<std::unique_ptr<Framebuffer>> framebuffers;
     std::vector<std::unique_ptr<ImageView>> imageViews;
     std::unique_ptr<Image> depthImage;

@@ -26,14 +26,15 @@ class RenderPass : public Handle<VkRenderPass>, public Devicer {
 public:
     RenderPass(Device* device);
     ~RenderPass();
+
     void create() override;
     void destroy() override;
 
     void setColorFormat(VkFormat format);
-    VkFormat getColorFormat() const { return colorAttachmentDescription.format; }
+    VkFormat colorFormat() const { return colorAttachmentDescription.format; }
 
     void setDepthFormat(VkFormat format);
-    VkFormat getDepthFormat() const { return depthAttachmentDescription.format; }
+    VkFormat depthFormat() const { return depthAttachmentDescription.format; }
 
     void setDepthEnable(bool depthEnable);
 

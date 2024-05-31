@@ -16,13 +16,13 @@ Swapchain::Swapchain(Device* device, Surface* surface) :
     createInfo.clipped = VK_TRUE;
 
     uint32_t queueFamilyIndex = 0; // TODO: Use real index
-    bool surfaceSupport = device->getPhysicalDevice()->getSupportSurface(surface, queueFamilyIndex);
+    bool surfaceSupport = device->physicalDevice()->supportSurface(surface, queueFamilyIndex);
     if (surfaceSupport) {
-        createInfo.surface = surface->getHandle();
-        createInfo.minImageCount = surface->getCapabilities().minImageCount + 1;
-        createInfo.imageFormat = surface->getFormats().at(0).format;
-        createInfo.imageColorSpace = surface->getFormats().at(0).colorSpace;
-        createInfo.preTransform = surface->getCapabilities().currentTransform;
+        createInfo.surface = surface->handle();
+        createInfo.minImageCount = surface->capabilities().minImageCount + 1;
+        createInfo.imageFormat = surface->formats().at(0).format;
+        createInfo.imageColorSpace = surface->formats().at(0).colorSpace;
+        createInfo.preTransform = surface->capabilities().currentTransform;
         createInfo.presentMode = VK_PRESENT_MODE_MAILBOX_KHR;
     }
 }
@@ -32,31 +32,31 @@ Swapchain::~Swapchain() {
 }
 
 void Swapchain::create() {
-    createInfo.imageExtent = surface->getCurrentExtent();;
+    createInfo.imageExtent = surface->currentExtent();;
 //    createInfo.oldSwapchain = handle;
-    VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create swapchain");
+    VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create swapchain");
 
     uint32_t count;
-    vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, nullptr);
-    images.resize(count);
-    vkGetSwapchainImagesKHR(device->getHandle(), handle, &count, images.data());
+    vkGetSwapchainImagesKHR(m_device->handle(), m_handle, &count, nullptr);
+    m_images.resize(count);
+    vkGetSwapchainImagesKHR(m_device->handle(), m_handle, &count, m_images.data());
 }
 
 void Swapchain::destroy() {
-    device->waitIdle();
-    VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(device->getHandle(), handle, nullptr))
+    m_device->waitIdle();
+    VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(m_device->handle(), m_handle, nullptr))
 }
 
 VkResult Swapchain::acquireNextImage(Semaphore* semaphore) {
-    return vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, pImageIndex);
+    return vkAcquireNextImageKHR(m_device->handle(), m_handle, UINT64_MAX, semaphore->handle(), VK_NULL_HANDLE, m_imageIndex);
 }
 
 VkResult Swapchain::acquireNextImage(Semaphore* semaphore, uint32_t* index) {
-    return vkAcquireNextImageKHR(device->getHandle(), handle, UINT64_MAX, semaphore->getHandle(), VK_NULL_HANDLE, index);
+    return vkAcquireNextImageKHR(m_device->handle(), m_handle, UINT64_MAX, semaphore->handle(), VK_NULL_HANDLE, index);
 }
 
 void Swapchain::setImageIndexPtr(uint32_t* pImageIndex) {
-    this->pImageIndex = pImageIndex;
+    this->m_imageIndex = pImageIndex;
 }
 
 }

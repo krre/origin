@@ -14,20 +14,20 @@ DebugReportCallback::~DebugReportCallback() {
 }
 
 void DebugReportCallback::create() {
-    PFN_vkCreateDebugReportCallbackEXT pfnCreateDebugReportCallback = (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(instance->getHandle(), "vkCreateDebugReportCallbackEXT");
+    PFN_vkCreateDebugReportCallbackEXT pfnCreateDebugReportCallback = (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(instance->handle(), "vkCreateDebugReportCallbackEXT");
     if (!pfnCreateDebugReportCallback) {
         throw std::runtime_error("GetInstanceProcAddr: Unable to find vkCreateDebugReportCallbackEXT function");
     }
 
-    VULKAN_CHECK_RESULT(pfnCreateDebugReportCallback(instance->getHandle(), &createInfo, nullptr, &handle), "Failed to create debug report callback");
+    VULKAN_CHECK_RESULT(pfnCreateDebugReportCallback(instance->handle(), &createInfo, nullptr, &m_handle), "Failed to create debug report callback");
 }
 
 void DebugReportCallback::destroy() {
-    PFN_vkDestroyDebugReportCallbackEXT pfnDestroyDebugReportCallback = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(instance->getHandle(), "vkDestroyDebugReportCallbackEXT");
+    PFN_vkDestroyDebugReportCallbackEXT pfnDestroyDebugReportCallback = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(instance->handle(), "vkDestroyDebugReportCallbackEXT");
     if (!pfnDestroyDebugReportCallback) {
         throw std::runtime_error("GetInstanceProcAddr: Unable to find vkDestroyDebugReportCallbackEXT function");
     }
-    pfnDestroyDebugReportCallback(instance->getHandle(), handle, nullptr);
+    pfnDestroyDebugReportCallback(instance->handle(), m_handle, nullptr);
 }
 
 void DebugReportCallback::setFlags(VkDebugReportFlagsEXT flags) {

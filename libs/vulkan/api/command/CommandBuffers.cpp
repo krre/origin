@@ -8,7 +8,7 @@ CommandBuffers::CommandBuffers(Device* device, CommandPool* commandPool, VkComma
         Devicer(device), commandPool(commandPool) {
     allocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     allocateInfo.level = level;
-    allocateInfo.commandPool = commandPool->getHandle();
+    allocateInfo.commandPool = commandPool->handle();
 }
 
 CommandBuffers::~CommandBuffers() {
@@ -20,11 +20,11 @@ void CommandBuffers::allocate(uint32_t count) {
     collection.resize(count);
     allocateInfo.commandBufferCount = count;
 
-    VULKAN_CHECK_RESULT(vkAllocateCommandBuffers(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate command buffers");
+    VULKAN_CHECK_RESULT(vkAllocateCommandBuffers(m_device->handle(), &allocateInfo, collection.data()), "Failed to allocate command buffers");
 }
 
 void CommandBuffers::destroy() {
-    VULKAN_DESTROY_COLLECTION(vkFreeCommandBuffers(device->getHandle(), commandPool->getHandle(), collection.size(), collection.data()));
+    VULKAN_DESTROY_COLLECTION(vkFreeCommandBuffers(m_device->handle(), commandPool->handle(), collection.size(), collection.data()));
 }
 
 }

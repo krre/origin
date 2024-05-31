@@ -2,7 +2,7 @@
 
 namespace Vulkan {
 
-Devicer::Devicer(Device* device) : device(device) {
+Devicer::Devicer(Device* device) : m_device(device) {
 
 }
 

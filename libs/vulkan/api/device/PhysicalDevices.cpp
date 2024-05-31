@@ -7,20 +7,20 @@ namespace Vulkan {
 
 PhysicalDevices::PhysicalDevices(Instance* instance) {
     uint32_t count;
-    vkEnumeratePhysicalDevices(instance->getHandle(), &count, nullptr);
+    vkEnumeratePhysicalDevices(instance->handle(), &count, nullptr);
     std::vector<VkPhysicalDevice> handlers(count);
-    vkEnumeratePhysicalDevices(instance->getHandle(), &count, handlers.data());
+    vkEnumeratePhysicalDevices(instance->handle(), &count, handlers.data());
 
     for (const auto& handler : handlers) {
         auto physicalDevice = std::make_unique<PhysicalDevice>(handler);
 
-        vkGetPhysicalDeviceProperties(handler, &physicalDevice->properties);
-        vkGetPhysicalDeviceFeatures(handler, &physicalDevice->features);
-        vkGetPhysicalDeviceMemoryProperties(handler, &physicalDevice->memoryProperties);
+        vkGetPhysicalDeviceProperties(handler, &physicalDevice->m_properties);
+        vkGetPhysicalDeviceFeatures(handler, &physicalDevice->m_features);
+        vkGetPhysicalDeviceMemoryProperties(handler, &physicalDevice->m_memoryProperties);
 
         vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, nullptr);
-        physicalDevice->queueFamilyProperties.resize(count);
-        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, physicalDevice->queueFamilyProperties.data());
+        physicalDevice->m_queueFamilyProperties.resize(count);
+        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, physicalDevice->m_queueFamilyProperties.data());
 
         devices.push_back(std::move(physicalDevice));
     }
@@ -28,7 +28,7 @@ PhysicalDevices::PhysicalDevices(Instance* instance) {
 
 PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
     for (const auto& device : devices) {
-        if (device->properties.deviceType == type) {
+        if (device->m_properties.deviceType == type) {
             return device.get();
         }
     }
@@ -38,7 +38,7 @@ PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
 
 void PhysicalDevices::dumpDevices() {
     for (const auto& device : devices) {
-        std::cout << device->properties.deviceName << std::endl;
+        std::cout << device->m_properties.deviceName << std::endl;
     }
 }
 

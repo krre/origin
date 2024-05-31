@@ -13,11 +13,11 @@ ShaderModule::~ShaderModule() {
 }
 
 void ShaderModule::create() {
-    VULKAN_CHECK_RESULT(vkCreateShaderModule(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create shader module");
+    VULKAN_CHECK_RESULT(vkCreateShaderModule(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create shader module");
 }
 
 void ShaderModule::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyShaderModule(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyShaderModule(m_device->handle(), m_handle, nullptr))
 }
 
 }

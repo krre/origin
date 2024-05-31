@@ -12,9 +12,9 @@ if (result != VK_SUCCESS) { \
 
 
 #define VULKAN_DESTROY_HANDLE(f) \
-if (handle != VK_NULL_HANDLE) { \
+if (m_handle != VK_NULL_HANDLE) { \
     (f); \
-    handle = VK_NULL_HANDLE; \
+    m_handle = VK_NULL_HANDLE; \
 }
 
 namespace Vulkan {
@@ -25,16 +25,16 @@ template <typename T>
 class Handle {
 public:
     Handle() = default;
-    Handle(T handle) : handle(handle) {
+    Handle(T handle) : m_handle(handle) {
         assert(handle != VK_NULL_HANDLE);
     }
-    bool isValid() const { return handle != VK_NULL_HANDLE; }
-    T getHandle() const { return handle; }
+    bool isValid() const { return m_handle != VK_NULL_HANDLE; }
+    T handle() const { return m_handle; }
     virtual void create() = 0;
     virtual void destroy() = 0;
 
 protected:
-    T handle = VK_NULL_HANDLE;
+    T m_handle = VK_NULL_HANDLE;
 };
 
 }

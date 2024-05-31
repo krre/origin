@@ -11,11 +11,11 @@ Semaphore::~Semaphore() {
 }
 
 void Semaphore::create() {
-    VULKAN_CHECK_RESULT(vkCreateSemaphore(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create semaphore");
+    VULKAN_CHECK_RESULT(vkCreateSemaphore(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create semaphore");
 }
 
 void Semaphore::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySemaphore(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroySemaphore(m_device->handle(), m_handle, nullptr))
 }
 
 }

@@ -15,7 +15,7 @@ public:
     void destroy() override;
 
     void addPoolSize(VkDescriptorType type, uint32_t count);
-    int getPoolSizeCount() const { return poolSizes.size(); }
+    int poolSizeCount() const { return poolSizes.size(); }
 
     void setMaxSets(uint32_t maxSets);
     void reset();

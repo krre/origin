@@ -11,6 +11,7 @@ class DescriptorSets : public Collection<VkDescriptorSet>, public Devicer {
 public:
     DescriptorSets(Device* device, DescriptorPool* descriptorPool);
     ~DescriptorSets();
+
     void allocate();
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
 

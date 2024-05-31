@@ -24,11 +24,11 @@ ImageView::~ImageView() {
 }
 
 void ImageView::create() {
-    VULKAN_CHECK_RESULT(vkCreateImageView(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image view");
+    VULKAN_CHECK_RESULT(vkCreateImageView(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create image view");
 }
 
 void ImageView::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyImageView(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyImageView(m_device->handle(), m_handle, nullptr))
 }
 
 void ImageView::setFormat(VkFormat format) {

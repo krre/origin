@@ -7,7 +7,7 @@ namespace Vulkan {
 
 Image::Image(Device* device) :
     Devicer(device) {
-    memory = std::make_unique<DeviceMemory>(device);
+    m_memory = std::make_unique<DeviceMemory>(device);
 
     createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
     createInfo.imageType = VK_IMAGE_TYPE_2D;
@@ -31,22 +31,22 @@ Image::~Image() {
 }
 
 void Image::create() {
-    VULKAN_CHECK_RESULT(vkCreateImage(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create image");
+    VULKAN_CHECK_RESULT(vkCreateImage(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create image");
 
     VkMemoryRequirements memRequirements;
-    vkGetImageMemoryRequirements(device->getHandle(), handle, &memRequirements);
+    vkGetImageMemoryRequirements(m_device->handle(), m_handle, &memRequirements);
     VkMemoryPropertyFlags properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
     if (createInfo.format == VK_FORMAT_D16_UNORM) {
         properties = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
     }
-    memory->setMemoryTypeIndex(device->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
-    memory->allocate(memRequirements.size);
+    m_memory->setMemoryTypeIndex(m_device->physicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
+    m_memory->allocate(memRequirements.size);
 
-    vkBindImageMemory(device->getHandle(), handle, memory->getHandle(), 0);
+    vkBindImageMemory(m_device->handle(), m_handle, m_memory->handle(), 0);
 }
 
 void Image::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyImage(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyImage(m_device->handle(), m_handle, nullptr))
 }
 
 void Image::setWidth(uint32_t width) {
@@ -75,9 +75,9 @@ void Image::setInitialLayout(VkImageLayout initialLayout) {
 
 void Image::write(void* data, VkDeviceSize size, VkDeviceSize offset) {
     void* mapData;
-    memory->map(&mapData, size, offset);
+    m_memory->map(&mapData, size, offset);
     memcpy(mapData, data, size);
-    memory->unmap();
+    m_memory->unmap();
 }
 
 }

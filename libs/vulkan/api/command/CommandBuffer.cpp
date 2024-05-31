@@ -121,23 +121,23 @@ VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
 
 void CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
     beginInfo.flags = flags;
-    VULKAN_CHECK_RESULT(vkBeginCommandBuffer(handle, &beginInfo), "Failed to begin command buffer");
+    VULKAN_CHECK_RESULT(vkBeginCommandBuffer(m_handle, &beginInfo), "Failed to begin command buffer");
 }
 
 void CommandBuffer::end() {
-    VULKAN_CHECK_RESULT(vkEndCommandBuffer(handle), "Failed to end command buffer");
+    VULKAN_CHECK_RESULT(vkEndCommandBuffer(m_handle), "Failed to end command buffer");
 }
 
 void CommandBuffer::beginRenderPass(VkRenderPassBeginInfo* renderPassBeginInfo, VkSubpassContents contents) {
-    vkCmdBeginRenderPass(handle, renderPassBeginInfo, contents);
+    vkCmdBeginRenderPass(m_handle, renderPassBeginInfo, contents);
 }
 
 void CommandBuffer::endRenderPass() {
-    vkCmdEndRenderPass(handle);
+    vkCmdEndRenderPass(m_handle);
 }
 
 void CommandBuffer::pipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) {
-    vkCmdPipelineBarrier(handle, srcStageMask, dstStageMask, dependencyFlags,
+    vkCmdPipelineBarrier(m_handle, srcStageMask, dstStageMask, dependencyFlags,
                          memoryBarriers.size(), memoryBarriers.data(),
                          bufferMemoryBarriers.size(), bufferMemoryBarriers.data(),
                          imageMemoryBarriers.size(), imageMemoryBarriers.data());
@@ -145,58 +145,58 @@ void CommandBuffer::pipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelin
 
 void CommandBuffer::setViewport(uint32_t firstViewport) {
     assert(!viewports.empty());
-    vkCmdSetViewport(handle, firstViewport, viewports.size(), viewports.data());
+    vkCmdSetViewport(m_handle, firstViewport, viewports.size(), viewports.data());
 }
 
 void CommandBuffer::setScissor(uint32_t firstScissor) {
     assert(!scissors.empty());
-    vkCmdSetScissor(handle, firstScissor, scissors.size(), scissors.data());
+    vkCmdSetScissor(m_handle, firstScissor, scissors.size(), scissors.data());
 }
 
 void CommandBuffer::bindPipeline(Pipeline* pipeline) {
-    vkCmdBindPipeline(handle, pipeline->getBindPoint(), pipeline->getHandle());
+    vkCmdBindPipeline(m_handle, pipeline->bindPoint(), pipeline->handle());
 }
 
 void CommandBuffer::bindVertexBuffers(uint32_t firstBinding) {
     assert(!vertexBuffers.empty());
-    vkCmdBindVertexBuffers(handle, firstBinding, vertexBuffers.size(), vertexBuffers.data(), vertexBufferOffsets.data());
+    vkCmdBindVertexBuffers(m_handle, firstBinding, vertexBuffers.size(), vertexBuffers.data(), vertexBufferOffsets.data());
     vertexBuffers.clear();
     vertexBufferOffsets.clear();
 }
 
 void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset) {
-    vkCmdBindIndexBuffer(handle, buffer, offset, indexType);
+    vkCmdBindIndexBuffer(m_handle, buffer, offset, indexType);
 }
 
 void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
     assert(!bufferCopies.empty());
-    vkCmdCopyBuffer(handle, srcBuffer, dstBuffer, bufferCopies.size(), bufferCopies.data());
+    vkCmdCopyBuffer(m_handle, srcBuffer, dstBuffer, bufferCopies.size(), bufferCopies.data());
 }
 
 void CommandBuffer::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter) {
     assert(!blitRegions.empty());
-    vkCmdBlitImage(handle, srcImage, srcImageLayout, dstImage, dstImageLayout, blitRegions.size(), blitRegions.data(), filter);
+    vkCmdBlitImage(m_handle, srcImage, srcImageLayout, dstImage, dstImageLayout, blitRegions.size(), blitRegions.data(), filter);
 }
 
 void CommandBuffer::copyImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout) {
     assert(!imageCopies.empty());
-    vkCmdCopyImage(handle, srcImage, srcImageLayout, dstImage, dstImageLayout, imageCopies.size(), imageCopies.data());
+    vkCmdCopyImage(m_handle, srcImage, srcImageLayout, dstImage, dstImageLayout, imageCopies.size(), imageCopies.data());
 }
 
 void CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance) {
-    vkCmdDrawIndexed(handle, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+    vkCmdDrawIndexed(m_handle, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
 }
 
 void CommandBuffer::draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance) {
-    vkCmdDraw(handle, vertexCount, instanceCount, firstVertex, firstInstance);
+    vkCmdDraw(m_handle, vertexCount, instanceCount, firstVertex, firstInstance);
 }
 
 void CommandBuffer::drawIndirect(VkBuffer buffer, VkDeviceSize offset, uint32_t drawCount, uint32_t stride) {
-    vkCmdDrawIndirect(handle, buffer, offset, drawCount, stride);
+    vkCmdDrawIndirect(m_handle, buffer, offset, drawCount, stride);
 }
 
 void CommandBuffer::bindDescriptorSets(VkPipelineBindPoint bindPoint, VkPipelineLayout layout, uint32_t firstSet) {
-    vkCmdBindDescriptorSets(handle, bindPoint, layout, firstSet, descriptorSets.size(), descriptorSets.data(), dynamicOffsets.size(), dynamicOffsets.data());
+    vkCmdBindDescriptorSets(m_handle, bindPoint, layout, firstSet, descriptorSets.size(), descriptorSets.data(), dynamicOffsets.size(), dynamicOffsets.data());
     descriptorSets.clear();
     dynamicOffsets.clear();
 }
@@ -261,7 +261,7 @@ void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask,
 
 void CommandBuffer::reset() {
     clear();
-    vkResetCommandBuffer(handle, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
+    vkResetCommandBuffer(m_handle, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
 }
 
 }

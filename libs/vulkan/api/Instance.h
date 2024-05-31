@@ -16,11 +16,11 @@ public:
     void create() override;
     void destroy() override;
 
-    const std::vector<VkLayerProperties>& getLayerProperties() const { return layersProperties; }
+    const std::vector<VkLayerProperties>& layerProperties() const { return m_layersProperties; }
     void setEnabledLayers(const std::vector<std::string>& enabledLayers);
     void dumpLayers();
 
-    const std::vector<VkExtensionProperties>& getExtensionProperties() const { return extensionProperties; }
+    const std::vector<VkExtensionProperties>& extensionProperties() const { return m_extensionProperties; }
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
     void dumpExtensions();
 
@@ -31,9 +31,9 @@ public:
 private:
     VkInstanceCreateInfo createInfo = {};
     VkApplicationInfo applicationInfo = {};
-    std::vector<VkLayerProperties> layersProperties;
+    std::vector<VkLayerProperties> m_layersProperties;
     std::vector<std::string> enabledLayers;
-    std::vector<VkExtensionProperties> extensionProperties;
+    std::vector<VkExtensionProperties> m_extensionProperties;
     std::vector<std::string> enabledExtensions;
     std::unique_ptr<DebugReportCallback> debugCallback;
     VkDebugReportFlagsEXT debugReportFlags = 0;

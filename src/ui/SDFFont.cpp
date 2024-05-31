@@ -97,8 +97,8 @@ void SDFFont::renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* ind
     uint32_t indexOffset = 0;
     const int verticesPerCharacter = 4;
 
-    float width = m_texture->getWidth();
-    float heigth = m_texture->getHeight();
+    float width = m_texture->width();
+    float heigth = m_texture->height();
 
     int posx = 0;
     int posy = base - lineHeight;

@@ -21,23 +21,23 @@ void Shader::load(const std::string& filePath) {
     }
 
     size_t fileSize = (size_t)file.tellg();
-    code.resize(fileSize / sizeof(uint32_t));
+    m_code.resize(fileSize / sizeof(uint32_t));
 
     file.seekg(0);
-    file.read(reinterpret_cast<char*>(code.data()), fileSize);
+    file.read(reinterpret_cast<char*>(m_code.data()), fileSize);
     file.close();
 
-    if (!code.empty()) {
+    if (!m_code.empty()) {
         parse();
     }
 }
 
 void Shader::parse() {
-    spirv_cross::Compiler compiler(code);
+    spirv_cross::Compiler compiler(m_code);
 
     // Stage flag
     spirv_cross::SPIREntryPoint& entryPoint = compiler.get_entry_point("main", compiler.get_execution_model());
-    stage = executionModelToStage(entryPoint.model);
+    m_stage = executionModelToStage(entryPoint.model);
 
     spirv_cross::ShaderResources resources = compiler.get_shader_resources();
     std::vector<spirv_cross::SmallVector<spirv_cross::Resource>> resourcesList;
@@ -59,7 +59,7 @@ void Shader::parse() {
             bufferInfo.typeName = buffer.name;
             bufferInfo.variableName = compiler.get_name(buffer.id);
             bufferInfo.set = compiler.get_decoration(buffer.id, spv::DecorationDescriptorSet);
-            bufferInfo.layoutBinding.stageFlags = stage;
+            bufferInfo.layoutBinding.stageFlags = m_stage;
             bufferInfo.layoutBinding.binding = compiler.get_decoration(buffer.id, spv::DecorationBinding);
             bufferInfo.layoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_MAX_ENUM;
             bufferInfo.layoutBinding.descriptorCount = 1;
@@ -72,13 +72,13 @@ void Shader::parse() {
             if (storageClass == spv::StorageClassOutput) {
                 continue;
             } else if (storageClass == spv::StorageClassInput) {
-                if (stage == VK_SHADER_STAGE_VERTEX_BIT) {
+                if (m_stage == VK_SHADER_STAGE_VERTEX_BIT) {
                     // Location
                     LocationInfo locationInfo;
                     locationInfo.name = buffer.name;
                     locationInfo.location = compiler.get_decoration(buffer.id, spv::DecorationLocation);
                     locationInfo.format = spirvTypeToFormat(type);
-                    locations.push_back(locationInfo);
+                    m_locations.push_back(locationInfo);
                 }
                 continue;
             } else if (storageClass == spv::StorageClassUniformConstant) {
@@ -115,7 +115,7 @@ void Shader::parse() {
 
             assert(bufferInfo.layoutBinding.descriptorType != VK_DESCRIPTOR_TYPE_MAX_ENUM);
 
-            bindings.push_back(bufferInfo);
+            m_bindings.push_back(bufferInfo);
         }
     }
 
@@ -126,8 +126,8 @@ void Shader::parse() {
 }
 
 void Shader::dumpBindings() {
-    std::cout << "Dump SPIR-V bindings (stage " << stage << "):" << std::endl;
-    for (const auto& binding : bindings) {
+    std::cout << "Dump SPIR-V bindings (stage " << m_stage << "):" << std::endl;
+    for (const auto& binding : m_bindings) {
         std::cout << "type name: " << binding.typeName
             << ", variable name: " << binding.variableName
             << ", set: " << binding.set
@@ -139,8 +139,8 @@ void Shader::dumpBindings() {
 }
 
 void Shader::dumpLocations() {
-    std::cout << "Dump SPIR-V locations (stage " << stage << "):" << std::endl;
-    for (const auto& location : locations) {
+    std::cout << "Dump SPIR-V locations (stage " << m_stage << "):" << std::endl;
+    for (const auto& location : m_locations) {
         std::cout << "name: " << location.name
             << ", location: " << location.location
             << ", format: " << location.format

@@ -14,6 +14,7 @@ class CommandBufferOneTime : Devicer {
 public:
     CommandBufferOneTime(Device* device, CommandPool* commandPool);
     ~CommandBufferOneTime();
+
     void setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask);
     void addBlitRegion(VkImageBlit blitRegion);
     void addImageCopy(VkImageCopy imageCopy);

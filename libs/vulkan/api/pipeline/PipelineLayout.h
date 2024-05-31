@@ -9,8 +9,10 @@ class PipelineLayout : public Handle<VkPipelineLayout>, public Devicer {
 public:
     PipelineLayout(Device* device);
     ~PipelineLayout();
+
     void create() override;
     void destroy() override;
+
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
     void addPushConstantRange(VkPushConstantRange pushConstantRange);
 

@@ -10,8 +10,10 @@ class DescriptorSetLayout : public Handle<VkDescriptorSetLayout>, public Devicer
 public:
     DescriptorSetLayout(Device* device);
     ~DescriptorSetLayout();
+
     void create() override;
     void destroy() override;
+
     void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 
 private:

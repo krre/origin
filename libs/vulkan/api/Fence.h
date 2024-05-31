@@ -9,8 +9,10 @@ class Fence : public Handle<VkFence>, public Devicer {
 public:
     Fence(Device* device);
     ~Fence();
+
     void create() override;
     void destroy() override;
+
     VkResult wait();
     VkResult reset();
     void setSignaledBit();

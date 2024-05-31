@@ -27,15 +27,15 @@ void DescriptorPool::create() {
     assert(poolSizes.size() != 0);
     createInfo.poolSizeCount = poolSizes.size();
     createInfo.pPoolSizes = poolSizes.data();
-    VULKAN_CHECK_RESULT(vkCreateDescriptorPool(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor pool");
+    VULKAN_CHECK_RESULT(vkCreateDescriptorPool(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create descriptor pool");
 }
 
 void DescriptorPool::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyDescriptorPool(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyDescriptorPool(m_device->handle(), m_handle, nullptr))
 }
 
 void DescriptorPool::reset() {
-    vkResetDescriptorPool(device->getHandle(), handle, 0);
+    vkResetDescriptorPool(m_device->handle(), m_handle, 0);
 }
 
 }

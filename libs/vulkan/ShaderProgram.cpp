@@ -10,28 +10,28 @@ namespace Vulkan {
 
 ShaderProgram::ShaderProgram(Device* device) : device(device) {
     descriptorPool = std::make_unique<DescriptorPool>(device);
-    descriptorSets = std::make_unique<DescriptorSets>(device, descriptorPool.get());
+    m_descriptorSets = std::make_unique<DescriptorSets>(device, descriptorPool.get());
 
-    pipelineLayout = std::make_unique<PipelineLayout>(device);
+    m_pipelineLayout = std::make_unique<PipelineLayout>(device);
 }
 
 ShaderProgram::~ShaderProgram() {
-    descriptorSets->destroy();
+    m_descriptorSets->destroy();
     descriptorPool->destroy();
 }
 
 void ShaderProgram::loadShader(const std::string& filePath) {
     std::unique_ptr<Shader> shader = std::make_unique<Shader>();
     shader->load(filePath);
-    shaders.push_back(std::move(shader));
+    m_shaders.push_back(std::move(shader));
 }
 
 void ShaderProgram::create() {
     std::map<VkDescriptorType, uint32_t> descriptorTypes;
 
     // Collect descriptor set layouts and descriptor types
-    for (const auto& shader : shaders) {
-        for (const auto& binding : shader->getBindings()) {
+    for (const auto& shader : m_shaders) {
+        for (const auto& binding : shader->bindings()) {
             if (descriptorSetLayouts.find(binding.set) == descriptorSetLayouts.end()) {
                 descriptorSetLayouts[binding.set] = std::make_unique<DescriptorSetLayout>(device);
             }
@@ -60,7 +60,7 @@ void ShaderProgram::create() {
         descriptorPool->addPoolSize(it.first, it.second);
     }
 
-    if (descriptorPool->getPoolSizeCount()) {
+    if (descriptorPool->poolSizeCount()) {
         descriptorPool->setMaxSets(descriptorSetLayouts.size());
         descriptorPool->create();
     }
@@ -68,21 +68,21 @@ void ShaderProgram::create() {
     // Create descriptor set layouts
     for (const auto& it : descriptorSetLayouts) {
         it.second->create();
-        descriptorSets->addDescriptorSetLayout(it.second->getHandle());
-        pipelineLayout->addDescriptorSetLayout(it.second->getHandle());
+        m_descriptorSets->addDescriptorSetLayout(it.second->handle());
+        m_pipelineLayout->addDescriptorSetLayout(it.second->handle());
     }
 
-    if (descriptorSets->getCount()) {
-        descriptorSets->allocate();
+    if (m_descriptorSets->count()) {
+        m_descriptorSets->allocate();
         updateDescriptorSets();
     }
 
-    pipelineLayout->create();
+    m_pipelineLayout->create();
 }
 
-Shader::LocationInfo ShaderProgram::getLocationInfo(const std::string& name) const {
-    for (const auto& shader : shaders) {
-        for (const auto& locationInfo : shader->getLocations()) {
+Shader::LocationInfo ShaderProgram::locationInfo(const std::string& name) const {
+    for (const auto& shader : m_shaders) {
+        for (const auto& locationInfo : shader->locations()) {
             if (locationInfo.name == name) {
                 return locationInfo;
             }
@@ -122,12 +122,12 @@ void ShaderProgram::updateDescriptorSets() {
             }
         }
 
-        writeDescriptorSet.dstSet = descriptorSets->at(0); // TODO: Temporary dirty hack
+        writeDescriptorSet.dstSet = m_descriptorSets->at(0); // TODO: Temporary dirty hack
 
-        descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
+        m_descriptorSets->addWriteDescriptorSet(writeDescriptorSet);
     }
 
-    descriptorSets->updateDescriptorSets();
+    m_descriptorSets->updateDescriptorSets();
 }
 
 }

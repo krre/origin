@@ -16,9 +16,9 @@ DescriptorSets::~DescriptorSets() {
 
 void DescriptorSets::allocate() {
     assert(allocateInfo.descriptorSetCount > 0);
-    allocateInfo.descriptorPool = descriptorPool->getHandle();
+    allocateInfo.descriptorPool = descriptorPool->handle();
     allocateInfo.pSetLayouts = descriptorSetLayouts.data();
-    VULKAN_CHECK_RESULT(vkAllocateDescriptorSets(device->getHandle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
+    VULKAN_CHECK_RESULT(vkAllocateDescriptorSets(m_device->handle(), &allocateInfo, collection.data()), "Failed to allocate descriptor sets");
 }
 
 void DescriptorSets::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout) {
@@ -44,11 +44,11 @@ void DescriptorSets::clearCopyDescriptorSets() {
 }
 
 void DescriptorSets::updateDescriptorSets() {
-    vkUpdateDescriptorSets(device->getHandle(), writeDescriptorSets.size(), writeDescriptorSets.data(), copyDescriptorSets.size(), copyDescriptorSets.data());
+    vkUpdateDescriptorSets(m_device->handle(), writeDescriptorSets.size(), writeDescriptorSets.data(), copyDescriptorSets.size(), copyDescriptorSets.data());
 }
 
 void DescriptorSets::destroy() {
-    VULKAN_DESTROY_COLLECTION(vkFreeDescriptorSets(device->getHandle(), descriptorPool->getHandle(), collection.size(), collection.data()));
+    VULKAN_DESTROY_COLLECTION(vkFreeDescriptorSets(m_device->handle(), descriptorPool->handle(), collection.size(), collection.data()));
 }
 
 }

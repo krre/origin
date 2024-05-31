@@ -11,11 +11,11 @@ PipelineCache::~PipelineCache() {
 }
 
 void PipelineCache::create() {
-    VULKAN_CHECK_RESULT(vkCreatePipelineCache(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create pipeline cache");
+    VULKAN_CHECK_RESULT(vkCreatePipelineCache(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create pipeline cache");
 }
 
 void PipelineCache::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyPipelineCache(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyPipelineCache(m_device->handle(), m_handle, nullptr))
 }
 
 }

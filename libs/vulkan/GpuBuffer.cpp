@@ -9,30 +9,30 @@
 namespace Vulkan {
 
 GpuBuffer::GpuBuffer(Device* device, VkBufferUsageFlagBits usage, uint32_t size) :
-        usage(usage),
-        size(size) {
+        m_usage(usage),
+        m_size(size) {
     buffer = std::make_unique<Buffer>(device, usage, size);
     buffer->create();
 
     VkMemoryRequirements memRequirements;
-    vkGetBufferMemoryRequirements(buffer->getDevice()->getHandle(), buffer->getHandle(), &memRequirements);
+    vkGetBufferMemoryRequirements(buffer->device()->handle(), buffer->handle(), &memRequirements);
     bool moveToDevice = false; // TODO: Pass to constructor
     VkMemoryPropertyFlags properties = !moveToDevice ?
                 (VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) :
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
     memory = std::make_unique<DeviceMemory>(device);
-    memory->setMemoryTypeIndex(buffer->getDevice()->getPhysicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
+    memory->setMemoryTypeIndex(buffer->device()->physicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
     memory->allocate(memRequirements.size);
 
-    vkBindBufferMemory(buffer->getDevice()->getHandle(), buffer->getHandle(), memory->getHandle(), 0);
+    vkBindBufferMemory(buffer->device()->handle(), buffer->handle(), memory->handle(), 0);
 }
 
 GpuBuffer::~GpuBuffer() {
 
 }
 
-VkBuffer GpuBuffer::getHandle() const {
-    return buffer->getHandle();
+VkBuffer GpuBuffer::handle() const {
+    return buffer->handle();
 }
 
 void GpuBuffer::copyToBuffer(Buffer* dstBuffer, VkDeviceSize size) {

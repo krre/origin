@@ -15,11 +15,11 @@ void PipelineLayout::create() {
     createInfo.pSetLayouts = descriptorSetLayouts.data();
     createInfo.pushConstantRangeCount = pushConstantRanges.size();
     createInfo.pPushConstantRanges = pushConstantRanges.data();
-    VULKAN_CHECK_RESULT(vkCreatePipelineLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create pipeline layout");
+    VULKAN_CHECK_RESULT(vkCreatePipelineLayout(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create pipeline layout");
 }
 
 void PipelineLayout::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyPipelineLayout(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyPipelineLayout(m_device->handle(), m_handle, nullptr))
 }
 
 void PipelineLayout::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout) {

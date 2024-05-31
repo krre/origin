@@ -2,7 +2,7 @@
 #include "RenderManager.h"
 
 Renderer::Renderer(Object* parent) : Object(parent) {
-    m_device = RenderManager::get()->getGraphicsDevice();
+    m_device = RenderManager::get()->graphicsDevice();
 }
 
 Renderer::~Renderer() {

@@ -13,11 +13,11 @@ DescriptorSetLayout::~DescriptorSetLayout() {
 void DescriptorSetLayout::create() {
     createInfo.bindingCount = bindings.size();
     createInfo.pBindings = bindings.data();
-    VULKAN_CHECK_RESULT(vkCreateDescriptorSetLayout(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create descriptor set layout");
+    VULKAN_CHECK_RESULT(vkCreateDescriptorSetLayout(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create descriptor set layout");
 }
 
 void DescriptorSetLayout::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyDescriptorSetLayout(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyDescriptorSetLayout(m_device->handle(), m_handle, nullptr))
 }
 
 void DescriptorSetLayout::addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding) {

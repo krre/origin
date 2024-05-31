@@ -13,9 +13,10 @@ class GpuBuffer {
 public:
     GpuBuffer(Device* device, VkBufferUsageFlagBits usage, uint32_t size);
     ~GpuBuffer();
-    VkBufferUsageFlagBits getUsage() const { return usage; }
-    uint32_t getSize() const { return size; }
-    VkBuffer getHandle() const;
+
+    VkBufferUsageFlagBits usage() const { return m_usage; }
+    uint32_t size() const { return m_size; }
+    VkBuffer handle() const;
     void copyToBuffer(Buffer* dstBuffer, VkDeviceSize size);
 
     void write(const void* data, uint32_t size, uint32_t offset = 0);
@@ -25,8 +26,8 @@ private:
     std::unique_ptr<Buffer> buffer;
     std::unique_ptr<DeviceMemory> memory;
     std::unique_ptr<Buffer> stageBuffer; // TODO: Use for staging
-    uint32_t size = 0;
-    VkBufferUsageFlagBits usage;
+    uint32_t m_size = 0;
+    VkBufferUsageFlagBits m_usage;
 };
 
 }

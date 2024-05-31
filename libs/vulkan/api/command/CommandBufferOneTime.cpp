@@ -23,14 +23,14 @@ CommandBufferOneTime::~CommandBufferOneTime() {
 void CommandBufferOneTime::apply() {
     commandBuffer->end();
 
-    Fence fence(device);
+    Fence fence(m_device);
     fence.create();
 
-    Queue queue(device, commandPool->getQueueFamilyIndex(), 0);
-    queue.addCommandBuffer(commandBuffer->getHandle());
-    queue.submit(fence.getHandle());
+    Queue queue(m_device, commandPool->getQueueFamilyIndex(), 0);
+    queue.addCommandBuffer(commandBuffer->handle());
+    queue.submit(fence.handle());
 
-    device->waitForFences({ fence.getHandle() });
+    m_device->waitForFences({ fence.handle() });
 }
 
 void CommandBufferOneTime::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter) {

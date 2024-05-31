@@ -11,19 +11,19 @@ Fence::~Fence() {
 }
 
 void Fence::create() {
-    VULKAN_CHECK_RESULT(vkCreateFence(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create fence");
+    VULKAN_CHECK_RESULT(vkCreateFence(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create fence");
 }
 
 void Fence::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyFence(device->getHandle(), handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyFence(m_device->handle(), m_handle, nullptr))
 }
 
 VkResult Fence::wait() {
-    return vkWaitForFences(device->getHandle(), 1, &handle, VK_TRUE, UINT64_MAX);
+    return vkWaitForFences(m_device->handle(), 1, &m_handle, VK_TRUE, UINT64_MAX);
 }
 
 VkResult Fence::reset() {
-    return vkResetFences(device->getHandle(), 1, &handle);
+    return vkResetFences(m_device->handle(), 1, &m_handle);
 }
 
 void Fence::setSignaledBit() {

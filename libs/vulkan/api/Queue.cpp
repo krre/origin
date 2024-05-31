@@ -8,7 +8,7 @@ namespace Vulkan {
 
 Queue::Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) : Devicer(device) {
     presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-    vkGetDeviceQueue(device->getHandle(), queueFamilyIndex, queueIndex, &handle);
+    vkGetDeviceQueue(device->handle(), queueFamilyIndex, queueIndex, &m_handle);
 }
 
 void Queue::addPresentWaitSemaphore(VkSemaphore semaphore) {
@@ -20,15 +20,15 @@ void Queue::clearPresentWaitSemaphores() {
 }
 
 void Queue::waitIdle() {
-    VULKAN_CHECK_RESULT(vkQueueWaitIdle(handle), "Failed to wait idle for queue");
+    VULKAN_CHECK_RESULT(vkQueueWaitIdle(m_handle), "Failed to wait idle for queue");
 }
 
 void Queue::syncHost(VkFence fence) {
-    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, 0, nullptr, fence), "Failed to sync host with queue");
+    VULKAN_CHECK_RESULT(vkQueueSubmit(m_handle, 0, nullptr, fence), "Failed to sync host with queue");
 }
 
 void Queue::submit(VkFence fence) {
-    VULKAN_CHECK_RESULT(vkQueueSubmit(handle, submitInfos.size(), submitInfos.data(), fence), "Failed to submit queue");
+    VULKAN_CHECK_RESULT(vkQueueSubmit(m_handle, submitInfos.size(), submitInfos.data(), fence), "Failed to submit queue");
 }
 
 void Queue::addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore, VkSemaphore waitSemaphore, VkPipelineStageFlags waitDstStageMask) {
@@ -71,11 +71,11 @@ void Queue::present(uint32_t* indices) {
     presentInfo.swapchainCount = swapchainHandles.size();
     presentInfo.pSwapchains = swapchainHandles.data();
     presentInfo.pImageIndices = indices == nullptr ? imageIndices.data() : indices;
-    VULKAN_CHECK_RESULT(vkQueuePresentKHR(handle, &presentInfo), "Failed to present swapchain image");
+    VULKAN_CHECK_RESULT(vkQueuePresentKHR(m_handle, &presentInfo), "Failed to present swapchain image");
 }
 
 void Queue::addSwapchain(Swapchain* swapchain) {
-    swapchainHandles.push_back(swapchain->getHandle());
+    swapchainHandles.push_back(swapchain->handle());
     swapchains.push_back(swapchain);
     imageIndices.resize(swapchainHandles.size());
 

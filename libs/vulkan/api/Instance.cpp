@@ -8,14 +8,14 @@ Instance::Instance() {
     // Get layers
     uint32_t layerCount;
     vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
-    layersProperties.resize(layerCount);
-    vkEnumerateInstanceLayerProperties(&layerCount, layersProperties.data());
+    m_layersProperties.resize(layerCount);
+    vkEnumerateInstanceLayerProperties(&layerCount, m_layersProperties.data());
 
     // Get extensions
     uint32_t extensionCount;
     vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, nullptr);
-    extensionProperties.resize(extensionCount);
-    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, extensionProperties.data());
+    m_extensionProperties.resize(extensionCount);
+    vkEnumerateInstanceExtensionProperties(nullptr, &extensionCount, m_extensionProperties.data());
 
 #if defined(_WIN32)
     enabledExtensions = {
@@ -58,7 +58,7 @@ void Instance::create() {
     }
     createInfo.ppEnabledExtensionNames = extensions.data();
 
-    VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &handle), "Failed to create instance");
+    VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &m_handle), "Failed to create instance");
 
     if (debugReportFlags) {
         for (const auto& layer : enabledExtensions) {
@@ -73,7 +73,7 @@ void Instance::create() {
 }
 
 void Instance::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyInstance(handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroyInstance(m_handle, nullptr))
 }
 
 void Instance::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
@@ -81,7 +81,7 @@ void Instance::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
 }
 
 void Instance::dumpLayers() {
-    for (const auto& layer : layersProperties) {
+    for (const auto& layer : m_layersProperties) {
         std::cout << layer.layerName << " - " << layer.description
               << " (spec. ver. " << apiToString(layer.specVersion)
               << ", impl. ver. " << layer.implementationVersion << ")" << std::endl;;
@@ -93,7 +93,7 @@ void Instance::setEnabledExtensions(const std::vector<std::string>& enabledExten
 }
 
 void Instance::dumpExtensions() {
-    for (const auto& extension : extensionProperties) {
+    for (const auto& extension : m_extensionProperties) {
         std::cout << extension.extensionName << " (spec. ver. " << extension.specVersion << ")" << std::endl;
     }
 }

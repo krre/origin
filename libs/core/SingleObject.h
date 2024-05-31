@@ -9,34 +9,34 @@ template <typename T>
 class SingleObject : public Core::Object {
 public:
     SingleObject(Object* parent = nullptr) : Object(parent) {
-        assert(instance == nullptr && "SingleObject should be initialized only once");
-        instance = static_cast<T*>(this);
+        assert(s_instance == nullptr && "SingleObject should be initialized only once");
+        s_instance = static_cast<T*>(this);
     }
 
     virtual ~SingleObject() {
-        instance = nullptr;
+        s_instance = nullptr;
     }
 
     static T* get() {
-        return instance;
+        return s_instance;
     }
 
     static bool exists() {
-        return instance != nullptr;
+        return s_instance != nullptr;
     }
 
     static void release() {
-        if (instance != nullptr) {
-            delete instance;
-            instance = nullptr;
+        if (s_instance != nullptr) {
+            delete s_instance;
+            s_instance = nullptr;
         }
     }
 
 private:
-    static T* instance;
+    static T* s_instance;
 };
 
 template <typename T>
-T* SingleObject<T>::instance = nullptr;
+T* SingleObject<T>::s_instance = nullptr;
 
 }

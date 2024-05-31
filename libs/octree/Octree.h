@@ -45,7 +45,7 @@ public:
 
     void split(const Path& path = Path());
 
-    const std::vector<Vertex>& getVertices() const;
+    const std::vector<Vertex>& vertices() const;
 
     void setSubstance(const Substance& substance);
 
@@ -54,7 +54,7 @@ private:
     int posToNumber(const Pos& pos);
 
     json storage = {};
-    std::vector<Vertex> vertices;
+    std::vector<Vertex> m_vertices;
     Substance substance;
 };
 

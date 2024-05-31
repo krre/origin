@@ -18,4 +18,4 @@ private:
     VkBufferViewCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

@@ -30,4 +30,4 @@ void PipelineLayout::addPushConstantRange(VkPushConstantRange pushConstantRange)
     pushConstantRanges.push_back(pushConstantRange);
 }
 
-} // Vulkan
+}

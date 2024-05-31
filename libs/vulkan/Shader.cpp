@@ -178,4 +178,4 @@ VkFormat Shader::spirvTypeToFormat(spirv_cross::SPIRType type) {
     return VK_FORMAT_MAX_ENUM;
 }
 
-} // Vulkan
+}

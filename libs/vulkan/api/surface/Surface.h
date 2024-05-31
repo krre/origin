@@ -30,4 +30,4 @@ private:
     VkSurfaceCapabilitiesKHR capabilities;
 };
 
-} // Vulkan
+}

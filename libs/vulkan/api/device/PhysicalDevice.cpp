@@ -82,4 +82,4 @@ uint32_t PhysicalDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFla
     return -1;
 }
 
-} // Vulkan
+}

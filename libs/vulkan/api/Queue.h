@@ -42,4 +42,4 @@ protected:
     std::vector<uint32_t> imageIndices;
 };
 
-} // Vulkan
+}

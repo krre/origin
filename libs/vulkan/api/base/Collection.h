@@ -24,4 +24,4 @@ protected:
     std::vector<T> collection;
 };
 
-} // Vulkan
+}

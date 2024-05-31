@@ -31,4 +31,4 @@ private:
     std::vector<VkCopyDescriptorSet> copyDescriptorSets;
 };
 
-} // Vulkan
+}

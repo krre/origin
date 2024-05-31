@@ -42,4 +42,4 @@ private:
     std::vector<VkDynamicState> dynamicStates;
 };
 
-} // Vulkan
+}

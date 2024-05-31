@@ -32,4 +32,4 @@ private:
     std::vector<VkQueueFamilyProperties> queueFamilyProperties;
 };
 
-} // Vulkan
+}

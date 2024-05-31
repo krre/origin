@@ -17,4 +17,4 @@ void ComputePipeline::setPipelineLayout(VkPipelineLayout layout) {
     createInfo.layout = layout;
 }
 
-} // Vulkan
+}

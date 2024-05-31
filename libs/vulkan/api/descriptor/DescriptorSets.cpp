@@ -51,4 +51,4 @@ void DescriptorSets::destroy() {
     VULKAN_DESTROY_COLLECTION(vkFreeDescriptorSets(device->getHandle(), descriptorPool->getHandle(), collection.size(), collection.data()));
 }
 
-} // Vulkan
+}

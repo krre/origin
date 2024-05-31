@@ -19,4 +19,4 @@ private:
     std::vector<VkDescriptorSetLayoutBinding> bindings;
 };
 
-} // Vulkan
+}

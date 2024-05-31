@@ -18,4 +18,4 @@ private:
     VkImageViewCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

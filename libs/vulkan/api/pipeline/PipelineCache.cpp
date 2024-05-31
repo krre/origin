@@ -18,4 +18,4 @@ void PipelineCache::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyPipelineCache(device->getHandle(), handle, nullptr))
 }
 
-} // Vulkan
+}

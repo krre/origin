@@ -29,4 +29,4 @@ private:
     std::vector<VkImageView> attachments;
 };
 
-} // Vulkan
+}

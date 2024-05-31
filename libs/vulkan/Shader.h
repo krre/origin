@@ -46,4 +46,4 @@ private:
     std::vector<LocationInfo> locations;
 };
 
-} // Vulkan
+}

@@ -34,4 +34,4 @@ void DebugReportCallback::setFlags(VkDebugReportFlagsEXT flags) {
     createInfo.flags = flags;
 }
 
-} // Vulkan
+}

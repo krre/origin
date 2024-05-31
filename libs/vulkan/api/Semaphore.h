@@ -16,4 +16,4 @@ private:
     VkSemaphoreCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

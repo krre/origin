@@ -34,4 +34,4 @@ private:
     VkExtent2D oldExtent = { (uint32_t)-1, (uint32_t)-1 };
 };
 
-} // Vulkan
+}

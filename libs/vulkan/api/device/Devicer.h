@@ -15,4 +15,4 @@ protected:
     Device* device;
 };
 
-} // Vulkan
+}

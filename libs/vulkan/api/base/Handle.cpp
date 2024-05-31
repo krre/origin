@@ -37,4 +37,4 @@ std::string resultToString(VkResult result) {
     return std::string("Unknown result code: ") + std::to_string(result);
 }
 
-} // Vulkan
+}

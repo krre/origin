@@ -38,4 +38,4 @@ void DescriptorPool::reset() {
     vkResetDescriptorPool(device->getHandle(), handle, 0);
 }
 
-} // Vulkan
+}

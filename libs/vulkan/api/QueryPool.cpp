@@ -19,4 +19,4 @@ void QueryPool::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyQueryPool(device->getHandle(), handle, nullptr))
 }
 
-} // Vulkan
+}

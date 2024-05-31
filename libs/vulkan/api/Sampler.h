@@ -16,4 +16,4 @@ private:
     VkSamplerCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

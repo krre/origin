@@ -19,4 +19,4 @@ private:
     VkFenceCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

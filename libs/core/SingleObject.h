@@ -39,4 +39,4 @@ private:
 template <typename T>
 T* SingleObject<T>::instance = nullptr;
 
-} // Origin
+}

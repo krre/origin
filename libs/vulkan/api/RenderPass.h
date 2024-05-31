@@ -50,4 +50,4 @@ private:
     bool depthEnable = false;
 };
 
-} // Vulkan
+}

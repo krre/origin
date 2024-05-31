@@ -37,5 +37,5 @@ protected:
     T handle = VK_NULL_HANDLE;
 };
 
-} // Vulkan
+}
 

@@ -60,4 +60,4 @@ VkExtent2D Surface::getCurrentExtent() const {
     return capabilities.currentExtent;
 }
 
-} // Vulkan
+}

@@ -6,4 +6,4 @@ Devicer::Devicer(Device* device) : device(device) {
 
 }
 
-} // Vulkan
+}

@@ -264,4 +264,4 @@ void CommandBuffer::reset() {
     vkResetCommandBuffer(handle, VK_COMMAND_BUFFER_RESET_RELEASE_RESOURCES_BIT);
 }
 
-} // Vulkan
+}

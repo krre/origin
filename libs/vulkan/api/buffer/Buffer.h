@@ -17,4 +17,4 @@ private:
     VkBufferCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

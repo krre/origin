@@ -22,4 +22,4 @@ void Buffer::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyBuffer(device->getHandle(), handle, nullptr))
 }
 
-} // Vulkan
+}

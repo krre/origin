@@ -21,4 +21,4 @@ void BufferView::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyBufferView(device->getHandle(), handle, nullptr))
 }
 
-} // Vulkan
+}

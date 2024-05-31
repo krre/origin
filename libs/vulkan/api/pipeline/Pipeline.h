@@ -24,4 +24,4 @@ protected:
     std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
 };
 
-} // Vulkan
+}

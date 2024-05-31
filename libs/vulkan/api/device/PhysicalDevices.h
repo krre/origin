@@ -21,4 +21,4 @@ private:
     std::vector<std::unique_ptr<PhysicalDevice>> devices;
 };
 
-} // Vulkan
+}

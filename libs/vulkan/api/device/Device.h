@@ -29,4 +29,4 @@ private:
     std::vector<const char*> enabledExtensions;
 };
 
-} // Vulkan
+}

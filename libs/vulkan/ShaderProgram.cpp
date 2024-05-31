@@ -130,4 +130,4 @@ void ShaderProgram::updateDescriptorSets() {
     descriptorSets->updateDescriptorSets();
 }
 
-} // Vulkan
+}

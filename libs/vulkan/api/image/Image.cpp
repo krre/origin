@@ -80,4 +80,4 @@ void Image::write(void* data, VkDeviceSize size, VkDeviceSize offset) {
     memory->unmap();
 }
 
-} // Vulkan
+}

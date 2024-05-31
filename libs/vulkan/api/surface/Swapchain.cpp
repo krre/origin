@@ -59,4 +59,4 @@ void Swapchain::setImageIndexPtr(uint32_t* pImageIndex) {
     this->pImageIndex = pImageIndex;
 }
 
-} // Vulkan
+}

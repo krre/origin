@@ -18,4 +18,4 @@ void Semaphore::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySemaphore(device->getHandle(), handle, nullptr))
 }
 
-} // Vulkan
+}

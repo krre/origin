@@ -42,4 +42,4 @@ Texture::~Texture() {
 
 }
 
-} // Vulkan
+}

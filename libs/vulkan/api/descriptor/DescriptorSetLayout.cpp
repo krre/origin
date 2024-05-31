@@ -24,4 +24,4 @@ void DescriptorSetLayout::addLayoutBinding(VkDescriptorSetLayoutBinding layoutBi
     bindings.push_back(layoutBinding);
 }
 
-} // Vulkan
+}

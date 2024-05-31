@@ -39,4 +39,4 @@ void ImageView::setAspectMask(VkImageAspectFlags aspectMask) {
     createInfo.subresourceRange.aspectMask = aspectMask;
 }
 
-} // Vulkan
+}

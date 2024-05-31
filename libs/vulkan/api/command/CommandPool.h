@@ -19,4 +19,4 @@ private:
     VkCommandPoolCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

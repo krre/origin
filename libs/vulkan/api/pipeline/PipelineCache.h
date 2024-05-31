@@ -16,4 +16,4 @@ private:
     VkPipelineCacheCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

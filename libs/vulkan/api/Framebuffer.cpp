@@ -41,4 +41,4 @@ void Framebuffer::setRenderPass(RenderPass* renderPass) {
     createInfo.renderPass = renderPass->getHandle();
 }
 
-} // Vulkan
+}

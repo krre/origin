@@ -27,4 +27,4 @@ void CommandBuffers::destroy() {
     VULKAN_DESTROY_COLLECTION(vkFreeCommandBuffers(device->getHandle(), commandPool->getHandle(), collection.size(), collection.data()));
 }
 
-} // Vulkan
+}

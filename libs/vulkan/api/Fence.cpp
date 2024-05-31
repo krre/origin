@@ -30,4 +30,4 @@ void Fence::setSignaledBit() {
     createInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 }
 
-} // Vulkan
+}

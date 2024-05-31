@@ -78,4 +78,4 @@ private:
     std::vector<VkImageMemoryBarrier> imageMemoryBarriers;
 };
 
-} // Vulkan
+}

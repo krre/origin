@@ -25,4 +25,4 @@ private:
     std::vector<VkDescriptorPoolSize> poolSizes;
 };
 
-} // Vulkan
+}

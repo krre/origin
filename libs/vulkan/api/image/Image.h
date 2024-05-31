@@ -36,4 +36,4 @@ private:
     std::unique_ptr<DeviceMemory> memory;
 };
 
-} // Vulkan
+}

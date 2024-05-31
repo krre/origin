@@ -14,4 +14,4 @@ void Event::create() {
     VULKAN_CHECK_RESULT(vkCreateEvent(device->getHandle(), &createInfo, nullptr, &handle), "Failed to create event");
 }
 
-} // Vulkan
+}

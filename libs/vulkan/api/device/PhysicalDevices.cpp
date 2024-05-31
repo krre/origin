@@ -42,4 +42,4 @@ void PhysicalDevices::dumpDevices() {
     }
 }
 
-} // Vulkan
+}

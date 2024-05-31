@@ -61,4 +61,4 @@ void CommandBufferOneTime::addBufferCopy(VkBufferCopy bufferCopy) {
     commandBuffer->addBufferCopy(bufferCopy);
 }
 
-} // Vulkan
+}

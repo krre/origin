@@ -16,4 +16,4 @@ private:
     VkQueryPoolCreateInfo createInfo = {};
 };
 
-} // Vulkan
+}

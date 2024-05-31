@@ -105,4 +105,4 @@ std::string Instance::apiToString(int api) {
     return std::to_string(major) + "." + std::to_string(minor) + "." + std::to_string(patch);
 }
 
-} // Vulkan
+}

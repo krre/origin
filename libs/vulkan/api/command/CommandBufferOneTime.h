@@ -31,4 +31,4 @@ private:
     CommandPool* commandPool;
 };
 
-} // Vulkan
+}

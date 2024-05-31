@@ -31,4 +31,4 @@ void DeviceMemory::unmap() {
     vkUnmapMemory(device->getHandle(), handle);
 }
 
-} // Vulkan
+}

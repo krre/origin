@@ -20,4 +20,4 @@ void ShaderModule::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroyShaderModule(device->getHandle(), handle, nullptr))
 }
 
-} // Vulkan
+}

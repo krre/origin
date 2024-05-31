@@ -27,4 +27,4 @@ private:
     std::unique_ptr<ImageView> imageView;
 };
 
-} // Origin
+}

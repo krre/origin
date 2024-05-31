@@ -69,4 +69,4 @@ void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> qu
     queueCreateInfos.push_back(queueCreateInfo);
 }
 
-} // Vulkan
+}

@@ -27,4 +27,4 @@ void Pipeline::setPipelineCache(VkPipelineCache pipelineCache) {
     this->pipelineCache = pipelineCache;
 }
 
-} // Vulkan
+}

@@ -97,4 +97,4 @@ void RenderPass::setDepthEnable(bool depthEnable) {
     this->depthEnable = depthEnable;
 }
 
-} // Vulkan
+}

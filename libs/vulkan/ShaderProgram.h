@@ -47,4 +47,4 @@ private:
     std::vector<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
 };
 
-} // Vulkan
+}

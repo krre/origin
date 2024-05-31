@@ -30,4 +30,4 @@ void Sampler::destroy() {
     VULKAN_DESTROY_HANDLE(vkDestroySampler(device->getHandle(), handle, nullptr))
 }
 
-} // Vulkan
+}

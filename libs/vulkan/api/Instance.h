@@ -39,4 +39,4 @@ private:
     VkDebugReportFlagsEXT debugReportFlags = 0;
 };
 
-} // Vulkan
+}

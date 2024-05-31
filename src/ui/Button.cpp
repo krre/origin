@@ -21,16 +21,16 @@ void Button::setText(const std::string &text) {
     centerLabel();
 }
 
-std::string Button::getText() const {
-    return label->getText();
+std::string Button::text() const {
+    return label->text();
 }
 
 void Button::setTextColor(const Color& labelColor) {
     label->setColor(labelColor);
 }
 
-const Color& Button::getTextColor() const {
-    return label->getColor();
+const Color& Button::textColor() const {
+    return label->color();
 }
 
 void Button::mouseButtonAction(const SDL_MouseButtonEvent& event) {
@@ -40,8 +40,8 @@ void Button::mouseButtonAction(const SDL_MouseButtonEvent& event) {
 }
 
 void Button::centerLabel() {
-    int x = (size.width - label->getContentWidth()) / 2;
-    int y = (size.height - label->getContentHeight()) / 2;
+    int x = (m_size.width - label->contentWidth()) / 2;
+    int y = (m_size.height - label->contentHeight()) / 2;
     label->move(x, y);
 }
 

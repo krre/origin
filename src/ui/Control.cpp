@@ -13,7 +13,7 @@ Control::~Control() {
 }
 
 void Control::setPosition(const Core::Pos2& position) {
-    this->position = position;
+    this->m_position = position;
     updatePosition();
 }
 
@@ -21,9 +21,9 @@ void Control::updatePosition() {
     Control* parent = static_cast<Control*>(getParent());
 
     if (parent) {
-        absolutePosition = parent->getAbsolutePosition() + position;
+        m_absolutePosition = parent->absolutePosition() + m_position;
     } else {
-        absolutePosition = position;
+        m_absolutePosition = m_position;
     }
 
     for (const auto child : getChildren()) {
@@ -35,13 +35,13 @@ void Control::updatePosition() {
 }
 
 void Control::setSize(const Core::Size& size) {
-    this->size = size;
+    this->m_size = size;
 
     resizeImpl(size.width, size.height);
 }
 
 void Control::setScale(float scale) {
-    this->scale = scale;
+    this->m_scale = scale;
 }
 
 void Control::resize(int width, int height) {
@@ -53,7 +53,7 @@ void Control::move(int x, int y) {
 }
 
 void Control::markDirty() {
-    dirty = true;
+    m_dirty = true;
 
     Control* parent = dynamic_cast<Control*>(getParent());
     if (parent) {
@@ -62,16 +62,16 @@ void Control::markDirty() {
 }
 
 void Control::clearDirty() {
-    dirty = false;
+    m_dirty = false;
 }
 
 void Control::setVisible(bool visible) {
-    if (this->visible == visible) return;
-    this->visible = visible;
+    if (this->m_visible == visible) return;
+    this->m_visible = visible;
 
-    Screen* screen = Window::get()->getCurrentScreen();
+    Screen* screen = Window::get()->currentScreen();
 
-    if (!visible && screen && screen->getActiveControl() == this) {
+    if (!visible && screen && screen->activeControl() == this) {
         screen->activate();
     }
 
@@ -79,7 +79,7 @@ void Control::setVisible(bool visible) {
 }
 
 void Control::update(float dt) {
-    if (!visible) return;
+    if (!m_visible) return;
 
     updateImpl(dt);
 
@@ -96,7 +96,7 @@ void Control::draw() {
 
     for (Object* child : getChildren()) {
         Control* control = dynamic_cast<Control*>(child);
-        if (control && control->getVisible()) {
+        if (control && control->visible()) {
             control->draw();
         }
     }
@@ -105,5 +105,5 @@ void Control::draw() {
 }
 
 void Control::activate() {
-    Window::get()->getCurrentScreen()->setActiveControl(this);
+    Window::get()->currentScreen()->setActiveControl(this);
 }

@@ -14,7 +14,7 @@ LoadWorldScreen::LoadWorldScreen() {
     listBox = new ListBox;
     listBox->resize(200, 200);
 
-    for(auto& path: std::filesystem::directory_iterator(World::getSavesDirectory())) {
+    for(auto& path: std::filesystem::directory_iterator(World::savesDirectory())) {
         std::filesystem::path fullPath(path);
         listBox->addLine(fullPath.filename().string());
     }
@@ -25,18 +25,18 @@ LoadWorldScreen::LoadWorldScreen() {
 
     Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
-        if (listBox->getCurrentIndex() >= 0) {
-            Window::get()->setScreen(std::make_shared<GameScreen>(listBox->getCurrentText()));
+        if (listBox->currentIndex() >= 0) {
+            Window::get()->setScreen(std::make_shared<GameScreen>(listBox->currentText()));
         }
     });
     buttonLayout->appendChild(buttonPlay);
 
     Button* buttonRemove = new Button("Remove");
     buttonRemove->clicked.connect([&]() {
-        int currentIndex = listBox->getCurrentIndex();
+        int currentIndex = listBox->currentIndex();
         if (currentIndex >= 0) {
             try {
-                World::remove(listBox->getCurrentText());
+                World::remove(listBox->currentText());
                 listBox->removeLine(currentIndex);
             } catch (const std::filesystem::filesystem_error& e) {
                 SDL::showErrorMessageBox(e.what());
@@ -54,6 +54,6 @@ LoadWorldScreen::LoadWorldScreen() {
 }
 
 void LoadWorldScreen::resizeImpl(int width, int height) {
-    layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
-    buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
+    layout->move((width - layout->contentWidth()) / 2, (height - layout->contentHeight()) / 2);
+    buttonBack->move(width - buttonBack->size().width, height - buttonBack->size().height);
 }

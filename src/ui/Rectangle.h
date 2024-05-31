@@ -12,19 +12,19 @@ public:
     Rectangle(const Core::Pos2& position, const Core::Size& size, Control* parent = nullptr);
 
     void setColor(const Color& color);
-    const Color& getColor() const { return color; }
+    const Color& color() const { return m_color; }
 
     void setBorderColor(const Color& borderColor);
-    const Color& getBorderColor() const { return borderColor; }
+    const Color& borderColor() const { return m_borderColor; }
 
     void setBorderWidth(uint32_t borderWidth);
-    uint32_t getBorderWidth() const { return borderWidth; }
+    uint32_t borderWidth() const { return m_borderWidth; }
 
 private:
     void drawImpl() override;
 
-    Color color = Color::WHITE;
-    Color borderColor = Color::GRAY;
-    uint32_t borderWidth = 0;
+    Color m_color = Color::WHITE;
+    Color m_borderColor = Color::GRAY;
+    uint32_t m_borderWidth = 0;
     Font* font;
 };

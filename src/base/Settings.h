@@ -10,11 +10,11 @@ public:
     Settings(Object* parent = nullptr);
     ~Settings();
     static void saveAll();
-    static json& getStorage() { return get()->storage; }
+    static json& storage() { return get()->m_storage; }
 
 private:
     void setDefaultSettings();
 
     std::string path;
-    json storage;
+    json m_storage;
 };

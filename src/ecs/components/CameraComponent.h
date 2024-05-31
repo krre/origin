@@ -7,12 +7,12 @@ class CameraComponent : public Component {
 
 public:
     CameraComponent() {
-        int width = Window::get()->getWidth();
-        int height = Window::get()->getHeight();
+        int width = Window::get()->width();
+        int height = Window::get()->height();
         aspect = width * 1.0f / height;
         projection = glm::perspective(fov, aspect, near, far);
     }
-    Type getType() const override { return Component::Type::Camera; }
+    Type type() const override { return Component::Type::Camera; }
 
     float near = 0.01f;
     float far = 100.0f;

@@ -2,7 +2,7 @@
 #include "RenderManager.h"
 
 Renderer::Renderer(Object* parent) : Object(parent) {
-    device = RenderManager::get()->getGraphicsDevice();
+    m_device = RenderManager::get()->getGraphicsDevice();
 }
 
 Renderer::~Renderer() {
@@ -10,5 +10,5 @@ Renderer::~Renderer() {
 }
 
 void Renderer::setActive(bool active) {
-    this->active = active;
+    this->m_active = active;
 }

@@ -15,15 +15,16 @@ public:
 
     Screen();
     virtual ~Screen();
+
     virtual void hide();
     virtual void pause();
     virtual void resume();
     virtual void show();
 
     void setActiveControl(Control* control);
-    Control* getActiveControl() const { return activeControl; }
+    Control* activeControl() const { return m_activeControl; }
 
 private:
     bool isPaused = true;
-    Control* activeControl = nullptr;
+    Control* m_activeControl = nullptr;
 };

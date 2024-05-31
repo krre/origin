@@ -11,8 +11,8 @@ public:
     ~Scene();
 
     void setRootEntity(Entity* rootEntity);
-    Entity* getRootEntity() const { return rootEntity; }
+    Entity* rootEntity() const { return m_rootEntity; }
 
 private:
-    Entity* rootEntity = nullptr;
+    Entity* m_rootEntity = nullptr;
 };

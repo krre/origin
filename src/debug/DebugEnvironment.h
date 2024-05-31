@@ -9,14 +9,15 @@ class DebugEnvironment : public Core::SingleObject<DebugEnvironment> {
 
 public:
     DebugEnvironment(Object* parent = nullptr);
-    static bool getEnable() { return get()->enable; }
+
+    static bool enable() { return get()->m_enable; }
     static void setDebugScreen();
-    static json& getSettings() { return get()->settings; }
-    static int getVulkanDevice() { return get()->settings["vulkan"]["device"]; }
-    static VkDebugReportFlagsEXT getVulkanDebugReportFlags();
+    static json& settings() { return get()->m_settings; }
+    static int vulkanDevice() { return get()->m_settings["vulkan"]["device"]; }
+    static VkDebugReportFlagsEXT vulkanDebugReportFlags();
 
 private:
     void loadValues();
-    bool enable = false;
-    json settings;
+    bool m_enable = false;
+    json m_settings;
 };

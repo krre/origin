@@ -13,9 +13,9 @@ namespace SDL {
     void init();
     void shutdown();
 
-    Core::Size getScreenSize();
-    std::string getError();
-    Platform getPlatform(SDL_Window* window);
+    Core::Size screenSize();
+    std::string error();
+    Platform platform(SDL_Window* window);
     void showErrorMessageBox(const char* message);
     bool isInited();
 }

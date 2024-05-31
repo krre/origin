@@ -10,9 +10,9 @@ static Overlay* instance = nullptr;
 
 Overlay::Overlay(Control* parent) : Control(parent) {
     instance  = this;
-    console = new Console(this);
-    debugHUD = new DebugHUD(this);
-    toast = new Toast(this);
+    m_console = new Console(this);
+    m_debugHUD = new DebugHUD(this);
+    m_toast = new Toast(this);
 }
 
 Overlay::~Overlay() {
@@ -23,15 +23,15 @@ Overlay* Overlay::get() {
 }
 
 void Overlay::toggleDebugHUD() {
-    debugHUD->setVisible(!debugHUD->getVisible());
+    m_debugHUD->setVisible(!m_debugHUD->visible());
 }
 
 void Overlay::showConsole() {
-    if (console->getVisible()) return;
+    if (m_console->visible()) return;
 
-    console->reset();
-    console->activate();
-    console->setVisible(true);
+    m_console->reset();
+    m_console->activate();
+    m_console->setVisible(true);
 }
 
 void Overlay::showDialog(Dialog* dialog) {
@@ -49,7 +49,7 @@ void Overlay::closeDialog(Dialog* dialog) {
         delete dialog;
     });
 
-    Window::get()->getCurrentScreen()->activate();
+    Window::get()->currentScreen()->activate();
     markDirty();
 }
 
@@ -62,15 +62,15 @@ void Overlay::invokeDeffered() {
 }
 
 void Overlay::resizeImpl(int width, int height) {
-    toast->move(0, height / 2);
-    console->move(0, height - console->getSize().height - 5);
-    console->resize(width, console->getSize().height);
-    debugHUD->resize(width, height);
+    m_toast->move(0, height / 2);
+    m_console->move(0, height - m_console->size().height - 5);
+    m_console->resize(width, m_console->size().height);
+    m_debugHUD->resize(width, height);
     centerDialog();
 }
 
 void Overlay::centerDialog() {
     if (dialog) {
-        dialog->move((size.width - dialog->getSize().width) / 2, (size.height - dialog->getSize().height) / 2);
+        dialog->move((m_size.width - dialog->size().width) / 2, (m_size.height - dialog->size().height) / 2);
     }
 }

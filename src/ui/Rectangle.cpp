@@ -10,29 +10,29 @@ Rectangle::Rectangle(Control* parent) : Control(parent) {
 }
 
 Rectangle::Rectangle(const Core::Size& size, Control* parent) : Rectangle(parent) {
-    this->size = size;
+    this->m_size = size;
 }
 
 Rectangle::Rectangle(const Core::Pos2& position, const Core::Size& size, Control* parent) : Rectangle(size, parent) {
-    this->position = position;
+    this->m_position = position;
 }
 
 void Rectangle::setColor(const Color& color) {
-    this->color = color;
+    this->m_color = color;
 }
 
 void Rectangle::setBorderColor(const Color& borderColor) {
-    this->borderColor = borderColor;
+    this->m_borderColor = borderColor;
 }
 
 void Rectangle::setBorderWidth(uint32_t border) {
-    this->borderWidth = border;
+    this->m_borderWidth = border;
 }
 
 void Rectangle::drawImpl() {
-    UIBatch batch(UIRenderer::get()->getVerticles());
-    batch.color = color;
-    batch.texture = font->getTexture();
-    batch.addQuad(absolutePosition.x, absolutePosition.y, size.width, size.height, font);
+    UIBatch batch(UIRenderer::get()->verticles());
+    batch.color = m_color;
+    batch.texture = font->texture();
+    batch.addQuad(m_absolutePosition.x, m_absolutePosition.y, m_size.width, m_size.height, font);
     UIRenderer::get()->addBatch(batch);
 }

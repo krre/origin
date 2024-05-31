@@ -26,14 +26,14 @@ void RenderManager::addRenderer(::Renderer* renderer) {
 
 void RenderManager::draw() {
     for (::Renderer* renderer : renderers) {
-        if (renderer->getActive()) {
+        if (renderer->active()) {
             renderer->draw();
         }
     }
 }
 
 void RenderManager::saveScreenshot() {
-    std::string directoryPath = Game::getCurrentDirectory() + Core::Utils::getPathSeparator() + "Screenshot";
+    std::string directoryPath = Game::currentDirectory() + Core::Utils::getPathSeparator() + "Screenshot";
 
     if (!std::filesystem::exists(directoryPath)) {
         std::filesystem::create_directory(directoryPath);
@@ -51,18 +51,18 @@ void RenderManager::saveScreenshot() {
     std::string filePath = directoryPath + Core::Utils::getPathSeparator() + filename;
 
     std::vector<unsigned char> buffer = readFramebuffer();
-    lodepng::encode(filePath, buffer.data(), Window::get()->getWidth(), Window::get()->getHeight());
+    lodepng::encode(filePath, buffer.data(), Window::get()->width(), Window::get()->height());
 
     std::string message = "Screenshot saved to " + filename;
-    Overlay::get()->getToast()->show(message);
+    Overlay::get()->toast()->show(message);
 }
 
 void RenderManager::init() {
 }
 
 void RenderManager::preRender() {
-    if (currentScreen != Window::get()->getCurrentScreen()) {
-        currentScreen = Window::get()->getCurrentScreen();
+    if (currentScreen != Window::get()->currentScreen()) {
+        currentScreen = Window::get()->currentScreen();
         markDirty();
     }
 }
@@ -88,8 +88,8 @@ void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vul
     Vulkan::RenderPassBegin renderPassBegin(getRenderPass()->getHandle());
     renderPassBegin.setFrameBuffer(framebuffer->getHandle());
     renderPassBegin.setRenderArea({ 0, 0, framebuffer->getWidth(), framebuffer->getHeight() });
-    const Color& color = Window::get()->getColor();
-    renderPassBegin.addClearValue({ color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha() });
+    const Color& color = Window::get()->color();
+    renderPassBegin.addClearValue({ color.red(), color.green(), color.blue(), color.alpha() });
     VkClearValue depthColor = {};
     depthColor.depthStencil.depth = 1.0f;
     depthColor.depthStencil.stencil = 0.0f;
@@ -98,7 +98,7 @@ void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vul
     commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
     for (::Renderer* renderer : renderers) {
-        if (renderer->getActive()) {
+        if (renderer->active()) {
             renderer->writeCommandBuffer(commandBuffer, framebuffer);
         }
     }

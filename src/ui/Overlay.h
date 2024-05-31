@@ -14,9 +14,9 @@ public:
 
     static Overlay* get();
 
-    DebugHUD* getDebugHUD() const { return debugHUD; }
-    Toast* getToast() const { return toast; }
-    Console* getConsole() const { return console; }
+    DebugHUD* debugHUD() const { return m_debugHUD; }
+    Toast* toast() const { return m_toast; }
+    Console* console() const { return m_console; }
 
     void toggleDebugHUD();
     void showConsole();
@@ -31,9 +31,9 @@ private:
     // Save call deffered funtions, e.g. destroy dialog.
     void addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
 
-    DebugHUD* debugHUD;
-    Toast* toast;
-    Console* console;
+    DebugHUD* m_debugHUD;
+    Toast* m_toast;
+    Console* m_console;
     Dialog* dialog = nullptr;
     std::vector<std::function<void()>> deferredCalls;
 };

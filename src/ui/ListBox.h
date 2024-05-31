@@ -9,14 +9,14 @@ class RowDelegate : public Rectangle {
 
 public:
     RowDelegate(const std::string& text, int index, ListBox* listBox);
-    int getIndex() const { return index; }
+    int index() const { return m_index; }
 
 private:
     void mouseButtonAction(const SDL_MouseButtonEvent& event);
 
     Label* label;
     ListBox* listBox;
-    int index;
+    int m_index;
 };
 
 class ListBox : public Rectangle {
@@ -25,18 +25,19 @@ class ListBox : public Rectangle {
 public:
     ListBox(Control* parent = nullptr);
     ~ListBox();
+
     void addLine(const std::string& text);
     void removeLine(int index);
 
     void setCurrentIndex(int currentIndex);
-    int getCurrentIndex() const { return currentIndex; }
+    int currentIndex() const { return m_currentIndex; }
 
-    const std::string& getCurrentText() const { return currentText; }
+    const std::string& currentText() const { return m_currentText; }
 
 private:
     void resizeImpl(int width, int height) override;
 
     LinearLayout* layout;
-    std::string currentText;
-    int currentIndex = -1;
+    std::string m_currentText;
+    int m_currentIndex = -1;
 };

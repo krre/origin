@@ -7,31 +7,31 @@ LinearLayout::LinearLayout(Direction direction, Control* parent) :
 }
 
 void LinearLayout::updateContentPostion() {
-    contentWidth = 0;
-    contentHeight = 0;
-    int positionX = position.x;
-    int positionY = position.y;
+    m_contentWidth = 0;
+    m_contentHeight = 0;
+    int positionX = m_position.x;
+    int positionY = m_position.y;
     for (const auto& child : getChildren()) {
         Control* control = static_cast<Control*>(child);
         if (direction == Direction::Vertical) {
             control->move(positionX, positionY);
-            positionY += control->getContentHeight() + getSpacing();
-            contentWidth = std::max(contentWidth, control->getContentWidth());
-            contentHeight += control->getContentHeight() + getSpacing();
+            positionY += control->contentHeight() + spacing();
+            m_contentWidth = std::max(m_contentWidth, control->contentWidth());
+            m_contentHeight += control->contentHeight() + spacing();
         } else {
             control->move(positionX, positionY);
-            positionX += control->getContentWidth() + getSpacing();
-            contentWidth += control->getContentWidth() + getSpacing();
-            contentHeight = std::max(contentHeight, control->getContentHeight());
+            positionX += control->contentWidth() + spacing();
+            m_contentWidth += control->contentWidth() + spacing();
+            m_contentHeight = std::max(m_contentHeight, control->contentHeight());
         }
     }
 
     // Remove last spacing
     if (getChildren().size()) {
         if (direction == Direction::Vertical) {
-            contentHeight -= getSpacing();
+            m_contentHeight -= spacing();
         } else {
-            contentWidth -= getSpacing();
+            m_contentWidth -= spacing();
         }
     }
 }

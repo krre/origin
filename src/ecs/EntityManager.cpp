@@ -16,7 +16,7 @@ void EntityManager::removeSystem(System::Type type) {
     systems.erase(type);
 }
 
-std::shared_ptr<System> EntityManager::getSystem(System::Type type) {
+std::shared_ptr<System> EntityManager::system(System::Type type) {
     auto it = systems.find(type);
     if (it != systems.end()) {
         return it->second;
@@ -25,19 +25,19 @@ std::shared_ptr<System> EntityManager::getSystem(System::Type type) {
 }
 
 void EntityManager::addEntity(const std::shared_ptr<Entity>& entity) {
-    entities[entity->getId()] = entity;
+    m_entities[entity->id()] = entity;
 }
 
 void EntityManager::removeEntity(const std::shared_ptr<Entity>& entity) {
 //    entities.erase(std::remove(entities.begin(), entities.end(), entity), entities.end());
 }
 
-std::shared_ptr<Entity> EntityManager::getEntity(Core::EntityId id) {
-    return entities[id];
+std::shared_ptr<Entity> EntityManager::entity(Core::EntityId id) {
+    return m_entities[id];
 }
 
 void EntityManager::clearEntities() {
-    entities.clear();
+    m_entities.clear();
 }
 
 void EntityManager::initSystems() {
@@ -83,7 +83,7 @@ Component* EntityManager::createComponent(Entity* entity, Component::Type type) 
         case Component::Type::Empty: break;
     }
 
-    return entity->getComponent(type);
+    return entity->component(type);
 }
 
 std::shared_ptr<Entity> EntityManager::createComponents(const std::vector<Component::Type>& types) {
@@ -105,7 +105,7 @@ void EntityManager::removeComponent(Entity* entity, Component::Type type) {
 
 void EntityManager::update(Scene* scene, float dt) {
     for (const auto& system : systems) {
-        if (system.second->getActive()) {
+        if (system.second->active()) {
             system.second->process(dt);
         }
     }

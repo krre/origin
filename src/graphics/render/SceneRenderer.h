@@ -16,7 +16,7 @@ public:
     static SceneRenderer* get();
 
     void draw() override;
-    bool getActive() const override;
+    bool active() const override;
 
     void addView(View3D* view);
     void clearViews();

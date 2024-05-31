@@ -45,23 +45,23 @@ void Game::init() {
         new Window(this);
         new ResourceManager(this);
 
-        SDL::Platform platform = SDL::getPlatform(Window::get()->getHandle());
+        SDL::Platform platform = SDL::platform(Window::get()->handle());
         new RenderManager(platform.handle, platform.window);
 
-        if (DebugEnvironment::getEnable()) {
-            if (DebugEnvironment::getSettings()["vulkan"]["debugReport"]["use"]) {
-                RenderManager::get()->useDebugReport(DebugEnvironment::getVulkanDebugReportFlags());
+        if (DebugEnvironment::enable()) {
+            if (DebugEnvironment::settings()["vulkan"]["debugReport"]["use"]) {
+                RenderManager::get()->useDebugReport(DebugEnvironment::vulkanDebugReportFlags());
             }
 
-            if (DebugEnvironment::getSettings()["vulkan"]["layers"]["use"]) {
-                RenderManager::get()->setEnabledLayers(DebugEnvironment::getSettings()["vulkan"]["layers"]["list"]);
+            if (DebugEnvironment::settings()["vulkan"]["layers"]["use"]) {
+                RenderManager::get()->setEnabledLayers(DebugEnvironment::settings()["vulkan"]["layers"]["list"]);
             }
 
-            if (DebugEnvironment::getSettings()["vulkan"]["extensions"]["use"]) {
-                RenderManager::get()->setEnabledExtensions(DebugEnvironment::getSettings()["vulkan"]["extensions"]["list"]);
+            if (DebugEnvironment::settings()["vulkan"]["extensions"]["use"]) {
+                RenderManager::get()->setEnabledExtensions(DebugEnvironment::settings()["vulkan"]["extensions"]["list"]);
             }
 
-            RenderManager::get()->setDeviceIndex(DebugEnvironment::getVulkanDevice());
+            RenderManager::get()->setDeviceIndex(DebugEnvironment::vulkanDevice());
         }
         RenderManager::get()->create();
 
@@ -74,7 +74,7 @@ void Game::init() {
         new Overlay();
         Overlay::get()->setParent(this);
 
-        if (DebugEnvironment::getEnable() && DebugEnvironment::getSettings()["general"]["debugHud"]) {
+        if (DebugEnvironment::enable() && DebugEnvironment::settings()["general"]["debugHud"]) {
             Overlay::get()->toggleDebugHUD();
         }
 
@@ -88,13 +88,13 @@ void Game::init() {
         }
     }
 
-    if (DebugEnvironment::getEnable()) {
+    if (DebugEnvironment::enable()) {
         DebugEnvironment::setDebugScreen();
     } else {
         Window::get()->setScreen(std::make_shared<MenuScreen>());
     }
 
-    Window::get()->onResize(Window::get()->getWidth(), Window::get()->getHeight());
+    Window::get()->onResize(Window::get()->width(), Window::get()->height());
     Window::get()->show();
 
     running = true;
@@ -125,7 +125,7 @@ void Game::quit() {
     running = false;
 }
 
-std::string Game::getCurrentDirectory() {
+std::string Game::currentDirectory() {
     return std::filesystem::current_path().string();
 }
 

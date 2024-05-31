@@ -23,13 +23,13 @@ public:
 
     virtual void process(float dt) = 0;
 
-    Type getType() const { return type; }
+    Type type() const { return m_type; }
 
     void setActive(bool active);
-    bool getActive() const { return active; }
+    bool active() const { return m_active; }
 
 protected:
-    Type type = Type::None;
-    bool active = true;
+    Type m_type = Type::None;
+    bool m_active = true;
     EntityManager* entityManager;
 };

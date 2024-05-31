@@ -16,15 +16,15 @@
 #include <SDL.h>
 
 Window::Window(Object* parent) : SingleObject(parent) {
-    json settingsWidth = Settings::getStorage()["width"];
-    json settingsHeigth = Settings::getStorage()["height"];
+    json settingsWidth = Settings::storage()["width"];
+    json settingsHeigth = Settings::storage()["height"];
 
     if (!settingsWidth.is_null()) {
-        width = settingsWidth.get<int>();
+        m_width = settingsWidth.get<int>();
     }
 
     if (!settingsHeigth.is_null()) {
-        height = settingsHeigth.get<int>();
+        m_height = settingsHeigth.get<int>();
     }
 
     int x = SDL_WINDOWPOS_CENTERED;
@@ -41,8 +41,9 @@ Window::Window(Object* parent) : SingleObject(parent) {
     }
 #endif
 
-    handle = SDL_CreateWindow(Game::Name, x, y, width, height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
-    if (handle == nullptr) {
+    m_handle = SDL_CreateWindow(Game::Name, x, y, m_width, m_height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
+
+    if (m_handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
     }
 
@@ -59,7 +60,7 @@ void Window::pushScreen(const std::shared_ptr<Screen>& screen) {
         screens.back()->pause();
     }
     screens.push_back(screen);
-    screen->resize(width, height);
+    screen->resize(m_width, m_height);
     screen->resume();
 }
 
@@ -88,26 +89,26 @@ void Window::setScreen(const std::shared_ptr<Screen>& screen) {
     });
 }
 
-Screen* Window::getCurrentScreen() const {
+Screen* Window::currentScreen() const {
     return screens.size() ? screens.back().get() : nullptr;
 }
 
 void Window::show() {
-    assert(handle != nullptr);
-    SDL_ShowWindow(handle);
+    assert(m_handle != nullptr);
+    SDL_ShowWindow(m_handle);
 }
 
 void Window::close() {
     int x, y;
-    SDL_GetWindowPosition(handle, &x, &y);
+    SDL_GetWindowPosition(m_handle, &x, &y);
 
-    Settings::getStorage()["x"] = x;
-    Settings::getStorage()["y"] = y;
+    Settings::storage()["x"] = x;
+    Settings::storage()["y"] = y;
 
-    Settings::getStorage()["width"] = width;
-    Settings::getStorage()["height"] = height;
+    Settings::storage()["width"] = m_width;
+    Settings::storage()["height"] = m_height;
 
-    SDL_DestroyWindow(handle);
+    SDL_DestroyWindow(m_handle);
 }
 
 void Window::update(float dt) {
@@ -120,7 +121,7 @@ void Window::render() {
     Overlay::get()->draw();
     RenderManager::get()->draw();
 
-    if (screens.back()->getDirty() || Overlay::get()->getDirty()) {
+    if (screens.back()->dirty() || Overlay::get()->dirty()) {
         RenderManager::get()->markDirty();
         screens.back()->clearDirty();
         Overlay::get()->clearDirty();
@@ -133,8 +134,8 @@ void Window::render() {
 }
 
 void Window::onResize(int width, int height) {
-    this->width = width;
-    this->height = height;
+    m_width = width;
+    m_height = height;
 
     for (const auto& screen : screens) {
         screen->resize(width, height);
@@ -148,13 +149,13 @@ void Window::onResize(int width, int height) {
 }
 
 void Window::toggleFullScreen() {
-    bool isFullscreen = SDL_GetWindowFlags(handle) & SDL_WINDOW_FULLSCREEN;
-    SDL_SetWindowFullscreen(handle, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
+    bool isFullscreen = SDL_GetWindowFlags(m_handle) & SDL_WINDOW_FULLSCREEN;
+    SDL_SetWindowFullscreen(m_handle, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
     SDL_ShowCursor(isFullscreen);
 }
 
 void Window::setColor(const Color& color) {
-    this->color = color;
+    this->m_color = color;
 }
 
 void Window::invokeDeffered() {
@@ -182,7 +183,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
             Input::get()->isKeyAccepted = true;
             break;
         case SDLK_SLASH:
-            if (!Overlay::get()->isDialogOpen() && !Overlay::get()->getConsole()->getVisible()) {
+            if (!Overlay::get()->isDialogOpen() && !Overlay::get()->console()->visible()) {
                 Overlay::get()->showConsole();
                 Input::get()->isKeyAccepted = true;
             }

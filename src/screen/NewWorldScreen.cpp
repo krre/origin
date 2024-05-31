@@ -14,9 +14,9 @@ NewWorldScreen::NewWorldScreen() {
 
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {
-        if (!textEdit->getText().empty()) {
-            World::create(textEdit->getText());
-            Window::get()->setScreen(std::make_shared<GameScreen>(textEdit->getText()));
+        if (!textEdit->text().empty()) {
+            World::create(textEdit->text());
+            Window::get()->setScreen(std::make_shared<GameScreen>(textEdit->text()));
         }
     });
     layout->appendChild(buttonPlay);
@@ -30,6 +30,6 @@ NewWorldScreen::NewWorldScreen() {
 }
 
 void NewWorldScreen::resizeImpl(int width, int height) {
-    layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
-    buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
+    layout->move((width - layout->contentWidth()) / 2, (height - layout->contentHeight()) / 2);
+    buttonBack->move(width - buttonBack->size().width, height - buttonBack->size().height);
 }

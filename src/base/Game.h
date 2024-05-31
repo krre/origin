@@ -16,7 +16,7 @@ public:
     ~Game();
 
     // Path to Game directory
-    static std::string getCurrentDirectory();
+    static std::string currentDirectory();
 
     void run();
     static void quit();

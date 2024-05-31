@@ -7,11 +7,12 @@ class OctreeSystem : public System {
 
 public:
     OctreeSystem(EntityManager* entityManager);
+
     void process(float dt) override;
-    SVOBuilder* getSVOBuilder() { return &svoBuilder; }
-    GPUMemoryManager* getGpuMemoryManager() { return &gpuMemoryManager; }
+    SVOBuilder* svoBuilder() { return &m_svoBuilder; }
+    GPUMemoryManager* gpuMemoryManager() { return &m_gpuMemoryManager; }
 
 private:
-    SVOBuilder svoBuilder;
-    GPUMemoryManager gpuMemoryManager;
+    SVOBuilder m_svoBuilder;
+    GPUMemoryManager m_gpuMemoryManager;
 };

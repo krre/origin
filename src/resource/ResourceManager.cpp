@@ -1,7 +1,7 @@
 #include "base/Game.h"
 #include "ResourceManager.h"
 
-std::string ResourceManager::resourcesPath = Game::getCurrentDirectory() + "/data";
+std::string ResourceManager::resourcesPath = Game::currentDirectory() + "/data";
 
 ResourceManager::ResourceManager(Object* parent) : SingleObject(parent) {
     if (FT_Init_FreeType(&ft)) {

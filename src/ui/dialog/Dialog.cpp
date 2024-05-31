@@ -14,8 +14,8 @@ void Dialog::resizeToContent() {
     if (!getChildren().size()) return;
 
     Control* child = static_cast<Control*>(getChildren().at(0));
-    int width = child->getContentWidth() + padding * 2;
-    int height = child->getContentHeight() + padding * 2;
+    int width = child->contentWidth() + padding * 2;
+    int height = child->contentHeight() + padding * 2;
     resize(width, height);
 
     child->move(padding, padding);

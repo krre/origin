@@ -17,15 +17,15 @@ public:
     Window(Object* parent = nullptr);
     ~Window();
 
-    uint32_t getWidth() const { return width; }
-    uint32_t getHeight() const { return height; }
+    uint32_t width() const { return m_width; }
+    uint32_t height() const { return m_height; }
 
-    SDL_Window* getHandle() const { return handle; }
+    SDL_Window* handle() const { return m_handle; }
 
     void pushScreen(const std::shared_ptr<Screen>& screen);
     void popScreen();
     void setScreen(const std::shared_ptr<Screen>& screen);
-    Screen* getCurrentScreen() const;
+    Screen* currentScreen() const;
 
     void show();
     void close();
@@ -34,8 +34,9 @@ public:
     void render();
     void onResize(int width, int height);
     void toggleFullScreen();
+
     void setColor(const Color& color);
-    const Color& getColor() const { return color; }
+    const Color& color() const { return m_color; }
 
     void invokeDeffered();
 
@@ -44,10 +45,10 @@ private:
     void addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
     void onKeyPressed(const SDL_KeyboardEvent& event);
 
-    SDL_Window* handle = nullptr;
-    uint32_t width = 800;
-    uint32_t height = 600;
+    SDL_Window* m_handle = nullptr;
+    uint32_t m_width = 800;
+    uint32_t m_height = 600;
     std::vector<std::shared_ptr<Screen>> screens;
-    Color color = Color(0.42, 0.65, 5.0, 1.0);
+    Color m_color = Color(0.42, 0.65, 5.0, 1.0);
     std::vector<std::function<void()>> deferredCalls;
 };

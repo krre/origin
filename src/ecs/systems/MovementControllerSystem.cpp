@@ -10,15 +10,15 @@
 #include <glm/gtx/euler_angles.hpp>
 
 MovementControllerSystem::MovementControllerSystem(EntityManager* entityManager) : System(entityManager) {
-    type = System::Type::MovementController;
+    m_type = System::Type::MovementController;
 }
 
 void MovementControllerSystem::process(float dt) {
     if (!rotateEntity || !moveEntity) return;
 
-    TransformComponent* tc = rotateEntity->getTransform();
+    TransformComponent* tc = rotateEntity->transform();
 
-    glm::ivec2 relMousePos = Input::get()->getRelMousePos();
+    glm::ivec2 relMousePos = Input::get()->relMousePos();
     tc->yaw -= rotateSpeed * relMousePos.x;
     tc->yaw = fmod(tc->yaw, 360.0f);
 
@@ -26,7 +26,7 @@ void MovementControllerSystem::process(float dt) {
     tc->pitch = glm::clamp(tc->pitch, -80.0f, 80.0f);
 
     glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(tc->yaw), glm::radians(tc->pitch)));
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(entityManager->getSystem(System::Type::Transform).get());
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(entityManager->system(System::Type::Transform).get());
     transformSystem->setRotation(rotateEntity, rotation);
 
     if (Input::get()->isKeyPressed(SDLK_w)) {
@@ -39,20 +39,20 @@ void MovementControllerSystem::process(float dt) {
         transformSystem->translate(moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * moveSpeed * dt);
     }
 
-    bool free = moveEntity->getMovement()->free;
+    bool free = moveEntity->movement()->free;
     if (!free) {
         // Track to floor pos
-        TransformComponent* mtc = moveEntity->getTransform();
+        TransformComponent* mtc = moveEntity->transform();
         mtc->position.y = 0; // TODO: take from height map
     }
 }
 
 void MovementControllerSystem::setMoveEntity(Entity* moveEntity) {
     this->moveEntity = moveEntity;
-    moveSpeed = moveEntity->getMovement()->moveSpeed;
+    moveSpeed = moveEntity->movement()->moveSpeed;
 }
 
 void MovementControllerSystem::setRotateEntity(Entity* rotateEntity) {
     this->rotateEntity = rotateEntity;
-    rotateSpeed = rotateEntity->getMovement()->rotateSpeed;
+    rotateSpeed = rotateEntity->movement()->rotateSpeed;
 }

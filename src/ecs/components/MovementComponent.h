@@ -5,7 +5,7 @@ class MovementComponent : public Component {
 
 public:
     MovementComponent() = default;
-    Type getType() const override { return Component::Type::Movement; }
+    Type type() const override { return Component::Type::Movement; }
 
     float moveSpeed = 0;
     float rotateSpeed = 0;

@@ -21,16 +21,16 @@ public:
     static UIRenderer* get();
 
     void draw() override;
-    bool getActive() const override;
+    bool active() const override;
 
     void addBatch(UIBatch batch);
     void clearBatches();
 
-    std::vector<UIBatch::Vertex>* getVerticles() { return &vertices; }
+    std::vector<UIBatch::Vertex>* verticles() { return &m_vertices; }
 
 private:
     std::vector<UIBatch> batches;
-    std::vector<UIBatch::Vertex> vertices;
+    std::vector<UIBatch::Vertex> m_vertices;
     std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
     std::unique_ptr<Vulkan::GpuBuffer> indirectBuffer;
     std::unique_ptr<Vulkan::GpuBuffer> uboBuffer;

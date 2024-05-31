@@ -9,11 +9,12 @@ public:
     Button(Control* parent = nullptr);
     Button(const std::string& text, Control* parent = nullptr);
     ~Button();
+
     void setText(const std::string& text);
-    std::string getText() const;
+    std::string text() const;
 
     void setTextColor(const Color& labelColor);
-    const Color& getTextColor() const;
+    const Color& textColor() const;
 
     Core::Signal<> clicked;
 

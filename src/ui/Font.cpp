@@ -17,25 +17,25 @@ Font::~Font() {
 }
 
 void Font::setSize(int size) {
-    this->size = size;
+    this->m_size = size;
     FT_Set_Pixel_Sizes(face, 0, size);
 }
 
 void Font::load(const std::string& filePath) {
-    if (FT_New_Face(ResourceManager::get()->getFreeTypeHandle(), filePath.c_str(), 0, &face)) {
+    if (FT_New_Face(ResourceManager::get()->freeTypeHandle(), filePath.c_str(), 0, &face)) {
         throw std::runtime_error(std::string("Could not open font ") + filePath);
     }
 
     setSize(14);
 
-    lineHeight = face->size->metrics.height >> 6;
-    ascender = face->size->metrics.ascender >> 6;
-    descender = face->size->metrics.descender >> 6;
+    m_lineHeight = face->size->metrics.height >> 6;
+    m_ascender = face->size->metrics.ascender >> 6;
+    m_descender = face->size->metrics.descender >> 6;
 
     // Creating atlas based on code https://gist.github.com/baines/b0f9e4be04ba4e6f56cab82eef5008ff
 
     // Max texture size
-    int maxDim = (1 + lineHeight) * std::ceil(std::sqrt(GLYPHS_COUNT));
+    int maxDim = (1 + m_lineHeight) * std::ceil(std::sqrt(GLYPHS_COUNT));
     int texWidth = 1;
 
     while (texWidth < maxDim) {
@@ -95,7 +95,7 @@ void Font::load(const std::string& filePath) {
     glyphInfos.at(0).u1 = 1.0f / texWidth;
     glyphInfos.at(0).v1 = 1.0f / texHeight;
 
-    texture = std::make_unique<Vulkan::Texture>(RenderManager::get()->getGraphicsDevice(), texWidth, texHeight, atlasData.data(), size);
+    m_texture = std::make_unique<Vulkan::Texture>(RenderManager::get()->getGraphicsDevice(), texWidth, texHeight, atlasData.data(), size);
 
     // Write PNG for testing image
 #if 0
@@ -111,7 +111,7 @@ void Font::load(const std::string& filePath) {
 #endif
 }
 
-Font::GlyphInfo&Font::getGliphInfo(int codechar) {
+Font::GlyphInfo&Font::gliphInfo(int codechar) {
     char questionMark = '?';
     return glyphInfos.at(codechar <= GLYPHS_COUNT ? codechar : (int)questionMark);
 }

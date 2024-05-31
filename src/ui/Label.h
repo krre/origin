@@ -9,20 +9,21 @@ class Label : public Control {
 public:
     Label(Control* parent = nullptr);
     Label(const std::string& text, Control* parent = nullptr);
+
     void setText(const std::string& text);
-    const std::string& getText() const { return text; }
+    const std::string& text() const { return m_text; }
 
     void setFont(Font* font);
-    Font* getFont() const { return font; }
+    Font* font() const { return m_font; }
 
     void setColor(const Color& color);
-    const Color& getColor() const { return color; }
+    const Color& color() const { return m_color; }
 
 private:
     void drawImpl() override;
 
-    std::string text;
-    Font* font;
-    Color color = Color::BLACK;
+    std::string m_text;
+    Font* m_font;
+    Color m_color = Color::BLACK;
     int lineCount = 0;
 };

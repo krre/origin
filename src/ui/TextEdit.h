@@ -10,7 +10,7 @@ public:
     TextEdit(Control* parent = nullptr);
 
     void setText(const std::string& text);
-    const std::string& getText() const;
+    const std::string& text() const;
 
 protected:
     void keyPressed(const SDL_KeyboardEvent& event) override;

@@ -17,8 +17,8 @@ DebugEnvironment::DebugEnvironment(Object* parent) : SingleObject(parent) {
 }
 
 void DebugEnvironment::setDebugScreen() {
-    uint8_t s = get()->settings["general"]["screen"];
-    json j = get()->settings["general"]["save"];
+    uint8_t s = get()->m_settings["general"]["screen"];
+    json j = get()->m_settings["general"]["save"];
     std::string worldName;
     if (j.is_string()) {
         worldName = j.get<std::string>();
@@ -48,8 +48,8 @@ void DebugEnvironment::setDebugScreen() {
     }
 }
 
-VkDebugReportFlagsEXT DebugEnvironment::getVulkanDebugReportFlags() {
-    json debugReport = get()->settings["vulkan"]["debugReport"];
+VkDebugReportFlagsEXT DebugEnvironment::vulkanDebugReportFlags() {
+    json debugReport = get()->m_settings["vulkan"]["debugReport"];
     VkDebugReportFlagsEXT flags = 0;
 
     if (debugReport["information"]) {
@@ -76,11 +76,11 @@ VkDebugReportFlagsEXT DebugEnvironment::getVulkanDebugReportFlags() {
 }
 
 void DebugEnvironment::loadValues() {
-    std::string filePath = Game::getCurrentDirectory() + "/debug.json";
+    std::string filePath = Game::currentDirectory() + "/debug.json";
     try {
         std::string text = Core::Utils::readTextFile(filePath);
-        settings = json::parse(text);
-        enable = settings["general"]["enable"];
+        m_settings = json::parse(text);
+        m_enable = m_settings["general"]["enable"];
     } catch (const std::exception& ex) {
         PRINT(ex.what())
     };

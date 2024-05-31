@@ -29,19 +29,21 @@ public:
 
     SDFFont();
     ~SDFFont();
+
     void setSize(int size);
-    int getSize() const { return size; }
+    int size() const { return m_size; }
+
     void load(const std::string& path) override;
     void renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* indexBuffer, const std::string& text);
-    Vulkan::Texture* getTexture() const { return texture.get(); }
-    uint32_t getIndexCount() const { return indexCount; }
+    Vulkan::Texture* texture() const { return m_texture.get(); }
+    uint32_t indexCount() const { return m_indexCount; }
 
 
 private:
-    int size = 14;
+    int m_size = 14;
     std::map<int, Character> characters;
-    std::unique_ptr<Vulkan::Texture> texture;
-    uint32_t indexCount;
+    std::unique_ptr<Vulkan::Texture> m_texture;
+    uint32_t m_indexCount;
     int maxCharacterWidth = 0;
     int avarageCharacterWidth = 0;
     int lineHeight;

@@ -43,5 +43,5 @@ MenuScreen::MenuScreen() {
 }
 
 void MenuScreen::resizeImpl(int width, int height) {
-    layout->move((width - layout->getContentWidth()) / 2, (height - layout->getContentHeight()) / 2);
+    layout->move((width - layout->contentWidth()) / 2, (height - layout->contentHeight()) / 2);
 }

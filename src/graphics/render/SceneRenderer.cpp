@@ -10,7 +10,7 @@ static SceneRenderer* instance = nullptr;
 SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
     instance = this;
 
-    if (DebugEnvironment::getEnable() && DebugEnvironment::getSettings()["general"]["renderer"] == static_cast<int>(OctreeRenderer::Type::Raycast)) {
+    if (DebugEnvironment::enable() && DebugEnvironment::settings()["general"]["renderer"] == static_cast<int>(OctreeRenderer::Type::Raycast)) {
         octreeRenderer = new RaycastOctreeRenderer(this);
     } else {
         octreeRenderer = new PolygonalOctreeRenderer(this);
@@ -37,7 +37,7 @@ void SceneRenderer::draw() {
     }
 }
 
-bool SceneRenderer::getActive() const {
+bool SceneRenderer::active() const {
     return views.size() > 0;
 }
 

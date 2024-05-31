@@ -16,11 +16,11 @@ public:
     virtual void draw() = 0;
 
     void setActive(bool active);
-    virtual bool getActive() const { return active; }
+    virtual bool active() const { return m_active; }
 
-    Vulkan::Device* getDevice() const { return device; }
+    Vulkan::Device* device() const { return m_device; }
 
 private:
-    Vulkan::Device* device = nullptr;
-    bool active = true;
+    Vulkan::Device* m_device = nullptr;
+    bool m_active = true;
 };

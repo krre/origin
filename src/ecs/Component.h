@@ -19,7 +19,9 @@ public:
     };
 
     Component();
-    virtual Type getType() const = 0;
+
+    virtual Type type() const = 0;
+
     bool enable = true;
     bool dirty = false;
 };

@@ -20,7 +20,7 @@ static UIRenderer* instance = nullptr;
 
 UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     instance = this;
-    Vulkan::Device* device = getDevice();
+    Vulkan::Device* device = Renderer::device();
 
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
@@ -31,8 +31,8 @@ UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     sampler->create();
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/shader/BaseShape.vert.spv");
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/shader/BaseShape.frag.spv");
+    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/BaseShape.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/BaseShape.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
     bufferInfo.buffer = uboBuffer->getHandle();
@@ -40,7 +40,7 @@ UIRenderer::UIRenderer(Object* parent) : Renderer(parent) {
     shaderProgram->bindBuffer("ubo", bufferInfo);
 
     Font* font = ResourceManager::get()->load<Font>("fonts/inconsolatalgc.ttf");
-    texture = font->getTexture();
+    texture = font->texture();
     VkDescriptorImageInfo imageInfo = {};
     imageInfo.sampler = sampler->getHandle();
     imageInfo.imageView = texture->getImageView()->getHandle();
@@ -128,15 +128,15 @@ UIRenderer* UIRenderer::get() {
 }
 
 void UIRenderer::draw() {
-    uint32_t vertextCount = vertices.size();
+    uint32_t vertextCount = m_vertices.size();
     uint32_t size = vertextCount * sizeof(UIBatch::Vertex);
 
     if (size > vertexBuffer->getSize()) {
-        vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+        vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     }
 
     if (size) {
-        vertexBuffer->write(vertices.data(), size);
+        vertexBuffer->write(m_vertices.data(), size);
         texture = batches.at(0).texture; // TODO: Sort batches and swith textures
     }
 
@@ -146,7 +146,7 @@ void UIRenderer::draw() {
     indirectBuffer->write(&indirectCommand, sizeof(VkDrawIndirectCommand));
 }
 
-bool UIRenderer::getActive() const {
+bool UIRenderer::active() const {
     return batches.size() > 0;
 }
 
@@ -156,5 +156,5 @@ void UIRenderer::addBatch(UIBatch batch) {
 
 void UIRenderer::clearBatches() {
     batches.clear();
-    vertices.clear();
+    m_vertices.clear();
 }

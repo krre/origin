@@ -18,8 +18,8 @@ void Screen::pause() {
 
 void Screen::resume() {
     isPaused = false;
-    if (activeControl) {
-        activeControl->activate();
+    if (m_activeControl) {
+        m_activeControl->activate();
     } else {
         activate();
     }
@@ -30,5 +30,5 @@ void Screen::show() {
 }
 
 void Screen::setActiveControl(Control* control) {
-    activeControl = control;
+    m_activeControl = control;
 }

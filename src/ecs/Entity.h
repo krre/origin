@@ -14,23 +14,24 @@ class Entity : public Core::Object {
 public:
     Entity(Entity* parent = nullptr);
     Entity(Core::EntityId id, Entity* parent = nullptr);
+
     ~Entity();
 
-    Core::EntityId getId() const { return id; }
+    Core::EntityId id() const { return m_id; }
     static void setIdCounter(Core::EntityId id);
 
     void addComponent(const std::shared_ptr<Component>& component);
-    Component* getComponent(Component::Type type);
+    Component* component(Component::Type type);
     void removeComponent(Component::Type type);
 
-    TransformComponent* getTransform();
-    CameraComponent* getCamera();
-    MovementComponent* getMovement();
-    PhysicsComponent* getPhysics();
-    OctreeComponent* getOctree();
+    TransformComponent* transform();
+    CameraComponent* camera();
+    MovementComponent* movement();
+    PhysicsComponent* physics();
+    OctreeComponent* octree();
 
 private:
-    Core::EntityId id;
+    Core::EntityId m_id;
     static Core::EntityId counter;
     std::map<Component::Type, std::shared_ptr<Component>> components;
 };

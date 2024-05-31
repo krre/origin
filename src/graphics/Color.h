@@ -7,14 +7,15 @@ class Color : public Core::Object {
 public:
     Color();
     Color(float red, float green, float blue, float alpha = 1.0);
-    glm::vec4 getRgba() const;
-    glm::vec3 getRgb() const;
-    uint32_t getArgb() const { return color; }
 
-    float getRed() const;
-    float getGreen() const;
-    float getBlue() const;
-    float getAlpha() const;
+    glm::vec4 rgba() const;
+    glm::vec3 rgb() const;
+    uint32_t argb() const { return color; }
+
+    float red() const;
+    float green() const;
+    float blue() const;
+    float alpha() const;
 
     static const Color TRANSPARENT;
     static const Color BLACK;

@@ -13,7 +13,7 @@
 #include <octree/Octree.h>
 
 PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRenderer(parent) {
-    Vulkan::Device* device = getDevice();
+    Vulkan::Device* device = OctreeRenderer::device();
 
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
     vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize);
@@ -21,8 +21,8 @@ PolygonalOctreeRenderer::PolygonalOctreeRenderer(Object* parent) : OctreeRendere
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(glm::mat4));
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/shader/PolygonalOctree.vert.spv");
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/shader/PolygonalOctree.frag.spv");
+    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/PolygonalOctree.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/PolygonalOctree.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
     bufferInfo.buffer = uboBuffer->getHandle();
@@ -114,7 +114,7 @@ void PolygonalOctreeRenderer::setVertexCount(uint32_t vertextCount) {
     uint32_t size = vertextCount * sizeof(Octree::Octree::Vertex);
 
     if (size > vertexBuffer->getSize()) {
-        vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(getDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+        vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
     }
 }
 

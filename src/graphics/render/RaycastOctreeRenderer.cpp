@@ -19,7 +19,7 @@ RaycastOctreeRenderer::RaycastOctreeRenderer(Object* parent) : OctreeRenderer(pa
         { -1.0, 1.0 }, { 1.0, -1.0 }, { 1.0, 1.0 }
     };
 
-    Vulkan::Device* device = getDevice();
+    Vulkan::Device* device = OctreeRenderer::device();
 
     vertextCount = plane.size();
 
@@ -28,8 +28,8 @@ RaycastOctreeRenderer::RaycastOctreeRenderer(Object* parent) : OctreeRenderer(pa
     vertexBuffer->write(plane.data(), size);
 
     shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/shader/RaycastOctree.vert.spv");
-    shaderProgram->loadShader(ResourceManager::get()->getDataPath() + "/shader/RaycastOctree.frag.spv");
+    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/RaycastOctree.vert.spv");
+    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/RaycastOctree.frag.spv");
 
     uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(UBO));
 
@@ -106,7 +106,7 @@ void RaycastOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuf
 }
 
 void RaycastOctreeRenderer::draw() {
-    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)Window::get()->getWidth() / Window::get()->getHeight(), 0.1f, 100.0f);
+    glm::mat4 proj = glm::perspective(glm::radians(45.0f), (float)Window::get()->width() / Window::get()->height(), 0.1f, 100.0f);
     glm::mat4 view = glm::lookAt(glm::vec3(0, 0, 5), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
     glm::mat4 model = glm::mat4(1.0f);
     float rot = 0;
@@ -116,8 +116,8 @@ void RaycastOctreeRenderer::draw() {
 
     UBO ubo = {};
     ubo.backgroundColor = glm::vec4(0.9, 1.0, 1.0, 1.0);
-    ubo.frameWidth = Window::get()->getWidth();
-    ubo.frameHeight = Window::get()->getHeight();
+    ubo.frameWidth = Window::get()->width();
+    ubo.frameHeight = Window::get()->height();
     writeUBO(ubo);
     writeBlocks(0, blocks.data(), blocks.size() * sizeof(uint32_t));
 
@@ -131,8 +131,8 @@ void RaycastOctreeRenderer::draw() {
 
     float fov = glm::radians(50.0f);
 
-    float width = (float)Window::get()->getWidth();
-    float height = (float)Window::get()->getHeight();
+    float width = (float)Window::get()->width();
+    float height = (float)Window::get()->height();
 
     // Ray calculation is based on Johns Hopkins presentation:
     // http://www.cs.jhu.edu/~cohen/RendTech99/Lectures/Ray_Casting.bw.pdf

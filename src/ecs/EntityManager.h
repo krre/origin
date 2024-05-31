@@ -18,19 +18,19 @@ public:
     template <typename T>
     void addSystem() {
         auto system = std::make_shared<T>(this);
-        systems[system->getType()] = system;
+        systems[system->type()] = system;
     }
 
     void removeSystem(System::Type type);
-    std::shared_ptr<System> getSystem(System::Type type);
+    std::shared_ptr<System> system(System::Type type);
     void clearSystems();
 
     // Entity
     void addEntity(const std::shared_ptr<Entity>& entity);
     void removeEntity(const std::shared_ptr<Entity>& entity);
-    std::shared_ptr<Entity> getEntity(Core::EntityId id);
+    std::shared_ptr<Entity> entity(Core::EntityId id);
     void clearEntities();
-    std::map<Core::EntityId, std::shared_ptr<Entity>> getEntities() { return entities; }
+    std::map<Core::EntityId, std::shared_ptr<Entity>> entities() { return m_entities; }
 
     // Component
     Component* createComponent(Entity* entity, Component::Type type);
@@ -40,11 +40,11 @@ public:
 
     void update(Scene* scene, float dt);
 
-    EntityBuilder* getBuilder() { return entityBuilder.get(); }
+    EntityBuilder* builder() { return entityBuilder.get(); }
 
 private:
     std::map<System::Type, std::shared_ptr<System>> systems;
-    std::map<Core::EntityId, std::shared_ptr<Entity>> entities;
+    std::map<Core::EntityId, std::shared_ptr<Entity>> m_entities;
     std::unique_ptr<EntityBuilder> entityBuilder;
 
     void initSystems();

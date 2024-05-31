@@ -6,7 +6,7 @@ class MovementControllerComponent : public Component {
 
 public:
     MovementControllerComponent() = default;
-    Type getType() const override { return Component::Type::MovementController; }
+    Type type() const override { return Component::Type::MovementController; }
 
     Core::EntityId moveTarget;
     Core::EntityId rotateTarget;

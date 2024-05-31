@@ -14,7 +14,7 @@ SDFFont::~SDFFont() {
 }
 
 void SDFFont::setSize(int size) {
-    this->size = size;
+    this->m_size = size;
 }
 
 void SDFFont::load(const std::string& path) {
@@ -97,8 +97,8 @@ void SDFFont::renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* ind
     uint32_t indexOffset = 0;
     const int verticesPerCharacter = 4;
 
-    float width = texture->getWidth();
-    float heigth = texture->getHeight();
+    float width = m_texture->getWidth();
+    float heigth = m_texture->getHeight();
 
     int posx = 0;
     int posy = base - lineHeight;
@@ -139,7 +139,7 @@ void SDFFont::renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* ind
         posx += character->width + xo;
     }
 
-    indexCount = indices.size();
+    m_indexCount = indices.size();
 
     vertexBuffer->write(vertices.data(), vertices.size() * sizeof(Vertex));
     indexBuffer->write(indices.data(), indices.size() * sizeof(uint32_t));

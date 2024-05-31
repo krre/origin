@@ -8,9 +8,9 @@ UIBatch::UIBatch(std::vector<Vertex>* vertices) :
 }
 
 void UIBatch::addQuad(float x, float y, float width, float height, Font* font) {
-    Font::GlyphInfo& glyphInfo = font->getGliphInfo(0);
+    Font::GlyphInfo& glyphInfo = font->gliphInfo(0);
     Vertex vertex = {};
-    vertex.color = color.getRgba();
+    vertex.color = color.rgba();
 
     vertex.pos = { x, y }; // Top-Left
     vertex.uv = { glyphInfo.u0, glyphInfo.v0 };
@@ -42,7 +42,7 @@ void UIBatch::addQuad(float x, float y, float width, float height, Font* font) {
 void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
     int posX = x;
     int posY = y;
-    int lineHeight = font->getLineHeight();
+    int lineHeight = font->lineHeight();
 
     // Find highest sign for first row
     int maxHeigth = 0;
@@ -51,12 +51,12 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
             break;
         }
 
-        Font::GlyphInfo& glyphInfo = font->getGliphInfo((int)sign);
+        Font::GlyphInfo& glyphInfo = font->gliphInfo((int)sign);
         maxHeigth = std::max(maxHeigth, glyphInfo.offsetY);
     }
 
     for (auto& sign : text) {
-        Font::GlyphInfo& glyphInfo = font->getGliphInfo((int)sign);
+        Font::GlyphInfo& glyphInfo = font->gliphInfo((int)sign);
 
         // New line
         if (sign == '\n') {
@@ -66,7 +66,7 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
         }
 
         Vertex vertex = {};
-        vertex.color = color.getRgba();
+        vertex.color = color.rgba();
 
         int xo = posX + glyphInfo.offsetX;
         // TODO: maxHeigth need only for first row.

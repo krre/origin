@@ -16,7 +16,7 @@ namespace SDL {
 
 void init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
-        throw std::runtime_error("SDL could not initialize!\nSDL_Error: " + getError());
+        throw std::runtime_error("SDL could not initialize!\nSDL_Error: " + error());
     }
 
     inited = true;
@@ -26,23 +26,23 @@ void shutdown() {
     SDL_Quit();
 }
 
-Core::Size getScreenSize() {
+Core::Size screenSize() {
     Core::Size screenSize;
     SDL_DisplayMode mode;
     if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
-        throw std::runtime_error("SDL_GetDesktopDisplayMode failed\nSDL_Error: " + getError());
+        throw std::runtime_error("SDL_GetDesktopDisplayMode failed\nSDL_Error: " + error());
     } else {
         screenSize.width = mode.w;
         screenSize.height = mode.h;
     }
 
     if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
-        throw std::runtime_error("SDL_GetDisplayMode failed\nSDL_Error: " + getError());
+        throw std::runtime_error("SDL_GetDisplayMode failed\nSDL_Error: " + error());
     }
     return screenSize;
 }
 
-std::string getError() {
+std::string error() {
     return std::string(SDL_GetError());
 }
 
@@ -54,11 +54,11 @@ bool isInited() {
     return inited;
 }
 
-Platform getPlatform(SDL_Window* window) {
+Platform platform(SDL_Window* window) {
     static SDL_SysWMinfo wminfo;
     SDL_VERSION(&wminfo.version);
     if (!SDL_GetWindowWMInfo(window, &wminfo)) {
-        throw std::runtime_error("SDL_GetWindowWMInfo failed\nSDL_Error: " + getError());
+        throw std::runtime_error("SDL_GetWindowWMInfo failed\nSDL_Error: " + error());
     }
 
     Platform result;

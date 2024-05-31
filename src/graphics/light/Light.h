@@ -6,10 +6,10 @@ class Light : public Core::Object {
 public:
     Light();
 
-    bool getEnable() const { return enable; }
+    bool enable() const { return m_enable; }
     void setEnable(bool enable);
 
 protected:
-    bool enable = true;
+    bool m_enable = true;
 
 };

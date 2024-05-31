@@ -20,8 +20,8 @@ UIManager::~UIManager() {
 void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (Input::get()->isKeyAccepted) return;
 
-    Control* activeControl = Window::get()->getCurrentScreen()->getActiveControl();
-    if (activeControl && activeControl->getVisible()) {
+    Control* activeControl = Window::get()->currentScreen()->activeControl();
+    if (activeControl && activeControl->visible()) {
         activeControl->keyPressed(event);
     }
 }
@@ -29,31 +29,31 @@ void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
 void UIManager::onTextInput(const SDL_TextInputEvent& event) {
     if (Input::get()->isKeyAccepted) return;
 
-    Control* activeControl = Window::get()->getCurrentScreen()->getActiveControl();
-    if (activeControl && activeControl->getVisible()) {
+    Control* activeControl = Window::get()->currentScreen()->activeControl();
+    if (activeControl && activeControl->visible()) {
         activeControl->textPressed(event);
     }
 }
 
 void UIManager::onMouseButtonAction(const SDL_MouseButtonEvent& event) {
-    traverseOverLeaf(Window::get()->getCurrentScreen(), event);
+    traverseOverLeaf(Window::get()->currentScreen(), event);
     traverseOverLeaf(Overlay::get(), event);
 }
 
 void UIManager::traverseOverLeaf(Object* object, const SDL_MouseButtonEvent& event) {
     Control* control = dynamic_cast<Control*>(object);
-    if (!control || !control->getVisible()) return;
+    if (!control || !control->visible()) return;
 
     int mouseX = event.x;
     int mouseY = event.y;
 
-    int width = control->size.width ? control->size.width : control->contentWidth;
-    int height = control->size.height ? control->size.height : control->contentHeight;
+    int width = control->m_size.width ? control->m_size.width : control->m_contentWidth;
+    int height = control->m_size.height ? control->m_size.height : control->m_contentHeight;
 
-    if (mouseX >= control->absolutePosition.x &&
-            mouseX <= (control->absolutePosition.x + width) &&
-            mouseY >= control->absolutePosition.y &&
-            mouseY <= (control->absolutePosition.y + height)) {
+    if (mouseX >= control->m_absolutePosition.x &&
+            mouseX <= (control->m_absolutePosition.x + width) &&
+            mouseY >= control->m_absolutePosition.y &&
+            mouseY <= (control->m_absolutePosition.y + height)) {
         if (control->getChildren().size()) {
             for (Object* child : control->getChildren()) {
                 traverseOverLeaf(child, event);

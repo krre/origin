@@ -13,12 +13,13 @@ public:
     bool isKeyPressed(SDL_Keycode key);
     void setMousePos(const glm::ivec2& pos);
     void setRelMousePos(const glm::ivec2& relPos);
-    const glm::ivec2& getMousePos() const { return mousePos; }
-    const glm::ivec2& getRelMousePos() const { return relMousePos; }
+    const glm::ivec2& mousePos() const { return m_mousePos; }
+    const glm::ivec2& relMousePos() const { return m_relMousePos; }
     void mouseReset();
     bool isKeyAccepted = false;
+
 private:
     std::unordered_set<SDL_Keycode> keys;
-    glm::ivec2 mousePos;
-    glm::ivec2 relMousePos;
+    glm::ivec2 m_mousePos;
+    glm::ivec2 m_relMousePos;
 };

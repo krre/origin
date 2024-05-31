@@ -63,9 +63,9 @@ PauseDialog::PauseDialog() {
 
     resizeToContent();
 
-    Window::get()->getCurrentScreen()->pause();
+    Window::get()->currentScreen()->pause();
 }
 
 PauseDialog::~PauseDialog() {
-    Window::get()->getCurrentScreen()->resume();
+    Window::get()->currentScreen()->resume();
 }

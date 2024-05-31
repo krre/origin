@@ -55,21 +55,23 @@ public:
 
     Font();
     ~Font();
+
     void setSize(int size);
-    int getSize() const { return size; }
+    int size() const { return m_size; }
+
     void load(const std::string& filePath) override;
-    Vulkan::Texture* getTexture() const { return texture.get(); }
-    GlyphInfo& getGliphInfo(int codechar);
-    int getLineHeight() const { return lineHeight; }
-    int getAscender() const { return ascender; }
-    int getDescender() const { return descender; }
+    Vulkan::Texture* texture() const { return m_texture.get(); }
+    GlyphInfo& gliphInfo(int codechar);
+    int lineHeight() const { return m_lineHeight; }
+    int ascender() const { return m_ascender; }
+    int descender() const { return m_descender; }
 
 private:
     FT_Face face;
-    int size = 14;
+    int m_size = 14;
     std::vector<GlyphInfo> glyphInfos;
-    std::unique_ptr<Vulkan::Texture> texture;
-    int lineHeight;
-    int ascender;
-    int descender;
+    std::unique_ptr<Vulkan::Texture> m_texture;
+    int m_lineHeight;
+    int m_ascender;
+    int m_descender;
 };

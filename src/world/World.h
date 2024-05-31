@@ -11,7 +11,7 @@ public:
     static void load(const std::string& name);
     static void save();
 
-    static std::string getSavesDirectory();
+    static std::string savesDirectory();
 
 private:
     std::string savePath;

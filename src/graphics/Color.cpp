@@ -21,26 +21,26 @@ Color::Color(float red, float green, float blue, float alpha) {
     color = (a << 24) | (r << 16) | (g << 8) | b;
 }
 
-glm::vec4 Color::getRgba() const {
-    return glm::vec4(getRed(), getGreen(), getBlue(), getAlpha());
+glm::vec4 Color::rgba() const {
+    return glm::vec4(red(), green(), blue(), alpha());
 }
 
-glm::vec3 Color::getRgb() const {
-    return glm::vec3(getRed(), getGreen(), getBlue());
+glm::vec3 Color::rgb() const {
+    return glm::vec3(red(), green(), blue());
 }
 
-float Color::getRed() const {
+float Color::red() const {
     return ((color >> 16) & 0xFF) / 255.0;
 }
 
-float Color::getGreen() const {
+float Color::green() const {
     return ((color >> 8) & 0xFF) / 255.0;
 }
 
-float Color::getBlue() const {
+float Color::blue() const {
     return (color & 0xFF) / 255.0;
 }
 
-float Color::getAlpha() const {
+float Color::alpha() const {
     return ((color >> 24) & 0xFF) / 255.0;
 }

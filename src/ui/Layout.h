@@ -8,7 +8,7 @@ class Layout : public Control {
 public:
     Layout(Control* parent = nullptr);
 
-    int getSpacing() const { return spacing; }
+    int spacing() const { return m_spacing; }
     void setSpacing(int spacing);
 
 protected:
@@ -18,5 +18,5 @@ private:
     void notifyAddChild(Object* child) override;
     void notifyRemoveChild(Object* child) override;
 
-    int spacing = 5;
+    int m_spacing = 5;
 };

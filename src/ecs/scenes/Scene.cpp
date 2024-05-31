@@ -10,5 +10,5 @@ Scene::~Scene() {
 
 void Scene::setRootEntity(Entity* entity) {
     entity->setParent(this);
-    this->rootEntity = entity;
+    this->m_rootEntity = entity;
 }

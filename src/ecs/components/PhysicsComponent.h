@@ -7,7 +7,7 @@ class PhysicsComponent : public Component {
 
 public:
     PhysicsComponent() = default;
-    Type getType() const override { return Component::Type::Physics; }
+    Type type() const override { return Component::Type::Physics; }
 
     std::unique_ptr<btRigidBody> rigidBody;
     std::unique_ptr<btCollisionShape> collisionShape;

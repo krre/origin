@@ -7,17 +7,17 @@
 #include <glm/gtx/quaternion.hpp>
 
 TransformSystem::TransformSystem(EntityManager* entityManager) : System(entityManager) {
-    type = System::Type::Transform;
+    m_type = System::Type::Transform;
 }
 
 void TransformSystem::process(float dt) {
-    for (const auto& entity: entityManager->getEntities()) {
+    for (const auto& entity: entityManager->entities()) {
         update(entity.second.get());
     }
 }
 
 void TransformSystem::update(Entity* entity) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     if (tc && tc->dirty) {
         glm::mat4 mat(1);
         glm::mat4 translationMatrix = glm::translate(mat, tc->position);
@@ -30,37 +30,37 @@ void TransformSystem::update(Entity* entity) {
 }
 
 void TransformSystem::setPosition(Entity* entity, const glm::vec3& position) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->position = position;
     tc->dirty = true;
 }
 
 void TransformSystem::setRotation(Entity* entity, float angle, const glm::vec3& axis) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->rotation = glm::toQuat(glm::rotate(glm::mat4(1.0f), angle, axis));
     tc->dirty = true;
 }
 
 void TransformSystem::setRotation(Entity* entity, const glm::quat& rotation) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->rotation = rotation;
     tc->dirty = true;
 }
 
 void TransformSystem::setScale(Entity* entity, float scale) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->scale = scale;
     tc->dirty = true;
 }
 
 void TransformSystem::setPitch(Entity* entity, float pitch) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->pitch = pitch;
     tc->dirty = true;
 }
 
 void TransformSystem::translate(Entity* entity, const glm::vec3& delta, bool local) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     if (local) {
         tc->position += tc->rotation * delta;
     } else {
@@ -71,13 +71,13 @@ void TransformSystem::translate(Entity* entity, const glm::vec3& delta, bool loc
 }
 
 void TransformSystem::rotate(Entity* entity, const glm::quat& delta) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->rotation *= delta;
     tc->dirty = true;
 }
 
 void TransformSystem::scale(Entity* entity, float delta) {
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->scale *= delta;
     tc->dirty = true;
 }
@@ -92,7 +92,7 @@ void TransformSystem::lookAt(Entity* entity, const glm::vec3& eye, const glm::ve
     glm::vec4 perspective;
     glm::decompose(glm::inverse(m), scale, rotation, translation, skew, perspective);
 
-    TransformComponent* tc = entity->getTransform();
+    TransformComponent* tc = entity->transform();
     tc->position = translation;
     tc->rotation = rotation;
     tc->dirty = true;

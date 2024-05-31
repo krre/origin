@@ -10,5 +10,5 @@ SettingsScreen::SettingsScreen() {
 }
 
 void SettingsScreen::resizeImpl(int width, int height) {
-    buttonBack->move(width - buttonBack->getSize().width, height - buttonBack->getSize().height);
+    buttonBack->move(width - buttonBack->size().width, height - buttonBack->size().height);
 }

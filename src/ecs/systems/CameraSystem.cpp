@@ -9,7 +9,7 @@
 #include <glm/gtx/quaternion.hpp>
 
 CameraSystem::CameraSystem(EntityManager* entityManager) : System(entityManager) {
-    type = System::Type::Camera;
+    m_type = System::Type::Camera;
     Event::get()->windowResize.connect(this, &CameraSystem::onWindowResize);
 }
 
@@ -17,8 +17,8 @@ void CameraSystem::process(float dt) {
 
 }
 
-glm::mat4 CameraSystem::getView(Entity* entity) {
-    TransformComponent* tc = entity->getTransform();
+glm::mat4 CameraSystem::view(Entity* entity) {
+    TransformComponent* tc = entity->transform();
 //    return glm::inverse(cc->worldMatrix);;
     glm::mat4 mat(1);
     glm::mat4 translate = glm::translate(mat, -tc->position);
@@ -28,8 +28,8 @@ glm::mat4 CameraSystem::getView(Entity* entity) {
 
 void CameraSystem::onWindowResize(int width, int height) {
     // TODO: Replace by family
-    for (const auto& entity : entityManager->getEntities()) {
-        CameraComponent* cameraComp = entity.second->getCamera();
+    for (const auto& entity : entityManager->entities()) {
+        CameraComponent* cameraComp = entity.second->camera();
         if (cameraComp) {
             cameraComp->aspect = width * 1.0f / height;
             cameraComp->projection = glm::perspective(cameraComp->fov, cameraComp->aspect, cameraComp->near, cameraComp->far);

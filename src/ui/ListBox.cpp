@@ -9,20 +9,20 @@ const Color LINE_SELECTED_COLOR = Color(1, 1, 1, 0.3);
 const Color LINE_COLOR = Color(0, 0, 0, 0.7);
 
 RowDelegate::RowDelegate(const std::string& text, int index, ListBox* listBox) :
-        index(index),
+        m_index(index),
         listBox(listBox) {
     setColor(LINE_COLOR);
     label = new Label(text, this);
     label->setColor(Color::WHITE);
     resize(200, 30);
     // Align to vertical center
-    label->move(5, (getSize().height - label->getContentHeight()) / 2);
+    label->move(5, (size().height - label->contentHeight()) / 2);
 }
 
 void RowDelegate::mouseButtonAction(const SDL_MouseButtonEvent& event) {
      if (event.type == SDL_MOUSEBUTTONDOWN) {
-        listBox->currentText = label->getText();
-        listBox->setCurrentIndex(index);
+        listBox->m_currentText = label->text();
+        listBox->setCurrentIndex(m_index);
      }
 }
 
@@ -42,15 +42,15 @@ void ListBox::addLine(const std::string& text) {
 
 void ListBox::removeLine(int index) {
     layout->removeChild(index);
-    currentIndex = -1;
+    m_currentIndex = -1;
 }
 
 void ListBox::setCurrentIndex(int currentIndex) {
-    this->currentIndex = currentIndex;
+    this->m_currentIndex = currentIndex;
 
     for (Object* child : layout->getChildren()) {
         RowDelegate* listLine = static_cast<RowDelegate*>(child);
-        if (listLine->getIndex() == currentIndex) {
+        if (listLine->index() == currentIndex) {
             listLine->setColor(LINE_SELECTED_COLOR);
         } else {
             listLine->setColor(LINE_COLOR);

@@ -26,9 +26,9 @@ public:
     void free(const std::string& path);
     void cleanup();
 
-    static const std::string& getDataPath() { return resourcesPath; }
+    static const std::string& dataPath() { return resourcesPath; }
 
-    const FT_Library& getFreeTypeHandle() const { return ft; }
+    const FT_Library& freeTypeHandle() const { return ft; }
 
 private:
     std::map<std::string, std::shared_ptr<Resource>> resources;

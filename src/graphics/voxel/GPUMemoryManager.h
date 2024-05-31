@@ -23,10 +23,10 @@ public:
     void removeEntity(const Entity* entity);
 
     void updateRenderList(Vulkan::Buffer* buffer);
-    std::map<Core::EntityId, int> getOctreeOffsets() const { return octreeOffsets; }
+    std::map<Core::EntityId, int> octreeOffsets() const { return m_octreeOffsets; }
 
 private:
     int endOffset = 0;
-    std::map<Core::EntityId, int> octreeOffsets;
+    std::map<Core::EntityId, int> m_octreeOffsets;
     std::vector<uint32_t> renderOffsets;
 };

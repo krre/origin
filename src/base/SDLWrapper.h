@@ -18,5 +18,4 @@ namespace SDL {
     Platform getPlatform(SDL_Window* window);
     void showErrorMessageBox(const char* message);
     bool isInited();
-
 }

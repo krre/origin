@@ -22,14 +22,14 @@ MainWindow::MainWindow() : ui(new Ui::MainWindow) {
     viewport = new Viewport(octreeEditor);
     connect(viewport, &Viewport::selectionChanged, this, &MainWindow::onSelectionChanged);
     QWidget* container = QWidget::createWindowContainer(viewport);
-    QBoxLayout* viewportlayout = new QBoxLayout(QBoxLayout::TopToBottom, ui->frameViewport);
-    viewportlayout->setContentsMargins(QMargins());
-    viewportlayout->addWidget(container);
 
-    QBoxLayout* propLayout = new QBoxLayout(QBoxLayout::LeftToRight, ui->frameProperties);
-    propLayout->setContentsMargins(QMargins());
     properties = new Properties(octreeEditor, viewport, undoStack, this);
-    propLayout->addWidget(properties);
+
+    splitter = new QSplitter(Qt::Horizontal);
+    splitter->addWidget(container);
+    splitter->addWidget(properties);
+
+    setCentralWidget(splitter);
 
     readSettings();
     updateMenuState();
@@ -180,9 +180,9 @@ void MainWindow::readSettings() {
 
     QVariant splitterSize = settings.value("splitter");
     if (splitterSize == QVariant()) {
-        ui->splitter->setSizes({ 500, 150 });
+        splitter->setSizes({ 500, 150 });
     } else {
-        ui->splitter->restoreState(splitterSize.toByteArray());
+        splitter->restoreState(splitterSize.toByteArray());
     }
 
     properties->setShadeless(settings.value("shadeless").toBool());
@@ -208,7 +208,7 @@ void MainWindow::writeSettings() {
     QSettings settings;
     settings.beginGroup("MainWindow");
     settings.setValue("geometry", saveGeometry());
-    settings.setValue("splitter", ui->splitter->saveState());
+    settings.setValue("splitter", splitter->saveState());
     settings.setValue("shadeless", properties->shadeless());
     settings.endGroup();
 

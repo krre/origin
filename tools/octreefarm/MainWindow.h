@@ -7,6 +7,7 @@ namespace Ui {
 }
 
 class QUndoStack;
+class QSplitter;
 
 class Properties;
 class Viewport;
@@ -78,6 +79,7 @@ private:
     Viewport* viewport;
     OctreeEditor* octreeEditor;
     QString currentFile;
+    QSplitter* splitter = nullptr;
     QUndoStack* undoStack;
     static bool closing;
 

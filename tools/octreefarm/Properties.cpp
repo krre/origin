@@ -2,67 +2,46 @@
 #include "Command.h"
 #include "OctreeEditor.h"
 #include "Viewport.h"
-#include "ui_Properties.h"
 #include <QtWidgets>
 
-Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent) : QWidget(parent),
-    ui(new Ui::Properties),
-    octree(octree),
-    viewport(viewport),
-    undoStack(undoStack) {
-    ui->setupUi(this);
-    ui->pushButtonColor->setAutoFillBackground(true);
+Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent)
+    : QWidget(parent), octree(octree), viewport(viewport), undoStack(undoStack) {
+    createUi();
     setNodeColor(QColor(Qt::blue));
 
-    connect(ui->pushButtonColor, &QPushButton::clicked, this, &Properties::changeNodeColor);
-    connect(ui->checkBoxShadeless, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
     connect(octree, &OctreeEditor::nodeSelected, this, &Properties::onNodeSelected);
     connect(octree, &OctreeEditor::nodeDeselected, this, &Properties::onNodeDeselected);
-    connect(ui->pushButtonPlus, &QPushButton::clicked, this, &Properties::levelPlus);
-    connect(ui->pushButtonMinus, &QPushButton::clicked, this, &Properties::levelMinus);
-    connect(ui->pushButtonReset, &QPushButton::clicked, this, &Properties::levelReset);
 
     onNodeDeselected();
 }
 
-Properties::~Properties() {
-    delete ui;
-}
-
 void Properties::setNodeLevel(int level) {
-    if (level >= 0) {
-        ui->labelLevel->setText(QString::number(23 - level));
-    } else {
-        ui->labelLevel->setText(QString());
-    }
+    levelLabel->setText(level >= 0 ? QString::number(23 - level) : QString());
 }
 
 void Properties::setNodeIndex(int index) {
-    if (index >= 0) {
-        ui->labelIndex->setText(QString::number(index));
-    } else {
-        ui->labelIndex->setText(QString());
-    }
+    indexLabel->setText(index >= 0 ? QString::number(index) : QString());
 }
 
 void Properties::setNodeColor(const QColor& color) {
-    QPalette colorButtonPal = ui->pushButtonColor->palette();
+    QPalette colorButtonPal = colorButton->palette();
     colorButtonPal.setColor(QPalette::Button, color.isValid() ? color : QColor(Qt::transparent));
-    ui->pushButtonColor->setPalette(colorButtonPal);
+    colorButton->setPalette(colorButtonPal);
     nodeColor = color;
-    ui->pushButtonColor->setEnabled(color.isValid());
+    colorButton->setEnabled(color.isValid());
 }
 
 void Properties::setShadeless(bool shadeless) {
-    ui->checkBoxShadeless->setChecked(shadeless);
+    shadelessCheckBox->setChecked(shadeless);
 }
 
 bool Properties::shadeless() const {
-    return ui->checkBoxShadeless->isChecked();
+    return shadelessCheckBox->isChecked();
 }
 
 void Properties::changeNodeColor() {
     QColor color = QColorDialog::getColor(nodeColor);
+
     if (color.isValid()) {
         setNodeColor(color);
         QUndoCommand* changeColorCommand = new ChangeColorCommand(octree, color);
@@ -92,4 +71,44 @@ void Properties::levelMinus() {
 
 void Properties::levelReset() {
     qDebug() << "level reset";
+}
+
+void Properties::createUi() {
+    auto plusButton = new QPushButton(tr("Level+"));
+    connect(plusButton, &QPushButton::clicked, this, &Properties::levelPlus);
+
+    auto minusButton = new QPushButton(tr("Level-"));
+    connect(minusButton, &QPushButton::clicked, this, &Properties::levelMinus);
+
+    auto resetButton = new QPushButton(tr("Reset"));
+    connect(resetButton, &QPushButton::clicked, this, &Properties::levelReset);
+
+    auto levelLayout = new QHBoxLayout;
+    levelLayout->addWidget(plusButton);
+    levelLayout->addWidget(minusButton);
+    levelLayout->addWidget(resetButton);
+
+    levelLabel = new QLabel;
+    indexLabel = new QLabel;
+
+    colorButton = new QPushButton;
+    colorButton->setFlat(true);
+    colorButton->setAutoFillBackground(true);
+    connect(colorButton, &QPushButton::clicked, this, &Properties::changeNodeColor);
+
+    auto formLayout = new QFormLayout;
+    formLayout->addRow(tr("Level:"), levelLabel);
+    formLayout->addRow(tr("Index:"), indexLabel);
+    formLayout->addRow(tr("Color:"), colorButton);
+
+    shadelessCheckBox = new QCheckBox(tr("Shadeless"));
+    connect(shadelessCheckBox, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
+
+    auto verticalLayout = new QVBoxLayout;
+    verticalLayout->addLayout(levelLayout);
+    verticalLayout->addLayout(formLayout);
+    verticalLayout->addWidget(shadelessCheckBox);
+    verticalLayout->addStretch();
+
+    setLayout(verticalLayout);
 }

@@ -5,7 +5,6 @@ class QJsonObject;
 
 class AbstractTab : public QWidget {
     Q_OBJECT
-
 public:
     explicit AbstractTab() {}
 

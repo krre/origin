@@ -29,16 +29,16 @@ VulkanTab::VulkanTab() : ui(new Ui::VulkanTab) {
 
     Vulkan::PhysicalDevices physicalDevices(&instance);
 
-    for (size_t i = 0; i < physicalDevices.getCount(); i++) {
-        Vulkan::PhysicalDevice* physicalDevice = physicalDevices.getPhysicalDevice(i);
-        ui->comboBoxDevice->insertItem(i, physicalDevice->getProperties().deviceName);
+    for (size_t i = 0; i < physicalDevices.count(); i++) {
+        Vulkan::PhysicalDevice* physicalDevice = physicalDevices.physicalDevice(i);
+        ui->comboBoxDevice->insertItem(i, physicalDevice->properties().deviceName);
     }
 
-    for (const auto& layer : instance.getLayerProperties()) {
+    for (const auto& layer : instance.layerProperties()) {
         ui->listWidgetLayers->addItem(layer.layerName);
     }
 
-    for (const auto& extension : instance.getExtensionProperties()) {
+    for (const auto& extension : instance.extensionProperties()) {
         ui->listWidgetExtensions->addItem(extension.extensionName);
     }
 }

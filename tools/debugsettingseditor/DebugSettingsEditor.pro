@@ -30,5 +30,4 @@ HEADERS += \
 
 FORMS += \
     MainWindow.ui \
-    GeneralTab.ui \
     VulkanTab.ui

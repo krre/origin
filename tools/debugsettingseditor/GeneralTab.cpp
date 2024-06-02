@@ -1,56 +1,65 @@
 #include "GeneralTab.h"
-#include "ui_GeneralTab.h"
 #include <QJsonObject>
-#include <QtCore>
+#include <QtWidgets>
 
-GeneralTab::GeneralTab() :
-        ui(new Ui::GeneralTab) {
-    ui->setupUi(this);
+GeneralTab::GeneralTab() {
+    enableCheckBox = new QCheckBox(tr("Use debug settings"));
+    connect(enableCheckBox, &QCheckBox::toggled, this, &GeneralTab::flush);
+
+    debugHudCheckBox = new QCheckBox(tr("Show debug HUD"));
+    connect(debugHudCheckBox, &QCheckBox::toggled, this, &GeneralTab::flush);
+
+    screenComboBox = new QComboBox;
+    screenComboBox->addItems({ tr("Menu"), tr("Settings"), tr("Game"), tr("New Game"), tr("Load Game"), tr("Wait") });
+
+    saveComboBox = new QComboBox;
 
     QDir dir(QDir::currentPath() + "/Saves");
+
     for (const QString& name : dir.entryList(QDir::NoDotAndDotDot | QDir::Dirs)) {
-        ui->comboBoxSave->addItem(name);
+        saveComboBox->addItem(name);
     }
 
-    connect(ui->checkBoxEnable, &QCheckBox::toggled, this, &GeneralTab::flush);
-    connect(ui->checkBoxDebugHUD, &QCheckBox::toggled, this, &GeneralTab::flush);
-}
+    rendererComboBox = new QComboBox;
+    rendererComboBox->addItems({ tr("Polygonal"), tr("Raycast") });
 
-GeneralTab::~GeneralTab() {
-    delete ui;
+    auto formLayout = new QFormLayout;
+    formLayout->addRow(tr("Default screen:"), screenComboBox);
+    formLayout->addRow(tr("Save:"), saveComboBox);
+    formLayout->addRow(tr("Renderer:"), rendererComboBox);
+
+    formLayout->itemAt(formLayout->indexOf(screenComboBox))->setAlignment(Qt::AlignLeft);
+    formLayout->itemAt(formLayout->indexOf(saveComboBox))->setAlignment(Qt::AlignLeft);
+    formLayout->itemAt(formLayout->indexOf(rendererComboBox))->setAlignment(Qt::AlignLeft);
+
+    auto verticalLayout = new QVBoxLayout;
+    verticalLayout->addWidget(enableCheckBox);
+    verticalLayout->addWidget(debugHudCheckBox);
+    verticalLayout->addLayout(formLayout);
+    verticalLayout->addStretch();
+
+    setLayout(verticalLayout);
 }
 
 void GeneralTab::setDebugSettings(const QJsonObject& settings) {
-    ui->checkBoxEnable->setChecked(settings["enable"].toBool());
-    ui->checkBoxDebugHUD->setChecked(settings["debugHud"].toBool());
-    ui->comboBoxScreen->setCurrentIndex(settings["screen"].toInt());
-    ui->comboBoxSave->setCurrentText(settings["save"].toString());
-    ui->comboBoxRenderer->setCurrentIndex(settings["renderer"].toInt());
+    enableCheckBox->setChecked(settings["enable"].toBool());
+    debugHudCheckBox->setChecked(settings["debugHud"].toBool());
+    screenComboBox->setCurrentIndex(settings["screen"].toInt());
+    saveComboBox->setCurrentText(settings["save"].toString());
+    rendererComboBox->setCurrentIndex(settings["renderer"].toInt());
 }
 
 QJsonObject GeneralTab::debugSettings() const {
     QJsonObject obj;
-    obj["enable"] = QJsonValue(ui->checkBoxEnable->isChecked());
-    obj["debugHud"] = QJsonValue(ui->checkBoxDebugHUD->isChecked());
-    obj["screen"] = QJsonValue(ui->comboBoxScreen->currentIndex());
-    obj["save"] = QJsonValue(ui->comboBoxSave->currentText());
-    obj["renderer"] = QJsonValue(ui->comboBoxRenderer->currentIndex());
+    obj["enable"] = QJsonValue(enableCheckBox->isChecked());
+    obj["debugHud"] = QJsonValue(debugHudCheckBox->isChecked());
+    obj["screen"] = screenComboBox->currentIndex();
+    obj["save"] = QJsonValue(saveComboBox->currentText());
+    obj["renderer"] = QJsonValue(rendererComboBox->currentIndex());
 
     return obj;
 }
 
 QString GeneralTab::name() const {
     return "general";
-}
-
-void GeneralTab::on_comboBoxScreen_currentIndexChanged(int currentIndex [[maybe_unused]]) {
-    emit flush();
-}
-
-void GeneralTab::on_comboBoxSave_currentIndexChanged(int currentIndex [[maybe_unused]]) {
-    emit flush();
-}
-
-void GeneralTab::on_comboBoxRenderer_currentIndexChanged(int currentIndex [[maybe_unused]]) {
-    emit flush();
 }

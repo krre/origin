@@ -1,17 +1,17 @@
 #pragma once
 #include "AbstractTab.h"
 
-namespace Ui {
-    class VulkanTab;
-}
+class ListBox;
 
+class QComboBox;
+class QGroupBox;
+class QCheckBox;
 class QListWidget;
 
 class VulkanTab : public AbstractTab {
     Q_OBJECT
 public:
-    explicit VulkanTab();
-    ~VulkanTab();
+    VulkanTab();
 
     void setDebugSettings(const QJsonObject& settings) override;
     QJsonObject debugSettings() const override;
@@ -20,23 +20,22 @@ public:
     QString name() const override;
 
 private slots:
-    void on_comboBoxDevice_currentIndexChanged(int currentIndex);
-
-    void on_pushButtonDebugReportSelectAll_clicked();
-    void on_pushButtonDebugReportUnselectAll_clicked();
-    void on_pushButtonDebugReportReset_clicked();
-
-    void on_pushButtonExtensionsSelectAll_clicked();
-    void on_pushButtonExtensionsUnselectAll_clicked();
-    void on_pushButtonExtensionsReset_clicked();
-
-    void on_pushButtonLayersSelectAll_clicked();
-    void on_pushButtonLayersUnselectAll_clicked();
-    void on_pushButtonLayersReset_clicked();
+    void debugReportSelectAll();
+    void debugReportUnselectAll();
+    void debugReportReset();
 
 private:
     void changeStateDebugReportCheckBoxes(bool checked);
-    void selectListWidgetItems(QListWidget* listWidget, const QStringList& list);
 
-    Ui::VulkanTab* ui;
+    QComboBox* deviceComboBox = nullptr;
+    QGroupBox* debugReportGroupBox = nullptr;
+
+    QCheckBox* infoCheckBox = nullptr;
+    QCheckBox* warnCheckBox = nullptr;
+    QCheckBox* perfCheckBox = nullptr;
+    QCheckBox* errorCheckBox = nullptr;
+    QCheckBox* debugCheckBox = nullptr;
+
+    ListBox* extensionsListBox = nullptr;
+    ListBox* layersListBox = nullptr;
 };

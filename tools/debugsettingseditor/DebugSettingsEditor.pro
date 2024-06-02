@@ -16,6 +16,8 @@ LIBS += -L$$(ORIGIN_HOME) -lvulkan-o
 
 SOURCES += \
     Application.cpp \
+    ListBox.cpp \
+    SelectButtonRow.cpp \
     main.cpp \
     MainWindow.cpp \
     GeneralTab.cpp \
@@ -23,11 +25,12 @@ SOURCES += \
 
 HEADERS += \
     Application.h \
+    ListBox.h \
     MainWindow.h \
     GeneralTab.h \
+    SelectButtonRow.h \
     VulkanTab.h \
     AbstractTab.h
 
 FORMS += \
-    MainWindow.ui \
-    VulkanTab.ui
+    MainWindow.ui

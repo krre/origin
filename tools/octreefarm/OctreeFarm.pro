@@ -37,8 +37,7 @@ HEADERS  += \
     OctreeEditor.h \
     config.h
 
-FORMS += \
-    MainWindow.ui
+FORMS +=
 
 DISTFILES += \
     ../../data/shader/octreefarm/FrontLightOctree.frag \

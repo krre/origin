@@ -17,7 +17,6 @@ class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
     MainWindow();
-    ~MainWindow();
 
     static bool isClosing();
 
@@ -26,45 +25,39 @@ protected:
 
 private slots:
     // File
-    void on_actionNew_triggered();
-    void on_actionOpen_triggered();
-    void on_actionSave_triggered();
-    void on_actionSaveAs_triggered();
-    void on_actionRevert_triggered();
-    void on_actionClearMenuRecentFiles_triggered();
+    void create();
+    void open();
+    bool save();
+    bool saveAs();
+    void revert();
 
-    // Edit
-    void on_actionUndo_triggered();
-    void on_actionRedo_triggered();
-    void on_actionCopy_triggered();
-    void on_actionPaste_triggered();
+    void clearRecentMenu();
 
     // Node
-    void on_actionDeselect_triggered();
-    void on_actionSplit_triggered();
-    void on_actionMerge_triggered();
-    void on_actionAddForward_triggered();
-    void on_actionAddBack_triggered();
-    void on_actionDelete_triggered();
+    void deselect();
+    void split();
+    void merge();
+    void addForward();
+    void addBack();
+    void deleteNode();
 
     // View
-    void on_actionReset_triggered();
+    void reset();
 
     // Tools
-    void on_actionOptions_triggered();
+    void options();
 
     // Help
-    void on_actionAbout_triggered();
+    void about();
 
     // Viewport
     void onSelectionChanged(bool selected);
 
 private:
+    void createActions();
+
     void readSettings();
     void writeSettings();
-
-    bool save();
-    bool saveAs();
 
     bool maybeSave();
     bool saveFile(const QString& fileName);
@@ -74,7 +67,15 @@ private:
     void addRecentFile(const QString& filePath);
     void updateMenuState();
 
-    Ui::MainWindow* ui;
+    QMenu* recentFilesMenu = nullptr;
+
+    QAction* deselectAction = nullptr;
+    QAction* splitAction = nullptr;
+    QAction* mergeAction = nullptr;
+    QAction* addForwardAction = nullptr;
+    QAction* addBackAction = nullptr;
+    QAction* deleteAction = nullptr;
+
     Properties* properties;
     Viewport* viewport;
     OctreeEditor* octreeEditor;

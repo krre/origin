@@ -1,6 +1,5 @@
 #include "MainWindow.h"
 #include "Application.h"
-#include "ui_MainWindow.h"
 #include "OctreeEditor.h"
 #include "Viewport.h"
 #include "Properties.h"
@@ -12,12 +11,13 @@ const int maxRecentFiles = 10;
 const int separatorAndMenuCount = 2;
 bool MainWindow::closing = false;
 
-MainWindow::MainWindow() : ui(new Ui::MainWindow) {
+MainWindow::MainWindow() {
     setWindowTitle(Application::Name);
-    ui->setupUi(this);
 
     undoStack = new QUndoStack(this);
     octreeEditor = new OctreeEditor(this);
+
+    createActions();
 
     viewport = new Viewport(octreeEditor);
     connect(viewport, &Viewport::selectionChanged, this, &MainWindow::onSelectionChanged);
@@ -37,10 +37,6 @@ MainWindow::MainWindow() : ui(new Ui::MainWindow) {
     connect(octreeEditor, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 
-MainWindow::~MainWindow() {
-    delete ui;
-}
-
 bool MainWindow::isClosing() {
     return closing;
 }
@@ -51,7 +47,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     QMainWindow::closeEvent(event);
 }
 
-void MainWindow::on_actionNew_triggered() {
+void MainWindow::create() {
     if (maybeSave()) {
         octreeEditor->createNew();
         viewport->reset();
@@ -59,7 +55,7 @@ void MainWindow::on_actionNew_triggered() {
     }
 }
 
-void MainWindow::on_actionOpen_triggered() {
+void MainWindow::open() {
     if (maybeSave()) {
         QString fileName = openFileDialog(QFileDialog::AcceptOpen);
         if (!fileName.isEmpty()) {
@@ -68,86 +64,61 @@ void MainWindow::on_actionOpen_triggered() {
     }
 }
 
-void MainWindow::on_actionSave_triggered() {
-    save();
-}
-
-void MainWindow::on_actionSaveAs_triggered() {
-    saveAs();
-}
-
-void MainWindow::on_actionRevert_triggered() {
+void MainWindow::revert() {
     if (!currentFile.isEmpty()) {
         loadFile(currentFile);
         viewport->update();
     }
 }
 
-void MainWindow::on_actionClearMenuRecentFiles_triggered() {
-    QMenu* menu = ui->menuRecentFiles;
-    for (int i = menu->actions().size() - separatorAndMenuCount - 1; i >= 0; i--) {
-        menu->removeAction(menu->actions().at(i));
+void MainWindow::clearRecentMenu() {
+    for (int i = recentFilesMenu->actions().size() - separatorAndMenuCount - 1; i >= 0; i--) {
+        recentFilesMenu->removeAction(recentFilesMenu->actions().at(i));
     }
 
     updateMenuState();
 }
 
-void MainWindow::on_actionUndo_triggered() {
-    undoStack->undo();
-}
-
-void MainWindow::on_actionRedo_triggered() {
-    undoStack->redo();
-}
-
-void MainWindow::on_actionCopy_triggered() {
-    octreeEditor->copy();
-}
-
-void MainWindow::on_actionPaste_triggered() {
-    octreeEditor->paste();
-}
-
-void MainWindow::on_actionDeselect_triggered() {
+void MainWindow::deselect() {
     viewport->deselect();
     octreeEditor->deselect();
 }
 
-void MainWindow::on_actionSplit_triggered() {
+void MainWindow::split() {
     QUndoCommand* splitCommand = new SplitCommand(octreeEditor);
     undoStack->push(splitCommand);
 }
 
-void MainWindow::on_actionMerge_triggered() {
+void MainWindow::merge() {
     QUndoCommand* addCommand = new AddCommand(octreeEditor, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
     undoStack->push(addCommand);
 }
 
-void MainWindow::on_actionAddForward_triggered() {
+void MainWindow::addForward() {
     QUndoCommand* mergeCommand = new MergeCommand(octreeEditor);
     undoStack->push(mergeCommand);
 }
 
-void MainWindow::on_actionAddBack_triggered() {
+void MainWindow::addBack() {
     QUndoCommand* mergeCommand = new MergeCommand(octreeEditor);
     undoStack->push(mergeCommand);
 }
 
-void MainWindow::on_actionDelete_triggered() {
+void MainWindow::deleteNode() {
     QUndoCommand* deleteCommand = new DeleteCommand(octreeEditor);
     undoStack->push(deleteCommand);
 }
 
-void MainWindow::on_actionReset_triggered() {
+void MainWindow::reset() {
     viewport->reset();
 }
 
-void MainWindow::on_actionOptions_triggered() {
+void MainWindow::options() {
     Options options;
     options.exec();
 }
 
-void MainWindow::on_actionAbout_triggered() {
+void MainWindow::about() {
     QMessageBox::about(this, tr("About %1").arg(Application::Name),
         tr("<h3>%1 %2</h3> \
            Octree editor for Origin game<br><br> \
@@ -160,12 +131,54 @@ void MainWindow::on_actionAbout_triggered() {
 }
 
 void MainWindow::onSelectionChanged(bool selected) {
-    ui->actionDeselect->setEnabled(selected);
-    ui->actionSplit->setEnabled(selected);
-    ui->actionMerge->setEnabled(selected);
-    ui->actionAddBack->setEnabled(selected);
-    ui->actionAddForward->setEnabled(selected);
-    ui->actionDelete->setEnabled(selected);
+    deselectAction->setEnabled(selected);
+    splitAction->setEnabled(selected);
+    mergeAction->setEnabled(selected);
+    addForwardAction->setEnabled(selected);
+    addBackAction->setEnabled(selected);
+    deleteAction->setEnabled(selected);
+}
+
+void MainWindow::createActions() {
+    auto fileMenu = menuBar()->addMenu(tr("File"));
+    fileMenu->addAction(tr("New..."), Qt::CTRL | Qt::Key_N, this, &MainWindow::create);
+    fileMenu->addAction(tr("Open..."), Qt::CTRL | Qt::Key_O, this, &MainWindow::open);
+    fileMenu->addAction(tr("Save"), Qt::CTRL | Qt::Key_S, this, &MainWindow::save);
+    fileMenu->addAction(tr("Save As..."), this, &MainWindow::saveAs);
+    fileMenu->addAction(tr("Revert"), Qt::Key_F5, this, &MainWindow::revert);
+
+    recentFilesMenu = new QMenu(tr("Recent Files"), fileMenu);
+    recentFilesMenu->addSeparator();
+    recentFilesMenu->addAction(tr("Clear"), this, &MainWindow::clearRecentMenu);
+
+
+    fileMenu->addAction(recentFilesMenu->menuAction());
+    fileMenu->addSeparator();
+    fileMenu->addAction("Exit", Qt::CTRL | Qt::Key_Q, this, qOverload<>(&QMainWindow::close));
+
+    auto editMenu = menuBar()->addMenu(tr("Edit"));
+    editMenu->addAction(tr("Undo"), Qt::CTRL | Qt::Key_Z, undoStack, &QUndoStack::undo);
+    editMenu->addAction(tr("Redo"), Qt::CTRL | Qt::SHIFT | Qt::Key_Z, undoStack, &QUndoStack::redo);
+    editMenu->addSeparator();
+    editMenu->addAction(tr("Copy"), Qt::CTRL | Qt::Key_C, octreeEditor, &OctreeEditor::copy);
+    editMenu->addAction(tr("Paste"), Qt::CTRL | Qt::Key_V, octreeEditor, &OctreeEditor::paste);
+
+    auto nodeMenu = menuBar()->addMenu(tr("Node"));
+    deselectAction = nodeMenu->addAction(tr("Deselect"), this, &MainWindow::deselect);
+    splitAction = nodeMenu->addAction(tr("Split"), Qt::Key_S, this, &MainWindow::split);
+    mergeAction = nodeMenu->addAction(tr("Merge"), Qt::Key_M, this, &MainWindow::merge);
+    addForwardAction = nodeMenu->addAction(tr("Add Forward"), Qt::Key_A, this, &MainWindow::addForward);
+    addBackAction = nodeMenu->addAction(tr("Add Back"), Qt::SHIFT | Qt::Key_A, this, &MainWindow::addBack);
+    deleteAction = nodeMenu->addAction(tr("Delete"), Qt::Key_D, this, &MainWindow::deleteNode);
+
+    auto viewMenu = menuBar()->addMenu(tr("View"));
+    viewMenu->addAction(tr("Reset"), Qt::CTRL | Qt::Key_F12, this, &MainWindow::reset);
+
+    auto toolsMenu = menuBar()->addMenu(tr("Tools"));
+    toolsMenu->addAction(tr("Options..."), this, &MainWindow::options);
+
+    auto helpMenu = menuBar()->addMenu(tr("Help"));
+    helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);
 }
 
 void MainWindow::readSettings() {
@@ -200,7 +213,7 @@ void MainWindow::readSettings() {
     if (!filePath.isEmpty() && QFile::exists(filePath)) {
         loadFile(filePath);
     } else {
-        on_actionNew_triggered();
+        create();
     }
 }
 
@@ -215,9 +228,9 @@ void MainWindow::writeSettings() {
     settings.setValue("Path/currentFile", currentFile);
 
     settings.beginWriteArray("RecentFiles");
-    for (int i = 0; i < ui->menuRecentFiles->actions().size() - separatorAndMenuCount; ++i) {
+    for (int i = 0; i <recentFilesMenu->actions().size() - separatorAndMenuCount; ++i) {
         settings.setArrayIndex(i);
-        settings.setValue("path", ui->menuRecentFiles->actions().at(i)->text());
+        settings.setValue("path", recentFilesMenu->actions().at(i)->text());
     }
     settings.endArray();
 }
@@ -340,7 +353,7 @@ void MainWindow::setCurrentFile(const QString& fileName) {
 }
 
 void MainWindow::addRecentFile(const QString& filePath) {
-    QMenu* menu = ui->menuRecentFiles;
+    QMenu* menu = recentFilesMenu;
 
     for (QAction* action : menu->actions()) {
         if (action->text() == filePath) {
@@ -362,5 +375,5 @@ void MainWindow::addRecentFile(const QString& filePath) {
 }
 
 void MainWindow::updateMenuState() {
-    ui->menuRecentFiles->menuAction()->setEnabled(ui->menuRecentFiles->actions().size() > separatorAndMenuCount);
+    recentFilesMenu->menuAction()->setEnabled(recentFilesMenu->actions().size() > separatorAndMenuCount);
 }

@@ -1,31 +1,29 @@
 #include "MainWindow.h"
 #include "Application.h"
-#include "ui_MainWindow.h"
 #include "GeneralTab.h"
 #include "VulkanTab.h"
 #include <QtWidgets>
 
-MainWindow::MainWindow() : ui(new Ui::MainWindow) {
-    ui->setupUi(this);
+MainWindow::MainWindow() {
+    tabWidget = new QTabWidget;
+    tabWidget->addTab(new GeneralTab, tr("General"));
+    tabWidget->addTab(new VulkanTab, tr("Vulkan"));
 
-    ui->tabWidget->addTab(new GeneralTab, tr("General"));
-    ui->tabWidget->addTab(new VulkanTab, tr("Vulkan"));
+    setCentralWidget(tabWidget);
 
     debugSettingsPath = QCoreApplication::applicationDirPath() + "/debug.json";
+
+    createActions();
 
     readSettings();
     readDebugSettings();
 
-    for (int i = 0; i < ui->tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
+    for (int i = 0; i < tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(tabWidget->widget(i));
         connect(tab, &AbstractTab::flush, this, &MainWindow::writeDebugSettings);
     }
 
     writeDebugSettings();
-}
-
-MainWindow::~MainWindow() {
-    delete ui;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
@@ -33,7 +31,7 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     QMainWindow::closeEvent(event);
 }
 
-void MainWindow::on_actionAbout_triggered() {
+void MainWindow::about() {
     QMessageBox::about(this, tr("About %1").arg(Application::Title),
         tr("<h3>%1 %2</h3> \
            Debug settings editor for Origin game<br><br> \
@@ -45,7 +43,17 @@ void MainWindow::on_actionAbout_triggered() {
             Application::Years, Application::Author));
 }
 
-void MainWindow::on_actionReload_triggered() {
+void MainWindow::createActions() {
+    auto fileMenu = menuBar()->addMenu(tr("File"));
+    fileMenu->addAction(tr("Reload"), this, &MainWindow::reload);
+    fileMenu->addSeparator();
+    fileMenu->addAction("Exit", Qt::CTRL | Qt::Key_Q, this, qOverload<>(&QMainWindow::close));
+
+    auto helpMenu = menuBar()->addMenu(tr("Help"));
+    helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);
+}
+
+void MainWindow::reload() {
     readDebugSettings();
 }
 
@@ -59,7 +67,7 @@ void MainWindow::readSettings() {
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
     }
 
-    ui->tabWidget->setCurrentIndex(settings.value("tab", 0).toInt());
+    tabWidget->setCurrentIndex(settings.value("tab", 0).toInt());
     settings.endGroup();
 }
 
@@ -67,7 +75,7 @@ void MainWindow::writeSettings() {
     QSettings settings;
     settings.beginGroup("MainWindow");
     settings.setValue("geometry", saveGeometry());
-    settings.setValue("tab", ui->tabWidget->currentIndex());
+    settings.setValue("tab", tabWidget->currentIndex());
     settings.endGroup();
 }
 
@@ -80,8 +88,9 @@ void MainWindow::readDebugSettings() {
         doc = QJsonDocument(QJsonDocument::fromJson(file.readAll()));
     }
 
-    for (int i = 0; i < ui->tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
+    for (int i = 0; i < tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(tabWidget->widget(i));
+
         if (settingsExists) {
             tab->setDebugSettings(doc.object()[tab->name()].toObject());
         } else {
@@ -99,8 +108,8 @@ void MainWindow::writeDebugSettings() {
 
     QJsonObject obj;
 
-    for (int i = 0; i < ui->tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(ui->tabWidget->widget(i));
+    for (int i = 0; i < tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(tabWidget->widget(i));
         obj[tab->name()] = tab->debugSettings();
     }
 

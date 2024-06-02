@@ -31,6 +31,3 @@ HEADERS += \
     SelectButtonRow.h \
     VulkanTab.h \
     AbstractTab.h
-
-FORMS += \
-    MainWindow.ui

@@ -1,34 +1,29 @@
 #pragma once
 #include <QMainWindow>
 
-namespace Ui {
-    class MainWindow;
-}
+class QTableWidget;
 
 class MainWindow : public QMainWindow {
     Q_OBJECT
 public:
-    explicit MainWindow();
-    ~MainWindow();
+    MainWindow();
 
 protected:
     void closeEvent(QCloseEvent* event);
 
 private slots:
-    // File
-    void on_actionReload_triggered();
-
-    // Help
-    void on_actionAbout_triggered();
-
+    void reload();
+    void about();
 
 private:
+    void createActions();
+
     void readSettings();
     void writeSettings();
 
     void readDebugSettings();
     void writeDebugSettings();
 
-    Ui::MainWindow* ui;
+    QTabWidget* tabWidget = nullptr;
     QString debugSettingsPath;
 };

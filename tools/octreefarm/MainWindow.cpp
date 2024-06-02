@@ -362,7 +362,7 @@ void MainWindow::addRecentFile(const QString& filePath) {
     }
 
     QAction* fileAction = new QAction(filePath);
-    connect(fileAction, &QAction::triggered, [=] {
+    connect(fileAction, &QAction::triggered, this, [=, this] {
         loadFile(filePath);
     });
     menu->insertAction(menu->actions().first(), fileAction);

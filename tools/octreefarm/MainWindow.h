@@ -2,10 +2,6 @@
 #include <QMainWindow>
 #include <QFileDialog>
 
-namespace Ui {
-    class MainWindow;
-}
-
 class QUndoStack;
 class QSplitter;
 

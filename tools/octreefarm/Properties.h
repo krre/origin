@@ -1,10 +1,6 @@
 #pragma once
 #include <QWidget>
 
-namespace Ui {
-    class Properties;
-}
-
 class QUndoStack;
 class QLabel;
 class QPushButton;

@@ -53,7 +53,7 @@ int OctreeEditor::colorAttachOffset(int parent, int childIndex) {
 void OctreeEditor::confirmUpdate() {
     m_selection.clear();
     nodeDeselected();
-    storage = m_source->binary();
+    m_storage = m_source->binary();
     setModified(true);
     dataChanged();
 }
@@ -78,20 +78,20 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
 
     if (append) {
         if (index >= 0) { // Remove selection
-            (*storage)[offset] = m_selection.at(index)->color;
+            (*m_storage)[offset] = m_selection.at(index)->color;
             m_selection.remove(index);
             nodeDeselected();
         } else { // Append selection
-            node->color = (*storage)[offset];
-            (*storage)[offset] = selectionColor;
+            node->color = (*m_storage)[offset];
+            (*m_storage)[offset] = m_selectionColor;
             m_selection.append(node);
             color.setRgba(node->color);
             nodeSelected(node->scale, childIndex, color);
         }
     } else if (index == -1 || m_selection.count() > 1) {
         deselect();
-        node->color = (*storage)[offset];
-        (*storage)[offset] = selectionColor;
+        node->color = (*m_storage)[offset];
+        (*m_storage)[offset] = m_selectionColor;
         m_selection.append(node);
         color.setRgba(node->color);
         nodeSelected(node->scale, childIndex, color);
@@ -104,7 +104,7 @@ void OctreeEditor::deselect() {
     if (m_selection.count()) {
         for (auto node: m_selection) {
             int address = colorAttachOffset(node->parent, node->childIndex);
-            (*storage)[address] = node->color;
+            (*m_storage)[address] = node->color;
         }
 
         m_selection.clear();
@@ -115,12 +115,12 @@ void OctreeEditor::deselect() {
 
 void OctreeEditor::copy() {
     if (m_selection.count()) {
-        clipboard.color = m_selection.last().data()->color;
+        m_clipboard.color = m_selection.last().data()->color;
     }
 }
 
 void OctreeEditor::paste() {
-    if (clipboard.color.isValid()) {
+    if (m_clipboard.color.isValid()) {
 //        changeNodeColor(clipboard.color);
     }
 }

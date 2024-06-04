@@ -5,7 +5,7 @@
 #include <QtWidgets>
 
 Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent)
-    : QWidget(parent), octree(octree), viewport(viewport), undoStack(undoStack) {
+    : QWidget(parent), m_octree(octree), m_viewport(viewport), m_undoStack(undoStack) {
     createUi();
     setNodeColor(QColor(Qt::blue));
 
@@ -16,36 +16,36 @@ Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* und
 }
 
 void Properties::setNodeLevel(int level) {
-    levelLabel->setText(level >= 0 ? QString::number(23 - level) : QString());
+    m_levelLabel->setText(level >= 0 ? QString::number(23 - level) : QString());
 }
 
 void Properties::setNodeIndex(int index) {
-    indexLabel->setText(index >= 0 ? QString::number(index) : QString());
+    m_indexLabel->setText(index >= 0 ? QString::number(index) : QString());
 }
 
 void Properties::setNodeColor(const QColor& color) {
-    QPalette colorButtonPal = colorButton->palette();
+    QPalette colorButtonPal = m_colorButton->palette();
     colorButtonPal.setColor(QPalette::Button, color.isValid() ? color : QColor(Qt::transparent));
-    colorButton->setPalette(colorButtonPal);
-    nodeColor = color;
-    colorButton->setEnabled(color.isValid());
+    m_colorButton->setPalette(colorButtonPal);
+    m_nodeColor = color;
+    m_colorButton->setEnabled(color.isValid());
 }
 
 void Properties::setShadeless(bool shadeless) {
-    shadelessCheckBox->setChecked(shadeless);
+    m_shadelessCheckBox->setChecked(shadeless);
 }
 
 bool Properties::shadeless() const {
-    return shadelessCheckBox->isChecked();
+    return m_shadelessCheckBox->isChecked();
 }
 
 void Properties::changeNodeColor() {
-    QColor color = QColorDialog::getColor(nodeColor);
+    QColor color = QColorDialog::getColor(m_nodeColor);
 
     if (color.isValid()) {
         setNodeColor(color);
-        QUndoCommand* changeColorCommand = new ChangeColorCommand(octree, color);
-        undoStack->push(changeColorCommand);
+        QUndoCommand* changeColorCommand = new ChangeColorCommand(m_octree, color);
+        m_undoStack->push(changeColorCommand);
     }
 }
 
@@ -88,26 +88,26 @@ void Properties::createUi() {
     levelLayout->addWidget(minusButton);
     levelLayout->addWidget(resetButton);
 
-    levelLabel = new QLabel;
-    indexLabel = new QLabel;
+    m_levelLabel = new QLabel;
+    m_indexLabel = new QLabel;
 
-    colorButton = new QPushButton;
-    colorButton->setFlat(true);
-    colorButton->setAutoFillBackground(true);
-    connect(colorButton, &QPushButton::clicked, this, &Properties::changeNodeColor);
+    m_colorButton = new QPushButton;
+    m_colorButton->setFlat(true);
+    m_colorButton->setAutoFillBackground(true);
+    connect(m_colorButton, &QPushButton::clicked, this, &Properties::changeNodeColor);
 
     auto formLayout = new QFormLayout;
-    formLayout->addRow(tr("Level:"), levelLabel);
-    formLayout->addRow(tr("Index:"), indexLabel);
-    formLayout->addRow(tr("Color:"), colorButton);
+    formLayout->addRow(tr("Level:"), m_levelLabel);
+    formLayout->addRow(tr("Index:"), m_indexLabel);
+    formLayout->addRow(tr("Color:"), m_colorButton);
 
-    shadelessCheckBox = new QCheckBox(tr("Shadeless"));
-    connect(shadelessCheckBox, &QCheckBox::stateChanged, viewport, &Viewport::setShadeless);
+    m_shadelessCheckBox = new QCheckBox(tr("Shadeless"));
+    connect(m_shadelessCheckBox, &QCheckBox::stateChanged, m_viewport, &Viewport::setShadeless);
 
     auto verticalLayout = new QVBoxLayout;
     verticalLayout->addLayout(levelLayout);
     verticalLayout->addLayout(formLayout);
-    verticalLayout->addWidget(shadelessCheckBox);
+    verticalLayout->addWidget(m_shadelessCheckBox);
     verticalLayout->addStretch();
 
     setLayout(verticalLayout);

@@ -63,21 +63,21 @@ private:
     void addRecentFile(const QString& filePath);
     void updateMenuState();
 
-    QMenu* recentFilesMenu = nullptr;
+    QMenu* m_recentFilesMenu = nullptr;
 
-    QAction* deselectAction = nullptr;
-    QAction* splitAction = nullptr;
-    QAction* mergeAction = nullptr;
-    QAction* addForwardAction = nullptr;
-    QAction* addBackAction = nullptr;
-    QAction* deleteAction = nullptr;
+    QAction* m_deselectAction = nullptr;
+    QAction* m_splitAction = nullptr;
+    QAction* m_mergeAction = nullptr;
+    QAction* m_addForwardAction = nullptr;
+    QAction* m_addBackAction = nullptr;
+    QAction* m_deleteAction = nullptr;
 
-    Properties* properties;
-    Viewport* viewport;
-    OctreeEditor* octreeEditor;
-    QString currentFile;
-    QSplitter* splitter = nullptr;
-    QUndoStack* undoStack;
-    static bool closing;
+    Properties* m_properties;
+    Viewport* m_viewport;
+    OctreeEditor* m_octreeEditor = nullptr;
+    QString m_currentFile;
+    QSplitter* m_splitter = nullptr;
+    QUndoStack* m_undoStack;
+    static bool s_closing;
 
 };

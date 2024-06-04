@@ -2,116 +2,116 @@
 #include "Source.h"
 #include <QtCore>
 
-DeleteCommand::DeleteCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
-    nodes = octreeEditor->selection();
+DeleteCommand::DeleteCommand(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEditor) {
+    m_nodes = octreeEditor->selection();
 }
 
 void DeleteCommand::undo() {
     bool result = false;
-    for (auto node: nodes) {
-        result = octreeEditor->source()->addNode(*node.data());
+    for (auto node: m_nodes) {
+        result = m_octreeEditor->source()->addNode(*node.data());
     }
 
     if (result) {
-        octreeEditor->confirmUpdate();
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure add node";
     }
 }
 
 void DeleteCommand::redo() {
-    if (octreeEditor->source()->deleteNode(nodes)) {
-        octreeEditor->confirmUpdate();
+    if (m_octreeEditor->source()->deleteNode(m_nodes)) {
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure delete node";
     }
 }
 
-AddCommand::AddCommand(OctreeEditor* octreeEditor, bool back) : octreeEditor(octreeEditor), back(back) {
-    nodes = octreeEditor->selection();
+AddCommand::AddCommand(OctreeEditor* octreeEditor, bool back) : m_octreeEditor(octreeEditor), m_back(back) {
+    m_nodes = octreeEditor->selection();
 }
 
 void AddCommand::undo() {
-    if (octreeEditor->source()->deleteNode(node)) {
-        octreeEditor->confirmUpdate();
+    if (m_octreeEditor->source()->deleteNode(m_node)) {
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure delete node";
     }
 }
 
 void AddCommand::redo() {
-    if (octreeEditor->source()->addNode(nodes, back, node)) {
-        octreeEditor->confirmUpdate();
+    if (m_octreeEditor->source()->addNode(m_nodes, m_back, m_node)) {
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure add node";
     }
 }
 
-SplitCommand::SplitCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
-    nodes = octreeEditor->selection();
+SplitCommand::SplitCommand(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEditor) {
+    m_nodes = octreeEditor->selection();
 }
 
 void SplitCommand::undo() {
     bool result = false;
-    for (auto node: nodes) {
-        result = octreeEditor->source()->mergeNode(*node.data());
+    for (auto node: m_nodes) {
+        result = m_octreeEditor->source()->mergeNode(*node.data());
     }
     if (result) {
-        octreeEditor->confirmUpdate();
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure merge node";
     }
 }
 
 void SplitCommand::redo() {
-    octreeEditor->split();
-    octreeEditor->confirmUpdate();
+    m_octreeEditor->split();
+    m_octreeEditor->confirmUpdate();
 }
 
-MergeCommand::MergeCommand(OctreeEditor* octreeEditor) : octreeEditor(octreeEditor) {
-    nodes = octreeEditor->selection();
+MergeCommand::MergeCommand(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEditor) {
+    m_nodes = octreeEditor->selection();
 }
 
 void MergeCommand::undo() {
-    octreeEditor->source()->createChildren(newNode);
+    m_octreeEditor->source()->createChildren(m_newNode);
     bool result = false;
-    for (auto node: mergedNodes) {
-        result = octreeEditor->source()->addNode(node);
+    for (auto node: m_mergedNodes) {
+        result = m_octreeEditor->source()->addNode(node);
     }
     if (result) {
-        octreeEditor->confirmUpdate();
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure merge node";
     }
 }
 
 void MergeCommand::redo() {
-    if (octreeEditor->source()->mergeNode(nodes, newNode, mergedNodes)) {
-        octreeEditor->confirmUpdate();
+    if (m_octreeEditor->source()->mergeNode(m_nodes, m_newNode, m_mergedNodes)) {
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure merge node";
     }
 }
 
-ChangeColorCommand::ChangeColorCommand(OctreeEditor* octreeEditor, QColor color) : octreeEditor(octreeEditor), color(color) {
-    nodes = octreeEditor->selection();
+ChangeColorCommand::ChangeColorCommand(OctreeEditor* octreeEditor, QColor color) : m_octreeEditor(octreeEditor), m_color(color) {
+    m_nodes = octreeEditor->selection();
 }
 
 void ChangeColorCommand::undo() {
     bool result = false;
-    for (auto node: nodes) {
-        result = octreeEditor->source()->changeNodeColor(*node.data());
+    for (auto node: m_nodes) {
+        result = m_octreeEditor->source()->changeNodeColor(*node.data());
     }
     if (result) {
-        octreeEditor->confirmUpdate();
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure change node color";
     }
 }
 
 void ChangeColorCommand::redo() {
-    if (octreeEditor->source()->changeNodeColor(nodes, color)) {
-        octreeEditor->confirmUpdate();
+    if (m_octreeEditor->source()->changeNodeColor(m_nodes, m_color)) {
+        m_octreeEditor->confirmUpdate();
     } else {
         qDebug() << "Failure change node color";
     }

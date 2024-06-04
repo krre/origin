@@ -22,28 +22,28 @@ RenderEngine::~RenderEngine() {
 }
 
 void RenderEngine::setVoxelVertextCount(uint32_t vertexCount) {
-    this->voxelRenderPass.vertextCount = vertexCount;
+    m_voxelRenderPass.vertextCount = vertexCount;
 
     uint32_t size = vertexCount * sizeof(Octree::Octree::Vertex);
 
-    if (size > voxelRenderPass.vertexBuffer->size()) {
-        voxelRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size));
+    if (size > m_voxelRenderPass.vertexBuffer->size()) {
+        m_voxelRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size));
     }
 }
 
 void RenderEngine::setLineVertextCount(uint32_t vertexCount) {
-    this->lineRenderPass.vertextCount = vertexCount;
+    m_lineRenderPass.vertextCount = vertexCount;
 }
 
 void RenderEngine::updateMvp(const glm::mat4& mvp) {
-    voxelUbo.mvp = mvp;
-    lineUbo.mvp = mvp;
+    m_voxelUbo.mvp = mvp;
+    m_lineUbo.mvp = mvp;
     updateVoxelUbo();
-    lineRenderPass.uboBuffer->write(&lineUbo, sizeof(lineUbo));
+    m_lineRenderPass.uboBuffer->write(&m_lineUbo, sizeof(m_lineUbo));
 }
 
 void RenderEngine::updateShadeless(bool shadeless) {
-    voxelUbo.shadeless = shadeless;
+    m_voxelUbo.shadeless = shadeless;
     updateVoxelUbo();
 }
 
@@ -54,127 +54,127 @@ void RenderEngine::init() {
 
 void RenderEngine::initVoxelRenderPass() {
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
-    voxelRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));
+    m_voxelRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));
 
-    voxelRenderPass.uboBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(voxelUbo)));
+    m_voxelRenderPass.uboBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(m_voxelUbo)));
 
-    voxelRenderPass.shaderProgram.reset(new Vulkan::ShaderProgram(graphicsDevice()));
+    m_voxelRenderPass.shaderProgram.reset(new Vulkan::ShaderProgram(graphicsDevice()));
     std::string shaderDataPath = QApplication::applicationDirPath().toStdString() + "/data/shader/";
-    voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "octreefarm/FrontLightOctree.vert.spv");
-    voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "octreefarm/FrontLightOctree.frag.spv");
+    m_voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "octreefarm/FrontLightOctree.vert.spv");
+    m_voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "octreefarm/FrontLightOctree.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
-    bufferInfo.buffer = voxelRenderPass.uboBuffer->handle();
+    bufferInfo.buffer = m_voxelRenderPass.uboBuffer->handle();
     bufferInfo.range = VK_WHOLE_SIZE;
-    voxelRenderPass.shaderProgram->bindBuffer("ubo", bufferInfo);
+    m_voxelRenderPass.shaderProgram->bindBuffer("ubo", bufferInfo);
 
-    voxelRenderPass.shaderProgram->create();
+    m_voxelRenderPass.shaderProgram->create();
 
-    voxelRenderPass. graphicsPipeline.reset(new Vulkan::GraphicsPipeline(graphicsDevice()));
-    voxelRenderPass.graphicsPipeline->setRenderPass(renderPass()->handle());
-    voxelRenderPass.graphicsPipeline->setPipelineLayout(voxelRenderPass.shaderProgram->pipelineLayout()->handle());
+    m_voxelRenderPass. graphicsPipeline.reset(new Vulkan::GraphicsPipeline(graphicsDevice()));
+    m_voxelRenderPass.graphicsPipeline->setRenderPass(renderPass()->handle());
+    m_voxelRenderPass.graphicsPipeline->setPipelineLayout(m_voxelRenderPass.shaderProgram->pipelineLayout()->handle());
 
-    voxelRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
-    voxelRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+    m_voxelRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+    m_voxelRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
 
-    for (auto& shader : voxelRenderPass.shaderProgram->shaders()) {
-        voxelRenderPass.graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
+    for (auto& shader : m_voxelRenderPass.shaderProgram->shaders()) {
+        m_voxelRenderPass.graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
     }
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(Octree::Octree::Vertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    voxelRenderPass.graphicsPipeline->addVertexBindingDescription(bindingDescription);
+    m_voxelRenderPass.graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = voxelRenderPass.shaderProgram->locationInfo("position");
+        const Vulkan::Shader::LocationInfo locationInfo = m_voxelRenderPass.shaderProgram->locationInfo("position");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+        m_voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = voxelRenderPass.shaderProgram->locationInfo("color");
+        const Vulkan::Shader::LocationInfo locationInfo = m_voxelRenderPass.shaderProgram->locationInfo("color");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
         attributeDescription.offset = sizeof(Octree::Octree::Vertex::pos);
-        voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+        m_voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = voxelRenderPass.shaderProgram->locationInfo("normal");
+        const Vulkan::Shader::LocationInfo locationInfo = m_voxelRenderPass.shaderProgram->locationInfo("normal");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
         attributeDescription.offset = sizeof(Octree::Octree::Vertex::pos) + sizeof(Octree::Octree::Vertex::color);
-        voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+        m_voxelRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
-    voxelRenderPass.graphicsPipeline->create();
+    m_voxelRenderPass.graphicsPipeline->create();
 }
 
 void RenderEngine::initLineRenderPass() {
     uint32_t startSize = 1000000; // TODO: Set optimal value or take from constant
-    lineRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));
+    m_lineRenderPass.vertexBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, startSize));
 
-    lineRenderPass.uboBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(lineUbo)));
+    m_lineRenderPass.uboBuffer.reset(new Vulkan::GpuBuffer(graphicsDevice(), VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(m_lineUbo)));
 
-    lineRenderPass.shaderProgram.reset(new Vulkan::ShaderProgram(graphicsDevice()));
+    m_lineRenderPass.shaderProgram.reset(new Vulkan::ShaderProgram(graphicsDevice()));
     std::string shaderDataPath = QApplication::applicationDirPath().toStdString() + "/data/shader/";
-    lineRenderPass.shaderProgram->loadShader(shaderDataPath + "Line.vert.spv");
-    lineRenderPass.shaderProgram->loadShader(shaderDataPath + "Line.frag.spv");
+    m_lineRenderPass.shaderProgram->loadShader(shaderDataPath + "Line.vert.spv");
+    m_lineRenderPass.shaderProgram->loadShader(shaderDataPath + "Line.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
-    bufferInfo.buffer = lineRenderPass.uboBuffer->handle();
+    bufferInfo.buffer = m_lineRenderPass.uboBuffer->handle();
     bufferInfo.range = VK_WHOLE_SIZE;
-    lineRenderPass.shaderProgram->bindBuffer("ubo", bufferInfo);
+    m_lineRenderPass.shaderProgram->bindBuffer("ubo", bufferInfo);
 
-    lineRenderPass.shaderProgram->create();
+    m_lineRenderPass.shaderProgram->create();
 
-    lineRenderPass. graphicsPipeline.reset(new Vulkan::GraphicsPipeline(graphicsDevice()));
-    lineRenderPass.graphicsPipeline->setPrimitiveTopology(VK_PRIMITIVE_TOPOLOGY_LINE_LIST);
-    lineRenderPass.graphicsPipeline->setRenderPass(renderPass()->handle());
-    lineRenderPass.graphicsPipeline->setPipelineLayout(lineRenderPass.shaderProgram->pipelineLayout()->handle());
+    m_lineRenderPass. graphicsPipeline.reset(new Vulkan::GraphicsPipeline(graphicsDevice()));
+    m_lineRenderPass.graphicsPipeline->setPrimitiveTopology(VK_PRIMITIVE_TOPOLOGY_LINE_LIST);
+    m_lineRenderPass.graphicsPipeline->setRenderPass(renderPass()->handle());
+    m_lineRenderPass.graphicsPipeline->setPipelineLayout(m_lineRenderPass.shaderProgram->pipelineLayout()->handle());
 
-    lineRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
-    lineRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+    m_lineRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+    m_lineRenderPass.graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
 
-    for (auto& shader : lineRenderPass.shaderProgram->shaders()) {
-        lineRenderPass.graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
+    for (auto& shader : m_lineRenderPass.shaderProgram->shaders()) {
+        m_lineRenderPass.graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
     }
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(Viewport::LineVertex);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    lineRenderPass.graphicsPipeline->addVertexBindingDescription(bindingDescription);
+    m_lineRenderPass.graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = lineRenderPass.shaderProgram->locationInfo("position");
+        const Vulkan::Shader::LocationInfo locationInfo = m_lineRenderPass.shaderProgram->locationInfo("position");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        lineRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+        m_lineRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = lineRenderPass.shaderProgram->locationInfo("color");
+        const Vulkan::Shader::LocationInfo locationInfo = m_lineRenderPass.shaderProgram->locationInfo("color");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
         attributeDescription.offset = sizeof(Viewport::LineVertex::position);
-        lineRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+        m_lineRenderPass.graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
-    lineRenderPass.graphicsPipeline->create();
+    m_lineRenderPass.graphicsPipeline->create();
 }
 
 void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
@@ -200,8 +200,8 @@ void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulk
 
     commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
-    if (voxelRenderPass.graphicsPipeline && voxelRenderPass.vertextCount) {
-        commandBuffer->bindPipeline(voxelRenderPass.graphicsPipeline.data());
+    if (m_voxelRenderPass.graphicsPipeline && m_voxelRenderPass.vertextCount) {
+        commandBuffer->bindPipeline(m_voxelRenderPass.graphicsPipeline.data());
 
         commandBuffer->addViewport(viewport);
         commandBuffer->setViewport(0);
@@ -209,21 +209,21 @@ void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulk
         commandBuffer->addScissor(scissor);
         commandBuffer->setScissor(0);
 
-        commandBuffer->addVertexBuffer(voxelRenderPass.vertexBuffer->handle());
+        commandBuffer->addVertexBuffer(m_voxelRenderPass.vertexBuffer->handle());
         commandBuffer->bindVertexBuffers();
 
-        for (size_t i = 0; i < voxelRenderPass.shaderProgram->descriptorSets()->count(); i++) {
-            commandBuffer->addDescriptorSet(voxelRenderPass.shaderProgram->descriptorSets()->at(i));
+        for (size_t i = 0; i < m_voxelRenderPass.shaderProgram->descriptorSets()->count(); i++) {
+            commandBuffer->addDescriptorSet(m_voxelRenderPass.shaderProgram->descriptorSets()->at(i));
         }
-        commandBuffer->bindDescriptorSets(voxelRenderPass.graphicsPipeline->bindPoint(), voxelRenderPass.shaderProgram->pipelineLayout()->handle());
+        commandBuffer->bindDescriptorSets(m_voxelRenderPass.graphicsPipeline->bindPoint(), m_voxelRenderPass.shaderProgram->pipelineLayout()->handle());
 
-        commandBuffer->draw(voxelRenderPass.vertextCount, 1, 0, 0);
+        commandBuffer->draw(m_voxelRenderPass.vertextCount, 1, 0, 0);
     }
 
-    if (lineRenderPass.graphicsPipeline && lineRenderPass.vertextCount) {
+    if (m_lineRenderPass.graphicsPipeline && m_lineRenderPass.vertextCount) {
         commandBuffer->clear();
 
-        commandBuffer->bindPipeline(lineRenderPass.graphicsPipeline.data());
+        commandBuffer->bindPipeline(m_lineRenderPass.graphicsPipeline.data());
 
         commandBuffer->addViewport(viewport);
         commandBuffer->setViewport(0);
@@ -231,20 +231,20 @@ void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulk
         commandBuffer->addScissor(scissor);
         commandBuffer->setScissor(0);
 
-        commandBuffer->addVertexBuffer(lineRenderPass.vertexBuffer->handle());
+        commandBuffer->addVertexBuffer(m_lineRenderPass.vertexBuffer->handle());
         commandBuffer->bindVertexBuffers();
 
-        for (size_t i = 0; i < lineRenderPass.shaderProgram->descriptorSets()->count(); i++) {
-            commandBuffer->addDescriptorSet(lineRenderPass.shaderProgram->descriptorSets()->at(i));
+        for (size_t i = 0; i < m_lineRenderPass.shaderProgram->descriptorSets()->count(); i++) {
+            commandBuffer->addDescriptorSet(m_lineRenderPass.shaderProgram->descriptorSets()->at(i));
         }
-        commandBuffer->bindDescriptorSets(lineRenderPass.graphicsPipeline->bindPoint(), lineRenderPass.shaderProgram->pipelineLayout()->handle());
+        commandBuffer->bindDescriptorSets(m_lineRenderPass.graphicsPipeline->bindPoint(), m_lineRenderPass.shaderProgram->pipelineLayout()->handle());
 
-        commandBuffer->draw(lineRenderPass.vertextCount, 1, 0, 0);
+        commandBuffer->draw(m_lineRenderPass.vertextCount, 1, 0, 0);
     }
 
     commandBuffer->endRenderPass();
 }
 
 void RenderEngine::updateVoxelUbo() {
-    voxelRenderPass.uboBuffer->write(&voxelUbo, sizeof(voxelUbo));
+    m_voxelRenderPass.uboBuffer->write(&m_voxelUbo, sizeof(m_voxelUbo));
 }

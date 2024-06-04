@@ -33,13 +33,13 @@ private slots:
 private:
     void createUi();
 
-    OctreeEditor* octree;
-    Viewport* viewport;
-    QUndoStack* undoStack;
-    QColor nodeColor;
+    OctreeEditor* m_octree = nullptr;
+    Viewport* m_viewport = nullptr;
+    QUndoStack* m_undoStack = nullptr;
+    QColor m_nodeColor;
 
-    QLabel* levelLabel = nullptr;
-    QLabel* indexLabel = nullptr;
-    QPushButton* colorButton = nullptr;
-    QCheckBox* shadelessCheckBox = nullptr;
+    QLabel* m_levelLabel = nullptr;
+    QLabel* m_indexLabel = nullptr;
+    QPushButton* m_colorButton = nullptr;
+    QCheckBox* m_shadelessCheckBox = nullptr;
 };

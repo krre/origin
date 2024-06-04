@@ -24,20 +24,19 @@ signals:
     void stateChanged();
 
 private:
-    const float minDistance = 0.1;
-    const float maxDistance = 50;
-    float fov = glm::radians(50.0f);
-    float aspect;
-    const glm::vec3 UP = glm::vec3(0.0, 1.0, 0.0);
-    glm::vec3 up;
-    glm::vec3 look;
-    glm::vec3 right;
+    const float m_minDistance = 0.1;
+    const float m_maxDistance = 50;
+    float m_fov = glm::radians(50.0f);
+    float m_aspect;
+    glm::vec3 m_up;
+    glm::vec3 m_look;
+    glm::vec3 m_right;
 
     glm::mat4 m_projective = glm::mat4(1.0);
     glm::mat4 m_view = glm::mat4(1.0);
     glm::vec3 m_position;
-    glm::vec3 target;
-    float distance; // from target to position
-    float yaw;
-    float pitch;
+    glm::vec3 m_target;
+    float m_distance; // from target to position
+    float m_yaw;
+    float m_pitch;
 };

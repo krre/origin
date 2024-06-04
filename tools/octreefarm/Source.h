@@ -31,5 +31,5 @@ private:
     QVector<int> posToPath(const glm::vec3& pos, int scale);
     glm::vec3 pathToPos(const QVector<int> path);
 
-    QJsonObject root;
+    QJsonObject m_root;
 };

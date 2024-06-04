@@ -10,8 +10,8 @@ public:
     void redo() override;
 
 private:
-    OctreeEditor* octreeEditor;
-    QVector<QSharedPointer<Node>> nodes;
+    OctreeEditor* m_octreeEditor;
+    QVector<QSharedPointer<Node>> m_nodes;
 };
 
 class AddCommand : public QUndoCommand {
@@ -22,10 +22,10 @@ public:
     void redo() override;
 
 private:
-    OctreeEditor* octreeEditor;
-    bool back;
-    QVector<QSharedPointer<Node>> nodes;
-    Node node;
+    OctreeEditor* m_octreeEditor;
+    bool m_back;
+    QVector<QSharedPointer<Node>> m_nodes;
+    Node m_node;
 };
 
 class SplitCommand : public QUndoCommand {
@@ -36,8 +36,8 @@ public:
     void redo() override;
 
 private:
-    OctreeEditor* octreeEditor;
-    QVector<QSharedPointer<Node>> nodes;
+    OctreeEditor* m_octreeEditor;
+    QVector<QSharedPointer<Node>> m_nodes;
 };
 
 class MergeCommand : public QUndoCommand {
@@ -48,10 +48,10 @@ public:
     void redo() override;
 
 private:
-    OctreeEditor* octreeEditor;
-    QVector<QSharedPointer<Node>> nodes;
-    QVector<Node> mergedNodes;
-    Node newNode;
+    OctreeEditor* m_octreeEditor;
+    QVector<QSharedPointer<Node>> m_nodes;
+    QVector<Node> m_mergedNodes;
+    Node m_newNode;
 };
 
 class ChangeColorCommand : public QUndoCommand {
@@ -62,7 +62,7 @@ public:
     void redo() override;
 
 private:
-    OctreeEditor* octreeEditor;
-    QVector<QSharedPointer<Node>> nodes;
-    QColor color;
+    OctreeEditor* m_octreeEditor;
+    QVector<QSharedPointer<Node>> m_nodes;
+    QColor m_color;
 };

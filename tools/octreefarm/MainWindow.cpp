@@ -9,48 +9,48 @@
 
 const int maxRecentFiles = 10;
 const int separatorAndMenuCount = 2;
-bool MainWindow::closing = false;
+bool MainWindow::s_closing = false;
 
 MainWindow::MainWindow() {
     setWindowTitle(Application::Name);
 
-    undoStack = new QUndoStack(this);
-    octreeEditor = new OctreeEditor(this);
+    m_undoStack = new QUndoStack(this);
+    m_octreeEditor = new OctreeEditor(this);
 
     createActions();
 
-    viewport = new Viewport(octreeEditor);
-    connect(viewport, &Viewport::selectionChanged, this, &MainWindow::onSelectionChanged);
-    QWidget* container = QWidget::createWindowContainer(viewport);
+    m_viewport = new Viewport(m_octreeEditor);
+    connect(m_viewport, &Viewport::selectionChanged, this, &MainWindow::onSelectionChanged);
+    QWidget* container = QWidget::createWindowContainer(m_viewport);
 
-    properties = new Properties(octreeEditor, viewport, undoStack, this);
+    m_properties = new Properties(m_octreeEditor, m_viewport, m_undoStack, this);
 
-    splitter = new QSplitter(Qt::Horizontal);
-    splitter->addWidget(container);
-    splitter->addWidget(properties);
+    m_splitter = new QSplitter(Qt::Horizontal);
+    m_splitter->addWidget(container);
+    m_splitter->addWidget(m_properties);
 
-    setCentralWidget(splitter);
+    setCentralWidget(m_splitter);
 
     readSettings();
     updateMenuState();
 
-    connect(octreeEditor, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
+    connect(m_octreeEditor, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 
 bool MainWindow::isClosing() {
-    return closing;
+    return s_closing;
 }
 
 void MainWindow::closeEvent(QCloseEvent* event) {
-    closing = true;
+    s_closing = true;
     writeSettings();
     QMainWindow::closeEvent(event);
 }
 
 void MainWindow::create() {
     if (maybeSave()) {
-        octreeEditor->createNew();
-        viewport->reset();
+        m_octreeEditor->createNew();
+        m_viewport->reset();
         setCurrentFile(QString());
     }
 }
@@ -65,52 +65,52 @@ void MainWindow::open() {
 }
 
 void MainWindow::revert() {
-    if (!currentFile.isEmpty()) {
-        loadFile(currentFile);
-        viewport->update();
+    if (!m_currentFile.isEmpty()) {
+        loadFile(m_currentFile);
+        m_viewport->update();
     }
 }
 
 void MainWindow::clearRecentMenu() {
-    for (int i = recentFilesMenu->actions().size() - separatorAndMenuCount - 1; i >= 0; i--) {
-        recentFilesMenu->removeAction(recentFilesMenu->actions().at(i));
+    for (int i = m_recentFilesMenu->actions().size() - separatorAndMenuCount - 1; i >= 0; i--) {
+        m_recentFilesMenu->removeAction(m_recentFilesMenu->actions().at(i));
     }
 
     updateMenuState();
 }
 
 void MainWindow::deselect() {
-    viewport->deselect();
-    octreeEditor->deselect();
+    m_viewport->deselect();
+    m_octreeEditor->deselect();
 }
 
 void MainWindow::split() {
-    QUndoCommand* splitCommand = new SplitCommand(octreeEditor);
-    undoStack->push(splitCommand);
+    QUndoCommand* splitCommand = new SplitCommand(m_octreeEditor);
+    m_undoStack->push(splitCommand);
 }
 
 void MainWindow::merge() {
-    QUndoCommand* addCommand = new AddCommand(octreeEditor, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
-    undoStack->push(addCommand);
+    QUndoCommand* addCommand = new AddCommand(m_octreeEditor, QGuiApplication::keyboardModifiers() == Qt::ShiftModifier);
+    m_undoStack->push(addCommand);
 }
 
 void MainWindow::addForward() {
-    QUndoCommand* mergeCommand = new MergeCommand(octreeEditor);
-    undoStack->push(mergeCommand);
+    QUndoCommand* mergeCommand = new MergeCommand(m_octreeEditor);
+    m_undoStack->push(mergeCommand);
 }
 
 void MainWindow::addBack() {
-    QUndoCommand* mergeCommand = new MergeCommand(octreeEditor);
-    undoStack->push(mergeCommand);
+    QUndoCommand* mergeCommand = new MergeCommand(m_octreeEditor);
+    m_undoStack->push(mergeCommand);
 }
 
 void MainWindow::deleteNode() {
-    QUndoCommand* deleteCommand = new DeleteCommand(octreeEditor);
-    undoStack->push(deleteCommand);
+    QUndoCommand* deleteCommand = new DeleteCommand(m_octreeEditor);
+    m_undoStack->push(deleteCommand);
 }
 
 void MainWindow::reset() {
-    viewport->reset();
+    m_viewport->reset();
 }
 
 void MainWindow::options() {
@@ -131,12 +131,12 @@ void MainWindow::about() {
 }
 
 void MainWindow::onSelectionChanged(bool selected) {
-    deselectAction->setEnabled(selected);
-    splitAction->setEnabled(selected);
-    mergeAction->setEnabled(selected);
-    addForwardAction->setEnabled(selected);
-    addBackAction->setEnabled(selected);
-    deleteAction->setEnabled(selected);
+    m_deselectAction->setEnabled(selected);
+    m_splitAction->setEnabled(selected);
+    m_mergeAction->setEnabled(selected);
+    m_addForwardAction->setEnabled(selected);
+    m_addBackAction->setEnabled(selected);
+    m_deleteAction->setEnabled(selected);
 }
 
 void MainWindow::createActions() {
@@ -147,29 +147,29 @@ void MainWindow::createActions() {
     fileMenu->addAction(tr("Save As..."), this, &MainWindow::saveAs);
     fileMenu->addAction(tr("Revert"), Qt::Key_F5, this, &MainWindow::revert);
 
-    recentFilesMenu = new QMenu(tr("Recent Files"), fileMenu);
-    recentFilesMenu->addSeparator();
-    recentFilesMenu->addAction(tr("Clear"), this, &MainWindow::clearRecentMenu);
+    m_recentFilesMenu = new QMenu(tr("Recent Files"), fileMenu);
+    m_recentFilesMenu->addSeparator();
+    m_recentFilesMenu->addAction(tr("Clear"), this, &MainWindow::clearRecentMenu);
 
 
-    fileMenu->addAction(recentFilesMenu->menuAction());
+    fileMenu->addAction(m_recentFilesMenu->menuAction());
     fileMenu->addSeparator();
     fileMenu->addAction("Exit", Qt::CTRL | Qt::Key_Q, this, qOverload<>(&QMainWindow::close));
 
     auto editMenu = menuBar()->addMenu(tr("Edit"));
-    editMenu->addAction(tr("Undo"), Qt::CTRL | Qt::Key_Z, undoStack, &QUndoStack::undo);
-    editMenu->addAction(tr("Redo"), Qt::CTRL | Qt::SHIFT | Qt::Key_Z, undoStack, &QUndoStack::redo);
+    editMenu->addAction(tr("Undo"), Qt::CTRL | Qt::Key_Z, m_undoStack, &QUndoStack::undo);
+    editMenu->addAction(tr("Redo"), Qt::CTRL | Qt::SHIFT | Qt::Key_Z, m_undoStack, &QUndoStack::redo);
     editMenu->addSeparator();
-    editMenu->addAction(tr("Copy"), Qt::CTRL | Qt::Key_C, octreeEditor, &OctreeEditor::copy);
-    editMenu->addAction(tr("Paste"), Qt::CTRL | Qt::Key_V, octreeEditor, &OctreeEditor::paste);
+    editMenu->addAction(tr("Copy"), Qt::CTRL | Qt::Key_C, m_octreeEditor, &OctreeEditor::copy);
+    editMenu->addAction(tr("Paste"), Qt::CTRL | Qt::Key_V, m_octreeEditor, &OctreeEditor::paste);
 
     auto nodeMenu = menuBar()->addMenu(tr("Node"));
-    deselectAction = nodeMenu->addAction(tr("Deselect"), this, &MainWindow::deselect);
-    splitAction = nodeMenu->addAction(tr("Split"), Qt::Key_S, this, &MainWindow::split);
-    mergeAction = nodeMenu->addAction(tr("Merge"), Qt::Key_M, this, &MainWindow::merge);
-    addForwardAction = nodeMenu->addAction(tr("Add Forward"), Qt::Key_A, this, &MainWindow::addForward);
-    addBackAction = nodeMenu->addAction(tr("Add Back"), Qt::SHIFT | Qt::Key_A, this, &MainWindow::addBack);
-    deleteAction = nodeMenu->addAction(tr("Delete"), Qt::Key_D, this, &MainWindow::deleteNode);
+    m_deselectAction = nodeMenu->addAction(tr("Deselect"), this, &MainWindow::deselect);
+    m_splitAction = nodeMenu->addAction(tr("Split"), Qt::Key_S, this, &MainWindow::split);
+    m_mergeAction = nodeMenu->addAction(tr("Merge"), Qt::Key_M, this, &MainWindow::merge);
+    m_addForwardAction = nodeMenu->addAction(tr("Add Forward"), Qt::Key_A, this, &MainWindow::addForward);
+    m_addBackAction = nodeMenu->addAction(tr("Add Back"), Qt::SHIFT | Qt::Key_A, this, &MainWindow::addBack);
+    m_deleteAction = nodeMenu->addAction(tr("Delete"), Qt::Key_D, this, &MainWindow::deleteNode);
 
     auto viewMenu = menuBar()->addMenu(tr("View"));
     viewMenu->addAction(tr("Reset"), Qt::CTRL | Qt::Key_F12, this, &MainWindow::reset);
@@ -193,12 +193,12 @@ void MainWindow::readSettings() {
 
     QVariant splitterSize = settings.value("splitter");
     if (splitterSize == QVariant()) {
-        splitter->setSizes({ 500, 150 });
+        m_splitter->setSizes({ 500, 150 });
     } else {
-        splitter->restoreState(splitterSize.toByteArray());
+        m_splitter->restoreState(splitterSize.toByteArray());
     }
 
-    properties->setShadeless(settings.value("shadeless").toBool());
+    m_properties->setShadeless(settings.value("shadeless").toBool());
 
     settings.endGroup();
 
@@ -221,22 +221,22 @@ void MainWindow::writeSettings() {
     QSettings settings;
     settings.beginGroup("MainWindow");
     settings.setValue("geometry", saveGeometry());
-    settings.setValue("splitter", splitter->saveState());
-    settings.setValue("shadeless", properties->shadeless());
+    settings.setValue("splitter", m_splitter->saveState());
+    settings.setValue("shadeless", m_properties->shadeless());
     settings.endGroup();
 
-    settings.setValue("Path/currentFile", currentFile);
+    settings.setValue("Path/currentFile", m_currentFile);
 
     settings.beginWriteArray("RecentFiles");
-    for (int i = 0; i <recentFilesMenu->actions().size() - separatorAndMenuCount; ++i) {
+    for (int i = 0; i <m_recentFilesMenu->actions().size() - separatorAndMenuCount; ++i) {
         settings.setArrayIndex(i);
-        settings.setValue("path", recentFilesMenu->actions().at(i)->text());
+        settings.setValue("path", m_recentFilesMenu->actions().at(i)->text());
     }
     settings.endArray();
 }
 
 bool MainWindow::maybeSave() {
-    if (!octreeEditor->isModified()) {
+    if (!m_octreeEditor->isModified()) {
         return true;
     }
 
@@ -257,10 +257,10 @@ bool MainWindow::maybeSave() {
 }
 
 bool MainWindow::save() {
-    if (currentFile.isEmpty()) {
+    if (m_currentFile.isEmpty()) {
         return saveAs();
     } else {
-        return saveFile(currentFile);
+        return saveFile(m_currentFile);
     }
 }
 
@@ -288,7 +288,7 @@ bool MainWindow::saveFile(const QString& fileName) {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    octreeEditor->save(fileName);
+    m_octreeEditor->save(fileName);
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
@@ -311,13 +311,13 @@ void MainWindow::loadFile(const QString& fileName) {
     QApplication::setOverrideCursor(Qt::WaitCursor);
 #endif
 
-    octreeEditor->load(fileName);
+    m_octreeEditor->load(fileName);
 
 #ifndef QT_NO_CURSOR
     QApplication::restoreOverrideCursor();
 #endif
 
-    viewport->reset();
+    m_viewport->reset();
     setCurrentFile(fileName);
     addRecentFile(fileName);
 }
@@ -340,12 +340,12 @@ QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
 }
 
 void MainWindow::setCurrentFile(const QString& fileName) {
-    currentFile = fileName;
-    octreeEditor->setModified(false);
+    m_currentFile = fileName;
+    m_octreeEditor->setModified(false);
     setWindowModified(false);
 
-    QString shownName = QFileInfo(currentFile).fileName();
-    if (currentFile.isEmpty()) {
+    QString shownName = QFileInfo(m_currentFile).fileName();
+    if (m_currentFile.isEmpty()) {
         shownName = "untitled.json";
     }
     setWindowFilePath(shownName);
@@ -353,7 +353,7 @@ void MainWindow::setCurrentFile(const QString& fileName) {
 }
 
 void MainWindow::addRecentFile(const QString& filePath) {
-    QMenu* menu = recentFilesMenu;
+    QMenu* menu = m_recentFilesMenu;
 
     for (QAction* action : menu->actions()) {
         if (action->text() == filePath) {
@@ -375,5 +375,5 @@ void MainWindow::addRecentFile(const QString& filePath) {
 }
 
 void MainWindow::updateMenuState() {
-    recentFilesMenu->menuAction()->setEnabled(recentFilesMenu->actions().size() > separatorAndMenuCount);
+    m_recentFilesMenu->menuAction()->setEnabled(m_recentFilesMenu->actions().size() > separatorAndMenuCount);
 }

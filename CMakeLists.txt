@@ -18,8 +18,6 @@ add_subdirectory(libs)
 add_subdirectory(src)
 add_subdirectory(trdparty)
 
-set(EXECUTABLE_NAME ${PROJECT_NAME})
-
 # If find SDL2 failure, set SDL_PATH variable to SDL install root
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
@@ -37,9 +35,9 @@ include_directories(src)
 include_directories(trdparty)
 include_directories(libs)
 
-add_executable(${EXECUTABLE_NAME} ${SOURCES})
+add_executable(origin ${SOURCES})
 
-target_link_libraries(${EXECUTABLE_NAME}
+target_link_libraries(origin
     ${SDL2_LIBRARY}
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
@@ -50,7 +48,7 @@ target_link_libraries(${EXECUTABLE_NAME}
 )
 
 if(UNIX)
-    target_link_libraries(${EXECUTABLE_NAME}
+    target_link_libraries(origin
         png
         z # zlib
     )

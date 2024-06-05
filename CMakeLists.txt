@@ -58,5 +58,5 @@ if(UNIX)
 endif()
 
 # Show in QtCreator project tree
-file(GLOB_RECURSE Root "*.md" "*.in" "data/*.*" "debug/*.*" "libs/*.*")
+file(GLOB_RECURSE Root "*.md" "*.in" "data/*.*" "debug/*.*")
 add_custom_target(root SOURCES ${Root})

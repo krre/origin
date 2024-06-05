@@ -2,12 +2,12 @@
 #include "SelectButtonRow.h"
 #include <QListWidget>
 
-ListBox::ListBox(const QString& title, const QStringList& defaultSelection) : QGroupBox(title), defaultSelection(defaultSelection) {
+ListBox::ListBox(const QString& title, const QStringList& defaultSelection) : QGroupBox(title), m_defaultSelection(defaultSelection) {
     setCheckable(true);
 
-    listWidget = new QListWidget;
-    listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
-    connect(listWidget, &QListWidget::itemSelectionChanged, this, &ListBox::flush);
+    m_listWidget = new QListWidget;
+    m_listWidget->setSelectionMode(QAbstractItemView::ExtendedSelection);
+    connect(m_listWidget, &QListWidget::itemSelectionChanged, this, &ListBox::flush);
 
     auto selectButtonRow = new SelectButtonRow;
     connect(selectButtonRow, &SelectButtonRow::select, this, &ListBox::selectAll);
@@ -15,22 +15,22 @@ ListBox::ListBox(const QString& title, const QStringList& defaultSelection) : QG
     connect(selectButtonRow, &SelectButtonRow::reset, this, &ListBox::reset);
 
     auto verticalLayout = new QVBoxLayout;
-    verticalLayout->addWidget(listWidget);
+    verticalLayout->addWidget(m_listWidget);
     verticalLayout->addLayout(selectButtonRow);
 
     setLayout(verticalLayout);
 }
 
 void ListBox::addValue(const QString& value) {
-    listWidget->addItem(value);
+    m_listWidget->addItem(value);
 }
 
 void ListBox::setSelection(const QStringList& selection) {
     for (const auto& value : selection) {
-        QList<QListWidgetItem*> items = listWidget->findItems(value, Qt::MatchFixedString);
+        QList<QListWidgetItem*> items = m_listWidget->findItems(value, Qt::MatchFixedString);
 
         if (items.length()) {
-            listWidget->setCurrentItem(items.at(0), QItemSelectionModel::Select);
+            m_listWidget->setCurrentItem(items.at(0), QItemSelectionModel::Select);
         }
     }
 }
@@ -38,7 +38,7 @@ void ListBox::setSelection(const QStringList& selection) {
 QStringList ListBox::selection() const {
     QStringList result;
 
-    for (const auto& item : listWidget->selectedItems()) {
+    for (const auto& item : m_listWidget->selectedItems()) {
         result.append(item->text());
     }
 
@@ -46,21 +46,21 @@ QStringList ListBox::selection() const {
 }
 
 void ListBox::selectAll() {
-    listWidget->selectAll();
+    m_listWidget->selectAll();
     emit flush();
 }
 
 void ListBox::unselectAll() {
-    listWidget->clearSelection();
+    m_listWidget->clearSelection();
     emit flush();
 }
 
 void ListBox::reset() {
-    listWidget->clearSelection();
+    m_listWidget->clearSelection();
 
-    for (int i = 0; i < listWidget->count(); i++) {
-        if (defaultSelection.contains(listWidget->item(i)->text())) {
-            listWidget->setCurrentItem(listWidget->item(i), QItemSelectionModel::Select);
+    for (int i = 0; i < m_listWidget->count(); i++) {
+        if (m_defaultSelection.contains(m_listWidget->item(i)->text())) {
+            m_listWidget->setCurrentItem(m_listWidget->item(i), QItemSelectionModel::Select);
         }
     }
 

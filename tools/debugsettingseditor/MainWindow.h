@@ -24,6 +24,6 @@ private:
     void readDebugSettings();
     void writeDebugSettings();
 
-    QTabWidget* tabWidget = nullptr;
-    QString debugSettingsPath;
+    QTabWidget* m_tabWidget = nullptr;
+    QString m_debugSettingsPath;
 };

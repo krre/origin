@@ -24,6 +24,6 @@ private slots:
     void unselectAll();
 
 private:
-    QListWidget* listWidget = nullptr;
-    QStringList defaultSelection;
+    QListWidget* m_listWidget = nullptr;
+    QStringList m_defaultSelection;
 };

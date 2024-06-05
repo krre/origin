@@ -15,10 +15,10 @@ public:
     QString name() const override;
 
 private:
-    QCheckBox* enableCheckBox = nullptr;
-    QCheckBox* debugHudCheckBox = nullptr;
+    QCheckBox* m_enableCheckBox = nullptr;
+    QCheckBox* m_debugHudCheckBox = nullptr;
 
-    QComboBox* screenComboBox = nullptr;
-    QComboBox* saveComboBox = nullptr;
-    QComboBox* rendererComboBox = nullptr;
+    QComboBox* m_screenComboBox = nullptr;
+    QComboBox* m_saveComboBox = nullptr;
+    QComboBox* m_rendererComboBox = nullptr;
 };

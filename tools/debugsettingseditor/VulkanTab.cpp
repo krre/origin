@@ -10,27 +10,27 @@
 #include <QtWidgets>
 
 VulkanTab::VulkanTab() {
-    deviceComboBox = new QComboBox;
-    connect(deviceComboBox, &QComboBox::currentIndexChanged, this, &VulkanTab::flush);
+    m_deviceComboBox = new QComboBox;
+    connect(m_deviceComboBox, &QComboBox::currentIndexChanged, this, &VulkanTab::flush);
 
-    debugReportGroupBox = new QGroupBox(tr("Debug report"));
-    debugReportGroupBox->setCheckable(true);
-    connect(debugReportGroupBox, &QGroupBox::toggled, this, &VulkanTab::flush);
+    m_debugReportGroupBox = new QGroupBox(tr("Debug report"));
+    m_debugReportGroupBox->setCheckable(true);
+    connect(m_debugReportGroupBox, &QGroupBox::toggled, this, &VulkanTab::flush);
 
-    infoCheckBox = new QCheckBox(tr("Information"));
-    connect(infoCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
+    m_infoCheckBox = new QCheckBox(tr("Information"));
+    connect(m_infoCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
 
-    warnCheckBox = new QCheckBox(tr("Warning"));
-    connect(warnCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
+    m_warnCheckBox = new QCheckBox(tr("Warning"));
+    connect(m_warnCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
 
-    perfCheckBox = new QCheckBox(tr("Performance"));
-    connect(perfCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
+    m_perfCheckBox = new QCheckBox(tr("Performance"));
+    connect(m_perfCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
 
-    errorCheckBox = new QCheckBox(tr("Error"));
-    connect(errorCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
+    m_errorCheckBox = new QCheckBox(tr("Error"));
+    connect(m_errorCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
 
-    debugCheckBox = new QCheckBox(tr("Debug"));
-    connect(debugCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
+    m_debugCheckBox = new QCheckBox(tr("Debug"));
+    connect(m_debugCheckBox, &QCheckBox::toggled, this, &VulkanTab::flush);
 
     auto selectButtonRow = new SelectButtonRow;
     connect(selectButtonRow, &SelectButtonRow::select, this, &VulkanTab::debugReportSelectAll);
@@ -38,20 +38,20 @@ VulkanTab::VulkanTab() {
     connect(selectButtonRow, &SelectButtonRow::reset, this, &VulkanTab::debugReportReset);
 
     auto debugLayout = new QGridLayout;
-    debugLayout->addWidget(infoCheckBox, 0, 0);
-    debugLayout->addWidget(perfCheckBox, 0, 1);
-    debugLayout->addWidget(debugCheckBox, 0, 2);
-    debugLayout->addWidget(warnCheckBox, 1, 0);
-    debugLayout->addWidget(errorCheckBox, 1, 1);
+    debugLayout->addWidget(m_infoCheckBox, 0, 0);
+    debugLayout->addWidget(m_perfCheckBox, 0, 1);
+    debugLayout->addWidget(m_debugCheckBox, 0, 2);
+    debugLayout->addWidget(m_warnCheckBox, 1, 0);
+    debugLayout->addWidget(m_errorCheckBox, 1, 1);
     debugLayout->addLayout(selectButtonRow, 2, 0, 2, 0);
 
     debugLayout->setColumnStretch(2, 1);
 
-    debugReportGroupBox->setLayout(debugLayout);
+    m_debugReportGroupBox->setLayout(debugLayout);
 
     auto deviceLayout = new QHBoxLayout;
     deviceLayout->addWidget(new QLabel(tr("Graphics device:")));
-    deviceLayout->addWidget(deviceComboBox);
+    deviceLayout->addWidget(m_deviceComboBox);
     deviceLayout->addStretch();
 
     QStringList extensions = { "VK_EXT_debug_report", "VK_KHR_surface" };
@@ -62,21 +62,21 @@ VulkanTab::VulkanTab() {
     extensions << "VK_KHR_xcb_surface";
 #endif
 
-    extensionsListBox = new ListBox(tr("Extensions"), extensions);
-    connect(extensionsListBox, &QGroupBox::toggled, this, &VulkanTab::flush);
-    connect(extensionsListBox, &ListBox::flush, this, &VulkanTab::flush);
+    m_extensionsListBox = new ListBox(tr("Extensions"), extensions);
+    connect(m_extensionsListBox, &QGroupBox::toggled, this, &VulkanTab::flush);
+    connect(m_extensionsListBox, &ListBox::flush, this, &VulkanTab::flush);
 
-    layersListBox = new ListBox(tr("Layers"), { "VK_LAYER_LUNARG_core_validation", "VK_LAYER_LUNARG_parameter_validation", "VK_LAYER_LUNARG_standard_validation" });
-    connect(layersListBox, &QGroupBox::toggled, this, &VulkanTab::flush);
-    connect(layersListBox, &ListBox::flush, this, &VulkanTab::flush);
+    m_layersListBox = new ListBox(tr("Layers"), { "VK_LAYER_LUNARG_core_validation", "VK_LAYER_LUNARG_parameter_validation", "VK_LAYER_LUNARG_standard_validation" });
+    connect(m_layersListBox, &QGroupBox::toggled, this, &VulkanTab::flush);
+    connect(m_layersListBox, &ListBox::flush, this, &VulkanTab::flush);
 
     auto listBoxLayout = new QHBoxLayout;
-    listBoxLayout->addWidget(extensionsListBox);
-    listBoxLayout->addWidget(layersListBox);
+    listBoxLayout->addWidget(m_extensionsListBox);
+    listBoxLayout->addWidget(m_layersListBox);
 
     auto verticalLayout = new QVBoxLayout;
     verticalLayout->addLayout(deviceLayout);
-    verticalLayout->addWidget(debugReportGroupBox);
+    verticalLayout->addWidget(m_debugReportGroupBox);
     verticalLayout->addLayout(listBoxLayout);
     verticalLayout->addStretch();
 
@@ -89,32 +89,32 @@ VulkanTab::VulkanTab() {
 
     for (size_t i = 0; i < physicalDevices.count(); i++) {
         Vulkan::PhysicalDevice* physicalDevice = physicalDevices.physicalDevice(i);
-        deviceComboBox->insertItem(i, physicalDevice->properties().deviceName);
+        m_deviceComboBox->insertItem(i, physicalDevice->properties().deviceName);
     }
 
     for (const auto& layer : instance.layerProperties()) {
-        layersListBox->addValue(layer.layerName);
+        m_layersListBox->addValue(layer.layerName);
     }
 
     for (const auto& extension : instance.extensionProperties()) {
-        extensionsListBox->addValue(extension.extensionName);
+        m_extensionsListBox->addValue(extension.extensionName);
     }
 }
 
 void VulkanTab::setDebugSettings(const QJsonObject& settings) {
     // Device
-    deviceComboBox->setCurrentIndex(settings["device"].toInt());
+    m_deviceComboBox->setCurrentIndex(settings["device"].toInt());
 
     // Debug report
-    debugReportGroupBox->setChecked(settings["debugReport"].toObject()["use"].toBool());
-    infoCheckBox->setChecked(settings["debugReport"].toObject()["information"].toBool());
-    warnCheckBox->setChecked(settings["debugReport"].toObject()["warning"].toBool());
-    perfCheckBox->setChecked(settings["debugReport"].toObject()["performance"].toBool());
-    errorCheckBox->setChecked(settings["debugReport"].toObject()["error"].toBool());
-    debugCheckBox->setChecked(settings["debugReport"].toObject()["debug"].toBool());
+    m_debugReportGroupBox->setChecked(settings["debugReport"].toObject()["use"].toBool());
+    m_infoCheckBox->setChecked(settings["debugReport"].toObject()["information"].toBool());
+    m_warnCheckBox->setChecked(settings["debugReport"].toObject()["warning"].toBool());
+    m_perfCheckBox->setChecked(settings["debugReport"].toObject()["performance"].toBool());
+    m_errorCheckBox->setChecked(settings["debugReport"].toObject()["error"].toBool());
+    m_debugCheckBox->setChecked(settings["debugReport"].toObject()["debug"].toBool());
 
     // Layers
-    layersListBox->setChecked(settings["layers"].toObject()["use"].toBool());
+    m_layersListBox->setChecked(settings["layers"].toObject()["use"].toBool());
 
     QStringList layersSelection;
 
@@ -122,10 +122,10 @@ void VulkanTab::setDebugSettings(const QJsonObject& settings) {
         layersSelection.append(layer.toString());
     }
 
-    layersListBox->setSelection(layersSelection);
+    m_layersListBox->setSelection(layersSelection);
 
     // Extensions
-    extensionsListBox->setChecked(settings["extensions"].toObject()["use"].toBool());
+    m_extensionsListBox->setChecked(settings["extensions"].toObject()["use"].toBool());
 
     QStringList extensionsSelection;
 
@@ -133,36 +133,36 @@ void VulkanTab::setDebugSettings(const QJsonObject& settings) {
         extensionsSelection.append(extension.toString());
     }
 
-    extensionsListBox->setSelection(extensionsSelection);
+    m_extensionsListBox->setSelection(extensionsSelection);
 }
 
 QJsonObject VulkanTab::debugSettings() const {
     QJsonObject obj;
 
     // Device
-    obj["device"] = QJsonValue(deviceComboBox->currentIndex());
+    obj["device"] = QJsonValue(m_deviceComboBox->currentIndex());
 
     // Debug report
     QJsonObject debugReportObj;
-    debugReportObj["use"] = QJsonValue(debugReportGroupBox->isChecked());
-    debugReportObj["information"] = QJsonValue(infoCheckBox->isChecked());
-    debugReportObj["warning"] = QJsonValue(warnCheckBox->isChecked());
-    debugReportObj["performance"] = QJsonValue(perfCheckBox->isChecked());
-    debugReportObj["error"] = QJsonValue(errorCheckBox->isChecked());
-    debugReportObj["debug"] = QJsonValue(debugCheckBox->isChecked());
+    debugReportObj["use"] = QJsonValue(m_debugReportGroupBox->isChecked());
+    debugReportObj["information"] = QJsonValue(m_infoCheckBox->isChecked());
+    debugReportObj["warning"] = QJsonValue(m_warnCheckBox->isChecked());
+    debugReportObj["performance"] = QJsonValue(m_perfCheckBox->isChecked());
+    debugReportObj["error"] = QJsonValue(m_errorCheckBox->isChecked());
+    debugReportObj["debug"] = QJsonValue(m_debugCheckBox->isChecked());
     obj["debugReport"] = debugReportObj;
 
     // Layers
     QJsonObject layersObj;
-    layersObj["use"] = QJsonValue(layersListBox->isChecked());
-    layersObj["list"] = QJsonArray::fromStringList(layersListBox->selection());
+    layersObj["use"] = QJsonValue(m_layersListBox->isChecked());
+    layersObj["list"] = QJsonArray::fromStringList(m_layersListBox->selection());
 
     obj["layers"] = layersObj;
 
     // Extensions
     QJsonObject extensionsObj;
-    extensionsObj["use"] = QJsonValue(extensionsListBox->isChecked());
-    extensionsObj["list"] = QJsonArray::fromStringList(extensionsListBox->selection());;
+    extensionsObj["use"] = QJsonValue(m_extensionsListBox->isChecked());
+    extensionsObj["list"] = QJsonArray::fromStringList(m_extensionsListBox->selection());;
 
     obj["extensions"] = extensionsObj;
 
@@ -171,8 +171,8 @@ QJsonObject VulkanTab::debugSettings() const {
 
 void VulkanTab::setDefaultSettings() {
     debugReportReset();
-    extensionsListBox->reset();
-    layersListBox->reset();
+    m_extensionsListBox->reset();
+    m_layersListBox->reset();
 }
 
 QString VulkanTab::name() const {
@@ -189,16 +189,16 @@ void VulkanTab::debugReportUnselectAll() {
 
 void VulkanTab::debugReportReset() {
     changeStateDebugReportCheckBoxes(false);
-    warnCheckBox->setChecked(true);
-    errorCheckBox->setChecked(true);
+    m_warnCheckBox->setChecked(true);
+    m_errorCheckBox->setChecked(true);
     emit flush();
 }
 
 void VulkanTab::changeStateDebugReportCheckBoxes(bool checked) {
-    infoCheckBox->setChecked(checked);
-    warnCheckBox->setChecked(checked);
-    perfCheckBox->setChecked(checked);
-    errorCheckBox->setChecked(checked);
-    debugCheckBox->setChecked(checked);
+    m_infoCheckBox->setChecked(checked);
+    m_warnCheckBox->setChecked(checked);
+    m_perfCheckBox->setChecked(checked);
+    m_errorCheckBox->setChecked(checked);
+    m_debugCheckBox->setChecked(checked);
     emit flush();
 }

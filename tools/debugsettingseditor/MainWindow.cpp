@@ -5,21 +5,21 @@
 #include <QtWidgets>
 
 MainWindow::MainWindow() {
-    tabWidget = new QTabWidget;
-    tabWidget->addTab(new GeneralTab, tr("General"));
-    tabWidget->addTab(new VulkanTab, tr("Vulkan"));
+    m_tabWidget = new QTabWidget;
+    m_tabWidget->addTab(new GeneralTab, tr("General"));
+    m_tabWidget->addTab(new VulkanTab, tr("Vulkan"));
 
-    setCentralWidget(tabWidget);
+    setCentralWidget(m_tabWidget);
 
-    debugSettingsPath = QCoreApplication::applicationDirPath() + "/debug.json";
+    m_debugSettingsPath = QCoreApplication::applicationDirPath() + "/debug.json";
 
     createActions();
 
     readSettings();
     readDebugSettings();
 
-    for (int i = 0; i < tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(tabWidget->widget(i));
+    for (int i = 0; i < m_tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
         connect(tab, &AbstractTab::flush, this, &MainWindow::writeDebugSettings);
     }
 
@@ -67,7 +67,7 @@ void MainWindow::readSettings() {
         move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
     }
 
-    tabWidget->setCurrentIndex(settings.value("tab", 0).toInt());
+    m_tabWidget->setCurrentIndex(settings.value("tab", 0).toInt());
     settings.endGroup();
 }
 
@@ -75,12 +75,12 @@ void MainWindow::writeSettings() {
     QSettings settings;
     settings.beginGroup("MainWindow");
     settings.setValue("geometry", saveGeometry());
-    settings.setValue("tab", tabWidget->currentIndex());
+    settings.setValue("tab", m_tabWidget->currentIndex());
     settings.endGroup();
 }
 
 void MainWindow::readDebugSettings() {
-    QFile file(debugSettingsPath);
+    QFile file(m_debugSettingsPath);
     bool settingsExists = file.open(QIODevice::ReadOnly);
 
     QJsonDocument doc;
@@ -88,8 +88,8 @@ void MainWindow::readDebugSettings() {
         doc = QJsonDocument(QJsonDocument::fromJson(file.readAll()));
     }
 
-    for (int i = 0; i < tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(tabWidget->widget(i));
+    for (int i = 0; i < m_tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
 
         if (settingsExists) {
             tab->setDebugSettings(doc.object()[tab->name()].toObject());
@@ -100,16 +100,16 @@ void MainWindow::readDebugSettings() {
 }
 
 void MainWindow::writeDebugSettings() {
-    QFile file(debugSettingsPath);
+    QFile file(m_debugSettingsPath);
     if (!file.open(QIODevice::WriteOnly)) {
-        qWarning() << "Couldn't open file" << debugSettingsPath;
+        qWarning() << "Couldn't open file" << m_debugSettingsPath;
         return;
     }
 
     QJsonObject obj;
 
-    for (int i = 0; i < tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(tabWidget->widget(i));
+    for (int i = 0; i < m_tabWidget->count(); i++) {
+        AbstractTab* tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
         obj[tab->name()] = tab->debugSettings();
     }
 

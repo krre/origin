@@ -27,15 +27,15 @@ private slots:
 private:
     void changeStateDebugReportCheckBoxes(bool checked);
 
-    QComboBox* deviceComboBox = nullptr;
-    QGroupBox* debugReportGroupBox = nullptr;
+    QComboBox* m_deviceComboBox = nullptr;
+    QGroupBox* m_debugReportGroupBox = nullptr;
 
-    QCheckBox* infoCheckBox = nullptr;
-    QCheckBox* warnCheckBox = nullptr;
-    QCheckBox* perfCheckBox = nullptr;
-    QCheckBox* errorCheckBox = nullptr;
-    QCheckBox* debugCheckBox = nullptr;
+    QCheckBox* m_infoCheckBox = nullptr;
+    QCheckBox* m_warnCheckBox = nullptr;
+    QCheckBox* m_perfCheckBox = nullptr;
+    QCheckBox* m_errorCheckBox = nullptr;
+    QCheckBox* m_debugCheckBox = nullptr;
 
-    ListBox* extensionsListBox = nullptr;
-    ListBox* layersListBox = nullptr;
+    ListBox* m_extensionsListBox = nullptr;
+    ListBox* m_layersListBox = nullptr;
 };

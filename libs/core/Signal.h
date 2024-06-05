@@ -26,27 +26,27 @@ public:
 
     // Connect std::function object
     int connect(std::function<void(Args...)> const& target) const {
-        targets.insert(std::make_pair(++currentId, target));
-        return currentId;
+        m_targets.insert(std::make_pair(++m_currentId, target));
+        return m_currentId;
     }
 
     void disconnect(int id) {
-        targets.erase(id);
+        m_targets.erase(id);
     }
 
     void disconnectAll() {
-        targets.clear();
+        m_targets.clear();
     }
 
     void fire(Args... args) {
-        for (const auto& it : targets) {
+        for (const auto& it : m_targets) {
             it.second(args...);
         }
     }
 
 private:
-    mutable std::map<int, std::function<void(Args...)>> targets;
-    mutable int currentId = -1;
+    mutable std::map<int, std::function<void(Args...)>> m_targets;
+    mutable int m_currentId = -1;
 };
 
 }

@@ -1,7 +1,0 @@
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Collection.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Handle.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Handle.cpp
-    PARENT_SCOPE
-)

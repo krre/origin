@@ -1,8 +1,0 @@
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Image.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Image.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/ImageView.h
-    PARENT_SCOPE
-)

@@ -5,8 +5,8 @@
 namespace Octree {
 
 Octree::Octree(Substance substance, Object* parent) : Object(parent) {
-    storage = {};
-    storage["substance"] = substance.id();
+    m_storage = {};
+    m_storage["substance"] = substance.id();
     build();
 }
 
@@ -20,12 +20,12 @@ void Octree::load(const std::string& path) {
     }
 
     std::string text = std::string((std::istreambuf_iterator<char>(file)), (std::istreambuf_iterator<char>()));
-    storage = json::parse(text);
+    m_storage = json::parse(text);
 }
 
 void Octree::save(const std::string& path) {
     std::ofstream out(path);
-    out << storage.dump(4);
+    out << m_storage.dump(4);
     out.close();
 }
 
@@ -112,14 +112,14 @@ const std::vector<Octree::Vertex>& Octree::vertices() const {
 }
 
 void Octree::setSubstance(const Substance& substance) {
-    this->substance = substance;
+    this->m_substance = substance;
 }
 
 json::object_t* Octree::findNode(const Path& path) {
-    json::object_t* node = storage.get_ptr<json::object_t*>();
+    json::object_t* node = m_storage.get_ptr<json::object_t*>();
     for (const Pos& pos : path) {
         int number = posToNumber(pos);
-        node = storage[std::to_string(number)].get_ptr<json::object_t*>();
+        node = m_storage[std::to_string(number)].get_ptr<json::object_t*>();
     }
 
     return node;

@@ -53,9 +53,9 @@ private:
     json::object_t* findNode(const Path& path);
     int posToNumber(const Pos& pos);
 
-    json storage = {};
+    json m_storage = {};
     std::vector<Vertex> m_vertices;
-    Substance substance;
+    Substance m_substance;
 };
 
 DEFINE_ENUM_CLASS_BITWISE_OPERATOR(Octree::SurfaceFlags)

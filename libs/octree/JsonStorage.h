@@ -13,7 +13,7 @@ public:
     ~JsonStorage();
 
 private:
-    json root;
+    json m_root;
 };
 
 }

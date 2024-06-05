@@ -9,8 +9,21 @@ add_subdirectory(screen)
 add_subdirectory(ui)
 add_subdirectory(world)
 
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp
-    PARENT_SCOPE
+add_executable(origin ${SOURCES} main.cpp)
+
+target_link_libraries(origin
+    ${SDL2_LIBRARY}
+    ${FREETYPE_LIBRARIES}
+    ${BULLET_LIBRARIES}
+    stdc++fs
+    core
+    vulkan-o
+    octree
 )
+
+if(UNIX)
+    target_link_libraries(origin
+        png
+        z # zlib
+    )
+endif()

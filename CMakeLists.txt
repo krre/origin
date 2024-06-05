@@ -14,10 +14,6 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
-add_subdirectory(libs)
-add_subdirectory(src)
-add_subdirectory(trdparty)
-
 # If find SDL2 failure, set SDL_PATH variable to SDL install root
 find_package(SDL2 REQUIRED)
 include_directories(${SDL2_INCLUDE_DIR})
@@ -32,27 +28,12 @@ find_package(Vulkan REQUIRED)
 include_directories(${Vulkan_INCLUDE_DIRS})
 
 include_directories(src)
-include_directories(trdparty)
 include_directories(libs)
+include_directories(trdparty)
 
-add_executable(origin ${SOURCES})
-
-target_link_libraries(origin
-    ${SDL2_LIBRARY}
-    ${FREETYPE_LIBRARIES}
-    ${BULLET_LIBRARIES}
-    stdc++fs
-    core
-    vulkan-o
-    octree
-)
-
-if(UNIX)
-    target_link_libraries(origin
-        png
-        z # zlib
-    )
-endif()
+add_subdirectory(trdparty)
+add_subdirectory(libs)
+add_subdirectory(src)
 
 # Show in QtCreator project tree
 file(GLOB_RECURSE Root "*.md" "*.in" "data/*.*" "debug/*.*")

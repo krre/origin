@@ -1,8 +1,0 @@
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Event.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Event.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/Input.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Input.cpp
-    PARENT_SCOPE
-)

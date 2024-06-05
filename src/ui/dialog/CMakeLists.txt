@@ -1,8 +1,0 @@
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/Dialog.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/Dialog.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/PauseDialog.h
-    ${CMAKE_CURRENT_SOURCE_DIR}/PauseDialog.cpp
-    PARENT_SCOPE
-)

@@ -22,7 +22,7 @@ void Dialog::resizeToContent() {
 }
 
 void Dialog::setPadding(int padding) {
-    this->m_padding = padding;
+    m_padding = padding;
 }
 
 void Dialog::keyPressed(const SDL_KeyboardEvent& event) {

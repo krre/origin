@@ -109,7 +109,7 @@ void PolygonalOctreeRenderer::drawView(View3D* view) {
 }
 
 void PolygonalOctreeRenderer::setVertexCount(uint32_t vertextCount) {
-    this->m_vertextCount = vertextCount;
+    m_vertextCount = vertextCount;
 
     uint32_t size = vertextCount * sizeof(Octree::Octree::Vertex);
 

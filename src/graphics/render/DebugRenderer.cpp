@@ -114,7 +114,7 @@ void DebugRenderer::draw() {
 }
 
 void DebugRenderer::setVertexCount(uint32_t vertextCount) {
-    this->m_vertextCount = vertextCount;
+    m_vertextCount = vertextCount;
 
     uint32_t size = vertextCount * sizeof(Octree::Octree::Vertex);
 

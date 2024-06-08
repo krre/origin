@@ -17,18 +17,18 @@ Object::~Object() {
 }
 
 void Object::setParent(Object* parent) {
-    if (this->m_parent == parent) return;
+    if (m_parent == parent) return;
 
     // Remove self from children of previous parent
-    if (this->m_parent) {
-        this->m_parent->removeChild(this);
+    if (m_parent) {
+        m_parent->removeChild(this);
     }
 
     if (parent) {
         parent->appendChild(this);
     }
 
-    this->m_parent = parent;
+    m_parent = parent;
 }
 
 void Object::appendChild(Object* child) {

@@ -5,5 +5,5 @@ Light::Light() {
 }
 
 void Light::setEnable(bool enable) {
-    this->m_enable = enable;
+    m_enable = enable;
 }

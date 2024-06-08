@@ -18,14 +18,14 @@ PauseDialog::PauseDialog() {
     Button* buttonContinue = new Button("Continue");
     buttonContinue->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonContinue->clicked.connect([&]() {
-        this->close();
+        close();
     });
     layout->appendChild(buttonContinue);
 
     Button* buttonSave = new Button("Save game");
     buttonSave->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSave->clicked.connect([&]() {
-        this->close();
+        close();
         World::save();
     });
     layout->appendChild(buttonSave);
@@ -33,7 +33,7 @@ PauseDialog::PauseDialog() {
     Button* buttonLoad = new Button("Load game");
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonLoad->clicked.connect([&]() {
-        this->close();
+        close();
         Window::get()->pushScreen(std::make_shared<LoadWorldScreen>());
     });
     layout->appendChild(buttonLoad);
@@ -41,7 +41,7 @@ PauseDialog::PauseDialog() {
     Button* buttonSettings = new Button("Settings");
     buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonSettings->clicked.connect([&]() {
-        this->close();
+        close();
         Window::get()->pushScreen(std::make_shared<SettingsScreen>());
     });
     layout->appendChild(buttonSettings);
@@ -49,7 +49,7 @@ PauseDialog::PauseDialog() {
     Button* buttonMenu = new Button("Menu");
     buttonMenu->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
     buttonMenu->clicked.connect([&]() {
-        this->close();
+        close();
         Window::get()->pushScreen(std::make_shared<MenuScreen>());
     });
     layout->appendChild(buttonMenu);

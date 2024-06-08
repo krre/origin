@@ -13,11 +13,11 @@ Label::Label(const std::string& text, Control* parent) : Label(parent) {
 }
 
 void Label::setText(const std::string& text) {
-    if (this->m_text.length() != text.length()) {
+    if (m_text.length() != text.length()) {
         // Causes undesirable rebuild Vulkan command buffers
 //        markDirty();
     }
-    this->m_text = text;
+    m_text = text;
 
     m_contentWidth = 0;
     m_contentHeight = 0;
@@ -48,11 +48,11 @@ void Label::setText(const std::string& text) {
 }
 
 void Label::setFont(Font* font) {
-    this->m_font = font;
+    m_font = font;
 }
 
 void Label::setColor(const Color& color) {
-    this->m_color = color;
+    m_color = color;
 }
 
 void Label::drawImpl() {

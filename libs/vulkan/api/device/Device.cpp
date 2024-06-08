@@ -53,18 +53,18 @@ void Device::dumpExtensions() {
 }
 
 void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> queuePriorities) {
-    int offset = this->m_queuePriorities.size();
+    int offset = m_queuePriorities.size();
 
     // Append new priorities with queueFamilyIndex to common storage for all queueCreateInfos
     for (const auto& queuePriority : queuePriorities) {
-        this->m_queuePriorities.push_back(queuePriority);
+        m_queuePriorities.push_back(queuePriority);
     }
 
     VkDeviceQueueCreateInfo queueCreateInfo = {};
     queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
     queueCreateInfo.queueCount = queuePriorities.size();
-    queueCreateInfo.pQueuePriorities = &this->m_queuePriorities[offset];
+    queueCreateInfo.pQueuePriorities = &m_queuePriorities[offset];
 
     m_queueCreateInfos.push_back(queueCreateInfo);
 }

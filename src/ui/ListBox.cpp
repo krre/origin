@@ -46,7 +46,7 @@ void ListBox::removeLine(int index) {
 }
 
 void ListBox::setCurrentIndex(int currentIndex) {
-    this->m_currentIndex = currentIndex;
+    m_currentIndex = currentIndex;
 
     for (Object* child : m_layout->children()) {
         RowDelegate* listLine = static_cast<RowDelegate*>(child);

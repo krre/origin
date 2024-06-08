@@ -17,7 +17,7 @@ Font::~Font() {
 }
 
 void Font::setSize(int size) {
-    this->m_size = size;
+    m_size = size;
     FT_Set_Pixel_Sizes(m_face, 0, size);
 }
 

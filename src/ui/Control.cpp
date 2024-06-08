@@ -13,7 +13,7 @@ Control::~Control() {
 }
 
 void Control::setPosition(const Core::Pos2& position) {
-    this->m_position = position;
+    m_position = position;
     updatePosition();
 }
 
@@ -35,13 +35,13 @@ void Control::updatePosition() {
 }
 
 void Control::setSize(const Core::Size& size) {
-    this->m_size = size;
+    m_size = size;
 
     resizeImpl(size.width, size.height);
 }
 
 void Control::setScale(float scale) {
-    this->m_scale = scale;
+    m_scale = scale;
 }
 
 void Control::resize(int width, int height) {
@@ -66,8 +66,8 @@ void Control::clearDirty() {
 }
 
 void Control::setVisible(bool visible) {
-    if (this->m_visible == visible) return;
-    this->m_visible = visible;
+    if (m_visible == visible) return;
+    m_visible = visible;
 
     Screen* screen = Window::get()->currentScreen();
 

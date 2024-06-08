@@ -77,7 +77,7 @@ void Instance::destroy() {
 }
 
 void Instance::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
-    this->m_enabledLayers = enabledLayers;
+    m_enabledLayers = enabledLayers;
 }
 
 void Instance::dumpLayers() {
@@ -89,7 +89,7 @@ void Instance::dumpLayers() {
 }
 
 void Instance::setEnabledExtensions(const std::vector<std::string>& enabledExtensions) {
-    this->m_enabledExtensions = enabledExtensions;
+    m_enabledExtensions = enabledExtensions;
 }
 
 void Instance::dumpExtensions() {

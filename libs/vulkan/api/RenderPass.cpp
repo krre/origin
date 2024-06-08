@@ -94,7 +94,7 @@ void RenderPass::setDepthFormat(VkFormat format) {
 }
 
 void RenderPass::setDepthEnable(bool depthEnable) {
-    this->m_depthEnable = depthEnable;
+    m_depthEnable = depthEnable;
 }
 
 }

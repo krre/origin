@@ -10,23 +10,23 @@ Rectangle::Rectangle(Control* parent) : Control(parent) {
 }
 
 Rectangle::Rectangle(const Core::Size& size, Control* parent) : Rectangle(parent) {
-    this->m_size = size;
+    m_size = size;
 }
 
 Rectangle::Rectangle(const Core::Pos2& position, const Core::Size& size, Control* parent) : Rectangle(size, parent) {
-    this->m_position = position;
+    m_position = position;
 }
 
 void Rectangle::setColor(const Color& color) {
-    this->m_color = color;
+    m_color = color;
 }
 
 void Rectangle::setBorderColor(const Color& borderColor) {
-    this->m_borderColor = borderColor;
+    m_borderColor = borderColor;
 }
 
 void Rectangle::setBorderWidth(uint32_t border) {
-    this->m_borderWidth = border;
+    m_borderWidth = border;
 }
 
 void Rectangle::drawImpl() {

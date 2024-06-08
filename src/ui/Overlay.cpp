@@ -37,14 +37,14 @@ void Overlay::showConsole() {
 void Overlay::showDialog(Dialog* dialog) {
     insertChild(dialog, 0); // Insert on bottom of overlay
     dialog->activate();
-    this->m_dialog = dialog;
+    m_dialog = dialog;
     centerDialog();
     markDirty();
 }
 
 void Overlay::closeDialog(Dialog* dialog) {
     removeChild(dialog);
-    this->m_dialog = nullptr;
+    m_dialog = nullptr;
     addDeferredCall([=]() {
         delete dialog;
     });

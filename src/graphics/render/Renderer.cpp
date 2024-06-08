@@ -10,5 +10,5 @@ Renderer::~Renderer() {
 }
 
 void Renderer::setActive(bool active) {
-    this->m_active = active;
+    m_active = active;
 }

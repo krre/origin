@@ -8,7 +8,7 @@ Entity::Entity(Entity* parent) : Object(parent) {
 }
 
 Entity::Entity(Core::EntityId id, Entity* parent) : Object(parent) {
-    this->m_id = id;
+    m_id = id;
 }
 
 Entity::~Entity() {

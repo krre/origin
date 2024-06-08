@@ -155,7 +155,7 @@ void Window::toggleFullScreen() {
 }
 
 void Window::setColor(const Color& color) {
-    this->m_color = color;
+    m_color = color;
 }
 
 void Window::invokeDeffered() {

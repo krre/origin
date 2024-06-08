@@ -112,7 +112,7 @@ const std::vector<Octree::Vertex>& Octree::vertices() const {
 }
 
 void Octree::setSubstance(const Substance& substance) {
-    this->m_substance = substance;
+    m_substance = substance;
 }
 
 json::object_t* Octree::findNode(const Path& path) {

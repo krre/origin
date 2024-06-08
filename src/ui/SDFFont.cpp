@@ -14,7 +14,7 @@ SDFFont::~SDFFont() {
 }
 
 void SDFFont::setSize(int size) {
-    this->m_size = size;
+    m_size = size;
 }
 
 void SDFFont::load(const std::string& path) {

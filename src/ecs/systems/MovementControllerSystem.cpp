@@ -48,11 +48,11 @@ void MovementControllerSystem::process(float dt) {
 }
 
 void MovementControllerSystem::setMoveEntity(Entity* moveEntity) {
-    this->m_moveEntity = moveEntity;
+    m_moveEntity = moveEntity;
     m_moveSpeed = moveEntity->movement()->moveSpeed;
 }
 
 void MovementControllerSystem::setRotateEntity(Entity* rotateEntity) {
-    this->m_rotateEntity = rotateEntity;
+    m_rotateEntity = rotateEntity;
     m_rotateSpeed = rotateEntity->movement()->rotateSpeed;
 }

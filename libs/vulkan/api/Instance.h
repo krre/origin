@@ -24,7 +24,7 @@ public:
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
     void dumpExtensions();
 
-    void useDebugReport(VkDebugReportFlagsEXT debugReportFlags) { this->m_debugReportFlags = debugReportFlags; }
+    void useDebugReport(VkDebugReportFlagsEXT debugReportFlags) { m_debugReportFlags = debugReportFlags; }
 
     static std::string apiToString(int api);
 

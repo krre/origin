@@ -14,7 +14,7 @@ View3D::View3D(Core::Rect viewport, Control* parent) :
 }
 
 void View3D::setScene(const std::shared_ptr<Scene>& scene) {
-    this->m_scene = scene;
+    m_scene = scene;
 }
 
 void View3D::updateImpl(float dt) {

@@ -14,5 +14,5 @@ void Layout::notifyRemoveChild(Object* child) {
 }
 
 void Layout::setSpacing(int spacing) {
-    this->m_spacing = spacing;
+    m_spacing = spacing;
 }

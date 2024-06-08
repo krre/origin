@@ -5,5 +5,5 @@ System::System(EntityManager* entityManager) : m_entityManager(entityManager) {
 }
 
 void System::setActive(bool active) {
-    this->m_active = active;
+    m_active = active;
 }

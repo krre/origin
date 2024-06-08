@@ -56,7 +56,7 @@ VkResult Swapchain::acquireNextImage(Semaphore* semaphore, uint32_t* index) {
 }
 
 void Swapchain::setImageIndexPtr(uint32_t* pImageIndex) {
-    this->m_imageIndex = pImageIndex;
+    m_imageIndex = pImageIndex;
 }
 
 }

@@ -31,9 +31,9 @@ private:
     // Save call deffered funtions, e.g. destroy dialog.
     void addDeferredCall(const std::function<void()>& defferedCall) { m_deferredCalls.push_back(defferedCall); }
 
-    DebugHUD* m_debugHUD;
-    Toast* m_toast;
-    Console* m_console;
+    DebugHUD* m_debugHUD = nullptr;
+    Toast* m_toast = nullptr;
+    Console* m_console = nullptr;
     Dialog* m_dialog = nullptr;
     std::vector<std::function<void()>> m_deferredCalls;
 };

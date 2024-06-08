@@ -20,7 +20,7 @@ protected:
 private:
     void resizeImpl(int width, int height) override;
 
-    Rectangle* m_background;
-    Label* m_label;
+    Rectangle* m_background = nullptr;
+    Label* m_label = nullptr;
     int m_cursorPosition = 0;
 };

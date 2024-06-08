@@ -58,8 +58,8 @@ protected:
 private:
     void buildCommandBuffers();
 
-    void* m_platformHandle;
-    void* m_platformWindow;
+    void* m_platformHandle = nullptr;
+    void* m_platformWindow = nullptr;
     std::unique_ptr<Instance> m_instance;
     std::unique_ptr<PhysicalDevices> m_physicalDevices;
     std::unique_ptr<Device> m_graphicsDevice;
@@ -80,7 +80,7 @@ private:
     uint32_t m_graphicsFamily;
     uint32_t m_computeFamily;
     int m_presetDevice = -1;
-    Device* m_device;
+    Device* m_device = nullptr;
     bool m_dirty = false;
 };
 

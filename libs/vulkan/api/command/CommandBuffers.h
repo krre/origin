@@ -17,7 +17,7 @@ public:
 
 private:
     VkCommandBufferAllocateInfo m_allocateInfo = {};
-    CommandPool* m_commandPool;
+    CommandPool* m_commandPool = nullptr;
 };
 
 }

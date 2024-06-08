@@ -24,6 +24,6 @@ private:
     void centerLabel();
     void resizeImpl(int width, int height) override;
 
-    Label* m_label;
+    Label* m_label = nullptr;
     int m_clickedId;
 };

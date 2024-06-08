@@ -11,5 +11,5 @@ public:
 private:
     void resizeImpl(int width, int height) override;
 
-    Button* m_buttonBack;
+    Button* m_buttonBack = nullptr;
 };

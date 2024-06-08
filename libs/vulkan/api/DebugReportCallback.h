@@ -81,7 +81,7 @@ public:
     void setFlags(VkDebugReportFlagsEXT flags);
 
 private:
-    Instance* m_instance;
+    Instance* m_instance = nullptr;
     VkDebugReportCallbackCreateInfoEXT m_createInfo = {};
 };
 

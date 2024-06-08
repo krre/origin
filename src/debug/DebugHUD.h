@@ -16,5 +16,5 @@ private:
     int m_counter = 30;
     int m_fps = 0;
     std::string m_vulkanApiVersion;
-    Label* m_label;
+    Label* m_label = nullptr;
 };

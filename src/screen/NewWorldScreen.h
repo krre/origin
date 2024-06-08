@@ -13,7 +13,7 @@ public:
 private:
     void resizeImpl(int width, int height) override;
 
-    TextEdit* m_textEdit;
-    Button* m_buttonBack;
-    LinearLayout* m_layout;
+    TextEdit* m_textEdit = nullptr;
+    Button* m_buttonBack = nullptr;
+    LinearLayout* m_layout = nullptr;
 };

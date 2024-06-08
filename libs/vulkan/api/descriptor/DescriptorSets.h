@@ -25,7 +25,7 @@ public:
     void destroy() override;
 
 private:
-    DescriptorPool* m_descriptorPool;
+    DescriptorPool* m_descriptorPool = nullptr;
     VkDescriptorSetAllocateInfo m_allocateInfo = {};
     std::vector<VkDescriptorSetLayout> m_descriptorSetLayouts;
     std::vector<VkWriteDescriptorSet> m_writeDescriptorSets;

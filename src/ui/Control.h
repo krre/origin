@@ -60,7 +60,7 @@ protected:
     virtual void textPressed(const SDL_TextInputEvent& event) {}
     virtual void mouseButtonAction(const SDL_MouseButtonEvent& event) {}
 
-    UIManager* m_uiManager;
+    UIManager* m_uiManager = nullptr;
     Core::Pos2 m_position = { 0, 0 };
     Core::Pos2 m_absolutePosition = { 0, 0 };
     Core::Size m_size = { 0, 0 };

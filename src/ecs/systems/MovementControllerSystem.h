@@ -15,6 +15,6 @@ private:
     Entity* m_moveEntity = nullptr;
     Entity* m_rotateEntity = nullptr;
 
-    float m_moveSpeed;
-    float m_rotateSpeed;
+    float m_moveSpeed = 0;
+    float m_rotateSpeed = 0;
 };

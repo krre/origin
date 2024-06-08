@@ -25,7 +25,7 @@ public:
 
 private:
     VkDeviceCreateInfo m_createInfo = {};
-    PhysicalDevice* m_physicalDevice;
+    PhysicalDevice* m_physicalDevice = nullptr;
     std::vector<VkDeviceQueueCreateInfo> m_queueCreateInfos;
     std::vector<float> m_queuePriorities;
     std::vector<VkExtensionProperties> m_extensions;

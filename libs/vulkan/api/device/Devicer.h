@@ -12,7 +12,7 @@ public:
     Device* device() const { return m_device; }
 
 protected:
-    Device* m_device;
+    Device* m_device = nullptr;
 };
 
 }

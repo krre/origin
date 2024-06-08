@@ -24,5 +24,5 @@ public:
 private:
     std::vector<View3D*> m_views;
     std::vector<View3DBatch> m_batches;
-    OctreeRenderer* m_octreeRenderer;
+    OctreeRenderer* m_octreeRenderer = nullptr;
 };

@@ -37,7 +37,7 @@ public:
 private:
     void resizeImpl(int width, int height) override;
 
-    LinearLayout* m_layout;
+    LinearLayout* m_layout = nullptr;
     std::string m_currentText;
     int m_currentIndex = -1;
 };

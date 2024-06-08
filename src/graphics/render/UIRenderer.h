@@ -37,5 +37,5 @@ private:
     std::unique_ptr<Vulkan::Sampler> m_sampler;
     std::unique_ptr<Vulkan::ShaderProgram> m_shaderProgram;
     std::unique_ptr<Vulkan::GraphicsPipeline> m_graphicsPipeline;
-    Vulkan::Texture* m_texture;
+    Vulkan::Texture* m_texture = nullptr;
 };

@@ -29,9 +29,9 @@ public:
 
 private:
     VkSwapchainCreateInfoKHR m_createInfo = {};
-    Surface* m_surface;
+    Surface* m_surface = nullptr;
     std::vector<VkImage> m_images;
-    uint32_t* m_imageIndex;
+    uint32_t* m_imageIndex = nullptr;
     VkExtent2D m_oldExtent = { (uint32_t)-1, (uint32_t)-1 };
 };
 

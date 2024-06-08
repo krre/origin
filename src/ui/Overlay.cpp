@@ -15,9 +15,6 @@ Overlay::Overlay(Control* parent) : Control(parent) {
     m_toast = new Toast(this);
 }
 
-Overlay::~Overlay() {
-}
-
 Overlay* Overlay::get() {
     return instance;
 }

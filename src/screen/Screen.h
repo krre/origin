@@ -13,7 +13,6 @@ public:
     };
 
     Screen();
-    virtual ~Screen();
 
     virtual void hide();
     virtual void pause();

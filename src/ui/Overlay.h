@@ -9,7 +9,6 @@ class Dialog;
 class Overlay : public Control {
 public:
     Overlay(Control* parent = nullptr);
-    ~Overlay();
 
     static Overlay* get();
 

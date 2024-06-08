@@ -13,10 +13,6 @@ UIManager::UIManager(Object* parent) : SingleObject(parent) {
     Event::get()->mouseButtonAction.connect(this, &UIManager::onMouseButtonAction);
 }
 
-UIManager::~UIManager() {
-
-}
-
 void UIManager::onKeyPressed(const SDL_KeyboardEvent& event) {
     if (Input::get()->isKeyAccepted) return;
 

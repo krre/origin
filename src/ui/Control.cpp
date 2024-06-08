@@ -8,10 +8,6 @@ Control::Control(Control* parent) : Object(parent) {
     m_uiManager = UIManager::get();
 }
 
-Control::~Control() {
-
-}
-
 void Control::setPosition(const Core::Pos2& position) {
     m_position = position;
     updatePosition();

@@ -14,8 +14,6 @@ public:
     Entity(Entity* parent = nullptr);
     Entity(Core::EntityId id, Entity* parent = nullptr);
 
-    ~Entity();
-
     Core::EntityId id() const { return m_id; }
     static void setIdCounter(Core::EntityId id);
 

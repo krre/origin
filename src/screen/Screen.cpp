@@ -4,10 +4,6 @@
 Screen::Screen() {
 }
 
-Screen::~Screen() {
-
-}
-
 void Screen::hide() {
 
 }

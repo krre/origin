@@ -11,10 +11,6 @@ Entity::Entity(Core::EntityId id, Entity* parent) : Object(parent) {
     m_id = id;
 }
 
-Entity::~Entity() {
-
-}
-
 void Entity::setIdCounter(Core::EntityId id) {
     s_counter = id;
 }

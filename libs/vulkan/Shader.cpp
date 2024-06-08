@@ -9,10 +9,6 @@ Shader::Shader() {
 
 }
 
-Shader::~Shader() {
-
-}
-
 void Shader::load(const std::string& filePath) {
     std::ifstream file(filePath, std::ios::ate | std::ios::binary);
 

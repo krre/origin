@@ -22,7 +22,6 @@ public:
     };
 
     Shader();
-    ~Shader();
 
     void load(const std::string& filePath);
 

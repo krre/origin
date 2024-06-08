@@ -16,10 +16,6 @@ DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     m_vulkanApiVersion = RenderManager::get()->instance()->apiToString((apiVersionNumber));
 }
 
-DebugHUD::~DebugHUD() {
-
-}
-
 void DebugHUD::updateImpl(float dt) {
     m_accumTime += dt;
     m_counter++;

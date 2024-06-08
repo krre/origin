@@ -8,7 +8,6 @@ class View3DBatch;
 class SceneRenderer : public Renderer {
 public:
     SceneRenderer(Object* parent = nullptr);
-    ~SceneRenderer();
 
     void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
 

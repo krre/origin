@@ -19,10 +19,6 @@ SceneRenderer::SceneRenderer(Object* parent) : Renderer(parent) {
     Octree::Octree* octree = new Octree::Octree(Octree::Substance(), this);
 }
 
-SceneRenderer::~SceneRenderer() {
-
-}
-
 void SceneRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) {
     m_octreeRenderer->writeCommandBuffer(commandBuffer, framebuffer);
 }

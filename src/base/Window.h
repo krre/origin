@@ -14,7 +14,6 @@ class Screen;
 class Window : public Core::SingleObject<Window> {
 public:
     Window(Object* parent = nullptr);
-    ~Window();
 
     uint32_t width() const { return m_width; }
     uint32_t height() const { return m_height; }

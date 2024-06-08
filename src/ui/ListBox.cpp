@@ -31,10 +31,6 @@ ListBox::ListBox(Control* parent) : Rectangle(parent) {
     m_layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 }
 
-ListBox::~ListBox() {
-
-}
-
 void ListBox::addLine(const std::string& text) {
     RowDelegate* listLine = new RowDelegate(text, m_layout->children().size(), this);
     m_layout->appendChild(listLine);

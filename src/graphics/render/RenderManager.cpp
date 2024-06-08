@@ -16,10 +16,6 @@ RenderManager::RenderManager(void* platformHandle, void* platformWindow, Object*
         SingleObject(parent) {
 }
 
-RenderManager::~RenderManager() {
-
-}
-
 void RenderManager::addRenderer(::Renderer* renderer) {
     m_renderers.push_back(renderer);
 }

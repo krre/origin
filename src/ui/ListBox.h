@@ -22,7 +22,6 @@ class ListBox : public Rectangle {
     friend class RowDelegate;
 public:
     ListBox(Control* parent = nullptr);
-    ~ListBox();
 
     void addLine(const std::string& text);
     void removeLine(int index);

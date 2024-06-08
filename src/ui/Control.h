@@ -17,7 +17,6 @@ class Control : public Core::Object {
     friend class UIManager;
 public:
     Control(Control* parent = nullptr);
-    virtual ~Control();
 
     void setPosition(const Core::Pos2& position);
     const Core::Pos2& position() const { return m_position; }

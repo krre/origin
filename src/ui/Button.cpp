@@ -13,9 +13,6 @@ Button::Button(const std::string& text, Control* parent) : Button(parent) {
     setText(text);
 }
 
-Button::~Button() {
-}
-
 void Button::setText(const std::string &text) {
     m_label->setText(text);
     centerLabel();

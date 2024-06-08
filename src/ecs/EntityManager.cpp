@@ -8,10 +8,6 @@ EntityManager::EntityManager(Object* parent) : SingleObject(parent) {
     m_entityBuilder = std::make_unique<EntityBuilder>(this);
 }
 
-EntityManager::~EntityManager() {
-
-}
-
 void EntityManager::removeSystem(System::Type type) {
     m_systems.erase(type);
 }

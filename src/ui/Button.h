@@ -8,8 +8,6 @@ public:
     Button(Control* parent = nullptr);
     Button(const std::string& text, Control* parent = nullptr);
 
-    ~Button();
-
     void setText(const std::string& text);
     std::string text() const;
 

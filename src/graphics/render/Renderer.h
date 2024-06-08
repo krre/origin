@@ -10,7 +10,6 @@ namespace Vulkan {
 class Renderer : public Core::Object {
 public:
     Renderer(Object* parent = nullptr);
-    ~Renderer();
 
     virtual void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) = 0;
     virtual void draw() = 0;

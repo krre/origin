@@ -6,7 +6,6 @@ class Label;
 class DebugHUD : public Control {
 public:
     DebugHUD(Control* parent = nullptr);
-    ~DebugHUD();
 
 private:
     void updateImpl(float dt) override;

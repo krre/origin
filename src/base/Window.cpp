@@ -51,10 +51,6 @@ Window::Window(Object* parent) : SingleObject(parent) {
     Event::get()->keyPressed.connect(this, &Window::onKeyPressed);
 }
 
-Window::~Window() {
-
-}
-
 void Window::pushScreen(const std::shared_ptr<Screen>& screen) {
     if (!m_screens.empty()) {
         m_screens.back()->pause();

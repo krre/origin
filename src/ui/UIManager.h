@@ -8,7 +8,6 @@ struct SDL_MouseButtonEvent;
 class UIManager : public Core::SingleObject<UIManager> {
 public:
     UIManager(Object* parent = nullptr);
-    ~UIManager();
 
 private:
     void onKeyPressed(const SDL_KeyboardEvent& event);

@@ -31,54 +31,54 @@ RenderPass::~RenderPass() {
 }
 
 void RenderPass::create() {
-    colorAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
-    colorAttachmentDescription.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-    colorAttachmentDescription.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-    colorAttachmentDescription.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-    colorAttachmentDescription.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-    colorAttachmentDescription.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-    colorAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
+    m_colorAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
+    m_colorAttachmentDescription.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+    m_colorAttachmentDescription.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+    m_colorAttachmentDescription.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+    m_colorAttachmentDescription.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+    m_colorAttachmentDescription.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+    m_colorAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR;
 
-    attachmentDescriptions.push_back(colorAttachmentDescription);
+    m_attachmentDescriptions.push_back(m_colorAttachmentDescription);
 
-    if (depthEnable) {
-        depthAttachmentDescription.format = VK_FORMAT_D16_UNORM;
-        depthAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
-        depthAttachmentDescription.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
-        depthAttachmentDescription.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
-        depthAttachmentDescription.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
-        depthAttachmentDescription.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
-        depthAttachmentDescription.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
-        depthAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+    if (m_depthEnable) {
+        m_depthAttachmentDescription.format = VK_FORMAT_D16_UNORM;
+        m_depthAttachmentDescription.samples = VK_SAMPLE_COUNT_1_BIT;
+        m_depthAttachmentDescription.loadOp = VK_ATTACHMENT_LOAD_OP_CLEAR;
+        m_depthAttachmentDescription.storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+        m_depthAttachmentDescription.stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+        m_depthAttachmentDescription.stencilStoreOp = VK_ATTACHMENT_STORE_OP_DONT_CARE;
+        m_depthAttachmentDescription.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+        m_depthAttachmentDescription.finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
 
-        attachmentDescriptions.push_back(depthAttachmentDescription);
+        m_attachmentDescriptions.push_back(m_depthAttachmentDescription);
     }
 
-    colorAttachmentReference.attachment = 0;
-    colorAttachmentReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+    m_colorAttachmentReference.attachment = 0;
+    m_colorAttachmentReference.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
 
-    if (depthEnable) {
-        depthAttachmentReference.attachment = 1;
-        depthAttachmentReference.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+    if (m_depthEnable) {
+        m_depthAttachmentReference.attachment = 1;
+        m_depthAttachmentReference.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
     }
 
-    subpassDescription.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
-    subpassDescription.colorAttachmentCount = 1;
-    subpassDescription.pColorAttachments = &colorAttachmentReference;
-    if (depthEnable) {
-        subpassDescription.pDepthStencilAttachment = &depthAttachmentReference;
+    m_subpassDescription.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+    m_subpassDescription.colorAttachmentCount = 1;
+    m_subpassDescription.pColorAttachments = &m_colorAttachmentReference;
+    if (m_depthEnable) {
+        m_subpassDescription.pDepthStencilAttachment = &m_depthAttachmentReference;
     }
 
-    subpassDescriptions.push_back(subpassDescription);
+    m_subpassDescriptions.push_back(m_subpassDescription);
 
-    createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
-    createInfo.attachmentCount = attachmentDescriptions.size();
-    createInfo.pAttachments = attachmentDescriptions.data();
-    createInfo.subpassCount = subpassDescriptions.size();
-    createInfo.pSubpasses = subpassDescriptions.data();
-    createInfo.dependencyCount = subpassDependencies.size();
-    createInfo.pDependencies = subpassDependencies.data();
-    VULKAN_CHECK_RESULT(vkCreateRenderPass(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create render pass");
+    m_createInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+    m_createInfo.attachmentCount = m_attachmentDescriptions.size();
+    m_createInfo.pAttachments = m_attachmentDescriptions.data();
+    m_createInfo.subpassCount = m_subpassDescriptions.size();
+    m_createInfo.pSubpasses = m_subpassDescriptions.data();
+    m_createInfo.dependencyCount = m_subpassDependencies.size();
+    m_createInfo.pDependencies = m_subpassDependencies.data();
+    VULKAN_CHECK_RESULT(vkCreateRenderPass(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create render pass");
 }
 
 void RenderPass::destroy() {
@@ -86,15 +86,15 @@ void RenderPass::destroy() {
 }
 
 void RenderPass::setColorFormat(VkFormat format) {
-    colorAttachmentDescription.format = format;
+    m_colorAttachmentDescription.format = format;
 }
 
 void RenderPass::setDepthFormat(VkFormat format) {
-    depthAttachmentDescription.format = format;
+    m_depthAttachmentDescription.format = format;
 }
 
 void RenderPass::setDepthEnable(bool depthEnable) {
-    this->depthEnable = depthEnable;
+    this->m_depthEnable = depthEnable;
 }
 
 }

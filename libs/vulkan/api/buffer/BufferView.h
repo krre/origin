@@ -16,7 +16,7 @@ public:
     void destroy() override;
 
 private:
-    VkBufferViewCreateInfo createInfo = {};
+    VkBufferViewCreateInfo m_createInfo = {};
 };
 
 }

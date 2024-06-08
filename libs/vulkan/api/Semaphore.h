@@ -14,7 +14,7 @@ public:
     void destroy() override;
 
 private:
-    VkSemaphoreCreateInfo createInfo = {};
+    VkSemaphoreCreateInfo m_createInfo = {};
 };
 
 }

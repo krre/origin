@@ -3,8 +3,8 @@
 namespace Vulkan {
 
 QueryPool::QueryPool(Device* device) : Devicer(device) {
-    createInfo.sType = VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO;
-    createInfo.queryType = VK_QUERY_TYPE_PIPELINE_STATISTICS;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_QUERY_POOL_CREATE_INFO;
+    m_createInfo.queryType = VK_QUERY_TYPE_PIPELINE_STATISTICS;
 }
 
 QueryPool::~QueryPool() {
@@ -12,7 +12,7 @@ QueryPool::~QueryPool() {
 }
 
 void QueryPool::create() {
-    VULKAN_CHECK_RESULT(vkCreateQueryPool(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create query pool");
+    VULKAN_CHECK_RESULT(vkCreateQueryPool(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create query pool");
 }
 
 void QueryPool::destroy() {

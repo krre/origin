@@ -17,9 +17,9 @@ public:
     void addPushConstantRange(VkPushConstantRange pushConstantRange);
 
 private:
-    VkPipelineLayoutCreateInfo createInfo = {};
-    std::vector<VkDescriptorSetLayout> descriptorSetLayouts;
-    std::vector<VkPushConstantRange> pushConstantRanges;
+    VkPipelineLayoutCreateInfo m_createInfo = {};
+    std::vector<VkDescriptorSetLayout> m_descriptorSetLayouts;
+    std::vector<VkPushConstantRange> m_pushConstantRanges;
 
 };
 

@@ -22,12 +22,12 @@ PhysicalDevices::PhysicalDevices(Instance* instance) {
         physicalDevice->m_queueFamilyProperties.resize(count);
         vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, physicalDevice->m_queueFamilyProperties.data());
 
-        devices.push_back(std::move(physicalDevice));
+        m_devices.push_back(std::move(physicalDevice));
     }
 }
 
 PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
-    for (const auto& device : devices) {
+    for (const auto& device : m_devices) {
         if (device->m_properties.deviceType == type) {
             return device.get();
         }
@@ -37,7 +37,7 @@ PhysicalDevice* PhysicalDevices::findDevice(VkPhysicalDeviceType type) {
 }
 
 void PhysicalDevices::dumpDevices() {
-    for (const auto& device : devices) {
+    for (const auto& device : m_devices) {
         std::cout << device->m_properties.deviceName << std::endl;
     }
 }

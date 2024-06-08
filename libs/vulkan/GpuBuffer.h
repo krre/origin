@@ -23,9 +23,9 @@ public:
     void read(void* data, uint32_t size, uint32_t offset = 0);
 
 private:
-    std::unique_ptr<Buffer> buffer;
-    std::unique_ptr<DeviceMemory> memory;
-    std::unique_ptr<Buffer> stageBuffer; // TODO: Use for staging
+    std::unique_ptr<Buffer> m_buffer;
+    std::unique_ptr<DeviceMemory> m_memory;
+    std::unique_ptr<Buffer> m_stageBuffer; // TODO: Use for staging
     uint32_t m_size = 0;
     VkBufferUsageFlagBits m_usage;
 };

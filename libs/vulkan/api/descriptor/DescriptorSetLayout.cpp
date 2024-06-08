@@ -3,7 +3,7 @@
 namespace Vulkan {
 
 DescriptorSetLayout::DescriptorSetLayout(Device* device) : Devicer(device) {
-    createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
 }
 
 DescriptorSetLayout::~DescriptorSetLayout() {
@@ -11,9 +11,9 @@ DescriptorSetLayout::~DescriptorSetLayout() {
 }
 
 void DescriptorSetLayout::create() {
-    createInfo.bindingCount = bindings.size();
-    createInfo.pBindings = bindings.data();
-    VULKAN_CHECK_RESULT(vkCreateDescriptorSetLayout(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create descriptor set layout");
+    m_createInfo.bindingCount = m_bindings.size();
+    m_createInfo.pBindings = m_bindings.data();
+    VULKAN_CHECK_RESULT(vkCreateDescriptorSetLayout(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create descriptor set layout");
 }
 
 void DescriptorSetLayout::destroy() {
@@ -21,7 +21,7 @@ void DescriptorSetLayout::destroy() {
 }
 
 void DescriptorSetLayout::addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding) {
-    bindings.push_back(layoutBinding);
+    m_bindings.push_back(layoutBinding);
 }
 
 }

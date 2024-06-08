@@ -15,14 +15,14 @@ public:
     void destroy() override;
 
     void addPoolSize(VkDescriptorType type, uint32_t count);
-    int poolSizeCount() const { return poolSizes.size(); }
+    int poolSizeCount() const { return m_poolSizes.size(); }
 
     void setMaxSets(uint32_t maxSets);
     void reset();
 
 private:
-    VkDescriptorPoolCreateInfo createInfo = {};
-    std::vector<VkDescriptorPoolSize> poolSizes;
+    VkDescriptorPoolCreateInfo m_createInfo = {};
+    std::vector<VkDescriptorPoolSize> m_poolSizes;
 };
 
 }

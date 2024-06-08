@@ -3,7 +3,7 @@
 namespace Vulkan {
 
 Fence::Fence(Device* device) : Devicer(device) {
-    createInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 }
 
 Fence::~Fence() {
@@ -11,7 +11,7 @@ Fence::~Fence() {
 }
 
 void Fence::create() {
-    VULKAN_CHECK_RESULT(vkCreateFence(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create fence");
+    VULKAN_CHECK_RESULT(vkCreateFence(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create fence");
 }
 
 void Fence::destroy() {
@@ -27,7 +27,7 @@ VkResult Fence::reset() {
 }
 
 void Fence::setSignaledBit() {
-    createInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
+    m_createInfo.flags = VK_FENCE_CREATE_SIGNALED_BIT;
 }
 
 }

@@ -4,17 +4,17 @@ namespace Vulkan {
 
 ComputePipeline::ComputePipeline(Device* device) :
         Pipeline(device) {
-    createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
 }
 
 void ComputePipeline::create() {
-    assert(shaderStages.size() == 1);
-    createInfo.stage = shaderStages.at(0);
-    VULKAN_CHECK_RESULT(vkCreateComputePipelines(m_device->handle(), pipelineCache, 1, &createInfo, nullptr, &m_handle), "Failed to create compute pipelines");
+    assert(m_shaderStages.size() == 1);
+    m_createInfo.stage = m_shaderStages.at(0);
+    VULKAN_CHECK_RESULT(vkCreateComputePipelines(m_device->handle(), m_pipelineCache, 1, &m_createInfo, nullptr, &m_handle), "Failed to create compute pipelines");
 }
 
 void ComputePipeline::setPipelineLayout(VkPipelineLayout layout) {
-    createInfo.layout = layout;
+    m_createInfo.layout = layout;
 }
 
 }

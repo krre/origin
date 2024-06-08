@@ -14,7 +14,7 @@ public:
     void destroy() override;
 
 private:
-    VkPipelineCacheCreateInfo createInfo = {};
+    VkPipelineCacheCreateInfo m_createInfo = {};
 };
 
 }

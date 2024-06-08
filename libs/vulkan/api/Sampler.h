@@ -14,7 +14,7 @@ public:
     void destroy() override;
 
 private:
-    VkSamplerCreateInfo createInfo = {};
+    VkSamplerCreateInfo m_createInfo = {};
 };
 
 }

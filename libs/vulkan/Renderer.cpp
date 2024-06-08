@@ -30,13 +30,13 @@ namespace Vulkan {
 const VkFormat depthFormat = VK_FORMAT_D16_UNORM;
 
 Renderer::Renderer(void* platformHandle, void* platformWindow) :
-        platformHandle(platformHandle),
-        platformWindow(platformWindow) {
+        m_platformHandle(platformHandle),
+        m_platformWindow(platformWindow) {
     m_instance = std::make_unique<Instance>();
 }
 
 Renderer::~Renderer() {
-    queue->waitIdle();
+    m_queue->waitIdle();
 
     if (m_graphicsDevice) {
         m_graphicsDevice->waitIdle();
@@ -61,73 +61,73 @@ void Renderer::setEnabledExtensions(const std::vector<std::string>& enabledExten
 void Renderer::create() {
     m_instance->create();
 
-    physicalDevices = std::make_unique<PhysicalDevices>(m_instance.get());
+    m_physicalDevices = std::make_unique<PhysicalDevices>(m_instance.get());
 
     // Default graphics and compute device are same and first in list of physical devices
-    PhysicalDevice* graphicsPhysicalDevice = physicalDevices->physicalDevice(0);
-    PhysicalDevice* computePhysicalDevice = physicalDevices->physicalDevice(0);
+    PhysicalDevice* graphicsPhysicalDevice = m_physicalDevices->physicalDevice(0);
+    PhysicalDevice* computePhysicalDevice = m_physicalDevices->physicalDevice(0);
 
-    if (physicalDevices->count() > 1) {
-        if (presetDevice != -1) {
-            graphicsPhysicalDevice = physicalDevices->physicalDevice(presetDevice);
-            computePhysicalDevice = physicalDevices->physicalDevice(1 - presetDevice);
+    if (m_physicalDevices->count() > 1) {
+        if (m_presetDevice != -1) {
+            graphicsPhysicalDevice = m_physicalDevices->physicalDevice(m_presetDevice);
+            computePhysicalDevice = m_physicalDevices->physicalDevice(1 - m_presetDevice);
         } else {
             // Select by hardware properties
-            graphicsPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+            graphicsPhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
             if (graphicsPhysicalDevice == nullptr) {
-                graphicsPhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+                graphicsPhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
             }
 
-            computePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+            computePhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
             if (computePhysicalDevice == nullptr) {
-                computePhysicalDevice = physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+                computePhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
             }
         }
     }
 
     // Create graphics logical device and command pool
-    graphicsFamily = graphicsPhysicalDevice->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
+    m_graphicsFamily = graphicsPhysicalDevice->findQueueFamily(VK_QUEUE_GRAPHICS_BIT);
     m_graphicsDevice = std::make_unique<Device>(graphicsPhysicalDevice);
-    m_graphicsDevice->addQueueCreateInfo(graphicsFamily, { 1.0 });
+    m_graphicsDevice->addQueueCreateInfo(m_graphicsFamily, { 1.0 });
     m_graphicsDevice->create();
 
-    m_graphicsCommandPool = std::make_shared<CommandPool>(m_graphicsDevice.get(), graphicsFamily);
+    m_graphicsCommandPool = std::make_shared<CommandPool>(m_graphicsDevice.get(), m_graphicsFamily);
     m_graphicsCommandPool->create();
 
     // Create compute logical device and command pool
     if (graphicsPhysicalDevice != computePhysicalDevice) {
-        computeFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
+        m_computeFamily = computePhysicalDevice->findQueueFamily(VK_QUEUE_COMPUTE_BIT);
         m_computeDevice = std::make_unique<Device>(computePhysicalDevice);
-        m_computeDevice->addQueueCreateInfo(computeFamily, { 1.0 });
+        m_computeDevice->addQueueCreateInfo(m_computeFamily, { 1.0 });
         m_computeDevice->create();
 
-        m_computeCommandPool = std::make_shared<CommandPool>(m_computeDevice.get(), computeFamily);
+        m_computeCommandPool = std::make_shared<CommandPool>(m_computeDevice.get(), m_computeFamily);
         m_computeCommandPool->create();
     }
 
-    device = m_graphicsDevice.get();
+    m_device = m_graphicsDevice.get();
 
-    imageAvailableSemaphore = std::make_unique<Semaphore>(device);
-    imageAvailableSemaphore->create();
+    m_imageAvailableSemaphore = std::make_unique<Semaphore>(m_device);
+    m_imageAvailableSemaphore->create();
 
-    renderFinishedSemaphore = std::make_unique<Semaphore>(device);
-    renderFinishedSemaphore->create();
+    m_renderFinishedSemaphore = std::make_unique<Semaphore>(m_device);
+    m_renderFinishedSemaphore->create();
 
-    queue = std::make_unique<Queue>(device, graphicsFamily);
-    queue->create();
-    queue->addPresentWaitSemaphore(renderFinishedSemaphore->handle());
+    m_queue = std::make_unique<Queue>(m_device, m_graphicsFamily);
+    m_queue->create();
+    m_queue->addPresentWaitSemaphore(m_renderFinishedSemaphore->handle());
 
-    m_surface = std::make_unique<Surface>(m_instance.get(), device->physicalDevice(), platformHandle, platformWindow);
+    m_surface = std::make_unique<Surface>(m_instance.get(), m_device->physicalDevice(), m_platformHandle, m_platformWindow);
     m_surface->create();
 
-    m_renderPass = std::make_unique<RenderPass>(device);
+    m_renderPass = std::make_unique<RenderPass>(m_device);
     m_renderPass->setColorFormat(m_surface->formats().at(0).format);
 //    renderPass->setBlendEnable(true);
     m_renderPass->setDepthEnable(true);
     m_renderPass->setDepthFormat(depthFormat);
     m_renderPass->create();
 
-    swapchain = std::make_unique<Swapchain>(device, m_surface.get());
+    m_swapchain = std::make_unique<Swapchain>(m_device, m_surface.get());
 
     resize();
     init();
@@ -136,23 +136,23 @@ void Renderer::create() {
 void Renderer::render() {
     preRender();
 
-    VkResult result = swapchain->acquireNextImage(imageAvailableSemaphore.get());
+    VkResult result = m_swapchain->acquireNextImage(m_imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         resize();
     }
 
-    if (dirty) {
+    if (m_dirty) {
         buildCommandBuffers();
-        dirty = false;
+        m_dirty = false;
     }
 
-    queue->clearCommandBuffers();
-    queue->addCommandBuffer(commandBuffers->at(swapchain->imageIndex()),
-                            renderFinishedSemaphore->handle(),
-                            imageAvailableSemaphore->handle(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
-    queue->submit();
-    queue->present();
-    queue->waitIdle();
+    m_queue->clearCommandBuffers();
+    m_queue->addCommandBuffer(m_commandBuffers->at(m_swapchain->imageIndex()),
+                            m_renderFinishedSemaphore->handle(),
+                            m_imageAvailableSemaphore->handle(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
+    m_queue->submit();
+    m_queue->present();
+    m_queue->waitIdle();
 
     postRender();
 }
@@ -161,82 +161,82 @@ void Renderer::resize() {
     uint32_t width = m_surface->currentExtent().width;
     uint32_t height = m_surface->currentExtent().height;
 
-    swapchain->destroy();
-    swapchain->create();
-    queue->clearSwapchains();
-    queue->addSwapchain(swapchain.get());
+    m_swapchain->destroy();
+    m_swapchain->create();
+    m_queue->clearSwapchains();
+    m_queue->addSwapchain(m_swapchain.get());
 
-    imageViews.clear();
-    framebuffers.clear();
+    m_imageViews.clear();
+    m_framebuffers.clear();
 
-    depthImage = std::make_unique<Image>(device);
-    depthImage->setWidth(width);
-    depthImage->setHeight(height);
-    depthImage->setFormat(depthFormat);
-    depthImage->setUsage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT);
+    m_depthImage = std::make_unique<Image>(m_device);
+    m_depthImage->setWidth(width);
+    m_depthImage->setHeight(height);
+    m_depthImage->setFormat(depthFormat);
+    m_depthImage->setUsage(VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT);
 
     VkFormatProperties props;
-    vkGetPhysicalDeviceFormatProperties(device->physicalDevice()->handle(), depthFormat, &props);
+    vkGetPhysicalDeviceFormatProperties(m_device->physicalDevice()->handle(), depthFormat, &props);
     if (props.linearTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) {
-        depthImage->setTiling(VK_IMAGE_TILING_LINEAR);
+        m_depthImage->setTiling(VK_IMAGE_TILING_LINEAR);
     } else if (props.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) {
-        depthImage->setTiling(VK_IMAGE_TILING_OPTIMAL);
+        m_depthImage->setTiling(VK_IMAGE_TILING_OPTIMAL);
     } else {
         throw std::runtime_error("VK_FORMAT_D16_UNORM Unsupported");
     }
 
-    depthImage->create();
+    m_depthImage->create();
 
-    depthImageView = std::make_unique<ImageView>(device, depthImage->handle());
-    depthImageView->setFormat(depthFormat);
-    depthImageView->setAspectMask(VK_IMAGE_ASPECT_DEPTH_BIT);
-    depthImageView->create();
+    m_depthImageView = std::make_unique<ImageView>(m_device, m_depthImage->handle());
+    m_depthImageView->setFormat(depthFormat);
+    m_depthImageView->setAspectMask(VK_IMAGE_ASPECT_DEPTH_BIT);
+    m_depthImageView->create();
 
-    for (const auto& image : swapchain->images()) {
-        std::unique_ptr<ImageView> imageView = std::make_unique<ImageView>(device, image);
+    for (const auto& image : m_swapchain->images()) {
+        std::unique_ptr<ImageView> imageView = std::make_unique<ImageView>(m_device, image);
         imageView->setFormat(m_surface->formats().at(0).format);
         imageView->create();
 
-        std::unique_ptr<Framebuffer> framebuffer = std::make_unique<Framebuffer>(device);
+        std::unique_ptr<Framebuffer> framebuffer = std::make_unique<Framebuffer>(m_device);
         framebuffer->addAttachment(imageView.get());
-        framebuffer->addAttachment(depthImageView.get());
+        framebuffer->addAttachment(m_depthImageView.get());
         framebuffer->setRenderPass(m_renderPass.get());
         framebuffer->setWidth(width);
         framebuffer->setHeight(height);
         framebuffer->create();
 
-        imageViews.push_back(std::move(imageView));
-        framebuffers.push_back(std::move(framebuffer));
+        m_imageViews.push_back(std::move(imageView));
+        m_framebuffers.push_back(std::move(framebuffer));
     }
 
-    if (!commandBuffers) {
-        commandBuffers = std::make_unique<CommandBuffers>(device, m_graphicsCommandPool.get());
-        commandBuffers->allocate(swapchain->count());
+    if (!m_commandBuffers) {
+        m_commandBuffers = std::make_unique<CommandBuffers>(m_device, m_graphicsCommandPool.get());
+        m_commandBuffers->allocate(m_swapchain->count());
     }
 
     markDirty();
 }
 
 std::vector<unsigned char> Renderer::readFramebuffer() {
-    VkImage srcImage = swapchain->currentImage();
+    VkImage srcImage = m_swapchain->currentImage();
 
     uint32_t width = m_surface->currentExtent().width;
     uint32_t height = m_surface->currentExtent().height;
 
-    Image image(device);
+    Image image(m_device);
     image.setWidth(width);
     image.setHeight(height);
     image.setUsage(VK_IMAGE_USAGE_TRANSFER_DST_BIT);
     image.create();
     VkImage dstImage = image.handle();
 
-    CommandBufferOneTime commandBuffer(device, m_graphicsCommandPool.get());
+    CommandBufferOneTime commandBuffer(m_device, m_graphicsCommandPool.get());
     commandBuffer.setImageLayout(dstImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_UNDEFINED,
                      VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
     commandBuffer.setImageLayout(srcImage, VK_IMAGE_ASPECT_COLOR_BIT, VK_IMAGE_LAYOUT_PRESENT_SRC_KHR,
                      VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
 
-    bool supportsBlit = device->physicalDevice()->supportBlit(swapchain->imageFormat());
+    bool supportsBlit = m_device->physicalDevice()->supportBlit(m_swapchain->imageFormat());
     if (supportsBlit) {
         VkOffset3D blitSize;
         blitSize.x = width;
@@ -281,7 +281,7 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
     VkImageSubresource subResource = {};
     subResource.aspectMask = VK_IMAGE_ASPECT_COLOR_BIT;
     VkSubresourceLayout subResourceLayout;
-    vkGetImageSubresourceLayout(device->handle(), dstImage, &subResource, &subResourceLayout);
+    vkGetImageSubresourceLayout(m_device->handle(), dstImage, &subResource, &subResourceLayout);
 
     // Map image memory so we can start copying from it
     const unsigned char* data;
@@ -320,11 +320,11 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
 }
 
 void Renderer::buildCommandBuffers() {
-    for (int i = 0; i < commandBuffers->count(); i++) {
-        CommandBuffer commandBuffer(commandBuffers->at(i));
+    for (int i = 0; i < m_commandBuffers->count(); i++) {
+        CommandBuffer commandBuffer(m_commandBuffers->at(i));
         commandBuffer.reset();
         commandBuffer.begin();
-        writeCommandBuffer(&commandBuffer, framebuffers.at(i).get());
+        writeCommandBuffer(&commandBuffer, m_framebuffers.at(i).get());
         commandBuffer.end();
     }
 }

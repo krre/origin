@@ -24,7 +24,7 @@ public:
 private:
     uint32_t m_width = 0;
     uint32_t m_height = 0;
-    std::vector<unsigned char> data;
+    std::vector<unsigned char> m_data;
     std::unique_ptr<Image> m_image;
     std::unique_ptr<ImageView> m_imageView;
 };

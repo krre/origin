@@ -3,7 +3,7 @@
 namespace Vulkan {
 
 Event::Event(Device* device) : Devicer(device) {
-    createInfo.sType = VK_STRUCTURE_TYPE_EVENT_CREATE_INFO;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_EVENT_CREATE_INFO;
 }
 
 Event::~Event() {
@@ -11,7 +11,7 @@ Event::~Event() {
 }
 
 void Event::create() {
-    VULKAN_CHECK_RESULT(vkCreateEvent(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create event");
+    VULKAN_CHECK_RESULT(vkCreateEvent(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create event");
 }
 
 }

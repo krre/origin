@@ -24,24 +24,24 @@ public:
     VkPipelineBindPoint bindPoint() const override { return VK_PIPELINE_BIND_POINT_GRAPHICS; }
 
 private:
-    VkGraphicsPipelineCreateInfo createInfo = {};
+    VkGraphicsPipelineCreateInfo m_createInfo = {};
 
-    VkPipelineRasterizationStateCreateInfo rasterizationStateCreateInfo = {};
-    VkPipelineMultisampleStateCreateInfo multisampleStateCreateInfo = {};
-    VkPipelineInputAssemblyStateCreateInfo inputAssemblyStateCreateInfo = {};
-    VkPipelineColorBlendStateCreateInfo colorBlendStateCreateInfo = {};
-    VkPipelineDepthStencilStateCreateInfo depthStencilStateCreateInfo = {};
-    VkPipelineVertexInputStateCreateInfo vertexInputStateCreateInfo = {};
-    VkPipelineViewportStateCreateInfo viewportStateCreateInfo = {};
-    VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};
-    VkPipelineTessellationStateCreateInfo tessellationStateCreateInfo = {};
+    VkPipelineRasterizationStateCreateInfo m_rasterizationStateCreateInfo = {};
+    VkPipelineMultisampleStateCreateInfo m_multisampleStateCreateInfo = {};
+    VkPipelineInputAssemblyStateCreateInfo m_inputAssemblyStateCreateInfo = {};
+    VkPipelineColorBlendStateCreateInfo m_colorBlendStateCreateInfo = {};
+    VkPipelineDepthStencilStateCreateInfo m_depthStencilStateCreateInfo = {};
+    VkPipelineVertexInputStateCreateInfo m_vertexInputStateCreateInfo = {};
+    VkPipelineViewportStateCreateInfo m_viewportStateCreateInfo = {};
+    VkPipelineDynamicStateCreateInfo m_dynamicStateCreateInfo = {};
+    VkPipelineTessellationStateCreateInfo m_tessellationStateCreateInfo = {};
 
-    std::vector<VkVertexInputBindingDescription> vertexBindingDescriptions;
-    std::vector<VkVertexInputAttributeDescription> vertexAttributeDescriptions;
-    std::vector<VkPipelineColorBlendAttachmentState> colorBlendAttachmentStates;
-    std::vector<VkViewport> viewports;
-    std::vector<VkRect2D> scissors;
-    std::vector<VkDynamicState> dynamicStates;
+    std::vector<VkVertexInputBindingDescription> m_vertexBindingDescriptions;
+    std::vector<VkVertexInputAttributeDescription> m_vertexAttributeDescriptions;
+    std::vector<VkPipelineColorBlendAttachmentState> m_colorBlendAttachmentStates;
+    std::vector<VkViewport> m_viewports;
+    std::vector<VkRect2D> m_scissors;
+    std::vector<VkDynamicState> m_dynamicStates;
 };
 
 }

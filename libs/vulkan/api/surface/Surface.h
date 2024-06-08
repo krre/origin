@@ -22,10 +22,10 @@ public:
     VkExtent2D currentExtent() const;
 
 private:
-    Instance* instance;
-    PhysicalDevice* physicalDevice;
-    void* platformHandle;
-    void* platformWindow;
+    Instance* m_instance;
+    PhysicalDevice* m_physicalDevice;
+    void* m_platformHandle;
+    void* m_platformWindow;
     std::vector<VkSurfaceFormatKHR> m_formats;
     std::vector<VkPresentModeKHR> m_presentModes;
     VkSurfaceCapabilitiesKHR m_capabilities;

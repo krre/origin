@@ -18,7 +18,7 @@ public:
     void setSignaledBit();
 
 private:
-    VkFenceCreateInfo createInfo = {};
+    VkFenceCreateInfo m_createInfo = {};
 };
 
 }

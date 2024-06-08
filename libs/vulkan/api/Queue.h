@@ -31,16 +31,16 @@ public:
     void syncHost(VkFence fence);
 
 protected:
-    std::vector<VkSemaphore> submitWaitSemaphores;
-    std::vector<VkSemaphore> submitSignalSemaphores;
-    std::vector<VkPipelineStageFlags> submitWaitDstStageMasks;
-    std::vector<VkSemaphore> presentWaitSemaphores;
-    std::vector<VkCommandBuffer> commandBuffers;
-    std::vector<VkSubmitInfo> submitInfos;
-    VkPresentInfoKHR presentInfo = {};
-    std::vector<VkSwapchainKHR> swapchainHandles;
-    std::vector<Swapchain*> swapchains;
-    std::vector<uint32_t> imageIndices;
+    std::vector<VkSemaphore> m_submitWaitSemaphores;
+    std::vector<VkSemaphore> m_submitSignalSemaphores;
+    std::vector<VkPipelineStageFlags> m_submitWaitDstStageMasks;
+    std::vector<VkSemaphore> m_presentWaitSemaphores;
+    std::vector<VkCommandBuffer> m_commandBuffers;
+    std::vector<VkSubmitInfo> m_submitInfos;
+    VkPresentInfoKHR m_presentInfo = {};
+    std::vector<VkSwapchainKHR> m_swapchainHandles;
+    std::vector<Swapchain*> m_swapchains;
+    std::vector<uint32_t> m_imageIndices;
 };
 
 }

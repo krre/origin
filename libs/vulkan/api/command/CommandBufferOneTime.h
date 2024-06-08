@@ -27,9 +27,9 @@ public:
     void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer);
 
 private:
-    std::unique_ptr<CommandBuffers> commandBuffers;
-    std::unique_ptr<CommandBuffer> commandBuffer;
-    CommandPool* commandPool;
+    std::unique_ptr<CommandBuffers> m_commandBuffers;
+    std::unique_ptr<CommandBuffer> m_commandBuffer;
+    CommandPool* m_commandPool;
 };
 
 }

@@ -23,49 +23,49 @@ Instance::Instance() {
         "VK_KHR_win32_surface",
     };
 #elif defined(__linux__)
-    enabledExtensions = {
+    m_enabledExtensions = {
         "VK_KHR_surface",
         "VK_KHR_xcb_surface",
     };
 #endif
 
-    applicationInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    applicationInfo.pApplicationName = "Application";
-    applicationInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-    applicationInfo.apiVersion = VK_API_VERSION_1_0;
+    m_applicationInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+    m_applicationInfo.pApplicationName = "Application";
+    m_applicationInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
+    m_applicationInfo.apiVersion = VK_API_VERSION_1_0;
 
-    createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-    createInfo.pApplicationInfo = &applicationInfo;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+    m_createInfo.pApplicationInfo = &m_applicationInfo;
 }
 
 Instance::~Instance() {
-    debugCallback.reset();
+    m_debugCallback.reset();
     destroy();
 }
 
 void Instance::create() {
     std::vector<const char*> layers;
-    createInfo.enabledLayerCount = enabledLayers.size();
-    for (const auto& layer : enabledLayers) {
+    m_createInfo.enabledLayerCount = m_enabledLayers.size();
+    for (const auto& layer : m_enabledLayers) {
         layers.push_back(const_cast<char*>(layer.c_str()));
     }
-    createInfo.ppEnabledLayerNames = layers.data();
+    m_createInfo.ppEnabledLayerNames = layers.data();
 
-    createInfo.enabledExtensionCount = enabledExtensions.size();
+    m_createInfo.enabledExtensionCount = m_enabledExtensions.size();
     std::vector<const char*> extensions;
-    for (const auto& extension : enabledExtensions) {
+    for (const auto& extension : m_enabledExtensions) {
         extensions.push_back(const_cast<char*>(extension.c_str()));
     }
-    createInfo.ppEnabledExtensionNames = extensions.data();
+    m_createInfo.ppEnabledExtensionNames = extensions.data();
 
-    VULKAN_CHECK_RESULT(vkCreateInstance(&createInfo, nullptr, &m_handle), "Failed to create instance");
+    VULKAN_CHECK_RESULT(vkCreateInstance(&m_createInfo, nullptr, &m_handle), "Failed to create instance");
 
-    if (debugReportFlags) {
-        for (const auto& layer : enabledExtensions) {
+    if (m_debugReportFlags) {
+        for (const auto& layer : m_enabledExtensions) {
             if (layer == "VK_EXT_debug_report") {
-                debugCallback = std::make_unique<DebugReportCallback>(this);
-                debugCallback->setFlags(debugReportFlags);
-                debugCallback->create();
+                m_debugCallback = std::make_unique<DebugReportCallback>(this);
+                m_debugCallback->setFlags(m_debugReportFlags);
+                m_debugCallback->create();
                 break;
             }
         }
@@ -77,7 +77,7 @@ void Instance::destroy() {
 }
 
 void Instance::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
-    this->enabledLayers = enabledLayers;
+    this->m_enabledLayers = enabledLayers;
 }
 
 void Instance::dumpLayers() {
@@ -89,7 +89,7 @@ void Instance::dumpLayers() {
 }
 
 void Instance::setEnabledExtensions(const std::vector<std::string>& enabledExtensions) {
-    this->enabledExtensions = enabledExtensions;
+    this->m_enabledExtensions = enabledExtensions;
 }
 
 void Instance::dumpExtensions() {

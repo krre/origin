@@ -5,10 +5,10 @@
 namespace Vulkan {
 
 CommandBuffers::CommandBuffers(Device* device, CommandPool* commandPool, VkCommandBufferLevel level) :
-        Devicer(device), commandPool(commandPool) {
-    allocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-    allocateInfo.level = level;
-    allocateInfo.commandPool = commandPool->handle();
+        Devicer(device), m_commandPool(commandPool) {
+    m_allocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
+    m_allocateInfo.level = level;
+    m_allocateInfo.commandPool = commandPool->handle();
 }
 
 CommandBuffers::~CommandBuffers() {
@@ -16,15 +16,15 @@ CommandBuffers::~CommandBuffers() {
 }
 
 void CommandBuffers::allocate(uint32_t count) {
-    assert(collection.size() == 0 && count > 0);
-    collection.resize(count);
-    allocateInfo.commandBufferCount = count;
+    assert(m_collection.size() == 0 && count > 0);
+    m_collection.resize(count);
+    m_allocateInfo.commandBufferCount = count;
 
-    VULKAN_CHECK_RESULT(vkAllocateCommandBuffers(m_device->handle(), &allocateInfo, collection.data()), "Failed to allocate command buffers");
+    VULKAN_CHECK_RESULT(vkAllocateCommandBuffers(m_device->handle(), &m_allocateInfo, m_collection.data()), "Failed to allocate command buffers");
 }
 
 void CommandBuffers::destroy() {
-    VULKAN_DESTROY_COLLECTION(vkFreeCommandBuffers(m_device->handle(), commandPool->handle(), collection.size(), collection.data()));
+    VULKAN_DESTROY_COLLECTION(vkFreeCommandBuffers(m_device->handle(), m_commandPool->handle(), m_collection.size(), m_collection.data()));
 }
 
 }

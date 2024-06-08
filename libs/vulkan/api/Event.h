@@ -13,7 +13,7 @@ public:
     void create() override;
 
 private:
-    VkEventCreateInfo createInfo = {};
+    VkEventCreateInfo m_createInfo = {};
 };
 
 }

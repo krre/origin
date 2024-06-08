@@ -7,16 +7,16 @@
 namespace Vulkan {
 
 Queue::Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex) : Devicer(device) {
-    presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+    m_presentInfo.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
     vkGetDeviceQueue(device->handle(), queueFamilyIndex, queueIndex, &m_handle);
 }
 
 void Queue::addPresentWaitSemaphore(VkSemaphore semaphore) {
-    presentWaitSemaphores.push_back(semaphore);
+    m_presentWaitSemaphores.push_back(semaphore);
 }
 
 void Queue::clearPresentWaitSemaphores() {
-    presentWaitSemaphores.clear();
+    m_presentWaitSemaphores.clear();
 }
 
 void Queue::waitIdle() {
@@ -28,66 +28,66 @@ void Queue::syncHost(VkFence fence) {
 }
 
 void Queue::submit(VkFence fence) {
-    VULKAN_CHECK_RESULT(vkQueueSubmit(m_handle, submitInfos.size(), submitInfos.data(), fence), "Failed to submit queue");
+    VULKAN_CHECK_RESULT(vkQueueSubmit(m_handle, m_submitInfos.size(), m_submitInfos.data(), fence), "Failed to submit queue");
 }
 
 void Queue::addCommandBuffer(VkCommandBuffer commandBuffer, VkSemaphore signalSemaphore, VkSemaphore waitSemaphore, VkPipelineStageFlags waitDstStageMask) {
-    commandBuffers.push_back(commandBuffer);
+    m_commandBuffers.push_back(commandBuffer);
 
     if (signalSemaphore) {
-        submitSignalSemaphores.push_back(signalSemaphore);
+        m_submitSignalSemaphores.push_back(signalSemaphore);
     }
 
     if (waitSemaphore) {
-        submitWaitSemaphores.push_back(waitSemaphore);
-        submitWaitDstStageMasks.push_back(waitDstStageMask);
+        m_submitWaitSemaphores.push_back(waitSemaphore);
+        m_submitWaitDstStageMasks.push_back(waitDstStageMask);
     }
 
     VkSubmitInfo submitInfo = {};
     submitInfo.sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
-    submitInfo.pWaitDstStageMask = submitWaitDstStageMasks.data();
-    submitInfo.waitSemaphoreCount = submitWaitSemaphores.size();
-    submitInfo.pWaitSemaphores = submitWaitSemaphores.data();
-    submitInfo.signalSemaphoreCount = submitSignalSemaphores.size();
-    submitInfo.pSignalSemaphores = submitSignalSemaphores.data();
-    submitInfo.commandBufferCount = commandBuffers.size();
-    submitInfo.pCommandBuffers = commandBuffers.data();
+    submitInfo.pWaitDstStageMask = m_submitWaitDstStageMasks.data();
+    submitInfo.waitSemaphoreCount = m_submitWaitSemaphores.size();
+    submitInfo.pWaitSemaphores = m_submitWaitSemaphores.data();
+    submitInfo.signalSemaphoreCount = m_submitSignalSemaphores.size();
+    submitInfo.pSignalSemaphores = m_submitSignalSemaphores.data();
+    submitInfo.commandBufferCount = m_commandBuffers.size();
+    submitInfo.pCommandBuffers = m_commandBuffers.data();
 
-    submitInfos.push_back(submitInfo);
+    m_submitInfos.push_back(submitInfo);
 }
 
 void Queue::clearCommandBuffers() {
-    commandBuffers.clear();
-    submitSignalSemaphores.clear();
-    submitWaitSemaphores.clear();
-    submitWaitDstStageMasks.clear();
-    submitInfos.clear();
+    m_commandBuffers.clear();
+    m_submitSignalSemaphores.clear();
+    m_submitWaitSemaphores.clear();
+    m_submitWaitDstStageMasks.clear();
+    m_submitInfos.clear();
 }
 
 void Queue::present(uint32_t* indices) {
-    assert(!swapchainHandles.empty());
-    presentInfo.waitSemaphoreCount = presentWaitSemaphores.size();
-    presentInfo.pWaitSemaphores = presentWaitSemaphores.data();
-    presentInfo.swapchainCount = swapchainHandles.size();
-    presentInfo.pSwapchains = swapchainHandles.data();
-    presentInfo.pImageIndices = indices == nullptr ? imageIndices.data() : indices;
-    VULKAN_CHECK_RESULT(vkQueuePresentKHR(m_handle, &presentInfo), "Failed to present swapchain image");
+    assert(!m_swapchainHandles.empty());
+    m_presentInfo.waitSemaphoreCount = m_presentWaitSemaphores.size();
+    m_presentInfo.pWaitSemaphores = m_presentWaitSemaphores.data();
+    m_presentInfo.swapchainCount = m_swapchainHandles.size();
+    m_presentInfo.pSwapchains = m_swapchainHandles.data();
+    m_presentInfo.pImageIndices = indices == nullptr ? m_imageIndices.data() : indices;
+    VULKAN_CHECK_RESULT(vkQueuePresentKHR(m_handle, &m_presentInfo), "Failed to present swapchain image");
 }
 
 void Queue::addSwapchain(Swapchain* swapchain) {
-    swapchainHandles.push_back(swapchain->handle());
-    swapchains.push_back(swapchain);
-    imageIndices.resize(swapchainHandles.size());
+    m_swapchainHandles.push_back(swapchain->handle());
+    m_swapchains.push_back(swapchain);
+    m_imageIndices.resize(m_swapchainHandles.size());
 
-    for (int i = 0; i < swapchains.size(); i++) {
-        swapchains.at(i)->setImageIndexPtr(&imageIndices.at(i));
+    for (int i = 0; i < m_swapchains.size(); i++) {
+        m_swapchains.at(i)->setImageIndexPtr(&m_imageIndices.at(i));
     }
 }
 
 void Queue::clearSwapchains() {
-    swapchainHandles.clear();
-    swapchains.clear();
-    imageIndices.clear();
+    m_swapchainHandles.clear();
+    m_swapchains.clear();
+    m_imageIndices.clear();
 }
 
 }

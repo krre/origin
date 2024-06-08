@@ -3,7 +3,7 @@
 namespace Vulkan {
 
 DeviceMemory::DeviceMemory(Device* device) : Devicer(device) {
-    allocateInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+    m_allocateInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
 }
 
 DeviceMemory::~DeviceMemory() {
@@ -15,12 +15,12 @@ void DeviceMemory::destroy() {
 }
 
 void DeviceMemory::allocate(VkDeviceSize size) {
-    allocateInfo.allocationSize = size;
-    VULKAN_CHECK_RESULT(vkAllocateMemory(m_device->handle(), &allocateInfo, nullptr, &m_handle), "Failed to allocate memory");
+    m_allocateInfo.allocationSize = size;
+    VULKAN_CHECK_RESULT(vkAllocateMemory(m_device->handle(), &m_allocateInfo, nullptr, &m_handle), "Failed to allocate memory");
 }
 
 void DeviceMemory::setMemoryTypeIndex(uint32_t index) {
-    allocateInfo.memoryTypeIndex = index;
+    m_allocateInfo.memoryTypeIndex = index;
 }
 
 void DeviceMemory::map(void** data, VkDeviceSize size, VkDeviceSize offset) {

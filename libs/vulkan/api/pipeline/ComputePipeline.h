@@ -14,7 +14,7 @@ public:
     VkPipelineBindPoint bindPoint() const override { return VK_PIPELINE_BIND_POINT_COMPUTE; }
 
 private:
-    VkComputePipelineCreateInfo createInfo = {};
+    VkComputePipelineCreateInfo m_createInfo = {};
 };
 
 }

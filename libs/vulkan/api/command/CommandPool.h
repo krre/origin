@@ -15,10 +15,10 @@ public:
 
     void reset();
 
-    uint32_t getQueueFamilyIndex() const { return createInfo.queueFamilyIndex; }
+    uint32_t getQueueFamilyIndex() const { return m_createInfo.queueFamilyIndex; }
 
 private:
-    VkCommandPoolCreateInfo createInfo = {};
+    VkCommandPoolCreateInfo m_createInfo = {};
 };
 
 }

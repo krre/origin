@@ -11,20 +11,20 @@ namespace Vulkan {
 GpuBuffer::GpuBuffer(Device* device, VkBufferUsageFlagBits usage, uint32_t size) :
         m_usage(usage),
         m_size(size) {
-    buffer = std::make_unique<Buffer>(device, usage, size);
-    buffer->create();
+    m_buffer = std::make_unique<Buffer>(device, usage, size);
+    m_buffer->create();
 
     VkMemoryRequirements memRequirements;
-    vkGetBufferMemoryRequirements(buffer->device()->handle(), buffer->handle(), &memRequirements);
+    vkGetBufferMemoryRequirements(m_buffer->device()->handle(), m_buffer->handle(), &memRequirements);
     bool moveToDevice = false; // TODO: Pass to constructor
     VkMemoryPropertyFlags properties = !moveToDevice ?
                 (VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT) :
                 VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
-    memory = std::make_unique<DeviceMemory>(device);
-    memory->setMemoryTypeIndex(buffer->device()->physicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
-    memory->allocate(memRequirements.size);
+    m_memory = std::make_unique<DeviceMemory>(device);
+    m_memory->setMemoryTypeIndex(m_buffer->device()->physicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
+    m_memory->allocate(memRequirements.size);
 
-    vkBindBufferMemory(buffer->device()->handle(), buffer->handle(), memory->handle(), 0);
+    vkBindBufferMemory(m_buffer->device()->handle(), m_buffer->handle(), m_memory->handle(), 0);
 }
 
 GpuBuffer::~GpuBuffer() {
@@ -32,7 +32,7 @@ GpuBuffer::~GpuBuffer() {
 }
 
 VkBuffer GpuBuffer::handle() const {
-    return buffer->handle();
+    return m_buffer->handle();
 }
 
 void GpuBuffer::copyToBuffer(Buffer* dstBuffer, VkDeviceSize size) {
@@ -48,16 +48,16 @@ void GpuBuffer::copyToBuffer(Buffer* dstBuffer, VkDeviceSize size) {
 
 void GpuBuffer::write(const void* data, uint32_t size, uint32_t offset) {
     void* mapData;
-    memory->map(&mapData, size, offset);
+    m_memory->map(&mapData, size, offset);
     memcpy(mapData, data, size);
-    memory->unmap();
+    m_memory->unmap();
 }
 
 void GpuBuffer::read(void* data, uint32_t size, uint32_t offset) {
     void* mapData;
-    memory->map(&mapData, size, offset);
+    m_memory->map(&mapData, size, offset);
     memcpy(data, mapData, size);
-    memory->unmap();
+    m_memory->unmap();
 }
 
 }

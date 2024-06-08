@@ -36,16 +36,16 @@ public:
 private:
     void updateDescriptorSets();
 
-    Device* device = nullptr;
+    Device* m_device = nullptr;
     std::vector<std::unique_ptr<Shader>> m_shaders;
     std::unique_ptr<PipelineLayout> m_pipelineLayout;
-    std::unique_ptr<DescriptorPool> descriptorPool;
-    std::map<uint32_t, std::unique_ptr<DescriptorSetLayout>> descriptorSetLayouts;
+    std::unique_ptr<DescriptorPool> m_descriptorPool;
+    std::map<uint32_t, std::unique_ptr<DescriptorSetLayout>> m_descriptorSetLayouts;
     std::unique_ptr<DescriptorSets> m_descriptorSets;
-    std::map<std::string, VkDescriptorBufferInfo> descriptorBufferInfos;
-    std::map<std::string, VkDescriptorImageInfo> descriptorImageInfos;
-    std::map<std::string, VkWriteDescriptorSet> writeDescriptorSets;
-    std::vector<VkVertexInputAttributeDescription> vertexInputAttributeDescriptions;
+    std::map<std::string, VkDescriptorBufferInfo> m_descriptorBufferInfos;
+    std::map<std::string, VkDescriptorImageInfo> m_descriptorImageInfos;
+    std::map<std::string, VkWriteDescriptorSet> m_writeDescriptorSets;
+    std::vector<VkVertexInputAttributeDescription> m_vertexInputAttributeDescriptions;
 };
 
 }

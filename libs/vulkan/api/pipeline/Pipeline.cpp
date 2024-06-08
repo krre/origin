@@ -14,17 +14,17 @@ void Pipeline::destroy() {
 void Pipeline::addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint) {
     auto shaderModule = std::make_shared<ShaderModule>(m_device, size, code);
     shaderModule->create();
-    shaderModules[stage] = shaderModule;
+    m_shaderModules[stage] = shaderModule;
     VkPipelineShaderStageCreateInfo shaderStageInfo = {};
     shaderStageInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
     shaderStageInfo.stage = stage;
-    shaderStageInfo.module = shaderModules[stage]->handle();
+    shaderStageInfo.module = m_shaderModules[stage]->handle();
     shaderStageInfo.pName = entryPoint;
-    shaderStages.push_back(shaderStageInfo);
+    m_shaderStages.push_back(shaderStageInfo);
 }
 
 void Pipeline::setPipelineCache(VkPipelineCache pipelineCache) {
-    this->pipelineCache = pipelineCache;
+    this->m_pipelineCache = pipelineCache;
 }
 
 }

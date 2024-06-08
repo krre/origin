@@ -13,10 +13,10 @@
 namespace Vulkan {
 
 Surface::Surface(Instance* instance, PhysicalDevice* physicalDevice, void* platformHandle, void* platformWindow) :
-    instance(instance),
-    physicalDevice(physicalDevice),
-    platformHandle(platformHandle),
-    platformWindow(platformWindow) {
+    m_instance(instance),
+    m_physicalDevice(physicalDevice),
+    m_platformHandle(platformHandle),
+    m_platformWindow(platformWindow) {
 }
 
 Surface::~Surface() {
@@ -27,9 +27,9 @@ void Surface::create() {
 #if defined(VK_USE_PLATFORM_XCB_KHR)
     VkXcbSurfaceCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_XCB_SURFACE_CREATE_INFO_KHR;
-    createInfo.connection = (xcb_connection_t*)platformHandle;
-    createInfo.window = *(xcb_window_t*)(platformWindow);
-    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(instance->handle(), &createInfo, nullptr, &m_handle), "Failed to create Xcb surface");
+    createInfo.connection = (xcb_connection_t*)m_platformHandle;
+    createInfo.window = *(xcb_window_t*)(m_platformWindow);
+    VULKAN_CHECK_RESULT(vkCreateXcbSurfaceKHR(m_instance->handle(), &createInfo, nullptr, &m_handle), "Failed to create Xcb surface");
 #elif defined(VK_USE_PLATFORM_WIN32_KHR)
     VkWin32SurfaceCreateInfoKHR createInfo = {};
     createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
@@ -39,24 +39,24 @@ void Surface::create() {
 #endif
 
     uint32_t count;
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->handle(), m_handle, &count, nullptr);
+    vkGetPhysicalDeviceSurfaceFormatsKHR(m_physicalDevice->handle(), m_handle, &count, nullptr);
     m_formats.resize(count);
-    vkGetPhysicalDeviceSurfaceFormatsKHR(physicalDevice->handle(), m_handle, &count, m_formats.data());
+    vkGetPhysicalDeviceSurfaceFormatsKHR(m_physicalDevice->handle(), m_handle, &count, m_formats.data());
 
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->handle(), m_handle, &count, nullptr);
+    vkGetPhysicalDeviceSurfacePresentModesKHR(m_physicalDevice->handle(), m_handle, &count, nullptr);
     m_presentModes.resize(count);
-    vkGetPhysicalDeviceSurfacePresentModesKHR(physicalDevice->handle(), m_handle, &count, m_presentModes.data());
+    vkGetPhysicalDeviceSurfacePresentModesKHR(m_physicalDevice->handle(), m_handle, &count, m_presentModes.data());
 
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->handle(), m_handle, &m_capabilities);
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_physicalDevice->handle(), m_handle, &m_capabilities);
 }
 
 void Surface::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(instance->handle(), m_handle, nullptr))
+    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(m_instance->handle(), m_handle, nullptr))
 }
 
 VkExtent2D Surface::currentExtent() const {
     VkSurfaceCapabilitiesKHR capabilities;
-    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(physicalDevice->handle(), m_handle, &capabilities);
+    vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_physicalDevice->handle(), m_handle, &capabilities);
     return capabilities.currentExtent;
 }
 

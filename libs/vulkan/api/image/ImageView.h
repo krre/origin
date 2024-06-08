@@ -17,7 +17,7 @@ public:
     void setAspectMask(VkImageAspectFlags aspectMask);
 
 private:
-    VkImageViewCreateInfo createInfo = {};
+    VkImageViewCreateInfo m_createInfo = {};
 };
 
 }

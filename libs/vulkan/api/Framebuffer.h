@@ -19,16 +19,16 @@ public:
     void addAttachment(ImageView* attachment);
 
     void setWidth(uint32_t width);
-    uint32_t width() const { return createInfo.width; }
+    uint32_t width() const { return m_createInfo.width; }
 
     void setHeight(uint32_t height);
-    uint32_t height() const { return createInfo.height; }
+    uint32_t height() const { return m_createInfo.height; }
 
     void setRenderPass(RenderPass* renderPass);
 
 private:
-    VkFramebufferCreateInfo createInfo = {};
-    std::vector<VkImageView> attachments;
+    VkFramebufferCreateInfo m_createInfo = {};
+    std::vector<VkImageView> m_attachments;
 };
 
 }

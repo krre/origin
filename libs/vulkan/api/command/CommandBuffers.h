@@ -16,8 +16,8 @@ public:
     void destroy() override;
 
 private:
-    VkCommandBufferAllocateInfo allocateInfo = {};
-    CommandPool* commandPool;
+    VkCommandBufferAllocateInfo m_allocateInfo = {};
+    CommandPool* m_commandPool;
 };
 
 }

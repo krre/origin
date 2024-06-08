@@ -17,8 +17,8 @@ public:
     void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 
 private:
-    VkDescriptorSetLayoutCreateInfo createInfo = {};
-    std::vector<VkDescriptorSetLayoutBinding> bindings;
+    VkDescriptorSetLayoutCreateInfo m_createInfo = {};
+    std::vector<VkDescriptorSetLayoutBinding> m_bindings;
 };
 
 }

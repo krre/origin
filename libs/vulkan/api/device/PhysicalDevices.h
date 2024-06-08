@@ -12,13 +12,13 @@ class PhysicalDevices {
 
 public:
     PhysicalDevices(Instance* instance);
-    size_t count() const { return devices.size(); }
-    PhysicalDevice* physicalDevice(size_t i) const { return devices.at(i).get(); }
+    size_t count() const { return m_devices.size(); }
+    PhysicalDevice* physicalDevice(size_t i) const { return m_devices.at(i).get(); }
     PhysicalDevice* findDevice(VkPhysicalDeviceType type);
     void dumpDevices();
 
 private:
-    std::vector<std::unique_ptr<PhysicalDevice>> devices;
+    std::vector<std::unique_ptr<PhysicalDevice>> m_devices;
 };
 
 }

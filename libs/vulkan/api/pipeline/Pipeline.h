@@ -22,9 +22,9 @@ public:
     virtual VkPipelineBindPoint bindPoint() const = 0;
 
 protected:
-    VkPipelineCache pipelineCache = VK_NULL_HANDLE;
-    std::map<VkShaderStageFlagBits, std::shared_ptr<Vulkan::ShaderModule>> shaderModules;
-    std::vector<VkPipelineShaderStageCreateInfo> shaderStages;
+    VkPipelineCache m_pipelineCache = VK_NULL_HANDLE;
+    std::map<VkShaderStageFlagBits, std::shared_ptr<Vulkan::ShaderModule>> m_shaderModules;
+    std::vector<VkPipelineShaderStageCreateInfo> m_shaderStages;
 };
 
 }

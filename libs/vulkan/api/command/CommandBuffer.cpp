@@ -4,49 +4,49 @@
 namespace Vulkan {
 
 CommandBuffer::CommandBuffer(VkCommandBuffer handle) : Handle(handle) {
-    beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
+    m_beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 }
 
 void CommandBuffer::addViewport(VkViewport viewport) {
-    viewports.push_back(viewport);
+    m_viewports.push_back(viewport);
 }
 
 void CommandBuffer::addScissor(VkRect2D scissor) {
-    scissors.push_back(scissor);
+    m_scissors.push_back(scissor);
 }
 
 void CommandBuffer::addVertexBuffer(VkBuffer vertexBuffer, VkDeviceSize offset) {
-    vertexBuffers.push_back(vertexBuffer);
-    vertexBufferOffsets.push_back(offset);
+    m_vertexBuffers.push_back(vertexBuffer);
+    m_vertexBufferOffsets.push_back(offset);
 }
 
 void CommandBuffer::clearVertexBuffers() {
-    vertexBuffers.clear();
-    vertexBufferOffsets.clear();
+    m_vertexBuffers.clear();
+    m_vertexBufferOffsets.clear();
 }
 
 void CommandBuffer::addBufferCopy(VkBufferCopy bufferCopy) {
-    bufferCopies.push_back(bufferCopy);
+    m_bufferCopies.push_back(bufferCopy);
 }
 
 void CommandBuffer::addImageCopy(VkImageCopy imageCopy) {
-    imageCopies.push_back(imageCopy);
+    m_imageCopies.push_back(imageCopy);
 }
 
 void CommandBuffer::addBlitRegion(VkImageBlit blitRegion) {
-    blitRegions.push_back(blitRegion);
+    m_blitRegions.push_back(blitRegion);
 }
 
 void CommandBuffer::addDynamicOffset(uint32_t dynamicOffset) {
-    dynamicOffsets.push_back(dynamicOffset);
+    m_dynamicOffsets.push_back(dynamicOffset);
 }
 
 void CommandBuffer::addDescriptorSet(VkDescriptorSet descriptorSet) {
-    descriptorSets.push_back(descriptorSet);
+    m_descriptorSets.push_back(descriptorSet);
 }
 
 void CommandBuffer::clearDescriptorSets() {
-    descriptorSets.clear();
+    m_descriptorSets.clear();
 }
 
 VkMemoryBarrier CommandBuffer::createMemoryBarrier() {
@@ -57,11 +57,11 @@ VkMemoryBarrier CommandBuffer::createMemoryBarrier() {
 }
 
 void CommandBuffer::addMemoryBarrier(VkMemoryBarrier memoryBarrier) {
-    memoryBarriers.push_back(memoryBarrier);
+    m_memoryBarriers.push_back(memoryBarrier);
 }
 
 void CommandBuffer::clearMemoryBarriers() {
-    memoryBarriers.clear();
+    m_memoryBarriers.clear();
 }
 
 VkBufferMemoryBarrier CommandBuffer::createBufferMemoryBarrier() {
@@ -74,34 +74,34 @@ VkBufferMemoryBarrier CommandBuffer::createBufferMemoryBarrier() {
 }
 
 void CommandBuffer::addBufferMemoryBarrier(VkBufferMemoryBarrier bufferMemoryBarrier) {
-    bufferMemoryBarriers.push_back(bufferMemoryBarrier);
+    m_bufferMemoryBarriers.push_back(bufferMemoryBarrier);
 }
 
 void CommandBuffer::clearBufferMemoryBarriers() {
-    bufferMemoryBarriers.clear();
+    m_bufferMemoryBarriers.clear();
 }
 
 void CommandBuffer::addImageMemoryBarrier(VkImageMemoryBarrier imageMemoryBarrier) {
-    imageMemoryBarriers.push_back(imageMemoryBarrier);
+    m_imageMemoryBarriers.push_back(imageMemoryBarrier);
 }
 
 void CommandBuffer::clearImageMemoryBarriers() {
-    imageMemoryBarriers.clear();
+    m_imageMemoryBarriers.clear();
 }
 
 void CommandBuffer::clear() {
-    viewports.clear();
-    scissors.clear();
-    vertexBuffers.clear();
-    vertexBufferOffsets.clear();
-    bufferCopies.clear();
-    imageCopies.clear();
-    blitRegions.clear();
-    dynamicOffsets.clear();
-    descriptorSets.clear();
-    memoryBarriers.clear();
-    bufferMemoryBarriers.clear();
-    imageMemoryBarriers.clear();
+    m_viewports.clear();
+    m_scissors.clear();
+    m_vertexBuffers.clear();
+    m_vertexBufferOffsets.clear();
+    m_bufferCopies.clear();
+    m_imageCopies.clear();
+    m_blitRegions.clear();
+    m_dynamicOffsets.clear();
+    m_descriptorSets.clear();
+    m_memoryBarriers.clear();
+    m_bufferMemoryBarriers.clear();
+    m_imageMemoryBarriers.clear();
 }
 
 VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
@@ -120,8 +120,8 @@ VkImageMemoryBarrier CommandBuffer::createImageMemoryBarrier() {
 
 
 void CommandBuffer::begin(VkCommandBufferUsageFlags flags) {
-    beginInfo.flags = flags;
-    VULKAN_CHECK_RESULT(vkBeginCommandBuffer(m_handle, &beginInfo), "Failed to begin command buffer");
+    m_beginInfo.flags = flags;
+    VULKAN_CHECK_RESULT(vkBeginCommandBuffer(m_handle, &m_beginInfo), "Failed to begin command buffer");
 }
 
 void CommandBuffer::end() {
@@ -138,19 +138,19 @@ void CommandBuffer::endRenderPass() {
 
 void CommandBuffer::pipelineBarrier(VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask, VkDependencyFlags dependencyFlags) {
     vkCmdPipelineBarrier(m_handle, srcStageMask, dstStageMask, dependencyFlags,
-                         memoryBarriers.size(), memoryBarriers.data(),
-                         bufferMemoryBarriers.size(), bufferMemoryBarriers.data(),
-                         imageMemoryBarriers.size(), imageMemoryBarriers.data());
+                         m_memoryBarriers.size(), m_memoryBarriers.data(),
+                         m_bufferMemoryBarriers.size(), m_bufferMemoryBarriers.data(),
+                         m_imageMemoryBarriers.size(), m_imageMemoryBarriers.data());
 }
 
 void CommandBuffer::setViewport(uint32_t firstViewport) {
-    assert(!viewports.empty());
-    vkCmdSetViewport(m_handle, firstViewport, viewports.size(), viewports.data());
+    assert(!m_viewports.empty());
+    vkCmdSetViewport(m_handle, firstViewport, m_viewports.size(), m_viewports.data());
 }
 
 void CommandBuffer::setScissor(uint32_t firstScissor) {
-    assert(!scissors.empty());
-    vkCmdSetScissor(m_handle, firstScissor, scissors.size(), scissors.data());
+    assert(!m_scissors.empty());
+    vkCmdSetScissor(m_handle, firstScissor, m_scissors.size(), m_scissors.data());
 }
 
 void CommandBuffer::bindPipeline(Pipeline* pipeline) {
@@ -158,10 +158,10 @@ void CommandBuffer::bindPipeline(Pipeline* pipeline) {
 }
 
 void CommandBuffer::bindVertexBuffers(uint32_t firstBinding) {
-    assert(!vertexBuffers.empty());
-    vkCmdBindVertexBuffers(m_handle, firstBinding, vertexBuffers.size(), vertexBuffers.data(), vertexBufferOffsets.data());
-    vertexBuffers.clear();
-    vertexBufferOffsets.clear();
+    assert(!m_vertexBuffers.empty());
+    vkCmdBindVertexBuffers(m_handle, firstBinding, m_vertexBuffers.size(), m_vertexBuffers.data(), m_vertexBufferOffsets.data());
+    m_vertexBuffers.clear();
+    m_vertexBufferOffsets.clear();
 }
 
 void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDeviceSize offset) {
@@ -169,18 +169,18 @@ void CommandBuffer::bindIndexBuffer(VkBuffer buffer, VkIndexType indexType, VkDe
 }
 
 void CommandBuffer::copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer) {
-    assert(!bufferCopies.empty());
-    vkCmdCopyBuffer(m_handle, srcBuffer, dstBuffer, bufferCopies.size(), bufferCopies.data());
+    assert(!m_bufferCopies.empty());
+    vkCmdCopyBuffer(m_handle, srcBuffer, dstBuffer, m_bufferCopies.size(), m_bufferCopies.data());
 }
 
 void CommandBuffer::blitImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout, VkFilter filter) {
-    assert(!blitRegions.empty());
-    vkCmdBlitImage(m_handle, srcImage, srcImageLayout, dstImage, dstImageLayout, blitRegions.size(), blitRegions.data(), filter);
+    assert(!m_blitRegions.empty());
+    vkCmdBlitImage(m_handle, srcImage, srcImageLayout, dstImage, dstImageLayout, m_blitRegions.size(), m_blitRegions.data(), filter);
 }
 
 void CommandBuffer::copyImage(VkImage srcImage, VkImageLayout srcImageLayout, VkImage dstImage, VkImageLayout dstImageLayout) {
-    assert(!imageCopies.empty());
-    vkCmdCopyImage(m_handle, srcImage, srcImageLayout, dstImage, dstImageLayout, imageCopies.size(), imageCopies.data());
+    assert(!m_imageCopies.empty());
+    vkCmdCopyImage(m_handle, srcImage, srcImageLayout, dstImage, dstImageLayout, m_imageCopies.size(), m_imageCopies.data());
 }
 
 void CommandBuffer::drawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, int32_t vertexOffset, uint32_t firstInstance) {
@@ -196,9 +196,9 @@ void CommandBuffer::drawIndirect(VkBuffer buffer, VkDeviceSize offset, uint32_t 
 }
 
 void CommandBuffer::bindDescriptorSets(VkPipelineBindPoint bindPoint, VkPipelineLayout layout, uint32_t firstSet) {
-    vkCmdBindDescriptorSets(m_handle, bindPoint, layout, firstSet, descriptorSets.size(), descriptorSets.data(), dynamicOffsets.size(), dynamicOffsets.data());
-    descriptorSets.clear();
-    dynamicOffsets.clear();
+    vkCmdBindDescriptorSets(m_handle, bindPoint, layout, firstSet, m_descriptorSets.size(), m_descriptorSets.data(), m_dynamicOffsets.size(), m_dynamicOffsets.data());
+    m_descriptorSets.clear();
+    m_dynamicOffsets.clear();
 }
 
 void CommandBuffer::setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask) {

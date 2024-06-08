@@ -13,10 +13,10 @@ public:
     void create() override;
     void destroy() override;
 
-    VkDeviceSize size() const { return createInfo.size; }
+    VkDeviceSize size() const { return m_createInfo.size; }
 
 private:
-    VkBufferCreateInfo createInfo = {};
+    VkBufferCreateInfo m_createInfo = {};
 };
 
 }

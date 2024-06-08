@@ -64,20 +64,20 @@ public:
     void setImageLayout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout, VkPipelineStageFlags srcStageMask, VkPipelineStageFlags dstStageMask);
 
 private:
-    VkCommandBufferBeginInfo beginInfo = {};
-    std::vector<VkViewport> viewports;
-    std::vector<VkRect2D> scissors;
-    std::vector<VkBuffer> vertexBuffers;
-    std::vector<VkDeviceSize> vertexBufferOffsets;
-    std::vector<VkBufferCopy> bufferCopies;
-    std::vector<VkImageCopy> imageCopies;
-    std::vector<VkImageBlit> blitRegions;
-    std::vector<uint32_t> dynamicOffsets;
-    std::vector<VkDescriptorSet> descriptorSets;
+    VkCommandBufferBeginInfo m_beginInfo = {};
+    std::vector<VkViewport> m_viewports;
+    std::vector<VkRect2D> m_scissors;
+    std::vector<VkBuffer> m_vertexBuffers;
+    std::vector<VkDeviceSize> m_vertexBufferOffsets;
+    std::vector<VkBufferCopy> m_bufferCopies;
+    std::vector<VkImageCopy> m_imageCopies;
+    std::vector<VkImageBlit> m_blitRegions;
+    std::vector<uint32_t> m_dynamicOffsets;
+    std::vector<VkDescriptorSet> m_descriptorSets;
 
-    std::vector<VkMemoryBarrier> memoryBarriers;
-    std::vector<VkBufferMemoryBarrier> bufferMemoryBarriers;
-    std::vector<VkImageMemoryBarrier> imageMemoryBarriers;
+    std::vector<VkMemoryBarrier> m_memoryBarriers;
+    std::vector<VkBufferMemoryBarrier> m_bufferMemoryBarriers;
+    std::vector<VkImageMemoryBarrier> m_imageMemoryBarriers;
 };
 
 }

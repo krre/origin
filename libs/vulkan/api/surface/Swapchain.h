@@ -20,7 +20,7 @@ public:
     size_t count() const { return m_images.size(); }
     VkImage image(size_t i) const { return m_images.at(i); }
     const std::vector<VkImage>& images() const { return m_images; }
-    VkFormat imageFormat() const { return createInfo.imageFormat; }
+    VkFormat imageFormat() const { return m_createInfo.imageFormat; }
     VkResult acquireNextImage(Semaphore* semaphore);
     VkResult acquireNextImage(Semaphore* semaphore, uint32_t* index);
     void setImageIndexPtr(uint32_t* pImageIndex);
@@ -28,11 +28,11 @@ public:
     uint32_t imageIndex() const { return *m_imageIndex; }
 
 private:
-    VkSwapchainCreateInfoKHR createInfo = {};
-    Surface* surface;
+    VkSwapchainCreateInfoKHR m_createInfo = {};
+    Surface* m_surface;
     std::vector<VkImage> m_images;
     uint32_t* m_imageIndex;
-    VkExtent2D oldExtent = { (uint32_t)-1, (uint32_t)-1 };
+    VkExtent2D m_oldExtent = { (uint32_t)-1, (uint32_t)-1 };
 };
 
 }

@@ -24,19 +24,19 @@ public:
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
     void dumpExtensions();
 
-    void useDebugReport(VkDebugReportFlagsEXT debugReportFlags) { this->debugReportFlags = debugReportFlags; }
+    void useDebugReport(VkDebugReportFlagsEXT debugReportFlags) { this->m_debugReportFlags = debugReportFlags; }
 
     static std::string apiToString(int api);
 
 private:
-    VkInstanceCreateInfo createInfo = {};
-    VkApplicationInfo applicationInfo = {};
+    VkInstanceCreateInfo m_createInfo = {};
+    VkApplicationInfo m_applicationInfo = {};
     std::vector<VkLayerProperties> m_layersProperties;
-    std::vector<std::string> enabledLayers;
+    std::vector<std::string> m_enabledLayers;
     std::vector<VkExtensionProperties> m_extensionProperties;
-    std::vector<std::string> enabledExtensions;
-    std::unique_ptr<DebugReportCallback> debugCallback;
-    VkDebugReportFlagsEXT debugReportFlags = 0;
+    std::vector<std::string> m_enabledExtensions;
+    std::unique_ptr<DebugReportCallback> m_debugCallback;
+    VkDebugReportFlagsEXT m_debugReportFlags = 0;
 };
 
 }

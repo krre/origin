@@ -7,23 +7,23 @@ namespace Vulkan {
 
 Swapchain::Swapchain(Device* device, Surface* surface) :
         Devicer(device),
-        surface(surface) {
-    createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
-    createInfo.imageArrayLayers = 1;
-    createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
-    createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
-    createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
-    createInfo.clipped = VK_TRUE;
+        m_surface(surface) {
+    m_createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
+    m_createInfo.imageArrayLayers = 1;
+    m_createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
+    m_createInfo.imageSharingMode = VK_SHARING_MODE_EXCLUSIVE;
+    m_createInfo.compositeAlpha = VK_COMPOSITE_ALPHA_OPAQUE_BIT_KHR;
+    m_createInfo.clipped = VK_TRUE;
 
     uint32_t queueFamilyIndex = 0; // TODO: Use real index
     bool surfaceSupport = device->physicalDevice()->supportSurface(surface, queueFamilyIndex);
     if (surfaceSupport) {
-        createInfo.surface = surface->handle();
-        createInfo.minImageCount = surface->capabilities().minImageCount + 1;
-        createInfo.imageFormat = surface->formats().at(0).format;
-        createInfo.imageColorSpace = surface->formats().at(0).colorSpace;
-        createInfo.preTransform = surface->capabilities().currentTransform;
-        createInfo.presentMode = VK_PRESENT_MODE_MAILBOX_KHR;
+        m_createInfo.surface = surface->handle();
+        m_createInfo.minImageCount = surface->capabilities().minImageCount + 1;
+        m_createInfo.imageFormat = surface->formats().at(0).format;
+        m_createInfo.imageColorSpace = surface->formats().at(0).colorSpace;
+        m_createInfo.preTransform = surface->capabilities().currentTransform;
+        m_createInfo.presentMode = VK_PRESENT_MODE_MAILBOX_KHR;
     }
 }
 
@@ -32,9 +32,9 @@ Swapchain::~Swapchain() {
 }
 
 void Swapchain::create() {
-    createInfo.imageExtent = surface->currentExtent();;
+    m_createInfo.imageExtent = m_surface->currentExtent();;
 //    createInfo.oldSwapchain = handle;
-    VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create swapchain");
+    VULKAN_CHECK_RESULT(vkCreateSwapchainKHR(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create swapchain");
 
     uint32_t count;
     vkGetSwapchainImagesKHR(m_device->handle(), m_handle, &count, nullptr);

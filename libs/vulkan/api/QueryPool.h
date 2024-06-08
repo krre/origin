@@ -14,7 +14,7 @@ public:
     void destroy() override;
 
 private:
-    VkQueryPoolCreateInfo createInfo = {};
+    VkQueryPoolCreateInfo m_createInfo = {};
 };
 
 }

@@ -7,15 +7,15 @@ namespace Vulkan {
 Device::Device(PhysicalDevice* physicalDevice) : m_physicalDevice(physicalDevice) {
     uint32_t count;
     vkEnumerateDeviceExtensionProperties(physicalDevice->handle(), nullptr, &count, nullptr);
-    extensions.resize(count);
-    vkEnumerateDeviceExtensionProperties(physicalDevice->handle(), nullptr, &count, extensions.data());
+    m_extensions.resize(count);
+    vkEnumerateDeviceExtensionProperties(physicalDevice->handle(), nullptr, &count, m_extensions.data());
 
     // While only one extension is enabled
-    enabledExtensions.push_back("VK_KHR_swapchain");
+    m_enabledExtensions.push_back("VK_KHR_swapchain");
 
-    createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-    createInfo.enabledExtensionCount = enabledExtensions.size();
-    createInfo.ppEnabledExtensionNames = enabledExtensions.data();
+    m_createInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+    m_createInfo.enabledExtensionCount = m_enabledExtensions.size();
+    m_createInfo.ppEnabledExtensionNames = m_enabledExtensions.data();
 }
 
 Device::~Device() {
@@ -37,9 +37,9 @@ void Device::resetFences(std::vector<VkFence> fences) {
 }
 
 void Device::create() {
-    createInfo.queueCreateInfoCount = queueCreateInfos.size();
-    createInfo.pQueueCreateInfos = queueCreateInfos.data();
-    VULKAN_CHECK_RESULT(vkCreateDevice(m_physicalDevice->handle(), &createInfo, nullptr, &m_handle), "Failed to create device");
+    m_createInfo.queueCreateInfoCount = m_queueCreateInfos.size();
+    m_createInfo.pQueueCreateInfos = m_queueCreateInfos.data();
+    VULKAN_CHECK_RESULT(vkCreateDevice(m_physicalDevice->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create device");
 }
 
 void Device::destroy() {
@@ -47,26 +47,26 @@ void Device::destroy() {
 }
 
 void Device::dumpExtensions() {
-    for (const auto& extension : extensions) {
+    for (const auto& extension : m_extensions) {
         std::cout << extension.extensionName << std::endl;
     }
 }
 
 void Device::addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> queuePriorities) {
-    int offset = this->queuePriorities.size();
+    int offset = this->m_queuePriorities.size();
 
     // Append new priorities with queueFamilyIndex to common storage for all queueCreateInfos
     for (const auto& queuePriority : queuePriorities) {
-        this->queuePriorities.push_back(queuePriority);
+        this->m_queuePriorities.push_back(queuePriority);
     }
 
     VkDeviceQueueCreateInfo queueCreateInfo = {};
     queueCreateInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
     queueCreateInfo.queueFamilyIndex = queueFamilyIndex;
     queueCreateInfo.queueCount = queuePriorities.size();
-    queueCreateInfo.pQueuePriorities = &this->queuePriorities[offset];
+    queueCreateInfo.pQueuePriorities = &this->m_queuePriorities[offset];
 
-    queueCreateInfos.push_back(queueCreateInfo);
+    m_queueCreateInfos.push_back(queueCreateInfo);
 }
 
 }

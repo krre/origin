@@ -3,9 +3,9 @@
 namespace Vulkan {
 
 ShaderModule::ShaderModule(Device* device, size_t codeSize, const uint32_t* pCode) : Devicer(device) {
-    createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
-    createInfo.codeSize = codeSize;
-    createInfo.pCode = pCode;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
+    m_createInfo.codeSize = codeSize;
+    m_createInfo.pCode = pCode;
 }
 
 ShaderModule::~ShaderModule() {
@@ -13,7 +13,7 @@ ShaderModule::~ShaderModule() {
 }
 
 void ShaderModule::create() {
-    VULKAN_CHECK_RESULT(vkCreateShaderModule(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create shader module");
+    VULKAN_CHECK_RESULT(vkCreateShaderModule(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create shader module");
 }
 
 void ShaderModule::destroy() {

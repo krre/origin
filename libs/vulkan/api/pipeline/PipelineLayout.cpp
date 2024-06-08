@@ -3,7 +3,7 @@
 namespace Vulkan {
 
 PipelineLayout::PipelineLayout(Device* device) : Devicer(device) {
-    createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+    m_createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 }
 
 PipelineLayout::~PipelineLayout() {
@@ -11,11 +11,11 @@ PipelineLayout::~PipelineLayout() {
 }
 
 void PipelineLayout::create() {
-    createInfo.setLayoutCount = descriptorSetLayouts.size();
-    createInfo.pSetLayouts = descriptorSetLayouts.data();
-    createInfo.pushConstantRangeCount = pushConstantRanges.size();
-    createInfo.pPushConstantRanges = pushConstantRanges.data();
-    VULKAN_CHECK_RESULT(vkCreatePipelineLayout(m_device->handle(), &createInfo, nullptr, &m_handle), "Failed to create pipeline layout");
+    m_createInfo.setLayoutCount = m_descriptorSetLayouts.size();
+    m_createInfo.pSetLayouts = m_descriptorSetLayouts.data();
+    m_createInfo.pushConstantRangeCount = m_pushConstantRanges.size();
+    m_createInfo.pPushConstantRanges = m_pushConstantRanges.data();
+    VULKAN_CHECK_RESULT(vkCreatePipelineLayout(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create pipeline layout");
 }
 
 void PipelineLayout::destroy() {
@@ -23,11 +23,11 @@ void PipelineLayout::destroy() {
 }
 
 void PipelineLayout::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout) {
-    descriptorSetLayouts.push_back(descriptorSetLayout);
+    m_descriptorSetLayouts.push_back(descriptorSetLayout);
 }
 
 void PipelineLayout::addPushConstantRange(VkPushConstantRange pushConstantRange) {
-    pushConstantRanges.push_back(pushConstantRange);
+    m_pushConstantRanges.push_back(pushConstantRange);
 }
 
 }

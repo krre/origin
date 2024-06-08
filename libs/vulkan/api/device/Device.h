@@ -24,12 +24,12 @@ public:
     void addQueueCreateInfo(uint32_t queueFamilyIndex, std::vector<float> queuePriorities);
 
 private:
-    VkDeviceCreateInfo createInfo = {};
+    VkDeviceCreateInfo m_createInfo = {};
     PhysicalDevice* m_physicalDevice;
-    std::vector<VkDeviceQueueCreateInfo> queueCreateInfos;
-    std::vector<float> queuePriorities;
-    std::vector<VkExtensionProperties> extensions;
-    std::vector<const char*> enabledExtensions;
+    std::vector<VkDeviceQueueCreateInfo> m_queueCreateInfos;
+    std::vector<float> m_queuePriorities;
+    std::vector<VkExtensionProperties> m_extensions;
+    std::vector<const char*> m_enabledExtensions;
 };
 
 }

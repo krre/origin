@@ -3,9 +3,9 @@
 #include <stdlib.h>
 
 #define VULKAN_DESTROY_COLLECTION(f) { \
-    if (!collection.empty()) { \
+    if (!m_collection.empty()) { \
         (f); \
-        collection.clear(); \
+        m_collection.clear(); \
     } \
 } \
 
@@ -16,13 +16,13 @@ class Collection {
 public:
     Collection() = default;
 
-    size_t count() const { return collection.size(); }
-    T at(size_t i) const { return collection.at(i); }
-    const T* data() const { return collection.data(); }
+    size_t count() const { return m_collection.size(); }
+    T at(size_t i) const { return m_collection.at(i); }
+    const T* data() const { return m_collection.data(); }
     virtual void destroy() = 0;
 
 protected:
-    std::vector<T> collection;
+    std::vector<T> m_collection;
 };
 
 }

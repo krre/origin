@@ -31,24 +31,24 @@ public:
     void destroy() override;
 
     void setColorFormat(VkFormat format);
-    VkFormat colorFormat() const { return colorAttachmentDescription.format; }
+    VkFormat colorFormat() const { return m_colorAttachmentDescription.format; }
 
     void setDepthFormat(VkFormat format);
-    VkFormat depthFormat() const { return depthAttachmentDescription.format; }
+    VkFormat depthFormat() const { return m_depthAttachmentDescription.format; }
 
     void setDepthEnable(bool depthEnable);
 
 private:
-    VkRenderPassCreateInfo createInfo = {};
-    VkAttachmentDescription colorAttachmentDescription = {};
-    VkAttachmentDescription depthAttachmentDescription = {};
-    VkAttachmentReference colorAttachmentReference = {};
-    VkAttachmentReference depthAttachmentReference = {};
-    VkSubpassDescription subpassDescription = {};
-    std::vector<VkSubpassDependency> subpassDependencies;
-    std::vector<VkSubpassDescription> subpassDescriptions;
-    std::vector<VkAttachmentDescription> attachmentDescriptions;
-    bool depthEnable = false;
+    VkRenderPassCreateInfo m_createInfo = {};
+    VkAttachmentDescription m_colorAttachmentDescription = {};
+    VkAttachmentDescription m_depthAttachmentDescription = {};
+    VkAttachmentReference m_colorAttachmentReference = {};
+    VkAttachmentReference m_depthAttachmentReference = {};
+    VkSubpassDescription m_subpassDescription = {};
+    std::vector<VkSubpassDependency> m_subpassDependencies;
+    std::vector<VkSubpassDescription> m_subpassDescriptions;
+    std::vector<VkAttachmentDescription> m_attachmentDescriptions;
+    bool m_depthEnable = false;
 };
 
 }

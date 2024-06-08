@@ -2,7 +2,6 @@
 #include "Layout.h"
 
 class LinearLayout : public Layout {
-
 public:
     enum class Direction {
         Horizontal,

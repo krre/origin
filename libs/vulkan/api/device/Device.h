@@ -7,7 +7,6 @@ namespace Vulkan {
 class PhysicalDevice;
 
 class Device : public Handle<VkDevice> {
-
 public:
     Device(PhysicalDevice* physicalDevice);
     ~Device();

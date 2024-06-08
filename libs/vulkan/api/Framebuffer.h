@@ -8,7 +8,6 @@ class ImageView;
 class RenderPass;
 
 class Framebuffer : public Handle<VkFramebuffer>, public Devicer {
-
 public:
     Framebuffer(Device* device);
     ~Framebuffer();

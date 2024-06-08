@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class Fence : public Handle<VkFence>, public Devicer {
-
 public:
     Fence(Device* device);
     ~Fence();

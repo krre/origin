@@ -6,7 +6,6 @@ class Label;
 class ListBox;
 
 class RowDelegate : public Rectangle {
-
 public:
     RowDelegate(const std::string& text, int index, ListBox* listBox);
     int index() const { return m_index; }
@@ -21,7 +20,6 @@ private:
 
 class ListBox : public Rectangle {
     friend class RowDelegate;
-
 public:
     ListBox(Control* parent = nullptr);
     ~ListBox();

@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class DeviceMemory : public Handle<VkDeviceMemory>, public Devicer {
-
 public:
     DeviceMemory(Device* device);
     ~DeviceMemory();

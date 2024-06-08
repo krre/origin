@@ -6,7 +6,6 @@ class LinearLayout;
 class ListBox;
 
 class LoadWorldScreen : public Screen {
-
 public:
     LoadWorldScreen();
 

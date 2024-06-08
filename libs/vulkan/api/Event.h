@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class Event : public Handle<VkEvent>, public Devicer {
-
 public:
     Event(Device* device);
     ~Event();

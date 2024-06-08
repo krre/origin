@@ -2,7 +2,6 @@
 #include "Screen.h"
 
 class WaitScreen : public Screen {
-
 public:
     WaitScreen();
 

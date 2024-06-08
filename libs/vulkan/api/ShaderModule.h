@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class ShaderModule : public Handle<VkShaderModule>, public Devicer {
-
 public:
     ShaderModule(Device* device, size_t codeSize, const uint32_t* pCode);
     ~ShaderModule();

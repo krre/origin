@@ -9,7 +9,6 @@ namespace Vulkan {
 class ShaderModule;
 
 class Pipeline : public Handle<VkPipeline>, public Devicer {
-
 public:
     Pipeline(Device* device) : Devicer(device) {}
     virtual ~Pipeline();

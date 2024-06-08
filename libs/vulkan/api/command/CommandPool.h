@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class CommandPool : public Handle<VkCommandPool>, public Devicer {
-
 public:
     CommandPool(Device* device, uint32_t queueFamilyIndex);
     ~CommandPool();

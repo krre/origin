@@ -5,10 +5,10 @@
 using json = nlohmann::json;
 
 class Settings : public Core::SingleObject<Settings> {
-
 public:
     Settings(Object* parent = nullptr);
     ~Settings();
+
     static void saveAll();
     static json& storage() { return get()->m_storage; }
 

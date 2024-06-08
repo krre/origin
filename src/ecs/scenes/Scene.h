@@ -5,10 +5,8 @@
 class Entity;
 
 class Scene : public Core::Object {
-
 public:
     Scene(Object* parent = nullptr);
-    ~Scene();
 
     void setRootEntity(Entity* rootEntity);
     Entity* rootEntity() const { return m_rootEntity; }

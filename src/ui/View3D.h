@@ -4,7 +4,6 @@
 class Scene;
 
 class View3D : public Control {
-
 public:
     View3D(Control* parent = nullptr);
     View3D(Core::Rect viewport, Control* parent = nullptr);

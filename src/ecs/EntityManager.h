@@ -10,7 +10,6 @@ class EntityBuilder;
 class Scene;
 
 class EntityManager : public Core::SingleObject<EntityManager> {
-
 public:
     EntityManager(Object* parent = nullptr);
     ~EntityManager();

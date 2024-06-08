@@ -8,7 +8,6 @@ class Surface;
 
 class PhysicalDevice : public Handle<VkPhysicalDevice> {
     friend class PhysicalDevices;
-
 public:
     PhysicalDevice(VkPhysicalDevice physicalDevice);
 

@@ -3,7 +3,3 @@
 OctreeRenderer::OctreeRenderer(Object* parent) : Renderer(parent) {
 
 }
-
-OctreeRenderer::~OctreeRenderer() {
-
-}

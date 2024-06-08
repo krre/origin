@@ -2,7 +2,6 @@
 #include "ecs/Component.h"
 
 class MovementComponent : public Component {
-
 public:
     MovementComponent() = default;
     Type type() const override { return Component::Type::Movement; }

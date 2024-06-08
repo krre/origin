@@ -9,7 +9,6 @@ class Buffer;
 class DeviceMemory;
 
 class GpuBuffer {
-
 public:
     GpuBuffer(Device* device, VkBufferUsageFlagBits usage, uint32_t size);
     ~GpuBuffer();

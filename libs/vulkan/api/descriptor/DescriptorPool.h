@@ -6,7 +6,6 @@
 namespace Vulkan {
 
 class DescriptorPool : public Handle<VkDescriptorPool>, public Devicer {
-
 public:
     DescriptorPool(Device* device);
     ~DescriptorPool();

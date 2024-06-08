@@ -5,7 +5,6 @@
 namespace Core {
 
 class Object {
-
 public:
     Object(Object* parent = nullptr);
     virtual ~Object();

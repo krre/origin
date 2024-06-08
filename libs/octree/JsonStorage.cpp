@@ -6,7 +6,4 @@ JsonStorage::JsonStorage(Object* parent) : Object(parent) {
 
 }
 
-JsonStorage::~JsonStorage() {
-}
-
 }

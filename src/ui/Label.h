@@ -5,7 +5,6 @@
 class Font;
 
 class Label : public Control {
-
 public:
     Label(Control* parent = nullptr);
     Label(const std::string& text, Control* parent = nullptr);

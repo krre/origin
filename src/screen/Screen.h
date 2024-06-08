@@ -3,7 +3,6 @@
 
 class Screen : public Control {
 public:
-
     enum class Name {
         Menu,
         Settings,

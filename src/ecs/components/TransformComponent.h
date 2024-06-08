@@ -3,7 +3,6 @@
 #include <glm/ext.hpp>
 
 class TransformComponent : public Component {
-
 public:
     TransformComponent() = default;
     Type type() const override { return Component::Type::Transform; }

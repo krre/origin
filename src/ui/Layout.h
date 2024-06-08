@@ -4,7 +4,6 @@
 class Screen;
 
 class Layout : public Control {
-
 public:
     Layout(Control* parent = nullptr);
 

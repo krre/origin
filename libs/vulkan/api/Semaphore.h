@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class Semaphore : public Handle<VkSemaphore>, public Devicer {
-
 public:
     Semaphore(Device* device);
     ~Semaphore();

@@ -4,10 +4,10 @@
 #include <btBulletDynamicsCommon.h>
 
 class PhysicsSystem : public System {
-
 public:
     PhysicsSystem(EntityManager* entityManager);
     ~PhysicsSystem();
+
     void process(float dt) override;
     void addRigidBody(Entity* entity);
     void createRigidBody(Entity* entity);

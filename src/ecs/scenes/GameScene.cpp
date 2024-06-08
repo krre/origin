@@ -12,7 +12,3 @@ GameScene::GameScene(Object* parent) : Scene(parent) {
     entity->addComponent(std::make_shared<TransformComponent>());
     setRootEntity(entity);
 }
-
-GameScene::~GameScene() {
-
-}

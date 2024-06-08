@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 
 class Color : public Core::Object {
-
 public:
     Color();
     Color(float red, float green, float blue, float alpha = 1.0);

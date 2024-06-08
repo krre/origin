@@ -10,9 +10,6 @@ Octree::Octree(Substance substance, Object* parent) : Object(parent) {
     build();
 }
 
-Octree::~Octree() {
-}
-
 void Octree::load(const std::string& path) {
     std::ifstream file(path);
     if (!file.is_open()) {

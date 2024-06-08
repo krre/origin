@@ -10,7 +10,6 @@ class Image;
 class Device;
 
 class Texture {
-
 public:
     Texture(Device* device, uint32_t width, uint32_t height, void* data, VkDeviceSize size, VkDeviceSize offset = 0);
     ~Texture();

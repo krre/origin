@@ -9,9 +9,7 @@ namespace Vulkan {
 }
 
 class SDFFont : public Resource {
-
 public:
-
     struct Character {
         int x;
         int y;

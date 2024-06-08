@@ -8,7 +8,6 @@ class Instance;
 class PhysicalDevice;
 
 class Surface : public Handle<VkSurfaceKHR> {
-
 public:
     Surface(Instance* instance, PhysicalDevice* physicalDevice, void* platformHandle, void* platformWindow);
     ~Surface();

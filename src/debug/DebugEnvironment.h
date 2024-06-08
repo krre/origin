@@ -6,7 +6,6 @@
 using json = nlohmann::json;
 
 class DebugEnvironment : public Core::SingleObject<DebugEnvironment> {
-
 public:
     DebugEnvironment(Object* parent = nullptr);
 

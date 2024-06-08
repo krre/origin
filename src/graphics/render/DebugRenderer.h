@@ -9,7 +9,6 @@ namespace Vulkan {
 }
 
 class DebugRenderer : public Renderer {
-
 public:
     DebugRenderer(Object* parent = nullptr);
     ~DebugRenderer();

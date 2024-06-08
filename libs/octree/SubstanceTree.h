@@ -4,13 +4,8 @@
 namespace Octree {
 
 class SubstanceTree : public Core::Object {
-
 public:
     SubstanceTree();
-    ~SubstanceTree();
-
-private:
-
 };
 
 }

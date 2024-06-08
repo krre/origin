@@ -1,9 +1,7 @@
 #pragma once
 
 class Component {
-
 public:
-
     enum class Type {
         Camera,
         Empty,

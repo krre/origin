@@ -11,7 +11,6 @@ namespace Vulkan {
 }
 
 class UIRenderer : public Renderer {
-
 public:
     UIRenderer(Object* parent = nullptr);
     ~UIRenderer();

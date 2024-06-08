@@ -8,7 +8,6 @@ namespace Vulkan {
 class Swapchain;
 
 class Queue : public Handle<VkQueue>, public Devicer {
-
 public:
     Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
 

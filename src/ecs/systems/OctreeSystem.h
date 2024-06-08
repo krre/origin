@@ -4,7 +4,6 @@
 #include "graphics/voxel/GPUMemoryManager.h"
 
 class OctreeSystem : public System {
-
 public:
     OctreeSystem(EntityManager* entityManager);
 

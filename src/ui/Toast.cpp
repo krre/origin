@@ -11,10 +11,6 @@ Toast::Toast(Control* parent) : Control(parent) {
     m_timer->timeout.connect(this, &Toast::onTimeout);
 }
 
-Toast::~Toast() {
-
-}
-
 void Toast::show(const std::string& toastText) {
     m_text->setText(toastText);
     setVisible(true);

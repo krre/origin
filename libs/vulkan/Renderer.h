@@ -21,7 +21,6 @@ class Surface;
 class Swapchain;
 
 class Renderer {
-
 public:
     Renderer(void* platformHandle, void* platformWindow);
     ~Renderer();

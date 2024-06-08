@@ -3,7 +3,6 @@
 #include <SDL_timer.h>
 
 class Timer : public Core::Object {
-
 public:
     Timer(Object* parent = nullptr);
     void start(int msec);

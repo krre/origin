@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class QueryPool : public Handle<VkQueryPool>, public Devicer {
-
 public:
     QueryPool(Device* device);
     ~QueryPool();

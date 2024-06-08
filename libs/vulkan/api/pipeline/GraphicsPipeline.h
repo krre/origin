@@ -4,7 +4,6 @@
 namespace Vulkan {
 
 class GraphicsPipeline : public Pipeline {
-
 public:
     GraphicsPipeline(Device* device);
 

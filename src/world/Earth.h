@@ -2,7 +2,4 @@
 #include "ProceduralObject.h"
 
 class Earth : public ProceduralObject {
-
-public:
-
 };

@@ -6,7 +6,6 @@
 namespace Vulkan {
 
 class DescriptorSetLayout : public Handle<VkDescriptorSetLayout>, public Devicer {
-
 public:
     DescriptorSetLayout(Device* device);
     ~DescriptorSetLayout();

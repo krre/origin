@@ -5,7 +5,7 @@
 
 namespace Vulkan {
 
-    class Instance;
+class Instance;
 
 static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT flags, VkDebugReportObjectTypeEXT objectType, uint64_t object,
                                                            size_t location, int32_t messageCode, const char* pLayerPrefix, const char* pMessage, void* userData) {
@@ -70,7 +70,6 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT
 }
 
 class DebugReportCallback : public Handle<VkDebugReportCallbackEXT> {
-
 public:
     DebugReportCallback(Instance* instance, PFN_vkDebugReportCallbackEXT debugCallback = debugCallbackDefault);
     ~DebugReportCallback();

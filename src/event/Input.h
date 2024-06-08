@@ -5,7 +5,6 @@
 #include <glm/glm.hpp>
 
 class Input : public Core::SingleObject<Input> {
-
 public:
     Input(Object* parent = nullptr);
     void addKey(SDL_Keycode key);

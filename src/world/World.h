@@ -2,7 +2,6 @@
 #include <core/SingleObject.h>
 
 class World : public Core::SingleObject<World> {
-
 public:
     World(Object* parent = nullptr);
 

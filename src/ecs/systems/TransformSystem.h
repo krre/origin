@@ -5,7 +5,6 @@
 class Entity;
 
 class TransformSystem : public System {
-
 public:
     TransformSystem(EntityManager* entityManager);
     void process(float dt) override;

@@ -4,7 +4,6 @@
 class LinearLayout;
 
 class MenuScreen : public Screen {
-
 public:
     MenuScreen();
 

@@ -12,9 +12,7 @@ namespace Vulkan {
 const uint32_t GLYPHS_COUNT = 128;
 
 class Font : public Resource {
-
 public:
-
     // Glyph metrics:
     // --------------
     //
@@ -45,7 +43,6 @@ public:
     //              |         +-------------------------+----------------- ymin
     //              |                                   |
     //              |------------- advanceX ----------->|
-
     struct GlyphInfo {
         float u0, v0, u1, v1;
         int offsetX, offsetY;

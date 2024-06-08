@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class PipelineLayout : public Handle<VkPipelineLayout>, public Devicer {
-
 public:
     PipelineLayout(Device* device);
     ~PipelineLayout();
@@ -20,7 +19,6 @@ private:
     VkPipelineLayoutCreateInfo m_createInfo = {};
     std::vector<VkDescriptorSetLayout> m_descriptorSetLayouts;
     std::vector<VkPushConstantRange> m_pushConstantRanges;
-
 };
 
 }

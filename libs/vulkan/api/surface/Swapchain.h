@@ -9,7 +9,6 @@ class Surface;
 class Semaphore;
 
 class Swapchain : public Handle<VkSwapchainKHR>, public Devicer {
-
 public:
     Swapchain(Device* device, Surface* surface);
     ~Swapchain();

@@ -17,7 +17,6 @@ class DescriptorSets;
 class DescriptorPool;
 
 class ShaderProgram {
-
 public:
     ShaderProgram(Device* device);
     ~ShaderProgram();

@@ -4,7 +4,6 @@
 class Button;
 
 class SettingsScreen : public Screen {
-
 public:
     SettingsScreen();
 

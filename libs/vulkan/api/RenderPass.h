@@ -6,7 +6,6 @@
 namespace Vulkan {
 
 class RenderPassBegin {
-
 public:
     RenderPassBegin(VkRenderPass renderPass);
     VkRenderPassBeginInfo* getInfo() { return &beginInfo; }
@@ -22,7 +21,6 @@ private:
 };
 
 class RenderPass : public Handle<VkRenderPass>, public Devicer {
-
 public:
     RenderPass(Device* device);
     ~RenderPass();

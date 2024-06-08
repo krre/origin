@@ -4,9 +4,7 @@
 class EntityManager;
 
 class System : public Core::Object {
-
 public:
-
     enum class Type {
         Camera,
         Input,

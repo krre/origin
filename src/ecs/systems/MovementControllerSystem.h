@@ -4,7 +4,6 @@
 class Entity;
 
 class MovementControllerSystem : public System {
-
 public:
     MovementControllerSystem(EntityManager* entityManager);
     void process(float dt) override;

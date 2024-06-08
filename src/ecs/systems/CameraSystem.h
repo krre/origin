@@ -5,7 +5,6 @@
 class Entity;
 
 class CameraSystem : public System {
-
 public:
     CameraSystem(EntityManager* entityManager);
 

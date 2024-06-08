@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class Buffer : public Handle<VkBuffer>, public Devicer {
-
 public:
     Buffer(Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size);
     ~Buffer();

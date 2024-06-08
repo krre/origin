@@ -10,7 +10,6 @@ namespace Octree {
 using json = nlohmann::json;
 
 class Octree : public Core::Object {
-
 public:
     struct Pos {
         uint8_t x;
@@ -37,7 +36,6 @@ public:
     };
 
     Octree(Substance substance = Substance(), Object* parent = nullptr);
-    ~Octree();
 
     void load(const std::string& path);
     void save(const std::string& path);

@@ -10,7 +10,6 @@ class PhysicsComponent;
 class OctreeComponent;
 
 class Entity : public Core::Object {
-
 public:
     Entity(Entity* parent = nullptr);
     Entity(Core::EntityId id, Entity* parent = nullptr);

@@ -4,7 +4,6 @@
 #include <vector>
 
 class Game : public Core::Object {
-
 public:
     static constexpr auto Name = "Origin";
     static constexpr auto Status = STATUS;

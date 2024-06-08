@@ -3,7 +3,6 @@
 #include <vector>
 
 class Mesh : public Core::Object {
-
 public:
     Mesh();
 

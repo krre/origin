@@ -8,7 +8,6 @@ namespace Vulkan {
 class DebugReportCallback;
 
 class Instance : public Handle<VkInstance> {
-
 public:
     Instance();
     ~Instance();

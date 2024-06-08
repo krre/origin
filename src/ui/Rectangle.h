@@ -5,7 +5,6 @@
 class Font;
 
 class Rectangle : public Control {
-
 public:
     Rectangle(Control* parent = nullptr);
     Rectangle(const Core::Size& size, Control* parent = nullptr);

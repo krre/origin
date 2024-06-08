@@ -5,7 +5,6 @@ struct SDL_KeyboardEvent;
 class Label;
 
 class Console : public TextEdit {
-
 public:
     Console(Control* parent = nullptr);
     void reset();

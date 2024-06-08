@@ -2,7 +2,6 @@
 #include "ui/Rectangle.h"
 
 class Dialog : public Rectangle {
-
 public:
     Dialog();
     void close();

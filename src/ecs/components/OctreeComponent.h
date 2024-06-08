@@ -3,7 +3,6 @@
 #include <octree/Octree.h>
 
 class OctreeComponent : public Component {
-
 public:
     OctreeComponent() = default;
     Type type() const override { return Component::Type::Octree; }

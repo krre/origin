@@ -3,7 +3,6 @@
 #include <vector>
 
 class ProceduralObject : public Core::Object {
-
 public:
     ProceduralObject();
     virtual void make() = 0;

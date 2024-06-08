@@ -4,7 +4,6 @@
 namespace Vulkan {
 
 class ComputePipeline : public Pipeline {
-
 public:
     ComputePipeline(Device* device);
 

@@ -5,9 +5,6 @@ Scene::Scene(Object* parent) : Object(parent) {
 
 }
 
-Scene::~Scene() {
-}
-
 void Scene::setRootEntity(Entity* entity) {
     entity->setParent(this);
     m_rootEntity = entity;

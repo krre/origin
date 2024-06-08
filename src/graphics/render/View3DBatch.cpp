@@ -3,7 +3,3 @@
 View3DBatch::View3DBatch() {
 
 }
-
-View3DBatch::~View3DBatch() {
-
-}

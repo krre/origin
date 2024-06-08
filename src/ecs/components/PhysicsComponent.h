@@ -4,7 +4,6 @@
 #include <memory>
 
 class PhysicsComponent : public Component {
-
 public:
     PhysicsComponent() = default;
     Type type() const override { return Component::Type::Physics; }

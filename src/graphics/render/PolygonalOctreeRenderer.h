@@ -9,7 +9,6 @@ namespace Vulkan {
 }
 
 class PolygonalOctreeRenderer : public OctreeRenderer {
-
 public:
     PolygonalOctreeRenderer(Object* parent = nullptr);
     ~PolygonalOctreeRenderer();
@@ -27,5 +26,4 @@ private:
     std::unique_ptr<Vulkan::ShaderProgram> m_shaderProgram;
     std::unique_ptr<Vulkan::GraphicsPipeline> m_graphicsPipeline;
     uint32_t m_vertextCount = 0;
-
 };

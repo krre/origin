@@ -7,7 +7,6 @@ struct SDL_TextInputEvent;
 struct SDL_MouseButtonEvent;
 
 class Event : public Core::SingleObject<Event> {
-
 public:
     Event(Object* parent = nullptr);
     void handleEvents();

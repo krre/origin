@@ -4,7 +4,6 @@
 #include <glm/ext.hpp>
 
 class CameraComponent : public Component {
-
 public:
     CameraComponent() {
         int width = Window::get()->width();
@@ -12,6 +11,7 @@ public:
         aspect = width * 1.0f / height;
         projection = glm::perspective(fov, aspect, near, far);
     }
+
     Type type() const override { return Component::Type::Camera; }
 
     float near = 0.01f;

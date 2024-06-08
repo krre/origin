@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class ImageView : public Handle<VkImageView>, public Devicer {
-
 public:
     ImageView(Device* device, VkImage image);
     ~ImageView();

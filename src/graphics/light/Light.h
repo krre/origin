@@ -2,7 +2,6 @@
 #include <core/Object.h>
 
 class Light : public Core::Object {
-
 public:
     Light();
 

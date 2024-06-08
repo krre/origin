@@ -14,7 +14,6 @@ namespace Vulkan {
 class Entity;
 
 class GPUMemoryManager {
-
 public:
     GPUMemoryManager();
     void addEntity(Entity* entity, Vulkan::Buffer* buffer);

@@ -6,8 +6,4 @@ SubstanceTree::SubstanceTree() {
 
 }
 
-SubstanceTree::~SubstanceTree() {
-
-}
-
 }

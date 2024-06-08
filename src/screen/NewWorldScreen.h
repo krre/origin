@@ -6,7 +6,6 @@ class Button;
 class LinearLayout;
 
 class NewWorldScreen : public Screen {
-
 public:
     NewWorldScreen();
 

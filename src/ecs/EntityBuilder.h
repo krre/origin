@@ -4,7 +4,6 @@
 class EntityManager;
 
 class EntityBuilder {
-
 public:
     EntityBuilder(EntityManager* entityManager);
     // Geometry

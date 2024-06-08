@@ -9,7 +9,6 @@ class Instance;
 class PhysicalDevice;
 
 class PhysicalDevices {
-
 public:
     PhysicalDevices(Instance* instance);
     size_t count() const { return m_devices.size(); }

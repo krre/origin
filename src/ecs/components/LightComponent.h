@@ -3,7 +3,6 @@
 #include <glm/glm.hpp>
 
 class LightComponent : public Component {
-
 public:
     LightComponent() = default;
     Type type() const override { return Component::Type::Light; }

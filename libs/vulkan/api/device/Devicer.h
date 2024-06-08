@@ -4,7 +4,6 @@
 namespace Vulkan {
 
 class Devicer {
-
 public:
     Devicer(Device* device);
     Devicer() = delete;

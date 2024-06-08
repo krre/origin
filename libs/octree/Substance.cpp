@@ -6,8 +6,4 @@ Substance::Substance() {
 
 }
 
-Substance::~Substance() {
-
-}
-
 }

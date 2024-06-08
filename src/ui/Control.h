@@ -15,7 +15,6 @@ class UIManager;
 class Control : public Core::Object {
     friend class Renderer;
     friend class UIManager;
-
 public:
     Control(Control* parent = nullptr);
     virtual ~Control();

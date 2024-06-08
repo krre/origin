@@ -5,7 +5,6 @@
 namespace Vulkan {
 
 class PipelineCache : public Handle<VkPipelineCache>, public Devicer {
-
 public:
     PipelineCache(Device* device);
     ~PipelineCache();

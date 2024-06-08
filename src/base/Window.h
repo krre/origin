@@ -12,7 +12,6 @@ struct SDL_KeyboardEvent;
 class Screen;
 
 class Window : public Core::SingleObject<Window> {
-
 public:
     Window(Object* parent = nullptr);
     ~Window();

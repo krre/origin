@@ -7,7 +7,6 @@ namespace Vulkan {
 class Pipeline;
 
 class CommandBuffer : public Handle<VkCommandBuffer> {
-
 public:
     CommandBuffer(VkCommandBuffer handle);
 

@@ -10,7 +10,6 @@ class CommandBuffer;
 class CommandPool;
 
 class CommandBufferOneTime : Devicer {
-
 public:
     CommandBufferOneTime(Device* device, CommandPool* commandPool);
     ~CommandBufferOneTime();

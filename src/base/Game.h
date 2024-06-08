@@ -25,6 +25,6 @@ public:
 private:
     void init();
 
-    std::vector<std::string> args;
-    static bool running;
+    std::vector<std::string> m_args;
+    static bool s_running;
 };

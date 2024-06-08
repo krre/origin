@@ -14,5 +14,5 @@ public:
     static std::string savesDirectory();
 
 private:
-    std::string savePath;
+    std::string m_savePath;
 };

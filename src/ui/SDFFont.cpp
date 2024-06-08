@@ -40,8 +40,8 @@ void SDFFont::load(const std::string& path) {
         std::string& head = words.at(0);
 
         if (head == "common") {
-            lineHeight = std::stoi(Core::Utils::split(words.at(1), '=').at(1));
-            base = std::stoi(Core::Utils::split(words.at(2), '=').at(1));
+            m_lineHeight = std::stoi(Core::Utils::split(words.at(1), '=').at(1));
+            m_base = std::stoi(Core::Utils::split(words.at(2), '=').at(1));
         } if (head == "page") {
             // Load png texture
             std::vector<std::string> pair = Core::Utils::split(words.at(2), '=');
@@ -69,7 +69,7 @@ void SDFFont::load(const std::string& path) {
                     if (value) {
                         charactersWidthSum += value;
                         charactersCount++;
-                        maxCharacterWidth = std::max(maxCharacterWidth, value);
+                        m_maxCharacterWidth = std::max(m_maxCharacterWidth, value);
                     }
                 } else if (name == "height") {
                     character.height = value;
@@ -82,13 +82,13 @@ void SDFFont::load(const std::string& path) {
                 }
             }
 
-            characters[id] = character;
+            m_characters[id] = character;
         }
     }
 
-    assert(!characters.empty());
+    assert(!m_characters.empty());
 
-    avarageCharacterWidth = charactersWidthSum / charactersCount;
+    m_avarageCharacterWidth = charactersWidthSum / charactersCount;
 }
 
 void SDFFont::renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* indexBuffer, const std::string& text) {
@@ -101,19 +101,19 @@ void SDFFont::renderText(Vulkan::GpuBuffer* vertexBuffer, Vulkan::GpuBuffer* ind
     float heigth = m_texture->height();
 
     int posx = 0;
-    int posy = base - lineHeight;
+    int posy = m_base - m_lineHeight;
 
     for (const auto& sign : text) {
-        Character* character = &characters[(int)sign];
+        Character* character = &m_characters[(int)sign];
 
         if (sign == '\n') {
             posx = 0;
-            posy += base;
+            posy += m_base;
             continue;
         }
 
         if (character->width == 0) {
-            character->width = maxCharacterWidth / 2;
+            character->width = m_maxCharacterWidth / 2;
         }
 
         float us = character->x / width;

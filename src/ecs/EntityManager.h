@@ -18,7 +18,7 @@ public:
     template <typename T>
     void addSystem() {
         auto system = std::make_shared<T>(this);
-        systems[system->type()] = system;
+        m_systems[system->type()] = system;
     }
 
     void removeSystem(System::Type type);
@@ -40,12 +40,12 @@ public:
 
     void update(Scene* scene, float dt);
 
-    EntityBuilder* builder() { return entityBuilder.get(); }
+    EntityBuilder* builder() { return m_entityBuilder.get(); }
 
 private:
-    std::map<System::Type, std::shared_ptr<System>> systems;
+    std::map<System::Type, std::shared_ptr<System>> m_systems;
     std::map<Core::EntityId, std::shared_ptr<Entity>> m_entities;
-    std::unique_ptr<EntityBuilder> entityBuilder;
+    std::unique_ptr<EntityBuilder> m_entityBuilder;
 
     void initSystems();
 };

@@ -67,9 +67,9 @@ public:
     int descender() const { return m_descender; }
 
 private:
-    FT_Face face;
+    FT_Face m_face;
     int m_size = 14;
-    std::vector<GlyphInfo> glyphInfos;
+    std::vector<GlyphInfo> m_glyphInfos;
     std::unique_ptr<Vulkan::Texture> m_texture;
     int m_lineHeight;
     int m_ascender;

@@ -28,7 +28,7 @@ glm::mat4 CameraSystem::view(Entity* entity) {
 
 void CameraSystem::onWindowResize(int width, int height) {
     // TODO: Replace by family
-    for (const auto& entity : entityManager->entities()) {
+    for (const auto& entity : m_entityManager->entities()) {
         CameraComponent* cameraComp = entity.second->camera();
         if (cameraComp) {
             cameraComp->aspect = width * 1.0f / height;

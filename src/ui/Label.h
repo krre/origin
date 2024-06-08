@@ -25,5 +25,5 @@ private:
     std::string m_text;
     Font* m_font;
     Color m_color = Color::BLACK;
-    int lineCount = 0;
+    int m_lineCount = 0;
 };

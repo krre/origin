@@ -21,5 +21,5 @@ public:
     std::shared_ptr<Entity> avatar();
 
 private:
-    EntityManager* entityManager;
+    EntityManager* m_entityManager;
 };

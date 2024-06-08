@@ -7,6 +7,6 @@ public:
     Plane(float width = 1.0, float height = 1.0);
 
 private:
-    float width;
-    float height;
+    float m_width;
+    float m_height;
 };

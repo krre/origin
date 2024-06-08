@@ -14,8 +14,8 @@ public:
 private:
     void mouseButtonAction(const SDL_MouseButtonEvent& event);
 
-    Label* label;
-    ListBox* listBox;
+    Label* m_label;
+    ListBox* m_listBox;
     int m_index;
 };
 
@@ -37,7 +37,7 @@ public:
 private:
     void resizeImpl(int width, int height) override;
 
-    LinearLayout* layout;
+    LinearLayout* m_layout;
     std::string m_currentText;
     int m_currentIndex = -1;
 };

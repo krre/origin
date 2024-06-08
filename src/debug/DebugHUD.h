@@ -12,9 +12,9 @@ public:
 private:
     void updateImpl(float dt) override;
 
-    float accumTime = 0.5;
-    int counter = 30;
-    int fps = 0;
-    std::string vulkanApiVersion;
-    Label* label;
+    float m_accumTime = 0.5;
+    int m_counter = 30;
+    int m_fps = 0;
+    std::string m_vulkanApiVersion;
+    Label* m_label;
 };

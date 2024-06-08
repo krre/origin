@@ -20,11 +20,11 @@
 #include <memory>
 #include <SDL.h>
 
-bool Game::running = false;
+bool Game::s_running = false;
 
 Game::Game(int argc, char* argv[], Object* parent) : Object(parent) {
     for (int i = 0; i < argc; i++) {
-        args.push_back(argv[i]);
+        m_args.push_back(argv[i]);
     }
 
     init();
@@ -97,14 +97,14 @@ void Game::init() {
     Window::get()->onResize(Window::get()->width(), Window::get()->height());
     Window::get()->show();
 
-    running = true;
+    s_running = true;
 }
 
 void Game::run() {
     Uint64 frequency = SDL_GetPerformanceFrequency();
     Uint64 currentTime = SDL_GetPerformanceCounter();
 
-    while (running) {
+    while (s_running) {
         Event::get()->handleEvents();
         Window::get()->invokeDeffered();
         Overlay::get()->invokeDeffered();
@@ -122,7 +122,7 @@ void Game::run() {
 }
 
 void Game::quit() {
-    running = false;
+    s_running = false;
 }
 
 std::string Game::currentDirectory() {
@@ -130,5 +130,5 @@ std::string Game::currentDirectory() {
 }
 
 bool Game::isRunning() {
-    return running;
+    return s_running;
 }

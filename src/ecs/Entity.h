@@ -32,6 +32,6 @@ public:
 
 private:
     Core::EntityId m_id;
-    static Core::EntityId counter;
-    std::map<Component::Type, std::shared_ptr<Component>> components;
+    static Core::EntityId s_counter;
+    std::map<Component::Type, std::shared_ptr<Component>> m_components;
 };

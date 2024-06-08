@@ -43,12 +43,12 @@ public:
     void writeMeta(uint32_t offset, void* data, uint32_t size);
 
 private:
-    std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
-    std::unique_ptr<Vulkan::GpuBuffer> uboBuffer;
-    std::unique_ptr<Vulkan::GpuBuffer> blocksBuffer;
-    std::unique_ptr<Vulkan::GpuBuffer> metaBuffer;
-    std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
-    std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
-    uint32_t vertextCount = 0;
-    std::vector<uint32_t> blocks;
+    std::unique_ptr<Vulkan::GpuBuffer> m_vertexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> m_uboBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> m_blocksBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> m_metaBuffer;
+    std::unique_ptr<Vulkan::ShaderProgram> m_shaderProgram;
+    std::unique_ptr<Vulkan::GraphicsPipeline> m_graphicsPipeline;
+    uint32_t m_vertextCount = 0;
+    std::vector<uint32_t> m_blocks;
 };

@@ -22,10 +22,10 @@ public:
     void updateMvp(const glm::mat4& mvp);
 
 private:
-    std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
-    std::unique_ptr<Vulkan::GpuBuffer> uboBuffer;
-    std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
-    std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
-    uint32_t vertextCount = 0;
+    std::unique_ptr<Vulkan::GpuBuffer> m_vertexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> m_uboBuffer;
+    std::unique_ptr<Vulkan::ShaderProgram> m_shaderProgram;
+    std::unique_ptr<Vulkan::GraphicsPipeline> m_graphicsPipeline;
+    uint32_t m_vertextCount = 0;
 
 };

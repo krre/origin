@@ -5,15 +5,15 @@ Input::Input(Object* parent) : SingleObject(parent) {
 }
 
 void Input::addKey(SDL_Keycode key) {
-    keys.insert(key);
+    m_keys.insert(key);
 }
 
 void Input::removeKey(SDL_Keycode key) {
-    keys.erase(key);
+    m_keys.erase(key);
 }
 
 bool Input::isKeyPressed(SDL_Keycode key) {
-    return keys.find(key) != keys.end();
+    return m_keys.find(key) != m_keys.end();
 }
 
 void Input::setMousePos(const glm::ivec2& pos) {

@@ -11,5 +11,5 @@ public:
 
 private:
     void keyPressed(const SDL_KeyboardEvent& event) override;
-    int padding = 7;
+    int m_padding = 7;
 };

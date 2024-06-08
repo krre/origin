@@ -9,6 +9,6 @@ public:
     virtual void make() = 0;
 
 private:
-    uint64_t seed;
-    std::shared_ptr<std::vector<uint32_t>> data;
+    uint64_t m_seed;
+    std::shared_ptr<std::vector<uint32_t>> m_data;
 };

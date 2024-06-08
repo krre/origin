@@ -5,7 +5,7 @@
 
 EntityManager::EntityManager(Object* parent) : SingleObject(parent) {
     initSystems();
-    entityBuilder = std::make_unique<EntityBuilder>(this);
+    m_entityBuilder = std::make_unique<EntityBuilder>(this);
 }
 
 EntityManager::~EntityManager() {
@@ -13,12 +13,12 @@ EntityManager::~EntityManager() {
 }
 
 void EntityManager::removeSystem(System::Type type) {
-    systems.erase(type);
+    m_systems.erase(type);
 }
 
 std::shared_ptr<System> EntityManager::system(System::Type type) {
-    auto it = systems.find(type);
-    if (it != systems.end()) {
+    auto it = m_systems.find(type);
+    if (it != m_systems.end()) {
         return it->second;
     }
     return nullptr;
@@ -104,7 +104,7 @@ void EntityManager::removeComponent(Entity* entity, Component::Type type) {
 }
 
 void EntityManager::update(Scene* scene, float dt) {
-    for (const auto& system : systems) {
+    for (const auto& system : m_systems) {
         if (system.second->active()) {
             system.second->process(dt);
         }

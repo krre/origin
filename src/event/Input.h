@@ -19,7 +19,7 @@ public:
     bool isKeyAccepted = false;
 
 private:
-    std::unordered_set<SDL_Keycode> keys;
+    std::unordered_set<SDL_Keycode> m_keys;
     glm::ivec2 m_mousePos;
     glm::ivec2 m_relMousePos;
 };

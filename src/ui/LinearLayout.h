@@ -13,5 +13,5 @@ public:
 
 private:
     void updateContentPostion() override;
-    Direction direction;
+    Direction m_direction;
 };

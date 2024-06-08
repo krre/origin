@@ -7,9 +7,9 @@ World::World(Object* parent) : SingleObject(parent) {
 }
 
 void World::create(const std::string& name) {
-    get()->savePath = savesDirectory() + Core::Utils::getPathSeparator() + name;
-    std::filesystem::create_directory(get()->savePath);
-    PRINT("Create world: " << get()->savePath)
+    get()->m_savePath = savesDirectory() + Core::Utils::getPathSeparator() + name;
+    std::filesystem::create_directory(get()->m_savePath);
+    PRINT("Create world: " << get()->m_savePath)
 }
 
 void World::remove(const std::string& name) {
@@ -19,12 +19,12 @@ void World::remove(const std::string& name) {
 }
 
 void World::load(const std::string& name) {
-    get()->savePath = savesDirectory() + Core::Utils::getPathSeparator() + name;
-    PRINT("Load world: " << get()->savePath)
+    get()->m_savePath = savesDirectory() + Core::Utils::getPathSeparator() + name;
+    PRINT("Load world: " << get()->m_savePath)
 }
 
 void World::save() {
-    PRINT("Save world: " << get()->savePath)
+    PRINT("Save world: " << get()->m_savePath)
 }
 
 std::string World::savesDirectory() {

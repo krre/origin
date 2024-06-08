@@ -13,5 +13,5 @@ public:
 
 private:
     static Uint32 onTimeElaplsed(Uint32 interval, void* param);
-    SDL_TimerID timerId;
+    SDL_TimerID m_timerId;
 };

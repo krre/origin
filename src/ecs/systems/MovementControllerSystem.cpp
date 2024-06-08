@@ -14,45 +14,45 @@ MovementControllerSystem::MovementControllerSystem(EntityManager* entityManager)
 }
 
 void MovementControllerSystem::process(float dt) {
-    if (!rotateEntity || !moveEntity) return;
+    if (!m_rotateEntity || !m_moveEntity) return;
 
-    TransformComponent* tc = rotateEntity->transform();
+    TransformComponent* tc = m_rotateEntity->transform();
 
     glm::ivec2 relMousePos = Input::get()->relMousePos();
-    tc->yaw -= rotateSpeed * relMousePos.x;
+    tc->yaw -= m_rotateSpeed * relMousePos.x;
     tc->yaw = fmod(tc->yaw, 360.0f);
 
-    tc->pitch -= rotateSpeed * relMousePos.y;
+    tc->pitch -= m_rotateSpeed * relMousePos.y;
     tc->pitch = glm::clamp(tc->pitch, -80.0f, 80.0f);
 
     glm::quat rotation = glm::toQuat(glm::eulerAngleYX(glm::radians(tc->yaw), glm::radians(tc->pitch)));
-    TransformSystem* transformSystem = static_cast<TransformSystem*>(entityManager->system(System::Type::Transform).get());
-    transformSystem->setRotation(rotateEntity, rotation);
+    TransformSystem* transformSystem = static_cast<TransformSystem*>(m_entityManager->system(System::Type::Transform).get());
+    transformSystem->setRotation(m_rotateEntity, rotation);
 
     if (Input::get()->isKeyPressed(SDLK_w)) {
-        transformSystem->translate(moveEntity, glm::vec3(0.0f, 0.0f, -1.0f) * moveSpeed * dt);
+        transformSystem->translate(m_moveEntity, glm::vec3(0.0f, 0.0f, -1.0f) * m_moveSpeed * dt);
     } else if (Input::get()->isKeyPressed(SDLK_s)) {
-        transformSystem->translate(moveEntity, glm::vec3(0.0f, 0.0f, 1.0f) * moveSpeed * dt);
+        transformSystem->translate(m_moveEntity, glm::vec3(0.0f, 0.0f, 1.0f) * m_moveSpeed * dt);
     } else if (Input::get()->isKeyPressed(SDLK_a)) {
-        transformSystem->translate(moveEntity, glm::vec3(-1.0f, 0.0f, 0.0f) * moveSpeed * dt);
+        transformSystem->translate(m_moveEntity, glm::vec3(-1.0f, 0.0f, 0.0f) * m_moveSpeed * dt);
     } else if (Input::get()->isKeyPressed(SDLK_d)) {
-        transformSystem->translate(moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * moveSpeed * dt);
+        transformSystem->translate(m_moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * m_moveSpeed * dt);
     }
 
-    bool free = moveEntity->movement()->free;
+    bool free = m_moveEntity->movement()->free;
     if (!free) {
         // Track to floor pos
-        TransformComponent* mtc = moveEntity->transform();
+        TransformComponent* mtc = m_moveEntity->transform();
         mtc->position.y = 0; // TODO: take from height map
     }
 }
 
 void MovementControllerSystem::setMoveEntity(Entity* moveEntity) {
-    this->moveEntity = moveEntity;
-    moveSpeed = moveEntity->movement()->moveSpeed;
+    this->m_moveEntity = moveEntity;
+    m_moveSpeed = moveEntity->movement()->moveSpeed;
 }
 
 void MovementControllerSystem::setRotateEntity(Entity* rotateEntity) {
-    this->rotateEntity = rotateEntity;
-    rotateSpeed = rotateEntity->movement()->rotateSpeed;
+    this->m_rotateEntity = rotateEntity;
+    m_rotateSpeed = rotateEntity->movement()->rotateSpeed;
 }

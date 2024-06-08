@@ -15,6 +15,6 @@ private:
     void updateImpl(float dt) override;
     void drawImpl() override;
 
-    std::shared_ptr<Scene> scene;
-    Core::Rect viewport;
+    std::shared_ptr<Scene> m_scene;
+    Core::Rect m_viewport;
 };

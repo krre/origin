@@ -12,7 +12,7 @@ void GPUMemoryManager::addEntity(Entity* entity, Vulkan::Buffer* buffer) {
 //    buffer->write(oc->data->data(), size, endOffset);
 
     m_octreeOffsets[entity->id()] = endOffset;
-    renderOffsets.push_back(endOffset);
+    m_renderOffsets.push_back(endOffset);
     endOffset += Core::PAGE_BYTES;
 }
 
@@ -36,7 +36,7 @@ void GPUMemoryManager::removeEntity(const Entity* entity) {
 }
 
 void GPUMemoryManager::updateRenderList(Vulkan::Buffer* buffer) {
-    uint32_t count = renderOffsets.size();
+    uint32_t count = m_renderOffsets.size();
 //    buffer->write(&count, sizeof(count));
 //    buffer->write(renderOffsets.data(), sizeof(renderOffsets[0]) * renderOffsets.size(), sizeof(count));
 }

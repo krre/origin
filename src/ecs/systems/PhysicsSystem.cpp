@@ -4,21 +4,21 @@
 PhysicsSystem::PhysicsSystem(EntityManager* entityManager) : System(entityManager) {
     m_type = System::Type::Physics;
 
-    collisionConfiguration.reset(new btDefaultCollisionConfiguration);
-    dispatcher.reset(new btCollisionDispatcher(collisionConfiguration.get()));
-    overlappingPairCache.reset(new btDbvtBroadphase);
-    solver.reset(new btSequentialImpulseConstraintSolver);
+    m_collisionConfiguration.reset(new btDefaultCollisionConfiguration);
+    m_dispatcher.reset(new btCollisionDispatcher(m_collisionConfiguration.get()));
+    m_overlappingPairCache.reset(new btDbvtBroadphase);
+    m_solver.reset(new btSequentialImpulseConstraintSolver);
 
-    dynamicsWorld.reset(new btDiscreteDynamicsWorld(dispatcher.get(), overlappingPairCache.get(), solver.get(), collisionConfiguration.get()));
-    dynamicsWorld->setGravity(btVector3(0, -10, 0));
+    m_dynamicsWorld.reset(new btDiscreteDynamicsWorld(m_dispatcher.get(), m_overlappingPairCache.get(), m_solver.get(), m_collisionConfiguration.get()));
+    m_dynamicsWorld->setGravity(btVector3(0, -10, 0));
 }
 
 PhysicsSystem::~PhysicsSystem() {
-    dynamicsWorld.release();
-    solver.release();
-    overlappingPairCache.release();
-    dispatcher.release();
-    collisionConfiguration.release();
+    m_dynamicsWorld.release();
+    m_solver.release();
+    m_overlappingPairCache.release();
+    m_dispatcher.release();
+    m_collisionConfiguration.release();
 }
 
 void PhysicsSystem::process(float dt) {
@@ -27,7 +27,7 @@ void PhysicsSystem::process(float dt) {
 
 void PhysicsSystem::addRigidBody(Entity* entity) {
     PhysicsComponent* pc = entity->physics();
-    dynamicsWorld->addRigidBody(pc->rigidBody.get());
+    m_dynamicsWorld->addRigidBody(pc->rigidBody.get());
 }
 
 void PhysicsSystem::createRigidBody(Entity* entity) {

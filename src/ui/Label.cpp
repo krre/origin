@@ -21,7 +21,7 @@ void Label::setText(const std::string& text) {
 
     m_contentWidth = 0;
     m_contentHeight = 0;
-    lineCount = text.length() ? 1 : 0;
+    m_lineCount = text.length() ? 1 : 0;
     int lineWidth = 0;
     int maxLineWidth = 0;
     int maxLineHeight = 0;
@@ -33,17 +33,17 @@ void Label::setText(const std::string& text) {
 
         // New line
         if (sign == '\n') {
-            lineCount++;
+            m_lineCount++;
             maxLineWidth = std::max(maxLineWidth, lineWidth);
         }
     }
 
-    if (lineCount == 1) {
+    if (m_lineCount == 1) {
         m_contentWidth = lineWidth;
         m_contentHeight = maxLineHeight;
-    } else if (lineCount > 1) {
+    } else if (m_lineCount > 1) {
         m_contentWidth = maxLineWidth;
-        m_contentHeight = m_font->lineHeight() * lineCount;
+        m_contentHeight = m_font->lineHeight() * m_lineCount;
     }
 }
 

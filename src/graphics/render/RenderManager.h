@@ -22,6 +22,6 @@ private:
     void preRender() override;
     void writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer) override;
 
-    Screen* currentScreen = nullptr;
-    std::vector<::Renderer*> renderers;
+    Screen* m_currentScreen = nullptr;
+    std::vector<::Renderer*> m_renderers;
 };

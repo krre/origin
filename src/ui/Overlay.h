@@ -22,18 +22,18 @@ public:
     void showConsole();
     void showDialog(Dialog* dialog);
     void closeDialog(Dialog* dialog);
-    bool isDialogOpen() const { return dialog != nullptr; }
+    bool isDialogOpen() const { return m_dialog != nullptr; }
     void invokeDeffered();
 
 private:
    void resizeImpl(int width, int height) override;
    void centerDialog();
     // Save call deffered funtions, e.g. destroy dialog.
-    void addDeferredCall(const std::function<void()>& defferedCall) { deferredCalls.push_back(defferedCall); }
+    void addDeferredCall(const std::function<void()>& defferedCall) { m_deferredCalls.push_back(defferedCall); }
 
     DebugHUD* m_debugHUD;
     Toast* m_toast;
     Console* m_console;
-    Dialog* dialog = nullptr;
-    std::vector<std::function<void()>> deferredCalls;
+    Dialog* m_dialog = nullptr;
+    std::vector<std::function<void()>> m_deferredCalls;
 };

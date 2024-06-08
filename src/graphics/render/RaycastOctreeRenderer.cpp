@@ -21,66 +21,66 @@ RaycastOctreeRenderer::RaycastOctreeRenderer(Object* parent) : OctreeRenderer(pa
 
     Vulkan::Device* device = OctreeRenderer::device();
 
-    vertextCount = plane.size();
+    m_vertextCount = plane.size();
 
     int size = plane.size() * sizeof(glm::vec2);
-    vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
-    vertexBuffer->write(plane.data(), size);
+    m_vertexBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, size);
+    m_vertexBuffer->write(plane.data(), size);
 
-    shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
-    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/RaycastOctree.vert.spv");
-    shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/RaycastOctree.frag.spv");
+    m_shaderProgram = std::make_unique<Vulkan::ShaderProgram>(device);
+    m_shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/RaycastOctree.vert.spv");
+    m_shaderProgram->loadShader(ResourceManager::get()->dataPath() + "/shader/RaycastOctree.frag.spv");
 
-    uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(UBO));
+    m_uboBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT, sizeof(UBO));
 
     VkDescriptorBufferInfo bufferInfo = {};
-    bufferInfo.buffer = uboBuffer->handle();
+    bufferInfo.buffer = m_uboBuffer->handle();
     bufferInfo.range = VK_WHOLE_SIZE;
-    shaderProgram->bindBuffer("ubo", bufferInfo);
+    m_shaderProgram->bindBuffer("ubo", bufferInfo);
 
-    blocksBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, 1000000); // TODO: Use size from constant
+    m_blocksBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, 1000000); // TODO: Use size from constant
 
-    bufferInfo.buffer = blocksBuffer->handle();
+    bufferInfo.buffer = m_blocksBuffer->handle();
     bufferInfo.range = VK_WHOLE_SIZE;
-    shaderProgram->bindBuffer("blocks", bufferInfo);
+    m_shaderProgram->bindBuffer("blocks", bufferInfo);
 
-    metaBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, 100000); // TODO: Use size from constant
+    m_metaBuffer = std::make_unique<Vulkan::GpuBuffer>(device, VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, 100000); // TODO: Use size from constant
 
-    bufferInfo.buffer = metaBuffer->handle();
+    bufferInfo.buffer = m_metaBuffer->handle();
     bufferInfo.range = VK_WHOLE_SIZE;
-    shaderProgram->bindBuffer("meta", bufferInfo);
+    m_shaderProgram->bindBuffer("meta", bufferInfo);
 
-    shaderProgram->create();
+    m_shaderProgram->create();
 
-    graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
-    graphicsPipeline->setRenderPass(RenderManager::get()->renderPass()->handle());
-    graphicsPipeline->setPipelineLayout(shaderProgram->pipelineLayout()->handle());
+    m_graphicsPipeline = std::make_unique<Vulkan::GraphicsPipeline>(device);
+    m_graphicsPipeline->setRenderPass(RenderManager::get()->renderPass()->handle());
+    m_graphicsPipeline->setPipelineLayout(m_shaderProgram->pipelineLayout()->handle());
 
-    graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
-    graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+    m_graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+    m_graphicsPipeline->addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
 
-    for (auto& shader : shaderProgram->shaders()) {
-        graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
+    for (auto& shader : m_shaderProgram->shaders()) {
+        m_graphicsPipeline->addShaderCode(shader->stage(), shader->code().size() * sizeof(uint32_t), shader->code().data(), "main");
     }
 
     VkVertexInputBindingDescription bindingDescription;
     bindingDescription.binding = 0;
     bindingDescription.stride = sizeof(glm::vec2);
     bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-    graphicsPipeline->addVertexBindingDescription(bindingDescription);
+    m_graphicsPipeline->addVertexBindingDescription(bindingDescription);
 
     {
-        const Vulkan::Shader::LocationInfo locationInfo = shaderProgram->locationInfo("position");
+        const Vulkan::Shader::LocationInfo locationInfo = m_shaderProgram->locationInfo("position");
         VkVertexInputAttributeDescription attributeDescription = {};
         attributeDescription.binding = bindingDescription.binding;
         attributeDescription.location = locationInfo.location;
         attributeDescription.format = locationInfo.format;
-        graphicsPipeline->addVertexAttributeDescription(attributeDescription);
+        m_graphicsPipeline->addVertexAttributeDescription(attributeDescription);
     }
 
-    graphicsPipeline->create();
+    m_graphicsPipeline->create();
 
-    blocks.push_back(0xFF0000FF);
+    m_blocks.push_back(0xFF0000FF);
 }
 
 RaycastOctreeRenderer::~RaycastOctreeRenderer() {
@@ -88,21 +88,21 @@ RaycastOctreeRenderer::~RaycastOctreeRenderer() {
 }
 
 void RaycastOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan::Framebuffer* framebuffer [[maybe_unused]]) {
-    commandBuffer->bindPipeline(graphicsPipeline.get());
+    commandBuffer->bindPipeline(m_graphicsPipeline.get());
 
     commandBuffer->clearVertexBuffers();
-    commandBuffer->addVertexBuffer(vertexBuffer->handle());
+    commandBuffer->addVertexBuffer(m_vertexBuffer->handle());
     commandBuffer->bindVertexBuffers();
 
-    if (shaderProgram->descriptorSets()->count()) {
+    if (m_shaderProgram->descriptorSets()->count()) {
         commandBuffer->clearDescriptorSets();
-        for (int i = 0; i < shaderProgram->descriptorSets()->count(); i++) {
-            commandBuffer->addDescriptorSet(shaderProgram->descriptorSets()->at(i));
+        for (int i = 0; i < m_shaderProgram->descriptorSets()->count(); i++) {
+            commandBuffer->addDescriptorSet(m_shaderProgram->descriptorSets()->at(i));
         }
-        commandBuffer->bindDescriptorSets(graphicsPipeline->bindPoint(), shaderProgram->pipelineLayout()->handle());
+        commandBuffer->bindDescriptorSets(m_graphicsPipeline->bindPoint(), m_shaderProgram->pipelineLayout()->handle());
     }
 
-    commandBuffer->draw(vertextCount, 1, 0, 0);
+    commandBuffer->draw(m_vertextCount, 1, 0, 0);
 }
 
 void RaycastOctreeRenderer::draw() {
@@ -119,7 +119,7 @@ void RaycastOctreeRenderer::draw() {
     ubo.frameWidth = Window::get()->width();
     ubo.frameHeight = Window::get()->height();
     writeUBO(ubo);
-    writeBlocks(0, blocks.data(), blocks.size() * sizeof(uint32_t));
+    writeBlocks(0, m_blocks.data(), m_blocks.size() * sizeof(uint32_t));
 
     MetaData metaData = {};
     metaData.blockIndex = 0;
@@ -156,13 +156,13 @@ void RaycastOctreeRenderer::drawView(View3D* view) {
 }
 
 void RaycastOctreeRenderer::writeUBO(const UBO& ubo) {
-    uboBuffer->write(&ubo, sizeof(UBO));
+    m_uboBuffer->write(&ubo, sizeof(UBO));
 }
 
 void RaycastOctreeRenderer::writeBlocks(uint32_t offset, void* data, uint32_t size) {
-    blocksBuffer->write(data, size, offset);
+    m_blocksBuffer->write(data, size, offset);
 }
 
 void RaycastOctreeRenderer::writeMeta(uint32_t offset, void* data, uint32_t size) {
-    metaBuffer->write(data, size, offset);
+    m_metaBuffer->write(data, size, offset);
 }

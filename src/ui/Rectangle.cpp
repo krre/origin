@@ -6,7 +6,7 @@
 #include <glm/ext.hpp>
 
 Rectangle::Rectangle(Control* parent) : Control(parent) {
-    font = ResourceManager::get()->load<Font>("fonts/inconsolatalgc.ttf");
+    m_font = ResourceManager::get()->load<Font>("fonts/inconsolatalgc.ttf");
 }
 
 Rectangle::Rectangle(const Core::Size& size, Control* parent) : Rectangle(parent) {
@@ -32,7 +32,7 @@ void Rectangle::setBorderWidth(uint32_t border) {
 void Rectangle::drawImpl() {
     UIBatch batch(UIRenderer::get()->verticles());
     batch.color = m_color;
-    batch.texture = font->texture();
-    batch.addQuad(m_absolutePosition.x, m_absolutePosition.y, m_size.width, m_size.height, font);
+    batch.texture = m_font->texture();
+    batch.addQuad(m_absolutePosition.x, m_absolutePosition.y, m_size.width, m_size.height, m_font);
     UIRenderer::get()->addBatch(batch);
 }

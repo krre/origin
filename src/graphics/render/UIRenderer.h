@@ -29,13 +29,13 @@ public:
     std::vector<UIBatch::Vertex>* verticles() { return &m_vertices; }
 
 private:
-    std::vector<UIBatch> batches;
+    std::vector<UIBatch> m_batches;
     std::vector<UIBatch::Vertex> m_vertices;
-    std::unique_ptr<Vulkan::GpuBuffer> vertexBuffer;
-    std::unique_ptr<Vulkan::GpuBuffer> indirectBuffer;
-    std::unique_ptr<Vulkan::GpuBuffer> uboBuffer;
-    std::unique_ptr<Vulkan::Sampler> sampler;
-    std::unique_ptr<Vulkan::ShaderProgram> shaderProgram;
-    std::unique_ptr<Vulkan::GraphicsPipeline> graphicsPipeline;
-    Vulkan::Texture* texture;
+    std::unique_ptr<Vulkan::GpuBuffer> m_vertexBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> m_indirectBuffer;
+    std::unique_ptr<Vulkan::GpuBuffer> m_uboBuffer;
+    std::unique_ptr<Vulkan::Sampler> m_sampler;
+    std::unique_ptr<Vulkan::ShaderProgram> m_shaderProgram;
+    std::unique_ptr<Vulkan::GraphicsPipeline> m_graphicsPipeline;
+    Vulkan::Texture* m_texture;
 };

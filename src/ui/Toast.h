@@ -13,6 +13,6 @@ public:
 
 private:
     void onTimeout();
-    Label* text;
-    Timer* timer;
+    Label* m_text;
+    Timer* m_timer;
 };

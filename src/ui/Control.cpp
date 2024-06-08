@@ -5,7 +5,7 @@
 #include "Layout.h"
 
 Control::Control(Control* parent) : Object(parent) {
-    uiManager = UIManager::get();
+    m_uiManager = UIManager::get();
 }
 
 Control::~Control() {

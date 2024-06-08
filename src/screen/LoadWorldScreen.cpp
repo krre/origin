@@ -9,35 +9,35 @@
 #include <filesystem>
 
 LoadWorldScreen::LoadWorldScreen() {
-    layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
+    m_layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
-    listBox = new ListBox;
-    listBox->resize(200, 200);
+    m_listBox = new ListBox;
+    m_listBox->resize(200, 200);
 
     for(auto& path: std::filesystem::directory_iterator(World::savesDirectory())) {
         std::filesystem::path fullPath(path);
-        listBox->addLine(fullPath.filename().string());
+        m_listBox->addLine(fullPath.filename().string());
     }
 
-    layout->appendChild(listBox);
+    m_layout->appendChild(m_listBox);
 
     LinearLayout* buttonLayout = new LinearLayout(LinearLayout::Direction::Horizontal);
 
     Button* buttonPlay = new Button("Play");
     buttonPlay->clicked.connect([&]() {
-        if (listBox->currentIndex() >= 0) {
-            Window::get()->setScreen(std::make_shared<GameScreen>(listBox->currentText()));
+        if (m_listBox->currentIndex() >= 0) {
+            Window::get()->setScreen(std::make_shared<GameScreen>(m_listBox->currentText()));
         }
     });
     buttonLayout->appendChild(buttonPlay);
 
     Button* buttonRemove = new Button("Remove");
     buttonRemove->clicked.connect([&]() {
-        int currentIndex = listBox->currentIndex();
+        int currentIndex = m_listBox->currentIndex();
         if (currentIndex >= 0) {
             try {
-                World::remove(listBox->currentText());
-                listBox->removeLine(currentIndex);
+                World::remove(m_listBox->currentText());
+                m_listBox->removeLine(currentIndex);
             } catch (const std::filesystem::filesystem_error& e) {
                 SDL::showErrorMessageBox(e.what());
             }
@@ -45,15 +45,15 @@ LoadWorldScreen::LoadWorldScreen() {
     });
     buttonLayout->appendChild(buttonRemove);
 
-    layout->appendChild(buttonLayout);
+    m_layout->appendChild(buttonLayout);
 
-    buttonBack = new Button("Back", this);
-    buttonBack->clicked.connect([&]() {
+    m_buttonBack = new Button("Back", this);
+    m_buttonBack->clicked.connect([&]() {
         Window::get()->popScreen();
     });
 }
 
 void LoadWorldScreen::resizeImpl(int width, int height) {
-    layout->move((width - layout->contentWidth()) / 2, (height - layout->contentHeight()) / 2);
-    buttonBack->move(width - buttonBack->size().width, height - buttonBack->size().height);
+    m_layout->move((width - m_layout->contentWidth()) / 2, (height - m_layout->contentHeight()) / 2);
+    m_buttonBack->move(width - m_buttonBack->size().width, height - m_buttonBack->size().height);
 }

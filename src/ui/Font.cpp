@@ -9,28 +9,28 @@
 
 
 Font::Font() {
-    glyphInfos.resize(GLYPHS_COUNT);
+    m_glyphInfos.resize(GLYPHS_COUNT);
 }
 
 Font::~Font() {
-    FT_Done_Face(face);
+    FT_Done_Face(m_face);
 }
 
 void Font::setSize(int size) {
     this->m_size = size;
-    FT_Set_Pixel_Sizes(face, 0, size);
+    FT_Set_Pixel_Sizes(m_face, 0, size);
 }
 
 void Font::load(const std::string& filePath) {
-    if (FT_New_Face(ResourceManager::get()->freeTypeHandle(), filePath.c_str(), 0, &face)) {
+    if (FT_New_Face(ResourceManager::get()->freeTypeHandle(), filePath.c_str(), 0, &m_face)) {
         throw std::runtime_error(std::string("Could not open font ") + filePath);
     }
 
     setSize(14);
 
-    m_lineHeight = face->size->metrics.height >> 6;
-    m_ascender = face->size->metrics.ascender >> 6;
-    m_descender = face->size->metrics.descender >> 6;
+    m_lineHeight = m_face->size->metrics.height >> 6;
+    m_ascender = m_face->size->metrics.ascender >> 6;
+    m_descender = m_face->size->metrics.descender >> 6;
 
     // Creating atlas based on code https://gist.github.com/baines/b0f9e4be04ba4e6f56cab82eef5008ff
 
@@ -49,12 +49,12 @@ void Font::load(const std::string& filePath) {
     int penX = 0, penY = 0;
 
     for (int i = 0; i < GLYPHS_COUNT; ++i) {
-        FT_Load_Char(face, i, FT_LOAD_RENDER | FT_LOAD_FORCE_AUTOHINT | FT_LOAD_TARGET_LIGHT);
-        FT_Bitmap* bitmap = &face->glyph->bitmap;
+        FT_Load_Char(m_face, i, FT_LOAD_RENDER | FT_LOAD_FORCE_AUTOHINT | FT_LOAD_TARGET_LIGHT);
+        FT_Bitmap* bitmap = &m_face->glyph->bitmap;
 
         if (penX + bitmap->width >= texWidth) {
             penX = 0;
-            penY += ((face->size->metrics.height >> 6) + 1);
+            penY += ((m_face->size->metrics.height >> 6) + 1);
         }
 
         for (int row = 0; row < bitmap->rows; ++row) {
@@ -65,13 +65,13 @@ void Font::load(const std::string& filePath) {
             }
         }
 
-        GlyphInfo* glyphInfo = &glyphInfos[i];
+        GlyphInfo* glyphInfo = &m_glyphInfos[i];
 
-        glyphInfo->offsetX = face->glyph->bitmap_left;
-        glyphInfo->offsetY = face->glyph->bitmap_top;
+        glyphInfo->offsetX = m_face->glyph->bitmap_left;
+        glyphInfo->offsetY = m_face->glyph->bitmap_top;
         glyphInfo->width = bitmap->width;
         glyphInfo->height = bitmap->rows;
-        glyphInfo->advanceX = face->glyph->advance.x >> 6;
+        glyphInfo->advanceX = m_face->glyph->advance.x >> 6;
 
         glyphInfo->u0 = penX / (float)texWidth;
         glyphInfo->v0 = penY / (float)texHeight;
@@ -92,8 +92,8 @@ void Font::load(const std::string& filePath) {
     }
 
     atlasData[3] = 0xff; // Alpha dot for shapes
-    glyphInfos.at(0).u1 = 1.0f / texWidth;
-    glyphInfos.at(0).v1 = 1.0f / texHeight;
+    m_glyphInfos.at(0).u1 = 1.0f / texWidth;
+    m_glyphInfos.at(0).v1 = 1.0f / texHeight;
 
     m_texture = std::make_unique<Vulkan::Texture>(RenderManager::get()->graphicsDevice(), texWidth, texHeight, atlasData.data(), size);
 
@@ -113,5 +113,5 @@ void Font::load(const std::string& filePath) {
 
 Font::GlyphInfo&Font::gliphInfo(int codechar) {
     char questionMark = '?';
-    return glyphInfos.at(codechar <= GLYPHS_COUNT ? codechar : (int)questionMark);
+    return m_glyphInfos.at(codechar <= GLYPHS_COUNT ? codechar : (int)questionMark);
 }

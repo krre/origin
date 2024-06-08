@@ -28,5 +28,5 @@ public:
 private:
     int endOffset = 0;
     std::map<Core::EntityId, int> m_octreeOffsets;
-    std::vector<uint32_t> renderOffsets;
+    std::vector<uint32_t> m_renderOffsets;
 };

@@ -37,14 +37,14 @@ void Overlay::showConsole() {
 void Overlay::showDialog(Dialog* dialog) {
     insertChild(dialog, 0); // Insert on bottom of overlay
     dialog->activate();
-    this->dialog = dialog;
+    this->m_dialog = dialog;
     centerDialog();
     markDirty();
 }
 
 void Overlay::closeDialog(Dialog* dialog) {
     removeChild(dialog);
-    this->dialog = nullptr;
+    this->m_dialog = nullptr;
     addDeferredCall([=]() {
         delete dialog;
     });
@@ -54,11 +54,11 @@ void Overlay::closeDialog(Dialog* dialog) {
 }
 
 void Overlay::invokeDeffered() {
-    for (const auto& call : deferredCalls) {
+    for (const auto& call : m_deferredCalls) {
         call();
     }
 
-    deferredCalls.clear();
+    m_deferredCalls.clear();
 }
 
 void Overlay::resizeImpl(int width, int height) {
@@ -70,7 +70,7 @@ void Overlay::resizeImpl(int width, int height) {
 }
 
 void Overlay::centerDialog() {
-    if (dialog) {
-        dialog->move((m_size.width - dialog->size().width) / 2, (m_size.height - dialog->size().height) / 2);
+    if (m_dialog) {
+        m_dialog->move((m_size.width - m_dialog->size().width) / 2, (m_size.height - m_dialog->size().height) / 2);
     }
 }

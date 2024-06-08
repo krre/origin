@@ -13,11 +13,11 @@ void Screen::hide() {
 }
 
 void Screen::pause() {
-    isPaused = true;
+    m_isPaused = true;
 }
 
 void Screen::resume() {
-    isPaused = false;
+    m_isPaused = false;
     if (m_activeControl) {
         m_activeControl->activate();
     } else {

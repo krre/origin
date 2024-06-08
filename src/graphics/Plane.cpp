@@ -1,6 +1,6 @@
 #include "Plane.h"
 
-Plane::Plane(float width, float height) : width(width), height(height) {
+Plane::Plane(float width, float height) : m_width(width), m_height(height) {
     setVertices({
         -1.0f, -1.0f,
          1.0f, -1.0f,

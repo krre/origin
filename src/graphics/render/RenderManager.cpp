@@ -21,11 +21,11 @@ RenderManager::~RenderManager() {
 }
 
 void RenderManager::addRenderer(::Renderer* renderer) {
-    renderers.push_back(renderer);
+    m_renderers.push_back(renderer);
 }
 
 void RenderManager::draw() {
-    for (::Renderer* renderer : renderers) {
+    for (::Renderer* renderer : m_renderers) {
         if (renderer->active()) {
             renderer->draw();
         }
@@ -61,8 +61,8 @@ void RenderManager::init() {
 }
 
 void RenderManager::preRender() {
-    if (currentScreen != Window::get()->currentScreen()) {
-        currentScreen = Window::get()->currentScreen();
+    if (m_currentScreen != Window::get()->currentScreen()) {
+        m_currentScreen = Window::get()->currentScreen();
         markDirty();
     }
 }
@@ -97,7 +97,7 @@ void RenderManager::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vul
 
     commandBuffer->beginRenderPass(renderPassBegin.getInfo());
 
-    for (::Renderer* renderer : renderers) {
+    for (::Renderer* renderer : m_renderers) {
         if (renderer->active()) {
             renderer->writeCommandBuffer(commandBuffer, framebuffer);
         }

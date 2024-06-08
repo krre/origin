@@ -3,7 +3,7 @@
 #include "components/Components.h"
 #include <glm/glm.hpp>
 
-EntityBuilder::EntityBuilder(EntityManager* entityManager) : entityManager(entityManager) {
+EntityBuilder::EntityBuilder(EntityManager* entityManager) : m_entityManager(entityManager) {
 
 }
 
@@ -14,7 +14,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
         Component::Type::Render,
         Component::Type::Physics,
     };
-    std::shared_ptr<Entity> entity = entityManager->createComponents(types);
+    std::shared_ptr<Entity> entity = m_entityManager->createComponents(types);
 
     return entity;
 }
@@ -29,7 +29,7 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
         Component::Type::Movement,
         Component::Type::Camera
     };
-    return entityManager->createComponents(types);
+    return m_entityManager->createComponents(types);
 }
 
 std::shared_ptr<Entity> EntityBuilder::camera() {
@@ -38,7 +38,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
         Component::Type::Movement, // TODO: take from to avatar
         Component::Type::Camera
     };
-    std::shared_ptr<Entity> entity = entityManager->createComponents(types);
+    std::shared_ptr<Entity> entity = m_entityManager->createComponents(types);
 
     MovementComponent* movementComponent = entity->movement();
     movementComponent->moveSpeed = 1.0;
@@ -54,7 +54,7 @@ std::shared_ptr<Entity> EntityBuilder::freeCamera() {
         Component::Type::Movement
     };
 
-    std::shared_ptr<Entity> entity = entityManager->createComponents(types);
+    std::shared_ptr<Entity> entity = m_entityManager->createComponents(types);
 
     MovementComponent* movementComponent = entity->movement();
     movementComponent->moveSpeed = 1.0;
@@ -69,5 +69,5 @@ std::shared_ptr<Entity> EntityBuilder::light() {
         Component::Type::Transform,
         Component::Type::Light,
     };
-    return entityManager->createComponents(types);
+    return m_entityManager->createComponents(types);
 }

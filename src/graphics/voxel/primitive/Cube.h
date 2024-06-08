@@ -7,7 +7,7 @@ public:
     Cube(float width = 1.0, float height = 1.0, float depth = 1.0);
 
 private:
-    float width;
-    float height;
-    float depth;
+    float m_width;
+    float m_height;
+    float m_depth;
 };

@@ -11,7 +11,7 @@ TransformSystem::TransformSystem(EntityManager* entityManager) : System(entityMa
 }
 
 void TransformSystem::process(float dt) {
-    for (const auto& entity: entityManager->entities()) {
+    for (const auto& entity: m_entityManager->entities()) {
         update(entity.second.get());
     }
 }

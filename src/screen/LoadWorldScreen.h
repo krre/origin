@@ -13,7 +13,7 @@ public:
 private:
     void resizeImpl(int width, int height) override;
 
-    Button* buttonBack;
-    LinearLayout* layout;
-    ListBox* listBox;
+    Button* m_buttonBack;
+    LinearLayout* m_layout;
+    ListBox* m_listBox;
 };

@@ -25,6 +25,6 @@ public:
     Control* activeControl() const { return m_activeControl; }
 
 private:
-    bool isPaused = true;
+    bool m_isPaused = true;
     Control* m_activeControl = nullptr;
 };

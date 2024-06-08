@@ -8,23 +8,23 @@ View3D::View3D(Control* parent) : Control(parent) {
 }
 
 View3D::View3D(Core::Rect viewport, Control* parent) :
-    viewport(viewport),
+    m_viewport(viewport),
     Control(parent) {
 
 }
 
 void View3D::setScene(const std::shared_ptr<Scene>& scene) {
-    this->scene = scene;
+    this->m_scene = scene;
 }
 
 void View3D::updateImpl(float dt) {
-    if (scene) {
-        EntityManager::get()->update(scene.get(), dt);
+    if (m_scene) {
+        EntityManager::get()->update(m_scene.get(), dt);
     }
 }
 
 void View3D::drawImpl() {
-    if (scene) {
+    if (m_scene) {
         SceneRenderer::get()->addView(this);
     }
 }

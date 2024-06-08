@@ -7,29 +7,29 @@
 #include "world/World.h"
 
 NewWorldScreen::NewWorldScreen() {
-    layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
+    m_layout = new LinearLayout(LinearLayout::Direction::Vertical, this);
 
-    textEdit = new TextEdit();
-    layout->appendChild(textEdit);
+    m_textEdit = new TextEdit();
+    m_layout->appendChild(m_textEdit);
 
     Button* buttonPlay = new Button("Play", this);
     buttonPlay->clicked.connect([&]() {
-        if (!textEdit->text().empty()) {
-            World::create(textEdit->text());
-            Window::get()->setScreen(std::make_shared<GameScreen>(textEdit->text()));
+        if (!m_textEdit->text().empty()) {
+            World::create(m_textEdit->text());
+            Window::get()->setScreen(std::make_shared<GameScreen>(m_textEdit->text()));
         }
     });
-    layout->appendChild(buttonPlay);
+    m_layout->appendChild(buttonPlay);
 
-    buttonBack = new Button("Back", this);
-    buttonBack->clicked.connect([&]() {
+    m_buttonBack = new Button("Back", this);
+    m_buttonBack->clicked.connect([&]() {
         Window::get()->popScreen();
     });
 
-    setActiveControl(textEdit);
+    setActiveControl(m_textEdit);
 }
 
 void NewWorldScreen::resizeImpl(int width, int height) {
-    layout->move((width - layout->contentWidth()) / 2, (height - layout->contentHeight()) / 2);
-    buttonBack->move(width - buttonBack->size().width, height - buttonBack->size().height);
+    m_layout->move((width - m_layout->contentWidth()) / 2, (height - m_layout->contentHeight()) / 2);
+    m_buttonBack->move(width - m_buttonBack->size().width, height - m_buttonBack->size().height);
 }

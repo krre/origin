@@ -3,7 +3,7 @@
 
 LinearLayout::LinearLayout(Direction direction, Control* parent) :
     Layout(parent),
-    direction(direction) {
+    m_direction(direction) {
 }
 
 void LinearLayout::updateContentPostion() {
@@ -13,7 +13,7 @@ void LinearLayout::updateContentPostion() {
     int positionY = m_position.y;
     for (const auto& child : children()) {
         Control* control = static_cast<Control*>(child);
-        if (direction == Direction::Vertical) {
+        if (m_direction == Direction::Vertical) {
             control->move(positionX, positionY);
             positionY += control->contentHeight() + spacing();
             m_contentWidth = std::max(m_contentWidth, control->contentWidth());
@@ -28,7 +28,7 @@ void LinearLayout::updateContentPostion() {
 
     // Remove last spacing
     if (children().size()) {
-        if (direction == Direction::Vertical) {
+        if (m_direction == Direction::Vertical) {
             m_contentHeight -= spacing();
         } else {
             m_contentWidth -= spacing();

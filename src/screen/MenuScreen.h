@@ -11,5 +11,5 @@ public:
 private:
     void resizeImpl(int width, int height) override;
 
-    LinearLayout* layout;
+    LinearLayout* m_layout;
 };

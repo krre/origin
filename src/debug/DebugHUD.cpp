@@ -10,10 +10,10 @@
 DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     setVisible(false);
 
-    label = new Label(this);
-    label->move(5, 5);
+    m_label = new Label(this);
+    m_label->move(5, 5);
     int apiVersionNumber = RenderManager::get()->graphicsDevice()->physicalDevice()->properties().apiVersion;
-    vulkanApiVersion = RenderManager::get()->instance()->apiToString((apiVersionNumber));
+    m_vulkanApiVersion = RenderManager::get()->instance()->apiToString((apiVersionNumber));
 }
 
 DebugHUD::~DebugHUD() {
@@ -21,20 +21,20 @@ DebugHUD::~DebugHUD() {
 }
 
 void DebugHUD::updateImpl(float dt) {
-    accumTime += dt;
-    counter++;
-    if (accumTime >= 0.5) {
+    m_accumTime += dt;
+    m_counter++;
+    if (m_accumTime >= 0.5) {
         // Average fps for 0.5 sec (on resize may be > 60, so clamp to 60)
-        fps = int(std::round(counter / accumTime));
-        accumTime = 0;
-        counter = 0;
+        m_fps = int(std::round(m_counter / m_accumTime));
+        m_accumTime = 0;
+        m_counter = 0;
     }
 
     std::string text =
         std::string(Game::Name) + " " + std::string(Game::Version) + " " + std::string(Game::Status) + "\n" +
-        std::to_string(fps) + " fps\n"
+        std::to_string(m_fps) + " fps\n"
         "Video driver: " + RenderManager::get()->graphicsDevice()->physicalDevice()->properties().deviceName + "\n"
-        "Vulkan API: " + vulkanApiVersion + "\n"
+        "Vulkan API: " + m_vulkanApiVersion + "\n"
         "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
 
@@ -49,5 +49,5 @@ void DebugHUD::updateImpl(float dt) {
 //        text += pos;
 //    }
 
-    label->setText(text);
+    m_label->setText(text);
 }

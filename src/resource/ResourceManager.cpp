@@ -1,23 +1,23 @@
 #include "base/Game.h"
 #include "ResourceManager.h"
 
-std::string ResourceManager::resourcesPath = Game::currentDirectory() + "/data";
+std::string ResourceManager::s_resourcesPath = Game::currentDirectory() + "/data";
 
 ResourceManager::ResourceManager(Object* parent) : SingleObject(parent) {
-    if (FT_Init_FreeType(&ft)) {
+    if (FT_Init_FreeType(&m_ft)) {
         throw std::runtime_error("Could not init freetype library");
     }
 }
 
 ResourceManager::~ResourceManager() {
-    resources.clear();
-    FT_Done_FreeType(ft);
+    m_resources.clear();
+    FT_Done_FreeType(m_ft);
 }
 
 void ResourceManager::free(const std::string& path) {
-    resources.erase(path);
+    m_resources.erase(path);
 }
 
 void ResourceManager::cleanup() {
-    resources.clear();
+    m_resources.clear();
 }

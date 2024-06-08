@@ -31,5 +31,5 @@ public:
 protected:
     Type m_type = Type::None;
     bool m_active = true;
-    EntityManager* entityManager;
+    EntityManager* m_entityManager;
 };

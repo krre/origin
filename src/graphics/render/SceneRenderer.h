@@ -22,7 +22,7 @@ public:
     void clearViews();
 
 private:
-    std::vector<View3D*> views;
-    std::vector<View3DBatch> batches;
-    OctreeRenderer* octreeRenderer;
+    std::vector<View3D*> m_views;
+    std::vector<View3DBatch> m_batches;
+    OctreeRenderer* m_octreeRenderer;
 };

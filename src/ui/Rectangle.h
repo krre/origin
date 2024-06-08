@@ -26,5 +26,5 @@ private:
     Color m_color = Color::WHITE;
     Color m_borderColor = Color::GRAY;
     uint32_t m_borderWidth = 0;
-    Font* font;
+    Font* m_font;
 };

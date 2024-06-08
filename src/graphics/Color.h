@@ -10,7 +10,7 @@ public:
 
     glm::vec4 rgba() const;
     glm::vec3 rgb() const;
-    uint32_t argb() const { return color; }
+    uint32_t argb() const { return m_color; }
 
     float red() const;
     float green() const;
@@ -26,5 +26,5 @@ public:
     static const Color BLUE;
 
 private:
-    uint32_t color = 0;
+    uint32_t m_color = 0;
 };

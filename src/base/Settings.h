@@ -15,6 +15,6 @@ public:
 private:
     void setDefaultSettings();
 
-    std::string path;
+    std::string m_path;
     json m_storage;
 };

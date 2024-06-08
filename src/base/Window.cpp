@@ -56,20 +56,20 @@ Window::~Window() {
 }
 
 void Window::pushScreen(const std::shared_ptr<Screen>& screen) {
-    if (!screens.empty()) {
-        screens.back()->pause();
+    if (!m_screens.empty()) {
+        m_screens.back()->pause();
     }
-    screens.push_back(screen);
+    m_screens.push_back(screen);
     screen->resize(m_width, m_height);
     screen->resume();
 }
 
 void Window::popScreen() {
     addDeferredCall([&] () {
-        if (screens.size() > 1) {
-            screens.back()->pause();
-            screens.pop_back();
-            screens.back()->resume();
+        if (m_screens.size() > 1) {
+            m_screens.back()->pause();
+            m_screens.pop_back();
+            m_screens.back()->resume();
         } else {
             // TODO: Question dialog about exit from game
             PRINT("Exit question dialog")
@@ -78,19 +78,19 @@ void Window::popScreen() {
 }
 
 void Window::setScreen(const std::shared_ptr<Screen>& screen) {
-    if (screens.empty()) {
+    if (m_screens.empty()) {
         pushScreen(screen);
         return;
     }
     addDeferredCall([=, this] () {
-        screens.back()->pause();
-        screens.clear();
+        m_screens.back()->pause();
+        m_screens.clear();
         pushScreen(screen);
     });
 }
 
 Screen* Window::currentScreen() const {
-    return screens.size() ? screens.back().get() : nullptr;
+    return m_screens.size() ? m_screens.back().get() : nullptr;
 }
 
 void Window::show() {
@@ -112,18 +112,18 @@ void Window::close() {
 }
 
 void Window::update(float dt) {
-    screens.back()->update(dt);
+    m_screens.back()->update(dt);
     Overlay::get()->update(dt);
 }
 
 void Window::render() {
-    screens.back()->draw();
+    m_screens.back()->draw();
     Overlay::get()->draw();
     RenderManager::get()->draw();
 
-    if (screens.back()->dirty() || Overlay::get()->dirty()) {
+    if (m_screens.back()->dirty() || Overlay::get()->dirty()) {
         RenderManager::get()->markDirty();
-        screens.back()->clearDirty();
+        m_screens.back()->clearDirty();
         Overlay::get()->clearDirty();
     }
 
@@ -137,7 +137,7 @@ void Window::onResize(int width, int height) {
     m_width = width;
     m_height = height;
 
-    for (const auto& screen : screens) {
+    for (const auto& screen : m_screens) {
         screen->resize(width, height);
     }
 
@@ -159,11 +159,11 @@ void Window::setColor(const Color& color) {
 }
 
 void Window::invokeDeffered() {
-    for (const auto& call : deferredCalls) {
+    for (const auto& call : m_deferredCalls) {
         call();
     }
 
-    deferredCalls.clear();
+    m_deferredCalls.clear();
 }
 
 void Window::onKeyPressed(const SDL_KeyboardEvent& event) {

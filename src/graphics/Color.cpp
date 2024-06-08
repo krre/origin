@@ -18,7 +18,7 @@ Color::Color(float red, float green, float blue, float alpha) {
     uint32_t g = glm::clamp(green, 0.0f, 1.0f) * 255;
     uint32_t b = glm::clamp(blue, 0.0f, 1.0f) * 255;
     uint32_t a = glm::clamp(alpha, 0.0f, 1.0f) * 255;
-    color = (a << 24) | (r << 16) | (g << 8) | b;
+    m_color = (a << 24) | (r << 16) | (g << 8) | b;
 }
 
 glm::vec4 Color::rgba() const {
@@ -30,17 +30,17 @@ glm::vec3 Color::rgb() const {
 }
 
 float Color::red() const {
-    return ((color >> 16) & 0xFF) / 255.0;
+    return ((m_color >> 16) & 0xFF) / 255.0;
 }
 
 float Color::green() const {
-    return ((color >> 8) & 0xFF) / 255.0;
+    return ((m_color >> 8) & 0xFF) / 255.0;
 }
 
 float Color::blue() const {
-    return (color & 0xFF) / 255.0;
+    return (m_color & 0xFF) / 255.0;
 }
 
 float Color::alpha() const {
-    return ((color >> 24) & 0xFF) / 255.0;
+    return ((m_color >> 24) & 0xFF) / 255.0;
 }

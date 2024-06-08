@@ -3,7 +3,7 @@
 #include <SDL.h>
 
 Button::Button(Control* parent) : Rectangle(parent) {
-    label = new Label(this);
+    m_label = new Label(this);
     setTextColor(Color::WHITE);
     setColor({ 0, 0, 0, 0.7 });
     resize(100, 30);
@@ -17,20 +17,20 @@ Button::~Button() {
 }
 
 void Button::setText(const std::string &text) {
-    label->setText(text);
+    m_label->setText(text);
     centerLabel();
 }
 
 std::string Button::text() const {
-    return label->text();
+    return m_label->text();
 }
 
 void Button::setTextColor(const Color& labelColor) {
-    label->setColor(labelColor);
+    m_label->setColor(labelColor);
 }
 
 const Color& Button::textColor() const {
-    return label->color();
+    return m_label->color();
 }
 
 void Button::mouseButtonAction(const SDL_MouseButtonEvent& event) {
@@ -40,9 +40,9 @@ void Button::mouseButtonAction(const SDL_MouseButtonEvent& event) {
 }
 
 void Button::centerLabel() {
-    int x = (m_size.width - label->contentWidth()) / 2;
-    int y = (m_size.height - label->contentHeight()) / 2;
-    label->move(x, y);
+    int x = (m_size.width - m_label->contentWidth()) / 2;
+    int y = (m_size.height - m_label->contentHeight()) / 2;
+    m_label->move(x, y);
 }
 
 void Button::resizeImpl(int width, int height) {

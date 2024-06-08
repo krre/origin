@@ -4,11 +4,11 @@
 #include <glm/glm.hpp>
 
 Toast::Toast(Control* parent) : Control(parent) {
-    timer = new Timer(this);
-    text = new Label(this);
-    text->move(5, 0);
+    m_timer = new Timer(this);
+    m_text = new Label(this);
+    m_text->move(5, 0);
     setVisible(false);
-    timer->timeout.connect(this, &Toast::onTimeout);
+    m_timer->timeout.connect(this, &Toast::onTimeout);
 }
 
 Toast::~Toast() {
@@ -16,9 +16,9 @@ Toast::~Toast() {
 }
 
 void Toast::show(const std::string& toastText) {
-    text->setText(toastText);
+    m_text->setText(toastText);
     setVisible(true);
-    timer->start(4000);
+    m_timer->start(4000);
 }
 
 void Toast::onTimeout() {

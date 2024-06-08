@@ -41,11 +41,11 @@ public:
 
 private:
     int m_size = 14;
-    std::map<int, Character> characters;
+    std::map<int, Character> m_characters;
     std::unique_ptr<Vulkan::Texture> m_texture;
     uint32_t m_indexCount;
-    int maxCharacterWidth = 0;
-    int avarageCharacterWidth = 0;
-    int lineHeight;
-    int base;
+    int m_maxCharacterWidth = 0;
+    int m_avarageCharacterWidth = 0;
+    int m_lineHeight;
+    int m_base;
 };

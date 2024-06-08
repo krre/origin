@@ -5,11 +5,11 @@ Timer::Timer(Object* parent) : Object(parent) {
 }
 
 void Timer::start(int msec) {
-    timerId = SDL_AddTimer(msec, &Timer::onTimeElaplsed, this);
+    m_timerId = SDL_AddTimer(msec, &Timer::onTimeElaplsed, this);
 }
 
 void Timer::stop() {
-    SDL_RemoveTimer(timerId);
+    SDL_RemoveTimer(m_timerId);
 }
 
 Uint32 Timer::onTimeElaplsed(Uint32 interval, void* param) {

@@ -322,7 +322,7 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
 }
 
 void Renderer::buildCommandBuffers() {
-    for (int i = 0; i < m_commandBuffers->count(); i++) {
+    for (size_t i = 0; i < m_commandBuffers->count(); i++) {
         CommandBuffer commandBuffer(m_commandBuffers->at(i));
         commandBuffer.reset();
         commandBuffer.begin();

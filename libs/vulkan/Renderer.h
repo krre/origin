@@ -13,7 +13,7 @@ class Framebuffer;
 class Image;
 class ImageView;
 class Instance;
-class PhysicalDevices;
+class PhysicalDevice;
 class Queue;
 class RenderPass;
 class Semaphore;
@@ -56,11 +56,12 @@ protected:
 
 private:
     void buildCommandBuffers();
+    PhysicalDevice* findDevice(VkPhysicalDeviceType type) const;
 
     void* m_platformHandle = nullptr;
     void* m_platformWindow = nullptr;
     std::unique_ptr<Instance> m_instance;
-    std::unique_ptr<PhysicalDevices> m_physicalDevices;
+    std::vector<std::unique_ptr<PhysicalDevice>> m_physicalDevices;
     std::unique_ptr<Device> m_graphicsDevice;
     std::shared_ptr<CommandPool> m_graphicsCommandPool;
     std::unique_ptr<Device> m_computeDevice;

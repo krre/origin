@@ -4,7 +4,6 @@
 #include "api/command/CommandPool.h"
 #include "api/device/Device.h"
 #include "api/device/PhysicalDevice.h"
-#include "api/device/PhysicalDevices.h"
 #include "api/Framebuffer.h"
 #include "api/Instance.h"
 #include "api/Queue.h"
@@ -24,6 +23,7 @@
 #include "api/image/Image.h"
 #include "api/image/ImageView.h"
 #include "api/command/CommandBufferOneTime.h"
+#include <iostream>
 
 namespace Vulkan {
 
@@ -61,26 +61,28 @@ void Renderer::setEnabledExtensions(const std::vector<std::string>& enabledExten
 void Renderer::create() {
     m_instance->create();
 
-    m_physicalDevices = std::make_unique<PhysicalDevices>(m_instance.get());
+    m_physicalDevices = m_instance->physicalDevices();
 
     // Default graphics and compute device are same and first in list of physical devices
-    PhysicalDevice* graphicsPhysicalDevice = m_physicalDevices->physicalDevice(0);
-    PhysicalDevice* computePhysicalDevice = m_physicalDevices->physicalDevice(0);
+    PhysicalDevice* graphicsPhysicalDevice = m_physicalDevices[0].get();
+    PhysicalDevice* computePhysicalDevice = m_physicalDevices[0].get();
 
-    if (m_physicalDevices->count() > 1) {
+    if (m_physicalDevices.size() > 1) {
         if (m_presetDevice != -1) {
-            graphicsPhysicalDevice = m_physicalDevices->physicalDevice(m_presetDevice);
-            computePhysicalDevice = m_physicalDevices->physicalDevice(1 - m_presetDevice);
+            graphicsPhysicalDevice = m_physicalDevices[m_presetDevice].get();
+            computePhysicalDevice = m_physicalDevices[1 - m_presetDevice].get();
         } else {
             // Select by hardware properties
-            graphicsPhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+            graphicsPhysicalDevice = findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+
             if (graphicsPhysicalDevice == nullptr) {
-                graphicsPhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+                graphicsPhysicalDevice = findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
             }
 
-            computePhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+            computePhysicalDevice = findDevice(VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU);
+
             if (computePhysicalDevice == nullptr) {
-                computePhysicalDevice = m_physicalDevices->findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
+                computePhysicalDevice = findDevice(VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU);
             }
         }
     }
@@ -327,6 +329,16 @@ void Renderer::buildCommandBuffers() {
         writeCommandBuffer(&commandBuffer, m_framebuffers.at(i).get());
         commandBuffer.end();
     }
+}
+
+PhysicalDevice* Renderer::findDevice(VkPhysicalDeviceType type) const {
+    for (const auto& device : m_physicalDevices) {
+        if (device->properties().deviceType == type) {
+            return device.get();
+        }
+    }
+
+    return nullptr;
 }
 
 }

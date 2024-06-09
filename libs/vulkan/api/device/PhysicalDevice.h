@@ -7,7 +7,7 @@ namespace Vulkan {
 class Surface;
 
 class PhysicalDevice : public Handle<VkPhysicalDevice> {
-    friend class PhysicalDevices;
+    friend class Instance;
 public:
     PhysicalDevice(VkPhysicalDevice physicalDevice);
 

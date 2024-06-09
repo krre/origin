@@ -35,7 +35,7 @@ add_library(${LIB_NAME} SHARED
     api/device/DeviceMemory.cpp api/device/DeviceMemory.h
     api/device/Devicer.cpp api/device/Devicer.h
     api/device/PhysicalDevice.cpp api/device/PhysicalDevice.h
-    api/device/PhysicalDevices.cpp api/device/PhysicalDevices.h
+
     api/image/Image.cpp api/image/Image.h
     api/image/ImageView.cpp api/image/ImageView.h
     api/pipeline/ComputePipeline.cpp api/pipeline/ComputePipeline.h

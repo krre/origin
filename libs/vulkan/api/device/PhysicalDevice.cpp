@@ -7,6 +7,10 @@ namespace Vulkan {
 PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) : Handle(physicalDevice) {
 }
 
+PhysicalDevice::~PhysicalDevice() {
+
+}
+
 VkFormat PhysicalDevice::supportedDepthFormat() {
     // Since all depth formats may be optional, we need to find a suitable depth format to use
     // Start with the highest precision packed format

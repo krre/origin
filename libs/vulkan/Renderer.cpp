@@ -23,7 +23,7 @@
 #include "api/image/Image.h"
 #include "api/image/ImageView.h"
 #include "api/command/CommandBufferOneTime.h"
-#include <iostream>
+#include <algorithm>
 
 namespace Vulkan {
 
@@ -332,13 +332,7 @@ void Renderer::buildCommandBuffers() {
 }
 
 PhysicalDevice* Renderer::findDevice(VkPhysicalDeviceType type) const {
-    for (const auto& device : m_physicalDevices) {
-        if (device->properties().deviceType == type) {
-            return device.get();
-        }
-    }
-
-    return nullptr;
+    return std::find_if(m_physicalDevices.cbegin(), m_physicalDevices.cend(), [=] (const auto& pd) { return pd->properties().deviceType == type; })->get();
 }
 
 }

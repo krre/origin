@@ -1,4 +1,5 @@
 #include "Instance.h"
+#include "device/PhysicalDevice.h"
 #include "DebugReportCallback.h"
 #include <iostream>
 
@@ -96,6 +97,31 @@ void Instance::dumpExtensions() {
     for (const auto& extension : m_extensionProperties) {
         std::cout << extension.extensionName << " (spec. ver. " << extension.specVersion << ")" << std::endl;
     }
+}
+
+std::vector<std::unique_ptr<PhysicalDevice>> Instance::physicalDevices() const {
+    std::vector<std::unique_ptr<PhysicalDevice>> result;
+
+    uint32_t count;
+    vkEnumeratePhysicalDevices(m_handle, &count, nullptr);
+    std::vector<VkPhysicalDevice> handlers(count);
+    vkEnumeratePhysicalDevices(m_handle, &count, handlers.data());
+
+    for (const auto& handler : handlers) {
+        auto physicalDevice = std::make_unique<PhysicalDevice>(handler);
+
+        vkGetPhysicalDeviceProperties(handler, &physicalDevice->m_properties);
+        vkGetPhysicalDeviceFeatures(handler, &physicalDevice->m_features);
+        vkGetPhysicalDeviceMemoryProperties(handler, &physicalDevice->m_memoryProperties);
+
+        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, nullptr);
+        physicalDevice->m_queueFamilyProperties.resize(count);
+        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, physicalDevice->m_queueFamilyProperties.data());
+
+        result.push_back(std::move(physicalDevice));
+    }
+
+    return result;
 }
 
 std::string Instance::apiToString(int api) {

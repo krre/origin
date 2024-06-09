@@ -5,6 +5,7 @@
 
 namespace Vulkan {
 
+class PhysicalDevice;
 class DebugReportCallback;
 
 class Instance : public Handle<VkInstance> {
@@ -22,6 +23,8 @@ public:
     const std::vector<VkExtensionProperties>& extensionProperties() const { return m_extensionProperties; }
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
     void dumpExtensions();
+
+    std::vector<std::unique_ptr<PhysicalDevice>> physicalDevices() const;
 
     void useDebugReport(VkDebugReportFlagsEXT debugReportFlags) { m_debugReportFlags = debugReportFlags; }
 

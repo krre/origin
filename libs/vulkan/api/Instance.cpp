@@ -99,7 +99,7 @@ void Instance::dumpExtensions() {
     }
 }
 
-std::vector<std::unique_ptr<PhysicalDevice>> Instance::physicalDevices() const {
+std::vector<std::unique_ptr<PhysicalDevice>> Instance::createPhysicalDevices() const {
     std::vector<std::unique_ptr<PhysicalDevice>> result;
 
     uint32_t count;

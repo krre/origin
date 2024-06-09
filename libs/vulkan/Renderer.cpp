@@ -61,7 +61,7 @@ void Renderer::setEnabledExtensions(const std::vector<std::string>& enabledExten
 void Renderer::create() {
     m_instance->create();
 
-    m_physicalDevices = m_instance->physicalDevices();
+    m_physicalDevices = m_instance->createPhysicalDevices();
 
     // Default graphics and compute device are same and first in list of physical devices
     PhysicalDevice* graphicsPhysicalDevice = m_physicalDevices[0].get();

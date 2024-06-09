@@ -24,7 +24,7 @@ public:
     void setEnabledExtensions(const std::vector<std::string>& enabledExtensions);
     void dumpExtensions();
 
-    std::vector<std::unique_ptr<PhysicalDevice>> physicalDevices() const;
+    std::vector<std::unique_ptr<PhysicalDevice>> createPhysicalDevices() const;
 
     void useDebugReport(VkDebugReportFlagsEXT debugReportFlags) { m_debugReportFlags = debugReportFlags; }
 

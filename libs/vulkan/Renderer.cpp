@@ -26,7 +26,7 @@
 
 namespace Vulkan {
 
-const VkFormat depthFormat = VK_FORMAT_D16_UNORM;
+constexpr VkFormat depthFormat = VK_FORMAT_D16_UNORM;
 
 Renderer::Renderer(void* platformHandle, void* platformWindow)
     : m_platformHandle(platformHandle), m_platformWindow(platformWindow) {

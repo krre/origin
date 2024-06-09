@@ -10,7 +10,6 @@ if (result != VK_SUCCESS) { \
     throw std::runtime_error(errorMessage); \
 }
 
-
 #define VULKAN_DESTROY_HANDLE(f) \
 if (m_handle != VK_NULL_HANDLE) { \
     (f); \
@@ -38,4 +37,3 @@ protected:
 };
 
 }
-

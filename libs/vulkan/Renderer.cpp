@@ -19,7 +19,6 @@
 #include "api/RenderPass.h"
 #include "api/Framebuffer.h"
 #include "api/Semaphore.h"
-#include "api/Fence.h"
 #include "api/image/Image.h"
 #include "api/image/ImageView.h"
 #include "api/command/CommandBufferOneTime.h"

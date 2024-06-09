@@ -15,12 +15,12 @@ OctreeEditor::~OctreeEditor() {
 
 void OctreeEditor::createNew() {
     m_octree.reset(new Octree::Octree);
-    dataChanged();
+    emit dataChanged();
 }
 
 void OctreeEditor::split(const Octree::Octree::Path& path) {
     m_octree->split(path);
-    dataChanged();
+    emit dataChanged();
 }
 
 bool OctreeEditor::save(const QString& fileName) {
@@ -30,7 +30,7 @@ bool OctreeEditor::save(const QString& fileName) {
 
 bool OctreeEditor::load(const QString& fileName) {
     m_octree->load(fileName.toStdString());
-    dataChanged();
+    emit dataChanged();
 
     return true;
 }
@@ -52,10 +52,10 @@ int OctreeEditor::colorAttachOffset(int parent, int childIndex) {
 
 void OctreeEditor::confirmUpdate() {
     m_selection.clear();
-    nodeDeselected();
+    emit nodeDeselected();
     m_storage = m_source->binary();
     setModified(true);
-    dataChanged();
+    emit dataChanged();
 }
 
 void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append) {
@@ -80,13 +80,13 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
         if (index >= 0) { // Remove selection
             (*m_storage)[offset] = m_selection.at(index)->color;
             m_selection.remove(index);
-            nodeDeselected();
+            emit nodeDeselected();
         } else { // Append selection
             node->color = (*m_storage)[offset];
             (*m_storage)[offset] = m_selectionColor;
             m_selection.append(node);
             color.setRgba(node->color);
-            nodeSelected(node->scale, childIndex, color);
+            emit nodeSelected(node->scale, childIndex, color);
         }
     } else if (index == -1 || m_selection.count() > 1) {
         deselect();
@@ -94,10 +94,10 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
         (*m_storage)[offset] = m_selectionColor;
         m_selection.append(node);
         color.setRgba(node->color);
-        nodeSelected(node->scale, childIndex, color);
+        emit nodeSelected(node->scale, childIndex, color);
     }
 
-    dataChanged();
+    emit dataChanged();
 }
 
 void OctreeEditor::deselect() {
@@ -108,8 +108,8 @@ void OctreeEditor::deselect() {
         }
 
         m_selection.clear();
-        nodeDeselected();
-        dataChanged();
+        emit nodeDeselected();
+        emit dataChanged();
     }
 }
 

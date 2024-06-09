@@ -10,7 +10,6 @@ class PhysicalDevice : public Handle<VkPhysicalDevice> {
     friend class Instance;
 public:
     PhysicalDevice(VkPhysicalDevice physicalDevice);
-    ~PhysicalDevice();
 
     void create() override {}
     void destroy() override {}

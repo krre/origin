@@ -63,8 +63,8 @@ void Game::init() {
 
             RenderManager::get()->setDeviceIndex(DebugEnvironment::vulkanDevice());
         }
-        RenderManager::get()->create();
 
+        RenderManager::get()->create();
         RenderManager::get()->addRenderer(new SceneRenderer(this));
         RenderManager::get()->addRenderer(new DebugRenderer(this));
         RenderManager::get()->addRenderer(new UIRenderer(this));

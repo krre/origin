@@ -29,9 +29,8 @@ namespace Vulkan {
 
 const VkFormat depthFormat = VK_FORMAT_D16_UNORM;
 
-Renderer::Renderer(void* platformHandle, void* platformWindow) :
-        m_platformHandle(platformHandle),
-        m_platformWindow(platformWindow) {
+Renderer::Renderer(void* platformHandle, void* platformWindow)
+    : m_platformHandle(platformHandle), m_platformWindow(platformWindow) {
     m_instance = std::make_unique<Instance>();
 }
 

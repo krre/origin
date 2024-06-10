@@ -1,6 +1,3 @@
-include_directories(../../trdparty)
-include_directories(../../libs)
-
 add_library(octree SHARED
     JsonStorage.cpp JsonStorage.h
     Octree.cpp Octree.h

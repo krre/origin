@@ -1,5 +1,3 @@
-include_directories(../../trdparty)
-
 add_library(core SHARED
     Common.h
     Defines.h

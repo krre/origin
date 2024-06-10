@@ -2,7 +2,6 @@
 #include "SelectButtonRow.h"
 #include "ListBox.h"
 #include "vulkan/api/Instance.h"
-#include "vulkan/api/device/PhysicalDevices.h"
 #include "vulkan/api/device/PhysicalDevice.h"
 #include <QJsonObject>
 #include <QJsonValue>
@@ -85,11 +84,10 @@ VulkanTab::VulkanTab() {
     Vulkan::Instance instance;
     instance.create();
 
-    Vulkan::PhysicalDevices physicalDevices(&instance);
+    auto physicalDevices = instance.createPhysicalDevices();
 
-    for (size_t i = 0; i < physicalDevices.count(); i++) {
-        Vulkan::PhysicalDevice* physicalDevice = physicalDevices.physicalDevice(i);
-        m_deviceComboBox->insertItem(i, physicalDevice->properties().deviceName);
+    for (size_t i = 0; i < physicalDevices.size(); i++) {
+        m_deviceComboBox->insertItem(i, physicalDevices[i]->properties().deviceName);
     }
 
     for (const auto& layer : instance.layerProperties()) {

@@ -24,11 +24,13 @@ template <typename T>
 class Handle {
 public:
     Handle() = default;
+
     Handle(T handle) : m_handle(handle) {
         assert(handle != VK_NULL_HANDLE);
     }
-    bool isValid() const { return m_handle != VK_NULL_HANDLE; }
+
     T handle() const { return m_handle; }
+
     virtual void create() = 0;
     virtual void destroy() = 0;
 

@@ -108,17 +108,7 @@ std::vector<std::unique_ptr<PhysicalDevice>> Instance::createPhysicalDevices() c
     vkEnumeratePhysicalDevices(m_handle, &count, handlers.data());
 
     for (const auto& handler : handlers) {
-        auto physicalDevice = std::make_unique<PhysicalDevice>(handler);
-
-        vkGetPhysicalDeviceProperties(handler, &physicalDevice->m_properties);
-        vkGetPhysicalDeviceFeatures(handler, &physicalDevice->m_features);
-        vkGetPhysicalDeviceMemoryProperties(handler, &physicalDevice->m_memoryProperties);
-
-        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, nullptr);
-        physicalDevice->m_queueFamilyProperties.resize(count);
-        vkGetPhysicalDeviceQueueFamilyProperties(handler, &count, physicalDevice->m_queueFamilyProperties.data());
-
-        result.push_back(std::move(physicalDevice));
+        result.push_back(std::make_unique<PhysicalDevice>(handler));
     }
 
     return result;

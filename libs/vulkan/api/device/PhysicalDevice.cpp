@@ -5,6 +5,14 @@
 namespace Vulkan {
 
 PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) : Handle(physicalDevice) {
+    vkGetPhysicalDeviceProperties(m_handle, &m_properties);
+    vkGetPhysicalDeviceFeatures(m_handle, &m_features);
+    vkGetPhysicalDeviceMemoryProperties(m_handle, &m_memoryProperties);
+
+    uint32_t count;
+    vkGetPhysicalDeviceQueueFamilyProperties(m_handle, &count, nullptr);
+    m_queueFamilyProperties.resize(count);
+    vkGetPhysicalDeviceQueueFamilyProperties(m_handle, &count, m_queueFamilyProperties.data());
 }
 
 VkFormat PhysicalDevice::supportedDepthFormat() {

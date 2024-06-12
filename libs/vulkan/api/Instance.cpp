@@ -104,11 +104,11 @@ std::vector<std::unique_ptr<PhysicalDevice>> Instance::createPhysicalDevices() c
 
     uint32_t count;
     vkEnumeratePhysicalDevices(m_handle, &count, nullptr);
-    std::vector<VkPhysicalDevice> handlers(count);
-    vkEnumeratePhysicalDevices(m_handle, &count, handlers.data());
+    std::vector<VkPhysicalDevice> handles(count);
+    vkEnumeratePhysicalDevices(m_handle, &count, handles.data());
 
-    for (const auto& handler : handlers) {
-        result.push_back(std::make_unique<PhysicalDevice>(handler));
+    for (const auto& handle : handles) {
+        result.push_back(std::make_unique<PhysicalDevice>(handle));
     }
 
     return result;

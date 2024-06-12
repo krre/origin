@@ -10,7 +10,6 @@ public:
     ~ShaderModule();
 
     void create() override;
-    void destroy() override;
 
 private:
     VkShaderModuleCreateInfo m_createInfo = {};

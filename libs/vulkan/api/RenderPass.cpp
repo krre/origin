@@ -27,7 +27,7 @@ RenderPass::RenderPass(Device* device) :
 }
 
 RenderPass::~RenderPass() {
-    destroy();
+    vkDestroyRenderPass(m_device->handle(), m_handle, nullptr);
 }
 
 void RenderPass::create() {
@@ -79,10 +79,6 @@ void RenderPass::create() {
     m_createInfo.dependencyCount = m_subpassDependencies.size();
     m_createInfo.pDependencies = m_subpassDependencies.data();
     VULKAN_CHECK_RESULT(vkCreateRenderPass(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create render pass");
-}
-
-void RenderPass::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyRenderPass(m_device->handle(), m_handle, nullptr))
 }
 
 void RenderPass::setColorFormat(VkFormat format) {

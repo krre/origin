@@ -10,7 +10,6 @@ public:
     ~DeviceMemory();
 
     void create() override {}
-    void destroy() override;
 
     void allocate(VkDeviceSize size);
     void setMemoryTypeIndex(uint32_t index);

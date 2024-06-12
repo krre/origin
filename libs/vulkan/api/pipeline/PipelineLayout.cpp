@@ -7,7 +7,7 @@ PipelineLayout::PipelineLayout(Device* device) : Devicer(device) {
 }
 
 PipelineLayout::~PipelineLayout() {
-    destroy();
+    vkDestroyPipelineLayout(m_device->handle(), m_handle, nullptr);
 }
 
 void PipelineLayout::create() {
@@ -16,10 +16,6 @@ void PipelineLayout::create() {
     m_createInfo.pushConstantRangeCount = m_pushConstantRanges.size();
     m_createInfo.pPushConstantRanges = m_pushConstantRanges.data();
     VULKAN_CHECK_RESULT(vkCreatePipelineLayout(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create pipeline layout");
-}
-
-void PipelineLayout::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyPipelineLayout(m_device->handle(), m_handle, nullptr))
 }
 
 void PipelineLayout::addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout) {

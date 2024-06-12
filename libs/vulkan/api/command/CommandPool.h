@@ -10,7 +10,6 @@ public:
     ~CommandPool();
 
     void create() override;
-    void destroy() override;
 
     void reset();
 

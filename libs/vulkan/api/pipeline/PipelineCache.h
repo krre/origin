@@ -10,7 +10,6 @@ public:
     ~PipelineCache();
 
     void create() override;
-    void destroy() override;
 
 private:
     VkPipelineCacheCreateInfo m_createInfo = {};

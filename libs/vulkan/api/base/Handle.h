@@ -10,12 +10,6 @@ if (result != VK_SUCCESS) { \
     throw std::runtime_error(errorMessage); \
 }
 
-#define VULKAN_DESTROY_HANDLE(f) \
-if (m_handle != VK_NULL_HANDLE) { \
-    (f); \
-    m_handle = VK_NULL_HANDLE; \
-}
-
 namespace Vulkan {
 
 std::string resultToString(VkResult result);
@@ -32,7 +26,6 @@ public:
     T handle() const { return m_handle; }
 
     virtual void create() = 0;
-    virtual void destroy() = 0;
 
 protected:
     T m_handle = VK_NULL_HANDLE;

@@ -11,7 +11,6 @@ public:
     PhysicalDevice(VkPhysicalDevice physicalDevice);
 
     void create() override {}
-    void destroy() override {}
 
     const VkPhysicalDeviceProperties& properties() const { return m_properties; }
     const VkPhysicalDeviceFeatures& features() const { return m_features; }

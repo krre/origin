@@ -10,7 +10,6 @@ public:
     ~Fence();
 
     void create() override;
-    void destroy() override;
 
     VkResult wait();
     VkResult reset();

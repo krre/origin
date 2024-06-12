@@ -10,7 +10,6 @@ public:
     ~Buffer();
 
     void create() override;
-    void destroy() override;
 
     VkDeviceSize size() const { return m_createInfo.size; }
 

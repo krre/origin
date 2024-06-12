@@ -20,7 +20,7 @@ Surface::Surface(Instance* instance, PhysicalDevice* physicalDevice, void* platf
 }
 
 Surface::~Surface() {
-    destroy();
+    vkDestroySurfaceKHR(m_instance->handle(), m_handle, nullptr);
 }
 
 void Surface::create() {
@@ -48,10 +48,6 @@ void Surface::create() {
     vkGetPhysicalDeviceSurfacePresentModesKHR(m_physicalDevice->handle(), m_handle, &count, m_presentModes.data());
 
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(m_physicalDevice->handle(), m_handle, &m_capabilities);
-}
-
-void Surface::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroySurfaceKHR(m_instance->handle(), m_handle, nullptr))
 }
 
 VkExtent2D Surface::currentExtent() const {

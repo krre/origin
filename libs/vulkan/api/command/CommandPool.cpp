@@ -9,15 +9,11 @@ CommandPool::CommandPool(Device* device, uint32_t queueFamilyIndex) : Devicer(de
 }
 
 CommandPool::~CommandPool() {
-    destroy();
+    vkDestroyCommandPool(m_device->handle(), m_handle, nullptr);
 }
 
 void CommandPool::create() {
     VULKAN_CHECK_RESULT(vkCreateCommandPool(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create command pool")
-}
-
-void CommandPool::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyCommandPool(m_device->handle(), m_handle, nullptr))
 }
 
 void CommandPool::reset() {

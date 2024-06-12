@@ -19,7 +19,7 @@ Device::Device(PhysicalDevice* physicalDevice) : m_physicalDevice(physicalDevice
 }
 
 Device::~Device() {
-    destroy();
+    vkDestroyDevice(m_handle, nullptr);
 }
 
 void Device::waitIdle() {
@@ -40,10 +40,6 @@ void Device::create() {
     m_createInfo.queueCreateInfoCount = m_queueCreateInfos.size();
     m_createInfo.pQueueCreateInfos = m_queueCreateInfos.data();
     VULKAN_CHECK_RESULT(vkCreateDevice(m_physicalDevice->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create device");
-}
-
-void Device::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyDevice(m_handle, nullptr))
 }
 
 void Device::dumpExtensions() {

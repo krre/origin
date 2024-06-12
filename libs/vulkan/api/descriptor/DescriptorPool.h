@@ -11,7 +11,6 @@ public:
     ~DescriptorPool();
 
     void create() override;
-    void destroy() override;
 
     void addPoolSize(VkDescriptorType type, uint32_t count);
     int poolSizeCount() const { return m_poolSizes.size(); }

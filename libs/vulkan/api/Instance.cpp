@@ -40,8 +40,7 @@ Instance::Instance() {
 }
 
 Instance::~Instance() {
-    m_debugCallback.reset();
-    destroy();
+    vkDestroyInstance(m_handle, nullptr);
 }
 
 void Instance::create() {
@@ -71,10 +70,6 @@ void Instance::create() {
             }
         }
     }
-}
-
-void Instance::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyInstance(m_handle, nullptr))
 }
 
 void Instance::setEnabledLayers(const std::vector<std::string>& enabledLayers) {

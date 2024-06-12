@@ -16,8 +16,7 @@ ShaderProgram::ShaderProgram(Device* device) : m_device(device) {
 }
 
 ShaderProgram::~ShaderProgram() {
-    m_descriptorSets->destroy();
-    m_descriptorPool->destroy();
+
 }
 
 void ShaderProgram::loadShader(const std::string& filePath) {

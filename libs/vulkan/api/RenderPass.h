@@ -26,7 +26,6 @@ public:
     ~RenderPass();
 
     void create() override;
-    void destroy() override;
 
     void setColorFormat(VkFormat format);
     VkFormat colorFormat() const { return m_colorAttachmentDescription.format; }

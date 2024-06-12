@@ -10,15 +10,11 @@ BufferView::BufferView(Device* device, Buffer* buffer) :
 }
 
 BufferView::~BufferView() {
-    destroy();
+    vkDestroyBufferView(m_device->handle(), m_handle, nullptr);
 }
 
 void BufferView::create() {
     VULKAN_CHECK_RESULT(vkCreateBufferView(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create buffer view");
-}
-
-void BufferView::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyBufferView(m_device->handle(), m_handle, nullptr))
 }
 
 }

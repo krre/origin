@@ -13,7 +13,6 @@ public:
     ~Framebuffer();
 
     void create() override;
-    void destroy() override;
 
     void addAttachment(ImageView* attachment);
 

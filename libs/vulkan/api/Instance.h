@@ -14,7 +14,6 @@ public:
     ~Instance();
 
     void create() override;
-    void destroy() override;
 
     const std::vector<VkLayerProperties>& layerProperties() const { return m_layersProperties; }
     void setEnabledLayers(const std::vector<std::string>& enabledLayers);

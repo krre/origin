@@ -11,7 +11,6 @@ public:
     CommandBuffer(VkCommandBuffer handle);
 
     void create() override {}
-    void destroy() override {}
 
     void addViewport(VkViewport viewport);
     void addScissor(VkRect2D scissor);

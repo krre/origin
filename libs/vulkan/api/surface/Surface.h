@@ -13,7 +13,6 @@ public:
     ~Surface();
 
     void create() override;
-    void destroy() override;
 
     const std::vector<VkSurfaceFormatKHR>& formats() const { return m_formats; }
     const std::vector<VkPresentModeKHR>& presentModes() const { return m_presentModes; }

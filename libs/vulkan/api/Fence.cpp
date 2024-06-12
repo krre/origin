@@ -7,15 +7,11 @@ Fence::Fence(Device* device) : Devicer(device) {
 }
 
 Fence::~Fence() {
-    destroy();
+    vkDestroyFence(m_device->handle(), m_handle, nullptr);
 }
 
 void Fence::create() {
     VULKAN_CHECK_RESULT(vkCreateFence(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create fence");
-}
-
-void Fence::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyFence(m_device->handle(), m_handle, nullptr))
 }
 
 VkResult Fence::wait() {

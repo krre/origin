@@ -75,7 +75,6 @@ public:
     ~DebugReportCallback();
 
     void create() override;
-    void destroy() override;
 
     void setFlags(VkDebugReportFlagsEXT flags);
 

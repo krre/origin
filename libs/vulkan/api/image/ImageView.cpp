@@ -20,15 +20,11 @@ ImageView::ImageView(Device* device, VkImage image) :
 }
 
 ImageView::~ImageView() {
-    destroy();
+    vkDestroyImageView(m_device->handle(), m_handle, nullptr);
 }
 
 void ImageView::create() {
     VULKAN_CHECK_RESULT(vkCreateImageView(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create image view");
-}
-
-void ImageView::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyImageView(m_device->handle(), m_handle, nullptr))
 }
 
 void ImageView::setFormat(VkFormat format) {

@@ -11,15 +11,11 @@ Buffer::Buffer(Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) :
 }
 
 Buffer::~Buffer() {
-    destroy();
+    vkDestroyBuffer(m_device->handle(), m_handle, nullptr);
 }
 
 void Buffer::create() {
     VULKAN_CHECK_RESULT(vkCreateBuffer(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create buffer");
-}
-
-void Buffer::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyBuffer(m_device->handle(), m_handle, nullptr))
 }
 
 }

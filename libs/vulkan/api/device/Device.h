@@ -12,7 +12,6 @@ public:
     ~Device();
 
     void create() override;
-    void destroy() override;
 
     void waitIdle();
     void waitForFences(std::vector<VkFence> fences);

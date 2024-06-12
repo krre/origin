@@ -11,7 +11,7 @@ Framebuffer::Framebuffer(Device* device) :
 }
 
 Framebuffer::~Framebuffer() {
-    destroy();
+    vkDestroyFramebuffer(m_device->handle(), m_handle, nullptr);
 }
 
 void Framebuffer::create() {
@@ -19,10 +19,6 @@ void Framebuffer::create() {
     m_createInfo.pAttachments = m_attachments.data();
 
     VULKAN_CHECK_RESULT(vkCreateFramebuffer(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create framebuffer");
-}
-
-void Framebuffer::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyFramebuffer(m_device->handle(), m_handle, nullptr))
 }
 
 void Framebuffer::addAttachment(ImageView* attachment) {

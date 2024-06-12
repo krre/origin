@@ -4,11 +4,7 @@
 namespace Vulkan {
 
 Pipeline::~Pipeline() {
-    destroy();
-}
-
-void Pipeline::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyPipeline(m_device->handle(), m_handle, nullptr))
+    vkDestroyPipeline(m_device->handle(), m_handle, nullptr);
 }
 
 void Pipeline::addShaderCode(VkShaderStageFlagBits stage, size_t size, const uint32_t* code, const char* entryPoint) {

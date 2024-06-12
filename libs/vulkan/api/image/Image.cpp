@@ -27,7 +27,7 @@ Image::Image(Device* device, VkImage image) :
 }
 
 Image::~Image() {
-    destroy();
+    vkDestroyImage(m_device->handle(), m_handle, nullptr);
 }
 
 void Image::create() {
@@ -43,10 +43,6 @@ void Image::create() {
     m_memory->allocate(memRequirements.size);
 
     vkBindImageMemory(m_device->handle(), m_handle, m_memory->handle(), 0);
-}
-
-void Image::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyImage(m_device->handle(), m_handle, nullptr))
 }
 
 void Image::setWidth(uint32_t width) {

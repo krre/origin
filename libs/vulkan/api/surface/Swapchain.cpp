@@ -44,7 +44,7 @@ void Swapchain::create() {
 
 void Swapchain::destroy() {
     m_device->waitIdle();
-    VULKAN_DESTROY_HANDLE(vkDestroySwapchainKHR(m_device->handle(), m_handle, nullptr))
+    vkDestroySwapchainKHR(m_device->handle(), m_handle, nullptr);
 }
 
 VkResult Swapchain::acquireNextImage(Semaphore* semaphore) {

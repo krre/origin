@@ -10,7 +10,6 @@ public:
     ~Semaphore();
 
     void create() override;
-    void destroy() override;
 
 private:
     VkSemaphoreCreateInfo m_createInfo = {};

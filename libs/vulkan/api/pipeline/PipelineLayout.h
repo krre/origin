@@ -10,7 +10,6 @@ public:
     ~PipelineLayout();
 
     void create() override;
-    void destroy() override;
 
     void addDescriptorSetLayout(VkDescriptorSetLayout descriptorSetLayout);
     void addPushConstantRange(VkPushConstantRange pushConstantRange);

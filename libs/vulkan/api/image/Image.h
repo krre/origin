@@ -14,7 +14,6 @@ public:
     ~Image();
 
     void create() override;
-    void destroy() override;
 
     DeviceMemory* memory() { return m_memory.get(); }
 

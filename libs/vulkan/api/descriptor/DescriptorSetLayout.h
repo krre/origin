@@ -11,7 +11,6 @@ public:
     ~DescriptorSetLayout();
 
     void create() override;
-    void destroy() override;
 
     void addLayoutBinding(VkDescriptorSetLayoutBinding layoutBinding);
 

@@ -10,7 +10,6 @@ public:
     ~QueryPool();
 
     void create() override;
-    void destroy() override;
 
 private:
     VkQueryPoolCreateInfo m_createInfo = {};

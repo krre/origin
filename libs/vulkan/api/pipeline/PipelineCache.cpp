@@ -7,15 +7,11 @@ PipelineCache::PipelineCache(Device* device) : Devicer(device) {
 }
 
 PipelineCache::~PipelineCache() {
-    destroy();
+    vkDestroyPipelineCache(m_device->handle(), m_handle, nullptr);
 }
 
 void PipelineCache::create() {
     VULKAN_CHECK_RESULT(vkCreatePipelineCache(m_device->handle(), &m_createInfo, nullptr, &m_handle), "Failed to create pipeline cache");
-}
-
-void PipelineCache::destroy() {
-    VULKAN_DESTROY_HANDLE(vkDestroyPipelineCache(m_device->handle(), m_handle, nullptr))
 }
 
 }

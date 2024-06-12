@@ -14,7 +14,7 @@ public:
     ~Swapchain();
 
     void create() override;
-    void destroy() override;
+    void destroy();
 
     size_t count() const { return m_images.size(); }
     VkImage image(size_t i) const { return m_images.at(i); }

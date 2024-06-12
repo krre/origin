@@ -12,7 +12,6 @@ public:
     Queue(Device* device, uint32_t queueFamilyIndex, uint32_t queueIndex = 0);
 
     void create() override {}
-    void destroy() override {}
 
     void addPresentWaitSemaphore(VkSemaphore semaphore);
     void clearPresentWaitSemaphores();

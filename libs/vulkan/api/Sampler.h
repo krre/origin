@@ -10,7 +10,6 @@ public:
     ~Sampler();
 
     void create() override;
-    void destroy() override;
 
 private:
     VkSamplerCreateInfo m_createInfo = {};

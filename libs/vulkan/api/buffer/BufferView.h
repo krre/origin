@@ -12,7 +12,6 @@ public:
     ~BufferView();
 
     void create() override;
-    void destroy() override;
 
 private:
     VkBufferViewCreateInfo m_createInfo = {};

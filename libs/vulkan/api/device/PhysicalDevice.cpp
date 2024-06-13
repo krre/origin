@@ -5,14 +5,36 @@
 namespace Vulkan {
 
 PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) : Handle(physicalDevice) {
-    vkGetPhysicalDeviceProperties(m_handle, &m_properties);
-    vkGetPhysicalDeviceFeatures(m_handle, &m_features);
-    vkGetPhysicalDeviceMemoryProperties(m_handle, &m_memoryProperties);
+
+}
+
+VkPhysicalDeviceProperties PhysicalDevice::properties() const {
+    VkPhysicalDeviceProperties result;
+    vkGetPhysicalDeviceProperties(m_handle, &result);
+    return result;
+}
+
+VkPhysicalDeviceFeatures PhysicalDevice::features() const {
+    VkPhysicalDeviceFeatures result;
+    vkGetPhysicalDeviceFeatures(m_handle, &result);
+    return result;
+}
+
+VkPhysicalDeviceMemoryProperties PhysicalDevice::memoryProperties() {
+    VkPhysicalDeviceMemoryProperties result;
+    vkGetPhysicalDeviceMemoryProperties(m_handle, &result);
+    return result;
+}
+
+std::vector<VkQueueFamilyProperties> PhysicalDevice::queueFamilyProperties() const {
+    std::vector<VkQueueFamilyProperties> result;
 
     uint32_t count;
     vkGetPhysicalDeviceQueueFamilyProperties(m_handle, &count, nullptr);
-    m_queueFamilyProperties.resize(count);
-    vkGetPhysicalDeviceQueueFamilyProperties(m_handle, &count, m_queueFamilyProperties.data());
+    result.resize(count);
+    vkGetPhysicalDeviceQueueFamilyProperties(m_handle, &count, result.data());
+
+    return result;
 }
 
 VkFormat PhysicalDevice::supportedDepthFormat() {
@@ -70,10 +92,12 @@ bool PhysicalDevice::supportSurface(Surface* surface, uint32_t queueFamilyIndex)
 
 uint32_t PhysicalDevice::findQueueFamily(VkQueueFlags flags) {
     uint32_t i = 0;
-    for (const auto& familyProperty : m_queueFamilyProperties) {
+
+    for (const auto& familyProperty : queueFamilyProperties()) {
         if (familyProperty.queueCount > 0 && (familyProperty.queueFlags & flags)) {
             return i;
         }
+
         i++;
     }
 
@@ -81,8 +105,10 @@ uint32_t PhysicalDevice::findQueueFamily(VkQueueFlags flags) {
 }
 
 uint32_t PhysicalDevice::findMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties) {
-    for (uint32_t i = 0; i < m_memoryProperties.memoryTypeCount; i++) {
-        if ((typeFilter & (1 << i)) && (m_memoryProperties.memoryTypes[i].propertyFlags & properties) == properties) {
+    VkPhysicalDeviceMemoryProperties propps = memoryProperties();
+
+    for (uint32_t i = 0; i < propps.memoryTypeCount; i++) {
+        if ((typeFilter & (1 << i)) && (propps.memoryTypes[i].propertyFlags & properties) == properties) {
             return i;
         }
     }

@@ -10,11 +10,11 @@ DebugReportCallback::DebugReportCallback(Instance* instance, PFN_vkDebugReportCa
 }
 
 DebugReportCallback::~DebugReportCallback() {
-    PFN_vkDestroyDebugReportCallbackEXT pfnDestroyDebugReportCallback = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(m_instance->handle(), "vkDestroyDebugReportCallbackEXT");
-    if (!pfnDestroyDebugReportCallback) {
-        throw std::runtime_error("GetInstanceProcAddr: Unable to find vkDestroyDebugReportCallbackEXT function");
+    auto pfnDestroyDebugReportCallback = (PFN_vkDestroyDebugReportCallbackEXT)vkGetInstanceProcAddr(m_instance->handle(), "vkDestroyDebugReportCallbackEXT");
+
+    if (pfnDestroyDebugReportCallback) {
+        pfnDestroyDebugReportCallback(m_instance->handle(), m_handle, nullptr);
     }
-    pfnDestroyDebugReportCallback(m_instance->handle(), m_handle, nullptr);
 }
 
 void DebugReportCallback::create() {

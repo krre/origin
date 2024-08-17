@@ -1,0 +1,4 @@
+/.idea
+/.afterglow
+/target/
+**/*.rs.bk

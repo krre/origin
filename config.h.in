@@ -1,6 +1,0 @@
-#pragma once
-#define VERSION "@CMAKE_PROJECT_VERSION@"
-#define STATUS "@STATUS@"
-
-#cmakedefine WIN32
-#cmakedefine UNIX

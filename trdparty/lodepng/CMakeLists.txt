@@ -1,6 +1,0 @@
-set(SOURCES
-    ${SOURCES}
-    ${CMAKE_CURRENT_SOURCE_DIR}/lodepng.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/lodepng.h
-    PARENT_SCOPE
-)

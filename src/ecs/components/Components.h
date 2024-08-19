@@ -1,0 +1,10 @@
+#pragma once
+#include "CameraComponent.h"
+#include "LightComponent.h"
+#include "MaterialComponent.h"
+#include "MovementComponent.h"
+#include "MovementControllerComponent.h"
+#include "OctreeComponent.h"
+#include "PhysicsComponent.h"
+#include "RenderComponent.h"
+#include "TransformComponent.h"

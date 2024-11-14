@@ -49,7 +49,7 @@ void SDFFont::load(const std::string& path) {
             const char quote = '\"';
             Core::Utils::removeChar(textureName, quote);
             std::filesystem::path SDFFontPath(path);
-            std::string texturePath = SDFFontPath.parent_path().string() + Core::Utils::getPathSeparator() + textureName;
+            std::string texturePath = SDFFontPath.parent_path().string() + Core::Utils::pathSeparator() + textureName;
 //            texture = std::make_unique<Vulkan::Texture>(texturePath);
         } else if (head == "char") {
             Character character = {};

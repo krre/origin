@@ -9,7 +9,7 @@ namespace Utils {
     using json = nlohmann::json;
 
     std::string zeroFill(const std::string& number);
-    std::string getPathSeparator();
+    std::string pathSeparator();
     uint32_t rgbaToUint32(const glm::vec4& color);
     std::string readTextFile(const std::string& filePath);
     uint32_t floatToUint(float value);

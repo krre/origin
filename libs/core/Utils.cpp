@@ -11,7 +11,7 @@ std::string zeroFill(const std::string& number) {
     return (number.size() == 1 ? "0" : "") + number;
 }
 
-std::string getPathSeparator() {
+std::string pathSeparator() {
 #if defined(OS_WIN)
     return "\\";
 #elif defined(OS_LINUX)

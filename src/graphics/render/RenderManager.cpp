@@ -29,7 +29,7 @@ void RenderManager::draw() {
 }
 
 void RenderManager::saveScreenshot() {
-    std::string directoryPath = Game::currentDirectory() + Core::Utils::getPathSeparator() + "Screenshot";
+    std::string directoryPath = Game::currentDirectory() + Core::Utils::pathSeparator() + "Screenshot";
 
     if (!std::filesystem::exists(directoryPath)) {
         std::filesystem::create_directory(directoryPath);
@@ -44,7 +44,7 @@ void RenderManager::saveScreenshot() {
             Core::Utils::zeroFill(std::to_string(now->tm_hour)) + "-" +
             Core::Utils::zeroFill(std::to_string(now->tm_min)) + "-" +
             Core::Utils::zeroFill(std::to_string(now->tm_sec)) + ".png";
-    std::string filePath = directoryPath + Core::Utils::getPathSeparator() + filename;
+    std::string filePath = directoryPath + Core::Utils::pathSeparator() + filename;
 
     std::vector<unsigned char> buffer = readFramebuffer();
     lodepng::encode(filePath, buffer.data(), Window::get()->width(), Window::get()->height());

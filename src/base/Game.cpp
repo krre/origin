@@ -48,7 +48,7 @@ void Game::init() {
         SDL::Platform platform = SDL::platform(Window::get()->handle());
         new RenderManager(platform.handle, platform.window);
 
-        if (DebugEnvironment::enable()) {
+        if (DebugEnvironment::enabled()) {
             if (DebugEnvironment::settings()["vulkan"]["debugReport"]["use"]) {
                 RenderManager::get()->useDebugReport(DebugEnvironment::vulkanDebugReportFlags());
             }
@@ -74,7 +74,7 @@ void Game::init() {
         new Overlay();
         Overlay::get()->setParent(this);
 
-        if (DebugEnvironment::enable() && DebugEnvironment::settings()["general"]["debugHud"]) {
+        if (DebugEnvironment::enabled() && DebugEnvironment::settings()["general"]["debugHud"]) {
             Overlay::get()->toggleDebugHUD();
         }
 
@@ -88,7 +88,7 @@ void Game::init() {
         }
     }
 
-    if (DebugEnvironment::enable()) {
+    if (DebugEnvironment::enabled()) {
         DebugEnvironment::setDebugScreen();
     } else {
         Window::get()->setScreen(std::make_shared<MenuScreen>());

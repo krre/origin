@@ -80,7 +80,7 @@ void DebugEnvironment::loadValues() {
     try {
         std::string text = Core::Utils::readTextFile(filePath);
         m_settings = json::parse(text);
-        m_enable = m_settings["general"]["enable"];
+        m_enabled = m_settings["general"]["enable"];
     } catch (const std::exception& ex) {
         PRINT(ex.what())
     };

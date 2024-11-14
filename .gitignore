@@ -1,4 +1,6 @@
+# Qt Creator
 /build
 *.user
 *.autosave
+
 *.spv

@@ -164,6 +164,7 @@ void Viewport::pickOctree(const QPoint& pos) {
     m_lines.clear();
 
     bool result = intersectRayAabb(m_camera.position(), worldRay, { glm::vec3(-1.0, -1.0, -1.0), glm::vec3(1.0, 1.0, 1.0) });
+
     if (result) {
         addLineCube();
     }

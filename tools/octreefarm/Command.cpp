@@ -8,6 +8,7 @@ DeleteCommand::DeleteCommand(OctreeEditor* octreeEditor) : m_octreeEditor(octree
 
 void DeleteCommand::undo() {
     bool result = false;
+
     for (auto node: m_nodes) {
         result = m_octreeEditor->source()->addNode(*node.data());
     }
@@ -53,9 +54,11 @@ SplitCommand::SplitCommand(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEd
 
 void SplitCommand::undo() {
     bool result = false;
+
     for (auto node: m_nodes) {
         result = m_octreeEditor->source()->mergeNode(*node.data());
     }
+
     if (result) {
         m_octreeEditor->confirmUpdate();
     } else {
@@ -75,9 +78,11 @@ MergeCommand::MergeCommand(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEd
 void MergeCommand::undo() {
     m_octreeEditor->source()->createChildren(m_newNode);
     bool result = false;
+
     for (auto node: m_mergedNodes) {
         result = m_octreeEditor->source()->addNode(node);
     }
+
     if (result) {
         m_octreeEditor->confirmUpdate();
     } else {
@@ -99,9 +104,11 @@ ChangeColorCommand::ChangeColorCommand(OctreeEditor* octreeEditor, QColor color)
 
 void ChangeColorCommand::undo() {
     bool result = false;
+
     for (auto node: m_nodes) {
         result = m_octreeEditor->source()->changeNodeColor(*node.data());
     }
+
     if (result) {
         m_octreeEditor->confirmUpdate();
     } else {

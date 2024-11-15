@@ -66,12 +66,14 @@ bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
         Node* node = selection.at(i).data();
         QVector<int> path = posToPath(node->pos, node->scale);
         QJsonObject parentNode;
+
         if (path.count() == 1) {
             parentNode = m_root;
         } else {
             parentNode = findNode(path, path.count() - 2);
             parentNode = parentNode["children"].toObject();
         }
+
         parentNode.remove(QString::number(path.last()));
     }
 
@@ -81,12 +83,14 @@ bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
 bool Source::deleteNode(const Node& node) {
     QVector<int> path = posToPath(node.pos, node.scale);
     QJsonObject parentNode;
+
     if (path.count() == 1) {
         parentNode = m_root;
     } else {
         parentNode = findNode(path, path.count() - 2);
         parentNode = parentNode["children"].toObject();
     }
+
     parentNode.remove(QString::number(path.last()));
 
     return true;
@@ -99,13 +103,16 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
         Node* node = selection.at(i).data();
         QVector<int> path = posToPath(node->pos, node->scale);
         QJsonObject parentNode;
+
         if (path.count() == 1) {
             parentNode = m_root;
         } else {
             parentNode = findNode(path, path.count() - 2);
             parentNode = parentNode["children"].toObject();
         }
+
         QJsonObject children;
+
         for (int i = 0; i < 8; i++) {
             children[QString::number(i)].toObject()["color"] = parentNode[QString::number(path.last())].toObject()["color"];
         }
@@ -121,12 +128,15 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& new
 
     Node* node = selection.at(0).data();
     QVector<int> path = posToPath(node->pos, node->scale);
+
     if (path.count() > 1) {
         int parentIndex = path.count() - 2;
         QJsonObject parentNode = findNode(path, parentIndex);
         QJsonObject children = parentNode["children"].toObject();
+
         for (int i = 0; i < 8; i++) {
             auto iter = children.find(QString::number(i));
+
             if (iter != children.end()) {
                 Node childNode;
                 childNode.scale = node->scale;
@@ -137,10 +147,12 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& new
                 mergedNodes.append(childNode);
             }
         }
+
         newNode.scale = node->scale + 1;
         path.removeLast();
         newNode.pos = pathToPos(path);
         parentNode.remove("children");
+
         return true;
     } else {
         return false;
@@ -149,6 +161,7 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& new
 
 bool Source::mergeNode(const Node& node) {
     QVector<int> path = posToPath(node.pos, node.scale);
+
     if (path.count() > 0) {
         int currentIndex = path.count() - 1;
         QJsonObject currentNode = findNode(path, currentIndex);
@@ -165,6 +178,7 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, 
     Node* node = selection.at(0).data();
     QVector<int> path = posToPath(node->pos, node->scale);
     QJsonObject parentNode;
+
     if (path.count() == 1) {
         parentNode = m_root;
     } else {
@@ -193,6 +207,7 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, 
         }
 
         auto iter = parentNode.find(QString::number(i));
+
         if (iter == parentNode.end()) {
             parentNode[QString::number(i)].toObject()["color"] = QColor(DEFAULT_COLOR).name(QColor::HexArgb);
             path[path.count() - 1] = i; // Write to path finded node index
@@ -208,6 +223,7 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, 
 bool Source::addNode(const Node& node) {
     QVector<int> path = posToPath(node.pos, node.scale);
     QJsonObject parentNode;
+
     if (path.count() == 1) {
         parentNode = m_root;
     } else {
@@ -232,8 +248,10 @@ void Source::createChildren(const Node& node) {
 
 QJsonObject Source::findNode(const QVector<int>& path, int index) {
     QJsonObject node = m_root;
+
     for (int i = 0; i <= index; i++) {
         node = node[QString::number(path.at(i))].toObject();
+
         if (i != index) {
             node = node["children"].toObject();
         }

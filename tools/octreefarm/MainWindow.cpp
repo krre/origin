@@ -44,6 +44,7 @@ bool MainWindow::isClosing() {
 void MainWindow::closeEvent(QCloseEvent* event) {
     s_closing = true;
     writeSettings();
+
     QMainWindow::closeEvent(event);
 }
 
@@ -58,6 +59,7 @@ void MainWindow::create() {
 void MainWindow::open() {
     if (maybeSave()) {
         QString fileName = openFileDialog(QFileDialog::AcceptOpen);
+
         if (!fileName.isEmpty()) {
             loadFile(fileName);
         }
@@ -192,6 +194,7 @@ void MainWindow::readSettings() {
     }
 
     QVariant splitterSize = settings.value("splitter");
+
     if (splitterSize == QVariant()) {
         m_splitter->setSizes({ 500, 150 });
     } else {
@@ -203,13 +206,16 @@ void MainWindow::readSettings() {
     settings.endGroup();
 
     int size = settings.beginReadArray("RecentFiles");
+
     for (int i = 0; i < size; ++i) {
         settings.setArrayIndex(i);
         addRecentFile(settings.value("path").toString());
     }
+
     settings.endArray();
 
     QString filePath = settings.value("Path/currentFile").toString();
+
     if (!filePath.isEmpty() && QFile::exists(filePath)) {
         loadFile(filePath);
     } else {
@@ -228,10 +234,12 @@ void MainWindow::writeSettings() {
     settings.setValue("Path/currentFile", m_currentFile);
 
     settings.beginWriteArray("RecentFiles");
+
     for (int i = 0; i <m_recentFilesMenu->actions().size() - separatorAndMenuCount; ++i) {
         settings.setArrayIndex(i);
         settings.setValue("path", m_recentFilesMenu->actions().at(i)->text());
     }
+
     settings.endArray();
 }
 
@@ -266,6 +274,7 @@ bool MainWindow::save() {
 
 bool MainWindow::saveAs() {
     QString fileName = openFileDialog(QFileDialog::AcceptSave);
+
     if (!fileName.isEmpty()) {
         return saveFile(fileName);
     }
@@ -275,6 +284,7 @@ bool MainWindow::saveAs() {
 
 bool MainWindow::saveFile(const QString& fileName) {
     QFile file(fileName);
+
     if (!file.open(QFile::WriteOnly | QFile::Text)) {
         QMessageBox::warning(this, QCoreApplication::applicationName(),
                              tr("Cannot write file %1:\n%2.")
@@ -300,6 +310,7 @@ bool MainWindow::saveFile(const QString& fileName) {
 
 void MainWindow::loadFile(const QString& fileName) {
     QFile file(fileName);
+
     if (!file.open(QFile::ReadOnly | QFile::Text)) {
         QMessageBox::warning(this, QCoreApplication::applicationName(),
                              tr("Cannot read file %1:\n%2.")
@@ -327,11 +338,14 @@ QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
     dialog.setWindowModality(Qt::WindowModal);
     dialog.setAcceptMode(mode);
     dialog.setNameFilter(tr("JSON Octrees (*.json)"));
+
     if (dialog.exec() != QDialog::Accepted) {
         return QString();
     }
+
     QString fileName = dialog.selectedFiles().first();
     QStringList list = fileName.split(".");
+
     if (list.length() > 0 && list.at(list.length() - 1) != "json") {
         fileName += ".json";
     }
@@ -345,9 +359,11 @@ void MainWindow::setCurrentFile(const QString& fileName) {
     setWindowModified(false);
 
     QString shownName = QFileInfo(m_currentFile).fileName();
+
     if (m_currentFile.isEmpty()) {
         shownName = "untitled.json";
     }
+
     setWindowFilePath(shownName);
     setWindowTitle(shownName + "[*] - " + QCoreApplication::applicationName());
 }
@@ -362,9 +378,11 @@ void MainWindow::addRecentFile(const QString& filePath) {
     }
 
     QAction* fileAction = new QAction(filePath);
+
     connect(fileAction, &QAction::triggered, this, [=, this] {
         loadFile(filePath);
     });
+
     menu->insertAction(menu->actions().first(), fileAction);
 
     if (menu->actions().size() > maxRecentFiles + separatorAndMenuCount) {

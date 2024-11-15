@@ -215,6 +215,7 @@ void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulk
         for (size_t i = 0; i < m_voxelRenderPass.shaderProgram->descriptorSets()->count(); i++) {
             commandBuffer->addDescriptorSet(m_voxelRenderPass.shaderProgram->descriptorSets()->at(i));
         }
+
         commandBuffer->bindDescriptorSets(m_voxelRenderPass.graphicsPipeline->bindPoint(), m_voxelRenderPass.shaderProgram->pipelineLayout()->handle());
 
         commandBuffer->draw(m_voxelRenderPass.vertextCount, 1, 0, 0);
@@ -237,6 +238,7 @@ void RenderEngine::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulk
         for (size_t i = 0; i < m_lineRenderPass.shaderProgram->descriptorSets()->count(); i++) {
             commandBuffer->addDescriptorSet(m_lineRenderPass.shaderProgram->descriptorSets()->at(i));
         }
+
         commandBuffer->bindDescriptorSets(m_lineRenderPass.graphicsPipeline->bindPoint(), m_lineRenderPass.shaderProgram->pipelineLayout()->handle());
 
         commandBuffer->draw(m_lineRenderPass.vertextCount, 1, 0, 0);

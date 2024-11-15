@@ -69,6 +69,7 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
     QColor color;
 
     int index = -1;
+
     for (int i = 0; i < m_selection.count(); i++) {
         if (m_selection.at(i)->parent == parent && m_selection.at(i)->childIndex == childIndex) {
             index = i;

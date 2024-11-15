@@ -102,7 +102,7 @@ void Properties::createUi() {
     formLayout->addRow(tr("Color:"), m_colorButton);
 
     m_shadelessCheckBox = new QCheckBox(tr("Shadeless"));
-    connect(m_shadelessCheckBox, &QCheckBox::stateChanged, m_viewport, &Viewport::setShadeless);
+    connect(m_shadelessCheckBox, &QCheckBox::checkStateChanged, m_viewport, &Viewport::setShadeless);
 
     auto verticalLayout = new QVBoxLayout;
     verticalLayout->addLayout(levelLayout);

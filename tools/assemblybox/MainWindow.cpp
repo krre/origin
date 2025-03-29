@@ -1,6 +1,9 @@
 #include "MainWindow.h"
 #include "Application.h"
-#include <QtWidgets>
+#include <QMessageBox>
+#include <QMenuBar>
+#include <QSettings>
+#include <QScreen>
 
 MainWindow::MainWindow() {
     setWindowTitle(Application::Name);

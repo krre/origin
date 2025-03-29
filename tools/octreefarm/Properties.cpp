@@ -2,7 +2,12 @@
 #include "Command.h"
 #include "OctreeEditor.h"
 #include "Viewport.h"
-#include <QtWidgets>
+#include <QLabel>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QColorDialog>
+#include <QHBoxLayout>
+#include <QFormLayout>
 
 Properties::Properties(OctreeEditor* octree, Viewport* viewport, QUndoStack* undoStack, QWidget* parent)
     : QWidget(parent), m_octree(octree), m_viewport(viewport), m_undoStack(undoStack) {

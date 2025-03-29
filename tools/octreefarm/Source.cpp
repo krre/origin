@@ -1,7 +1,6 @@
 #include "Source.h"
 #include "OctreeEditor.h"
-#include <QtCore>
-#include <bitset>
+#include <QJsonDocument>
 
 const uint32_t DEFAULT_COLOR = 0xFF4681FF;
 
@@ -12,7 +11,7 @@ Source::Source() {
 void Source::create(const QString& string) {
     if (string.isEmpty()) {
         for (int i = 0; i < 8; i++) {
-            m_root[QString::number(i)] = { { "color",  QColor(DEFAULT_COLOR).name(QColor::HexArgb) } };
+            m_root[QString::number(i)] = QJsonValue(QJsonObject({ { "color",  QColor(DEFAULT_COLOR).name(QColor::HexArgb) } }));
         }
     } else {
         m_root = QJsonDocument::fromVariant(QVariant(string)).object();

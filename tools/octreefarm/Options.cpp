@@ -1,5 +1,6 @@
 #include "Options.h"
-#include <QtWidgets>
+#include <QDialogButtonBox>
+#include <QVBoxLayout>
 
 Options::Options() {
     m_buttonBox = new QDialogButtonBox;

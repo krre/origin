@@ -1,6 +1,5 @@
 #include "Command.h"
 #include "Source.h"
-#include <QtCore>
 
 DeleteCommand::DeleteCommand(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEditor) {
     m_nodes = octreeEditor->selection();

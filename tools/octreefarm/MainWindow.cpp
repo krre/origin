@@ -5,7 +5,12 @@
 #include "Properties.h"
 #include "Command.h"
 #include "Options.h"
-#include <QtWidgets>
+#include <QSplitter>
+#include <QMenu>
+#include <QMenuBar>
+#include <QMessageBox>
+#include <QSettings>
+#include <QScreen>
 
 const int maxRecentFiles = 10;
 const int separatorAndMenuCount = 2;

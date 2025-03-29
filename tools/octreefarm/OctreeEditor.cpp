@@ -1,9 +1,6 @@
 #include "OctreeEditor.h"
 #include "Source.h"
 #include "octree/Octree.h"
-#include <QtCore>
-#include <QtGui>
-#include <bitset>
 
 OctreeEditor::OctreeEditor(QObject* parent) : QObject(parent) {
     createNew();

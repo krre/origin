@@ -3,10 +3,12 @@
 #include "ListBox.h"
 #include "vulkan/api/Instance.h"
 #include "vulkan/api/device/PhysicalDevice.h"
+#include <QComboBox>
+#include <QCheckBox>
+#include <QLabel>
 #include <QJsonObject>
 #include <QJsonValue>
 #include <QJsonArray>
-#include <QtWidgets>
 
 VulkanTab::VulkanTab() {
     m_deviceComboBox = new QComboBox;

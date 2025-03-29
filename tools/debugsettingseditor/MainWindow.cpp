@@ -2,7 +2,13 @@
 #include "Application.h"
 #include "GeneralTab.h"
 #include "VulkanTab.h"
-#include <QtWidgets>
+#include <QMessageBox>
+#include <QMenuBar>
+#include <QSettings>
+#include <QScreen>
+#include <QFile>
+#include <QJsonDocument>
+#include <QJsonObject>
 
 MainWindow::MainWindow() {
     m_tabWidget = new QTabWidget;

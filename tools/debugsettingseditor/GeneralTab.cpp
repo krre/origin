@@ -1,6 +1,9 @@
 #include "GeneralTab.h"
 #include <QJsonObject>
-#include <QtWidgets>
+#include <QCheckBox>
+#include <QComboBox>
+#include <QFormLayout>
+#include <QDir>
 
 GeneralTab::GeneralTab() {
     m_enableCheckBox = new QCheckBox(tr("Use debug settings"));

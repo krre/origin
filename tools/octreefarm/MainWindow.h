@@ -41,7 +41,7 @@ private slots:
     void reset();
 
     // Tools
-    void options();
+    void preferences();
 
     // Help
     void about();

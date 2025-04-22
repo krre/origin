@@ -4,7 +4,7 @@
 #include "Viewport.h"
 #include "Properties.h"
 #include "Command.h"
-#include "Options.h"
+#include "Preferences.h"
 #include <QSplitter>
 #include <QMenu>
 #include <QMenuBar>
@@ -120,9 +120,9 @@ void MainWindow::reset() {
     m_viewport->reset();
 }
 
-void MainWindow::options() {
-    Options options;
-    options.exec();
+void MainWindow::preferences() {
+    Preferences preferences;
+    preferences.exec();
 }
 
 void MainWindow::about() {
@@ -182,7 +182,7 @@ void MainWindow::createActions() {
     viewMenu->addAction(tr("Reset"), Qt::CTRL | Qt::Key_F12, this, &MainWindow::reset);
 
     auto toolsMenu = menuBar()->addMenu(tr("Tools"));
-    toolsMenu->addAction(tr("Options..."), this, &MainWindow::options);
+    toolsMenu->addAction(tr("Preferences..."), this, &MainWindow::preferences);
 
     auto helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);

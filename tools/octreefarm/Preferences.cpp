@@ -1,8 +1,10 @@
-#include "Options.h"
+#include "Preferences.h"
 #include <QDialogButtonBox>
 #include <QVBoxLayout>
 
-Options::Options() {
+Preferences::Preferences() {
+    setWindowTitle(tr("Preferences"));
+
     m_buttonBox = new QDialogButtonBox;
     m_buttonBox->setOrientation(Qt::Horizontal);
     m_buttonBox->setStandardButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);

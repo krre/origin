@@ -3,10 +3,10 @@
 
 class QDialogButtonBox;
 
-class Options : public QDialog {
+class Preferences : public QDialog {
     Q_OBJECT
 public:
-    Options();
+    Preferences();
 
 private:
     QDialogButtonBox* m_buttonBox = nullptr;

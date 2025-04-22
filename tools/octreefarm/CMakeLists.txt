@@ -26,7 +26,7 @@ add_executable(octreefarm
     Camera.cpp Camera.h
     Command.cpp Command.h
     OctreeEditor.cpp OctreeEditor.h
-    Options.cpp Options.h
+    Preferences.cpp Preferences.h
     Properties.cpp Properties.h
     RenderEngine.cpp RenderEngine.h
     Source.cpp Source.h Viewport.cpp

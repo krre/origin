@@ -169,6 +169,8 @@ void MainWindow::createActions() {
     editMenu->addSeparator();
     editMenu->addAction(tr("Copy"), Qt::CTRL | Qt::Key_C, m_octreeEditor, &OctreeEditor::copy);
     editMenu->addAction(tr("Paste"), Qt::CTRL | Qt::Key_V, m_octreeEditor, &OctreeEditor::paste);
+    editMenu->addSeparator();
+    editMenu->addAction(tr("Preferences..."), this, &MainWindow::preferences);
 
     auto nodeMenu = menuBar()->addMenu(tr("Node"));
     m_deselectAction = nodeMenu->addAction(tr("Deselect"), this, &MainWindow::deselect);
@@ -180,9 +182,6 @@ void MainWindow::createActions() {
 
     auto viewMenu = menuBar()->addMenu(tr("View"));
     viewMenu->addAction(tr("Reset"), Qt::CTRL | Qt::Key_F12, this, &MainWindow::reset);
-
-    auto toolsMenu = menuBar()->addMenu(tr("Tools"));
-    toolsMenu->addAction(tr("Preferences..."), this, &MainWindow::preferences);
 
     auto helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);

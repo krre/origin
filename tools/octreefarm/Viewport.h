@@ -5,7 +5,7 @@
 #include <QWindow>
 #include <QVector3D>
 
-const int LOD_PIXEL_LIMIT = 1;
+constexpr auto LodPixelLimit = 1;
 
 class RenderEngine;
 

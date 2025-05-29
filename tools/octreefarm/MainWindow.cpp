@@ -12,8 +12,9 @@
 #include <QSettings>
 #include <QScreen>
 
-const int maxRecentFiles = 10;
-const int separatorAndMenuCount = 2;
+constexpr auto MaxRecentFiles = 10;
+constexpr auto SeparatorAndMenuCount = 2;
+
 bool MainWindow::s_closing = false;
 
 MainWindow::MainWindow() {
@@ -79,7 +80,7 @@ void MainWindow::revert() {
 }
 
 void MainWindow::clearRecentMenu() {
-    for (int i = m_recentFilesMenu->actions().size() - separatorAndMenuCount - 1; i >= 0; i--) {
+    for (int i = m_recentFilesMenu->actions().size() - SeparatorAndMenuCount - 1; i >= 0; i--) {
         m_recentFilesMenu->removeAction(m_recentFilesMenu->actions().at(i));
     }
 
@@ -239,7 +240,7 @@ void MainWindow::writeSettings() {
 
     settings.beginWriteArray("RecentFiles");
 
-    for (int i = 0; i <m_recentFilesMenu->actions().size() - separatorAndMenuCount; ++i) {
+    for (int i = 0; i <m_recentFilesMenu->actions().size() - SeparatorAndMenuCount; ++i) {
         settings.setArrayIndex(i);
         settings.setValue("path", m_recentFilesMenu->actions().at(i)->text());
     }
@@ -389,13 +390,13 @@ void MainWindow::addRecentFile(const QString& filePath) {
 
     menu->insertAction(menu->actions().first(), fileAction);
 
-    if (menu->actions().size() > maxRecentFiles + separatorAndMenuCount) {
-        menu->removeAction(menu->actions().at(menu->actions().size() - separatorAndMenuCount - 1));
+    if (menu->actions().size() > MaxRecentFiles + SeparatorAndMenuCount) {
+        menu->removeAction(menu->actions().at(menu->actions().size() - SeparatorAndMenuCount - 1));
     }
 
     updateMenuState();
 }
 
 void MainWindow::updateMenuState() {
-    m_recentFilesMenu->menuAction()->setEnabled(m_recentFilesMenu->actions().size() > separatorAndMenuCount);
+    m_recentFilesMenu->menuAction()->setEnabled(m_recentFilesMenu->actions().size() > SeparatorAndMenuCount);
 }

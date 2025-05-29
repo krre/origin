@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer.h"
 #include "ui/UIBatch.h"
+#include <memory>
 
 namespace Vulkan {
     class GpuBuffer;

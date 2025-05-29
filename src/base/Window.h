@@ -3,6 +3,7 @@
 #include <core/SingleObject.h>
 #include <vector>
 #include <functional>
+#include <memory>
 
 #undef HAVE_STDINT_H
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <core/Object.h>
-#include <vector>
+#include <memory>
 
 class SVOBuilder : public Core::Object {
 public:

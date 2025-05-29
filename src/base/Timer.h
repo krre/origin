@@ -1,5 +1,6 @@
 #pragma once
 #include <core/Object.h>
+#include <core/Signal.h>
 #include <SDL_timer.h>
 
 class Timer : public Core::Object {

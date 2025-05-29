@@ -2,6 +2,7 @@
 #include "resource/Resource.h"
 #include <map>
 #include <glm/glm.hpp>
+#include <memory>
 
 namespace Vulkan {
     class Texture;

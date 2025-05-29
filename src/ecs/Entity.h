@@ -1,6 +1,7 @@
 #pragma once
 #include "Component.h"
 #include <core/Object.h>
+#include <core/Common.h>
 #include <map>
 
 class TransformComponent;

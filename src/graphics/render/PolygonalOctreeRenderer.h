@@ -1,6 +1,7 @@
 #pragma once
 #include "OctreeRenderer.h"
 #include <glm/glm.hpp>
+#include <memory>
 
 namespace Vulkan {
     class GpuBuffer;

@@ -2,7 +2,9 @@
 #include "System.h"
 #include "Component.h"
 #include <core/SingleObject.h>
+#include <core/Common.h>
 #include <vector>
+#include <memory>
 #include <map>
 
 class Entity;

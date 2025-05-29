@@ -1,5 +1,6 @@
 #pragma once
 #include <core/Object.h>
+#include <core/Common.h>
 
 struct SDL_KeyboardEvent;
 struct SDL_TextInputEvent;

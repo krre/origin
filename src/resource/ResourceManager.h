@@ -2,6 +2,7 @@
 #include "resource/Resource.h"
 #include <core/SingleObject.h>
 #include <map>
+#include <memory>
 
 #undef HAVE_STDINT_H
 #include <ft2build.h>

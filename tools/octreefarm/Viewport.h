@@ -23,7 +23,7 @@ public:
     void reset();
     void deselect();
     void update();
-    bool getIsReady() { return m_isReady; }
+    bool isReady() { return m_isReady; }
 
 protected:
     void mousePressEvent(QMouseEvent* event) override;

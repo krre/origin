@@ -54,11 +54,11 @@ uint32_t binaryStringToUint(const std::string& value) {
     return uint32_t(std::bitset<32>(value).to_ullong());
 }
 
-std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source) {
-    auto data = std::make_shared<std::vector<uint32_t>>();
+std::vector<uint32_t> jsonToBinary(json source) {
+    std::vector<uint32_t> data;
 
     // Append header
-    data->push_back(0);
+    data.push_back(0);
 
     std::vector<json::object_t*> upLevel; // current parents
     std::vector<json::object_t*> downLevel; // childern for parents in upLevel
@@ -104,7 +104,7 @@ std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source) {
             nodeDescriptor |= (childrenOffset << 17);
         }
 
-        data->push_back(nodeDescriptor);
+        data.push_back(nodeDescriptor);
         colorDescriptors.push_back(colorDescriptor);
 
         offset++;
@@ -117,10 +117,10 @@ std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source) {
         }
     }
 
-    (*data)[0] = offset + 1; // Address to block info
+    data[0] = offset + 1; // Address to block info
 
     // Append block info
-    data->push_back(0);
+    data.push_back(0);
 
     // Append attach descriptors
     offset = colorDescriptors.size();
@@ -131,12 +131,12 @@ std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source) {
             colorDescriptor |= (offset << 8);
             offset += numColors;
         }
-        data->push_back(colorDescriptor);
+        data.push_back(colorDescriptor);
     }
 
     // Append colors
     for (size_t i = 0; i < colors.size(); i++) {
-        data->push_back(colors[i]);
+        data.push_back(colors[i]);
     }
 
     return data;

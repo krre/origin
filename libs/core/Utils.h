@@ -16,7 +16,7 @@ namespace Utils {
     float uintToFloat(uint32_t value);
     std::string uintToBinaryString(uint32_t value);
     uint32_t binaryStringToUint(const std::string& value);
-    std::shared_ptr<std::vector<uint32_t>> jsonToBinary(json source);
+    std::vector<uint32_t> jsonToBinary(json source);
     std::vector<std::string> split(const std::string& value, char delim);
     void removeChar(std::string& str, char c);
 }

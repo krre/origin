@@ -1,5 +1,5 @@
 # Origin
-Procedural world game based on raycast rendering and sparse voxel octree technologies with using Vulkan API
+Procedural world game based on raycast rendering and sparse voxel octree technologies with using Vulkan API.
 
 ## Dependencies
 - [Vulkan SDK 1.3.183.0](https://vulkan.lunarg.com)
@@ -9,4 +9,4 @@ Procedural world game based on raycast rendering and sparse voxel octree technol
 - [SPIRV-Cross](https://github.com/KhronosGroup/SPIRV-Cross)
 
 ## Status
-Initial development stage
+Initial development stage.

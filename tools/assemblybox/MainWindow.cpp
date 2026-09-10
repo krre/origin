@@ -30,11 +30,11 @@ Build on %4 %5<br><br>
 
 void MainWindow::createActions() {
     // File
-    QMenu* fileMenu = menuBar()->addMenu(tr("File"));
+    auto fileMenu = menuBar()->addMenu(tr("File"));
     fileMenu->addAction(tr("Exit"), Qt::CTRL | Qt::Key_Q, this, &QMainWindow::close);
 
     // Help
-    QMenu* helpMenu = menuBar()->addMenu(tr("Help"));
+    auto helpMenu = menuBar()->addMenu(tr("Help"));
     helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);
 }
 

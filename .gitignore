@@ -1,6 +1,6 @@
 # Qt Creator
-/build
-/.qtcreator
+build/
+.qtcreator/
 *.user
 *.autosave
 

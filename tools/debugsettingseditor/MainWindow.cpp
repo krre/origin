@@ -11,6 +11,8 @@
 #include <QJsonObject>
 
 MainWindow::MainWindow() {
+    setWindowTitle(Application::Title);
+
     m_tabWidget = new QTabWidget;
     m_tabWidget->addTab(new GeneralTab, tr("General"));
     m_tabWidget->addTab(new VulkanTab, tr("Vulkan"));

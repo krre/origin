@@ -194,9 +194,10 @@ void MainWindow::readSettings() {
     settings.beginGroup("MainWindow");
 
     if (!restoreGeometry(settings.value("geometry").toByteArray())) {
-        resize(1200, 800);
-        const QRect availableGeometry = QGuiApplication::screens().constFirst()->availableGeometry();
-        move((availableGeometry.width() - width()) / 2, (availableGeometry.height() - height()) / 2);
+        const QSize screenSize = screen()->size();
+        constexpr auto scale = 0.75;
+        resize(screenSize.width() * scale, screenSize.height() * scale);
+        move((screenSize.width() - width()) / 2, (screenSize.height() - height()) / 2);
     }
 
     QVariant splitterSize = settings.value("splitter");

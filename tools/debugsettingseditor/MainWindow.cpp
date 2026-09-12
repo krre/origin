@@ -59,7 +59,7 @@ void MainWindow::createActions() {
     fileMenu->addAction("Exit", Qt::CTRL | Qt::Key_Q, this, qOverload<>(&QMainWindow::close));
 
     auto helpMenu = menuBar()->addMenu(tr("Help"));
-    helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);
+    helpMenu->addAction(tr("About %1...").arg(Application::Title), this, &MainWindow::about);
 }
 
 void MainWindow::reload() {

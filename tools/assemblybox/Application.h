@@ -5,6 +5,7 @@ class Application : public QApplication {
 public:
     static constexpr auto Organization = "Origin";
     static constexpr auto Name = "AssemblyBox";
+    static constexpr auto Title = "Assembly Box";
     static constexpr auto Version = "0.1.0";
     static constexpr auto Url = "https://github.com/krre/origin";
     static constexpr auto Years = "2016-2026";

@@ -18,7 +18,7 @@ constexpr auto SeparatorAndMenuCount = 2;
 bool MainWindow::s_closing = false;
 
 MainWindow::MainWindow() {
-    setWindowTitle(Application::Name);
+    setWindowTitle(Application::Title);
 
     m_undoStack = new QUndoStack(this);
     m_octreeEditor = new OctreeEditor(this);
@@ -372,7 +372,7 @@ void MainWindow::setCurrentFile(const QString& fileName) {
     }
 
     setWindowFilePath(shownName);
-    setWindowTitle(shownName + "[*] - " + QCoreApplication::applicationName());
+    setWindowTitle(shownName + "[*] - " + Application::Title);
 }
 
 void MainWindow::addRecentFile(const QString& filePath) {

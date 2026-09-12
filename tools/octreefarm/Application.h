@@ -8,7 +8,7 @@ public:
     static constexpr auto Title = "Octree Farm";
     static constexpr auto Version = "0.1.0";
     static constexpr auto Url = "https://github.com/krre/origin";
-    static constexpr auto Years = "2016-2025";
+    static constexpr auto Years = "2016-2026";
     static constexpr auto Author = "Vladimir Zarypov";
     static constexpr auto BuildDate = __DATE__;
     static constexpr auto BuildTime = __TIME__;

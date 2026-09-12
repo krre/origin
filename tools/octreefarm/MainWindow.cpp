@@ -134,7 +134,7 @@ Octree editor for Origin game<br><br>
 Based on Qt %3<br>
 Build on %4 %5<br><br>
 <a href=%6>%6</a><br><br>Copyright © %7, %8)").
-    arg(Application::Name, Application::Version, QT_VERSION_STR,
+    arg(Application::Title, Application::Version, QT_VERSION_STR,
     Application::BuildDate, Application::BuildTime, Application::Url,
     Application::Years, Application::Author));
 }
@@ -186,7 +186,7 @@ void MainWindow::createActions() {
     viewMenu->addAction(tr("Reset"), Qt::CTRL | Qt::Key_F12, this, &MainWindow::reset);
 
     auto helpMenu = menuBar()->addMenu(tr("Help"));
-    helpMenu->addAction(tr("About %1...").arg(Application::Name), this, &MainWindow::about);
+    helpMenu->addAction(tr("About %1...").arg(Application::Title), this, &MainWindow::about);
 }
 
 void MainWindow::readSettings() {

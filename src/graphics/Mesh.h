@@ -1,6 +1,7 @@
 #pragma once
 #include <core/Object.h>
 #include <vector>
+#include <stdint.h>
 
 class Mesh : public Core::Object {
 public:

@@ -1,5 +1,6 @@
 #pragma once
 #include <core/Object.h>
+#include <stdint.h>
 
 class ProceduralObject : public Core::Object {
 public:

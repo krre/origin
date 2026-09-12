@@ -1,5 +1,6 @@
 #pragma once
 #include <core/Object.h>
+#include <stdint.h>
 
 namespace Octree {
 

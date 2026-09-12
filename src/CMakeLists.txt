@@ -100,6 +100,7 @@ target_link_libraries(origin
 if(UNIX)
     target_link_libraries(origin
         png
+        bz2
         z # zlib
     )
 endif()

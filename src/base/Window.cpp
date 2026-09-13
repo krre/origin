@@ -27,24 +27,26 @@ Window::Window(Object* parent) : SingleObject(parent) {
         m_height = settingsHeigth.get<int>();
     }
 
-    int x = SDL_WINDOWPOS_CENTERED;
-    int y = SDL_WINDOWPOS_CENTERED;
-
-// On some Ubuntu OS 'Y' position is shifted on window creation, so do not use position settings
-#if !defined(OS_LINUX)
-    json settingsX = Settings::getStorage()["x"];
-    json settingsY = Settings::getStorage()["y"];
+    int x = 0;
+    int y = 0;
+    bool restorePosition = false;
+    json settingsX = Settings::storage()["x"];
+    json settingsY = Settings::storage()["y"];
 
     if (!settingsX.is_null() && !settingsY.is_null()) {
         x = settingsX.get<int>();
         y = settingsY.get<int>();
+        restorePosition = true;
     }
-#endif
 
     m_handle = SDL_CreateWindow(Game::Name, m_width, m_height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
 
     if (m_handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
+    }
+
+    if (restorePosition && !SDL_SetWindowPosition(m_handle, x, y)) {
+        throw std::runtime_error(std::string("Window position could not be restored\n") + SDL_GetError());
     }
 
     Event::get()->windowResize.connect(this, &Window::onResize);

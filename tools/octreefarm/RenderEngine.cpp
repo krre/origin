@@ -60,8 +60,8 @@ void RenderEngine::initVoxelRenderPass() {
 
     m_voxelRenderPass.shaderProgram.reset(new Vulkan::ShaderProgram(graphicsDevice()));
     std::string shaderDataPath = QApplication::applicationDirPath().toStdString() + "/data/shader/";
-    m_voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "octreefarm/FrontLightOctree.vert.spv");
-    m_voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "octreefarm/FrontLightOctree.frag.spv");
+    m_voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "OctreeFarm/FrontLightOctree.vert.spv");
+    m_voxelRenderPass.shaderProgram->loadShader(shaderDataPath + "OctreeFarm/FrontLightOctree.frag.spv");
 
     VkDescriptorBufferInfo bufferInfo = {};
     bufferInfo.buffer = m_voxelRenderPass.uboBuffer->handle();

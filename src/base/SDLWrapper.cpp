@@ -62,16 +62,22 @@ Platform platform(SDL_Window* window) {
 #elif defined(OS_LINUX)
 
     if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0) {
-        result.handle = (void*)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_X11_DISPLAY_POINTER, NULL);
-        result.window = (void*)SDL_GetNumberProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_X11_WINDOW_NUMBER, 0);
-        // SDL_PropertiesID props = SDL_GetWindowProperties(window);
-        // Display* xdisplay = (Display*)SDL_GetPointerProperty(props, SDL_PROP_WINDOW_X11_DISPLAY_POINTER, NULL);
+        SDL_PropertiesID properties = SDL_GetWindowProperties(window);
+        Display* display = static_cast<Display*>(SDL_GetPointerProperty(properties, SDL_PROP_WINDOW_X11_DISPLAY_POINTER, nullptr));
+        const Uint64 windowId = SDL_GetNumberProperty(properties, SDL_PROP_WINDOW_X11_WINDOW_NUMBER, 0);
 
-        // // Преобразуем Display* в xcb_connection_t*
-        // result.handle = (void*)XGetXCBConnection(xdisplay);
+        if (display == nullptr || windowId == 0) {
+            throw std::runtime_error("SDL did not provide X11 window properties: " + error());
+        }
 
-        // // Числовое значение передается без каста к указателю
-        // result.window = (uint64_t)SDL_GetNumberProperty(props, SDL_PROP_WINDOW_X11_WINDOW_NUMBER, 0);
+        xcb_connection_t* connection = XGetXCBConnection(display);
+
+        if (connection == nullptr) {
+            throw std::runtime_error("Could not obtain XCB connection from X11 display");
+        }
+
+        result.handle = connection;
+        result.window = reinterpret_cast<void*>(static_cast<uintptr_t>(windowId));
     } else if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "wayland") == 0) {
         result.handle = (struct wl_display*)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER, NULL);
         result.window = (struct wl_surface*)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER, NULL);

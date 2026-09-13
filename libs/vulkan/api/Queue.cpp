@@ -64,14 +64,14 @@ void Queue::clearCommandBuffers() {
     m_submitInfos.clear();
 }
 
-void Queue::present(uint32_t* indices) {
+VkResult Queue::present(uint32_t* indices) {
     assert(!m_swapchainHandles.empty());
     m_presentInfo.waitSemaphoreCount = m_presentWaitSemaphores.size();
     m_presentInfo.pWaitSemaphores = m_presentWaitSemaphores.data();
     m_presentInfo.swapchainCount = m_swapchainHandles.size();
     m_presentInfo.pSwapchains = m_swapchainHandles.data();
     m_presentInfo.pImageIndices = indices == nullptr ? m_imageIndices.data() : indices;
-    VULKAN_CHECK_RESULT(vkQueuePresentKHR(m_handle, &m_presentInfo), "Failed to present swapchain image");
+    return vkQueuePresentKHR(m_handle, &m_presentInfo);
 }
 
 void Queue::addSwapchain(Swapchain* swapchain) {

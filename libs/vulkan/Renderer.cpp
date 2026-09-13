@@ -23,6 +23,7 @@
 #include "api/image/ImageView.h"
 #include "api/command/CommandBufferOneTime.h"
 #include <algorithm>
+#include <stdexcept>
 
 namespace Vulkan {
 
@@ -138,6 +139,11 @@ void Renderer::render() {
     VkResult result = m_swapchain->acquireNextImage(m_imageAvailableSemaphore.get());
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         resize();
+        return;
+    }
+
+    if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+        throw std::runtime_error("Failed to acquire swapchain image: " + resultToString(result));
     }
 
     if (m_dirty) {
@@ -150,8 +156,14 @@ void Renderer::render() {
                             m_renderFinishedSemaphore->handle(),
                             m_imageAvailableSemaphore->handle(), VK_PIPELINE_STAGE_ALL_GRAPHICS_BIT);
     m_queue->submit();
-    m_queue->present();
+    result = m_queue->present();
     m_queue->waitIdle();
+
+    if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
+        resize();
+    } else if (result != VK_SUCCESS) {
+        throw std::runtime_error("Failed to present swapchain image: " + resultToString(result));
+    }
 
     postRender();
 }

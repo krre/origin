@@ -23,7 +23,7 @@ public:
     void clearSwapchains();
 
     void submit(VkFence fence = VK_NULL_HANDLE);
-    void present(uint32_t* indices = VK_NULL_HANDLE);
+    VkResult present(uint32_t* indices = VK_NULL_HANDLE);
 
     void waitIdle();
     void syncHost(VkFence fence);

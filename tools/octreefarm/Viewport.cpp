@@ -17,7 +17,7 @@ Viewport::Viewport(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEditor) {
     WId windowHandle = winId();
 #if defined(Q_OS_LINUX)
     auto x11Application = qGuiApp->nativeInterface<QNativeInterface::QX11Application>();
-    m_renderEngine = new RenderEngine(x11Application->connection(), &windowHandle, this);
+    m_renderEngine = new RenderEngine(x11Application->connection(), reinterpret_cast<void*>(static_cast<uintptr_t>(windowHandle)), this);
 #elif defined(Q_OS_WIN)
     renderEngine = new RenderEngine(GetModuleHandle(nullptr), (void*)(windowHandle), this);
 #endif

@@ -1,7 +1,7 @@
 #include "Console.h"
 #include "base/Game.h"
 #include <glm/glm.hpp>
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 const std::string SLASH = "/";
 
@@ -17,9 +17,9 @@ void Console::reset() {
 void Console::keyPressed(const SDL_KeyboardEvent& event) {
     TextEdit::keyPressed(event);
 
-    if (event.keysym.sym == SDLK_RETURN) {
+    if (event.key == SDLK_RETURN) {
         execute();
-    } else if (event.keysym.sym == SDLK_ESCAPE) {
+    } else if (event.key == SDLK_ESCAPE) {
         setVisible(false);
     }
 }

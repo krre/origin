@@ -18,7 +18,7 @@
 #include "world/World.h"
 #include <string>
 #include <memory>
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 bool Game::s_running = false;
 

@@ -4,7 +4,7 @@
 #include "ecs/scenes/GameScene.h"
 #include "ui/dialog/PauseDialog.h"
 #include "world/World.h"
-#include <SDL_events.h>
+#include <SDL3/SDL_events.h>
 
 GameScreen::GameScreen(const std::string& worldName) {
     World::load(worldName);
@@ -15,7 +15,7 @@ GameScreen::GameScreen(const std::string& worldName) {
 }
 
 void GameScreen::keyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_ESCAPE) {
+    if (event.key == SDLK_ESCAPE) {
         auto dialog = new PauseDialog;
         Overlay::get()->showDialog(dialog);
     }

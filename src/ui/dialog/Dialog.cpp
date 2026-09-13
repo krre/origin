@@ -1,6 +1,6 @@
 #include "Dialog.h"
 #include "ui/Overlay.h"
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 Dialog::Dialog() : Rectangle(Core::Size(200, 50)) {
     setColor(Color(0, 0, 0, 0.7));
@@ -26,7 +26,7 @@ void Dialog::setPadding(int padding) {
 }
 
 void Dialog::keyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_ESCAPE) {
+    if (event.key == SDLK_ESCAPE) {
         close();
     }
 }

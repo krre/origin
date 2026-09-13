@@ -13,7 +13,7 @@
 #include "graphics/render/UIRenderer.h"
 #include <core/Defines.h>
 #include <lodepng/lodepng.h>
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 Window::Window(Object* parent) : SingleObject(parent) {
     json settingsWidth = Settings::storage()["width"];
@@ -41,7 +41,7 @@ Window::Window(Object* parent) : SingleObject(parent) {
     }
 #endif
 
-    m_handle = SDL_CreateWindow(Game::Name, x, y, m_width, m_height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
+    m_handle = SDL_CreateWindow(Game::Name, m_width, m_height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
 
     if (m_handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
@@ -147,7 +147,12 @@ void Window::onResize(int width, int height) {
 void Window::toggleFullScreen() {
     bool isFullscreen = SDL_GetWindowFlags(m_handle) & SDL_WINDOW_FULLSCREEN;
     SDL_SetWindowFullscreen(m_handle, isFullscreen ? 0 : SDL_WINDOW_FULLSCREEN);
-    SDL_ShowCursor(isFullscreen);
+
+    if (isFullscreen) {
+        SDL_ShowCursor();
+    } else {
+        SDL_HideCursor();
+    }
 }
 
 void Window::setColor(const Color& color) {
@@ -163,7 +168,7 @@ void Window::invokeDeffered() {
 }
 
 void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
-    switch (event.keysym.sym) {
+    switch (event.key) {
 #ifdef DEBUG_HUD_ENABLE
         case SDLK_F5:
             Overlay::get()->toggleDebugHUD();

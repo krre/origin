@@ -1,6 +1,6 @@
 #include "Button.h"
 #include "Label.h"
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 Button::Button(Control* parent) : Rectangle(parent) {
     m_label = new Label(this);
@@ -31,7 +31,7 @@ const Color& Button::textColor() const {
 }
 
 void Button::mouseButtonAction(const SDL_MouseButtonEvent& event) {
-    if (event.type == SDL_MOUSEBUTTONDOWN) {
+    if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         clicked.fire();
     }
 }

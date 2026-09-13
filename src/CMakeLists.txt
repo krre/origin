@@ -88,7 +88,7 @@ add_executable(origin ${SOURCES} main.cpp
 )
 
 target_link_libraries(origin
-    ${SDL2_LIBRARY}
+    SDL3::SDL3
     ${FREETYPE_LIBRARIES}
     ${BULLET_LIBRARIES}
     stdc++fs

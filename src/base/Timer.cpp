@@ -12,8 +12,8 @@ void Timer::stop() {
     SDL_RemoveTimer(m_timerId);
 }
 
-Uint32 Timer::onTimeElaplsed(Uint32 interval, void* param) {
-    Timer* self = reinterpret_cast<Timer*>(param);
+Uint32 Timer::onTimeElaplsed(void* userdata, SDL_TimerID timerID, Uint32 interval) {
+    Timer* self = reinterpret_cast<Timer*>(userdata);
     self->timeout.fire();
     return 0;
 }

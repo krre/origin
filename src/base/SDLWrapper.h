@@ -6,8 +6,8 @@ struct SDL_Window;
 
 namespace SDL {
     struct Platform {
-        void* handle;
-        void* window;
+        void* handle = nullptr;
+        void* window = nullptr;
     };
 
     void init();

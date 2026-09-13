@@ -1,6 +1,6 @@
 #pragma once
 #include <core/SingleObject.h>
-#include <SDL_keycode.h>
+#include <SDL3/SDL_keycode.h>
 #include <unordered_set>
 #include <glm/glm.hpp>
 

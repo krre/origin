@@ -14,9 +14,9 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake")
 
-# If find SDL2 failure, set SDL_PATH variable to SDL install root
-find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIR})
+# If find SDL3 failure, set SDL_PATH variable to SDL install root
+find_package(SDL3 REQUIRED CONFIG REQUIRED COMPONENTS SDL3)
+include_directories(${SDL3_INCLUDE_DIR})
 
 find_package(Bullet REQUIRED)
 include_directories(${BULLET_INCLUDE_DIRS})

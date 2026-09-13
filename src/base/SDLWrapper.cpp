@@ -1,7 +1,7 @@
 #include "SDLWrapper.h"
 #include "base/Game.h"
-#include <SDL.h>
-#include <SDL_syswm.h>
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_init.h>
 #include <stdexcept>
 
 #if defined(OS_LINUX)
@@ -15,7 +15,7 @@ namespace {
 namespace SDL {
 
 void init() {
-    if (SDL_Init(SDL_INIT_EVERYTHING) < 0) {
+    if (!SDL_Init(SDL_INIT_VIDEO)) {
         throw std::runtime_error("SDL could not initialize!\nSDL_Error: " + error());
     }
 
@@ -28,17 +28,17 @@ void shutdown() {
 
 Core::Size screenSize() {
     Core::Size screenSize;
-    SDL_DisplayMode mode;
-    if (SDL_GetDesktopDisplayMode(0, &mode) != 0) {
+
+    SDL_DisplayID display = SDL_GetPrimaryDisplay();
+    auto mode = SDL_GetDesktopDisplayMode(display);
+
+    if (!mode) {
         throw std::runtime_error("SDL_GetDesktopDisplayMode failed\nSDL_Error: " + error());
     } else {
-        screenSize.width = mode.w;
-        screenSize.height = mode.h;
+        screenSize.width = (*mode).w;
+        screenSize.height = (*mode).h;
     }
 
-    if (SDL_GetDisplayMode(0, 0, &mode) != 0) {
-        throw std::runtime_error("SDL_GetDisplayMode failed\nSDL_Error: " + error());
-    }
     return screenSize;
 }
 
@@ -55,20 +55,27 @@ bool isInited() {
 }
 
 Platform platform(SDL_Window* window) {
-    static SDL_SysWMinfo wminfo;
-    SDL_VERSION(&wminfo.version);
-    if (!SDL_GetWindowWMInfo(window, &wminfo)) {
-        throw std::runtime_error("SDL_GetWindowWMInfo failed\nSDL_Error: " + error());
-    }
-
-    Platform result;
+    Platform result = {};
 
 #if defined(OS_WIN)
-    result.handle = GetModuleHandle(nullptr);
-    result.window = (void*)wminfo.info.win.window;
+    result.handle = (HWND)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_WIN32_HWND_POINTER, NULL);
 #elif defined(OS_LINUX)
-    result.handle = (void*)XGetXCBConnection(wminfo.info.x11.display);
-    result.window = (void*)&wminfo.info.x11.window;
+
+    if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0) {
+        result.handle = (void*)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_X11_DISPLAY_POINTER, NULL);
+        result.window = (void*)SDL_GetNumberProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_X11_WINDOW_NUMBER, 0);
+        // SDL_PropertiesID props = SDL_GetWindowProperties(window);
+        // Display* xdisplay = (Display*)SDL_GetPointerProperty(props, SDL_PROP_WINDOW_X11_DISPLAY_POINTER, NULL);
+
+        // // Преобразуем Display* в xcb_connection_t*
+        // result.handle = (void*)XGetXCBConnection(xdisplay);
+
+        // // Числовое значение передается без каста к указателю
+        // result.window = (uint64_t)SDL_GetNumberProperty(props, SDL_PROP_WINDOW_X11_WINDOW_NUMBER, 0);
+    } else if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "wayland") == 0) {
+        result.handle = (struct wl_display*)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_WAYLAND_DISPLAY_POINTER, NULL);
+        result.window = (struct wl_surface*)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_WAYLAND_SURFACE_POINTER, NULL);
+    }
 #endif
 
     return result;

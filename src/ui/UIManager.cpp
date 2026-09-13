@@ -5,7 +5,7 @@
 #include "event/Event.h"
 #include "event/Input.h"
 #include "ui/Overlay.h"
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 UIManager::UIManager(Object* parent) : SingleObject(parent) {
     Event::get()->keyPressed.connect(this, &UIManager::onKeyPressed);

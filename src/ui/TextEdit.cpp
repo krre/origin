@@ -4,8 +4,8 @@
 #include "Font.h"
 
 #undef HAVE_STDINT_H
-#include <SDL_keycode.h>
-#include <SDL_events.h>
+#include <SDL3/SDL_keycode.h>
+#include <SDL3/SDL_events.h>
 
 const int DEFAULT_WIDHT = 200;
 const Color BACKGROUND_COLOR = Color(0, 0, 0, 0.8);
@@ -35,7 +35,7 @@ void TextEdit::resizeImpl(int width, int height) {
 }
 
 void TextEdit::keyPressed(const SDL_KeyboardEvent& event) {
-    if (event.keysym.sym == SDLK_BACKSPACE) {
+    if (event.key == SDLK_BACKSPACE) {
         std::string text = m_label->text();
         std::string newText = text.substr(0, text.length() - 1);
         m_label->setText(newText);
@@ -47,7 +47,7 @@ void TextEdit::textPressed(const SDL_TextInputEvent& event) {
 }
 
 void TextEdit::mouseButtonAction(const SDL_MouseButtonEvent& event) {
-    if (event.type == SDL_MOUSEBUTTONDOWN) {
+    if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         activate();
     }
 }

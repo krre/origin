@@ -5,7 +5,7 @@
 #include "vulkan/api/device/Device.h"
 #include "vulkan/api/device/PhysicalDevice.h"
 #include "vulkan/api/Instance.h"
-#include <SDL.h>
+#include <SDL3/SDL.h>
 
 DebugHUD::DebugHUD(Control* parent) : Control(parent) {
     setVisible(false);
@@ -31,7 +31,7 @@ void DebugHUD::updateImpl(float dt) {
         std::to_string(m_fps) + " fps\n"
         "Video driver: " + RenderManager::get()->graphicsDevice()->physicalDevice()->properties().deviceName + "\n"
         "Vulkan API: " + m_vulkanApiVersion + "\n"
-        "CPU count: " + std::to_string(SDL_GetCPUCount()) + "\n"
+        "CPU count: " + std::to_string(SDL_GetNumLogicalCPUCores()) + "\n"
         "System RAM: " + std::to_string(SDL_GetSystemRAM()) + " MB";
 
 //    if (Game::get()->getWorldScene()) {

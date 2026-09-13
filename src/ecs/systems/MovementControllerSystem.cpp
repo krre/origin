@@ -29,13 +29,13 @@ void MovementControllerSystem::process(float dt) {
     TransformSystem* transformSystem = static_cast<TransformSystem*>(m_entityManager->system(System::Type::Transform).get());
     transformSystem->setRotation(m_rotateEntity, rotation);
 
-    if (Input::get()->isKeyPressed(SDLK_w)) {
+    if (Input::get()->isKeyPressed(SDLK_W)) {
         transformSystem->translate(m_moveEntity, glm::vec3(0.0f, 0.0f, -1.0f) * m_moveSpeed * dt);
-    } else if (Input::get()->isKeyPressed(SDLK_s)) {
+    } else if (Input::get()->isKeyPressed(SDLK_S)) {
         transformSystem->translate(m_moveEntity, glm::vec3(0.0f, 0.0f, 1.0f) * m_moveSpeed * dt);
-    } else if (Input::get()->isKeyPressed(SDLK_a)) {
+    } else if (Input::get()->isKeyPressed(SDLK_A)) {
         transformSystem->translate(m_moveEntity, glm::vec3(-1.0f, 0.0f, 0.0f) * m_moveSpeed * dt);
-    } else if (Input::get()->isKeyPressed(SDLK_d)) {
+    } else if (Input::get()->isKeyPressed(SDLK_D)) {
         transformSystem->translate(m_moveEntity, glm::vec3(1.0f, 0.0f, 0.0f) * m_moveSpeed * dt);
     }
 

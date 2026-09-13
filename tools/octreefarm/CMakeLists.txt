@@ -10,6 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 find_package(Qt6 REQUIRED COMPONENTS
     Widgets
 )
+find_package(Vulkan REQUIRED)
 
 qt_standard_project_setup()
 
@@ -38,7 +39,7 @@ target_link_directories(octreefarm PRIVATE $ENV{ORIGIN_HOME})
 
 target_link_libraries(octreefarm PRIVATE
     Qt6::Widgets
-    vulkan-o
+    Vulkan::Vulkan
     octree
     core
 )

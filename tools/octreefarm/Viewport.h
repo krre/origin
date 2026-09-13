@@ -1,15 +1,15 @@
 #pragma once
-#include "OctreeEditor.h"
 #include "Camera.h"
-#include <cstdint>
-#include <QWindow>
+#include "OctreeEditor.h"
+#include <QVulkanInstance>
+#include <QVulkanWindow>
 #include <QVector3D>
 
 constexpr auto LodPixelLimit = 1;
 
 class RenderEngine;
 
-class Viewport : public QWindow {
+class Viewport final : public QVulkanWindow {
     Q_OBJECT
 public:
     struct LineVertex {
@@ -17,15 +17,16 @@ public:
         glm::vec4 color;
     };
 
-    Viewport(OctreeEditor* octreeEditor = nullptr);
-    ~Viewport();
+    explicit Viewport(OctreeEditor* octreeEditor = nullptr);
+    ~Viewport() override;
 
     void reset();
     void deselect();
     void update();
-    bool isReady() { return m_isReady; }
+    bool isReady() const;
 
 protected:
+    QVulkanWindowRenderer* createRenderer() override;
     void mousePressEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
     void wheelEvent(QWheelEvent* event) override;
@@ -43,19 +44,6 @@ private slots:
     void onCameraStateChanged();
 
 private:
-    struct PickResult {
-        glm::vec3 pos;
-        uint32_t parent;
-        uint32_t scale;
-        int childIdx;
-    };
-
-    struct DebugOut {
-        glm::vec4 debugVec;
-        int debugInt;
-        float debugFloat;
-    };
-
     struct AABB {
         glm::vec3 min;
         glm::vec3 max;
@@ -66,6 +54,7 @@ private:
     void pickOctree(const QPoint& pos);
     bool intersectRayAabb(const glm::vec3& origin, const glm::vec3& direction, const AABB& aabb);
 
+    QVulkanInstance m_vulkanInstance;
     RenderEngine* m_renderEngine = nullptr;
     float m_rotateSpeed = 5;
     float m_panSpeed = 100;
@@ -75,8 +64,5 @@ private:
     OctreeEditor* m_octreeEditor = nullptr;
     Camera m_camera;
     QVector3D m_backgroundColor = QVector3D(0.77, 0.83, 0.83);
-    bool m_pickMode = false;
-    QPoint m_pick;
-    bool m_isReady = false;
     QVector<LineVertex> m_lines;
 };

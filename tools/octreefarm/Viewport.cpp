@@ -1,33 +1,40 @@
 #include "Viewport.h"
 #include "RenderEngine.h"
-#include "vulkan/GpuBuffer.h"
 #include "octree/Octree.h"
-#include "MainWindow.h"
 #define GLM_ENABLE_EXPERIMENTAL
 #include <QtWidgets>
 #include <glm/glm.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
 
 Viewport::Viewport(OctreeEditor* octreeEditor) : m_octreeEditor(octreeEditor) {
-    setFlag(Qt::FramelessWindowHint);
-
     connect(&m_camera, &Camera::stateChanged, this, &Viewport::onCameraStateChanged);
     connect(octreeEditor, &OctreeEditor::dataChanged, this, &Viewport::onOctreeChanged);
 
-    WId windowHandle = winId();
-#if defined(Q_OS_LINUX)
-    auto x11Application = qGuiApp->nativeInterface<QNativeInterface::QX11Application>();
-    m_renderEngine = new RenderEngine(x11Application->connection(), reinterpret_cast<void*>(static_cast<uintptr_t>(windowHandle)), this);
-#elif defined(Q_OS_WIN)
-    renderEngine = new RenderEngine(GetModuleHandle(nullptr), (void*)(windowHandle), this);
-#endif
+    if (!m_vulkanInstance.create()) {
+        qFatal("Failed to create Vulkan instance: %d", m_vulkanInstance.errorCode());
+    }
 
-    m_renderEngine->create();
-
+    setVulkanInstance(&m_vulkanInstance);
 }
 
 Viewport::~Viewport() {
+}
 
+QVulkanWindowRenderer* Viewport::createRenderer() {
+    m_renderEngine = new RenderEngine(this);
+
+    if (width() && height()) {
+        m_camera.resize(width(), height());
+    }
+
+    onCameraStateChanged();
+    onOctreeChanged();
+
+    return m_renderEngine;
+}
+
+bool Viewport::isReady() const {
+    return m_renderEngine && m_renderEngine->isReady();
 }
 
 void Viewport::mousePressEvent(QMouseEvent* event) {
@@ -58,26 +65,21 @@ void Viewport::wheelEvent(QWheelEvent* event) {
 }
 
 void Viewport::resizeEvent(QResizeEvent* event [[maybe_unused]]) {
-    // Hack to fix crash on Qt 5.11.1
-    if (!m_renderEngine || MainWindow::isClosing()) return;
-
-    m_renderEngine->resize();
+    QVulkanWindow::resizeEvent(event);
     m_camera.resize(event->size().width(), event->size().height());
-    // update() do not use here because it already done by camera state changing.
 }
 
 void Viewport::onOctreeChanged() {
+    if (!m_renderEngine) return;
+
     uint32_t size = m_octreeEditor->octree()->vertices().size() * sizeof(Octree::Octree::Vertex);
-    if (size) {
-        m_renderEngine->setVoxelVertextCount(m_octreeEditor->octree()->vertices().size());
-        m_renderEngine->voxelVertexBuffer()->write(m_octreeEditor->octree()->vertices().data(), size);
-        m_renderEngine->markDirty();
-        update();
-    }
+    m_renderEngine->setVoxelVertices(m_octreeEditor->octree()->vertices().data(), m_octreeEditor->octree()->vertices().size(), size);
+
+    update();
 }
 
 void Viewport::onCameraStateChanged() {
-    if (!(width() || height())) return;
+    if (!m_renderEngine || !(width() && height())) return;
 
     glm::mat4 model = glm::mat4(1.0f);
     glm::mat4 mvp = m_camera.projective() * m_camera.view() * model;
@@ -139,18 +141,12 @@ void Viewport::addLineCube() {
 }
 
 void Viewport::drawSelection() {
-    m_renderEngine->setLineVertextCount(m_lines.size());
-    if (m_lines.size()) {
-        m_renderEngine->lineVertexBuffer()->write(m_lines.data(), sizeof(LineVertex) * m_lines.size());
-    }
-    m_renderEngine->markDirty();
+    if (!m_renderEngine) return;
+    m_renderEngine->setLineVertices(m_lines.data(), m_lines.size(), sizeof(LineVertex) * m_lines.size());
     update();
 }
 
 void Viewport::pickOctree(const QPoint& pos) {
-    m_pick = pos;
-    m_pickMode = true;
-
     float x = (2.0f * pos.x()) / width() - 1.0f;
     float y = 1.0f - (2.0f * pos.y()) / height();
     glm::vec2 ndcRay = glm::vec2(x, y);
@@ -234,10 +230,10 @@ void Viewport::deselect() {
 }
 
 void Viewport::update() {
-    m_renderEngine->render();
+    requestUpdate();
 }
 
 void Viewport::setShadeless(bool shadeless) {
-    m_renderEngine->updateShadeless(shadeless);
+    if (m_renderEngine) m_renderEngine->updateShadeless(shadeless);
     update();
 }

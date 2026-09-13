@@ -45,8 +45,10 @@ private:
     void onKeyPressed(const SDL_KeyboardEvent& event);
 
     SDL_Window* m_handle = nullptr;
+
     uint32_t m_width = 800;
     uint32_t m_height = 600;
+
     std::vector<std::shared_ptr<Screen>> m_screens;
     Color m_color = Color(0.42, 0.65, 5.0, 1.0);
     std::vector<std::function<void()>> m_deferredCalls;

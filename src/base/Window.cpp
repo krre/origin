@@ -27,26 +27,43 @@ Window::Window(Object* parent) : SingleObject(parent) {
         m_height = settingsHeigth.get<int>();
     }
 
-    int x = 0;
-    int y = 0;
-    bool restorePosition = false;
+    int x = SDL_WINDOWPOS_CENTERED;
+    int y = SDL_WINDOWPOS_CENTERED;
+
     json settingsX = Settings::storage()["x"];
     json settingsY = Settings::storage()["y"];
 
     if (!settingsX.is_null() && !settingsY.is_null()) {
         x = settingsX.get<int>();
         y = settingsY.get<int>();
-        restorePosition = true;
     }
 
-    m_handle = SDL_CreateWindow(Game::Name, m_width, m_height, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE | SDL_WINDOW_VULKAN);
+    SDL_PropertiesID properties = SDL_CreateProperties();
+
+    if (properties == 0) {
+        throw std::runtime_error(std::string("Window properties could not be created\n") + SDL_GetError());
+    }
+
+    const bool configured =
+        SDL_SetStringProperty(properties, SDL_PROP_WINDOW_CREATE_TITLE_STRING, Game::Name) &&
+        SDL_SetNumberProperty(properties, SDL_PROP_WINDOW_CREATE_WIDTH_NUMBER, m_width) &&
+        SDL_SetNumberProperty(properties, SDL_PROP_WINDOW_CREATE_HEIGHT_NUMBER, m_height) &&
+        SDL_SetNumberProperty(properties, SDL_PROP_WINDOW_CREATE_X_NUMBER, x) &&
+        SDL_SetNumberProperty(properties, SDL_PROP_WINDOW_CREATE_Y_NUMBER, y) &&
+        SDL_SetBooleanProperty(properties, SDL_PROP_WINDOW_CREATE_HIDDEN_BOOLEAN, true) &&
+        SDL_SetBooleanProperty(properties, SDL_PROP_WINDOW_CREATE_RESIZABLE_BOOLEAN, true) &&
+        SDL_SetBooleanProperty(properties, SDL_PROP_WINDOW_CREATE_VULKAN_BOOLEAN, true);
+
+    if (!configured) {
+        SDL_DestroyProperties(properties);
+        throw std::runtime_error(std::string("Window properties could not be configured\n") + SDL_GetError());
+    }
+
+    m_handle = SDL_CreateWindowWithProperties(properties);
+    SDL_DestroyProperties(properties);
 
     if (m_handle == nullptr) {
         throw std::runtime_error(std::string("Window could not be created\n") + SDL_GetError());
-    }
-
-    if (restorePosition && !SDL_SetWindowPosition(m_handle, x, y)) {
-        throw std::runtime_error(std::string("Window position could not be restored\n") + SDL_GetError());
     }
 
     Event::get()->windowResize.connect(this, &Window::onResize);

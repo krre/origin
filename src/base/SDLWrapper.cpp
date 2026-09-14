@@ -16,7 +16,7 @@ namespace SDL {
 
 void init() {
     if (!SDL_Init(SDL_INIT_VIDEO)) {
-        throw std::runtime_error("SDL could not initialize!\nSDL_Error: " + error());
+        throw std::runtime_error("SDL could not initialize\n" + error());
     }
 
     inited = true;
@@ -33,7 +33,7 @@ Core::Size screenSize() {
     auto mode = SDL_GetDesktopDisplayMode(display);
 
     if (!mode) {
-        throw std::runtime_error("SDL_GetDesktopDisplayMode failed\nSDL_Error: " + error());
+        throw std::runtime_error("Failed to get desktop display mode\n" + error());
     } else {
         screenSize.width = (*mode).w;
         screenSize.height = (*mode).h;

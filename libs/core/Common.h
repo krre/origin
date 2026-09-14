@@ -1,5 +1,4 @@
 #pragma once
-#include <iostream>
 #include <memory>
 #include "Defines.h"
 #ifndef QT_VERSION

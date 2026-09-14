@@ -2,6 +2,7 @@
 #include "base/Game.h"
 #include <glm/glm.hpp>
 #include <SDL3/SDL.h>
+#include <print>
 
 const std::string SLASH = "/";
 
@@ -31,7 +32,7 @@ void Console::execute() {
         if (command == "exit") {
             Game::quit();
         } else if (command == "help") {
-            PRINT("help");
+            std::println("help");
         }
 
         setVisible(false);

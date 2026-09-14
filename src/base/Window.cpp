@@ -14,6 +14,7 @@
 #include <core/Defines.h>
 #include <lodepng/lodepng.h>
 #include <SDL3/SDL.h>
+#include <print>
 
 Window::Window(Object* parent) : SingleObject(parent) {
     json settingsWidth = Settings::storage()["width"];
@@ -87,7 +88,7 @@ void Window::popScreen() {
             m_screens.back()->resume();
         } else {
             // TODO: Question dialog about exit from game
-            PRINT("Exit question dialog")
+            std::println("Exit question dialog");
         }
     });
 }

@@ -16,9 +16,10 @@
 #include "Window.h"
 #include "screen/MenuScreen.h"
 #include "world/World.h"
+#include <SDL3/SDL.h>
 #include <string>
 #include <memory>
-#include <SDL3/SDL.h>
+#include <print>
 
 bool Game::s_running = false;
 
@@ -84,7 +85,7 @@ void Game::init() {
         if (SDL::isInited()) {
             SDL::showErrorMessageBox(ex.what());
         } else {
-            PRINT(ex.what());
+            std::println("Init game error: {}", ex.what());
         }
     }
 
@@ -115,7 +116,6 @@ void Game::run() {
 
         Window::get()->update(frameTime);
         Window::get()->render();
-//        PRINT(frameTime << " " << 1 / frameTime)
     }
 
     Window::get()->close();

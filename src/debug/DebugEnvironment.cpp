@@ -9,6 +9,7 @@
 #include "screen/WaitScreen.h"
 #include "base/Window.h"
 #include <core/Utils.h>
+#include <print>
 
 DebugEnvironment::DebugEnvironment(Object* parent) : SingleObject(parent) {
 #ifdef DEVELOP_MODE
@@ -82,6 +83,6 @@ void DebugEnvironment::loadValues() {
         m_settings = json::parse(text);
         m_enabled = m_settings["general"]["enable"];
     } catch (const std::exception& ex) {
-        PRINT(ex.what())
+        std::println("Load debug values error: {}", ex.what());
     };
 }

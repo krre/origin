@@ -46,7 +46,7 @@ void Event::handleEvents() {
                 textInput.fire(event.text);
                 break;
             case SDL_EVENT_TEXT_EDITING:
-//                PRINT("edit " << event.edit.text);
+                // TODO
                 break;
             default:
                 break;

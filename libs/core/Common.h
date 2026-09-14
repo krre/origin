@@ -4,7 +4,6 @@
 #include "Defines.h"
 #ifndef QT_VERSION
     #include "Signal.h"
-    #define PRINT(x) std::cout << x << std::endl;
 #endif
 
 namespace Core {

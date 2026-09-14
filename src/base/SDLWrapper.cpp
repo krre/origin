@@ -60,7 +60,6 @@ Platform platform(SDL_Window* window) {
 #if defined(OS_WIN)
     result.handle = (HWND)SDL_GetPointerProperty(SDL_GetWindowProperties(window), SDL_PROP_WINDOW_WIN32_HWND_POINTER, NULL);
 #elif defined(OS_LINUX)
-
     if (SDL_strcmp(SDL_GetCurrentVideoDriver(), "x11") == 0) {
         SDL_PropertiesID properties = SDL_GetWindowProperties(window);
         Display* display = static_cast<Display*>(SDL_GetPointerProperty(properties, SDL_PROP_WINDOW_X11_DISPLAY_POINTER, nullptr));

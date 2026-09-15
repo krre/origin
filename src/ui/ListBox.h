@@ -13,8 +13,8 @@ public:
 private:
     void mouseButtonAction(const SDL_MouseButtonEvent& event);
 
-    Label* m_label;
-    ListBox* m_listBox;
+    Label* m_label = nullptr;
+    ListBox* m_listBox = nullptr;
     int m_index;
 };
 

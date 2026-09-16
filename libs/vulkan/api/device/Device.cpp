@@ -1,6 +1,7 @@
 #include "Device.h"
 #include "PhysicalDevice.h"
 #include <iostream>
+#include <print>
 
 namespace Vulkan {
 
@@ -44,7 +45,7 @@ void Device::create() {
 
 void Device::dumpExtensions() {
     for (const auto& extension : m_extensions) {
-        std::cout << extension.extensionName << std::endl;
+        std::println("{}", extension.extensionName);
     }
 }
 

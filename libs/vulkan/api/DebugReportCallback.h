@@ -1,6 +1,7 @@
 #pragma once
 #include "base/Handle.h"
 #include <iostream>
+#include <print>
 
 namespace Vulkan {
 
@@ -62,8 +63,8 @@ static VKAPI_ATTR VkBool32 VKAPI_CALL debugCallbackDefault(VkDebugReportFlagsEXT
         case VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT: type = "Buffer collection Fuchsia"; break;
     }
 
-    std::cout << "[" << log << "] " << pLayerPrefix << " | object: " << std::hex << "0x" << object << std::dec << " | type: " << type
-              << " | location: " << location << " | code: " << messageCode << " | message: " << pMessage << std::endl;
+    std::println("[{}] {} | object: 0x{:x} | type: {} | location: {} | code: {} | message: {}",
+        log, pLayerPrefix, object, type, location, messageCode, pMessage);
 
     return VK_FALSE;
 }

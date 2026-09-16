@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <assert.h>
+#include <print>
 
 namespace Vulkan {
 
@@ -122,25 +123,20 @@ void Shader::parse() {
 }
 
 void Shader::dumpBindings() {
-    std::cout << "Dump SPIR-V bindings (stage " << m_stage << "):" << std::endl;
+    std::println("Dump SPIR-V bindings (stage {}): ", static_cast<int>(m_stage));
+
     for (const auto& binding : m_bindings) {
-        std::cout << "type name: " << binding.typeName
-            << ", variable name: " << binding.variableName
-            << ", set: " << binding.set
-            << ", binding: " << binding.layoutBinding.binding
-            << ", descriptorType: " << binding.layoutBinding.descriptorType
-            << ", descriptorCount: " << binding.layoutBinding.descriptorCount
-            << std::endl;
+        std::println("Type name: {}, variable name: {}, set: {}, binding: {}, descriptorType: {}, descriptorCount: {}",
+            binding.typeName, binding.variableName, binding.set, binding.layoutBinding.binding,
+            static_cast<int>(binding.layoutBinding.descriptorType), binding.layoutBinding.descriptorCount);
     }
 }
 
 void Shader::dumpLocations() {
-    std::cout << "Dump SPIR-V locations (stage " << m_stage << "):" << std::endl;
+    std::println("Dump SPIR-V locations (stage {}):", static_cast<int>(m_stage));
+
     for (const auto& location : m_locations) {
-        std::cout << "name: " << location.name
-            << ", location: " << location.location
-            << ", format: " << location.format
-            << std::endl;
+        std::println("Name: {}, location: {}, format: {}", location.name, location.location, static_cast<int>(location.format));
     }
 }
 

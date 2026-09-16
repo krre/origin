@@ -78,9 +78,8 @@ void Instance::setEnabledLayers(const std::vector<std::string>& enabledLayers) {
 
 void Instance::dumpLayers() {
     for (const auto& layer : m_layersProperties) {
-        std::cout << layer.layerName << " - " << layer.description
-              << " (spec. ver. " << apiToString(layer.specVersion)
-              << ", impl. ver. " << layer.implementationVersion << ")" << std::endl;;
+        std::println("{} - {} (spec. ver. {}, impl. ver. {})",
+            layer.layerName, layer.description, apiToString(layer.specVersion), layer.implementationVersion);
     }
 }
 
@@ -90,7 +89,7 @@ void Instance::setEnabledExtensions(const std::vector<std::string>& enabledExten
 
 void Instance::dumpExtensions() {
     for (const auto& extension : m_extensionProperties) {
-        std::cout << extension.extensionName << " (spec. ver. " << extension.specVersion << ")" << std::endl;
+        std::println("{} (spec. ver. {})", extension.extensionName, extension.specVersion);
     }
 }
 

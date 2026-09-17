@@ -48,7 +48,7 @@ public:
 
     void select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append = false);
 
-    QVector<QSharedPointer<Node>> selection() { return m_selection; }
+    QVector<Node> selection() { return m_selection; }
     Source* source() { return m_source; }
     Octree::Octree* octree() const { return m_octree.data(); }
 
@@ -69,7 +69,7 @@ private:
     QScopedPointer<Octree::Octree> m_octree;
     Source* m_source = nullptr;
     QSharedPointer<QVector<uint32_t>> m_storage;
-    QVector<QSharedPointer<Node>> m_selection;
+    QVector<Node> m_selection;
     uint32_t m_selectionColor = 0xFF909090;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);
     glm::mat4 m_worldToOctree = glm::mat4(1.0);

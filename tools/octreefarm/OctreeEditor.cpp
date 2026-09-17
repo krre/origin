@@ -58,17 +58,17 @@ void OctreeEditor::confirmUpdate() {
 void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, const glm::vec3& pos, bool append) {
     int offset = colorAttachOffset(parent, childIndex);
 
-    QSharedPointer<Node> node(new Node);
-    node->parent = parent;
-    node->scale = scale;
-    node->childIndex = childIndex;
-    node->pos = pos;
+    Node node;
+    node.parent = parent;
+    node.scale = scale;
+    node.childIndex = childIndex;
+    node.pos = pos;
     QColor color;
 
     int index = -1;
 
     for (int i = 0; i < m_selection.count(); i++) {
-        if (m_selection.at(i)->parent == parent && m_selection.at(i)->childIndex == childIndex) {
+        if (m_selection.at(i).parent == parent && m_selection.at(i).childIndex == childIndex) {
             index = i;
             break;
         }
@@ -76,23 +76,23 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
 
     if (append) {
         if (index >= 0) { // Remove selection
-            (*m_storage)[offset] = m_selection.at(index)->color;
+            (*m_storage)[offset] = m_selection.at(index).color;
             m_selection.remove(index);
             emit nodeDeselected();
         } else { // Append selection
-            node->color = (*m_storage)[offset];
+            node.color = (*m_storage)[offset];
             (*m_storage)[offset] = m_selectionColor;
             m_selection.append(node);
-            color.setRgba(node->color);
-            emit nodeSelected(node->scale, childIndex, color);
+            color.setRgba(node.color);
+            emit nodeSelected(node.scale, childIndex, color);
         }
     } else if (index == -1 || m_selection.count() > 1) {
         deselect();
-        node->color = (*m_storage)[offset];
+        node.color = (*m_storage)[offset];
         (*m_storage)[offset] = m_selectionColor;
         m_selection.append(node);
-        color.setRgba(node->color);
-        emit nodeSelected(node->scale, childIndex, color);
+        color.setRgba(node.color);
+        emit nodeSelected(node.scale, childIndex, color);
     }
 
     emit dataChanged();
@@ -101,8 +101,8 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
 void OctreeEditor::deselect() {
     if (m_selection.count()) {
         for (auto node: m_selection) {
-            int address = colorAttachOffset(node->parent, node->childIndex);
-            (*m_storage)[address] = node->color;
+            int address = colorAttachOffset(node.parent, node.childIndex);
+            (*m_storage)[address] = node.color;
         }
 
         m_selection.clear();
@@ -113,7 +113,7 @@ void OctreeEditor::deselect() {
 
 void OctreeEditor::copy() {
     if (m_selection.count()) {
-        m_clipboard.color = m_selection.last().data()->color;
+        m_clipboard.color = m_selection.last().color;
     }
 }
 

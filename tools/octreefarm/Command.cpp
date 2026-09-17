@@ -9,7 +9,7 @@ void DeleteCommand::undo() {
     bool result = false;
 
     for (auto node: m_nodes) {
-        result = m_octreeEditor->source()->addNode(*node.data());
+        result = m_octreeEditor->source()->addNode(node);
     }
 
     if (result) {
@@ -55,7 +55,7 @@ void SplitCommand::undo() {
     bool result = false;
 
     for (auto node: m_nodes) {
-        result = m_octreeEditor->source()->mergeNode(*node.data());
+        result = m_octreeEditor->source()->mergeNode(node);
     }
 
     if (result) {
@@ -105,7 +105,7 @@ void ChangeColorCommand::undo() {
     bool result = false;
 
     for (auto node: m_nodes) {
-        result = m_octreeEditor->source()->changeNodeColor(*node.data());
+        result = m_octreeEditor->source()->changeNodeColor(node);
     }
 
     if (result) {

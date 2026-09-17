@@ -11,7 +11,7 @@ public:
 
 private:
     OctreeEditor* m_octreeEditor;
-    QVector<QSharedPointer<Node>> m_nodes;
+    QVector<Node> m_nodes;
 };
 
 class AddCommand : public QUndoCommand {
@@ -24,7 +24,7 @@ public:
 private:
     OctreeEditor* m_octreeEditor;
     bool m_back;
-    QVector<QSharedPointer<Node>> m_nodes;
+    QVector<Node> m_nodes;
     Node m_node;
 };
 
@@ -37,7 +37,7 @@ public:
 
 private:
     OctreeEditor* m_octreeEditor;
-    QVector<QSharedPointer<Node>> m_nodes;
+    QVector<Node> m_nodes;
 };
 
 class MergeCommand : public QUndoCommand {
@@ -49,7 +49,7 @@ public:
 
 private:
     OctreeEditor* m_octreeEditor;
-    QVector<QSharedPointer<Node>> m_nodes;
+    QVector<Node> m_nodes;
     QVector<Node> m_mergedNodes;
     Node m_newNode;
 };
@@ -63,6 +63,6 @@ public:
 
 private:
     OctreeEditor* m_octreeEditor;
-    QVector<QSharedPointer<Node>> m_nodes;
+    QVector<Node> m_nodes;
     QColor m_color;
 };

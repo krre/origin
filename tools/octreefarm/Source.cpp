@@ -37,12 +37,12 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     return QSharedPointer<QVector<uint32_t>>();
 }
 
-bool Source::changeNodeColor(const QVector<QSharedPointer<Node>>& selection, const QColor& color) {
+bool Source::changeNodeColor(const QVector<Node>& selection, const QColor& color) {
     if (!selection.count()) return false;
 
     for (int i = 0; i < selection.count(); i++) {
-        Node* node = selection.at(i).data();
-        QVector<int> path = posToPath(node->pos, node->scale);
+        Node node = selection.at(i);
+        QVector<int> path = posToPath(node.pos, node.scale);
         QJsonObject currentNode = findNode(path, path.count() - 1);
         currentNode["color"] = color.name(QColor::HexArgb);
     }
@@ -58,12 +58,12 @@ bool Source::changeNodeColor(const Node& node) {
     return true;
 }
 
-bool Source::deleteNode(const QVector<QSharedPointer<Node>>& selection) {
+bool Source::deleteNode(const QVector<Node>& selection) {
     if (!selection.count()) return false;
 
     for (int i = 0; i < selection.count(); i++) {
-        Node* node = selection.at(i).data();
-        QVector<int> path = posToPath(node->pos, node->scale);
+        Node node = selection.at(i);
+        QVector<int> path = posToPath(node.pos, node.scale);
         QJsonObject parentNode;
 
         if (path.count() == 1) {
@@ -95,12 +95,12 @@ bool Source::deleteNode(const Node& node) {
     return true;
 }
 
-bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
+bool Source::splitNode(const QVector<Node>& selection) {
     if (!selection.count()) return false;
 
     for (int i = 0; i < selection.count(); i++) {
-        Node* node = selection.at(i).data();
-        QVector<int> path = posToPath(node->pos, node->scale);
+        Node node = selection.at(i);
+        QVector<int> path = posToPath(node.pos, node.scale);
         QJsonObject parentNode;
 
         if (path.count() == 1) {
@@ -122,11 +122,11 @@ bool Source::splitNode(const QVector<QSharedPointer<Node>>& selection) {
     return true;
 }
 
-bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& newNode, QVector<Node>& mergedNodes) {
+bool Source::mergeNode(const QVector<Node>& selection, Node& newNode, QVector<Node>& mergedNodes) {
     if (!selection.count()) return false;
 
-    Node* node = selection.at(0).data();
-    QVector<int> path = posToPath(node->pos, node->scale);
+    Node node = selection.at(0);
+    QVector<int> path = posToPath(node.pos, node.scale);
 
     if (path.count() > 1) {
         int parentIndex = path.count() - 2;
@@ -138,7 +138,7 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& new
 
             if (iter != children.end()) {
                 Node childNode;
-                childNode.scale = node->scale;
+                childNode.scale = node.scale;
                 QColor color(children[QString::number(i)].toObject()["color"].toString());
                 childNode.color = color.rgba();
                 path[path.count() - 1] = i;
@@ -147,7 +147,7 @@ bool Source::mergeNode(const QVector<QSharedPointer<Node>>& selection, Node& new
             }
         }
 
-        newNode.scale = node->scale + 1;
+        newNode.scale = node.scale + 1;
         path.removeLast();
         newNode.pos = pathToPos(path);
         parentNode.remove("children");
@@ -171,11 +171,11 @@ bool Source::mergeNode(const Node& node) {
     }
 }
 
-bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, Node& newNode) {
+bool Source::addNode(const QVector<Node>& selection, bool back, Node& newNode) {
     if (!selection.count()) return false;
 
-    Node* node = selection.at(0).data();
-    QVector<int> path = posToPath(node->pos, node->scale);
+    Node node = selection.at(0);
+    QVector<int> path = posToPath(node.pos, node.scale);
     QJsonObject parentNode;
 
     if (path.count() == 1) {
@@ -211,7 +211,7 @@ bool Source::addNode(const QVector<QSharedPointer<Node>>& selection, bool back, 
             parentNode[QString::number(i)].toObject()["color"] = QColor(DEFAULT_COLOR).name(QColor::HexArgb);
             path[path.count() - 1] = i; // Write to path finded node index
             newNode.pos = pathToPos(path);
-            newNode.scale = node->scale;
+            newNode.scale = node.scale;
             break;
         }
     }

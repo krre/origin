@@ -14,8 +14,6 @@ class MainWindow : public QMainWindow {
 public:
     MainWindow();
 
-    static bool isClosing();
-
 protected:
     void closeEvent(QCloseEvent* event) override;
 

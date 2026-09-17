@@ -15,8 +15,6 @@
 constexpr auto MaxRecentFiles = 10;
 constexpr auto SeparatorAndMenuCount = 2;
 
-bool MainWindow::s_closing = false;
-
 MainWindow::MainWindow() {
     setWindowTitle(Application::Title);
 
@@ -43,12 +41,7 @@ MainWindow::MainWindow() {
     connect(m_octreeEditor, &OctreeEditor::isModifiedChanged, this, &MainWindow::setWindowModified);
 }
 
-bool MainWindow::isClosing() {
-    return s_closing;
-}
-
 void MainWindow::closeEvent(QCloseEvent* event) {
-    s_closing = true;
     writeSettings();
 
     QMainWindow::closeEvent(event);

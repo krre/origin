@@ -94,6 +94,7 @@ void MainWindow::readDebugSettings() {
     bool settingsExists = file.open(QIODevice::ReadOnly);
 
     QJsonDocument doc;
+
     if (settingsExists) {
         doc = QJsonDocument(QJsonDocument::fromJson(file.readAll()));
     }
@@ -111,6 +112,7 @@ void MainWindow::readDebugSettings() {
 
 void MainWindow::writeDebugSettings() {
     QFile file(m_debugSettingsPath);
+
     if (!file.open(QIODevice::WriteOnly)) {
         qWarning() << "Couldn't open file" << m_debugSettingsPath;
         return;

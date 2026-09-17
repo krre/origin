@@ -76,20 +76,20 @@ void OctreeEditor::select(uint32_t parent, uint32_t scale, uint32_t childIndex, 
 
     if (append) {
         if (index >= 0) { // Remove selection
-            (*m_storage)[offset] = m_selection.at(index).color;
+            m_storage[offset] = m_selection.at(index).color;
             m_selection.remove(index);
             emit nodeDeselected();
         } else { // Append selection
-            node.color = (*m_storage)[offset];
-            (*m_storage)[offset] = m_selectionColor;
+            node.color = m_storage[offset];
+            m_storage[offset] = m_selectionColor;
             m_selection.append(node);
             color.setRgba(node.color);
             emit nodeSelected(node.scale, childIndex, color);
         }
     } else if (index == -1 || m_selection.count() > 1) {
         deselect();
-        node.color = (*m_storage)[offset];
-        (*m_storage)[offset] = m_selectionColor;
+        node.color = m_storage[offset];
+        m_storage[offset] = m_selectionColor;
         m_selection.append(node);
         color.setRgba(node.color);
         emit nodeSelected(node.scale, childIndex, color);
@@ -102,7 +102,7 @@ void OctreeEditor::deselect() {
     if (m_selection.count()) {
         for (auto node: m_selection) {
             int address = colorAttachOffset(node.parent, node.childIndex);
-            (*m_storage)[address] = node.color;
+            m_storage[address] = node.color;
         }
 
         m_selection.clear();

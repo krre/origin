@@ -1,7 +1,6 @@
 #pragma once
 #include <QObject>
 #include <QColor>
-#include <QSharedPointer>
 #include <QVector>
 #include <QJsonObject>
 #include <glm/glm.hpp>
@@ -14,7 +13,7 @@ public:
     Source();
     void create(const QString& string = QString());
     QString serialize();
-    QSharedPointer<QVector<uint32_t>> binary();
+    QVector<uint32_t> binary();
     bool changeNodeColor(const QVector<Node>& selection, const QColor& color);
     bool changeNodeColor(const Node& node);
     bool deleteNode(const QVector<Node>& selection);

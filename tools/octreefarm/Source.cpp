@@ -23,7 +23,7 @@ QString Source::serialize() {
     return QString(doc.toJson());
 }
 
-QSharedPointer<QVector<uint32_t>> Source::binary() {
+QVector<uint32_t> Source::binary() {
 //    std::shared_ptr<std::vector<uint32_t>> dataStd = Origin::Utils::jsonToBinary(root);
 //    QVector<uint32_t>* data = new QVector<uint32_t>(QVector<uint32_t>::fromStdVector(*dataStd));
 
@@ -33,8 +33,8 @@ QSharedPointer<QVector<uint32_t>> Source::binary() {
     }
 #endif
 
-//    return QSharedPointer<QVector<uint32_t>>(data);
-    return QSharedPointer<QVector<uint32_t>>();
+//    return QVector<uint32_t>(data);
+    return QVector<uint32_t>();
 }
 
 bool Source::changeNodeColor(const QVector<Node>& selection, const QColor& color) {

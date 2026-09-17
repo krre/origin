@@ -4,7 +4,6 @@
 #include <octree/Octree.h>
 #include <QVector>
 #include <QColor>
-#include <QSharedPointer>
 #include <glm/ext.hpp>
 
 namespace Octree {
@@ -30,9 +29,6 @@ class OctreeEditor : public QObject {
 public:
     OctreeEditor(QObject* parent = nullptr);
     ~OctreeEditor();
-
-    uint32_t* data() { return m_storage->data(); }
-    int count() { return m_storage->size(); }
 
     glm::mat4 octreeToWorld() const { return m_octreeToWorld; }
     glm::mat4 worldToOctree() const { return m_worldToOctree; }
@@ -68,7 +64,7 @@ private:
 
     QScopedPointer<Octree::Octree> m_octree;
     Source* m_source = nullptr;
-    QSharedPointer<QVector<uint32_t>> m_storage;
+    QVector<uint32_t> m_storage;
     QVector<Node> m_selection;
     uint32_t m_selectionColor = 0xFF909090;
     glm::mat4 m_octreeToWorld = glm::mat4(1.0);

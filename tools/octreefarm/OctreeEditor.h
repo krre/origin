@@ -67,7 +67,7 @@ private:
     int colorAttachOffset(int parent, int childIndex);
 
     QScopedPointer<Octree::Octree> m_octree;
-    Source* m_source;
+    Source* m_source = nullptr;
     QSharedPointer<QVector<uint32_t>> m_storage;
     QVector<QSharedPointer<Node>> m_selection;
     uint32_t m_selectionColor = 0xFF909090;

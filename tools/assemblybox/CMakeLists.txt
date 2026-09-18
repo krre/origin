@@ -15,7 +15,8 @@ qt_standard_project_setup()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
-add_executable(assemblybox main.cpp
+add_executable(assemblybox
+    main.cpp
     Application.cpp Application.h
     MainWindow.cpp MainWindow.h
 )

@@ -5,14 +5,18 @@ project(octreefarm VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(REQUIRED_QT_VERSION 6.11.0)
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY $ENV{ORIGIN_HOME})
 
-find_package(Qt6 REQUIRED COMPONENTS
+find_package(Qt6 ${REQUIRED_QT_VERSION} REQUIRED COMPONENTS
     Widgets
 )
 find_package(Vulkan REQUIRED)
 
-qt_standard_project_setup()
+qt_standard_project_setup(
+    REQUIRES ${REQUIRED_QT_VERSION}
+)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})

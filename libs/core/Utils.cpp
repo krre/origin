@@ -25,6 +25,7 @@ uint32_t rgbaToUint32(const glm::vec4& color) {
 
 std::string readTextFile(const std::string& filePath) {
     std::ifstream in(filePath);
+
     if (in.is_open()) {
         std::string text((std::istreambuf_iterator<char>(in)), (std::istreambuf_iterator<char>()));
         return text;
@@ -83,12 +84,14 @@ std::vector<uint32_t> jsonToBinary(json source) {
             nodeDescriptor |= (1 << (8 + std::stoi(node.first))); // Valid nodes
 
             json::iterator iter = node.second.find("children");
+
             if (iter != node.second.end()) {
                 nodeDescriptor |= (1 << std::stoi(node.first)); // Non-leaf nodes
                 downLevel.push_back(iter.value().get_ptr<json::object_t*>());
             }
 
             iter = node.second.find("color");
+
             if (iter != node.second.end()) {
                 colorDescriptor |= (1 << std::stoi(node.first)); // Valid colors
                 std::string nameColor = (*octree)[node.first]["color"];
@@ -99,6 +102,7 @@ std::vector<uint32_t> jsonToBinary(json source) {
         }
 
         int childNum = std::bitset<8>(nodeDescriptor).count();
+
         if (childNum) {
             int childrenOffset = upLevel.size() - upIndex + downLevelIndex;
             nodeDescriptor |= (childrenOffset << 17);
@@ -124,13 +128,16 @@ std::vector<uint32_t> jsonToBinary(json source) {
 
     // Append attach descriptors
     offset = colorDescriptors.size();
+
     for (size_t i = 0 ; i < colorDescriptors.size(); i++) {
         uint32_t colorDescriptor = colorDescriptors[i];
         int numColors = std::bitset<8>(colorDescriptor).count();
+
         if (numColors) {
             colorDescriptor |= (offset << 8);
             offset += numColors;
         }
+
         data.push_back(colorDescriptor);
     }
 
@@ -147,6 +154,7 @@ std::vector<std::string> split(const std::string& value, char delim) {
     std::stringstream ss;
     ss.str(value);
     std::string item;
+
     while (std::getline(ss, item, delim)) {
         if (item.size()) {
             elems.push_back(item);

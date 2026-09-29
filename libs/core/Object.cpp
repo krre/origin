@@ -66,6 +66,7 @@ void Object::polishAppendChild(Object* child) {
     if (child->m_parent) {
         child->m_parent->removeChild(child);
     }
+
     child->m_parent = this;
     notifyAddChild(child);
 }

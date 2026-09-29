@@ -14,6 +14,7 @@ void Screen::pause() {
 
 void Screen::resume() {
     m_isPaused = false;
+
     if (m_activeControl) {
         m_activeControl->activate();
     } else {

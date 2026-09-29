@@ -99,6 +99,7 @@ void DebugRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vul
         for (int i = 0; i < m_shaderProgram->descriptorSets()->count(); i++) {
             commandBuffer->addDescriptorSet(m_shaderProgram->descriptorSets()->at(i));
         }
+
         commandBuffer->bindDescriptorSets(m_graphicsPipeline->bindPoint(), m_shaderProgram->pipelineLayout()->handle());
 
         commandBuffer->draw(m_vertextCount, 1, 0, 0);

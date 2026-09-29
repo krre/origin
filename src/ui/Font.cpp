@@ -7,7 +7,6 @@
 #include <vector>
 #include <filesystem>
 
-
 Font::Font() {
     m_glyphInfos.resize(GLYPHS_COUNT);
 }

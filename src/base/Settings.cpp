@@ -5,6 +5,7 @@
 
 Settings::Settings(Object* parent) : SingleObject(parent) {
     m_path = Game::currentDirectory() + Core::Utils::pathSeparator() + Game::SettingsName;
+
     if (std::filesystem::exists(m_path)) {
         std::string text = Core::Utils::readTextFile(m_path);
         m_storage = json::parse(text);

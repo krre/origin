@@ -14,6 +14,7 @@ std::shared_ptr<Entity> EntityBuilder::geometry() {
         Component::Type::Render,
         Component::Type::Physics,
     };
+
     std::shared_ptr<Entity> entity = m_entityManager->createComponents(types);
 
     return entity;
@@ -29,6 +30,7 @@ std::shared_ptr<Entity> EntityBuilder::avatar() {
         Component::Type::Movement,
         Component::Type::Camera
     };
+
     return m_entityManager->createComponents(types);
 }
 
@@ -38,6 +40,7 @@ std::shared_ptr<Entity> EntityBuilder::camera() {
         Component::Type::Movement, // TODO: take from to avatar
         Component::Type::Camera
     };
+
     std::shared_ptr<Entity> entity = m_entityManager->createComponents(types);
 
     MovementComponent* movementComponent = entity->movement();
@@ -69,5 +72,6 @@ std::shared_ptr<Entity> EntityBuilder::light() {
         Component::Type::Transform,
         Component::Type::Light,
     };
+
     return m_entityManager->createComponents(types);
 }

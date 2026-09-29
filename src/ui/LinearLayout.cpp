@@ -11,8 +11,10 @@ void LinearLayout::updateContentPostion() {
     m_contentHeight = 0;
     int positionX = m_position.x;
     int positionY = m_position.y;
+
     for (const auto& child : children()) {
         Control* control = static_cast<Control*>(child);
+
         if (m_direction == Direction::Vertical) {
             control->move(positionX, positionY);
             positionY += control->contentHeight() + spacing();

@@ -15,30 +15,38 @@ MenuScreen::MenuScreen() {
 
     Button* buttonContinue = new Button("New game");
     buttonContinue->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+
     buttonContinue->clicked.connect([&]() {
         Window::get()->pushScreen(std::make_shared<NewWorldScreen>());
     });
+
     m_layout->appendChild(buttonContinue);
 
     Button* buttonLoad = new Button("Load game");
     buttonLoad->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+
     buttonLoad->clicked.connect([&]() {
         Window::get()->pushScreen(std::make_shared<LoadWorldScreen>());
     });
+
     m_layout->appendChild(buttonLoad);
 
     Button* buttonSettings = new Button("Settings");
     buttonSettings->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+
     buttonSettings->clicked.connect([&]() {
         Window::get()->pushScreen(std::make_shared<SettingsScreen>());
     });
+
     m_layout->appendChild(buttonSettings);
 
     Button* buttonExit = new Button("Exit");
     buttonExit->resize(BUTTON_WINDTH, BUTTON_HEIGHT);
+
     buttonExit->clicked.connect([&]() {
         Game::quit();
     });
+
     m_layout->appendChild(buttonExit);
 }
 

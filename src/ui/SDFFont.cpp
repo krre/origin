@@ -33,6 +33,7 @@ void SDFFont::load(const std::string& path) {
         std::getline(istream, line);
 
         std::vector<std::string> words = Core::Utils::split(line, ' ');
+
         if (!words.size()) {
             continue;
         }
@@ -54,10 +55,12 @@ void SDFFont::load(const std::string& path) {
         } else if (head == "char") {
             Character character = {};
             int id;
+
             for (int i = 1; i < words.size(); i++) {
                 std::vector<std::string> pair = Core::Utils::split(words.at(i), '=');
                 std::string& name = pair.at(0);
                 int value = std::stoi(pair.at(1));
+
                 if (name == "id") {
                     id = value;
                 } else if (name == "x") {

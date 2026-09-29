@@ -14,9 +14,11 @@ void EntityManager::removeSystem(System::Type type) {
 
 std::shared_ptr<System> EntityManager::system(System::Type type) {
     auto it = m_systems.find(type);
+
     if (it != m_systems.end()) {
         return it->second;
     }
+
     return nullptr;
 }
 
@@ -84,6 +86,7 @@ Component* EntityManager::createComponent(Entity* entity, Component::Type type) 
 
 std::shared_ptr<Entity> EntityManager::createComponents(const std::vector<Component::Type>& types) {
     std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+
     for (const auto& type : types) {
         createComponent(entity.get(), type);
     }

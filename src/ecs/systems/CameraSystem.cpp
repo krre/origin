@@ -30,6 +30,7 @@ void CameraSystem::onWindowResize(int width, int height) {
     // TODO: Replace by family
     for (const auto& entity : m_entityManager->entities()) {
         CameraComponent* cameraComp = entity.second->camera();
+
         if (cameraComp) {
             cameraComp->aspect = width * 1.0f / height;
             cameraComp->projection = glm::perspective(cameraComp->fov, cameraComp->aspect, cameraComp->near, cameraComp->far);

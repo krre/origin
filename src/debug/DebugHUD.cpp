@@ -19,6 +19,7 @@ DebugHUD::DebugHUD(Control* parent) : Control(parent) {
 void DebugHUD::updateImpl(float dt) {
     m_accumTime += dt;
     m_counter++;
+
     if (m_accumTime >= 0.5) {
         // Average fps for 0.5 sec (on resize may be > 60, so clamp to 60)
         m_fps = int(std::round(m_counter / m_accumTime));

@@ -4,6 +4,7 @@
 
 SettingsScreen::SettingsScreen() {
     m_buttonBack = new Button("Back", this);
+
     m_buttonBack->clicked.connect([&]() {
         Window::get()->popScreen();
     });

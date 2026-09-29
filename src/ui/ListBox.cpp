@@ -8,9 +8,7 @@
 const Color LINE_SELECTED_COLOR = Color(1, 1, 1, 0.3);
 const Color LINE_COLOR = Color(0, 0, 0, 0.7);
 
-RowDelegate::RowDelegate(const std::string& text, int index, ListBox* listBox) :
-        m_index(index),
-        m_listBox(listBox) {
+RowDelegate::RowDelegate(const std::string& text, int index, ListBox* listBox) : m_index(index), m_listBox(listBox) {
     setColor(LINE_COLOR);
     m_label = new Label(text, this);
     m_label->setColor(Color::WHITE);
@@ -20,10 +18,10 @@ RowDelegate::RowDelegate(const std::string& text, int index, ListBox* listBox) :
 }
 
 void RowDelegate::mouseButtonAction(const SDL_MouseButtonEvent& event) {
-     if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+    if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         m_listBox->m_currentText = m_label->text();
         m_listBox->setCurrentIndex(m_index);
-     }
+    }
 }
 
 ListBox::ListBox(Control* parent) : Rectangle(parent) {
@@ -46,6 +44,7 @@ void ListBox::setCurrentIndex(int currentIndex) {
 
     for (Object* child : m_layout->children()) {
         RowDelegate* listLine = static_cast<RowDelegate*>(child);
+
         if (listLine->index() == currentIndex) {
             listLine->setColor(LINE_SELECTED_COLOR);
         } else {

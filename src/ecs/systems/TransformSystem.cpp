@@ -18,6 +18,7 @@ void TransformSystem::process(float dt) {
 
 void TransformSystem::update(Entity* entity) {
     TransformComponent* tc = entity->transform();
+
     if (tc && tc->dirty) {
         glm::mat4 mat(1);
         glm::mat4 translationMatrix = glm::translate(mat, tc->position);

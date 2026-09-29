@@ -21,10 +21,13 @@ void DebugEnvironment::setDebugScreen() {
     uint8_t s = get()->m_settings["general"]["screen"];
     json j = get()->m_settings["general"]["save"];
     std::string worldName;
+
     if (j.is_string()) {
         worldName = j.get<std::string>();
     }
+
     Screen::Name screen = static_cast<Screen::Name>(s);
+
     switch (screen) {
         case Screen::Name::Menu:
             Window::get()->setScreen(std::make_shared<MenuScreen>());
@@ -78,6 +81,7 @@ VkDebugReportFlagsEXT DebugEnvironment::vulkanDebugReportFlags() {
 
 void DebugEnvironment::loadValues() {
     std::string filePath = Game::currentDirectory() + "/debug.json";
+
     try {
         std::string text = Core::Utils::readTextFile(filePath);
         m_settings = json::parse(text);

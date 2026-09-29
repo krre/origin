@@ -31,6 +31,7 @@ void World::save() {
 
 std::string World::savesDirectory() {
     std::string directoryPath = Game::currentDirectory() + Core::Utils::pathSeparator() + "saves";
+
     if (!std::filesystem::exists(directoryPath)) {
         std::filesystem::create_directory(directoryPath);
     }

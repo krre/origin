@@ -29,6 +29,7 @@ void Console::execute() {
     std::string command = text();
     if (command.length() > 0 && command.substr(0, 1) == "/") {
         command = command.substr(1, command.length() - 1);
+
         if (command == "exit") {
             Game::quit();
         } else if (command == "help") {

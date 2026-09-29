@@ -55,6 +55,7 @@ void Window::pushScreen(const std::shared_ptr<Screen>& screen) {
     if (!m_screens.empty()) {
         m_screens.back()->pause();
     }
+
     m_screens.push_back(screen);
     screen->resize(m_width, m_height);
     screen->resume();
@@ -78,6 +79,7 @@ void Window::setScreen(const std::shared_ptr<Screen>& screen) {
         pushScreen(screen);
         return;
     }
+
     addDeferredCall([=, this] () {
         m_screens.back()->pause();
         m_screens.clear();
@@ -188,6 +190,7 @@ void Window::onKeyPressed(const SDL_KeyboardEvent& event) {
                 Overlay::get()->showConsole();
                 Input::get()->isKeyAccepted = true;
             }
+
             break;
     }
 }

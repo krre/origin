@@ -24,6 +24,7 @@ void Control::updatePosition() {
 
     for (const auto child : children()) {
         Control* control = dynamic_cast<Control*>(child);
+
         if (control) {
             control->updatePosition();
         }
@@ -52,6 +53,7 @@ void Control::markDirty() {
     m_dirty = true;
 
     Control* parent = dynamic_cast<Control*>(Object::parent());
+
     if (parent) {
         parent->markDirty();
     }

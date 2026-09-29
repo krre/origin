@@ -40,6 +40,7 @@ void MovementControllerSystem::process(float dt) {
     }
 
     bool free = m_moveEntity->movement()->free;
+
     if (!free) {
         // Track to floor pos
         TransformComponent* mtc = m_moveEntity->transform();

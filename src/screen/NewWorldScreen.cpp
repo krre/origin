@@ -13,12 +13,14 @@ NewWorldScreen::NewWorldScreen() {
     m_layout->appendChild(m_textEdit);
 
     Button* buttonPlay = new Button("Play", this);
+
     buttonPlay->clicked.connect([&]() {
         if (!m_textEdit->text().empty()) {
             World::create(m_textEdit->text());
             Window::get()->setScreen(std::make_shared<GameScreen>(m_textEdit->text()));
         }
     });
+
     m_layout->appendChild(buttonPlay);
 
     m_buttonBack = new Button("Back", this);

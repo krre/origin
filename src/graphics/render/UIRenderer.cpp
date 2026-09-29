@@ -114,9 +114,11 @@ void UIRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuffer, Vulkan
 
     if (m_shaderProgram->descriptorSets()->count()) {
         commandBuffer->clearDescriptorSets();
+
         for (int i = 0; i < m_shaderProgram->descriptorSets()->count(); i++) {
             commandBuffer->addDescriptorSet(m_shaderProgram->descriptorSets()->at(i));
         }
+
         commandBuffer->bindDescriptorSets(m_graphicsPipeline->bindPoint(), m_shaderProgram->pipelineLayout()->handle());
     }
 

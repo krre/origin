@@ -15,8 +15,8 @@
 
 RaycastOctreeRenderer::RaycastOctreeRenderer(Object* parent) : OctreeRenderer(parent) {
     std::vector<glm::vec2> plane = {
-       { -1.0, 1.0 }, { -1.0, -1.0 }, { 1.0, -1.0 },
-        { -1.0, 1.0 }, { 1.0, -1.0 }, { 1.0, 1.0 }
+        { -1.0, 1.0 }, { -1.0, -1.0 }, { 1.0, -1.0 },
+        { -1.0, 1.0 }, { 1.0, -1.0 },  { 1.0, 1.0 }
     };
 
     Vulkan::Device* device = OctreeRenderer::device();
@@ -96,9 +96,11 @@ void RaycastOctreeRenderer::writeCommandBuffer(Vulkan::CommandBuffer* commandBuf
 
     if (m_shaderProgram->descriptorSets()->count()) {
         commandBuffer->clearDescriptorSets();
+
         for (int i = 0; i < m_shaderProgram->descriptorSets()->count(); i++) {
             commandBuffer->addDescriptorSet(m_shaderProgram->descriptorSets()->at(i));
         }
+
         commandBuffer->bindDescriptorSets(m_graphicsPipeline->bindPoint(), m_shaderProgram->pipelineLayout()->handle());
     }
 

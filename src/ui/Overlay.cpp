@@ -42,6 +42,7 @@ void Overlay::showDialog(Dialog* dialog) {
 void Overlay::closeDialog(Dialog* dialog) {
     removeChild(dialog);
     m_dialog = nullptr;
+
     addDeferredCall([=]() {
         delete dialog;
     });

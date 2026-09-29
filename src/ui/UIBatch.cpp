@@ -1,8 +1,7 @@
 #include "UIBatch.h"
 #include "Font.h"
 
-UIBatch::UIBatch(std::vector<Vertex>* vertices) :
-        vertices(vertices) {
+UIBatch::UIBatch(std::vector<Vertex>* vertices) : vertices(vertices) {
     vertexStart = vertices->size();
     vertextEnd = vertices->size();
 }
@@ -46,6 +45,7 @@ void UIBatch::addText(float x, float y, const std::string& text, Font* font) {
 
     // Find highest sign for first row
     int maxHeigth = 0;
+
     for (auto& sign : text) {
         if (sign == '\n') {
             break;

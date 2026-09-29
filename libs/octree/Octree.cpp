@@ -12,6 +12,7 @@ Octree::Octree(Substance substance, Object* parent) : Object(parent) {
 
 void Octree::load(const std::string& path) {
     std::ifstream file(path);
+
     if (!file.is_open()) {
         throw std::runtime_error("Failed open file: " + path);
     }
@@ -97,6 +98,7 @@ void Octree::build(Octree::SurfaceFlags flags) {
 void Octree::split(const Path& path) {
     json::object_t* parentNode = findNode(path);
     json nodes;
+
     for (int i = 0; i < 8; i++) {
         nodes[std::to_string(i)] = json::object();
     }
@@ -114,6 +116,7 @@ void Octree::setSubstance(const Substance& substance) {
 
 json::object_t* Octree::findNode(const Path& path) {
     json::object_t* node = m_storage.get_ptr<json::object_t*>();
+
     for (const Pos& pos : path) {
         int number = posToNumber(pos);
         node = m_storage[std::to_string(number)].get_ptr<json::object_t*>();

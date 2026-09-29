@@ -7,9 +7,7 @@
 
 namespace Vulkan {
 
-CommandBufferOneTime::CommandBufferOneTime(Device* device, CommandPool* commandPool) :
-        Devicer(device),
-        m_commandPool(commandPool) {
+CommandBufferOneTime::CommandBufferOneTime(Device* device, CommandPool* commandPool) : Devicer(device), m_commandPool(commandPool) {
     m_commandBuffers = std::make_unique<CommandBuffers>(device, commandPool);
     m_commandBuffers->allocate(1);
     m_commandBuffer = std::make_unique<CommandBuffer>(m_commandBuffers->at(0));

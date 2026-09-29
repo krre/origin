@@ -46,16 +46,20 @@ Instance::~Instance() {
 void Instance::create() {
     std::vector<const char*> layers;
     m_createInfo.enabledLayerCount = m_enabledLayers.size();
+
     for (const auto& layer : m_enabledLayers) {
         layers.push_back(const_cast<char*>(layer.c_str()));
     }
+
     m_createInfo.ppEnabledLayerNames = layers.data();
 
     m_createInfo.enabledExtensionCount = m_enabledExtensions.size();
     std::vector<const char*> extensions;
+
     for (const auto& extension : m_enabledExtensions) {
         extensions.push_back(const_cast<char*>(extension.c_str()));
     }
+
     m_createInfo.ppEnabledExtensionNames = extensions.data();
 
     VULKAN_CHECK_RESULT(vkCreateInstance(&m_createInfo, nullptr, &m_handle), "Failed to create instance");

@@ -19,6 +19,7 @@ DebugReportCallback::~DebugReportCallback() {
 
 void DebugReportCallback::create() {
     PFN_vkCreateDebugReportCallbackEXT pfnCreateDebugReportCallback = (PFN_vkCreateDebugReportCallbackEXT)vkGetInstanceProcAddr(m_instance->handle(), "vkCreateDebugReportCallbackEXT");
+
     if (!pfnCreateDebugReportCallback) {
         throw std::runtime_error("GetInstanceProcAddr: Unable to find vkCreateDebugReportCallbackEXT function");
     }

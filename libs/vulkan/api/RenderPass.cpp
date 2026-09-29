@@ -65,6 +65,7 @@ void RenderPass::create() {
     m_subpassDescription.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
     m_subpassDescription.colorAttachmentCount = 1;
     m_subpassDescription.pColorAttachments = &m_colorAttachmentReference;
+
     if (m_depthEnable) {
         m_subpassDescription.pDepthStencilAttachment = &m_depthAttachmentReference;
     }

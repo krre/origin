@@ -11,18 +11,21 @@ PhysicalDevice::PhysicalDevice(VkPhysicalDevice physicalDevice) : Handle(physica
 VkPhysicalDeviceProperties PhysicalDevice::properties() const {
     VkPhysicalDeviceProperties result;
     vkGetPhysicalDeviceProperties(m_handle, &result);
+
     return result;
 }
 
 VkPhysicalDeviceFeatures PhysicalDevice::features() const {
     VkPhysicalDeviceFeatures result;
     vkGetPhysicalDeviceFeatures(m_handle, &result);
+
     return result;
 }
 
 VkPhysicalDeviceMemoryProperties PhysicalDevice::memoryProperties() {
     VkPhysicalDeviceMemoryProperties result;
     vkGetPhysicalDeviceMemoryProperties(m_handle, &result);
+
     return result;
 }
 
@@ -51,6 +54,7 @@ VkFormat PhysicalDevice::supportedDepthFormat() {
     for (const auto& format : depthFormats) {
         VkFormatProperties formatProps;
         vkGetPhysicalDeviceFormatProperties(m_handle, format, &formatProps);
+
         // Format must support depth stencil attachment for optimal tiling
         if (formatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) {
             return format;
@@ -69,6 +73,7 @@ bool PhysicalDevice::supportBlit(VkFormat format) {
 
     // Check if the device supports blitting from optimal images (the swapchain images are in optimal format)
     vkGetPhysicalDeviceFormatProperties(m_handle, format, &formatProps);
+
     if (!(formatProps.optimalTilingFeatures & VK_FORMAT_FEATURE_BLIT_SRC_BIT)) {
 //        std::cerr << "Device does not support blitting from optimal tiled images, using copy instead of blit!" << std::endl;
         supportsBlit = false;
@@ -76,6 +81,7 @@ bool PhysicalDevice::supportBlit(VkFormat format) {
 
     // Check if the device supports blitting to linear images
     vkGetPhysicalDeviceFormatProperties(m_handle, VK_FORMAT_R8G8B8A8_UNORM, &formatProps);
+
     if (!(formatProps.linearTilingFeatures & VK_FORMAT_FEATURE_BLIT_DST_BIT)) {
 //        std::cerr << "Device does not support blitting to linear tiled images, using copy instead of blit!" << std::endl;
         supportsBlit = false;

@@ -8,9 +8,7 @@
 
 namespace Vulkan {
 
-GpuBuffer::GpuBuffer(Device* device, VkBufferUsageFlagBits usage, uint32_t size) :
-        m_usage(usage),
-        m_size(size) {
+GpuBuffer::GpuBuffer(Device* device, VkBufferUsageFlagBits usage, uint32_t size) : m_usage(usage), m_size(size) {
     m_buffer = std::make_unique<Buffer>(device, usage, size);
     m_buffer->create();
 

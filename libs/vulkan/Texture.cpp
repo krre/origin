@@ -29,6 +29,7 @@ Texture::Texture(Device* device, uint32_t width, uint32_t height, void* data, Vk
     /* See if we can use a linear tiled image for a texture, if not, we will
      * need a staging image for the texture data */
     bool needStaging = (!(formatProps.linearTilingFeatures & VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT)) ? true : false;
+
     if (needStaging) {
 
     }

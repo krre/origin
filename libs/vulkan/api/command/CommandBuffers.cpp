@@ -4,8 +4,8 @@
 
 namespace Vulkan {
 
-CommandBuffers::CommandBuffers(Device* device, CommandPool* commandPool, VkCommandBufferLevel level) :
-        Devicer(device), m_commandPool(commandPool) {
+CommandBuffers::CommandBuffers(Device* device, CommandPool* commandPool, VkCommandBufferLevel level)
+    : Devicer(device), m_commandPool(commandPool) {
     m_allocateInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
     m_allocateInfo.level = level;
     m_allocateInfo.commandPool = commandPool->handle();

@@ -21,9 +21,7 @@ Image::Image(Device* device) :
     m_createInfo.usage = VK_IMAGE_USAGE_SAMPLED_BIT | VK_IMAGE_USAGE_TRANSFER_DST_BIT;
 }
 
-Image::Image(Device* device, VkImage image) :
-        Devicer(device),
-        Handle(image) {
+Image::Image(Device* device, VkImage image) : Devicer(device), Handle(image) {
 }
 
 Image::~Image() {
@@ -36,9 +34,11 @@ void Image::create() {
     VkMemoryRequirements memRequirements;
     vkGetImageMemoryRequirements(m_device->handle(), m_handle, &memRequirements);
     VkMemoryPropertyFlags properties = VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT;
+
     if (m_createInfo.format == VK_FORMAT_D16_UNORM) {
         properties = VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT;
     }
+
     m_memory->setMemoryTypeIndex(m_device->physicalDevice()->findMemoryType(memRequirements.memoryTypeBits, properties));
     m_memory->allocate(memRequirements.size);
 

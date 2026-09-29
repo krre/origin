@@ -2,8 +2,7 @@
 
 namespace Vulkan {
 
-Buffer::Buffer(Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) :
-        Devicer(device) {
+Buffer::Buffer(Device* device, VkBufferUsageFlagBits usage, VkDeviceSize size) : Devicer(device) {
     m_createInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
     m_createInfo.size = size;
     m_createInfo.usage = usage;

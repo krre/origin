@@ -4,9 +4,8 @@
 
 namespace Vulkan {
 
-DescriptorSets::DescriptorSets(Device* device, DescriptorPool* descriptorPool) :
-        Devicer(device),
-        m_descriptorPool(descriptorPool) {
+DescriptorSets::DescriptorSets(Device* device, DescriptorPool* descriptorPool)
+    : Devicer(device), m_descriptorPool(descriptorPool) {
     m_allocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
 }
 

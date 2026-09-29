@@ -137,6 +137,7 @@ void Renderer::render() {
     preRender();
 
     VkResult result = m_swapchain->acquireNextImage(m_imageAvailableSemaphore.get());
+
     if (result == VK_ERROR_OUT_OF_DATE_KHR) {
         resize();
         return;
@@ -188,6 +189,7 @@ void Renderer::resize() {
 
     VkFormatProperties props;
     vkGetPhysicalDeviceFormatProperties(m_device->physicalDevice()->handle(), depthFormat, &props);
+
     if (props.linearTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) {
         m_depthImage->setTiling(VK_IMAGE_TILING_LINEAR);
     } else if (props.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT) {
@@ -248,6 +250,7 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
                      VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
 
     bool supportsBlit = m_device->physicalDevice()->supportBlit(m_swapchain->imageFormat());
+
     if (supportsBlit) {
         VkOffset3D blitSize;
         blitSize.x = width;
@@ -303,8 +306,10 @@ std::vector<unsigned char> Renderer::readFramebuffer() {
     output.resize(width * height * 4);
 
     uint32_t offset = 0;
+
     for (uint32_t y = 0; y < height; y++) {
         unsigned int* row = (unsigned int*)data;
+
         for (uint32_t x = 0; x < width; x++) {
             if (!supportsBlit) {
                 // Convert from BGR to RGB

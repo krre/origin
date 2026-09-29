@@ -5,9 +5,7 @@
 
 namespace Vulkan {
 
-Swapchain::Swapchain(Device* device, Surface* surface) :
-        Devicer(device),
-        m_surface(surface) {
+Swapchain::Swapchain(Device* device, Surface* surface) : Devicer(device), m_surface(surface) {
     m_createInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
     m_createInfo.imageArrayLayers = 1;
     m_createInfo.imageUsage = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT;
@@ -17,6 +15,7 @@ Swapchain::Swapchain(Device* device, Surface* surface) :
 
     uint32_t queueFamilyIndex = 0; // TODO: Use real index
     bool surfaceSupport = device->physicalDevice()->supportSurface(surface, queueFamilyIndex);
+
     if (surfaceSupport) {
         m_createInfo.surface = surface->handle();
         m_createInfo.minImageCount = surface->capabilities().minImageCount + 1;

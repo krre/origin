@@ -2,8 +2,7 @@
 
 namespace Vulkan {
 
-ComputePipeline::ComputePipeline(Device* device) :
-        Pipeline(device) {
+ComputePipeline::ComputePipeline(Device* device) : Pipeline(device) {
     m_createInfo.sType = VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO;
 }
 

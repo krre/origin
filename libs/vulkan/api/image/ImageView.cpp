@@ -2,8 +2,7 @@
 
 namespace Vulkan {
 
-ImageView::ImageView(Device* device, VkImage image) :
-        Devicer(device) {
+ImageView::ImageView(Device* device, VkImage image) : Devicer(device) {
     m_createInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
     m_createInfo.format = VK_FORMAT_R8G8B8A8_UNORM;
     m_createInfo.image = image;

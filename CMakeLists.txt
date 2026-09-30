@@ -30,11 +30,6 @@ include_directories(${Vulkan_INCLUDE_DIRS})
 include_directories(src)
 include_directories(libs)
 include_directories(trdparty)
-include_directories(trdparty/json/single_include)
-
-add_subdirectory(trdparty)
-add_subdirectory(libs)
-add_subdirectory(src)
 
 include(FetchContent)
 
@@ -46,6 +41,19 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(glm)
+
+FetchContent_Declare(
+    json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.12.0
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(json)
+
+add_subdirectory(trdparty)
+add_subdirectory(libs)
+add_subdirectory(src)
 
 # Show in QtCreator project tree
 file(GLOB_RECURSE Root "*.md" "*.in" "data/*.*" "debug/*.*")

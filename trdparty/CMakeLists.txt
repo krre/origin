@@ -1,5 +1,4 @@
 add_subdirectory(lodepng)
-add_subdirectory(json)
 
 set(SOURCES
     ${SOURCES}

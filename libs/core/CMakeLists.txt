@@ -7,4 +7,7 @@ add_library(core SHARED
     Utils.cpp Utils.h
 )
 
-target_link_libraries(core PUBLIC glm::glm)
+target_link_libraries(core PUBLIC
+    glm::glm
+    nlohmann_json::nlohmann_json
+)

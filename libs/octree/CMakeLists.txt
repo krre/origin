@@ -5,4 +5,7 @@ add_library(octree SHARED
     SubstanceTree.cpp SubstanceTree.h
 )
 
-target_link_libraries(octree core)
+target_link_libraries(octree PUBLIC
+    core
+    nlohmann_json::nlohmann_json
+)

@@ -1,3 +1,0 @@
-[submodule "trdparty/json"]
-	path = trdparty/json
-	url = https://github.com/nlohmann/json.git

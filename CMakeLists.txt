@@ -30,6 +30,7 @@ include_directories(${Vulkan_INCLUDE_DIRS})
 include_directories(src)
 include_directories(libs)
 include_directories(trdparty)
+include_directories(trdparty/glm)
 
 add_subdirectory(trdparty)
 add_subdirectory(libs)

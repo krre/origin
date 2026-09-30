@@ -1,6 +1,6 @@
 #pragma once
 #include <core/Object.h>
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 namespace Octree {
 

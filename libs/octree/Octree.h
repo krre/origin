@@ -2,9 +2,8 @@
 #include "Substance.h"
 #include <core/Object.h>
 #include <core/Defines.h>
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 #include <glm/glm.hpp>
-#include <type_traits>
 
 namespace Octree {
 

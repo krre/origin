@@ -31,6 +31,7 @@ include_directories(src)
 include_directories(libs)
 include_directories(trdparty)
 include_directories(trdparty/glm)
+include_directories(trdparty/json/single_include)
 
 add_subdirectory(trdparty)
 add_subdirectory(libs)

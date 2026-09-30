@@ -1,7 +1,7 @@
 #pragma once
 #include <glm/glm.hpp>
 #include <vector>
-#include <json/json.hpp>
+#include <nlohmann/json.hpp>
 
 namespace Core {
 

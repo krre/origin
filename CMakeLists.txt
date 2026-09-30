@@ -30,12 +30,22 @@ include_directories(${Vulkan_INCLUDE_DIRS})
 include_directories(src)
 include_directories(libs)
 include_directories(trdparty)
-include_directories(trdparty/glm)
 include_directories(trdparty/json/single_include)
 
 add_subdirectory(trdparty)
 add_subdirectory(libs)
 add_subdirectory(src)
+
+include(FetchContent)
+
+FetchContent_Declare(
+    glm
+    GIT_REPOSITORY https://github.com/g-truc/glm.git
+    GIT_TAG 1.0.3
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(glm)
 
 # Show in QtCreator project tree
 file(GLOB_RECURSE Root "*.md" "*.in" "data/*.*" "debug/*.*")

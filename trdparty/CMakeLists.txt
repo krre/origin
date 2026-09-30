@@ -1,4 +1,3 @@
-add_subdirectory(glm/glm)
 add_subdirectory(lodepng)
 add_subdirectory(json)
 

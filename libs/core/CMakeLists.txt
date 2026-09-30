@@ -6,3 +6,5 @@ add_library(core SHARED
     SingleObject.h
     Utils.cpp Utils.h
 )
+
+target_link_libraries(core PUBLIC glm::glm)

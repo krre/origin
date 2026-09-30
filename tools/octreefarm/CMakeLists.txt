@@ -24,6 +24,17 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 include_directories(../../libs)
 include_directories(../../trdparty)
 
+include(FetchContent)
+
+FetchContent_Declare(
+    glm
+    GIT_REPOSITORY https://github.com/g-truc/glm.git
+    GIT_TAG 1.0.3
+    GIT_SHALLOW TRUE
+)
+
+FetchContent_MakeAvailable(glm)
+
 add_executable(octreefarm
     main.cpp
     Application.cpp Application.h
@@ -44,6 +55,7 @@ target_link_directories(octreefarm PRIVATE $ENV{ORIGIN_HOME})
 target_link_libraries(octreefarm PRIVATE
     Qt6::Widgets
     Vulkan::Vulkan
+    glm::glm
     octree
     core
 )

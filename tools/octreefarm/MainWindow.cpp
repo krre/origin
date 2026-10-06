@@ -187,10 +187,8 @@ void MainWindow::readSettings() {
     settings.beginGroup("MainWindow");
 
     if (!restoreGeometry(settings.value("geometry").toByteArray())) {
-        const QSize screenSize = screen()->size();
-        constexpr auto scale = 0.75;
-        resize(screenSize.width() * scale, screenSize.height() * scale);
-        move((screenSize.width() - width()) / 2, (screenSize.height() - height()) / 2);
+        resize(screen()->size() * 0.75);
+        move(screen()->availableGeometry().center() - rect().center());
     }
 
     QVariant splitterSize = settings.value("splitter");

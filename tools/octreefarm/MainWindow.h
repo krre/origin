@@ -76,6 +76,4 @@ private:
     QString m_currentFile;
     QSplitter* m_splitter = nullptr;
     QUndoStack* m_undoStack;
-    static bool s_closing;
-
 };

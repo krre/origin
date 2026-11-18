@@ -101,7 +101,7 @@ void MainWindow::readDebugSettings() {
         AbstractTab* tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
 
         if (settingsExists) {
-            tab->setDebugSettings(doc.object()[tab->name()].toObject());
+            tab->setDebugSettings(doc.object().value(tab->name()).toObject());
         } else {
             tab->setDefaultSettings();
         }

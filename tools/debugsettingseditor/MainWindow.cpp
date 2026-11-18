@@ -27,7 +27,7 @@ MainWindow::MainWindow() {
     readDebugSettings();
 
     for (int i = 0; i < m_tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
+        auto tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
         connect(tab, &AbstractTab::flush, this, &MainWindow::writeDebugSettings);
     }
 
@@ -98,7 +98,7 @@ void MainWindow::readDebugSettings() {
     }
 
     for (int i = 0; i < m_tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
+        auto tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
 
         if (settingsExists) {
             tab->setDebugSettings(doc.object().value(tab->name()).toObject());
@@ -119,7 +119,7 @@ void MainWindow::writeDebugSettings() {
     QJsonObject obj;
 
     for (int i = 0; i < m_tabWidget->count(); i++) {
-        AbstractTab* tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
+        auto tab = qobject_cast<AbstractTab*>(m_tabWidget->widget(i));
         obj[tab->name()] = tab->debugSettings();
     }
 

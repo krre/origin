@@ -337,7 +337,7 @@ QString MainWindow::openFileDialog(QFileDialog::AcceptMode mode) {
         return QString();
     }
 
-    QString fileName = dialog.selectedFiles().first();
+    QString fileName = dialog.selectedFiles().constFirst();
     QStringList list = fileName.split(".");
 
     if (list.length() > 0 && list.at(list.length() - 1) != "json") {
@@ -377,7 +377,7 @@ void MainWindow::addRecentFile(const QString& filePath) {
         loadFile(filePath);
     });
 
-    menu->insertAction(menu->actions().first(), fileAction);
+    menu->insertAction(menu->actions().constFirst(), fileAction);
 
     if (menu->actions().size() > MaxRecentFiles + SeparatorAndMenuCount) {
         menu->removeAction(menu->actions().at(menu->actions().size() - SeparatorAndMenuCount - 1));

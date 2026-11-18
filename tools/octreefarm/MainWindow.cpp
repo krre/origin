@@ -233,7 +233,7 @@ void MainWindow::writeSettings() {
 
     settings.beginWriteArray("RecentFiles");
 
-    for (int i = 0; i <m_recentFilesMenu->actions().size() - SeparatorAndMenuCount; ++i) {
+    for (int i = 0; i < m_recentFilesMenu->actions().size() - SeparatorAndMenuCount; ++i) {
         settings.setArrayIndex(i);
         settings.setValue("path", m_recentFilesMenu->actions().at(i)->text());
     }
